@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_rolesanywhere_trust_anchor__source__source_data = {
   acm_pca_arn : string option; [@option]  (** acm_pca_arn *)

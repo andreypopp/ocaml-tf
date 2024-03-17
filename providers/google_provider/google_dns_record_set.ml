@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dns_record_set__routing_policy__geo__health_checked_targets__internal_load_balancers = {
   ip_address : string;

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_app_engine_application_url_dispatch_rules__dispatch_rules = {
   domain : string option; [@option]

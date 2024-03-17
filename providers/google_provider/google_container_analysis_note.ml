@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_container_analysis_note__attestation_authority__hint = {
   human_readable_name : string;

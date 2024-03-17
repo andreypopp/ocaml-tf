@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type digitalocean_spaces_bucket_object = {
   acl : string option; [@option]  (** acl *)

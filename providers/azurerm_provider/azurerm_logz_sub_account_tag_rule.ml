@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_logz_sub_account_tag_rule__tag_filter = {
   action : string;  (** action *)

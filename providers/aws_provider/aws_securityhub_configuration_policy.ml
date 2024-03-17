@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_securityhub_configuration_policy__configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool = {
   value : bool;  (** value *)

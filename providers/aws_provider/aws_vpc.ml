@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpc = {
   assign_generated_ipv6_cidr_block : bool option; [@option]

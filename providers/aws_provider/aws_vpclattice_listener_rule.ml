@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpclattice_listener_rule__action__fixed_response = {
   status_code : float;  (** status_code *)

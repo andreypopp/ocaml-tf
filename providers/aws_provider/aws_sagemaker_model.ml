@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_model__container__image_config__repository_auth_config = {
   repository_credentials_provider_arn : string;

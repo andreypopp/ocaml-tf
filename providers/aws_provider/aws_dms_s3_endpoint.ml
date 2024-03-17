@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_dms_s3_endpoint__timeouts = {
   create : string option; [@option]  (** create *)

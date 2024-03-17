@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_batch_job_definition__eks_properties__pod_properties__containers__env = {
   name : string;  (** name *)

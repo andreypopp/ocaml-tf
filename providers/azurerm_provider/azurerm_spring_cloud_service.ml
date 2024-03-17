@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_spring_cloud_service__config_server_git_setting__http_basic_auth = {
   password : string;  (** password *)

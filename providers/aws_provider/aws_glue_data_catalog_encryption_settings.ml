@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings__connection_password_encryption = {
   aws_kms_key_id : string option; [@option]  (** aws_kms_key_id *)

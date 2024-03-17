@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_batch_pool__auto_scale = {
   evaluation_interval : string option; [@option]

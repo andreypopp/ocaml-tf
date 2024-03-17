@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_private_dns_resolver_dns_forwarding_ruleset__timeouts = {
   create : string option; [@option]  (** create *)

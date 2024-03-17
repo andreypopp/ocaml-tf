@@ -1,0 +1,25 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_connect_instance_storage_config__storage_config__kinesis_firehose_config
+
+type aws_connect_instance_storage_config__storage_config__kinesis_stream_config
+
+type aws_connect_instance_storage_config__storage_config__kinesis_video_stream_config__encryption_config
+
+type aws_connect_instance_storage_config__storage_config__kinesis_video_stream_config
+
+type aws_connect_instance_storage_config__storage_config__s3_config__encryption_config
+
+type aws_connect_instance_storage_config__storage_config__s3_config
+type aws_connect_instance_storage_config__storage_config
+type aws_connect_instance_storage_config
+
+val aws_connect_instance_storage_config :
+  instance_id:string ->
+  resource_type:string ->
+  storage_config:
+    aws_connect_instance_storage_config__storage_config list ->
+  string ->
+  unit

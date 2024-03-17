@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_eventhub__capture_description__destination = {
   archive_name_format : string;  (** archive_name_format *)

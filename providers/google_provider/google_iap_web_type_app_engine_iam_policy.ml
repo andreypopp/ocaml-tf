@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_iap_web_type_app_engine_iam_policy = {
   app_id : string;  (** app_id *)

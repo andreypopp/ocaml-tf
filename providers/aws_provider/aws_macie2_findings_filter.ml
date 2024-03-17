@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_macie2_findings_filter__finding_criteria__criterion = {
   eq : string list option; [@option]  (** eq *)

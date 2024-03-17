@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_alb_listener_rule__action__authenticate_cognito = {
   authentication_request_extra_params :

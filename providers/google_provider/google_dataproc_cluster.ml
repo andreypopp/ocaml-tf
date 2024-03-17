@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dataproc_cluster__cluster_config__autoscaling_config = {
   policy_uri : string;

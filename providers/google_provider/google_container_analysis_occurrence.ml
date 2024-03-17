@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_container_analysis_occurrence__attestation__signatures = {
   public_key_id : string;

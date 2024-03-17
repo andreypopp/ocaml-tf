@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudwatch_log_metric_filter__metric_transformation = {
   default_value : string option; [@option]  (** default_value *)

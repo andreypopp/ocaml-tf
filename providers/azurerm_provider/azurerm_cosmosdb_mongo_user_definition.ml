@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cosmosdb_mongo_user_definition__timeouts = {
   create : string option; [@option]  (** create *)

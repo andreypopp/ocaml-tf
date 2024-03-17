@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_virtual_desktop_host_pool__scheduled_agent_updates__schedule = {
   day_of_week : string;  (** day_of_week *)

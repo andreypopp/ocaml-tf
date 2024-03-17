@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_secretsmanager_secret_policy = {
   block_public_policy : bool option; [@option]

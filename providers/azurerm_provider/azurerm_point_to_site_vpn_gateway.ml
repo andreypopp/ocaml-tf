@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_point_to_site_vpn_gateway__connection_configuration__route__propagated_route_table = {
   ids : string list;  (** ids *)

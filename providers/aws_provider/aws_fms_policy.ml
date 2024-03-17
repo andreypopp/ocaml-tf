@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_fms_policy__exclude_map = {
   account : string list option; [@option]  (** account *)

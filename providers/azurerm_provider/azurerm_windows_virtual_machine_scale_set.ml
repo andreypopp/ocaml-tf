@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_windows_virtual_machine_scale_set__additional_capabilities = {
   ultra_ssd_enabled : bool option; [@option]  (** ultra_ssd_enabled *)

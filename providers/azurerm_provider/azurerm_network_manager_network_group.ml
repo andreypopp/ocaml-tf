@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_network_manager_network_group__timeouts = {
   create : string option; [@option]  (** create *)

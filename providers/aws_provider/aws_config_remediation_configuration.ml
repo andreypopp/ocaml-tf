@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_config_remediation_configuration__execution_controls__ssm_controls = {
   concurrent_execution_rate_percentage : float option; [@option]

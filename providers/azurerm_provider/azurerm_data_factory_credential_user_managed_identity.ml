@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_data_factory_credential_user_managed_identity__timeouts = {
   create : string option; [@option]  (** create *)

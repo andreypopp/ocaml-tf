@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpc_endpoint_service_allowed_principal = {
   principal_arn : string;  (** principal_arn *)

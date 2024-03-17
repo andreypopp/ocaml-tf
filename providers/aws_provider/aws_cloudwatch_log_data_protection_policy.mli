@@ -1,0 +1,8 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_cloudwatch_log_data_protection_policy
+
+val aws_cloudwatch_log_data_protection_policy :
+  log_group_name:string -> policy_document:string -> string -> unit

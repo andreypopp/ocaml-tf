@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudsearch_domain__endpoint_options = {
   enforce_https : bool option; [@option]  (** enforce_https *)

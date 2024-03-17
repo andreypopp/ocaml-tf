@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_data_protection_backup_instance_kubernetes_cluster__backup_datasource_parameters = {
   cluster_scoped_resources_enabled : bool option; [@option]

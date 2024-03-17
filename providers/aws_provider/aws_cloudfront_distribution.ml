@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudfront_distribution__custom_error_response = {
   error_caching_min_ttl : float option; [@option]

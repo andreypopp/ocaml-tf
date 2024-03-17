@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_private_dns_resolver_inbound_endpoint__ip_configurations = {
   private_ip_address : string option; [@option]

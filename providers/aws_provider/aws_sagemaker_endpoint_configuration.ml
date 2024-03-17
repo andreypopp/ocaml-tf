@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_endpoint_configuration__async_inference_config__client_config = {
   max_concurrent_invocations_per_instance : float option; [@option]

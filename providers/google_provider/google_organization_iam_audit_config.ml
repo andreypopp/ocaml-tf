@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_organization_iam_audit_config__audit_log_config = {
   exempted_members : string list option; [@option]

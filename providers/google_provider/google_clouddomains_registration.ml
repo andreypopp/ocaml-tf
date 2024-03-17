@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_clouddomains_registration__contact_settings__admin_contact__postal_address = {
   address_lines : string list option; [@option]

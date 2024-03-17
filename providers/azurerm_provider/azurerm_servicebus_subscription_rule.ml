@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_servicebus_subscription_rule__correlation_filter = {
   content_type : string option; [@option]  (** content_type *)

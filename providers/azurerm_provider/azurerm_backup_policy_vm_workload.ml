@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_backup_policy_vm_workload__protection_policy__backup = {
   frequency : string option; [@option]  (** frequency *)

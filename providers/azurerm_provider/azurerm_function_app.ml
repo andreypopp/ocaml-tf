@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_function_app__auth_settings__active_directory = {
   allowed_audiences : string list option; [@option]

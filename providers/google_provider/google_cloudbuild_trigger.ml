@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_cloudbuild_trigger__approval_config = {
   approval_required : bool option; [@option]

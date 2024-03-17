@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_certificate_manager_certificate__managed__authorization_attempt_info = {
   details : string;  (** details *)

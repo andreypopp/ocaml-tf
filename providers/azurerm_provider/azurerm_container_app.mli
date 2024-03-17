@@ -1,0 +1,61 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_container_app__dapr
+type azurerm_container_app__identity
+type azurerm_container_app__ingress__custom_domain
+type azurerm_container_app__ingress__ip_security_restriction
+type azurerm_container_app__ingress__traffic_weight
+type azurerm_container_app__ingress
+type azurerm_container_app__registry
+type azurerm_container_app__secret
+
+type azurerm_container_app__template__azure_queue_scale_rule__authentication
+
+type azurerm_container_app__template__azure_queue_scale_rule
+type azurerm_container_app__template__container__env
+
+type azurerm_container_app__template__container__liveness_probe__header
+
+type azurerm_container_app__template__container__liveness_probe
+
+type azurerm_container_app__template__container__readiness_probe__header
+
+type azurerm_container_app__template__container__readiness_probe
+type azurerm_container_app__template__container__startup_probe__header
+type azurerm_container_app__template__container__startup_probe
+type azurerm_container_app__template__container__volume_mounts
+type azurerm_container_app__template__container
+
+type azurerm_container_app__template__custom_scale_rule__authentication
+
+type azurerm_container_app__template__custom_scale_rule
+type azurerm_container_app__template__http_scale_rule__authentication
+type azurerm_container_app__template__http_scale_rule
+type azurerm_container_app__template__init_container__env
+type azurerm_container_app__template__init_container__volume_mounts
+type azurerm_container_app__template__init_container
+type azurerm_container_app__template__tcp_scale_rule__authentication
+type azurerm_container_app__template__tcp_scale_rule
+type azurerm_container_app__template__volume
+type azurerm_container_app__template
+type azurerm_container_app__timeouts
+type azurerm_container_app
+
+val azurerm_container_app :
+  ?tags:(string * string) list ->
+  ?workload_profile_name:string ->
+  ?timeouts:azurerm_container_app__timeouts ->
+  container_app_environment_id:string ->
+  name:string ->
+  resource_group_name:string ->
+  revision_mode:string ->
+  dapr:azurerm_container_app__dapr list ->
+  identity:azurerm_container_app__identity list ->
+  ingress:azurerm_container_app__ingress list ->
+  registry:azurerm_container_app__registry list ->
+  secret:azurerm_container_app__secret list ->
+  template:azurerm_container_app__template list ->
+  string ->
+  unit

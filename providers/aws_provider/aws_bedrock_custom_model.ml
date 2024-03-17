@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_bedrock_custom_model__output_data_config = {
   s3_uri : string;  (** s3_uri *)

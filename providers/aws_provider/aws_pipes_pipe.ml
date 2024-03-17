@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_pipes_pipe__enrichment_parameters__http_parameters = {
   header_parameters : (string * string) list option; [@option]

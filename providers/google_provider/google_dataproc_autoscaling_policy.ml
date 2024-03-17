@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dataproc_autoscaling_policy__basic_algorithm__yarn_config = {
   graceful_decommission_timeout : string;

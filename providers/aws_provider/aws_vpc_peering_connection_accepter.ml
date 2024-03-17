@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpc_peering_connection_accepter__accepter = {
   allow_remote_vpc_dns_resolution : bool option; [@option]

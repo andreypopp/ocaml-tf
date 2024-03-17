@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type hcloud_firewall__apply_to = {
   label_selector : string option; [@option]  (** label_selector *)

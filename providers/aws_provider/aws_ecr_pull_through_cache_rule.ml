@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ecr_pull_through_cache_rule = {
   credential_arn : string option; [@option]  (** credential_arn *)

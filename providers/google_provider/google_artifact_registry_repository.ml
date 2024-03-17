@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_artifact_registry_repository__cleanup_policies__condition = {
   newer_than : string option; [@option]

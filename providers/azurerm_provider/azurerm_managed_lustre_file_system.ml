@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_managed_lustre_file_system__encryption_key = {
   key_url : string;  (** key_url *)

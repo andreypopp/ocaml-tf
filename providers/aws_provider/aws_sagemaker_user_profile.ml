@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_user_profile__user_settings__canvas_app_settings__direct_deploy_settings = {
   status : string option; [@option]  (** status *)

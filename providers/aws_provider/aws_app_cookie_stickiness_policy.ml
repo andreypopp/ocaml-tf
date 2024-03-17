@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_app_cookie_stickiness_policy = {
   cookie_name : string;  (** cookie_name *)

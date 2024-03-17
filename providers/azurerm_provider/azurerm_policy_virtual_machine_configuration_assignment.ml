@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_policy_virtual_machine_configuration_assignment__configuration__parameter = {
   name : string;  (** name *)

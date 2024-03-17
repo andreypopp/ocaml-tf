@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_hpc_cache__default_access_policy__access_rule = {
   access : string;  (** access *)

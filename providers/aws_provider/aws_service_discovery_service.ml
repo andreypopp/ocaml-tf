@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_service_discovery_service__dns_config__dns_records = {
   ttl : float;  (** ttl *)

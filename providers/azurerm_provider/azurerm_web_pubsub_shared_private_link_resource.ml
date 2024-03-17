@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_web_pubsub_shared_private_link_resource__timeouts = {
   create : string option; [@option]  (** create *)

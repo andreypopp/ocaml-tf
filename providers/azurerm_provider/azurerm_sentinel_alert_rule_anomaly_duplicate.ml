@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_sentinel_alert_rule_anomaly_duplicate__multi_select_observation = {
   description : string;  (** description *)

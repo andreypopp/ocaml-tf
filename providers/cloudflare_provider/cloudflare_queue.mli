@@ -1,0 +1,8 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type cloudflare_queue
+
+val cloudflare_queue :
+  account_id:string -> name:string -> string -> unit

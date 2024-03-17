@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cognito_user_pool_domain = {
   certificate_arn : string option; [@option]  (** certificate_arn *)

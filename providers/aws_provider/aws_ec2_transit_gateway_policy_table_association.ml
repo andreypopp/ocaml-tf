@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ec2_transit_gateway_policy_table_association = {
   transit_gateway_attachment_id : string;

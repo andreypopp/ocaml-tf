@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_vertex_ai_index_endpoint__private_service_connect_config = {
   enable_private_service_connect : bool;

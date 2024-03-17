@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cosmosdb_postgresql_cluster__maintenance_window = {
   day_of_week : float option; [@option]  (** day_of_week *)

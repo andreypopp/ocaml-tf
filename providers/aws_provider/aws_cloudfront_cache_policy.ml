@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudfront_cache_policy__parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies = {
   items : string list option; [@option]  (** items *)

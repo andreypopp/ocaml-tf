@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type hcloud_server__network = {
   alias_ips : string list option; [@option]  (** alias_ips *)

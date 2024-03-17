@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration__self_managed_active_directory_configuration = {
   dns_ips : string list;  (** dns_ips *)

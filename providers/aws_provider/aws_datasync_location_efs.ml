@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_datasync_location_efs__ec2_config = {
   security_group_arns : string list;  (** security_group_arns *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_glue_catalog_table__open_table_format_input__iceberg_input = {
   metadata_operation : string;  (** metadata_operation *)

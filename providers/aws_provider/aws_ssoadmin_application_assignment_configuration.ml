@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ssoadmin_application_assignment_configuration = {
   application_arn : string;  (** application_arn *)

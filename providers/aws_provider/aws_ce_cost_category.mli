@@ -1,0 +1,35 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_ce_cost_category__rule__inherited_value
+type aws_ce_cost_category__rule__rule__and__cost_category
+type aws_ce_cost_category__rule__rule__and__dimension
+type aws_ce_cost_category__rule__rule__and__tags
+type aws_ce_cost_category__rule__rule__and
+type aws_ce_cost_category__rule__rule__cost_category
+type aws_ce_cost_category__rule__rule__dimension
+type aws_ce_cost_category__rule__rule__not__cost_category
+type aws_ce_cost_category__rule__rule__not__dimension
+type aws_ce_cost_category__rule__rule__not__tags
+type aws_ce_cost_category__rule__rule__not
+type aws_ce_cost_category__rule__rule__or__cost_category
+type aws_ce_cost_category__rule__rule__or__dimension
+type aws_ce_cost_category__rule__rule__or__tags
+type aws_ce_cost_category__rule__rule__or
+type aws_ce_cost_category__rule__rule__tags
+type aws_ce_cost_category__rule__rule
+type aws_ce_cost_category__rule
+type aws_ce_cost_category__split_charge_rule__parameter
+type aws_ce_cost_category__split_charge_rule
+type aws_ce_cost_category
+
+val aws_ce_cost_category :
+  ?default_value:string ->
+  ?tags:(string * string) list ->
+  name:string ->
+  rule_version:string ->
+  rule:aws_ce_cost_category__rule list ->
+  split_charge_rule:aws_ce_cost_category__split_charge_rule list ->
+  string ->
+  unit

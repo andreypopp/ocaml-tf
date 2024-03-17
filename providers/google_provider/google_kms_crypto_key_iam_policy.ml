@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_kms_crypto_key_iam_policy = {
   crypto_key_id : string;  (** crypto_key_id *)

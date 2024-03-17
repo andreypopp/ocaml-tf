@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_medialive_channel__cdi_input_specification = {
   resolution : string;  (** resolution *)

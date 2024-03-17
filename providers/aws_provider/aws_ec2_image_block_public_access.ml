@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ec2_image_block_public_access__timeouts = {
   update : string option; [@option]  (** update *)

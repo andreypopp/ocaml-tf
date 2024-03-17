@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appconfig_hosted_configuration_version = {
   application_id : string;  (** application_id *)

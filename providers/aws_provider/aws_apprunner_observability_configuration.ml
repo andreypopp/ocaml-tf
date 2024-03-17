@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_apprunner_observability_configuration__trace_configuration = {
   vendor : string option; [@option]  (** vendor *)

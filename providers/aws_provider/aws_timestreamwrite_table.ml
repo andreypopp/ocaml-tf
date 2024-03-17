@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_timestreamwrite_table__magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration = {
   bucket_name : string option; [@option]  (** bucket_name *)

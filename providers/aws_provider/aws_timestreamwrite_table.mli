@@ -1,0 +1,25 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_timestreamwrite_table__magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
+
+type aws_timestreamwrite_table__magnetic_store_write_properties__magnetic_store_rejected_data_location
+
+type aws_timestreamwrite_table__magnetic_store_write_properties
+type aws_timestreamwrite_table__retention_properties
+type aws_timestreamwrite_table__schema__composite_partition_key
+type aws_timestreamwrite_table__schema
+type aws_timestreamwrite_table
+
+val aws_timestreamwrite_table :
+  ?tags:(string * string) list ->
+  database_name:string ->
+  table_name:string ->
+  magnetic_store_write_properties:
+    aws_timestreamwrite_table__magnetic_store_write_properties list ->
+  retention_properties:
+    aws_timestreamwrite_table__retention_properties list ->
+  schema:aws_timestreamwrite_table__schema list ->
+  string ->
+  unit

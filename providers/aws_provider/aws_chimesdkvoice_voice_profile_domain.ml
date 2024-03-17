@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration = {
   kms_key_arn : string;  (** kms_key_arn *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_emr_managed_scaling_policy__compute_limits = {
   maximum_capacity_units : float;  (** maximum_capacity_units *)

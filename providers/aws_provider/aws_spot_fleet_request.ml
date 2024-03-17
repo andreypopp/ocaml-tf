@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_spot_fleet_request__launch_specification__ebs_block_device = {
   delete_on_termination : bool option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_voice_services_communications_gateway__service_location = {
   allowed_media_source_address_prefixes : string list option;

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration__launch_permission = {
   organization_arns : string list option; [@option]

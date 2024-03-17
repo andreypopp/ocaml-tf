@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type kubernetes_mutating_webhook_configuration_v1__metadata = {
   annotations : (string * string) list option; [@option]

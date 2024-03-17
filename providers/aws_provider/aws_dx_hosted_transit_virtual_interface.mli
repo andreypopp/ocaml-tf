@@ -1,0 +1,18 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_dx_hosted_transit_virtual_interface__timeouts
+type aws_dx_hosted_transit_virtual_interface
+
+val aws_dx_hosted_transit_virtual_interface :
+  ?mtu:float ->
+  ?timeouts:aws_dx_hosted_transit_virtual_interface__timeouts ->
+  address_family:string ->
+  bgp_asn:float ->
+  connection_id:string ->
+  name:string ->
+  owner_account_id:string ->
+  vlan:float ->
+  string ->
+  unit

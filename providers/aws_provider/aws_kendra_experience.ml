@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_kendra_experience__configuration__content_source_configuration = {
   data_source_ids : string list option; [@option]

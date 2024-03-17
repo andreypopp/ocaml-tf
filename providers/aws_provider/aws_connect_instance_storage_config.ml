@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_connect_instance_storage_config__storage_config__kinesis_firehose_config = {
   firehose_arn : string;  (** firehose_arn *)

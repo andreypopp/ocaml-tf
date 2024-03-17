@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_route53recoverycontrolconfig_safety_rule__rule_config = {
   inverted : bool;  (** inverted *)

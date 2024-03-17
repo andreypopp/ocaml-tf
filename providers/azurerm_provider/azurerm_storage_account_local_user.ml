@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_storage_account_local_user__permission_scope__permissions = {
   create : bool option; [@option]  (** create *)

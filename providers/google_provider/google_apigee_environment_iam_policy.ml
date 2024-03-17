@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_apigee_environment_iam_policy = {
   env_id : string;  (** env_id *)

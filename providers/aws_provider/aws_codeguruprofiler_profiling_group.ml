@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_codeguruprofiler_profiling_group__agent_orchestration_config = {
   profiling_enabled : bool;  (** profiling_enabled *)

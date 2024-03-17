@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_apikeys_key__restrictions__android_key_restrictions__allowed_applications = {
   package_name : string;  (** The package name of the application. *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cosmosdb_sql_role_definition__permissions = {
   data_actions : string list;  (** data_actions *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mobile_network_attached_data_network__network_address_port_translation__port_range = {
   maximum : float option; [@option]  (** maximum *)

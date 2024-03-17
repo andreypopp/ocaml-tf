@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dialogflow_cx_page__advanced_settings__dtmf_settings = {
   enabled : bool option; [@option]

@@ -1,0 +1,19 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_s3control_object_lambda_access_point__configuration__transformation_configuration__content_transformation__aws_lambda
+
+type aws_s3control_object_lambda_access_point__configuration__transformation_configuration__content_transformation
+
+type aws_s3control_object_lambda_access_point__configuration__transformation_configuration
+
+type aws_s3control_object_lambda_access_point__configuration
+type aws_s3control_object_lambda_access_point
+
+val aws_s3control_object_lambda_access_point :
+  name:string ->
+  configuration:
+    aws_s3control_object_lambda_access_point__configuration list ->
+  string ->
+  unit

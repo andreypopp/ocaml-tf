@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_api_gateway_domain_name__endpoint_configuration = {
   types : string list;  (** types *)

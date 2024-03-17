@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_imagebuilder_infrastructure_configuration__instance_metadata_options = {
   http_put_response_hop_limit : float option; [@option]

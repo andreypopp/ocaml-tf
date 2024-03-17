@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_keyspaces_table__capacity_specification = {
   read_capacity_units : float option; [@option]

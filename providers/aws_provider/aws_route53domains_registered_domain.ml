@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_route53domains_registered_domain__admin_contact = {
   address_line_1 : string option; [@option]  (** address_line_1 *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_identity_platform_project_default_config__sign_in__anonymous = {
   enabled : bool;

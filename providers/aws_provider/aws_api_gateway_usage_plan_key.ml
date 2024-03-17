@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_api_gateway_usage_plan_key = {
   key_id : string;  (** key_id *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_stream_analytics_job_schedule__timeouts = {
   create : string option; [@option]  (** create *)

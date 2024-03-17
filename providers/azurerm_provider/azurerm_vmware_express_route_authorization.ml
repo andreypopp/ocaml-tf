@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_vmware_express_route_authorization__timeouts = {
   create : string option; [@option]  (** create *)

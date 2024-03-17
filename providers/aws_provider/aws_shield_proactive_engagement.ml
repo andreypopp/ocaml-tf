@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_shield_proactive_engagement__emergency_contact = {
   contact_notes : string option; [@option]  (** contact_notes *)

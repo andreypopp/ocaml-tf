@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_apigee_target_server__s_sl_info__common_name = {
   value : string option; [@option]

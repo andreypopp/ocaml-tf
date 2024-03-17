@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_biglake_table__hive_options__storage_descriptor = {
   input_format : string option; [@option]

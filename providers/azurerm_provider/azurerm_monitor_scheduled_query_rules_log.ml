@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_monitor_scheduled_query_rules_log__criteria__dimension = {
   name : string;  (** name *)

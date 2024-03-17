@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_data_factory_trigger_tumbling_window__pipeline = {
   name : string;  (** name *)

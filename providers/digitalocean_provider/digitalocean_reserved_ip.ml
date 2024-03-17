@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type digitalocean_reserved_ip = {
   droplet_id : float option; [@option]  (** droplet_id *)

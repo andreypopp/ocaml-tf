@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_msk_cluster_policy = {
   cluster_arn : string;  (** cluster_arn *)

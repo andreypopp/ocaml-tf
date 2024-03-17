@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_spring_cloud_gateway_route_config__open_api = {
   uri : string option; [@option]  (** uri *)

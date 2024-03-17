@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_default_security_group__egress = {
   cidr_blocks : string list;  (** cidr_blocks *)

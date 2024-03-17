@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_integration_connectors_connection__auth_config__additional_variable__encryption_key_value = {
   kms_key_name : string option; [@option]

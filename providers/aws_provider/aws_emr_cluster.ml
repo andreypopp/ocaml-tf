@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_emr_cluster__auto_termination_policy = {
   idle_timeout : float option; [@option]  (** idle_timeout *)

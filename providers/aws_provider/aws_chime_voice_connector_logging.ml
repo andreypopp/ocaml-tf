@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_chime_voice_connector_logging = {
   enable_media_metric_logs : bool option; [@option]

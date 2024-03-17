@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_zone_hold = {
   hold : bool;  (** Enablement status of the zone hold. *)

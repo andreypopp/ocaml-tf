@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_amplify_domain_association__sub_domain = {
   branch_name : string;  (** branch_name *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_lb__frontend_ip_configuration = {
   gateway_load_balancer_frontend_ip_configuration_id : string option;

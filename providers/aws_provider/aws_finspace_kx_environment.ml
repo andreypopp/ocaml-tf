@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_finspace_kx_environment__custom_dns_configuration = {
   custom_dns_server_ip : string;  (** custom_dns_server_ip *)

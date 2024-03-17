@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_kinesisanalyticsv2_application__application_configuration__application_code_configuration__code_content__s3_content_location = {
   bucket_arn : string;  (** bucket_arn *)

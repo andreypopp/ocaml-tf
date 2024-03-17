@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cosmosdb_cassandra_keyspace__autoscale_settings = {
   max_throughput : float option; [@option]  (** max_throughput *)

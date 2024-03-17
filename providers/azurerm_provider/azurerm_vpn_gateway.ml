@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_vpn_gateway__bgp_settings__instance_0_bgp_peering_address = {
   custom_ips : string list;  (** custom_ips *)

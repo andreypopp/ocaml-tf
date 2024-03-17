@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_web_application_firewall_policy__custom_rules__match_conditions__match_variables = {
   selector : string option; [@option]  (** selector *)

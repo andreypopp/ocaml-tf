@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_network_services_edge_cache_origin__aws_v4_authentication = {
   access_key_id : string;

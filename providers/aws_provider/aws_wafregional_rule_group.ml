@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_wafregional_rule_group__activated_rule__action = {
   type_ : string; [@key "type"]  (** type *)

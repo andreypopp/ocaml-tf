@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_vertex_ai_index__metadata__config__algorithm_config__brute_force_config =
   unit

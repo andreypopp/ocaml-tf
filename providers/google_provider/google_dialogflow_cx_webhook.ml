@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dialogflow_cx_webhook__generic_web_service = {
   allowed_ca_certs : string list option; [@option]

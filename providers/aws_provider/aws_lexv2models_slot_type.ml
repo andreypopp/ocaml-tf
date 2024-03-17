@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lexv2models_slot_type__composite_slot_type_setting__subslots = {
   name : string;  (** name *)

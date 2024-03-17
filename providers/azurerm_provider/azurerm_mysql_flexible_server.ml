@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mysql_flexible_server__customer_managed_key = {
   geo_backup_key_vault_key_id : string option; [@option]

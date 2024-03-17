@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_authenticated_origin_pulls = {
   authenticated_origin_pulls_certificate : string option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_spot_instance_request__capacity_reservation_specification__capacity_reservation_target = {
   capacity_reservation_id : string option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_emrcontainers_job_template__job_template_data__configuration_overrides__application_configuration__configurations = {
   classification : string option; [@option]  (** classification *)

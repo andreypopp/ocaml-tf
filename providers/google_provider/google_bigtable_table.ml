@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_bigtable_table__column_family = {
   family : string;  (** The name of the column family. *)

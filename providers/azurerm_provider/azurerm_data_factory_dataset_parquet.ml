@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_data_factory_dataset_parquet__azure_blob_fs_location = {
   dynamic_file_system_enabled : bool option; [@option]

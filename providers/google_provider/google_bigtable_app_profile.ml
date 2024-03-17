@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_bigtable_app_profile__single_cluster_routing = {
   allow_transactional_writes : bool option; [@option]

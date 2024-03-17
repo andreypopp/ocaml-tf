@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_cloudbuild_bitbucket_server_config__connected_repositories = {
   project_key : string;

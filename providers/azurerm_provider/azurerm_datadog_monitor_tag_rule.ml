@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_datadog_monitor_tag_rule__log__filter = {
   action : string;  (** action *)

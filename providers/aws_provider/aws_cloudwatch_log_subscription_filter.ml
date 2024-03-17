@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudwatch_log_subscription_filter = {
   destination_arn : string;  (** destination_arn *)

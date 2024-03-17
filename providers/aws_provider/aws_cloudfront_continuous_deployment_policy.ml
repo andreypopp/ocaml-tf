@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudfront_continuous_deployment_policy__staging_distribution_dns_names = {
   items : string list option; [@option]  (** items *)

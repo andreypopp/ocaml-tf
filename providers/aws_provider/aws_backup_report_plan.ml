@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_backup_report_plan__report_delivery_channel = {
   formats : string list option; [@option]  (** formats *)

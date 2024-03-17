@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cosmosdb_mongo_role_definition__privilege__resource = {
   collection_name : string option; [@option]  (** collection_name *)

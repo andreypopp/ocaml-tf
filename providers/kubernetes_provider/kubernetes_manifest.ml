@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type kubernetes_manifest__field_manager = {
   force_conflicts : bool option; [@option]

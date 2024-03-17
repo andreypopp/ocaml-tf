@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_data_factory_integration_runtime_self_hosted__rbac_authorization = {
   resource_id : string;  (** resource_id *)

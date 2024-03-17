@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_certificate_manager_certificate_issuance_config__certificate_authority_config__certificate_authority_service_config = {
   ca_pool : string;

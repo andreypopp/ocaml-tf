@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cleanrooms_collaboration__data_encryption_metadata = {
   allow_clear_text : bool;  (** allow_clear_text *)

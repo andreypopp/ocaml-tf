@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_flow_definition__human_loop_activation_config__human_loop_activation_conditions_config = {
   human_loop_activation_conditions : string;

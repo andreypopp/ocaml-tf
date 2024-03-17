@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ecs_cluster__configuration__execute_command_configuration__log_configuration = {
   cloud_watch_encryption_enabled : bool option; [@option]

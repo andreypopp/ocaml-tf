@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_scc_organization_custom_module__custom_config__custom_output__properties__value_expression = {
   description : string option; [@option]

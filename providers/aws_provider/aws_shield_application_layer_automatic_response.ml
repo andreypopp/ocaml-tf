@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_shield_application_layer_automatic_response__timeouts = {
   create : string option; [@option]

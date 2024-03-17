@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_elastic_cloud_elasticsearch__logs__filtering_tag = {
   action : string;  (** action *)

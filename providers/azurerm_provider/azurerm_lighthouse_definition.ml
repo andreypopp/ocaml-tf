@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_lighthouse_definition__authorization = {
   delegated_role_definition_ids : string list option; [@option]

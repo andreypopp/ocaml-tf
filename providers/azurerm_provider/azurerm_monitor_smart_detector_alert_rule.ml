@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_monitor_smart_detector_alert_rule__action_group = {
   email_subject : string option; [@option]  (** email_subject *)

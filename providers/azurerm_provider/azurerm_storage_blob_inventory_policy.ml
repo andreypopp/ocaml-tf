@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_storage_blob_inventory_policy__rules__filter = {
   blob_types : string list;  (** blob_types *)

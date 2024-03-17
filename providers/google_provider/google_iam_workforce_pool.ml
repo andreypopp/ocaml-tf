@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_iam_workforce_pool__access_restrictions__allowed_services = {
   domain : string option; [@option]

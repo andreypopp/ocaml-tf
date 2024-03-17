@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type digitalocean_firewall__inbound_rule = {
   port_range : string option; [@option]  (** port_range *)

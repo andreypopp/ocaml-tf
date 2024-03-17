@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_virtual_network_gateway__bgp_settings__peering_addresses = {
   apipa_addresses : string list option; [@option]

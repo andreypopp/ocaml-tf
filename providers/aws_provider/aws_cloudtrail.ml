@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudtrail__advanced_event_selector__field_selector = {
   ends_with : string list option; [@option]  (** ends_with *)

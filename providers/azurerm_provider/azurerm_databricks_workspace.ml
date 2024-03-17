@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_databricks_workspace__custom_parameters = {
   machine_learning_workspace_id : string option; [@option]

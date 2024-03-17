@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_cloudfunctions2_function_iam_policy = {
   cloud_function : string;  (** cloud_function *)

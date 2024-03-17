@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type hcloud_network_subnet = {
   ip_range : string;  (** ip_range *)

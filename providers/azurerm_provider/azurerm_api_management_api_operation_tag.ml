@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_api_management_api_operation_tag__timeouts = {
   create : string option; [@option]  (** create *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_privateca_ca_pool__issuance_policy__allowed_issuance_modes = {
   allow_config_based_issuance : bool;

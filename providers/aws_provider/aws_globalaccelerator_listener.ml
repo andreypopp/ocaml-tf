@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_globalaccelerator_listener__port_range = {
   from_port : float option; [@option]  (** from_port *)

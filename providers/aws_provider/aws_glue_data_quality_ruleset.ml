@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_glue_data_quality_ruleset__target_table = {
   catalog_id : string option; [@option]  (** catalog_id *)

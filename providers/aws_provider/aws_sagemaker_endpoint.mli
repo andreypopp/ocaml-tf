@@ -1,0 +1,30 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_sagemaker_endpoint__deployment_config__auto_rollback_configuration__alarms
+
+type aws_sagemaker_endpoint__deployment_config__auto_rollback_configuration
+
+type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size
+
+type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size
+
+type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration
+
+type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy
+
+type aws_sagemaker_endpoint__deployment_config__rolling_update_policy__maximum_batch_size
+
+type aws_sagemaker_endpoint__deployment_config__rolling_update_policy__rollback_maximum_batch_size
+
+type aws_sagemaker_endpoint__deployment_config__rolling_update_policy
+type aws_sagemaker_endpoint__deployment_config
+type aws_sagemaker_endpoint
+
+val aws_sagemaker_endpoint :
+  ?tags:(string * string) list ->
+  endpoint_config_name:string ->
+  deployment_config:aws_sagemaker_endpoint__deployment_config list ->
+  string ->
+  unit

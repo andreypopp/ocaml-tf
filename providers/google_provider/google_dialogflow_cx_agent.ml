@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dialogflow_cx_agent__advanced_settings__audio_export_gcs_destination = {
   uri : string option; [@option]

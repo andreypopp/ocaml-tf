@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_iot_topic_rule_destination__timeouts = {
   create : string option; [@option]  (** create *)

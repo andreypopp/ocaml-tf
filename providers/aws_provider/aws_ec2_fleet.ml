@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ec2_fleet__fleet_instance_set = {
   instance_ids : string list option; [@option]  (** instance_ids *)

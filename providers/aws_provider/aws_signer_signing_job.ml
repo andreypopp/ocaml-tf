@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_signer_signing_job__destination__s3 = {
   bucket : string;  (** bucket *)

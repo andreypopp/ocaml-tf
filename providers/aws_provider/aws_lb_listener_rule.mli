@@ -1,0 +1,28 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_lb_listener_rule__action__authenticate_cognito
+type aws_lb_listener_rule__action__authenticate_oidc
+type aws_lb_listener_rule__action__fixed_response
+type aws_lb_listener_rule__action__forward__stickiness
+type aws_lb_listener_rule__action__forward__target_group
+type aws_lb_listener_rule__action__forward
+type aws_lb_listener_rule__action__redirect
+type aws_lb_listener_rule__action
+type aws_lb_listener_rule__condition__host_header
+type aws_lb_listener_rule__condition__http_header
+type aws_lb_listener_rule__condition__http_request_method
+type aws_lb_listener_rule__condition__path_pattern
+type aws_lb_listener_rule__condition__query_string
+type aws_lb_listener_rule__condition__source_ip
+type aws_lb_listener_rule__condition
+type aws_lb_listener_rule
+
+val aws_lb_listener_rule :
+  ?tags:(string * string) list ->
+  listener_arn:string ->
+  action:aws_lb_listener_rule__action list ->
+  condition:aws_lb_listener_rule__condition list ->
+  string ->
+  unit

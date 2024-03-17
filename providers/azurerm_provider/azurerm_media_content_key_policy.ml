@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_media_content_key_policy__policy_option__fairplay_configuration__offline_rental_configuration = {
   playback_duration_seconds : float option; [@option]

@@ -121,21 +121,23 @@ let rec find_object_types acc path = function
   | Opt ty -> find_object_types acc path ty
   | String | Number | Bool | Dynamic -> acc
 
-let rec gen_attribute_type_ml path ppf = function
+let rec gen_attribute_type_name path ppf = function
   | String -> Format.fprintf ppf "string"
   | Number -> Format.fprintf ppf "float"
   | Bool -> Format.fprintf ppf "bool"
   | Dynamic -> Format.fprintf ppf "string"
   | Opt ty ->
-      Format.fprintf ppf "%a option" (gen_attribute_type_ml path) ty
+      Format.fprintf ppf "%a option"
+        (gen_attribute_type_name path)
+        ty
   | Set ty ->
-      Format.fprintf ppf "%a list" (gen_attribute_type_ml path) ty
+      Format.fprintf ppf "%a list" (gen_attribute_type_name path) ty
   | Map ty ->
       Format.fprintf ppf "(string * %a) list"
-        (gen_attribute_type_ml path)
+        (gen_attribute_type_name path)
         ty
   | List ty ->
-      Format.fprintf ppf "%a list" (gen_attribute_type_ml path) ty
+      Format.fprintf ppf "%a list" (gen_attribute_type_name path) ty
   | Object _ ->
       let ty_name = List.rev path |> String.concat ~sep:"__" in
       Format.fprintf ppf "%s" ty_name
@@ -178,7 +180,7 @@ let gen_attribute_types name ppf attributes =
   List.iter attributes
     ~f:(fun (attr_name, (attribute : attribute)) ->
       let ty = attribute.type_ in
-      let pp_ty = gen_attribute_type_ml [ attr_name; name ] in
+      let pp_ty = gen_attribute_type_name [ attr_name; name ] in
       let doc =
         match attribute.description with
         | None -> Printf.sprintf " (** %s *)" attr_name
@@ -227,43 +229,57 @@ let gen_object_types_ml ~skip_computed ppf (name, (block : block)) =
             (get_attributes ~skip_computed attributes);
           Format.fprintf ppf "} [%@%@deriving yojson_of]@."))
 
+let gen_block_type_name ~kind basename
+    ((block_name, block) : string * block_type) =
+  let ty_name =
+    to_ocaml_name (Printf.sprintf "%s__%s" basename block_name)
+  in
+  let ty_mod =
+    match block_name, block.nesting_mode, kind with
+    | "timeouts", Single, `arg -> ""
+    | "timeouts", Single, `record -> " option"
+    | _, Single, _ -> ""
+    | _, List, _ -> " list"
+    | _, Set, _ -> " list"
+    | _, Map, _ -> " assoc"
+  in
+  Printf.sprintf "%s%s" ty_name ty_mod
+
 let rec gen_block_type_ml ~is_mli ~skip_computed ppf
     (name, (block : block)) =
   gen_block_types_ml ~is_mli ppf (name, block);
   gen_object_types_ml ~skip_computed ppf (name, block);
-  let attributes = get_attributes ~skip_computed block.attributes in
-  let is_unit =
-    match attributes, block.block_types with
-    | [], [] -> true
-    | _ -> false
-  in
-  if is_unit then
-    Format.fprintf ppf "type %s = unit [%@%@deriving yojson_of]@.@."
-      name
-  else (
-    Format.fprintf ppf "type %s = %s{@." (to_ocaml_name name)
-      (if is_mli then "private " else "");
-    gen_attribute_types name ppf attributes;
-    List.iter block.block_types ~f:(fun (block_name, block) ->
-        let ocaml_name = to_ocaml_name block_name in
-        let ty_name =
-          to_ocaml_name (Printf.sprintf "%s__%s" name block_name)
+  match is_mli with
+  | true -> Format.fprintf ppf "type %s@.@." name
+  | false ->
+      let attributes =
+        get_attributes ~skip_computed block.attributes
+      in
+      let is_unit =
+        match attributes, block.block_types with
+        | [], [] -> true
+        | _ -> false
+      in
+      if is_unit then
+        Format.fprintf ppf
+          "type %s = unit [%@%@deriving yojson_of]@.@." name
+      else (
+        Format.fprintf ppf "type %s = %s{@." (to_ocaml_name name)
+          (if is_mli then "private " else "");
+        gen_attribute_types name ppf attributes;
+        List.iter block.block_types ~f:(fun (block_name, block) ->
+            let ocaml_name = to_ocaml_name block_name in
+            let ty =
+              gen_block_type_name ~kind:`record name
+                (block_name, block)
+            in
+            Format.fprintf ppf "  %s: %s;@." ocaml_name ty);
+        let doc =
+          match block.description with
+          | None -> Printf.sprintf "(** %s *)" name
+          | Some doc -> Printf.sprintf "(** %s *)" (to_ocaml_doc doc)
         in
-        let ty_mod =
-          match block_name, block.nesting_mode with
-          | "timeouts", Single -> " option"
-          | _, Single -> ""
-          | _, List -> " list"
-          | _, Set -> " list"
-          | _, Map -> " assoc"
-        in
-        Format.fprintf ppf "  %s: %s%s;@." ocaml_name ty_name ty_mod);
-    let doc =
-      match block.description with
-      | None -> Printf.sprintf "(** %s *)" name
-      | Some doc -> Printf.sprintf "(** %s *)" (to_ocaml_doc doc)
-    in
-    Format.fprintf ppf "} [%@%@deriving yojson_of]@.%s@.@." doc)
+        Format.fprintf ppf "} [%@%@deriving yojson_of]@.%s@.@." doc)
 
 and gen_block_types_ml ~is_mli ppf (name, (block : block)) =
   List.iter block.block_types
@@ -327,13 +343,79 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
   Format.fprintf ppf "  ()@.";
   Format.fprintf ppf "  ;;@.@."
 
-let gen_resource ppf (resource_name, (resource : schema)) =
+let gen_resource_constructor_sig ppf (name, (schema : schema)) =
+  let collect_args f =
+    List.filter_map schema.block.attributes
+      ~f:(fun (attr_name, attr) ->
+        match f attr_name attr with
+        | false -> None
+        | true -> Some (to_ocaml_name attr_name, attr))
+  in
+  let opt_args =
+    collect_args (fun _ attr -> (not attr.computed) && attr.optional)
+    |> List.map ~f:(fun (attr_name, attr) ->
+           Format.asprintf "?%s:%a" attr_name
+             (gen_attribute_type_name [ attr_name; name ])
+             attr.type_)
+  in
+  let opt_block_args =
+    List.filter schema.block.block_types
+      ~f:(fun (block_name, block) ->
+        match block_name, block.nesting_mode with
+        | "timeouts", Single -> true
+        | _ -> false)
+    |> List.map ~f:(fun (block_name, block) ->
+           let arg = to_ocaml_name block_name in
+           let ty =
+             gen_block_type_name ~kind:`arg name (block_name, block)
+           in
+           Printf.sprintf "?%s:%s" arg ty)
+  in
+  let args =
+    collect_args (fun _ attr ->
+        (not attr.computed) && not attr.optional)
+    |> List.map ~f:(fun (attr_name, attr) ->
+           Format.asprintf "%s:%a" attr_name
+             (gen_attribute_type_name [ attr_name; name ])
+             attr.type_)
+  in
+  let block_args =
+    List.filter schema.block.block_types
+      ~f:(fun (block_name, block) ->
+        match block_name, block.nesting_mode with
+        | "timeouts", Single -> false
+        | _ -> true)
+    |> List.map ~f:(fun (block_name, block) ->
+           let arg = to_ocaml_name block_name in
+           let ty =
+             gen_block_type_name ~kind:`arg name (block_name, block)
+           in
+           Printf.sprintf "%s:%s" arg ty)
+  in
+  let ty =
+    opt_args
+    @ opt_block_args
+    @ args
+    @ block_args
+    @ [ "string"; "unit" ]
+    |> String.concat ~sep:" ->\n    "
+  in
+  Format.fprintf ppf "val %s :@.    %s@.@." name ty
+
+let gen_resource_impl ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
   Format.fprintf ppf "[%@%@%@ocaml.warning \"-33-27-26\"]@.@.";
-  Format.fprintf ppf "open Tf.Prelude@.@.";
+  Format.fprintf ppf "open! Tf.Prelude@.@.";
   gen_block_type_ml ~skip_computed:true ~is_mli:false ppf
     (resource_name, resource.block);
   gen_resource_constructor ppf (resource_name, resource)
+
+let gen_resource_iface ppf (resource_name, (resource : schema)) =
+  Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
+  Format.fprintf ppf "open! Tf.Prelude@.@.";
+  gen_block_type_ml ~skip_computed:true ~is_mli:true ppf
+    (resource_name, resource.block);
+  gen_resource_constructor_sig ppf (resource_name, resource)
 
 let file_t ?doc n =
   Arg.(
@@ -357,29 +439,43 @@ let resource_t ?doc n =
 
 let sys fmt = ksprintf (fun s -> assert (Sys.command s = 0)) fmt
 
+let with_oc_txt filename f =
+  let filename_tmp = sprintf "%s.tmp" filename in
+  Out_channel.with_open_bin filename_tmp (fun oc -> f oc);
+  sys "mv %s %s" filename_tmp filename
+
+let get_provider name root =
+  match
+    List.assoc_opt ~eq:String.equal name root.provider_schemas
+  with
+  | Some schema -> schema
+  | None -> failwith "provider not found"
+
+let get_resource name provider =
+  match
+    List.assoc_opt ~eq:String.equal name provider.resource_schemas
+  with
+  | Some schema -> schema
+  | None -> failwith "resource not found"
+
 let gen_provider_cmd =
   let f filename provider_name output =
     sys "mkdir -p %S" output;
     sys "rm -f %s/*.ml %s/*.ml.tmp" output output;
+    sys "rm -f %s/*.mli %s/*.mli.tmp" output output;
     let data = In_channel.(with_open_bin filename input_all) in
     let json = Yojson.Safe.from_string data in
     let root = root_of_yojson json in
-    let provider =
-      match
-        List.assoc_opt ~eq:String.equal provider_name
-          root.provider_schemas
-      with
-      | Some schema -> schema
-      | None -> failwith "provider not found"
-    in
+    let provider = get_provider provider_name root in
     List.iter provider.resource_schemas ~f:(fun (name, schema) ->
-        let filename = sprintf "%s/%s.ml" output name in
-        let filename_tmp = sprintf "%s/%s.ml.tmp" output name in
-        Out_channel.with_open_bin filename_tmp (fun oc ->
+        with_oc_txt (sprintf "%s/%s.ml" output name) (fun oc ->
             let ppf = Format.formatter_of_out_channel oc in
-            gen_resource ppf (name, schema);
+            gen_resource_impl ppf (name, schema);
             Format.pp_print_flush ppf ());
-        sys "mv %s %s" filename_tmp filename)
+        with_oc_txt (sprintf "%s/%s.mli" output name) (fun oc ->
+            let ppf = Format.formatter_of_out_channel oc in
+            gen_resource_iface ppf (name, schema);
+            Format.pp_print_flush ppf ()))
   in
   let info = Cmd.info "gen-provider-ml" ~doc:"generate .ml" in
   Cmd.v info
@@ -389,32 +485,23 @@ let gen_provider_cmd =
       $ provider_t 1
       $ output_t 2)
 
-let gen_resource_cmd =
+let with_resouce filename provider_name resource_name f =
+  let data = In_channel.(with_open_bin filename input_all) in
+  let json = Yojson.Safe.from_string data in
+  let root = root_of_yojson json in
+  let provider = get_provider provider_name root in
+  let resource = get_resource resource_name provider in
+  f resource
+
+let gen_resource_impl_cmd =
   let f filename provider_name resource_name =
-    let data = In_channel.(open_bin filename |> input_all) in
-    let json = Yojson.Safe.from_string data in
-    let root = root_of_yojson json in
-    let provider =
-      match
-        List.assoc_opt ~eq:String.equal provider_name
-          root.provider_schemas
-      with
-      | Some schema -> schema
-      | None -> failwith "provider not found"
-    in
-    let resource =
-      match
-        List.assoc_opt ~eq:String.equal resource_name
-          provider.resource_schemas
-      with
-      | Some schema -> schema
-      | None -> failwith "resource not found"
-    in
-    Format.fprintf Format.str_formatter "%a@." gen_resource
-      (resource_name, resource);
-    print_endline (Format.flush_str_formatter ())
+    with_resouce filename provider_name resource_name
+      (fun resource ->
+        Format.fprintf Format.str_formatter "%a@." gen_resource_impl
+          (resource_name, resource);
+        print_endline (Format.flush_str_formatter ()))
   in
-  let info = Cmd.info "gen-resource-ml" ~doc:"generate .ml" in
+  let info = Cmd.info "gen-resource-impl" ~doc:"generate .ml" in
   Cmd.v info
     Term.(
       const f
@@ -422,7 +509,24 @@ let gen_resource_cmd =
       $ provider_t 1
       $ resource_t 2)
 
-let commands = [ gen_provider_cmd; gen_resource_cmd ]
+let gen_resource_iface_cmd =
+  let f filename provider_name resource_name =
+    with_resouce filename provider_name resource_name
+      (fun resource ->
+        Format.fprintf Format.str_formatter "%a@." gen_resource_iface
+          (resource_name, resource);
+        print_endline (Format.flush_str_formatter ()))
+  in
+  let info = Cmd.info "gen-resource-iface" ~doc:"generate .mli" in
+  Cmd.v info
+    Term.(
+      const f
+      $ file_t 0 ~doc:"provider schema file"
+      $ provider_t 1
+      $ resource_t 2)
+
+let commands =
+  [ gen_provider_cmd; gen_resource_impl_cmd; gen_resource_iface_cmd ]
 
 let main_cmd =
   let info = Cmd.info "tf" ~version:"%%VERSION%%" in

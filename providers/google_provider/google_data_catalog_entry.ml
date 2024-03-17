@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_data_catalog_entry__gcs_fileset_spec__sample_gcs_file_specs = {
   file_path : string;  (** file_path *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sesv2_account_vdm_attributes__dashboard_attributes = {
   engagement_metrics : string option; [@option]

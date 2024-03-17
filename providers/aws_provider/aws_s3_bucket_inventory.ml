@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_s3_bucket_inventory__destination__bucket__encryption__sse_kms = {
   key_id : string;  (** key_id *)

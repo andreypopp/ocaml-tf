@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_vertex_ai_feature_group__big_query__big_query_source = {
   input_uri : string;

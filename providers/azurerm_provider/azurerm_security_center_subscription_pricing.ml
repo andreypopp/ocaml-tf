@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_security_center_subscription_pricing__extension = {
   additional_extension_properties : (string * string) list option;

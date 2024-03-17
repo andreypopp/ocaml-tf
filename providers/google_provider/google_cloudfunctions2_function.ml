@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_cloudfunctions2_function__build_config__source__repo_source = {
   branch_name : string option; [@option]

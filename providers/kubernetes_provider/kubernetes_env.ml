@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type kubernetes_env__env__value_from__config_map_key_ref = {
   key : string option; [@option]  (** The key to select. *)

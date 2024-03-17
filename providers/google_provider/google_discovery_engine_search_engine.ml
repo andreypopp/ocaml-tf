@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_discovery_engine_search_engine__common_config = {
   company_name : string option; [@option]

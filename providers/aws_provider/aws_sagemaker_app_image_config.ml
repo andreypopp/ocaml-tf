@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_app_image_config__jupyter_lab_image_config__container_config = {
   container_arguments : string list option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_verifiedaccess_group__sse_configuration = {
   customer_managed_key_enabled : bool option; [@option]

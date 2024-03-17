@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_document_ai_warehouse_document_schema__property_definitions__date_time_type_options =
   unit

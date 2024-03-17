@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_logic_app_workflow__access_control__action = {
   allowed_caller_ip_address_range : string list;

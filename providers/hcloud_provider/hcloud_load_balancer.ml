@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type hcloud_load_balancer__algorithm = {
   type_ : string option; [@option] [@key "type"]  (** type *)

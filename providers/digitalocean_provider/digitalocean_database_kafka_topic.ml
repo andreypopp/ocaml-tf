@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type digitalocean_database_kafka_topic__config = {
   cleanup_policy : string option; [@option]  (** cleanup_policy *)

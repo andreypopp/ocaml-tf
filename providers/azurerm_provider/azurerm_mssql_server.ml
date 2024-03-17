@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mssql_server__azuread_administrator = {
   azuread_authentication_only : bool option; [@option]

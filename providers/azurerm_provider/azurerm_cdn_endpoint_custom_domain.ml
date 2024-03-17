@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cdn_endpoint_custom_domain__cdn_managed_https = {
   certificate_type : string;  (** certificate_type *)

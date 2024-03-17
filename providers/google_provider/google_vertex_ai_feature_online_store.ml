@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_vertex_ai_feature_online_store__bigtable__auto_scaling = {
   cpu_utilization_target : float option; [@option]

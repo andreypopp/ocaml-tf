@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lightsail_lb_stickiness_policy = {
   cookie_duration : float;  (** cookie_duration *)

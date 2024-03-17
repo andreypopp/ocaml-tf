@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_monitoring_schedule__monitoring_schedule_config__schedule_config = {
   schedule_expression : string;  (** schedule_expression *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_virtual_desktop_host_pool_registration_info__timeouts = {
   create : string option; [@option]  (** create *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_api_shield__auth_id_characteristics = {
   name : string option; [@option]

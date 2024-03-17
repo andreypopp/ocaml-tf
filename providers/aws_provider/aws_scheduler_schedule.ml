@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_scheduler_schedule__flexible_time_window = {
   maximum_window_in_minutes : float option; [@option]

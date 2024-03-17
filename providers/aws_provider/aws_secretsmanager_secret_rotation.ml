@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_secretsmanager_secret_rotation__rotation_rules = {
   automatically_after_days : float option; [@option]

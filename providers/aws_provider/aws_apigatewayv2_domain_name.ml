@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_apigatewayv2_domain_name__domain_name_configuration = {
   certificate_arn : string;  (** certificate_arn *)

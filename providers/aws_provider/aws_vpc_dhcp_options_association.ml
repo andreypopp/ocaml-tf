@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpc_dhcp_options_association = {
   dhcp_options_id : string;  (** dhcp_options_id *)

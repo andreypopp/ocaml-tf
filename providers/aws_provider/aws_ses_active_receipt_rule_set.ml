@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ses_active_receipt_rule_set = {
   rule_set_name : string;  (** rule_set_name *)

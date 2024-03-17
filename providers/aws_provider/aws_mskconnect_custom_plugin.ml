@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_mskconnect_custom_plugin__location__s3 = {
   bucket_arn : string;  (** bucket_arn *)

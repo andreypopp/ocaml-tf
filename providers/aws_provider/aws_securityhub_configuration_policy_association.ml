@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_securityhub_configuration_policy_association__timeouts = {
   create : string option; [@option]  (** create *)

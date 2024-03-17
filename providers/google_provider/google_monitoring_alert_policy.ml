@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_monitoring_alert_policy__alert_strategy__notification_channel_strategy = {
   notification_channel_names : string list option; [@option]

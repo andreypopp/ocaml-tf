@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_s3control_multi_region_access_point__details__public_access_block = {
   block_public_acls : bool option; [@option]

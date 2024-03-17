@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_s3control_object_lambda_access_point__configuration__transformation_configuration__content_transformation__aws_lambda = {
   function_arn : string;  (** function_arn *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type kubernetes_service_account_v1__image_pull_secret = {
   name : string option; [@option]

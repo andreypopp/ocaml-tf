@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_neptune_cluster__serverless_v2_scaling_configuration = {
   max_capacity : float option; [@option]  (** max_capacity *)

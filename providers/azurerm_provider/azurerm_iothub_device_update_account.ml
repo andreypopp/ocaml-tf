@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_iothub_device_update_account__identity = {
   identity_ids : string list option; [@option]  (** identity_ids *)

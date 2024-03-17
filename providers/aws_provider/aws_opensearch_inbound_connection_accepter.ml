@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_opensearch_inbound_connection_accepter__timeouts = {
   create : string option; [@option]  (** create *)

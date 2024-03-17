@@ -1,0 +1,30 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_access_context_manager_service_perimeter_egress_policy__egress_from__sources
+
+type google_access_context_manager_service_perimeter_egress_policy__egress_from
+
+type google_access_context_manager_service_perimeter_egress_policy__egress_to__operations__method_selectors
+
+type google_access_context_manager_service_perimeter_egress_policy__egress_to__operations
+
+type google_access_context_manager_service_perimeter_egress_policy__egress_to
+
+type google_access_context_manager_service_perimeter_egress_policy__timeouts
+
+type google_access_context_manager_service_perimeter_egress_policy
+
+val google_access_context_manager_service_perimeter_egress_policy :
+  ?timeouts:
+    google_access_context_manager_service_perimeter_egress_policy__timeouts ->
+  perimeter:string ->
+  egress_from:
+    google_access_context_manager_service_perimeter_egress_policy__egress_from
+    list ->
+  egress_to:
+    google_access_context_manager_service_perimeter_egress_policy__egress_to
+    list ->
+  string ->
+  unit

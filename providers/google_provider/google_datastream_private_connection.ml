@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_datastream_private_connection__timeouts = {
   create : string option; [@option]  (** create *)

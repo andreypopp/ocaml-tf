@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_network_connectivity_policy_based_route__filter = {
   dest_range : string option; [@option]

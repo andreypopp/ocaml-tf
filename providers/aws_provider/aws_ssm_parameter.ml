@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ssm_parameter = {
   allowed_pattern : string option; [@option]  (** allowed_pattern *)

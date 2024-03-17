@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_media_services_account__encryption__managed_identity = {
   use_system_assigned_identity : bool option; [@option]

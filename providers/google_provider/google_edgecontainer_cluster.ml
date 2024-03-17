@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_edgecontainer_cluster__authorization__admin_users = {
   username : string;  (** An active Google username. *)

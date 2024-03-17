@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_privateca_certificate_template__identity_constraints__cel_expression = {
   description : string option; [@option]

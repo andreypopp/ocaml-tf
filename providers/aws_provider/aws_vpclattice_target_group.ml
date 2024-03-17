@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpclattice_target_group__config__health_check__matcher = {
   value : string option; [@option]  (** value *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ebs_snapshot_import__client_data = {
   comment : string option; [@option]  (** comment *)

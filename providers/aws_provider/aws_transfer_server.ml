@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_transfer_server__endpoint_details = {
   address_allocation_ids : string list option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sesv2_configuration_set_event_destination__event_destination__cloud_watch_destination__dimension_configuration = {
   default_dimension_value : string;  (** default_dimension_value *)

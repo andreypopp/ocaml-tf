@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_notebooks_instance__accelerator_config = {
   core_count : float;  (** Count of cores of this accelerator. *)

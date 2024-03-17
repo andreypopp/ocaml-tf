@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_access_identity_provider__config = {
   api_token : string option; [@option]  (** api_token *)

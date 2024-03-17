@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_datasync_location_fsx_openzfs_file_system__protocol__nfs__mount_options = {
   version : string option; [@option]  (** version *)

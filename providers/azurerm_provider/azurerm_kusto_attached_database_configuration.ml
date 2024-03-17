@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_kusto_attached_database_configuration__sharing = {
   external_tables_to_exclude : string list option; [@option]

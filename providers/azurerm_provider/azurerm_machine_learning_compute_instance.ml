@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_machine_learning_compute_instance__assign_to_user = {
   object_id : string option; [@option]  (** object_id *)

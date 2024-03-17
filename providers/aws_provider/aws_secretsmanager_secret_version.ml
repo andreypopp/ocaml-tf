@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_secretsmanager_secret_version = {
   secret_binary : string option; [@option]  (** secret_binary *)

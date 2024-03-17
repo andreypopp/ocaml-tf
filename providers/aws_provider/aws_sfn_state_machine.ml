@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sfn_state_machine__logging_configuration = {
   include_execution_data : bool option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_edgecontainer_node_pool__local_disk_encryption = {
   kms_key : string option; [@option]

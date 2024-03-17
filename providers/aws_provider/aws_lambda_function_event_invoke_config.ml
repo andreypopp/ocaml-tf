@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lambda_function_event_invoke_config__destination_config__on_failure = {
   destination : string;  (** destination *)

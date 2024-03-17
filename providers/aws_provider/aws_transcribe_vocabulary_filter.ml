@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_transcribe_vocabulary_filter = {
   language_code : string;  (** language_code *)

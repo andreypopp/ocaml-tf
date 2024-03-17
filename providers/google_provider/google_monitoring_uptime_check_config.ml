@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_monitoring_uptime_check_config__content_matchers__json_path_matcher = {
   json_matcher : string option; [@option]

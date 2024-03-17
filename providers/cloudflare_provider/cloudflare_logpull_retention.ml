@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_logpull_retention = {
   enabled : bool;  (** Whether you wish to retain logs or not. *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type digitalocean_kubernetes_cluster__maintenance_policy = {
   day : string option; [@option]  (** day *)

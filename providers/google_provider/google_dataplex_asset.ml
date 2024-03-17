@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dataplex_asset__discovery_spec__csv_options = {
   delimiter : string option; [@option]

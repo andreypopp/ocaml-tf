@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpc_security_group_egress_rule = {
   cidr_ipv4 : string option; [@option]  (** cidr_ipv4 *)

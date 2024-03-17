@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_filestore_instance__file_shares__nfs_export_options = {
   access_mode : string option; [@option]

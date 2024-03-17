@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_iot_authorizer = {
   authorizer_function_arn : string;  (** authorizer_function_arn *)

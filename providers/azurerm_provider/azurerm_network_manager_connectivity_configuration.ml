@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_network_manager_connectivity_configuration__applies_to_group = {
   global_mesh_enabled : bool option; [@option]

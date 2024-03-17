@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_backup_global_settings = {
   global_settings : (string * string) list;  (** global_settings *)

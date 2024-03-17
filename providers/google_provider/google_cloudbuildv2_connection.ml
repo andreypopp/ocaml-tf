@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_cloudbuildv2_connection__github_config__authorizer_credential = {
   oauth_token_secret_version : string option; [@option]

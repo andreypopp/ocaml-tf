@@ -1,0 +1,38 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_dns_record_set__routing_policy__geo__health_checked_targets__internal_load_balancers
+
+type google_dns_record_set__routing_policy__geo__health_checked_targets
+
+type google_dns_record_set__routing_policy__geo
+
+type google_dns_record_set__routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
+
+type google_dns_record_set__routing_policy__primary_backup__backup_geo__health_checked_targets
+
+type google_dns_record_set__routing_policy__primary_backup__backup_geo
+
+type google_dns_record_set__routing_policy__primary_backup__primary__internal_load_balancers
+
+type google_dns_record_set__routing_policy__primary_backup__primary
+type google_dns_record_set__routing_policy__primary_backup
+
+type google_dns_record_set__routing_policy__wrr__health_checked_targets__internal_load_balancers
+
+type google_dns_record_set__routing_policy__wrr__health_checked_targets
+
+type google_dns_record_set__routing_policy__wrr
+type google_dns_record_set__routing_policy
+type google_dns_record_set
+
+val google_dns_record_set :
+  ?rrdatas:string list ->
+  ?ttl:float ->
+  managed_zone:string ->
+  name:string ->
+  type_:string ->
+  routing_policy:google_dns_record_set__routing_policy list ->
+  string ->
+  unit

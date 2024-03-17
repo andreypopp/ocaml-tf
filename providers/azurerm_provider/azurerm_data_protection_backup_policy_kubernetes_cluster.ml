@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_data_protection_backup_policy_kubernetes_cluster__default_retention_rule__life_cycle = {
   data_store_type : string;  (** data_store_type *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_feature_group__feature_definition = {
   feature_name : string option; [@option]  (** feature_name *)

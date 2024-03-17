@@ -1,0 +1,31 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration__launch_permission
+
+type aws_imagebuilder_distribution_configuration__distribution__ami_distribution_configuration
+
+type aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration__target_repository
+
+type aws_imagebuilder_distribution_configuration__distribution__container_distribution_configuration
+
+type aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__launch_template
+
+type aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration__snapshot_configuration
+
+type aws_imagebuilder_distribution_configuration__distribution__fast_launch_configuration
+
+type aws_imagebuilder_distribution_configuration__distribution__launch_template_configuration
+
+type aws_imagebuilder_distribution_configuration__distribution
+type aws_imagebuilder_distribution_configuration
+
+val aws_imagebuilder_distribution_configuration :
+  ?description:string ->
+  ?tags:(string * string) list ->
+  name:string ->
+  distribution:
+    aws_imagebuilder_distribution_configuration__distribution list ->
+  string ->
+  unit

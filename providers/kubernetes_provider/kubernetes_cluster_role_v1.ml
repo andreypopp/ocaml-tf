@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type kubernetes_cluster_role_v1__aggregation_rule__cluster_role_selectors__match_expressions = {
   key : string option; [@option]

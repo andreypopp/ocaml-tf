@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_route53_resolver_query_log_config_association = {
   resolver_query_log_config_id : string;

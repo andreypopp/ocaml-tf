@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_iam_workforce_pool_provider__oidc__client_secret__value = {
   plain_text : string;

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_bot_channel_web_chat__site = {
   endpoint_parameters_enabled : bool option; [@option]

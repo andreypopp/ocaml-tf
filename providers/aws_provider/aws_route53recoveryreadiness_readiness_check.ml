@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_route53recoveryreadiness_readiness_check__timeouts = {
   delete : string option; [@option]  (** delete *)

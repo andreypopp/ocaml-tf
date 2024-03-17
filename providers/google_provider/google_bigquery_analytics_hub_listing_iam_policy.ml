@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_bigquery_analytics_hub_listing_iam_policy = {
   data_exchange_id : string;  (** data_exchange_id *)

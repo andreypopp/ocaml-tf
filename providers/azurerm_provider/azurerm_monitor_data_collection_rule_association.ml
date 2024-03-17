@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_monitor_data_collection_rule_association__timeouts = {
   create : string option; [@option]  (** create *)

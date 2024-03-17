@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_logic_app_integration_account_partner__business_identity = {
   qualifier : string;  (** qualifier *)

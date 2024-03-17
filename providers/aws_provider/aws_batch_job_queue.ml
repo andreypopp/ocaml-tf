@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_batch_job_queue__compute_environment_order = {
   compute_environment : string;  (** compute_environment *)

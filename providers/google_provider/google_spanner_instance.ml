@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_spanner_instance__autoscaling_config__autoscaling_limits = {
   max_nodes : float option; [@option]

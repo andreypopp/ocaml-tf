@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_monitor_alert_prometheus_rule_group__rule__action = {
   action_group_id : string;  (** action_group_id *)

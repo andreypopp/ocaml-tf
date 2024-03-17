@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_netapp_volume_replication__destination_volume_parameters = {
   description : string option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_service_discovery_private_dns_namespace = {
   description : string option; [@option]  (** description *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudfront_field_level_encryption_config__content_type_profile_config__content_type_profiles__items = {
   content_type : string;  (** content_type *)

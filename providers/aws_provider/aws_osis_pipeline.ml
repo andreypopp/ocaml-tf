@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_osis_pipeline__buffer_options = {
   persistent_buffer_enabled : bool;  (** persistent_buffer_enabled *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_rds_cluster__restore_to_point_in_time = {
   restore_to_time : string option; [@option]  (** restore_to_time *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_guardduty_organization_admin_account = {
   admin_account_id : string;  (** admin_account_id *)

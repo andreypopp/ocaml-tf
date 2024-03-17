@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ivs_playback_key_pair__timeouts = {
   create : string option; [@option]  (** create *)

@@ -1,0 +1,39 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_ce_anomaly_subscription__subscriber
+
+type aws_ce_anomaly_subscription__threshold_expression__and__cost_category
+
+type aws_ce_anomaly_subscription__threshold_expression__and__dimension
+type aws_ce_anomaly_subscription__threshold_expression__and__tags
+type aws_ce_anomaly_subscription__threshold_expression__and
+type aws_ce_anomaly_subscription__threshold_expression__cost_category
+type aws_ce_anomaly_subscription__threshold_expression__dimension
+
+type aws_ce_anomaly_subscription__threshold_expression__not__cost_category
+
+type aws_ce_anomaly_subscription__threshold_expression__not__dimension
+type aws_ce_anomaly_subscription__threshold_expression__not__tags
+type aws_ce_anomaly_subscription__threshold_expression__not
+
+type aws_ce_anomaly_subscription__threshold_expression__or__cost_category
+
+type aws_ce_anomaly_subscription__threshold_expression__or__dimension
+type aws_ce_anomaly_subscription__threshold_expression__or__tags
+type aws_ce_anomaly_subscription__threshold_expression__or
+type aws_ce_anomaly_subscription__threshold_expression__tags
+type aws_ce_anomaly_subscription__threshold_expression
+type aws_ce_anomaly_subscription
+
+val aws_ce_anomaly_subscription :
+  ?tags:(string * string) list ->
+  frequency:string ->
+  monitor_arn_list:string list ->
+  name:string ->
+  subscriber:aws_ce_anomaly_subscription__subscriber list ->
+  threshold_expression:
+    aws_ce_anomaly_subscription__threshold_expression list ->
+  string ->
+  unit

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudfront_response_headers_policy__cors_config__access_control_allow_headers = {
   items : string list option; [@option]  (** items *)

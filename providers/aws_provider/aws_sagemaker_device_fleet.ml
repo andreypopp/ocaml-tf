@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_device_fleet__output_config = {
   kms_key_id : string option; [@option]  (** kms_key_id *)

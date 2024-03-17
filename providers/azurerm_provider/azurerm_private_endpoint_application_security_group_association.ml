@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_private_endpoint_application_security_group_association__timeouts = {
   create : string option; [@option]  (** create *)

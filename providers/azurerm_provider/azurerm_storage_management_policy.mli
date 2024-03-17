@@ -1,0 +1,22 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_storage_management_policy__rule__actions__base_blob
+type azurerm_storage_management_policy__rule__actions__snapshot
+type azurerm_storage_management_policy__rule__actions__version
+type azurerm_storage_management_policy__rule__actions
+
+type azurerm_storage_management_policy__rule__filters__match_blob_index_tag
+
+type azurerm_storage_management_policy__rule__filters
+type azurerm_storage_management_policy__rule
+type azurerm_storage_management_policy__timeouts
+type azurerm_storage_management_policy
+
+val azurerm_storage_management_policy :
+  ?timeouts:azurerm_storage_management_policy__timeouts ->
+  storage_account_id:string ->
+  rule:azurerm_storage_management_policy__rule list ->
+  string ->
+  unit

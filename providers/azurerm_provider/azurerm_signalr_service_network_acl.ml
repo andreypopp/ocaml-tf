@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_signalr_service_network_acl__private_endpoint = {
   allowed_request_types : string list option; [@option]

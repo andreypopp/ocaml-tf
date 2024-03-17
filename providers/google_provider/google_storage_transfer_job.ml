@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_storage_transfer_job__event_stream = {
   event_stream_expiration_time : string option; [@option]

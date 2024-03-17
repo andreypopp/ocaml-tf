@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_spring_cloud_build_pack_binding__launch = {
   properties : (string * string) list option; [@option]

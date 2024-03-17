@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_storage_account__azure_files_authentication__active_directory = {
   domain_guid : string;  (** domain_guid *)

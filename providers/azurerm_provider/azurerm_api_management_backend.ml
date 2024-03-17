@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_api_management_backend__credentials__authorization = {
   parameter : string option; [@option]  (** parameter *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_finspace_kx_cluster__auto_scaling_configuration = {
   auto_scaling_metric : string;  (** auto_scaling_metric *)

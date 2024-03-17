@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_network_manager_admin_rule__destination = {
   address_prefix : string;  (** address_prefix *)

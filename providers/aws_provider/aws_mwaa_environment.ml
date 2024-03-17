@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_mwaa_environment__logging_configuration__dag_processing_logs = {
   cloud_watch_log_group_arn : string;

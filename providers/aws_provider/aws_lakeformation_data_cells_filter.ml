@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lakeformation_data_cells_filter__table_data__column_wildcard = {
   excluded_column_names : string list option; [@option]

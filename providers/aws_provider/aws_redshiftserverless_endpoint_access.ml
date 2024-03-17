@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_redshiftserverless_endpoint_access__vpc_endpoint__network_interface = {
   availability_zone : string;  (** availability_zone *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type hcloud_floating_ip_assignment = {
   floating_ip_id : float;  (** floating_ip_id *)

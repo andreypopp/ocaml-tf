@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appsync_api_cache = {
   api_caching_behavior : string;  (** api_caching_behavior *)

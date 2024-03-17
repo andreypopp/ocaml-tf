@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_iot_indexing_configuration__thing_group_indexing_configuration__custom_field = {
   name : string option; [@option]  (** name *)

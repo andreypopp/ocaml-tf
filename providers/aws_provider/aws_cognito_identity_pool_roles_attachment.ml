@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cognito_identity_pool_roles_attachment__role_mapping__mapping_rule = {
   claim : string;  (** claim *)

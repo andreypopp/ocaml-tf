@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_access_context_manager_access_level__basic__conditions__device_policy__os_constraints = {
   minimum_version : string option; [@option]

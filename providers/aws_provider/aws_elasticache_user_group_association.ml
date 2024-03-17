@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_elasticache_user_group_association = {
   user_group_id : string;  (** user_group_id *)

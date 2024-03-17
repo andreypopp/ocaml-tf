@@ -1,0 +1,17 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_securitylake_subscriber_notification__configuration__https_notification_configuration
+
+type aws_securitylake_subscriber_notification__configuration__sqs_notification_configuration
+
+type aws_securitylake_subscriber_notification__configuration
+type aws_securitylake_subscriber_notification
+
+val aws_securitylake_subscriber_notification :
+  subscriber_id:string ->
+  configuration:
+    aws_securitylake_subscriber_notification__configuration list ->
+  string ->
+  unit

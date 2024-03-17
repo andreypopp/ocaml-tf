@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_connect_queue__outbound_caller_config = {
   outbound_caller_id_name : string option; [@option]

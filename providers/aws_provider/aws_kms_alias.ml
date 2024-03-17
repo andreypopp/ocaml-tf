@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_kms_alias = { target_key_id : string  (** target_key_id *) }
 [@@deriving yojson_of]

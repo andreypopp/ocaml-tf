@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_frontdoor_custom_https_configuration__custom_https_configuration = {
   azure_key_vault_certificate_secret_name : string option; [@option]

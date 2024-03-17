@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cleanrooms_configured_table__table_reference = {
   database_name : string;  (** database_name *)

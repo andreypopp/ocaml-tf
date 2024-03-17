@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mssql_managed_database__long_term_retention_policy = {
   immutable_backups_enabled : bool option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_fsx_data_repository_association__s3__auto_export_policy = {
   events : string list option; [@option]  (** events *)

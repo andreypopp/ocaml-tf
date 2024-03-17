@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_servicebus_namespace_network_rule_set__network_rules = {
   ignore_missing_vnet_service_endpoint : bool option; [@option]

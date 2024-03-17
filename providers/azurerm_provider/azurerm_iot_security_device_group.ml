@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_iot_security_device_group__allow_rule = {
   connection_from_ips_not_allowed : string list option; [@option]

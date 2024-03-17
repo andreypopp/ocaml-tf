@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_automation_hybrid_runbook_worker_group__timeouts = {
   create : string option; [@option]  (** create *)

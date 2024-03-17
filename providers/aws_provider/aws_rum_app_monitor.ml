@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_rum_app_monitor__app_monitor_configuration = {
   allow_cookies : bool option; [@option]  (** allow_cookies *)

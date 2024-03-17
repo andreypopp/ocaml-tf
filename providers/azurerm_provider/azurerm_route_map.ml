@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_route_map__rule__action__parameter = {
   as_path : string list option; [@option]  (** as_path *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_workspaces_directory__self_service_permissions = {
   change_compute_type : bool option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dns_policy__alternative_name_server_config__target_name_servers = {
   forwarding_path : string option; [@option]

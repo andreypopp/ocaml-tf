@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_iot_domain_configuration__authorizer_config = {
   allow_authorizer_override : bool option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_virtual_desktop_scaling_plan__host_pool = {
   hostpool_id : string;  (** hostpool_id *)

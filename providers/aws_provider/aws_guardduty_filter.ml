@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_guardduty_filter__finding_criteria__criterion = {
   equals : string list option; [@option]  (** equals *)

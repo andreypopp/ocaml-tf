@@ -1,0 +1,14 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type kubernetes_api_service_v1__metadata
+type kubernetes_api_service_v1__spec__service
+type kubernetes_api_service_v1__spec
+type kubernetes_api_service_v1
+
+val kubernetes_api_service_v1 :
+  metadata:kubernetes_api_service_v1__metadata list ->
+  spec:kubernetes_api_service_v1__spec list ->
+  string ->
+  unit

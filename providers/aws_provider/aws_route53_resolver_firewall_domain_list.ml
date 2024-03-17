@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_route53_resolver_firewall_domain_list = {
   domains : string list option; [@option]  (** domains *)

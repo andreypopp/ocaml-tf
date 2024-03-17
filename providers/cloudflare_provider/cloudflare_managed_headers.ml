@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_managed_headers__managed_request_headers = {
   enabled : bool;  (** Whether the headers rule is active. *)

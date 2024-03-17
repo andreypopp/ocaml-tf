@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_discovery_engine_chat_engine__chat_engine_config__agent_creation_config = {
   business : string option; [@option]

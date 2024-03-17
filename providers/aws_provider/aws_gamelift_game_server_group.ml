@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_gamelift_game_server_group__auto_scaling_policy__target_tracking_configuration = {
   target_value : float;  (** target_value *)

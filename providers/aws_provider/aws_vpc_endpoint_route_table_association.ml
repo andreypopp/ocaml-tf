@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpc_endpoint_route_table_association = {
   route_table_id : string;  (** route_table_id *)

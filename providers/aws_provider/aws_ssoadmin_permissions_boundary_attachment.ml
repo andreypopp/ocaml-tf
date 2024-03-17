@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ssoadmin_permissions_boundary_attachment__permissions_boundary__customer_managed_policy_reference = {
   name : string;  (** name *)

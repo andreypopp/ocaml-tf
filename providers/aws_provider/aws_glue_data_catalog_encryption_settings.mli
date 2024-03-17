@@ -1,0 +1,18 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings__connection_password_encryption
+
+type aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings__encryption_at_rest
+
+type aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings
+
+type aws_glue_data_catalog_encryption_settings
+
+val aws_glue_data_catalog_encryption_settings :
+  data_catalog_encryption_settings:
+    aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings
+    list ->
+  string ->
+  unit

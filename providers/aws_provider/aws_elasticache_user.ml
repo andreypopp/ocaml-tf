@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_elasticache_user__authentication_mode = {
   password_count : float;  (** password_count *)

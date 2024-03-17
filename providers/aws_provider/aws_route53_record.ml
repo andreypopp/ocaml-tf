@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_route53_record__alias = {
   evaluate_target_health : bool;  (** evaluate_target_health *)

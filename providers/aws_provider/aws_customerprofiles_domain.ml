@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_customerprofiles_domain__matching__auto_merging__conflict_resolution = {
   conflict_resolving_model : string;  (** conflict_resolving_model *)

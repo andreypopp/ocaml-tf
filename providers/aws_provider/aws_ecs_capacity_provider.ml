@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ecs_capacity_provider__auto_scaling_group_provider__managed_scaling = {
   instance_warmup_period : float option; [@option]

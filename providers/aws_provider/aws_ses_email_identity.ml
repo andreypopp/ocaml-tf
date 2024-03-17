@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ses_email_identity = { email : string  (** email *) }
 [@@deriving yojson_of]

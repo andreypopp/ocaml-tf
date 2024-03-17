@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_palo_alto_next_generation_firewall_virtual_network_local_rulestack__destination_nat__backend_config = {
   port : float;  (** port *)

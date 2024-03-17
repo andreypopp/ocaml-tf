@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_kubernetes_fleet_update_run__managed_cluster_update__node_image_selection = {
   type_ : string; [@key "type"]  (** type *)

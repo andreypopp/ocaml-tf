@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_vmwareengine_cluster__node_type_configs = {
   custom_core_count : float option; [@option]

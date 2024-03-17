@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_redshift_scheduled_action__target_action__pause_cluster = {
   cluster_identifier : string;  (** cluster_identifier *)

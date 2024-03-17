@@ -1,0 +1,51 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_api_management_api_operation__request__header__example
+type azurerm_api_management_api_operation__request__header
+
+type azurerm_api_management_api_operation__request__query_parameter__example
+
+type azurerm_api_management_api_operation__request__query_parameter
+
+type azurerm_api_management_api_operation__request__representation__example
+
+type azurerm_api_management_api_operation__request__representation__form_parameter__example
+
+type azurerm_api_management_api_operation__request__representation__form_parameter
+
+type azurerm_api_management_api_operation__request__representation
+type azurerm_api_management_api_operation__request
+type azurerm_api_management_api_operation__response__header__example
+type azurerm_api_management_api_operation__response__header
+
+type azurerm_api_management_api_operation__response__representation__example
+
+type azurerm_api_management_api_operation__response__representation__form_parameter__example
+
+type azurerm_api_management_api_operation__response__representation__form_parameter
+
+type azurerm_api_management_api_operation__response__representation
+type azurerm_api_management_api_operation__response
+type azurerm_api_management_api_operation__template_parameter__example
+type azurerm_api_management_api_operation__template_parameter
+type azurerm_api_management_api_operation__timeouts
+type azurerm_api_management_api_operation
+
+val azurerm_api_management_api_operation :
+  ?description:string ->
+  ?timeouts:azurerm_api_management_api_operation__timeouts ->
+  api_management_name:string ->
+  api_name:string ->
+  display_name:string ->
+  method_:string ->
+  operation_id:string ->
+  resource_group_name:string ->
+  url_template:string ->
+  request:azurerm_api_management_api_operation__request list ->
+  response:azurerm_api_management_api_operation__response list ->
+  template_parameter:
+    azurerm_api_management_api_operation__template_parameter list ->
+  string ->
+  unit

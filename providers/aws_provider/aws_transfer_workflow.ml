@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_transfer_workflow__on_exception_steps__copy_step_details__destination_file_location__efs_file_location = {
   file_system_id : string option; [@option]  (** file_system_id *)

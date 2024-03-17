@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_managed_disk__encryption_settings__disk_encryption_key = {
   secret_url : string;  (** secret_url *)

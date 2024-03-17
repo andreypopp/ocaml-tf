@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_networkfirewall_logging_configuration__logging_configuration__log_destination_config = {
   log_destination : (string * string) list;  (** log_destination *)

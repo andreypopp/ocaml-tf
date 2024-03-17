@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpn_connection_route = {
   destination_cidr_block : string;  (** destination_cidr_block *)

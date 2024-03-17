@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloud9_environment_ec2 = {
   automatic_stop_time_minutes : float option; [@option]

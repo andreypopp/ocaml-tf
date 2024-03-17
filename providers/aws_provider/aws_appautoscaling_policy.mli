@@ -1,0 +1,39 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_appautoscaling_policy__step_scaling_policy_configuration__step_adjustment
+
+type aws_appautoscaling_policy__step_scaling_policy_configuration
+
+type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions
+
+type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions
+
+type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric
+
+type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat
+
+type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
+
+type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration__customized_metric_specification
+
+type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration__predefined_metric_specification
+
+type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration
+
+type aws_appautoscaling_policy
+
+val aws_appautoscaling_policy :
+  ?policy_type:string ->
+  name:string ->
+  resource_id:string ->
+  scalable_dimension:string ->
+  service_namespace:string ->
+  step_scaling_policy_configuration:
+    aws_appautoscaling_policy__step_scaling_policy_configuration list ->
+  target_tracking_scaling_policy_configuration:
+    aws_appautoscaling_policy__target_tracking_scaling_policy_configuration
+    list ->
+  string ->
+  unit

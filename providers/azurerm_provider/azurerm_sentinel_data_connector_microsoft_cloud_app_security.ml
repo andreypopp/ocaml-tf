@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_sentinel_data_connector_microsoft_cloud_app_security__timeouts = {
   create : string option; [@option]  (** create *)

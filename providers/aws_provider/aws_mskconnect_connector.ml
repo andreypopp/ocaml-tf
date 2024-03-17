@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_mskconnect_connector__capacity__autoscaling__scale_in_policy = {
   cpu_utilization_percentage : float option; [@option]

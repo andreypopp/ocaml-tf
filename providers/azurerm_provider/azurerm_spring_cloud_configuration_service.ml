@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_spring_cloud_configuration_service__repository = {
   ca_certificate_id : string option; [@option]

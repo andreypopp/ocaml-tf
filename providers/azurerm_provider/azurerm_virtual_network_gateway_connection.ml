@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_virtual_network_gateway_connection__custom_bgp_addresses = {
   primary : string;  (** primary *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_logging_folder_sink__bigquery_options = {
   use_partitioned_tables : bool;

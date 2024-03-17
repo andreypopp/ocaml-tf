@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_service_fabric_cluster__azure_active_directory = {
   client_application_id : string;  (** client_application_id *)

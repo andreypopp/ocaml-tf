@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_access_policy__approval_group = {
   approvals_needed : float;  (** Number of approvals needed. *)

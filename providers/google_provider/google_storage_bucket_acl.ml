@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_storage_bucket_acl = {
   bucket : string;  (** The name of the bucket it applies to. *)

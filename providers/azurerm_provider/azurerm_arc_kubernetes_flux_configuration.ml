@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_arc_kubernetes_flux_configuration__blob_storage__service_principal = {
   client_certificate_base64 : string option; [@option]

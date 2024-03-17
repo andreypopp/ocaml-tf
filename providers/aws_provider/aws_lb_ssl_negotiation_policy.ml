@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lb_ssl_negotiation_policy__attribute = {
   name : string;  (** name *)

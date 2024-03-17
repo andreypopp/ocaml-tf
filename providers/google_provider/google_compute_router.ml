@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_router__bgp__advertised_ip_ranges = {
   description : string option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_secure_source_manager_instance_iam_policy = {
   instance_id : string;  (** instance_id *)

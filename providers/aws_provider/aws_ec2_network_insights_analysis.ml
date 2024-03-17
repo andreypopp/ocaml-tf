@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ec2_network_insights_analysis__alternate_path_hints = {
   component_arn : string;  (** component_arn *)

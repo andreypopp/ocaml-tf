@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_iot_ca_certificate__registration_config = {
   role_arn : string option; [@option]  (** role_arn *)

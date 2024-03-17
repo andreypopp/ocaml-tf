@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_url_map__default_route_action__cors_policy = {
   allow_credentials : bool option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_express_route_circuit_peering__ipv6__microsoft_peering = {
   advertised_communities : string list option; [@option]

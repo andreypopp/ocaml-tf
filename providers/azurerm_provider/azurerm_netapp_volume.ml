@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_netapp_volume__data_protection_replication = {
   endpoint_type : string option; [@option]  (** endpoint_type *)

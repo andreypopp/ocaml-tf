@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_vertex_ai_dataset__encryption_spec = {
   kms_key_name : string option; [@option]

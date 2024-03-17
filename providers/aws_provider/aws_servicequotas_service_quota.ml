@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_servicequotas_service_quota__usage_metric__metric_dimensions = {
   class_ : string; [@key "class"]  (** class *)

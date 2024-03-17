@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_autoscaling_schedule = {
   autoscaling_group_name : string;  (** autoscaling_group_name *)

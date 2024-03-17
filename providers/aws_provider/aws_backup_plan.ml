@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_backup_plan__advanced_backup_setting = {
   backup_options : (string * string) list;  (** backup_options *)

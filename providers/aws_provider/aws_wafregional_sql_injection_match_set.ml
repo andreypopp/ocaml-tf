@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_wafregional_sql_injection_match_set__sql_injection_match_tuple__field_to_match = {
   data : string option; [@option]  (** data *)

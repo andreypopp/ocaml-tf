@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_route53recoverycontrolconfig_control_panel = {
   cluster_arn : string;  (** cluster_arn *)

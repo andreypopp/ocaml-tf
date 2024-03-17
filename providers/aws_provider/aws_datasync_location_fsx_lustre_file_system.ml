@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_datasync_location_fsx_lustre_file_system = {
   fsx_filesystem_arn : string;  (** fsx_filesystem_arn *)

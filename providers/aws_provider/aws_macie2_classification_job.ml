@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__simple_criterion = {
   comparator : string option; [@option]  (** comparator *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_emr_instance_fleet__instance_type_configs__configurations = {
   classification : string option; [@option]  (** classification *)

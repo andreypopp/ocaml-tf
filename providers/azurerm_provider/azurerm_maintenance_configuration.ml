@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_maintenance_configuration__install_patches__linux = {
   classifications_to_include : string list option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_billing_budget__all_updates_rule = {
   disable_default_iam_recipients : bool option; [@option]

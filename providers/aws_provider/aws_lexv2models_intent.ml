@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__custom_payload = {
   value : string;  (** value *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_apigee_addons_config__addons_config__advanced_api_ops_config = {
   enabled : bool option; [@option]

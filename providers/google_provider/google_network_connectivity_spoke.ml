@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_network_connectivity_spoke__linked_interconnect_attachments = {
   site_to_site_data_transfer : bool;

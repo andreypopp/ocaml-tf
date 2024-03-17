@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_data_catalog_taxonomy_iam_policy = {
   policy_data : string;  (** policy_data *)

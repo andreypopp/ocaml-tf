@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_gamelift_game_session_queue__player_latency_policy = {
   maximum_individual_player_latency_milliseconds : float;

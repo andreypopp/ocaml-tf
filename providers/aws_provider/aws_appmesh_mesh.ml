@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appmesh_mesh__spec__egress_filter = {
   type_ : string option; [@option] [@key "type"]  (** type *)

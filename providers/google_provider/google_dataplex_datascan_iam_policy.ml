@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dataplex_datascan_iam_policy = {
   data_scan_id : string;  (** data_scan_id *)

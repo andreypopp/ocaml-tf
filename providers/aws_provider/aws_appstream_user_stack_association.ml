@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appstream_user_stack_association = {
   authentication_type : string;  (** authentication_type *)

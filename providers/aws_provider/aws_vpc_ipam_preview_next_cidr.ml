@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpc_ipam_preview_next_cidr = {
   disallowed_cidrs : string list option; [@option]

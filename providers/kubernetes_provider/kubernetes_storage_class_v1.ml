@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type kubernetes_storage_class_v1__allowed_topologies__match_label_expressions = {
   key : string option; [@option]

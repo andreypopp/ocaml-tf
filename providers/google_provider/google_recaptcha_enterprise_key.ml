@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_recaptcha_enterprise_key__android_settings = {
   allow_all_package_names : bool option; [@option]

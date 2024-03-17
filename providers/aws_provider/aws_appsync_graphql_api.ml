@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appsync_graphql_api__additional_authentication_provider__lambda_authorizer_config = {
   authorizer_result_ttl_in_seconds : float option; [@option]

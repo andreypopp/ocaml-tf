@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_sentinel_threat_intelligence_indicator__external_reference = {
   description : string option; [@option]  (** description *)

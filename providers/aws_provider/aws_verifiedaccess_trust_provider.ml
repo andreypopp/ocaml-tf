@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_verifiedaccess_trust_provider__device_options = {
   tenant_id : string option; [@option]  (** tenant_id *)

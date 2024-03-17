@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_analysis_services_server__ipv4_firewall_rule = {
   name : string;  (** name *)

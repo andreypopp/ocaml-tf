@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_kinesis_firehose_delivery_stream__elasticsearch_configuration__cloudwatch_logging_options = {
   enabled : bool option; [@option]  (** enabled *)

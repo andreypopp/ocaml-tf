@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_config_organization_managed_rule__timeouts = {
   create : string option; [@option]  (** create *)

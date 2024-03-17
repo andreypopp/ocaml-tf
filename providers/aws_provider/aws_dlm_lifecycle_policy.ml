@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy__encryption_configuration = {
   cmk_arn : string option; [@option]  (** cmk_arn *)

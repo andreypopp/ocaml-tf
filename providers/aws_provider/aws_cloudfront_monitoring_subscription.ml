@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudfront_monitoring_subscription__monitoring_subscription__realtime_metrics_subscription_config = {
   realtime_metrics_subscription_status : string;

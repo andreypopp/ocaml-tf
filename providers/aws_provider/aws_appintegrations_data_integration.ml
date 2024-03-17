@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appintegrations_data_integration__schedule_config = {
   first_execution_from : string;  (** first_execution_from *)

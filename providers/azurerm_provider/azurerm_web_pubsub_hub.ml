@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_web_pubsub_hub__event_handler__auth = {
   managed_identity_id : string;  (** managed_identity_id *)

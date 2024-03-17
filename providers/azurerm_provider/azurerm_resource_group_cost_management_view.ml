@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_resource_group_cost_management_view__dataset__aggregation = {
   column_name : string;  (** column_name *)

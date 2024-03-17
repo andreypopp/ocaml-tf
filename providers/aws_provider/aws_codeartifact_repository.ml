@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_codeartifact_repository__external_connections = {
   external_connection_name : string;  (** external_connection_name *)

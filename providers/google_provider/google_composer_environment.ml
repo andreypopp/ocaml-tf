@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_composer_environment__config__data_retention_config__task_logs_retention_config = {
   storage_mode : string option; [@option]

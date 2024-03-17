@@ -1,0 +1,37 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_cloudwatch_event_connection__auth_parameters__api_key
+type aws_cloudwatch_event_connection__auth_parameters__basic
+
+type aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters__body
+
+type aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters__header
+
+type aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters__query_string
+
+type aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters
+
+type aws_cloudwatch_event_connection__auth_parameters__oauth__client_parameters
+
+type aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters__body
+
+type aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters__header
+
+type aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters__query_string
+
+type aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters
+
+type aws_cloudwatch_event_connection__auth_parameters__oauth
+type aws_cloudwatch_event_connection__auth_parameters
+type aws_cloudwatch_event_connection
+
+val aws_cloudwatch_event_connection :
+  ?description:string ->
+  authorization_type:string ->
+  name:string ->
+  auth_parameters:
+    aws_cloudwatch_event_connection__auth_parameters list ->
+  string ->
+  unit

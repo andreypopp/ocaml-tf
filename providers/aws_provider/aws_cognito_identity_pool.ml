@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cognito_identity_pool__cognito_identity_providers = {
   client_id : string option; [@option]  (** client_id *)

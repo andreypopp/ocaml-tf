@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_virtual_machine_run_command__error_blob_managed_identity = {
   client_id : string option; [@option]  (** client_id *)

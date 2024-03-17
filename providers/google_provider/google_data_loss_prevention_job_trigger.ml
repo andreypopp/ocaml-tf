@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_data_loss_prevention_job_trigger__inspect_job__actions__deidentify__transformation_config = {
   deidentify_template : string option; [@option]

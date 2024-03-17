@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudfront_field_level_encryption_profile__encryption_entities__items__field_patterns = {
   items : string list option; [@option]  (** items *)

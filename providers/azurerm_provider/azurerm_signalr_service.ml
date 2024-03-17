@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_signalr_service__cors = {
   allowed_origins : string list;  (** allowed_origins *)

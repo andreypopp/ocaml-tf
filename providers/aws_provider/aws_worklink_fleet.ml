@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_worklink_fleet__identity_provider = {
   saml_metadata : string;  (** saml_metadata *)

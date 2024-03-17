@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_vpn_connection__tunnel1_log_options__cloudwatch_log_options = {
   log_enabled : bool option; [@option]  (** log_enabled *)

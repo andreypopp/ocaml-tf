@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_backup_policy_file_share__backup__hourly = {
   interval : float;  (** interval *)

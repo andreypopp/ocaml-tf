@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_accessanalyzer_archive_rule__filter = {
   contains : string list option; [@option]  (** contains *)

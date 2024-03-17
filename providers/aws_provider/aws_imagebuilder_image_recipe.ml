@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_imagebuilder_image_recipe__block_device_mapping__ebs = {
   delete_on_termination : string option; [@option]

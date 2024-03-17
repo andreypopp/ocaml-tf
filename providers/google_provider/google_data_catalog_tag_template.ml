@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_data_catalog_tag_template__fields__type__enum_type__allowed_values = {
   display_name : string;  (** The display name of the enum value. *)

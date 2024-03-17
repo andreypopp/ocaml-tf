@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_domain__default_space_settings__jupyter_server_app_settings__code_repository = {
   repository_url : string;  (** repository_url *)

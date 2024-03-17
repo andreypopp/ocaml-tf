@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_os_login_ssh_public_key__timeouts = {
   create : string option; [@option]  (** create *)

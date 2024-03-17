@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_iot_time_series_insights_standard_environment__timeouts = {
   create : string option; [@option]  (** create *)

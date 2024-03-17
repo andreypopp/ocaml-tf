@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_container_registry_token_password__password1 = {
   expiry : string option; [@option]  (** expiry *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_resource_policy__disk_consistency_group_policy = {
   enabled : bool;

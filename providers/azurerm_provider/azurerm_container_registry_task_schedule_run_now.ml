@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_container_registry_task_schedule_run_now__timeouts = {
   create : string option; [@option]  (** create *)

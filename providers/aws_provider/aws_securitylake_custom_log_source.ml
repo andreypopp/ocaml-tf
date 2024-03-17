@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_securitylake_custom_log_source__configuration__crawler_configuration = {
   role_arn : string;  (** role_arn *)

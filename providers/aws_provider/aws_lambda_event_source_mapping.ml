@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lambda_event_source_mapping__amazon_managed_kafka_event_source_config = {
   consumer_group_id : string option; [@option]

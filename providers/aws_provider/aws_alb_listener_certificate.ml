@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_alb_listener_certificate = {
   certificate_arn : string;  (** certificate_arn *)

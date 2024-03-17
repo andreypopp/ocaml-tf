@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_os_config_patch_deployment__instance_filter__group_labels = {
   labels : (string * string) list;

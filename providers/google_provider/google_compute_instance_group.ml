@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_instance_group__named_port = {
   name : string;  (** The name which the port will be mapped to. *)

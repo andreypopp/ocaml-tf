@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_transcribe_language_model__input_data_config = {
   data_access_role_arn : string;  (** data_access_role_arn *)

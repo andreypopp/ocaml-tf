@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_glue_user_defined_function__resource_uris = {
   resource_type : string;  (** resource_type *)

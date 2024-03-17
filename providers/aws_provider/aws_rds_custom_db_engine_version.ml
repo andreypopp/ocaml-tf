@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_rds_custom_db_engine_version__timeouts = {
   create : string option; [@option]  (** create *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_xray_encryption_config = {
   key_id : string option; [@option]  (** key_id *)

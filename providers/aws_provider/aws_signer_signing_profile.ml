@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_signer_signing_profile__signature_validity_period = {
   type_ : string; [@key "type"]  (** type *)

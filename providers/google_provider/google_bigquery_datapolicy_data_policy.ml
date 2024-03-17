@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_bigquery_datapolicy_data_policy__data_masking_policy = {
   predefined_expression : string;

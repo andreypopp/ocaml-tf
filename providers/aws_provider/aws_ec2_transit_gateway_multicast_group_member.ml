@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ec2_transit_gateway_multicast_group_member = {
   group_ip_address : string;  (** group_ip_address *)

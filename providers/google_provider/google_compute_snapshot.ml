@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_snapshot__snapshot_encryption_key = {
   kms_key_self_link : string option; [@option]

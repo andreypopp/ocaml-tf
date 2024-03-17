@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_monitoring_notification_channel__sensitive_labels = {
   auth_token : string option; [@option]

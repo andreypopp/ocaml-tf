@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_container_attached_cluster__authorization = {
   admin_groups : string list option; [@option]

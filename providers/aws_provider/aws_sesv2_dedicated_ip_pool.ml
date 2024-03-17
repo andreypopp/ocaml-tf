@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sesv2_dedicated_ip_pool__timeouts = {
   create : string option; [@option]  (** create *)

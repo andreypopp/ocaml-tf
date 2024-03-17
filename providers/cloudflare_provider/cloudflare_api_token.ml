@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_api_token__condition__request_ip = {
   in_ : string list option; [@option] [@key "in"]

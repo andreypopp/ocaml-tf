@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ec2_local_gateway_route_table_vpc_association = {
   local_gateway_route_table_id : string;

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_instance_template__advanced_machine_features = {
   enable_nested_virtualization : bool option; [@option]

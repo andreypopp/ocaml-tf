@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_securityhub_automation_rule__actions__finding_fields_update__note = {
   text : string;  (** text *)

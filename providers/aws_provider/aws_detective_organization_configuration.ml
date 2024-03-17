@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_detective_organization_configuration = {
   auto_enable : bool;  (** auto_enable *)

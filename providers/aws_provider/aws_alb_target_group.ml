@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_alb_target_group__health_check = {
   enabled : bool option; [@option]  (** enabled *)

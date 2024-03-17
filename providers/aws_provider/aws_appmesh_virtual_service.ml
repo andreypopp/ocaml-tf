@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appmesh_virtual_service__spec__provider__virtual_node = {
   virtual_node_name : string;  (** virtual_node_name *)

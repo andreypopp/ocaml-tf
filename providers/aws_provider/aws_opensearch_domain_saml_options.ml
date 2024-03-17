@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_opensearch_domain_saml_options__saml_options__idp = {
   entity_id : string;  (** entity_id *)

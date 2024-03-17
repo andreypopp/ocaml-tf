@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_billing_account_cost_management_export__export_data_options = {
   time_frame : string;  (** time_frame *)

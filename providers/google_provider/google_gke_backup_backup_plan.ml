@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_gke_backup_backup_plan__backup_config__encryption_key = {
   gcp_kms_encryption_key : string;

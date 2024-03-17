@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_location_place_index__data_source_configuration = {
   intended_use : string option; [@option]  (** intended_use *)

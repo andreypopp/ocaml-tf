@@ -1,0 +1,45 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_codegurureviewer_repository_association__kms_key_details
+
+type aws_codegurureviewer_repository_association__repository__bitbucket
+
+type aws_codegurureviewer_repository_association__repository__codecommit
+
+type aws_codegurureviewer_repository_association__repository__github_enterprise_server
+
+type aws_codegurureviewer_repository_association__repository__s3_bucket
+
+type aws_codegurureviewer_repository_association__repository
+type aws_codegurureviewer_repository_association__timeouts
+
+type aws_codegurureviewer_repository_association__s3_repository_details__code_artifacts = {
+  build_artifacts_object_key : string;
+      (** build_artifacts_object_key *)
+  source_code_artifacts_object_key : string;
+      (** source_code_artifacts_object_key *)
+}
+[@@deriving yojson_of]
+
+type aws_codegurureviewer_repository_association__s3_repository_details = {
+  bucket_name : string;  (** bucket_name *)
+  code_artifacts :
+    aws_codegurureviewer_repository_association__s3_repository_details__code_artifacts
+    list;
+      (** code_artifacts *)
+}
+[@@deriving yojson_of]
+
+type aws_codegurureviewer_repository_association
+
+val aws_codegurureviewer_repository_association :
+  ?tags:(string * string) list ->
+  ?timeouts:aws_codegurureviewer_repository_association__timeouts ->
+  kms_key_details:
+    aws_codegurureviewer_repository_association__kms_key_details list ->
+  repository:
+    aws_codegurureviewer_repository_association__repository list ->
+  string ->
+  unit

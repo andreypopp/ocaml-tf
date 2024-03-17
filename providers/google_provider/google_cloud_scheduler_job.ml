@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_cloud_scheduler_job__app_engine_http_target__app_engine_routing = {
   instance : string option; [@option]

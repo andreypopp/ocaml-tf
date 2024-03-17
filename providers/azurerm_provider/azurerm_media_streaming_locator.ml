@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_media_streaming_locator__content_key = {
   content_key_id : string option; [@option]  (** content_key_id *)

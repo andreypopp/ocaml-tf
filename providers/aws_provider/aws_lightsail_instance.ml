@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lightsail_instance__add_on = {
   snapshot_time : string;  (** snapshot_time *)

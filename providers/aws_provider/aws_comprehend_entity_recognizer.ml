@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_comprehend_entity_recognizer__input_data_config__annotations = {
   s3_uri : string;  (** s3_uri *)

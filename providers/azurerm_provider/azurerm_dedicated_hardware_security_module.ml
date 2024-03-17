@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_dedicated_hardware_security_module__management_network_profile = {
   network_interface_private_ip_addresses : string list;

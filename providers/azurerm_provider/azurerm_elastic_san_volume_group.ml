@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_elastic_san_volume_group__encryption = {
   current_versioned_key_expiration_timestamp : string;

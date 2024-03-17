@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_traffic_manager_azure_endpoint__custom_header = {
   name : string;  (** name *)

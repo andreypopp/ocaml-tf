@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appsync_datasource__dynamodb_config__delta_sync_config = {
   base_table_ttl : float option; [@option]  (** base_table_ttl *)

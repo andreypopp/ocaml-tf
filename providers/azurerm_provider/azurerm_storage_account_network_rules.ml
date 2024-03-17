@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_storage_account_network_rules__private_link_access = {
   endpoint_resource_id : string;  (** endpoint_resource_id *)

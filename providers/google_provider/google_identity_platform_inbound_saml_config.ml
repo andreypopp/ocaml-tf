@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_identity_platform_inbound_saml_config__idp_config__idp_certificates = {
   x509_certificate : string option; [@option]

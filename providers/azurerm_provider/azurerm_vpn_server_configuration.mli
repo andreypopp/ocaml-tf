@@ -1,0 +1,34 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_vpn_server_configuration__azure_active_directory_authentication
+
+type azurerm_vpn_server_configuration__client_revoked_certificate
+type azurerm_vpn_server_configuration__client_root_certificate
+type azurerm_vpn_server_configuration__ipsec_policy
+type azurerm_vpn_server_configuration__radius__client_root_certificate
+type azurerm_vpn_server_configuration__radius__server
+type azurerm_vpn_server_configuration__radius__server_root_certificate
+type azurerm_vpn_server_configuration__radius
+type azurerm_vpn_server_configuration__timeouts
+type azurerm_vpn_server_configuration
+
+val azurerm_vpn_server_configuration :
+  ?tags:(string * string) list ->
+  ?timeouts:azurerm_vpn_server_configuration__timeouts ->
+  location:string ->
+  name:string ->
+  resource_group_name:string ->
+  vpn_authentication_types:string list ->
+  azure_active_directory_authentication:
+    azurerm_vpn_server_configuration__azure_active_directory_authentication
+    list ->
+  client_revoked_certificate:
+    azurerm_vpn_server_configuration__client_revoked_certificate list ->
+  client_root_certificate:
+    azurerm_vpn_server_configuration__client_root_certificate list ->
+  ipsec_policy:azurerm_vpn_server_configuration__ipsec_policy list ->
+  radius:azurerm_vpn_server_configuration__radius list ->
+  string ->
+  unit

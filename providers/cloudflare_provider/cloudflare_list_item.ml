@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_list_item__hostname = {
   url_hostname : string;  (** The FQDN to match on. *)

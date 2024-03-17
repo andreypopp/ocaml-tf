@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appmesh_gateway_route__spec__grpc_route__action__target__virtual_service = {
   virtual_service_name : string;  (** virtual_service_name *)

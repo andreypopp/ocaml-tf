@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_managed_application_definition__authorization = {
   role_definition_id : string;  (** role_definition_id *)

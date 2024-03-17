@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_alloydb_instance__client_connection_config__ssl_config = {
   ssl_mode : string option; [@option]

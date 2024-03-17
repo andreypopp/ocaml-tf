@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lightsail_key_pair = {
   pgp_key : string option; [@option]  (** pgp_key *)

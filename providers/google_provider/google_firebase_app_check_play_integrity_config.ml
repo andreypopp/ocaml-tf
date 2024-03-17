@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_firebase_app_check_play_integrity_config__timeouts = {
   create : string option; [@option]  (** create *)

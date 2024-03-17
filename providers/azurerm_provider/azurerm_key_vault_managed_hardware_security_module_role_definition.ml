@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_key_vault_managed_hardware_security_module_role_definition__permission = {
   actions : string list option; [@option]  (** actions *)

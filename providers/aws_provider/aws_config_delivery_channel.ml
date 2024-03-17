@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_config_delivery_channel__snapshot_delivery_properties = {
   delivery_frequency : string option; [@option]

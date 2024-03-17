@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ivschat_logging_configuration__destination_configuration__cloudwatch_logs = {
   log_group_name : string;  (** log_group_name *)

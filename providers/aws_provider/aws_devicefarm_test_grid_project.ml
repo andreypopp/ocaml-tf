@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_devicefarm_test_grid_project__vpc_config = {
   security_group_ids : string list;  (** security_group_ids *)

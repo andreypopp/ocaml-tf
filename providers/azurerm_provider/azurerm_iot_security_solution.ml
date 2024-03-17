@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_iot_security_solution__additional_workspace = {
   data_types : string list;  (** data_types *)

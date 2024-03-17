@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sesv2_email_identity_mail_from_attributes = {
   behavior_on_mx_failure : string option; [@option]

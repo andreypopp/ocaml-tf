@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_db_instance_automated_backups_replication__timeouts = {
   create : string option; [@option]  (** create *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__amazon_transcribe_call_analytics_processor_configuration__post_call_analytics_settings = {
   content_redaction_output : string option; [@option]

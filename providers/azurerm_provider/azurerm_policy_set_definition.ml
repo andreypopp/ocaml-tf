@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_policy_set_definition__policy_definition_group = {
   additional_metadata_resource_id : string option; [@option]

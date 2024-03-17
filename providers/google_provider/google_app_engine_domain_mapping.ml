@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_app_engine_domain_mapping__ssl_settings = {
   certificate_id : string option; [@option]

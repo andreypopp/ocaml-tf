@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_prometheus_workspace__logging_configuration = {
   log_group_arn : string;  (** log_group_arn *)

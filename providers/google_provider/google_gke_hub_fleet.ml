@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_gke_hub_fleet__default_cluster_config__binary_authorization_config__policy_bindings = {
   name : string option; [@option]

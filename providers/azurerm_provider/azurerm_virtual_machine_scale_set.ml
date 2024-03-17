@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_virtual_machine_scale_set__boot_diagnostics = {
   enabled : bool option; [@option]  (** enabled *)

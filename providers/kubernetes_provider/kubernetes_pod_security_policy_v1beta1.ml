@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type kubernetes_pod_security_policy_v1beta1__metadata = {
   annotations : (string * string) list option; [@option]

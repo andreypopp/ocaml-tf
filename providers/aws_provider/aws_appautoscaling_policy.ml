@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appautoscaling_policy__step_scaling_policy_configuration__step_adjustment = {
   metric_interval_lower_bound : string option; [@option]

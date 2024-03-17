@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_shield_drt_access_role_arn_association__timeouts = {
   create : string option; [@option]

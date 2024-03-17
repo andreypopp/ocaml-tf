@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_active_directory_domain_service__initial_replica_set = {
   domain_controller_ip_addresses : string list;

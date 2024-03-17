@@ -1,0 +1,28 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_autoscalingplans_scaling_plan__application_source__tag_filter
+type aws_autoscalingplans_scaling_plan__application_source
+
+type aws_autoscalingplans_scaling_plan__scaling_instruction__customized_load_metric_specification
+
+type aws_autoscalingplans_scaling_plan__scaling_instruction__predefined_load_metric_specification
+
+type aws_autoscalingplans_scaling_plan__scaling_instruction__target_tracking_configuration__customized_scaling_metric_specification
+
+type aws_autoscalingplans_scaling_plan__scaling_instruction__target_tracking_configuration__predefined_scaling_metric_specification
+
+type aws_autoscalingplans_scaling_plan__scaling_instruction__target_tracking_configuration
+
+type aws_autoscalingplans_scaling_plan__scaling_instruction
+type aws_autoscalingplans_scaling_plan
+
+val aws_autoscalingplans_scaling_plan :
+  name:string ->
+  application_source:
+    aws_autoscalingplans_scaling_plan__application_source list ->
+  scaling_instruction:
+    aws_autoscalingplans_scaling_plan__scaling_instruction list ->
+  string ->
+  unit

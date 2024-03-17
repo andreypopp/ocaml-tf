@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_firewall_policy_rule_collection_group__application_rule_collection__rule__http_headers = {
   name : string;  (** name *)

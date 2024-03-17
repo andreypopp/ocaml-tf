@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_site_recovery_vmware_replicated_vm__managed_disk = {
   disk_id : string;  (** disk_id *)

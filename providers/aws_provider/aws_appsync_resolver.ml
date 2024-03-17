@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appsync_resolver__caching_config = {
   caching_keys : string list option; [@option]  (** caching_keys *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_project__service_catalog_provisioning_details__provisioning_parameter = {
   key : string;  (** key *)

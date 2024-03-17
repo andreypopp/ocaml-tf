@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_s3_bucket_lifecycle_configuration__rule__abort_incomplete_multipart_upload = {
   days_after_initiation : float option; [@option]

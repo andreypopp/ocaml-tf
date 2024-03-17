@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_frontdoor_rules_engine__rule__action__request_header = {
   header_action_type : string option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ssmincidents_response_plan__action__ssm_automation__parameter = {
   name : string;  (** name *)

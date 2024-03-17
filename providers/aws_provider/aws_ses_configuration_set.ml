@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ses_configuration_set__delivery_options = {
   tls_policy : string option; [@option]  (** tls_policy *)

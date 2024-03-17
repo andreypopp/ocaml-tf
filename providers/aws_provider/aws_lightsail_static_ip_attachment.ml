@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lightsail_static_ip_attachment = {
   instance_name : string;  (** instance_name *)

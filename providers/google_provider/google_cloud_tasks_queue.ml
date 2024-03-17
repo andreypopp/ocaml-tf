@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_cloud_tasks_queue__app_engine_routing_override = {
   host : string;  (** The host that the task is sent to. *)

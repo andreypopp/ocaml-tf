@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_dms_replication_task = {
   cdc_start_time : string option; [@option]  (** cdc_start_time *)

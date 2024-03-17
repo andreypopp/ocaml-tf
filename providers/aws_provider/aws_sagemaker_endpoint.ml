@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_endpoint__deployment_config__auto_rollback_configuration__alarms = {
   alarm_name : string;  (** alarm_name *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_key_vault_key__rotation_policy__automatic = {
   time_after_creation : string option; [@option]

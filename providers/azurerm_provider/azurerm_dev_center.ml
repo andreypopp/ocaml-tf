@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_dev_center__identity = {
   identity_ids : string list option; [@option]  (** identity_ids *)

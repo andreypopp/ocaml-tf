@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule__monthly = {
   week : float;  (** week *)

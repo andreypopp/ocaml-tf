@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_glue_catalog_database__create_table_default_permission__principal = {
   data_lake_principal_identifier : string option; [@option]

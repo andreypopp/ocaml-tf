@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_codedeploy_deployment_group__alarm_configuration = {
   alarms : string list option; [@option]  (** alarms *)

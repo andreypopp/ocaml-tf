@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_container_cluster__addons_config__cloudrun_config = {
   disabled : bool;  (** disabled *)

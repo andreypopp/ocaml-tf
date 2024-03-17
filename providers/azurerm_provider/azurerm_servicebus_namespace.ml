@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_servicebus_namespace__customer_managed_key = {
   identity_id : string;  (** identity_id *)

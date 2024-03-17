@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ssm_resource_data_sync__s3_destination = {
   bucket_name : string;  (** bucket_name *)

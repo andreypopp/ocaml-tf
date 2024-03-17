@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_clouddeploy_automation__rules__advance_rollout_rule = {
   id : string;

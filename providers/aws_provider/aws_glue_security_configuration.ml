@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_glue_security_configuration__encryption_configuration__cloudwatch_encryption = {
   cloudwatch_encryption_mode : string option; [@option]

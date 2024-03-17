@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_acmpca_certificate_authority__certificate_authority_configuration__subject = {
   common_name : string option; [@option]  (** common_name *)

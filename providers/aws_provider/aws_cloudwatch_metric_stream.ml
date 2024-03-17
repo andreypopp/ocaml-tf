@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudwatch_metric_stream__exclude_filter = {
   metric_names : string list option; [@option]  (** metric_names *)

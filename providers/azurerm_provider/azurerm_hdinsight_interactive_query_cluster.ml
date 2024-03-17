@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_hdinsight_interactive_query_cluster__component_version = {
   interactive_hive : string;  (** interactive_hive *)

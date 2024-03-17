@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ec2_subnet_cidr_reservation = {
   cidr_block : string;  (** cidr_block *)

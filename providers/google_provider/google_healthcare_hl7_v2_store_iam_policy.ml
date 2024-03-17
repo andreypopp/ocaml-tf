@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_healthcare_hl7_v2_store_iam_policy = {
   hl7_v2_store_id : string;  (** hl7_v2_store_id *)

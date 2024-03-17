@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_app_engine_flexible_app_version__api_config = {
   auth_fail_action : string option; [@option]

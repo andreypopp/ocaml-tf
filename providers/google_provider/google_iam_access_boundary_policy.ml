@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_iam_access_boundary_policy__rules__access_boundary_rule__availability_condition = {
   description : string option; [@option]

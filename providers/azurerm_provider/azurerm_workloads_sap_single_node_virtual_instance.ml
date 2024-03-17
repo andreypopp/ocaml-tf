@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_workloads_sap_single_node_virtual_instance__identity = {
   identity_ids : string list;  (** identity_ids *)

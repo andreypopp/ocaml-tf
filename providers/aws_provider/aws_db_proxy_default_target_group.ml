@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_db_proxy_default_target_group__connection_pool_config = {
   connection_borrow_timeout : float option; [@option]

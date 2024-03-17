@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_sql_managed_instance_failover_group__read_write_endpoint_failover_policy = {
   grace_minutes : float option; [@option]  (** grace_minutes *)

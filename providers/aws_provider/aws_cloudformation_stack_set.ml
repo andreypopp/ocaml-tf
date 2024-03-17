@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudformation_stack_set__auto_deployment = {
   enabled : bool option; [@option]  (** enabled *)

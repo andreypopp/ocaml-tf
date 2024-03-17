@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_prometheus_scraper__destination__amp = {
   workspace_arn : string;  (** workspace_arn *)

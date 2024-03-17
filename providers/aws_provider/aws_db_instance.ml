@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_db_instance__blue_green_update = {
   enabled : bool option; [@option]  (** enabled *)

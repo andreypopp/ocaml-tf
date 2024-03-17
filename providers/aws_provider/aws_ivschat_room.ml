@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ivschat_room__message_review_handler = {
   fallback_result : string option; [@option]  (** fallback_result *)

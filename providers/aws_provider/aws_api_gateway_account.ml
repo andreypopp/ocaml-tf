@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_api_gateway_account__throttle_settings = {
   burst_limit : float;  (** burst_limit *)

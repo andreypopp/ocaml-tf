@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_notebook_instance__instance_metadata_service_configuration = {
   minimum_instance_metadata_service_version : string option; [@option]

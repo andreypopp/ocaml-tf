@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_security_policy__adaptive_protection_config__layer_7_ddos_defense_config = {
   enable : bool option; [@option]

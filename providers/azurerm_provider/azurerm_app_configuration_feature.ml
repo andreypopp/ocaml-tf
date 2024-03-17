@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_app_configuration_feature__targeting_filter__groups = {
   name : string;  (** name *)

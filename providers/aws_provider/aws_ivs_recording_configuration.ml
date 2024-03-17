@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ivs_recording_configuration__destination_configuration__s3 = {
   bucket_name : string;  (** bucket_name *)

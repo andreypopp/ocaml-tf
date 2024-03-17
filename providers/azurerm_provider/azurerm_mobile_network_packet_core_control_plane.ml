@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mobile_network_packet_core_control_plane__identity = {
   identity_ids : string list;  (** identity_ids *)

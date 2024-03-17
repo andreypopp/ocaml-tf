@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_redshift_cluster_iam_roles__timeouts = {
   create : string option; [@option]  (** create *)

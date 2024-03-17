@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ssmcontacts_contact_channel__delivery_address = {
   simple_address : string;  (** simple_address *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_rbin_rule__lock_configuration__unlock_delay = {
   unlock_delay_unit : string;  (** unlock_delay_unit *)

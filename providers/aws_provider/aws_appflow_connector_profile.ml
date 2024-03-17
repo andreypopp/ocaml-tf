@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appflow_connector_profile__connector_profile_config__connector_profile_credentials__amplitude = {
   api_key : string;  (** api_key *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_app_engine_service_network_settings__network_settings = {
   ingress_traffic_allowed : string option; [@option]

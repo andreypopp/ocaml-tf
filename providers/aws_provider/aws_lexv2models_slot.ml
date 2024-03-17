@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lexv2models_slot__multiple_values_setting = {
   allow_multiple_values : bool option; [@option]

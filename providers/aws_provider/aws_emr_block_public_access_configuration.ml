@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_emr_block_public_access_configuration__permitted_public_security_group_rule_range = {
   max_range : float;  (** max_range *)

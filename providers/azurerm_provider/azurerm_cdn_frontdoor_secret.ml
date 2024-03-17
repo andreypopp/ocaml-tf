@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_secret__secret__customer_certificate = {
   key_vault_certificate_id : string;  (** key_vault_certificate_id *)

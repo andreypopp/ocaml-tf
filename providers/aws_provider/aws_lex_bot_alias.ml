@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lex_bot_alias__conversation_logs__log_settings = {
   destination : string;  (** destination *)

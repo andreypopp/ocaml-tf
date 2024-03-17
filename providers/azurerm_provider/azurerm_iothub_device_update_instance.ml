@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_iothub_device_update_instance__diagnostic_storage_account = {
   connection_string : string;  (** connection_string *)

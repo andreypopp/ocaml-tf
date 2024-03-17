@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_bot_channel_directline__site = {
   enabled : bool option; [@option]  (** enabled *)

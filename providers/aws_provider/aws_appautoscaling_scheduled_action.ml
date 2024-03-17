@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appautoscaling_scheduled_action__scalable_target_action = {
   max_capacity : string option; [@option]  (** max_capacity *)

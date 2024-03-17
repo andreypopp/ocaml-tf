@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_firestore_backup_schedule__daily_recurrence = unit
 [@@deriving yojson_of]

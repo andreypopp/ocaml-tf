@@ -1,0 +1,44 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_automation_software_update_configuration__linux
+type azurerm_automation_software_update_configuration__post_task
+type azurerm_automation_software_update_configuration__pre_task
+
+type azurerm_automation_software_update_configuration__schedule__monthly_occurrence
+
+type azurerm_automation_software_update_configuration__schedule
+
+type azurerm_automation_software_update_configuration__target__azure_query__tags
+
+type azurerm_automation_software_update_configuration__target__azure_query
+
+type azurerm_automation_software_update_configuration__target__non_azure_query
+
+type azurerm_automation_software_update_configuration__target
+type azurerm_automation_software_update_configuration__timeouts
+type azurerm_automation_software_update_configuration__windows
+type azurerm_automation_software_update_configuration
+
+val azurerm_automation_software_update_configuration :
+  ?duration:string ->
+  ?non_azure_computer_names:string list ->
+  ?virtual_machine_ids:string list ->
+  ?timeouts:
+    azurerm_automation_software_update_configuration__timeouts ->
+  automation_account_id:string ->
+  name:string ->
+  linux:azurerm_automation_software_update_configuration__linux list ->
+  post_task:
+    azurerm_automation_software_update_configuration__post_task list ->
+  pre_task:
+    azurerm_automation_software_update_configuration__pre_task list ->
+  schedule:
+    azurerm_automation_software_update_configuration__schedule list ->
+  target:
+    azurerm_automation_software_update_configuration__target list ->
+  windows:
+    azurerm_automation_software_update_configuration__windows list ->
+  string ->
+  unit

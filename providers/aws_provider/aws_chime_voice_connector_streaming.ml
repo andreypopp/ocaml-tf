@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_chime_voice_connector_streaming__media_insights_configuration = {
   configuration_arn : string option; [@option]

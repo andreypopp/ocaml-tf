@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_networkmanager_transit_gateway_connect_peer_association__timeouts = {
   create : string option; [@option]  (** create *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_elastic_beanstalk_configuration_template__setting = {
   name : string;  (** name *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_load_balancer_policy__policy_attribute = {
   name : string option; [@option]  (** name *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_iam_openid_connect_provider = {
   client_id_list : string list;  (** client_id_list *)

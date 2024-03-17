@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_essential_contacts_contact__timeouts = {
   create : string option; [@option]  (** create *)

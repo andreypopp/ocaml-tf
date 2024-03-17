@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lex_slot_type__enumeration_value = {
   synonyms : string list option; [@option]  (** synonyms *)

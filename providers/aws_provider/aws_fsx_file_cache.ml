@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_fsx_file_cache__data_repository_association__nfs = {
   dns_ips : string list option; [@option]  (** dns_ips *)

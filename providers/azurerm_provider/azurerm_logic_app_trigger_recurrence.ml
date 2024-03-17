@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_logic_app_trigger_recurrence__schedule = {
   at_these_hours : float list option; [@option]

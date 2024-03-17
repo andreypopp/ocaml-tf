@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_evidently_project__data_delivery__cloudwatch_logs = {
   log_group : string option; [@option]  (** log_group *)

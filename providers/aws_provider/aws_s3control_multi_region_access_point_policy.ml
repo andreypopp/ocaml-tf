@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_s3control_multi_region_access_point_policy__details = {
   name : string;  (** name *)

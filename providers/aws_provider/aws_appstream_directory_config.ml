@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appstream_directory_config__service_account_credentials = {
   account_name : string;  (** account_name *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_backend_bucket__cdn_policy__bypass_cache_on_request_headers = {
   header_name : string option; [@option]

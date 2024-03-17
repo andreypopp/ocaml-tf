@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_api_management_custom_domain__developer_portal = {
   certificate : string option; [@option]  (** certificate *)

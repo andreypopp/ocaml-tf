@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lightsail_instance_public_ports__port_info = {
   cidr_list_aliases : string list option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dataproc_workflow_template__jobs__hadoop_job__logging_config = {
   driver_log_levels : (string * string) list option; [@option]

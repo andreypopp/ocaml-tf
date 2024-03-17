@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_emrcontainers_virtual_cluster__container_provider__info__eks_info = {
   namespace : string option; [@option]  (** namespace *)

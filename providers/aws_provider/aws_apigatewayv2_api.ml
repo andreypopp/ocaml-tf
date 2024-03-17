@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_apigatewayv2_api__cors_configuration = {
   allow_credentials : bool option; [@option]

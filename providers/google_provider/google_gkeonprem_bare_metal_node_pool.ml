@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_gkeonprem_bare_metal_node_pool__node_pool_config__node_configs = {
   labels : (string * string) list option; [@option]

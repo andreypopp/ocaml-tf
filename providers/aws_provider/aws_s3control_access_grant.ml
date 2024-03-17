@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_s3control_access_grant__access_grants_location_configuration = {
   s3_sub_prefix : string option; [@option]  (** s3_sub_prefix *)

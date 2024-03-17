@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_network_function_collector_policy__ipfx_emission = {
   destination_types : string list;  (** destination_types *)

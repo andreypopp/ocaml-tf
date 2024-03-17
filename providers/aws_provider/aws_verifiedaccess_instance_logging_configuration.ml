@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_verifiedaccess_instance_logging_configuration__access_logs__cloudwatch_logs = {
   enabled : bool;  (** enabled *)

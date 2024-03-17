@@ -1,0 +1,25 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_sesv2_configuration_set_event_destination__event_destination__cloud_watch_destination__dimension_configuration
+
+type aws_sesv2_configuration_set_event_destination__event_destination__cloud_watch_destination
+
+type aws_sesv2_configuration_set_event_destination__event_destination__kinesis_firehose_destination
+
+type aws_sesv2_configuration_set_event_destination__event_destination__pinpoint_destination
+
+type aws_sesv2_configuration_set_event_destination__event_destination__sns_destination
+
+type aws_sesv2_configuration_set_event_destination__event_destination
+type aws_sesv2_configuration_set_event_destination
+
+val aws_sesv2_configuration_set_event_destination :
+  configuration_set_name:string ->
+  event_destination_name:string ->
+  event_destination:
+    aws_sesv2_configuration_set_event_destination__event_destination
+    list ->
+  string ->
+  unit

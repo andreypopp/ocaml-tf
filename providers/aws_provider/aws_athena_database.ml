@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_athena_database__acl_configuration = {
   s3_acl_option : string;  (** s3_acl_option *)

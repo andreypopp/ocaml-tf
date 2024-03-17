@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_globalaccelerator_custom_routing_endpoint_group__destination_configuration = {
   from_port : float;  (** from_port *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_elasticache_replication_group__log_delivery_configuration = {
   destination : string;  (** destination *)

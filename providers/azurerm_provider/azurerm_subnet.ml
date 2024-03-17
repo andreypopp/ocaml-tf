@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_subnet__delegation__service_delegation = {
   actions : string list option; [@option]  (** actions *)

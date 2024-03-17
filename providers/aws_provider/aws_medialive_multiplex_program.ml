@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_medialive_multiplex_program__multiplex_program_settings__service_descriptor = {
   provider_name : string;  (** provider_name *)

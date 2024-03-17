@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lakeformation_resource_lf_tags__database = {
   catalog_id : string option; [@option]  (** catalog_id *)

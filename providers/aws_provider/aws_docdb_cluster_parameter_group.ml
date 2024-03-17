@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_docdb_cluster_parameter_group__parameter = {
   apply_method : string option; [@option]  (** apply_method *)

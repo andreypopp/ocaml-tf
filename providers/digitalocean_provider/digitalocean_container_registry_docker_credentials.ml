@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type digitalocean_container_registry_docker_credentials = {
   expiry_seconds : float option; [@option]  (** expiry_seconds *)

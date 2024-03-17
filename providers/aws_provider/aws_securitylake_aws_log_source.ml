@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_securitylake_aws_log_source__source = {
   accounts : string list option; [@option]  (** accounts *)

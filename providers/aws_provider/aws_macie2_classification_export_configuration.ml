@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_macie2_classification_export_configuration__s3_destination = {
   bucket_name : string;  (** bucket_name *)

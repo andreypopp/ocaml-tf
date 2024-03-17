@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_storage_bucket_object__customer_encryption = {
   encryption_algorithm : string option; [@option]

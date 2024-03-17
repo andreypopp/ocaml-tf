@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_endpoints_service_consumers_iam_policy = {
   consumer_project : string;  (** consumer_project *)

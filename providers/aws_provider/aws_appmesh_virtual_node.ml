@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appmesh_virtual_node__spec__backend__virtual_service__client_policy__tls__certificate__file = {
   certificate_chain : string;  (** certificate_chain *)

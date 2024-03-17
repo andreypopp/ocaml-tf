@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_codebuild_webhook__filter_group__filter = {
   exclude_matched_pattern : bool option; [@option]

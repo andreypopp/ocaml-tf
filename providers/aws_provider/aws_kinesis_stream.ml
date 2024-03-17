@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_kinesis_stream__stream_mode_details = {
   stream_mode : string;  (** stream_mode *)

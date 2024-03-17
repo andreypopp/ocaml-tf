@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_batch_scheduling_policy__fair_share_policy__share_distribution = {
   share_identifier : string;  (** share_identifier *)

@@ -1,0 +1,146 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_integration_connectors_connection__auth_config__additional_variable__encryption_key_value
+
+type google_integration_connectors_connection__auth_config__additional_variable__secret_value
+
+type google_integration_connectors_connection__auth_config__additional_variable
+
+type google_integration_connectors_connection__auth_config__oauth2_auth_code_flow__client_secret
+
+type google_integration_connectors_connection__auth_config__oauth2_auth_code_flow
+
+type google_integration_connectors_connection__auth_config__oauth2_client_credentials__client_secret
+
+type google_integration_connectors_connection__auth_config__oauth2_client_credentials
+
+type google_integration_connectors_connection__auth_config__oauth2_jwt_bearer__client_key
+
+type google_integration_connectors_connection__auth_config__oauth2_jwt_bearer__jwt_claims
+
+type google_integration_connectors_connection__auth_config__oauth2_jwt_bearer
+
+type google_integration_connectors_connection__auth_config__ssh_public_key__ssh_client_cert
+
+type google_integration_connectors_connection__auth_config__ssh_public_key__ssh_client_cert_pass
+
+type google_integration_connectors_connection__auth_config__ssh_public_key
+
+type google_integration_connectors_connection__auth_config__user_password__password
+
+type google_integration_connectors_connection__auth_config__user_password
+
+type google_integration_connectors_connection__auth_config
+
+type google_integration_connectors_connection__config_variable__encryption_key_value
+
+type google_integration_connectors_connection__config_variable__secret_value
+
+type google_integration_connectors_connection__config_variable
+
+type google_integration_connectors_connection__destination_config__destination
+
+type google_integration_connectors_connection__destination_config
+
+type google_integration_connectors_connection__eventing_config__additional_variable__encryption_key_value
+
+type google_integration_connectors_connection__eventing_config__additional_variable__secret_value
+
+type google_integration_connectors_connection__eventing_config__additional_variable
+
+type google_integration_connectors_connection__eventing_config__auth_config__additional_variable__encryption_key_value
+
+type google_integration_connectors_connection__eventing_config__auth_config__additional_variable__secret_value
+
+type google_integration_connectors_connection__eventing_config__auth_config__additional_variable
+
+type google_integration_connectors_connection__eventing_config__auth_config__user_password__password
+
+type google_integration_connectors_connection__eventing_config__auth_config__user_password
+
+type google_integration_connectors_connection__eventing_config__auth_config
+
+type google_integration_connectors_connection__eventing_config__registration_destination_config__destination
+
+type google_integration_connectors_connection__eventing_config__registration_destination_config
+
+type google_integration_connectors_connection__eventing_config
+type google_integration_connectors_connection__lock_config
+type google_integration_connectors_connection__log_config
+type google_integration_connectors_connection__node_config
+
+type google_integration_connectors_connection__ssl_config__additional_variable__encryption_key_value
+
+type google_integration_connectors_connection__ssl_config__additional_variable__secret_value
+
+type google_integration_connectors_connection__ssl_config__additional_variable
+
+type google_integration_connectors_connection__ssl_config__client_certificate
+
+type google_integration_connectors_connection__ssl_config__client_private_key
+
+type google_integration_connectors_connection__ssl_config__client_private_key_pass
+
+type google_integration_connectors_connection__ssl_config__private_server_certificate
+
+type google_integration_connectors_connection__ssl_config
+type google_integration_connectors_connection__timeouts
+
+type google_integration_connectors_connection__connector_version_infra_config = {
+  ratelimit_threshold : string;  (** ratelimit_threshold *)
+}
+[@@deriving yojson_of]
+
+type google_integration_connectors_connection__eventing_runtime_data__status = {
+  description : string;  (** description *)
+  state : string;  (** state *)
+}
+[@@deriving yojson_of]
+
+type google_integration_connectors_connection__eventing_runtime_data = {
+  events_listener_endpoint : string;  (** events_listener_endpoint *)
+  status :
+    google_integration_connectors_connection__eventing_runtime_data__status
+    list;
+      (** status *)
+}
+[@@deriving yojson_of]
+
+type google_integration_connectors_connection__status = {
+  description : string;  (** description *)
+  state : string;  (** state *)
+  status : string;  (** status *)
+}
+[@@deriving yojson_of]
+
+type google_integration_connectors_connection
+
+val google_integration_connectors_connection :
+  ?description:string ->
+  ?eventing_enablement_type:string ->
+  ?labels:(string * string) list ->
+  ?suspended:bool ->
+  ?timeouts:google_integration_connectors_connection__timeouts ->
+  connector_version:string ->
+  location:string ->
+  name:string ->
+  auth_config:
+    google_integration_connectors_connection__auth_config list ->
+  config_variable:
+    google_integration_connectors_connection__config_variable list ->
+  destination_config:
+    google_integration_connectors_connection__destination_config list ->
+  eventing_config:
+    google_integration_connectors_connection__eventing_config list ->
+  lock_config:
+    google_integration_connectors_connection__lock_config list ->
+  log_config:
+    google_integration_connectors_connection__log_config list ->
+  node_config:
+    google_integration_connectors_connection__node_config list ->
+  ssl_config:
+    google_integration_connectors_connection__ssl_config list ->
+  string ->
+  unit

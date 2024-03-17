@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_comprehend_document_classifier__input_data_config__augmented_manifests = {
   annotation_data_s3_uri : string option; [@option]

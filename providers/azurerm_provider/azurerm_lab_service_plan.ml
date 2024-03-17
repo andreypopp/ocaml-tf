@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_lab_service_plan__default_auto_shutdown = {
   disconnect_delay : string option; [@option]

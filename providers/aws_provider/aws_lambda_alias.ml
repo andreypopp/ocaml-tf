@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lambda_alias__routing_config = {
   additional_version_weights : (string * float) list option; [@option]

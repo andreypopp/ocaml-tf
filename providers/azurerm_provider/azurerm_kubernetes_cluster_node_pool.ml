@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_kubernetes_cluster_node_pool__kubelet_config = {
   allowed_unsafe_sysctls : string list option; [@option]

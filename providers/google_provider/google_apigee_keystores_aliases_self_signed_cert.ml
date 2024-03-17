@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_apigee_keystores_aliases_self_signed_cert__subject = {
   common_name : string option; [@option]

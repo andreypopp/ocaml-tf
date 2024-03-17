@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_disk_async_replication__secondary_disk = {
   disk : string;  (** Secondary disk for asynchronous replication. *)

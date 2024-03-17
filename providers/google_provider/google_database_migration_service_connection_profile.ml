@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_database_migration_service_connection_profile__alloydb__settings__initial_user = {
   password : string;  (** The initial password for the user. *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_egress_only_internet_gateway = {
   tags : (string * string) list option; [@option]  (** tags *)

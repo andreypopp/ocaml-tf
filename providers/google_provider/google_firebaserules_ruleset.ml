@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_firebaserules_ruleset__source__files = {
   content : string;  (** Textual Content. *)

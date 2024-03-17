@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_appflow_flow__destination_flow_config__destination_connector_properties__custom_connector__error_handling_config = {
   bucket_name : string option; [@option]  (** bucket_name *)

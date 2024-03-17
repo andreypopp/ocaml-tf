@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_blockchain_node_engine_blockchain_nodes__ethereum_details__geth_details = {
   garbage_collection_mode : string option; [@option]

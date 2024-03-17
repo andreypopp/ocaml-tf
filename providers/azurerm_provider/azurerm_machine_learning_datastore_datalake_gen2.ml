@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_machine_learning_datastore_datalake_gen2__timeouts = {
   create : string option; [@option]  (** create *)

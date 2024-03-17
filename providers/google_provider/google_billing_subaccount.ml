@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_billing_subaccount = {
   deletion_policy : string option; [@option]  (** deletion_policy *)

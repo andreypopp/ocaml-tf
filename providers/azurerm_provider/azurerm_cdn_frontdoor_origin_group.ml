@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_origin_group__health_probe = {
   interval_in_seconds : float;  (** interval_in_seconds *)

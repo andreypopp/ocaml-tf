@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_msk_cluster__broker_node_group_info__connectivity_info__public_access = {
   type_ : string option; [@option] [@key "type"]  (** type *)

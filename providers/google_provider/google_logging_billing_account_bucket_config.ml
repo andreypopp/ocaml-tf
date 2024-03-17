@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_logging_billing_account_bucket_config__cmek_settings = {
   kms_key_name : string;

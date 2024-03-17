@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type kubernetes_config_map_v1_data__metadata = {
   name : string;  (** The name of the ConfigMap. *)

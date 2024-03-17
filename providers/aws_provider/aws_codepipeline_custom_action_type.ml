@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_codepipeline_custom_action_type__configuration_property = {
   description : string option; [@option]  (** description *)

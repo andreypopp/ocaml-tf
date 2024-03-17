@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_apprunner_custom_domain_association__certificate_validation_records = {
   name : string;  (** name *)

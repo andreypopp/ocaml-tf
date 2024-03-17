@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_media_streaming_policy__common_encryption_cbcs__clear_key_encryption = {
   custom_keys_acquisition_url_template : string;

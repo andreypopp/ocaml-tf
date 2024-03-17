@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_spatial_anchors_account__timeouts = {
   create : string option; [@option]  (** create *)

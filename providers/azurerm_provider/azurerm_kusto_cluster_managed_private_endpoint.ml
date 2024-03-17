@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_kusto_cluster_managed_private_endpoint__timeouts = {
   create : string option; [@option]  (** create *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_redshiftserverless_snapshot = {
   namespace_name : string;  (** namespace_name *)

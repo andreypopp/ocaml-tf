@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_apigatewayv2_stage__access_log_settings = {
   destination_arn : string;  (** destination_arn *)

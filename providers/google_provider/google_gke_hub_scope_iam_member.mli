@@ -1,0 +1,14 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_gke_hub_scope_iam_member__condition
+type google_gke_hub_scope_iam_member
+
+val google_gke_hub_scope_iam_member :
+  member:string ->
+  role:string ->
+  scope_id:string ->
+  condition:google_gke_hub_scope_iam_member__condition list ->
+  string ->
+  unit

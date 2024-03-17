@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_budgets_budget__auto_adjust_data__historical_options = {
   budget_adjustment_period : float;  (** budget_adjustment_period *)

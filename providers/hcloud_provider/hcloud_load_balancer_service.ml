@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type hcloud_load_balancer_service__health_check__http = {
   domain : string option; [@option]  (** domain *)

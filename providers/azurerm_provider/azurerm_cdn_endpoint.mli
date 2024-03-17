@@ -1,0 +1,66 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_cdn_endpoint__delivery_rule__cache_expiration_action
+
+type azurerm_cdn_endpoint__delivery_rule__cache_key_query_string_action
+
+type azurerm_cdn_endpoint__delivery_rule__cookies_condition
+type azurerm_cdn_endpoint__delivery_rule__device_condition
+type azurerm_cdn_endpoint__delivery_rule__http_version_condition
+type azurerm_cdn_endpoint__delivery_rule__modify_request_header_action
+
+type azurerm_cdn_endpoint__delivery_rule__modify_response_header_action
+
+type azurerm_cdn_endpoint__delivery_rule__post_arg_condition
+type azurerm_cdn_endpoint__delivery_rule__query_string_condition
+type azurerm_cdn_endpoint__delivery_rule__remote_address_condition
+type azurerm_cdn_endpoint__delivery_rule__request_body_condition
+type azurerm_cdn_endpoint__delivery_rule__request_header_condition
+type azurerm_cdn_endpoint__delivery_rule__request_method_condition
+type azurerm_cdn_endpoint__delivery_rule__request_scheme_condition
+type azurerm_cdn_endpoint__delivery_rule__request_uri_condition
+type azurerm_cdn_endpoint__delivery_rule__url_file_extension_condition
+type azurerm_cdn_endpoint__delivery_rule__url_file_name_condition
+type azurerm_cdn_endpoint__delivery_rule__url_path_condition
+type azurerm_cdn_endpoint__delivery_rule__url_redirect_action
+type azurerm_cdn_endpoint__delivery_rule__url_rewrite_action
+type azurerm_cdn_endpoint__delivery_rule
+type azurerm_cdn_endpoint__geo_filter
+
+type azurerm_cdn_endpoint__global_delivery_rule__cache_expiration_action
+
+type azurerm_cdn_endpoint__global_delivery_rule__cache_key_query_string_action
+
+type azurerm_cdn_endpoint__global_delivery_rule__modify_request_header_action
+
+type azurerm_cdn_endpoint__global_delivery_rule__modify_response_header_action
+
+type azurerm_cdn_endpoint__global_delivery_rule__url_redirect_action
+type azurerm_cdn_endpoint__global_delivery_rule__url_rewrite_action
+type azurerm_cdn_endpoint__global_delivery_rule
+type azurerm_cdn_endpoint__origin
+type azurerm_cdn_endpoint__timeouts
+type azurerm_cdn_endpoint
+
+val azurerm_cdn_endpoint :
+  ?is_compression_enabled:bool ->
+  ?is_http_allowed:bool ->
+  ?is_https_allowed:bool ->
+  ?optimization_type:string ->
+  ?origin_host_header:string ->
+  ?querystring_caching_behaviour:string ->
+  ?tags:(string * string) list ->
+  ?timeouts:azurerm_cdn_endpoint__timeouts ->
+  location:string ->
+  name:string ->
+  profile_name:string ->
+  resource_group_name:string ->
+  delivery_rule:azurerm_cdn_endpoint__delivery_rule list ->
+  geo_filter:azurerm_cdn_endpoint__geo_filter list ->
+  global_delivery_rule:
+    azurerm_cdn_endpoint__global_delivery_rule list ->
+  origin:azurerm_cdn_endpoint__origin list ->
+  string ->
+  unit

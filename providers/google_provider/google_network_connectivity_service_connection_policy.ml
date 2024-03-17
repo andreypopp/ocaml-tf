@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_network_connectivity_service_connection_policy__psc_config = {
   limit : string option; [@option]

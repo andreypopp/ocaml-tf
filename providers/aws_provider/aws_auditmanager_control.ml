@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_auditmanager_control__control_mapping_sources__source_keyword = {
   keyword_input_type : string;  (** keyword_input_type *)

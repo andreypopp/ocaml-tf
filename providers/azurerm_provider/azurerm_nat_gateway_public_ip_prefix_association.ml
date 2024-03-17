@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_nat_gateway_public_ip_prefix_association__timeouts = {
   create : string option; [@option]  (** create *)

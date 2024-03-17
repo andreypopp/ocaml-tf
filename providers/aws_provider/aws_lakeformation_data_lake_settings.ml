@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lakeformation_data_lake_settings__create_database_default_permissions = {
   permissions : string list option; [@option]  (** permissions *)

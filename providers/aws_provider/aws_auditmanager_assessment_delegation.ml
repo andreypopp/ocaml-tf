@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_auditmanager_assessment_delegation = {
   assessment_id : string;  (** assessment_id *)

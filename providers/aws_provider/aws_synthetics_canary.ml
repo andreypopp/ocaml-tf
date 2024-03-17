@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_synthetics_canary__artifact_config__s3_encryption = {
   encryption_mode : string option; [@option]  (** encryption_mode *)

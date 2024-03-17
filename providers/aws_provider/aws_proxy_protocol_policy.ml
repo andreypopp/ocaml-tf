@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_proxy_protocol_policy = {
   instance_ports : string list;  (** instance_ports *)

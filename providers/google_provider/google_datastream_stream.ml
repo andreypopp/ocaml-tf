@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_datastream_stream__backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns = {
   collation : string option; [@option]  (** Column collation. *)

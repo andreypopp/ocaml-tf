@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_pubsub_lite_subscription__delivery_config = {
   delivery_requirement : string;

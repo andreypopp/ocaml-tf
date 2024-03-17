@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_gke_hub_scope_rbac_role_binding__role = {
   predefined_role : string option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_confidential_ledger__azuread_based_service_principal = {
   ledger_role_name : string;  (** ledger_role_name *)

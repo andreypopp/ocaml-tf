@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_orbital_contact_profile__links__channels__end_point = {
   end_point_name : string;  (** end_point_name *)

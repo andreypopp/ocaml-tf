@@ -1,0 +1,13 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_networkmanager_attachment_accepter__timeouts
+type aws_networkmanager_attachment_accepter
+
+val aws_networkmanager_attachment_accepter :
+  ?timeouts:aws_networkmanager_attachment_accepter__timeouts ->
+  attachment_id:string ->
+  attachment_type:string ->
+  string ->
+  unit

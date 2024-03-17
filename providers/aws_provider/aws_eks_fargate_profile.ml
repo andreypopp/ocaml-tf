@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_eks_fargate_profile__selector = {
   labels : (string * string) list option; [@option]  (** labels *)

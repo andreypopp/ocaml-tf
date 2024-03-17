@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_media_asset_filter__presentation_time_range = {
   end_in_units : float option; [@option]  (** end_in_units *)

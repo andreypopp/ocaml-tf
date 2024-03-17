@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__activity_metrics = {
   enabled : bool option; [@option]  (** enabled *)

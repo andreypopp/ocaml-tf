@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_fsx_ontap_file_system__disk_iops_configuration = {
   iops : float option; [@option]  (** iops *)

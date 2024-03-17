@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_kms_external_key = {
   bypass_policy_lockout_safety_check : bool option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_redshift_snapshot_copy_grant = {
   snapshot_copy_grant_name : string;  (** snapshot_copy_grant_name *)

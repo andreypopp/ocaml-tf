@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_internetmonitor_monitor__health_events_config = {
   availability_score_threshold : float option; [@option]

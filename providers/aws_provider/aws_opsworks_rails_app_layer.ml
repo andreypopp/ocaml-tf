@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_opsworks_rails_app_layer__cloudwatch_configuration__log_streams = {
   batch_count : float option; [@option]  (** batch_count *)

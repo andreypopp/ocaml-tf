@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_msk_serverless_cluster__client_authentication__sasl__iam = {
   enabled : bool;  (** enabled *)

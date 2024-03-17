@@ -1,0 +1,19 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_resourcegroups_group__configuration__parameters
+type aws_resourcegroups_group__configuration
+type aws_resourcegroups_group__resource_query
+type aws_resourcegroups_group__timeouts
+type aws_resourcegroups_group
+
+val aws_resourcegroups_group :
+  ?description:string ->
+  ?tags:(string * string) list ->
+  ?timeouts:aws_resourcegroups_group__timeouts ->
+  name:string ->
+  configuration:aws_resourcegroups_group__configuration list ->
+  resource_query:aws_resourcegroups_group__resource_query list ->
+  string ->
+  unit

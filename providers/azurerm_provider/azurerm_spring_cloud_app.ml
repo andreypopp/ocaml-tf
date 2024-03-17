@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_spring_cloud_app__custom_persistent_disk = {
   mount_options : string list option; [@option]  (** mount_options *)

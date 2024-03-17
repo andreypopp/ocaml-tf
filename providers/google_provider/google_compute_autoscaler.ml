@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_autoscaler__autoscaling_policy__cpu_utilization = {
   predictive_method : string option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_clouddeploy_delivery_pipeline__serial_pipeline__stages__deploy_parameters = {
   match_target_labels : (string * string) list option; [@option]

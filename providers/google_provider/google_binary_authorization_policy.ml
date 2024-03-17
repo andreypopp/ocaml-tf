@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_binary_authorization_policy__admission_whitelist_patterns = {
   name_pattern : string;

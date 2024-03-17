@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_redhat_openshift_cluster__api_server_profile = {
   ip_address : string;  (** ip_address *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_media_streaming_endpoint__access_control__akamai_signature_header_authentication_key = {
   base64_key : string option; [@option]  (** base64_key *)

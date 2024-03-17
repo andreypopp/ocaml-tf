@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_dynamodb_kinesis_streaming_destination = {
   stream_arn : string;  (** stream_arn *)

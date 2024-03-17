@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_app_engine_standard_app_version__automatic_scaling__standard_scheduler_settings = {
   max_instances : float option; [@option]

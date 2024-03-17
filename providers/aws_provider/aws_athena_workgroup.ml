@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_athena_workgroup__configuration__engine_version = {
   effective_engine_version : string;  (** effective_engine_version *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_gke_backup_restore_plan_iam_member__condition = {
   description : string option; [@option]  (** description *)

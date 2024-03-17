@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_directory_service_trust = {
   conditional_forwarder_ip_addrs : string list option; [@option]

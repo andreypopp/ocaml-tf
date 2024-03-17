@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_monitor_diagnostic_setting__enabled_log__retention_policy = {
   days : float option; [@option]  (** days *)

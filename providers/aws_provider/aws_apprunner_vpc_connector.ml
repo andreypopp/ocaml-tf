@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_apprunner_vpc_connector = {
   security_groups : string list;  (** security_groups *)

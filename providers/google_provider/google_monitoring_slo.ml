@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_monitoring_slo__basic_sli__availability = {
   enabled : bool option; [@option]

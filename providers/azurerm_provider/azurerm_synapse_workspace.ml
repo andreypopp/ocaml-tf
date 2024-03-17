@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_synapse_workspace__azure_devops_repo = {
   account_name : string;  (** account_name *)

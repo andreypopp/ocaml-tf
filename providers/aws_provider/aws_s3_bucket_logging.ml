@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_s3_bucket_logging__target_grant__grantee = {
   display_name : string;  (** display_name *)

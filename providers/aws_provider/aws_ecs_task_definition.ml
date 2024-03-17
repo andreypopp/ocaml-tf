@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ecs_task_definition__ephemeral_storage = {
   size_in_gib : float;  (** size_in_gib *)

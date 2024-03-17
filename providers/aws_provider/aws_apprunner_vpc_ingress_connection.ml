@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_apprunner_vpc_ingress_connection__ingress_vpc_configuration = {
   vpc_endpoint_id : string option; [@option]  (** vpc_endpoint_id *)

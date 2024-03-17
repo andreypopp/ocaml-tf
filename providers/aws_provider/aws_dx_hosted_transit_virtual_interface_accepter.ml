@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_dx_hosted_transit_virtual_interface_accepter__timeouts = {
   create : string option; [@option]  (** create *)

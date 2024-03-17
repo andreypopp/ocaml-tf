@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cosmosdb_sql_dedicated_gateway__timeouts = {
   create : string option; [@option]  (** create *)

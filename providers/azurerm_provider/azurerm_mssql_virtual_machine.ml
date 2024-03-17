@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mssql_virtual_machine__assessment__schedule = {
   day_of_week : string;  (** day_of_week *)

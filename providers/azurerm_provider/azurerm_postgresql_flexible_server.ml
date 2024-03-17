@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_postgresql_flexible_server__authentication = {
   active_directory_auth_enabled : bool option; [@option]

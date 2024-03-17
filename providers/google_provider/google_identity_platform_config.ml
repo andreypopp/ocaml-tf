@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_identity_platform_config__blocking_functions__forward_inbound_credentials = {
   access_token : bool option; [@option]

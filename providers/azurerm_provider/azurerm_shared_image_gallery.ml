@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_shared_image_gallery__sharing__community_gallery = {
   eula : string;  (** eula *)

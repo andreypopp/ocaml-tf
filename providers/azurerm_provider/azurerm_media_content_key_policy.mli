@@ -1,0 +1,33 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_media_content_key_policy__policy_option__fairplay_configuration__offline_rental_configuration
+
+type azurerm_media_content_key_policy__policy_option__fairplay_configuration
+
+type azurerm_media_content_key_policy__policy_option__playready_configuration_license__play_right__explicit_analog_television_output_restriction
+
+type azurerm_media_content_key_policy__policy_option__playready_configuration_license__play_right
+
+type azurerm_media_content_key_policy__policy_option__playready_configuration_license
+
+type azurerm_media_content_key_policy__policy_option__token_restriction__alternate_key
+
+type azurerm_media_content_key_policy__policy_option__token_restriction__required_claim
+
+type azurerm_media_content_key_policy__policy_option__token_restriction
+
+type azurerm_media_content_key_policy__policy_option
+type azurerm_media_content_key_policy__timeouts
+type azurerm_media_content_key_policy
+
+val azurerm_media_content_key_policy :
+  ?description:string ->
+  ?timeouts:azurerm_media_content_key_policy__timeouts ->
+  media_services_account_name:string ->
+  name:string ->
+  resource_group_name:string ->
+  policy_option:azurerm_media_content_key_policy__policy_option list ->
+  string ->
+  unit

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_batch_compute_environment__compute_resources__ec2_configuration = {
   image_id_override : string option; [@option]

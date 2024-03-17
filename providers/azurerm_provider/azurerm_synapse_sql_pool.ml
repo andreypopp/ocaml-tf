@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_synapse_sql_pool__restore = {
   point_in_time : string;  (** point_in_time *)

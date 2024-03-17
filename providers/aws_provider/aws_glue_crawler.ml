@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_glue_crawler__catalog_target = {
   connection_name : string option; [@option]  (** connection_name *)

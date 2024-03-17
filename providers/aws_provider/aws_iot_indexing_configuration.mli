@@ -1,0 +1,27 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_iot_indexing_configuration__thing_group_indexing_configuration__custom_field
+
+type aws_iot_indexing_configuration__thing_group_indexing_configuration__managed_field
+
+type aws_iot_indexing_configuration__thing_group_indexing_configuration
+
+type aws_iot_indexing_configuration__thing_indexing_configuration__custom_field
+
+type aws_iot_indexing_configuration__thing_indexing_configuration__filter
+
+type aws_iot_indexing_configuration__thing_indexing_configuration__managed_field
+
+type aws_iot_indexing_configuration__thing_indexing_configuration
+type aws_iot_indexing_configuration
+
+val aws_iot_indexing_configuration :
+  thing_group_indexing_configuration:
+    aws_iot_indexing_configuration__thing_group_indexing_configuration
+    list ->
+  thing_indexing_configuration:
+    aws_iot_indexing_configuration__thing_indexing_configuration list ->
+  string ->
+  unit

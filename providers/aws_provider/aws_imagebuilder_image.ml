@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_imagebuilder_image__image_scanning_configuration__ecr_configuration = {
   container_tags : string list option; [@option]

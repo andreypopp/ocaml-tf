@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_apigatewayv2_route__request_parameter = {
   request_parameter_key : string;  (** request_parameter_key *)

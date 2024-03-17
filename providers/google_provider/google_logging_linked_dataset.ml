@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_logging_linked_dataset__bigquery_dataset = {
   dataset_id : string;

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_container_app_environment_dapr_component__metadata = {
   name : string;  (** The name of the Metadata configuration item. *)

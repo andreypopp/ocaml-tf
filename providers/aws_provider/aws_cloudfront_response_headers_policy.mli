@@ -1,0 +1,59 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_cloudfront_response_headers_policy__cors_config__access_control_allow_headers
+
+type aws_cloudfront_response_headers_policy__cors_config__access_control_allow_methods
+
+type aws_cloudfront_response_headers_policy__cors_config__access_control_allow_origins
+
+type aws_cloudfront_response_headers_policy__cors_config__access_control_expose_headers
+
+type aws_cloudfront_response_headers_policy__cors_config
+
+type aws_cloudfront_response_headers_policy__custom_headers_config__items
+
+type aws_cloudfront_response_headers_policy__custom_headers_config
+
+type aws_cloudfront_response_headers_policy__remove_headers_config__items
+
+type aws_cloudfront_response_headers_policy__remove_headers_config
+
+type aws_cloudfront_response_headers_policy__security_headers_config__content_security_policy
+
+type aws_cloudfront_response_headers_policy__security_headers_config__content_type_options
+
+type aws_cloudfront_response_headers_policy__security_headers_config__frame_options
+
+type aws_cloudfront_response_headers_policy__security_headers_config__referrer_policy
+
+type aws_cloudfront_response_headers_policy__security_headers_config__strict_transport_security
+
+type aws_cloudfront_response_headers_policy__security_headers_config__xss_protection
+
+type aws_cloudfront_response_headers_policy__security_headers_config
+
+type aws_cloudfront_response_headers_policy__server_timing_headers_config
+
+type aws_cloudfront_response_headers_policy
+
+val aws_cloudfront_response_headers_policy :
+  ?comment:string ->
+  name:string ->
+  cors_config:
+    aws_cloudfront_response_headers_policy__cors_config list ->
+  custom_headers_config:
+    aws_cloudfront_response_headers_policy__custom_headers_config
+    list ->
+  remove_headers_config:
+    aws_cloudfront_response_headers_policy__remove_headers_config
+    list ->
+  security_headers_config:
+    aws_cloudfront_response_headers_policy__security_headers_config
+    list ->
+  server_timing_headers_config:
+    aws_cloudfront_response_headers_policy__server_timing_headers_config
+    list ->
+  string ->
+  unit

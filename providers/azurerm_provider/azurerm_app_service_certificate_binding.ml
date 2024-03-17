@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_app_service_certificate_binding__timeouts = {
   create : string option; [@option]  (** create *)

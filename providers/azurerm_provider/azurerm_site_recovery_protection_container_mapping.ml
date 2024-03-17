@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_site_recovery_protection_container_mapping__automatic_update = {
   authentication_type : string option; [@option]

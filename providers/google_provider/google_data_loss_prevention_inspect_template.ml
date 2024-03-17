@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_data_loss_prevention_inspect_template__inspect_config__custom_info_types__dictionary__cloud_storage_path = {
   path : string;

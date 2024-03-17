@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_virtual_hub_security_partner_provider__timeouts = {
   create : string option; [@option]  (** create *)

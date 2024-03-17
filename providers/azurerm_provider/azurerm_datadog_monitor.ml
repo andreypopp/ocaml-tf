@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_datadog_monitor__datadog_organization = {
   api_key : string;  (** api_key *)

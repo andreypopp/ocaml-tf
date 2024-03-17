@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_securityhub_standards_subscription = {
   standards_arn : string;  (** standards_arn *)

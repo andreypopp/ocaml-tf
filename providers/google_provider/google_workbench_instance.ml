@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_workbench_instance__gce_setup__accelerator_configs = {
   core_count: string option; [@option] (** Optional. Count of cores of this accelerator. *)

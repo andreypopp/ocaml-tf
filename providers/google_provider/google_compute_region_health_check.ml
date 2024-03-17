@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_region_health_check__grpc_health_check = {
   grpc_service_name : string option; [@option]

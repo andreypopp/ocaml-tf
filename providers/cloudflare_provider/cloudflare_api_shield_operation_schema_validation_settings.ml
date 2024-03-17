@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_api_shield_operation_schema_validation_settings = {
   mitigation_action : string option; [@option]

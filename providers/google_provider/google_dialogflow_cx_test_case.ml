@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_dialogflow_cx_test_case__test_case_conversation_turns__user_input__input__dtmf = {
   digits : string option; [@option]  (** The dtmf digits. *)

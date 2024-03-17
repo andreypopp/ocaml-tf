@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_region_network_firewall_policy_rule__match__layer4_configs = {
   ip_protocol : string;

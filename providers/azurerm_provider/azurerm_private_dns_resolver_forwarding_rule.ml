@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_private_dns_resolver_forwarding_rule__target_dns_servers = {
   ip_address : string;  (** ip_address *)

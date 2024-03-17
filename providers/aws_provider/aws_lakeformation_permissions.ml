@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_lakeformation_permissions__data_cells_filter = {
   database_name : string;  (** database_name *)

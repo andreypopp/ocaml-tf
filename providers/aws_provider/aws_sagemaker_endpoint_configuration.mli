@@ -1,0 +1,49 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_sagemaker_endpoint_configuration__async_inference_config__client_config
+
+type aws_sagemaker_endpoint_configuration__async_inference_config__output_config__notification_config
+
+type aws_sagemaker_endpoint_configuration__async_inference_config__output_config
+
+type aws_sagemaker_endpoint_configuration__async_inference_config
+
+type aws_sagemaker_endpoint_configuration__data_capture_config__capture_content_type_header
+
+type aws_sagemaker_endpoint_configuration__data_capture_config__capture_options
+
+type aws_sagemaker_endpoint_configuration__data_capture_config
+
+type aws_sagemaker_endpoint_configuration__production_variants__core_dump_config
+
+type aws_sagemaker_endpoint_configuration__production_variants__routing_config
+
+type aws_sagemaker_endpoint_configuration__production_variants__serverless_config
+
+type aws_sagemaker_endpoint_configuration__production_variants
+
+type aws_sagemaker_endpoint_configuration__shadow_production_variants__core_dump_config
+
+type aws_sagemaker_endpoint_configuration__shadow_production_variants__routing_config
+
+type aws_sagemaker_endpoint_configuration__shadow_production_variants__serverless_config
+
+type aws_sagemaker_endpoint_configuration__shadow_production_variants
+type aws_sagemaker_endpoint_configuration
+
+val aws_sagemaker_endpoint_configuration :
+  ?kms_key_arn:string ->
+  ?tags:(string * string) list ->
+  async_inference_config:
+    aws_sagemaker_endpoint_configuration__async_inference_config list ->
+  data_capture_config:
+    aws_sagemaker_endpoint_configuration__data_capture_config list ->
+  production_variants:
+    aws_sagemaker_endpoint_configuration__production_variants list ->
+  shadow_production_variants:
+    aws_sagemaker_endpoint_configuration__shadow_production_variants
+    list ->
+  string ->
+  unit

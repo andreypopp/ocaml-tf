@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_glue_resource_policy = {
   enable_hybrid : string option; [@option]  (** enable_hybrid *)

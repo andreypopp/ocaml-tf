@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_healthcare_hl7_v2_store__notification_config = {
   pubsub_topic : string;

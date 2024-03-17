@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_kendra_data_source__configuration__s3_configuration__access_control_list_configuration = {
   key_path : string option; [@option]  (** key_path *)

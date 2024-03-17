@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_medialive_multiplex__multiplex_settings = {
   maximum_video_buffer_delay_milliseconds : float option; [@option]

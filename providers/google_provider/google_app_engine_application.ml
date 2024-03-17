@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_app_engine_application__feature_settings = {
   split_health_checks : bool;  (** split_health_checks *)

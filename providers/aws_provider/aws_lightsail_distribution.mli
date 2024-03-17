@@ -1,0 +1,41 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_lightsail_distribution__cache_behavior
+
+type aws_lightsail_distribution__cache_behavior_settings__forwarded_cookies
+
+type aws_lightsail_distribution__cache_behavior_settings__forwarded_headers
+
+type aws_lightsail_distribution__cache_behavior_settings__forwarded_query_strings
+
+type aws_lightsail_distribution__cache_behavior_settings
+type aws_lightsail_distribution__default_cache_behavior
+type aws_lightsail_distribution__origin
+type aws_lightsail_distribution__timeouts
+
+type aws_lightsail_distribution__location = {
+  availability_zone : string;  (** availability_zone *)
+  region_name : string;  (** region_name *)
+}
+[@@deriving yojson_of]
+
+type aws_lightsail_distribution
+
+val aws_lightsail_distribution :
+  ?certificate_name:string ->
+  ?ip_address_type:string ->
+  ?is_enabled:bool ->
+  ?tags:(string * string) list ->
+  ?timeouts:aws_lightsail_distribution__timeouts ->
+  bundle_id:string ->
+  name:string ->
+  cache_behavior:aws_lightsail_distribution__cache_behavior list ->
+  cache_behavior_settings:
+    aws_lightsail_distribution__cache_behavior_settings list ->
+  default_cache_behavior:
+    aws_lightsail_distribution__default_cache_behavior list ->
+  origin:aws_lightsail_distribution__origin list ->
+  string ->
+  unit

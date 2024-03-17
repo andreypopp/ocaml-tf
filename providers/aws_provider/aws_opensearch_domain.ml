@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_opensearch_domain__advanced_security_options__master_user_options = {
   master_user_arn : string option; [@option]  (** master_user_arn *)

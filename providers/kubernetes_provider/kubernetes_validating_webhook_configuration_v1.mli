@@ -1,0 +1,29 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type kubernetes_validating_webhook_configuration_v1__metadata
+
+type kubernetes_validating_webhook_configuration_v1__webhook__client_config__service
+
+type kubernetes_validating_webhook_configuration_v1__webhook__client_config
+
+type kubernetes_validating_webhook_configuration_v1__webhook__namespace_selector__match_expressions
+
+type kubernetes_validating_webhook_configuration_v1__webhook__namespace_selector
+
+type kubernetes_validating_webhook_configuration_v1__webhook__object_selector__match_expressions
+
+type kubernetes_validating_webhook_configuration_v1__webhook__object_selector
+
+type kubernetes_validating_webhook_configuration_v1__webhook__rule
+type kubernetes_validating_webhook_configuration_v1__webhook
+type kubernetes_validating_webhook_configuration_v1
+
+val kubernetes_validating_webhook_configuration_v1 :
+  metadata:
+    kubernetes_validating_webhook_configuration_v1__metadata list ->
+  webhook:
+    kubernetes_validating_webhook_configuration_v1__webhook list ->
+  string ->
+  unit

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mssql_virtual_machine_availability_group_listener__load_balancer_configuration = {
   load_balancer_id : string;  (** load_balancer_id *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ssmcontacts_plan__stage__target__channel_target_info = {
   contact_channel_id : string;  (** contact_channel_id *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_space__ownership_settings = {
   owner_user_profile_name : string;  (** owner_user_profile_name *)

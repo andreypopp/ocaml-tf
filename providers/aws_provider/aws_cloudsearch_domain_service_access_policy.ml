@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudsearch_domain_service_access_policy__timeouts = {
   delete : string option; [@option]  (** delete *)

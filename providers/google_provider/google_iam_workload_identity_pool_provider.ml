@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_iam_workload_identity_pool_provider__aws = {
   account_id : string;  (** The AWS account ID. *)

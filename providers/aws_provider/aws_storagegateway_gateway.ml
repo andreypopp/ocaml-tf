@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_storagegateway_gateway__maintenance_start_time = {
   day_of_month : string option; [@option]  (** day_of_month *)

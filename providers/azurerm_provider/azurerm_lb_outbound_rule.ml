@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_lb_outbound_rule__frontend_ip_configuration = {
   id : string;  (** id *)

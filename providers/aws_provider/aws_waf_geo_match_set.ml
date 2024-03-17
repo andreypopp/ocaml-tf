@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_waf_geo_match_set__geo_match_constraint = {
   type_ : string; [@key "type"]  (** type *)

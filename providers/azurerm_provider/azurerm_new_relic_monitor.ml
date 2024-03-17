@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_new_relic_monitor__plan = {
   billing_cycle : string option; [@option]  (** billing_cycle *)

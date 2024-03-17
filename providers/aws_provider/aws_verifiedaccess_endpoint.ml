@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_verifiedaccess_endpoint__load_balancer_options = {
   load_balancer_arn : string option; [@option]

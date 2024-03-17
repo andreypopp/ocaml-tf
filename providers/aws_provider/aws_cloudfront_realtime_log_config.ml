@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudfront_realtime_log_config__endpoint__kinesis_stream_config = {
   role_arn : string;  (** role_arn *)

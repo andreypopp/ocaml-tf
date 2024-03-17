@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_dms_endpoint__elasticsearch_settings = {
   endpoint_uri : string;  (** endpoint_uri *)

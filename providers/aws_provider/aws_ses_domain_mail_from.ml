@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ses_domain_mail_from = {
   behavior_on_mx_failure : string option; [@option]

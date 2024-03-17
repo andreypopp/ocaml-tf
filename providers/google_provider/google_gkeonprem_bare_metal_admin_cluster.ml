@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_gkeonprem_bare_metal_admin_cluster__cluster_operations = {
   enable_application_logs : bool option; [@option]

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_s3_bucket_metric__filter = {
   access_point : string option; [@option]  (** access_point *)

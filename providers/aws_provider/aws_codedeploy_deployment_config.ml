@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_codedeploy_deployment_config__minimum_healthy_hosts = {
   type_ : string option; [@option] [@key "type"]  (** type *)

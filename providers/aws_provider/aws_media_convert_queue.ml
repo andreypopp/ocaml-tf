@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_media_convert_queue__reservation_plan_settings = {
   commitment : string;  (** commitment *)

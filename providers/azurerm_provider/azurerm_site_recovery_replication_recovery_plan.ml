@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_site_recovery_replication_recovery_plan__azure_to_azure_settings = {
   primary_edge_zone : string option; [@option]

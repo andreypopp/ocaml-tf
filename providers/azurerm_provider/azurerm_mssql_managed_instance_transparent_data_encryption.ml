@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mssql_managed_instance_transparent_data_encryption__timeouts = {
   create : string option; [@option]  (** create *)

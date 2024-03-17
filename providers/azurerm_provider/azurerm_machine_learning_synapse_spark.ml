@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_machine_learning_synapse_spark__identity = {
   identity_ids : string list option; [@option]  (** identity_ids *)

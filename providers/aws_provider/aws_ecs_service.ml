@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ecs_service__alarms = {
   alarm_names : string list;  (** alarm_names *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_hdinsight_hbase_cluster__component_version = {
   hbase : string;  (** hbase *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cognito_risk_configuration__account_takeover_risk_configuration__actions__high_action = {
   event_action : string;  (** event_action *)

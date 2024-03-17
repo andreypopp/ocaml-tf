@@ -1,0 +1,7 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_iap_web_iam_policy
+
+val google_iap_web_iam_policy : policy_data:string -> string -> unit

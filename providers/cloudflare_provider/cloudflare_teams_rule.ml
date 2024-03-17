@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_teams_rule__rule_settings__audit_ssh = {
   command_logging : bool;  (** Log all SSH commands. *)

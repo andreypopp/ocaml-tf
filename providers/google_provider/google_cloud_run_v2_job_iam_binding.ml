@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_cloud_run_v2_job_iam_binding__condition = {
   description : string option; [@option]  (** description *)

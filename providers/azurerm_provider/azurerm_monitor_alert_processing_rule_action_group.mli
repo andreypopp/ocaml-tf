@@ -1,0 +1,57 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__alert_context
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__alert_rule_id
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__alert_rule_name
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__description
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__monitor_condition
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__monitor_service
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__severity
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__signal_type
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__target_resource
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__target_resource_group
+
+type azurerm_monitor_alert_processing_rule_action_group__condition__target_resource_type
+
+type azurerm_monitor_alert_processing_rule_action_group__condition
+
+type azurerm_monitor_alert_processing_rule_action_group__schedule__recurrence__daily
+
+type azurerm_monitor_alert_processing_rule_action_group__schedule__recurrence__monthly
+
+type azurerm_monitor_alert_processing_rule_action_group__schedule__recurrence__weekly
+
+type azurerm_monitor_alert_processing_rule_action_group__schedule__recurrence
+
+type azurerm_monitor_alert_processing_rule_action_group__schedule
+type azurerm_monitor_alert_processing_rule_action_group__timeouts
+type azurerm_monitor_alert_processing_rule_action_group
+
+val azurerm_monitor_alert_processing_rule_action_group :
+  ?description:string ->
+  ?enabled:bool ->
+  ?tags:(string * string) list ->
+  ?timeouts:
+    azurerm_monitor_alert_processing_rule_action_group__timeouts ->
+  add_action_group_ids:string list ->
+  name:string ->
+  resource_group_name:string ->
+  scopes:string list ->
+  condition:
+    azurerm_monitor_alert_processing_rule_action_group__condition
+    list ->
+  schedule:
+    azurerm_monitor_alert_processing_rule_action_group__schedule list ->
+  string ->
+  unit

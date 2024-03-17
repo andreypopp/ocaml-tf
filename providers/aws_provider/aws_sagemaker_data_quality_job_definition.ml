@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_data_quality_job_definition__data_quality_app_specification = {
   environment : (string * string) list option; [@option]

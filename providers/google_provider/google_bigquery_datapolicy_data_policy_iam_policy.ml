@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_bigquery_datapolicy_data_policy_iam_policy = {
   data_policy_id : string;  (** data_policy_id *)

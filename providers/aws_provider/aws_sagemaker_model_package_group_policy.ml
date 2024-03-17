@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_sagemaker_model_package_group_policy = {
   model_package_group_name : string;  (** model_package_group_name *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type kubernetes_endpoint_slice_v1__endpoint__condition = {
   ready : bool option; [@option]

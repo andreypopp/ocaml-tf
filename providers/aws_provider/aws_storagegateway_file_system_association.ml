@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_storagegateway_file_system_association__cache_attributes = {
   cache_stale_timeout_in_seconds : float option; [@option]

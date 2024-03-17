@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type cloudflare_observatory_scheduled_test__timeouts = {
   create : string option; [@option]  (** create *)

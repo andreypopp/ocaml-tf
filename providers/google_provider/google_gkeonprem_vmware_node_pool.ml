@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_gkeonprem_vmware_node_pool__config__taints = {
   effect : string option; [@option]

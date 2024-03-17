@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_msk_replicator__kafka_cluster__amazon_msk_cluster = {
   msk_cluster_arn : string;  (** msk_cluster_arn *)

@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_codestarconnections_connection = {
   host_arn : string option; [@option]  (** host_arn *)

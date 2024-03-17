@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ec2_local_gateway_route = {
   destination_cidr_block : string;  (** destination_cidr_block *)

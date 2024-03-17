@@ -1,0 +1,56 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_site_recovery_replication_recovery_plan__azure_to_azure_settings
+
+type azurerm_site_recovery_replication_recovery_plan__boot_recovery_group__post_action
+
+type azurerm_site_recovery_replication_recovery_plan__boot_recovery_group__pre_action
+
+type azurerm_site_recovery_replication_recovery_plan__boot_recovery_group
+
+type azurerm_site_recovery_replication_recovery_plan__failover_recovery_group__post_action
+
+type azurerm_site_recovery_replication_recovery_plan__failover_recovery_group__pre_action
+
+type azurerm_site_recovery_replication_recovery_plan__failover_recovery_group
+
+type azurerm_site_recovery_replication_recovery_plan__recovery_group__post_action
+
+type azurerm_site_recovery_replication_recovery_plan__recovery_group__pre_action
+
+type azurerm_site_recovery_replication_recovery_plan__recovery_group
+
+type azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group__post_action
+
+type azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group__pre_action
+
+type azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group
+
+type azurerm_site_recovery_replication_recovery_plan__timeouts
+type azurerm_site_recovery_replication_recovery_plan
+
+val azurerm_site_recovery_replication_recovery_plan :
+  ?timeouts:azurerm_site_recovery_replication_recovery_plan__timeouts ->
+  name:string ->
+  recovery_vault_id:string ->
+  source_recovery_fabric_id:string ->
+  target_recovery_fabric_id:string ->
+  azure_to_azure_settings:
+    azurerm_site_recovery_replication_recovery_plan__azure_to_azure_settings
+    list ->
+  boot_recovery_group:
+    azurerm_site_recovery_replication_recovery_plan__boot_recovery_group
+    list ->
+  failover_recovery_group:
+    azurerm_site_recovery_replication_recovery_plan__failover_recovery_group
+    list ->
+  recovery_group:
+    azurerm_site_recovery_replication_recovery_plan__recovery_group
+    list ->
+  shutdown_recovery_group:
+    azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group
+    list ->
+  string ->
+  unit

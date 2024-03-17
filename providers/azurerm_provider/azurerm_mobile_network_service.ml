@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mobile_network_service__pcc_rule__qos_policy__guaranteed_bit_rate = {
   downlink : string;  (** downlink *)

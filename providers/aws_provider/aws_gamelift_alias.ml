@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_gamelift_alias__routing_strategy = {
   fleet_id : string option; [@option]  (** fleet_id *)

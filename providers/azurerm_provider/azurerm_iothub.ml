@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_iothub__cloud_to_device__feedback = {
   lock_duration : string option; [@option]  (** lock_duration *)

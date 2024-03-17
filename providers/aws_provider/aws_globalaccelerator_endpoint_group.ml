@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_globalaccelerator_endpoint_group__endpoint_configuration = {
   client_ip_preservation_enabled : bool option; [@option]

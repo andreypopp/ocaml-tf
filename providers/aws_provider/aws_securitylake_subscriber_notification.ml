@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_securitylake_subscriber_notification__configuration__https_notification_configuration = {
   authorization_api_key_name : string option; [@option]

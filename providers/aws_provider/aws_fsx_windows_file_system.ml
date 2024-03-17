@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_fsx_windows_file_system__audit_log_configuration = {
   audit_log_destination : string option; [@option]

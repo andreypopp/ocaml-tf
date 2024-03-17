@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_opensearch_outbound_connection__connection_properties__cross_cluster_search = {
   skip_unavailable : string option; [@option]  (** skip_unavailable *)

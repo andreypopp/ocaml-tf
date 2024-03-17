@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_ecr_registry_scanning_configuration__rule__repository_filter = {
   filter : string;  (** filter *)

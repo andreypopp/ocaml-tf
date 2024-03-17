@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_load_balancer_backend_server_policy = {
   instance_port : float;  (** instance_port *)

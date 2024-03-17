@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_cdn_endpoint__delivery_rule__cache_expiration_action = {
   behavior : string;  (** behavior *)

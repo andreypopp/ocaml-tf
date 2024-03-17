@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_monitor_alert_processing_rule_suppression__condition__alert_context = {
   operator : string;  (** operator *)

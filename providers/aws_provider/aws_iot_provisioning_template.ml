@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_iot_provisioning_template__pre_provisioning_hook = {
   payload_version : string option; [@option]  (** payload_version *)

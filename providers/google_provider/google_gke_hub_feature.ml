@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_gke_hub_feature__fleet_default_member_config__configmanagement__config_sync__git = {
   gcp_service_account_email : string option; [@option]

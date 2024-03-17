@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_binary_authorization_attestor__attestation_authority_note__public_keys__pkix_public_key = {
   public_key_pem : string option; [@option]

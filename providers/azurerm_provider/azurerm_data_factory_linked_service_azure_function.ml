@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_data_factory_linked_service_azure_function__key_vault_key = {
   linked_service_name : string;  (** linked_service_name *)

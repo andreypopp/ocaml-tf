@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_data_share_dataset_data_lake_gen2__timeouts = {
   create : string option; [@option]  (** create *)

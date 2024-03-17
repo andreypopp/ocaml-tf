@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_storagegateway_stored_iscsi_volume = {
   disk_id : string;  (** disk_id *)

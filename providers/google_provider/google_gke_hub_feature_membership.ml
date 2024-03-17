@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_gke_hub_feature_membership__configmanagement__binauthz = {
   enabled : bool option; [@option]

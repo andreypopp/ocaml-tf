@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_eventgrid_event_subscription__advanced_filter__bool_equals = {
   key : string;  (** key *)

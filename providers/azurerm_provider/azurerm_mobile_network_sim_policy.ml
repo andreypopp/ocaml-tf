@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mobile_network_sim_policy__slice__data_network__session_aggregate_maximum_bit_rate = {
   downlink : string;  (** downlink *)

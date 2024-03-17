@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_storage_management_policy__rule__actions__base_blob = {
   auto_tier_to_hot_from_cool_enabled : bool option; [@option]

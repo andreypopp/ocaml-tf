@@ -1,0 +1,76 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_monitor_data_collection_rule__data_flow
+
+type azurerm_monitor_data_collection_rule__data_sources__data_import__event_hub_data_source
+
+type azurerm_monitor_data_collection_rule__data_sources__data_import
+type azurerm_monitor_data_collection_rule__data_sources__extension
+type azurerm_monitor_data_collection_rule__data_sources__iis_log
+
+type azurerm_monitor_data_collection_rule__data_sources__log_file__settings__text
+
+type azurerm_monitor_data_collection_rule__data_sources__log_file__settings
+
+type azurerm_monitor_data_collection_rule__data_sources__log_file
+
+type azurerm_monitor_data_collection_rule__data_sources__performance_counter
+
+type azurerm_monitor_data_collection_rule__data_sources__platform_telemetry
+
+type azurerm_monitor_data_collection_rule__data_sources__prometheus_forwarder__label_include_filter
+
+type azurerm_monitor_data_collection_rule__data_sources__prometheus_forwarder
+
+type azurerm_monitor_data_collection_rule__data_sources__syslog
+
+type azurerm_monitor_data_collection_rule__data_sources__windows_event_log
+
+type azurerm_monitor_data_collection_rule__data_sources__windows_firewall_log
+
+type azurerm_monitor_data_collection_rule__data_sources
+
+type azurerm_monitor_data_collection_rule__destinations__azure_monitor_metrics
+
+type azurerm_monitor_data_collection_rule__destinations__event_hub
+
+type azurerm_monitor_data_collection_rule__destinations__event_hub_direct
+
+type azurerm_monitor_data_collection_rule__destinations__log_analytics
+
+type azurerm_monitor_data_collection_rule__destinations__monitor_account
+
+type azurerm_monitor_data_collection_rule__destinations__storage_blob
+
+type azurerm_monitor_data_collection_rule__destinations__storage_blob_direct
+
+type azurerm_monitor_data_collection_rule__destinations__storage_table_direct
+
+type azurerm_monitor_data_collection_rule__destinations
+type azurerm_monitor_data_collection_rule__identity
+type azurerm_monitor_data_collection_rule__stream_declaration__column
+type azurerm_monitor_data_collection_rule__stream_declaration
+type azurerm_monitor_data_collection_rule__timeouts
+type azurerm_monitor_data_collection_rule
+
+val azurerm_monitor_data_collection_rule :
+  ?data_collection_endpoint_id:string ->
+  ?description:string ->
+  ?kind:string ->
+  ?tags:(string * string) list ->
+  ?timeouts:azurerm_monitor_data_collection_rule__timeouts ->
+  location:string ->
+  name:string ->
+  resource_group_name:string ->
+  data_flow:azurerm_monitor_data_collection_rule__data_flow list ->
+  data_sources:
+    azurerm_monitor_data_collection_rule__data_sources list ->
+  destinations:
+    azurerm_monitor_data_collection_rule__destinations list ->
+  identity:azurerm_monitor_data_collection_rule__identity list ->
+  stream_declaration:
+    azurerm_monitor_data_collection_rule__stream_declaration list ->
+  string ->
+  unit

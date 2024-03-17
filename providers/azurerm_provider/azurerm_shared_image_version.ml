@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_shared_image_version__target_region = {
   disk_encryption_set_id : string option; [@option]

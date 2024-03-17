@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_fsx_ontap_volume__snaplock_configuration__autocommit_period = {
   type_ : string option; [@option] [@key "type"]  (** type *)

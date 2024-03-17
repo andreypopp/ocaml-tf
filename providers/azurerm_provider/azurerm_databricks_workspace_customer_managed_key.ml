@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_databricks_workspace_customer_managed_key__timeouts = {
   create : string option; [@option]  (** create *)

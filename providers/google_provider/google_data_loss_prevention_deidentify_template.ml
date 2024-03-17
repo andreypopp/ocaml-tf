@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_data_loss_prevention_deidentify_template__deidentify_config__image_transformations__transforms__all_info_types =
   unit

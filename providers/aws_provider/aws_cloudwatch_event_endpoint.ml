@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cloudwatch_event_endpoint__event_bus = {
   event_bus_arn : string;  (** event_bus_arn *)

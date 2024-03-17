@@ -1,0 +1,35 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_migration_center_preference_set__timeouts
+
+type google_migration_center_preference_set__virtual_machine_preferences__compute_engine_preferences__machine_preferences__allowed_machine_series
+
+type google_migration_center_preference_set__virtual_machine_preferences__compute_engine_preferences__machine_preferences
+
+type google_migration_center_preference_set__virtual_machine_preferences__compute_engine_preferences
+
+type google_migration_center_preference_set__virtual_machine_preferences__region_preferences
+
+type google_migration_center_preference_set__virtual_machine_preferences__sole_tenancy_preferences__node_types
+
+type google_migration_center_preference_set__virtual_machine_preferences__sole_tenancy_preferences
+
+type google_migration_center_preference_set__virtual_machine_preferences__vmware_engine_preferences
+
+type google_migration_center_preference_set__virtual_machine_preferences
+
+type google_migration_center_preference_set
+
+val google_migration_center_preference_set :
+  ?description:string ->
+  ?display_name:string ->
+  ?timeouts:google_migration_center_preference_set__timeouts ->
+  location:string ->
+  preference_set_id:string ->
+  virtual_machine_preferences:
+    google_migration_center_preference_set__virtual_machine_preferences
+    list ->
+  string ->
+  unit

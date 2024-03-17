@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_cognito_user_pool_client__analytics_configuration = {
   application_arn : string option; [@option]  (** application_arn *)

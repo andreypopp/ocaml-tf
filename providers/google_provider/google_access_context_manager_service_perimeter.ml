@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_access_context_manager_service_perimeter__spec__egress_policies__egress_from__sources = {
   access_level : string option; [@option]

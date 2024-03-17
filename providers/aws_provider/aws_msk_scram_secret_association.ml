@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type aws_msk_scram_secret_association = {
   cluster_arn : string;  (** cluster_arn *)

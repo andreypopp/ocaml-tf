@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_application_insights_workbook__identity = {
   identity_ids : string list option; [@option]  (** identity_ids *)

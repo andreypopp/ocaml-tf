@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type azurerm_mssql_server_extended_auditing_policy__timeouts = {
   create : string option; [@option]  (** create *)

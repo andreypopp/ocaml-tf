@@ -1,0 +1,65 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_codedeploy_deployment_group__alarm_configuration
+type aws_codedeploy_deployment_group__auto_rollback_configuration
+
+type aws_codedeploy_deployment_group__blue_green_deployment_config__deployment_ready_option
+
+type aws_codedeploy_deployment_group__blue_green_deployment_config__green_fleet_provisioning_option
+
+type aws_codedeploy_deployment_group__blue_green_deployment_config__terminate_blue_instances_on_deployment_success
+
+type aws_codedeploy_deployment_group__blue_green_deployment_config
+type aws_codedeploy_deployment_group__deployment_style
+type aws_codedeploy_deployment_group__ec2_tag_filter
+type aws_codedeploy_deployment_group__ec2_tag_set__ec2_tag_filter
+type aws_codedeploy_deployment_group__ec2_tag_set
+type aws_codedeploy_deployment_group__ecs_service
+type aws_codedeploy_deployment_group__load_balancer_info__elb_info
+
+type aws_codedeploy_deployment_group__load_balancer_info__target_group_info
+
+type aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info__prod_traffic_route
+
+type aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info__target_group
+
+type aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info__test_traffic_route
+
+type aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info
+
+type aws_codedeploy_deployment_group__load_balancer_info
+type aws_codedeploy_deployment_group__on_premises_instance_tag_filter
+type aws_codedeploy_deployment_group__trigger_configuration
+type aws_codedeploy_deployment_group
+
+val aws_codedeploy_deployment_group :
+  ?autoscaling_groups:string list ->
+  ?deployment_config_name:string ->
+  ?outdated_instances_strategy:string ->
+  ?tags:(string * string) list ->
+  app_name:string ->
+  deployment_group_name:string ->
+  service_role_arn:string ->
+  alarm_configuration:
+    aws_codedeploy_deployment_group__alarm_configuration list ->
+  auto_rollback_configuration:
+    aws_codedeploy_deployment_group__auto_rollback_configuration list ->
+  blue_green_deployment_config:
+    aws_codedeploy_deployment_group__blue_green_deployment_config
+    list ->
+  deployment_style:
+    aws_codedeploy_deployment_group__deployment_style list ->
+  ec2_tag_filter:aws_codedeploy_deployment_group__ec2_tag_filter list ->
+  ec2_tag_set:aws_codedeploy_deployment_group__ec2_tag_set list ->
+  ecs_service:aws_codedeploy_deployment_group__ecs_service list ->
+  load_balancer_info:
+    aws_codedeploy_deployment_group__load_balancer_info list ->
+  on_premises_instance_tag_filter:
+    aws_codedeploy_deployment_group__on_premises_instance_tag_filter
+    list ->
+  trigger_configuration:
+    aws_codedeploy_deployment_group__trigger_configuration list ->
+  string ->
+  unit

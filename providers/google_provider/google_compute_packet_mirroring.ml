@@ -2,7 +2,7 @@
 
 [@@@ocaml.warning "-33-27-26"]
 
-open Tf.Prelude
+open! Tf.Prelude
 
 type google_compute_packet_mirroring__collector_ilb = {
   url : string;  (** The URL of the forwarding rule. *)
