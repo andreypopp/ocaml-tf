@@ -22,10 +22,31 @@ type google_storage_bucket_iam_member = {
 [@@deriving yojson_of]
 (** google_storage_bucket_iam_member *)
 
+type t = {
+  bucket : string prop;
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  role : string prop;
+}
+
 let google_storage_bucket_iam_member ?id ~bucket ~member ~role
     ~condition __resource_id =
   let __resource_type = "google_storage_bucket_iam_member" in
-  let __resource = { bucket; id; member; role; condition } in
+  let __resource =
+    ({ bucket; id; member; role; condition }
+      : google_storage_bucket_iam_member)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_bucket_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

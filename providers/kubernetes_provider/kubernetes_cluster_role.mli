@@ -9,6 +9,7 @@ type kubernetes_cluster_role__aggregation_rule
 type kubernetes_cluster_role__metadata
 type kubernetes_cluster_role__rule
 type kubernetes_cluster_role
+type t = private { id : string prop }
 
 val kubernetes_cluster_role :
   ?id:string prop ->
@@ -16,4 +17,4 @@ val kubernetes_cluster_role :
   metadata:kubernetes_cluster_role__metadata list ->
   rule:kubernetes_cluster_role__rule list ->
   string ->
-  unit
+  t

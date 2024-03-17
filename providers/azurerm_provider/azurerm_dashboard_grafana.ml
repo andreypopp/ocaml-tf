@@ -73,6 +73,24 @@ type azurerm_dashboard_grafana = {
 [@@deriving yojson_of]
 (** azurerm_dashboard_grafana *)
 
+type t = {
+  api_key_enabled : bool prop;
+  auto_generated_domain_name_label_scope : string prop;
+  deterministic_outbound_ip_enabled : bool prop;
+  endpoint : string prop;
+  grafana_major_version : string prop;
+  grafana_version : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  outbound_ip : string list prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  zone_redundancy_enabled : bool prop;
+}
+
 let azurerm_dashboard_grafana ?api_key_enabled
     ?auto_generated_domain_name_label_scope
     ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
@@ -82,25 +100,65 @@ let azurerm_dashboard_grafana ?api_key_enabled
     ~identity ~smtp __resource_id =
   let __resource_type = "azurerm_dashboard_grafana" in
   let __resource =
-    {
-      api_key_enabled;
-      auto_generated_domain_name_label_scope;
-      deterministic_outbound_ip_enabled;
-      grafana_major_version;
-      id;
-      location;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      sku;
-      tags;
-      zone_redundancy_enabled;
-      azure_monitor_workspace_integrations;
-      identity;
-      smtp;
-      timeouts;
-    }
+    ({
+       api_key_enabled;
+       auto_generated_domain_name_label_scope;
+       deterministic_outbound_ip_enabled;
+       grafana_major_version;
+       id;
+       location;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       sku;
+       tags;
+       zone_redundancy_enabled;
+       azure_monitor_workspace_integrations;
+       identity;
+       smtp;
+       timeouts;
+     }
+      : azurerm_dashboard_grafana)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dashboard_grafana __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_key_enabled =
+         Prop.computed __resource_type __resource_id
+           "api_key_enabled";
+       auto_generated_domain_name_label_scope =
+         Prop.computed __resource_type __resource_id
+           "auto_generated_domain_name_label_scope";
+       deterministic_outbound_ip_enabled =
+         Prop.computed __resource_type __resource_id
+           "deterministic_outbound_ip_enabled";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       grafana_major_version =
+         Prop.computed __resource_type __resource_id
+           "grafana_major_version";
+       grafana_version =
+         Prop.computed __resource_type __resource_id
+           "grafana_version";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_ip =
+         Prop.computed __resource_type __resource_id "outbound_ip";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zone_redundancy_enabled =
+         Prop.computed __resource_type __resource_id
+           "zone_redundancy_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

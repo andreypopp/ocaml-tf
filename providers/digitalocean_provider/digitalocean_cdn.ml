@@ -20,19 +20,50 @@ type digitalocean_cdn = {
 [@@deriving yojson_of]
 (** digitalocean_cdn *)
 
+type t = {
+  certificate_id : string prop;
+  certificate_name : string prop;
+  created_at : string prop;
+  custom_domain : string prop;
+  endpoint : string prop;
+  id : string prop;
+  origin : string prop;
+  ttl : float prop;
+}
+
 let digitalocean_cdn ?certificate_id ?certificate_name ?custom_domain
     ?id ?ttl ~origin __resource_id =
   let __resource_type = "digitalocean_cdn" in
   let __resource =
-    {
-      certificate_id;
-      certificate_name;
-      custom_domain;
-      id;
-      origin;
-      ttl;
-    }
+    ({
+       certificate_id;
+       certificate_name;
+       custom_domain;
+       id;
+       origin;
+       ttl;
+     }
+      : digitalocean_cdn)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_cdn __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_id =
+         Prop.computed __resource_type __resource_id "certificate_id";
+       certificate_name =
+         Prop.computed __resource_type __resource_id
+           "certificate_name";
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       custom_domain =
+         Prop.computed __resource_type __resource_id "custom_domain";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       id = Prop.computed __resource_type __resource_id "id";
+       origin = Prop.computed __resource_type __resource_id "origin";
+       ttl = Prop.computed __resource_type __resource_id "ttl";
+     }
+      : t)
+  in
+  __resource_attributes

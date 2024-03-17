@@ -147,26 +147,54 @@ type azurerm_network_connection_monitor = {
 [@@deriving yojson_of]
 (** azurerm_network_connection_monitor *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  network_watcher_id : string prop;
+  notes : string prop;
+  output_workspace_resource_ids : string list prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_network_connection_monitor ?id ?notes
     ?output_workspace_resource_ids ?tags ?timeouts ~location ~name
     ~network_watcher_id ~endpoint ~test_configuration ~test_group
     __resource_id =
   let __resource_type = "azurerm_network_connection_monitor" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      network_watcher_id;
-      notes;
-      output_workspace_resource_ids;
-      tags;
-      endpoint;
-      test_configuration;
-      test_group;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       network_watcher_id;
+       notes;
+       output_workspace_resource_ids;
+       tags;
+       endpoint;
+       test_configuration;
+       test_group;
+       timeouts;
+     }
+      : azurerm_network_connection_monitor)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_connection_monitor __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_watcher_id =
+         Prop.computed __resource_type __resource_id
+           "network_watcher_id";
+       notes = Prop.computed __resource_type __resource_id "notes";
+       output_workspace_resource_ids =
+         Prop.computed __resource_type __resource_id
+           "output_workspace_resource_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

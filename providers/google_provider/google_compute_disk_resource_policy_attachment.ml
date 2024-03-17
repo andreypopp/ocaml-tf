@@ -27,13 +27,35 @@ creation. Do not specify the self link. *)
 [@@deriving yojson_of]
 (** google_compute_disk_resource_policy_attachment *)
 
+type t = {
+  disk : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  zone : string prop;
+}
+
 let google_compute_disk_resource_policy_attachment ?id ?project ?zone
     ?timeouts ~disk ~name __resource_id =
   let __resource_type =
     "google_compute_disk_resource_policy_attachment"
   in
-  let __resource = { disk; id; name; project; zone; timeouts } in
+  let __resource =
+    ({ disk; id; name; project; zone; timeouts }
+      : google_compute_disk_resource_policy_attachment)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_disk_resource_policy_attachment
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       disk = Prop.computed __resource_type __resource_id "disk";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

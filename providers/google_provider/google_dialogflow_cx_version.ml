@@ -34,12 +34,42 @@ Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<F
 [@@deriving yojson_of]
 (** google_dialogflow_cx_version *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  nlu_settings :
+    google_dialogflow_cx_version__nlu_settings list prop;
+  parent : string prop;
+  state : string prop;
+}
+
 let google_dialogflow_cx_version ?description ?id ?parent ?timeouts
     ~display_name __resource_id =
   let __resource_type = "google_dialogflow_cx_version" in
   let __resource =
-    { description; display_name; id; parent; timeouts }
+    ({ description; display_name; id; parent; timeouts }
+      : google_dialogflow_cx_version)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_version __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       nlu_settings =
+         Prop.computed __resource_type __resource_id "nlu_settings";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

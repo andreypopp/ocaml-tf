@@ -6,6 +6,14 @@ type azurerm_capacity_reservation__sku
 type azurerm_capacity_reservation__timeouts
 type azurerm_capacity_reservation
 
+type t = private {
+  capacity_reservation_group_id : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  zone : string prop;
+}
+
 val azurerm_capacity_reservation :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -15,4 +23,4 @@ val azurerm_capacity_reservation :
   name:string prop ->
   sku:azurerm_capacity_reservation__sku list ->
   string ->
-  unit
+  t

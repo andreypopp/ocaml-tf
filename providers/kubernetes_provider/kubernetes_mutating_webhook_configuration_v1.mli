@@ -19,6 +19,7 @@ type kubernetes_mutating_webhook_configuration_v1__webhook__object_selector
 type kubernetes_mutating_webhook_configuration_v1__webhook__rule
 type kubernetes_mutating_webhook_configuration_v1__webhook
 type kubernetes_mutating_webhook_configuration_v1
+type t = private { id : string prop }
 
 val kubernetes_mutating_webhook_configuration_v1 :
   ?id:string prop ->
@@ -26,4 +27,4 @@ val kubernetes_mutating_webhook_configuration_v1 :
     kubernetes_mutating_webhook_configuration_v1__metadata list ->
   webhook:kubernetes_mutating_webhook_configuration_v1__webhook list ->
   string ->
-  unit
+  t

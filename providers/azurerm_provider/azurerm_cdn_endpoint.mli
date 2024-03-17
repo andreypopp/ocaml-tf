@@ -44,6 +44,25 @@ type azurerm_cdn_endpoint__origin
 type azurerm_cdn_endpoint__timeouts
 type azurerm_cdn_endpoint
 
+type t = private {
+  content_types_to_compress : string list prop;
+  fqdn : string prop;
+  id : string prop;
+  is_compression_enabled : bool prop;
+  is_http_allowed : bool prop;
+  is_https_allowed : bool prop;
+  location : string prop;
+  name : string prop;
+  optimization_type : string prop;
+  origin_host_header : string prop;
+  origin_path : string prop;
+  probe_path : string prop;
+  profile_name : string prop;
+  querystring_caching_behaviour : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_cdn_endpoint :
   ?content_types_to_compress:string prop list ->
   ?id:string prop ->
@@ -67,4 +86,4 @@ val azurerm_cdn_endpoint :
     azurerm_cdn_endpoint__global_delivery_rule list ->
   origin:azurerm_cdn_endpoint__origin list ->
   string ->
-  unit
+  t

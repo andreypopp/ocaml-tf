@@ -15,18 +15,43 @@ type aws_appstream_user_stack_association = {
 [@@deriving yojson_of]
 (** aws_appstream_user_stack_association *)
 
+type t = {
+  authentication_type : string prop;
+  id : string prop;
+  send_email_notification : bool prop;
+  stack_name : string prop;
+  user_name : string prop;
+}
+
 let aws_appstream_user_stack_association ?id ?send_email_notification
     ~authentication_type ~stack_name ~user_name __resource_id =
   let __resource_type = "aws_appstream_user_stack_association" in
   let __resource =
-    {
-      authentication_type;
-      id;
-      send_email_notification;
-      stack_name;
-      user_name;
-    }
+    ({
+       authentication_type;
+       id;
+       send_email_notification;
+       stack_name;
+       user_name;
+     }
+      : aws_appstream_user_stack_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_user_stack_association __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authentication_type =
+         Prop.computed __resource_type __resource_id
+           "authentication_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       send_email_notification =
+         Prop.computed __resource_type __resource_id
+           "send_email_notification";
+       stack_name =
+         Prop.computed __resource_type __resource_id "stack_name";
+       user_name =
+         Prop.computed __resource_type __resource_id "user_name";
+     }
+      : t)
+  in
+  __resource_attributes

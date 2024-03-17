@@ -22,6 +22,18 @@ type google_migration_center_preference_set__virtual_machine_preferences
 
 type google_migration_center_preference_set
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  preference_set_id : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 val google_migration_center_preference_set :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -34,4 +46,4 @@ val google_migration_center_preference_set :
     google_migration_center_preference_set__virtual_machine_preferences
     list ->
   string ->
-  unit
+  t

@@ -198,6 +198,15 @@ type aws_sagemaker_data_quality_job_definition = {
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sagemaker_data_quality_job_definition ?id ?name ?tags
     ?tags_all ~role_arn ~data_quality_app_specification
     ~data_quality_baseline_config ~data_quality_job_input
@@ -207,21 +216,35 @@ let aws_sagemaker_data_quality_job_definition ?id ?name ?tags
     "aws_sagemaker_data_quality_job_definition"
   in
   let __resource =
-    {
-      id;
-      name;
-      role_arn;
-      tags;
-      tags_all;
-      data_quality_app_specification;
-      data_quality_baseline_config;
-      data_quality_job_input;
-      data_quality_job_output_config;
-      job_resources;
-      network_config;
-      stopping_condition;
-    }
+    ({
+       id;
+       name;
+       role_arn;
+       tags;
+       tags_all;
+       data_quality_app_specification;
+       data_quality_baseline_config;
+       data_quality_job_input;
+       data_quality_job_output_config;
+       job_resources;
+       network_config;
+       stopping_condition;
+     }
+      : aws_sagemaker_data_quality_job_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_data_quality_job_definition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,17 @@ open! Tf.Prelude
 type azurerm_log_analytics_storage_insights__timeouts
 type azurerm_log_analytics_storage_insights
 
+type t = private {
+  blob_container_names : string list prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  storage_account_id : string prop;
+  storage_account_key : string prop;
+  table_names : string list prop;
+  workspace_id : string prop;
+}
+
 val azurerm_log_analytics_storage_insights :
   ?blob_container_names:string prop list ->
   ?id:string prop ->
@@ -16,4 +27,4 @@ val azurerm_log_analytics_storage_insights :
   storage_account_key:string prop ->
   workspace_id:string prop ->
   string ->
-  unit
+  t

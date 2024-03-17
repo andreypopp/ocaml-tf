@@ -23,12 +23,53 @@ type azurerm_app_service_managed_certificate = {
 [@@deriving yojson_of]
 (** azurerm_app_service_managed_certificate *)
 
+type t = {
+  canonical_name : string prop;
+  custom_hostname_binding_id : string prop;
+  expiration_date : string prop;
+  friendly_name : string prop;
+  host_names : string list prop;
+  id : string prop;
+  issue_date : string prop;
+  issuer : string prop;
+  subject_name : string prop;
+  tags : (string * string) list prop;
+  thumbprint : string prop;
+}
+
 let azurerm_app_service_managed_certificate ?id ?tags ?timeouts
     ~custom_hostname_binding_id __resource_id =
   let __resource_type = "azurerm_app_service_managed_certificate" in
   let __resource =
-    { custom_hostname_binding_id; id; tags; timeouts }
+    ({ custom_hostname_binding_id; id; tags; timeouts }
+      : azurerm_app_service_managed_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_managed_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       canonical_name =
+         Prop.computed __resource_type __resource_id "canonical_name";
+       custom_hostname_binding_id =
+         Prop.computed __resource_type __resource_id
+           "custom_hostname_binding_id";
+       expiration_date =
+         Prop.computed __resource_type __resource_id
+           "expiration_date";
+       friendly_name =
+         Prop.computed __resource_type __resource_id "friendly_name";
+       host_names =
+         Prop.computed __resource_type __resource_id "host_names";
+       id = Prop.computed __resource_type __resource_id "id";
+       issue_date =
+         Prop.computed __resource_type __resource_id "issue_date";
+       issuer = Prop.computed __resource_type __resource_id "issuer";
+       subject_name =
+         Prop.computed __resource_type __resource_id "subject_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       thumbprint =
+         Prop.computed __resource_type __resource_id "thumbprint";
+     }
+      : t)
+  in
+  __resource_attributes

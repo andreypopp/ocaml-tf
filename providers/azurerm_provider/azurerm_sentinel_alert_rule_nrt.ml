@@ -126,6 +126,24 @@ type azurerm_sentinel_alert_rule_nrt = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_nrt *)
 
+type t = {
+  alert_rule_template_guid : string prop;
+  alert_rule_template_version : string prop;
+  custom_details : (string * string) list prop;
+  description : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  query : string prop;
+  severity : string prop;
+  suppression_duration : string prop;
+  suppression_enabled : bool prop;
+  tactics : string list prop;
+  techniques : string list prop;
+}
+
 let azurerm_sentinel_alert_rule_nrt ?alert_rule_template_guid
     ?alert_rule_template_version ?custom_details ?description
     ?enabled ?id ?suppression_duration ?suppression_enabled ?tactics
@@ -135,30 +153,68 @@ let azurerm_sentinel_alert_rule_nrt ?alert_rule_template_guid
     =
   let __resource_type = "azurerm_sentinel_alert_rule_nrt" in
   let __resource =
-    {
-      alert_rule_template_guid;
-      alert_rule_template_version;
-      custom_details;
-      description;
-      display_name;
-      enabled;
-      id;
-      log_analytics_workspace_id;
-      name;
-      query;
-      severity;
-      suppression_duration;
-      suppression_enabled;
-      tactics;
-      techniques;
-      alert_details_override;
-      entity_mapping;
-      event_grouping;
-      incident;
-      sentinel_entity_mapping;
-      timeouts;
-    }
+    ({
+       alert_rule_template_guid;
+       alert_rule_template_version;
+       custom_details;
+       description;
+       display_name;
+       enabled;
+       id;
+       log_analytics_workspace_id;
+       name;
+       query;
+       severity;
+       suppression_duration;
+       suppression_enabled;
+       tactics;
+       techniques;
+       alert_details_override;
+       entity_mapping;
+       event_grouping;
+       incident;
+       sentinel_entity_mapping;
+       timeouts;
+     }
+      : azurerm_sentinel_alert_rule_nrt)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_alert_rule_nrt __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alert_rule_template_guid =
+         Prop.computed __resource_type __resource_id
+           "alert_rule_template_guid";
+       alert_rule_template_version =
+         Prop.computed __resource_type __resource_id
+           "alert_rule_template_version";
+       custom_details =
+         Prop.computed __resource_type __resource_id "custom_details";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       query = Prop.computed __resource_type __resource_id "query";
+       severity =
+         Prop.computed __resource_type __resource_id "severity";
+       suppression_duration =
+         Prop.computed __resource_type __resource_id
+           "suppression_duration";
+       suppression_enabled =
+         Prop.computed __resource_type __resource_id
+           "suppression_enabled";
+       tactics =
+         Prop.computed __resource_type __resource_id "tactics";
+       techniques =
+         Prop.computed __resource_type __resource_id "techniques";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -25,20 +25,43 @@ type azurerm_mssql_virtual_network_rule = {
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_network_rule *)
 
+type t = {
+  id : string prop;
+  ignore_missing_vnet_service_endpoint : bool prop;
+  name : string prop;
+  server_id : string prop;
+  subnet_id : string prop;
+}
+
 let azurerm_mssql_virtual_network_rule ?id
     ?ignore_missing_vnet_service_endpoint ?timeouts ~name ~server_id
     ~subnet_id __resource_id =
   let __resource_type = "azurerm_mssql_virtual_network_rule" in
   let __resource =
-    {
-      id;
-      ignore_missing_vnet_service_endpoint;
-      name;
-      server_id;
-      subnet_id;
-      timeouts;
-    }
+    ({
+       id;
+       ignore_missing_vnet_service_endpoint;
+       name;
+       server_id;
+       subnet_id;
+       timeouts;
+     }
+      : azurerm_mssql_virtual_network_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_virtual_network_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       ignore_missing_vnet_service_endpoint =
+         Prop.computed __resource_type __resource_id
+           "ignore_missing_vnet_service_endpoint";
+       name = Prop.computed __resource_type __resource_id "name";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+     }
+      : t)
+  in
+  __resource_attributes

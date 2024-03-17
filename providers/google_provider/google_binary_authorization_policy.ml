@@ -94,23 +94,44 @@ policy will be subject to the project admission policy. Possible values: [ENABLE
 [@@deriving yojson_of]
 (** google_binary_authorization_policy *)
 
+type t = {
+  description : string prop;
+  global_policy_evaluation_mode : string prop;
+  id : string prop;
+  project : string prop;
+}
+
 let google_binary_authorization_policy ?description
     ?global_policy_evaluation_mode ?id ?project ?timeouts
     ~admission_whitelist_patterns ~cluster_admission_rules
     ~default_admission_rule __resource_id =
   let __resource_type = "google_binary_authorization_policy" in
   let __resource =
-    {
-      description;
-      global_policy_evaluation_mode;
-      id;
-      project;
-      admission_whitelist_patterns;
-      cluster_admission_rules;
-      default_admission_rule;
-      timeouts;
-    }
+    ({
+       description;
+       global_policy_evaluation_mode;
+       id;
+       project;
+       admission_whitelist_patterns;
+       cluster_admission_rules;
+       default_admission_rule;
+       timeouts;
+     }
+      : google_binary_authorization_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_binary_authorization_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       global_policy_evaluation_mode =
+         Prop.computed __resource_type __resource_id
+           "global_policy_evaluation_mode";
+       id = Prop.computed __resource_type __resource_id "id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

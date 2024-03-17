@@ -7,6 +7,16 @@ type google_network_services_edge_cache_keyset__timeouts
 type google_network_services_edge_cache_keyset__validation_shared_keys
 type google_network_services_edge_cache_keyset
 
+type t = private {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_network_services_edge_cache_keyset :
   ?description:string prop ->
   ?id:string prop ->
@@ -20,4 +30,4 @@ val google_network_services_edge_cache_keyset :
     google_network_services_edge_cache_keyset__validation_shared_keys
     list ->
   string ->
-  unit
+  t

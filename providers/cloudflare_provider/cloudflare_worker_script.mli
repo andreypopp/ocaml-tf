@@ -14,6 +14,17 @@ type cloudflare_worker_script__service_binding
 type cloudflare_worker_script__webassembly_binding
 type cloudflare_worker_script
 
+type t = private {
+  account_id : string prop;
+  compatibility_date : string prop;
+  compatibility_flags : string list prop;
+  content : string prop;
+  id : string prop;
+  logpush : bool prop;
+  module_ : bool prop;
+  name : string prop;
+}
+
 val cloudflare_worker_script :
   ?compatibility_date:string prop ->
   ?compatibility_flags:string prop list ->
@@ -40,4 +51,4 @@ val cloudflare_worker_script :
   webassembly_binding:
     cloudflare_worker_script__webassembly_binding list ->
   string ->
-  unit
+  t

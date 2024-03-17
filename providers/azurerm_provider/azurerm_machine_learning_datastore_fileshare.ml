@@ -31,6 +31,19 @@ type azurerm_machine_learning_datastore_fileshare = {
 [@@deriving yojson_of]
 (** azurerm_machine_learning_datastore_fileshare *)
 
+type t = {
+  account_key : string prop;
+  description : string prop;
+  id : string prop;
+  is_default : bool prop;
+  name : string prop;
+  service_data_identity : string prop;
+  shared_access_signature : string prop;
+  storage_fileshare_id : string prop;
+  tags : (string * string) list prop;
+  workspace_id : string prop;
+}
+
 let azurerm_machine_learning_datastore_fileshare ?account_key
     ?description ?id ?service_data_identity ?shared_access_signature
     ?tags ?timeouts ~name ~storage_fileshare_id ~workspace_id
@@ -39,20 +52,46 @@ let azurerm_machine_learning_datastore_fileshare ?account_key
     "azurerm_machine_learning_datastore_fileshare"
   in
   let __resource =
-    {
-      account_key;
-      description;
-      id;
-      name;
-      service_data_identity;
-      shared_access_signature;
-      storage_fileshare_id;
-      tags;
-      workspace_id;
-      timeouts;
-    }
+    ({
+       account_key;
+       description;
+       id;
+       name;
+       service_data_identity;
+       shared_access_signature;
+       storage_fileshare_id;
+       tags;
+       workspace_id;
+       timeouts;
+     }
+      : azurerm_machine_learning_datastore_fileshare)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_machine_learning_datastore_fileshare
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_key =
+         Prop.computed __resource_type __resource_id "account_key";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_default =
+         Prop.computed __resource_type __resource_id "is_default";
+       name = Prop.computed __resource_type __resource_id "name";
+       service_data_identity =
+         Prop.computed __resource_type __resource_id
+           "service_data_identity";
+       shared_access_signature =
+         Prop.computed __resource_type __resource_id
+           "shared_access_signature";
+       storage_fileshare_id =
+         Prop.computed __resource_type __resource_id
+           "storage_fileshare_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       workspace_id =
+         Prop.computed __resource_type __resource_id "workspace_id";
+     }
+      : t)
+  in
+  __resource_attributes

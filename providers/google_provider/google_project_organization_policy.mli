@@ -10,6 +10,15 @@ type google_project_organization_policy__restore_policy
 type google_project_organization_policy__timeouts
 type google_project_organization_policy
 
+type t = private {
+  constraint_ : string prop;
+  etag : string prop;
+  id : string prop;
+  project : string prop;
+  update_time : string prop;
+  version : float prop;
+}
+
 val google_project_organization_policy :
   ?id:string prop ->
   ?version:float prop ->
@@ -22,4 +31,4 @@ val google_project_organization_policy :
   restore_policy:
     google_project_organization_policy__restore_policy list ->
   string ->
-  unit
+  t

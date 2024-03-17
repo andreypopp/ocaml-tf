@@ -13,6 +13,20 @@ type azurerm_mssql_managed_instance_failover_group__partner_region = {
 
 type azurerm_mssql_managed_instance_failover_group
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  managed_instance_id : string prop;
+  name : string prop;
+  partner_managed_instance_id : string prop;
+  partner_region :
+    azurerm_mssql_managed_instance_failover_group__partner_region
+    list
+    prop;
+  readonly_endpoint_failover_policy_enabled : bool prop;
+  role : string prop;
+}
+
 val azurerm_mssql_managed_instance_failover_group :
   ?id:string prop ->
   ?readonly_endpoint_failover_policy_enabled:bool prop ->
@@ -25,4 +39,4 @@ val azurerm_mssql_managed_instance_failover_group :
     azurerm_mssql_managed_instance_failover_group__read_write_endpoint_failover_policy
     list ->
   string ->
-  unit
+  t

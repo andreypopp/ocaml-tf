@@ -23,13 +23,32 @@ type aws_securityhub_configuration_policy_association = {
 [@@deriving yojson_of]
 (** aws_securityhub_configuration_policy_association *)
 
+type t = {
+  id : string prop;
+  policy_id : string prop;
+  target_id : string prop;
+}
+
 let aws_securityhub_configuration_policy_association ?id ?timeouts
     ~policy_id ~target_id __resource_id =
   let __resource_type =
     "aws_securityhub_configuration_policy_association"
   in
-  let __resource = { id; policy_id; target_id; timeouts } in
+  let __resource =
+    ({ id; policy_id; target_id; timeouts }
+      : aws_securityhub_configuration_policy_association)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_configuration_policy_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       policy_id =
+         Prop.computed __resource_type __resource_id "policy_id";
+       target_id =
+         Prop.computed __resource_type __resource_id "target_id";
+     }
+      : t)
+  in
+  __resource_attributes

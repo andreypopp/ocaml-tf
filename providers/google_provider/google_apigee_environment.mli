@@ -6,6 +6,17 @@ type google_apigee_environment__node_config
 type google_apigee_environment__timeouts
 type google_apigee_environment
 
+type t = private {
+  api_proxy_type : string prop;
+  deployment_type : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  org_id : string prop;
+  type_ : string prop;
+}
+
 val google_apigee_environment :
   ?api_proxy_type:string prop ->
   ?deployment_type:string prop ->
@@ -18,4 +29,4 @@ val google_apigee_environment :
   org_id:string prop ->
   node_config:google_apigee_environment__node_config list ->
   string ->
-  unit
+  t

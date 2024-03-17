@@ -82,6 +82,43 @@ type google_cloud_run_v2_service__traffic_statuses = {
 
 type google_cloud_run_v2_service
 
+type t = private {
+  annotations : (string * string) list prop;
+  client : string prop;
+  client_version : string prop;
+  conditions : google_cloud_run_v2_service__conditions list prop;
+  create_time : string prop;
+  creator : string prop;
+  custom_audiences : string list prop;
+  delete_time : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  expire_time : string prop;
+  generation : string prop;
+  id : string prop;
+  ingress : string prop;
+  labels : (string * string) list prop;
+  last_modifier : string prop;
+  latest_created_revision : string prop;
+  latest_ready_revision : string prop;
+  launch_stage : string prop;
+  location : string prop;
+  name : string prop;
+  observed_generation : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  terminal_condition :
+    google_cloud_run_v2_service__terminal_condition list prop;
+  terraform_labels : (string * string) list prop;
+  traffic_statuses :
+    google_cloud_run_v2_service__traffic_statuses list prop;
+  uid : string prop;
+  update_time : string prop;
+  uri : string prop;
+}
+
 val google_cloud_run_v2_service :
   ?annotations:(string * string prop) list ->
   ?client:string prop ->
@@ -101,4 +138,4 @@ val google_cloud_run_v2_service :
   template:google_cloud_run_v2_service__template list ->
   traffic:google_cloud_run_v2_service__traffic list ->
   string ->
-  unit
+  t

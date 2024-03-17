@@ -395,27 +395,59 @@ Format:projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Fl
 [@@deriving yojson_of]
 (** google_dialogflow_cx_flow *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  is_default_start_flow : bool prop;
+  language_code : string prop;
+  name : string prop;
+  parent : string prop;
+  transition_route_groups : string list prop;
+}
+
 let google_dialogflow_cx_flow ?description ?id ?is_default_start_flow
     ?language_code ?parent ?transition_route_groups ?timeouts
     ~display_name ~advanced_settings ~event_handlers ~nlu_settings
     ~transition_routes __resource_id =
   let __resource_type = "google_dialogflow_cx_flow" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      is_default_start_flow;
-      language_code;
-      parent;
-      transition_route_groups;
-      advanced_settings;
-      event_handlers;
-      nlu_settings;
-      timeouts;
-      transition_routes;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       is_default_start_flow;
+       language_code;
+       parent;
+       transition_route_groups;
+       advanced_settings;
+       event_handlers;
+       nlu_settings;
+       timeouts;
+       transition_routes;
+     }
+      : google_dialogflow_cx_flow)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_flow __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_default_start_flow =
+         Prop.computed __resource_type __resource_id
+           "is_default_start_flow";
+       language_code =
+         Prop.computed __resource_type __resource_id "language_code";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       transition_route_groups =
+         Prop.computed __resource_type __resource_id
+           "transition_route_groups";
+     }
+      : t)
+  in
+  __resource_attributes

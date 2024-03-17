@@ -45,24 +45,57 @@ type azurerm_confidential_ledger = {
 [@@deriving yojson_of]
 (** azurerm_confidential_ledger *)
 
+type t = {
+  id : string prop;
+  identity_service_endpoint : string prop;
+  ledger_endpoint : string prop;
+  ledger_type : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_confidential_ledger ?id ?tags ?timeouts ~ledger_type
     ~location ~name ~resource_group_name
     ~azuread_based_service_principal
     ~certificate_based_security_principal __resource_id =
   let __resource_type = "azurerm_confidential_ledger" in
   let __resource =
-    {
-      id;
-      ledger_type;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      azuread_based_service_principal;
-      certificate_based_security_principal;
-      timeouts;
-    }
+    ({
+       id;
+       ledger_type;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       azuread_based_service_principal;
+       certificate_based_security_principal;
+       timeouts;
+     }
+      : azurerm_confidential_ledger)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_confidential_ledger __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_service_endpoint =
+         Prop.computed __resource_type __resource_id
+           "identity_service_endpoint";
+       ledger_endpoint =
+         Prop.computed __resource_type __resource_id
+           "ledger_endpoint";
+       ledger_type =
+         Prop.computed __resource_type __resource_id "ledger_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

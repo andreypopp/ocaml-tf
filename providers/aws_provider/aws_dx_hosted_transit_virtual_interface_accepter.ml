@@ -24,6 +24,15 @@ type aws_dx_hosted_transit_virtual_interface_accepter = {
 [@@deriving yojson_of]
 (** aws_dx_hosted_transit_virtual_interface_accepter *)
 
+type t = {
+  arn : string prop;
+  dx_gateway_id : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  virtual_interface_id : string prop;
+}
+
 let aws_dx_hosted_transit_virtual_interface_accepter ?id ?tags
     ?tags_all ?timeouts ~dx_gateway_id ~virtual_interface_id
     __resource_id =
@@ -31,16 +40,32 @@ let aws_dx_hosted_transit_virtual_interface_accepter ?id ?tags
     "aws_dx_hosted_transit_virtual_interface_accepter"
   in
   let __resource =
-    {
-      dx_gateway_id;
-      id;
-      tags;
-      tags_all;
-      virtual_interface_id;
-      timeouts;
-    }
+    ({
+       dx_gateway_id;
+       id;
+       tags;
+       tags_all;
+       virtual_interface_id;
+       timeouts;
+     }
+      : aws_dx_hosted_transit_virtual_interface_accepter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_hosted_transit_virtual_interface_accepter
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       dx_gateway_id =
+         Prop.computed __resource_type __resource_id "dx_gateway_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       virtual_interface_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_interface_id";
+     }
+      : t)
+  in
+  __resource_attributes

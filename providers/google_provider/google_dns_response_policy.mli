@@ -7,6 +7,13 @@ type google_dns_response_policy__networks
 type google_dns_response_policy__timeouts
 type google_dns_response_policy
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  project : string prop;
+  response_policy_name : string prop;
+}
+
 val google_dns_response_policy :
   ?description:string prop ->
   ?id:string prop ->
@@ -16,4 +23,4 @@ val google_dns_response_policy :
   gke_clusters:google_dns_response_policy__gke_clusters list ->
   networks:google_dns_response_policy__networks list ->
   string ->
-  unit
+  t

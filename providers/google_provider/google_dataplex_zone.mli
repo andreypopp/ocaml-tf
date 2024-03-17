@@ -17,6 +17,25 @@ type google_dataplex_zone__asset_status = {
 
 type google_dataplex_zone
 
+type t = private {
+  asset_status : google_dataplex_zone__asset_status list prop;
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  lake : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_dataplex_zone :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -31,4 +50,4 @@ val google_dataplex_zone :
   discovery_spec:google_dataplex_zone__discovery_spec list ->
   resource_spec:google_dataplex_zone__resource_spec list ->
   string ->
-  unit
+  t

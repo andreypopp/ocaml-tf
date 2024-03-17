@@ -38,6 +38,24 @@ type aws_ec2_fleet__target_capacity_specification
 type aws_ec2_fleet__timeouts
 type aws_ec2_fleet
 
+type t = private {
+  arn : string prop;
+  context : string prop;
+  excess_capacity_termination_policy : string prop;
+  fleet_state : string prop;
+  fulfilled_capacity : float prop;
+  fulfilled_on_demand_capacity : float prop;
+  id : string prop;
+  replace_unhealthy_instances : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  terminate_instances : bool prop;
+  terminate_instances_with_expiration : bool prop;
+  type_ : string prop;
+  valid_from : string prop;
+  valid_until : string prop;
+}
+
 val aws_ec2_fleet :
   ?context:string prop ->
   ?excess_capacity_termination_policy:string prop ->
@@ -61,4 +79,4 @@ val aws_ec2_fleet :
   target_capacity_specification:
     aws_ec2_fleet__target_capacity_specification list ->
   string ->
-  unit
+  t

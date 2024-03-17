@@ -7,6 +7,17 @@ type google_notebooks_environment__timeouts
 type google_notebooks_environment__vm_image
 type google_notebooks_environment
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  post_startup_script : string prop;
+  project : string prop;
+}
+
 val google_notebooks_environment :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -19,4 +30,4 @@ val google_notebooks_environment :
   container_image:google_notebooks_environment__container_image list ->
   vm_image:google_notebooks_environment__vm_image list ->
   string ->
-  unit
+  t

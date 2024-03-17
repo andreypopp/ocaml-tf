@@ -252,6 +252,32 @@ type azurerm_function_app = {
 [@@deriving yojson_of]
 (** azurerm_function_app *)
 
+type t = {
+  app_service_plan_id : string prop;
+  app_settings : (string * string) list prop;
+  client_cert_mode : string prop;
+  custom_domain_verification_id : string prop;
+  daily_memory_time_quota : float prop;
+  default_hostname : string prop;
+  enable_builtin_logging : bool prop;
+  enabled : bool prop;
+  https_only : bool prop;
+  id : string prop;
+  key_vault_reference_identity_id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  os_type : string prop;
+  outbound_ip_addresses : string prop;
+  possible_outbound_ip_addresses : string prop;
+  resource_group_name : string prop;
+  site_credential : azurerm_function_app__site_credential list prop;
+  storage_account_access_key : string prop;
+  storage_account_name : string prop;
+  tags : (string * string) list prop;
+  version : string prop;
+}
+
 let azurerm_function_app ?app_settings ?client_cert_mode
     ?daily_memory_time_quota ?enable_builtin_logging ?enabled
     ?https_only ?id ?key_vault_reference_identity_id ?os_type ?tags
@@ -261,32 +287,93 @@ let azurerm_function_app ?app_settings ?client_cert_mode
     ~site_config ~source_control __resource_id =
   let __resource_type = "azurerm_function_app" in
   let __resource =
-    {
-      app_service_plan_id;
-      app_settings;
-      client_cert_mode;
-      daily_memory_time_quota;
-      enable_builtin_logging;
-      enabled;
-      https_only;
-      id;
-      key_vault_reference_identity_id;
-      location;
-      name;
-      os_type;
-      resource_group_name;
-      storage_account_access_key;
-      storage_account_name;
-      tags;
-      version;
-      auth_settings;
-      connection_string;
-      identity;
-      site_config;
-      source_control;
-      timeouts;
-    }
+    ({
+       app_service_plan_id;
+       app_settings;
+       client_cert_mode;
+       daily_memory_time_quota;
+       enable_builtin_logging;
+       enabled;
+       https_only;
+       id;
+       key_vault_reference_identity_id;
+       location;
+       name;
+       os_type;
+       resource_group_name;
+       storage_account_access_key;
+       storage_account_name;
+       tags;
+       version;
+       auth_settings;
+       connection_string;
+       identity;
+       site_config;
+       source_control;
+       timeouts;
+     }
+      : azurerm_function_app)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_function_app __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_service_plan_id =
+         Prop.computed __resource_type __resource_id
+           "app_service_plan_id";
+       app_settings =
+         Prop.computed __resource_type __resource_id "app_settings";
+       client_cert_mode =
+         Prop.computed __resource_type __resource_id
+           "client_cert_mode";
+       custom_domain_verification_id =
+         Prop.computed __resource_type __resource_id
+           "custom_domain_verification_id";
+       daily_memory_time_quota =
+         Prop.computed __resource_type __resource_id
+           "daily_memory_time_quota";
+       default_hostname =
+         Prop.computed __resource_type __resource_id
+           "default_hostname";
+       enable_builtin_logging =
+         Prop.computed __resource_type __resource_id
+           "enable_builtin_logging";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       https_only =
+         Prop.computed __resource_type __resource_id "https_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_reference_identity_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_reference_identity_id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       os_type =
+         Prop.computed __resource_type __resource_id "os_type";
+       outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_addresses";
+       possible_outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "possible_outbound_ip_addresses";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       site_credential =
+         Prop.computed __resource_type __resource_id
+           "site_credential";
+       storage_account_access_key =
+         Prop.computed __resource_type __resource_id
+           "storage_account_access_key";
+       storage_account_name =
+         Prop.computed __resource_type __resource_id
+           "storage_account_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -33,6 +33,24 @@ type google_blockchain_node_engine_blockchain_nodes__connection_info = {
 
 type google_blockchain_node_engine_blockchain_nodes
 
+type t = private {
+  blockchain_node_id : string prop;
+  blockchain_type : string prop;
+  connection_info :
+    google_blockchain_node_engine_blockchain_nodes__connection_info
+    list
+    prop;
+  create_time : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_blockchain_node_engine_blockchain_nodes :
   ?blockchain_type:string prop ->
   ?id:string prop ->
@@ -45,4 +63,4 @@ val google_blockchain_node_engine_blockchain_nodes :
     google_blockchain_node_engine_blockchain_nodes__ethereum_details
     list ->
   string ->
-  unit
+  t

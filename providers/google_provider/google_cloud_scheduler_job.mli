@@ -13,6 +13,19 @@ type google_cloud_scheduler_job__retry_config
 type google_cloud_scheduler_job__timeouts
 type google_cloud_scheduler_job
 
+type t = private {
+  attempt_deadline : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  paused : bool prop;
+  project : string prop;
+  region : string prop;
+  schedule : string prop;
+  state : string prop;
+  time_zone : string prop;
+}
+
 val google_cloud_scheduler_job :
   ?attempt_deadline:string prop ->
   ?description:string prop ->
@@ -30,4 +43,4 @@ val google_cloud_scheduler_job :
   pubsub_target:google_cloud_scheduler_job__pubsub_target list ->
   retry_config:google_cloud_scheduler_job__retry_config list ->
   string ->
-  unit
+  t

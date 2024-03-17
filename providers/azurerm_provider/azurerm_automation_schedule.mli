@@ -6,6 +6,21 @@ type azurerm_automation_schedule__monthly_occurrence
 type azurerm_automation_schedule__timeouts
 type azurerm_automation_schedule
 
+type t = private {
+  automation_account_name : string prop;
+  description : string prop;
+  expiry_time : string prop;
+  frequency : string prop;
+  id : string prop;
+  interval : float prop;
+  month_days : float list prop;
+  name : string prop;
+  resource_group_name : string prop;
+  start_time : string prop;
+  timezone : string prop;
+  week_days : string list prop;
+}
+
 val azurerm_automation_schedule :
   ?description:string prop ->
   ?expiry_time:string prop ->
@@ -23,4 +38,4 @@ val azurerm_automation_schedule :
   monthly_occurrence:
     azurerm_automation_schedule__monthly_occurrence list ->
   string ->
-  unit
+  t

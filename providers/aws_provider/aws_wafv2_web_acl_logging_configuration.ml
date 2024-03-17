@@ -53,25 +53,35 @@ type aws_wafv2_web_acl_logging_configuration__redacted_fields = {
 (** Parts of the request to exclude from logs *)
 
 type aws_wafv2_web_acl_logging_configuration = {
-  id: string prop option; [@option] (** id *)
-  log_destination_configs: string prop list;  (** AWS Kinesis Firehose Delivery Stream ARNs *)
+  id: string  prop option; [@option] (** id *)
+  log_destination_configs: string  prop list;  (** AWS Kinesis Firehose Delivery Stream ARNs *)
   resource_arn: string prop;  (** AWS WebACL ARN *)
   logging_filter: aws_wafv2_web_acl_logging_configuration__logging_filter list;
   redacted_fields: aws_wafv2_web_acl_logging_configuration__redacted_fields list;
 } [@@deriving yojson_of]
 (** aws_wafv2_web_acl_logging_configuration *)
 
+type t = {
+  id: string prop;
+  log_destination_configs: string list prop;
+  resource_arn: string prop;
+}
+
 let aws_wafv2_web_acl_logging_configuration ?id  ~log_destination_configs ~resource_arn ~logging_filter ~redacted_fields __resource_id =
   let __resource_type = "aws_wafv2_web_acl_logging_configuration" in
-  let __resource = {
+  let __resource = ({
     id;
     log_destination_configs;
     resource_arn;
     logging_filter;
     redacted_fields;
-  } in
+  } : aws_wafv2_web_acl_logging_configuration) in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_wafv2_web_acl_logging_configuration __resource);
-  ()
-  ;;
+  let __resource_attributes = ({
+    id = Prop.computed __resource_type __resource_id "id";
+    log_destination_configs = Prop.computed __resource_type __resource_id "log_destination_configs";
+    resource_arn = Prop.computed __resource_type __resource_id "resource_arn";
+  } : t) in
+  __resource_attributes;;
 

@@ -8,6 +8,25 @@ type azurerm_virtual_desktop_host_pool__scheduled_agent_updates
 type azurerm_virtual_desktop_host_pool__timeouts
 type azurerm_virtual_desktop_host_pool
 
+type t = private {
+  custom_rdp_properties : string prop;
+  description : string prop;
+  friendly_name : string prop;
+  id : string prop;
+  load_balancer_type : string prop;
+  location : string prop;
+  maximum_sessions_allowed : float prop;
+  name : string prop;
+  personal_desktop_assignment_type : string prop;
+  preferred_app_group_type : string prop;
+  resource_group_name : string prop;
+  start_vm_on_connect : bool prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+  validate_environment : bool prop;
+  vm_template : string prop;
+}
+
 val azurerm_virtual_desktop_host_pool :
   ?custom_rdp_properties:string prop ->
   ?description:string prop ->
@@ -29,4 +48,4 @@ val azurerm_virtual_desktop_host_pool :
   scheduled_agent_updates:
     azurerm_virtual_desktop_host_pool__scheduled_agent_updates list ->
   string ->
-  unit
+  t

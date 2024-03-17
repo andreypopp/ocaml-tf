@@ -26,6 +26,14 @@ type azurerm_sentinel_data_connector_threat_intelligence = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_threat_intelligence *)
 
+type t = {
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  lookback_date : string prop;
+  name : string prop;
+  tenant_id : string prop;
+}
+
 let azurerm_sentinel_data_connector_threat_intelligence ?id
     ?lookback_date ?tenant_id ?timeouts ~log_analytics_workspace_id
     ~name __resource_id =
@@ -33,16 +41,31 @@ let azurerm_sentinel_data_connector_threat_intelligence ?id
     "azurerm_sentinel_data_connector_threat_intelligence"
   in
   let __resource =
-    {
-      id;
-      log_analytics_workspace_id;
-      lookback_date;
-      name;
-      tenant_id;
-      timeouts;
-    }
+    ({
+       id;
+       log_analytics_workspace_id;
+       lookback_date;
+       name;
+       tenant_id;
+       timeouts;
+     }
+      : azurerm_sentinel_data_connector_threat_intelligence)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_data_connector_threat_intelligence
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       lookback_date =
+         Prop.computed __resource_type __resource_id "lookback_date";
+       name = Prop.computed __resource_type __resource_id "name";
+       tenant_id =
+         Prop.computed __resource_type __resource_id "tenant_id";
+     }
+      : t)
+  in
+  __resource_attributes

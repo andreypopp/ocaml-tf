@@ -27,6 +27,13 @@ type aws_securityhub_configuration_policy__configuration_policy__security_contro
 type aws_securityhub_configuration_policy__configuration_policy
 type aws_securityhub_configuration_policy
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val aws_securityhub_configuration_policy :
   ?description:string prop ->
   ?id:string prop ->
@@ -34,4 +41,4 @@ val aws_securityhub_configuration_policy :
   configuration_policy:
     aws_securityhub_configuration_policy__configuration_policy list ->
   string ->
-  unit
+  t

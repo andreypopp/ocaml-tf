@@ -33,20 +33,41 @@ type azurerm_capacity_reservation = {
 [@@deriving yojson_of]
 (** azurerm_capacity_reservation *)
 
+type t = {
+  capacity_reservation_group_id : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  zone : string prop;
+}
+
 let azurerm_capacity_reservation ?id ?tags ?zone ?timeouts
     ~capacity_reservation_group_id ~name ~sku __resource_id =
   let __resource_type = "azurerm_capacity_reservation" in
   let __resource =
-    {
-      capacity_reservation_group_id;
-      id;
-      name;
-      tags;
-      zone;
-      sku;
-      timeouts;
-    }
+    ({
+       capacity_reservation_group_id;
+       id;
+       name;
+       tags;
+       zone;
+       sku;
+       timeouts;
+     }
+      : azurerm_capacity_reservation)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_capacity_reservation __resource);
-  ()
+  let __resource_attributes =
+    ({
+       capacity_reservation_group_id =
+         Prop.computed __resource_type __resource_id
+           "capacity_reservation_group_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

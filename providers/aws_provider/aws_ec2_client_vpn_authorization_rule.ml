@@ -26,21 +26,51 @@ type aws_ec2_client_vpn_authorization_rule = {
 [@@deriving yojson_of]
 (** aws_ec2_client_vpn_authorization_rule *)
 
+type t = {
+  access_group_id : string prop;
+  authorize_all_groups : bool prop;
+  client_vpn_endpoint_id : string prop;
+  description : string prop;
+  id : string prop;
+  target_network_cidr : string prop;
+}
+
 let aws_ec2_client_vpn_authorization_rule ?access_group_id
     ?authorize_all_groups ?description ?id ?timeouts
     ~client_vpn_endpoint_id ~target_network_cidr __resource_id =
   let __resource_type = "aws_ec2_client_vpn_authorization_rule" in
   let __resource =
-    {
-      access_group_id;
-      authorize_all_groups;
-      client_vpn_endpoint_id;
-      description;
-      id;
-      target_network_cidr;
-      timeouts;
-    }
+    ({
+       access_group_id;
+       authorize_all_groups;
+       client_vpn_endpoint_id;
+       description;
+       id;
+       target_network_cidr;
+       timeouts;
+     }
+      : aws_ec2_client_vpn_authorization_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_client_vpn_authorization_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_group_id =
+         Prop.computed __resource_type __resource_id
+           "access_group_id";
+       authorize_all_groups =
+         Prop.computed __resource_type __resource_id
+           "authorize_all_groups";
+       client_vpn_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "client_vpn_endpoint_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       target_network_cidr =
+         Prop.computed __resource_type __resource_id
+           "target_network_cidr";
+     }
+      : t)
+  in
+  __resource_attributes

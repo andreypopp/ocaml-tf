@@ -62,23 +62,62 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_featurestore *)
 
+type t = {
+  create_time : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  force_destroy : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_vertex_ai_featurestore ?force_destroy ?id ?labels ?name
     ?project ?region ?timeouts ~encryption_spec
     ~online_serving_config __resource_id =
   let __resource_type = "google_vertex_ai_featurestore" in
   let __resource =
-    {
-      force_destroy;
-      id;
-      labels;
-      name;
-      project;
-      region;
-      encryption_spec;
-      online_serving_config;
-      timeouts;
-    }
+    ({
+       force_destroy;
+       id;
+       labels;
+       name;
+       project;
+       region;
+       encryption_spec;
+       online_serving_config;
+       timeouts;
+     }
+      : google_vertex_ai_featurestore)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_featurestore __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

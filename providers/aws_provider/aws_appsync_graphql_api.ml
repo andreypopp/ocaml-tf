@@ -114,6 +114,22 @@ type aws_appsync_graphql_api = {
 [@@deriving yojson_of]
 (** aws_appsync_graphql_api *)
 
+type t = {
+  arn : string prop;
+  authentication_type : string prop;
+  id : string prop;
+  introspection_config : string prop;
+  name : string prop;
+  query_depth_limit : float prop;
+  resolver_count_limit : float prop;
+  schema : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  uris : (string * string) list prop;
+  visibility : string prop;
+  xray_enabled : bool prop;
+}
+
 let aws_appsync_graphql_api ?id ?introspection_config
     ?query_depth_limit ?resolver_count_limit ?schema ?tags ?tags_all
     ?visibility ?xray_enabled ~authentication_type ~name
@@ -122,25 +138,55 @@ let aws_appsync_graphql_api ?id ?introspection_config
     __resource_id =
   let __resource_type = "aws_appsync_graphql_api" in
   let __resource =
-    {
-      authentication_type;
-      id;
-      introspection_config;
-      name;
-      query_depth_limit;
-      resolver_count_limit;
-      schema;
-      tags;
-      tags_all;
-      visibility;
-      xray_enabled;
-      additional_authentication_provider;
-      lambda_authorizer_config;
-      log_config;
-      openid_connect_config;
-      user_pool_config;
-    }
+    ({
+       authentication_type;
+       id;
+       introspection_config;
+       name;
+       query_depth_limit;
+       resolver_count_limit;
+       schema;
+       tags;
+       tags_all;
+       visibility;
+       xray_enabled;
+       additional_authentication_provider;
+       lambda_authorizer_config;
+       log_config;
+       openid_connect_config;
+       user_pool_config;
+     }
+      : aws_appsync_graphql_api)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appsync_graphql_api __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       authentication_type =
+         Prop.computed __resource_type __resource_id
+           "authentication_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       introspection_config =
+         Prop.computed __resource_type __resource_id
+           "introspection_config";
+       name = Prop.computed __resource_type __resource_id "name";
+       query_depth_limit =
+         Prop.computed __resource_type __resource_id
+           "query_depth_limit";
+       resolver_count_limit =
+         Prop.computed __resource_type __resource_id
+           "resolver_count_limit";
+       schema = Prop.computed __resource_type __resource_id "schema";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       uris = Prop.computed __resource_type __resource_id "uris";
+       visibility =
+         Prop.computed __resource_type __resource_id "visibility";
+       xray_enabled =
+         Prop.computed __resource_type __resource_id "xray_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

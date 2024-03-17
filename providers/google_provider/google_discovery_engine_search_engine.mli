@@ -7,6 +7,20 @@ type google_discovery_engine_search_engine__search_engine_config
 type google_discovery_engine_search_engine__timeouts
 type google_discovery_engine_search_engine
 
+type t = private {
+  collection_id : string prop;
+  create_time : string prop;
+  data_store_ids : string list prop;
+  display_name : string prop;
+  engine_id : string prop;
+  id : string prop;
+  industry_vertical : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 val google_discovery_engine_search_engine :
   ?id:string prop ->
   ?industry_vertical:string prop ->
@@ -22,4 +36,4 @@ val google_discovery_engine_search_engine :
   search_engine_config:
     google_discovery_engine_search_engine__search_engine_config list ->
   string ->
-  unit
+  t

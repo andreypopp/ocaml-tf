@@ -38,23 +38,56 @@ type azurerm_eventgrid_system_topic = {
 [@@deriving yojson_of]
 (** azurerm_eventgrid_system_topic *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  metric_arm_resource_id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  source_arm_resource_id : string prop;
+  tags : (string * string) list prop;
+  topic_type : string prop;
+}
+
 let azurerm_eventgrid_system_topic ?id ?tags ?timeouts ~location
     ~name ~resource_group_name ~source_arm_resource_id ~topic_type
     ~identity __resource_id =
   let __resource_type = "azurerm_eventgrid_system_topic" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      source_arm_resource_id;
-      tags;
-      topic_type;
-      identity;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       source_arm_resource_id;
+       tags;
+       topic_type;
+       identity;
+       timeouts;
+     }
+      : azurerm_eventgrid_system_topic)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventgrid_system_topic __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       metric_arm_resource_id =
+         Prop.computed __resource_type __resource_id
+           "metric_arm_resource_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       source_arm_resource_id =
+         Prop.computed __resource_type __resource_id
+           "source_arm_resource_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       topic_type =
+         Prop.computed __resource_type __resource_id "topic_type";
+     }
+      : t)
+  in
+  __resource_attributes

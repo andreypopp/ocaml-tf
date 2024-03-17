@@ -117,6 +117,38 @@ using PARTNER type this will be managed upstream. *)
 [@@deriving yojson_of]
 (** google_compute_interconnect_attachment *)
 
+type t = {
+  admin_enabled : bool prop;
+  bandwidth : string prop;
+  candidate_subnets : string list prop;
+  cloud_router_ip_address : string prop;
+  creation_timestamp : string prop;
+  customer_router_ip_address : string prop;
+  description : string prop;
+  edge_availability_domain : string prop;
+  encryption : string prop;
+  google_reference_id : string prop;
+  id : string prop;
+  interconnect : string prop;
+  ipsec_internal_addresses : string list prop;
+  mtu : string prop;
+  name : string prop;
+  pairing_key : string prop;
+  partner_asn : string prop;
+  private_interconnect_info :
+    google_compute_interconnect_attachment__private_interconnect_info
+    list
+    prop;
+  project : string prop;
+  region : string prop;
+  router : string prop;
+  self_link : string prop;
+  stack_type : string prop;
+  state : string prop;
+  type_ : string prop;
+  vlan_tag8021q : float prop;
+}
+
 let google_compute_interconnect_attachment ?admin_enabled ?bandwidth
     ?candidate_subnets ?description ?edge_availability_domain
     ?encryption ?id ?interconnect ?ipsec_internal_addresses ?mtu
@@ -124,27 +156,86 @@ let google_compute_interconnect_attachment ?admin_enabled ?bandwidth
     ~name ~router __resource_id =
   let __resource_type = "google_compute_interconnect_attachment" in
   let __resource =
-    {
-      admin_enabled;
-      bandwidth;
-      candidate_subnets;
-      description;
-      edge_availability_domain;
-      encryption;
-      id;
-      interconnect;
-      ipsec_internal_addresses;
-      mtu;
-      name;
-      project;
-      region;
-      router;
-      stack_type;
-      type_;
-      vlan_tag8021q;
-      timeouts;
-    }
+    ({
+       admin_enabled;
+       bandwidth;
+       candidate_subnets;
+       description;
+       edge_availability_domain;
+       encryption;
+       id;
+       interconnect;
+       ipsec_internal_addresses;
+       mtu;
+       name;
+       project;
+       region;
+       router;
+       stack_type;
+       type_;
+       vlan_tag8021q;
+       timeouts;
+     }
+      : google_compute_interconnect_attachment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_interconnect_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin_enabled =
+         Prop.computed __resource_type __resource_id "admin_enabled";
+       bandwidth =
+         Prop.computed __resource_type __resource_id "bandwidth";
+       candidate_subnets =
+         Prop.computed __resource_type __resource_id
+           "candidate_subnets";
+       cloud_router_ip_address =
+         Prop.computed __resource_type __resource_id
+           "cloud_router_ip_address";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       customer_router_ip_address =
+         Prop.computed __resource_type __resource_id
+           "customer_router_ip_address";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       edge_availability_domain =
+         Prop.computed __resource_type __resource_id
+           "edge_availability_domain";
+       encryption =
+         Prop.computed __resource_type __resource_id "encryption";
+       google_reference_id =
+         Prop.computed __resource_type __resource_id
+           "google_reference_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       interconnect =
+         Prop.computed __resource_type __resource_id "interconnect";
+       ipsec_internal_addresses =
+         Prop.computed __resource_type __resource_id
+           "ipsec_internal_addresses";
+       mtu = Prop.computed __resource_type __resource_id "mtu";
+       name = Prop.computed __resource_type __resource_id "name";
+       pairing_key =
+         Prop.computed __resource_type __resource_id "pairing_key";
+       partner_asn =
+         Prop.computed __resource_type __resource_id "partner_asn";
+       private_interconnect_info =
+         Prop.computed __resource_type __resource_id
+           "private_interconnect_info";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       router = Prop.computed __resource_type __resource_id "router";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       stack_type =
+         Prop.computed __resource_type __resource_id "stack_type";
+       state = Prop.computed __resource_type __resource_id "state";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       vlan_tag8021q =
+         Prop.computed __resource_type __resource_id "vlan_tag8021q";
+     }
+      : t)
+  in
+  __resource_attributes

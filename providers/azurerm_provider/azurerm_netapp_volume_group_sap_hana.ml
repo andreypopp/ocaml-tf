@@ -90,23 +90,54 @@ type azurerm_netapp_volume_group_sap_hana = {
 [@@deriving yojson_of]
 (** azurerm_netapp_volume_group_sap_hana *)
 
+type t = {
+  account_name : string prop;
+  application_identifier : string prop;
+  group_description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_netapp_volume_group_sap_hana ?id ?timeouts ~account_name
     ~application_identifier ~group_description ~location ~name
     ~resource_group_name ~volume __resource_id =
   let __resource_type = "azurerm_netapp_volume_group_sap_hana" in
   let __resource =
-    {
-      account_name;
-      application_identifier;
-      group_description;
-      id;
-      location;
-      name;
-      resource_group_name;
-      timeouts;
-      volume;
-    }
+    ({
+       account_name;
+       application_identifier;
+       group_description;
+       id;
+       location;
+       name;
+       resource_group_name;
+       timeouts;
+       volume;
+     }
+      : azurerm_netapp_volume_group_sap_hana)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_volume_group_sap_hana __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_name =
+         Prop.computed __resource_type __resource_id "account_name";
+       application_identifier =
+         Prop.computed __resource_type __resource_id
+           "application_identifier";
+       group_description =
+         Prop.computed __resource_type __resource_id
+           "group_description";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

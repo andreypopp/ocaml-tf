@@ -6,6 +6,7 @@ type aws_cloudfront_monitoring_subscription__monitoring_subscription__realtime_m
 
 type aws_cloudfront_monitoring_subscription__monitoring_subscription
 type aws_cloudfront_monitoring_subscription
+type t = private { distribution_id : string prop; id : string prop }
 
 val aws_cloudfront_monitoring_subscription :
   ?id:string prop ->
@@ -14,4 +15,4 @@ val aws_cloudfront_monitoring_subscription :
     aws_cloudfront_monitoring_subscription__monitoring_subscription
     list ->
   string ->
-  unit
+  t

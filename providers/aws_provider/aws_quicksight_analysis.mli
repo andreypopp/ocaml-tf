@@ -17222,12 +17222,28 @@ type aws_quicksight_analysis__timeouts
 
 type aws_quicksight_analysis
 
+type t = private {
+  analysis_id: string prop;
+  arn: string prop;
+  aws_account_id: string prop;
+  created_time: string prop;
+  id: string prop;
+  last_published_time: string prop;
+  last_updated_time: string prop;
+  name: string prop;
+  recovery_window_in_days: float prop;
+  status: string prop;
+  tags: (string * string) list prop;
+  tags_all: (string * string) list prop;
+  theme_arn: string prop;
+}
+
 val aws_quicksight_analysis :
     ?aws_account_id:string prop ->
     ?id:string prop ->
     ?recovery_window_in_days:float prop ->
-    ?tags:(string * string prop) list ->
-    ?tags_all:(string * string prop) list ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
     ?theme_arn:string prop ->
     ?timeouts:aws_quicksight_analysis__timeouts ->
     analysis_id:string prop ->
@@ -17237,5 +17253,5 @@ val aws_quicksight_analysis :
     permissions:aws_quicksight_analysis__permissions list ->
     source_entity:aws_quicksight_analysis__source_entity list ->
     string ->
-    unit
+    t
 

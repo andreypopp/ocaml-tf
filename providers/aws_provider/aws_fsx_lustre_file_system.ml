@@ -73,6 +73,37 @@ type aws_fsx_lustre_file_system = {
 [@@deriving yojson_of]
 (** aws_fsx_lustre_file_system *)
 
+type t = {
+  arn : string prop;
+  auto_import_policy : string prop;
+  automatic_backup_retention_days : float prop;
+  backup_id : string prop;
+  copy_tags_to_backups : bool prop;
+  daily_automatic_backup_start_time : string prop;
+  data_compression_type : string prop;
+  deployment_type : string prop;
+  dns_name : string prop;
+  drive_cache_type : string prop;
+  export_path : string prop;
+  file_system_type_version : string prop;
+  id : string prop;
+  import_path : string prop;
+  imported_file_chunk_size : float prop;
+  kms_key_id : string prop;
+  mount_name : string prop;
+  network_interface_ids : string list prop;
+  owner_id : string prop;
+  per_unit_storage_throughput : float prop;
+  security_group_ids : string list prop;
+  storage_capacity : float prop;
+  storage_type : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+  weekly_maintenance_start_time : string prop;
+}
+
 let aws_fsx_lustre_file_system ?auto_import_policy
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
     ?daily_automatic_backup_start_time ?data_compression_type
@@ -85,34 +116,106 @@ let aws_fsx_lustre_file_system ?auto_import_policy
     ~log_configuration ~root_squash_configuration __resource_id =
   let __resource_type = "aws_fsx_lustre_file_system" in
   let __resource =
-    {
-      auto_import_policy;
-      automatic_backup_retention_days;
-      backup_id;
-      copy_tags_to_backups;
-      daily_automatic_backup_start_time;
-      data_compression_type;
-      deployment_type;
-      drive_cache_type;
-      export_path;
-      file_system_type_version;
-      id;
-      import_path;
-      imported_file_chunk_size;
-      kms_key_id;
-      per_unit_storage_throughput;
-      security_group_ids;
-      storage_capacity;
-      storage_type;
-      subnet_ids;
-      tags;
-      tags_all;
-      weekly_maintenance_start_time;
-      log_configuration;
-      root_squash_configuration;
-      timeouts;
-    }
+    ({
+       auto_import_policy;
+       automatic_backup_retention_days;
+       backup_id;
+       copy_tags_to_backups;
+       daily_automatic_backup_start_time;
+       data_compression_type;
+       deployment_type;
+       drive_cache_type;
+       export_path;
+       file_system_type_version;
+       id;
+       import_path;
+       imported_file_chunk_size;
+       kms_key_id;
+       per_unit_storage_throughput;
+       security_group_ids;
+       storage_capacity;
+       storage_type;
+       subnet_ids;
+       tags;
+       tags_all;
+       weekly_maintenance_start_time;
+       log_configuration;
+       root_squash_configuration;
+       timeouts;
+     }
+      : aws_fsx_lustre_file_system)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_lustre_file_system __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auto_import_policy =
+         Prop.computed __resource_type __resource_id
+           "auto_import_policy";
+       automatic_backup_retention_days =
+         Prop.computed __resource_type __resource_id
+           "automatic_backup_retention_days";
+       backup_id =
+         Prop.computed __resource_type __resource_id "backup_id";
+       copy_tags_to_backups =
+         Prop.computed __resource_type __resource_id
+           "copy_tags_to_backups";
+       daily_automatic_backup_start_time =
+         Prop.computed __resource_type __resource_id
+           "daily_automatic_backup_start_time";
+       data_compression_type =
+         Prop.computed __resource_type __resource_id
+           "data_compression_type";
+       deployment_type =
+         Prop.computed __resource_type __resource_id
+           "deployment_type";
+       dns_name =
+         Prop.computed __resource_type __resource_id "dns_name";
+       drive_cache_type =
+         Prop.computed __resource_type __resource_id
+           "drive_cache_type";
+       export_path =
+         Prop.computed __resource_type __resource_id "export_path";
+       file_system_type_version =
+         Prop.computed __resource_type __resource_id
+           "file_system_type_version";
+       id = Prop.computed __resource_type __resource_id "id";
+       import_path =
+         Prop.computed __resource_type __resource_id "import_path";
+       imported_file_chunk_size =
+         Prop.computed __resource_type __resource_id
+           "imported_file_chunk_size";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       mount_name =
+         Prop.computed __resource_type __resource_id "mount_name";
+       network_interface_ids =
+         Prop.computed __resource_type __resource_id
+           "network_interface_ids";
+       owner_id =
+         Prop.computed __resource_type __resource_id "owner_id";
+       per_unit_storage_throughput =
+         Prop.computed __resource_type __resource_id
+           "per_unit_storage_throughput";
+       security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "security_group_ids";
+       storage_capacity =
+         Prop.computed __resource_type __resource_id
+           "storage_capacity";
+       storage_type =
+         Prop.computed __resource_type __resource_id "storage_type";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+       weekly_maintenance_start_time =
+         Prop.computed __resource_type __resource_id
+           "weekly_maintenance_start_time";
+     }
+      : t)
+  in
+  __resource_attributes

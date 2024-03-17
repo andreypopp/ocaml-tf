@@ -13,6 +13,25 @@ type aws_finspace_kx_volume__attached_clusters = {
 
 type aws_finspace_kx_volume
 
+type t = private {
+  arn : string prop;
+  attached_clusters :
+    aws_finspace_kx_volume__attached_clusters list prop;
+  availability_zones : string list prop;
+  az_mode : string prop;
+  created_timestamp : string prop;
+  description : string prop;
+  environment_id : string prop;
+  id : string prop;
+  last_modified_timestamp : string prop;
+  name : string prop;
+  status : string prop;
+  status_reason : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_finspace_kx_volume :
   ?description:string prop ->
   ?id:string prop ->
@@ -26,4 +45,4 @@ val aws_finspace_kx_volume :
   type_:string prop ->
   nas1_configuration:aws_finspace_kx_volume__nas1_configuration list ->
   string ->
-  unit
+  t

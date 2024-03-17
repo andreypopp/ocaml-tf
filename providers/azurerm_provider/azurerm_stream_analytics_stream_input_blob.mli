@@ -6,6 +6,19 @@ type azurerm_stream_analytics_stream_input_blob__serialization
 type azurerm_stream_analytics_stream_input_blob__timeouts
 type azurerm_stream_analytics_stream_input_blob
 
+type t = private {
+  date_format : string prop;
+  id : string prop;
+  name : string prop;
+  path_pattern : string prop;
+  resource_group_name : string prop;
+  storage_account_key : string prop;
+  storage_account_name : string prop;
+  storage_container_name : string prop;
+  stream_analytics_job_name : string prop;
+  time_format : string prop;
+}
+
 val azurerm_stream_analytics_stream_input_blob :
   ?id:string prop ->
   ?timeouts:azurerm_stream_analytics_stream_input_blob__timeouts ->
@@ -21,4 +34,4 @@ val azurerm_stream_analytics_stream_input_blob :
   serialization:
     azurerm_stream_analytics_stream_input_blob__serialization list ->
   string ->
-  unit
+  t

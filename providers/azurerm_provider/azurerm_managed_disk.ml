@@ -102,6 +102,44 @@ type azurerm_managed_disk = {
 [@@deriving yojson_of]
 (** azurerm_managed_disk *)
 
+type t = {
+  create_option : string prop;
+  disk_access_id : string prop;
+  disk_encryption_set_id : string prop;
+  disk_iops_read_only : float prop;
+  disk_iops_read_write : float prop;
+  disk_mbps_read_only : float prop;
+  disk_mbps_read_write : float prop;
+  disk_size_gb : float prop;
+  edge_zone : string prop;
+  gallery_image_reference_id : string prop;
+  hyper_v_generation : string prop;
+  id : string prop;
+  image_reference_id : string prop;
+  location : string prop;
+  logical_sector_size : float prop;
+  max_shares : float prop;
+  name : string prop;
+  network_access_policy : string prop;
+  on_demand_bursting_enabled : bool prop;
+  optimized_frequent_attach_enabled : bool prop;
+  os_type : string prop;
+  performance_plus_enabled : bool prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  secure_vm_disk_encryption_set_id : string prop;
+  security_type : string prop;
+  source_resource_id : string prop;
+  source_uri : string prop;
+  storage_account_id : string prop;
+  storage_account_type : string prop;
+  tags : (string * string) list prop;
+  tier : string prop;
+  trusted_launch_enabled : bool prop;
+  upload_size_bytes : float prop;
+  zone : string prop;
+}
+
 let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
     ?disk_iops_read_only ?disk_iops_read_write ?disk_mbps_read_only
     ?disk_mbps_read_write ?disk_size_gb ?edge_zone
@@ -117,46 +155,138 @@ let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
     ~storage_account_type ~encryption_settings __resource_id =
   let __resource_type = "azurerm_managed_disk" in
   let __resource =
-    {
-      create_option;
-      disk_access_id;
-      disk_encryption_set_id;
-      disk_iops_read_only;
-      disk_iops_read_write;
-      disk_mbps_read_only;
-      disk_mbps_read_write;
-      disk_size_gb;
-      edge_zone;
-      gallery_image_reference_id;
-      hyper_v_generation;
-      id;
-      image_reference_id;
-      location;
-      logical_sector_size;
-      max_shares;
-      name;
-      network_access_policy;
-      on_demand_bursting_enabled;
-      optimized_frequent_attach_enabled;
-      os_type;
-      performance_plus_enabled;
-      public_network_access_enabled;
-      resource_group_name;
-      secure_vm_disk_encryption_set_id;
-      security_type;
-      source_resource_id;
-      source_uri;
-      storage_account_id;
-      storage_account_type;
-      tags;
-      tier;
-      trusted_launch_enabled;
-      upload_size_bytes;
-      zone;
-      encryption_settings;
-      timeouts;
-    }
+    ({
+       create_option;
+       disk_access_id;
+       disk_encryption_set_id;
+       disk_iops_read_only;
+       disk_iops_read_write;
+       disk_mbps_read_only;
+       disk_mbps_read_write;
+       disk_size_gb;
+       edge_zone;
+       gallery_image_reference_id;
+       hyper_v_generation;
+       id;
+       image_reference_id;
+       location;
+       logical_sector_size;
+       max_shares;
+       name;
+       network_access_policy;
+       on_demand_bursting_enabled;
+       optimized_frequent_attach_enabled;
+       os_type;
+       performance_plus_enabled;
+       public_network_access_enabled;
+       resource_group_name;
+       secure_vm_disk_encryption_set_id;
+       security_type;
+       source_resource_id;
+       source_uri;
+       storage_account_id;
+       storage_account_type;
+       tags;
+       tier;
+       trusted_launch_enabled;
+       upload_size_bytes;
+       zone;
+       encryption_settings;
+       timeouts;
+     }
+      : azurerm_managed_disk)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_managed_disk __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_option =
+         Prop.computed __resource_type __resource_id "create_option";
+       disk_access_id =
+         Prop.computed __resource_type __resource_id "disk_access_id";
+       disk_encryption_set_id =
+         Prop.computed __resource_type __resource_id
+           "disk_encryption_set_id";
+       disk_iops_read_only =
+         Prop.computed __resource_type __resource_id
+           "disk_iops_read_only";
+       disk_iops_read_write =
+         Prop.computed __resource_type __resource_id
+           "disk_iops_read_write";
+       disk_mbps_read_only =
+         Prop.computed __resource_type __resource_id
+           "disk_mbps_read_only";
+       disk_mbps_read_write =
+         Prop.computed __resource_type __resource_id
+           "disk_mbps_read_write";
+       disk_size_gb =
+         Prop.computed __resource_type __resource_id "disk_size_gb";
+       edge_zone =
+         Prop.computed __resource_type __resource_id "edge_zone";
+       gallery_image_reference_id =
+         Prop.computed __resource_type __resource_id
+           "gallery_image_reference_id";
+       hyper_v_generation =
+         Prop.computed __resource_type __resource_id
+           "hyper_v_generation";
+       id = Prop.computed __resource_type __resource_id "id";
+       image_reference_id =
+         Prop.computed __resource_type __resource_id
+           "image_reference_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       logical_sector_size =
+         Prop.computed __resource_type __resource_id
+           "logical_sector_size";
+       max_shares =
+         Prop.computed __resource_type __resource_id "max_shares";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_access_policy =
+         Prop.computed __resource_type __resource_id
+           "network_access_policy";
+       on_demand_bursting_enabled =
+         Prop.computed __resource_type __resource_id
+           "on_demand_bursting_enabled";
+       optimized_frequent_attach_enabled =
+         Prop.computed __resource_type __resource_id
+           "optimized_frequent_attach_enabled";
+       os_type =
+         Prop.computed __resource_type __resource_id "os_type";
+       performance_plus_enabled =
+         Prop.computed __resource_type __resource_id
+           "performance_plus_enabled";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secure_vm_disk_encryption_set_id =
+         Prop.computed __resource_type __resource_id
+           "secure_vm_disk_encryption_set_id";
+       security_type =
+         Prop.computed __resource_type __resource_id "security_type";
+       source_resource_id =
+         Prop.computed __resource_type __resource_id
+           "source_resource_id";
+       source_uri =
+         Prop.computed __resource_type __resource_id "source_uri";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+       storage_account_type =
+         Prop.computed __resource_type __resource_id
+           "storage_account_type";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tier = Prop.computed __resource_type __resource_id "tier";
+       trusted_launch_enabled =
+         Prop.computed __resource_type __resource_id
+           "trusted_launch_enabled";
+       upload_size_bytes =
+         Prop.computed __resource_type __resource_id
+           "upload_size_bytes";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

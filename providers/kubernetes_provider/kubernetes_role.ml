@@ -46,9 +46,14 @@ type kubernetes_role = {
 [@@deriving yojson_of]
 (** kubernetes_role *)
 
+type t = { id : string prop }
+
 let kubernetes_role ?id ~metadata ~rule __resource_id =
   let __resource_type = "kubernetes_role" in
-  let __resource = { id; metadata; rule } in
+  let __resource = ({ id; metadata; rule } : kubernetes_role) in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_role __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

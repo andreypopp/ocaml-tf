@@ -7,6 +7,19 @@ type azurerm_traffic_manager_external_endpoint__subnet
 type azurerm_traffic_manager_external_endpoint__timeouts
 type azurerm_traffic_manager_external_endpoint
 
+type t = private {
+  always_serve_enabled : bool prop;
+  enabled : bool prop;
+  endpoint_location : string prop;
+  geo_mappings : string list prop;
+  id : string prop;
+  name : string prop;
+  priority : float prop;
+  profile_id : string prop;
+  target : string prop;
+  weight : float prop;
+}
+
 val azurerm_traffic_manager_external_endpoint :
   ?always_serve_enabled:bool prop ->
   ?enabled:bool prop ->
@@ -23,4 +36,4 @@ val azurerm_traffic_manager_external_endpoint :
     azurerm_traffic_manager_external_endpoint__custom_header list ->
   subnet:azurerm_traffic_manager_external_endpoint__subnet list ->
   string ->
-  unit
+  t

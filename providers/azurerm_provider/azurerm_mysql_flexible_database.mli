@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_mysql_flexible_database__timeouts
 type azurerm_mysql_flexible_database
 
+type t = private {
+  charset : string prop;
+  collation : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  server_name : string prop;
+}
+
 val azurerm_mysql_flexible_database :
   ?id:string prop ->
   ?timeouts:azurerm_mysql_flexible_database__timeouts ->
@@ -14,4 +23,4 @@ val azurerm_mysql_flexible_database :
   resource_group_name:string prop ->
   server_name:string prop ->
   string ->
-  unit
+  t

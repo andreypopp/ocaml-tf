@@ -17786,12 +17786,26 @@ type aws_wafv2_web_acl__visibility_config
 
 type aws_wafv2_web_acl
 
+type t = private {
+  application_integration_url: string prop;
+  arn: string prop;
+  capacity: float prop;
+  description: string prop;
+  id: string prop;
+  lock_token: string prop;
+  name: string prop;
+  scope: string prop;
+  tags: (string * string) list prop;
+  tags_all: (string * string) list prop;
+  token_domains: string list prop;
+}
+
 val aws_wafv2_web_acl :
     ?description:string prop ->
     ?id:string prop ->
-    ?tags:(string * string prop) list ->
-    ?tags_all:(string * string prop) list ->
-    ?token_domains:string prop list ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
+    ?token_domains:string  prop list ->
     name:string prop ->
     scope:string prop ->
     association_config:aws_wafv2_web_acl__association_config list ->
@@ -17802,5 +17816,5 @@ val aws_wafv2_web_acl :
     rule:aws_wafv2_web_acl__rule list ->
     visibility_config:aws_wafv2_web_acl__visibility_config list ->
     string ->
-    unit
+    t
 

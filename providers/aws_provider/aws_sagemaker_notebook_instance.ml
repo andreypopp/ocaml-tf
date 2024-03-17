@@ -45,6 +45,29 @@ type aws_sagemaker_notebook_instance = {
 [@@deriving yojson_of]
 (** aws_sagemaker_notebook_instance *)
 
+type t = {
+  accelerator_types : string list prop;
+  additional_code_repositories : string list prop;
+  arn : string prop;
+  default_code_repository : string prop;
+  direct_internet_access : string prop;
+  id : string prop;
+  instance_type : string prop;
+  kms_key_id : string prop;
+  lifecycle_config_name : string prop;
+  name : string prop;
+  network_interface_id : string prop;
+  platform_identifier : string prop;
+  role_arn : string prop;
+  root_access : string prop;
+  security_groups : string list prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url : string prop;
+  volume_size : float prop;
+}
+
 let aws_sagemaker_notebook_instance ?accelerator_types
     ?additional_code_repositories ?default_code_repository
     ?direct_internet_access ?id ?kms_key_id ?lifecycle_config_name
@@ -53,27 +76,76 @@ let aws_sagemaker_notebook_instance ?accelerator_types
     ~instance_metadata_service_configuration __resource_id =
   let __resource_type = "aws_sagemaker_notebook_instance" in
   let __resource =
-    {
-      accelerator_types;
-      additional_code_repositories;
-      default_code_repository;
-      direct_internet_access;
-      id;
-      instance_type;
-      kms_key_id;
-      lifecycle_config_name;
-      name;
-      platform_identifier;
-      role_arn;
-      root_access;
-      security_groups;
-      subnet_id;
-      tags;
-      tags_all;
-      volume_size;
-      instance_metadata_service_configuration;
-    }
+    ({
+       accelerator_types;
+       additional_code_repositories;
+       default_code_repository;
+       direct_internet_access;
+       id;
+       instance_type;
+       kms_key_id;
+       lifecycle_config_name;
+       name;
+       platform_identifier;
+       role_arn;
+       root_access;
+       security_groups;
+       subnet_id;
+       tags;
+       tags_all;
+       volume_size;
+       instance_metadata_service_configuration;
+     }
+      : aws_sagemaker_notebook_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_notebook_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accelerator_types =
+         Prop.computed __resource_type __resource_id
+           "accelerator_types";
+       additional_code_repositories =
+         Prop.computed __resource_type __resource_id
+           "additional_code_repositories";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       default_code_repository =
+         Prop.computed __resource_type __resource_id
+           "default_code_repository";
+       direct_internet_access =
+         Prop.computed __resource_type __resource_id
+           "direct_internet_access";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       lifecycle_config_name =
+         Prop.computed __resource_type __resource_id
+           "lifecycle_config_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_interface_id =
+         Prop.computed __resource_type __resource_id
+           "network_interface_id";
+       platform_identifier =
+         Prop.computed __resource_type __resource_id
+           "platform_identifier";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       root_access =
+         Prop.computed __resource_type __resource_id "root_access";
+       security_groups =
+         Prop.computed __resource_type __resource_id
+           "security_groups";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       url = Prop.computed __resource_type __resource_id "url";
+       volume_size =
+         Prop.computed __resource_type __resource_id "volume_size";
+     }
+      : t)
+  in
+  __resource_attributes

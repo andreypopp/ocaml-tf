@@ -93,27 +93,91 @@ character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_snapshot *)
 
+type t = {
+  chain_name : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  disk_size_gb : float prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  label_fingerprint : string prop;
+  labels : (string * string) list prop;
+  licenses : string list prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  snapshot_id : float prop;
+  source_disk : string prop;
+  storage_bytes : float prop;
+  storage_locations : string list prop;
+  terraform_labels : (string * string) list prop;
+  zone : string prop;
+}
+
 let google_compute_snapshot ?chain_name ?description ?id ?labels
     ?project ?storage_locations ?zone ?timeouts ~name ~source_disk
     ~snapshot_encryption_key ~source_disk_encryption_key
     __resource_id =
   let __resource_type = "google_compute_snapshot" in
   let __resource =
-    {
-      chain_name;
-      description;
-      id;
-      labels;
-      name;
-      project;
-      source_disk;
-      storage_locations;
-      zone;
-      snapshot_encryption_key;
-      source_disk_encryption_key;
-      timeouts;
-    }
+    ({
+       chain_name;
+       description;
+       id;
+       labels;
+       name;
+       project;
+       source_disk;
+       storage_locations;
+       zone;
+       snapshot_encryption_key;
+       source_disk_encryption_key;
+       timeouts;
+     }
+      : google_compute_snapshot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_snapshot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       chain_name =
+         Prop.computed __resource_type __resource_id "chain_name";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disk_size_gb =
+         Prop.computed __resource_type __resource_id "disk_size_gb";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       label_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "label_fingerprint";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       licenses =
+         Prop.computed __resource_type __resource_id "licenses";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       snapshot_id =
+         Prop.computed __resource_type __resource_id "snapshot_id";
+       source_disk =
+         Prop.computed __resource_type __resource_id "source_disk";
+       storage_bytes =
+         Prop.computed __resource_type __resource_id "storage_bytes";
+       storage_locations =
+         Prop.computed __resource_type __resource_id
+           "storage_locations";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

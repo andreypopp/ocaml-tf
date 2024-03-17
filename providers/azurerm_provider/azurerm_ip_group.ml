@@ -25,20 +25,51 @@ type azurerm_ip_group = {
 [@@deriving yojson_of]
 (** azurerm_ip_group *)
 
+type t = {
+  cidrs : string list prop;
+  firewall_ids : string list prop;
+  firewall_policy_ids : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_ip_group ?cidrs ?id ?tags ?timeouts ~location ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_ip_group" in
   let __resource =
-    {
-      cidrs;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      timeouts;
-    }
+    ({
+       cidrs;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       timeouts;
+     }
+      : azurerm_ip_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_ip_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cidrs = Prop.computed __resource_type __resource_id "cidrs";
+       firewall_ids =
+         Prop.computed __resource_type __resource_id "firewall_ids";
+       firewall_policy_ids =
+         Prop.computed __resource_type __resource_id
+           "firewall_policy_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

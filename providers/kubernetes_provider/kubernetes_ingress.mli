@@ -28,10 +28,16 @@ type kubernetes_ingress__status = {
 
 type kubernetes_ingress
 
+type t = private {
+  id : string prop;
+  status : kubernetes_ingress__status list prop;
+  wait_for_load_balancer : bool prop;
+}
+
 val kubernetes_ingress :
   ?id:string prop ->
   ?wait_for_load_balancer:bool prop ->
   metadata:kubernetes_ingress__metadata list ->
   spec:kubernetes_ingress__spec list ->
   string ->
-  unit
+  t

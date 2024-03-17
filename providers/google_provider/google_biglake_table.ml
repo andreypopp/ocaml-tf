@@ -51,12 +51,44 @@ projects/{project_id_or_number}/locations/{locationId}/catalogs/{catalogId}/data
 [@@deriving yojson_of]
 (** google_biglake_table *)
 
+type t = {
+  create_time : string prop;
+  database : string prop;
+  delete_time : string prop;
+  etag : string prop;
+  expire_time : string prop;
+  id : string prop;
+  name : string prop;
+  type_ : string prop;
+  update_time : string prop;
+}
+
 let google_biglake_table ?database ?id ?type_ ?timeouts ~name
     ~hive_options __resource_id =
   let __resource_type = "google_biglake_table" in
   let __resource =
-    { database; id; name; type_; hive_options; timeouts }
+    ({ database; id; name; type_; hive_options; timeouts }
+      : google_biglake_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_biglake_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       database =
+         Prop.computed __resource_type __resource_id "database";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       expire_time =
+         Prop.computed __resource_type __resource_id "expire_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

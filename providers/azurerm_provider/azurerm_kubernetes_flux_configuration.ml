@@ -131,26 +131,51 @@ type azurerm_kubernetes_flux_configuration = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_flux_configuration *)
 
+type t = {
+  cluster_id : string prop;
+  continuous_reconciliation_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  namespace : string prop;
+  scope : string prop;
+}
+
 let azurerm_kubernetes_flux_configuration
     ?continuous_reconciliation_enabled ?id ?scope ?timeouts
     ~cluster_id ~name ~namespace ~blob_storage ~bucket
     ~git_repository ~kustomizations __resource_id =
   let __resource_type = "azurerm_kubernetes_flux_configuration" in
   let __resource =
-    {
-      cluster_id;
-      continuous_reconciliation_enabled;
-      id;
-      name;
-      namespace;
-      scope;
-      blob_storage;
-      bucket;
-      git_repository;
-      kustomizations;
-      timeouts;
-    }
+    ({
+       cluster_id;
+       continuous_reconciliation_enabled;
+       id;
+       name;
+       namespace;
+       scope;
+       blob_storage;
+       bucket;
+       git_repository;
+       kustomizations;
+       timeouts;
+     }
+      : azurerm_kubernetes_flux_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_flux_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       continuous_reconciliation_enabled =
+         Prop.computed __resource_type __resource_id
+           "continuous_reconciliation_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       namespace =
+         Prop.computed __resource_type __resource_id "namespace";
+       scope = Prop.computed __resource_type __resource_id "scope";
+     }
+      : t)
+  in
+  __resource_attributes

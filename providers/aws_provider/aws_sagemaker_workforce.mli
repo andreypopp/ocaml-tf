@@ -8,6 +8,13 @@ type aws_sagemaker_workforce__source_ip_config
 type aws_sagemaker_workforce__workforce_vpc_config
 type aws_sagemaker_workforce
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  subdomain : string prop;
+  workforce_name : string prop;
+}
+
 val aws_sagemaker_workforce :
   ?id:string prop ->
   workforce_name:string prop ->
@@ -17,4 +24,4 @@ val aws_sagemaker_workforce :
   workforce_vpc_config:
     aws_sagemaker_workforce__workforce_vpc_config list ->
   string ->
-  unit
+  t

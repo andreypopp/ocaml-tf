@@ -27,20 +27,48 @@ type google_service_networking_connection = {
 [@@deriving yojson_of]
 (** google_service_networking_connection *)
 
+type t = {
+  deletion_policy : string prop;
+  id : string prop;
+  network : string prop;
+  peering : string prop;
+  reserved_peering_ranges : string list prop;
+  service : string prop;
+}
+
 let google_service_networking_connection ?deletion_policy ?id
     ?timeouts ~network ~reserved_peering_ranges ~service
     __resource_id =
   let __resource_type = "google_service_networking_connection" in
   let __resource =
-    {
-      deletion_policy;
-      id;
-      network;
-      reserved_peering_ranges;
-      service;
-      timeouts;
-    }
+    ({
+       deletion_policy;
+       id;
+       network;
+       reserved_peering_ranges;
+       service;
+       timeouts;
+     }
+      : google_service_networking_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_service_networking_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       deletion_policy =
+         Prop.computed __resource_type __resource_id
+           "deletion_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       peering =
+         Prop.computed __resource_type __resource_id "peering";
+       reserved_peering_ranges =
+         Prop.computed __resource_type __resource_id
+           "reserved_peering_ranges";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+     }
+      : t)
+  in
+  __resource_attributes

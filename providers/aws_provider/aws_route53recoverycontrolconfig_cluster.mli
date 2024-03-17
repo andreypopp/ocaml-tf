@@ -9,5 +9,15 @@ type aws_route53recoverycontrolconfig_cluster__cluster_endpoints = {
 
 type aws_route53recoverycontrolconfig_cluster
 
+type t = private {
+  arn : string prop;
+  cluster_endpoints :
+    aws_route53recoverycontrolconfig_cluster__cluster_endpoints list
+    prop;
+  id : string prop;
+  name : string prop;
+  status : string prop;
+}
+
 val aws_route53recoverycontrolconfig_cluster :
-  ?id:string prop -> name:string prop -> string -> unit
+  ?id:string prop -> name:string prop -> string -> t

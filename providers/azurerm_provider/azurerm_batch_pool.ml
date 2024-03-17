@@ -369,6 +369,23 @@ type azurerm_batch_pool = {
 [@@deriving yojson_of]
 (** azurerm_batch_pool *)
 
+type t = {
+  account_name : string prop;
+  display_name : string prop;
+  id : string prop;
+  inter_node_communication : string prop;
+  license_type : string prop;
+  max_tasks_per_node : float prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  node_agent_sku_id : string prop;
+  os_disk_placement : string prop;
+  resource_group_name : string prop;
+  stop_pending_resize_operation : bool prop;
+  target_node_communication_mode : string prop;
+  vm_size : string prop;
+}
+
 let azurerm_batch_pool ?display_name ?id ?inter_node_communication
     ?license_type ?max_tasks_per_node ?metadata ?os_disk_placement
     ?stop_pending_resize_operation ?target_node_communication_mode
@@ -380,40 +397,79 @@ let azurerm_batch_pool ?display_name ?id ?inter_node_communication
     ~task_scheduling_policy ~user_accounts ~windows __resource_id =
   let __resource_type = "azurerm_batch_pool" in
   let __resource =
-    {
-      account_name;
-      display_name;
-      id;
-      inter_node_communication;
-      license_type;
-      max_tasks_per_node;
-      metadata;
-      name;
-      node_agent_sku_id;
-      os_disk_placement;
-      resource_group_name;
-      stop_pending_resize_operation;
-      target_node_communication_mode;
-      vm_size;
-      auto_scale;
-      certificate;
-      container_configuration;
-      data_disks;
-      disk_encryption;
-      extensions;
-      fixed_scale;
-      identity;
-      mount;
-      network_configuration;
-      node_placement;
-      start_task;
-      storage_image_reference;
-      task_scheduling_policy;
-      timeouts;
-      user_accounts;
-      windows;
-    }
+    ({
+       account_name;
+       display_name;
+       id;
+       inter_node_communication;
+       license_type;
+       max_tasks_per_node;
+       metadata;
+       name;
+       node_agent_sku_id;
+       os_disk_placement;
+       resource_group_name;
+       stop_pending_resize_operation;
+       target_node_communication_mode;
+       vm_size;
+       auto_scale;
+       certificate;
+       container_configuration;
+       data_disks;
+       disk_encryption;
+       extensions;
+       fixed_scale;
+       identity;
+       mount;
+       network_configuration;
+       node_placement;
+       start_task;
+       storage_image_reference;
+       task_scheduling_policy;
+       timeouts;
+       user_accounts;
+       windows;
+     }
+      : azurerm_batch_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_batch_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_name =
+         Prop.computed __resource_type __resource_id "account_name";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       inter_node_communication =
+         Prop.computed __resource_type __resource_id
+           "inter_node_communication";
+       license_type =
+         Prop.computed __resource_type __resource_id "license_type";
+       max_tasks_per_node =
+         Prop.computed __resource_type __resource_id
+           "max_tasks_per_node";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_agent_sku_id =
+         Prop.computed __resource_type __resource_id
+           "node_agent_sku_id";
+       os_disk_placement =
+         Prop.computed __resource_type __resource_id
+           "os_disk_placement";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       stop_pending_resize_operation =
+         Prop.computed __resource_type __resource_id
+           "stop_pending_resize_operation";
+       target_node_communication_mode =
+         Prop.computed __resource_type __resource_id
+           "target_node_communication_mode";
+       vm_size =
+         Prop.computed __resource_type __resource_id "vm_size";
+     }
+      : t)
+  in
+  __resource_attributes

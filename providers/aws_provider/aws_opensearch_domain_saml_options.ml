@@ -43,10 +43,23 @@ type aws_opensearch_domain_saml_options = {
 [@@deriving yojson_of]
 (** aws_opensearch_domain_saml_options *)
 
+type t = { domain_name : string prop; id : string prop }
+
 let aws_opensearch_domain_saml_options ?id ?timeouts ~domain_name
     ~saml_options __resource_id =
   let __resource_type = "aws_opensearch_domain_saml_options" in
-  let __resource = { domain_name; id; saml_options; timeouts } in
+  let __resource =
+    ({ domain_name; id; saml_options; timeouts }
+      : aws_opensearch_domain_saml_options)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearch_domain_saml_options __resource);
-  ()
+  let __resource_attributes =
+    ({
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -6,6 +6,16 @@ type azurerm_spring_cloud_java_deployment__quota
 type azurerm_spring_cloud_java_deployment__timeouts
 type azurerm_spring_cloud_java_deployment
 
+type t = private {
+  environment_variables : (string * string) list prop;
+  id : string prop;
+  instance_count : float prop;
+  jvm_options : string prop;
+  name : string prop;
+  runtime_version : string prop;
+  spring_cloud_app_id : string prop;
+}
+
 val azurerm_spring_cloud_java_deployment :
   ?environment_variables:(string * string prop) list ->
   ?id:string prop ->
@@ -17,4 +27,4 @@ val azurerm_spring_cloud_java_deployment :
   spring_cloud_app_id:string prop ->
   quota:azurerm_spring_cloud_java_deployment__quota list ->
   string ->
-  unit
+  t

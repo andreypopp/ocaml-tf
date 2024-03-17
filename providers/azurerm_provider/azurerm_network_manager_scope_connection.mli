@@ -5,6 +5,16 @@ open! Tf.Prelude
 type azurerm_network_manager_scope_connection__timeouts
 type azurerm_network_manager_scope_connection
 
+type t = private {
+  connection_state : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  network_manager_id : string prop;
+  target_scope_id : string prop;
+  tenant_id : string prop;
+}
+
 val azurerm_network_manager_scope_connection :
   ?description:string prop ->
   ?id:string prop ->
@@ -14,4 +24,4 @@ val azurerm_network_manager_scope_connection :
   target_scope_id:string prop ->
   tenant_id:string prop ->
   string ->
-  unit
+  t

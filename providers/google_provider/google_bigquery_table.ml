@@ -280,6 +280,33 @@ type google_bigquery_table = {
 [@@deriving yojson_of]
 (** google_bigquery_table *)
 
+type t = {
+  clustering : string list prop;
+  creation_time : float prop;
+  dataset_id : string prop;
+  deletion_protection : bool prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  expiration_time : float prop;
+  friendly_name : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  last_modified_time : float prop;
+  location : string prop;
+  max_staleness : string prop;
+  num_bytes : float prop;
+  num_long_term_bytes : float prop;
+  num_rows : float prop;
+  project : string prop;
+  require_partition_filter : bool prop;
+  schema : string prop;
+  self_link : string prop;
+  table_id : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+}
+
 let google_bigquery_table ?clustering ?deletion_protection
     ?description ?expiration_time ?friendly_name ?id ?labels
     ?max_staleness ?project ?require_partition_filter ?schema
@@ -289,30 +316,86 @@ let google_bigquery_table ?clustering ?deletion_protection
     ~time_partitioning ~view __resource_id =
   let __resource_type = "google_bigquery_table" in
   let __resource =
-    {
-      clustering;
-      dataset_id;
-      deletion_protection;
-      description;
-      expiration_time;
-      friendly_name;
-      id;
-      labels;
-      max_staleness;
-      project;
-      require_partition_filter;
-      schema;
-      table_id;
-      encryption_configuration;
-      external_data_configuration;
-      materialized_view;
-      range_partitioning;
-      table_constraints;
-      table_replication_info;
-      time_partitioning;
-      view;
-    }
+    ({
+       clustering;
+       dataset_id;
+       deletion_protection;
+       description;
+       expiration_time;
+       friendly_name;
+       id;
+       labels;
+       max_staleness;
+       project;
+       require_partition_filter;
+       schema;
+       table_id;
+       encryption_configuration;
+       external_data_configuration;
+       materialized_view;
+       range_partitioning;
+       table_constraints;
+       table_replication_info;
+       time_partitioning;
+       view;
+     }
+      : google_bigquery_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       clustering =
+         Prop.computed __resource_type __resource_id "clustering";
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       dataset_id =
+         Prop.computed __resource_type __resource_id "dataset_id";
+       deletion_protection =
+         Prop.computed __resource_type __resource_id
+           "deletion_protection";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       expiration_time =
+         Prop.computed __resource_type __resource_id
+           "expiration_time";
+       friendly_name =
+         Prop.computed __resource_type __resource_id "friendly_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       last_modified_time =
+         Prop.computed __resource_type __resource_id
+           "last_modified_time";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       max_staleness =
+         Prop.computed __resource_type __resource_id "max_staleness";
+       num_bytes =
+         Prop.computed __resource_type __resource_id "num_bytes";
+       num_long_term_bytes =
+         Prop.computed __resource_type __resource_id
+           "num_long_term_bytes";
+       num_rows =
+         Prop.computed __resource_type __resource_id "num_rows";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       require_partition_filter =
+         Prop.computed __resource_type __resource_id
+           "require_partition_filter";
+       schema = Prop.computed __resource_type __resource_id "schema";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       table_id =
+         Prop.computed __resource_type __resource_id "table_id";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

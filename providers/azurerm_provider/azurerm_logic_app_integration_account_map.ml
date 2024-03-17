@@ -29,6 +29,16 @@ type azurerm_logic_app_integration_account_map = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_map *)
 
+type t = {
+  content : string prop;
+  id : string prop;
+  integration_account_name : string prop;
+  map_type : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_logic_app_integration_account_map ?id ?metadata ?timeouts
     ~content ~integration_account_name ~map_type ~name
     ~resource_group_name __resource_id =
@@ -36,17 +46,37 @@ let azurerm_logic_app_integration_account_map ?id ?metadata ?timeouts
     "azurerm_logic_app_integration_account_map"
   in
   let __resource =
-    {
-      content;
-      id;
-      integration_account_name;
-      map_type;
-      metadata;
-      name;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       content;
+       id;
+       integration_account_name;
+       map_type;
+       metadata;
+       name;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_logic_app_integration_account_map)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_map __resource);
-  ()
+  let __resource_attributes =
+    ({
+       content =
+         Prop.computed __resource_type __resource_id "content";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_account_name =
+         Prop.computed __resource_type __resource_id
+           "integration_account_name";
+       map_type =
+         Prop.computed __resource_type __resource_id "map_type";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

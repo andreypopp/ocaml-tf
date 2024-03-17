@@ -102,28 +102,53 @@ type azurerm_redhat_openshift_cluster = {
 [@@deriving yojson_of]
 (** azurerm_redhat_openshift_cluster *)
 
+type t = {
+  console_url : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_redhat_openshift_cluster ?id ?tags ?timeouts ~location
     ~name ~resource_group_name ~api_server_profile ~cluster_profile
     ~ingress_profile ~main_profile ~network_profile
     ~service_principal ~worker_profile __resource_id =
   let __resource_type = "azurerm_redhat_openshift_cluster" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      api_server_profile;
-      cluster_profile;
-      ingress_profile;
-      main_profile;
-      network_profile;
-      service_principal;
-      timeouts;
-      worker_profile;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       api_server_profile;
+       cluster_profile;
+       ingress_profile;
+       main_profile;
+       network_profile;
+       service_principal;
+       timeouts;
+       worker_profile;
+     }
+      : azurerm_redhat_openshift_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_redhat_openshift_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       console_url =
+         Prop.computed __resource_type __resource_id "console_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

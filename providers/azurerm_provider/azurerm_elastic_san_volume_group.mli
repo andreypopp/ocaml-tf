@@ -8,6 +8,14 @@ type azurerm_elastic_san_volume_group__network_rule
 type azurerm_elastic_san_volume_group__timeouts
 type azurerm_elastic_san_volume_group
 
+type t = private {
+  elastic_san_id : string prop;
+  encryption_type : string prop;
+  id : string prop;
+  name : string prop;
+  protocol_type : string prop;
+}
+
 val azurerm_elastic_san_volume_group :
   ?encryption_type:string prop ->
   ?id:string prop ->
@@ -19,4 +27,4 @@ val azurerm_elastic_san_volume_group :
   identity:azurerm_elastic_san_volume_group__identity list ->
   network_rule:azurerm_elastic_san_volume_group__network_rule list ->
   string ->
-  unit
+  t

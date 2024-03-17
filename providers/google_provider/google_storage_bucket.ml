@@ -167,6 +167,26 @@ type google_storage_bucket = {
 [@@deriving yojson_of]
 (** google_storage_bucket *)
 
+type t = {
+  default_event_based_hold : bool prop;
+  effective_labels : (string * string) list prop;
+  enable_object_retention : bool prop;
+  force_destroy : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  public_access_prevention : string prop;
+  requester_pays : bool prop;
+  rpo : string prop;
+  self_link : string prop;
+  storage_class : string prop;
+  terraform_labels : (string * string) list prop;
+  uniform_bucket_level_access : bool prop;
+  url : string prop;
+}
+
 let google_storage_bucket ?default_event_based_hold
     ?enable_object_retention ?force_destroy ?id ?labels ?project
     ?public_access_prevention ?requester_pays ?rpo ?storage_class
@@ -175,32 +195,73 @@ let google_storage_bucket ?default_event_based_hold
     ~logging ~retention_policy ~versioning ~website __resource_id =
   let __resource_type = "google_storage_bucket" in
   let __resource =
-    {
-      default_event_based_hold;
-      enable_object_retention;
-      force_destroy;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      public_access_prevention;
-      requester_pays;
-      rpo;
-      storage_class;
-      uniform_bucket_level_access;
-      autoclass;
-      cors;
-      custom_placement_config;
-      encryption;
-      lifecycle_rule;
-      logging;
-      retention_policy;
-      timeouts;
-      versioning;
-      website;
-    }
+    ({
+       default_event_based_hold;
+       enable_object_retention;
+       force_destroy;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       public_access_prevention;
+       requester_pays;
+       rpo;
+       storage_class;
+       uniform_bucket_level_access;
+       autoclass;
+       cors;
+       custom_placement_config;
+       encryption;
+       lifecycle_rule;
+       logging;
+       retention_policy;
+       timeouts;
+       versioning;
+       website;
+     }
+      : google_storage_bucket)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_bucket __resource);
-  ()
+  let __resource_attributes =
+    ({
+       default_event_based_hold =
+         Prop.computed __resource_type __resource_id
+           "default_event_based_hold";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       enable_object_retention =
+         Prop.computed __resource_type __resource_id
+           "enable_object_retention";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       public_access_prevention =
+         Prop.computed __resource_type __resource_id
+           "public_access_prevention";
+       requester_pays =
+         Prop.computed __resource_type __resource_id "requester_pays";
+       rpo = Prop.computed __resource_type __resource_id "rpo";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       storage_class =
+         Prop.computed __resource_type __resource_id "storage_class";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uniform_bucket_level_access =
+         Prop.computed __resource_type __resource_id
+           "uniform_bucket_level_access";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

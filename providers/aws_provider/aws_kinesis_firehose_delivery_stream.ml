@@ -975,6 +975,17 @@ type aws_kinesis_firehose_delivery_stream = {
 [@@deriving yojson_of]
 (** aws_kinesis_firehose_delivery_stream *)
 
+type t = {
+  arn : string prop;
+  destination : string prop;
+  destination_id : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version_id : string prop;
+}
+
 let aws_kinesis_firehose_delivery_stream ?arn ?destination_id ?id
     ?tags ?tags_all ?version_id ?timeouts ~destination ~name
     ~elasticsearch_configuration ~extended_s3_configuration
@@ -984,28 +995,46 @@ let aws_kinesis_firehose_delivery_stream ?arn ?destination_id ?id
     ~server_side_encryption ~splunk_configuration __resource_id =
   let __resource_type = "aws_kinesis_firehose_delivery_stream" in
   let __resource =
-    {
-      arn;
-      destination;
-      destination_id;
-      id;
-      name;
-      tags;
-      tags_all;
-      version_id;
-      elasticsearch_configuration;
-      extended_s3_configuration;
-      http_endpoint_configuration;
-      kinesis_source_configuration;
-      msk_source_configuration;
-      opensearch_configuration;
-      opensearchserverless_configuration;
-      redshift_configuration;
-      server_side_encryption;
-      splunk_configuration;
-      timeouts;
-    }
+    ({
+       arn;
+       destination;
+       destination_id;
+       id;
+       name;
+       tags;
+       tags_all;
+       version_id;
+       elasticsearch_configuration;
+       extended_s3_configuration;
+       http_endpoint_configuration;
+       kinesis_source_configuration;
+       msk_source_configuration;
+       opensearch_configuration;
+       opensearchserverless_configuration;
+       redshift_configuration;
+       server_side_encryption;
+       splunk_configuration;
+       timeouts;
+     }
+      : aws_kinesis_firehose_delivery_stream)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kinesis_firehose_delivery_stream __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       destination =
+         Prop.computed __resource_type __resource_id "destination";
+       destination_id =
+         Prop.computed __resource_type __resource_id "destination_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version_id =
+         Prop.computed __resource_type __resource_id "version_id";
+     }
+      : t)
+  in
+  __resource_attributes

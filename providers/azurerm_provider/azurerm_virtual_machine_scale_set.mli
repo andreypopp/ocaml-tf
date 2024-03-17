@@ -38,6 +38,24 @@ type azurerm_virtual_machine_scale_set__storage_profile_os_disk
 type azurerm_virtual_machine_scale_set__timeouts
 type azurerm_virtual_machine_scale_set
 
+type t = private {
+  automatic_os_upgrade : bool prop;
+  eviction_policy : string prop;
+  health_probe_id : string prop;
+  id : string prop;
+  license_type : string prop;
+  location : string prop;
+  name : string prop;
+  overprovision : bool prop;
+  priority : string prop;
+  proximity_placement_group_id : string prop;
+  resource_group_name : string prop;
+  single_placement_group : bool prop;
+  tags : (string * string) list prop;
+  upgrade_policy_mode : string prop;
+  zones : string list prop;
+}
+
 val azurerm_virtual_machine_scale_set :
   ?automatic_os_upgrade:bool prop ->
   ?eviction_policy:string prop ->
@@ -80,4 +98,4 @@ val azurerm_virtual_machine_scale_set :
   storage_profile_os_disk:
     azurerm_virtual_machine_scale_set__storage_profile_os_disk list ->
   string ->
-  unit
+  t

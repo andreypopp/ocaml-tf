@@ -581,23 +581,55 @@ type google_dataproc_cluster = {
 [@@deriving yojson_of]
 (** google_dataproc_cluster *)
 
+type t = {
+  effective_labels : (string * string) list prop;
+  graceful_decommission_timeout : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_dataproc_cluster ?graceful_decommission_timeout ?id
     ?labels ?project ?region ?timeouts ~name ~cluster_config
     ~virtual_cluster_config __resource_id =
   let __resource_type = "google_dataproc_cluster" in
   let __resource =
-    {
-      graceful_decommission_timeout;
-      id;
-      labels;
-      name;
-      project;
-      region;
-      cluster_config;
-      timeouts;
-      virtual_cluster_config;
-    }
+    ({
+       graceful_decommission_timeout;
+       id;
+       labels;
+       name;
+       project;
+       region;
+       cluster_config;
+       timeouts;
+       virtual_cluster_config;
+     }
+      : google_dataproc_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataproc_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       graceful_decommission_timeout =
+         Prop.computed __resource_type __resource_id
+           "graceful_decommission_timeout";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

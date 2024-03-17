@@ -27,12 +27,34 @@ messages. *)
 [@@deriving yojson_of]
 (** google_pubsub_lite_reservation *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  throughput_capacity : float prop;
+}
+
 let google_pubsub_lite_reservation ?id ?project ?region ?timeouts
     ~name ~throughput_capacity __resource_id =
   let __resource_type = "google_pubsub_lite_reservation" in
   let __resource =
-    { id; name; project; region; throughput_capacity; timeouts }
+    ({ id; name; project; region; throughput_capacity; timeouts }
+      : google_pubsub_lite_reservation)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_lite_reservation __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       throughput_capacity =
+         Prop.computed __resource_type __resource_id
+           "throughput_capacity";
+     }
+      : t)
+  in
+  __resource_attributes

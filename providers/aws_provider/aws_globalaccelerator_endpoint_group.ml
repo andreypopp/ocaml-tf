@@ -54,6 +54,19 @@ type aws_globalaccelerator_endpoint_group = {
 [@@deriving yojson_of]
 (** aws_globalaccelerator_endpoint_group *)
 
+type t = {
+  arn : string prop;
+  endpoint_group_region : string prop;
+  health_check_interval_seconds : float prop;
+  health_check_path : string prop;
+  health_check_port : float prop;
+  health_check_protocol : string prop;
+  id : string prop;
+  listener_arn : string prop;
+  threshold_count : float prop;
+  traffic_dial_percentage : float prop;
+}
+
 let aws_globalaccelerator_endpoint_group ?endpoint_group_region
     ?health_check_interval_seconds ?health_check_path
     ?health_check_port ?health_check_protocol ?id ?threshold_count
@@ -61,21 +74,52 @@ let aws_globalaccelerator_endpoint_group ?endpoint_group_region
     ~endpoint_configuration ~port_override __resource_id =
   let __resource_type = "aws_globalaccelerator_endpoint_group" in
   let __resource =
-    {
-      endpoint_group_region;
-      health_check_interval_seconds;
-      health_check_path;
-      health_check_port;
-      health_check_protocol;
-      id;
-      listener_arn;
-      threshold_count;
-      traffic_dial_percentage;
-      endpoint_configuration;
-      port_override;
-      timeouts;
-    }
+    ({
+       endpoint_group_region;
+       health_check_interval_seconds;
+       health_check_path;
+       health_check_port;
+       health_check_protocol;
+       id;
+       listener_arn;
+       threshold_count;
+       traffic_dial_percentage;
+       endpoint_configuration;
+       port_override;
+       timeouts;
+     }
+      : aws_globalaccelerator_endpoint_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_globalaccelerator_endpoint_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       endpoint_group_region =
+         Prop.computed __resource_type __resource_id
+           "endpoint_group_region";
+       health_check_interval_seconds =
+         Prop.computed __resource_type __resource_id
+           "health_check_interval_seconds";
+       health_check_path =
+         Prop.computed __resource_type __resource_id
+           "health_check_path";
+       health_check_port =
+         Prop.computed __resource_type __resource_id
+           "health_check_port";
+       health_check_protocol =
+         Prop.computed __resource_type __resource_id
+           "health_check_protocol";
+       id = Prop.computed __resource_type __resource_id "id";
+       listener_arn =
+         Prop.computed __resource_type __resource_id "listener_arn";
+       threshold_count =
+         Prop.computed __resource_type __resource_id
+           "threshold_count";
+       traffic_dial_percentage =
+         Prop.computed __resource_type __resource_id
+           "traffic_dial_percentage";
+     }
+      : t)
+  in
+  __resource_attributes

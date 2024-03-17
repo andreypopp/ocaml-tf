@@ -40,6 +40,35 @@ type aws_spot_fleet_request__spot_maintenance_strategies
 type aws_spot_fleet_request__timeouts
 type aws_spot_fleet_request
 
+type t = private {
+  allocation_strategy : string prop;
+  client_token : string prop;
+  context : string prop;
+  excess_capacity_termination_policy : string prop;
+  fleet_type : string prop;
+  iam_fleet_role : string prop;
+  id : string prop;
+  instance_interruption_behaviour : string prop;
+  instance_pools_to_use_count : float prop;
+  load_balancers : string list prop;
+  on_demand_allocation_strategy : string prop;
+  on_demand_max_total_price : string prop;
+  on_demand_target_capacity : float prop;
+  replace_unhealthy_instances : bool prop;
+  spot_price : string prop;
+  spot_request_state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_capacity : float prop;
+  target_capacity_unit_type : string prop;
+  target_group_arns : string list prop;
+  terminate_instances_on_delete : string prop;
+  terminate_instances_with_expiration : bool prop;
+  valid_from : string prop;
+  valid_until : string prop;
+  wait_for_fulfillment : bool prop;
+}
+
 val aws_spot_fleet_request :
   ?allocation_strategy:string prop ->
   ?context:string prop ->
@@ -73,4 +102,4 @@ val aws_spot_fleet_request :
   spot_maintenance_strategies:
     aws_spot_fleet_request__spot_maintenance_strategies list ->
   string ->
-  unit
+  t

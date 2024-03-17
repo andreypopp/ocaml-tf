@@ -330,6 +330,34 @@ type azurerm_api_management = {
 [@@deriving yojson_of]
 (** azurerm_api_management *)
 
+type t = {
+  client_certificate_enabled : bool prop;
+  developer_portal_url : string prop;
+  gateway_disabled : bool prop;
+  gateway_regional_url : string prop;
+  gateway_url : string prop;
+  id : string prop;
+  location : string prop;
+  management_api_url : string prop;
+  min_api_version : string prop;
+  name : string prop;
+  notification_sender_email : string prop;
+  policy : azurerm_api_management__policy list prop;
+  portal_url : string prop;
+  private_ip_addresses : string list prop;
+  public_ip_address_id : string prop;
+  public_ip_addresses : string list prop;
+  public_network_access_enabled : bool prop;
+  publisher_email : string prop;
+  publisher_name : string prop;
+  resource_group_name : string prop;
+  scm_url : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+  virtual_network_type : string prop;
+  zones : string list prop;
+}
+
 let azurerm_api_management ?client_certificate_enabled
     ?gateway_disabled ?id ?min_api_version ?notification_sender_email
     ?policy ?public_ip_address_id ?public_network_access_enabled
@@ -341,38 +369,103 @@ let azurerm_api_management ?client_certificate_enabled
     __resource_id =
   let __resource_type = "azurerm_api_management" in
   let __resource =
-    {
-      client_certificate_enabled;
-      gateway_disabled;
-      id;
-      location;
-      min_api_version;
-      name;
-      notification_sender_email;
-      policy;
-      public_ip_address_id;
-      public_network_access_enabled;
-      publisher_email;
-      publisher_name;
-      resource_group_name;
-      sku_name;
-      tags;
-      virtual_network_type;
-      zones;
-      additional_location;
-      certificate;
-      delegation;
-      hostname_configuration;
-      identity;
-      protocols;
-      security;
-      sign_in;
-      sign_up;
-      tenant_access;
-      timeouts;
-      virtual_network_configuration;
-    }
+    ({
+       client_certificate_enabled;
+       gateway_disabled;
+       id;
+       location;
+       min_api_version;
+       name;
+       notification_sender_email;
+       policy;
+       public_ip_address_id;
+       public_network_access_enabled;
+       publisher_email;
+       publisher_name;
+       resource_group_name;
+       sku_name;
+       tags;
+       virtual_network_type;
+       zones;
+       additional_location;
+       certificate;
+       delegation;
+       hostname_configuration;
+       identity;
+       protocols;
+       security;
+       sign_in;
+       sign_up;
+       tenant_access;
+       timeouts;
+       virtual_network_configuration;
+     }
+      : azurerm_api_management)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management __resource);
-  ()
+  let __resource_attributes =
+    ({
+       client_certificate_enabled =
+         Prop.computed __resource_type __resource_id
+           "client_certificate_enabled";
+       developer_portal_url =
+         Prop.computed __resource_type __resource_id
+           "developer_portal_url";
+       gateway_disabled =
+         Prop.computed __resource_type __resource_id
+           "gateway_disabled";
+       gateway_regional_url =
+         Prop.computed __resource_type __resource_id
+           "gateway_regional_url";
+       gateway_url =
+         Prop.computed __resource_type __resource_id "gateway_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       management_api_url =
+         Prop.computed __resource_type __resource_id
+           "management_api_url";
+       min_api_version =
+         Prop.computed __resource_type __resource_id
+           "min_api_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       notification_sender_email =
+         Prop.computed __resource_type __resource_id
+           "notification_sender_email";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       portal_url =
+         Prop.computed __resource_type __resource_id "portal_url";
+       private_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "private_ip_addresses";
+       public_ip_address_id =
+         Prop.computed __resource_type __resource_id
+           "public_ip_address_id";
+       public_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "public_ip_addresses";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       publisher_email =
+         Prop.computed __resource_type __resource_id
+           "publisher_email";
+       publisher_name =
+         Prop.computed __resource_type __resource_id "publisher_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scm_url =
+         Prop.computed __resource_type __resource_id "scm_url";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_network_type =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_type";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -141,6 +141,27 @@ type aws_ecs_task_definition = {
 [@@deriving yojson_of]
 (** aws_ecs_task_definition *)
 
+type t = {
+  arn : string prop;
+  arn_without_revision : string prop;
+  container_definitions : string prop;
+  cpu : string prop;
+  execution_role_arn : string prop;
+  family : string prop;
+  id : string prop;
+  ipc_mode : string prop;
+  memory : string prop;
+  network_mode : string prop;
+  pid_mode : string prop;
+  requires_compatibilities : string list prop;
+  revision : float prop;
+  skip_destroy : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  task_role_arn : string prop;
+  track_latest : bool prop;
+}
+
 let aws_ecs_task_definition ?cpu ?execution_role_arn ?id ?ipc_mode
     ?memory ?network_mode ?pid_mode ?requires_compatibilities
     ?skip_destroy ?tags ?tags_all ?task_role_arn ?track_latest
@@ -149,30 +170,70 @@ let aws_ecs_task_definition ?cpu ?execution_role_arn ?id ?ipc_mode
     ~proxy_configuration ~runtime_platform ~volume __resource_id =
   let __resource_type = "aws_ecs_task_definition" in
   let __resource =
-    {
-      container_definitions;
-      cpu;
-      execution_role_arn;
-      family;
-      id;
-      ipc_mode;
-      memory;
-      network_mode;
-      pid_mode;
-      requires_compatibilities;
-      skip_destroy;
-      tags;
-      tags_all;
-      task_role_arn;
-      track_latest;
-      ephemeral_storage;
-      inference_accelerator;
-      placement_constraints;
-      proxy_configuration;
-      runtime_platform;
-      volume;
-    }
+    ({
+       container_definitions;
+       cpu;
+       execution_role_arn;
+       family;
+       id;
+       ipc_mode;
+       memory;
+       network_mode;
+       pid_mode;
+       requires_compatibilities;
+       skip_destroy;
+       tags;
+       tags_all;
+       task_role_arn;
+       track_latest;
+       ephemeral_storage;
+       inference_accelerator;
+       placement_constraints;
+       proxy_configuration;
+       runtime_platform;
+       volume;
+     }
+      : aws_ecs_task_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_task_definition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       arn_without_revision =
+         Prop.computed __resource_type __resource_id
+           "arn_without_revision";
+       container_definitions =
+         Prop.computed __resource_type __resource_id
+           "container_definitions";
+       cpu = Prop.computed __resource_type __resource_id "cpu";
+       execution_role_arn =
+         Prop.computed __resource_type __resource_id
+           "execution_role_arn";
+       family = Prop.computed __resource_type __resource_id "family";
+       id = Prop.computed __resource_type __resource_id "id";
+       ipc_mode =
+         Prop.computed __resource_type __resource_id "ipc_mode";
+       memory = Prop.computed __resource_type __resource_id "memory";
+       network_mode =
+         Prop.computed __resource_type __resource_id "network_mode";
+       pid_mode =
+         Prop.computed __resource_type __resource_id "pid_mode";
+       requires_compatibilities =
+         Prop.computed __resource_type __resource_id
+           "requires_compatibilities";
+       revision =
+         Prop.computed __resource_type __resource_id "revision";
+       skip_destroy =
+         Prop.computed __resource_type __resource_id "skip_destroy";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       task_role_arn =
+         Prop.computed __resource_type __resource_id "task_role_arn";
+       track_latest =
+         Prop.computed __resource_type __resource_id "track_latest";
+     }
+      : t)
+  in
+  __resource_attributes

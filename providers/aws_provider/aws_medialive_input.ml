@@ -67,27 +67,71 @@ type aws_medialive_input = {
 [@@deriving yojson_of]
 (** aws_medialive_input *)
 
+type t = {
+  arn : string prop;
+  attached_channels : string list prop;
+  id : string prop;
+  input_class : string prop;
+  input_partner_ids : string list prop;
+  input_security_groups : string list prop;
+  input_source_type : string prop;
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_medialive_input ?id ?input_security_groups ?role_arn ?tags
     ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
     ~media_connect_flows ~sources ~vpc __resource_id =
   let __resource_type = "aws_medialive_input" in
   let __resource =
-    {
-      id;
-      input_security_groups;
-      name;
-      role_arn;
-      tags;
-      tags_all;
-      type_;
-      destinations;
-      input_devices;
-      media_connect_flows;
-      sources;
-      timeouts;
-      vpc;
-    }
+    ({
+       id;
+       input_security_groups;
+       name;
+       role_arn;
+       tags;
+       tags_all;
+       type_;
+       destinations;
+       input_devices;
+       media_connect_flows;
+       sources;
+       timeouts;
+       vpc;
+     }
+      : aws_medialive_input)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_medialive_input __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       attached_channels =
+         Prop.computed __resource_type __resource_id
+           "attached_channels";
+       id = Prop.computed __resource_type __resource_id "id";
+       input_class =
+         Prop.computed __resource_type __resource_id "input_class";
+       input_partner_ids =
+         Prop.computed __resource_type __resource_id
+           "input_partner_ids";
+       input_security_groups =
+         Prop.computed __resource_type __resource_id
+           "input_security_groups";
+       input_source_type =
+         Prop.computed __resource_type __resource_id
+           "input_source_type";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,14 @@ open! Tf.Prelude
 type google_pubsub_schema__timeouts
 type google_pubsub_schema
 
+type t = private {
+  definition : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  type_ : string prop;
+}
+
 val google_pubsub_schema :
   ?definition:string prop ->
   ?id:string prop ->
@@ -13,4 +21,4 @@ val google_pubsub_schema :
   ?timeouts:google_pubsub_schema__timeouts ->
   name:string prop ->
   string ->
-  unit
+  t

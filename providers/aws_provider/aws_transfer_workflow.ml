@@ -282,12 +282,33 @@ type aws_transfer_workflow = {
 [@@deriving yojson_of]
 (** aws_transfer_workflow *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_transfer_workflow ?description ?id ?tags ?tags_all
     ~on_exception_steps ~steps __resource_id =
   let __resource_type = "aws_transfer_workflow" in
   let __resource =
-    { description; id; tags; tags_all; on_exception_steps; steps }
+    ({ description; id; tags; tags_all; on_exception_steps; steps }
+      : aws_transfer_workflow)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_workflow __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

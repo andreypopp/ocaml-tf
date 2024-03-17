@@ -72,19 +72,40 @@ type aws_guardduty_organization_configuration = {
 [@@deriving yojson_of]
 (** aws_guardduty_organization_configuration *)
 
+type t = {
+  auto_enable : bool prop;
+  auto_enable_organization_members : string prop;
+  detector_id : string prop;
+  id : string prop;
+}
+
 let aws_guardduty_organization_configuration ?auto_enable
     ?auto_enable_organization_members ?id ~detector_id ~datasources
     __resource_id =
   let __resource_type = "aws_guardduty_organization_configuration" in
   let __resource =
-    {
-      auto_enable;
-      auto_enable_organization_members;
-      detector_id;
-      id;
-      datasources;
-    }
+    ({
+       auto_enable;
+       auto_enable_organization_members;
+       detector_id;
+       id;
+       datasources;
+     }
+      : aws_guardduty_organization_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_organization_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_enable =
+         Prop.computed __resource_type __resource_id "auto_enable";
+       auto_enable_organization_members =
+         Prop.computed __resource_type __resource_id
+           "auto_enable_organization_members";
+       detector_id =
+         Prop.computed __resource_type __resource_id "detector_id";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

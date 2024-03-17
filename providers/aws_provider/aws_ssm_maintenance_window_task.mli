@@ -23,6 +23,22 @@ type aws_ssm_maintenance_window_task__task_invocation_parameters__step_functions
 type aws_ssm_maintenance_window_task__task_invocation_parameters
 type aws_ssm_maintenance_window_task
 
+type t = private {
+  arn : string prop;
+  cutoff_behavior : string prop;
+  description : string prop;
+  id : string prop;
+  max_concurrency : string prop;
+  max_errors : string prop;
+  name : string prop;
+  priority : float prop;
+  service_role_arn : string prop;
+  task_arn : string prop;
+  task_type : string prop;
+  window_id : string prop;
+  window_task_id : string prop;
+}
+
 val aws_ssm_maintenance_window_task :
   ?cutoff_behavior:string prop ->
   ?description:string prop ->
@@ -39,4 +55,4 @@ val aws_ssm_maintenance_window_task :
   task_invocation_parameters:
     aws_ssm_maintenance_window_task__task_invocation_parameters list ->
   string ->
-  unit
+  t

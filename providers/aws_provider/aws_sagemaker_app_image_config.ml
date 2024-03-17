@@ -65,20 +65,42 @@ type aws_sagemaker_app_image_config = {
 [@@deriving yojson_of]
 (** aws_sagemaker_app_image_config *)
 
+type t = {
+  app_image_config_name : string prop;
+  arn : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sagemaker_app_image_config ?id ?tags ?tags_all
     ~app_image_config_name ~jupyter_lab_image_config
     ~kernel_gateway_image_config __resource_id =
   let __resource_type = "aws_sagemaker_app_image_config" in
   let __resource =
-    {
-      app_image_config_name;
-      id;
-      tags;
-      tags_all;
-      jupyter_lab_image_config;
-      kernel_gateway_image_config;
-    }
+    ({
+       app_image_config_name;
+       id;
+       tags;
+       tags_all;
+       jupyter_lab_image_config;
+       kernel_gateway_image_config;
+     }
+      : aws_sagemaker_app_image_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_app_image_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_image_config_name =
+         Prop.computed __resource_type __resource_id
+           "app_image_config_name";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -46,12 +46,36 @@ type cloudflare_list_item = {
 across all zones within the same account.
  *)
 
+type t = {
+  account_id : string prop;
+  asn : float prop;
+  comment : string prop;
+  id : string prop;
+  ip : string prop;
+  list_id : string prop;
+}
+
 let cloudflare_list_item ?asn ?comment ?ip ~account_id ~list_id
     ~hostname ~redirect __resource_id =
   let __resource_type = "cloudflare_list_item" in
   let __resource =
-    { account_id; asn; comment; ip; list_id; hostname; redirect }
+    ({ account_id; asn; comment; ip; list_id; hostname; redirect }
+      : cloudflare_list_item)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_list_item __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       asn = Prop.computed __resource_type __resource_id "asn";
+       comment =
+         Prop.computed __resource_type __resource_id "comment";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip = Prop.computed __resource_type __resource_id "ip";
+       list_id =
+         Prop.computed __resource_type __resource_id "list_id";
+     }
+      : t)
+  in
+  __resource_attributes

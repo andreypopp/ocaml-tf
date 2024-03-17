@@ -14,6 +14,22 @@ type aws_identitystore_user__external_ids = {
 
 type aws_identitystore_user
 
+type t = private {
+  display_name : string prop;
+  external_ids : aws_identitystore_user__external_ids list prop;
+  id : string prop;
+  identity_store_id : string prop;
+  locale : string prop;
+  nickname : string prop;
+  preferred_language : string prop;
+  profile_url : string prop;
+  timezone : string prop;
+  title : string prop;
+  user_id : string prop;
+  user_name : string prop;
+  user_type : string prop;
+}
+
 val aws_identitystore_user :
   ?id:string prop ->
   ?locale:string prop ->
@@ -31,4 +47,4 @@ val aws_identitystore_user :
   name:aws_identitystore_user__name list ->
   phone_numbers:aws_identitystore_user__phone_numbers list ->
   string ->
-  unit
+  t

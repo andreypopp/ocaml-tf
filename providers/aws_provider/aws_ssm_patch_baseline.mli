@@ -8,6 +8,22 @@ type aws_ssm_patch_baseline__global_filter
 type aws_ssm_patch_baseline__source
 type aws_ssm_patch_baseline
 
+type t = private {
+  approved_patches : string list prop;
+  approved_patches_compliance_level : string prop;
+  approved_patches_enable_non_security : bool prop;
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  json : string prop;
+  name : string prop;
+  operating_system : string prop;
+  rejected_patches : string list prop;
+  rejected_patches_action : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_ssm_patch_baseline :
   ?approved_patches:string prop list ->
   ?approved_patches_compliance_level:string prop ->
@@ -24,4 +40,4 @@ val aws_ssm_patch_baseline :
   global_filter:aws_ssm_patch_baseline__global_filter list ->
   source:aws_ssm_patch_baseline__source list ->
   string ->
-  unit
+  t

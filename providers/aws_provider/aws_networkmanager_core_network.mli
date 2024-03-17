@@ -18,6 +18,23 @@ type aws_networkmanager_core_network__segments = {
 
 type aws_networkmanager_core_network
 
+type t = private {
+  arn : string prop;
+  base_policy_document : string prop;
+  base_policy_region : string prop;
+  base_policy_regions : string list prop;
+  create_base_policy : bool prop;
+  created_at : string prop;
+  description : string prop;
+  edges : aws_networkmanager_core_network__edges list prop;
+  global_network_id : string prop;
+  id : string prop;
+  segments : aws_networkmanager_core_network__segments list prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_networkmanager_core_network :
   ?base_policy_document:string prop ->
   ?base_policy_region:string prop ->
@@ -30,4 +47,4 @@ val aws_networkmanager_core_network :
   ?timeouts:aws_networkmanager_core_network__timeouts ->
   global_network_id:string prop ->
   string ->
-  unit
+  t

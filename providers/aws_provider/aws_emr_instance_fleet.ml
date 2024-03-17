@@ -84,21 +84,53 @@ type aws_emr_instance_fleet = {
 [@@deriving yojson_of]
 (** aws_emr_instance_fleet *)
 
+type t = {
+  cluster_id : string prop;
+  id : string prop;
+  name : string prop;
+  provisioned_on_demand_capacity : float prop;
+  provisioned_spot_capacity : float prop;
+  target_on_demand_capacity : float prop;
+  target_spot_capacity : float prop;
+}
+
 let aws_emr_instance_fleet ?id ?name ?target_on_demand_capacity
     ?target_spot_capacity ~cluster_id ~instance_type_configs
     ~launch_specifications __resource_id =
   let __resource_type = "aws_emr_instance_fleet" in
   let __resource =
-    {
-      cluster_id;
-      id;
-      name;
-      target_on_demand_capacity;
-      target_spot_capacity;
-      instance_type_configs;
-      launch_specifications;
-    }
+    ({
+       cluster_id;
+       id;
+       name;
+       target_on_demand_capacity;
+       target_spot_capacity;
+       instance_type_configs;
+       launch_specifications;
+     }
+      : aws_emr_instance_fleet)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_instance_fleet __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       provisioned_on_demand_capacity =
+         Prop.computed __resource_type __resource_id
+           "provisioned_on_demand_capacity";
+       provisioned_spot_capacity =
+         Prop.computed __resource_type __resource_id
+           "provisioned_spot_capacity";
+       target_on_demand_capacity =
+         Prop.computed __resource_type __resource_id
+           "target_on_demand_capacity";
+       target_spot_capacity =
+         Prop.computed __resource_type __resource_id
+           "target_spot_capacity";
+     }
+      : t)
+  in
+  __resource_attributes

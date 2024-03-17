@@ -49,22 +49,47 @@ type kubernetes_secret_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_secret_v1 *)
 
+type t = {
+  binary_data : (string * string) list prop;
+  data : (string * string) list prop;
+  id : string prop;
+  immutable : bool prop;
+  type_ : string prop;
+  wait_for_service_account_token : bool prop;
+}
+
 let kubernetes_secret_v1 ?binary_data ?data ?id ?immutable ?type_
     ?wait_for_service_account_token ?timeouts ~metadata __resource_id
     =
   let __resource_type = "kubernetes_secret_v1" in
   let __resource =
-    {
-      binary_data;
-      data;
-      id;
-      immutable;
-      type_;
-      wait_for_service_account_token;
-      metadata;
-      timeouts;
-    }
+    ({
+       binary_data;
+       data;
+       id;
+       immutable;
+       type_;
+       wait_for_service_account_token;
+       metadata;
+       timeouts;
+     }
+      : kubernetes_secret_v1)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_secret_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       binary_data =
+         Prop.computed __resource_type __resource_id "binary_data";
+       data = Prop.computed __resource_type __resource_id "data";
+       id = Prop.computed __resource_type __resource_id "id";
+       immutable =
+         Prop.computed __resource_type __resource_id "immutable";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       wait_for_service_account_token =
+         Prop.computed __resource_type __resource_id
+           "wait_for_service_account_token";
+     }
+      : t)
+  in
+  __resource_attributes

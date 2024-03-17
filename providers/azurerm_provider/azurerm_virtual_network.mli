@@ -15,6 +15,21 @@ type azurerm_virtual_network__subnet = {
 
 type azurerm_virtual_network
 
+type t = private {
+  address_space : string list prop;
+  bgp_community : string prop;
+  dns_servers : string list prop;
+  edge_zone : string prop;
+  flow_timeout_in_minutes : float prop;
+  guid : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  subnet : azurerm_virtual_network__subnet list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_virtual_network :
   ?bgp_community:string prop ->
   ?dns_servers:string prop list ->
@@ -32,4 +47,4 @@ val azurerm_virtual_network :
     azurerm_virtual_network__ddos_protection_plan list ->
   encryption:azurerm_virtual_network__encryption list ->
   string ->
-  unit
+  t

@@ -685,25 +685,58 @@ type aws_lexv2models_slot = {
 [@@deriving yojson_of]
 (** aws_lexv2models_slot *)
 
+type t = {
+  bot_id : string prop;
+  bot_version : string prop;
+  description : string prop;
+  id : string prop;
+  intent_id : string prop;
+  locale_id : string prop;
+  name : string prop;
+  slot_id : string prop;
+  slot_type_id : string prop;
+}
+
 let aws_lexv2models_slot ?description ?slot_type_id ?timeouts ~bot_id
     ~bot_version ~intent_id ~locale_id ~name ~multiple_values_setting
     ~obfuscation_setting ~value_elicitation_setting __resource_id =
   let __resource_type = "aws_lexv2models_slot" in
   let __resource =
-    {
-      bot_id;
-      bot_version;
-      description;
-      intent_id;
-      locale_id;
-      name;
-      slot_type_id;
-      multiple_values_setting;
-      obfuscation_setting;
-      timeouts;
-      value_elicitation_setting;
-    }
+    ({
+       bot_id;
+       bot_version;
+       description;
+       intent_id;
+       locale_id;
+       name;
+       slot_type_id;
+       multiple_values_setting;
+       obfuscation_setting;
+       timeouts;
+       value_elicitation_setting;
+     }
+      : aws_lexv2models_slot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_slot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bot_id = Prop.computed __resource_type __resource_id "bot_id";
+       bot_version =
+         Prop.computed __resource_type __resource_id "bot_version";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       intent_id =
+         Prop.computed __resource_type __resource_id "intent_id";
+       locale_id =
+         Prop.computed __resource_type __resource_id "locale_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       slot_id =
+         Prop.computed __resource_type __resource_id "slot_id";
+       slot_type_id =
+         Prop.computed __resource_type __resource_id "slot_type_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -23,12 +23,34 @@ type google_apigee_environment_iam_binding = {
 [@@deriving yojson_of]
 (** google_apigee_environment_iam_binding *)
 
+type t = {
+  env_id : string prop;
+  etag : string prop;
+  id : string prop;
+  members : string list prop;
+  org_id : string prop;
+  role : string prop;
+}
+
 let google_apigee_environment_iam_binding ?id ~env_id ~members
     ~org_id ~role ~condition __resource_id =
   let __resource_type = "google_apigee_environment_iam_binding" in
   let __resource =
-    { env_id; id; members; org_id; role; condition }
+    ({ env_id; id; members; org_id; role; condition }
+      : google_apigee_environment_iam_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_environment_iam_binding __resource);
-  ()
+  let __resource_attributes =
+    ({
+       env_id = Prop.computed __resource_type __resource_id "env_id";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

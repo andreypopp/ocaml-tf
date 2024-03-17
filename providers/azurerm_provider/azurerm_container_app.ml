@@ -418,29 +418,78 @@ type azurerm_container_app = {
 [@@deriving yojson_of]
 (** azurerm_container_app *)
 
+type t = {
+  container_app_environment_id : string prop;
+  custom_domain_verification_id : string prop;
+  id : string prop;
+  latest_revision_fqdn : string prop;
+  latest_revision_name : string prop;
+  location : string prop;
+  name : string prop;
+  outbound_ip_addresses : string list prop;
+  resource_group_name : string prop;
+  revision_mode : string prop;
+  tags : (string * string) list prop;
+  workload_profile_name : string prop;
+}
+
 let azurerm_container_app ?id ?tags ?workload_profile_name ?timeouts
     ~container_app_environment_id ~name ~resource_group_name
     ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
     ~template __resource_id =
   let __resource_type = "azurerm_container_app" in
   let __resource =
-    {
-      container_app_environment_id;
-      id;
-      name;
-      resource_group_name;
-      revision_mode;
-      tags;
-      workload_profile_name;
-      dapr;
-      identity;
-      ingress;
-      registry;
-      secret;
-      template;
-      timeouts;
-    }
+    ({
+       container_app_environment_id;
+       id;
+       name;
+       resource_group_name;
+       revision_mode;
+       tags;
+       workload_profile_name;
+       dapr;
+       identity;
+       ingress;
+       registry;
+       secret;
+       template;
+       timeouts;
+     }
+      : azurerm_container_app)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_app __resource);
-  ()
+  let __resource_attributes =
+    ({
+       container_app_environment_id =
+         Prop.computed __resource_type __resource_id
+           "container_app_environment_id";
+       custom_domain_verification_id =
+         Prop.computed __resource_type __resource_id
+           "custom_domain_verification_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       latest_revision_fqdn =
+         Prop.computed __resource_type __resource_id
+           "latest_revision_fqdn";
+       latest_revision_name =
+         Prop.computed __resource_type __resource_id
+           "latest_revision_name";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_addresses";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       revision_mode =
+         Prop.computed __resource_type __resource_id "revision_mode";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       workload_profile_name =
+         Prop.computed __resource_type __resource_id
+           "workload_profile_name";
+     }
+      : t)
+  in
+  __resource_attributes

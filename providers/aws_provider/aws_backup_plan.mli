@@ -9,6 +9,15 @@ type aws_backup_plan__rule__lifecycle
 type aws_backup_plan__rule
 type aws_backup_plan
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+}
+
 val aws_backup_plan :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -18,4 +27,4 @@ val aws_backup_plan :
     aws_backup_plan__advanced_backup_setting list ->
   rule:aws_backup_plan__rule list ->
   string ->
-  unit
+  t

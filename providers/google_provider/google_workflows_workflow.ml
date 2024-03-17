@@ -52,28 +52,91 @@ Modifying this field for an existing workflow results in a new workflow revision
 [@@deriving yojson_of]
 (** google_workflows_workflow *)
 
+type t = {
+  call_log_level : string prop;
+  create_time : string prop;
+  crypto_key_name : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  name_prefix : string prop;
+  project : string prop;
+  region : string prop;
+  revision_id : string prop;
+  service_account : string prop;
+  source_contents : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+  user_env_vars : (string * string) list prop;
+}
+
 let google_workflows_workflow ?call_log_level ?crypto_key_name
     ?description ?id ?labels ?name ?name_prefix ?project ?region
     ?service_account ?source_contents ?user_env_vars ?timeouts
     __resource_id =
   let __resource_type = "google_workflows_workflow" in
   let __resource =
-    {
-      call_log_level;
-      crypto_key_name;
-      description;
-      id;
-      labels;
-      name;
-      name_prefix;
-      project;
-      region;
-      service_account;
-      source_contents;
-      user_env_vars;
-      timeouts;
-    }
+    ({
+       call_log_level;
+       crypto_key_name;
+       description;
+       id;
+       labels;
+       name;
+       name_prefix;
+       project;
+       region;
+       service_account;
+       source_contents;
+       user_env_vars;
+       timeouts;
+     }
+      : google_workflows_workflow)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_workflows_workflow __resource);
-  ()
+  let __resource_attributes =
+    ({
+       call_log_level =
+         Prop.computed __resource_type __resource_id "call_log_level";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       crypto_key_name =
+         Prop.computed __resource_type __resource_id
+           "crypto_key_name";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       revision_id =
+         Prop.computed __resource_type __resource_id "revision_id";
+       service_account =
+         Prop.computed __resource_type __resource_id
+           "service_account";
+       source_contents =
+         Prop.computed __resource_type __resource_id
+           "source_contents";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       user_env_vars =
+         Prop.computed __resource_type __resource_id "user_env_vars";
+     }
+      : t)
+  in
+  __resource_attributes

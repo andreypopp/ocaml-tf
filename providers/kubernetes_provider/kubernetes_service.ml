@@ -133,12 +133,29 @@ type kubernetes_service = {
 [@@deriving yojson_of]
 (** kubernetes_service *)
 
+type t = {
+  id : string prop;
+  status : kubernetes_service__status list prop;
+  wait_for_load_balancer : bool prop;
+}
+
 let kubernetes_service ?id ?wait_for_load_balancer ?timeouts
     ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_service" in
   let __resource =
-    { id; wait_for_load_balancer; metadata; spec; timeouts }
+    ({ id; wait_for_load_balancer; metadata; spec; timeouts }
+      : kubernetes_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       status = Prop.computed __resource_type __resource_id "status";
+       wait_for_load_balancer =
+         Prop.computed __resource_type __resource_id
+           "wait_for_load_balancer";
+     }
+      : t)
+  in
+  __resource_attributes

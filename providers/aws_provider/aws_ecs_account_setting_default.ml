@@ -12,9 +12,28 @@ type aws_ecs_account_setting_default = {
 [@@deriving yojson_of]
 (** aws_ecs_account_setting_default *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  principal_arn : string prop;
+  value : string prop;
+}
+
 let aws_ecs_account_setting_default ?id ~name ~value __resource_id =
   let __resource_type = "aws_ecs_account_setting_default" in
-  let __resource = { id; name; value } in
+  let __resource =
+    ({ id; name; value } : aws_ecs_account_setting_default)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_account_setting_default __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       principal_arn =
+         Prop.computed __resource_type __resource_id "principal_arn";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

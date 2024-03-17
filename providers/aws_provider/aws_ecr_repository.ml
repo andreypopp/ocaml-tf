@@ -42,23 +42,56 @@ type aws_ecr_repository = {
 [@@deriving yojson_of]
 (** aws_ecr_repository *)
 
+type t = {
+  arn : string prop;
+  force_delete : bool prop;
+  id : string prop;
+  image_tag_mutability : string prop;
+  name : string prop;
+  registry_id : string prop;
+  repository_url : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ecr_repository ?force_delete ?id ?image_tag_mutability ?tags
     ?tags_all ?timeouts ~name ~encryption_configuration
     ~image_scanning_configuration __resource_id =
   let __resource_type = "aws_ecr_repository" in
   let __resource =
-    {
-      force_delete;
-      id;
-      image_tag_mutability;
-      name;
-      tags;
-      tags_all;
-      encryption_configuration;
-      image_scanning_configuration;
-      timeouts;
-    }
+    ({
+       force_delete;
+       id;
+       image_tag_mutability;
+       name;
+       tags;
+       tags_all;
+       encryption_configuration;
+       image_scanning_configuration;
+       timeouts;
+     }
+      : aws_ecr_repository)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecr_repository __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       force_delete =
+         Prop.computed __resource_type __resource_id "force_delete";
+       id = Prop.computed __resource_type __resource_id "id";
+       image_tag_mutability =
+         Prop.computed __resource_type __resource_id
+           "image_tag_mutability";
+       name = Prop.computed __resource_type __resource_id "name";
+       registry_id =
+         Prop.computed __resource_type __resource_id "registry_id";
+       repository_url =
+         Prop.computed __resource_type __resource_id "repository_url";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

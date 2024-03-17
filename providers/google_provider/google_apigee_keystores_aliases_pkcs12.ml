@@ -52,23 +52,58 @@ type google_apigee_keystores_aliases_pkcs12 = {
 [@@deriving yojson_of]
 (** google_apigee_keystores_aliases_pkcs12 *)
 
+type t = {
+  alias : string prop;
+  certs_info :
+    google_apigee_keystores_aliases_pkcs12__certs_info list prop;
+  environment : string prop;
+  file : string prop;
+  filehash : string prop;
+  id : string prop;
+  keystore : string prop;
+  org_id : string prop;
+  password : string prop;
+  type_ : string prop;
+}
+
 let google_apigee_keystores_aliases_pkcs12 ?id ?password ?timeouts
     ~alias ~environment ~file ~filehash ~keystore ~org_id
     __resource_id =
   let __resource_type = "google_apigee_keystores_aliases_pkcs12" in
   let __resource =
-    {
-      alias;
-      environment;
-      file;
-      filehash;
-      id;
-      keystore;
-      org_id;
-      password;
-      timeouts;
-    }
+    ({
+       alias;
+       environment;
+       file;
+       filehash;
+       id;
+       keystore;
+       org_id;
+       password;
+       timeouts;
+     }
+      : google_apigee_keystores_aliases_pkcs12)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_keystores_aliases_pkcs12 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alias = Prop.computed __resource_type __resource_id "alias";
+       certs_info =
+         Prop.computed __resource_type __resource_id "certs_info";
+       environment =
+         Prop.computed __resource_type __resource_id "environment";
+       file = Prop.computed __resource_type __resource_id "file";
+       filehash =
+         Prop.computed __resource_type __resource_id "filehash";
+       id = Prop.computed __resource_type __resource_id "id";
+       keystore =
+         Prop.computed __resource_type __resource_id "keystore";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

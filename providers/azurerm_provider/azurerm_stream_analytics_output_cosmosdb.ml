@@ -30,24 +30,58 @@ type azurerm_stream_analytics_output_cosmosdb = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_cosmosdb *)
 
+type t = {
+  container_name : string prop;
+  cosmosdb_account_key : string prop;
+  cosmosdb_sql_database_id : string prop;
+  document_id : string prop;
+  id : string prop;
+  name : string prop;
+  partition_key : string prop;
+  stream_analytics_job_id : string prop;
+}
+
 let azurerm_stream_analytics_output_cosmosdb ?document_id ?id
     ?partition_key ?timeouts ~container_name ~cosmosdb_account_key
     ~cosmosdb_sql_database_id ~name ~stream_analytics_job_id
     __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_cosmosdb" in
   let __resource =
-    {
-      container_name;
-      cosmosdb_account_key;
-      cosmosdb_sql_database_id;
-      document_id;
-      id;
-      name;
-      partition_key;
-      stream_analytics_job_id;
-      timeouts;
-    }
+    ({
+       container_name;
+       cosmosdb_account_key;
+       cosmosdb_sql_database_id;
+       document_id;
+       id;
+       name;
+       partition_key;
+       stream_analytics_job_id;
+       timeouts;
+     }
+      : azurerm_stream_analytics_output_cosmosdb)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_output_cosmosdb __resource);
-  ()
+  let __resource_attributes =
+    ({
+       container_name =
+         Prop.computed __resource_type __resource_id "container_name";
+       cosmosdb_account_key =
+         Prop.computed __resource_type __resource_id
+           "cosmosdb_account_key";
+       cosmosdb_sql_database_id =
+         Prop.computed __resource_type __resource_id
+           "cosmosdb_sql_database_id";
+       document_id =
+         Prop.computed __resource_type __resource_id "document_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       partition_key =
+         Prop.computed __resource_type __resource_id "partition_key";
+       stream_analytics_job_id =
+         Prop.computed __resource_type __resource_id
+           "stream_analytics_job_id";
+     }
+      : t)
+  in
+  __resource_attributes

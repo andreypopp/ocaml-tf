@@ -450,6 +450,23 @@ type aws_kinesisanalyticsv2_application = {
 [@@deriving yojson_of]
 (** aws_kinesisanalyticsv2_application *)
 
+type t = {
+  arn : string prop;
+  create_timestamp : string prop;
+  description : string prop;
+  force_stop : bool prop;
+  id : string prop;
+  last_update_timestamp : string prop;
+  name : string prop;
+  runtime_environment : string prop;
+  service_execution_role : string prop;
+  start_application : bool prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version_id : float prop;
+}
+
 let aws_kinesisanalyticsv2_application ?description ?force_stop ?id
     ?start_application ?tags ?tags_all ?timeouts ~name
     ~runtime_environment ~service_execution_role
@@ -457,21 +474,55 @@ let aws_kinesisanalyticsv2_application ?description ?force_stop ?id
     __resource_id =
   let __resource_type = "aws_kinesisanalyticsv2_application" in
   let __resource =
-    {
-      description;
-      force_stop;
-      id;
-      name;
-      runtime_environment;
-      service_execution_role;
-      start_application;
-      tags;
-      tags_all;
-      application_configuration;
-      cloudwatch_logging_options;
-      timeouts;
-    }
+    ({
+       description;
+       force_stop;
+       id;
+       name;
+       runtime_environment;
+       service_execution_role;
+       start_application;
+       tags;
+       tags_all;
+       application_configuration;
+       cloudwatch_logging_options;
+       timeouts;
+     }
+      : aws_kinesisanalyticsv2_application)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kinesisanalyticsv2_application __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       create_timestamp =
+         Prop.computed __resource_type __resource_id
+           "create_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       force_stop =
+         Prop.computed __resource_type __resource_id "force_stop";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_update_timestamp =
+         Prop.computed __resource_type __resource_id
+           "last_update_timestamp";
+       name = Prop.computed __resource_type __resource_id "name";
+       runtime_environment =
+         Prop.computed __resource_type __resource_id
+           "runtime_environment";
+       service_execution_role =
+         Prop.computed __resource_type __resource_id
+           "service_execution_role";
+       start_application =
+         Prop.computed __resource_type __resource_id
+           "start_application";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version_id =
+         Prop.computed __resource_type __resource_id "version_id";
+     }
+      : t)
+  in
+  __resource_attributes

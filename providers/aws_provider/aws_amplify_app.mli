@@ -14,6 +14,31 @@ type aws_amplify_app__production_branch = {
 
 type aws_amplify_app
 
+type t = private {
+  access_token : string prop;
+  arn : string prop;
+  auto_branch_creation_patterns : string list prop;
+  basic_auth_credentials : string prop;
+  build_spec : string prop;
+  custom_headers : string prop;
+  default_domain : string prop;
+  description : string prop;
+  enable_auto_branch_creation : bool prop;
+  enable_basic_auth : bool prop;
+  enable_branch_auto_build : bool prop;
+  enable_branch_auto_deletion : bool prop;
+  environment_variables : (string * string) list prop;
+  iam_service_role_arn : string prop;
+  id : string prop;
+  name : string prop;
+  oauth_token : string prop;
+  platform : string prop;
+  production_branch : aws_amplify_app__production_branch list prop;
+  repository : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_amplify_app :
   ?access_token:string prop ->
   ?auto_branch_creation_patterns:string prop list ->
@@ -38,4 +63,4 @@ val aws_amplify_app :
     aws_amplify_app__auto_branch_creation_config list ->
   custom_rule:aws_amplify_app__custom_rule list ->
   string ->
-  unit
+  t

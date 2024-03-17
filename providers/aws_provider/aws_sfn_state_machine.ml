@@ -48,26 +48,79 @@ type aws_sfn_state_machine = {
 [@@deriving yojson_of]
 (** aws_sfn_state_machine *)
 
+type t = {
+  arn : string prop;
+  creation_date : string prop;
+  definition : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  publish : bool prop;
+  revision_id : string prop;
+  role_arn : string prop;
+  state_machine_version_arn : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  version_description : string prop;
+}
+
 let aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
     ?tags_all ?type_ ?timeouts ~definition ~role_arn
     ~logging_configuration ~tracing_configuration __resource_id =
   let __resource_type = "aws_sfn_state_machine" in
   let __resource =
-    {
-      definition;
-      id;
-      name;
-      name_prefix;
-      publish;
-      role_arn;
-      tags;
-      tags_all;
-      type_;
-      logging_configuration;
-      timeouts;
-      tracing_configuration;
-    }
+    ({
+       definition;
+       id;
+       name;
+       name_prefix;
+       publish;
+       role_arn;
+       tags;
+       tags_all;
+       type_;
+       logging_configuration;
+       timeouts;
+       tracing_configuration;
+     }
+      : aws_sfn_state_machine)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sfn_state_machine __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       creation_date =
+         Prop.computed __resource_type __resource_id "creation_date";
+       definition =
+         Prop.computed __resource_type __resource_id "definition";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       publish =
+         Prop.computed __resource_type __resource_id "publish";
+       revision_id =
+         Prop.computed __resource_type __resource_id "revision_id";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       state_machine_version_arn =
+         Prop.computed __resource_type __resource_id
+           "state_machine_version_arn";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       version_description =
+         Prop.computed __resource_type __resource_id
+           "version_description";
+     }
+      : t)
+  in
+  __resource_attributes

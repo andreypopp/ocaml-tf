@@ -23,15 +23,33 @@ type azurerm_virtual_desktop_workspace_application_group_association = {
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_workspace_application_group_association *)
 
+type t = {
+  application_group_id : string prop;
+  id : string prop;
+  workspace_id : string prop;
+}
+
 let azurerm_virtual_desktop_workspace_application_group_association
     ?id ?timeouts ~application_group_id ~workspace_id __resource_id =
   let __resource_type =
     "azurerm_virtual_desktop_workspace_application_group_association"
   in
   let __resource =
-    { application_group_id; id; workspace_id; timeouts }
+    ({ application_group_id; id; workspace_id; timeouts }
+      : azurerm_virtual_desktop_workspace_application_group_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_desktop_workspace_application_group_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_group_id =
+         Prop.computed __resource_type __resource_id
+           "application_group_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       workspace_id =
+         Prop.computed __resource_type __resource_id "workspace_id";
+     }
+      : t)
+  in
+  __resource_attributes

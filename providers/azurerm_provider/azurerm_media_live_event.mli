@@ -23,6 +23,21 @@ type azurerm_media_live_event__preview
 type azurerm_media_live_event__timeouts
 type azurerm_media_live_event
 
+type t = private {
+  auto_start_enabled : bool prop;
+  description : string prop;
+  hostname_prefix : string prop;
+  id : string prop;
+  location : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  stream_options : string list prop;
+  tags : (string * string) list prop;
+  transcription_languages : string list prop;
+  use_static_hostname : bool prop;
+}
+
 val azurerm_media_live_event :
   ?auto_start_enabled:bool prop ->
   ?description:string prop ->
@@ -43,4 +58,4 @@ val azurerm_media_live_event :
   input:azurerm_media_live_event__input list ->
   preview:azurerm_media_live_event__preview list ->
   string ->
-  unit
+  t

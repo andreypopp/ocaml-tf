@@ -13,6 +13,18 @@ type google_dialogflow_cx_version__nlu_settings = {
 
 type google_dialogflow_cx_version
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  nlu_settings :
+    google_dialogflow_cx_version__nlu_settings list prop;
+  parent : string prop;
+  state : string prop;
+}
+
 val google_dialogflow_cx_version :
   ?description:string prop ->
   ?id:string prop ->
@@ -20,4 +32,4 @@ val google_dialogflow_cx_version :
   ?timeouts:google_dialogflow_cx_version__timeouts ->
   display_name:string prop ->
   string ->
-  unit
+  t

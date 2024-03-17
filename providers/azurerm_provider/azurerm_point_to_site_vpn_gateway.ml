@@ -75,6 +75,19 @@ type azurerm_point_to_site_vpn_gateway = {
 [@@deriving yojson_of]
 (** azurerm_point_to_site_vpn_gateway *)
 
+type t = {
+  dns_servers : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  routing_preference_internet_enabled : bool prop;
+  scale_unit : float prop;
+  tags : (string * string) list prop;
+  virtual_hub_id : string prop;
+  vpn_server_configuration_id : string prop;
+}
+
 let azurerm_point_to_site_vpn_gateway ?dns_servers ?id
     ?routing_preference_internet_enabled ?tags ?timeouts ~location
     ~name ~resource_group_name ~scale_unit ~virtual_hub_id
@@ -82,21 +95,47 @@ let azurerm_point_to_site_vpn_gateway ?dns_servers ?id
     __resource_id =
   let __resource_type = "azurerm_point_to_site_vpn_gateway" in
   let __resource =
-    {
-      dns_servers;
-      id;
-      location;
-      name;
-      resource_group_name;
-      routing_preference_internet_enabled;
-      scale_unit;
-      tags;
-      virtual_hub_id;
-      vpn_server_configuration_id;
-      connection_configuration;
-      timeouts;
-    }
+    ({
+       dns_servers;
+       id;
+       location;
+       name;
+       resource_group_name;
+       routing_preference_internet_enabled;
+       scale_unit;
+       tags;
+       virtual_hub_id;
+       vpn_server_configuration_id;
+       connection_configuration;
+       timeouts;
+     }
+      : azurerm_point_to_site_vpn_gateway)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_point_to_site_vpn_gateway __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dns_servers =
+         Prop.computed __resource_type __resource_id "dns_servers";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       routing_preference_internet_enabled =
+         Prop.computed __resource_type __resource_id
+           "routing_preference_internet_enabled";
+       scale_unit =
+         Prop.computed __resource_type __resource_id "scale_unit";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_hub_id =
+         Prop.computed __resource_type __resource_id "virtual_hub_id";
+       vpn_server_configuration_id =
+         Prop.computed __resource_type __resource_id
+           "vpn_server_configuration_id";
+     }
+      : t)
+  in
+  __resource_attributes

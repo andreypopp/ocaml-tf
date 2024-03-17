@@ -30,13 +30,27 @@ type aws_globalaccelerator_custom_routing_listener = {
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_listener *)
 
+type t = { accelerator_arn : string prop; id : string prop }
+
 let aws_globalaccelerator_custom_routing_listener ?id ?timeouts
     ~accelerator_arn ~port_range __resource_id =
   let __resource_type =
     "aws_globalaccelerator_custom_routing_listener"
   in
-  let __resource = { accelerator_arn; id; port_range; timeouts } in
+  let __resource =
+    ({ accelerator_arn; id; port_range; timeouts }
+      : aws_globalaccelerator_custom_routing_listener)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_globalaccelerator_custom_routing_listener
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accelerator_arn =
+         Prop.computed __resource_type __resource_id
+           "accelerator_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

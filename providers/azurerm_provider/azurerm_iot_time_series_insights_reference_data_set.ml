@@ -39,6 +39,15 @@ type azurerm_iot_time_series_insights_reference_data_set = {
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_reference_data_set *)
 
+type t = {
+  data_string_comparison_behavior : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  time_series_insights_environment_id : string prop;
+}
+
 let azurerm_iot_time_series_insights_reference_data_set
     ?data_string_comparison_behavior ?id ?tags ?timeouts ~location
     ~name ~time_series_insights_environment_id ~key_property
@@ -47,18 +56,35 @@ let azurerm_iot_time_series_insights_reference_data_set
     "azurerm_iot_time_series_insights_reference_data_set"
   in
   let __resource =
-    {
-      data_string_comparison_behavior;
-      id;
-      location;
-      name;
-      tags;
-      time_series_insights_environment_id;
-      key_property;
-      timeouts;
-    }
+    ({
+       data_string_comparison_behavior;
+       id;
+       location;
+       name;
+       tags;
+       time_series_insights_environment_id;
+       key_property;
+       timeouts;
+     }
+      : azurerm_iot_time_series_insights_reference_data_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iot_time_series_insights_reference_data_set
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data_string_comparison_behavior =
+         Prop.computed __resource_type __resource_id
+           "data_string_comparison_behavior";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       time_series_insights_environment_id =
+         Prop.computed __resource_type __resource_id
+           "time_series_insights_environment_id";
+     }
+      : t)
+  in
+  __resource_attributes

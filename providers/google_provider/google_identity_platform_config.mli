@@ -40,6 +40,14 @@ type google_identity_platform_config__sms_region_config
 type google_identity_platform_config__timeouts
 type google_identity_platform_config
 
+type t = private {
+  authorized_domains : string list prop;
+  autodelete_anonymous_users : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_identity_platform_config :
   ?authorized_domains:string prop list ->
   ?autodelete_anonymous_users:bool prop ->
@@ -57,4 +65,4 @@ val google_identity_platform_config :
   sms_region_config:
     google_identity_platform_config__sms_region_config list ->
   string ->
-  unit
+  t

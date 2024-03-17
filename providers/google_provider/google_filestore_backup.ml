@@ -43,23 +43,84 @@ character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_filestore_backup *)
 
+type t = {
+  capacity_gb : string prop;
+  create_time : string prop;
+  description : string prop;
+  download_bytes : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  source_file_share : string prop;
+  source_instance : string prop;
+  source_instance_tier : string prop;
+  state : string prop;
+  storage_bytes : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_filestore_backup ?description ?id ?labels ?project
     ?timeouts ~location ~name ~source_file_share ~source_instance
     __resource_id =
   let __resource_type = "google_filestore_backup" in
   let __resource =
-    {
-      description;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      source_file_share;
-      source_instance;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       source_file_share;
+       source_instance;
+       timeouts;
+     }
+      : google_filestore_backup)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_filestore_backup __resource);
-  ()
+  let __resource_attributes =
+    ({
+       capacity_gb =
+         Prop.computed __resource_type __resource_id "capacity_gb";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       download_bytes =
+         Prop.computed __resource_type __resource_id "download_bytes";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_name =
+         Prop.computed __resource_type __resource_id "kms_key_name";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       source_file_share =
+         Prop.computed __resource_type __resource_id
+           "source_file_share";
+       source_instance =
+         Prop.computed __resource_type __resource_id
+           "source_instance";
+       source_instance_tier =
+         Prop.computed __resource_type __resource_id
+           "source_instance_tier";
+       state = Prop.computed __resource_type __resource_id "state";
+       storage_bytes =
+         Prop.computed __resource_type __resource_id "storage_bytes";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -52,6 +52,23 @@ type azurerm_stream_analytics_output_blob = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_blob *)
 
+type t = {
+  authentication_mode : string prop;
+  batch_max_wait_time : string prop;
+  batch_min_rows : float prop;
+  blob_write_mode : string prop;
+  date_format : string prop;
+  id : string prop;
+  name : string prop;
+  path_pattern : string prop;
+  resource_group_name : string prop;
+  storage_account_key : string prop;
+  storage_account_name : string prop;
+  storage_container_name : string prop;
+  stream_analytics_job_name : string prop;
+  time_format : string prop;
+}
+
 let azurerm_stream_analytics_output_blob ?authentication_mode
     ?batch_max_wait_time ?batch_min_rows ?blob_write_mode ?id
     ?storage_account_key ?timeouts ~date_format ~name ~path_pattern
@@ -60,25 +77,65 @@ let azurerm_stream_analytics_output_blob ?authentication_mode
     ~serialization __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_blob" in
   let __resource =
-    {
-      authentication_mode;
-      batch_max_wait_time;
-      batch_min_rows;
-      blob_write_mode;
-      date_format;
-      id;
-      name;
-      path_pattern;
-      resource_group_name;
-      storage_account_key;
-      storage_account_name;
-      storage_container_name;
-      stream_analytics_job_name;
-      time_format;
-      serialization;
-      timeouts;
-    }
+    ({
+       authentication_mode;
+       batch_max_wait_time;
+       batch_min_rows;
+       blob_write_mode;
+       date_format;
+       id;
+       name;
+       path_pattern;
+       resource_group_name;
+       storage_account_key;
+       storage_account_name;
+       storage_container_name;
+       stream_analytics_job_name;
+       time_format;
+       serialization;
+       timeouts;
+     }
+      : azurerm_stream_analytics_output_blob)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_output_blob __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authentication_mode =
+         Prop.computed __resource_type __resource_id
+           "authentication_mode";
+       batch_max_wait_time =
+         Prop.computed __resource_type __resource_id
+           "batch_max_wait_time";
+       batch_min_rows =
+         Prop.computed __resource_type __resource_id "batch_min_rows";
+       blob_write_mode =
+         Prop.computed __resource_type __resource_id
+           "blob_write_mode";
+       date_format =
+         Prop.computed __resource_type __resource_id "date_format";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       path_pattern =
+         Prop.computed __resource_type __resource_id "path_pattern";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       storage_account_key =
+         Prop.computed __resource_type __resource_id
+           "storage_account_key";
+       storage_account_name =
+         Prop.computed __resource_type __resource_id
+           "storage_account_name";
+       storage_container_name =
+         Prop.computed __resource_type __resource_id
+           "storage_container_name";
+       stream_analytics_job_name =
+         Prop.computed __resource_type __resource_id
+           "stream_analytics_job_name";
+       time_format =
+         Prop.computed __resource_type __resource_id "time_format";
+     }
+      : t)
+  in
+  __resource_attributes

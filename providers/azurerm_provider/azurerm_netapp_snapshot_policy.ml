@@ -67,27 +67,55 @@ type azurerm_netapp_snapshot_policy = {
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot_policy *)
 
+type t = {
+  account_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_netapp_snapshot_policy ?id ?tags ?timeouts ~account_name
     ~enabled ~location ~name ~resource_group_name ~daily_schedule
     ~hourly_schedule ~monthly_schedule ~weekly_schedule __resource_id
     =
   let __resource_type = "azurerm_netapp_snapshot_policy" in
   let __resource =
-    {
-      account_name;
-      enabled;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      daily_schedule;
-      hourly_schedule;
-      monthly_schedule;
-      timeouts;
-      weekly_schedule;
-    }
+    ({
+       account_name;
+       enabled;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       daily_schedule;
+       hourly_schedule;
+       monthly_schedule;
+       timeouts;
+       weekly_schedule;
+     }
+      : azurerm_netapp_snapshot_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_snapshot_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_name =
+         Prop.computed __resource_type __resource_id "account_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

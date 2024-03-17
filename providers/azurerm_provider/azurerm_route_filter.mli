@@ -13,6 +13,15 @@ type azurerm_route_filter__rule = {
 
 type azurerm_route_filter
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  rule : azurerm_route_filter__rule list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_route_filter :
   ?id:string prop ->
   ?rule:azurerm_route_filter__rule list ->
@@ -22,4 +31,4 @@ val azurerm_route_filter :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

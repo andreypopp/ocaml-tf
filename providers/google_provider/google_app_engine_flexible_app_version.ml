@@ -408,6 +408,28 @@ Reserved names,default, latest, and any name with the prefix ah-. *)
 [@@deriving yojson_of]
 (** google_app_engine_flexible_app_version *)
 
+type t = {
+  beta_settings : (string * string) list prop;
+  default_expiration : string prop;
+  delete_service_on_destroy : bool prop;
+  env_variables : (string * string) list prop;
+  id : string prop;
+  inbound_services : string list prop;
+  instance_class : string prop;
+  name : string prop;
+  nobuild_files_regex : string prop;
+  noop_on_destroy : bool prop;
+  project : string prop;
+  runtime : string prop;
+  runtime_api_version : string prop;
+  runtime_channel : string prop;
+  runtime_main_executable_path : string prop;
+  service : string prop;
+  service_account : string prop;
+  serving_status : string prop;
+  version_id : string prop;
+}
+
 let google_app_engine_flexible_app_version ?beta_settings
     ?default_expiration ?delete_service_on_destroy ?env_variables ?id
     ?inbound_services ?instance_class ?nobuild_files_regex
@@ -419,40 +441,91 @@ let google_app_engine_flexible_app_version ?beta_settings
     ~readiness_check ~resources ~vpc_access_connector __resource_id =
   let __resource_type = "google_app_engine_flexible_app_version" in
   let __resource =
-    {
-      beta_settings;
-      default_expiration;
-      delete_service_on_destroy;
-      env_variables;
-      id;
-      inbound_services;
-      instance_class;
-      nobuild_files_regex;
-      noop_on_destroy;
-      project;
-      runtime;
-      runtime_api_version;
-      runtime_channel;
-      runtime_main_executable_path;
-      service;
-      service_account;
-      serving_status;
-      version_id;
-      api_config;
-      automatic_scaling;
-      deployment;
-      endpoints_api_service;
-      entrypoint;
-      handlers;
-      liveness_check;
-      manual_scaling;
-      network;
-      readiness_check;
-      resources;
-      timeouts;
-      vpc_access_connector;
-    }
+    ({
+       beta_settings;
+       default_expiration;
+       delete_service_on_destroy;
+       env_variables;
+       id;
+       inbound_services;
+       instance_class;
+       nobuild_files_regex;
+       noop_on_destroy;
+       project;
+       runtime;
+       runtime_api_version;
+       runtime_channel;
+       runtime_main_executable_path;
+       service;
+       service_account;
+       serving_status;
+       version_id;
+       api_config;
+       automatic_scaling;
+       deployment;
+       endpoints_api_service;
+       entrypoint;
+       handlers;
+       liveness_check;
+       manual_scaling;
+       network;
+       readiness_check;
+       resources;
+       timeouts;
+       vpc_access_connector;
+     }
+      : google_app_engine_flexible_app_version)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_flexible_app_version __resource);
-  ()
+  let __resource_attributes =
+    ({
+       beta_settings =
+         Prop.computed __resource_type __resource_id "beta_settings";
+       default_expiration =
+         Prop.computed __resource_type __resource_id
+           "default_expiration";
+       delete_service_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "delete_service_on_destroy";
+       env_variables =
+         Prop.computed __resource_type __resource_id "env_variables";
+       id = Prop.computed __resource_type __resource_id "id";
+       inbound_services =
+         Prop.computed __resource_type __resource_id
+           "inbound_services";
+       instance_class =
+         Prop.computed __resource_type __resource_id "instance_class";
+       name = Prop.computed __resource_type __resource_id "name";
+       nobuild_files_regex =
+         Prop.computed __resource_type __resource_id
+           "nobuild_files_regex";
+       noop_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "noop_on_destroy";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       runtime =
+         Prop.computed __resource_type __resource_id "runtime";
+       runtime_api_version =
+         Prop.computed __resource_type __resource_id
+           "runtime_api_version";
+       runtime_channel =
+         Prop.computed __resource_type __resource_id
+           "runtime_channel";
+       runtime_main_executable_path =
+         Prop.computed __resource_type __resource_id
+           "runtime_main_executable_path";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+       service_account =
+         Prop.computed __resource_type __resource_id
+           "service_account";
+       serving_status =
+         Prop.computed __resource_type __resource_id "serving_status";
+       version_id =
+         Prop.computed __resource_type __resource_id "version_id";
+     }
+      : t)
+  in
+  __resource_attributes

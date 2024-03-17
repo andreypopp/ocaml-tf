@@ -66,28 +66,86 @@ Valid only when 'RuntimeType' is CLOUD. For example: 'projects/foo/locations/us/
 [@@deriving yojson_of]
 (** google_apigee_organization *)
 
+type t = {
+  analytics_region : string prop;
+  apigee_project_id : string prop;
+  authorized_network : string prop;
+  billing_type : string prop;
+  ca_certificate : string prop;
+  description : string prop;
+  disable_vpc_peering : bool prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  project_id : string prop;
+  retention : string prop;
+  runtime_database_encryption_key_name : string prop;
+  runtime_type : string prop;
+  subscription_type : string prop;
+}
+
 let google_apigee_organization ?analytics_region ?authorized_network
     ?billing_type ?description ?disable_vpc_peering ?display_name ?id
     ?retention ?runtime_database_encryption_key_name ?runtime_type
     ?timeouts ~project_id ~properties __resource_id =
   let __resource_type = "google_apigee_organization" in
   let __resource =
-    {
-      analytics_region;
-      authorized_network;
-      billing_type;
-      description;
-      disable_vpc_peering;
-      display_name;
-      id;
-      project_id;
-      retention;
-      runtime_database_encryption_key_name;
-      runtime_type;
-      properties;
-      timeouts;
-    }
+    ({
+       analytics_region;
+       authorized_network;
+       billing_type;
+       description;
+       disable_vpc_peering;
+       display_name;
+       id;
+       project_id;
+       retention;
+       runtime_database_encryption_key_name;
+       runtime_type;
+       properties;
+       timeouts;
+     }
+      : google_apigee_organization)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_organization __resource);
-  ()
+  let __resource_attributes =
+    ({
+       analytics_region =
+         Prop.computed __resource_type __resource_id
+           "analytics_region";
+       apigee_project_id =
+         Prop.computed __resource_type __resource_id
+           "apigee_project_id";
+       authorized_network =
+         Prop.computed __resource_type __resource_id
+           "authorized_network";
+       billing_type =
+         Prop.computed __resource_type __resource_id "billing_type";
+       ca_certificate =
+         Prop.computed __resource_type __resource_id "ca_certificate";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disable_vpc_peering =
+         Prop.computed __resource_type __resource_id
+           "disable_vpc_peering";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project_id =
+         Prop.computed __resource_type __resource_id "project_id";
+       retention =
+         Prop.computed __resource_type __resource_id "retention";
+       runtime_database_encryption_key_name =
+         Prop.computed __resource_type __resource_id
+           "runtime_database_encryption_key_name";
+       runtime_type =
+         Prop.computed __resource_type __resource_id "runtime_type";
+       subscription_type =
+         Prop.computed __resource_type __resource_id
+           "subscription_type";
+     }
+      : t)
+  in
+  __resource_attributes

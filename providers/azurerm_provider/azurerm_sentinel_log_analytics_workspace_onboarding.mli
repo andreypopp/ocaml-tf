@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_sentinel_log_analytics_workspace_onboarding__timeouts
 type azurerm_sentinel_log_analytics_workspace_onboarding
 
+type t = private {
+  customer_managed_key_enabled : bool prop;
+  id : string prop;
+  resource_group_name : string prop;
+  workspace_id : string prop;
+  workspace_name : string prop;
+}
+
 val azurerm_sentinel_log_analytics_workspace_onboarding :
   ?customer_managed_key_enabled:bool prop ->
   ?id:string prop ->
@@ -14,4 +22,4 @@ val azurerm_sentinel_log_analytics_workspace_onboarding :
   ?timeouts:
     azurerm_sentinel_log_analytics_workspace_onboarding__timeouts ->
   string ->
-  unit
+  t

@@ -42,12 +42,33 @@ As expressed by the regular expression: ^(?!goog)[a-z]([a-z0-9-._~]*[a-z0-9])?$.
 [@@deriving yojson_of]
 (** google_storage_transfer_agent_pool *)
 
+type t = {
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+}
+
 let google_storage_transfer_agent_pool ?display_name ?id ?project
     ?timeouts ~name ~bandwidth_limit __resource_id =
   let __resource_type = "google_storage_transfer_agent_pool" in
   let __resource =
-    { display_name; id; name; project; bandwidth_limit; timeouts }
+    ({ display_name; id; name; project; bandwidth_limit; timeouts }
+      : google_storage_transfer_agent_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_transfer_agent_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

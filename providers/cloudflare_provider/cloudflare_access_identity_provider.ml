@@ -77,12 +77,33 @@ Providers are used as an authentication or authorisation source
 within Access.
  *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  name : string prop;
+  type_ : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_access_identity_provider ?account_id ?id ?zone_id
     ~name ~type_ ~config ~scim_config __resource_id =
   let __resource_type = "cloudflare_access_identity_provider" in
   let __resource =
-    { account_id; id; name; type_; zone_id; config; scim_config }
+    ({ account_id; id; name; type_; zone_id; config; scim_config }
+      : cloudflare_access_identity_provider)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_identity_provider __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

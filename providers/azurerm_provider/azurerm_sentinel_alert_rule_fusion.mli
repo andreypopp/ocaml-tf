@@ -7,6 +7,14 @@ type azurerm_sentinel_alert_rule_fusion__source
 type azurerm_sentinel_alert_rule_fusion__timeouts
 type azurerm_sentinel_alert_rule_fusion
 
+type t = private {
+  alert_rule_template_guid : string prop;
+  enabled : bool prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+}
+
 val azurerm_sentinel_alert_rule_fusion :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -16,4 +24,4 @@ val azurerm_sentinel_alert_rule_fusion :
   name:string prop ->
   source:azurerm_sentinel_alert_rule_fusion__source list ->
   string ->
-  unit
+  t

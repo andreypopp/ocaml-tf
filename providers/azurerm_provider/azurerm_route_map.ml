@@ -59,10 +59,28 @@ type azurerm_route_map = {
 [@@deriving yojson_of]
 (** azurerm_route_map *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  virtual_hub_id : string prop;
+}
+
 let azurerm_route_map ?id ?timeouts ~name ~virtual_hub_id ~rule
     __resource_id =
   let __resource_type = "azurerm_route_map" in
-  let __resource = { id; name; virtual_hub_id; rule; timeouts } in
+  let __resource =
+    ({ id; name; virtual_hub_id; rule; timeouts }
+      : azurerm_route_map)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_route_map __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       virtual_hub_id =
+         Prop.computed __resource_type __resource_id "virtual_hub_id";
+     }
+      : t)
+  in
+  __resource_attributes

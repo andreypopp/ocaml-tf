@@ -4,9 +4,15 @@ open! Tf.Prelude
 
 type aws_vpclattice_resource_policy
 
+type t = private {
+  id : string prop;
+  policy : string prop;
+  resource_arn : string prop;
+}
+
 val aws_vpclattice_resource_policy :
   ?id:string prop ->
   policy:string prop ->
   resource_arn:string prop ->
   string ->
-  unit
+  t

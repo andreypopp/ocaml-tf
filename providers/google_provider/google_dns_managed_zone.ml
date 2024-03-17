@@ -161,29 +161,77 @@ while private zones are visible only to Virtual Private Cloud resources. Default
 [@@deriving yojson_of]
 (** google_dns_managed_zone *)
 
+type t = {
+  creation_time : string prop;
+  description : string prop;
+  dns_name : string prop;
+  effective_labels : (string * string) list prop;
+  force_destroy : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  managed_zone_id : float prop;
+  name : string prop;
+  name_servers : string list prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  visibility : string prop;
+}
+
 let google_dns_managed_zone ?description ?force_destroy ?id ?labels
     ?project ?visibility ?timeouts ~dns_name ~name
     ~cloud_logging_config ~dnssec_config ~forwarding_config
     ~peering_config ~private_visibility_config __resource_id =
   let __resource_type = "google_dns_managed_zone" in
   let __resource =
-    {
-      description;
-      dns_name;
-      force_destroy;
-      id;
-      labels;
-      name;
-      project;
-      visibility;
-      cloud_logging_config;
-      dnssec_config;
-      forwarding_config;
-      peering_config;
-      private_visibility_config;
-      timeouts;
-    }
+    ({
+       description;
+       dns_name;
+       force_destroy;
+       id;
+       labels;
+       name;
+       project;
+       visibility;
+       cloud_logging_config;
+       dnssec_config;
+       forwarding_config;
+       peering_config;
+       private_visibility_config;
+       timeouts;
+     }
+      : google_dns_managed_zone)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_managed_zone __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       dns_name =
+         Prop.computed __resource_type __resource_id "dns_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       managed_zone_id =
+         Prop.computed __resource_type __resource_id
+           "managed_zone_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_servers =
+         Prop.computed __resource_type __resource_id "name_servers";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       visibility =
+         Prop.computed __resource_type __resource_id "visibility";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -7,6 +7,17 @@ type google_apigee_target_server__s_sl_info
 type google_apigee_target_server__timeouts
 type google_apigee_target_server
 
+type t = private {
+  description : string prop;
+  env_id : string prop;
+  host : string prop;
+  id : string prop;
+  is_enabled : bool prop;
+  name : string prop;
+  port : float prop;
+  protocol : string prop;
+}
+
 val google_apigee_target_server :
   ?description:string prop ->
   ?id:string prop ->
@@ -19,4 +30,4 @@ val google_apigee_target_server :
   port:float prop ->
   s_sl_info:google_apigee_target_server__s_sl_info list ->
   string ->
-  unit
+  t

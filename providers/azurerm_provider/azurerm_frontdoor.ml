@@ -167,6 +167,24 @@ type azurerm_frontdoor = {
 [@@deriving yojson_of]
 (** azurerm_frontdoor *)
 
+type t = {
+  backend_pool_health_probes : (string * string) list prop;
+  backend_pool_load_balancing_settings : (string * string) list prop;
+  backend_pools : (string * string) list prop;
+  cname : string prop;
+  explicit_resource_order :
+    azurerm_frontdoor__explicit_resource_order list prop;
+  friendly_name : string prop;
+  frontend_endpoints : (string * string) list prop;
+  header_frontdoor_id : string prop;
+  id : string prop;
+  load_balancer_enabled : bool prop;
+  name : string prop;
+  resource_group_name : string prop;
+  routing_rules : (string * string) list prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
     ?timeouts ~name ~resource_group_name ~backend_pool
     ~backend_pool_health_probe ~backend_pool_load_balancing
@@ -174,22 +192,59 @@ let azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
     __resource_id =
   let __resource_type = "azurerm_frontdoor" in
   let __resource =
-    {
-      friendly_name;
-      id;
-      load_balancer_enabled;
-      name;
-      resource_group_name;
-      tags;
-      backend_pool;
-      backend_pool_health_probe;
-      backend_pool_load_balancing;
-      backend_pool_settings;
-      frontend_endpoint;
-      routing_rule;
-      timeouts;
-    }
+    ({
+       friendly_name;
+       id;
+       load_balancer_enabled;
+       name;
+       resource_group_name;
+       tags;
+       backend_pool;
+       backend_pool_health_probe;
+       backend_pool_load_balancing;
+       backend_pool_settings;
+       frontend_endpoint;
+       routing_rule;
+       timeouts;
+     }
+      : azurerm_frontdoor)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_frontdoor __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backend_pool_health_probes =
+         Prop.computed __resource_type __resource_id
+           "backend_pool_health_probes";
+       backend_pool_load_balancing_settings =
+         Prop.computed __resource_type __resource_id
+           "backend_pool_load_balancing_settings";
+       backend_pools =
+         Prop.computed __resource_type __resource_id "backend_pools";
+       cname = Prop.computed __resource_type __resource_id "cname";
+       explicit_resource_order =
+         Prop.computed __resource_type __resource_id
+           "explicit_resource_order";
+       friendly_name =
+         Prop.computed __resource_type __resource_id "friendly_name";
+       frontend_endpoints =
+         Prop.computed __resource_type __resource_id
+           "frontend_endpoints";
+       header_frontdoor_id =
+         Prop.computed __resource_type __resource_id
+           "header_frontdoor_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       load_balancer_enabled =
+         Prop.computed __resource_type __resource_id
+           "load_balancer_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       routing_rules =
+         Prop.computed __resource_type __resource_id "routing_rules";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

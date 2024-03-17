@@ -46,6 +46,32 @@ type google_sql_database_instance__server_ca_cert = {
 
 type google_sql_database_instance
 
+type t = private {
+  available_maintenance_versions : string list prop;
+  connection_name : string prop;
+  database_version : string prop;
+  deletion_protection : bool prop;
+  dns_name : string prop;
+  encryption_key_name : string prop;
+  first_ip_address : string prop;
+  id : string prop;
+  instance_type : string prop;
+  ip_address : google_sql_database_instance__ip_address list prop;
+  maintenance_version : string prop;
+  master_instance_name : string prop;
+  name : string prop;
+  private_ip_address : string prop;
+  project : string prop;
+  psc_service_attachment_link : string prop;
+  public_ip_address : string prop;
+  region : string prop;
+  root_password : string prop;
+  self_link : string prop;
+  server_ca_cert :
+    google_sql_database_instance__server_ca_cert list prop;
+  service_account_email_address : string prop;
+}
+
 val google_sql_database_instance :
   ?deletion_protection:bool prop ->
   ?encryption_key_name:string prop ->
@@ -66,4 +92,4 @@ val google_sql_database_instance :
     google_sql_database_instance__restore_backup_context list ->
   settings:google_sql_database_instance__settings list ->
   string ->
-  unit
+  t

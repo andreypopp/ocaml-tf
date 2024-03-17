@@ -22,10 +22,30 @@ type aws_codecommit_trigger = {
 [@@deriving yojson_of]
 (** aws_codecommit_trigger *)
 
+type t = {
+  configuration_id : string prop;
+  id : string prop;
+  repository_name : string prop;
+}
+
 let aws_codecommit_trigger ?id ~repository_name ~trigger
     __resource_id =
   let __resource_type = "aws_codecommit_trigger" in
-  let __resource = { id; repository_name; trigger } in
+  let __resource =
+    ({ id; repository_name; trigger } : aws_codecommit_trigger)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecommit_trigger __resource);
-  ()
+  let __resource_attributes =
+    ({
+       configuration_id =
+         Prop.computed __resource_type __resource_id
+           "configuration_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       repository_name =
+         Prop.computed __resource_type __resource_id
+           "repository_name";
+     }
+      : t)
+  in
+  __resource_attributes

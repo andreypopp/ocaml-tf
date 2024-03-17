@@ -47,26 +47,66 @@ type digitalocean_kubernetes_node_pool = {
 [@@deriving yojson_of]
 (** digitalocean_kubernetes_node_pool *)
 
+type t = {
+  actual_node_count : float prop;
+  auto_scale : bool prop;
+  cluster_id : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  max_nodes : float prop;
+  min_nodes : float prop;
+  name : string prop;
+  node_count : float prop;
+  nodes : digitalocean_kubernetes_node_pool__nodes list prop;
+  size : string prop;
+  tags : string list prop;
+}
+
 let digitalocean_kubernetes_node_pool ?auto_scale ?id ?labels
     ?max_nodes ?min_nodes ?node_count ?tags ?timeouts ~cluster_id
     ~name ~size ~taint __resource_id =
   let __resource_type = "digitalocean_kubernetes_node_pool" in
   let __resource =
-    {
-      auto_scale;
-      cluster_id;
-      id;
-      labels;
-      max_nodes;
-      min_nodes;
-      name;
-      node_count;
-      size;
-      tags;
-      taint;
-      timeouts;
-    }
+    ({
+       auto_scale;
+       cluster_id;
+       id;
+       labels;
+       max_nodes;
+       min_nodes;
+       name;
+       node_count;
+       size;
+       tags;
+       taint;
+       timeouts;
+     }
+      : digitalocean_kubernetes_node_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_kubernetes_node_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       actual_node_count =
+         Prop.computed __resource_type __resource_id
+           "actual_node_count";
+       auto_scale =
+         Prop.computed __resource_type __resource_id "auto_scale";
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       max_nodes =
+         Prop.computed __resource_type __resource_id "max_nodes";
+       min_nodes =
+         Prop.computed __resource_type __resource_id "min_nodes";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_count =
+         Prop.computed __resource_type __resource_id "node_count";
+       nodes = Prop.computed __resource_type __resource_id "nodes";
+       size = Prop.computed __resource_type __resource_id "size";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

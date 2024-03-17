@@ -38,19 +38,42 @@ type kubernetes_priority_class = {
 [@@deriving yojson_of]
 (** kubernetes_priority_class *)
 
+type t = {
+  description : string prop;
+  global_default : bool prop;
+  id : string prop;
+  preemption_policy : string prop;
+  value : float prop;
+}
+
 let kubernetes_priority_class ?description ?global_default ?id
     ?preemption_policy ~value ~metadata __resource_id =
   let __resource_type = "kubernetes_priority_class" in
   let __resource =
-    {
-      description;
-      global_default;
-      id;
-      preemption_policy;
-      value;
-      metadata;
-    }
+    ({
+       description;
+       global_default;
+       id;
+       preemption_policy;
+       value;
+       metadata;
+     }
+      : kubernetes_priority_class)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_priority_class __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       global_default =
+         Prop.computed __resource_type __resource_id "global_default";
+       id = Prop.computed __resource_type __resource_id "id";
+       preemption_policy =
+         Prop.computed __resource_type __resource_id
+           "preemption_policy";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

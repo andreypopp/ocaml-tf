@@ -3,6 +3,7 @@
 open! Tf.Prelude
 
 type aws_securityhub_organization_admin_account
+type t = private { admin_account_id : string prop; id : string prop }
 
 val aws_securityhub_organization_admin_account :
-  ?id:string prop -> admin_account_id:string prop -> string -> unit
+  ?id:string prop -> admin_account_id:string prop -> string -> t

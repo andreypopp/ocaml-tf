@@ -10,6 +10,21 @@ type aws_gamelift_game_server_group__launch_template
 type aws_gamelift_game_server_group__timeouts
 type aws_gamelift_game_server_group
 
+type t = private {
+  arn : string prop;
+  auto_scaling_group_arn : string prop;
+  balancing_strategy : string prop;
+  game_server_group_name : string prop;
+  game_server_protection_policy : string prop;
+  id : string prop;
+  max_size : float prop;
+  min_size : float prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_subnets : string list prop;
+}
+
 val aws_gamelift_game_server_group :
   ?balancing_strategy:string prop ->
   ?game_server_protection_policy:string prop ->
@@ -29,4 +44,4 @@ val aws_gamelift_game_server_group :
   launch_template:
     aws_gamelift_game_server_group__launch_template list ->
   string ->
-  unit
+  t

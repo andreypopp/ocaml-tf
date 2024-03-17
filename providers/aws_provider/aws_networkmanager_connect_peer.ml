@@ -55,24 +55,80 @@ type aws_networkmanager_connect_peer = {
 [@@deriving yojson_of]
 (** aws_networkmanager_connect_peer *)
 
+type t = {
+  arn : string prop;
+  configuration :
+    aws_networkmanager_connect_peer__configuration list prop;
+  connect_attachment_id : string prop;
+  connect_peer_id : string prop;
+  core_network_address : string prop;
+  core_network_id : string prop;
+  created_at : string prop;
+  edge_location : string prop;
+  id : string prop;
+  inside_cidr_blocks : string list prop;
+  peer_address : string prop;
+  state : string prop;
+  subnet_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_networkmanager_connect_peer ?core_network_address ?id
     ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all ?timeouts
     ~connect_attachment_id ~peer_address ~bgp_options __resource_id =
   let __resource_type = "aws_networkmanager_connect_peer" in
   let __resource =
-    {
-      connect_attachment_id;
-      core_network_address;
-      id;
-      inside_cidr_blocks;
-      peer_address;
-      subnet_arn;
-      tags;
-      tags_all;
-      bgp_options;
-      timeouts;
-    }
+    ({
+       connect_attachment_id;
+       core_network_address;
+       id;
+       inside_cidr_blocks;
+       peer_address;
+       subnet_arn;
+       tags;
+       tags_all;
+       bgp_options;
+       timeouts;
+     }
+      : aws_networkmanager_connect_peer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_connect_peer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       configuration =
+         Prop.computed __resource_type __resource_id "configuration";
+       connect_attachment_id =
+         Prop.computed __resource_type __resource_id
+           "connect_attachment_id";
+       connect_peer_id =
+         Prop.computed __resource_type __resource_id
+           "connect_peer_id";
+       core_network_address =
+         Prop.computed __resource_type __resource_id
+           "core_network_address";
+       core_network_id =
+         Prop.computed __resource_type __resource_id
+           "core_network_id";
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       edge_location =
+         Prop.computed __resource_type __resource_id "edge_location";
+       id = Prop.computed __resource_type __resource_id "id";
+       inside_cidr_blocks =
+         Prop.computed __resource_type __resource_id
+           "inside_cidr_blocks";
+       peer_address =
+         Prop.computed __resource_type __resource_id "peer_address";
+       state = Prop.computed __resource_type __resource_id "state";
+       subnet_arn =
+         Prop.computed __resource_type __resource_id "subnet_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

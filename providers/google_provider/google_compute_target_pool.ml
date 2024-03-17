@@ -37,25 +37,65 @@ type google_compute_target_pool = {
 [@@deriving yojson_of]
 (** google_compute_target_pool *)
 
+type t = {
+  backup_pool : string prop;
+  description : string prop;
+  failover_ratio : float prop;
+  health_checks : string list prop;
+  id : string prop;
+  instances : string list prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+  session_affinity : string prop;
+}
+
 let google_compute_target_pool ?backup_pool ?description
     ?failover_ratio ?health_checks ?id ?instances ?project ?region
     ?session_affinity ?timeouts ~name __resource_id =
   let __resource_type = "google_compute_target_pool" in
   let __resource =
-    {
-      backup_pool;
-      description;
-      failover_ratio;
-      health_checks;
-      id;
-      instances;
-      name;
-      project;
-      region;
-      session_affinity;
-      timeouts;
-    }
+    ({
+       backup_pool;
+       description;
+       failover_ratio;
+       health_checks;
+       id;
+       instances;
+       name;
+       project;
+       region;
+       session_affinity;
+       timeouts;
+     }
+      : google_compute_target_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backup_pool =
+         Prop.computed __resource_type __resource_id "backup_pool";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       failover_ratio =
+         Prop.computed __resource_type __resource_id "failover_ratio";
+       health_checks =
+         Prop.computed __resource_type __resource_id "health_checks";
+       id = Prop.computed __resource_type __resource_id "id";
+       instances =
+         Prop.computed __resource_type __resource_id "instances";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       session_affinity =
+         Prop.computed __resource_type __resource_id
+           "session_affinity";
+     }
+      : t)
+  in
+  __resource_attributes

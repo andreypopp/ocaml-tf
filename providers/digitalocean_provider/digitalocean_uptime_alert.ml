@@ -36,20 +36,46 @@ type digitalocean_uptime_alert = {
 [@@deriving yojson_of]
 (** digitalocean_uptime_alert *)
 
+type t = {
+  check_id : string prop;
+  comparison : string prop;
+  id : string prop;
+  name : string prop;
+  period : string prop;
+  threshold : float prop;
+  type_ : string prop;
+}
+
 let digitalocean_uptime_alert ?comparison ?period ?threshold
     ~check_id ~name ~type_ ~notifications __resource_id =
   let __resource_type = "digitalocean_uptime_alert" in
   let __resource =
-    {
-      check_id;
-      comparison;
-      name;
-      period;
-      threshold;
-      type_;
-      notifications;
-    }
+    ({
+       check_id;
+       comparison;
+       name;
+       period;
+       threshold;
+       type_;
+       notifications;
+     }
+      : digitalocean_uptime_alert)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_uptime_alert __resource);
-  ()
+  let __resource_attributes =
+    ({
+       check_id =
+         Prop.computed __resource_type __resource_id "check_id";
+       comparison =
+         Prop.computed __resource_type __resource_id "comparison";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       period = Prop.computed __resource_type __resource_id "period";
+       threshold =
+         Prop.computed __resource_type __resource_id "threshold";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

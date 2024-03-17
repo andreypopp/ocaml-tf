@@ -41,28 +41,70 @@ type aws_kinesis_stream = {
 [@@deriving yojson_of]
 (** aws_kinesis_stream *)
 
+type t = {
+  arn : string prop;
+  encryption_type : string prop;
+  enforce_consumer_deletion : bool prop;
+  id : string prop;
+  kms_key_id : string prop;
+  name : string prop;
+  retention_period : float prop;
+  shard_count : float prop;
+  shard_level_metrics : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_kinesis_stream ?arn ?encryption_type
     ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
     ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts ~name
     ~stream_mode_details __resource_id =
   let __resource_type = "aws_kinesis_stream" in
   let __resource =
-    {
-      arn;
-      encryption_type;
-      enforce_consumer_deletion;
-      id;
-      kms_key_id;
-      name;
-      retention_period;
-      shard_count;
-      shard_level_metrics;
-      tags;
-      tags_all;
-      stream_mode_details;
-      timeouts;
-    }
+    ({
+       arn;
+       encryption_type;
+       enforce_consumer_deletion;
+       id;
+       kms_key_id;
+       name;
+       retention_period;
+       shard_count;
+       shard_level_metrics;
+       tags;
+       tags_all;
+       stream_mode_details;
+       timeouts;
+     }
+      : aws_kinesis_stream)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kinesis_stream __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       encryption_type =
+         Prop.computed __resource_type __resource_id
+           "encryption_type";
+       enforce_consumer_deletion =
+         Prop.computed __resource_type __resource_id
+           "enforce_consumer_deletion";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       retention_period =
+         Prop.computed __resource_type __resource_id
+           "retention_period";
+       shard_count =
+         Prop.computed __resource_type __resource_id "shard_count";
+       shard_level_metrics =
+         Prop.computed __resource_type __resource_id
+           "shard_level_metrics";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

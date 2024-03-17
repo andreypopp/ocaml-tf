@@ -33,6 +33,31 @@ type azurerm_eventhub_namespace__network_rulesets = {
 
 type azurerm_eventhub_namespace
 
+type t = private {
+  auto_inflate_enabled : bool prop;
+  capacity : float prop;
+  dedicated_cluster_id : string prop;
+  default_primary_connection_string : string prop;
+  default_primary_connection_string_alias : string prop;
+  default_primary_key : string prop;
+  default_secondary_connection_string : string prop;
+  default_secondary_connection_string_alias : string prop;
+  default_secondary_key : string prop;
+  id : string prop;
+  local_authentication_enabled : bool prop;
+  location : string prop;
+  maximum_throughput_units : float prop;
+  minimum_tls_version : string prop;
+  name : string prop;
+  network_rulesets :
+    azurerm_eventhub_namespace__network_rulesets list prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  zone_redundant : bool prop;
+}
+
 val azurerm_eventhub_namespace :
   ?auto_inflate_enabled:bool prop ->
   ?capacity:float prop ->
@@ -52,4 +77,4 @@ val azurerm_eventhub_namespace :
   sku:string prop ->
   identity:azurerm_eventhub_namespace__identity list ->
   string ->
-  unit
+  t

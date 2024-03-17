@@ -4,6 +4,33 @@ open! Tf.Prelude
 
 type aws_route53_health_check
 
+type t = private {
+  arn : string prop;
+  child_health_threshold : float prop;
+  child_healthchecks : string list prop;
+  cloudwatch_alarm_name : string prop;
+  cloudwatch_alarm_region : string prop;
+  disabled : bool prop;
+  enable_sni : bool prop;
+  failure_threshold : float prop;
+  fqdn : string prop;
+  id : string prop;
+  insufficient_data_health_status : string prop;
+  invert_healthcheck : bool prop;
+  ip_address : string prop;
+  measure_latency : bool prop;
+  port : float prop;
+  reference_name : string prop;
+  regions : string list prop;
+  request_interval : float prop;
+  resource_path : string prop;
+  routing_control_arn : string prop;
+  search_string : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_route53_health_check :
   ?child_health_threshold:float prop ->
   ?child_healthchecks:string prop list ->
@@ -29,4 +56,4 @@ val aws_route53_health_check :
   ?tags_all:(string * string prop) list ->
   type_:string prop ->
   string ->
-  unit
+  t

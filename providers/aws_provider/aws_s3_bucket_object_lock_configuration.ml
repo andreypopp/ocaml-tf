@@ -33,19 +33,42 @@ type aws_s3_bucket_object_lock_configuration = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_object_lock_configuration *)
 
+type t = {
+  bucket : string prop;
+  expected_bucket_owner : string prop;
+  id : string prop;
+  object_lock_enabled : string prop;
+  token : string prop;
+}
+
 let aws_s3_bucket_object_lock_configuration ?expected_bucket_owner
     ?id ?object_lock_enabled ?token ~bucket ~rule __resource_id =
   let __resource_type = "aws_s3_bucket_object_lock_configuration" in
   let __resource =
-    {
-      bucket;
-      expected_bucket_owner;
-      id;
-      object_lock_enabled;
-      token;
-      rule;
-    }
+    ({
+       bucket;
+       expected_bucket_owner;
+       id;
+       object_lock_enabled;
+       token;
+       rule;
+     }
+      : aws_s3_bucket_object_lock_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_object_lock_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       expected_bucket_owner =
+         Prop.computed __resource_type __resource_id
+           "expected_bucket_owner";
+       id = Prop.computed __resource_type __resource_id "id";
+       object_lock_enabled =
+         Prop.computed __resource_type __resource_id
+           "object_lock_enabled";
+       token = Prop.computed __resource_type __resource_id "token";
+     }
+      : t)
+  in
+  __resource_attributes

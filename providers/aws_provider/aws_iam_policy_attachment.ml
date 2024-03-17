@@ -15,10 +15,34 @@ type aws_iam_policy_attachment = {
 [@@deriving yojson_of]
 (** aws_iam_policy_attachment *)
 
+type t = {
+  groups : string list prop;
+  id : string prop;
+  name : string prop;
+  policy_arn : string prop;
+  roles : string list prop;
+  users : string list prop;
+}
+
 let aws_iam_policy_attachment ?groups ?id ?roles ?users ~name
     ~policy_arn __resource_id =
   let __resource_type = "aws_iam_policy_attachment" in
-  let __resource = { groups; id; name; policy_arn; roles; users } in
+  let __resource =
+    ({ groups; id; name; policy_arn; roles; users }
+      : aws_iam_policy_attachment)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_policy_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       groups = Prop.computed __resource_type __resource_id "groups";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       policy_arn =
+         Prop.computed __resource_type __resource_id "policy_arn";
+       roles = Prop.computed __resource_type __resource_id "roles";
+       users = Prop.computed __resource_type __resource_id "users";
+     }
+      : t)
+  in
+  __resource_attributes

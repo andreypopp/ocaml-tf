@@ -23,10 +23,31 @@ type aws_resourceexplorer2_index = {
 [@@deriving yojson_of]
 (** aws_resourceexplorer2_index *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_resourceexplorer2_index ?tags ?timeouts ~type_ __resource_id
     =
   let __resource_type = "aws_resourceexplorer2_index" in
-  let __resource = { tags; type_; timeouts } in
+  let __resource =
+    ({ tags; type_; timeouts } : aws_resourceexplorer2_index)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_resourceexplorer2_index __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

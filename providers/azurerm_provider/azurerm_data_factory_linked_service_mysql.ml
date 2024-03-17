@@ -34,6 +34,18 @@ type azurerm_data_factory_linked_service_mysql = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_mysql *)
 
+type t = {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  connection_string : string prop;
+  data_factory_id : string prop;
+  description : string prop;
+  id : string prop;
+  integration_runtime_name : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+}
+
 let azurerm_data_factory_linked_service_mysql ?additional_properties
     ?annotations ?description ?id ?integration_runtime_name
     ?parameters ?timeouts ~connection_string ~data_factory_id ~name
@@ -42,19 +54,45 @@ let azurerm_data_factory_linked_service_mysql ?additional_properties
     "azurerm_data_factory_linked_service_mysql"
   in
   let __resource =
-    {
-      additional_properties;
-      annotations;
-      connection_string;
-      data_factory_id;
-      description;
-      id;
-      integration_runtime_name;
-      name;
-      parameters;
-      timeouts;
-    }
+    ({
+       additional_properties;
+       annotations;
+       connection_string;
+       data_factory_id;
+       description;
+       id;
+       integration_runtime_name;
+       name;
+       parameters;
+       timeouts;
+     }
+      : azurerm_data_factory_linked_service_mysql)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_mysql __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_properties =
+         Prop.computed __resource_type __resource_id
+           "additional_properties";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       connection_string =
+         Prop.computed __resource_type __resource_id
+           "connection_string";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_runtime_name =
+         Prop.computed __resource_type __resource_id
+           "integration_runtime_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+     }
+      : t)
+  in
+  __resource_attributes

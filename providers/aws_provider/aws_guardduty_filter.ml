@@ -39,22 +39,52 @@ type aws_guardduty_filter = {
 [@@deriving yojson_of]
 (** aws_guardduty_filter *)
 
+type t = {
+  action : string prop;
+  arn : string prop;
+  description : string prop;
+  detector_id : string prop;
+  id : string prop;
+  name : string prop;
+  rank : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_guardduty_filter ?description ?id ?tags ?tags_all ~action
     ~detector_id ~name ~rank ~finding_criteria __resource_id =
   let __resource_type = "aws_guardduty_filter" in
   let __resource =
-    {
-      action;
-      description;
-      detector_id;
-      id;
-      name;
-      rank;
-      tags;
-      tags_all;
-      finding_criteria;
-    }
+    ({
+       action;
+       description;
+       detector_id;
+       id;
+       name;
+       rank;
+       tags;
+       tags_all;
+       finding_criteria;
+     }
+      : aws_guardduty_filter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_filter __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       detector_id =
+         Prop.computed __resource_type __resource_id "detector_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       rank = Prop.computed __resource_type __resource_id "rank";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

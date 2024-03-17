@@ -33,6 +33,28 @@ type azurerm_app_configuration__secondary_write_key = {
 
 type azurerm_app_configuration
 
+type t = private {
+  endpoint : string prop;
+  id : string prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  primary_read_key :
+    azurerm_app_configuration__primary_read_key list prop;
+  primary_write_key :
+    azurerm_app_configuration__primary_write_key list prop;
+  public_network_access : string prop;
+  purge_protection_enabled : bool prop;
+  resource_group_name : string prop;
+  secondary_read_key :
+    azurerm_app_configuration__secondary_read_key list prop;
+  secondary_write_key :
+    azurerm_app_configuration__secondary_write_key list prop;
+  sku : string prop;
+  soft_delete_retention_days : float prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_app_configuration :
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
@@ -49,4 +71,4 @@ val azurerm_app_configuration :
   identity:azurerm_app_configuration__identity list ->
   replica:azurerm_app_configuration__replica list ->
   string ->
-  unit
+  t

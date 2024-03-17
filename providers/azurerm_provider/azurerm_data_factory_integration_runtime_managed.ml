@@ -68,6 +68,20 @@ type azurerm_data_factory_integration_runtime_managed = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_managed *)
 
+type t = {
+  credential_name : string prop;
+  data_factory_id : string prop;
+  description : string prop;
+  edition : string prop;
+  id : string prop;
+  license_type : string prop;
+  location : string prop;
+  max_parallel_executions_per_node : float prop;
+  name : string prop;
+  node_size : string prop;
+  number_of_nodes : float prop;
+}
+
 let azurerm_data_factory_integration_runtime_managed ?credential_name
     ?description ?edition ?id ?license_type
     ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
@@ -77,25 +91,55 @@ let azurerm_data_factory_integration_runtime_managed ?credential_name
     "azurerm_data_factory_integration_runtime_managed"
   in
   let __resource =
-    {
-      credential_name;
-      data_factory_id;
-      description;
-      edition;
-      id;
-      license_type;
-      location;
-      max_parallel_executions_per_node;
-      name;
-      node_size;
-      number_of_nodes;
-      catalog_info;
-      custom_setup_script;
-      timeouts;
-      vnet_integration;
-    }
+    ({
+       credential_name;
+       data_factory_id;
+       description;
+       edition;
+       id;
+       license_type;
+       location;
+       max_parallel_executions_per_node;
+       name;
+       node_size;
+       number_of_nodes;
+       catalog_info;
+       custom_setup_script;
+       timeouts;
+       vnet_integration;
+     }
+      : azurerm_data_factory_integration_runtime_managed)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_integration_runtime_managed
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       credential_name =
+         Prop.computed __resource_type __resource_id
+           "credential_name";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       edition =
+         Prop.computed __resource_type __resource_id "edition";
+       id = Prop.computed __resource_type __resource_id "id";
+       license_type =
+         Prop.computed __resource_type __resource_id "license_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       max_parallel_executions_per_node =
+         Prop.computed __resource_type __resource_id
+           "max_parallel_executions_per_node";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_size =
+         Prop.computed __resource_type __resource_id "node_size";
+       number_of_nodes =
+         Prop.computed __resource_type __resource_id
+           "number_of_nodes";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -272,6 +272,29 @@ type aws_dms_endpoint = {
 [@@deriving yojson_of]
 (** aws_dms_endpoint *)
 
+type t = {
+  certificate_arn : string prop;
+  database_name : string prop;
+  endpoint_arn : string prop;
+  endpoint_id : string prop;
+  endpoint_type : string prop;
+  engine_name : string prop;
+  extra_connection_attributes : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  password : string prop;
+  pause_replication_tasks : bool prop;
+  port : float prop;
+  secrets_manager_access_role_arn : string prop;
+  secrets_manager_arn : string prop;
+  server_name : string prop;
+  service_access_role : string prop;
+  ssl_mode : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  username : string prop;
+}
+
 let aws_dms_endpoint ?certificate_arn ?database_name
     ?extra_connection_attributes ?id ?kms_key_arn ?password
     ?pause_replication_tasks ?port ?secrets_manager_access_role_arn
@@ -282,37 +305,86 @@ let aws_dms_endpoint ?certificate_arn ?database_name
     ~redis_settings ~redshift_settings ~s3_settings __resource_id =
   let __resource_type = "aws_dms_endpoint" in
   let __resource =
-    {
-      certificate_arn;
-      database_name;
-      endpoint_id;
-      endpoint_type;
-      engine_name;
-      extra_connection_attributes;
-      id;
-      kms_key_arn;
-      password;
-      pause_replication_tasks;
-      port;
-      secrets_manager_access_role_arn;
-      secrets_manager_arn;
-      server_name;
-      service_access_role;
-      ssl_mode;
-      tags;
-      tags_all;
-      username;
-      elasticsearch_settings;
-      kafka_settings;
-      kinesis_settings;
-      mongodb_settings;
-      postgres_settings;
-      redis_settings;
-      redshift_settings;
-      s3_settings;
-      timeouts;
-    }
+    ({
+       certificate_arn;
+       database_name;
+       endpoint_id;
+       endpoint_type;
+       engine_name;
+       extra_connection_attributes;
+       id;
+       kms_key_arn;
+       password;
+       pause_replication_tasks;
+       port;
+       secrets_manager_access_role_arn;
+       secrets_manager_arn;
+       server_name;
+       service_access_role;
+       ssl_mode;
+       tags;
+       tags_all;
+       username;
+       elasticsearch_settings;
+       kafka_settings;
+       kinesis_settings;
+       mongodb_settings;
+       postgres_settings;
+       redis_settings;
+       redshift_settings;
+       s3_settings;
+       timeouts;
+     }
+      : aws_dms_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dms_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_arn =
+         Prop.computed __resource_type __resource_id
+           "certificate_arn";
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       endpoint_arn =
+         Prop.computed __resource_type __resource_id "endpoint_arn";
+       endpoint_id =
+         Prop.computed __resource_type __resource_id "endpoint_id";
+       endpoint_type =
+         Prop.computed __resource_type __resource_id "endpoint_type";
+       engine_name =
+         Prop.computed __resource_type __resource_id "engine_name";
+       extra_connection_attributes =
+         Prop.computed __resource_type __resource_id
+           "extra_connection_attributes";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_arn =
+         Prop.computed __resource_type __resource_id "kms_key_arn";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       pause_replication_tasks =
+         Prop.computed __resource_type __resource_id
+           "pause_replication_tasks";
+       port = Prop.computed __resource_type __resource_id "port";
+       secrets_manager_access_role_arn =
+         Prop.computed __resource_type __resource_id
+           "secrets_manager_access_role_arn";
+       secrets_manager_arn =
+         Prop.computed __resource_type __resource_id
+           "secrets_manager_arn";
+       server_name =
+         Prop.computed __resource_type __resource_id "server_name";
+       service_access_role =
+         Prop.computed __resource_type __resource_id
+           "service_access_role";
+       ssl_mode =
+         Prop.computed __resource_type __resource_id "ssl_mode";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       username =
+         Prop.computed __resource_type __resource_id "username";
+     }
+      : t)
+  in
+  __resource_attributes

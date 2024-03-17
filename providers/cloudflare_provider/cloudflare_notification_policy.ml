@@ -115,24 +115,55 @@ Cloudflare's products. The delivery mechanisms supported are email,
 webhooks, and PagerDuty.
  *)
 
+type t = {
+  account_id : string prop;
+  alert_type : string prop;
+  created : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  modified : string prop;
+  name : string prop;
+}
+
 let cloudflare_notification_policy ?description ?id ~account_id
     ~alert_type ~enabled ~name ~email_integration ~filters
     ~pagerduty_integration ~webhooks_integration __resource_id =
   let __resource_type = "cloudflare_notification_policy" in
   let __resource =
-    {
-      account_id;
-      alert_type;
-      description;
-      enabled;
-      id;
-      name;
-      email_integration;
-      filters;
-      pagerduty_integration;
-      webhooks_integration;
-    }
+    ({
+       account_id;
+       alert_type;
+       description;
+       enabled;
+       id;
+       name;
+       email_integration;
+       filters;
+       pagerduty_integration;
+       webhooks_integration;
+     }
+      : cloudflare_notification_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_notification_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       alert_type =
+         Prop.computed __resource_type __resource_id "alert_type";
+       created =
+         Prop.computed __resource_type __resource_id "created";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       modified =
+         Prop.computed __resource_type __resource_id "modified";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

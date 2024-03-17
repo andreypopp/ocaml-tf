@@ -310,6 +310,35 @@ type aws_spot_fleet_request = {
 [@@deriving yojson_of]
 (** aws_spot_fleet_request *)
 
+type t = {
+  allocation_strategy : string prop;
+  client_token : string prop;
+  context : string prop;
+  excess_capacity_termination_policy : string prop;
+  fleet_type : string prop;
+  iam_fleet_role : string prop;
+  id : string prop;
+  instance_interruption_behaviour : string prop;
+  instance_pools_to_use_count : float prop;
+  load_balancers : string list prop;
+  on_demand_allocation_strategy : string prop;
+  on_demand_max_total_price : string prop;
+  on_demand_target_capacity : float prop;
+  replace_unhealthy_instances : bool prop;
+  spot_price : string prop;
+  spot_request_state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_capacity : float prop;
+  target_capacity_unit_type : string prop;
+  target_group_arns : string list prop;
+  terminate_instances_on_delete : string prop;
+  terminate_instances_with_expiration : bool prop;
+  valid_from : string prop;
+  valid_until : string prop;
+  wait_for_fulfillment : bool prop;
+}
+
 let aws_spot_fleet_request ?allocation_strategy ?context
     ?excess_capacity_termination_policy ?fleet_type ?id
     ?instance_interruption_behaviour ?instance_pools_to_use_count
@@ -324,37 +353,108 @@ let aws_spot_fleet_request ?allocation_strategy ?context
     ~spot_maintenance_strategies __resource_id =
   let __resource_type = "aws_spot_fleet_request" in
   let __resource =
-    {
-      allocation_strategy;
-      context;
-      excess_capacity_termination_policy;
-      fleet_type;
-      iam_fleet_role;
-      id;
-      instance_interruption_behaviour;
-      instance_pools_to_use_count;
-      load_balancers;
-      on_demand_allocation_strategy;
-      on_demand_max_total_price;
-      on_demand_target_capacity;
-      replace_unhealthy_instances;
-      spot_price;
-      tags;
-      tags_all;
-      target_capacity;
-      target_capacity_unit_type;
-      target_group_arns;
-      terminate_instances_on_delete;
-      terminate_instances_with_expiration;
-      valid_from;
-      valid_until;
-      wait_for_fulfillment;
-      launch_specification;
-      launch_template_config;
-      spot_maintenance_strategies;
-      timeouts;
-    }
+    ({
+       allocation_strategy;
+       context;
+       excess_capacity_termination_policy;
+       fleet_type;
+       iam_fleet_role;
+       id;
+       instance_interruption_behaviour;
+       instance_pools_to_use_count;
+       load_balancers;
+       on_demand_allocation_strategy;
+       on_demand_max_total_price;
+       on_demand_target_capacity;
+       replace_unhealthy_instances;
+       spot_price;
+       tags;
+       tags_all;
+       target_capacity;
+       target_capacity_unit_type;
+       target_group_arns;
+       terminate_instances_on_delete;
+       terminate_instances_with_expiration;
+       valid_from;
+       valid_until;
+       wait_for_fulfillment;
+       launch_specification;
+       launch_template_config;
+       spot_maintenance_strategies;
+       timeouts;
+     }
+      : aws_spot_fleet_request)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_spot_fleet_request __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allocation_strategy =
+         Prop.computed __resource_type __resource_id
+           "allocation_strategy";
+       client_token =
+         Prop.computed __resource_type __resource_id "client_token";
+       context =
+         Prop.computed __resource_type __resource_id "context";
+       excess_capacity_termination_policy =
+         Prop.computed __resource_type __resource_id
+           "excess_capacity_termination_policy";
+       fleet_type =
+         Prop.computed __resource_type __resource_id "fleet_type";
+       iam_fleet_role =
+         Prop.computed __resource_type __resource_id "iam_fleet_role";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_interruption_behaviour =
+         Prop.computed __resource_type __resource_id
+           "instance_interruption_behaviour";
+       instance_pools_to_use_count =
+         Prop.computed __resource_type __resource_id
+           "instance_pools_to_use_count";
+       load_balancers =
+         Prop.computed __resource_type __resource_id "load_balancers";
+       on_demand_allocation_strategy =
+         Prop.computed __resource_type __resource_id
+           "on_demand_allocation_strategy";
+       on_demand_max_total_price =
+         Prop.computed __resource_type __resource_id
+           "on_demand_max_total_price";
+       on_demand_target_capacity =
+         Prop.computed __resource_type __resource_id
+           "on_demand_target_capacity";
+       replace_unhealthy_instances =
+         Prop.computed __resource_type __resource_id
+           "replace_unhealthy_instances";
+       spot_price =
+         Prop.computed __resource_type __resource_id "spot_price";
+       spot_request_state =
+         Prop.computed __resource_type __resource_id
+           "spot_request_state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       target_capacity =
+         Prop.computed __resource_type __resource_id
+           "target_capacity";
+       target_capacity_unit_type =
+         Prop.computed __resource_type __resource_id
+           "target_capacity_unit_type";
+       target_group_arns =
+         Prop.computed __resource_type __resource_id
+           "target_group_arns";
+       terminate_instances_on_delete =
+         Prop.computed __resource_type __resource_id
+           "terminate_instances_on_delete";
+       terminate_instances_with_expiration =
+         Prop.computed __resource_type __resource_id
+           "terminate_instances_with_expiration";
+       valid_from =
+         Prop.computed __resource_type __resource_id "valid_from";
+       valid_until =
+         Prop.computed __resource_type __resource_id "valid_until";
+       wait_for_fulfillment =
+         Prop.computed __resource_type __resource_id
+           "wait_for_fulfillment";
+     }
+      : t)
+  in
+  __resource_attributes

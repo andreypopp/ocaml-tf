@@ -61,24 +61,62 @@ type google_logging_project_bucket_config = {
 [@@deriving yojson_of]
 (** google_logging_project_bucket_config *)
 
+type t = {
+  bucket_id : string prop;
+  description : string prop;
+  enable_analytics : bool prop;
+  id : string prop;
+  lifecycle_state : string prop;
+  location : string prop;
+  locked : bool prop;
+  name : string prop;
+  project : string prop;
+  retention_days : float prop;
+}
+
 let google_logging_project_bucket_config ?description
     ?enable_analytics ?id ?locked ?retention_days ~bucket_id
     ~location ~project ~cmek_settings ~index_configs __resource_id =
   let __resource_type = "google_logging_project_bucket_config" in
   let __resource =
-    {
-      bucket_id;
-      description;
-      enable_analytics;
-      id;
-      location;
-      locked;
-      project;
-      retention_days;
-      cmek_settings;
-      index_configs;
-    }
+    ({
+       bucket_id;
+       description;
+       enable_analytics;
+       id;
+       location;
+       locked;
+       project;
+       retention_days;
+       cmek_settings;
+       index_configs;
+     }
+      : google_logging_project_bucket_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_project_bucket_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket_id =
+         Prop.computed __resource_type __resource_id "bucket_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enable_analytics =
+         Prop.computed __resource_type __resource_id
+           "enable_analytics";
+       id = Prop.computed __resource_type __resource_id "id";
+       lifecycle_state =
+         Prop.computed __resource_type __resource_id
+           "lifecycle_state";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       locked = Prop.computed __resource_type __resource_id "locked";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       retention_days =
+         Prop.computed __resource_type __resource_id "retention_days";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -28,20 +28,55 @@ type google_firestore_document = {
 [@@deriving yojson_of]
 (** google_firestore_document *)
 
+type t = {
+  collection : string prop;
+  create_time : string prop;
+  database : string prop;
+  document_id : string prop;
+  fields : string prop;
+  id : string prop;
+  name : string prop;
+  path : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 let google_firestore_document ?database ?id ?project ?timeouts
     ~collection ~document_id ~fields __resource_id =
   let __resource_type = "google_firestore_document" in
   let __resource =
-    {
-      collection;
-      database;
-      document_id;
-      fields;
-      id;
-      project;
-      timeouts;
-    }
+    ({
+       collection;
+       database;
+       document_id;
+       fields;
+       id;
+       project;
+       timeouts;
+     }
+      : google_firestore_document)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firestore_document __resource);
-  ()
+  let __resource_attributes =
+    ({
+       collection =
+         Prop.computed __resource_type __resource_id "collection";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       database =
+         Prop.computed __resource_type __resource_id "database";
+       document_id =
+         Prop.computed __resource_type __resource_id "document_id";
+       fields = Prop.computed __resource_type __resource_id "fields";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       path = Prop.computed __resource_type __resource_id "path";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

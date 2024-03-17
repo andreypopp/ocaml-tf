@@ -113,28 +113,81 @@ type aws_eks_cluster = {
 [@@deriving yojson_of]
 (** aws_eks_cluster *)
 
+type t = {
+  arn : string prop;
+  certificate_authority :
+    aws_eks_cluster__certificate_authority list prop;
+  cluster_id : string prop;
+  created_at : string prop;
+  enabled_cluster_log_types : string list prop;
+  endpoint : string prop;
+  id : string prop;
+  identity : aws_eks_cluster__identity list prop;
+  name : string prop;
+  platform_version : string prop;
+  role_arn : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+}
+
 let aws_eks_cluster ?enabled_cluster_log_types ?id ?tags ?tags_all
     ?version ?timeouts ~name ~role_arn ~access_config
     ~encryption_config ~kubernetes_network_config ~outpost_config
     ~vpc_config __resource_id =
   let __resource_type = "aws_eks_cluster" in
   let __resource =
-    {
-      enabled_cluster_log_types;
-      id;
-      name;
-      role_arn;
-      tags;
-      tags_all;
-      version;
-      access_config;
-      encryption_config;
-      kubernetes_network_config;
-      outpost_config;
-      timeouts;
-      vpc_config;
-    }
+    ({
+       enabled_cluster_log_types;
+       id;
+       name;
+       role_arn;
+       tags;
+       tags_all;
+       version;
+       access_config;
+       encryption_config;
+       kubernetes_network_config;
+       outpost_config;
+       timeouts;
+       vpc_config;
+     }
+      : aws_eks_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       certificate_authority =
+         Prop.computed __resource_type __resource_id
+           "certificate_authority";
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       enabled_cluster_log_types =
+         Prop.computed __resource_type __resource_id
+           "enabled_cluster_log_types";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       id = Prop.computed __resource_type __resource_id "id";
+       identity =
+         Prop.computed __resource_type __resource_id "identity";
+       name = Prop.computed __resource_type __resource_id "name";
+       platform_version =
+         Prop.computed __resource_type __resource_id
+           "platform_version";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

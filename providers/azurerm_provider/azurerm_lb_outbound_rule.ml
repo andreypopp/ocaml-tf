@@ -40,25 +40,61 @@ type azurerm_lb_outbound_rule = {
 [@@deriving yojson_of]
 (** azurerm_lb_outbound_rule *)
 
+type t = {
+  allocated_outbound_ports : float prop;
+  backend_address_pool_id : string prop;
+  enable_tcp_reset : bool prop;
+  id : string prop;
+  idle_timeout_in_minutes : float prop;
+  loadbalancer_id : string prop;
+  name : string prop;
+  protocol : string prop;
+}
+
 let azurerm_lb_outbound_rule ?allocated_outbound_ports
     ?enable_tcp_reset ?id ?idle_timeout_in_minutes ?timeouts
     ~backend_address_pool_id ~loadbalancer_id ~name ~protocol
     ~frontend_ip_configuration __resource_id =
   let __resource_type = "azurerm_lb_outbound_rule" in
   let __resource =
-    {
-      allocated_outbound_ports;
-      backend_address_pool_id;
-      enable_tcp_reset;
-      id;
-      idle_timeout_in_minutes;
-      loadbalancer_id;
-      name;
-      protocol;
-      frontend_ip_configuration;
-      timeouts;
-    }
+    ({
+       allocated_outbound_ports;
+       backend_address_pool_id;
+       enable_tcp_reset;
+       id;
+       idle_timeout_in_minutes;
+       loadbalancer_id;
+       name;
+       protocol;
+       frontend_ip_configuration;
+       timeouts;
+     }
+      : azurerm_lb_outbound_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lb_outbound_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allocated_outbound_ports =
+         Prop.computed __resource_type __resource_id
+           "allocated_outbound_ports";
+       backend_address_pool_id =
+         Prop.computed __resource_type __resource_id
+           "backend_address_pool_id";
+       enable_tcp_reset =
+         Prop.computed __resource_type __resource_id
+           "enable_tcp_reset";
+       id = Prop.computed __resource_type __resource_id "id";
+       idle_timeout_in_minutes =
+         Prop.computed __resource_type __resource_id
+           "idle_timeout_in_minutes";
+       loadbalancer_id =
+         Prop.computed __resource_type __resource_id
+           "loadbalancer_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+     }
+      : t)
+  in
+  __resource_attributes

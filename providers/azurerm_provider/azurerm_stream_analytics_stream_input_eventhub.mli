@@ -6,6 +6,20 @@ type azurerm_stream_analytics_stream_input_eventhub__serialization
 type azurerm_stream_analytics_stream_input_eventhub__timeouts
 type azurerm_stream_analytics_stream_input_eventhub
 
+type t = private {
+  authentication_mode : string prop;
+  eventhub_consumer_group_name : string prop;
+  eventhub_name : string prop;
+  id : string prop;
+  name : string prop;
+  partition_key : string prop;
+  resource_group_name : string prop;
+  servicebus_namespace : string prop;
+  shared_access_policy_key : string prop;
+  shared_access_policy_name : string prop;
+  stream_analytics_job_name : string prop;
+}
+
 val azurerm_stream_analytics_stream_input_eventhub :
   ?authentication_mode:string prop ->
   ?eventhub_consumer_group_name:string prop ->
@@ -23,4 +37,4 @@ val azurerm_stream_analytics_stream_input_eventhub :
     azurerm_stream_analytics_stream_input_eventhub__serialization
     list ->
   string ->
-  unit
+  t

@@ -8,6 +8,16 @@ type azurerm_network_manager_connectivity_configuration__hub
 type azurerm_network_manager_connectivity_configuration__timeouts
 type azurerm_network_manager_connectivity_configuration
 
+type t = private {
+  connectivity_topology : string prop;
+  delete_existing_peering_enabled : bool prop;
+  description : string prop;
+  global_mesh_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  network_manager_id : string prop;
+}
+
 val azurerm_network_manager_connectivity_configuration :
   ?delete_existing_peering_enabled:bool prop ->
   ?description:string prop ->
@@ -23,4 +33,4 @@ val azurerm_network_manager_connectivity_configuration :
     list ->
   hub:azurerm_network_manager_connectivity_configuration__hub list ->
   string ->
-  unit
+  t

@@ -537,6 +537,28 @@ failed request. Default is 30 seconds. Valid range is [1, 86400]. *)
 [@@deriving yojson_of]
 (** google_compute_region_backend_service *)
 
+type t = {
+  affinity_cookie_ttl_sec : float prop;
+  connection_draining_timeout_sec : float prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  enable_cdn : bool prop;
+  fingerprint : string prop;
+  health_checks : string list prop;
+  id : string prop;
+  load_balancing_scheme : string prop;
+  locality_lb_policy : string prop;
+  name : string prop;
+  network : string prop;
+  port_name : string prop;
+  project : string prop;
+  protocol : string prop;
+  region : string prop;
+  self_link : string prop;
+  session_affinity : string prop;
+  timeout_sec : float prop;
+}
+
 let google_compute_region_backend_service ?affinity_cookie_ttl_sec
     ?connection_draining_timeout_sec ?description ?enable_cdn
     ?health_checks ?id ?load_balancing_scheme ?locality_lb_policy
@@ -546,34 +568,81 @@ let google_compute_region_backend_service ?affinity_cookie_ttl_sec
     ~log_config ~outlier_detection __resource_id =
   let __resource_type = "google_compute_region_backend_service" in
   let __resource =
-    {
-      affinity_cookie_ttl_sec;
-      connection_draining_timeout_sec;
-      description;
-      enable_cdn;
-      health_checks;
-      id;
-      load_balancing_scheme;
-      locality_lb_policy;
-      name;
-      network;
-      port_name;
-      project;
-      protocol;
-      region;
-      session_affinity;
-      timeout_sec;
-      backend;
-      cdn_policy;
-      circuit_breakers;
-      consistent_hash;
-      failover_policy;
-      iap;
-      log_config;
-      outlier_detection;
-      timeouts;
-    }
+    ({
+       affinity_cookie_ttl_sec;
+       connection_draining_timeout_sec;
+       description;
+       enable_cdn;
+       health_checks;
+       id;
+       load_balancing_scheme;
+       locality_lb_policy;
+       name;
+       network;
+       port_name;
+       project;
+       protocol;
+       region;
+       session_affinity;
+       timeout_sec;
+       backend;
+       cdn_policy;
+       circuit_breakers;
+       consistent_hash;
+       failover_policy;
+       iap;
+       log_config;
+       outlier_detection;
+       timeouts;
+     }
+      : google_compute_region_backend_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_backend_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       affinity_cookie_ttl_sec =
+         Prop.computed __resource_type __resource_id
+           "affinity_cookie_ttl_sec";
+       connection_draining_timeout_sec =
+         Prop.computed __resource_type __resource_id
+           "connection_draining_timeout_sec";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enable_cdn =
+         Prop.computed __resource_type __resource_id "enable_cdn";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       health_checks =
+         Prop.computed __resource_type __resource_id "health_checks";
+       id = Prop.computed __resource_type __resource_id "id";
+       load_balancing_scheme =
+         Prop.computed __resource_type __resource_id
+           "load_balancing_scheme";
+       locality_lb_policy =
+         Prop.computed __resource_type __resource_id
+           "locality_lb_policy";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       port_name =
+         Prop.computed __resource_type __resource_id "port_name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       session_affinity =
+         Prop.computed __resource_type __resource_id
+           "session_affinity";
+       timeout_sec =
+         Prop.computed __resource_type __resource_id "timeout_sec";
+     }
+      : t)
+  in
+  __resource_attributes

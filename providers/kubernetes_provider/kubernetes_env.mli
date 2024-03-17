@@ -11,6 +11,16 @@ type kubernetes_env__env
 type kubernetes_env__metadata
 type kubernetes_env
 
+type t = private {
+  api_version : string prop;
+  container : string prop;
+  field_manager : string prop;
+  force : bool prop;
+  id : string prop;
+  init_container : string prop;
+  kind : string prop;
+}
+
 val kubernetes_env :
   ?container:string prop ->
   ?field_manager:string prop ->
@@ -22,4 +32,4 @@ val kubernetes_env :
   env:kubernetes_env__env list ->
   metadata:kubernetes_env__metadata list ->
   string ->
-  unit
+  t

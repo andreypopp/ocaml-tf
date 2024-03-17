@@ -27,15 +27,58 @@ type google_compute_region_network_firewall_policy = {
 [@@deriving yojson_of]
 (** google_compute_region_network_firewall_policy *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  fingerprint : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  region_network_firewall_policy_id : string prop;
+  rule_tuple_count : float prop;
+  self_link : string prop;
+  self_link_with_id : string prop;
+}
+
 let google_compute_region_network_firewall_policy ?description ?id
     ?project ?region ?timeouts ~name __resource_id =
   let __resource_type =
     "google_compute_region_network_firewall_policy"
   in
   let __resource =
-    { description; id; name; project; region; timeouts }
+    ({ description; id; name; project; region; timeouts }
+      : google_compute_region_network_firewall_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_network_firewall_policy
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       region_network_firewall_policy_id =
+         Prop.computed __resource_type __resource_id
+           "region_network_firewall_policy_id";
+       rule_tuple_count =
+         Prop.computed __resource_type __resource_id
+           "rule_tuple_count";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       self_link_with_id =
+         Prop.computed __resource_type __resource_id
+           "self_link_with_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -332,6 +332,21 @@ type aws_autoscaling_policy = {
 [@@deriving yojson_of]
 (** aws_autoscaling_policy *)
 
+type t = {
+  adjustment_type : string prop;
+  arn : string prop;
+  autoscaling_group_name : string prop;
+  cooldown : float prop;
+  enabled : bool prop;
+  estimated_instance_warmup : float prop;
+  id : string prop;
+  metric_aggregation_type : string prop;
+  min_adjustment_magnitude : float prop;
+  name : string prop;
+  policy_type : string prop;
+  scaling_adjustment : float prop;
+}
+
 let aws_autoscaling_policy ?adjustment_type ?cooldown ?enabled
     ?estimated_instance_warmup ?id ?metric_aggregation_type
     ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
@@ -339,23 +354,56 @@ let aws_autoscaling_policy ?adjustment_type ?cooldown ?enabled
     ~step_adjustment ~target_tracking_configuration __resource_id =
   let __resource_type = "aws_autoscaling_policy" in
   let __resource =
-    {
-      adjustment_type;
-      autoscaling_group_name;
-      cooldown;
-      enabled;
-      estimated_instance_warmup;
-      id;
-      metric_aggregation_type;
-      min_adjustment_magnitude;
-      name;
-      policy_type;
-      scaling_adjustment;
-      predictive_scaling_configuration;
-      step_adjustment;
-      target_tracking_configuration;
-    }
+    ({
+       adjustment_type;
+       autoscaling_group_name;
+       cooldown;
+       enabled;
+       estimated_instance_warmup;
+       id;
+       metric_aggregation_type;
+       min_adjustment_magnitude;
+       name;
+       policy_type;
+       scaling_adjustment;
+       predictive_scaling_configuration;
+       step_adjustment;
+       target_tracking_configuration;
+     }
+      : aws_autoscaling_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       adjustment_type =
+         Prop.computed __resource_type __resource_id
+           "adjustment_type";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       autoscaling_group_name =
+         Prop.computed __resource_type __resource_id
+           "autoscaling_group_name";
+       cooldown =
+         Prop.computed __resource_type __resource_id "cooldown";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       estimated_instance_warmup =
+         Prop.computed __resource_type __resource_id
+           "estimated_instance_warmup";
+       id = Prop.computed __resource_type __resource_id "id";
+       metric_aggregation_type =
+         Prop.computed __resource_type __resource_id
+           "metric_aggregation_type";
+       min_adjustment_magnitude =
+         Prop.computed __resource_type __resource_id
+           "min_adjustment_magnitude";
+       name = Prop.computed __resource_type __resource_id "name";
+       policy_type =
+         Prop.computed __resource_type __resource_id "policy_type";
+       scaling_adjustment =
+         Prop.computed __resource_type __resource_id
+           "scaling_adjustment";
+     }
+      : t)
+  in
+  __resource_attributes

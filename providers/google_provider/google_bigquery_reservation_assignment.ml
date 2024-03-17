@@ -27,20 +27,50 @@ type google_bigquery_reservation_assignment = {
 [@@deriving yojson_of]
 (** google_bigquery_reservation_assignment *)
 
+type t = {
+  assignee : string prop;
+  id : string prop;
+  job_type : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reservation : string prop;
+  state : string prop;
+}
+
 let google_bigquery_reservation_assignment ?id ?location ?project
     ?timeouts ~assignee ~job_type ~reservation __resource_id =
   let __resource_type = "google_bigquery_reservation_assignment" in
   let __resource =
-    {
-      assignee;
-      id;
-      job_type;
-      location;
-      project;
-      reservation;
-      timeouts;
-    }
+    ({
+       assignee;
+       id;
+       job_type;
+       location;
+       project;
+       reservation;
+       timeouts;
+     }
+      : google_bigquery_reservation_assignment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_reservation_assignment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       assignee =
+         Prop.computed __resource_type __resource_id "assignee";
+       id = Prop.computed __resource_type __resource_id "id";
+       job_type =
+         Prop.computed __resource_type __resource_id "job_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reservation =
+         Prop.computed __resource_type __resource_id "reservation";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

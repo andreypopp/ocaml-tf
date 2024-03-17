@@ -22,12 +22,36 @@ type azurerm_web_pubsub_custom_certificate = {
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_custom_certificate *)
 
+type t = {
+  certificate_version : string prop;
+  custom_certificate_id : string prop;
+  id : string prop;
+  name : string prop;
+  web_pubsub_id : string prop;
+}
+
 let azurerm_web_pubsub_custom_certificate ?id ?timeouts
     ~custom_certificate_id ~name ~web_pubsub_id __resource_id =
   let __resource_type = "azurerm_web_pubsub_custom_certificate" in
   let __resource =
-    { custom_certificate_id; id; name; web_pubsub_id; timeouts }
+    ({ custom_certificate_id; id; name; web_pubsub_id; timeouts }
+      : azurerm_web_pubsub_custom_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_web_pubsub_custom_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_version =
+         Prop.computed __resource_type __resource_id
+           "certificate_version";
+       custom_certificate_id =
+         Prop.computed __resource_type __resource_id
+           "custom_certificate_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       web_pubsub_id =
+         Prop.computed __resource_type __resource_id "web_pubsub_id";
+     }
+      : t)
+  in
+  __resource_attributes

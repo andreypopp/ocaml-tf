@@ -41,22 +41,65 @@ type aws_signer_signing_profile = {
 [@@deriving yojson_of]
 (** aws_signer_signing_profile *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  platform_display_name : string prop;
+  platform_id : string prop;
+  revocation_record :
+    aws_signer_signing_profile__revocation_record list prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+  version_arn : string prop;
+}
+
 let aws_signer_signing_profile ?id ?name ?name_prefix ?tags ?tags_all
     ~platform_id ~signature_validity_period ~signing_material
     __resource_id =
   let __resource_type = "aws_signer_signing_profile" in
   let __resource =
-    {
-      id;
-      name;
-      name_prefix;
-      platform_id;
-      tags;
-      tags_all;
-      signature_validity_period;
-      signing_material;
-    }
+    ({
+       id;
+       name;
+       name_prefix;
+       platform_id;
+       tags;
+       tags_all;
+       signature_validity_period;
+       signing_material;
+     }
+      : aws_signer_signing_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_signer_signing_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       platform_display_name =
+         Prop.computed __resource_type __resource_id
+           "platform_display_name";
+       platform_id =
+         Prop.computed __resource_type __resource_id "platform_id";
+       revocation_record =
+         Prop.computed __resource_type __resource_id
+           "revocation_record";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       version_arn =
+         Prop.computed __resource_type __resource_id "version_arn";
+     }
+      : t)
+  in
+  __resource_attributes

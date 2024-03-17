@@ -46,27 +46,64 @@ type aws_networkmanager_device = {
 [@@deriving yojson_of]
 (** aws_networkmanager_device *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  global_network_id : string prop;
+  id : string prop;
+  model : string prop;
+  serial_number : string prop;
+  site_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  vendor : string prop;
+}
+
 let aws_networkmanager_device ?description ?id ?model ?serial_number
     ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
     ~global_network_id ~aws_location ~location __resource_id =
   let __resource_type = "aws_networkmanager_device" in
   let __resource =
-    {
-      description;
-      global_network_id;
-      id;
-      model;
-      serial_number;
-      site_id;
-      tags;
-      tags_all;
-      type_;
-      vendor;
-      aws_location;
-      location;
-      timeouts;
-    }
+    ({
+       description;
+       global_network_id;
+       id;
+       model;
+       serial_number;
+       site_id;
+       tags;
+       tags_all;
+       type_;
+       vendor;
+       aws_location;
+       location;
+       timeouts;
+     }
+      : aws_networkmanager_device)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_device __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       global_network_id =
+         Prop.computed __resource_type __resource_id
+           "global_network_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       model = Prop.computed __resource_type __resource_id "model";
+       serial_number =
+         Prop.computed __resource_type __resource_id "serial_number";
+       site_id =
+         Prop.computed __resource_type __resource_id "site_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       vendor = Prop.computed __resource_type __resource_id "vendor";
+     }
+      : t)
+  in
+  __resource_attributes

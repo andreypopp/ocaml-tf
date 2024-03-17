@@ -44,6 +44,21 @@ type azurerm_redis_enterprise_database = {
 [@@deriving yojson_of]
 (** azurerm_redis_enterprise_database *)
 
+type t = {
+  client_protocol : string prop;
+  cluster_id : string prop;
+  clustering_policy : string prop;
+  eviction_policy : string prop;
+  id : string prop;
+  linked_database_group_nickname : string prop;
+  linked_database_id : string list prop;
+  name : string prop;
+  port : float prop;
+  primary_access_key : string prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+}
+
 let azurerm_redis_enterprise_database ?client_protocol
     ?clustering_policy ?eviction_policy ?id
     ?linked_database_group_nickname ?linked_database_id ?name ?port
@@ -51,21 +66,56 @@ let azurerm_redis_enterprise_database ?client_protocol
     =
   let __resource_type = "azurerm_redis_enterprise_database" in
   let __resource =
-    {
-      client_protocol;
-      cluster_id;
-      clustering_policy;
-      eviction_policy;
-      id;
-      linked_database_group_nickname;
-      linked_database_id;
-      name;
-      port;
-      resource_group_name;
-      module_;
-      timeouts;
-    }
+    ({
+       client_protocol;
+       cluster_id;
+       clustering_policy;
+       eviction_policy;
+       id;
+       linked_database_group_nickname;
+       linked_database_id;
+       name;
+       port;
+       resource_group_name;
+       module_;
+       timeouts;
+     }
+      : azurerm_redis_enterprise_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_redis_enterprise_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       client_protocol =
+         Prop.computed __resource_type __resource_id
+           "client_protocol";
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       clustering_policy =
+         Prop.computed __resource_type __resource_id
+           "clustering_policy";
+       eviction_policy =
+         Prop.computed __resource_type __resource_id
+           "eviction_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       linked_database_group_nickname =
+         Prop.computed __resource_type __resource_id
+           "linked_database_group_nickname";
+       linked_database_id =
+         Prop.computed __resource_type __resource_id
+           "linked_database_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       port = Prop.computed __resource_type __resource_id "port";
+       primary_access_key =
+         Prop.computed __resource_type __resource_id
+           "primary_access_key";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secondary_access_key =
+         Prop.computed __resource_type __resource_id
+           "secondary_access_key";
+     }
+      : t)
+  in
+  __resource_attributes

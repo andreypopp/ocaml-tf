@@ -75,6 +75,25 @@ type azurerm_key_vault = {
 [@@deriving yojson_of]
 (** azurerm_key_vault *)
 
+type t = {
+  access_policy : azurerm_key_vault__access_policy list prop;
+  enable_rbac_authorization : bool prop;
+  enabled_for_deployment : bool prop;
+  enabled_for_disk_encryption : bool prop;
+  enabled_for_template_deployment : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  purge_protection_enabled : bool prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  soft_delete_retention_days : float prop;
+  tags : (string * string) list prop;
+  tenant_id : string prop;
+  vault_uri : string prop;
+}
+
 let azurerm_key_vault ?access_policy ?enable_rbac_authorization
     ?enabled_for_deployment ?enabled_for_disk_encryption
     ?enabled_for_template_deployment ?id
@@ -84,27 +103,70 @@ let azurerm_key_vault ?access_policy ?enable_rbac_authorization
     __resource_id =
   let __resource_type = "azurerm_key_vault" in
   let __resource =
-    {
-      access_policy;
-      enable_rbac_authorization;
-      enabled_for_deployment;
-      enabled_for_disk_encryption;
-      enabled_for_template_deployment;
-      id;
-      location;
-      name;
-      public_network_access_enabled;
-      purge_protection_enabled;
-      resource_group_name;
-      sku_name;
-      soft_delete_retention_days;
-      tags;
-      tenant_id;
-      contact;
-      network_acls;
-      timeouts;
-    }
+    ({
+       access_policy;
+       enable_rbac_authorization;
+       enabled_for_deployment;
+       enabled_for_disk_encryption;
+       enabled_for_template_deployment;
+       id;
+       location;
+       name;
+       public_network_access_enabled;
+       purge_protection_enabled;
+       resource_group_name;
+       sku_name;
+       soft_delete_retention_days;
+       tags;
+       tenant_id;
+       contact;
+       network_acls;
+       timeouts;
+     }
+      : azurerm_key_vault)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_policy =
+         Prop.computed __resource_type __resource_id "access_policy";
+       enable_rbac_authorization =
+         Prop.computed __resource_type __resource_id
+           "enable_rbac_authorization";
+       enabled_for_deployment =
+         Prop.computed __resource_type __resource_id
+           "enabled_for_deployment";
+       enabled_for_disk_encryption =
+         Prop.computed __resource_type __resource_id
+           "enabled_for_disk_encryption";
+       enabled_for_template_deployment =
+         Prop.computed __resource_type __resource_id
+           "enabled_for_template_deployment";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       purge_protection_enabled =
+         Prop.computed __resource_type __resource_id
+           "purge_protection_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       soft_delete_retention_days =
+         Prop.computed __resource_type __resource_id
+           "soft_delete_retention_days";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tenant_id =
+         Prop.computed __resource_type __resource_id "tenant_id";
+       vault_uri =
+         Prop.computed __resource_type __resource_id "vault_uri";
+     }
+      : t)
+  in
+  __resource_attributes

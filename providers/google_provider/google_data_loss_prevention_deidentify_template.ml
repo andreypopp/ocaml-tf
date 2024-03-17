@@ -2620,6 +2620,17 @@ that is, it must match the regular expression: [a-zA-Z\d-_]+. The maximum length
 [@@deriving yojson_of]
 (** google_data_loss_prevention_deidentify_template *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  template_id : string prop;
+  update_time : string prop;
+}
+
 let google_data_loss_prevention_deidentify_template ?description
     ?display_name ?id ?template_id ?timeouts ~parent
     ~deidentify_config __resource_id =
@@ -2627,17 +2638,36 @@ let google_data_loss_prevention_deidentify_template ?description
     "google_data_loss_prevention_deidentify_template"
   in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      parent;
-      template_id;
-      deidentify_config;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       parent;
+       template_id;
+       deidentify_config;
+       timeouts;
+     }
+      : google_data_loss_prevention_deidentify_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_loss_prevention_deidentify_template
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       template_id =
+         Prop.computed __resource_type __resource_id "template_id";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -62,6 +62,7 @@ type google_access_context_manager_service_perimeters__service_perimeters
 
 type google_access_context_manager_service_perimeters__timeouts
 type google_access_context_manager_service_perimeters
+type t = private { id : string prop; parent : string prop }
 
 val google_access_context_manager_service_perimeters :
   ?id:string prop ->
@@ -72,4 +73,4 @@ val google_access_context_manager_service_perimeters :
     google_access_context_manager_service_perimeters__service_perimeters
     list ->
   string ->
-  unit
+  t

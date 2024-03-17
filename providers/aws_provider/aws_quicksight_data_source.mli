@@ -58,11 +58,22 @@ type aws_quicksight_data_source__vpc_connection_properties
 
 type aws_quicksight_data_source
 
+type t = private {
+  arn: string prop;
+  aws_account_id: string prop;
+  data_source_id: string prop;
+  id: string prop;
+  name: string prop;
+  tags: (string * string) list prop;
+  tags_all: (string * string) list prop;
+  type_: string prop;
+}
+
 val aws_quicksight_data_source :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string prop) list ->
-    ?tags_all:(string * string prop) list ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
     data_source_id:string prop ->
     name:string prop ->
     type_:string prop ->
@@ -72,5 +83,5 @@ val aws_quicksight_data_source :
     ssl_properties:aws_quicksight_data_source__ssl_properties list ->
     vpc_connection_properties:aws_quicksight_data_source__vpc_connection_properties list ->
     string ->
-    unit
+    t
 

@@ -54,6 +54,17 @@ type azurerm_machine_learning_inference_cluster = {
 [@@deriving yojson_of]
 (** azurerm_machine_learning_inference_cluster *)
 
+type t = {
+  cluster_purpose : string prop;
+  description : string prop;
+  id : string prop;
+  kubernetes_cluster_id : string prop;
+  location : string prop;
+  machine_learning_workspace_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_machine_learning_inference_cluster ?cluster_purpose
     ?description ?id ?tags ?timeouts ~kubernetes_cluster_id ~location
     ~machine_learning_workspace_id ~name ~identity ~ssl __resource_id
@@ -62,20 +73,42 @@ let azurerm_machine_learning_inference_cluster ?cluster_purpose
     "azurerm_machine_learning_inference_cluster"
   in
   let __resource =
-    {
-      cluster_purpose;
-      description;
-      id;
-      kubernetes_cluster_id;
-      location;
-      machine_learning_workspace_id;
-      name;
-      tags;
-      identity;
-      ssl;
-      timeouts;
-    }
+    ({
+       cluster_purpose;
+       description;
+       id;
+       kubernetes_cluster_id;
+       location;
+       machine_learning_workspace_id;
+       name;
+       tags;
+       identity;
+       ssl;
+       timeouts;
+     }
+      : azurerm_machine_learning_inference_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_machine_learning_inference_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_purpose =
+         Prop.computed __resource_type __resource_id
+           "cluster_purpose";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       kubernetes_cluster_id =
+         Prop.computed __resource_type __resource_id
+           "kubernetes_cluster_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       machine_learning_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "machine_learning_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

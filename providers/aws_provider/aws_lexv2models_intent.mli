@@ -1831,6 +1831,19 @@ type aws_lexv2models_intent__slot_priority
 type aws_lexv2models_intent__timeouts
 type aws_lexv2models_intent
 
+type t = private {
+  bot_id : string prop;
+  bot_version : string prop;
+  creation_date_time : string prop;
+  description : string prop;
+  id : string prop;
+  intent_id : string prop;
+  last_updated_date_time : string prop;
+  locale_id : string prop;
+  name : string prop;
+  parent_intent_signature : string prop;
+}
+
 val aws_lexv2models_intent :
   ?description:string prop ->
   ?parent_intent_signature:string prop ->
@@ -1854,4 +1867,4 @@ val aws_lexv2models_intent :
   sample_utterance:aws_lexv2models_intent__sample_utterance list ->
   slot_priority:aws_lexv2models_intent__slot_priority list ->
   string ->
-  unit
+  t

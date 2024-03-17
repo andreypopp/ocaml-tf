@@ -43,21 +43,57 @@ type aws_memorydb_snapshot = {
 [@@deriving yojson_of]
 (** aws_memorydb_snapshot *)
 
+type t = {
+  arn : string prop;
+  cluster_configuration :
+    aws_memorydb_snapshot__cluster_configuration list prop;
+  cluster_name : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  source : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_memorydb_snapshot ?id ?kms_key_arn ?name ?name_prefix ?tags
     ?tags_all ?timeouts ~cluster_name __resource_id =
   let __resource_type = "aws_memorydb_snapshot" in
   let __resource =
-    {
-      cluster_name;
-      id;
-      kms_key_arn;
-      name;
-      name_prefix;
-      tags;
-      tags_all;
-      timeouts;
-    }
+    ({
+       cluster_name;
+       id;
+       kms_key_arn;
+       name;
+       name_prefix;
+       tags;
+       tags_all;
+       timeouts;
+     }
+      : aws_memorydb_snapshot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_memorydb_snapshot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       cluster_configuration =
+         Prop.computed __resource_type __resource_id
+           "cluster_configuration";
+       cluster_name =
+         Prop.computed __resource_type __resource_id "cluster_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_arn =
+         Prop.computed __resource_type __resource_id "kms_key_arn";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       source = Prop.computed __resource_type __resource_id "source";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

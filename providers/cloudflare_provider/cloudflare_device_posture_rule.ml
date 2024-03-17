@@ -97,22 +97,49 @@ type cloudflare_device_posture_rule = {
 (** Provides a Cloudflare Device Posture Rule resource. Device posture rules configure security policies for device posture checks.
  *)
 
+type t = {
+  account_id : string prop;
+  description : string prop;
+  expiration : string prop;
+  id : string prop;
+  name : string prop;
+  schedule : string prop;
+  type_ : string prop;
+}
+
 let cloudflare_device_posture_rule ?description ?expiration ?id ?name
     ?schedule ~account_id ~type_ ~input ~match_ __resource_id =
   let __resource_type = "cloudflare_device_posture_rule" in
   let __resource =
-    {
-      account_id;
-      description;
-      expiration;
-      id;
-      name;
-      schedule;
-      type_;
-      input;
-      match_;
-    }
+    ({
+       account_id;
+       description;
+       expiration;
+       id;
+       name;
+       schedule;
+       type_;
+       input;
+       match_;
+     }
+      : cloudflare_device_posture_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_posture_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       expiration =
+         Prop.computed __resource_type __resource_id "expiration";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       schedule =
+         Prop.computed __resource_type __resource_id "schedule";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

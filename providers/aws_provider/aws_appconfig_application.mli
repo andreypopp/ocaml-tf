@@ -4,6 +4,15 @@ open! Tf.Prelude
 
 type aws_appconfig_application
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_appconfig_application :
   ?description:string prop ->
   ?id:string prop ->
@@ -11,4 +20,4 @@ val aws_appconfig_application :
   ?tags_all:(string * string prop) list ->
   name:string prop ->
   string ->
-  unit
+  t

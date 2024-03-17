@@ -267,26 +267,68 @@ type aws_kinesis_analytics_application = {
 [@@deriving yojson_of]
 (** aws_kinesis_analytics_application *)
 
+type t = {
+  arn : string prop;
+  code : string prop;
+  create_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  last_update_timestamp : string prop;
+  name : string prop;
+  start_application : bool prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : float prop;
+}
+
 let aws_kinesis_analytics_application ?code ?description ?id
     ?start_application ?tags ?tags_all ~name
     ~cloudwatch_logging_options ~inputs ~outputs
     ~reference_data_sources __resource_id =
   let __resource_type = "aws_kinesis_analytics_application" in
   let __resource =
-    {
-      code;
-      description;
-      id;
-      name;
-      start_application;
-      tags;
-      tags_all;
-      cloudwatch_logging_options;
-      inputs;
-      outputs;
-      reference_data_sources;
-    }
+    ({
+       code;
+       description;
+       id;
+       name;
+       start_application;
+       tags;
+       tags_all;
+       cloudwatch_logging_options;
+       inputs;
+       outputs;
+       reference_data_sources;
+     }
+      : aws_kinesis_analytics_application)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kinesis_analytics_application __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       code = Prop.computed __resource_type __resource_id "code";
+       create_timestamp =
+         Prop.computed __resource_type __resource_id
+           "create_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_update_timestamp =
+         Prop.computed __resource_type __resource_id
+           "last_update_timestamp";
+       name = Prop.computed __resource_type __resource_id "name";
+       start_application =
+         Prop.computed __resource_type __resource_id
+           "start_application";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

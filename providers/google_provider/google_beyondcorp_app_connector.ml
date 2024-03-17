@@ -47,21 +47,54 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_beyondcorp_app_connector *)
 
+type t = {
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_beyondcorp_app_connector ?display_name ?id ?labels
     ?project ?region ?timeouts ~name ~principal_info __resource_id =
   let __resource_type = "google_beyondcorp_app_connector" in
   let __resource =
-    {
-      display_name;
-      id;
-      labels;
-      name;
-      project;
-      region;
-      principal_info;
-      timeouts;
-    }
+    ({
+       display_name;
+       id;
+       labels;
+       name;
+       project;
+       region;
+       principal_info;
+       timeouts;
+     }
+      : google_beyondcorp_app_connector)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_beyondcorp_app_connector __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

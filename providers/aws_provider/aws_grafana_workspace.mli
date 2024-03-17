@@ -7,6 +7,28 @@ type aws_grafana_workspace__timeouts
 type aws_grafana_workspace__vpc_configuration
 type aws_grafana_workspace
 
+type t = private {
+  account_access_type : string prop;
+  arn : string prop;
+  authentication_providers : string list prop;
+  configuration : string prop;
+  data_sources : string list prop;
+  description : string prop;
+  endpoint : string prop;
+  grafana_version : string prop;
+  id : string prop;
+  name : string prop;
+  notification_destinations : string list prop;
+  organization_role_name : string prop;
+  organizational_units : string list prop;
+  permission_type : string prop;
+  role_arn : string prop;
+  saml_configuration_status : string prop;
+  stack_set_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_grafana_workspace :
   ?configuration:string prop ->
   ?data_sources:string prop list ->
@@ -29,4 +51,4 @@ val aws_grafana_workspace :
     aws_grafana_workspace__network_access_control list ->
   vpc_configuration:aws_grafana_workspace__vpc_configuration list ->
   string ->
-  unit
+  t

@@ -29,6 +29,17 @@ type azurerm_key_vault_managed_storage_account_sas_token_definition = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_storage_account_sas_token_definition *)
 
+type t = {
+  id : string prop;
+  managed_storage_account_id : string prop;
+  name : string prop;
+  sas_template_uri : string prop;
+  sas_type : string prop;
+  secret_id : string prop;
+  tags : (string * string) list prop;
+  validity_period : string prop;
+}
+
 let azurerm_key_vault_managed_storage_account_sas_token_definition
     ?id ?tags ?timeouts ~managed_storage_account_id ~name
     ~sas_template_uri ~sas_type ~validity_period __resource_id =
@@ -36,18 +47,40 @@ let azurerm_key_vault_managed_storage_account_sas_token_definition
     "azurerm_key_vault_managed_storage_account_sas_token_definition"
   in
   let __resource =
-    {
-      id;
-      managed_storage_account_id;
-      name;
-      sas_template_uri;
-      sas_type;
-      tags;
-      validity_period;
-      timeouts;
-    }
+    ({
+       id;
+       managed_storage_account_id;
+       name;
+       sas_template_uri;
+       sas_type;
+       tags;
+       validity_period;
+       timeouts;
+     }
+      : azurerm_key_vault_managed_storage_account_sas_token_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_managed_storage_account_sas_token_definition
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       managed_storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "managed_storage_account_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       sas_template_uri =
+         Prop.computed __resource_type __resource_id
+           "sas_template_uri";
+       sas_type =
+         Prop.computed __resource_type __resource_id "sas_type";
+       secret_id =
+         Prop.computed __resource_type __resource_id "secret_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       validity_period =
+         Prop.computed __resource_type __resource_id
+           "validity_period";
+     }
+      : t)
+  in
+  __resource_attributes

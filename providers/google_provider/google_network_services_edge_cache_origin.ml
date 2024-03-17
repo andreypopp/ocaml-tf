@@ -202,6 +202,22 @@ Valid values are:
 [@@deriving yojson_of]
 (** google_network_services_edge_cache_origin *)
 
+type t = {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  failover_origin : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  max_attempts : float prop;
+  name : string prop;
+  origin_address : string prop;
+  port : float prop;
+  project : string prop;
+  protocol : string prop;
+  retry_conditions : string list prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_network_services_edge_cache_origin ?description
     ?failover_origin ?id ?labels ?max_attempts ?port ?project
     ?protocol ?retry_conditions ?timeouts ~name ~origin_address
@@ -211,25 +227,57 @@ let google_network_services_edge_cache_origin ?description
     "google_network_services_edge_cache_origin"
   in
   let __resource =
-    {
-      description;
-      failover_origin;
-      id;
-      labels;
-      max_attempts;
-      name;
-      origin_address;
-      port;
-      project;
-      protocol;
-      retry_conditions;
-      aws_v4_authentication;
-      origin_override_action;
-      origin_redirect;
-      timeout;
-      timeouts;
-    }
+    ({
+       description;
+       failover_origin;
+       id;
+       labels;
+       max_attempts;
+       name;
+       origin_address;
+       port;
+       project;
+       protocol;
+       retry_conditions;
+       aws_v4_authentication;
+       origin_override_action;
+       origin_redirect;
+       timeout;
+       timeouts;
+     }
+      : google_network_services_edge_cache_origin)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_services_edge_cache_origin __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       failover_origin =
+         Prop.computed __resource_type __resource_id
+           "failover_origin";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       max_attempts =
+         Prop.computed __resource_type __resource_id "max_attempts";
+       name = Prop.computed __resource_type __resource_id "name";
+       origin_address =
+         Prop.computed __resource_type __resource_id "origin_address";
+       port = Prop.computed __resource_type __resource_id "port";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       retry_conditions =
+         Prop.computed __resource_type __resource_id
+           "retry_conditions";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

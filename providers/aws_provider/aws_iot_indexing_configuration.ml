@@ -84,17 +84,23 @@ type aws_iot_indexing_configuration = {
 [@@deriving yojson_of]
 (** aws_iot_indexing_configuration *)
 
+type t = { id : string prop }
+
 let aws_iot_indexing_configuration ?id
     ~thing_group_indexing_configuration ~thing_indexing_configuration
     __resource_id =
   let __resource_type = "aws_iot_indexing_configuration" in
   let __resource =
-    {
-      id;
-      thing_group_indexing_configuration;
-      thing_indexing_configuration;
-    }
+    ({
+       id;
+       thing_group_indexing_configuration;
+       thing_indexing_configuration;
+     }
+      : aws_iot_indexing_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_indexing_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

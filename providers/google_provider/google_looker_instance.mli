@@ -16,6 +16,25 @@ type google_looker_instance__timeouts
 type google_looker_instance__user_metadata
 type google_looker_instance
 
+type t = private {
+  consumer_network : string prop;
+  create_time : string prop;
+  egress_public_ip : string prop;
+  id : string prop;
+  ingress_private_ip : string prop;
+  ingress_public_ip : string prop;
+  looker_uri : string prop;
+  looker_version : string prop;
+  name : string prop;
+  platform_edition : string prop;
+  private_ip_enabled : bool prop;
+  project : string prop;
+  public_ip_enabled : bool prop;
+  region : string prop;
+  reserved_range : string prop;
+  update_time : string prop;
+}
+
 val google_looker_instance :
   ?consumer_network:string prop ->
   ?id:string prop ->
@@ -36,4 +55,4 @@ val google_looker_instance :
   oauth_config:google_looker_instance__oauth_config list ->
   user_metadata:google_looker_instance__user_metadata list ->
   string ->
-  unit
+  t

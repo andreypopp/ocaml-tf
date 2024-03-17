@@ -10,6 +10,7 @@ type aws_glue_security_configuration__encryption_configuration__s3_encryption
 
 type aws_glue_security_configuration__encryption_configuration
 type aws_glue_security_configuration
+type t = private { id : string prop; name : string prop }
 
 val aws_glue_security_configuration :
   ?id:string prop ->
@@ -17,4 +18,4 @@ val aws_glue_security_configuration :
   encryption_configuration:
     aws_glue_security_configuration__encryption_configuration list ->
   string ->
-  unit
+  t

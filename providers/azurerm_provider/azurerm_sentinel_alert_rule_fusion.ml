@@ -44,21 +44,45 @@ type azurerm_sentinel_alert_rule_fusion = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_fusion *)
 
+type t = {
+  alert_rule_template_guid : string prop;
+  enabled : bool prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+}
+
 let azurerm_sentinel_alert_rule_fusion ?enabled ?id ?timeouts
     ~alert_rule_template_guid ~log_analytics_workspace_id ~name
     ~source __resource_id =
   let __resource_type = "azurerm_sentinel_alert_rule_fusion" in
   let __resource =
-    {
-      alert_rule_template_guid;
-      enabled;
-      id;
-      log_analytics_workspace_id;
-      name;
-      source;
-      timeouts;
-    }
+    ({
+       alert_rule_template_guid;
+       enabled;
+       id;
+       log_analytics_workspace_id;
+       name;
+       source;
+       timeouts;
+     }
+      : azurerm_sentinel_alert_rule_fusion)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_alert_rule_fusion __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alert_rule_template_guid =
+         Prop.computed __resource_type __resource_id
+           "alert_rule_template_guid";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

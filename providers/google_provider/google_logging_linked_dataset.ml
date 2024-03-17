@@ -41,21 +41,54 @@ type google_logging_linked_dataset = {
 [@@deriving yojson_of]
 (** google_logging_linked_dataset *)
 
+type t = {
+  bucket : string prop;
+  create_time : string prop;
+  description : string prop;
+  id : string prop;
+  lifecycle_state : string prop;
+  link_id : string prop;
+  location : string prop;
+  name : string prop;
+  parent : string prop;
+}
+
 let google_logging_linked_dataset ?description ?id ?location ?parent
     ?timeouts ~bucket ~link_id ~bigquery_dataset __resource_id =
   let __resource_type = "google_logging_linked_dataset" in
   let __resource =
-    {
-      bucket;
-      description;
-      id;
-      link_id;
-      location;
-      parent;
-      bigquery_dataset;
-      timeouts;
-    }
+    ({
+       bucket;
+       description;
+       id;
+       link_id;
+       location;
+       parent;
+       bigquery_dataset;
+       timeouts;
+     }
+      : google_logging_linked_dataset)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_linked_dataset __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       lifecycle_state =
+         Prop.computed __resource_type __resource_id
+           "lifecycle_state";
+       link_id =
+         Prop.computed __resource_type __resource_id "link_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+     }
+      : t)
+  in
+  __resource_attributes

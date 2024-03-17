@@ -53,6 +53,20 @@ type aws_connect_user_hierarchy_group__hierarchy_path = {
 
 type aws_connect_user_hierarchy_group
 
+type t = private {
+  arn : string prop;
+  hierarchy_group_id : string prop;
+  hierarchy_path :
+    aws_connect_user_hierarchy_group__hierarchy_path list prop;
+  id : string prop;
+  instance_id : string prop;
+  level_id : string prop;
+  name : string prop;
+  parent_group_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_connect_user_hierarchy_group :
   ?id:string prop ->
   ?parent_group_id:string prop ->
@@ -61,4 +75,4 @@ val aws_connect_user_hierarchy_group :
   instance_id:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

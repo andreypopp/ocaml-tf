@@ -12,10 +12,29 @@ type hcloud_floating_ip_assignment = {
 [@@deriving yojson_of]
 (** hcloud_floating_ip_assignment *)
 
+type t = {
+  floating_ip_id : float prop;
+  id : string prop;
+  server_id : float prop;
+}
+
 let hcloud_floating_ip_assignment ?id ~floating_ip_id ~server_id
     __resource_id =
   let __resource_type = "hcloud_floating_ip_assignment" in
-  let __resource = { floating_ip_id; id; server_id } in
+  let __resource =
+    ({ floating_ip_id; id; server_id }
+      : hcloud_floating_ip_assignment)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_floating_ip_assignment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       floating_ip_id =
+         Prop.computed __resource_type __resource_id "floating_ip_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+     }
+      : t)
+  in
+  __resource_attributes

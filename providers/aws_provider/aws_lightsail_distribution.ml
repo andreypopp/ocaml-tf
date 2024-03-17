@@ -122,28 +122,87 @@ type aws_lightsail_distribution = {
 [@@deriving yojson_of]
 (** aws_lightsail_distribution *)
 
+type t = {
+  alternative_domain_names : string list prop;
+  arn : string prop;
+  bundle_id : string prop;
+  certificate_name : string prop;
+  created_at : string prop;
+  domain_name : string prop;
+  id : string prop;
+  ip_address_type : string prop;
+  is_enabled : bool prop;
+  location : aws_lightsail_distribution__location list prop;
+  name : string prop;
+  origin_public_dns : string prop;
+  resource_type : string prop;
+  status : string prop;
+  support_code : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_lightsail_distribution ?certificate_name ?id ?ip_address_type
     ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
     ~cache_behavior ~cache_behavior_settings ~default_cache_behavior
     ~origin __resource_id =
   let __resource_type = "aws_lightsail_distribution" in
   let __resource =
-    {
-      bundle_id;
-      certificate_name;
-      id;
-      ip_address_type;
-      is_enabled;
-      name;
-      tags;
-      tags_all;
-      cache_behavior;
-      cache_behavior_settings;
-      default_cache_behavior;
-      origin;
-      timeouts;
-    }
+    ({
+       bundle_id;
+       certificate_name;
+       id;
+       ip_address_type;
+       is_enabled;
+       name;
+       tags;
+       tags_all;
+       cache_behavior;
+       cache_behavior_settings;
+       default_cache_behavior;
+       origin;
+       timeouts;
+     }
+      : aws_lightsail_distribution)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_distribution __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alternative_domain_names =
+         Prop.computed __resource_type __resource_id
+           "alternative_domain_names";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       bundle_id =
+         Prop.computed __resource_type __resource_id "bundle_id";
+       certificate_name =
+         Prop.computed __resource_type __resource_id
+           "certificate_name";
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_address_type =
+         Prop.computed __resource_type __resource_id
+           "ip_address_type";
+       is_enabled =
+         Prop.computed __resource_type __resource_id "is_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       origin_public_dns =
+         Prop.computed __resource_type __resource_id
+           "origin_public_dns";
+       resource_type =
+         Prop.computed __resource_type __resource_id "resource_type";
+       status = Prop.computed __resource_type __resource_id "status";
+       support_code =
+         Prop.computed __resource_type __resource_id "support_code";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -27,12 +27,35 @@ type aws_resourceexplorer2_view = {
 [@@deriving yojson_of]
 (** aws_resourceexplorer2_view *)
 
+type t = {
+  arn : string prop;
+  default_view : bool prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_resourceexplorer2_view ?default_view ?tags ~name ~filters
     ~included_property __resource_id =
   let __resource_type = "aws_resourceexplorer2_view" in
   let __resource =
-    { default_view; name; tags; filters; included_property }
+    ({ default_view; name; tags; filters; included_property }
+      : aws_resourceexplorer2_view)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_resourceexplorer2_view __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       default_view =
+         Prop.computed __resource_type __resource_id "default_view";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

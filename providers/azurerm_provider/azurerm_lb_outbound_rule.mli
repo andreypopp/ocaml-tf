@@ -6,6 +6,17 @@ type azurerm_lb_outbound_rule__frontend_ip_configuration
 type azurerm_lb_outbound_rule__timeouts
 type azurerm_lb_outbound_rule
 
+type t = private {
+  allocated_outbound_ports : float prop;
+  backend_address_pool_id : string prop;
+  enable_tcp_reset : bool prop;
+  id : string prop;
+  idle_timeout_in_minutes : float prop;
+  loadbalancer_id : string prop;
+  name : string prop;
+  protocol : string prop;
+}
+
 val azurerm_lb_outbound_rule :
   ?allocated_outbound_ports:float prop ->
   ?enable_tcp_reset:bool prop ->
@@ -19,4 +30,4 @@ val azurerm_lb_outbound_rule :
   frontend_ip_configuration:
     azurerm_lb_outbound_rule__frontend_ip_configuration list ->
   string ->
-  unit
+  t

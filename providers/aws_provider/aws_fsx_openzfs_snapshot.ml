@@ -25,12 +25,38 @@ type aws_fsx_openzfs_snapshot = {
 [@@deriving yojson_of]
 (** aws_fsx_openzfs_snapshot *)
 
+type t = {
+  arn : string prop;
+  creation_time : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  volume_id : string prop;
+}
+
 let aws_fsx_openzfs_snapshot ?id ?tags ?tags_all ?timeouts ~name
     ~volume_id __resource_id =
   let __resource_type = "aws_fsx_openzfs_snapshot" in
   let __resource =
-    { id; name; tags; tags_all; volume_id; timeouts }
+    ({ id; name; tags; tags_all; volume_id; timeouts }
+      : aws_fsx_openzfs_snapshot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_openzfs_snapshot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       volume_id =
+         Prop.computed __resource_type __resource_id "volume_id";
+     }
+      : t)
+  in
+  __resource_attributes

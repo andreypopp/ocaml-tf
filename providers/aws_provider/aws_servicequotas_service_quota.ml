@@ -33,10 +33,55 @@ type aws_servicequotas_service_quota = {
 [@@deriving yojson_of]
 (** aws_servicequotas_service_quota *)
 
+type t = {
+  adjustable : bool prop;
+  arn : string prop;
+  default_value : float prop;
+  id : string prop;
+  quota_code : string prop;
+  quota_name : string prop;
+  request_id : string prop;
+  request_status : string prop;
+  service_code : string prop;
+  service_name : string prop;
+  usage_metric :
+    aws_servicequotas_service_quota__usage_metric list prop;
+  value : float prop;
+}
+
 let aws_servicequotas_service_quota ?id ~quota_code ~service_code
     ~value __resource_id =
   let __resource_type = "aws_servicequotas_service_quota" in
-  let __resource = { id; quota_code; service_code; value } in
+  let __resource =
+    ({ id; quota_code; service_code; value }
+      : aws_servicequotas_service_quota)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicequotas_service_quota __resource);
-  ()
+  let __resource_attributes =
+    ({
+       adjustable =
+         Prop.computed __resource_type __resource_id "adjustable";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       default_value =
+         Prop.computed __resource_type __resource_id "default_value";
+       id = Prop.computed __resource_type __resource_id "id";
+       quota_code =
+         Prop.computed __resource_type __resource_id "quota_code";
+       quota_name =
+         Prop.computed __resource_type __resource_id "quota_name";
+       request_id =
+         Prop.computed __resource_type __resource_id "request_id";
+       request_status =
+         Prop.computed __resource_type __resource_id "request_status";
+       service_code =
+         Prop.computed __resource_type __resource_id "service_code";
+       service_name =
+         Prop.computed __resource_type __resource_id "service_name";
+       usage_metric =
+         Prop.computed __resource_type __resource_id "usage_metric";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

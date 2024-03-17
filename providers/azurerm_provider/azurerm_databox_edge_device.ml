@@ -41,20 +41,50 @@ type azurerm_databox_edge_device = {
 [@@deriving yojson_of]
 (** azurerm_databox_edge_device *)
 
+type t = {
+  device_properties :
+    azurerm_databox_edge_device__device_properties list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_databox_edge_device ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_databox_edge_device" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      sku_name;
-      tags;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       sku_name;
+       tags;
+       timeouts;
+     }
+      : azurerm_databox_edge_device)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_databox_edge_device __resource);
-  ()
+  let __resource_attributes =
+    ({
+       device_properties =
+         Prop.computed __resource_type __resource_id
+           "device_properties";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

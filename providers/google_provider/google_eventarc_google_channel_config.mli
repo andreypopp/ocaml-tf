@@ -5,6 +5,15 @@ open! Tf.Prelude
 type google_eventarc_google_channel_config__timeouts
 type google_eventarc_google_channel_config
 
+type t = private {
+  crypto_key_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 val google_eventarc_google_channel_config :
   ?crypto_key_name:string prop ->
   ?id:string prop ->
@@ -13,4 +22,4 @@ val google_eventarc_google_channel_config :
   location:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

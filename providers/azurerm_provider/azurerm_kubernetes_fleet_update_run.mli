@@ -12,6 +12,13 @@ type azurerm_kubernetes_fleet_update_run__stage
 type azurerm_kubernetes_fleet_update_run__timeouts
 type azurerm_kubernetes_fleet_update_run
 
+type t = private {
+  fleet_update_strategy_id : string prop;
+  id : string prop;
+  kubernetes_fleet_manager_id : string prop;
+  name : string prop;
+}
+
 val azurerm_kubernetes_fleet_update_run :
   ?fleet_update_strategy_id:string prop ->
   ?id:string prop ->
@@ -22,4 +29,4 @@ val azurerm_kubernetes_fleet_update_run :
     azurerm_kubernetes_fleet_update_run__managed_cluster_update list ->
   stage:azurerm_kubernetes_fleet_update_run__stage list ->
   string ->
-  unit
+  t

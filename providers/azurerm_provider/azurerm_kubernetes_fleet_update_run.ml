@@ -68,21 +68,42 @@ type azurerm_kubernetes_fleet_update_run = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_update_run *)
 
+type t = {
+  fleet_update_strategy_id : string prop;
+  id : string prop;
+  kubernetes_fleet_manager_id : string prop;
+  name : string prop;
+}
+
 let azurerm_kubernetes_fleet_update_run ?fleet_update_strategy_id ?id
     ?timeouts ~kubernetes_fleet_manager_id ~name
     ~managed_cluster_update ~stage __resource_id =
   let __resource_type = "azurerm_kubernetes_fleet_update_run" in
   let __resource =
-    {
-      fleet_update_strategy_id;
-      id;
-      kubernetes_fleet_manager_id;
-      name;
-      managed_cluster_update;
-      stage;
-      timeouts;
-    }
+    ({
+       fleet_update_strategy_id;
+       id;
+       kubernetes_fleet_manager_id;
+       name;
+       managed_cluster_update;
+       stage;
+       timeouts;
+     }
+      : azurerm_kubernetes_fleet_update_run)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_fleet_update_run __resource);
-  ()
+  let __resource_attributes =
+    ({
+       fleet_update_strategy_id =
+         Prop.computed __resource_type __resource_id
+           "fleet_update_strategy_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       kubernetes_fleet_manager_id =
+         Prop.computed __resource_type __resource_id
+           "kubernetes_fleet_manager_id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

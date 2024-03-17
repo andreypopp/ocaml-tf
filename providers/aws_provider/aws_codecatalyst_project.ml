@@ -22,12 +22,34 @@ type aws_codecatalyst_project = {
 [@@deriving yojson_of]
 (** aws_codecatalyst_project *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  space_name : string prop;
+}
+
 let aws_codecatalyst_project ?description ?id ?timeouts ~display_name
     ~space_name __resource_id =
   let __resource_type = "aws_codecatalyst_project" in
   let __resource =
-    { description; display_name; id; space_name; timeouts }
+    ({ description; display_name; id; space_name; timeouts }
+      : aws_codecatalyst_project)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecatalyst_project __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       space_name =
+         Prop.computed __resource_type __resource_id "space_name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -47,26 +47,73 @@ see [CidrRange](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/
 [@@deriving yojson_of]
 (** google_apigee_instance *)
 
+type t = {
+  consumer_accept_list : string list prop;
+  description : string prop;
+  disk_encryption_key_name : string prop;
+  display_name : string prop;
+  host : string prop;
+  id : string prop;
+  ip_range : string prop;
+  location : string prop;
+  name : string prop;
+  org_id : string prop;
+  peering_cidr_range : string prop;
+  port : string prop;
+  service_attachment : string prop;
+}
+
 let google_apigee_instance ?consumer_accept_list ?description
     ?disk_encryption_key_name ?display_name ?id ?ip_range
     ?peering_cidr_range ?timeouts ~location ~name ~org_id
     __resource_id =
   let __resource_type = "google_apigee_instance" in
   let __resource =
-    {
-      consumer_accept_list;
-      description;
-      disk_encryption_key_name;
-      display_name;
-      id;
-      ip_range;
-      location;
-      name;
-      org_id;
-      peering_cidr_range;
-      timeouts;
-    }
+    ({
+       consumer_accept_list;
+       description;
+       disk_encryption_key_name;
+       display_name;
+       id;
+       ip_range;
+       location;
+       name;
+       org_id;
+       peering_cidr_range;
+       timeouts;
+     }
+      : google_apigee_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       consumer_accept_list =
+         Prop.computed __resource_type __resource_id
+           "consumer_accept_list";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disk_encryption_key_name =
+         Prop.computed __resource_type __resource_id
+           "disk_encryption_key_name";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_range =
+         Prop.computed __resource_type __resource_id "ip_range";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       peering_cidr_range =
+         Prop.computed __resource_type __resource_id
+           "peering_cidr_range";
+       port = Prop.computed __resource_type __resource_id "port";
+       service_attachment =
+         Prop.computed __resource_type __resource_id
+           "service_attachment";
+     }
+      : t)
+  in
+  __resource_attributes

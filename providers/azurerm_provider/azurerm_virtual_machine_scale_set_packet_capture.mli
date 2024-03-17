@@ -10,6 +10,16 @@ type azurerm_virtual_machine_scale_set_packet_capture__storage_location
 type azurerm_virtual_machine_scale_set_packet_capture__timeouts
 type azurerm_virtual_machine_scale_set_packet_capture
 
+type t = private {
+  id : string prop;
+  maximum_bytes_per_packet : float prop;
+  maximum_bytes_per_session : float prop;
+  maximum_capture_duration_in_seconds : float prop;
+  name : string prop;
+  network_watcher_id : string prop;
+  virtual_machine_scale_set_id : string prop;
+}
+
 val azurerm_virtual_machine_scale_set_packet_capture :
   ?id:string prop ->
   ?maximum_bytes_per_packet:float prop ->
@@ -29,4 +39,4 @@ val azurerm_virtual_machine_scale_set_packet_capture :
     azurerm_virtual_machine_scale_set_packet_capture__storage_location
     list ->
   string ->
-  unit
+  t

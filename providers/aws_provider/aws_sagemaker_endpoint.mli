@@ -22,6 +22,15 @@ type aws_sagemaker_endpoint__deployment_config__rolling_update_policy
 type aws_sagemaker_endpoint__deployment_config
 type aws_sagemaker_endpoint
 
+type t = private {
+  arn : string prop;
+  endpoint_config_name : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_sagemaker_endpoint :
   ?id:string prop ->
   ?name:string prop ->
@@ -30,4 +39,4 @@ val aws_sagemaker_endpoint :
   endpoint_config_name:string prop ->
   deployment_config:aws_sagemaker_endpoint__deployment_config list ->
   string ->
-  unit
+  t

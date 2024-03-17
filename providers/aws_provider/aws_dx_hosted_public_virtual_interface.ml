@@ -31,27 +31,78 @@ type aws_dx_hosted_public_virtual_interface = {
 [@@deriving yojson_of]
 (** aws_dx_hosted_public_virtual_interface *)
 
+type t = {
+  address_family : string prop;
+  amazon_address : string prop;
+  amazon_side_asn : string prop;
+  arn : string prop;
+  aws_device : string prop;
+  bgp_asn : float prop;
+  bgp_auth_key : string prop;
+  connection_id : string prop;
+  customer_address : string prop;
+  id : string prop;
+  name : string prop;
+  owner_account_id : string prop;
+  route_filter_prefixes : string list prop;
+  vlan : float prop;
+}
+
 let aws_dx_hosted_public_virtual_interface ?amazon_address
     ?bgp_auth_key ?customer_address ?id ?timeouts ~address_family
     ~bgp_asn ~connection_id ~name ~owner_account_id
     ~route_filter_prefixes ~vlan __resource_id =
   let __resource_type = "aws_dx_hosted_public_virtual_interface" in
   let __resource =
-    {
-      address_family;
-      amazon_address;
-      bgp_asn;
-      bgp_auth_key;
-      connection_id;
-      customer_address;
-      id;
-      name;
-      owner_account_id;
-      route_filter_prefixes;
-      vlan;
-      timeouts;
-    }
+    ({
+       address_family;
+       amazon_address;
+       bgp_asn;
+       bgp_auth_key;
+       connection_id;
+       customer_address;
+       id;
+       name;
+       owner_account_id;
+       route_filter_prefixes;
+       vlan;
+       timeouts;
+     }
+      : aws_dx_hosted_public_virtual_interface)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_hosted_public_virtual_interface __resource);
-  ()
+  let __resource_attributes =
+    ({
+       address_family =
+         Prop.computed __resource_type __resource_id "address_family";
+       amazon_address =
+         Prop.computed __resource_type __resource_id "amazon_address";
+       amazon_side_asn =
+         Prop.computed __resource_type __resource_id
+           "amazon_side_asn";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       aws_device =
+         Prop.computed __resource_type __resource_id "aws_device";
+       bgp_asn =
+         Prop.computed __resource_type __resource_id "bgp_asn";
+       bgp_auth_key =
+         Prop.computed __resource_type __resource_id "bgp_auth_key";
+       connection_id =
+         Prop.computed __resource_type __resource_id "connection_id";
+       customer_address =
+         Prop.computed __resource_type __resource_id
+           "customer_address";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       owner_account_id =
+         Prop.computed __resource_type __resource_id
+           "owner_account_id";
+       route_filter_prefixes =
+         Prop.computed __resource_type __resource_id
+           "route_filter_prefixes";
+       vlan = Prop.computed __resource_type __resource_id "vlan";
+     }
+      : t)
+  in
+  __resource_attributes

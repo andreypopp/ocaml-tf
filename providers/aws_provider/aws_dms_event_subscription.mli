@@ -5,6 +5,19 @@ open! Tf.Prelude
 type aws_dms_event_subscription__timeouts
 type aws_dms_event_subscription
 
+type t = private {
+  arn : string prop;
+  enabled : bool prop;
+  event_categories : string list prop;
+  id : string prop;
+  name : string prop;
+  sns_topic_arn : string prop;
+  source_ids : string list prop;
+  source_type : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_dms_event_subscription :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -17,4 +30,4 @@ val aws_dms_event_subscription :
   sns_topic_arn:string prop ->
   source_type:string prop ->
   string ->
-  unit
+  t

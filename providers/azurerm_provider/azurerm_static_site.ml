@@ -39,24 +39,62 @@ type azurerm_static_site = {
 [@@deriving yojson_of]
 (** azurerm_static_site *)
 
+type t = {
+  api_key : string prop;
+  app_settings : (string * string) list prop;
+  default_host_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  sku_size : string prop;
+  sku_tier : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_static_site ?app_settings ?id ?sku_size ?sku_tier ?tags
     ?timeouts ~location ~name ~resource_group_name ~identity
     __resource_id =
   let __resource_type = "azurerm_static_site" in
   let __resource =
-    {
-      app_settings;
-      id;
-      location;
-      name;
-      resource_group_name;
-      sku_size;
-      sku_tier;
-      tags;
-      identity;
-      timeouts;
-    }
+    ({
+       app_settings;
+       id;
+       location;
+       name;
+       resource_group_name;
+       sku_size;
+       sku_tier;
+       tags;
+       identity;
+       timeouts;
+     }
+      : azurerm_static_site)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_static_site __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_key =
+         Prop.computed __resource_type __resource_id "api_key";
+       app_settings =
+         Prop.computed __resource_type __resource_id "app_settings";
+       default_host_name =
+         Prop.computed __resource_type __resource_id
+           "default_host_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_size =
+         Prop.computed __resource_type __resource_id "sku_size";
+       sku_tier =
+         Prop.computed __resource_type __resource_id "sku_tier";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

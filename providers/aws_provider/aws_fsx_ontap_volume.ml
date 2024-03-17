@@ -113,6 +113,28 @@ type aws_fsx_ontap_volume = {
 [@@deriving yojson_of]
 (** aws_fsx_ontap_volume *)
 
+type t = {
+  arn : string prop;
+  bypass_snaplock_enterprise_retention : bool prop;
+  copy_tags_to_backups : bool prop;
+  file_system_id : string prop;
+  flexcache_endpoint_type : string prop;
+  id : string prop;
+  junction_path : string prop;
+  name : string prop;
+  ontap_volume_type : string prop;
+  security_style : string prop;
+  size_in_megabytes : float prop;
+  skip_final_backup : bool prop;
+  snapshot_policy : string prop;
+  storage_efficiency_enabled : bool prop;
+  storage_virtual_machine_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  uuid : string prop;
+  volume_type : string prop;
+}
+
 let aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
     ?copy_tags_to_backups ?id ?junction_path ?ontap_volume_type
     ?security_style ?skip_final_backup ?snapshot_policy
@@ -121,27 +143,75 @@ let aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
     ~snaplock_configuration ~tiering_policy __resource_id =
   let __resource_type = "aws_fsx_ontap_volume" in
   let __resource =
-    {
-      bypass_snaplock_enterprise_retention;
-      copy_tags_to_backups;
-      id;
-      junction_path;
-      name;
-      ontap_volume_type;
-      security_style;
-      size_in_megabytes;
-      skip_final_backup;
-      snapshot_policy;
-      storage_efficiency_enabled;
-      storage_virtual_machine_id;
-      tags;
-      tags_all;
-      volume_type;
-      snaplock_configuration;
-      tiering_policy;
-      timeouts;
-    }
+    ({
+       bypass_snaplock_enterprise_retention;
+       copy_tags_to_backups;
+       id;
+       junction_path;
+       name;
+       ontap_volume_type;
+       security_style;
+       size_in_megabytes;
+       skip_final_backup;
+       snapshot_policy;
+       storage_efficiency_enabled;
+       storage_virtual_machine_id;
+       tags;
+       tags_all;
+       volume_type;
+       snaplock_configuration;
+       tiering_policy;
+       timeouts;
+     }
+      : aws_fsx_ontap_volume)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_ontap_volume __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       bypass_snaplock_enterprise_retention =
+         Prop.computed __resource_type __resource_id
+           "bypass_snaplock_enterprise_retention";
+       copy_tags_to_backups =
+         Prop.computed __resource_type __resource_id
+           "copy_tags_to_backups";
+       file_system_id =
+         Prop.computed __resource_type __resource_id "file_system_id";
+       flexcache_endpoint_type =
+         Prop.computed __resource_type __resource_id
+           "flexcache_endpoint_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       junction_path =
+         Prop.computed __resource_type __resource_id "junction_path";
+       name = Prop.computed __resource_type __resource_id "name";
+       ontap_volume_type =
+         Prop.computed __resource_type __resource_id
+           "ontap_volume_type";
+       security_style =
+         Prop.computed __resource_type __resource_id "security_style";
+       size_in_megabytes =
+         Prop.computed __resource_type __resource_id
+           "size_in_megabytes";
+       skip_final_backup =
+         Prop.computed __resource_type __resource_id
+           "skip_final_backup";
+       snapshot_policy =
+         Prop.computed __resource_type __resource_id
+           "snapshot_policy";
+       storage_efficiency_enabled =
+         Prop.computed __resource_type __resource_id
+           "storage_efficiency_enabled";
+       storage_virtual_machine_id =
+         Prop.computed __resource_type __resource_id
+           "storage_virtual_machine_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       uuid = Prop.computed __resource_type __resource_id "uuid";
+       volume_type =
+         Prop.computed __resource_type __resource_id "volume_type";
+     }
+      : t)
+  in
+  __resource_attributes

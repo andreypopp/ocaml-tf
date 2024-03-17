@@ -12,6 +12,17 @@ type aws_datasync_task__task_report_config
 type aws_datasync_task__timeouts
 type aws_datasync_task
 
+type t = private {
+  arn : string prop;
+  cloudwatch_log_group_arn : string prop;
+  destination_location_arn : string prop;
+  id : string prop;
+  name : string prop;
+  source_location_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_datasync_task :
   ?cloudwatch_log_group_arn:string prop ->
   ?id:string prop ->
@@ -27,4 +38,4 @@ val aws_datasync_task :
   schedule:aws_datasync_task__schedule list ->
   task_report_config:aws_datasync_task__task_report_config list ->
   string ->
-  unit
+  t

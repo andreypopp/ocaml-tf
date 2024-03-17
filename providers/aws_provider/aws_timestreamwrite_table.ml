@@ -74,22 +74,46 @@ type aws_timestreamwrite_table = {
 [@@deriving yojson_of]
 (** aws_timestreamwrite_table *)
 
+type t = {
+  arn : string prop;
+  database_name : string prop;
+  id : string prop;
+  table_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_timestreamwrite_table ?id ?tags ?tags_all ~database_name
     ~table_name ~magnetic_store_write_properties
     ~retention_properties ~schema __resource_id =
   let __resource_type = "aws_timestreamwrite_table" in
   let __resource =
-    {
-      database_name;
-      id;
-      table_name;
-      tags;
-      tags_all;
-      magnetic_store_write_properties;
-      retention_properties;
-      schema;
-    }
+    ({
+       database_name;
+       id;
+       table_name;
+       tags;
+       tags_all;
+       magnetic_store_write_properties;
+       retention_properties;
+       schema;
+     }
+      : aws_timestreamwrite_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_timestreamwrite_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       table_name =
+         Prop.computed __resource_type __resource_id "table_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

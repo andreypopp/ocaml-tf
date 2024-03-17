@@ -23,15 +23,34 @@ type azurerm_management_group_subscription_association = {
 [@@deriving yojson_of]
 (** azurerm_management_group_subscription_association *)
 
+type t = {
+  id : string prop;
+  management_group_id : string prop;
+  subscription_id : string prop;
+}
+
 let azurerm_management_group_subscription_association ?id ?timeouts
     ~management_group_id ~subscription_id __resource_id =
   let __resource_type =
     "azurerm_management_group_subscription_association"
   in
   let __resource =
-    { id; management_group_id; subscription_id; timeouts }
+    ({ id; management_group_id; subscription_id; timeouts }
+      : azurerm_management_group_subscription_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_management_group_subscription_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       management_group_id =
+         Prop.computed __resource_type __resource_id
+           "management_group_id";
+       subscription_id =
+         Prop.computed __resource_type __resource_id
+           "subscription_id";
+     }
+      : t)
+  in
+  __resource_attributes

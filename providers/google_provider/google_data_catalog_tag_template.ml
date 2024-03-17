@@ -78,22 +78,50 @@ type google_data_catalog_tag_template = {
 [@@deriving yojson_of]
 (** google_data_catalog_tag_template *)
 
+type t = {
+  display_name : string prop;
+  force_delete : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  tag_template_id : string prop;
+}
+
 let google_data_catalog_tag_template ?display_name ?force_delete ?id
     ?project ?region ?timeouts ~tag_template_id ~fields __resource_id
     =
   let __resource_type = "google_data_catalog_tag_template" in
   let __resource =
-    {
-      display_name;
-      force_delete;
-      id;
-      project;
-      region;
-      tag_template_id;
-      fields;
-      timeouts;
-    }
+    ({
+       display_name;
+       force_delete;
+       id;
+       project;
+       region;
+       tag_template_id;
+       fields;
+       timeouts;
+     }
+      : google_data_catalog_tag_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_tag_template __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       force_delete =
+         Prop.computed __resource_type __resource_id "force_delete";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       tag_template_id =
+         Prop.computed __resource_type __resource_id
+           "tag_template_id";
+     }
+      : t)
+  in
+  __resource_attributes

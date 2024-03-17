@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_postgresql_flexible_server_firewall_rule__timeouts
 type azurerm_postgresql_flexible_server_firewall_rule
 
+type t = private {
+  end_ip_address : string prop;
+  id : string prop;
+  name : string prop;
+  server_id : string prop;
+  start_ip_address : string prop;
+}
+
 val azurerm_postgresql_flexible_server_firewall_rule :
   ?id:string prop ->
   ?timeouts:
@@ -14,4 +22,4 @@ val azurerm_postgresql_flexible_server_firewall_rule :
   server_id:string prop ->
   start_ip_address:string prop ->
   string ->
-  unit
+  t

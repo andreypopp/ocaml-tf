@@ -28,12 +28,43 @@ type kubernetes_labels = {
 [@@deriving yojson_of]
 (** kubernetes_labels *)
 
+type t = {
+  api_version : string prop;
+  field_manager : string prop;
+  force : bool prop;
+  id : string prop;
+  kind : string prop;
+  labels : (string * string) list prop;
+}
+
 let kubernetes_labels ?field_manager ?force ?id ~api_version ~kind
     ~labels ~metadata __resource_id =
   let __resource_type = "kubernetes_labels" in
   let __resource =
-    { api_version; field_manager; force; id; kind; labels; metadata }
+    ({
+       api_version;
+       field_manager;
+       force;
+       id;
+       kind;
+       labels;
+       metadata;
+     }
+      : kubernetes_labels)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_labels __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_version =
+         Prop.computed __resource_type __resource_id "api_version";
+       field_manager =
+         Prop.computed __resource_type __resource_id "field_manager";
+       force = Prop.computed __resource_type __resource_id "force";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       labels = Prop.computed __resource_type __resource_id "labels";
+     }
+      : t)
+  in
+  __resource_attributes

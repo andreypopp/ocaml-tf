@@ -25,15 +25,44 @@ type azurerm_network_function_azure_traffic_collector = {
 [@@deriving yojson_of]
 (** azurerm_network_function_azure_traffic_collector *)
 
+type t = {
+  collector_policy_ids : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  virtual_hub_id : string list prop;
+}
+
 let azurerm_network_function_azure_traffic_collector ?id ?tags
     ?timeouts ~location ~name ~resource_group_name __resource_id =
   let __resource_type =
     "azurerm_network_function_azure_traffic_collector"
   in
   let __resource =
-    { id; location; name; resource_group_name; tags; timeouts }
+    ({ id; location; name; resource_group_name; tags; timeouts }
+      : azurerm_network_function_azure_traffic_collector)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_function_azure_traffic_collector
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       collector_policy_ids =
+         Prop.computed __resource_type __resource_id
+           "collector_policy_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_hub_id =
+         Prop.computed __resource_type __resource_id "virtual_hub_id";
+     }
+      : t)
+  in
+  __resource_attributes

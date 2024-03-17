@@ -83,6 +83,22 @@ type azurerm_application_insights_standard_web_test = {
 [@@deriving yojson_of]
 (** azurerm_application_insights_standard_web_test *)
 
+type t = {
+  application_insights_id : string prop;
+  description : string prop;
+  enabled : bool prop;
+  frequency : float prop;
+  geo_locations : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  retry_enabled : bool prop;
+  synthetic_monitor_id : string prop;
+  tags : (string * string) list prop;
+  timeout : float prop;
+}
+
 let azurerm_application_insights_standard_web_test ?description
     ?enabled ?frequency ?id ?retry_enabled ?tags ?timeout ?timeouts
     ~application_insights_id ~geo_locations ~location ~name
@@ -91,25 +107,57 @@ let azurerm_application_insights_standard_web_test ?description
     "azurerm_application_insights_standard_web_test"
   in
   let __resource =
-    {
-      application_insights_id;
-      description;
-      enabled;
-      frequency;
-      geo_locations;
-      id;
-      location;
-      name;
-      resource_group_name;
-      retry_enabled;
-      tags;
-      timeout;
-      request;
-      timeouts;
-      validation_rules;
-    }
+    ({
+       application_insights_id;
+       description;
+       enabled;
+       frequency;
+       geo_locations;
+       id;
+       location;
+       name;
+       resource_group_name;
+       retry_enabled;
+       tags;
+       timeout;
+       request;
+       timeouts;
+       validation_rules;
+     }
+      : azurerm_application_insights_standard_web_test)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_insights_standard_web_test
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_insights_id =
+         Prop.computed __resource_type __resource_id
+           "application_insights_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       geo_locations =
+         Prop.computed __resource_type __resource_id "geo_locations";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       retry_enabled =
+         Prop.computed __resource_type __resource_id "retry_enabled";
+       synthetic_monitor_id =
+         Prop.computed __resource_type __resource_id
+           "synthetic_monitor_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+     }
+      : t)
+  in
+  __resource_attributes

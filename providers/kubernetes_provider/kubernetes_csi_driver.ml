@@ -42,9 +42,16 @@ type kubernetes_csi_driver = {
 [@@deriving yojson_of]
 (** kubernetes_csi_driver *)
 
+type t = { id : string prop }
+
 let kubernetes_csi_driver ?id ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_csi_driver" in
-  let __resource = { id; metadata; spec } in
+  let __resource =
+    ({ id; metadata; spec } : kubernetes_csi_driver)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_csi_driver __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

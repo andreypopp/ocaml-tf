@@ -20,6 +20,15 @@ type azurerm_monitor_action_rule_suppression__suppression
 type azurerm_monitor_action_rule_suppression__timeouts
 type azurerm_monitor_action_rule_suppression
 
+type t = private {
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_monitor_action_rule_suppression :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -33,4 +42,4 @@ val azurerm_monitor_action_rule_suppression :
   suppression:
     azurerm_monitor_action_rule_suppression__suppression list ->
   string ->
-  unit
+  t

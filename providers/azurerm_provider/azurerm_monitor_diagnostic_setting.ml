@@ -88,6 +88,18 @@ type azurerm_monitor_diagnostic_setting = {
 [@@deriving yojson_of]
 (** azurerm_monitor_diagnostic_setting *)
 
+type t = {
+  eventhub_authorization_rule_id : string prop;
+  eventhub_name : string prop;
+  id : string prop;
+  log_analytics_destination_type : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  partner_solution_id : string prop;
+  storage_account_id : string prop;
+  target_resource_id : string prop;
+}
+
 let azurerm_monitor_diagnostic_setting
     ?eventhub_authorization_rule_id ?eventhub_name ?id
     ?log_analytics_destination_type ?log_analytics_workspace_id
@@ -95,22 +107,50 @@ let azurerm_monitor_diagnostic_setting
     ~target_resource_id ~enabled_log ~log ~metric __resource_id =
   let __resource_type = "azurerm_monitor_diagnostic_setting" in
   let __resource =
-    {
-      eventhub_authorization_rule_id;
-      eventhub_name;
-      id;
-      log_analytics_destination_type;
-      log_analytics_workspace_id;
-      name;
-      partner_solution_id;
-      storage_account_id;
-      target_resource_id;
-      enabled_log;
-      log;
-      metric;
-      timeouts;
-    }
+    ({
+       eventhub_authorization_rule_id;
+       eventhub_name;
+       id;
+       log_analytics_destination_type;
+       log_analytics_workspace_id;
+       name;
+       partner_solution_id;
+       storage_account_id;
+       target_resource_id;
+       enabled_log;
+       log;
+       metric;
+       timeouts;
+     }
+      : azurerm_monitor_diagnostic_setting)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_diagnostic_setting __resource);
-  ()
+  let __resource_attributes =
+    ({
+       eventhub_authorization_rule_id =
+         Prop.computed __resource_type __resource_id
+           "eventhub_authorization_rule_id";
+       eventhub_name =
+         Prop.computed __resource_type __resource_id "eventhub_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_destination_type =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_destination_type";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       partner_solution_id =
+         Prop.computed __resource_type __resource_id
+           "partner_solution_id";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+       target_resource_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

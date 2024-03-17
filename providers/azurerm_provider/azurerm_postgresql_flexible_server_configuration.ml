@@ -24,13 +24,33 @@ type azurerm_postgresql_flexible_server_configuration = {
 [@@deriving yojson_of]
 (** azurerm_postgresql_flexible_server_configuration *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  server_id : string prop;
+  value : string prop;
+}
+
 let azurerm_postgresql_flexible_server_configuration ?id ?timeouts
     ~name ~server_id ~value __resource_id =
   let __resource_type =
     "azurerm_postgresql_flexible_server_configuration"
   in
-  let __resource = { id; name; server_id; value; timeouts } in
+  let __resource =
+    ({ id; name; server_id; value; timeouts }
+      : azurerm_postgresql_flexible_server_configuration)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_postgresql_flexible_server_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

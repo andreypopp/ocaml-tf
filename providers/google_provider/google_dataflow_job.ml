@@ -59,6 +59,35 @@ type google_dataflow_job = {
 [@@deriving yojson_of]
 (** google_dataflow_job *)
 
+type t = {
+  additional_experiments : string list prop;
+  effective_labels : (string * string) list prop;
+  enable_streaming_engine : bool prop;
+  id : string prop;
+  ip_configuration : string prop;
+  job_id : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  machine_type : string prop;
+  max_workers : float prop;
+  name : string prop;
+  network : string prop;
+  on_delete : string prop;
+  parameters : (string * string) list prop;
+  project : string prop;
+  region : string prop;
+  service_account_email : string prop;
+  skip_wait_on_job_termination : bool prop;
+  state : string prop;
+  subnetwork : string prop;
+  temp_gcs_location : string prop;
+  template_gcs_path : string prop;
+  terraform_labels : (string * string) list prop;
+  transform_name_mapping : (string * string) list prop;
+  type_ : string prop;
+  zone : string prop;
+}
+
 let google_dataflow_job ?additional_experiments
     ?enable_streaming_engine ?id ?ip_configuration ?kms_key_name
     ?labels ?machine_type ?max_workers ?network ?on_delete
@@ -68,31 +97,91 @@ let google_dataflow_job ?additional_experiments
     __resource_id =
   let __resource_type = "google_dataflow_job" in
   let __resource =
-    {
-      additional_experiments;
-      enable_streaming_engine;
-      id;
-      ip_configuration;
-      kms_key_name;
-      labels;
-      machine_type;
-      max_workers;
-      name;
-      network;
-      on_delete;
-      parameters;
-      project;
-      region;
-      service_account_email;
-      skip_wait_on_job_termination;
-      subnetwork;
-      temp_gcs_location;
-      template_gcs_path;
-      transform_name_mapping;
-      zone;
-      timeouts;
-    }
+    ({
+       additional_experiments;
+       enable_streaming_engine;
+       id;
+       ip_configuration;
+       kms_key_name;
+       labels;
+       machine_type;
+       max_workers;
+       name;
+       network;
+       on_delete;
+       parameters;
+       project;
+       region;
+       service_account_email;
+       skip_wait_on_job_termination;
+       subnetwork;
+       temp_gcs_location;
+       template_gcs_path;
+       transform_name_mapping;
+       zone;
+       timeouts;
+     }
+      : google_dataflow_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataflow_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_experiments =
+         Prop.computed __resource_type __resource_id
+           "additional_experiments";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       enable_streaming_engine =
+         Prop.computed __resource_type __resource_id
+           "enable_streaming_engine";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_configuration =
+         Prop.computed __resource_type __resource_id
+           "ip_configuration";
+       job_id = Prop.computed __resource_type __resource_id "job_id";
+       kms_key_name =
+         Prop.computed __resource_type __resource_id "kms_key_name";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       machine_type =
+         Prop.computed __resource_type __resource_id "machine_type";
+       max_workers =
+         Prop.computed __resource_type __resource_id "max_workers";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       on_delete =
+         Prop.computed __resource_type __resource_id "on_delete";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       service_account_email =
+         Prop.computed __resource_type __resource_id
+           "service_account_email";
+       skip_wait_on_job_termination =
+         Prop.computed __resource_type __resource_id
+           "skip_wait_on_job_termination";
+       state = Prop.computed __resource_type __resource_id "state";
+       subnetwork =
+         Prop.computed __resource_type __resource_id "subnetwork";
+       temp_gcs_location =
+         Prop.computed __resource_type __resource_id
+           "temp_gcs_location";
+       template_gcs_path =
+         Prop.computed __resource_type __resource_id
+           "template_gcs_path";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       transform_name_mapping =
+         Prop.computed __resource_type __resource_id
+           "transform_name_mapping";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

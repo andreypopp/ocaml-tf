@@ -5,6 +5,16 @@ open! Tf.Prelude
 type azurerm_netapp_volume_quota_rule__timeouts
 type azurerm_netapp_volume_quota_rule
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  quota_size_in_kib : float prop;
+  quota_target : string prop;
+  quota_type : string prop;
+  volume_id : string prop;
+}
+
 val azurerm_netapp_volume_quota_rule :
   ?id:string prop ->
   ?quota_target:string prop ->
@@ -15,4 +25,4 @@ val azurerm_netapp_volume_quota_rule :
   quota_type:string prop ->
   volume_id:string prop ->
   string ->
-  unit
+  t

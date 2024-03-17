@@ -60,26 +60,65 @@ update the database's version_retention_period. *)
 [@@deriving yojson_of]
 (** google_spanner_database *)
 
+type t = {
+  database_dialect : string prop;
+  ddl : string list prop;
+  deletion_protection : bool prop;
+  enable_drop_protection : bool prop;
+  id : string prop;
+  instance : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  version_retention_period : string prop;
+}
+
 let google_spanner_database ?database_dialect ?ddl
     ?deletion_protection ?enable_drop_protection ?id ?project
     ?version_retention_period ?timeouts ~instance ~name
     ~encryption_config __resource_id =
   let __resource_type = "google_spanner_database" in
   let __resource =
-    {
-      database_dialect;
-      ddl;
-      deletion_protection;
-      enable_drop_protection;
-      id;
-      instance;
-      name;
-      project;
-      version_retention_period;
-      encryption_config;
-      timeouts;
-    }
+    ({
+       database_dialect;
+       ddl;
+       deletion_protection;
+       enable_drop_protection;
+       id;
+       instance;
+       name;
+       project;
+       version_retention_period;
+       encryption_config;
+       timeouts;
+     }
+      : google_spanner_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_spanner_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       database_dialect =
+         Prop.computed __resource_type __resource_id
+           "database_dialect";
+       ddl = Prop.computed __resource_type __resource_id "ddl";
+       deletion_protection =
+         Prop.computed __resource_type __resource_id
+           "deletion_protection";
+       enable_drop_protection =
+         Prop.computed __resource_type __resource_id
+           "enable_drop_protection";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance =
+         Prop.computed __resource_type __resource_id "instance";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       version_retention_period =
+         Prop.computed __resource_type __resource_id
+           "version_retention_period";
+     }
+      : t)
+  in
+  __resource_attributes

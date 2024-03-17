@@ -26,6 +26,12 @@ type kubernetes_service__status = {
 
 type kubernetes_service
 
+type t = private {
+  id : string prop;
+  status : kubernetes_service__status list prop;
+  wait_for_load_balancer : bool prop;
+}
+
 val kubernetes_service :
   ?id:string prop ->
   ?wait_for_load_balancer:bool prop ->
@@ -33,4 +39,4 @@ val kubernetes_service :
   metadata:kubernetes_service__metadata list ->
   spec:kubernetes_service__spec list ->
   string ->
-  unit
+  t

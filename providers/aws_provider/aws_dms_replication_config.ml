@@ -58,6 +58,22 @@ type aws_dms_replication_config = {
 [@@deriving yojson_of]
 (** aws_dms_replication_config *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  replication_config_identifier : string prop;
+  replication_settings : string prop;
+  replication_type : string prop;
+  resource_identifier : string prop;
+  source_endpoint_arn : string prop;
+  start_replication : bool prop;
+  supplemental_settings : string prop;
+  table_mappings : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_endpoint_arn : string prop;
+}
+
 let aws_dms_replication_config ?id ?replication_settings
     ?resource_identifier ?start_replication ?supplemental_settings
     ?tags ?tags_all ?timeouts ~replication_config_identifier
@@ -65,23 +81,60 @@ let aws_dms_replication_config ?id ?replication_settings
     ~target_endpoint_arn ~compute_config __resource_id =
   let __resource_type = "aws_dms_replication_config" in
   let __resource =
-    {
-      id;
-      replication_config_identifier;
-      replication_settings;
-      replication_type;
-      resource_identifier;
-      source_endpoint_arn;
-      start_replication;
-      supplemental_settings;
-      table_mappings;
-      tags;
-      tags_all;
-      target_endpoint_arn;
-      compute_config;
-      timeouts;
-    }
+    ({
+       id;
+       replication_config_identifier;
+       replication_settings;
+       replication_type;
+       resource_identifier;
+       source_endpoint_arn;
+       start_replication;
+       supplemental_settings;
+       table_mappings;
+       tags;
+       tags_all;
+       target_endpoint_arn;
+       compute_config;
+       timeouts;
+     }
+      : aws_dms_replication_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dms_replication_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       replication_config_identifier =
+         Prop.computed __resource_type __resource_id
+           "replication_config_identifier";
+       replication_settings =
+         Prop.computed __resource_type __resource_id
+           "replication_settings";
+       replication_type =
+         Prop.computed __resource_type __resource_id
+           "replication_type";
+       resource_identifier =
+         Prop.computed __resource_type __resource_id
+           "resource_identifier";
+       source_endpoint_arn =
+         Prop.computed __resource_type __resource_id
+           "source_endpoint_arn";
+       start_replication =
+         Prop.computed __resource_type __resource_id
+           "start_replication";
+       supplemental_settings =
+         Prop.computed __resource_type __resource_id
+           "supplemental_settings";
+       table_mappings =
+         Prop.computed __resource_type __resource_id "table_mappings";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       target_endpoint_arn =
+         Prop.computed __resource_type __resource_id
+           "target_endpoint_arn";
+     }
+      : t)
+  in
+  __resource_attributes

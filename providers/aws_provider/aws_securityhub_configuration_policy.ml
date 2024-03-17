@@ -125,10 +125,30 @@ type aws_securityhub_configuration_policy = {
 [@@deriving yojson_of]
 (** aws_securityhub_configuration_policy *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let aws_securityhub_configuration_policy ?description ?id ~name
     ~configuration_policy __resource_id =
   let __resource_type = "aws_securityhub_configuration_policy" in
-  let __resource = { description; id; name; configuration_policy } in
+  let __resource =
+    ({ description; id; name; configuration_policy }
+      : aws_securityhub_configuration_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_configuration_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

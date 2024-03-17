@@ -16,10 +16,33 @@ type cloudflare_total_tls = {
 (** Provides a resource which manages Total TLS for a zone.
  *)
 
+type t = {
+  certificate_authority : string prop;
+  enabled : bool prop;
+  id : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_total_tls ?certificate_authority ?id ~enabled ~zone_id
     __resource_id =
   let __resource_type = "cloudflare_total_tls" in
-  let __resource = { certificate_authority; enabled; id; zone_id } in
+  let __resource =
+    ({ certificate_authority; enabled; id; zone_id }
+      : cloudflare_total_tls)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_total_tls __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_authority =
+         Prop.computed __resource_type __resource_id
+           "certificate_authority";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

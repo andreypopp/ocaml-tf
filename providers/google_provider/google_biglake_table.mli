@@ -7,6 +7,18 @@ type google_biglake_table__hive_options
 type google_biglake_table__timeouts
 type google_biglake_table
 
+type t = private {
+  create_time : string prop;
+  database : string prop;
+  delete_time : string prop;
+  etag : string prop;
+  expire_time : string prop;
+  id : string prop;
+  name : string prop;
+  type_ : string prop;
+  update_time : string prop;
+}
+
 val google_biglake_table :
   ?database:string prop ->
   ?id:string prop ->
@@ -15,4 +27,4 @@ val google_biglake_table :
   name:string prop ->
   hive_options:google_biglake_table__hive_options list ->
   string ->
-  unit
+  t

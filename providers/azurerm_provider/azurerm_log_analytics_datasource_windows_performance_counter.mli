@@ -6,6 +6,17 @@ type azurerm_log_analytics_datasource_windows_performance_counter__timeouts
 
 type azurerm_log_analytics_datasource_windows_performance_counter
 
+type t = private {
+  counter_name : string prop;
+  id : string prop;
+  instance_name : string prop;
+  interval_seconds : float prop;
+  name : string prop;
+  object_name : string prop;
+  resource_group_name : string prop;
+  workspace_name : string prop;
+}
+
 val azurerm_log_analytics_datasource_windows_performance_counter :
   ?id:string prop ->
   ?timeouts:
@@ -18,4 +29,4 @@ val azurerm_log_analytics_datasource_windows_performance_counter :
   resource_group_name:string prop ->
   workspace_name:string prop ->
   string ->
-  unit
+  t

@@ -39,23 +39,57 @@ type aws_connect_routing_profile = {
 [@@deriving yojson_of]
 (** aws_connect_routing_profile *)
 
+type t = {
+  arn : string prop;
+  default_outbound_queue_id : string prop;
+  description : string prop;
+  id : string prop;
+  instance_id : string prop;
+  name : string prop;
+  routing_profile_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_connect_routing_profile ?id ?tags ?tags_all
     ~default_outbound_queue_id ~description ~instance_id ~name
     ~media_concurrencies ~queue_configs __resource_id =
   let __resource_type = "aws_connect_routing_profile" in
   let __resource =
-    {
-      default_outbound_queue_id;
-      description;
-      id;
-      instance_id;
-      name;
-      tags;
-      tags_all;
-      media_concurrencies;
-      queue_configs;
-    }
+    ({
+       default_outbound_queue_id;
+       description;
+       id;
+       instance_id;
+       name;
+       tags;
+       tags_all;
+       media_concurrencies;
+       queue_configs;
+     }
+      : aws_connect_routing_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_routing_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       default_outbound_queue_id =
+         Prop.computed __resource_type __resource_id
+           "default_outbound_queue_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_id =
+         Prop.computed __resource_type __resource_id "instance_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       routing_profile_id =
+         Prop.computed __resource_type __resource_id
+           "routing_profile_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

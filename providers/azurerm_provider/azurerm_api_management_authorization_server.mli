@@ -6,6 +6,28 @@ type azurerm_api_management_authorization_server__timeouts
 type azurerm_api_management_authorization_server__token_body_parameter
 type azurerm_api_management_authorization_server
 
+type t = private {
+  api_management_name : string prop;
+  authorization_endpoint : string prop;
+  authorization_methods : string list prop;
+  bearer_token_sending_methods : string list prop;
+  client_authentication_method : string list prop;
+  client_id : string prop;
+  client_registration_endpoint : string prop;
+  client_secret : string prop;
+  default_scope : string prop;
+  description : string prop;
+  display_name : string prop;
+  grant_types : string list prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  resource_owner_password : string prop;
+  resource_owner_username : string prop;
+  support_state : bool prop;
+  token_endpoint : string prop;
+}
+
 val azurerm_api_management_authorization_server :
   ?bearer_token_sending_methods:string prop list ->
   ?client_authentication_method:string prop list ->
@@ -31,4 +53,4 @@ val azurerm_api_management_authorization_server :
     azurerm_api_management_authorization_server__token_body_parameter
     list ->
   string ->
-  unit
+  t

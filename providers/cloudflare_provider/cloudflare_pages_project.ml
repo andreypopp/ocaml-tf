@@ -181,20 +181,49 @@ type cloudflare_pages_project = {
 (** Provides a resource which manages Cloudflare Pages projects.
  *)
 
+type t = {
+  account_id : string prop;
+  created_on : string prop;
+  domains : string list prop;
+  id : string prop;
+  name : string prop;
+  production_branch : string prop;
+  subdomain : string prop;
+}
+
 let cloudflare_pages_project ?id ~account_id ~name ~production_branch
     ~build_config ~deployment_configs ~source __resource_id =
   let __resource_type = "cloudflare_pages_project" in
   let __resource =
-    {
-      account_id;
-      id;
-      name;
-      production_branch;
-      build_config;
-      deployment_configs;
-      source;
-    }
+    ({
+       account_id;
+       id;
+       name;
+       production_branch;
+       build_config;
+       deployment_configs;
+       source;
+     }
+      : cloudflare_pages_project)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_pages_project __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       created_on =
+         Prop.computed __resource_type __resource_id "created_on";
+       domains =
+         Prop.computed __resource_type __resource_id "domains";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       production_branch =
+         Prop.computed __resource_type __resource_id
+           "production_branch";
+       subdomain =
+         Prop.computed __resource_type __resource_id "subdomain";
+     }
+      : t)
+  in
+  __resource_attributes

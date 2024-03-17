@@ -10,6 +10,22 @@ type google_network_connectivity_hub__routing_vpcs = {
 
 type google_network_connectivity_hub
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  routing_vpcs :
+    google_network_connectivity_hub__routing_vpcs list prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  unique_id : string prop;
+  update_time : string prop;
+}
+
 val google_network_connectivity_hub :
   ?description:string prop ->
   ?id:string prop ->
@@ -18,4 +34,4 @@ val google_network_connectivity_hub :
   ?timeouts:google_network_connectivity_hub__timeouts ->
   name:string prop ->
   string ->
-  unit
+  t

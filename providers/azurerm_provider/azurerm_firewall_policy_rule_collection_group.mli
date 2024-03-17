@@ -21,6 +21,13 @@ type azurerm_firewall_policy_rule_collection_group__network_rule_collection
 type azurerm_firewall_policy_rule_collection_group__timeouts
 type azurerm_firewall_policy_rule_collection_group
 
+type t = private {
+  firewall_policy_id : string prop;
+  id : string prop;
+  name : string prop;
+  priority : float prop;
+}
+
 val azurerm_firewall_policy_rule_collection_group :
   ?id:string prop ->
   ?timeouts:azurerm_firewall_policy_rule_collection_group__timeouts ->
@@ -37,4 +44,4 @@ val azurerm_firewall_policy_rule_collection_group :
     azurerm_firewall_policy_rule_collection_group__network_rule_collection
     list ->
   string ->
-  unit
+  t

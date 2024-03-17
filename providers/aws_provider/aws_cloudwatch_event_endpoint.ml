@@ -60,20 +60,44 @@ type aws_cloudwatch_event_endpoint = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_endpoint *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  endpoint_url : string prop;
+  id : string prop;
+  name : string prop;
+  role_arn : string prop;
+}
+
 let aws_cloudwatch_event_endpoint ?description ?id ?role_arn ~name
     ~event_bus ~replication_config ~routing_config __resource_id =
   let __resource_type = "aws_cloudwatch_event_endpoint" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      role_arn;
-      event_bus;
-      replication_config;
-      routing_config;
-    }
+    ({
+       description;
+       id;
+       name;
+       role_arn;
+       event_bus;
+       replication_config;
+       routing_config;
+     }
+      : aws_cloudwatch_event_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       endpoint_url =
+         Prop.computed __resource_type __resource_id "endpoint_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+     }
+      : t)
+  in
+  __resource_attributes

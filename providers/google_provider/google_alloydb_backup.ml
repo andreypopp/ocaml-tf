@@ -64,26 +64,111 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_alloydb_backup *)
 
+type t = {
+  annotations : (string * string) list prop;
+  backup_id : string prop;
+  cluster_name : string prop;
+  cluster_uid : string prop;
+  create_time : string prop;
+  delete_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  encryption_info : google_alloydb_backup__encryption_info list prop;
+  etag : string prop;
+  expiry_quantity : google_alloydb_backup__expiry_quantity list prop;
+  expiry_time : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  size_bytes : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_alloydb_backup ?annotations ?description ?display_name ?id
     ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
     ~location ~encryption_config __resource_id =
   let __resource_type = "google_alloydb_backup" in
   let __resource =
-    {
-      annotations;
-      backup_id;
-      cluster_name;
-      description;
-      display_name;
-      id;
-      labels;
-      location;
-      project;
-      type_;
-      encryption_config;
-      timeouts;
-    }
+    ({
+       annotations;
+       backup_id;
+       cluster_name;
+       description;
+       display_name;
+       id;
+       labels;
+       location;
+       project;
+       type_;
+       encryption_config;
+       timeouts;
+     }
+      : google_alloydb_backup)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_alloydb_backup __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       backup_id =
+         Prop.computed __resource_type __resource_id "backup_id";
+       cluster_name =
+         Prop.computed __resource_type __resource_id "cluster_name";
+       cluster_uid =
+         Prop.computed __resource_type __resource_id "cluster_uid";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       encryption_info =
+         Prop.computed __resource_type __resource_id
+           "encryption_info";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       expiry_quantity =
+         Prop.computed __resource_type __resource_id
+           "expiry_quantity";
+       expiry_time =
+         Prop.computed __resource_type __resource_id "expiry_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       size_bytes =
+         Prop.computed __resource_type __resource_id "size_bytes";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

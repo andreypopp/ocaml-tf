@@ -123,6 +123,19 @@ Optional URL of the subnetwork to which all network endpoints in the NEG belong.
 [@@deriving yojson_of]
 (** google_compute_region_network_endpoint_group *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  network : string prop;
+  network_endpoint_type : string prop;
+  project : string prop;
+  psc_target_service : string prop;
+  region : string prop;
+  self_link : string prop;
+  subnetwork : string prop;
+}
+
 let google_compute_region_network_endpoint_group ?description ?id
     ?network ?network_endpoint_type ?project ?psc_target_service
     ?subnetwork ?timeouts ~name ~region ~app_engine ~cloud_function
@@ -131,23 +144,48 @@ let google_compute_region_network_endpoint_group ?description ?id
     "google_compute_region_network_endpoint_group"
   in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      network;
-      network_endpoint_type;
-      project;
-      psc_target_service;
-      region;
-      subnetwork;
-      app_engine;
-      cloud_function;
-      cloud_run;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       network;
+       network_endpoint_type;
+       project;
+       psc_target_service;
+       region;
+       subnetwork;
+       app_engine;
+       cloud_function;
+       cloud_run;
+       timeouts;
+     }
+      : google_compute_region_network_endpoint_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_network_endpoint_group
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       network_endpoint_type =
+         Prop.computed __resource_type __resource_id
+           "network_endpoint_type";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       psc_target_service =
+         Prop.computed __resource_type __resource_id
+           "psc_target_service";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       subnetwork =
+         Prop.computed __resource_type __resource_id "subnetwork";
+     }
+      : t)
+  in
+  __resource_attributes

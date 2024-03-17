@@ -20,6 +20,17 @@ type aws_iot_thing_group__metadata = {
 
 type aws_iot_thing_group
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  metadata : aws_iot_thing_group__metadata list prop;
+  name : string prop;
+  parent_group_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : float prop;
+}
+
 val aws_iot_thing_group :
   ?id:string prop ->
   ?parent_group_name:string prop ->
@@ -28,4 +39,4 @@ val aws_iot_thing_group :
   name:string prop ->
   properties:aws_iot_thing_group__properties list ->
   string ->
-  unit
+  t

@@ -6,6 +6,11 @@ type aws_autoscaling_traffic_source_attachment__timeouts
 type aws_autoscaling_traffic_source_attachment__traffic_source
 type aws_autoscaling_traffic_source_attachment
 
+type t = private {
+  autoscaling_group_name : string prop;
+  id : string prop;
+}
+
 val aws_autoscaling_traffic_source_attachment :
   ?id:string prop ->
   ?timeouts:aws_autoscaling_traffic_source_attachment__timeouts ->
@@ -13,4 +18,4 @@ val aws_autoscaling_traffic_source_attachment :
   traffic_source:
     aws_autoscaling_traffic_source_attachment__traffic_source list ->
   string ->
-  unit
+  t

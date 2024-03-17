@@ -41,6 +41,20 @@ type google_monitoring_alert_policy__creation_record = {
 
 type google_monitoring_alert_policy
 
+type t = private {
+  combiner : string prop;
+  creation_record :
+    google_monitoring_alert_policy__creation_record list prop;
+  display_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  notification_channels : string list prop;
+  project : string prop;
+  severity : string prop;
+  user_labels : (string * string) list prop;
+}
+
 val google_monitoring_alert_policy :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -55,4 +69,4 @@ val google_monitoring_alert_policy :
   conditions:google_monitoring_alert_policy__conditions list ->
   documentation:google_monitoring_alert_policy__documentation list ->
   string ->
-  unit
+  t

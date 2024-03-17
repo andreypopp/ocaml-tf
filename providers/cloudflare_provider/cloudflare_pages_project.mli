@@ -19,6 +19,16 @@ type cloudflare_pages_project__source__config
 type cloudflare_pages_project__source
 type cloudflare_pages_project
 
+type t = private {
+  account_id : string prop;
+  created_on : string prop;
+  domains : string list prop;
+  id : string prop;
+  name : string prop;
+  production_branch : string prop;
+  subdomain : string prop;
+}
+
 val cloudflare_pages_project :
   ?id:string prop ->
   account_id:string prop ->
@@ -29,4 +39,4 @@ val cloudflare_pages_project :
     cloudflare_pages_project__deployment_configs list ->
   source:cloudflare_pages_project__source list ->
   string ->
-  unit
+  t

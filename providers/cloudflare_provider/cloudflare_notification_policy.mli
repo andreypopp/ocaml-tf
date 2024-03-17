@@ -8,6 +8,17 @@ type cloudflare_notification_policy__pagerduty_integration
 type cloudflare_notification_policy__webhooks_integration
 type cloudflare_notification_policy
 
+type t = private {
+  account_id : string prop;
+  alert_type : string prop;
+  created : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  modified : string prop;
+  name : string prop;
+}
+
 val cloudflare_notification_policy :
   ?description:string prop ->
   ?id:string prop ->
@@ -23,4 +34,4 @@ val cloudflare_notification_policy :
   webhooks_integration:
     cloudflare_notification_policy__webhooks_integration list ->
   string ->
-  unit
+  t

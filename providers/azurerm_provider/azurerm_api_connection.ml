@@ -27,22 +27,51 @@ type azurerm_api_connection = {
 [@@deriving yojson_of]
 (** azurerm_api_connection *)
 
+type t = {
+  display_name : string prop;
+  id : string prop;
+  managed_api_id : string prop;
+  name : string prop;
+  parameter_values : (string * string) list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_api_connection ?display_name ?id ?parameter_values ?tags
     ?timeouts ~managed_api_id ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_api_connection" in
   let __resource =
-    {
-      display_name;
-      id;
-      managed_api_id;
-      name;
-      parameter_values;
-      resource_group_name;
-      tags;
-      timeouts;
-    }
+    ({
+       display_name;
+       id;
+       managed_api_id;
+       name;
+       parameter_values;
+       resource_group_name;
+       tags;
+       timeouts;
+     }
+      : azurerm_api_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       managed_api_id =
+         Prop.computed __resource_type __resource_id "managed_api_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameter_values =
+         Prop.computed __resource_type __resource_id
+           "parameter_values";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

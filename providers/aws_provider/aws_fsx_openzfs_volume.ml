@@ -72,6 +72,23 @@ type aws_fsx_openzfs_volume = {
 [@@deriving yojson_of]
 (** aws_fsx_openzfs_volume *)
 
+type t = {
+  arn : string prop;
+  copy_tags_to_snapshots : bool prop;
+  data_compression_type : string prop;
+  delete_volume_options : string list prop;
+  id : string prop;
+  name : string prop;
+  parent_volume_id : string prop;
+  read_only : bool prop;
+  record_size_kib : float prop;
+  storage_capacity_quota_gib : float prop;
+  storage_capacity_reservation_gib : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  volume_type : string prop;
+}
+
 let aws_fsx_openzfs_volume ?copy_tags_to_snapshots
     ?data_compression_type ?delete_volume_options ?id ?read_only
     ?record_size_kib ?storage_capacity_quota_gib
@@ -80,26 +97,63 @@ let aws_fsx_openzfs_volume ?copy_tags_to_snapshots
     ~user_and_group_quotas __resource_id =
   let __resource_type = "aws_fsx_openzfs_volume" in
   let __resource =
-    {
-      copy_tags_to_snapshots;
-      data_compression_type;
-      delete_volume_options;
-      id;
-      name;
-      parent_volume_id;
-      read_only;
-      record_size_kib;
-      storage_capacity_quota_gib;
-      storage_capacity_reservation_gib;
-      tags;
-      tags_all;
-      volume_type;
-      nfs_exports;
-      origin_snapshot;
-      timeouts;
-      user_and_group_quotas;
-    }
+    ({
+       copy_tags_to_snapshots;
+       data_compression_type;
+       delete_volume_options;
+       id;
+       name;
+       parent_volume_id;
+       read_only;
+       record_size_kib;
+       storage_capacity_quota_gib;
+       storage_capacity_reservation_gib;
+       tags;
+       tags_all;
+       volume_type;
+       nfs_exports;
+       origin_snapshot;
+       timeouts;
+       user_and_group_quotas;
+     }
+      : aws_fsx_openzfs_volume)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_openzfs_volume __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       copy_tags_to_snapshots =
+         Prop.computed __resource_type __resource_id
+           "copy_tags_to_snapshots";
+       data_compression_type =
+         Prop.computed __resource_type __resource_id
+           "data_compression_type";
+       delete_volume_options =
+         Prop.computed __resource_type __resource_id
+           "delete_volume_options";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_volume_id =
+         Prop.computed __resource_type __resource_id
+           "parent_volume_id";
+       read_only =
+         Prop.computed __resource_type __resource_id "read_only";
+       record_size_kib =
+         Prop.computed __resource_type __resource_id
+           "record_size_kib";
+       storage_capacity_quota_gib =
+         Prop.computed __resource_type __resource_id
+           "storage_capacity_quota_gib";
+       storage_capacity_reservation_gib =
+         Prop.computed __resource_type __resource_id
+           "storage_capacity_reservation_gib";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       volume_type =
+         Prop.computed __resource_type __resource_id "volume_type";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,16 @@ open! Tf.Prelude
 type google_iap_tunnel_instance_iam_binding__condition
 type google_iap_tunnel_instance_iam_binding
 
+type t = private {
+  etag : string prop;
+  id : string prop;
+  instance : string prop;
+  members : string list prop;
+  project : string prop;
+  role : string prop;
+  zone : string prop;
+}
+
 val google_iap_tunnel_instance_iam_binding :
   ?id:string prop ->
   ?project:string prop ->
@@ -14,4 +24,4 @@ val google_iap_tunnel_instance_iam_binding :
   role:string prop ->
   condition:google_iap_tunnel_instance_iam_binding__condition list ->
   string ->
-  unit
+  t

@@ -38,6 +38,17 @@ type azurerm_monitor_alert_processing_rule_action_group__schedule
 type azurerm_monitor_alert_processing_rule_action_group__timeouts
 type azurerm_monitor_alert_processing_rule_action_group
 
+type t = private {
+  add_action_group_ids : string list prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_monitor_alert_processing_rule_action_group :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -55,4 +66,4 @@ val azurerm_monitor_alert_processing_rule_action_group :
   schedule:
     azurerm_monitor_alert_processing_rule_action_group__schedule list ->
   string ->
-  unit
+  t

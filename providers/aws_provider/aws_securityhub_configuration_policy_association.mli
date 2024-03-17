@@ -5,6 +5,12 @@ open! Tf.Prelude
 type aws_securityhub_configuration_policy_association__timeouts
 type aws_securityhub_configuration_policy_association
 
+type t = private {
+  id : string prop;
+  policy_id : string prop;
+  target_id : string prop;
+}
+
 val aws_securityhub_configuration_policy_association :
   ?id:string prop ->
   ?timeouts:
@@ -12,4 +18,4 @@ val aws_securityhub_configuration_policy_association :
   policy_id:string prop ->
   target_id:string prop ->
   string ->
-  unit
+  t

@@ -22,12 +22,44 @@ type azurerm_static_web_app_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_static_web_app_custom_domain *)
 
+type t = {
+  domain_name : string prop;
+  id : string prop;
+  static_web_app_id : string prop;
+  validation_token : string prop;
+  validation_type : string prop;
+}
+
 let azurerm_static_web_app_custom_domain ?id ?timeouts ~domain_name
     ~static_web_app_id ~validation_type __resource_id =
   let __resource_type = "azurerm_static_web_app_custom_domain" in
   let __resource =
-    { domain_name; id; static_web_app_id; validation_type; timeouts }
+    ({
+       domain_name;
+       id;
+       static_web_app_id;
+       validation_type;
+       timeouts;
+     }
+      : azurerm_static_web_app_custom_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_static_web_app_custom_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       static_web_app_id =
+         Prop.computed __resource_type __resource_id
+           "static_web_app_id";
+       validation_token =
+         Prop.computed __resource_type __resource_id
+           "validation_token";
+       validation_type =
+         Prop.computed __resource_type __resource_id
+           "validation_type";
+     }
+      : t)
+  in
+  __resource_attributes

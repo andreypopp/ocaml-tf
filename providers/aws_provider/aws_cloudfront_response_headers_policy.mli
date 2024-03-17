@@ -38,6 +38,13 @@ type aws_cloudfront_response_headers_policy__server_timing_headers_config
 
 type aws_cloudfront_response_headers_policy
 
+type t = private {
+  comment : string prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val aws_cloudfront_response_headers_policy :
   ?comment:string prop ->
   ?etag:string prop ->
@@ -58,4 +65,4 @@ val aws_cloudfront_response_headers_policy :
     aws_cloudfront_response_headers_policy__server_timing_headers_config
     list ->
   string ->
-  unit
+  t

@@ -8,6 +8,21 @@ type azurerm_snapshot__encryption_settings
 type azurerm_snapshot__timeouts
 type azurerm_snapshot
 
+type t = private {
+  create_option : string prop;
+  disk_size_gb : float prop;
+  id : string prop;
+  incremental_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  source_resource_id : string prop;
+  source_uri : string prop;
+  storage_account_id : string prop;
+  tags : (string * string) list prop;
+  trusted_launch_enabled : bool prop;
+}
+
 val azurerm_snapshot :
   ?disk_size_gb:float prop ->
   ?id:string prop ->
@@ -23,4 +38,4 @@ val azurerm_snapshot :
   resource_group_name:string prop ->
   encryption_settings:azurerm_snapshot__encryption_settings list ->
   string ->
-  unit
+  t

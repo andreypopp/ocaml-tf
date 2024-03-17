@@ -37,6 +37,19 @@ type google_monitoring_slo__windows_based_sli__metric_sum_in_range
 type google_monitoring_slo__windows_based_sli
 type google_monitoring_slo
 
+type t = private {
+  calendar_period : string prop;
+  display_name : string prop;
+  goal : float prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  rolling_period_days : float prop;
+  service : string prop;
+  slo_id : string prop;
+  user_labels : (string * string) list prop;
+}
+
 val google_monitoring_slo :
   ?calendar_period:string prop ->
   ?display_name:string prop ->
@@ -52,4 +65,4 @@ val google_monitoring_slo :
   request_based_sli:google_monitoring_slo__request_based_sli list ->
   windows_based_sli:google_monitoring_slo__windows_based_sli list ->
   string ->
-  unit
+  t

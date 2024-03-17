@@ -52,23 +52,53 @@ type aws_redshift_scheduled_action = {
 [@@deriving yojson_of]
 (** aws_redshift_scheduled_action *)
 
+type t = {
+  description : string prop;
+  enable : bool prop;
+  end_time : string prop;
+  iam_role : string prop;
+  id : string prop;
+  name : string prop;
+  schedule : string prop;
+  start_time : string prop;
+}
+
 let aws_redshift_scheduled_action ?description ?enable ?end_time ?id
     ?start_time ~iam_role ~name ~schedule ~target_action
     __resource_id =
   let __resource_type = "aws_redshift_scheduled_action" in
   let __resource =
-    {
-      description;
-      enable;
-      end_time;
-      iam_role;
-      id;
-      name;
-      schedule;
-      start_time;
-      target_action;
-    }
+    ({
+       description;
+       enable;
+       end_time;
+       iam_role;
+       id;
+       name;
+       schedule;
+       start_time;
+       target_action;
+     }
+      : aws_redshift_scheduled_action)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_scheduled_action __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enable = Prop.computed __resource_type __resource_id "enable";
+       end_time =
+         Prop.computed __resource_type __resource_id "end_time";
+       iam_role =
+         Prop.computed __resource_type __resource_id "iam_role";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       schedule =
+         Prop.computed __resource_type __resource_id "schedule";
+       start_time =
+         Prop.computed __resource_type __resource_id "start_time";
+     }
+      : t)
+  in
+  __resource_attributes

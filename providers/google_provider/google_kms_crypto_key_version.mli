@@ -31,10 +31,21 @@ type google_kms_crypto_key_version__attestation = {
 
 type google_kms_crypto_key_version
 
+type t = private {
+  algorithm : string prop;
+  attestation : google_kms_crypto_key_version__attestation list prop;
+  crypto_key : string prop;
+  generate_time : string prop;
+  id : string prop;
+  name : string prop;
+  protection_level : string prop;
+  state : string prop;
+}
+
 val google_kms_crypto_key_version :
   ?id:string prop ->
   ?state:string prop ->
   ?timeouts:google_kms_crypto_key_version__timeouts ->
   crypto_key:string prop ->
   string ->
-  unit
+  t

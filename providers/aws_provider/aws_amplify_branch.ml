@@ -39,6 +39,33 @@ type aws_amplify_branch = {
 [@@deriving yojson_of]
 (** aws_amplify_branch *)
 
+type t = {
+  app_id : string prop;
+  arn : string prop;
+  associated_resources : string list prop;
+  backend_environment_arn : string prop;
+  basic_auth_credentials : string prop;
+  branch_name : string prop;
+  custom_domains : string list prop;
+  description : string prop;
+  destination_branch : string prop;
+  display_name : string prop;
+  enable_auto_build : bool prop;
+  enable_basic_auth : bool prop;
+  enable_notification : bool prop;
+  enable_performance_mode : bool prop;
+  enable_pull_request_preview : bool prop;
+  environment_variables : (string * string) list prop;
+  framework : string prop;
+  id : string prop;
+  pull_request_environment_name : string prop;
+  source_branch : string prop;
+  stage : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  ttl : string prop;
+}
+
 let aws_amplify_branch ?backend_environment_arn
     ?basic_auth_credentials ?description ?display_name
     ?enable_auto_build ?enable_basic_auth ?enable_notification
@@ -48,28 +75,87 @@ let aws_amplify_branch ?backend_environment_arn
     ~app_id ~branch_name __resource_id =
   let __resource_type = "aws_amplify_branch" in
   let __resource =
-    {
-      app_id;
-      backend_environment_arn;
-      basic_auth_credentials;
-      branch_name;
-      description;
-      display_name;
-      enable_auto_build;
-      enable_basic_auth;
-      enable_notification;
-      enable_performance_mode;
-      enable_pull_request_preview;
-      environment_variables;
-      framework;
-      id;
-      pull_request_environment_name;
-      stage;
-      tags;
-      tags_all;
-      ttl;
-    }
+    ({
+       app_id;
+       backend_environment_arn;
+       basic_auth_credentials;
+       branch_name;
+       description;
+       display_name;
+       enable_auto_build;
+       enable_basic_auth;
+       enable_notification;
+       enable_performance_mode;
+       enable_pull_request_preview;
+       environment_variables;
+       framework;
+       id;
+       pull_request_environment_name;
+       stage;
+       tags;
+       tags_all;
+       ttl;
+     }
+      : aws_amplify_branch)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_amplify_branch __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_id = Prop.computed __resource_type __resource_id "app_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       associated_resources =
+         Prop.computed __resource_type __resource_id
+           "associated_resources";
+       backend_environment_arn =
+         Prop.computed __resource_type __resource_id
+           "backend_environment_arn";
+       basic_auth_credentials =
+         Prop.computed __resource_type __resource_id
+           "basic_auth_credentials";
+       branch_name =
+         Prop.computed __resource_type __resource_id "branch_name";
+       custom_domains =
+         Prop.computed __resource_type __resource_id "custom_domains";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       destination_branch =
+         Prop.computed __resource_type __resource_id
+           "destination_branch";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enable_auto_build =
+         Prop.computed __resource_type __resource_id
+           "enable_auto_build";
+       enable_basic_auth =
+         Prop.computed __resource_type __resource_id
+           "enable_basic_auth";
+       enable_notification =
+         Prop.computed __resource_type __resource_id
+           "enable_notification";
+       enable_performance_mode =
+         Prop.computed __resource_type __resource_id
+           "enable_performance_mode";
+       enable_pull_request_preview =
+         Prop.computed __resource_type __resource_id
+           "enable_pull_request_preview";
+       environment_variables =
+         Prop.computed __resource_type __resource_id
+           "environment_variables";
+       framework =
+         Prop.computed __resource_type __resource_id "framework";
+       id = Prop.computed __resource_type __resource_id "id";
+       pull_request_environment_name =
+         Prop.computed __resource_type __resource_id
+           "pull_request_environment_name";
+       source_branch =
+         Prop.computed __resource_type __resource_id "source_branch";
+       stage = Prop.computed __resource_type __resource_id "stage";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       ttl = Prop.computed __resource_type __resource_id "ttl";
+     }
+      : t)
+  in
+  __resource_attributes

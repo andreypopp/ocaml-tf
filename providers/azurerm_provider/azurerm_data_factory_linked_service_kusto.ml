@@ -42,6 +42,23 @@ type azurerm_data_factory_linked_service_kusto = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_kusto *)
 
+type t = {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  id : string prop;
+  integration_runtime_name : string prop;
+  kusto_database_name : string prop;
+  kusto_endpoint : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  service_principal_id : string prop;
+  service_principal_key : string prop;
+  tenant : string prop;
+  use_managed_identity : bool prop;
+}
+
 let azurerm_data_factory_linked_service_kusto ?additional_properties
     ?annotations ?description ?id ?integration_runtime_name
     ?parameters ?service_principal_id ?service_principal_key ?tenant
@@ -51,24 +68,62 @@ let azurerm_data_factory_linked_service_kusto ?additional_properties
     "azurerm_data_factory_linked_service_kusto"
   in
   let __resource =
-    {
-      additional_properties;
-      annotations;
-      data_factory_id;
-      description;
-      id;
-      integration_runtime_name;
-      kusto_database_name;
-      kusto_endpoint;
-      name;
-      parameters;
-      service_principal_id;
-      service_principal_key;
-      tenant;
-      use_managed_identity;
-      timeouts;
-    }
+    ({
+       additional_properties;
+       annotations;
+       data_factory_id;
+       description;
+       id;
+       integration_runtime_name;
+       kusto_database_name;
+       kusto_endpoint;
+       name;
+       parameters;
+       service_principal_id;
+       service_principal_key;
+       tenant;
+       use_managed_identity;
+       timeouts;
+     }
+      : azurerm_data_factory_linked_service_kusto)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_kusto __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_properties =
+         Prop.computed __resource_type __resource_id
+           "additional_properties";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_runtime_name =
+         Prop.computed __resource_type __resource_id
+           "integration_runtime_name";
+       kusto_database_name =
+         Prop.computed __resource_type __resource_id
+           "kusto_database_name";
+       kusto_endpoint =
+         Prop.computed __resource_type __resource_id "kusto_endpoint";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       service_principal_id =
+         Prop.computed __resource_type __resource_id
+           "service_principal_id";
+       service_principal_key =
+         Prop.computed __resource_type __resource_id
+           "service_principal_key";
+       tenant = Prop.computed __resource_type __resource_id "tenant";
+       use_managed_identity =
+         Prop.computed __resource_type __resource_id
+           "use_managed_identity";
+     }
+      : t)
+  in
+  __resource_attributes

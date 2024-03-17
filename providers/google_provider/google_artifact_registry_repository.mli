@@ -38,6 +38,24 @@ type google_artifact_registry_repository__virtual_repository_config__upstream_po
 type google_artifact_registry_repository__virtual_repository_config
 type google_artifact_registry_repository
 
+type t = private {
+  cleanup_policy_dry_run : bool prop;
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  format : string prop;
+  id : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  mode : string prop;
+  name : string prop;
+  project : string prop;
+  repository_id : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_artifact_registry_repository :
   ?cleanup_policy_dry_run:bool prop ->
   ?description:string prop ->
@@ -62,4 +80,4 @@ val google_artifact_registry_repository :
     google_artifact_registry_repository__virtual_repository_config
     list ->
   string ->
-  unit
+  t

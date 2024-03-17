@@ -67,6 +67,18 @@ type google_apigee_keystores_aliases_key_cert_file = {
 [@@deriving yojson_of]
 (** google_apigee_keystores_aliases_key_cert_file *)
 
+type t = {
+  alias : string prop;
+  cert : string prop;
+  environment : string prop;
+  id : string prop;
+  key : string prop;
+  keystore : string prop;
+  org_id : string prop;
+  password : string prop;
+  type_ : string prop;
+}
+
 let google_apigee_keystores_aliases_key_cert_file ?id ?key ?password
     ?timeouts ~alias ~cert ~environment ~keystore ~org_id ~certs_info
     __resource_id =
@@ -74,20 +86,38 @@ let google_apigee_keystores_aliases_key_cert_file ?id ?key ?password
     "google_apigee_keystores_aliases_key_cert_file"
   in
   let __resource =
-    {
-      alias;
-      cert;
-      environment;
-      id;
-      key;
-      keystore;
-      org_id;
-      password;
-      certs_info;
-      timeouts;
-    }
+    ({
+       alias;
+       cert;
+       environment;
+       id;
+       key;
+       keystore;
+       org_id;
+       password;
+       certs_info;
+       timeouts;
+     }
+      : google_apigee_keystores_aliases_key_cert_file)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_keystores_aliases_key_cert_file
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alias = Prop.computed __resource_type __resource_id "alias";
+       cert = Prop.computed __resource_type __resource_id "cert";
+       environment =
+         Prop.computed __resource_type __resource_id "environment";
+       id = Prop.computed __resource_type __resource_id "id";
+       key = Prop.computed __resource_type __resource_id "key";
+       keystore =
+         Prop.computed __resource_type __resource_id "keystore";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

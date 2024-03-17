@@ -41,23 +41,54 @@ type aws_macie2_findings_filter = {
 [@@deriving yojson_of]
 (** aws_macie2_findings_filter *)
 
+type t = {
+  action : string prop;
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  position : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_macie2_findings_filter ?description ?id ?name ?name_prefix
     ?position ?tags ?tags_all ~action ~finding_criteria __resource_id
     =
   let __resource_type = "aws_macie2_findings_filter" in
   let __resource =
-    {
-      action;
-      description;
-      id;
-      name;
-      name_prefix;
-      position;
-      tags;
-      tags_all;
-      finding_criteria;
-    }
+    ({
+       action;
+       description;
+       id;
+       name;
+       name_prefix;
+       position;
+       tags;
+       tags_all;
+       finding_criteria;
+     }
+      : aws_macie2_findings_filter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_macie2_findings_filter __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       position =
+         Prop.computed __resource_type __resource_id "position";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

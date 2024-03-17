@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_synapse_workspace_sql_aad_admin__timeouts
 type azurerm_synapse_workspace_sql_aad_admin
 
+type t = private {
+  id : string prop;
+  login : string prop;
+  object_id : string prop;
+  synapse_workspace_id : string prop;
+  tenant_id : string prop;
+}
+
 val azurerm_synapse_workspace_sql_aad_admin :
   ?id:string prop ->
   ?timeouts:azurerm_synapse_workspace_sql_aad_admin__timeouts ->
@@ -13,4 +21,4 @@ val azurerm_synapse_workspace_sql_aad_admin :
   synapse_workspace_id:string prop ->
   tenant_id:string prop ->
   string ->
-  unit
+  t

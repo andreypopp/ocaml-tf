@@ -38,6 +38,15 @@ type azurerm_private_dns_resolver_forwarding_rule = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_forwarding_rule *)
 
+type t = {
+  dns_forwarding_ruleset_id : string prop;
+  domain_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+}
+
 let azurerm_private_dns_resolver_forwarding_rule ?enabled ?id
     ?metadata ?timeouts ~dns_forwarding_ruleset_id ~domain_name ~name
     ~target_dns_servers __resource_id =
@@ -45,18 +54,35 @@ let azurerm_private_dns_resolver_forwarding_rule ?enabled ?id
     "azurerm_private_dns_resolver_forwarding_rule"
   in
   let __resource =
-    {
-      dns_forwarding_ruleset_id;
-      domain_name;
-      enabled;
-      id;
-      metadata;
-      name;
-      target_dns_servers;
-      timeouts;
-    }
+    ({
+       dns_forwarding_ruleset_id;
+       domain_name;
+       enabled;
+       id;
+       metadata;
+       name;
+       target_dns_servers;
+       timeouts;
+     }
+      : azurerm_private_dns_resolver_forwarding_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_resolver_forwarding_rule
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dns_forwarding_ruleset_id =
+         Prop.computed __resource_type __resource_id
+           "dns_forwarding_ruleset_id";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

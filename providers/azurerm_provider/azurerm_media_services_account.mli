@@ -11,6 +11,16 @@ type azurerm_media_services_account__storage_account
 type azurerm_media_services_account__timeouts
 type azurerm_media_services_account
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  storage_authentication_type : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_media_services_account :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
@@ -27,4 +37,4 @@ val azurerm_media_services_account :
   storage_account:
     azurerm_media_services_account__storage_account list ->
   string ->
-  unit
+  t

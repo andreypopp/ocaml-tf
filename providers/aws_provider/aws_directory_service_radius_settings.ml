@@ -29,26 +29,66 @@ type aws_directory_service_radius_settings = {
 [@@deriving yojson_of]
 (** aws_directory_service_radius_settings *)
 
+type t = {
+  authentication_protocol : string prop;
+  directory_id : string prop;
+  display_label : string prop;
+  id : string prop;
+  radius_port : float prop;
+  radius_retries : float prop;
+  radius_servers : string list prop;
+  radius_timeout : float prop;
+  shared_secret : string prop;
+  use_same_username : bool prop;
+}
+
 let aws_directory_service_radius_settings ?id ?use_same_username
     ?timeouts ~authentication_protocol ~directory_id ~display_label
     ~radius_port ~radius_retries ~radius_servers ~radius_timeout
     ~shared_secret __resource_id =
   let __resource_type = "aws_directory_service_radius_settings" in
   let __resource =
-    {
-      authentication_protocol;
-      directory_id;
-      display_label;
-      id;
-      radius_port;
-      radius_retries;
-      radius_servers;
-      radius_timeout;
-      shared_secret;
-      use_same_username;
-      timeouts;
-    }
+    ({
+       authentication_protocol;
+       directory_id;
+       display_label;
+       id;
+       radius_port;
+       radius_retries;
+       radius_servers;
+       radius_timeout;
+       shared_secret;
+       use_same_username;
+       timeouts;
+     }
+      : aws_directory_service_radius_settings)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_directory_service_radius_settings __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authentication_protocol =
+         Prop.computed __resource_type __resource_id
+           "authentication_protocol";
+       directory_id =
+         Prop.computed __resource_type __resource_id "directory_id";
+       display_label =
+         Prop.computed __resource_type __resource_id "display_label";
+       id = Prop.computed __resource_type __resource_id "id";
+       radius_port =
+         Prop.computed __resource_type __resource_id "radius_port";
+       radius_retries =
+         Prop.computed __resource_type __resource_id "radius_retries";
+       radius_servers =
+         Prop.computed __resource_type __resource_id "radius_servers";
+       radius_timeout =
+         Prop.computed __resource_type __resource_id "radius_timeout";
+       shared_secret =
+         Prop.computed __resource_type __resource_id "shared_secret";
+       use_same_username =
+         Prop.computed __resource_type __resource_id
+           "use_same_username";
+     }
+      : t)
+  in
+  __resource_attributes

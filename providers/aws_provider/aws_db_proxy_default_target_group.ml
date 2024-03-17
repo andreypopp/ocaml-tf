@@ -35,12 +35,30 @@ type aws_db_proxy_default_target_group = {
 [@@deriving yojson_of]
 (** aws_db_proxy_default_target_group *)
 
+type t = {
+  arn : string prop;
+  db_proxy_name : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let aws_db_proxy_default_target_group ?id ?timeouts ~db_proxy_name
     ~connection_pool_config __resource_id =
   let __resource_type = "aws_db_proxy_default_target_group" in
   let __resource =
-    { db_proxy_name; id; connection_pool_config; timeouts }
+    ({ db_proxy_name; id; connection_pool_config; timeouts }
+      : aws_db_proxy_default_target_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_proxy_default_target_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       db_proxy_name =
+         Prop.computed __resource_type __resource_id "db_proxy_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

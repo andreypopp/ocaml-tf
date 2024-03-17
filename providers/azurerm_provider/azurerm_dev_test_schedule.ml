@@ -64,29 +64,62 @@ type azurerm_dev_test_schedule = {
 [@@deriving yojson_of]
 (** azurerm_dev_test_schedule *)
 
+type t = {
+  id : string prop;
+  lab_name : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  task_type : string prop;
+  time_zone_id : string prop;
+}
+
 let azurerm_dev_test_schedule ?id ?status ?tags ?timeouts ~lab_name
     ~location ~name ~resource_group_name ~task_type ~time_zone_id
     ~daily_recurrence ~hourly_recurrence ~notification_settings
     ~weekly_recurrence __resource_id =
   let __resource_type = "azurerm_dev_test_schedule" in
   let __resource =
-    {
-      id;
-      lab_name;
-      location;
-      name;
-      resource_group_name;
-      status;
-      tags;
-      task_type;
-      time_zone_id;
-      daily_recurrence;
-      hourly_recurrence;
-      notification_settings;
-      timeouts;
-      weekly_recurrence;
-    }
+    ({
+       id;
+       lab_name;
+       location;
+       name;
+       resource_group_name;
+       status;
+       tags;
+       task_type;
+       time_zone_id;
+       daily_recurrence;
+       hourly_recurrence;
+       notification_settings;
+       timeouts;
+       weekly_recurrence;
+     }
+      : azurerm_dev_test_schedule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_test_schedule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       lab_name =
+         Prop.computed __resource_type __resource_id "lab_name";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       task_type =
+         Prop.computed __resource_type __resource_id "task_type";
+       time_zone_id =
+         Prop.computed __resource_type __resource_id "time_zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

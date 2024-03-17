@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_api_management_product_tag__timeouts
 type azurerm_api_management_product_tag
 
+type t = private {
+  api_management_name : string prop;
+  api_management_product_id : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_api_management_product_tag :
   ?id:string prop ->
   ?timeouts:azurerm_api_management_product_tag__timeouts ->
@@ -13,4 +21,4 @@ val azurerm_api_management_product_tag :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

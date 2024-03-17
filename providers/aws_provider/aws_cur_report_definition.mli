@@ -4,6 +4,22 @@ open! Tf.Prelude
 
 type aws_cur_report_definition
 
+type t = private {
+  additional_artifacts : string list prop;
+  additional_schema_elements : string list prop;
+  arn : string prop;
+  compression : string prop;
+  format : string prop;
+  id : string prop;
+  refresh_closed_reports : bool prop;
+  report_name : string prop;
+  report_versioning : string prop;
+  s3_bucket : string prop;
+  s3_prefix : string prop;
+  s3_region : string prop;
+  time_unit : string prop;
+}
+
 val aws_cur_report_definition :
   ?additional_artifacts:string prop list ->
   ?id:string prop ->
@@ -18,4 +34,4 @@ val aws_cur_report_definition :
   s3_region:string prop ->
   time_unit:string prop ->
   string ->
-  unit
+  t

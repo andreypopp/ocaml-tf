@@ -6,6 +6,14 @@ type aws_vpc_ipam_pool_cidr__cidr_authorization_context
 type aws_vpc_ipam_pool_cidr__timeouts
 type aws_vpc_ipam_pool_cidr
 
+type t = private {
+  cidr : string prop;
+  id : string prop;
+  ipam_pool_cidr_id : string prop;
+  ipam_pool_id : string prop;
+  netmask_length : float prop;
+}
+
 val aws_vpc_ipam_pool_cidr :
   ?cidr:string prop ->
   ?id:string prop ->
@@ -15,4 +23,4 @@ val aws_vpc_ipam_pool_cidr :
   cidr_authorization_context:
     aws_vpc_ipam_pool_cidr__cidr_authorization_context list ->
   string ->
-  unit
+  t

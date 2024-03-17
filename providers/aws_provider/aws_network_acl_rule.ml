@@ -22,26 +22,70 @@ type aws_network_acl_rule = {
 [@@deriving yojson_of]
 (** aws_network_acl_rule *)
 
+type t = {
+  cidr_block : string prop;
+  egress : bool prop;
+  from_port : float prop;
+  icmp_code : float prop;
+  icmp_type : float prop;
+  id : string prop;
+  ipv6_cidr_block : string prop;
+  network_acl_id : string prop;
+  protocol : string prop;
+  rule_action : string prop;
+  rule_number : float prop;
+  to_port : float prop;
+}
+
 let aws_network_acl_rule ?cidr_block ?egress ?from_port ?icmp_code
     ?icmp_type ?id ?ipv6_cidr_block ?to_port ~network_acl_id
     ~protocol ~rule_action ~rule_number __resource_id =
   let __resource_type = "aws_network_acl_rule" in
   let __resource =
-    {
-      cidr_block;
-      egress;
-      from_port;
-      icmp_code;
-      icmp_type;
-      id;
-      ipv6_cidr_block;
-      network_acl_id;
-      protocol;
-      rule_action;
-      rule_number;
-      to_port;
-    }
+    ({
+       cidr_block;
+       egress;
+       from_port;
+       icmp_code;
+       icmp_type;
+       id;
+       ipv6_cidr_block;
+       network_acl_id;
+       protocol;
+       rule_action;
+       rule_number;
+       to_port;
+     }
+      : aws_network_acl_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_network_acl_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cidr_block =
+         Prop.computed __resource_type __resource_id "cidr_block";
+       egress = Prop.computed __resource_type __resource_id "egress";
+       from_port =
+         Prop.computed __resource_type __resource_id "from_port";
+       icmp_code =
+         Prop.computed __resource_type __resource_id "icmp_code";
+       icmp_type =
+         Prop.computed __resource_type __resource_id "icmp_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       ipv6_cidr_block =
+         Prop.computed __resource_type __resource_id
+           "ipv6_cidr_block";
+       network_acl_id =
+         Prop.computed __resource_type __resource_id "network_acl_id";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       rule_action =
+         Prop.computed __resource_type __resource_id "rule_action";
+       rule_number =
+         Prop.computed __resource_type __resource_id "rule_number";
+       to_port =
+         Prop.computed __resource_type __resource_id "to_port";
+     }
+      : t)
+  in
+  __resource_attributes

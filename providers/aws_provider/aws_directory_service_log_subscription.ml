@@ -12,10 +12,29 @@ type aws_directory_service_log_subscription = {
 [@@deriving yojson_of]
 (** aws_directory_service_log_subscription *)
 
+type t = {
+  directory_id : string prop;
+  id : string prop;
+  log_group_name : string prop;
+}
+
 let aws_directory_service_log_subscription ?id ~directory_id
     ~log_group_name __resource_id =
   let __resource_type = "aws_directory_service_log_subscription" in
-  let __resource = { directory_id; id; log_group_name } in
+  let __resource =
+    ({ directory_id; id; log_group_name }
+      : aws_directory_service_log_subscription)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_directory_service_log_subscription __resource);
-  ()
+  let __resource_attributes =
+    ({
+       directory_id =
+         Prop.computed __resource_type __resource_id "directory_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_group_name =
+         Prop.computed __resource_type __resource_id "log_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

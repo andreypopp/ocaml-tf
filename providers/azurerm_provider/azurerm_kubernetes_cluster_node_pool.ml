@@ -217,6 +217,48 @@ type azurerm_kubernetes_cluster_node_pool = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_node_pool *)
 
+type t = {
+  capacity_reservation_group_id : string prop;
+  custom_ca_trust_enabled : bool prop;
+  enable_auto_scaling : bool prop;
+  enable_host_encryption : bool prop;
+  enable_node_public_ip : bool prop;
+  eviction_policy : string prop;
+  fips_enabled : bool prop;
+  gpu_instance : string prop;
+  host_group_id : string prop;
+  id : string prop;
+  kubelet_disk_type : string prop;
+  kubernetes_cluster_id : string prop;
+  max_count : float prop;
+  max_pods : float prop;
+  message_of_the_day : string prop;
+  min_count : float prop;
+  mode : string prop;
+  name : string prop;
+  node_count : float prop;
+  node_labels : (string * string) list prop;
+  node_public_ip_prefix_id : string prop;
+  node_taints : string list prop;
+  orchestrator_version : string prop;
+  os_disk_size_gb : float prop;
+  os_disk_type : string prop;
+  os_sku : string prop;
+  os_type : string prop;
+  pod_subnet_id : string prop;
+  priority : string prop;
+  proximity_placement_group_id : string prop;
+  scale_down_mode : string prop;
+  snapshot_id : string prop;
+  spot_max_price : float prop;
+  tags : (string * string) list prop;
+  ultra_ssd_enabled : bool prop;
+  vm_size : string prop;
+  vnet_subnet_id : string prop;
+  workload_runtime : string prop;
+  zones : string list prop;
+}
+
 let azurerm_kubernetes_cluster_node_pool
     ?capacity_reservation_group_id ?custom_ca_trust_enabled
     ?enable_auto_scaling ?enable_host_encryption
@@ -233,54 +275,148 @@ let azurerm_kubernetes_cluster_node_pool
     ~windows_profile __resource_id =
   let __resource_type = "azurerm_kubernetes_cluster_node_pool" in
   let __resource =
-    {
-      capacity_reservation_group_id;
-      custom_ca_trust_enabled;
-      enable_auto_scaling;
-      enable_host_encryption;
-      enable_node_public_ip;
-      eviction_policy;
-      fips_enabled;
-      gpu_instance;
-      host_group_id;
-      id;
-      kubelet_disk_type;
-      kubernetes_cluster_id;
-      max_count;
-      max_pods;
-      message_of_the_day;
-      min_count;
-      mode;
-      name;
-      node_count;
-      node_labels;
-      node_public_ip_prefix_id;
-      node_taints;
-      orchestrator_version;
-      os_disk_size_gb;
-      os_disk_type;
-      os_sku;
-      os_type;
-      pod_subnet_id;
-      priority;
-      proximity_placement_group_id;
-      scale_down_mode;
-      snapshot_id;
-      spot_max_price;
-      tags;
-      ultra_ssd_enabled;
-      vm_size;
-      vnet_subnet_id;
-      workload_runtime;
-      zones;
-      kubelet_config;
-      linux_os_config;
-      node_network_profile;
-      timeouts;
-      upgrade_settings;
-      windows_profile;
-    }
+    ({
+       capacity_reservation_group_id;
+       custom_ca_trust_enabled;
+       enable_auto_scaling;
+       enable_host_encryption;
+       enable_node_public_ip;
+       eviction_policy;
+       fips_enabled;
+       gpu_instance;
+       host_group_id;
+       id;
+       kubelet_disk_type;
+       kubernetes_cluster_id;
+       max_count;
+       max_pods;
+       message_of_the_day;
+       min_count;
+       mode;
+       name;
+       node_count;
+       node_labels;
+       node_public_ip_prefix_id;
+       node_taints;
+       orchestrator_version;
+       os_disk_size_gb;
+       os_disk_type;
+       os_sku;
+       os_type;
+       pod_subnet_id;
+       priority;
+       proximity_placement_group_id;
+       scale_down_mode;
+       snapshot_id;
+       spot_max_price;
+       tags;
+       ultra_ssd_enabled;
+       vm_size;
+       vnet_subnet_id;
+       workload_runtime;
+       zones;
+       kubelet_config;
+       linux_os_config;
+       node_network_profile;
+       timeouts;
+       upgrade_settings;
+       windows_profile;
+     }
+      : azurerm_kubernetes_cluster_node_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_cluster_node_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       capacity_reservation_group_id =
+         Prop.computed __resource_type __resource_id
+           "capacity_reservation_group_id";
+       custom_ca_trust_enabled =
+         Prop.computed __resource_type __resource_id
+           "custom_ca_trust_enabled";
+       enable_auto_scaling =
+         Prop.computed __resource_type __resource_id
+           "enable_auto_scaling";
+       enable_host_encryption =
+         Prop.computed __resource_type __resource_id
+           "enable_host_encryption";
+       enable_node_public_ip =
+         Prop.computed __resource_type __resource_id
+           "enable_node_public_ip";
+       eviction_policy =
+         Prop.computed __resource_type __resource_id
+           "eviction_policy";
+       fips_enabled =
+         Prop.computed __resource_type __resource_id "fips_enabled";
+       gpu_instance =
+         Prop.computed __resource_type __resource_id "gpu_instance";
+       host_group_id =
+         Prop.computed __resource_type __resource_id "host_group_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       kubelet_disk_type =
+         Prop.computed __resource_type __resource_id
+           "kubelet_disk_type";
+       kubernetes_cluster_id =
+         Prop.computed __resource_type __resource_id
+           "kubernetes_cluster_id";
+       max_count =
+         Prop.computed __resource_type __resource_id "max_count";
+       max_pods =
+         Prop.computed __resource_type __resource_id "max_pods";
+       message_of_the_day =
+         Prop.computed __resource_type __resource_id
+           "message_of_the_day";
+       min_count =
+         Prop.computed __resource_type __resource_id "min_count";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_count =
+         Prop.computed __resource_type __resource_id "node_count";
+       node_labels =
+         Prop.computed __resource_type __resource_id "node_labels";
+       node_public_ip_prefix_id =
+         Prop.computed __resource_type __resource_id
+           "node_public_ip_prefix_id";
+       node_taints =
+         Prop.computed __resource_type __resource_id "node_taints";
+       orchestrator_version =
+         Prop.computed __resource_type __resource_id
+           "orchestrator_version";
+       os_disk_size_gb =
+         Prop.computed __resource_type __resource_id
+           "os_disk_size_gb";
+       os_disk_type =
+         Prop.computed __resource_type __resource_id "os_disk_type";
+       os_sku = Prop.computed __resource_type __resource_id "os_sku";
+       os_type =
+         Prop.computed __resource_type __resource_id "os_type";
+       pod_subnet_id =
+         Prop.computed __resource_type __resource_id "pod_subnet_id";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       proximity_placement_group_id =
+         Prop.computed __resource_type __resource_id
+           "proximity_placement_group_id";
+       scale_down_mode =
+         Prop.computed __resource_type __resource_id
+           "scale_down_mode";
+       snapshot_id =
+         Prop.computed __resource_type __resource_id "snapshot_id";
+       spot_max_price =
+         Prop.computed __resource_type __resource_id "spot_max_price";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       ultra_ssd_enabled =
+         Prop.computed __resource_type __resource_id
+           "ultra_ssd_enabled";
+       vm_size =
+         Prop.computed __resource_type __resource_id "vm_size";
+       vnet_subnet_id =
+         Prop.computed __resource_type __resource_id "vnet_subnet_id";
+       workload_runtime =
+         Prop.computed __resource_type __resource_id
+           "workload_runtime";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -57,6 +57,16 @@ type azurerm_data_protection_backup_policy_postgresql = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_postgresql *)
 
+type t = {
+  backup_repeating_time_intervals : string list prop;
+  default_retention_duration : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  time_zone : string prop;
+  vault_name : string prop;
+}
+
 let azurerm_data_protection_backup_policy_postgresql ?id ?time_zone
     ?timeouts ~backup_repeating_time_intervals
     ~default_retention_duration ~name ~resource_group_name
@@ -65,19 +75,40 @@ let azurerm_data_protection_backup_policy_postgresql ?id ?time_zone
     "azurerm_data_protection_backup_policy_postgresql"
   in
   let __resource =
-    {
-      backup_repeating_time_intervals;
-      default_retention_duration;
-      id;
-      name;
-      resource_group_name;
-      time_zone;
-      vault_name;
-      retention_rule;
-      timeouts;
-    }
+    ({
+       backup_repeating_time_intervals;
+       default_retention_duration;
+       id;
+       name;
+       resource_group_name;
+       time_zone;
+       vault_name;
+       retention_rule;
+       timeouts;
+     }
+      : azurerm_data_protection_backup_policy_postgresql)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_policy_postgresql
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backup_repeating_time_intervals =
+         Prop.computed __resource_type __resource_id
+           "backup_repeating_time_intervals";
+       default_retention_duration =
+         Prop.computed __resource_type __resource_id
+           "default_retention_duration";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+       vault_name =
+         Prop.computed __resource_type __resource_id "vault_name";
+     }
+      : t)
+  in
+  __resource_attributes

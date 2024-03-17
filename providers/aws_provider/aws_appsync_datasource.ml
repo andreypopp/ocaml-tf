@@ -121,6 +121,16 @@ type aws_appsync_datasource = {
 [@@deriving yojson_of]
 (** aws_appsync_datasource *)
 
+type t = {
+  api_id : string prop;
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  service_role_arn : string prop;
+  type_ : string prop;
+}
+
 let aws_appsync_datasource ?description ?id ?service_role_arn ~api_id
     ~name ~type_ ~dynamodb_config ~elasticsearch_config
     ~event_bridge_config ~http_config ~lambda_config
@@ -128,22 +138,38 @@ let aws_appsync_datasource ?description ?id ?service_role_arn ~api_id
     __resource_id =
   let __resource_type = "aws_appsync_datasource" in
   let __resource =
-    {
-      api_id;
-      description;
-      id;
-      name;
-      service_role_arn;
-      type_;
-      dynamodb_config;
-      elasticsearch_config;
-      event_bridge_config;
-      http_config;
-      lambda_config;
-      opensearchservice_config;
-      relational_database_config;
-    }
+    ({
+       api_id;
+       description;
+       id;
+       name;
+       service_role_arn;
+       type_;
+       dynamodb_config;
+       elasticsearch_config;
+       event_bridge_config;
+       http_config;
+       lambda_config;
+       opensearchservice_config;
+       relational_database_config;
+     }
+      : aws_appsync_datasource)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appsync_datasource __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_id = Prop.computed __resource_type __resource_id "api_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       service_role_arn =
+         Prop.computed __resource_type __resource_id
+           "service_role_arn";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

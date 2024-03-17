@@ -138,28 +138,76 @@ type aws_ssm_maintenance_window_task = {
 [@@deriving yojson_of]
 (** aws_ssm_maintenance_window_task *)
 
+type t = {
+  arn : string prop;
+  cutoff_behavior : string prop;
+  description : string prop;
+  id : string prop;
+  max_concurrency : string prop;
+  max_errors : string prop;
+  name : string prop;
+  priority : float prop;
+  service_role_arn : string prop;
+  task_arn : string prop;
+  task_type : string prop;
+  window_id : string prop;
+  window_task_id : string prop;
+}
+
 let aws_ssm_maintenance_window_task ?cutoff_behavior ?description ?id
     ?max_concurrency ?max_errors ?name ?priority ?service_role_arn
     ~task_arn ~task_type ~window_id ~targets
     ~task_invocation_parameters __resource_id =
   let __resource_type = "aws_ssm_maintenance_window_task" in
   let __resource =
-    {
-      cutoff_behavior;
-      description;
-      id;
-      max_concurrency;
-      max_errors;
-      name;
-      priority;
-      service_role_arn;
-      task_arn;
-      task_type;
-      window_id;
-      targets;
-      task_invocation_parameters;
-    }
+    ({
+       cutoff_behavior;
+       description;
+       id;
+       max_concurrency;
+       max_errors;
+       name;
+       priority;
+       service_role_arn;
+       task_arn;
+       task_type;
+       window_id;
+       targets;
+       task_invocation_parameters;
+     }
+      : aws_ssm_maintenance_window_task)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_maintenance_window_task __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       cutoff_behavior =
+         Prop.computed __resource_type __resource_id
+           "cutoff_behavior";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       max_concurrency =
+         Prop.computed __resource_type __resource_id
+           "max_concurrency";
+       max_errors =
+         Prop.computed __resource_type __resource_id "max_errors";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       service_role_arn =
+         Prop.computed __resource_type __resource_id
+           "service_role_arn";
+       task_arn =
+         Prop.computed __resource_type __resource_id "task_arn";
+       task_type =
+         Prop.computed __resource_type __resource_id "task_type";
+       window_id =
+         Prop.computed __resource_type __resource_id "window_id";
+       window_task_id =
+         Prop.computed __resource_type __resource_id "window_task_id";
+     }
+      : t)
+  in
+  __resource_attributes

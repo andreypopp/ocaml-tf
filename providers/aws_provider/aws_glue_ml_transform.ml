@@ -63,29 +63,79 @@ type aws_glue_ml_transform = {
 [@@deriving yojson_of]
 (** aws_glue_ml_transform *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  glue_version : string prop;
+  id : string prop;
+  label_count : float prop;
+  max_capacity : float prop;
+  max_retries : float prop;
+  name : string prop;
+  number_of_workers : float prop;
+  role_arn : string prop;
+  schema : aws_glue_ml_transform__schema list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  timeout : float prop;
+  worker_type : string prop;
+}
+
 let aws_glue_ml_transform ?description ?glue_version ?id
     ?max_capacity ?max_retries ?number_of_workers ?tags ?tags_all
     ?timeout ?worker_type ~name ~role_arn ~input_record_tables
     ~parameters __resource_id =
   let __resource_type = "aws_glue_ml_transform" in
   let __resource =
-    {
-      description;
-      glue_version;
-      id;
-      max_capacity;
-      max_retries;
-      name;
-      number_of_workers;
-      role_arn;
-      tags;
-      tags_all;
-      timeout;
-      worker_type;
-      input_record_tables;
-      parameters;
-    }
+    ({
+       description;
+       glue_version;
+       id;
+       max_capacity;
+       max_retries;
+       name;
+       number_of_workers;
+       role_arn;
+       tags;
+       tags_all;
+       timeout;
+       worker_type;
+       input_record_tables;
+       parameters;
+     }
+      : aws_glue_ml_transform)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_ml_transform __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       glue_version =
+         Prop.computed __resource_type __resource_id "glue_version";
+       id = Prop.computed __resource_type __resource_id "id";
+       label_count =
+         Prop.computed __resource_type __resource_id "label_count";
+       max_capacity =
+         Prop.computed __resource_type __resource_id "max_capacity";
+       max_retries =
+         Prop.computed __resource_type __resource_id "max_retries";
+       name = Prop.computed __resource_type __resource_id "name";
+       number_of_workers =
+         Prop.computed __resource_type __resource_id
+           "number_of_workers";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       schema = Prop.computed __resource_type __resource_id "schema";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+       worker_type =
+         Prop.computed __resource_type __resource_id "worker_type";
+     }
+      : t)
+  in
+  __resource_attributes

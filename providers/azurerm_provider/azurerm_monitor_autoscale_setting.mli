@@ -19,6 +19,16 @@ type azurerm_monitor_autoscale_setting__profile
 type azurerm_monitor_autoscale_setting__timeouts
 type azurerm_monitor_autoscale_setting
 
+type t = private {
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  target_resource_id : string prop;
+}
+
 val azurerm_monitor_autoscale_setting :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -32,4 +42,4 @@ val azurerm_monitor_autoscale_setting :
   predictive:azurerm_monitor_autoscale_setting__predictive list ->
   profile:azurerm_monitor_autoscale_setting__profile list ->
   string ->
-  unit
+  t

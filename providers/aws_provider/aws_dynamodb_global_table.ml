@@ -27,10 +27,22 @@ type aws_dynamodb_global_table = {
 [@@deriving yojson_of]
 (** aws_dynamodb_global_table *)
 
+type t = { arn : string prop; id : string prop; name : string prop }
+
 let aws_dynamodb_global_table ?id ?timeouts ~name ~replica
     __resource_id =
   let __resource_type = "aws_dynamodb_global_table" in
-  let __resource = { id; name; replica; timeouts } in
+  let __resource =
+    ({ id; name; replica; timeouts } : aws_dynamodb_global_table)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_global_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

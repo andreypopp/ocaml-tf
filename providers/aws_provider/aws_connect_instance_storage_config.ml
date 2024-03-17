@@ -78,12 +78,32 @@ type aws_connect_instance_storage_config = {
 [@@deriving yojson_of]
 (** aws_connect_instance_storage_config *)
 
+type t = {
+  association_id : string prop;
+  id : string prop;
+  instance_id : string prop;
+  resource_type : string prop;
+}
+
 let aws_connect_instance_storage_config ?id ~instance_id
     ~resource_type ~storage_config __resource_id =
   let __resource_type = "aws_connect_instance_storage_config" in
   let __resource =
-    { id; instance_id; resource_type; storage_config }
+    ({ id; instance_id; resource_type; storage_config }
+      : aws_connect_instance_storage_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_instance_storage_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       association_id =
+         Prop.computed __resource_type __resource_id "association_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_id =
+         Prop.computed __resource_type __resource_id "instance_id";
+       resource_type =
+         Prop.computed __resource_type __resource_id "resource_type";
+     }
+      : t)
+  in
+  __resource_attributes

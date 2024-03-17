@@ -66,6 +66,22 @@ the certificate has been issued and at least 7 days before it expires. *)
 [@@deriving yojson_of]
 (** google_certificate_manager_certificate_issuance_config *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  key_algorithm : string prop;
+  labels : (string * string) list prop;
+  lifetime : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  rotation_window_percentage : float prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_certificate_manager_certificate_issuance_config
     ?description ?id ?labels ?location ?project ?timeouts
     ~key_algorithm ~lifetime ~name ~rotation_window_percentage
@@ -74,21 +90,53 @@ let google_certificate_manager_certificate_issuance_config
     "google_certificate_manager_certificate_issuance_config"
   in
   let __resource =
-    {
-      description;
-      id;
-      key_algorithm;
-      labels;
-      lifetime;
-      location;
-      name;
-      project;
-      rotation_window_percentage;
-      certificate_authority_config;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       key_algorithm;
+       labels;
+       lifetime;
+       location;
+       name;
+       project;
+       rotation_window_percentage;
+       certificate_authority_config;
+       timeouts;
+     }
+      : google_certificate_manager_certificate_issuance_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_certificate_issuance_config
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_algorithm =
+         Prop.computed __resource_type __resource_id "key_algorithm";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       lifetime =
+         Prop.computed __resource_type __resource_id "lifetime";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       rotation_window_percentage =
+         Prop.computed __resource_type __resource_id
+           "rotation_window_percentage";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -37,6 +37,24 @@ type azurerm_cost_management_scheduled_action = {
 [@@deriving yojson_of]
 (** azurerm_cost_management_scheduled_action *)
 
+type t = {
+  day_of_month : float prop;
+  days_of_week : string list prop;
+  display_name : string prop;
+  email_address_sender : string prop;
+  email_addresses : string list prop;
+  email_subject : string prop;
+  end_date : string prop;
+  frequency : string prop;
+  hour_of_day : float prop;
+  id : string prop;
+  message : string prop;
+  name : string prop;
+  start_date : string prop;
+  view_id : string prop;
+  weeks_of_month : string list prop;
+}
+
 let azurerm_cost_management_scheduled_action ?day_of_month
     ?days_of_week ?hour_of_day ?id ?message ?weeks_of_month ?timeouts
     ~display_name ~email_address_sender ~email_addresses
@@ -44,25 +62,61 @@ let azurerm_cost_management_scheduled_action ?day_of_month
     __resource_id =
   let __resource_type = "azurerm_cost_management_scheduled_action" in
   let __resource =
-    {
-      day_of_month;
-      days_of_week;
-      display_name;
-      email_address_sender;
-      email_addresses;
-      email_subject;
-      end_date;
-      frequency;
-      hour_of_day;
-      id;
-      message;
-      name;
-      start_date;
-      view_id;
-      weeks_of_month;
-      timeouts;
-    }
+    ({
+       day_of_month;
+       days_of_week;
+       display_name;
+       email_address_sender;
+       email_addresses;
+       email_subject;
+       end_date;
+       frequency;
+       hour_of_day;
+       id;
+       message;
+       name;
+       start_date;
+       view_id;
+       weeks_of_month;
+       timeouts;
+     }
+      : azurerm_cost_management_scheduled_action)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cost_management_scheduled_action __resource);
-  ()
+  let __resource_attributes =
+    ({
+       day_of_month =
+         Prop.computed __resource_type __resource_id "day_of_month";
+       days_of_week =
+         Prop.computed __resource_type __resource_id "days_of_week";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       email_address_sender =
+         Prop.computed __resource_type __resource_id
+           "email_address_sender";
+       email_addresses =
+         Prop.computed __resource_type __resource_id
+           "email_addresses";
+       email_subject =
+         Prop.computed __resource_type __resource_id "email_subject";
+       end_date =
+         Prop.computed __resource_type __resource_id "end_date";
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       hour_of_day =
+         Prop.computed __resource_type __resource_id "hour_of_day";
+       id = Prop.computed __resource_type __resource_id "id";
+       message =
+         Prop.computed __resource_type __resource_id "message";
+       name = Prop.computed __resource_type __resource_id "name";
+       start_date =
+         Prop.computed __resource_type __resource_id "start_date";
+       view_id =
+         Prop.computed __resource_type __resource_id "view_id";
+       weeks_of_month =
+         Prop.computed __resource_type __resource_id "weeks_of_month";
+     }
+      : t)
+  in
+  __resource_attributes

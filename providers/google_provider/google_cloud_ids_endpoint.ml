@@ -31,23 +31,68 @@ type google_cloud_ids_endpoint = {
 [@@deriving yojson_of]
 (** google_cloud_ids_endpoint *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  endpoint_forwarding_rule : string prop;
+  endpoint_ip : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  severity : string prop;
+  threat_exceptions : string list prop;
+  update_time : string prop;
+}
+
 let google_cloud_ids_endpoint ?description ?id ?project
     ?threat_exceptions ?timeouts ~location ~name ~network ~severity
     __resource_id =
   let __resource_type = "google_cloud_ids_endpoint" in
   let __resource =
-    {
-      description;
-      id;
-      location;
-      name;
-      network;
-      project;
-      severity;
-      threat_exceptions;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       location;
+       name;
+       network;
+       project;
+       severity;
+       threat_exceptions;
+       timeouts;
+     }
+      : google_cloud_ids_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_ids_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       endpoint_forwarding_rule =
+         Prop.computed __resource_type __resource_id
+           "endpoint_forwarding_rule";
+       endpoint_ip =
+         Prop.computed __resource_type __resource_id "endpoint_ip";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       severity =
+         Prop.computed __resource_type __resource_id "severity";
+       threat_exceptions =
+         Prop.computed __resource_type __resource_id
+           "threat_exceptions";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

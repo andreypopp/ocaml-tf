@@ -11,6 +11,18 @@ type aws_ses_receipt_rule__stop_action
 type aws_ses_receipt_rule__workmail_action
 type aws_ses_receipt_rule
 
+type t = private {
+  after : string prop;
+  arn : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  recipients : string list prop;
+  rule_set_name : string prop;
+  scan_enabled : bool prop;
+  tls_policy : string prop;
+}
+
 val aws_ses_receipt_rule :
   ?after:string prop ->
   ?enabled:bool prop ->
@@ -28,4 +40,4 @@ val aws_ses_receipt_rule :
   stop_action:aws_ses_receipt_rule__stop_action list ->
   workmail_action:aws_ses_receipt_rule__workmail_action list ->
   string ->
-  unit
+  t

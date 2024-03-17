@@ -29,20 +29,46 @@ type azurerm_netapp_account_encryption = {
 [@@deriving yojson_of]
 (** azurerm_netapp_account_encryption *)
 
+type t = {
+  encryption_key : string prop;
+  id : string prop;
+  netapp_account_id : string prop;
+  system_assigned_identity_principal_id : string prop;
+  user_assigned_identity_id : string prop;
+}
+
 let azurerm_netapp_account_encryption ?id
     ?system_assigned_identity_principal_id ?user_assigned_identity_id
     ?timeouts ~encryption_key ~netapp_account_id __resource_id =
   let __resource_type = "azurerm_netapp_account_encryption" in
   let __resource =
-    {
-      encryption_key;
-      id;
-      netapp_account_id;
-      system_assigned_identity_principal_id;
-      user_assigned_identity_id;
-      timeouts;
-    }
+    ({
+       encryption_key;
+       id;
+       netapp_account_id;
+       system_assigned_identity_principal_id;
+       user_assigned_identity_id;
+       timeouts;
+     }
+      : azurerm_netapp_account_encryption)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_account_encryption __resource);
-  ()
+  let __resource_attributes =
+    ({
+       encryption_key =
+         Prop.computed __resource_type __resource_id "encryption_key";
+       id = Prop.computed __resource_type __resource_id "id";
+       netapp_account_id =
+         Prop.computed __resource_type __resource_id
+           "netapp_account_id";
+       system_assigned_identity_principal_id =
+         Prop.computed __resource_type __resource_id
+           "system_assigned_identity_principal_id";
+       user_assigned_identity_id =
+         Prop.computed __resource_type __resource_id
+           "user_assigned_identity_id";
+     }
+      : t)
+  in
+  __resource_attributes

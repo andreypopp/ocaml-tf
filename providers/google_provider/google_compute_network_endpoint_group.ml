@@ -50,24 +50,63 @@ Possible values include: GCE_VM_IP, GCE_VM_IP_PORT, NON_GCP_PRIVATE_IP_PORT, INT
 [@@deriving yojson_of]
 (** google_compute_network_endpoint_group *)
 
+type t = {
+  default_port : float prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  network : string prop;
+  network_endpoint_type : string prop;
+  project : string prop;
+  self_link : string prop;
+  size : float prop;
+  subnetwork : string prop;
+  zone : string prop;
+}
+
 let google_compute_network_endpoint_group ?default_port ?description
     ?id ?network_endpoint_type ?project ?subnetwork ?zone ?timeouts
     ~name ~network __resource_id =
   let __resource_type = "google_compute_network_endpoint_group" in
   let __resource =
-    {
-      default_port;
-      description;
-      id;
-      name;
-      network;
-      network_endpoint_type;
-      project;
-      subnetwork;
-      zone;
-      timeouts;
-    }
+    ({
+       default_port;
+       description;
+       id;
+       name;
+       network;
+       network_endpoint_type;
+       project;
+       subnetwork;
+       zone;
+       timeouts;
+     }
+      : google_compute_network_endpoint_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_endpoint_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       default_port =
+         Prop.computed __resource_type __resource_id "default_port";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       network_endpoint_type =
+         Prop.computed __resource_type __resource_id
+           "network_endpoint_type";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       size = Prop.computed __resource_type __resource_id "size";
+       subnetwork =
+         Prop.computed __resource_type __resource_id "subnetwork";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

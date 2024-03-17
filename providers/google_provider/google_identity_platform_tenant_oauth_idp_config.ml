@@ -32,6 +32,18 @@ type google_identity_platform_tenant_oauth_idp_config = {
 [@@deriving yojson_of]
 (** google_identity_platform_tenant_oauth_idp_config *)
 
+type t = {
+  client_id : string prop;
+  client_secret : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  issuer : string prop;
+  name : string prop;
+  project : string prop;
+  tenant : string prop;
+}
+
 let google_identity_platform_tenant_oauth_idp_config ?client_secret
     ?enabled ?id ?project ?timeouts ~client_id ~display_name ~issuer
     ~name ~tenant __resource_id =
@@ -39,20 +51,40 @@ let google_identity_platform_tenant_oauth_idp_config ?client_secret
     "google_identity_platform_tenant_oauth_idp_config"
   in
   let __resource =
-    {
-      client_id;
-      client_secret;
-      display_name;
-      enabled;
-      id;
-      issuer;
-      name;
-      project;
-      tenant;
-      timeouts;
-    }
+    ({
+       client_id;
+       client_secret;
+       display_name;
+       enabled;
+       id;
+       issuer;
+       name;
+       project;
+       tenant;
+       timeouts;
+     }
+      : google_identity_platform_tenant_oauth_idp_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_tenant_oauth_idp_config
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       client_id =
+         Prop.computed __resource_type __resource_id "client_id";
+       client_secret =
+         Prop.computed __resource_type __resource_id "client_secret";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       issuer = Prop.computed __resource_type __resource_id "issuer";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       tenant = Prop.computed __resource_type __resource_id "tenant";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,13 @@ open! Tf.Prelude
 type azurerm_logic_app_trigger_custom__timeouts
 type azurerm_logic_app_trigger_custom
 
+type t = private {
+  body : string prop;
+  id : string prop;
+  logic_app_id : string prop;
+  name : string prop;
+}
+
 val azurerm_logic_app_trigger_custom :
   ?id:string prop ->
   ?timeouts:azurerm_logic_app_trigger_custom__timeouts ->
@@ -12,4 +19,4 @@ val azurerm_logic_app_trigger_custom :
   logic_app_id:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

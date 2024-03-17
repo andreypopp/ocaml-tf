@@ -25,6 +25,13 @@ type azurerm_cognitive_account_customer_managed_key = {
 [@@deriving yojson_of]
 (** azurerm_cognitive_account_customer_managed_key *)
 
+type t = {
+  cognitive_account_id : string prop;
+  id : string prop;
+  identity_client_id : string prop;
+  key_vault_key_id : string prop;
+}
+
 let azurerm_cognitive_account_customer_managed_key ?id
     ?identity_client_id ?timeouts ~cognitive_account_id
     ~key_vault_key_id __resource_id =
@@ -32,15 +39,31 @@ let azurerm_cognitive_account_customer_managed_key ?id
     "azurerm_cognitive_account_customer_managed_key"
   in
   let __resource =
-    {
-      cognitive_account_id;
-      id;
-      identity_client_id;
-      key_vault_key_id;
-      timeouts;
-    }
+    ({
+       cognitive_account_id;
+       id;
+       identity_client_id;
+       key_vault_key_id;
+       timeouts;
+     }
+      : azurerm_cognitive_account_customer_managed_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cognitive_account_customer_managed_key
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cognitive_account_id =
+         Prop.computed __resource_type __resource_id
+           "cognitive_account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_client_id =
+         Prop.computed __resource_type __resource_id
+           "identity_client_id";
+       key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_key_id";
+     }
+      : t)
+  in
+  __resource_attributes

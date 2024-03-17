@@ -18,6 +18,28 @@ type azurerm_sentinel_alert_rule_scheduled__sentinel_entity_mapping
 type azurerm_sentinel_alert_rule_scheduled__timeouts
 type azurerm_sentinel_alert_rule_scheduled
 
+type t = private {
+  alert_rule_template_guid : string prop;
+  alert_rule_template_version : string prop;
+  custom_details : (string * string) list prop;
+  description : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  query : string prop;
+  query_frequency : string prop;
+  query_period : string prop;
+  severity : string prop;
+  suppression_duration : string prop;
+  suppression_enabled : bool prop;
+  tactics : string list prop;
+  techniques : string list prop;
+  trigger_operator : string prop;
+  trigger_threshold : float prop;
+}
+
 val azurerm_sentinel_alert_rule_scheduled :
   ?alert_rule_template_guid:string prop ->
   ?alert_rule_template_version:string prop ->
@@ -53,4 +75,4 @@ val azurerm_sentinel_alert_rule_scheduled :
     azurerm_sentinel_alert_rule_scheduled__sentinel_entity_mapping
     list ->
   string ->
-  unit
+  t

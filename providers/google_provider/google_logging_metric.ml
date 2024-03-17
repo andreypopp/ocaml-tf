@@ -127,26 +127,61 @@ error to specify a regex that does not include exactly one capture group. *)
 [@@deriving yojson_of]
 (** google_logging_metric *)
 
+type t = {
+  bucket_name : string prop;
+  description : string prop;
+  disabled : bool prop;
+  filter : string prop;
+  id : string prop;
+  label_extractors : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  value_extractor : string prop;
+}
+
 let google_logging_metric ?bucket_name ?description ?disabled ?id
     ?label_extractors ?project ?value_extractor ?timeouts ~filter
     ~name ~bucket_options ~metric_descriptor __resource_id =
   let __resource_type = "google_logging_metric" in
   let __resource =
-    {
-      bucket_name;
-      description;
-      disabled;
-      filter;
-      id;
-      label_extractors;
-      name;
-      project;
-      value_extractor;
-      bucket_options;
-      metric_descriptor;
-      timeouts;
-    }
+    ({
+       bucket_name;
+       description;
+       disabled;
+       filter;
+       id;
+       label_extractors;
+       name;
+       project;
+       value_extractor;
+       bucket_options;
+       metric_descriptor;
+       timeouts;
+     }
+      : google_logging_metric)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_metric __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket_name =
+         Prop.computed __resource_type __resource_id "bucket_name";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       filter = Prop.computed __resource_type __resource_id "filter";
+       id = Prop.computed __resource_type __resource_id "id";
+       label_extractors =
+         Prop.computed __resource_type __resource_id
+           "label_extractors";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       value_extractor =
+         Prop.computed __resource_type __resource_id
+           "value_extractor";
+     }
+      : t)
+  in
+  __resource_attributes

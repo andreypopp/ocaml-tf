@@ -92,6 +92,23 @@ type google_os_config_os_policy_assignment__rollout
 type google_os_config_os_policy_assignment__timeouts
 type google_os_config_os_policy_assignment
 
+type t = private {
+  baseline : bool prop;
+  deleted : bool prop;
+  description : string prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  revision_create_time : string prop;
+  revision_id : string prop;
+  rollout_state : string prop;
+  skip_await_rollout : bool prop;
+  uid : string prop;
+}
+
 val google_os_config_os_policy_assignment :
   ?description:string prop ->
   ?id:string prop ->
@@ -105,4 +122,4 @@ val google_os_config_os_policy_assignment :
   os_policies:google_os_config_os_policy_assignment__os_policies list ->
   rollout:google_os_config_os_policy_assignment__rollout list ->
   string ->
-  unit
+  t

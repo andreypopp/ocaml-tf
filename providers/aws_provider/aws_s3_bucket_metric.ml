@@ -21,9 +21,25 @@ type aws_s3_bucket_metric = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_metric *)
 
+type t = {
+  bucket : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let aws_s3_bucket_metric ?id ~bucket ~name ~filter __resource_id =
   let __resource_type = "aws_s3_bucket_metric" in
-  let __resource = { bucket; id; name; filter } in
+  let __resource =
+    ({ bucket; id; name; filter } : aws_s3_bucket_metric)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_metric __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

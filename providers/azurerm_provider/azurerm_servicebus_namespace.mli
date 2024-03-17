@@ -9,6 +9,26 @@ type azurerm_servicebus_namespace__network_rule_set
 type azurerm_servicebus_namespace__timeouts
 type azurerm_servicebus_namespace
 
+type t = private {
+  capacity : float prop;
+  default_primary_connection_string : string prop;
+  default_primary_key : string prop;
+  default_secondary_connection_string : string prop;
+  default_secondary_key : string prop;
+  endpoint : string prop;
+  id : string prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  minimum_tls_version : string prop;
+  name : string prop;
+  premium_messaging_partitions : float prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  zone_redundant : bool prop;
+}
+
 val azurerm_servicebus_namespace :
   ?capacity:float prop ->
   ?id:string prop ->
@@ -29,4 +49,4 @@ val azurerm_servicebus_namespace :
   network_rule_set:
     azurerm_servicebus_namespace__network_rule_set list ->
   string ->
-  unit
+  t

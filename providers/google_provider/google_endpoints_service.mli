@@ -26,6 +26,19 @@ type google_endpoints_service__endpoints = {
 
 type google_endpoints_service
 
+type t = private {
+  apis : google_endpoints_service__apis list prop;
+  config_id : string prop;
+  dns_address : string prop;
+  endpoints : google_endpoints_service__endpoints list prop;
+  grpc_config : string prop;
+  id : string prop;
+  openapi_config : string prop;
+  project : string prop;
+  protoc_output_base64 : string prop;
+  service_name : string prop;
+}
+
 val google_endpoints_service :
   ?grpc_config:string prop ->
   ?id:string prop ->
@@ -35,4 +48,4 @@ val google_endpoints_service :
   ?timeouts:google_endpoints_service__timeouts ->
   service_name:string prop ->
   string ->
-  unit
+  t

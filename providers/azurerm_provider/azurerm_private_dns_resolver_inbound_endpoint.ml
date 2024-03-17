@@ -39,6 +39,14 @@ type azurerm_private_dns_resolver_inbound_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_inbound_endpoint *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_dns_resolver_id : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_private_dns_resolver_inbound_endpoint ?id ?tags ?timeouts
     ~location ~name ~private_dns_resolver_id ~ip_configurations
     __resource_id =
@@ -46,17 +54,31 @@ let azurerm_private_dns_resolver_inbound_endpoint ?id ?tags ?timeouts
     "azurerm_private_dns_resolver_inbound_endpoint"
   in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      private_dns_resolver_id;
-      tags;
-      ip_configurations;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       private_dns_resolver_id;
+       tags;
+       ip_configurations;
+       timeouts;
+     }
+      : azurerm_private_dns_resolver_inbound_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_resolver_inbound_endpoint
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_dns_resolver_id =
+         Prop.computed __resource_type __resource_id
+           "private_dns_resolver_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

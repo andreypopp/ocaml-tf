@@ -17,6 +17,23 @@ type azurerm_service_fabric_managed_cluster__node_type
 type azurerm_service_fabric_managed_cluster__timeouts
 type azurerm_service_fabric_managed_cluster
 
+type t = private {
+  backup_service_enabled : bool prop;
+  client_connection_port : float prop;
+  dns_name : string prop;
+  dns_service_enabled : bool prop;
+  http_gateway_port : float prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  password : string prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  upgrade_wave : string prop;
+  username : string prop;
+}
+
 val azurerm_service_fabric_managed_cluster :
   ?backup_service_enabled:bool prop ->
   ?dns_name:string prop ->
@@ -41,4 +58,4 @@ val azurerm_service_fabric_managed_cluster :
   lb_rule:azurerm_service_fabric_managed_cluster__lb_rule list ->
   node_type:azurerm_service_fabric_managed_cluster__node_type list ->
   string ->
-  unit
+  t

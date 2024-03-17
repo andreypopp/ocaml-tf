@@ -7,6 +7,18 @@ type azurerm_monitor_scheduled_query_rules_log__criteria
 type azurerm_monitor_scheduled_query_rules_log__timeouts
 type azurerm_monitor_scheduled_query_rules_log
 
+type t = private {
+  authorized_resource_ids : string list prop;
+  data_source_id : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_monitor_scheduled_query_rules_log :
   ?authorized_resource_ids:string prop list ->
   ?description:string prop ->
@@ -20,4 +32,4 @@ val azurerm_monitor_scheduled_query_rules_log :
   resource_group_name:string prop ->
   criteria:azurerm_monitor_scheduled_query_rules_log__criteria list ->
   string ->
-  unit
+  t

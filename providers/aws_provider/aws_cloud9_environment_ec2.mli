@@ -4,6 +4,22 @@ open! Tf.Prelude
 
 type aws_cloud9_environment_ec2
 
+type t = private {
+  arn : string prop;
+  automatic_stop_time_minutes : float prop;
+  connection_type : string prop;
+  description : string prop;
+  id : string prop;
+  image_id : string prop;
+  instance_type : string prop;
+  name : string prop;
+  owner_arn : string prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_cloud9_environment_ec2 :
   ?automatic_stop_time_minutes:float prop ->
   ?connection_type:string prop ->
@@ -17,4 +33,4 @@ val aws_cloud9_environment_ec2 :
   instance_type:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

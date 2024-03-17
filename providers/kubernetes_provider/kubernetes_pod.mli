@@ -278,6 +278,11 @@ type kubernetes_pod__spec
 type kubernetes_pod__timeouts
 type kubernetes_pod
 
+type t = private {
+  id : string prop;
+  target_state : string list prop;
+}
+
 val kubernetes_pod :
   ?id:string prop ->
   ?target_state:string prop list ->
@@ -285,4 +290,4 @@ val kubernetes_pod :
   metadata:kubernetes_pod__metadata list ->
   spec:kubernetes_pod__spec list ->
   string ->
-  unit
+  t

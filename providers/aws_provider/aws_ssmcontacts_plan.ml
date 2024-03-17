@@ -43,9 +43,21 @@ type aws_ssmcontacts_plan = {
 [@@deriving yojson_of]
 (** aws_ssmcontacts_plan *)
 
+type t = { contact_id : string prop; id : string prop }
+
 let aws_ssmcontacts_plan ?id ~contact_id ~stage __resource_id =
   let __resource_type = "aws_ssmcontacts_plan" in
-  let __resource = { contact_id; id; stage } in
+  let __resource =
+    ({ contact_id; id; stage } : aws_ssmcontacts_plan)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmcontacts_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       contact_id =
+         Prop.computed __resource_type __resource_id "contact_id";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

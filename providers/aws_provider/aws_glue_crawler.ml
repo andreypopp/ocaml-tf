@@ -155,6 +155,22 @@ type aws_glue_crawler = {
 [@@deriving yojson_of]
 (** aws_glue_crawler *)
 
+type t = {
+  arn : string prop;
+  classifiers : string list prop;
+  configuration : string prop;
+  database_name : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  role : string prop;
+  schedule : string prop;
+  security_configuration : string prop;
+  table_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_glue_crawler ?classifiers ?configuration ?description ?id
     ?schedule ?security_configuration ?table_prefix ?tags ?tags_all
     ~database_name ~name ~role ~catalog_target ~delta_target
@@ -164,33 +180,61 @@ let aws_glue_crawler ?classifiers ?configuration ?description ?id
     __resource_id =
   let __resource_type = "aws_glue_crawler" in
   let __resource =
-    {
-      classifiers;
-      configuration;
-      database_name;
-      description;
-      id;
-      name;
-      role;
-      schedule;
-      security_configuration;
-      table_prefix;
-      tags;
-      tags_all;
-      catalog_target;
-      delta_target;
-      dynamodb_target;
-      hudi_target;
-      iceberg_target;
-      jdbc_target;
-      lake_formation_configuration;
-      lineage_configuration;
-      mongodb_target;
-      recrawl_policy;
-      s3_target;
-      schema_change_policy;
-    }
+    ({
+       classifiers;
+       configuration;
+       database_name;
+       description;
+       id;
+       name;
+       role;
+       schedule;
+       security_configuration;
+       table_prefix;
+       tags;
+       tags_all;
+       catalog_target;
+       delta_target;
+       dynamodb_target;
+       hudi_target;
+       iceberg_target;
+       jdbc_target;
+       lake_formation_configuration;
+       lineage_configuration;
+       mongodb_target;
+       recrawl_policy;
+       s3_target;
+       schema_change_policy;
+     }
+      : aws_glue_crawler)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_crawler __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       classifiers =
+         Prop.computed __resource_type __resource_id "classifiers";
+       configuration =
+         Prop.computed __resource_type __resource_id "configuration";
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       role = Prop.computed __resource_type __resource_id "role";
+       schedule =
+         Prop.computed __resource_type __resource_id "schedule";
+       security_configuration =
+         Prop.computed __resource_type __resource_id
+           "security_configuration";
+       table_prefix =
+         Prop.computed __resource_type __resource_id "table_prefix";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -103,12 +103,48 @@ type aws_ssmcontacts_rotation = {
 [@@deriving yojson_of]
 (** aws_ssmcontacts_rotation *)
 
+type t = {
+  arn : string prop;
+  contact_ids : string list prop;
+  id : string prop;
+  name : string prop;
+  start_time : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  time_zone_id : string prop;
+}
+
 let aws_ssmcontacts_rotation ?start_time ?tags ~contact_ids ~name
     ~time_zone_id ~recurrence __resource_id =
   let __resource_type = "aws_ssmcontacts_rotation" in
   let __resource =
-    { contact_ids; name; start_time; tags; time_zone_id; recurrence }
+    ({
+       contact_ids;
+       name;
+       start_time;
+       tags;
+       time_zone_id;
+       recurrence;
+     }
+      : aws_ssmcontacts_rotation)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmcontacts_rotation __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       contact_ids =
+         Prop.computed __resource_type __resource_id "contact_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       start_time =
+         Prop.computed __resource_type __resource_id "start_time";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       time_zone_id =
+         Prop.computed __resource_type __resource_id "time_zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

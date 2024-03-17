@@ -71,23 +71,56 @@ letter 's' (seconds). Cannot be more than 31 days or less than 10 minutes. *)
 [@@deriving yojson_of]
 (** google_pubsub_topic *)
 
+type t = {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  message_retention_duration : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_pubsub_topic ?id ?kms_key_name ?labels
     ?message_retention_duration ?project ?timeouts ~name
     ~message_storage_policy ~schema_settings __resource_id =
   let __resource_type = "google_pubsub_topic" in
   let __resource =
-    {
-      id;
-      kms_key_name;
-      labels;
-      message_retention_duration;
-      name;
-      project;
-      message_storage_policy;
-      schema_settings;
-      timeouts;
-    }
+    ({
+       id;
+       kms_key_name;
+       labels;
+       message_retention_duration;
+       name;
+       project;
+       message_storage_policy;
+       schema_settings;
+       timeouts;
+     }
+      : google_pubsub_topic)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_topic __resource);
-  ()
+  let __resource_attributes =
+    ({
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_name =
+         Prop.computed __resource_type __resource_id "kms_key_name";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       message_retention_duration =
+         Prop.computed __resource_type __resource_id
+           "message_retention_duration";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

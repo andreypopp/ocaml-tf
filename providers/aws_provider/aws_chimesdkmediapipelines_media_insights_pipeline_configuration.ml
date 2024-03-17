@@ -217,6 +217,15 @@ type aws_chimesdkmediapipelines_media_insights_pipeline_configuration = {
 [@@deriving yojson_of]
 (** aws_chimesdkmediapipelines_media_insights_pipeline_configuration *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  resource_access_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_chimesdkmediapipelines_media_insights_pipeline_configuration
     ?tags ?tags_all ?timeouts ~name ~resource_access_role_arn
     ~elements ~real_time_alert_configuration __resource_id =
@@ -224,17 +233,32 @@ let aws_chimesdkmediapipelines_media_insights_pipeline_configuration
     "aws_chimesdkmediapipelines_media_insights_pipeline_configuration"
   in
   let __resource =
-    {
-      name;
-      resource_access_role_arn;
-      tags;
-      tags_all;
-      elements;
-      real_time_alert_configuration;
-      timeouts;
-    }
+    ({
+       name;
+       resource_access_role_arn;
+       tags;
+       tags_all;
+       elements;
+       real_time_alert_configuration;
+       timeouts;
+     }
+      : aws_chimesdkmediapipelines_media_insights_pipeline_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chimesdkmediapipelines_media_insights_pipeline_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_access_role_arn =
+         Prop.computed __resource_type __resource_id
+           "resource_access_role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -36,20 +36,48 @@ type aws_codebuild_report_group = {
 [@@deriving yojson_of]
 (** aws_codebuild_report_group *)
 
+type t = {
+  arn : string prop;
+  created : string prop;
+  delete_reports : bool prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_codebuild_report_group ?delete_reports ?id ?tags ?tags_all
     ~name ~type_ ~export_config __resource_id =
   let __resource_type = "aws_codebuild_report_group" in
   let __resource =
-    {
-      delete_reports;
-      id;
-      name;
-      tags;
-      tags_all;
-      type_;
-      export_config;
-    }
+    ({
+       delete_reports;
+       id;
+       name;
+       tags;
+       tags_all;
+       type_;
+       export_config;
+     }
+      : aws_codebuild_report_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codebuild_report_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created =
+         Prop.computed __resource_type __resource_id "created";
+       delete_reports =
+         Prop.computed __resource_type __resource_id "delete_reports";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

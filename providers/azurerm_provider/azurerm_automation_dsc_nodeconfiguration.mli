@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_automation_dsc_nodeconfiguration__timeouts
 type azurerm_automation_dsc_nodeconfiguration
 
+type t = private {
+  automation_account_name : string prop;
+  configuration_name : string prop;
+  content_embedded : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_automation_dsc_nodeconfiguration :
   ?id:string prop ->
   ?timeouts:azurerm_automation_dsc_nodeconfiguration__timeouts ->
@@ -13,4 +22,4 @@ val azurerm_automation_dsc_nodeconfiguration :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

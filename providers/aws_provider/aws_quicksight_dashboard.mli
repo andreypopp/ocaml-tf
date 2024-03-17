@@ -17244,11 +17244,29 @@ type aws_quicksight_dashboard__timeouts
 
 type aws_quicksight_dashboard
 
+type t = private {
+  arn: string prop;
+  aws_account_id: string prop;
+  created_time: string prop;
+  dashboard_id: string prop;
+  id: string prop;
+  last_published_time: string prop;
+  last_updated_time: string prop;
+  name: string prop;
+  source_entity_arn: string prop;
+  status: string prop;
+  tags: (string * string) list prop;
+  tags_all: (string * string) list prop;
+  theme_arn: string prop;
+  version_description: string prop;
+  version_number: float prop;
+}
+
 val aws_quicksight_dashboard :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string prop) list ->
-    ?tags_all:(string * string prop) list ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
     ?theme_arn:string prop ->
     ?timeouts:aws_quicksight_dashboard__timeouts ->
     dashboard_id:string prop ->
@@ -17260,5 +17278,5 @@ val aws_quicksight_dashboard :
     permissions:aws_quicksight_dashboard__permissions list ->
     source_entity:aws_quicksight_dashboard__source_entity list ->
     string ->
-    unit
+    t
 

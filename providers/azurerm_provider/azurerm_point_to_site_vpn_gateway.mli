@@ -12,6 +12,19 @@ type azurerm_point_to_site_vpn_gateway__connection_configuration
 type azurerm_point_to_site_vpn_gateway__timeouts
 type azurerm_point_to_site_vpn_gateway
 
+type t = private {
+  dns_servers : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  routing_preference_internet_enabled : bool prop;
+  scale_unit : float prop;
+  tags : (string * string) list prop;
+  virtual_hub_id : string prop;
+  vpn_server_configuration_id : string prop;
+}
+
 val azurerm_point_to_site_vpn_gateway :
   ?dns_servers:string prop list ->
   ?id:string prop ->
@@ -27,4 +40,4 @@ val azurerm_point_to_site_vpn_gateway :
   connection_configuration:
     azurerm_point_to_site_vpn_gateway__connection_configuration list ->
   string ->
-  unit
+  t

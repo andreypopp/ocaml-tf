@@ -57,12 +57,41 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_healthcare_dicom_store *)
 
+type t = {
+  dataset : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  self_link : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_healthcare_dicom_store ?id ?labels ?timeouts ~dataset
     ~name ~notification_config __resource_id =
   let __resource_type = "google_healthcare_dicom_store" in
   let __resource =
-    { dataset; id; labels; name; notification_config; timeouts }
+    ({ dataset; id; labels; name; notification_config; timeouts }
+      : google_healthcare_dicom_store)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_dicom_store __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dataset =
+         Prop.computed __resource_type __resource_id "dataset";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

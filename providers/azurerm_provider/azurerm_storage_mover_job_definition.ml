@@ -32,26 +32,66 @@ type azurerm_storage_mover_job_definition = {
 [@@deriving yojson_of]
 (** azurerm_storage_mover_job_definition *)
 
+type t = {
+  agent_name : string prop;
+  copy_mode : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  source_name : string prop;
+  source_sub_path : string prop;
+  storage_mover_project_id : string prop;
+  target_name : string prop;
+  target_sub_path : string prop;
+}
+
 let azurerm_storage_mover_job_definition ?agent_name ?description ?id
     ?source_sub_path ?target_sub_path ?timeouts ~copy_mode ~name
     ~source_name ~storage_mover_project_id ~target_name __resource_id
     =
   let __resource_type = "azurerm_storage_mover_job_definition" in
   let __resource =
-    {
-      agent_name;
-      copy_mode;
-      description;
-      id;
-      name;
-      source_name;
-      source_sub_path;
-      storage_mover_project_id;
-      target_name;
-      target_sub_path;
-      timeouts;
-    }
+    ({
+       agent_name;
+       copy_mode;
+       description;
+       id;
+       name;
+       source_name;
+       source_sub_path;
+       storage_mover_project_id;
+       target_name;
+       target_sub_path;
+       timeouts;
+     }
+      : azurerm_storage_mover_job_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_mover_job_definition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       agent_name =
+         Prop.computed __resource_type __resource_id "agent_name";
+       copy_mode =
+         Prop.computed __resource_type __resource_id "copy_mode";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       source_name =
+         Prop.computed __resource_type __resource_id "source_name";
+       source_sub_path =
+         Prop.computed __resource_type __resource_id
+           "source_sub_path";
+       storage_mover_project_id =
+         Prop.computed __resource_type __resource_id
+           "storage_mover_project_id";
+       target_name =
+         Prop.computed __resource_type __resource_id "target_name";
+       target_sub_path =
+         Prop.computed __resource_type __resource_id
+           "target_sub_path";
+     }
+      : t)
+  in
+  __resource_attributes

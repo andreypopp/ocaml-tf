@@ -13,6 +13,13 @@ type aws_cloudfront_continuous_deployment_policy__traffic_config__single_weight_
 type aws_cloudfront_continuous_deployment_policy__traffic_config
 type aws_cloudfront_continuous_deployment_policy
 
+type t = private {
+  enabled : bool prop;
+  etag : string prop;
+  id : string prop;
+  last_modified_time : string prop;
+}
+
 val aws_cloudfront_continuous_deployment_policy :
   enabled:bool prop ->
   staging_distribution_dns_names:
@@ -21,4 +28,4 @@ val aws_cloudfront_continuous_deployment_policy :
   traffic_config:
     aws_cloudfront_continuous_deployment_policy__traffic_config list ->
   string ->
-  unit
+  t

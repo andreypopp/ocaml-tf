@@ -133,6 +133,18 @@ boundaries. *)
 [@@deriving yojson_of]
 (** google_network_management_connectivity_test *)
 
+type t = {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  protocol : string prop;
+  related_projects : string list prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_network_management_connectivity_test ?description ?id
     ?labels ?project ?protocol ?related_projects ?timeouts ~name
     ~destination ~source __resource_id =
@@ -140,19 +152,43 @@ let google_network_management_connectivity_test ?description ?id
     "google_network_management_connectivity_test"
   in
   let __resource =
-    {
-      description;
-      id;
-      labels;
-      name;
-      project;
-      protocol;
-      related_projects;
-      destination;
-      source;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       labels;
+       name;
+       project;
+       protocol;
+       related_projects;
+       destination;
+       source;
+       timeouts;
+     }
+      : google_network_management_connectivity_test)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_management_connectivity_test __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       related_projects =
+         Prop.computed __resource_type __resource_id
+           "related_projects";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

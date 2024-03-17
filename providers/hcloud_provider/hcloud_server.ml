@@ -64,6 +64,35 @@ type hcloud_server = {
 [@@deriving yojson_of]
 (** hcloud_server *)
 
+type t = {
+  allow_deprecated_images : bool prop;
+  backup_window : string prop;
+  backups : bool prop;
+  datacenter : string prop;
+  delete_protection : bool prop;
+  firewall_ids : float list prop;
+  id : string prop;
+  ignore_remote_firewall_ids : bool prop;
+  image : string prop;
+  ipv4_address : string prop;
+  ipv6_address : string prop;
+  ipv6_network : string prop;
+  iso : string prop;
+  keep_disk : bool prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  placement_group_id : float prop;
+  primary_disk_size : float prop;
+  rebuild_protection : bool prop;
+  rescue : string prop;
+  server_type : string prop;
+  shutdown_before_deletion : bool prop;
+  ssh_keys : string list prop;
+  status : string prop;
+  user_data : string prop;
+}
+
 let hcloud_server ?allow_deprecated_images ?backups ?datacenter
     ?delete_protection ?firewall_ids ?id ?ignore_remote_firewall_ids
     ?image ?iso ?keep_disk ?labels ?location ?placement_group_id
@@ -72,32 +101,90 @@ let hcloud_server ?allow_deprecated_images ?backups ?datacenter
     __resource_id =
   let __resource_type = "hcloud_server" in
   let __resource =
-    {
-      allow_deprecated_images;
-      backups;
-      datacenter;
-      delete_protection;
-      firewall_ids;
-      id;
-      ignore_remote_firewall_ids;
-      image;
-      iso;
-      keep_disk;
-      labels;
-      location;
-      name;
-      placement_group_id;
-      rebuild_protection;
-      rescue;
-      server_type;
-      shutdown_before_deletion;
-      ssh_keys;
-      user_data;
-      network;
-      public_net;
-      timeouts;
-    }
+    ({
+       allow_deprecated_images;
+       backups;
+       datacenter;
+       delete_protection;
+       firewall_ids;
+       id;
+       ignore_remote_firewall_ids;
+       image;
+       iso;
+       keep_disk;
+       labels;
+       location;
+       name;
+       placement_group_id;
+       rebuild_protection;
+       rescue;
+       server_type;
+       shutdown_before_deletion;
+       ssh_keys;
+       user_data;
+       network;
+       public_net;
+       timeouts;
+     }
+      : hcloud_server)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_server __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allow_deprecated_images =
+         Prop.computed __resource_type __resource_id
+           "allow_deprecated_images";
+       backup_window =
+         Prop.computed __resource_type __resource_id "backup_window";
+       backups =
+         Prop.computed __resource_type __resource_id "backups";
+       datacenter =
+         Prop.computed __resource_type __resource_id "datacenter";
+       delete_protection =
+         Prop.computed __resource_type __resource_id
+           "delete_protection";
+       firewall_ids =
+         Prop.computed __resource_type __resource_id "firewall_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       ignore_remote_firewall_ids =
+         Prop.computed __resource_type __resource_id
+           "ignore_remote_firewall_ids";
+       image = Prop.computed __resource_type __resource_id "image";
+       ipv4_address =
+         Prop.computed __resource_type __resource_id "ipv4_address";
+       ipv6_address =
+         Prop.computed __resource_type __resource_id "ipv6_address";
+       ipv6_network =
+         Prop.computed __resource_type __resource_id "ipv6_network";
+       iso = Prop.computed __resource_type __resource_id "iso";
+       keep_disk =
+         Prop.computed __resource_type __resource_id "keep_disk";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       placement_group_id =
+         Prop.computed __resource_type __resource_id
+           "placement_group_id";
+       primary_disk_size =
+         Prop.computed __resource_type __resource_id
+           "primary_disk_size";
+       rebuild_protection =
+         Prop.computed __resource_type __resource_id
+           "rebuild_protection";
+       rescue = Prop.computed __resource_type __resource_id "rescue";
+       server_type =
+         Prop.computed __resource_type __resource_id "server_type";
+       shutdown_before_deletion =
+         Prop.computed __resource_type __resource_id
+           "shutdown_before_deletion";
+       ssh_keys =
+         Prop.computed __resource_type __resource_id "ssh_keys";
+       status = Prop.computed __resource_type __resource_id "status";
+       user_data =
+         Prop.computed __resource_type __resource_id "user_data";
+     }
+      : t)
+  in
+  __resource_attributes

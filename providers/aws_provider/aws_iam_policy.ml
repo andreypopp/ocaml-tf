@@ -18,21 +18,54 @@ type aws_iam_policy = {
 [@@deriving yojson_of]
 (** aws_iam_policy *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  path : string prop;
+  policy : string prop;
+  policy_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_iam_policy ?description ?id ?name ?name_prefix ?path ?tags
     ?tags_all ~policy __resource_id =
   let __resource_type = "aws_iam_policy" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      name_prefix;
-      path;
-      policy;
-      tags;
-      tags_all;
-    }
+    ({
+       description;
+       id;
+       name;
+       name_prefix;
+       path;
+       policy;
+       tags;
+       tags_all;
+     }
+      : aws_iam_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       path = Prop.computed __resource_type __resource_id "path";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       policy_id =
+         Prop.computed __resource_type __resource_id "policy_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

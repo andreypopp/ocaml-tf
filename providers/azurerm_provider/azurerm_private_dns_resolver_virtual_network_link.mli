@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_private_dns_resolver_virtual_network_link__timeouts
 type azurerm_private_dns_resolver_virtual_network_link
 
+type t = private {
+  dns_forwarding_ruleset_id : string prop;
+  id : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  virtual_network_id : string prop;
+}
+
 val azurerm_private_dns_resolver_virtual_network_link :
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
@@ -14,4 +22,4 @@ val azurerm_private_dns_resolver_virtual_network_link :
   name:string prop ->
   virtual_network_id:string prop ->
   string ->
-  unit
+  t

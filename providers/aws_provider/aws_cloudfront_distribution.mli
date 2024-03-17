@@ -60,6 +60,36 @@ type aws_cloudfront_distribution__trusted_signers = {
 
 type aws_cloudfront_distribution
 
+type t = private {
+  aliases : string list prop;
+  arn : string prop;
+  caller_reference : string prop;
+  comment : string prop;
+  continuous_deployment_policy_id : string prop;
+  default_root_object : string prop;
+  domain_name : string prop;
+  enabled : bool prop;
+  etag : string prop;
+  hosted_zone_id : string prop;
+  http_version : string prop;
+  id : string prop;
+  in_progress_validation_batches : float prop;
+  is_ipv6_enabled : bool prop;
+  last_modified_time : string prop;
+  price_class : string prop;
+  retain_on_delete : bool prop;
+  staging : bool prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  trusted_key_groups :
+    aws_cloudfront_distribution__trusted_key_groups list prop;
+  trusted_signers :
+    aws_cloudfront_distribution__trusted_signers list prop;
+  wait_for_deployment : bool prop;
+  web_acl_id : string prop;
+}
+
 val aws_cloudfront_distribution :
   ?aliases:string prop list ->
   ?comment:string prop ->
@@ -89,4 +119,4 @@ val aws_cloudfront_distribution :
   viewer_certificate:
     aws_cloudfront_distribution__viewer_certificate list ->
   string ->
-  unit
+  t

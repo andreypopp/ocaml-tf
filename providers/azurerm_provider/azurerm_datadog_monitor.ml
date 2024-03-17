@@ -63,25 +63,58 @@ type azurerm_datadog_monitor = {
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  marketplace_subscription_status : string prop;
+  monitoring_enabled : bool prop;
+  name : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_datadog_monitor ?id ?monitoring_enabled ?tags ?timeouts
     ~location ~name ~resource_group_name ~sku_name
     ~datadog_organization ~identity ~user __resource_id =
   let __resource_type = "azurerm_datadog_monitor" in
   let __resource =
-    {
-      id;
-      location;
-      monitoring_enabled;
-      name;
-      resource_group_name;
-      sku_name;
-      tags;
-      datadog_organization;
-      identity;
-      timeouts;
-      user;
-    }
+    ({
+       id;
+       location;
+       monitoring_enabled;
+       name;
+       resource_group_name;
+       sku_name;
+       tags;
+       datadog_organization;
+       identity;
+       timeouts;
+       user;
+     }
+      : azurerm_datadog_monitor)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_datadog_monitor __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       marketplace_subscription_status =
+         Prop.computed __resource_type __resource_id
+           "marketplace_subscription_status";
+       monitoring_enabled =
+         Prop.computed __resource_type __resource_id
+           "monitoring_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

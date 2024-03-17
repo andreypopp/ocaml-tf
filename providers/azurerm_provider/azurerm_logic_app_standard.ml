@@ -176,6 +176,34 @@ type azurerm_logic_app_standard = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_standard *)
 
+type t = {
+  app_service_plan_id : string prop;
+  app_settings : (string * string) list prop;
+  bundle_version : string prop;
+  client_affinity_enabled : bool prop;
+  client_certificate_mode : string prop;
+  custom_domain_verification_id : string prop;
+  default_hostname : string prop;
+  enabled : bool prop;
+  https_only : bool prop;
+  id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  outbound_ip_addresses : string prop;
+  possible_outbound_ip_addresses : string prop;
+  resource_group_name : string prop;
+  site_credential :
+    azurerm_logic_app_standard__site_credential list prop;
+  storage_account_access_key : string prop;
+  storage_account_name : string prop;
+  storage_account_share_name : string prop;
+  tags : (string * string) list prop;
+  use_extension_bundle : bool prop;
+  version : string prop;
+  virtual_network_subnet_id : string prop;
+}
+
 let azurerm_logic_app_standard ?app_settings ?bundle_version
     ?client_affinity_enabled ?client_certificate_mode ?enabled
     ?https_only ?id ?storage_account_share_name ?tags
@@ -186,31 +214,95 @@ let azurerm_logic_app_standard ?app_settings ?bundle_version
     __resource_id =
   let __resource_type = "azurerm_logic_app_standard" in
   let __resource =
-    {
-      app_service_plan_id;
-      app_settings;
-      bundle_version;
-      client_affinity_enabled;
-      client_certificate_mode;
-      enabled;
-      https_only;
-      id;
-      location;
-      name;
-      resource_group_name;
-      storage_account_access_key;
-      storage_account_name;
-      storage_account_share_name;
-      tags;
-      use_extension_bundle;
-      version;
-      virtual_network_subnet_id;
-      connection_string;
-      identity;
-      site_config;
-      timeouts;
-    }
+    ({
+       app_service_plan_id;
+       app_settings;
+       bundle_version;
+       client_affinity_enabled;
+       client_certificate_mode;
+       enabled;
+       https_only;
+       id;
+       location;
+       name;
+       resource_group_name;
+       storage_account_access_key;
+       storage_account_name;
+       storage_account_share_name;
+       tags;
+       use_extension_bundle;
+       version;
+       virtual_network_subnet_id;
+       connection_string;
+       identity;
+       site_config;
+       timeouts;
+     }
+      : azurerm_logic_app_standard)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_standard __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_service_plan_id =
+         Prop.computed __resource_type __resource_id
+           "app_service_plan_id";
+       app_settings =
+         Prop.computed __resource_type __resource_id "app_settings";
+       bundle_version =
+         Prop.computed __resource_type __resource_id "bundle_version";
+       client_affinity_enabled =
+         Prop.computed __resource_type __resource_id
+           "client_affinity_enabled";
+       client_certificate_mode =
+         Prop.computed __resource_type __resource_id
+           "client_certificate_mode";
+       custom_domain_verification_id =
+         Prop.computed __resource_type __resource_id
+           "custom_domain_verification_id";
+       default_hostname =
+         Prop.computed __resource_type __resource_id
+           "default_hostname";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       https_only =
+         Prop.computed __resource_type __resource_id "https_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_addresses";
+       possible_outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "possible_outbound_ip_addresses";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       site_credential =
+         Prop.computed __resource_type __resource_id
+           "site_credential";
+       storage_account_access_key =
+         Prop.computed __resource_type __resource_id
+           "storage_account_access_key";
+       storage_account_name =
+         Prop.computed __resource_type __resource_id
+           "storage_account_name";
+       storage_account_share_name =
+         Prop.computed __resource_type __resource_id
+           "storage_account_share_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       use_extension_bundle =
+         Prop.computed __resource_type __resource_id
+           "use_extension_bundle";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       virtual_network_subnet_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_subnet_id";
+     }
+      : t)
+  in
+  __resource_attributes

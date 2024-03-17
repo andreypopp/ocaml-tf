@@ -12,10 +12,29 @@ type aws_lightsail_bucket_resource_access = {
 [@@deriving yojson_of]
 (** aws_lightsail_bucket_resource_access *)
 
+type t = {
+  bucket_name : string prop;
+  id : string prop;
+  resource_name : string prop;
+}
+
 let aws_lightsail_bucket_resource_access ?id ~bucket_name
     ~resource_name __resource_id =
   let __resource_type = "aws_lightsail_bucket_resource_access" in
-  let __resource = { bucket_name; id; resource_name } in
+  let __resource =
+    ({ bucket_name; id; resource_name }
+      : aws_lightsail_bucket_resource_access)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_bucket_resource_access __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket_name =
+         Prop.computed __resource_type __resource_id "bucket_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_name =
+         Prop.computed __resource_type __resource_id "resource_name";
+     }
+      : t)
+  in
+  __resource_attributes

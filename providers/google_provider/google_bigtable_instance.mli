@@ -7,6 +7,18 @@ type google_bigtable_instance__cluster
 type google_bigtable_instance__timeouts
 type google_bigtable_instance
 
+type t = private {
+  deletion_protection : bool prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  instance_type : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_bigtable_instance :
   ?deletion_protection:bool prop ->
   ?display_name:string prop ->
@@ -18,4 +30,4 @@ val google_bigtable_instance :
   name:string prop ->
   cluster:google_bigtable_instance__cluster list ->
   string ->
-  unit
+  t

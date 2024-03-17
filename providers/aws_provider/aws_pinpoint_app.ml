@@ -45,21 +45,47 @@ type aws_pinpoint_app = {
 [@@deriving yojson_of]
 (** aws_pinpoint_app *)
 
+type t = {
+  application_id : string prop;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_pinpoint_app ?id ?name ?name_prefix ?tags ?tags_all
     ~campaign_hook ~limits ~quiet_time __resource_id =
   let __resource_type = "aws_pinpoint_app" in
   let __resource =
-    {
-      id;
-      name;
-      name_prefix;
-      tags;
-      tags_all;
-      campaign_hook;
-      limits;
-      quiet_time;
-    }
+    ({
+       id;
+       name;
+       name_prefix;
+       tags;
+       tags_all;
+       campaign_hook;
+       limits;
+       quiet_time;
+     }
+      : aws_pinpoint_app)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_pinpoint_app __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_id =
+         Prop.computed __resource_type __resource_id "application_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

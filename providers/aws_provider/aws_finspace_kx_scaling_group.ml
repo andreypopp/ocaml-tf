@@ -26,22 +26,68 @@ type aws_finspace_kx_scaling_group = {
 [@@deriving yojson_of]
 (** aws_finspace_kx_scaling_group *)
 
+type t = {
+  arn : string prop;
+  availability_zone_id : string prop;
+  clusters : string list prop;
+  created_timestamp : string prop;
+  environment_id : string prop;
+  host_type : string prop;
+  id : string prop;
+  last_modified_timestamp : string prop;
+  name : string prop;
+  status : string prop;
+  status_reason : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_finspace_kx_scaling_group ?id ?tags ?tags_all ?timeouts
     ~availability_zone_id ~environment_id ~host_type ~name
     __resource_id =
   let __resource_type = "aws_finspace_kx_scaling_group" in
   let __resource =
-    {
-      availability_zone_id;
-      environment_id;
-      host_type;
-      id;
-      name;
-      tags;
-      tags_all;
-      timeouts;
-    }
+    ({
+       availability_zone_id;
+       environment_id;
+       host_type;
+       id;
+       name;
+       tags;
+       tags_all;
+       timeouts;
+     }
+      : aws_finspace_kx_scaling_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_finspace_kx_scaling_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       availability_zone_id =
+         Prop.computed __resource_type __resource_id
+           "availability_zone_id";
+       clusters =
+         Prop.computed __resource_type __resource_id "clusters";
+       created_timestamp =
+         Prop.computed __resource_type __resource_id
+           "created_timestamp";
+       environment_id =
+         Prop.computed __resource_type __resource_id "environment_id";
+       host_type =
+         Prop.computed __resource_type __resource_id "host_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_modified_timestamp =
+         Prop.computed __resource_type __resource_id
+           "last_modified_timestamp";
+       name = Prop.computed __resource_type __resource_id "name";
+       status = Prop.computed __resource_type __resource_id "status";
+       status_reason =
+         Prop.computed __resource_type __resource_id "status_reason";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

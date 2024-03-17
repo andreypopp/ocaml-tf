@@ -30,6 +30,19 @@ type google_privateca_certificate_template__predefined_values
 type google_privateca_certificate_template__timeouts
 type google_privateca_certificate_template
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_privateca_certificate_template :
   ?description:string prop ->
   ?id:string prop ->
@@ -46,4 +59,4 @@ val google_privateca_certificate_template :
   predefined_values:
     google_privateca_certificate_template__predefined_values list ->
   string ->
-  unit
+  t

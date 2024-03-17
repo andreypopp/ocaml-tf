@@ -151,24 +151,57 @@ type aws_customerprofiles_domain = {
 [@@deriving yojson_of]
 (** aws_customerprofiles_domain *)
 
+type t = {
+  arn : string prop;
+  dead_letter_queue_url : string prop;
+  default_encryption_key : string prop;
+  default_expiration_days : float prop;
+  domain_name : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_customerprofiles_domain ?dead_letter_queue_url
     ?default_encryption_key ?id ?tags ?tags_all
     ~default_expiration_days ~domain_name ~matching
     ~rule_based_matching __resource_id =
   let __resource_type = "aws_customerprofiles_domain" in
   let __resource =
-    {
-      dead_letter_queue_url;
-      default_encryption_key;
-      default_expiration_days;
-      domain_name;
-      id;
-      tags;
-      tags_all;
-      matching;
-      rule_based_matching;
-    }
+    ({
+       dead_letter_queue_url;
+       default_encryption_key;
+       default_expiration_days;
+       domain_name;
+       id;
+       tags;
+       tags_all;
+       matching;
+       rule_based_matching;
+     }
+      : aws_customerprofiles_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_customerprofiles_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       dead_letter_queue_url =
+         Prop.computed __resource_type __resource_id
+           "dead_letter_queue_url";
+       default_encryption_key =
+         Prop.computed __resource_type __resource_id
+           "default_encryption_key";
+       default_expiration_days =
+         Prop.computed __resource_type __resource_id
+           "default_expiration_days";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

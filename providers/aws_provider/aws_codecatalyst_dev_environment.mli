@@ -8,6 +8,15 @@ type aws_codecatalyst_dev_environment__repositories
 type aws_codecatalyst_dev_environment__timeouts
 type aws_codecatalyst_dev_environment
 
+type t = private {
+  alias : string prop;
+  id : string prop;
+  inactivity_timeout_minutes : float prop;
+  instance_type : string prop;
+  project_name : string prop;
+  space_name : string prop;
+}
+
 val aws_codecatalyst_dev_environment :
   ?alias:string prop ->
   ?id:string prop ->
@@ -21,4 +30,4 @@ val aws_codecatalyst_dev_environment :
     aws_codecatalyst_dev_environment__persistent_storage list ->
   repositories:aws_codecatalyst_dev_environment__repositories list ->
   string ->
-  unit
+  t

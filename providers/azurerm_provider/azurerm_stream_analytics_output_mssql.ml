@@ -35,28 +35,73 @@ type azurerm_stream_analytics_output_mssql = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_mssql *)
 
+type t = {
+  authentication_mode : string prop;
+  database : string prop;
+  id : string prop;
+  max_batch_count : float prop;
+  max_writer_count : float prop;
+  name : string prop;
+  password : string prop;
+  resource_group_name : string prop;
+  server : string prop;
+  stream_analytics_job_name : string prop;
+  table : string prop;
+  user : string prop;
+}
+
 let azurerm_stream_analytics_output_mssql ?authentication_mode ?id
     ?max_batch_count ?max_writer_count ?password ?user ?timeouts
     ~database ~name ~resource_group_name ~server
     ~stream_analytics_job_name ~table __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_mssql" in
   let __resource =
-    {
-      authentication_mode;
-      database;
-      id;
-      max_batch_count;
-      max_writer_count;
-      name;
-      password;
-      resource_group_name;
-      server;
-      stream_analytics_job_name;
-      table;
-      user;
-      timeouts;
-    }
+    ({
+       authentication_mode;
+       database;
+       id;
+       max_batch_count;
+       max_writer_count;
+       name;
+       password;
+       resource_group_name;
+       server;
+       stream_analytics_job_name;
+       table;
+       user;
+       timeouts;
+     }
+      : azurerm_stream_analytics_output_mssql)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_output_mssql __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authentication_mode =
+         Prop.computed __resource_type __resource_id
+           "authentication_mode";
+       database =
+         Prop.computed __resource_type __resource_id "database";
+       id = Prop.computed __resource_type __resource_id "id";
+       max_batch_count =
+         Prop.computed __resource_type __resource_id
+           "max_batch_count";
+       max_writer_count =
+         Prop.computed __resource_type __resource_id
+           "max_writer_count";
+       name = Prop.computed __resource_type __resource_id "name";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       server = Prop.computed __resource_type __resource_id "server";
+       stream_analytics_job_name =
+         Prop.computed __resource_type __resource_id
+           "stream_analytics_job_name";
+       table = Prop.computed __resource_type __resource_id "table";
+       user = Prop.computed __resource_type __resource_id "user";
+     }
+      : t)
+  in
+  __resource_attributes

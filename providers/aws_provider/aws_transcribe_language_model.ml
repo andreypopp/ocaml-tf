@@ -34,22 +34,50 @@ type aws_transcribe_language_model = {
 [@@deriving yojson_of]
 (** aws_transcribe_language_model *)
 
+type t = {
+  arn : string prop;
+  base_model_name : string prop;
+  id : string prop;
+  language_code : string prop;
+  model_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_transcribe_language_model ?id ?tags ?tags_all ?timeouts
     ~base_model_name ~language_code ~model_name ~input_data_config
     __resource_id =
   let __resource_type = "aws_transcribe_language_model" in
   let __resource =
-    {
-      base_model_name;
-      id;
-      language_code;
-      model_name;
-      tags;
-      tags_all;
-      input_data_config;
-      timeouts;
-    }
+    ({
+       base_model_name;
+       id;
+       language_code;
+       model_name;
+       tags;
+       tags_all;
+       input_data_config;
+       timeouts;
+     }
+      : aws_transcribe_language_model)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transcribe_language_model __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       base_model_name =
+         Prop.computed __resource_type __resource_id
+           "base_model_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       language_code =
+         Prop.computed __resource_type __resource_id "language_code";
+       model_name =
+         Prop.computed __resource_type __resource_id "model_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

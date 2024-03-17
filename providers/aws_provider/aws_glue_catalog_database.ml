@@ -57,26 +57,58 @@ type aws_glue_catalog_database = {
 [@@deriving yojson_of]
 (** aws_glue_catalog_database *)
 
+type t = {
+  arn : string prop;
+  catalog_id : string prop;
+  description : string prop;
+  id : string prop;
+  location_uri : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_glue_catalog_database ?catalog_id ?description ?id
     ?location_uri ?parameters ?tags ?tags_all ~name
     ~create_table_default_permission ~federated_database
     ~target_database __resource_id =
   let __resource_type = "aws_glue_catalog_database" in
   let __resource =
-    {
-      catalog_id;
-      description;
-      id;
-      location_uri;
-      name;
-      parameters;
-      tags;
-      tags_all;
-      create_table_default_permission;
-      federated_database;
-      target_database;
-    }
+    ({
+       catalog_id;
+       description;
+       id;
+       location_uri;
+       name;
+       parameters;
+       tags;
+       tags_all;
+       create_table_default_permission;
+       federated_database;
+       target_database;
+     }
+      : aws_glue_catalog_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_catalog_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       catalog_id =
+         Prop.computed __resource_type __resource_id "catalog_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       location_uri =
+         Prop.computed __resource_type __resource_id "location_uri";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -6,6 +6,16 @@ type aws_medialive_multiplex__multiplex_settings
 type aws_medialive_multiplex__timeouts
 type aws_medialive_multiplex
 
+type t = private {
+  arn : string prop;
+  availability_zones : string list prop;
+  id : string prop;
+  name : string prop;
+  start_multiplex : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_medialive_multiplex :
   ?id:string prop ->
   ?start_multiplex:bool prop ->
@@ -16,4 +26,4 @@ val aws_medialive_multiplex :
   name:string prop ->
   multiplex_settings:aws_medialive_multiplex__multiplex_settings list ->
   string ->
-  unit
+  t

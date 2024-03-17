@@ -237,6 +237,45 @@ type google_container_cluster__vertical_pod_autoscaling
 type google_container_cluster__workload_identity_config
 type google_container_cluster
 
+type t = private {
+  allow_net_admin : bool prop;
+  cluster_ipv4_cidr : string prop;
+  datapath_provider : string prop;
+  default_max_pods_per_node : float prop;
+  deletion_protection : bool prop;
+  description : string prop;
+  enable_autopilot : bool prop;
+  enable_intranode_visibility : bool prop;
+  enable_kubernetes_alpha : bool prop;
+  enable_l4_ilb_subsetting : bool prop;
+  enable_legacy_abac : bool prop;
+  enable_shielded_nodes : bool prop;
+  enable_tpu : bool prop;
+  endpoint : string prop;
+  id : string prop;
+  initial_node_count : float prop;
+  label_fingerprint : string prop;
+  location : string prop;
+  logging_service : string prop;
+  master_version : string prop;
+  min_master_version : string prop;
+  monitoring_service : string prop;
+  name : string prop;
+  network : string prop;
+  networking_mode : string prop;
+  node_locations : string list prop;
+  node_version : string prop;
+  operation : string prop;
+  private_ipv6_google_access : string prop;
+  project : string prop;
+  remove_default_node_pool : bool prop;
+  resource_labels : (string * string) list prop;
+  self_link : string prop;
+  services_ipv4_cidr : string prop;
+  subnetwork : string prop;
+  tpu_ipv4_cidr_block : string prop;
+}
+
 val google_container_cluster :
   ?allow_net_admin:bool prop ->
   ?cluster_ipv4_cidr:string prop ->
@@ -324,4 +363,4 @@ val google_container_cluster :
   workload_identity_config:
     google_container_cluster__workload_identity_config list ->
   string ->
-  unit
+  t

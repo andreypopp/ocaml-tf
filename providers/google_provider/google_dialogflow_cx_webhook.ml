@@ -70,26 +70,65 @@ Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
 [@@deriving yojson_of]
 (** google_dialogflow_cx_webhook *)
 
+type t = {
+  disabled : bool prop;
+  display_name : string prop;
+  enable_spell_correction : bool prop;
+  enable_stackdriver_logging : bool prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  security_settings : string prop;
+  start_flow : string prop;
+  timeout : string prop;
+}
+
 let google_dialogflow_cx_webhook ?disabled ?enable_spell_correction
     ?enable_stackdriver_logging ?id ?parent ?security_settings
     ?timeout ?timeouts ~display_name ~generic_web_service
     ~service_directory __resource_id =
   let __resource_type = "google_dialogflow_cx_webhook" in
   let __resource =
-    {
-      disabled;
-      display_name;
-      enable_spell_correction;
-      enable_stackdriver_logging;
-      id;
-      parent;
-      security_settings;
-      timeout;
-      generic_web_service;
-      service_directory;
-      timeouts;
-    }
+    ({
+       disabled;
+       display_name;
+       enable_spell_correction;
+       enable_stackdriver_logging;
+       id;
+       parent;
+       security_settings;
+       timeout;
+       generic_web_service;
+       service_directory;
+       timeouts;
+     }
+      : google_dialogflow_cx_webhook)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_webhook __resource);
-  ()
+  let __resource_attributes =
+    ({
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enable_spell_correction =
+         Prop.computed __resource_type __resource_id
+           "enable_spell_correction";
+       enable_stackdriver_logging =
+         Prop.computed __resource_type __resource_id
+           "enable_stackdriver_logging";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       security_settings =
+         Prop.computed __resource_type __resource_id
+           "security_settings";
+       start_flow =
+         Prop.computed __resource_type __resource_id "start_flow";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+     }
+      : t)
+  in
+  __resource_attributes

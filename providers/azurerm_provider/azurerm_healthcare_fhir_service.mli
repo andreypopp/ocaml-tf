@@ -9,6 +9,20 @@ type azurerm_healthcare_fhir_service__oci_artifact
 type azurerm_healthcare_fhir_service__timeouts
 type azurerm_healthcare_fhir_service
 
+type t = private {
+  access_policy_object_ids : string list prop;
+  configuration_export_storage_account_name : string prop;
+  container_registry_login_server_url : string list prop;
+  id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  workspace_id : string prop;
+}
+
 val azurerm_healthcare_fhir_service :
   ?access_policy_object_ids:string prop list ->
   ?configuration_export_storage_account_name:string prop ->
@@ -26,4 +40,4 @@ val azurerm_healthcare_fhir_service :
   identity:azurerm_healthcare_fhir_service__identity list ->
   oci_artifact:azurerm_healthcare_fhir_service__oci_artifact list ->
   string ->
-  unit
+  t

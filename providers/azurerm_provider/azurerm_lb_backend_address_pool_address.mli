@@ -12,6 +12,19 @@ type azurerm_lb_backend_address_pool_address__inbound_nat_rule_port_mapping = {
 
 type azurerm_lb_backend_address_pool_address
 
+type t = private {
+  backend_address_ip_configuration_id : string prop;
+  backend_address_pool_id : string prop;
+  id : string prop;
+  inbound_nat_rule_port_mapping :
+    azurerm_lb_backend_address_pool_address__inbound_nat_rule_port_mapping
+    list
+    prop;
+  ip_address : string prop;
+  name : string prop;
+  virtual_network_id : string prop;
+}
+
 val azurerm_lb_backend_address_pool_address :
   ?backend_address_ip_configuration_id:string prop ->
   ?id:string prop ->
@@ -21,4 +34,4 @@ val azurerm_lb_backend_address_pool_address :
   backend_address_pool_id:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

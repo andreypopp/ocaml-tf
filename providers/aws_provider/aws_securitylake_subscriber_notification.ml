@@ -40,10 +40,29 @@ type aws_securitylake_subscriber_notification = {
 [@@deriving yojson_of]
 (** aws_securitylake_subscriber_notification *)
 
+type t = {
+  endpoint_id : string prop;
+  id : string prop;
+  subscriber_id : string prop;
+}
+
 let aws_securitylake_subscriber_notification ~subscriber_id
     ~configuration __resource_id =
   let __resource_type = "aws_securitylake_subscriber_notification" in
-  let __resource = { subscriber_id; configuration } in
+  let __resource =
+    ({ subscriber_id; configuration }
+      : aws_securitylake_subscriber_notification)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securitylake_subscriber_notification __resource);
-  ()
+  let __resource_attributes =
+    ({
+       endpoint_id =
+         Prop.computed __resource_type __resource_id "endpoint_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       subscriber_id =
+         Prop.computed __resource_type __resource_id "subscriber_id";
+     }
+      : t)
+  in
+  __resource_attributes

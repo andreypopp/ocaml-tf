@@ -65,6 +65,14 @@ type azurerm_media_transform__output
 type azurerm_media_transform__timeouts
 type azurerm_media_transform
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_media_transform :
   ?description:string prop ->
   ?id:string prop ->
@@ -74,4 +82,4 @@ val azurerm_media_transform :
   resource_group_name:string prop ->
   output:azurerm_media_transform__output list ->
   string ->
-  unit
+  t

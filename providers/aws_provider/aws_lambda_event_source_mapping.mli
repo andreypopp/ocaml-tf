@@ -17,6 +17,31 @@ type aws_lambda_event_source_mapping__self_managed_kafka_event_source_config
 type aws_lambda_event_source_mapping__source_access_configuration
 type aws_lambda_event_source_mapping
 
+type t = private {
+  batch_size : float prop;
+  bisect_batch_on_function_error : bool prop;
+  enabled : bool prop;
+  event_source_arn : string prop;
+  function_arn : string prop;
+  function_name : string prop;
+  function_response_types : string list prop;
+  id : string prop;
+  last_modified : string prop;
+  last_processing_result : string prop;
+  maximum_batching_window_in_seconds : float prop;
+  maximum_record_age_in_seconds : float prop;
+  maximum_retry_attempts : float prop;
+  parallelization_factor : float prop;
+  queues : string list prop;
+  starting_position : string prop;
+  starting_position_timestamp : string prop;
+  state : string prop;
+  state_transition_reason : string prop;
+  topics : string list prop;
+  tumbling_window_in_seconds : float prop;
+  uuid : string prop;
+}
+
 val aws_lambda_event_source_mapping :
   ?batch_size:float prop ->
   ?bisect_batch_on_function_error:bool prop ->
@@ -53,4 +78,4 @@ val aws_lambda_event_source_mapping :
   source_access_configuration:
     aws_lambda_event_source_mapping__source_access_configuration list ->
   string ->
-  unit
+  t

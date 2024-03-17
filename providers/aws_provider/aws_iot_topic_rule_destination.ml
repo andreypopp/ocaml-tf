@@ -32,10 +32,24 @@ type aws_iot_topic_rule_destination = {
 [@@deriving yojson_of]
 (** aws_iot_topic_rule_destination *)
 
+type t = { arn : string prop; enabled : bool prop; id : string prop }
+
 let aws_iot_topic_rule_destination ?enabled ?id ?timeouts
     ~vpc_configuration __resource_id =
   let __resource_type = "aws_iot_topic_rule_destination" in
-  let __resource = { enabled; id; timeouts; vpc_configuration } in
+  let __resource =
+    ({ enabled; id; timeouts; vpc_configuration }
+      : aws_iot_topic_rule_destination)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_topic_rule_destination __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

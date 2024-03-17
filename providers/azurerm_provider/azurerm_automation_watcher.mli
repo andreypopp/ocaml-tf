@@ -5,6 +5,21 @@ open! Tf.Prelude
 type azurerm_automation_watcher__timeouts
 type azurerm_automation_watcher
 
+type t = private {
+  automation_account_id : string prop;
+  description : string prop;
+  etag : string prop;
+  execution_frequency_in_seconds : float prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  script_name : string prop;
+  script_parameters : (string * string) list prop;
+  script_run_on : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_automation_watcher :
   ?description:string prop ->
   ?etag:string prop ->
@@ -19,4 +34,4 @@ val azurerm_automation_watcher :
   script_name:string prop ->
   script_run_on:string prop ->
   string ->
-  unit
+  t

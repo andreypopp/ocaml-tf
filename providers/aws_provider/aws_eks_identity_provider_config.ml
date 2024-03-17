@@ -40,12 +40,35 @@ type aws_eks_identity_provider_config = {
 [@@deriving yojson_of]
 (** aws_eks_identity_provider_config *)
 
+type t = {
+  arn : string prop;
+  cluster_name : string prop;
+  id : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_eks_identity_provider_config ?id ?tags ?tags_all ?timeouts
     ~cluster_name ~oidc __resource_id =
   let __resource_type = "aws_eks_identity_provider_config" in
   let __resource =
-    { cluster_name; id; tags; tags_all; oidc; timeouts }
+    ({ cluster_name; id; tags; tags_all; oidc; timeouts }
+      : aws_eks_identity_provider_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_identity_provider_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       cluster_name =
+         Prop.computed __resource_type __resource_id "cluster_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

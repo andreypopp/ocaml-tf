@@ -80,6 +80,21 @@ Only one of 'retention_window_days' and 'retention_strategy' may be set. *)
 [@@deriving yojson_of]
 (** google_dialogflow_cx_security_settings *)
 
+type t = {
+  deidentify_template : string prop;
+  display_name : string prop;
+  id : string prop;
+  inspect_template : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  purge_data_types : string list prop;
+  redaction_scope : string prop;
+  redaction_strategy : string prop;
+  retention_strategy : string prop;
+  retention_window_days : float prop;
+}
+
 let google_dialogflow_cx_security_settings ?deidentify_template ?id
     ?inspect_template ?project ?purge_data_types ?redaction_scope
     ?redaction_strategy ?retention_strategy ?retention_window_days
@@ -87,23 +102,58 @@ let google_dialogflow_cx_security_settings ?deidentify_template ?id
     ~insights_export_settings __resource_id =
   let __resource_type = "google_dialogflow_cx_security_settings" in
   let __resource =
-    {
-      deidentify_template;
-      display_name;
-      id;
-      inspect_template;
-      location;
-      project;
-      purge_data_types;
-      redaction_scope;
-      redaction_strategy;
-      retention_strategy;
-      retention_window_days;
-      audio_export_settings;
-      insights_export_settings;
-      timeouts;
-    }
+    ({
+       deidentify_template;
+       display_name;
+       id;
+       inspect_template;
+       location;
+       project;
+       purge_data_types;
+       redaction_scope;
+       redaction_strategy;
+       retention_strategy;
+       retention_window_days;
+       audio_export_settings;
+       insights_export_settings;
+       timeouts;
+     }
+      : google_dialogflow_cx_security_settings)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_security_settings __resource);
-  ()
+  let __resource_attributes =
+    ({
+       deidentify_template =
+         Prop.computed __resource_type __resource_id
+           "deidentify_template";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       inspect_template =
+         Prop.computed __resource_type __resource_id
+           "inspect_template";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       purge_data_types =
+         Prop.computed __resource_type __resource_id
+           "purge_data_types";
+       redaction_scope =
+         Prop.computed __resource_type __resource_id
+           "redaction_scope";
+       redaction_strategy =
+         Prop.computed __resource_type __resource_id
+           "redaction_strategy";
+       retention_strategy =
+         Prop.computed __resource_type __resource_id
+           "retention_strategy";
+       retention_window_days =
+         Prop.computed __resource_type __resource_id
+           "retention_window_days";
+     }
+      : t)
+  in
+  __resource_attributes

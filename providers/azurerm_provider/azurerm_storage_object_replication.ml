@@ -38,19 +38,46 @@ type azurerm_storage_object_replication = {
 [@@deriving yojson_of]
 (** azurerm_storage_object_replication *)
 
+type t = {
+  destination_object_replication_id : string prop;
+  destination_storage_account_id : string prop;
+  id : string prop;
+  source_object_replication_id : string prop;
+  source_storage_account_id : string prop;
+}
+
 let azurerm_storage_object_replication ?id ?timeouts
     ~destination_storage_account_id ~source_storage_account_id ~rules
     __resource_id =
   let __resource_type = "azurerm_storage_object_replication" in
   let __resource =
-    {
-      destination_storage_account_id;
-      id;
-      source_storage_account_id;
-      rules;
-      timeouts;
-    }
+    ({
+       destination_storage_account_id;
+       id;
+       source_storage_account_id;
+       rules;
+       timeouts;
+     }
+      : azurerm_storage_object_replication)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_object_replication __resource);
-  ()
+  let __resource_attributes =
+    ({
+       destination_object_replication_id =
+         Prop.computed __resource_type __resource_id
+           "destination_object_replication_id";
+       destination_storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "destination_storage_account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       source_object_replication_id =
+         Prop.computed __resource_type __resource_id
+           "source_object_replication_id";
+       source_storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "source_storage_account_id";
+     }
+      : t)
+  in
+  __resource_attributes

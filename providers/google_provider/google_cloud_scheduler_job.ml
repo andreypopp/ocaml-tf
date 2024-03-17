@@ -183,29 +183,64 @@ The value of this field must be a time zone name from the tz database. *)
 [@@deriving yojson_of]
 (** google_cloud_scheduler_job *)
 
+type t = {
+  attempt_deadline : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  paused : bool prop;
+  project : string prop;
+  region : string prop;
+  schedule : string prop;
+  state : string prop;
+  time_zone : string prop;
+}
+
 let google_cloud_scheduler_job ?attempt_deadline ?description ?id
     ?paused ?project ?region ?schedule ?time_zone ?timeouts ~name
     ~app_engine_http_target ~http_target ~pubsub_target ~retry_config
     __resource_id =
   let __resource_type = "google_cloud_scheduler_job" in
   let __resource =
-    {
-      attempt_deadline;
-      description;
-      id;
-      name;
-      paused;
-      project;
-      region;
-      schedule;
-      time_zone;
-      app_engine_http_target;
-      http_target;
-      pubsub_target;
-      retry_config;
-      timeouts;
-    }
+    ({
+       attempt_deadline;
+       description;
+       id;
+       name;
+       paused;
+       project;
+       region;
+       schedule;
+       time_zone;
+       app_engine_http_target;
+       http_target;
+       pubsub_target;
+       retry_config;
+       timeouts;
+     }
+      : google_cloud_scheduler_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_scheduler_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       attempt_deadline =
+         Prop.computed __resource_type __resource_id
+           "attempt_deadline";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       paused = Prop.computed __resource_type __resource_id "paused";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       schedule =
+         Prop.computed __resource_type __resource_id "schedule";
+       state = Prop.computed __resource_type __resource_id "state";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+     }
+      : t)
+  in
+  __resource_attributes

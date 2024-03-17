@@ -24,10 +24,23 @@ type cloudflare_api_shield = {
 (** Provides a resource to manage API Shield configurations.
  *)
 
+type t = { id : string prop; zone_id : string prop }
+
 let cloudflare_api_shield ?id ~zone_id ~auth_id_characteristics
     __resource_id =
   let __resource_type = "cloudflare_api_shield" in
-  let __resource = { id; zone_id; auth_id_characteristics } in
+  let __resource =
+    ({ id; zone_id; auth_id_characteristics }
+      : cloudflare_api_shield)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_api_shield __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -26,6 +26,17 @@ type aws_customerprofiles_domain__rule_based_matching__matching_rules
 type aws_customerprofiles_domain__rule_based_matching
 type aws_customerprofiles_domain
 
+type t = private {
+  arn : string prop;
+  dead_letter_queue_url : string prop;
+  default_encryption_key : string prop;
+  default_expiration_days : float prop;
+  domain_name : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_customerprofiles_domain :
   ?dead_letter_queue_url:string prop ->
   ?default_encryption_key:string prop ->
@@ -38,4 +49,4 @@ val aws_customerprofiles_domain :
   rule_based_matching:
     aws_customerprofiles_domain__rule_based_matching list ->
   string ->
-  unit
+  t

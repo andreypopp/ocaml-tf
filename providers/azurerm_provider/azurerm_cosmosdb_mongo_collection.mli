@@ -13,6 +13,20 @@ type azurerm_cosmosdb_mongo_collection__system_indexes = {
 
 type azurerm_cosmosdb_mongo_collection
 
+type t = private {
+  account_name : string prop;
+  analytical_storage_ttl : float prop;
+  database_name : string prop;
+  default_ttl_seconds : float prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  shard_key : string prop;
+  system_indexes :
+    azurerm_cosmosdb_mongo_collection__system_indexes list prop;
+  throughput : float prop;
+}
+
 val azurerm_cosmosdb_mongo_collection :
   ?analytical_storage_ttl:float prop ->
   ?default_ttl_seconds:float prop ->
@@ -28,4 +42,4 @@ val azurerm_cosmosdb_mongo_collection :
     azurerm_cosmosdb_mongo_collection__autoscale_settings list ->
   index:azurerm_cosmosdb_mongo_collection__index list ->
   string ->
-  unit
+  t

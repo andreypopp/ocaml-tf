@@ -73,6 +73,16 @@ and all following characters must be a dash, underscore, letter or digit. *)
 [@@deriving yojson_of]
 (** google_network_services_edge_cache_keyset *)
 
+type t = {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_network_services_edge_cache_keyset ?description ?id
     ?labels ?project ?timeouts ~name ~public_key
     ~validation_shared_keys __resource_id =
@@ -80,17 +90,36 @@ let google_network_services_edge_cache_keyset ?description ?id
     "google_network_services_edge_cache_keyset"
   in
   let __resource =
-    {
-      description;
-      id;
-      labels;
-      name;
-      project;
-      public_key;
-      timeouts;
-      validation_shared_keys;
-    }
+    ({
+       description;
+       id;
+       labels;
+       name;
+       project;
+       public_key;
+       timeouts;
+       validation_shared_keys;
+     }
+      : google_network_services_edge_cache_keyset)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_services_edge_cache_keyset __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

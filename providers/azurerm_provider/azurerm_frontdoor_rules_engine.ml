@@ -75,20 +75,46 @@ type azurerm_frontdoor_rules_engine = {
 [@@deriving yojson_of]
 (** azurerm_frontdoor_rules_engine *)
 
+type t = {
+  enabled : bool prop;
+  frontdoor_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_frontdoor_rules_engine ?enabled ?id ?timeouts
     ~frontdoor_name ~name ~resource_group_name ~rule __resource_id =
   let __resource_type = "azurerm_frontdoor_rules_engine" in
   let __resource =
-    {
-      enabled;
-      frontdoor_name;
-      id;
-      name;
-      resource_group_name;
-      rule;
-      timeouts;
-    }
+    ({
+       enabled;
+       frontdoor_name;
+       id;
+       name;
+       resource_group_name;
+       rule;
+       timeouts;
+     }
+      : azurerm_frontdoor_rules_engine)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_frontdoor_rules_engine __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       frontdoor_name =
+         Prop.computed __resource_type __resource_id "frontdoor_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -225,6 +225,31 @@ For Private Service Connect forwarding rules that forward traffic to managed ser
 [@@deriving yojson_of]
 (** google_compute_global_forwarding_rule *)
 
+type t = {
+  base_forwarding_rule : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  ip_address : string prop;
+  ip_protocol : string prop;
+  ip_version : string prop;
+  label_fingerprint : string prop;
+  labels : (string * string) list prop;
+  load_balancing_scheme : string prop;
+  name : string prop;
+  network : string prop;
+  no_automate_dns_zone : bool prop;
+  port_range : string prop;
+  project : string prop;
+  psc_connection_id : string prop;
+  psc_connection_status : string prop;
+  self_link : string prop;
+  source_ip_ranges : string list prop;
+  subnetwork : string prop;
+  target : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_compute_global_forwarding_rule ?description ?id
     ?ip_address ?ip_protocol ?ip_version ?labels
     ?load_balancing_scheme ?network ?no_automate_dns_zone ?port_range
@@ -233,27 +258,82 @@ let google_compute_global_forwarding_rule ?description ?id
     =
   let __resource_type = "google_compute_global_forwarding_rule" in
   let __resource =
-    {
-      description;
-      id;
-      ip_address;
-      ip_protocol;
-      ip_version;
-      labels;
-      load_balancing_scheme;
-      name;
-      network;
-      no_automate_dns_zone;
-      port_range;
-      project;
-      source_ip_ranges;
-      subnetwork;
-      target;
-      metadata_filters;
-      service_directory_registrations;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       ip_address;
+       ip_protocol;
+       ip_version;
+       labels;
+       load_balancing_scheme;
+       name;
+       network;
+       no_automate_dns_zone;
+       port_range;
+       project;
+       source_ip_ranges;
+       subnetwork;
+       target;
+       metadata_filters;
+       service_directory_registrations;
+       timeouts;
+     }
+      : google_compute_global_forwarding_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_global_forwarding_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       base_forwarding_rule =
+         Prop.computed __resource_type __resource_id
+           "base_forwarding_rule";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       ip_protocol =
+         Prop.computed __resource_type __resource_id "ip_protocol";
+       ip_version =
+         Prop.computed __resource_type __resource_id "ip_version";
+       label_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "label_fingerprint";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       load_balancing_scheme =
+         Prop.computed __resource_type __resource_id
+           "load_balancing_scheme";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       no_automate_dns_zone =
+         Prop.computed __resource_type __resource_id
+           "no_automate_dns_zone";
+       port_range =
+         Prop.computed __resource_type __resource_id "port_range";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       psc_connection_id =
+         Prop.computed __resource_type __resource_id
+           "psc_connection_id";
+       psc_connection_status =
+         Prop.computed __resource_type __resource_id
+           "psc_connection_status";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       source_ip_ranges =
+         Prop.computed __resource_type __resource_id
+           "source_ip_ranges";
+       subnetwork =
+         Prop.computed __resource_type __resource_id "subnetwork";
+       target = Prop.computed __resource_type __resource_id "target";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -132,21 +132,38 @@ type aws_cognito_risk_configuration = {
 [@@deriving yojson_of]
 (** aws_cognito_risk_configuration *)
 
+type t = {
+  client_id : string prop;
+  id : string prop;
+  user_pool_id : string prop;
+}
+
 let aws_cognito_risk_configuration ?client_id ?id ~user_pool_id
     ~account_takeover_risk_configuration
     ~compromised_credentials_risk_configuration
     ~risk_exception_configuration __resource_id =
   let __resource_type = "aws_cognito_risk_configuration" in
   let __resource =
-    {
-      client_id;
-      id;
-      user_pool_id;
-      account_takeover_risk_configuration;
-      compromised_credentials_risk_configuration;
-      risk_exception_configuration;
-    }
+    ({
+       client_id;
+       id;
+       user_pool_id;
+       account_takeover_risk_configuration;
+       compromised_credentials_risk_configuration;
+       risk_exception_configuration;
+     }
+      : aws_cognito_risk_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_risk_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       client_id =
+         Prop.computed __resource_type __resource_id "client_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       user_pool_id =
+         Prop.computed __resource_type __resource_id "user_pool_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -24,9 +24,38 @@ type google_folder = {
 [@@deriving yojson_of]
 (** google_folder *)
 
+type t = {
+  create_time : string prop;
+  display_name : string prop;
+  folder_id : string prop;
+  id : string prop;
+  lifecycle_state : string prop;
+  name : string prop;
+  parent : string prop;
+}
+
 let google_folder ?id ?timeouts ~display_name ~parent __resource_id =
   let __resource_type = "google_folder" in
-  let __resource = { display_name; id; parent; timeouts } in
+  let __resource =
+    ({ display_name; id; parent; timeouts } : google_folder)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_folder __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       folder_id =
+         Prop.computed __resource_type __resource_id "folder_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       lifecycle_state =
+         Prop.computed __resource_type __resource_id
+           "lifecycle_state";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+     }
+      : t)
+  in
+  __resource_attributes

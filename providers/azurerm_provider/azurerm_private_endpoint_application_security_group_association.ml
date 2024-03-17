@@ -24,6 +24,12 @@ type azurerm_private_endpoint_application_security_group_association = {
 [@@deriving yojson_of]
 (** azurerm_private_endpoint_application_security_group_association *)
 
+type t = {
+  application_security_group_id : string prop;
+  id : string prop;
+  private_endpoint_id : string prop;
+}
+
 let azurerm_private_endpoint_application_security_group_association
     ?id ?timeouts ~application_security_group_id ~private_endpoint_id
     __resource_id =
@@ -31,14 +37,27 @@ let azurerm_private_endpoint_application_security_group_association
     "azurerm_private_endpoint_application_security_group_association"
   in
   let __resource =
-    {
-      application_security_group_id;
-      id;
-      private_endpoint_id;
-      timeouts;
-    }
+    ({
+       application_security_group_id;
+       id;
+       private_endpoint_id;
+       timeouts;
+     }
+      : azurerm_private_endpoint_application_security_group_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_endpoint_application_security_group_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_security_group_id =
+         Prop.computed __resource_type __resource_id
+           "application_security_group_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       private_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "private_endpoint_id";
+     }
+      : t)
+  in
+  __resource_attributes

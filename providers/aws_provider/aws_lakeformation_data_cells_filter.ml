@@ -56,10 +56,17 @@ type aws_lakeformation_data_cells_filter = {
 [@@deriving yojson_of]
 (** aws_lakeformation_data_cells_filter *)
 
+type t = { id : string prop }
+
 let aws_lakeformation_data_cells_filter ?timeouts ~table_data
     __resource_id =
   let __resource_type = "aws_lakeformation_data_cells_filter" in
-  let __resource = { table_data; timeouts } in
+  let __resource =
+    ({ table_data; timeouts } : aws_lakeformation_data_cells_filter)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lakeformation_data_cells_filter __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

@@ -5,6 +5,14 @@ open! Tf.Prelude
 type aws_grafana_role_association__timeouts
 type aws_grafana_role_association
 
+type t = private {
+  group_ids : string list prop;
+  id : string prop;
+  role : string prop;
+  user_ids : string list prop;
+  workspace_id : string prop;
+}
+
 val aws_grafana_role_association :
   ?group_ids:string prop list ->
   ?id:string prop ->
@@ -13,4 +21,4 @@ val aws_grafana_role_association :
   role:string prop ->
   workspace_id:string prop ->
   string ->
-  unit
+  t

@@ -29,23 +29,67 @@ type azurerm_key_vault_secret = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_secret *)
 
+type t = {
+  content_type : string prop;
+  expiration_date : string prop;
+  id : string prop;
+  key_vault_id : string prop;
+  name : string prop;
+  not_before_date : string prop;
+  resource_id : string prop;
+  resource_versionless_id : string prop;
+  tags : (string * string) list prop;
+  value : string prop;
+  version : string prop;
+  versionless_id : string prop;
+}
+
 let azurerm_key_vault_secret ?content_type ?expiration_date ?id
     ?not_before_date ?tags ?timeouts ~key_vault_id ~name ~value
     __resource_id =
   let __resource_type = "azurerm_key_vault_secret" in
   let __resource =
-    {
-      content_type;
-      expiration_date;
-      id;
-      key_vault_id;
-      name;
-      not_before_date;
-      tags;
-      value;
-      timeouts;
-    }
+    ({
+       content_type;
+       expiration_date;
+       id;
+       key_vault_id;
+       name;
+       not_before_date;
+       tags;
+       value;
+       timeouts;
+     }
+      : azurerm_key_vault_secret)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_secret __resource);
-  ()
+  let __resource_attributes =
+    ({
+       content_type =
+         Prop.computed __resource_type __resource_id "content_type";
+       expiration_date =
+         Prop.computed __resource_type __resource_id
+           "expiration_date";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_id =
+         Prop.computed __resource_type __resource_id "key_vault_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       not_before_date =
+         Prop.computed __resource_type __resource_id
+           "not_before_date";
+       resource_id =
+         Prop.computed __resource_type __resource_id "resource_id";
+       resource_versionless_id =
+         Prop.computed __resource_type __resource_id
+           "resource_versionless_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       value = Prop.computed __resource_type __resource_id "value";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       versionless_id =
+         Prop.computed __resource_type __resource_id "versionless_id";
+     }
+      : t)
+  in
+  __resource_attributes

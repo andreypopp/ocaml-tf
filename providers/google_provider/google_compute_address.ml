@@ -87,31 +87,103 @@ GCE_ENDPOINT/DNS_RESOLVER purposes. *)
 [@@deriving yojson_of]
 (** google_compute_address *)
 
+type t = {
+  address : string prop;
+  address_type : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  ip_version : string prop;
+  ipv6_endpoint_type : string prop;
+  label_fingerprint : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  network : string prop;
+  network_tier : string prop;
+  prefix_length : float prop;
+  project : string prop;
+  purpose : string prop;
+  region : string prop;
+  self_link : string prop;
+  subnetwork : string prop;
+  terraform_labels : (string * string) list prop;
+  users : string list prop;
+}
+
 let google_compute_address ?address ?address_type ?description ?id
     ?ip_version ?ipv6_endpoint_type ?labels ?network ?network_tier
     ?prefix_length ?project ?purpose ?region ?subnetwork ?timeouts
     ~name __resource_id =
   let __resource_type = "google_compute_address" in
   let __resource =
-    {
-      address;
-      address_type;
-      description;
-      id;
-      ip_version;
-      ipv6_endpoint_type;
-      labels;
-      name;
-      network;
-      network_tier;
-      prefix_length;
-      project;
-      purpose;
-      region;
-      subnetwork;
-      timeouts;
-    }
+    ({
+       address;
+       address_type;
+       description;
+       id;
+       ip_version;
+       ipv6_endpoint_type;
+       labels;
+       name;
+       network;
+       network_tier;
+       prefix_length;
+       project;
+       purpose;
+       region;
+       subnetwork;
+       timeouts;
+     }
+      : google_compute_address)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_address __resource);
-  ()
+  let __resource_attributes =
+    ({
+       address =
+         Prop.computed __resource_type __resource_id "address";
+       address_type =
+         Prop.computed __resource_type __resource_id "address_type";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_version =
+         Prop.computed __resource_type __resource_id "ip_version";
+       ipv6_endpoint_type =
+         Prop.computed __resource_type __resource_id
+           "ipv6_endpoint_type";
+       label_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "label_fingerprint";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       network_tier =
+         Prop.computed __resource_type __resource_id "network_tier";
+       prefix_length =
+         Prop.computed __resource_type __resource_id "prefix_length";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       purpose =
+         Prop.computed __resource_type __resource_id "purpose";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       subnetwork =
+         Prop.computed __resource_type __resource_id "subnetwork";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       users = Prop.computed __resource_type __resource_id "users";
+     }
+      : t)
+  in
+  __resource_attributes

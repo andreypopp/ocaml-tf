@@ -63,6 +63,27 @@ type cloudflare_waiting_room = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Waiting Room resource. *)
 
+type t = {
+  cookie_suffix : string prop;
+  custom_page_html : string prop;
+  default_template_language : string prop;
+  description : string prop;
+  disable_session_renewal : bool prop;
+  host : string prop;
+  id : string prop;
+  json_response_enabled : bool prop;
+  name : string prop;
+  new_users_per_minute : float prop;
+  path : string prop;
+  queue_all : bool prop;
+  queueing_method : string prop;
+  queueing_status_code : float prop;
+  session_duration : float prop;
+  suspended : bool prop;
+  total_active_users : float prop;
+  zone_id : string prop;
+}
+
 let cloudflare_waiting_room ?cookie_suffix ?custom_page_html
     ?default_template_language ?description ?disable_session_renewal
     ?id ?json_response_enabled ?path ?queue_all ?queueing_method
@@ -71,29 +92,76 @@ let cloudflare_waiting_room ?cookie_suffix ?custom_page_html
     ~additional_routes __resource_id =
   let __resource_type = "cloudflare_waiting_room" in
   let __resource =
-    {
-      cookie_suffix;
-      custom_page_html;
-      default_template_language;
-      description;
-      disable_session_renewal;
-      host;
-      id;
-      json_response_enabled;
-      name;
-      new_users_per_minute;
-      path;
-      queue_all;
-      queueing_method;
-      queueing_status_code;
-      session_duration;
-      suspended;
-      total_active_users;
-      zone_id;
-      additional_routes;
-      timeouts;
-    }
+    ({
+       cookie_suffix;
+       custom_page_html;
+       default_template_language;
+       description;
+       disable_session_renewal;
+       host;
+       id;
+       json_response_enabled;
+       name;
+       new_users_per_minute;
+       path;
+       queue_all;
+       queueing_method;
+       queueing_status_code;
+       session_duration;
+       suspended;
+       total_active_users;
+       zone_id;
+       additional_routes;
+       timeouts;
+     }
+      : cloudflare_waiting_room)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_waiting_room __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cookie_suffix =
+         Prop.computed __resource_type __resource_id "cookie_suffix";
+       custom_page_html =
+         Prop.computed __resource_type __resource_id
+           "custom_page_html";
+       default_template_language =
+         Prop.computed __resource_type __resource_id
+           "default_template_language";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disable_session_renewal =
+         Prop.computed __resource_type __resource_id
+           "disable_session_renewal";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       json_response_enabled =
+         Prop.computed __resource_type __resource_id
+           "json_response_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       new_users_per_minute =
+         Prop.computed __resource_type __resource_id
+           "new_users_per_minute";
+       path = Prop.computed __resource_type __resource_id "path";
+       queue_all =
+         Prop.computed __resource_type __resource_id "queue_all";
+       queueing_method =
+         Prop.computed __resource_type __resource_id
+           "queueing_method";
+       queueing_status_code =
+         Prop.computed __resource_type __resource_id
+           "queueing_status_code";
+       session_duration =
+         Prop.computed __resource_type __resource_id
+           "session_duration";
+       suspended =
+         Prop.computed __resource_type __resource_id "suspended";
+       total_active_users =
+         Prop.computed __resource_type __resource_id
+           "total_active_users";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

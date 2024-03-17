@@ -24,6 +24,20 @@ type aws_elasticsearch_domain__timeouts
 type aws_elasticsearch_domain__vpc_options
 type aws_elasticsearch_domain
 
+type t = private {
+  access_policies : string prop;
+  advanced_options : (string * string) list prop;
+  arn : string prop;
+  domain_id : string prop;
+  domain_name : string prop;
+  elasticsearch_version : string prop;
+  endpoint : string prop;
+  id : string prop;
+  kibana_endpoint : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_elasticsearch_domain :
   ?access_policies:string prop ->
   ?advanced_options:(string * string prop) list ->
@@ -49,4 +63,4 @@ val aws_elasticsearch_domain :
   snapshot_options:aws_elasticsearch_domain__snapshot_options list ->
   vpc_options:aws_elasticsearch_domain__vpc_options list ->
   string ->
-  unit
+  t

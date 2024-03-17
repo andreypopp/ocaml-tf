@@ -29,21 +29,47 @@ type google_apigee_sharedflow_deployment = {
 [@@deriving yojson_of]
 (** google_apigee_sharedflow_deployment *)
 
+type t = {
+  environment : string prop;
+  id : string prop;
+  org_id : string prop;
+  revision : string prop;
+  service_account : string prop;
+  sharedflow_id : string prop;
+}
+
 let google_apigee_sharedflow_deployment ?id ?service_account
     ?timeouts ~environment ~org_id ~revision ~sharedflow_id
     __resource_id =
   let __resource_type = "google_apigee_sharedflow_deployment" in
   let __resource =
-    {
-      environment;
-      id;
-      org_id;
-      revision;
-      service_account;
-      sharedflow_id;
-      timeouts;
-    }
+    ({
+       environment;
+       id;
+       org_id;
+       revision;
+       service_account;
+       sharedflow_id;
+       timeouts;
+     }
+      : google_apigee_sharedflow_deployment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_sharedflow_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       environment =
+         Prop.computed __resource_type __resource_id "environment";
+       id = Prop.computed __resource_type __resource_id "id";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       revision =
+         Prop.computed __resource_type __resource_id "revision";
+       service_account =
+         Prop.computed __resource_type __resource_id
+           "service_account";
+       sharedflow_id =
+         Prop.computed __resource_type __resource_id "sharedflow_id";
+     }
+      : t)
+  in
+  __resource_attributes

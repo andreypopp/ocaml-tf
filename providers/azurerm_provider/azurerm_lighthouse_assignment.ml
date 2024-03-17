@@ -23,12 +23,31 @@ type azurerm_lighthouse_assignment = {
 [@@deriving yojson_of]
 (** azurerm_lighthouse_assignment *)
 
+type t = {
+  id : string prop;
+  lighthouse_definition_id : string prop;
+  name : string prop;
+  scope : string prop;
+}
+
 let azurerm_lighthouse_assignment ?id ?name ?timeouts
     ~lighthouse_definition_id ~scope __resource_id =
   let __resource_type = "azurerm_lighthouse_assignment" in
   let __resource =
-    { id; lighthouse_definition_id; name; scope; timeouts }
+    ({ id; lighthouse_definition_id; name; scope; timeouts }
+      : azurerm_lighthouse_assignment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lighthouse_assignment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       lighthouse_definition_id =
+         Prop.computed __resource_type __resource_id
+           "lighthouse_definition_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       scope = Prop.computed __resource_type __resource_id "scope";
+     }
+      : t)
+  in
+  __resource_attributes

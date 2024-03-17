@@ -29,6 +29,16 @@ type google_compute_region_network_firewall_policy_association = {
 [@@deriving yojson_of]
 (** google_compute_region_network_firewall_policy_association *)
 
+type t = {
+  attachment_target : string prop;
+  firewall_policy : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  short_name : string prop;
+}
+
 let google_compute_region_network_firewall_policy_association ?id
     ?project ?region ?timeouts ~attachment_target ~firewall_policy
     ~name __resource_id =
@@ -36,17 +46,36 @@ let google_compute_region_network_firewall_policy_association ?id
     "google_compute_region_network_firewall_policy_association"
   in
   let __resource =
-    {
-      attachment_target;
-      firewall_policy;
-      id;
-      name;
-      project;
-      region;
-      timeouts;
-    }
+    ({
+       attachment_target;
+       firewall_policy;
+       id;
+       name;
+       project;
+       region;
+       timeouts;
+     }
+      : google_compute_region_network_firewall_policy_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_network_firewall_policy_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       attachment_target =
+         Prop.computed __resource_type __resource_id
+           "attachment_target";
+       firewall_policy =
+         Prop.computed __resource_type __resource_id
+           "firewall_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       short_name =
+         Prop.computed __resource_type __resource_id "short_name";
+     }
+      : t)
+  in
+  __resource_attributes

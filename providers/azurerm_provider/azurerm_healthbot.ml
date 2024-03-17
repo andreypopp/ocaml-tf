@@ -25,20 +25,49 @@ type azurerm_healthbot = {
 [@@deriving yojson_of]
 (** azurerm_healthbot *)
 
+type t = {
+  bot_management_portal_url : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_healthbot ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_healthbot" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      sku_name;
-      tags;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       sku_name;
+       tags;
+       timeouts;
+     }
+      : azurerm_healthbot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_healthbot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bot_management_portal_url =
+         Prop.computed __resource_type __resource_id
+           "bot_management_portal_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

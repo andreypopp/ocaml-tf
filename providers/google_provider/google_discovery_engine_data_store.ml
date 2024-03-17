@@ -38,25 +38,71 @@ only be one of global, us and eu. *)
 [@@deriving yojson_of]
 (** google_discovery_engine_data_store *)
 
+type t = {
+  content_config : string prop;
+  create_advanced_site_search : bool prop;
+  create_time : string prop;
+  data_store_id : string prop;
+  default_schema_id : string prop;
+  display_name : string prop;
+  id : string prop;
+  industry_vertical : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  solution_types : string list prop;
+}
+
 let google_discovery_engine_data_store ?create_advanced_site_search
     ?id ?project ?solution_types ?timeouts ~content_config
     ~data_store_id ~display_name ~industry_vertical ~location
     __resource_id =
   let __resource_type = "google_discovery_engine_data_store" in
   let __resource =
-    {
-      content_config;
-      create_advanced_site_search;
-      data_store_id;
-      display_name;
-      id;
-      industry_vertical;
-      location;
-      project;
-      solution_types;
-      timeouts;
-    }
+    ({
+       content_config;
+       create_advanced_site_search;
+       data_store_id;
+       display_name;
+       id;
+       industry_vertical;
+       location;
+       project;
+       solution_types;
+       timeouts;
+     }
+      : google_discovery_engine_data_store)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_discovery_engine_data_store __resource);
-  ()
+  let __resource_attributes =
+    ({
+       content_config =
+         Prop.computed __resource_type __resource_id "content_config";
+       create_advanced_site_search =
+         Prop.computed __resource_type __resource_id
+           "create_advanced_site_search";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       data_store_id =
+         Prop.computed __resource_type __resource_id "data_store_id";
+       default_schema_id =
+         Prop.computed __resource_type __resource_id
+           "default_schema_id";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       industry_vertical =
+         Prop.computed __resource_type __resource_id
+           "industry_vertical";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       solution_types =
+         Prop.computed __resource_type __resource_id "solution_types";
+     }
+      : t)
+  in
+  __resource_attributes

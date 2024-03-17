@@ -20,12 +20,31 @@ type aws_controltower_control = {
 [@@deriving yojson_of]
 (** aws_controltower_control *)
 
+type t = {
+  control_identifier : string prop;
+  id : string prop;
+  target_identifier : string prop;
+}
+
 let aws_controltower_control ?id ?timeouts ~control_identifier
     ~target_identifier __resource_id =
   let __resource_type = "aws_controltower_control" in
   let __resource =
-    { control_identifier; id; target_identifier; timeouts }
+    ({ control_identifier; id; target_identifier; timeouts }
+      : aws_controltower_control)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_controltower_control __resource);
-  ()
+  let __resource_attributes =
+    ({
+       control_identifier =
+         Prop.computed __resource_type __resource_id
+           "control_identifier";
+       id = Prop.computed __resource_type __resource_id "id";
+       target_identifier =
+         Prop.computed __resource_type __resource_id
+           "target_identifier";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -12,6 +12,23 @@ type google_certificate_manager_dns_authorization__dns_resource_record = {
 
 type google_certificate_manager_dns_authorization
 
+type t = private {
+  description : string prop;
+  dns_resource_record :
+    google_certificate_manager_dns_authorization__dns_resource_record
+    list
+    prop;
+  domain : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+}
+
 val google_certificate_manager_dns_authorization :
   ?description:string prop ->
   ?id:string prop ->
@@ -23,4 +40,4 @@ val google_certificate_manager_dns_authorization :
   domain:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

@@ -53,6 +53,18 @@ type aws_iot_topic_rule__timestream__timestamp
 type aws_iot_topic_rule__timestream
 type aws_iot_topic_rule
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  sql : string prop;
+  sql_version : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_iot_topic_rule :
   ?description:string prop ->
   ?id:string prop ->
@@ -83,4 +95,4 @@ val aws_iot_topic_rule :
   step_functions:aws_iot_topic_rule__step_functions list ->
   timestream:aws_iot_topic_rule__timestream list ->
   string ->
-  unit
+  t

@@ -32,6 +32,14 @@ type google_cloud_run_domain_mapping__status = {
 
 type google_cloud_run_domain_mapping
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  status : google_cloud_run_domain_mapping__status list prop;
+}
+
 val google_cloud_run_domain_mapping :
   ?id:string prop ->
   ?project:string prop ->
@@ -41,4 +49,4 @@ val google_cloud_run_domain_mapping :
   metadata:google_cloud_run_domain_mapping__metadata list ->
   spec:google_cloud_run_domain_mapping__spec list ->
   string ->
-  unit
+  t

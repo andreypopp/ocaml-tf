@@ -5,6 +5,16 @@ open! Tf.Prelude
 type azurerm_private_dns_zone_virtual_network_link__timeouts
 type azurerm_private_dns_zone_virtual_network_link
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  private_dns_zone_name : string prop;
+  registration_enabled : bool prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  virtual_network_id : string prop;
+}
+
 val azurerm_private_dns_zone_virtual_network_link :
   ?id:string prop ->
   ?registration_enabled:bool prop ->
@@ -15,4 +25,4 @@ val azurerm_private_dns_zone_virtual_network_link :
   resource_group_name:string prop ->
   virtual_network_id:string prop ->
   string ->
-  unit
+  t

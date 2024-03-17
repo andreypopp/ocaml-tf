@@ -7,6 +7,19 @@ type google_compute_node_template__server_binding
 type google_compute_node_template__timeouts
 type google_compute_node_template
 
+type t = private {
+  cpu_overcommit_type : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  node_affinity_labels : (string * string) list prop;
+  node_type : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+}
+
 val google_compute_node_template :
   ?cpu_overcommit_type:string prop ->
   ?description:string prop ->
@@ -21,4 +34,4 @@ val google_compute_node_template :
     google_compute_node_template__node_type_flexibility list ->
   server_binding:google_compute_node_template__server_binding list ->
   string ->
-  unit
+  t

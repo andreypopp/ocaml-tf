@@ -25,21 +25,53 @@ type azurerm_api_management_email_template = {
 [@@deriving yojson_of]
 (** azurerm_api_management_email_template *)
 
+type t = {
+  api_management_name : string prop;
+  body : string prop;
+  description : string prop;
+  id : string prop;
+  resource_group_name : string prop;
+  subject : string prop;
+  template_name : string prop;
+  title : string prop;
+}
+
 let azurerm_api_management_email_template ?id ?timeouts
     ~api_management_name ~body ~resource_group_name ~subject
     ~template_name __resource_id =
   let __resource_type = "azurerm_api_management_email_template" in
   let __resource =
-    {
-      api_management_name;
-      body;
-      id;
-      resource_group_name;
-      subject;
-      template_name;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       body;
+       id;
+       resource_group_name;
+       subject;
+       template_name;
+       timeouts;
+     }
+      : azurerm_api_management_email_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_email_template __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       body = Prop.computed __resource_type __resource_id "body";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       subject =
+         Prop.computed __resource_type __resource_id "subject";
+       template_name =
+         Prop.computed __resource_type __resource_id "template_name";
+       title = Prop.computed __resource_type __resource_id "title";
+     }
+      : t)
+  in
+  __resource_attributes

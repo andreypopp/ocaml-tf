@@ -68,28 +68,85 @@ TPU Node to is a Shared VPC network, the node must be created with this this fie
 [@@deriving yojson_of]
 (** google_tpu_node *)
 
+type t = {
+  accelerator_type : string prop;
+  cidr_block : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  network : string prop;
+  network_endpoints : google_tpu_node__network_endpoints list prop;
+  project : string prop;
+  service_account : string prop;
+  tensorflow_version : string prop;
+  terraform_labels : (string * string) list prop;
+  use_service_networking : bool prop;
+  zone : string prop;
+}
+
 let google_tpu_node ?cidr_block ?description ?id ?labels ?network
     ?project ?use_service_networking ?zone ?timeouts
     ~accelerator_type ~name ~tensorflow_version ~scheduling_config
     __resource_id =
   let __resource_type = "google_tpu_node" in
   let __resource =
-    {
-      accelerator_type;
-      cidr_block;
-      description;
-      id;
-      labels;
-      name;
-      network;
-      project;
-      tensorflow_version;
-      use_service_networking;
-      zone;
-      scheduling_config;
-      timeouts;
-    }
+    ({
+       accelerator_type;
+       cidr_block;
+       description;
+       id;
+       labels;
+       name;
+       network;
+       project;
+       tensorflow_version;
+       use_service_networking;
+       zone;
+       scheduling_config;
+       timeouts;
+     }
+      : google_tpu_node)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tpu_node __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accelerator_type =
+         Prop.computed __resource_type __resource_id
+           "accelerator_type";
+       cidr_block =
+         Prop.computed __resource_type __resource_id "cidr_block";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       network_endpoints =
+         Prop.computed __resource_type __resource_id
+           "network_endpoints";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       service_account =
+         Prop.computed __resource_type __resource_id
+           "service_account";
+       tensorflow_version =
+         Prop.computed __resource_type __resource_id
+           "tensorflow_version";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       use_service_networking =
+         Prop.computed __resource_type __resource_id
+           "use_service_networking";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

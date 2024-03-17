@@ -30,6 +30,17 @@ type azurerm_storage_account_customer_managed_key = {
 [@@deriving yojson_of]
 (** azurerm_storage_account_customer_managed_key *)
 
+type t = {
+  federated_identity_client_id : string prop;
+  id : string prop;
+  key_name : string prop;
+  key_vault_id : string prop;
+  key_vault_uri : string prop;
+  key_version : string prop;
+  storage_account_id : string prop;
+  user_assigned_identity_id : string prop;
+}
+
 let azurerm_storage_account_customer_managed_key
     ?federated_identity_client_id ?id ?key_vault_id ?key_vault_uri
     ?key_version ?user_assigned_identity_id ?timeouts ~key_name
@@ -38,19 +49,43 @@ let azurerm_storage_account_customer_managed_key
     "azurerm_storage_account_customer_managed_key"
   in
   let __resource =
-    {
-      federated_identity_client_id;
-      id;
-      key_name;
-      key_vault_id;
-      key_vault_uri;
-      key_version;
-      storage_account_id;
-      user_assigned_identity_id;
-      timeouts;
-    }
+    ({
+       federated_identity_client_id;
+       id;
+       key_name;
+       key_vault_id;
+       key_vault_uri;
+       key_version;
+       storage_account_id;
+       user_assigned_identity_id;
+       timeouts;
+     }
+      : azurerm_storage_account_customer_managed_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_account_customer_managed_key
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       federated_identity_client_id =
+         Prop.computed __resource_type __resource_id
+           "federated_identity_client_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_name =
+         Prop.computed __resource_type __resource_id "key_name";
+       key_vault_id =
+         Prop.computed __resource_type __resource_id "key_vault_id";
+       key_vault_uri =
+         Prop.computed __resource_type __resource_id "key_vault_uri";
+       key_version =
+         Prop.computed __resource_type __resource_id "key_version";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+       user_assigned_identity_id =
+         Prop.computed __resource_type __resource_id
+           "user_assigned_identity_id";
+     }
+      : t)
+  in
+  __resource_attributes

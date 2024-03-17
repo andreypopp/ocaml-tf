@@ -35,6 +35,31 @@ type google_compute_instance_template__shielded_instance_config
 type google_compute_instance_template__timeouts
 type google_compute_instance_template
 
+type t = private {
+  can_ip_forward : bool prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  instance_description : string prop;
+  labels : (string * string) list prop;
+  machine_type : string prop;
+  metadata : (string * string) list prop;
+  metadata_fingerprint : string prop;
+  metadata_startup_script : string prop;
+  min_cpu_platform : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  project : string prop;
+  region : string prop;
+  resource_manager_tags : (string * string) list prop;
+  resource_policies : string list prop;
+  self_link : string prop;
+  self_link_unique : string prop;
+  tags : string list prop;
+  tags_fingerprint : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_compute_instance_template :
   ?can_ip_forward:bool prop ->
   ?description:string prop ->
@@ -73,4 +98,4 @@ val google_compute_instance_template :
   shielded_instance_config:
     google_compute_instance_template__shielded_instance_config list ->
   string ->
-  unit
+  t

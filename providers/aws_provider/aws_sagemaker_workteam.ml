@@ -51,22 +51,52 @@ type aws_sagemaker_workteam = {
 [@@deriving yojson_of]
 (** aws_sagemaker_workteam *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  subdomain : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  workforce_name : string prop;
+  workteam_name : string prop;
+}
+
 let aws_sagemaker_workteam ?id ?tags ?tags_all ~description
     ~workforce_name ~workteam_name ~member_definition
     ~notification_configuration __resource_id =
   let __resource_type = "aws_sagemaker_workteam" in
   let __resource =
-    {
-      description;
-      id;
-      tags;
-      tags_all;
-      workforce_name;
-      workteam_name;
-      member_definition;
-      notification_configuration;
-    }
+    ({
+       description;
+       id;
+       tags;
+       tags_all;
+       workforce_name;
+       workteam_name;
+       member_definition;
+       notification_configuration;
+     }
+      : aws_sagemaker_workteam)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_workteam __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       subdomain =
+         Prop.computed __resource_type __resource_id "subdomain";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       workforce_name =
+         Prop.computed __resource_type __resource_id "workforce_name";
+       workteam_name =
+         Prop.computed __resource_type __resource_id "workteam_name";
+     }
+      : t)
+  in
+  __resource_attributes

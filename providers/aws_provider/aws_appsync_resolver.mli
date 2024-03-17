@@ -9,6 +9,20 @@ type aws_appsync_resolver__sync_config__lambda_conflict_handler_config
 type aws_appsync_resolver__sync_config
 type aws_appsync_resolver
 
+type t = private {
+  api_id : string prop;
+  arn : string prop;
+  code : string prop;
+  data_source : string prop;
+  field : string prop;
+  id : string prop;
+  kind : string prop;
+  max_batch_size : float prop;
+  request_template : string prop;
+  response_template : string prop;
+  type_ : string prop;
+}
+
 val aws_appsync_resolver :
   ?code:string prop ->
   ?data_source:string prop ->
@@ -25,4 +39,4 @@ val aws_appsync_resolver :
   runtime:aws_appsync_resolver__runtime list ->
   sync_config:aws_appsync_resolver__sync_config list ->
   string ->
-  unit
+  t

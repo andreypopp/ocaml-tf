@@ -46,12 +46,28 @@ type aws_s3_bucket_notification = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_notification *)
 
+type t = {
+  bucket : string prop;
+  eventbridge : bool prop;
+  id : string prop;
+}
+
 let aws_s3_bucket_notification ?eventbridge ?id ~bucket
     ~lambda_function ~queue ~topic __resource_id =
   let __resource_type = "aws_s3_bucket_notification" in
   let __resource =
-    { bucket; eventbridge; id; lambda_function; queue; topic }
+    ({ bucket; eventbridge; id; lambda_function; queue; topic }
+      : aws_s3_bucket_notification)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_notification __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       eventbridge =
+         Prop.computed __resource_type __resource_id "eventbridge";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

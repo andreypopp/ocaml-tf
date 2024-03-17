@@ -5,6 +5,16 @@ open! Tf.Prelude
 type google_cloudfunctions_function_iam_member__condition
 type google_cloudfunctions_function_iam_member
 
+type t = private {
+  cloud_function : string prop;
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  project : string prop;
+  region : string prop;
+  role : string prop;
+}
+
 val google_cloudfunctions_function_iam_member :
   ?id:string prop ->
   ?project:string prop ->
@@ -14,4 +24,4 @@ val google_cloudfunctions_function_iam_member :
   role:string prop ->
   condition:google_cloudfunctions_function_iam_member__condition list ->
   string ->
-  unit
+  t

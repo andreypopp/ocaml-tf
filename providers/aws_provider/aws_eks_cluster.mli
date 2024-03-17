@@ -25,6 +25,25 @@ type aws_eks_cluster__identity = {
 
 type aws_eks_cluster
 
+type t = private {
+  arn : string prop;
+  certificate_authority :
+    aws_eks_cluster__certificate_authority list prop;
+  cluster_id : string prop;
+  created_at : string prop;
+  enabled_cluster_log_types : string list prop;
+  endpoint : string prop;
+  id : string prop;
+  identity : aws_eks_cluster__identity list prop;
+  name : string prop;
+  platform_version : string prop;
+  role_arn : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+}
+
 val aws_eks_cluster :
   ?enabled_cluster_log_types:string prop list ->
   ?id:string prop ->
@@ -41,4 +60,4 @@ val aws_eks_cluster :
   outpost_config:aws_eks_cluster__outpost_config list ->
   vpc_config:aws_eks_cluster__vpc_config list ->
   string ->
-  unit
+  t

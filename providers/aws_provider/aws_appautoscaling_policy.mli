@@ -24,6 +24,17 @@ type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration
 
 type aws_appautoscaling_policy
 
+type t = private {
+  alarm_arns : string list prop;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  policy_type : string prop;
+  resource_id : string prop;
+  scalable_dimension : string prop;
+  service_namespace : string prop;
+}
+
 val aws_appautoscaling_policy :
   ?id:string prop ->
   ?policy_type:string prop ->
@@ -37,4 +48,4 @@ val aws_appautoscaling_policy :
     aws_appautoscaling_policy__target_tracking_scaling_policy_configuration
     list ->
   string ->
-  unit
+  t

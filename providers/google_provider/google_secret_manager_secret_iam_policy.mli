@@ -4,10 +4,18 @@ open! Tf.Prelude
 
 type google_secret_manager_secret_iam_policy
 
+type t = private {
+  etag : string prop;
+  id : string prop;
+  policy_data : string prop;
+  project : string prop;
+  secret_id : string prop;
+}
+
 val google_secret_manager_secret_iam_policy :
   ?id:string prop ->
   ?project:string prop ->
   policy_data:string prop ->
   secret_id:string prop ->
   string ->
-  unit
+  t

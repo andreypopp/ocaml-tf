@@ -15,12 +15,40 @@ type aws_service_discovery_public_dns_namespace = {
 [@@deriving yojson_of]
 (** aws_service_discovery_public_dns_namespace *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  hosted_zone : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_service_discovery_public_dns_namespace ?description ?id ?tags
     ?tags_all ~name __resource_id =
   let __resource_type =
     "aws_service_discovery_public_dns_namespace"
   in
-  let __resource = { description; id; name; tags; tags_all } in
+  let __resource =
+    ({ description; id; name; tags; tags_all }
+      : aws_service_discovery_public_dns_namespace)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_service_discovery_public_dns_namespace __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       hosted_zone =
+         Prop.computed __resource_type __resource_id "hosted_zone";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

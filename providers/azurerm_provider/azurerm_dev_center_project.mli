@@ -5,6 +5,18 @@ open! Tf.Prelude
 type azurerm_dev_center_project__timeouts
 type azurerm_dev_center_project
 
+type t = private {
+  description : string prop;
+  dev_center_id : string prop;
+  dev_center_uri : string prop;
+  id : string prop;
+  location : string prop;
+  maximum_dev_boxes_per_user : float prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_dev_center_project :
   ?description:string prop ->
   ?id:string prop ->
@@ -16,4 +28,4 @@ val azurerm_dev_center_project :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

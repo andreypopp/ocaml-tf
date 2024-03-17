@@ -25,6 +25,23 @@ type aws_networkmanager_site_to_site_vpn_attachment = {
 [@@deriving yojson_of]
 (** aws_networkmanager_site_to_site_vpn_attachment *)
 
+type t = {
+  arn : string prop;
+  attachment_policy_rule_number : float prop;
+  attachment_type : string prop;
+  core_network_arn : string prop;
+  core_network_id : string prop;
+  edge_location : string prop;
+  id : string prop;
+  owner_account_id : string prop;
+  resource_arn : string prop;
+  segment_name : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpn_connection_arn : string prop;
+}
+
 let aws_networkmanager_site_to_site_vpn_attachment ?id ?tags
     ?tags_all ?timeouts ~core_network_id ~vpn_connection_arn
     __resource_id =
@@ -32,16 +49,52 @@ let aws_networkmanager_site_to_site_vpn_attachment ?id ?tags
     "aws_networkmanager_site_to_site_vpn_attachment"
   in
   let __resource =
-    {
-      core_network_id;
-      id;
-      tags;
-      tags_all;
-      vpn_connection_arn;
-      timeouts;
-    }
+    ({
+       core_network_id;
+       id;
+       tags;
+       tags_all;
+       vpn_connection_arn;
+       timeouts;
+     }
+      : aws_networkmanager_site_to_site_vpn_attachment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_site_to_site_vpn_attachment
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       attachment_policy_rule_number =
+         Prop.computed __resource_type __resource_id
+           "attachment_policy_rule_number";
+       attachment_type =
+         Prop.computed __resource_type __resource_id
+           "attachment_type";
+       core_network_arn =
+         Prop.computed __resource_type __resource_id
+           "core_network_arn";
+       core_network_id =
+         Prop.computed __resource_type __resource_id
+           "core_network_id";
+       edge_location =
+         Prop.computed __resource_type __resource_id "edge_location";
+       id = Prop.computed __resource_type __resource_id "id";
+       owner_account_id =
+         Prop.computed __resource_type __resource_id
+           "owner_account_id";
+       resource_arn =
+         Prop.computed __resource_type __resource_id "resource_arn";
+       segment_name =
+         Prop.computed __resource_type __resource_id "segment_name";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       vpn_connection_arn =
+         Prop.computed __resource_type __resource_id
+           "vpn_connection_arn";
+     }
+      : t)
+  in
+  __resource_attributes

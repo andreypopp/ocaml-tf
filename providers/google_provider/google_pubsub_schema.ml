@@ -32,12 +32,33 @@ error indicating that the limit has been reached require manually
 [@@deriving yojson_of]
 (** google_pubsub_schema *)
 
+type t = {
+  definition : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  type_ : string prop;
+}
+
 let google_pubsub_schema ?definition ?id ?project ?type_ ?timeouts
     ~name __resource_id =
   let __resource_type = "google_pubsub_schema" in
   let __resource =
-    { definition; id; name; project; type_; timeouts }
+    ({ definition; id; name; project; type_; timeouts }
+      : google_pubsub_schema)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_schema __resource);
-  ()
+  let __resource_attributes =
+    ({
+       definition =
+         Prop.computed __resource_type __resource_id "definition";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

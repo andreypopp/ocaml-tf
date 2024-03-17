@@ -91,28 +91,56 @@ type aws_emrserverless_application = {
 [@@deriving yojson_of]
 (** aws_emrserverless_application *)
 
+type t = {
+  architecture : string prop;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  release_label : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_emrserverless_application ?architecture ?id ?tags ?tags_all
     ~name ~release_label ~type_ ~auto_start_configuration
     ~auto_stop_configuration ~image_configuration ~initial_capacity
     ~maximum_capacity ~network_configuration __resource_id =
   let __resource_type = "aws_emrserverless_application" in
   let __resource =
-    {
-      architecture;
-      id;
-      name;
-      release_label;
-      tags;
-      tags_all;
-      type_;
-      auto_start_configuration;
-      auto_stop_configuration;
-      image_configuration;
-      initial_capacity;
-      maximum_capacity;
-      network_configuration;
-    }
+    ({
+       architecture;
+       id;
+       name;
+       release_label;
+       tags;
+       tags_all;
+       type_;
+       auto_start_configuration;
+       auto_stop_configuration;
+       image_configuration;
+       initial_capacity;
+       maximum_capacity;
+       network_configuration;
+     }
+      : aws_emrserverless_application)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emrserverless_application __resource);
-  ()
+  let __resource_attributes =
+    ({
+       architecture =
+         Prop.computed __resource_type __resource_id "architecture";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       release_label =
+         Prop.computed __resource_type __resource_id "release_label";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

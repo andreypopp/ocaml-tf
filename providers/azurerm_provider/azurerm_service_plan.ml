@@ -35,28 +35,80 @@ type azurerm_service_plan = {
 [@@deriving yojson_of]
 (** azurerm_service_plan *)
 
+type t = {
+  app_service_environment_id : string prop;
+  id : string prop;
+  kind : string prop;
+  location : string prop;
+  maximum_elastic_worker_count : float prop;
+  name : string prop;
+  os_type : string prop;
+  per_site_scaling_enabled : bool prop;
+  reserved : bool prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+  worker_count : float prop;
+  zone_balancing_enabled : bool prop;
+}
+
 let azurerm_service_plan ?app_service_environment_id ?id
     ?maximum_elastic_worker_count ?per_site_scaling_enabled ?tags
     ?worker_count ?zone_balancing_enabled ?timeouts ~location ~name
     ~os_type ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_service_plan" in
   let __resource =
-    {
-      app_service_environment_id;
-      id;
-      location;
-      maximum_elastic_worker_count;
-      name;
-      os_type;
-      per_site_scaling_enabled;
-      resource_group_name;
-      sku_name;
-      tags;
-      worker_count;
-      zone_balancing_enabled;
-      timeouts;
-    }
+    ({
+       app_service_environment_id;
+       id;
+       location;
+       maximum_elastic_worker_count;
+       name;
+       os_type;
+       per_site_scaling_enabled;
+       resource_group_name;
+       sku_name;
+       tags;
+       worker_count;
+       zone_balancing_enabled;
+       timeouts;
+     }
+      : azurerm_service_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_service_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_service_environment_id =
+         Prop.computed __resource_type __resource_id
+           "app_service_environment_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       maximum_elastic_worker_count =
+         Prop.computed __resource_type __resource_id
+           "maximum_elastic_worker_count";
+       name = Prop.computed __resource_type __resource_id "name";
+       os_type =
+         Prop.computed __resource_type __resource_id "os_type";
+       per_site_scaling_enabled =
+         Prop.computed __resource_type __resource_id
+           "per_site_scaling_enabled";
+       reserved =
+         Prop.computed __resource_type __resource_id "reserved";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       worker_count =
+         Prop.computed __resource_type __resource_id "worker_count";
+       zone_balancing_enabled =
+         Prop.computed __resource_type __resource_id
+           "zone_balancing_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

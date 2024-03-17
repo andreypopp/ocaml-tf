@@ -42,6 +42,30 @@ type google_edgecontainer_cluster__maintenance_events = {
 
 type google_edgecontainer_cluster
 
+type t = private {
+  cluster_ca_certificate : string prop;
+  control_plane_version : string prop;
+  create_time : string prop;
+  default_max_pods_per_node : float prop;
+  effective_labels : (string * string) list prop;
+  endpoint : string prop;
+  external_load_balancer_ipv4_address_pools : string list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  maintenance_events :
+    google_edgecontainer_cluster__maintenance_events list prop;
+  name : string prop;
+  node_version : string prop;
+  port : float prop;
+  project : string prop;
+  release_channel : string prop;
+  status : string prop;
+  target_version : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_edgecontainer_cluster :
   ?default_max_pods_per_node:float prop ->
   ?external_load_balancer_ipv4_address_pools:string prop list ->
@@ -64,4 +88,4 @@ val google_edgecontainer_cluster :
   system_addons_config:
     google_edgecontainer_cluster__system_addons_config list ->
   string ->
-  unit
+  t

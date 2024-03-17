@@ -44,6 +44,24 @@ type google_network_services_edge_cache_service__routing
 type google_network_services_edge_cache_service__timeouts
 type google_network_services_edge_cache_service
 
+type t = private {
+  description : string prop;
+  disable_http2 : bool prop;
+  disable_quic : bool prop;
+  edge_security_policy : string prop;
+  edge_ssl_certificates : string list prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  ipv4_addresses : string list prop;
+  ipv6_addresses : string list prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  require_tls : bool prop;
+  ssl_policy : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_network_services_edge_cache_service :
   ?description:string prop ->
   ?disable_http2:bool prop ->
@@ -61,4 +79,4 @@ val google_network_services_edge_cache_service :
     google_network_services_edge_cache_service__log_config list ->
   routing:google_network_services_edge_cache_service__routing list ->
   string ->
-  unit
+  t

@@ -395,6 +395,32 @@ type azurerm_orchestrated_virtual_machine_scale_set = {
 [@@deriving yojson_of]
 (** azurerm_orchestrated_virtual_machine_scale_set *)
 
+type t = {
+  capacity_reservation_group_id : string prop;
+  encryption_at_host_enabled : bool prop;
+  eviction_policy : string prop;
+  extension_operations_enabled : bool prop;
+  extensions_time_budget : string prop;
+  id : string prop;
+  instances : float prop;
+  license_type : string prop;
+  location : string prop;
+  max_bid_price : float prop;
+  name : string prop;
+  platform_fault_domain_count : float prop;
+  priority : string prop;
+  proximity_placement_group_id : string prop;
+  resource_group_name : string prop;
+  single_placement_group : bool prop;
+  sku_name : string prop;
+  source_image_id : string prop;
+  tags : (string * string) list prop;
+  unique_id : string prop;
+  user_data_base64 : string prop;
+  zone_balance : bool prop;
+  zones : string list prop;
+}
+
 let azurerm_orchestrated_virtual_machine_scale_set
     ?capacity_reservation_group_id ?encryption_at_host_enabled
     ?eviction_policy ?extension_operations_enabled
@@ -411,46 +437,105 @@ let azurerm_orchestrated_virtual_machine_scale_set
     "azurerm_orchestrated_virtual_machine_scale_set"
   in
   let __resource =
-    {
-      capacity_reservation_group_id;
-      encryption_at_host_enabled;
-      eviction_policy;
-      extension_operations_enabled;
-      extensions_time_budget;
-      id;
-      instances;
-      license_type;
-      location;
-      max_bid_price;
-      name;
-      platform_fault_domain_count;
-      priority;
-      proximity_placement_group_id;
-      resource_group_name;
-      single_placement_group;
-      sku_name;
-      source_image_id;
-      tags;
-      user_data_base64;
-      zone_balance;
-      zones;
-      additional_capabilities;
-      automatic_instance_repair;
-      boot_diagnostics;
-      data_disk;
-      extension;
-      identity;
-      network_interface;
-      os_disk;
-      os_profile;
-      plan;
-      priority_mix;
-      source_image_reference;
-      termination_notification;
-      timeouts;
-    }
+    ({
+       capacity_reservation_group_id;
+       encryption_at_host_enabled;
+       eviction_policy;
+       extension_operations_enabled;
+       extensions_time_budget;
+       id;
+       instances;
+       license_type;
+       location;
+       max_bid_price;
+       name;
+       platform_fault_domain_count;
+       priority;
+       proximity_placement_group_id;
+       resource_group_name;
+       single_placement_group;
+       sku_name;
+       source_image_id;
+       tags;
+       user_data_base64;
+       zone_balance;
+       zones;
+       additional_capabilities;
+       automatic_instance_repair;
+       boot_diagnostics;
+       data_disk;
+       extension;
+       identity;
+       network_interface;
+       os_disk;
+       os_profile;
+       plan;
+       priority_mix;
+       source_image_reference;
+       termination_notification;
+       timeouts;
+     }
+      : azurerm_orchestrated_virtual_machine_scale_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_orchestrated_virtual_machine_scale_set
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       capacity_reservation_group_id =
+         Prop.computed __resource_type __resource_id
+           "capacity_reservation_group_id";
+       encryption_at_host_enabled =
+         Prop.computed __resource_type __resource_id
+           "encryption_at_host_enabled";
+       eviction_policy =
+         Prop.computed __resource_type __resource_id
+           "eviction_policy";
+       extension_operations_enabled =
+         Prop.computed __resource_type __resource_id
+           "extension_operations_enabled";
+       extensions_time_budget =
+         Prop.computed __resource_type __resource_id
+           "extensions_time_budget";
+       id = Prop.computed __resource_type __resource_id "id";
+       instances =
+         Prop.computed __resource_type __resource_id "instances";
+       license_type =
+         Prop.computed __resource_type __resource_id "license_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       max_bid_price =
+         Prop.computed __resource_type __resource_id "max_bid_price";
+       name = Prop.computed __resource_type __resource_id "name";
+       platform_fault_domain_count =
+         Prop.computed __resource_type __resource_id
+           "platform_fault_domain_count";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       proximity_placement_group_id =
+         Prop.computed __resource_type __resource_id
+           "proximity_placement_group_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       single_placement_group =
+         Prop.computed __resource_type __resource_id
+           "single_placement_group";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       source_image_id =
+         Prop.computed __resource_type __resource_id
+           "source_image_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       unique_id =
+         Prop.computed __resource_type __resource_id "unique_id";
+       user_data_base64 =
+         Prop.computed __resource_type __resource_id
+           "user_data_base64";
+       zone_balance =
+         Prop.computed __resource_type __resource_id "zone_balance";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

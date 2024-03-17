@@ -12,10 +12,32 @@ type aws_route53_cidr_location = {
 [@@deriving yojson_of]
 (** aws_route53_cidr_location *)
 
+type t = {
+  cidr_blocks : string list prop;
+  cidr_collection_id : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let aws_route53_cidr_location ~cidr_blocks ~cidr_collection_id ~name
     __resource_id =
   let __resource_type = "aws_route53_cidr_location" in
-  let __resource = { cidr_blocks; cidr_collection_id; name } in
+  let __resource =
+    ({ cidr_blocks; cidr_collection_id; name }
+      : aws_route53_cidr_location)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_cidr_location __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cidr_blocks =
+         Prop.computed __resource_type __resource_id "cidr_blocks";
+       cidr_collection_id =
+         Prop.computed __resource_type __resource_id
+           "cidr_collection_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_web_pubsub_custom_certificate__timeouts
 type azurerm_web_pubsub_custom_certificate
 
+type t = private {
+  certificate_version : string prop;
+  custom_certificate_id : string prop;
+  id : string prop;
+  name : string prop;
+  web_pubsub_id : string prop;
+}
+
 val azurerm_web_pubsub_custom_certificate :
   ?id:string prop ->
   ?timeouts:azurerm_web_pubsub_custom_certificate__timeouts ->
@@ -12,4 +20,4 @@ val azurerm_web_pubsub_custom_certificate :
   name:string prop ->
   web_pubsub_id:string prop ->
   string ->
-  unit
+  t

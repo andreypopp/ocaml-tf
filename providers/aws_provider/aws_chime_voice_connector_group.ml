@@ -19,10 +19,21 @@ type aws_chime_voice_connector_group = {
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_group *)
 
+type t = { id : string prop; name : string prop }
+
 let aws_chime_voice_connector_group ?id ~name ~connector
     __resource_id =
   let __resource_type = "aws_chime_voice_connector_group" in
-  let __resource = { id; name; connector } in
+  let __resource =
+    ({ id; name; connector } : aws_chime_voice_connector_group)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chime_voice_connector_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

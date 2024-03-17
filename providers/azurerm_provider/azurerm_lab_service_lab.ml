@@ -133,30 +133,60 @@ type azurerm_lab_service_lab = {
 [@@deriving yojson_of]
 (** azurerm_lab_service_lab *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  lab_plan_id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  title : string prop;
+}
+
 let azurerm_lab_service_lab ?description ?id ?lab_plan_id ?tags
     ?timeouts ~location ~name ~resource_group_name ~title
     ~auto_shutdown ~connection_setting ~network ~roster ~security
     ~virtual_machine __resource_id =
   let __resource_type = "azurerm_lab_service_lab" in
   let __resource =
-    {
-      description;
-      id;
-      lab_plan_id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      title;
-      auto_shutdown;
-      connection_setting;
-      network;
-      roster;
-      security;
-      timeouts;
-      virtual_machine;
-    }
+    ({
+       description;
+       id;
+       lab_plan_id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       title;
+       auto_shutdown;
+       connection_setting;
+       network;
+       roster;
+       security;
+       timeouts;
+       virtual_machine;
+     }
+      : azurerm_lab_service_lab)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lab_service_lab __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       lab_plan_id =
+         Prop.computed __resource_type __resource_id "lab_plan_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       title = Prop.computed __resource_type __resource_id "title";
+     }
+      : t)
+  in
+  __resource_attributes

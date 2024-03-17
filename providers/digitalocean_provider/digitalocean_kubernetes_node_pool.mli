@@ -16,6 +16,21 @@ type digitalocean_kubernetes_node_pool__nodes = {
 
 type digitalocean_kubernetes_node_pool
 
+type t = private {
+  actual_node_count : float prop;
+  auto_scale : bool prop;
+  cluster_id : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  max_nodes : float prop;
+  min_nodes : float prop;
+  name : string prop;
+  node_count : float prop;
+  nodes : digitalocean_kubernetes_node_pool__nodes list prop;
+  size : string prop;
+  tags : string list prop;
+}
+
 val digitalocean_kubernetes_node_pool :
   ?auto_scale:bool prop ->
   ?id:string prop ->
@@ -30,4 +45,4 @@ val digitalocean_kubernetes_node_pool :
   size:string prop ->
   taint:digitalocean_kubernetes_node_pool__taint list ->
   string ->
-  unit
+  t

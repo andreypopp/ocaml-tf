@@ -350,6 +350,11 @@ type kubernetes_job__spec
 type kubernetes_job__timeouts
 type kubernetes_job
 
+type t = private {
+  id : string prop;
+  wait_for_completion : bool prop;
+}
+
 val kubernetes_job :
   ?id:string prop ->
   ?wait_for_completion:bool prop ->
@@ -357,4 +362,4 @@ val kubernetes_job :
   metadata:kubernetes_job__metadata list ->
   spec:kubernetes_job__spec list ->
   string ->
-  unit
+  t

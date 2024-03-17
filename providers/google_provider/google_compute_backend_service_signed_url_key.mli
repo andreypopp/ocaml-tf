@@ -5,6 +5,14 @@ open! Tf.Prelude
 type google_compute_backend_service_signed_url_key__timeouts
 type google_compute_backend_service_signed_url_key
 
+type t = private {
+  backend_service : string prop;
+  id : string prop;
+  key_value : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_compute_backend_service_signed_url_key :
   ?id:string prop ->
   ?project:string prop ->
@@ -13,4 +21,4 @@ val google_compute_backend_service_signed_url_key :
   key_value:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

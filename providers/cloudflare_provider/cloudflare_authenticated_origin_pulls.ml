@@ -21,19 +21,43 @@ type cloudflare_authenticated_origin_pulls = {
 resource is required to use Per-Zone or Per-Hostname Authenticated
 Origin Pulls. *)
 
+type t = {
+  authenticated_origin_pulls_certificate : string prop;
+  enabled : bool prop;
+  hostname : string prop;
+  id : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_authenticated_origin_pulls
     ?authenticated_origin_pulls_certificate ?hostname ?id ~enabled
     ~zone_id __resource_id =
   let __resource_type = "cloudflare_authenticated_origin_pulls" in
   let __resource =
-    {
-      authenticated_origin_pulls_certificate;
-      enabled;
-      hostname;
-      id;
-      zone_id;
-    }
+    ({
+       authenticated_origin_pulls_certificate;
+       enabled;
+       hostname;
+       id;
+       zone_id;
+     }
+      : cloudflare_authenticated_origin_pulls)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_authenticated_origin_pulls __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authenticated_origin_pulls_certificate =
+         Prop.computed __resource_type __resource_id
+           "authenticated_origin_pulls_certificate";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       hostname =
+         Prop.computed __resource_type __resource_id "hostname";
+       id = Prop.computed __resource_type __resource_id "id";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

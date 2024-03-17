@@ -6,6 +6,19 @@ type google_ml_engine_model__default_version
 type google_ml_engine_model__timeouts
 type google_ml_engine_model
 
+type t = private {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  online_prediction_console_logging : bool prop;
+  online_prediction_logging : bool prop;
+  project : string prop;
+  regions : string list prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_ml_engine_model :
   ?description:string prop ->
   ?id:string prop ->
@@ -18,4 +31,4 @@ val google_ml_engine_model :
   name:string prop ->
   default_version:google_ml_engine_model__default_version list ->
   string ->
-  unit
+  t

@@ -9,6 +9,27 @@ type azurerm_sentinel_metadata__support
 type azurerm_sentinel_metadata__timeouts
 type azurerm_sentinel_metadata
 
+type t = private {
+  content_id : string prop;
+  content_schema_version : string prop;
+  custom_version : string prop;
+  dependency : string prop;
+  first_publish_date : string prop;
+  icon_id : string prop;
+  id : string prop;
+  kind : string prop;
+  last_publish_date : string prop;
+  name : string prop;
+  parent_id : string prop;
+  preview_images : string list prop;
+  preview_images_dark : string list prop;
+  providers : string list prop;
+  threat_analysis_tactics : string list prop;
+  threat_analysis_techniques : string list prop;
+  version : string prop;
+  workspace_id : string prop;
+}
+
 val azurerm_sentinel_metadata :
   ?content_schema_version:string prop ->
   ?custom_version:string prop ->
@@ -34,4 +55,4 @@ val azurerm_sentinel_metadata :
   source:azurerm_sentinel_metadata__source list ->
   support:azurerm_sentinel_metadata__support list ->
   string ->
-  unit
+  t

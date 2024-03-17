@@ -167,6 +167,31 @@ type azurerm_iothub = {
 [@@deriving yojson_of]
 (** azurerm_iothub *)
 
+type t = {
+  endpoint : azurerm_iothub__endpoint list prop;
+  enrichment : azurerm_iothub__enrichment list prop;
+  event_hub_events_endpoint : string prop;
+  event_hub_events_namespace : string prop;
+  event_hub_events_path : string prop;
+  event_hub_operations_endpoint : string prop;
+  event_hub_operations_path : string prop;
+  event_hub_partition_count : float prop;
+  event_hub_retention_in_days : float prop;
+  hostname : string prop;
+  id : string prop;
+  local_authentication_enabled : bool prop;
+  location : string prop;
+  min_tls_version : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  route : azurerm_iothub__route list prop;
+  shared_access_policy :
+    azurerm_iothub__shared_access_policy list prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+}
+
 let azurerm_iothub ?endpoint ?enrichment ?event_hub_partition_count
     ?event_hub_retention_in_days ?id ?local_authentication_enabled
     ?min_tls_version ?public_network_access_enabled ?route ?tags
@@ -175,29 +200,84 @@ let azurerm_iothub ?endpoint ?enrichment ?event_hub_partition_count
     __resource_id =
   let __resource_type = "azurerm_iothub" in
   let __resource =
-    {
-      endpoint;
-      enrichment;
-      event_hub_partition_count;
-      event_hub_retention_in_days;
-      id;
-      local_authentication_enabled;
-      location;
-      min_tls_version;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      route;
-      tags;
-      cloud_to_device;
-      fallback_route;
-      file_upload;
-      identity;
-      network_rule_set;
-      sku;
-      timeouts;
-    }
+    ({
+       endpoint;
+       enrichment;
+       event_hub_partition_count;
+       event_hub_retention_in_days;
+       id;
+       local_authentication_enabled;
+       location;
+       min_tls_version;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       route;
+       tags;
+       cloud_to_device;
+       fallback_route;
+       file_upload;
+       identity;
+       network_rule_set;
+       sku;
+       timeouts;
+     }
+      : azurerm_iothub)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub __resource);
-  ()
+  let __resource_attributes =
+    ({
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       enrichment =
+         Prop.computed __resource_type __resource_id "enrichment";
+       event_hub_events_endpoint =
+         Prop.computed __resource_type __resource_id
+           "event_hub_events_endpoint";
+       event_hub_events_namespace =
+         Prop.computed __resource_type __resource_id
+           "event_hub_events_namespace";
+       event_hub_events_path =
+         Prop.computed __resource_type __resource_id
+           "event_hub_events_path";
+       event_hub_operations_endpoint =
+         Prop.computed __resource_type __resource_id
+           "event_hub_operations_endpoint";
+       event_hub_operations_path =
+         Prop.computed __resource_type __resource_id
+           "event_hub_operations_path";
+       event_hub_partition_count =
+         Prop.computed __resource_type __resource_id
+           "event_hub_partition_count";
+       event_hub_retention_in_days =
+         Prop.computed __resource_type __resource_id
+           "event_hub_retention_in_days";
+       hostname =
+         Prop.computed __resource_type __resource_id "hostname";
+       id = Prop.computed __resource_type __resource_id "id";
+       local_authentication_enabled =
+         Prop.computed __resource_type __resource_id
+           "local_authentication_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       min_tls_version =
+         Prop.computed __resource_type __resource_id
+           "min_tls_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       route = Prop.computed __resource_type __resource_id "route";
+       shared_access_policy =
+         Prop.computed __resource_type __resource_id
+           "shared_access_policy";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

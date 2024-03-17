@@ -38,6 +38,26 @@ organizations/{organization_id} *)
 [@@deriving yojson_of]
 (** google_securityposture_posture_deployment *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  desired_posture_id : string prop;
+  desired_posture_revision_id : string prop;
+  etag : string prop;
+  failure_message : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  parent : string prop;
+  posture_deployment_id : string prop;
+  posture_id : string prop;
+  posture_revision_id : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  target_resource : string prop;
+  update_time : string prop;
+}
+
 let google_securityposture_posture_deployment ?description ?id
     ?timeouts ~location ~parent ~posture_deployment_id ~posture_id
     ~posture_revision_id ~target_resource __resource_id =
@@ -45,18 +65,59 @@ let google_securityposture_posture_deployment ?description ?id
     "google_securityposture_posture_deployment"
   in
   let __resource =
-    {
-      description;
-      id;
-      location;
-      parent;
-      posture_deployment_id;
-      posture_id;
-      posture_revision_id;
-      target_resource;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       location;
+       parent;
+       posture_deployment_id;
+       posture_id;
+       posture_revision_id;
+       target_resource;
+       timeouts;
+     }
+      : google_securityposture_posture_deployment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_securityposture_posture_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       desired_posture_id =
+         Prop.computed __resource_type __resource_id
+           "desired_posture_id";
+       desired_posture_revision_id =
+         Prop.computed __resource_type __resource_id
+           "desired_posture_revision_id";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       failure_message =
+         Prop.computed __resource_type __resource_id
+           "failure_message";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       posture_deployment_id =
+         Prop.computed __resource_type __resource_id
+           "posture_deployment_id";
+       posture_id =
+         Prop.computed __resource_type __resource_id "posture_id";
+       posture_revision_id =
+         Prop.computed __resource_type __resource_id
+           "posture_revision_id";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       state = Prop.computed __resource_type __resource_id "state";
+       target_resource =
+         Prop.computed __resource_type __resource_id
+           "target_resource";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

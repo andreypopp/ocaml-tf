@@ -23,10 +23,37 @@ type aws_iot_policy = {
 [@@deriving yojson_of]
 (** aws_iot_policy *)
 
+type t = {
+  arn : string prop;
+  default_version_id : string prop;
+  id : string prop;
+  name : string prop;
+  policy : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_iot_policy ?id ?tags ?tags_all ?timeouts ~name ~policy
     __resource_id =
   let __resource_type = "aws_iot_policy" in
-  let __resource = { id; name; policy; tags; tags_all; timeouts } in
+  let __resource =
+    ({ id; name; policy; tags; tags_all; timeouts } : aws_iot_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       default_version_id =
+         Prop.computed __resource_type __resource_id
+           "default_version_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

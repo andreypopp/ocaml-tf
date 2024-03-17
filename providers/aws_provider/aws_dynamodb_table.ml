@@ -150,6 +150,28 @@ type aws_dynamodb_table = {
 [@@deriving yojson_of]
 (** aws_dynamodb_table *)
 
+type t = {
+  arn : string prop;
+  billing_mode : string prop;
+  deletion_protection_enabled : bool prop;
+  hash_key : string prop;
+  id : string prop;
+  name : string prop;
+  range_key : string prop;
+  read_capacity : float prop;
+  restore_date_time : string prop;
+  restore_source_name : string prop;
+  restore_to_latest_time : bool prop;
+  stream_arn : string prop;
+  stream_enabled : bool prop;
+  stream_label : string prop;
+  stream_view_type : string prop;
+  table_class : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  write_capacity : float prop;
+}
+
 let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
     ?hash_key ?id ?range_key ?read_capacity ?restore_date_time
     ?restore_source_name ?restore_to_latest_time ?stream_enabled
@@ -159,34 +181,79 @@ let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
     ~server_side_encryption ~ttl __resource_id =
   let __resource_type = "aws_dynamodb_table" in
   let __resource =
-    {
-      billing_mode;
-      deletion_protection_enabled;
-      hash_key;
-      id;
-      name;
-      range_key;
-      read_capacity;
-      restore_date_time;
-      restore_source_name;
-      restore_to_latest_time;
-      stream_enabled;
-      stream_view_type;
-      table_class;
-      tags;
-      tags_all;
-      write_capacity;
-      attribute;
-      global_secondary_index;
-      import_table;
-      local_secondary_index;
-      point_in_time_recovery;
-      replica;
-      server_side_encryption;
-      timeouts;
-      ttl;
-    }
+    ({
+       billing_mode;
+       deletion_protection_enabled;
+       hash_key;
+       id;
+       name;
+       range_key;
+       read_capacity;
+       restore_date_time;
+       restore_source_name;
+       restore_to_latest_time;
+       stream_enabled;
+       stream_view_type;
+       table_class;
+       tags;
+       tags_all;
+       write_capacity;
+       attribute;
+       global_secondary_index;
+       import_table;
+       local_secondary_index;
+       point_in_time_recovery;
+       replica;
+       server_side_encryption;
+       timeouts;
+       ttl;
+     }
+      : aws_dynamodb_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       billing_mode =
+         Prop.computed __resource_type __resource_id "billing_mode";
+       deletion_protection_enabled =
+         Prop.computed __resource_type __resource_id
+           "deletion_protection_enabled";
+       hash_key =
+         Prop.computed __resource_type __resource_id "hash_key";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       range_key =
+         Prop.computed __resource_type __resource_id "range_key";
+       read_capacity =
+         Prop.computed __resource_type __resource_id "read_capacity";
+       restore_date_time =
+         Prop.computed __resource_type __resource_id
+           "restore_date_time";
+       restore_source_name =
+         Prop.computed __resource_type __resource_id
+           "restore_source_name";
+       restore_to_latest_time =
+         Prop.computed __resource_type __resource_id
+           "restore_to_latest_time";
+       stream_arn =
+         Prop.computed __resource_type __resource_id "stream_arn";
+       stream_enabled =
+         Prop.computed __resource_type __resource_id "stream_enabled";
+       stream_label =
+         Prop.computed __resource_type __resource_id "stream_label";
+       stream_view_type =
+         Prop.computed __resource_type __resource_id
+           "stream_view_type";
+       table_class =
+         Prop.computed __resource_type __resource_id "table_class";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       write_capacity =
+         Prop.computed __resource_type __resource_id "write_capacity";
+     }
+      : t)
+  in
+  __resource_attributes

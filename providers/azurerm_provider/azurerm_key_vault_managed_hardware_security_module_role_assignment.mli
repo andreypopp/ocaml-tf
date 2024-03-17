@@ -6,6 +6,16 @@ type azurerm_key_vault_managed_hardware_security_module_role_assignment__timeout
 
 type azurerm_key_vault_managed_hardware_security_module_role_assignment
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  principal_id : string prop;
+  resource_id : string prop;
+  role_definition_id : string prop;
+  scope : string prop;
+  vault_base_url : string prop;
+}
+
 val azurerm_key_vault_managed_hardware_security_module_role_assignment :
   ?id:string prop ->
   ?timeouts:
@@ -16,4 +26,4 @@ val azurerm_key_vault_managed_hardware_security_module_role_assignment :
   scope:string prop ->
   vault_base_url:string prop ->
   string ->
-  unit
+  t

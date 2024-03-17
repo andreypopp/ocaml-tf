@@ -13,10 +13,30 @@ type aws_transfer_ssh_key = {
 [@@deriving yojson_of]
 (** aws_transfer_ssh_key *)
 
+type t = {
+  body : string prop;
+  id : string prop;
+  server_id : string prop;
+  user_name : string prop;
+}
+
 let aws_transfer_ssh_key ?id ~body ~server_id ~user_name
     __resource_id =
   let __resource_type = "aws_transfer_ssh_key" in
-  let __resource = { body; id; server_id; user_name } in
+  let __resource =
+    ({ body; id; server_id; user_name } : aws_transfer_ssh_key)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_ssh_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       body = Prop.computed __resource_type __resource_id "body";
+       id = Prop.computed __resource_type __resource_id "id";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       user_name =
+         Prop.computed __resource_type __resource_id "user_name";
+     }
+      : t)
+  in
+  __resource_attributes

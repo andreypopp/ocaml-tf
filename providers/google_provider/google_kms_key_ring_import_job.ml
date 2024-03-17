@@ -39,19 +39,57 @@ versionTemplate on the CryptoKey you attempt to import into. Possible values: [S
 [@@deriving yojson_of]
 (** google_kms_key_ring_import_job *)
 
+type t = {
+  attestation :
+    google_kms_key_ring_import_job__attestation list prop;
+  expire_time : string prop;
+  id : string prop;
+  import_job_id : string prop;
+  import_method : string prop;
+  key_ring : string prop;
+  name : string prop;
+  protection_level : string prop;
+  public_key : google_kms_key_ring_import_job__public_key list prop;
+  state : string prop;
+}
+
 let google_kms_key_ring_import_job ?id ?timeouts ~import_job_id
     ~import_method ~key_ring ~protection_level __resource_id =
   let __resource_type = "google_kms_key_ring_import_job" in
   let __resource =
-    {
-      id;
-      import_job_id;
-      import_method;
-      key_ring;
-      protection_level;
-      timeouts;
-    }
+    ({
+       id;
+       import_job_id;
+       import_method;
+       key_ring;
+       protection_level;
+       timeouts;
+     }
+      : google_kms_key_ring_import_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_key_ring_import_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       attestation =
+         Prop.computed __resource_type __resource_id "attestation";
+       expire_time =
+         Prop.computed __resource_type __resource_id "expire_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       import_job_id =
+         Prop.computed __resource_type __resource_id "import_job_id";
+       import_method =
+         Prop.computed __resource_type __resource_id "import_method";
+       key_ring =
+         Prop.computed __resource_type __resource_id "key_ring";
+       name = Prop.computed __resource_type __resource_id "name";
+       protection_level =
+         Prop.computed __resource_type __resource_id
+           "protection_level";
+       public_key =
+         Prop.computed __resource_type __resource_id "public_key";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

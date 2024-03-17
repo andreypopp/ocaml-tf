@@ -11,6 +11,14 @@ type aws_lightsail_container_service_deployment_version__public_endpoint
 type aws_lightsail_container_service_deployment_version__timeouts
 type aws_lightsail_container_service_deployment_version
 
+type t = private {
+  created_at : string prop;
+  id : string prop;
+  service_name : string prop;
+  state : string prop;
+  version : float prop;
+}
+
 val aws_lightsail_container_service_deployment_version :
   ?id:string prop ->
   ?timeouts:
@@ -23,4 +31,4 @@ val aws_lightsail_container_service_deployment_version :
     aws_lightsail_container_service_deployment_version__public_endpoint
     list ->
   string ->
-  unit
+  t

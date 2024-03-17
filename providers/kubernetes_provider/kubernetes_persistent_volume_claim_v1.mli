@@ -11,6 +11,7 @@ type kubernetes_persistent_volume_claim_v1__spec__selector
 type kubernetes_persistent_volume_claim_v1__spec
 type kubernetes_persistent_volume_claim_v1__timeouts
 type kubernetes_persistent_volume_claim_v1
+type t = private { id : string prop; wait_until_bound : bool prop }
 
 val kubernetes_persistent_volume_claim_v1 :
   ?id:string prop ->
@@ -19,4 +20,4 @@ val kubernetes_persistent_volume_claim_v1 :
   metadata:kubernetes_persistent_volume_claim_v1__metadata list ->
   spec:kubernetes_persistent_volume_claim_v1__spec list ->
   string ->
-  unit
+  t

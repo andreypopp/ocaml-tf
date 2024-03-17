@@ -5,6 +5,19 @@ open! Tf.Prelude
 type aws_networkmanager_connection__timeouts
 type aws_networkmanager_connection
 
+type t = private {
+  arn : string prop;
+  connected_device_id : string prop;
+  connected_link_id : string prop;
+  description : string prop;
+  device_id : string prop;
+  global_network_id : string prop;
+  id : string prop;
+  link_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_networkmanager_connection :
   ?connected_link_id:string prop ->
   ?description:string prop ->
@@ -17,4 +30,4 @@ val aws_networkmanager_connection :
   device_id:string prop ->
   global_network_id:string prop ->
   string ->
-  unit
+  t

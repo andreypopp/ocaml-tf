@@ -68,6 +68,13 @@ type aws_cloudfront_field_level_encryption_config = {
 [@@deriving yojson_of]
 (** aws_cloudfront_field_level_encryption_config *)
 
+type t = {
+  caller_reference : string prop;
+  comment : string prop;
+  etag : string prop;
+  id : string prop;
+}
+
 let aws_cloudfront_field_level_encryption_config ?comment ?id
     ~content_type_profile_config ~query_arg_profile_config
     __resource_id =
@@ -75,14 +82,27 @@ let aws_cloudfront_field_level_encryption_config ?comment ?id
     "aws_cloudfront_field_level_encryption_config"
   in
   let __resource =
-    {
-      comment;
-      id;
-      content_type_profile_config;
-      query_arg_profile_config;
-    }
+    ({
+       comment;
+       id;
+       content_type_profile_config;
+       query_arg_profile_config;
+     }
+      : aws_cloudfront_field_level_encryption_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_field_level_encryption_config
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       caller_reference =
+         Prop.computed __resource_type __resource_id
+           "caller_reference";
+       comment =
+         Prop.computed __resource_type __resource_id "comment";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

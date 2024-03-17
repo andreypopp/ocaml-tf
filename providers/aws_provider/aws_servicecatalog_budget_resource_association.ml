@@ -22,13 +22,32 @@ type aws_servicecatalog_budget_resource_association = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_budget_resource_association *)
 
+type t = {
+  budget_name : string prop;
+  id : string prop;
+  resource_id : string prop;
+}
+
 let aws_servicecatalog_budget_resource_association ?id ?timeouts
     ~budget_name ~resource_id __resource_id =
   let __resource_type =
     "aws_servicecatalog_budget_resource_association"
   in
-  let __resource = { budget_name; id; resource_id; timeouts } in
+  let __resource =
+    ({ budget_name; id; resource_id; timeouts }
+      : aws_servicecatalog_budget_resource_association)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_budget_resource_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       budget_name =
+         Prop.computed __resource_type __resource_id "budget_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_id =
+         Prop.computed __resource_type __resource_id "resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

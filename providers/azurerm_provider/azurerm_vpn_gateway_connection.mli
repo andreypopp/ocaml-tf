@@ -11,6 +11,14 @@ type azurerm_vpn_gateway_connection__vpn_link__ipsec_policy
 type azurerm_vpn_gateway_connection__vpn_link
 type azurerm_vpn_gateway_connection
 
+type t = private {
+  id : string prop;
+  internet_security_enabled : bool prop;
+  name : string prop;
+  remote_vpn_site_id : string prop;
+  vpn_gateway_id : string prop;
+}
+
 val azurerm_vpn_gateway_connection :
   ?id:string prop ->
   ?internet_security_enabled:bool prop ->
@@ -23,4 +31,4 @@ val azurerm_vpn_gateway_connection :
     azurerm_vpn_gateway_connection__traffic_selector_policy list ->
   vpn_link:azurerm_vpn_gateway_connection__vpn_link list ->
   string ->
-  unit
+  t

@@ -12,6 +12,30 @@ type azurerm_api_management_api__subscription_key_parameter_names
 type azurerm_api_management_api__timeouts
 type azurerm_api_management_api
 
+type t = private {
+  api_management_name : string prop;
+  api_type : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  is_current : bool prop;
+  is_online : bool prop;
+  name : string prop;
+  path : string prop;
+  protocols : string list prop;
+  resource_group_name : string prop;
+  revision : string prop;
+  revision_description : string prop;
+  service_url : string prop;
+  soap_pass_through : bool prop;
+  source_api_id : string prop;
+  subscription_required : bool prop;
+  terms_of_service_url : string prop;
+  version : string prop;
+  version_description : string prop;
+  version_set_id : string prop;
+}
+
 val azurerm_api_management_api :
   ?api_type:string prop ->
   ?description:string prop ->
@@ -43,4 +67,4 @@ val azurerm_api_management_api :
   subscription_key_parameter_names:
     azurerm_api_management_api__subscription_key_parameter_names list ->
   string ->
-  unit
+  t

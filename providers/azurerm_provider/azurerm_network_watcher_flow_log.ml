@@ -52,28 +52,68 @@ type azurerm_network_watcher_flow_log = {
 [@@deriving yojson_of]
 (** azurerm_network_watcher_flow_log *)
 
+type t = {
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  network_security_group_id : string prop;
+  network_watcher_name : string prop;
+  resource_group_name : string prop;
+  storage_account_id : string prop;
+  tags : (string * string) list prop;
+  version : float prop;
+}
+
 let azurerm_network_watcher_flow_log ?id ?location ?tags ?version
     ?timeouts ~enabled ~name ~network_security_group_id
     ~network_watcher_name ~resource_group_name ~storage_account_id
     ~retention_policy ~traffic_analytics __resource_id =
   let __resource_type = "azurerm_network_watcher_flow_log" in
   let __resource =
-    {
-      enabled;
-      id;
-      location;
-      name;
-      network_security_group_id;
-      network_watcher_name;
-      resource_group_name;
-      storage_account_id;
-      tags;
-      version;
-      retention_policy;
-      timeouts;
-      traffic_analytics;
-    }
+    ({
+       enabled;
+       id;
+       location;
+       name;
+       network_security_group_id;
+       network_watcher_name;
+       resource_group_name;
+       storage_account_id;
+       tags;
+       version;
+       retention_policy;
+       timeouts;
+       traffic_analytics;
+     }
+      : azurerm_network_watcher_flow_log)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_watcher_flow_log __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_security_group_id =
+         Prop.computed __resource_type __resource_id
+           "network_security_group_id";
+       network_watcher_name =
+         Prop.computed __resource_type __resource_id
+           "network_watcher_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

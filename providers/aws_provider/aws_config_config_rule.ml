@@ -68,24 +68,58 @@ type aws_config_config_rule = {
 [@@deriving yojson_of]
 (** aws_config_config_rule *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  input_parameters : string prop;
+  maximum_execution_frequency : string prop;
+  name : string prop;
+  rule_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_config_config_rule ?description ?id ?input_parameters
     ?maximum_execution_frequency ?tags ?tags_all ~name
     ~evaluation_mode ~scope ~source __resource_id =
   let __resource_type = "aws_config_config_rule" in
   let __resource =
-    {
-      description;
-      id;
-      input_parameters;
-      maximum_execution_frequency;
-      name;
-      tags;
-      tags_all;
-      evaluation_mode;
-      scope;
-      source;
-    }
+    ({
+       description;
+       id;
+       input_parameters;
+       maximum_execution_frequency;
+       name;
+       tags;
+       tags_all;
+       evaluation_mode;
+       scope;
+       source;
+     }
+      : aws_config_config_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_config_config_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       input_parameters =
+         Prop.computed __resource_type __resource_id
+           "input_parameters";
+       maximum_execution_frequency =
+         Prop.computed __resource_type __resource_id
+           "maximum_execution_frequency";
+       name = Prop.computed __resource_type __resource_id "name";
+       rule_id =
+         Prop.computed __resource_type __resource_id "rule_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

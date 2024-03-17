@@ -7,6 +7,15 @@ type azurerm_app_service_connection__secret_store
 type azurerm_app_service_connection__timeouts
 type azurerm_app_service_connection
 
+type t = private {
+  app_service_id : string prop;
+  client_type : string prop;
+  id : string prop;
+  name : string prop;
+  target_resource_id : string prop;
+  vnet_solution : string prop;
+}
+
 val azurerm_app_service_connection :
   ?client_type:string prop ->
   ?id:string prop ->
@@ -18,4 +27,4 @@ val azurerm_app_service_connection :
   authentication:azurerm_app_service_connection__authentication list ->
   secret_store:azurerm_app_service_connection__secret_store list ->
   string ->
-  unit
+  t

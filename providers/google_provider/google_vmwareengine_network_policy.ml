@@ -57,25 +57,67 @@ can either be a project number or a project ID. *)
 [@@deriving yojson_of]
 (** google_vmwareengine_network_policy *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  edge_services_cidr : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  uid : string prop;
+  update_time : string prop;
+  vmware_engine_network : string prop;
+  vmware_engine_network_canonical : string prop;
+}
+
 let google_vmwareengine_network_policy ?description ?id ?project
     ?timeouts ~edge_services_cidr ~location ~name
     ~vmware_engine_network ~external_ip ~internet_access
     __resource_id =
   let __resource_type = "google_vmwareengine_network_policy" in
   let __resource =
-    {
-      description;
-      edge_services_cidr;
-      id;
-      location;
-      name;
-      project;
-      vmware_engine_network;
-      external_ip;
-      internet_access;
-      timeouts;
-    }
+    ({
+       description;
+       edge_services_cidr;
+       id;
+       location;
+       name;
+       project;
+       vmware_engine_network;
+       external_ip;
+       internet_access;
+       timeouts;
+     }
+      : google_vmwareengine_network_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_network_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       edge_services_cidr =
+         Prop.computed __resource_type __resource_id
+           "edge_services_cidr";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       vmware_engine_network =
+         Prop.computed __resource_type __resource_id
+           "vmware_engine_network";
+       vmware_engine_network_canonical =
+         Prop.computed __resource_type __resource_id
+           "vmware_engine_network_canonical";
+     }
+      : t)
+  in
+  __resource_attributes

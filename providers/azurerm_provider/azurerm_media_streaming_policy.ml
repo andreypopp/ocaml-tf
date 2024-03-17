@@ -229,6 +229,14 @@ type azurerm_media_streaming_policy = {
 [@@deriving yojson_of]
 (** azurerm_media_streaming_policy *)
 
+type t = {
+  default_content_key_policy_name : string prop;
+  id : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_media_streaming_policy ?default_content_key_policy_name
     ?id ?timeouts ~media_services_account_name ~name
     ~resource_group_name ~common_encryption_cbcs
@@ -236,19 +244,36 @@ let azurerm_media_streaming_policy ?default_content_key_policy_name
     ~no_encryption_enabled_protocols __resource_id =
   let __resource_type = "azurerm_media_streaming_policy" in
   let __resource =
-    {
-      default_content_key_policy_name;
-      id;
-      media_services_account_name;
-      name;
-      resource_group_name;
-      common_encryption_cbcs;
-      common_encryption_cenc;
-      envelope_encryption;
-      no_encryption_enabled_protocols;
-      timeouts;
-    }
+    ({
+       default_content_key_policy_name;
+       id;
+       media_services_account_name;
+       name;
+       resource_group_name;
+       common_encryption_cbcs;
+       common_encryption_cenc;
+       envelope_encryption;
+       no_encryption_enabled_protocols;
+       timeouts;
+     }
+      : azurerm_media_streaming_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_media_streaming_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       default_content_key_policy_name =
+         Prop.computed __resource_type __resource_id
+           "default_content_key_policy_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       media_services_account_name =
+         Prop.computed __resource_type __resource_id
+           "media_services_account_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

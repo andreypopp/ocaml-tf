@@ -30,14 +30,26 @@ type aws_autoscaling_traffic_source_attachment = {
 [@@deriving yojson_of]
 (** aws_autoscaling_traffic_source_attachment *)
 
+type t = { autoscaling_group_name : string prop; id : string prop }
+
 let aws_autoscaling_traffic_source_attachment ?id ?timeouts
     ~autoscaling_group_name ~traffic_source __resource_id =
   let __resource_type =
     "aws_autoscaling_traffic_source_attachment"
   in
   let __resource =
-    { autoscaling_group_name; id; timeouts; traffic_source }
+    ({ autoscaling_group_name; id; timeouts; traffic_source }
+      : aws_autoscaling_traffic_source_attachment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_traffic_source_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       autoscaling_group_name =
+         Prop.computed __resource_type __resource_id
+           "autoscaling_group_name";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -8,6 +8,15 @@ type google_firestore_field__timeouts
 type google_firestore_field__ttl_config
 type google_firestore_field
 
+type t = private {
+  collection : string prop;
+  database : string prop;
+  field : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_firestore_field :
   ?database:string prop ->
   ?id:string prop ->
@@ -18,4 +27,4 @@ val google_firestore_field :
   index_config:google_firestore_field__index_config list ->
   ttl_config:google_firestore_field__ttl_config list ->
   string ->
-  unit
+  t

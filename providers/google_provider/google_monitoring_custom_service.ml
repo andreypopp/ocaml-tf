@@ -42,20 +42,45 @@ the empty string may be supplied for the label value. *)
 [@@deriving yojson_of]
 (** google_monitoring_custom_service *)
 
+type t = {
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  service_id : string prop;
+  user_labels : (string * string) list prop;
+}
+
 let google_monitoring_custom_service ?display_name ?id ?project
     ?service_id ?user_labels ?timeouts ~telemetry __resource_id =
   let __resource_type = "google_monitoring_custom_service" in
   let __resource =
-    {
-      display_name;
-      id;
-      project;
-      service_id;
-      user_labels;
-      telemetry;
-      timeouts;
-    }
+    ({
+       display_name;
+       id;
+       project;
+       service_id;
+       user_labels;
+       telemetry;
+       timeouts;
+     }
+      : google_monitoring_custom_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_custom_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       service_id =
+         Prop.computed __resource_type __resource_id "service_id";
+       user_labels =
+         Prop.computed __resource_type __resource_id "user_labels";
+     }
+      : t)
+  in
+  __resource_attributes

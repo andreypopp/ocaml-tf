@@ -86,6 +86,17 @@ type google_dataproc_cluster__virtual_cluster_config__kubernetes_cluster_config
 type google_dataproc_cluster__virtual_cluster_config
 type google_dataproc_cluster
 
+type t = private {
+  effective_labels : (string * string) list prop;
+  graceful_decommission_timeout : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_dataproc_cluster :
   ?graceful_decommission_timeout:string prop ->
   ?id:string prop ->
@@ -98,4 +109,4 @@ val google_dataproc_cluster :
   virtual_cluster_config:
     google_dataproc_cluster__virtual_cluster_config list ->
   string ->
-  unit
+  t

@@ -8,6 +8,17 @@ type azurerm_sql_failover_group__readonly_endpoint_failover_policy
 type azurerm_sql_failover_group__timeouts
 type azurerm_sql_failover_group
 
+type t = private {
+  databases : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  role : string prop;
+  server_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_sql_failover_group :
   ?databases:string prop list ->
   ?id:string prop ->
@@ -24,4 +35,4 @@ val azurerm_sql_failover_group :
     azurerm_sql_failover_group__readonly_endpoint_failover_policy
     list ->
   string ->
-  unit
+  t

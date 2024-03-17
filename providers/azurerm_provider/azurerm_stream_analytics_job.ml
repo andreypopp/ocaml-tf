@@ -68,6 +68,27 @@ type azurerm_stream_analytics_job = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_job *)
 
+type t = {
+  compatibility_level : string prop;
+  content_storage_policy : string prop;
+  data_locale : string prop;
+  events_late_arrival_max_delay_in_seconds : float prop;
+  events_out_of_order_max_delay_in_seconds : float prop;
+  events_out_of_order_policy : string prop;
+  id : string prop;
+  job_id : string prop;
+  location : string prop;
+  name : string prop;
+  output_error_policy : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  stream_analytics_cluster_id : string prop;
+  streaming_units : float prop;
+  tags : (string * string) list prop;
+  transformation_query : string prop;
+  type_ : string prop;
+}
+
 let azurerm_stream_analytics_job ?compatibility_level
     ?content_storage_policy ?data_locale
     ?events_late_arrival_max_delay_in_seconds
@@ -79,29 +100,76 @@ let azurerm_stream_analytics_job ?compatibility_level
     __resource_id =
   let __resource_type = "azurerm_stream_analytics_job" in
   let __resource =
-    {
-      compatibility_level;
-      content_storage_policy;
-      data_locale;
-      events_late_arrival_max_delay_in_seconds;
-      events_out_of_order_max_delay_in_seconds;
-      events_out_of_order_policy;
-      id;
-      location;
-      name;
-      output_error_policy;
-      resource_group_name;
-      sku_name;
-      stream_analytics_cluster_id;
-      streaming_units;
-      tags;
-      transformation_query;
-      type_;
-      identity;
-      job_storage_account;
-      timeouts;
-    }
+    ({
+       compatibility_level;
+       content_storage_policy;
+       data_locale;
+       events_late_arrival_max_delay_in_seconds;
+       events_out_of_order_max_delay_in_seconds;
+       events_out_of_order_policy;
+       id;
+       location;
+       name;
+       output_error_policy;
+       resource_group_name;
+       sku_name;
+       stream_analytics_cluster_id;
+       streaming_units;
+       tags;
+       transformation_query;
+       type_;
+       identity;
+       job_storage_account;
+       timeouts;
+     }
+      : azurerm_stream_analytics_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       compatibility_level =
+         Prop.computed __resource_type __resource_id
+           "compatibility_level";
+       content_storage_policy =
+         Prop.computed __resource_type __resource_id
+           "content_storage_policy";
+       data_locale =
+         Prop.computed __resource_type __resource_id "data_locale";
+       events_late_arrival_max_delay_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "events_late_arrival_max_delay_in_seconds";
+       events_out_of_order_max_delay_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "events_out_of_order_max_delay_in_seconds";
+       events_out_of_order_policy =
+         Prop.computed __resource_type __resource_id
+           "events_out_of_order_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       job_id = Prop.computed __resource_type __resource_id "job_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       output_error_policy =
+         Prop.computed __resource_type __resource_id
+           "output_error_policy";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       stream_analytics_cluster_id =
+         Prop.computed __resource_type __resource_id
+           "stream_analytics_cluster_id";
+       streaming_units =
+         Prop.computed __resource_type __resource_id
+           "streaming_units";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       transformation_query =
+         Prop.computed __resource_type __resource_id
+           "transformation_query";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

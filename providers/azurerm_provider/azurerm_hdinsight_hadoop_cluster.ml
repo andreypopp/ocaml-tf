@@ -341,6 +341,19 @@ type azurerm_hdinsight_hadoop_cluster = {
 [@@deriving yojson_of]
 (** azurerm_hdinsight_hadoop_cluster *)
 
+type t = {
+  cluster_version : string prop;
+  https_endpoint : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  ssh_endpoint : string prop;
+  tags : (string * string) list prop;
+  tier : string prop;
+  tls_min_version : string prop;
+}
+
 let azurerm_hdinsight_hadoop_cluster ?id ?tags ?tls_min_version
     ?timeouts ~cluster_version ~location ~name ~resource_group_name
     ~tier ~component_version ~compute_isolation ~disk_encryption
@@ -349,30 +362,55 @@ let azurerm_hdinsight_hadoop_cluster ?id ?tags ?tls_min_version
     __resource_id =
   let __resource_type = "azurerm_hdinsight_hadoop_cluster" in
   let __resource =
-    {
-      cluster_version;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      tier;
-      tls_min_version;
-      component_version;
-      compute_isolation;
-      disk_encryption;
-      extension;
-      gateway;
-      metastores;
-      monitor;
-      network;
-      roles;
-      security_profile;
-      storage_account;
-      storage_account_gen2;
-      timeouts;
-    }
+    ({
+       cluster_version;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       tier;
+       tls_min_version;
+       component_version;
+       compute_isolation;
+       disk_encryption;
+       extension;
+       gateway;
+       metastores;
+       monitor;
+       network;
+       roles;
+       security_profile;
+       storage_account;
+       storage_account_gen2;
+       timeouts;
+     }
+      : azurerm_hdinsight_hadoop_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_hdinsight_hadoop_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_version =
+         Prop.computed __resource_type __resource_id
+           "cluster_version";
+       https_endpoint =
+         Prop.computed __resource_type __resource_id "https_endpoint";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       ssh_endpoint =
+         Prop.computed __resource_type __resource_id "ssh_endpoint";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tier = Prop.computed __resource_type __resource_id "tier";
+       tls_min_version =
+         Prop.computed __resource_type __resource_id
+           "tls_min_version";
+     }
+      : t)
+  in
+  __resource_attributes

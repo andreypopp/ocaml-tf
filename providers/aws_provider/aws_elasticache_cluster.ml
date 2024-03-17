@@ -78,6 +78,44 @@ type aws_elasticache_cluster = {
 [@@deriving yojson_of]
 (** aws_elasticache_cluster *)
 
+type t = {
+  apply_immediately : bool prop;
+  arn : string prop;
+  auto_minor_version_upgrade : string prop;
+  availability_zone : string prop;
+  az_mode : string prop;
+  cache_nodes : aws_elasticache_cluster__cache_nodes list prop;
+  cluster_address : string prop;
+  cluster_id : string prop;
+  configuration_endpoint : string prop;
+  engine : string prop;
+  engine_version : string prop;
+  engine_version_actual : string prop;
+  final_snapshot_identifier : string prop;
+  id : string prop;
+  ip_discovery : string prop;
+  maintenance_window : string prop;
+  network_type : string prop;
+  node_type : string prop;
+  notification_topic_arn : string prop;
+  num_cache_nodes : float prop;
+  outpost_mode : string prop;
+  parameter_group_name : string prop;
+  port : float prop;
+  preferred_availability_zones : string list prop;
+  preferred_outpost_arn : string prop;
+  replication_group_id : string prop;
+  security_group_ids : string list prop;
+  snapshot_arns : string list prop;
+  snapshot_name : string prop;
+  snapshot_retention_limit : float prop;
+  snapshot_window : string prop;
+  subnet_group_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  transit_encryption_enabled : bool prop;
+}
+
 let aws_elasticache_cluster ?apply_immediately
     ?auto_minor_version_upgrade ?availability_zone ?az_mode ?engine
     ?engine_version ?final_snapshot_identifier ?id ?ip_discovery
@@ -91,40 +129,130 @@ let aws_elasticache_cluster ?apply_immediately
     ~log_delivery_configuration __resource_id =
   let __resource_type = "aws_elasticache_cluster" in
   let __resource =
-    {
-      apply_immediately;
-      auto_minor_version_upgrade;
-      availability_zone;
-      az_mode;
-      cluster_id;
-      engine;
-      engine_version;
-      final_snapshot_identifier;
-      id;
-      ip_discovery;
-      maintenance_window;
-      network_type;
-      node_type;
-      notification_topic_arn;
-      num_cache_nodes;
-      outpost_mode;
-      parameter_group_name;
-      port;
-      preferred_availability_zones;
-      preferred_outpost_arn;
-      replication_group_id;
-      security_group_ids;
-      snapshot_arns;
-      snapshot_name;
-      snapshot_retention_limit;
-      snapshot_window;
-      subnet_group_name;
-      tags;
-      tags_all;
-      transit_encryption_enabled;
-      log_delivery_configuration;
-    }
+    ({
+       apply_immediately;
+       auto_minor_version_upgrade;
+       availability_zone;
+       az_mode;
+       cluster_id;
+       engine;
+       engine_version;
+       final_snapshot_identifier;
+       id;
+       ip_discovery;
+       maintenance_window;
+       network_type;
+       node_type;
+       notification_topic_arn;
+       num_cache_nodes;
+       outpost_mode;
+       parameter_group_name;
+       port;
+       preferred_availability_zones;
+       preferred_outpost_arn;
+       replication_group_id;
+       security_group_ids;
+       snapshot_arns;
+       snapshot_name;
+       snapshot_retention_limit;
+       snapshot_window;
+       subnet_group_name;
+       tags;
+       tags_all;
+       transit_encryption_enabled;
+       log_delivery_configuration;
+     }
+      : aws_elasticache_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticache_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       apply_immediately =
+         Prop.computed __resource_type __resource_id
+           "apply_immediately";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auto_minor_version_upgrade =
+         Prop.computed __resource_type __resource_id
+           "auto_minor_version_upgrade";
+       availability_zone =
+         Prop.computed __resource_type __resource_id
+           "availability_zone";
+       az_mode =
+         Prop.computed __resource_type __resource_id "az_mode";
+       cache_nodes =
+         Prop.computed __resource_type __resource_id "cache_nodes";
+       cluster_address =
+         Prop.computed __resource_type __resource_id
+           "cluster_address";
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       configuration_endpoint =
+         Prop.computed __resource_type __resource_id
+           "configuration_endpoint";
+       engine = Prop.computed __resource_type __resource_id "engine";
+       engine_version =
+         Prop.computed __resource_type __resource_id "engine_version";
+       engine_version_actual =
+         Prop.computed __resource_type __resource_id
+           "engine_version_actual";
+       final_snapshot_identifier =
+         Prop.computed __resource_type __resource_id
+           "final_snapshot_identifier";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_discovery =
+         Prop.computed __resource_type __resource_id "ip_discovery";
+       maintenance_window =
+         Prop.computed __resource_type __resource_id
+           "maintenance_window";
+       network_type =
+         Prop.computed __resource_type __resource_id "network_type";
+       node_type =
+         Prop.computed __resource_type __resource_id "node_type";
+       notification_topic_arn =
+         Prop.computed __resource_type __resource_id
+           "notification_topic_arn";
+       num_cache_nodes =
+         Prop.computed __resource_type __resource_id
+           "num_cache_nodes";
+       outpost_mode =
+         Prop.computed __resource_type __resource_id "outpost_mode";
+       parameter_group_name =
+         Prop.computed __resource_type __resource_id
+           "parameter_group_name";
+       port = Prop.computed __resource_type __resource_id "port";
+       preferred_availability_zones =
+         Prop.computed __resource_type __resource_id
+           "preferred_availability_zones";
+       preferred_outpost_arn =
+         Prop.computed __resource_type __resource_id
+           "preferred_outpost_arn";
+       replication_group_id =
+         Prop.computed __resource_type __resource_id
+           "replication_group_id";
+       security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "security_group_ids";
+       snapshot_arns =
+         Prop.computed __resource_type __resource_id "snapshot_arns";
+       snapshot_name =
+         Prop.computed __resource_type __resource_id "snapshot_name";
+       snapshot_retention_limit =
+         Prop.computed __resource_type __resource_id
+           "snapshot_retention_limit";
+       snapshot_window =
+         Prop.computed __resource_type __resource_id
+           "snapshot_window";
+       subnet_group_name =
+         Prop.computed __resource_type __resource_id
+           "subnet_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       transit_encryption_enabled =
+         Prop.computed __resource_type __resource_id
+           "transit_encryption_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

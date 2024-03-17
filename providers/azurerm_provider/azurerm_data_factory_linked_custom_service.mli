@@ -6,6 +6,18 @@ type azurerm_data_factory_linked_custom_service__integration_runtime
 type azurerm_data_factory_linked_custom_service__timeouts
 type azurerm_data_factory_linked_custom_service
 
+type t = private {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  type_ : string prop;
+  type_properties_json : string prop;
+}
+
 val azurerm_data_factory_linked_custom_service :
   ?additional_properties:(string * string prop) list ->
   ?annotations:string prop list ->
@@ -21,4 +33,4 @@ val azurerm_data_factory_linked_custom_service :
     azurerm_data_factory_linked_custom_service__integration_runtime
     list ->
   string ->
-  unit
+  t

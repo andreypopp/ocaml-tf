@@ -96,6 +96,32 @@ type azurerm_databricks_workspace = {
 [@@deriving yojson_of]
 (** azurerm_databricks_workspace *)
 
+type t = {
+  customer_managed_key_enabled : bool prop;
+  disk_encryption_set_id : string prop;
+  id : string prop;
+  infrastructure_encryption_enabled : bool prop;
+  load_balancer_backend_address_pool_id : string prop;
+  location : string prop;
+  managed_disk_cmk_key_vault_key_id : string prop;
+  managed_disk_cmk_rotation_to_latest_version_enabled : bool prop;
+  managed_disk_identity :
+    azurerm_databricks_workspace__managed_disk_identity list prop;
+  managed_resource_group_id : string prop;
+  managed_resource_group_name : string prop;
+  managed_services_cmk_key_vault_key_id : string prop;
+  name : string prop;
+  network_security_group_rules_required : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  storage_account_identity :
+    azurerm_databricks_workspace__storage_account_identity list prop;
+  tags : (string * string) list prop;
+  workspace_id : string prop;
+  workspace_url : string prop;
+}
+
 let azurerm_databricks_workspace ?customer_managed_key_enabled ?id
     ?infrastructure_encryption_enabled
     ?load_balancer_backend_address_pool_id
@@ -108,26 +134,84 @@ let azurerm_databricks_workspace ?customer_managed_key_enabled ?id
     ~resource_group_name ~sku ~custom_parameters __resource_id =
   let __resource_type = "azurerm_databricks_workspace" in
   let __resource =
-    {
-      customer_managed_key_enabled;
-      id;
-      infrastructure_encryption_enabled;
-      load_balancer_backend_address_pool_id;
-      location;
-      managed_disk_cmk_key_vault_key_id;
-      managed_disk_cmk_rotation_to_latest_version_enabled;
-      managed_resource_group_name;
-      managed_services_cmk_key_vault_key_id;
-      name;
-      network_security_group_rules_required;
-      public_network_access_enabled;
-      resource_group_name;
-      sku;
-      tags;
-      custom_parameters;
-      timeouts;
-    }
+    ({
+       customer_managed_key_enabled;
+       id;
+       infrastructure_encryption_enabled;
+       load_balancer_backend_address_pool_id;
+       location;
+       managed_disk_cmk_key_vault_key_id;
+       managed_disk_cmk_rotation_to_latest_version_enabled;
+       managed_resource_group_name;
+       managed_services_cmk_key_vault_key_id;
+       name;
+       network_security_group_rules_required;
+       public_network_access_enabled;
+       resource_group_name;
+       sku;
+       tags;
+       custom_parameters;
+       timeouts;
+     }
+      : azurerm_databricks_workspace)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_databricks_workspace __resource);
-  ()
+  let __resource_attributes =
+    ({
+       customer_managed_key_enabled =
+         Prop.computed __resource_type __resource_id
+           "customer_managed_key_enabled";
+       disk_encryption_set_id =
+         Prop.computed __resource_type __resource_id
+           "disk_encryption_set_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       infrastructure_encryption_enabled =
+         Prop.computed __resource_type __resource_id
+           "infrastructure_encryption_enabled";
+       load_balancer_backend_address_pool_id =
+         Prop.computed __resource_type __resource_id
+           "load_balancer_backend_address_pool_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       managed_disk_cmk_key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "managed_disk_cmk_key_vault_key_id";
+       managed_disk_cmk_rotation_to_latest_version_enabled =
+         Prop.computed __resource_type __resource_id
+           "managed_disk_cmk_rotation_to_latest_version_enabled";
+       managed_disk_identity =
+         Prop.computed __resource_type __resource_id
+           "managed_disk_identity";
+       managed_resource_group_id =
+         Prop.computed __resource_type __resource_id
+           "managed_resource_group_id";
+       managed_resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "managed_resource_group_name";
+       managed_services_cmk_key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "managed_services_cmk_key_vault_key_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_security_group_rules_required =
+         Prop.computed __resource_type __resource_id
+           "network_security_group_rules_required";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       storage_account_identity =
+         Prop.computed __resource_type __resource_id
+           "storage_account_identity";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       workspace_id =
+         Prop.computed __resource_type __resource_id "workspace_id";
+       workspace_url =
+         Prop.computed __resource_type __resource_id "workspace_url";
+     }
+      : t)
+  in
+  __resource_attributes

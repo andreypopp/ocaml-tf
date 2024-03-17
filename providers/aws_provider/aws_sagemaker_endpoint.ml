@@ -113,19 +113,43 @@ type aws_sagemaker_endpoint = {
 [@@deriving yojson_of]
 (** aws_sagemaker_endpoint *)
 
+type t = {
+  arn : string prop;
+  endpoint_config_name : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sagemaker_endpoint ?id ?name ?tags ?tags_all
     ~endpoint_config_name ~deployment_config __resource_id =
   let __resource_type = "aws_sagemaker_endpoint" in
   let __resource =
-    {
-      endpoint_config_name;
-      id;
-      name;
-      tags;
-      tags_all;
-      deployment_config;
-    }
+    ({
+       endpoint_config_name;
+       id;
+       name;
+       tags;
+       tags_all;
+       deployment_config;
+     }
+      : aws_sagemaker_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       endpoint_config_name =
+         Prop.computed __resource_type __resource_id
+           "endpoint_config_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

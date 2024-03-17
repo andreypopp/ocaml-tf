@@ -14,12 +14,33 @@ type hcloud_firewall_attachment = {
 [@@deriving yojson_of]
 (** hcloud_firewall_attachment *)
 
+type t = {
+  firewall_id : float prop;
+  id : string prop;
+  label_selectors : string list prop;
+  server_ids : float list prop;
+}
+
 let hcloud_firewall_attachment ?id ?label_selectors ?server_ids
     ~firewall_id __resource_id =
   let __resource_type = "hcloud_firewall_attachment" in
   let __resource =
-    { firewall_id; id; label_selectors; server_ids }
+    ({ firewall_id; id; label_selectors; server_ids }
+      : hcloud_firewall_attachment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_firewall_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       firewall_id =
+         Prop.computed __resource_type __resource_id "firewall_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       label_selectors =
+         Prop.computed __resource_type __resource_id
+           "label_selectors";
+       server_ids =
+         Prop.computed __resource_type __resource_id "server_ids";
+     }
+      : t)
+  in
+  __resource_attributes

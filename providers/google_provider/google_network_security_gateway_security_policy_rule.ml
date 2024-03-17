@@ -43,6 +43,24 @@ parent GatewaySecurityPolicy references a TLSInspectionConfig. *)
 [@@deriving yojson_of]
 (** google_network_security_gateway_security_policy_rule *)
 
+type t = {
+  application_matcher : string prop;
+  basic_profile : string prop;
+  create_time : string prop;
+  description : string prop;
+  enabled : bool prop;
+  gateway_security_policy : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  priority : float prop;
+  project : string prop;
+  self_link : string prop;
+  session_matcher : string prop;
+  tls_inspection_enabled : bool prop;
+  update_time : string prop;
+}
+
 let google_network_security_gateway_security_policy_rule
     ?application_matcher ?description ?id ?project
     ?tls_inspection_enabled ?timeouts ~basic_profile ~enabled
@@ -52,23 +70,61 @@ let google_network_security_gateway_security_policy_rule
     "google_network_security_gateway_security_policy_rule"
   in
   let __resource =
-    {
-      application_matcher;
-      basic_profile;
-      description;
-      enabled;
-      gateway_security_policy;
-      id;
-      location;
-      name;
-      priority;
-      project;
-      session_matcher;
-      tls_inspection_enabled;
-      timeouts;
-    }
+    ({
+       application_matcher;
+       basic_profile;
+       description;
+       enabled;
+       gateway_security_policy;
+       id;
+       location;
+       name;
+       priority;
+       project;
+       session_matcher;
+       tls_inspection_enabled;
+       timeouts;
+     }
+      : google_network_security_gateway_security_policy_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_security_gateway_security_policy_rule
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_matcher =
+         Prop.computed __resource_type __resource_id
+           "application_matcher";
+       basic_profile =
+         Prop.computed __resource_type __resource_id "basic_profile";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       gateway_security_policy =
+         Prop.computed __resource_type __resource_id
+           "gateway_security_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       session_matcher =
+         Prop.computed __resource_type __resource_id
+           "session_matcher";
+       tls_inspection_enabled =
+         Prop.computed __resource_type __resource_id
+           "tls_inspection_enabled";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

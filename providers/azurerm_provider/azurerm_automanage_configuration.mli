@@ -20,6 +20,20 @@ type azurerm_automanage_configuration__backup
 type azurerm_automanage_configuration__timeouts
 type azurerm_automanage_configuration
 
+type t = private {
+  automation_account_enabled : bool prop;
+  boot_diagnostics_enabled : bool prop;
+  defender_for_cloud_enabled : bool prop;
+  guest_configuration_enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  log_analytics_enabled : bool prop;
+  name : string prop;
+  resource_group_name : string prop;
+  status_change_alert_enabled : bool prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_automanage_configuration :
   ?automation_account_enabled:bool prop ->
   ?boot_diagnostics_enabled:bool prop ->
@@ -38,4 +52,4 @@ val azurerm_automanage_configuration :
     azurerm_automanage_configuration__azure_security_baseline list ->
   backup:azurerm_automanage_configuration__backup list ->
   string ->
-  unit
+  t

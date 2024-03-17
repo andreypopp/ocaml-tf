@@ -30,21 +30,47 @@ type google_compute_attached_disk = {
 [@@deriving yojson_of]
 (** google_compute_attached_disk *)
 
+type t = {
+  device_name : string prop;
+  disk : string prop;
+  id : string prop;
+  instance : string prop;
+  mode : string prop;
+  project : string prop;
+  zone : string prop;
+}
+
 let google_compute_attached_disk ?device_name ?id ?mode ?project
     ?zone ?timeouts ~disk ~instance __resource_id =
   let __resource_type = "google_compute_attached_disk" in
   let __resource =
-    {
-      device_name;
-      disk;
-      id;
-      instance;
-      mode;
-      project;
-      zone;
-      timeouts;
-    }
+    ({
+       device_name;
+       disk;
+       id;
+       instance;
+       mode;
+       project;
+       zone;
+       timeouts;
+     }
+      : google_compute_attached_disk)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_attached_disk __resource);
-  ()
+  let __resource_attributes =
+    ({
+       device_name =
+         Prop.computed __resource_type __resource_id "device_name";
+       disk = Prop.computed __resource_type __resource_id "disk";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance =
+         Prop.computed __resource_type __resource_id "instance";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

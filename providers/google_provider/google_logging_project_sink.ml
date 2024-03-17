@@ -48,25 +48,64 @@ type google_logging_project_sink = {
 [@@deriving yojson_of]
 (** google_logging_project_sink *)
 
+type t = {
+  custom_writer_identity : string prop;
+  description : string prop;
+  destination : string prop;
+  disabled : bool prop;
+  filter : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  unique_writer_identity : bool prop;
+  writer_identity : string prop;
+}
+
 let google_logging_project_sink ?custom_writer_identity ?description
     ?disabled ?filter ?id ?project ?unique_writer_identity
     ~destination ~name ~bigquery_options ~exclusions __resource_id =
   let __resource_type = "google_logging_project_sink" in
   let __resource =
-    {
-      custom_writer_identity;
-      description;
-      destination;
-      disabled;
-      filter;
-      id;
-      name;
-      project;
-      unique_writer_identity;
-      bigquery_options;
-      exclusions;
-    }
+    ({
+       custom_writer_identity;
+       description;
+       destination;
+       disabled;
+       filter;
+       id;
+       name;
+       project;
+       unique_writer_identity;
+       bigquery_options;
+       exclusions;
+     }
+      : google_logging_project_sink)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_project_sink __resource);
-  ()
+  let __resource_attributes =
+    ({
+       custom_writer_identity =
+         Prop.computed __resource_type __resource_id
+           "custom_writer_identity";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       destination =
+         Prop.computed __resource_type __resource_id "destination";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       filter = Prop.computed __resource_type __resource_id "filter";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       unique_writer_identity =
+         Prop.computed __resource_type __resource_id
+           "unique_writer_identity";
+       writer_identity =
+         Prop.computed __resource_type __resource_id
+           "writer_identity";
+     }
+      : t)
+  in
+  __resource_attributes

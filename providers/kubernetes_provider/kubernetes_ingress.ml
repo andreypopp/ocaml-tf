@@ -119,10 +119,29 @@ type kubernetes_ingress = {
 [@@deriving yojson_of]
 (** kubernetes_ingress *)
 
+type t = {
+  id : string prop;
+  status : kubernetes_ingress__status list prop;
+  wait_for_load_balancer : bool prop;
+}
+
 let kubernetes_ingress ?id ?wait_for_load_balancer ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_ingress" in
-  let __resource = { id; wait_for_load_balancer; metadata; spec } in
+  let __resource =
+    ({ id; wait_for_load_balancer; metadata; spec }
+      : kubernetes_ingress)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_ingress __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       status = Prop.computed __resource_type __resource_id "status";
+       wait_for_load_balancer =
+         Prop.computed __resource_type __resource_id
+           "wait_for_load_balancer";
+     }
+      : t)
+  in
+  __resource_attributes

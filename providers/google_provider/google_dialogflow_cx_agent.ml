@@ -130,6 +130,23 @@ Europe/Paris. *)
 [@@deriving yojson_of]
 (** google_dialogflow_cx_agent *)
 
+type t = {
+  avatar_uri : string prop;
+  default_language_code : string prop;
+  description : string prop;
+  display_name : string prop;
+  enable_spell_correction : bool prop;
+  enable_stackdriver_logging : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  security_settings : string prop;
+  start_flow : string prop;
+  supported_language_codes : string list prop;
+  time_zone : string prop;
+}
+
 let google_dialogflow_cx_agent ?avatar_uri ?description
     ?enable_spell_correction ?enable_stackdriver_logging ?id ?project
     ?security_settings ?supported_language_codes ?timeouts
@@ -138,26 +155,63 @@ let google_dialogflow_cx_agent ?avatar_uri ?description
     ~speech_to_text_settings ~text_to_speech_settings __resource_id =
   let __resource_type = "google_dialogflow_cx_agent" in
   let __resource =
-    {
-      avatar_uri;
-      default_language_code;
-      description;
-      display_name;
-      enable_spell_correction;
-      enable_stackdriver_logging;
-      id;
-      location;
-      project;
-      security_settings;
-      supported_language_codes;
-      time_zone;
-      advanced_settings;
-      git_integration_settings;
-      speech_to_text_settings;
-      text_to_speech_settings;
-      timeouts;
-    }
+    ({
+       avatar_uri;
+       default_language_code;
+       description;
+       display_name;
+       enable_spell_correction;
+       enable_stackdriver_logging;
+       id;
+       location;
+       project;
+       security_settings;
+       supported_language_codes;
+       time_zone;
+       advanced_settings;
+       git_integration_settings;
+       speech_to_text_settings;
+       text_to_speech_settings;
+       timeouts;
+     }
+      : google_dialogflow_cx_agent)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_agent __resource);
-  ()
+  let __resource_attributes =
+    ({
+       avatar_uri =
+         Prop.computed __resource_type __resource_id "avatar_uri";
+       default_language_code =
+         Prop.computed __resource_type __resource_id
+           "default_language_code";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enable_spell_correction =
+         Prop.computed __resource_type __resource_id
+           "enable_spell_correction";
+       enable_stackdriver_logging =
+         Prop.computed __resource_type __resource_id
+           "enable_stackdriver_logging";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       security_settings =
+         Prop.computed __resource_type __resource_id
+           "security_settings";
+       start_flow =
+         Prop.computed __resource_type __resource_id "start_flow";
+       supported_language_codes =
+         Prop.computed __resource_type __resource_id
+           "supported_language_codes";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+     }
+      : t)
+  in
+  __resource_attributes

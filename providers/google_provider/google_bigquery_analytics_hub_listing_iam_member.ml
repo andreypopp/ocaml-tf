@@ -26,6 +26,17 @@ type google_bigquery_analytics_hub_listing_iam_member = {
 [@@deriving yojson_of]
 (** google_bigquery_analytics_hub_listing_iam_member *)
 
+type t = {
+  data_exchange_id : string prop;
+  etag : string prop;
+  id : string prop;
+  listing_id : string prop;
+  location : string prop;
+  member : string prop;
+  project : string prop;
+  role : string prop;
+}
+
 let google_bigquery_analytics_hub_listing_iam_member ?id ?location
     ?project ~data_exchange_id ~listing_id ~member ~role ~condition
     __resource_id =
@@ -33,18 +44,37 @@ let google_bigquery_analytics_hub_listing_iam_member ?id ?location
     "google_bigquery_analytics_hub_listing_iam_member"
   in
   let __resource =
-    {
-      data_exchange_id;
-      id;
-      listing_id;
-      location;
-      member;
-      project;
-      role;
-      condition;
-    }
+    ({
+       data_exchange_id;
+       id;
+       listing_id;
+       location;
+       member;
+       project;
+       role;
+       condition;
+     }
+      : google_bigquery_analytics_hub_listing_iam_member)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_analytics_hub_listing_iam_member
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data_exchange_id =
+         Prop.computed __resource_type __resource_id
+           "data_exchange_id";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       listing_id =
+         Prop.computed __resource_type __resource_id "listing_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       member = Prop.computed __resource_type __resource_id "member";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

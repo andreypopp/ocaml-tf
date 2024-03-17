@@ -31,12 +31,33 @@ control can be applied on basis of IP addresses, IP ranges, AS
 numbers or countries.
  *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  mode : string prop;
+  notes : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_access_rule ?account_id ?id ?notes ?zone_id ~mode
     ~configuration __resource_id =
   let __resource_type = "cloudflare_access_rule" in
   let __resource =
-    { account_id; id; mode; notes; zone_id; configuration }
+    ({ account_id; id; mode; notes; zone_id; configuration }
+      : cloudflare_access_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       notes = Prop.computed __resource_type __resource_id "notes";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

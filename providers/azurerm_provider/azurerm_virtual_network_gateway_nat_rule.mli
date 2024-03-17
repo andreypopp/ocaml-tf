@@ -7,6 +7,16 @@ type azurerm_virtual_network_gateway_nat_rule__internal_mapping
 type azurerm_virtual_network_gateway_nat_rule__timeouts
 type azurerm_virtual_network_gateway_nat_rule
 
+type t = private {
+  id : string prop;
+  ip_configuration_id : string prop;
+  mode : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  type_ : string prop;
+  virtual_network_gateway_id : string prop;
+}
+
 val azurerm_virtual_network_gateway_nat_rule :
   ?id:string prop ->
   ?ip_configuration_id:string prop ->
@@ -21,4 +31,4 @@ val azurerm_virtual_network_gateway_nat_rule :
   internal_mapping:
     azurerm_virtual_network_gateway_nat_rule__internal_mapping list ->
   string ->
-  unit
+  t

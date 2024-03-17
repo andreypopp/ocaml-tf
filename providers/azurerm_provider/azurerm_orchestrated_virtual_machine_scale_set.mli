@@ -55,6 +55,32 @@ type azurerm_orchestrated_virtual_machine_scale_set__termination_notification
 type azurerm_orchestrated_virtual_machine_scale_set__timeouts
 type azurerm_orchestrated_virtual_machine_scale_set
 
+type t = private {
+  capacity_reservation_group_id : string prop;
+  encryption_at_host_enabled : bool prop;
+  eviction_policy : string prop;
+  extension_operations_enabled : bool prop;
+  extensions_time_budget : string prop;
+  id : string prop;
+  instances : float prop;
+  license_type : string prop;
+  location : string prop;
+  max_bid_price : float prop;
+  name : string prop;
+  platform_fault_domain_count : float prop;
+  priority : string prop;
+  proximity_placement_group_id : string prop;
+  resource_group_name : string prop;
+  single_placement_group : bool prop;
+  sku_name : string prop;
+  source_image_id : string prop;
+  tags : (string * string) list prop;
+  unique_id : string prop;
+  user_data_base64 : string prop;
+  zone_balance : bool prop;
+  zones : string list prop;
+}
+
 val azurerm_orchestrated_virtual_machine_scale_set :
   ?capacity_reservation_group_id:string prop ->
   ?encryption_at_host_enabled:bool prop ->
@@ -111,4 +137,4 @@ val azurerm_orchestrated_virtual_machine_scale_set :
     azurerm_orchestrated_virtual_machine_scale_set__termination_notification
     list ->
   string ->
-  unit
+  t

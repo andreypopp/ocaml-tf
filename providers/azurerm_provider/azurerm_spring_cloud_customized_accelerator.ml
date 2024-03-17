@@ -69,6 +69,17 @@ type azurerm_spring_cloud_customized_accelerator = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_customized_accelerator *)
 
+type t = {
+  accelerator_tags : string list prop;
+  accelerator_type : string prop;
+  description : string prop;
+  display_name : string prop;
+  icon_url : string prop;
+  id : string prop;
+  name : string prop;
+  spring_cloud_accelerator_id : string prop;
+}
+
 let azurerm_spring_cloud_customized_accelerator ?accelerator_tags
     ?accelerator_type ?description ?display_name ?icon_url ?id
     ?timeouts ~name ~spring_cloud_accelerator_id ~git_repository
@@ -77,19 +88,42 @@ let azurerm_spring_cloud_customized_accelerator ?accelerator_tags
     "azurerm_spring_cloud_customized_accelerator"
   in
   let __resource =
-    {
-      accelerator_tags;
-      accelerator_type;
-      description;
-      display_name;
-      icon_url;
-      id;
-      name;
-      spring_cloud_accelerator_id;
-      git_repository;
-      timeouts;
-    }
+    ({
+       accelerator_tags;
+       accelerator_type;
+       description;
+       display_name;
+       icon_url;
+       id;
+       name;
+       spring_cloud_accelerator_id;
+       git_repository;
+       timeouts;
+     }
+      : azurerm_spring_cloud_customized_accelerator)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_customized_accelerator __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accelerator_tags =
+         Prop.computed __resource_type __resource_id
+           "accelerator_tags";
+       accelerator_type =
+         Prop.computed __resource_type __resource_id
+           "accelerator_type";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       icon_url =
+         Prop.computed __resource_type __resource_id "icon_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       spring_cloud_accelerator_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_accelerator_id";
+     }
+      : t)
+  in
+  __resource_attributes

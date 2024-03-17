@@ -5,6 +5,14 @@ open! Tf.Prelude
 type google_data_catalog_policy_tag_iam_binding__condition
 type google_data_catalog_policy_tag_iam_binding
 
+type t = private {
+  etag : string prop;
+  id : string prop;
+  members : string list prop;
+  policy_tag : string prop;
+  role : string prop;
+}
+
 val google_data_catalog_policy_tag_iam_binding :
   ?id:string prop ->
   members:string prop list ->
@@ -13,4 +21,4 @@ val google_data_catalog_policy_tag_iam_binding :
   condition:
     google_data_catalog_policy_tag_iam_binding__condition list ->
   string ->
-  unit
+  t

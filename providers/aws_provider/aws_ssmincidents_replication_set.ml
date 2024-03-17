@@ -32,10 +32,43 @@ type aws_ssmincidents_replication_set = {
 [@@deriving yojson_of]
 (** aws_ssmincidents_replication_set *)
 
+type t = {
+  arn : string prop;
+  created_by : string prop;
+  deletion_protected : bool prop;
+  id : string prop;
+  last_modified_by : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ssmincidents_replication_set ?id ?tags ?tags_all ?timeouts
     ~region __resource_id =
   let __resource_type = "aws_ssmincidents_replication_set" in
-  let __resource = { id; tags; tags_all; region; timeouts } in
+  let __resource =
+    ({ id; tags; tags_all; region; timeouts }
+      : aws_ssmincidents_replication_set)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmincidents_replication_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_by =
+         Prop.computed __resource_type __resource_id "created_by";
+       deletion_protected =
+         Prop.computed __resource_type __resource_id
+           "deletion_protected";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_modified_by =
+         Prop.computed __resource_type __resource_id
+           "last_modified_by";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

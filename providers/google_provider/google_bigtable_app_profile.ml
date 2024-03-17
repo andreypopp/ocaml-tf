@@ -56,26 +56,63 @@ consistency to improve availability. *)
 [@@deriving yojson_of]
 (** google_bigtable_app_profile *)
 
+type t = {
+  app_profile_id : string prop;
+  description : string prop;
+  id : string prop;
+  ignore_warnings : bool prop;
+  instance : string prop;
+  multi_cluster_routing_cluster_ids : string list prop;
+  multi_cluster_routing_use_any : bool prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_bigtable_app_profile ?description ?id ?ignore_warnings
     ?instance ?multi_cluster_routing_cluster_ids
     ?multi_cluster_routing_use_any ?project ?timeouts ~app_profile_id
     ~single_cluster_routing ~standard_isolation __resource_id =
   let __resource_type = "google_bigtable_app_profile" in
   let __resource =
-    {
-      app_profile_id;
-      description;
-      id;
-      ignore_warnings;
-      instance;
-      multi_cluster_routing_cluster_ids;
-      multi_cluster_routing_use_any;
-      project;
-      single_cluster_routing;
-      standard_isolation;
-      timeouts;
-    }
+    ({
+       app_profile_id;
+       description;
+       id;
+       ignore_warnings;
+       instance;
+       multi_cluster_routing_cluster_ids;
+       multi_cluster_routing_use_any;
+       project;
+       single_cluster_routing;
+       standard_isolation;
+       timeouts;
+     }
+      : google_bigtable_app_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigtable_app_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_profile_id =
+         Prop.computed __resource_type __resource_id "app_profile_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       ignore_warnings =
+         Prop.computed __resource_type __resource_id
+           "ignore_warnings";
+       instance =
+         Prop.computed __resource_type __resource_id "instance";
+       multi_cluster_routing_cluster_ids =
+         Prop.computed __resource_type __resource_id
+           "multi_cluster_routing_cluster_ids";
+       multi_cluster_routing_use_any =
+         Prop.computed __resource_type __resource_id
+           "multi_cluster_routing_use_any";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

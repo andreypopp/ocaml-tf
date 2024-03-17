@@ -62,25 +62,61 @@ for a list of possible values. *)
 [@@deriving yojson_of]
 (** google_beyondcorp_app_connection *)
 
+type t = {
+  connectors : string list prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+}
+
 let google_beyondcorp_app_connection ?connectors ?display_name ?id
     ?labels ?project ?region ?type_ ?timeouts ~name
     ~application_endpoint ~gateway __resource_id =
   let __resource_type = "google_beyondcorp_app_connection" in
   let __resource =
-    {
-      connectors;
-      display_name;
-      id;
-      labels;
-      name;
-      project;
-      region;
-      type_;
-      application_endpoint;
-      gateway;
-      timeouts;
-    }
+    ({
+       connectors;
+       display_name;
+       id;
+       labels;
+       name;
+       project;
+       region;
+       type_;
+       application_endpoint;
+       gateway;
+       timeouts;
+     }
+      : google_beyondcorp_app_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_beyondcorp_app_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connectors =
+         Prop.computed __resource_type __resource_id "connectors";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

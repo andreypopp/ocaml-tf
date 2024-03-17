@@ -36,24 +36,57 @@ type aws_networkmanager_link = {
 [@@deriving yojson_of]
 (** aws_networkmanager_link *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  global_network_id : string prop;
+  id : string prop;
+  provider_name : string prop;
+  site_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_networkmanager_link ?description ?id ?provider_name ?tags
     ?tags_all ?type_ ?timeouts ~global_network_id ~site_id ~bandwidth
     __resource_id =
   let __resource_type = "aws_networkmanager_link" in
   let __resource =
-    {
-      description;
-      global_network_id;
-      id;
-      provider_name;
-      site_id;
-      tags;
-      tags_all;
-      type_;
-      bandwidth;
-      timeouts;
-    }
+    ({
+       description;
+       global_network_id;
+       id;
+       provider_name;
+       site_id;
+       tags;
+       tags_all;
+       type_;
+       bandwidth;
+       timeouts;
+     }
+      : aws_networkmanager_link)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_link __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       global_network_id =
+         Prop.computed __resource_type __resource_id
+           "global_network_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       provider_name =
+         Prop.computed __resource_type __resource_id "provider_name";
+       site_id =
+         Prop.computed __resource_type __resource_id "site_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

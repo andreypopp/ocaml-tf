@@ -67,6 +67,18 @@ type aws_sagemaker_user_profile__user_settings__tensor_board_app_settings
 type aws_sagemaker_user_profile__user_settings
 type aws_sagemaker_user_profile
 
+type t = private {
+  arn : string prop;
+  domain_id : string prop;
+  home_efs_file_system_uid : string prop;
+  id : string prop;
+  single_sign_on_user_identifier : string prop;
+  single_sign_on_user_value : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_profile_name : string prop;
+}
+
 val aws_sagemaker_user_profile :
   ?id:string prop ->
   ?single_sign_on_user_identifier:string prop ->
@@ -77,4 +89,4 @@ val aws_sagemaker_user_profile :
   user_profile_name:string prop ->
   user_settings:aws_sagemaker_user_profile__user_settings list ->
   string ->
-  unit
+  t

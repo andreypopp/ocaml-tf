@@ -4,6 +4,21 @@ open! Tf.Prelude
 
 type aws_ec2_transit_gateway_vpc_attachment
 
+type t = private {
+  appliance_mode_support : string prop;
+  dns_support : string prop;
+  id : string prop;
+  ipv6_support : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  transit_gateway_default_route_table_association : bool prop;
+  transit_gateway_default_route_table_propagation : bool prop;
+  transit_gateway_id : string prop;
+  vpc_id : string prop;
+  vpc_owner_id : string prop;
+}
+
 val aws_ec2_transit_gateway_vpc_attachment :
   ?appliance_mode_support:string prop ->
   ?dns_support:string prop ->
@@ -17,4 +32,4 @@ val aws_ec2_transit_gateway_vpc_attachment :
   transit_gateway_id:string prop ->
   vpc_id:string prop ->
   string ->
-  unit
+  t

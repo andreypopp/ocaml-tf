@@ -55,21 +55,41 @@ type azurerm_web_pubsub_hub = {
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_hub *)
 
+type t = {
+  anonymous_connections_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  web_pubsub_id : string prop;
+}
+
 let azurerm_web_pubsub_hub ?anonymous_connections_enabled ?id
     ?timeouts ~name ~web_pubsub_id ~event_handler ~event_listener
     __resource_id =
   let __resource_type = "azurerm_web_pubsub_hub" in
   let __resource =
-    {
-      anonymous_connections_enabled;
-      id;
-      name;
-      web_pubsub_id;
-      event_handler;
-      event_listener;
-      timeouts;
-    }
+    ({
+       anonymous_connections_enabled;
+       id;
+       name;
+       web_pubsub_id;
+       event_handler;
+       event_listener;
+       timeouts;
+     }
+      : azurerm_web_pubsub_hub)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_web_pubsub_hub __resource);
-  ()
+  let __resource_attributes =
+    ({
+       anonymous_connections_enabled =
+         Prop.computed __resource_type __resource_id
+           "anonymous_connections_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       web_pubsub_id =
+         Prop.computed __resource_type __resource_id "web_pubsub_id";
+     }
+      : t)
+  in
+  __resource_attributes

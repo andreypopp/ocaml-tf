@@ -24,12 +24,41 @@ type digitalocean_vpc = {
 [@@deriving yojson_of]
 (** digitalocean_vpc *)
 
+type t = {
+  created_at : string prop;
+  default : bool prop;
+  description : string prop;
+  id : string prop;
+  ip_range : string prop;
+  name : string prop;
+  region : string prop;
+  urn : string prop;
+}
+
 let digitalocean_vpc ?description ?id ?ip_range ?timeouts ~name
     ~region __resource_id =
   let __resource_type = "digitalocean_vpc" in
   let __resource =
-    { description; id; ip_range; name; region; timeouts }
+    ({ description; id; ip_range; name; region; timeouts }
+      : digitalocean_vpc)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_vpc __resource);
-  ()
+  let __resource_attributes =
+    ({
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       default =
+         Prop.computed __resource_type __resource_id "default";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_range =
+         Prop.computed __resource_type __resource_id "ip_range";
+       name = Prop.computed __resource_type __resource_id "name";
+       region = Prop.computed __resource_type __resource_id "region";
+       urn = Prop.computed __resource_type __resource_id "urn";
+     }
+      : t)
+  in
+  __resource_attributes

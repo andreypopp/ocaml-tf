@@ -13,10 +13,29 @@ type digitalocean_spaces_bucket_policy = {
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket_policy *)
 
+type t = {
+  bucket : string prop;
+  id : string prop;
+  policy : string prop;
+  region : string prop;
+}
+
 let digitalocean_spaces_bucket_policy ?id ~bucket ~policy ~region
     __resource_id =
   let __resource_type = "digitalocean_spaces_bucket_policy" in
-  let __resource = { bucket; id; policy; region } in
+  let __resource =
+    ({ bucket; id; policy; region }
+      : digitalocean_spaces_bucket_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_spaces_bucket_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       id = Prop.computed __resource_type __resource_id "id";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       region = Prop.computed __resource_type __resource_id "region";
+     }
+      : t)
+  in
+  __resource_attributes

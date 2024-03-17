@@ -25,6 +25,14 @@ type azurerm_api_management_identity_provider_google = {
 [@@deriving yojson_of]
 (** azurerm_api_management_identity_provider_google *)
 
+type t = {
+  api_management_name : string prop;
+  client_id : string prop;
+  client_secret : string prop;
+  id : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_api_management_identity_provider_google ?id ?timeouts
     ~api_management_name ~client_id ~client_secret
     ~resource_group_name __resource_id =
@@ -32,16 +40,33 @@ let azurerm_api_management_identity_provider_google ?id ?timeouts
     "azurerm_api_management_identity_provider_google"
   in
   let __resource =
-    {
-      api_management_name;
-      client_id;
-      client_secret;
-      id;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       client_id;
+       client_secret;
+       id;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_api_management_identity_provider_google)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_identity_provider_google
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       client_id =
+         Prop.computed __resource_type __resource_id "client_id";
+       client_secret =
+         Prop.computed __resource_type __resource_id "client_secret";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

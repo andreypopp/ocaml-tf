@@ -27,22 +27,55 @@ type aws_servicecatalog_constraint = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_constraint *)
 
+type t = {
+  accept_language : string prop;
+  description : string prop;
+  id : string prop;
+  owner : string prop;
+  parameters : string prop;
+  portfolio_id : string prop;
+  product_id : string prop;
+  status : string prop;
+  type_ : string prop;
+}
+
 let aws_servicecatalog_constraint ?accept_language ?description ?id
     ?timeouts ~parameters ~portfolio_id ~product_id ~type_
     __resource_id =
   let __resource_type = "aws_servicecatalog_constraint" in
   let __resource =
-    {
-      accept_language;
-      description;
-      id;
-      parameters;
-      portfolio_id;
-      product_id;
-      type_;
-      timeouts;
-    }
+    ({
+       accept_language;
+       description;
+       id;
+       parameters;
+       portfolio_id;
+       product_id;
+       type_;
+       timeouts;
+     }
+      : aws_servicecatalog_constraint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_constraint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accept_language =
+         Prop.computed __resource_type __resource_id
+           "accept_language";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       owner = Prop.computed __resource_type __resource_id "owner";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       portfolio_id =
+         Prop.computed __resource_type __resource_id "portfolio_id";
+       product_id =
+         Prop.computed __resource_type __resource_id "product_id";
+       status = Prop.computed __resource_type __resource_id "status";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

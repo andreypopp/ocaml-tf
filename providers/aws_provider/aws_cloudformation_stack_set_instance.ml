@@ -62,25 +62,68 @@ type aws_cloudformation_stack_set_instance = {
 [@@deriving yojson_of]
 (** aws_cloudformation_stack_set_instance *)
 
+type t = {
+  account_id : string prop;
+  call_as : string prop;
+  id : string prop;
+  organizational_unit_id : string prop;
+  parameter_overrides : (string * string) list prop;
+  region : string prop;
+  retain_stack : bool prop;
+  stack_id : string prop;
+  stack_instance_summaries :
+    aws_cloudformation_stack_set_instance__stack_instance_summaries
+    list
+    prop;
+  stack_set_name : string prop;
+}
+
 let aws_cloudformation_stack_set_instance ?account_id ?call_as ?id
     ?parameter_overrides ?region ?retain_stack ?timeouts
     ~stack_set_name ~deployment_targets ~operation_preferences
     __resource_id =
   let __resource_type = "aws_cloudformation_stack_set_instance" in
   let __resource =
-    {
-      account_id;
-      call_as;
-      id;
-      parameter_overrides;
-      region;
-      retain_stack;
-      stack_set_name;
-      deployment_targets;
-      operation_preferences;
-      timeouts;
-    }
+    ({
+       account_id;
+       call_as;
+       id;
+       parameter_overrides;
+       region;
+       retain_stack;
+       stack_set_name;
+       deployment_targets;
+       operation_preferences;
+       timeouts;
+     }
+      : aws_cloudformation_stack_set_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudformation_stack_set_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       call_as =
+         Prop.computed __resource_type __resource_id "call_as";
+       id = Prop.computed __resource_type __resource_id "id";
+       organizational_unit_id =
+         Prop.computed __resource_type __resource_id
+           "organizational_unit_id";
+       parameter_overrides =
+         Prop.computed __resource_type __resource_id
+           "parameter_overrides";
+       region = Prop.computed __resource_type __resource_id "region";
+       retain_stack =
+         Prop.computed __resource_type __resource_id "retain_stack";
+       stack_id =
+         Prop.computed __resource_type __resource_id "stack_id";
+       stack_instance_summaries =
+         Prop.computed __resource_type __resource_id
+           "stack_instance_summaries";
+       stack_set_name =
+         Prop.computed __resource_type __resource_id "stack_set_name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -7,6 +7,12 @@ type azurerm_signalr_service_network_acl__public_network
 type azurerm_signalr_service_network_acl__timeouts
 type azurerm_signalr_service_network_acl
 
+type t = private {
+  default_action : string prop;
+  id : string prop;
+  signalr_service_id : string prop;
+}
+
 val azurerm_signalr_service_network_acl :
   ?id:string prop ->
   ?timeouts:azurerm_signalr_service_network_acl__timeouts ->
@@ -17,4 +23,4 @@ val azurerm_signalr_service_network_acl :
   public_network:
     azurerm_signalr_service_network_acl__public_network list ->
   string ->
-  unit
+  t

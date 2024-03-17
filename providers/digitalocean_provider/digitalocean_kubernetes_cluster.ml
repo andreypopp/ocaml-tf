@@ -89,29 +89,94 @@ type digitalocean_kubernetes_cluster = {
 [@@deriving yojson_of]
 (** digitalocean_kubernetes_cluster *)
 
+type t = {
+  auto_upgrade : bool prop;
+  cluster_subnet : string prop;
+  created_at : string prop;
+  destroy_all_associated_resources : bool prop;
+  endpoint : string prop;
+  ha : bool prop;
+  id : string prop;
+  ipv4_address : string prop;
+  kube_config :
+    digitalocean_kubernetes_cluster__kube_config list prop;
+  name : string prop;
+  region : string prop;
+  registry_integration : bool prop;
+  service_subnet : string prop;
+  status : string prop;
+  surge_upgrade : bool prop;
+  tags : string list prop;
+  updated_at : string prop;
+  urn : string prop;
+  version : string prop;
+  vpc_uuid : string prop;
+}
+
 let digitalocean_kubernetes_cluster ?auto_upgrade
     ?destroy_all_associated_resources ?ha ?id ?registry_integration
     ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
     ~maintenance_policy ~node_pool __resource_id =
   let __resource_type = "digitalocean_kubernetes_cluster" in
   let __resource =
-    {
-      auto_upgrade;
-      destroy_all_associated_resources;
-      ha;
-      id;
-      name;
-      region;
-      registry_integration;
-      surge_upgrade;
-      tags;
-      version;
-      vpc_uuid;
-      maintenance_policy;
-      node_pool;
-      timeouts;
-    }
+    ({
+       auto_upgrade;
+       destroy_all_associated_resources;
+       ha;
+       id;
+       name;
+       region;
+       registry_integration;
+       surge_upgrade;
+       tags;
+       version;
+       vpc_uuid;
+       maintenance_policy;
+       node_pool;
+       timeouts;
+     }
+      : digitalocean_kubernetes_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_kubernetes_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_upgrade =
+         Prop.computed __resource_type __resource_id "auto_upgrade";
+       cluster_subnet =
+         Prop.computed __resource_type __resource_id "cluster_subnet";
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       destroy_all_associated_resources =
+         Prop.computed __resource_type __resource_id
+           "destroy_all_associated_resources";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       ha = Prop.computed __resource_type __resource_id "ha";
+       id = Prop.computed __resource_type __resource_id "id";
+       ipv4_address =
+         Prop.computed __resource_type __resource_id "ipv4_address";
+       kube_config =
+         Prop.computed __resource_type __resource_id "kube_config";
+       name = Prop.computed __resource_type __resource_id "name";
+       region = Prop.computed __resource_type __resource_id "region";
+       registry_integration =
+         Prop.computed __resource_type __resource_id
+           "registry_integration";
+       service_subnet =
+         Prop.computed __resource_type __resource_id "service_subnet";
+       status = Prop.computed __resource_type __resource_id "status";
+       surge_upgrade =
+         Prop.computed __resource_type __resource_id "surge_upgrade";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       updated_at =
+         Prop.computed __resource_type __resource_id "updated_at";
+       urn = Prop.computed __resource_type __resource_id "urn";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       vpc_uuid =
+         Prop.computed __resource_type __resource_id "vpc_uuid";
+     }
+      : t)
+  in
+  __resource_attributes

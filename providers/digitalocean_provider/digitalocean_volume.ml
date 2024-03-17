@@ -22,24 +22,70 @@ type digitalocean_volume = {
 [@@deriving yojson_of]
 (** digitalocean_volume *)
 
+type t = {
+  description : string prop;
+  droplet_ids : float list prop;
+  filesystem_label : string prop;
+  filesystem_type : string prop;
+  id : string prop;
+  initial_filesystem_label : string prop;
+  initial_filesystem_type : string prop;
+  name : string prop;
+  region : string prop;
+  size : float prop;
+  snapshot_id : string prop;
+  tags : string list prop;
+  urn : string prop;
+}
+
 let digitalocean_volume ?description ?filesystem_type ?id
     ?initial_filesystem_label ?initial_filesystem_type ?snapshot_id
     ?tags ~name ~region ~size __resource_id =
   let __resource_type = "digitalocean_volume" in
   let __resource =
-    {
-      description;
-      filesystem_type;
-      id;
-      initial_filesystem_label;
-      initial_filesystem_type;
-      name;
-      region;
-      size;
-      snapshot_id;
-      tags;
-    }
+    ({
+       description;
+       filesystem_type;
+       id;
+       initial_filesystem_label;
+       initial_filesystem_type;
+       name;
+       region;
+       size;
+       snapshot_id;
+       tags;
+     }
+      : digitalocean_volume)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_volume __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       droplet_ids =
+         Prop.computed __resource_type __resource_id "droplet_ids";
+       filesystem_label =
+         Prop.computed __resource_type __resource_id
+           "filesystem_label";
+       filesystem_type =
+         Prop.computed __resource_type __resource_id
+           "filesystem_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       initial_filesystem_label =
+         Prop.computed __resource_type __resource_id
+           "initial_filesystem_label";
+       initial_filesystem_type =
+         Prop.computed __resource_type __resource_id
+           "initial_filesystem_type";
+       name = Prop.computed __resource_type __resource_id "name";
+       region = Prop.computed __resource_type __resource_id "region";
+       size = Prop.computed __resource_type __resource_id "size";
+       snapshot_id =
+         Prop.computed __resource_type __resource_id "snapshot_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       urn = Prop.computed __resource_type __resource_id "urn";
+     }
+      : t)
+  in
+  __resource_attributes

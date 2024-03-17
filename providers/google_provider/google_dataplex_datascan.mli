@@ -46,6 +46,26 @@ type google_dataplex_datascan__execution_status = {
 
 type google_dataplex_datascan
 
+type t = private {
+  create_time : string prop;
+  data_scan_id : string prop;
+  description : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  execution_status :
+    google_dataplex_datascan__execution_status list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_dataplex_datascan :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -60,4 +80,4 @@ val google_dataplex_datascan :
   data_quality_spec:google_dataplex_datascan__data_quality_spec list ->
   execution_spec:google_dataplex_datascan__execution_spec list ->
   string ->
-  unit
+  t

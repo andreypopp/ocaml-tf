@@ -51,6 +51,19 @@ type azurerm_traffic_manager_external_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_external_endpoint *)
 
+type t = {
+  always_serve_enabled : bool prop;
+  enabled : bool prop;
+  endpoint_location : string prop;
+  geo_mappings : string list prop;
+  id : string prop;
+  name : string prop;
+  priority : float prop;
+  profile_id : string prop;
+  target : string prop;
+  weight : float prop;
+}
+
 let azurerm_traffic_manager_external_endpoint ?always_serve_enabled
     ?enabled ?endpoint_location ?geo_mappings ?id ?priority ?weight
     ?timeouts ~name ~profile_id ~target ~custom_header ~subnet
@@ -59,22 +72,46 @@ let azurerm_traffic_manager_external_endpoint ?always_serve_enabled
     "azurerm_traffic_manager_external_endpoint"
   in
   let __resource =
-    {
-      always_serve_enabled;
-      enabled;
-      endpoint_location;
-      geo_mappings;
-      id;
-      name;
-      priority;
-      profile_id;
-      target;
-      weight;
-      custom_header;
-      subnet;
-      timeouts;
-    }
+    ({
+       always_serve_enabled;
+       enabled;
+       endpoint_location;
+       geo_mappings;
+       id;
+       name;
+       priority;
+       profile_id;
+       target;
+       weight;
+       custom_header;
+       subnet;
+       timeouts;
+     }
+      : azurerm_traffic_manager_external_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_traffic_manager_external_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       always_serve_enabled =
+         Prop.computed __resource_type __resource_id
+           "always_serve_enabled";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       endpoint_location =
+         Prop.computed __resource_type __resource_id
+           "endpoint_location";
+       geo_mappings =
+         Prop.computed __resource_type __resource_id "geo_mappings";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       profile_id =
+         Prop.computed __resource_type __resource_id "profile_id";
+       target = Prop.computed __resource_type __resource_id "target";
+       weight = Prop.computed __resource_type __resource_id "weight";
+     }
+      : t)
+  in
+  __resource_attributes

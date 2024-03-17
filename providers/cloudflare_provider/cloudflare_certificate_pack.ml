@@ -50,26 +50,63 @@ type cloudflare_certificate_pack = {
 provision managed TLS certificates.
  *)
 
+type t = {
+  certificate_authority : string prop;
+  cloudflare_branding : bool prop;
+  hosts : string list prop;
+  id : string prop;
+  type_ : string prop;
+  validation_method : string prop;
+  validity_days : float prop;
+  wait_for_active_status : bool prop;
+  zone_id : string prop;
+}
+
 let cloudflare_certificate_pack ?cloudflare_branding ?id
     ?wait_for_active_status ~certificate_authority ~hosts ~type_
     ~validation_method ~validity_days ~zone_id ~validation_errors
     ~validation_records __resource_id =
   let __resource_type = "cloudflare_certificate_pack" in
   let __resource =
-    {
-      certificate_authority;
-      cloudflare_branding;
-      hosts;
-      id;
-      type_;
-      validation_method;
-      validity_days;
-      wait_for_active_status;
-      zone_id;
-      validation_errors;
-      validation_records;
-    }
+    ({
+       certificate_authority;
+       cloudflare_branding;
+       hosts;
+       id;
+       type_;
+       validation_method;
+       validity_days;
+       wait_for_active_status;
+       zone_id;
+       validation_errors;
+       validation_records;
+     }
+      : cloudflare_certificate_pack)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_certificate_pack __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_authority =
+         Prop.computed __resource_type __resource_id
+           "certificate_authority";
+       cloudflare_branding =
+         Prop.computed __resource_type __resource_id
+           "cloudflare_branding";
+       hosts = Prop.computed __resource_type __resource_id "hosts";
+       id = Prop.computed __resource_type __resource_id "id";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       validation_method =
+         Prop.computed __resource_type __resource_id
+           "validation_method";
+       validity_days =
+         Prop.computed __resource_type __resource_id "validity_days";
+       wait_for_active_status =
+         Prop.computed __resource_type __resource_id
+           "wait_for_active_status";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

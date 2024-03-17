@@ -120,26 +120,79 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_eventarc_trigger *)
 
+type t = {
+  channel : string prop;
+  conditions : (string * string) list prop;
+  create_time : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  event_data_content_type : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  service_account : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_eventarc_trigger ?channel ?event_data_content_type ?id
     ?labels ?project ?service_account ?timeouts ~location ~name
     ~destination ~matching_criteria ~transport __resource_id =
   let __resource_type = "google_eventarc_trigger" in
   let __resource =
-    {
-      channel;
-      event_data_content_type;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      service_account;
-      destination;
-      matching_criteria;
-      timeouts;
-      transport;
-    }
+    ({
+       channel;
+       event_data_content_type;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       service_account;
+       destination;
+       matching_criteria;
+       timeouts;
+       transport;
+     }
+      : google_eventarc_trigger)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_eventarc_trigger __resource);
-  ()
+  let __resource_attributes =
+    ({
+       channel =
+         Prop.computed __resource_type __resource_id "channel";
+       conditions =
+         Prop.computed __resource_type __resource_id "conditions";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       event_data_content_type =
+         Prop.computed __resource_type __resource_id
+           "event_data_content_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       service_account =
+         Prop.computed __resource_type __resource_id
+           "service_account";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -19,6 +19,18 @@ type aws_vpclattice_listener_rule__match
 type aws_vpclattice_listener_rule__timeouts
 type aws_vpclattice_listener_rule
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  listener_identifier : string prop;
+  name : string prop;
+  priority : float prop;
+  rule_id : string prop;
+  service_identifier : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_vpclattice_listener_rule :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -31,4 +43,4 @@ val aws_vpclattice_listener_rule :
   action:aws_vpclattice_listener_rule__action list ->
   match_:aws_vpclattice_listener_rule__match list ->
   string ->
-  unit
+  t

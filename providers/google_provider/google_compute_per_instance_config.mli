@@ -15,6 +15,18 @@ type google_compute_per_instance_config__preserved_state
 type google_compute_per_instance_config__timeouts
 type google_compute_per_instance_config
 
+type t = private {
+  id : string prop;
+  instance_group_manager : string prop;
+  minimal_action : string prop;
+  most_disruptive_allowed_action : string prop;
+  name : string prop;
+  project : string prop;
+  remove_instance_on_destroy : bool prop;
+  remove_instance_state_on_destroy : bool prop;
+  zone : string prop;
+}
+
 val google_compute_per_instance_config :
   ?id:string prop ->
   ?minimal_action:string prop ->
@@ -29,4 +41,4 @@ val google_compute_per_instance_config :
   preserved_state:
     google_compute_per_instance_config__preserved_state list ->
   string ->
-  unit
+  t

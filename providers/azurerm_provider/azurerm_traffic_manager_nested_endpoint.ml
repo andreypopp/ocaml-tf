@@ -56,6 +56,21 @@ type azurerm_traffic_manager_nested_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_nested_endpoint *)
 
+type t = {
+  enabled : bool prop;
+  endpoint_location : string prop;
+  geo_mappings : string list prop;
+  id : string prop;
+  minimum_child_endpoints : float prop;
+  minimum_required_child_endpoints_ipv4 : float prop;
+  minimum_required_child_endpoints_ipv6 : float prop;
+  name : string prop;
+  priority : float prop;
+  profile_id : string prop;
+  target_resource_id : string prop;
+  weight : float prop;
+}
+
 let azurerm_traffic_manager_nested_endpoint ?enabled
     ?endpoint_location ?geo_mappings ?id
     ?minimum_required_child_endpoints_ipv4
@@ -64,24 +79,56 @@ let azurerm_traffic_manager_nested_endpoint ?enabled
     ~target_resource_id ~custom_header ~subnet __resource_id =
   let __resource_type = "azurerm_traffic_manager_nested_endpoint" in
   let __resource =
-    {
-      enabled;
-      endpoint_location;
-      geo_mappings;
-      id;
-      minimum_child_endpoints;
-      minimum_required_child_endpoints_ipv4;
-      minimum_required_child_endpoints_ipv6;
-      name;
-      priority;
-      profile_id;
-      target_resource_id;
-      weight;
-      custom_header;
-      subnet;
-      timeouts;
-    }
+    ({
+       enabled;
+       endpoint_location;
+       geo_mappings;
+       id;
+       minimum_child_endpoints;
+       minimum_required_child_endpoints_ipv4;
+       minimum_required_child_endpoints_ipv6;
+       name;
+       priority;
+       profile_id;
+       target_resource_id;
+       weight;
+       custom_header;
+       subnet;
+       timeouts;
+     }
+      : azurerm_traffic_manager_nested_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_traffic_manager_nested_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       endpoint_location =
+         Prop.computed __resource_type __resource_id
+           "endpoint_location";
+       geo_mappings =
+         Prop.computed __resource_type __resource_id "geo_mappings";
+       id = Prop.computed __resource_type __resource_id "id";
+       minimum_child_endpoints =
+         Prop.computed __resource_type __resource_id
+           "minimum_child_endpoints";
+       minimum_required_child_endpoints_ipv4 =
+         Prop.computed __resource_type __resource_id
+           "minimum_required_child_endpoints_ipv4";
+       minimum_required_child_endpoints_ipv6 =
+         Prop.computed __resource_type __resource_id
+           "minimum_required_child_endpoints_ipv6";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       profile_id =
+         Prop.computed __resource_type __resource_id "profile_id";
+       target_resource_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_id";
+       weight = Prop.computed __resource_type __resource_id "weight";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -73,6 +73,12 @@ type aws_sesv2_configuration_set_event_destination = {
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set_event_destination *)
 
+type t = {
+  configuration_set_name : string prop;
+  event_destination_name : string prop;
+  id : string prop;
+}
+
 let aws_sesv2_configuration_set_event_destination ?id
     ~configuration_set_name ~event_destination_name
     ~event_destination __resource_id =
@@ -80,14 +86,27 @@ let aws_sesv2_configuration_set_event_destination ?id
     "aws_sesv2_configuration_set_event_destination"
   in
   let __resource =
-    {
-      configuration_set_name;
-      event_destination_name;
-      id;
-      event_destination;
-    }
+    ({
+       configuration_set_name;
+       event_destination_name;
+       id;
+       event_destination;
+     }
+      : aws_sesv2_configuration_set_event_destination)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sesv2_configuration_set_event_destination
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       configuration_set_name =
+         Prop.computed __resource_type __resource_id
+           "configuration_set_name";
+       event_destination_name =
+         Prop.computed __resource_type __resource_id
+           "event_destination_name";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

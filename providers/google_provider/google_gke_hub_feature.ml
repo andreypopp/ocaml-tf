@@ -355,21 +355,64 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_gke_hub_feature *)
 
+type t = {
+  create_time : string prop;
+  delete_time : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  resource_state : google_gke_hub_feature__resource_state list prop;
+  state : google_gke_hub_feature__state list prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_gke_hub_feature ?id ?labels ?name ?project ?timeouts
     ~location ~fleet_default_member_config ~spec __resource_id =
   let __resource_type = "google_gke_hub_feature" in
   let __resource =
-    {
-      id;
-      labels;
-      location;
-      name;
-      project;
-      fleet_default_member_config;
-      spec;
-      timeouts;
-    }
+    ({
+       id;
+       labels;
+       location;
+       name;
+       project;
+       fleet_default_member_config;
+       spec;
+       timeouts;
+     }
+      : google_gke_hub_feature)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_feature __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       resource_state =
+         Prop.computed __resource_type __resource_id "resource_state";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

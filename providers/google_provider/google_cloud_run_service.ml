@@ -608,23 +608,48 @@ More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/nam
 [@@deriving yojson_of]
 (** google_cloud_run_service *)
 
+type t = {
+  autogenerate_revision_name : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  status : google_cloud_run_service__status list prop;
+}
+
 let google_cloud_run_service ?autogenerate_revision_name ?id ?project
     ?timeouts ~location ~name ~metadata ~template ~traffic
     __resource_id =
   let __resource_type = "google_cloud_run_service" in
   let __resource =
-    {
-      autogenerate_revision_name;
-      id;
-      location;
-      name;
-      project;
-      metadata;
-      template;
-      timeouts;
-      traffic;
-    }
+    ({
+       autogenerate_revision_name;
+       id;
+       location;
+       name;
+       project;
+       metadata;
+       template;
+       timeouts;
+       traffic;
+     }
+      : google_cloud_run_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_run_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       autogenerate_revision_name =
+         Prop.computed __resource_type __resource_id
+           "autogenerate_revision_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

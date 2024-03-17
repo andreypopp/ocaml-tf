@@ -24,10 +24,23 @@ type aws_lightsail_instance_public_ports = {
 [@@deriving yojson_of]
 (** aws_lightsail_instance_public_ports *)
 
+type t = { id : string prop; instance_name : string prop }
+
 let aws_lightsail_instance_public_ports ?id ~instance_name ~port_info
     __resource_id =
   let __resource_type = "aws_lightsail_instance_public_ports" in
-  let __resource = { id; instance_name; port_info } in
+  let __resource =
+    ({ id; instance_name; port_info }
+      : aws_lightsail_instance_public_ports)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_instance_public_ports __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_name =
+         Prop.computed __resource_type __resource_id "instance_name";
+     }
+      : t)
+  in
+  __resource_attributes

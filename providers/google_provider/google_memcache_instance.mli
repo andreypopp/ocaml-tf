@@ -28,6 +28,29 @@ type google_memcache_instance__memcache_nodes = {
 
 type google_memcache_instance
 
+type t = private {
+  authorized_network : string prop;
+  create_time : string prop;
+  discovery_endpoint : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  maintenance_schedule :
+    google_memcache_instance__maintenance_schedule list prop;
+  memcache_full_version : string prop;
+  memcache_nodes :
+    google_memcache_instance__memcache_nodes list prop;
+  memcache_version : string prop;
+  name : string prop;
+  node_count : float prop;
+  project : string prop;
+  region : string prop;
+  reserved_ip_range_id : string list prop;
+  terraform_labels : (string * string) list prop;
+  zones : string list prop;
+}
+
 val google_memcache_instance :
   ?authorized_network:string prop ->
   ?display_name:string prop ->
@@ -47,4 +70,4 @@ val google_memcache_instance :
     google_memcache_instance__memcache_parameters list ->
   node_config:google_memcache_instance__node_config list ->
   string ->
-  unit
+  t

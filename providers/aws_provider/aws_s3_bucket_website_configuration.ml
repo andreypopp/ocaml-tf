@@ -73,22 +73,49 @@ type aws_s3_bucket_website_configuration = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_website_configuration *)
 
+type t = {
+  bucket : string prop;
+  expected_bucket_owner : string prop;
+  id : string prop;
+  routing_rules : string prop;
+  website_domain : string prop;
+  website_endpoint : string prop;
+}
+
 let aws_s3_bucket_website_configuration ?expected_bucket_owner ?id
     ?routing_rules ~bucket ~error_document ~index_document
     ~redirect_all_requests_to ~routing_rule __resource_id =
   let __resource_type = "aws_s3_bucket_website_configuration" in
   let __resource =
-    {
-      bucket;
-      expected_bucket_owner;
-      id;
-      routing_rules;
-      error_document;
-      index_document;
-      redirect_all_requests_to;
-      routing_rule;
-    }
+    ({
+       bucket;
+       expected_bucket_owner;
+       id;
+       routing_rules;
+       error_document;
+       index_document;
+       redirect_all_requests_to;
+       routing_rule;
+     }
+      : aws_s3_bucket_website_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_website_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       expected_bucket_owner =
+         Prop.computed __resource_type __resource_id
+           "expected_bucket_owner";
+       id = Prop.computed __resource_type __resource_id "id";
+       routing_rules =
+         Prop.computed __resource_type __resource_id "routing_rules";
+       website_domain =
+         Prop.computed __resource_type __resource_id "website_domain";
+       website_endpoint =
+         Prop.computed __resource_type __resource_id
+           "website_endpoint";
+     }
+      : t)
+  in
+  __resource_attributes

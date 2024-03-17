@@ -40,6 +40,25 @@ type cloudflare_ipsec_tunnel = {
 (** Provides a resource, that manages IPsec tunnels for Magic Transit.
  *)
 
+type t = {
+  account_id : string prop;
+  allow_null_cipher : bool prop;
+  cloudflare_endpoint : string prop;
+  customer_endpoint : string prop;
+  description : string prop;
+  fqdn_id : string prop;
+  health_check_enabled : bool prop;
+  health_check_target : string prop;
+  health_check_type : string prop;
+  hex_id : string prop;
+  id : string prop;
+  interface_address : string prop;
+  name : string prop;
+  psk : string prop;
+  remote_id : string prop;
+  user_id : string prop;
+}
+
 let cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
     ?description ?fqdn_id ?health_check_enabled ?health_check_target
     ?health_check_type ?hex_id ?id ?psk ?remote_id ?user_id
@@ -47,25 +66,66 @@ let cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
     __resource_id =
   let __resource_type = "cloudflare_ipsec_tunnel" in
   let __resource =
-    {
-      account_id;
-      allow_null_cipher;
-      cloudflare_endpoint;
-      customer_endpoint;
-      description;
-      fqdn_id;
-      health_check_enabled;
-      health_check_target;
-      health_check_type;
-      hex_id;
-      id;
-      interface_address;
-      name;
-      psk;
-      remote_id;
-      user_id;
-    }
+    ({
+       account_id;
+       allow_null_cipher;
+       cloudflare_endpoint;
+       customer_endpoint;
+       description;
+       fqdn_id;
+       health_check_enabled;
+       health_check_target;
+       health_check_type;
+       hex_id;
+       id;
+       interface_address;
+       name;
+       psk;
+       remote_id;
+       user_id;
+     }
+      : cloudflare_ipsec_tunnel)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_ipsec_tunnel __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       allow_null_cipher =
+         Prop.computed __resource_type __resource_id
+           "allow_null_cipher";
+       cloudflare_endpoint =
+         Prop.computed __resource_type __resource_id
+           "cloudflare_endpoint";
+       customer_endpoint =
+         Prop.computed __resource_type __resource_id
+           "customer_endpoint";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       fqdn_id =
+         Prop.computed __resource_type __resource_id "fqdn_id";
+       health_check_enabled =
+         Prop.computed __resource_type __resource_id
+           "health_check_enabled";
+       health_check_target =
+         Prop.computed __resource_type __resource_id
+           "health_check_target";
+       health_check_type =
+         Prop.computed __resource_type __resource_id
+           "health_check_type";
+       hex_id = Prop.computed __resource_type __resource_id "hex_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       interface_address =
+         Prop.computed __resource_type __resource_id
+           "interface_address";
+       name = Prop.computed __resource_type __resource_id "name";
+       psk = Prop.computed __resource_type __resource_id "psk";
+       remote_id =
+         Prop.computed __resource_type __resource_id "remote_id";
+       user_id =
+         Prop.computed __resource_type __resource_id "user_id";
+     }
+      : t)
+  in
+  __resource_attributes

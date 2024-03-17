@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_site_recovery_vmware_replication_policy__timeouts
 type azurerm_site_recovery_vmware_replication_policy
 
+type t = private {
+  application_consistent_snapshot_frequency_in_minutes : float prop;
+  id : string prop;
+  name : string prop;
+  recovery_point_retention_in_minutes : float prop;
+  recovery_vault_id : string prop;
+}
+
 val azurerm_site_recovery_vmware_replication_policy :
   ?id:string prop ->
   ?timeouts:azurerm_site_recovery_vmware_replication_policy__timeouts ->
@@ -13,4 +21,4 @@ val azurerm_site_recovery_vmware_replication_policy :
   recovery_point_retention_in_minutes:float prop ->
   recovery_vault_id:string prop ->
   string ->
-  unit
+  t

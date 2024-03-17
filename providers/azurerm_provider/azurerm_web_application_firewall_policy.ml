@@ -178,23 +178,53 @@ type azurerm_web_application_firewall_policy = {
 [@@deriving yojson_of]
 (** azurerm_web_application_firewall_policy *)
 
+type t = {
+  http_listener_ids : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  path_based_rule_ids : string list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_web_application_firewall_policy ?id ?tags ?timeouts
     ~location ~name ~resource_group_name ~custom_rules ~managed_rules
     ~policy_settings __resource_id =
   let __resource_type = "azurerm_web_application_firewall_policy" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      custom_rules;
-      managed_rules;
-      policy_settings;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       custom_rules;
+       managed_rules;
+       policy_settings;
+       timeouts;
+     }
+      : azurerm_web_application_firewall_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_web_application_firewall_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       http_listener_ids =
+         Prop.computed __resource_type __resource_id
+           "http_listener_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       path_based_rule_ids =
+         Prop.computed __resource_type __resource_id
+           "path_based_rule_ids";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

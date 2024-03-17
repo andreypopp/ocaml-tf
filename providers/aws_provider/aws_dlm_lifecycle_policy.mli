@@ -32,6 +32,16 @@ type aws_dlm_lifecycle_policy__policy_details__schedule
 type aws_dlm_lifecycle_policy__policy_details
 type aws_dlm_lifecycle_policy
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  execution_role_arn : string prop;
+  id : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_dlm_lifecycle_policy :
   ?id:string prop ->
   ?state:string prop ->
@@ -41,4 +51,4 @@ val aws_dlm_lifecycle_policy :
   execution_role_arn:string prop ->
   policy_details:aws_dlm_lifecycle_policy__policy_details list ->
   string ->
-  unit
+  t

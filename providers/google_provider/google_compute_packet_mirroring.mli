@@ -11,6 +11,15 @@ type google_compute_packet_mirroring__network
 type google_compute_packet_mirroring__timeouts
 type google_compute_packet_mirroring
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  priority : float prop;
+  project : string prop;
+  region : string prop;
+}
+
 val google_compute_packet_mirroring :
   ?description:string prop ->
   ?id:string prop ->
@@ -25,4 +34,4 @@ val google_compute_packet_mirroring :
     google_compute_packet_mirroring__mirrored_resources list ->
   network:google_compute_packet_mirroring__network list ->
   string ->
-  unit
+  t

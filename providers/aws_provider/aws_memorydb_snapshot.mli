@@ -23,6 +23,20 @@ type aws_memorydb_snapshot__cluster_configuration = {
 
 type aws_memorydb_snapshot
 
+type t = private {
+  arn : string prop;
+  cluster_configuration :
+    aws_memorydb_snapshot__cluster_configuration list prop;
+  cluster_name : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  source : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_memorydb_snapshot :
   ?id:string prop ->
   ?kms_key_arn:string prop ->
@@ -33,4 +47,4 @@ val aws_memorydb_snapshot :
   ?timeouts:aws_memorydb_snapshot__timeouts ->
   cluster_name:string prop ->
   string ->
-  unit
+  t

@@ -494,6 +494,18 @@ type aws_iot_topic_rule = {
 [@@deriving yojson_of]
 (** aws_iot_topic_rule *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  sql : string prop;
+  sql_version : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_iot_topic_rule ?description ?id ?tags ?tags_all ~enabled
     ~name ~sql ~sql_version ~cloudwatch_alarm ~cloudwatch_logs
     ~cloudwatch_metric ~dynamodb ~dynamodbv2 ~elasticsearch
@@ -502,37 +514,56 @@ let aws_iot_topic_rule ?description ?id ?tags ?tags_all ~enabled
     ~timestream __resource_id =
   let __resource_type = "aws_iot_topic_rule" in
   let __resource =
-    {
-      description;
-      enabled;
-      id;
-      name;
-      sql;
-      sql_version;
-      tags;
-      tags_all;
-      cloudwatch_alarm;
-      cloudwatch_logs;
-      cloudwatch_metric;
-      dynamodb;
-      dynamodbv2;
-      elasticsearch;
-      error_action;
-      firehose;
-      http;
-      iot_analytics;
-      iot_events;
-      kafka;
-      kinesis;
-      lambda;
-      republish;
-      s3;
-      sns;
-      sqs;
-      step_functions;
-      timestream;
-    }
+    ({
+       description;
+       enabled;
+       id;
+       name;
+       sql;
+       sql_version;
+       tags;
+       tags_all;
+       cloudwatch_alarm;
+       cloudwatch_logs;
+       cloudwatch_metric;
+       dynamodb;
+       dynamodbv2;
+       elasticsearch;
+       error_action;
+       firehose;
+       http;
+       iot_analytics;
+       iot_events;
+       kafka;
+       kinesis;
+       lambda;
+       republish;
+       s3;
+       sns;
+       sqs;
+       step_functions;
+       timestream;
+     }
+      : aws_iot_topic_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_topic_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       sql = Prop.computed __resource_type __resource_id "sql";
+       sql_version =
+         Prop.computed __resource_type __resource_id "sql_version";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

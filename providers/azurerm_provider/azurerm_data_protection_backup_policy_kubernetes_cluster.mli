@@ -16,6 +16,15 @@ type azurerm_data_protection_backup_policy_kubernetes_cluster__timeouts
 
 type azurerm_data_protection_backup_policy_kubernetes_cluster
 
+type t = private {
+  backup_repeating_time_intervals : string list prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  time_zone : string prop;
+  vault_name : string prop;
+}
+
 val azurerm_data_protection_backup_policy_kubernetes_cluster :
   ?id:string prop ->
   ?time_zone:string prop ->
@@ -32,4 +41,4 @@ val azurerm_data_protection_backup_policy_kubernetes_cluster :
     azurerm_data_protection_backup_policy_kubernetes_cluster__retention_rule
     list ->
   string ->
-  unit
+  t

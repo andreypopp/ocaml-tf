@@ -512,26 +512,99 @@ running 'gcloud privateca locations list'. *)
 [@@deriving yojson_of]
 (** google_privateca_certificate *)
 
+type t = {
+  certificate_authority : string prop;
+  certificate_description :
+    google_privateca_certificate__certificate_description list prop;
+  certificate_template : string prop;
+  create_time : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  issuer_certificate_authority : string prop;
+  labels : (string * string) list prop;
+  lifetime : string prop;
+  location : string prop;
+  name : string prop;
+  pem_certificate : string prop;
+  pem_certificate_chain : string list prop;
+  pem_csr : string prop;
+  pool : string prop;
+  project : string prop;
+  revocation_details :
+    google_privateca_certificate__revocation_details list prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_privateca_certificate ?certificate_authority
     ?certificate_template ?id ?labels ?lifetime ?pem_csr ?project
     ?timeouts ~location ~name ~pool ~config __resource_id =
   let __resource_type = "google_privateca_certificate" in
   let __resource =
-    {
-      certificate_authority;
-      certificate_template;
-      id;
-      labels;
-      lifetime;
-      location;
-      name;
-      pem_csr;
-      pool;
-      project;
-      config;
-      timeouts;
-    }
+    ({
+       certificate_authority;
+       certificate_template;
+       id;
+       labels;
+       lifetime;
+       location;
+       name;
+       pem_csr;
+       pool;
+       project;
+       config;
+       timeouts;
+     }
+      : google_privateca_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_privateca_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_authority =
+         Prop.computed __resource_type __resource_id
+           "certificate_authority";
+       certificate_description =
+         Prop.computed __resource_type __resource_id
+           "certificate_description";
+       certificate_template =
+         Prop.computed __resource_type __resource_id
+           "certificate_template";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       issuer_certificate_authority =
+         Prop.computed __resource_type __resource_id
+           "issuer_certificate_authority";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       lifetime =
+         Prop.computed __resource_type __resource_id "lifetime";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       pem_certificate =
+         Prop.computed __resource_type __resource_id
+           "pem_certificate";
+       pem_certificate_chain =
+         Prop.computed __resource_type __resource_id
+           "pem_certificate_chain";
+       pem_csr =
+         Prop.computed __resource_type __resource_id "pem_csr";
+       pool = Prop.computed __resource_type __resource_id "pool";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       revocation_details =
+         Prop.computed __resource_type __resource_id
+           "revocation_details";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

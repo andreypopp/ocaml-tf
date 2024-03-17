@@ -23,10 +23,33 @@ type aws_networkmanager_global_network = {
 [@@deriving yojson_of]
 (** aws_networkmanager_global_network *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_networkmanager_global_network ?description ?id ?tags
     ?tags_all ?timeouts __resource_id =
   let __resource_type = "aws_networkmanager_global_network" in
-  let __resource = { description; id; tags; tags_all; timeouts } in
+  let __resource =
+    ({ description; id; tags; tags_all; timeouts }
+      : aws_networkmanager_global_network)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_global_network __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -175,6 +175,20 @@ type aws_lex_intent = {
 [@@deriving yojson_of]
 (** aws_lex_intent *)
 
+type t = {
+  arn : string prop;
+  checksum : string prop;
+  create_version : bool prop;
+  created_date : string prop;
+  description : string prop;
+  id : string prop;
+  last_updated_date : string prop;
+  name : string prop;
+  parent_intent_signature : string prop;
+  sample_utterances : string list prop;
+  version : string prop;
+}
+
 let aws_lex_intent ?create_version ?description ?id
     ?parent_intent_signature ?sample_utterances ?timeouts ~name
     ~conclusion_statement ~confirmation_prompt ~dialog_code_hook
@@ -182,23 +196,51 @@ let aws_lex_intent ?create_version ?description ?id
     ~slot __resource_id =
   let __resource_type = "aws_lex_intent" in
   let __resource =
-    {
-      create_version;
-      description;
-      id;
-      name;
-      parent_intent_signature;
-      sample_utterances;
-      conclusion_statement;
-      confirmation_prompt;
-      dialog_code_hook;
-      follow_up_prompt;
-      fulfillment_activity;
-      rejection_statement;
-      slot;
-      timeouts;
-    }
+    ({
+       create_version;
+       description;
+       id;
+       name;
+       parent_intent_signature;
+       sample_utterances;
+       conclusion_statement;
+       confirmation_prompt;
+       dialog_code_hook;
+       follow_up_prompt;
+       fulfillment_activity;
+       rejection_statement;
+       slot;
+       timeouts;
+     }
+      : aws_lex_intent)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lex_intent __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       checksum =
+         Prop.computed __resource_type __resource_id "checksum";
+       create_version =
+         Prop.computed __resource_type __resource_id "create_version";
+       created_date =
+         Prop.computed __resource_type __resource_id "created_date";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_updated_date =
+         Prop.computed __resource_type __resource_id
+           "last_updated_date";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_intent_signature =
+         Prop.computed __resource_type __resource_id
+           "parent_intent_signature";
+       sample_utterances =
+         Prop.computed __resource_type __resource_id
+           "sample_utterances";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

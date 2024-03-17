@@ -6,6 +6,18 @@ type google_logging_organization_sink__bigquery_options
 type google_logging_organization_sink__exclusions
 type google_logging_organization_sink
 
+type t = private {
+  description : string prop;
+  destination : string prop;
+  disabled : bool prop;
+  filter : string prop;
+  id : string prop;
+  include_children : bool prop;
+  name : string prop;
+  org_id : string prop;
+  writer_identity : string prop;
+}
+
 val google_logging_organization_sink :
   ?description:string prop ->
   ?disabled:bool prop ->
@@ -19,4 +31,4 @@ val google_logging_organization_sink :
     google_logging_organization_sink__bigquery_options list ->
   exclusions:google_logging_organization_sink__exclusions list ->
   string ->
-  unit
+  t

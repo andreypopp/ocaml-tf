@@ -95,6 +95,32 @@ type azurerm_signalr_service = {
 [@@deriving yojson_of]
 (** azurerm_signalr_service *)
 
+type t = {
+  aad_auth_enabled : bool prop;
+  connectivity_logs_enabled : bool prop;
+  hostname : string prop;
+  http_request_logs_enabled : bool prop;
+  id : string prop;
+  ip_address : string prop;
+  live_trace_enabled : bool prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  messaging_logs_enabled : bool prop;
+  name : string prop;
+  primary_access_key : string prop;
+  primary_connection_string : string prop;
+  public_network_access_enabled : bool prop;
+  public_port : float prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  secondary_connection_string : string prop;
+  server_port : float prop;
+  serverless_connection_timeout_in_seconds : float prop;
+  service_mode : string prop;
+  tags : (string * string) list prop;
+  tls_client_cert_enabled : bool prop;
+}
+
 let azurerm_signalr_service ?aad_auth_enabled
     ?connectivity_logs_enabled ?http_request_logs_enabled ?id
     ?live_trace_enabled ?local_auth_enabled ?messaging_logs_enabled
@@ -105,30 +131,93 @@ let azurerm_signalr_service ?aad_auth_enabled
     ~upstream_endpoint __resource_id =
   let __resource_type = "azurerm_signalr_service" in
   let __resource =
-    {
-      aad_auth_enabled;
-      connectivity_logs_enabled;
-      http_request_logs_enabled;
-      id;
-      live_trace_enabled;
-      local_auth_enabled;
-      location;
-      messaging_logs_enabled;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      serverless_connection_timeout_in_seconds;
-      service_mode;
-      tags;
-      tls_client_cert_enabled;
-      cors;
-      identity;
-      live_trace;
-      sku;
-      timeouts;
-      upstream_endpoint;
-    }
+    ({
+       aad_auth_enabled;
+       connectivity_logs_enabled;
+       http_request_logs_enabled;
+       id;
+       live_trace_enabled;
+       local_auth_enabled;
+       location;
+       messaging_logs_enabled;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       serverless_connection_timeout_in_seconds;
+       service_mode;
+       tags;
+       tls_client_cert_enabled;
+       cors;
+       identity;
+       live_trace;
+       sku;
+       timeouts;
+       upstream_endpoint;
+     }
+      : azurerm_signalr_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_signalr_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       aad_auth_enabled =
+         Prop.computed __resource_type __resource_id
+           "aad_auth_enabled";
+       connectivity_logs_enabled =
+         Prop.computed __resource_type __resource_id
+           "connectivity_logs_enabled";
+       hostname =
+         Prop.computed __resource_type __resource_id "hostname";
+       http_request_logs_enabled =
+         Prop.computed __resource_type __resource_id
+           "http_request_logs_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       live_trace_enabled =
+         Prop.computed __resource_type __resource_id
+           "live_trace_enabled";
+       local_auth_enabled =
+         Prop.computed __resource_type __resource_id
+           "local_auth_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       messaging_logs_enabled =
+         Prop.computed __resource_type __resource_id
+           "messaging_logs_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       primary_access_key =
+         Prop.computed __resource_type __resource_id
+           "primary_access_key";
+       primary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "primary_connection_string";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       public_port =
+         Prop.computed __resource_type __resource_id "public_port";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secondary_access_key =
+         Prop.computed __resource_type __resource_id
+           "secondary_access_key";
+       secondary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "secondary_connection_string";
+       server_port =
+         Prop.computed __resource_type __resource_id "server_port";
+       serverless_connection_timeout_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "serverless_connection_timeout_in_seconds";
+       service_mode =
+         Prop.computed __resource_type __resource_id "service_mode";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tls_client_cert_enabled =
+         Prop.computed __resource_type __resource_id
+           "tls_client_cert_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

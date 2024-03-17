@@ -16,10 +16,30 @@ type cloudflare_url_normalization_settings = {
 (** Provides a resource to manage URL Normalization Settings.
  *)
 
+type t = {
+  id : string prop;
+  scope : string prop;
+  type_ : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_url_normalization_settings ?id ~scope ~type_ ~zone_id
     __resource_id =
   let __resource_type = "cloudflare_url_normalization_settings" in
-  let __resource = { id; scope; type_; zone_id } in
+  let __resource =
+    ({ id; scope; type_; zone_id }
+      : cloudflare_url_normalization_settings)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_url_normalization_settings __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       scope = Prop.computed __resource_type __resource_id "scope";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

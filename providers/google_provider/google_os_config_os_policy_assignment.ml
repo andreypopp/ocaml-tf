@@ -576,24 +576,73 @@ type google_os_config_os_policy_assignment = {
 [@@deriving yojson_of]
 (** google_os_config_os_policy_assignment *)
 
+type t = {
+  baseline : bool prop;
+  deleted : bool prop;
+  description : string prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  revision_create_time : string prop;
+  revision_id : string prop;
+  rollout_state : string prop;
+  skip_await_rollout : bool prop;
+  uid : string prop;
+}
+
 let google_os_config_os_policy_assignment ?description ?id ?project
     ?skip_await_rollout ?timeouts ~location ~name ~instance_filter
     ~os_policies ~rollout __resource_id =
   let __resource_type = "google_os_config_os_policy_assignment" in
   let __resource =
-    {
-      description;
-      id;
-      location;
-      name;
-      project;
-      skip_await_rollout;
-      instance_filter;
-      os_policies;
-      rollout;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       location;
+       name;
+       project;
+       skip_await_rollout;
+       instance_filter;
+       os_policies;
+       rollout;
+       timeouts;
+     }
+      : google_os_config_os_policy_assignment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_os_config_os_policy_assignment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       baseline =
+         Prop.computed __resource_type __resource_id "baseline";
+       deleted =
+         Prop.computed __resource_type __resource_id "deleted";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       revision_create_time =
+         Prop.computed __resource_type __resource_id
+           "revision_create_time";
+       revision_id =
+         Prop.computed __resource_type __resource_id "revision_id";
+       rollout_state =
+         Prop.computed __resource_type __resource_id "rollout_state";
+       skip_await_rollout =
+         Prop.computed __resource_type __resource_id
+           "skip_await_rollout";
+       uid = Prop.computed __resource_type __resource_id "uid";
+     }
+      : t)
+  in
+  __resource_attributes

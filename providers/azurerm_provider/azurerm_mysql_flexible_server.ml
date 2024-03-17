@@ -102,6 +102,30 @@ type azurerm_mysql_flexible_server = {
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server *)
 
+type t = {
+  administrator_login : string prop;
+  administrator_password : string prop;
+  backup_retention_days : float prop;
+  create_mode : string prop;
+  delegated_subnet_id : string prop;
+  fqdn : string prop;
+  geo_redundant_backup_enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  point_in_time_restore_time_in_utc : string prop;
+  private_dns_zone_id : string prop;
+  public_network_access_enabled : bool prop;
+  replica_capacity : float prop;
+  replication_role : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  source_server_id : string prop;
+  tags : (string * string) list prop;
+  version : string prop;
+  zone : string prop;
+}
+
 let azurerm_mysql_flexible_server ?administrator_login
     ?administrator_password ?backup_retention_days ?create_mode
     ?delegated_subnet_id ?geo_redundant_backup_enabled ?id
@@ -112,33 +136,88 @@ let azurerm_mysql_flexible_server ?administrator_login
     ~maintenance_window ~storage __resource_id =
   let __resource_type = "azurerm_mysql_flexible_server" in
   let __resource =
-    {
-      administrator_login;
-      administrator_password;
-      backup_retention_days;
-      create_mode;
-      delegated_subnet_id;
-      geo_redundant_backup_enabled;
-      id;
-      location;
-      name;
-      point_in_time_restore_time_in_utc;
-      private_dns_zone_id;
-      replication_role;
-      resource_group_name;
-      sku_name;
-      source_server_id;
-      tags;
-      version;
-      zone;
-      customer_managed_key;
-      high_availability;
-      identity;
-      maintenance_window;
-      storage;
-      timeouts;
-    }
+    ({
+       administrator_login;
+       administrator_password;
+       backup_retention_days;
+       create_mode;
+       delegated_subnet_id;
+       geo_redundant_backup_enabled;
+       id;
+       location;
+       name;
+       point_in_time_restore_time_in_utc;
+       private_dns_zone_id;
+       replication_role;
+       resource_group_name;
+       sku_name;
+       source_server_id;
+       tags;
+       version;
+       zone;
+       customer_managed_key;
+       high_availability;
+       identity;
+       maintenance_window;
+       storage;
+       timeouts;
+     }
+      : azurerm_mysql_flexible_server)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mysql_flexible_server __resource);
-  ()
+  let __resource_attributes =
+    ({
+       administrator_login =
+         Prop.computed __resource_type __resource_id
+           "administrator_login";
+       administrator_password =
+         Prop.computed __resource_type __resource_id
+           "administrator_password";
+       backup_retention_days =
+         Prop.computed __resource_type __resource_id
+           "backup_retention_days";
+       create_mode =
+         Prop.computed __resource_type __resource_id "create_mode";
+       delegated_subnet_id =
+         Prop.computed __resource_type __resource_id
+           "delegated_subnet_id";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       geo_redundant_backup_enabled =
+         Prop.computed __resource_type __resource_id
+           "geo_redundant_backup_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       point_in_time_restore_time_in_utc =
+         Prop.computed __resource_type __resource_id
+           "point_in_time_restore_time_in_utc";
+       private_dns_zone_id =
+         Prop.computed __resource_type __resource_id
+           "private_dns_zone_id";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       replica_capacity =
+         Prop.computed __resource_type __resource_id
+           "replica_capacity";
+       replication_role =
+         Prop.computed __resource_type __resource_id
+           "replication_role";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       source_server_id =
+         Prop.computed __resource_type __resource_id
+           "source_server_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

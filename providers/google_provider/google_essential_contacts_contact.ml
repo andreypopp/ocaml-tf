@@ -27,20 +27,44 @@ type google_essential_contacts_contact = {
 [@@deriving yojson_of]
 (** google_essential_contacts_contact *)
 
+type t = {
+  email : string prop;
+  id : string prop;
+  language_tag : string prop;
+  name : string prop;
+  notification_category_subscriptions : string list prop;
+  parent : string prop;
+}
+
 let google_essential_contacts_contact ?id ?timeouts ~email
     ~language_tag ~notification_category_subscriptions ~parent
     __resource_id =
   let __resource_type = "google_essential_contacts_contact" in
   let __resource =
-    {
-      email;
-      id;
-      language_tag;
-      notification_category_subscriptions;
-      parent;
-      timeouts;
-    }
+    ({
+       email;
+       id;
+       language_tag;
+       notification_category_subscriptions;
+       parent;
+       timeouts;
+     }
+      : google_essential_contacts_contact)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_essential_contacts_contact __resource);
-  ()
+  let __resource_attributes =
+    ({
+       email = Prop.computed __resource_type __resource_id "email";
+       id = Prop.computed __resource_type __resource_id "id";
+       language_tag =
+         Prop.computed __resource_type __resource_id "language_tag";
+       name = Prop.computed __resource_type __resource_id "name";
+       notification_category_subscriptions =
+         Prop.computed __resource_type __resource_id
+           "notification_category_subscriptions";
+       parent = Prop.computed __resource_type __resource_id "parent";
+     }
+      : t)
+  in
+  __resource_attributes

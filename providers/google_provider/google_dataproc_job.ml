@@ -249,31 +249,70 @@ type google_dataproc_job = {
 [@@deriving yojson_of]
 (** google_dataproc_job *)
 
+type t = {
+  driver_controls_files_uri : string prop;
+  driver_output_resource_uri : string prop;
+  effective_labels : (string * string) list prop;
+  force_delete : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  project : string prop;
+  region : string prop;
+  status : google_dataproc_job__status list prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_dataproc_job ?force_delete ?id ?labels ?project ?region
     ?timeouts ~hadoop_config ~hive_config ~pig_config ~placement
     ~presto_config ~pyspark_config ~reference ~scheduling
     ~spark_config ~sparksql_config __resource_id =
   let __resource_type = "google_dataproc_job" in
   let __resource =
-    {
-      force_delete;
-      id;
-      labels;
-      project;
-      region;
-      hadoop_config;
-      hive_config;
-      pig_config;
-      placement;
-      presto_config;
-      pyspark_config;
-      reference;
-      scheduling;
-      spark_config;
-      sparksql_config;
-      timeouts;
-    }
+    ({
+       force_delete;
+       id;
+       labels;
+       project;
+       region;
+       hadoop_config;
+       hive_config;
+       pig_config;
+       placement;
+       presto_config;
+       pyspark_config;
+       reference;
+       scheduling;
+       spark_config;
+       sparksql_config;
+       timeouts;
+     }
+      : google_dataproc_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataproc_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       driver_controls_files_uri =
+         Prop.computed __resource_type __resource_id
+           "driver_controls_files_uri";
+       driver_output_resource_uri =
+         Prop.computed __resource_type __resource_id
+           "driver_output_resource_uri";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       force_delete =
+         Prop.computed __resource_type __resource_id "force_delete";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       status = Prop.computed __resource_type __resource_id "status";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

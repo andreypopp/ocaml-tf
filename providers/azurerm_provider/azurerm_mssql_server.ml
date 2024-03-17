@@ -65,6 +65,25 @@ type azurerm_mssql_server = {
 [@@deriving yojson_of]
 (** azurerm_mssql_server *)
 
+type t = {
+  administrator_login : string prop;
+  administrator_login_password : string prop;
+  connection_policy : string prop;
+  fully_qualified_domain_name : string prop;
+  id : string prop;
+  location : string prop;
+  minimum_tls_version : string prop;
+  name : string prop;
+  outbound_network_restriction_enabled : bool prop;
+  primary_user_assigned_identity_id : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  restorable_dropped_database_ids : string list prop;
+  tags : (string * string) list prop;
+  transparent_data_encryption_key_vault_key_id : string prop;
+  version : string prop;
+}
+
 let azurerm_mssql_server ?administrator_login
     ?administrator_login_password ?connection_policy ?id
     ?minimum_tls_version ?outbound_network_restriction_enabled
@@ -74,26 +93,72 @@ let azurerm_mssql_server ?administrator_login
     ~azuread_administrator ~identity __resource_id =
   let __resource_type = "azurerm_mssql_server" in
   let __resource =
-    {
-      administrator_login;
-      administrator_login_password;
-      connection_policy;
-      id;
-      location;
-      minimum_tls_version;
-      name;
-      outbound_network_restriction_enabled;
-      primary_user_assigned_identity_id;
-      public_network_access_enabled;
-      resource_group_name;
-      tags;
-      transparent_data_encryption_key_vault_key_id;
-      version;
-      azuread_administrator;
-      identity;
-      timeouts;
-    }
+    ({
+       administrator_login;
+       administrator_login_password;
+       connection_policy;
+       id;
+       location;
+       minimum_tls_version;
+       name;
+       outbound_network_restriction_enabled;
+       primary_user_assigned_identity_id;
+       public_network_access_enabled;
+       resource_group_name;
+       tags;
+       transparent_data_encryption_key_vault_key_id;
+       version;
+       azuread_administrator;
+       identity;
+       timeouts;
+     }
+      : azurerm_mssql_server)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_server __resource);
-  ()
+  let __resource_attributes =
+    ({
+       administrator_login =
+         Prop.computed __resource_type __resource_id
+           "administrator_login";
+       administrator_login_password =
+         Prop.computed __resource_type __resource_id
+           "administrator_login_password";
+       connection_policy =
+         Prop.computed __resource_type __resource_id
+           "connection_policy";
+       fully_qualified_domain_name =
+         Prop.computed __resource_type __resource_id
+           "fully_qualified_domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       minimum_tls_version =
+         Prop.computed __resource_type __resource_id
+           "minimum_tls_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_network_restriction_enabled =
+         Prop.computed __resource_type __resource_id
+           "outbound_network_restriction_enabled";
+       primary_user_assigned_identity_id =
+         Prop.computed __resource_type __resource_id
+           "primary_user_assigned_identity_id";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       restorable_dropped_database_ids =
+         Prop.computed __resource_type __resource_id
+           "restorable_dropped_database_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       transparent_data_encryption_key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "transparent_data_encryption_key_vault_key_id";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

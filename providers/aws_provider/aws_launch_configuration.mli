@@ -8,6 +8,25 @@ type aws_launch_configuration__metadata_options
 type aws_launch_configuration__root_block_device
 type aws_launch_configuration
 
+type t = private {
+  arn : string prop;
+  associate_public_ip_address : bool prop;
+  ebs_optimized : bool prop;
+  enable_monitoring : bool prop;
+  iam_instance_profile : string prop;
+  id : string prop;
+  image_id : string prop;
+  instance_type : string prop;
+  key_name : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  placement_tenancy : string prop;
+  security_groups : string list prop;
+  spot_price : string prop;
+  user_data : string prop;
+  user_data_base64 : string prop;
+}
+
 val aws_launch_configuration :
   ?associate_public_ip_address:bool prop ->
   ?ebs_optimized:bool prop ->
@@ -30,4 +49,4 @@ val aws_launch_configuration :
   metadata_options:aws_launch_configuration__metadata_options list ->
   root_block_device:aws_launch_configuration__root_block_device list ->
   string ->
-  unit
+  t

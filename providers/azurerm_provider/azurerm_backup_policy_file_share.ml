@@ -85,26 +85,50 @@ type azurerm_backup_policy_file_share = {
 [@@deriving yojson_of]
 (** azurerm_backup_policy_file_share *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+  timezone : string prop;
+}
+
 let azurerm_backup_policy_file_share ?id ?timezone ?timeouts ~name
     ~recovery_vault_name ~resource_group_name ~backup
     ~retention_daily ~retention_monthly ~retention_weekly
     ~retention_yearly __resource_id =
   let __resource_type = "azurerm_backup_policy_file_share" in
   let __resource =
-    {
-      id;
-      name;
-      recovery_vault_name;
-      resource_group_name;
-      timezone;
-      backup;
-      retention_daily;
-      retention_monthly;
-      retention_weekly;
-      retention_yearly;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       recovery_vault_name;
+       resource_group_name;
+       timezone;
+       backup;
+       retention_daily;
+       retention_monthly;
+       retention_weekly;
+       retention_yearly;
+       timeouts;
+     }
+      : azurerm_backup_policy_file_share)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_backup_policy_file_share __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       recovery_vault_name =
+         Prop.computed __resource_type __resource_id
+           "recovery_vault_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       timezone =
+         Prop.computed __resource_type __resource_id "timezone";
+     }
+      : t)
+  in
+  __resource_attributes

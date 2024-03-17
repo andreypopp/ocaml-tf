@@ -206,6 +206,23 @@ type azurerm_virtual_machine = {
 [@@deriving yojson_of]
 (** azurerm_virtual_machine *)
 
+type t = {
+  availability_set_id : string prop;
+  delete_data_disks_on_termination : bool prop;
+  delete_os_disk_on_termination : bool prop;
+  id : string prop;
+  license_type : string prop;
+  location : string prop;
+  name : string prop;
+  network_interface_ids : string list prop;
+  primary_network_interface_id : string prop;
+  proximity_placement_group_id : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  vm_size : string prop;
+  zones : string list prop;
+}
+
 let azurerm_virtual_machine ?availability_set_id
     ?delete_data_disks_on_termination ?delete_os_disk_on_termination
     ?id ?license_type ?primary_network_interface_id
@@ -217,35 +234,72 @@ let azurerm_virtual_machine ?availability_set_id
     ~storage_image_reference ~storage_os_disk __resource_id =
   let __resource_type = "azurerm_virtual_machine" in
   let __resource =
-    {
-      availability_set_id;
-      delete_data_disks_on_termination;
-      delete_os_disk_on_termination;
-      id;
-      license_type;
-      location;
-      name;
-      network_interface_ids;
-      primary_network_interface_id;
-      proximity_placement_group_id;
-      resource_group_name;
-      tags;
-      vm_size;
-      zones;
-      additional_capabilities;
-      boot_diagnostics;
-      identity;
-      os_profile;
-      os_profile_linux_config;
-      os_profile_secrets;
-      os_profile_windows_config;
-      plan;
-      storage_data_disk;
-      storage_image_reference;
-      storage_os_disk;
-      timeouts;
-    }
+    ({
+       availability_set_id;
+       delete_data_disks_on_termination;
+       delete_os_disk_on_termination;
+       id;
+       license_type;
+       location;
+       name;
+       network_interface_ids;
+       primary_network_interface_id;
+       proximity_placement_group_id;
+       resource_group_name;
+       tags;
+       vm_size;
+       zones;
+       additional_capabilities;
+       boot_diagnostics;
+       identity;
+       os_profile;
+       os_profile_linux_config;
+       os_profile_secrets;
+       os_profile_windows_config;
+       plan;
+       storage_data_disk;
+       storage_image_reference;
+       storage_os_disk;
+       timeouts;
+     }
+      : azurerm_virtual_machine)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_machine __resource);
-  ()
+  let __resource_attributes =
+    ({
+       availability_set_id =
+         Prop.computed __resource_type __resource_id
+           "availability_set_id";
+       delete_data_disks_on_termination =
+         Prop.computed __resource_type __resource_id
+           "delete_data_disks_on_termination";
+       delete_os_disk_on_termination =
+         Prop.computed __resource_type __resource_id
+           "delete_os_disk_on_termination";
+       id = Prop.computed __resource_type __resource_id "id";
+       license_type =
+         Prop.computed __resource_type __resource_id "license_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_interface_ids =
+         Prop.computed __resource_type __resource_id
+           "network_interface_ids";
+       primary_network_interface_id =
+         Prop.computed __resource_type __resource_id
+           "primary_network_interface_id";
+       proximity_placement_group_id =
+         Prop.computed __resource_type __resource_id
+           "proximity_placement_group_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       vm_size =
+         Prop.computed __resource_type __resource_id "vm_size";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

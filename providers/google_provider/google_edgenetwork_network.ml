@@ -31,22 +31,59 @@ type google_edgenetwork_network = {
 [@@deriving yojson_of]
 (** google_edgenetwork_network *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  mtu : float prop;
+  name : string prop;
+  network_id : string prop;
+  project : string prop;
+  update_time : string prop;
+  zone : string prop;
+}
+
 let google_edgenetwork_network ?description ?id ?labels ?mtu ?project
     ?timeouts ~location ~network_id ~zone __resource_id =
   let __resource_type = "google_edgenetwork_network" in
   let __resource =
-    {
-      description;
-      id;
-      labels;
-      location;
-      mtu;
-      network_id;
-      project;
-      zone;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       labels;
+       location;
+       mtu;
+       network_id;
+       project;
+       zone;
+       timeouts;
+     }
+      : google_edgenetwork_network)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_edgenetwork_network __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mtu = Prop.computed __resource_type __resource_id "mtu";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_id =
+         Prop.computed __resource_type __resource_id "network_id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

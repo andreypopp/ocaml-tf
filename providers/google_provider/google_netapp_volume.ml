@@ -177,6 +177,41 @@ Use NTFS to use NTFS ACLs for file permissions. Can only be set for volumes whic
 [@@deriving yojson_of]
 (** google_netapp_volume *)
 
+type t = {
+  active_directory : string prop;
+  capacity_gib : string prop;
+  create_time : string prop;
+  deletion_policy : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  encryption_type : string prop;
+  has_replication : bool prop;
+  id : string prop;
+  kerberos_enabled : bool prop;
+  kms_config : string prop;
+  labels : (string * string) list prop;
+  ldap_enabled : bool prop;
+  location : string prop;
+  mount_options : google_netapp_volume__mount_options list prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  protocols : string list prop;
+  psa_range : string prop;
+  restricted_actions : string list prop;
+  security_style : string prop;
+  service_level : string prop;
+  share_name : string prop;
+  smb_settings : string list prop;
+  snapshot_directory : bool prop;
+  state : string prop;
+  state_details : string prop;
+  storage_pool : string prop;
+  terraform_labels : (string * string) list prop;
+  unix_permissions : string prop;
+  used_gib : string prop;
+}
+
 let google_netapp_volume ?deletion_policy ?description ?id
     ?kerberos_enabled ?labels ?project ?restricted_actions
     ?security_style ?smb_settings ?snapshot_directory
@@ -185,30 +220,106 @@ let google_netapp_volume ?deletion_policy ?description ?id
     ~restore_parameters ~snapshot_policy __resource_id =
   let __resource_type = "google_netapp_volume" in
   let __resource =
-    {
-      capacity_gib;
-      deletion_policy;
-      description;
-      id;
-      kerberos_enabled;
-      labels;
-      location;
-      name;
-      project;
-      protocols;
-      restricted_actions;
-      security_style;
-      share_name;
-      smb_settings;
-      snapshot_directory;
-      storage_pool;
-      unix_permissions;
-      export_policy;
-      restore_parameters;
-      snapshot_policy;
-      timeouts;
-    }
+    ({
+       capacity_gib;
+       deletion_policy;
+       description;
+       id;
+       kerberos_enabled;
+       labels;
+       location;
+       name;
+       project;
+       protocols;
+       restricted_actions;
+       security_style;
+       share_name;
+       smb_settings;
+       snapshot_directory;
+       storage_pool;
+       unix_permissions;
+       export_policy;
+       restore_parameters;
+       snapshot_policy;
+       timeouts;
+     }
+      : google_netapp_volume)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_volume __resource);
-  ()
+  let __resource_attributes =
+    ({
+       active_directory =
+         Prop.computed __resource_type __resource_id
+           "active_directory";
+       capacity_gib =
+         Prop.computed __resource_type __resource_id "capacity_gib";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       deletion_policy =
+         Prop.computed __resource_type __resource_id
+           "deletion_policy";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       encryption_type =
+         Prop.computed __resource_type __resource_id
+           "encryption_type";
+       has_replication =
+         Prop.computed __resource_type __resource_id
+           "has_replication";
+       id = Prop.computed __resource_type __resource_id "id";
+       kerberos_enabled =
+         Prop.computed __resource_type __resource_id
+           "kerberos_enabled";
+       kms_config =
+         Prop.computed __resource_type __resource_id "kms_config";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       ldap_enabled =
+         Prop.computed __resource_type __resource_id "ldap_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mount_options =
+         Prop.computed __resource_type __resource_id "mount_options";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       protocols =
+         Prop.computed __resource_type __resource_id "protocols";
+       psa_range =
+         Prop.computed __resource_type __resource_id "psa_range";
+       restricted_actions =
+         Prop.computed __resource_type __resource_id
+           "restricted_actions";
+       security_style =
+         Prop.computed __resource_type __resource_id "security_style";
+       service_level =
+         Prop.computed __resource_type __resource_id "service_level";
+       share_name =
+         Prop.computed __resource_type __resource_id "share_name";
+       smb_settings =
+         Prop.computed __resource_type __resource_id "smb_settings";
+       snapshot_directory =
+         Prop.computed __resource_type __resource_id
+           "snapshot_directory";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_details =
+         Prop.computed __resource_type __resource_id "state_details";
+       storage_pool =
+         Prop.computed __resource_type __resource_id "storage_pool";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       unix_permissions =
+         Prop.computed __resource_type __resource_id
+           "unix_permissions";
+       used_gib =
+         Prop.computed __resource_type __resource_id "used_gib";
+     }
+      : t)
+  in
+  __resource_attributes

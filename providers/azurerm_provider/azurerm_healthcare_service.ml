@@ -62,6 +62,19 @@ type azurerm_healthcare_service = {
 [@@deriving yojson_of]
 (** azurerm_healthcare_service *)
 
+type t = {
+  access_policy_object_ids : string list prop;
+  cosmosdb_key_vault_key_versionless_id : string prop;
+  cosmosdb_throughput : float prop;
+  id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_healthcare_service ?access_policy_object_ids
     ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
     ?kind ?public_network_access_enabled ?tags ?timeouts ~location
@@ -69,22 +82,49 @@ let azurerm_healthcare_service ?access_policy_object_ids
     ~cors_configuration __resource_id =
   let __resource_type = "azurerm_healthcare_service" in
   let __resource =
-    {
-      access_policy_object_ids;
-      cosmosdb_key_vault_key_versionless_id;
-      cosmosdb_throughput;
-      id;
-      kind;
-      location;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      tags;
-      authentication_configuration;
-      cors_configuration;
-      timeouts;
-    }
+    ({
+       access_policy_object_ids;
+       cosmosdb_key_vault_key_versionless_id;
+       cosmosdb_throughput;
+       id;
+       kind;
+       location;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       tags;
+       authentication_configuration;
+       cors_configuration;
+       timeouts;
+     }
+      : azurerm_healthcare_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_healthcare_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_policy_object_ids =
+         Prop.computed __resource_type __resource_id
+           "access_policy_object_ids";
+       cosmosdb_key_vault_key_versionless_id =
+         Prop.computed __resource_type __resource_id
+           "cosmosdb_key_vault_key_versionless_id";
+       cosmosdb_throughput =
+         Prop.computed __resource_type __resource_id
+           "cosmosdb_throughput";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

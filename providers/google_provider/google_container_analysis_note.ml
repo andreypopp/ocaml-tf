@@ -71,25 +71,65 @@ type google_container_analysis_note = {
 [@@deriving yojson_of]
 (** google_container_analysis_note *)
 
+type t = {
+  create_time : string prop;
+  expiration_time : string prop;
+  id : string prop;
+  kind : string prop;
+  long_description : string prop;
+  name : string prop;
+  project : string prop;
+  related_note_names : string list prop;
+  short_description : string prop;
+  update_time : string prop;
+}
+
 let google_container_analysis_note ?expiration_time ?id
     ?long_description ?project ?related_note_names ?short_description
     ?timeouts ~name ~attestation_authority ~related_url __resource_id
     =
   let __resource_type = "google_container_analysis_note" in
   let __resource =
-    {
-      expiration_time;
-      id;
-      long_description;
-      name;
-      project;
-      related_note_names;
-      short_description;
-      attestation_authority;
-      related_url;
-      timeouts;
-    }
+    ({
+       expiration_time;
+       id;
+       long_description;
+       name;
+       project;
+       related_note_names;
+       short_description;
+       attestation_authority;
+       related_url;
+       timeouts;
+     }
+      : google_container_analysis_note)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_analysis_note __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       expiration_time =
+         Prop.computed __resource_type __resource_id
+           "expiration_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       long_description =
+         Prop.computed __resource_type __resource_id
+           "long_description";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       related_note_names =
+         Prop.computed __resource_type __resource_id
+           "related_note_names";
+       short_description =
+         Prop.computed __resource_type __resource_id
+           "short_description";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -8,6 +8,19 @@ type azurerm_sentinel_automation_rule__condition
 type azurerm_sentinel_automation_rule__timeouts
 type azurerm_sentinel_automation_rule
 
+type t = private {
+  condition_json : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  expiration : string prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  order : float prop;
+  triggers_on : string prop;
+  triggers_when : string prop;
+}
+
 val azurerm_sentinel_automation_rule :
   ?condition_json:string prop ->
   ?enabled:bool prop ->
@@ -26,4 +39,4 @@ val azurerm_sentinel_automation_rule :
     azurerm_sentinel_automation_rule__action_playbook list ->
   condition:azurerm_sentinel_automation_rule__condition list ->
   string ->
-  unit
+  t

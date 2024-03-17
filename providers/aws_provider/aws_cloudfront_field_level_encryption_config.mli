@@ -16,6 +16,13 @@ type aws_cloudfront_field_level_encryption_config__query_arg_profile_config
 
 type aws_cloudfront_field_level_encryption_config
 
+type t = private {
+  caller_reference : string prop;
+  comment : string prop;
+  etag : string prop;
+  id : string prop;
+}
+
 val aws_cloudfront_field_level_encryption_config :
   ?comment:string prop ->
   ?id:string prop ->
@@ -26,4 +33,4 @@ val aws_cloudfront_field_level_encryption_config :
     aws_cloudfront_field_level_encryption_config__query_arg_profile_config
     list ->
   string ->
-  unit
+  t

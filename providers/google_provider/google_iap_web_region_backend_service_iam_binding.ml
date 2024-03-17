@@ -26,6 +26,16 @@ type google_iap_web_region_backend_service_iam_binding = {
 [@@deriving yojson_of]
 (** google_iap_web_region_backend_service_iam_binding *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  members : string list prop;
+  project : string prop;
+  region : string prop;
+  role : string prop;
+  web_region_backend_service : string prop;
+}
+
 let google_iap_web_region_backend_service_iam_binding ?id ?project
     ?region ~members ~role ~web_region_backend_service ~condition
     __resource_id =
@@ -33,17 +43,34 @@ let google_iap_web_region_backend_service_iam_binding ?id ?project
     "google_iap_web_region_backend_service_iam_binding"
   in
   let __resource =
-    {
-      id;
-      members;
-      project;
-      region;
-      role;
-      web_region_backend_service;
-      condition;
-    }
+    ({
+       id;
+       members;
+       project;
+       region;
+       role;
+       web_region_backend_service;
+       condition;
+     }
+      : google_iap_web_region_backend_service_iam_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_web_region_backend_service_iam_binding
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       role = Prop.computed __resource_type __resource_id "role";
+       web_region_backend_service =
+         Prop.computed __resource_type __resource_id
+           "web_region_backend_service";
+     }
+      : t)
+  in
+  __resource_attributes

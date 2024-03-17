@@ -5,6 +5,16 @@ open! Tf.Prelude
 type azurerm_logic_app_integration_account_map__timeouts
 type azurerm_logic_app_integration_account_map
 
+type t = private {
+  content : string prop;
+  id : string prop;
+  integration_account_name : string prop;
+  map_type : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_logic_app_integration_account_map :
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
@@ -15,4 +25,4 @@ val azurerm_logic_app_integration_account_map :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

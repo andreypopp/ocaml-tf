@@ -119,6 +119,57 @@ type aws_redshift_cluster = {
 [@@deriving yojson_of]
 (** aws_redshift_cluster *)
 
+type t = {
+  allow_version_upgrade : bool prop;
+  apply_immediately : bool prop;
+  aqua_configuration_status : string prop;
+  arn : string prop;
+  automated_snapshot_retention_period : float prop;
+  availability_zone : string prop;
+  availability_zone_relocation_enabled : bool prop;
+  cluster_identifier : string prop;
+  cluster_namespace_arn : string prop;
+  cluster_nodes : aws_redshift_cluster__cluster_nodes list prop;
+  cluster_parameter_group_name : string prop;
+  cluster_public_key : string prop;
+  cluster_revision_number : string prop;
+  cluster_subnet_group_name : string prop;
+  cluster_type : string prop;
+  cluster_version : string prop;
+  database_name : string prop;
+  default_iam_role_arn : string prop;
+  dns_name : string prop;
+  elastic_ip : string prop;
+  encrypted : bool prop;
+  endpoint : string prop;
+  enhanced_vpc_routing : bool prop;
+  final_snapshot_identifier : string prop;
+  iam_roles : string list prop;
+  id : string prop;
+  kms_key_id : string prop;
+  maintenance_track_name : string prop;
+  manage_master_password : bool prop;
+  manual_snapshot_retention_period : float prop;
+  master_password : string prop;
+  master_password_secret_arn : string prop;
+  master_password_secret_kms_key_id : string prop;
+  master_username : string prop;
+  multi_az : bool prop;
+  node_type : string prop;
+  number_of_nodes : float prop;
+  owner_account : string prop;
+  port : float prop;
+  preferred_maintenance_window : string prop;
+  publicly_accessible : bool prop;
+  skip_final_snapshot : bool prop;
+  snapshot_arn : string prop;
+  snapshot_cluster_identifier : string prop;
+  snapshot_identifier : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_security_group_ids : string list prop;
+}
+
 let aws_redshift_cluster ?allow_version_upgrade ?apply_immediately
     ?aqua_configuration_status ?automated_snapshot_retention_period
     ?availability_zone ?availability_zone_relocation_enabled
@@ -138,55 +189,183 @@ let aws_redshift_cluster ?allow_version_upgrade ?apply_immediately
     __resource_id =
   let __resource_type = "aws_redshift_cluster" in
   let __resource =
-    {
-      allow_version_upgrade;
-      apply_immediately;
-      aqua_configuration_status;
-      automated_snapshot_retention_period;
-      availability_zone;
-      availability_zone_relocation_enabled;
-      cluster_identifier;
-      cluster_parameter_group_name;
-      cluster_public_key;
-      cluster_revision_number;
-      cluster_subnet_group_name;
-      cluster_type;
-      cluster_version;
-      database_name;
-      default_iam_role_arn;
-      elastic_ip;
-      encrypted;
-      endpoint;
-      enhanced_vpc_routing;
-      final_snapshot_identifier;
-      iam_roles;
-      id;
-      kms_key_id;
-      maintenance_track_name;
-      manage_master_password;
-      manual_snapshot_retention_period;
-      master_password;
-      master_password_secret_kms_key_id;
-      master_username;
-      multi_az;
-      node_type;
-      number_of_nodes;
-      owner_account;
-      port;
-      preferred_maintenance_window;
-      publicly_accessible;
-      skip_final_snapshot;
-      snapshot_arn;
-      snapshot_cluster_identifier;
-      snapshot_identifier;
-      tags;
-      tags_all;
-      vpc_security_group_ids;
-      logging;
-      snapshot_copy;
-      timeouts;
-    }
+    ({
+       allow_version_upgrade;
+       apply_immediately;
+       aqua_configuration_status;
+       automated_snapshot_retention_period;
+       availability_zone;
+       availability_zone_relocation_enabled;
+       cluster_identifier;
+       cluster_parameter_group_name;
+       cluster_public_key;
+       cluster_revision_number;
+       cluster_subnet_group_name;
+       cluster_type;
+       cluster_version;
+       database_name;
+       default_iam_role_arn;
+       elastic_ip;
+       encrypted;
+       endpoint;
+       enhanced_vpc_routing;
+       final_snapshot_identifier;
+       iam_roles;
+       id;
+       kms_key_id;
+       maintenance_track_name;
+       manage_master_password;
+       manual_snapshot_retention_period;
+       master_password;
+       master_password_secret_kms_key_id;
+       master_username;
+       multi_az;
+       node_type;
+       number_of_nodes;
+       owner_account;
+       port;
+       preferred_maintenance_window;
+       publicly_accessible;
+       skip_final_snapshot;
+       snapshot_arn;
+       snapshot_cluster_identifier;
+       snapshot_identifier;
+       tags;
+       tags_all;
+       vpc_security_group_ids;
+       logging;
+       snapshot_copy;
+       timeouts;
+     }
+      : aws_redshift_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allow_version_upgrade =
+         Prop.computed __resource_type __resource_id
+           "allow_version_upgrade";
+       apply_immediately =
+         Prop.computed __resource_type __resource_id
+           "apply_immediately";
+       aqua_configuration_status =
+         Prop.computed __resource_type __resource_id
+           "aqua_configuration_status";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       automated_snapshot_retention_period =
+         Prop.computed __resource_type __resource_id
+           "automated_snapshot_retention_period";
+       availability_zone =
+         Prop.computed __resource_type __resource_id
+           "availability_zone";
+       availability_zone_relocation_enabled =
+         Prop.computed __resource_type __resource_id
+           "availability_zone_relocation_enabled";
+       cluster_identifier =
+         Prop.computed __resource_type __resource_id
+           "cluster_identifier";
+       cluster_namespace_arn =
+         Prop.computed __resource_type __resource_id
+           "cluster_namespace_arn";
+       cluster_nodes =
+         Prop.computed __resource_type __resource_id "cluster_nodes";
+       cluster_parameter_group_name =
+         Prop.computed __resource_type __resource_id
+           "cluster_parameter_group_name";
+       cluster_public_key =
+         Prop.computed __resource_type __resource_id
+           "cluster_public_key";
+       cluster_revision_number =
+         Prop.computed __resource_type __resource_id
+           "cluster_revision_number";
+       cluster_subnet_group_name =
+         Prop.computed __resource_type __resource_id
+           "cluster_subnet_group_name";
+       cluster_type =
+         Prop.computed __resource_type __resource_id "cluster_type";
+       cluster_version =
+         Prop.computed __resource_type __resource_id
+           "cluster_version";
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       default_iam_role_arn =
+         Prop.computed __resource_type __resource_id
+           "default_iam_role_arn";
+       dns_name =
+         Prop.computed __resource_type __resource_id "dns_name";
+       elastic_ip =
+         Prop.computed __resource_type __resource_id "elastic_ip";
+       encrypted =
+         Prop.computed __resource_type __resource_id "encrypted";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       enhanced_vpc_routing =
+         Prop.computed __resource_type __resource_id
+           "enhanced_vpc_routing";
+       final_snapshot_identifier =
+         Prop.computed __resource_type __resource_id
+           "final_snapshot_identifier";
+       iam_roles =
+         Prop.computed __resource_type __resource_id "iam_roles";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       maintenance_track_name =
+         Prop.computed __resource_type __resource_id
+           "maintenance_track_name";
+       manage_master_password =
+         Prop.computed __resource_type __resource_id
+           "manage_master_password";
+       manual_snapshot_retention_period =
+         Prop.computed __resource_type __resource_id
+           "manual_snapshot_retention_period";
+       master_password =
+         Prop.computed __resource_type __resource_id
+           "master_password";
+       master_password_secret_arn =
+         Prop.computed __resource_type __resource_id
+           "master_password_secret_arn";
+       master_password_secret_kms_key_id =
+         Prop.computed __resource_type __resource_id
+           "master_password_secret_kms_key_id";
+       master_username =
+         Prop.computed __resource_type __resource_id
+           "master_username";
+       multi_az =
+         Prop.computed __resource_type __resource_id "multi_az";
+       node_type =
+         Prop.computed __resource_type __resource_id "node_type";
+       number_of_nodes =
+         Prop.computed __resource_type __resource_id
+           "number_of_nodes";
+       owner_account =
+         Prop.computed __resource_type __resource_id "owner_account";
+       port = Prop.computed __resource_type __resource_id "port";
+       preferred_maintenance_window =
+         Prop.computed __resource_type __resource_id
+           "preferred_maintenance_window";
+       publicly_accessible =
+         Prop.computed __resource_type __resource_id
+           "publicly_accessible";
+       skip_final_snapshot =
+         Prop.computed __resource_type __resource_id
+           "skip_final_snapshot";
+       snapshot_arn =
+         Prop.computed __resource_type __resource_id "snapshot_arn";
+       snapshot_cluster_identifier =
+         Prop.computed __resource_type __resource_id
+           "snapshot_cluster_identifier";
+       snapshot_identifier =
+         Prop.computed __resource_type __resource_id
+           "snapshot_identifier";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       vpc_security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "vpc_security_group_ids";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -43,21 +43,53 @@ This does not include the project ID or instance name. *)
 [@@deriving yojson_of]
 (** google_sql_database *)
 
+type t = {
+  charset : string prop;
+  collation : string prop;
+  deletion_policy : string prop;
+  id : string prop;
+  instance : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 let google_sql_database ?charset ?collation ?deletion_policy ?id
     ?project ?timeouts ~instance ~name __resource_id =
   let __resource_type = "google_sql_database" in
   let __resource =
-    {
-      charset;
-      collation;
-      deletion_policy;
-      id;
-      instance;
-      name;
-      project;
-      timeouts;
-    }
+    ({
+       charset;
+       collation;
+       deletion_policy;
+       id;
+       instance;
+       name;
+       project;
+       timeouts;
+     }
+      : google_sql_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       charset =
+         Prop.computed __resource_type __resource_id "charset";
+       collation =
+         Prop.computed __resource_type __resource_id "collation";
+       deletion_policy =
+         Prop.computed __resource_type __resource_id
+           "deletion_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance =
+         Prop.computed __resource_type __resource_id "instance";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

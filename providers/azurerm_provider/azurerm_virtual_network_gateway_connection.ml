@@ -92,6 +92,31 @@ type azurerm_virtual_network_gateway_connection = {
 [@@deriving yojson_of]
 (** azurerm_virtual_network_gateway_connection *)
 
+type t = {
+  authorization_key : string prop;
+  connection_mode : string prop;
+  connection_protocol : string prop;
+  dpd_timeout_seconds : float prop;
+  egress_nat_rule_ids : string list prop;
+  enable_bgp : bool prop;
+  express_route_circuit_id : string prop;
+  express_route_gateway_bypass : bool prop;
+  id : string prop;
+  ingress_nat_rule_ids : string list prop;
+  local_azure_ip_address_enabled : bool prop;
+  local_network_gateway_id : string prop;
+  location : string prop;
+  name : string prop;
+  peer_virtual_network_gateway_id : string prop;
+  resource_group_name : string prop;
+  routing_weight : float prop;
+  shared_key : string prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+  use_policy_based_traffic_selectors : bool prop;
+  virtual_network_gateway_id : string prop;
+}
+
 let azurerm_virtual_network_gateway_connection ?authorization_key
     ?connection_mode ?connection_protocol ?dpd_timeout_seconds
     ?egress_nat_rule_ids ?enable_bgp ?express_route_circuit_id
@@ -106,35 +131,95 @@ let azurerm_virtual_network_gateway_connection ?authorization_key
     "azurerm_virtual_network_gateway_connection"
   in
   let __resource =
-    {
-      authorization_key;
-      connection_mode;
-      connection_protocol;
-      dpd_timeout_seconds;
-      egress_nat_rule_ids;
-      enable_bgp;
-      express_route_circuit_id;
-      express_route_gateway_bypass;
-      id;
-      ingress_nat_rule_ids;
-      local_azure_ip_address_enabled;
-      local_network_gateway_id;
-      location;
-      name;
-      peer_virtual_network_gateway_id;
-      resource_group_name;
-      routing_weight;
-      shared_key;
-      tags;
-      type_;
-      use_policy_based_traffic_selectors;
-      virtual_network_gateway_id;
-      custom_bgp_addresses;
-      ipsec_policy;
-      timeouts;
-      traffic_selector_policy;
-    }
+    ({
+       authorization_key;
+       connection_mode;
+       connection_protocol;
+       dpd_timeout_seconds;
+       egress_nat_rule_ids;
+       enable_bgp;
+       express_route_circuit_id;
+       express_route_gateway_bypass;
+       id;
+       ingress_nat_rule_ids;
+       local_azure_ip_address_enabled;
+       local_network_gateway_id;
+       location;
+       name;
+       peer_virtual_network_gateway_id;
+       resource_group_name;
+       routing_weight;
+       shared_key;
+       tags;
+       type_;
+       use_policy_based_traffic_selectors;
+       virtual_network_gateway_id;
+       custom_bgp_addresses;
+       ipsec_policy;
+       timeouts;
+       traffic_selector_policy;
+     }
+      : azurerm_virtual_network_gateway_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network_gateway_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authorization_key =
+         Prop.computed __resource_type __resource_id
+           "authorization_key";
+       connection_mode =
+         Prop.computed __resource_type __resource_id
+           "connection_mode";
+       connection_protocol =
+         Prop.computed __resource_type __resource_id
+           "connection_protocol";
+       dpd_timeout_seconds =
+         Prop.computed __resource_type __resource_id
+           "dpd_timeout_seconds";
+       egress_nat_rule_ids =
+         Prop.computed __resource_type __resource_id
+           "egress_nat_rule_ids";
+       enable_bgp =
+         Prop.computed __resource_type __resource_id "enable_bgp";
+       express_route_circuit_id =
+         Prop.computed __resource_type __resource_id
+           "express_route_circuit_id";
+       express_route_gateway_bypass =
+         Prop.computed __resource_type __resource_id
+           "express_route_gateway_bypass";
+       id = Prop.computed __resource_type __resource_id "id";
+       ingress_nat_rule_ids =
+         Prop.computed __resource_type __resource_id
+           "ingress_nat_rule_ids";
+       local_azure_ip_address_enabled =
+         Prop.computed __resource_type __resource_id
+           "local_azure_ip_address_enabled";
+       local_network_gateway_id =
+         Prop.computed __resource_type __resource_id
+           "local_network_gateway_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       peer_virtual_network_gateway_id =
+         Prop.computed __resource_type __resource_id
+           "peer_virtual_network_gateway_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       routing_weight =
+         Prop.computed __resource_type __resource_id "routing_weight";
+       shared_key =
+         Prop.computed __resource_type __resource_id "shared_key";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       use_policy_based_traffic_selectors =
+         Prop.computed __resource_type __resource_id
+           "use_policy_based_traffic_selectors";
+       virtual_network_gateway_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_gateway_id";
+     }
+      : t)
+  in
+  __resource_attributes

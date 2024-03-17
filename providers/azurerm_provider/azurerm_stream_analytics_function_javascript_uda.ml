@@ -43,6 +43,13 @@ type azurerm_stream_analytics_function_javascript_uda = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_function_javascript_uda *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  script : string prop;
+  stream_analytics_job_id : string prop;
+}
+
 let azurerm_stream_analytics_function_javascript_uda ?id ?timeouts
     ~name ~script ~stream_analytics_job_id ~input ~output
     __resource_id =
@@ -50,17 +57,29 @@ let azurerm_stream_analytics_function_javascript_uda ?id ?timeouts
     "azurerm_stream_analytics_function_javascript_uda"
   in
   let __resource =
-    {
-      id;
-      name;
-      script;
-      stream_analytics_job_id;
-      input;
-      output;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       script;
+       stream_analytics_job_id;
+       input;
+       output;
+       timeouts;
+     }
+      : azurerm_stream_analytics_function_javascript_uda)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_function_javascript_uda
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       script = Prop.computed __resource_type __resource_id "script";
+       stream_analytics_job_id =
+         Prop.computed __resource_type __resource_id
+           "stream_analytics_job_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -43,6 +43,29 @@ type aws_vpc_ipam_pool = {
 [@@deriving yojson_of]
 (** aws_vpc_ipam_pool *)
 
+type t = {
+  address_family : string prop;
+  allocation_default_netmask_length : float prop;
+  allocation_max_netmask_length : float prop;
+  allocation_min_netmask_length : float prop;
+  allocation_resource_tags : (string * string) list prop;
+  arn : string prop;
+  auto_import : bool prop;
+  aws_service : string prop;
+  description : string prop;
+  id : string prop;
+  ipam_scope_id : string prop;
+  ipam_scope_type : string prop;
+  locale : string prop;
+  pool_depth : float prop;
+  public_ip_source : string prop;
+  publicly_advertisable : bool prop;
+  source_ipam_pool_id : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_vpc_ipam_pool ?allocation_default_netmask_length
     ?allocation_max_netmask_length ?allocation_min_netmask_length
     ?allocation_resource_tags ?auto_import ?aws_service ?description
@@ -51,26 +74,75 @@ let aws_vpc_ipam_pool ?allocation_default_netmask_length
     ~ipam_scope_id __resource_id =
   let __resource_type = "aws_vpc_ipam_pool" in
   let __resource =
-    {
-      address_family;
-      allocation_default_netmask_length;
-      allocation_max_netmask_length;
-      allocation_min_netmask_length;
-      allocation_resource_tags;
-      auto_import;
-      aws_service;
-      description;
-      id;
-      ipam_scope_id;
-      locale;
-      public_ip_source;
-      publicly_advertisable;
-      source_ipam_pool_id;
-      tags;
-      tags_all;
-      timeouts;
-    }
+    ({
+       address_family;
+       allocation_default_netmask_length;
+       allocation_max_netmask_length;
+       allocation_min_netmask_length;
+       allocation_resource_tags;
+       auto_import;
+       aws_service;
+       description;
+       id;
+       ipam_scope_id;
+       locale;
+       public_ip_source;
+       publicly_advertisable;
+       source_ipam_pool_id;
+       tags;
+       tags_all;
+       timeouts;
+     }
+      : aws_vpc_ipam_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipam_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       address_family =
+         Prop.computed __resource_type __resource_id "address_family";
+       allocation_default_netmask_length =
+         Prop.computed __resource_type __resource_id
+           "allocation_default_netmask_length";
+       allocation_max_netmask_length =
+         Prop.computed __resource_type __resource_id
+           "allocation_max_netmask_length";
+       allocation_min_netmask_length =
+         Prop.computed __resource_type __resource_id
+           "allocation_min_netmask_length";
+       allocation_resource_tags =
+         Prop.computed __resource_type __resource_id
+           "allocation_resource_tags";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auto_import =
+         Prop.computed __resource_type __resource_id "auto_import";
+       aws_service =
+         Prop.computed __resource_type __resource_id "aws_service";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       ipam_scope_id =
+         Prop.computed __resource_type __resource_id "ipam_scope_id";
+       ipam_scope_type =
+         Prop.computed __resource_type __resource_id
+           "ipam_scope_type";
+       locale = Prop.computed __resource_type __resource_id "locale";
+       pool_depth =
+         Prop.computed __resource_type __resource_id "pool_depth";
+       public_ip_source =
+         Prop.computed __resource_type __resource_id
+           "public_ip_source";
+       publicly_advertisable =
+         Prop.computed __resource_type __resource_id
+           "publicly_advertisable";
+       source_ipam_pool_id =
+         Prop.computed __resource_type __resource_id
+           "source_ipam_pool_id";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -48,6 +48,24 @@ the `ownership_challenge_filename` value from the`cloudflare_logpush_ownership_c
 - `cloudflare_logpush_job`: Create and manage the Logpush Job itself.
  *)
 
+type t = {
+  account_id : string prop;
+  dataset : string prop;
+  destination_conf : string prop;
+  enabled : bool prop;
+  filter : string prop;
+  frequency : string prop;
+  id : string prop;
+  kind : string prop;
+  logpull_options : string prop;
+  max_upload_bytes : float prop;
+  max_upload_interval_seconds : float prop;
+  max_upload_records : float prop;
+  name : string prop;
+  ownership_challenge : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_logpush_job ?account_id ?enabled ?filter ?frequency
     ?id ?kind ?logpull_options ?max_upload_bytes
     ?max_upload_interval_seconds ?max_upload_records ?name
@@ -55,24 +73,62 @@ let cloudflare_logpush_job ?account_id ?enabled ?filter ?frequency
     __resource_id =
   let __resource_type = "cloudflare_logpush_job" in
   let __resource =
-    {
-      account_id;
-      dataset;
-      destination_conf;
-      enabled;
-      filter;
-      frequency;
-      id;
-      kind;
-      logpull_options;
-      max_upload_bytes;
-      max_upload_interval_seconds;
-      max_upload_records;
-      name;
-      ownership_challenge;
-      zone_id;
-    }
+    ({
+       account_id;
+       dataset;
+       destination_conf;
+       enabled;
+       filter;
+       frequency;
+       id;
+       kind;
+       logpull_options;
+       max_upload_bytes;
+       max_upload_interval_seconds;
+       max_upload_records;
+       name;
+       ownership_challenge;
+       zone_id;
+     }
+      : cloudflare_logpush_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_logpush_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       dataset =
+         Prop.computed __resource_type __resource_id "dataset";
+       destination_conf =
+         Prop.computed __resource_type __resource_id
+           "destination_conf";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       filter = Prop.computed __resource_type __resource_id "filter";
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       logpull_options =
+         Prop.computed __resource_type __resource_id
+           "logpull_options";
+       max_upload_bytes =
+         Prop.computed __resource_type __resource_id
+           "max_upload_bytes";
+       max_upload_interval_seconds =
+         Prop.computed __resource_type __resource_id
+           "max_upload_interval_seconds";
+       max_upload_records =
+         Prop.computed __resource_type __resource_id
+           "max_upload_records";
+       name = Prop.computed __resource_type __resource_id "name";
+       ownership_challenge =
+         Prop.computed __resource_type __resource_id
+           "ownership_challenge";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

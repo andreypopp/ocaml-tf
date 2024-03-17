@@ -12,6 +12,20 @@ type azurerm_data_factory_integration_runtime_managed__vnet_integration
 
 type azurerm_data_factory_integration_runtime_managed
 
+type t = private {
+  credential_name : string prop;
+  data_factory_id : string prop;
+  description : string prop;
+  edition : string prop;
+  id : string prop;
+  license_type : string prop;
+  location : string prop;
+  max_parallel_executions_per_node : float prop;
+  name : string prop;
+  node_size : string prop;
+  number_of_nodes : float prop;
+}
+
 val azurerm_data_factory_integration_runtime_managed :
   ?credential_name:string prop ->
   ?description:string prop ->
@@ -36,4 +50,4 @@ val azurerm_data_factory_integration_runtime_managed :
     azurerm_data_factory_integration_runtime_managed__vnet_integration
     list ->
   string ->
-  unit
+  t

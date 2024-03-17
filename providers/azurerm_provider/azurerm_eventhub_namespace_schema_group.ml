@@ -23,19 +23,42 @@ type azurerm_eventhub_namespace_schema_group = {
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace_schema_group *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  namespace_id : string prop;
+  schema_compatibility : string prop;
+  schema_type : string prop;
+}
+
 let azurerm_eventhub_namespace_schema_group ?id ?timeouts ~name
     ~namespace_id ~schema_compatibility ~schema_type __resource_id =
   let __resource_type = "azurerm_eventhub_namespace_schema_group" in
   let __resource =
-    {
-      id;
-      name;
-      namespace_id;
-      schema_compatibility;
-      schema_type;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       namespace_id;
+       schema_compatibility;
+       schema_type;
+       timeouts;
+     }
+      : azurerm_eventhub_namespace_schema_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventhub_namespace_schema_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       namespace_id =
+         Prop.computed __resource_type __resource_id "namespace_id";
+       schema_compatibility =
+         Prop.computed __resource_type __resource_id
+           "schema_compatibility";
+       schema_type =
+         Prop.computed __resource_type __resource_id "schema_type";
+     }
+      : t)
+  in
+  __resource_attributes

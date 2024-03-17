@@ -5,6 +5,17 @@ open! Tf.Prelude
 type azurerm_automation_connection_classic_certificate__timeouts
 type azurerm_automation_connection_classic_certificate
 
+type t = private {
+  automation_account_name : string prop;
+  certificate_asset_name : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  subscription_id : string prop;
+  subscription_name : string prop;
+}
+
 val azurerm_automation_connection_classic_certificate :
   ?description:string prop ->
   ?id:string prop ->
@@ -17,4 +28,4 @@ val azurerm_automation_connection_classic_certificate :
   subscription_id:string prop ->
   subscription_name:string prop ->
   string ->
-  unit
+  t

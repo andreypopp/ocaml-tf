@@ -344,6 +344,32 @@ be activated before they can issue certificates. Default value: SELF_SIGNED Poss
 [@@deriving yojson_of]
 (** google_privateca_certificate_authority *)
 
+type t = {
+  access_urls :
+    google_privateca_certificate_authority__access_urls list prop;
+  certificate_authority_id : string prop;
+  create_time : string prop;
+  deletion_protection : bool prop;
+  desired_state : string prop;
+  effective_labels : (string * string) list prop;
+  gcs_bucket : string prop;
+  id : string prop;
+  ignore_active_certificates_on_deletion : bool prop;
+  labels : (string * string) list prop;
+  lifetime : string prop;
+  location : string prop;
+  name : string prop;
+  pem_ca_certificate : string prop;
+  pem_ca_certificates : string list prop;
+  pool : string prop;
+  project : string prop;
+  skip_grace_period : bool prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+  update_time : string prop;
+}
+
 let google_privateca_certificate_authority ?deletion_protection
     ?desired_state ?gcs_bucket ?id
     ?ignore_active_certificates_on_deletion ?labels ?lifetime
@@ -352,27 +378,79 @@ let google_privateca_certificate_authority ?deletion_protection
     ~subordinate_config __resource_id =
   let __resource_type = "google_privateca_certificate_authority" in
   let __resource =
-    {
-      certificate_authority_id;
-      deletion_protection;
-      desired_state;
-      gcs_bucket;
-      id;
-      ignore_active_certificates_on_deletion;
-      labels;
-      lifetime;
-      location;
-      pem_ca_certificate;
-      pool;
-      project;
-      skip_grace_period;
-      type_;
-      config;
-      key_spec;
-      subordinate_config;
-      timeouts;
-    }
+    ({
+       certificate_authority_id;
+       deletion_protection;
+       desired_state;
+       gcs_bucket;
+       id;
+       ignore_active_certificates_on_deletion;
+       labels;
+       lifetime;
+       location;
+       pem_ca_certificate;
+       pool;
+       project;
+       skip_grace_period;
+       type_;
+       config;
+       key_spec;
+       subordinate_config;
+       timeouts;
+     }
+      : google_privateca_certificate_authority)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_privateca_certificate_authority __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_urls =
+         Prop.computed __resource_type __resource_id "access_urls";
+       certificate_authority_id =
+         Prop.computed __resource_type __resource_id
+           "certificate_authority_id";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       deletion_protection =
+         Prop.computed __resource_type __resource_id
+           "deletion_protection";
+       desired_state =
+         Prop.computed __resource_type __resource_id "desired_state";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       gcs_bucket =
+         Prop.computed __resource_type __resource_id "gcs_bucket";
+       id = Prop.computed __resource_type __resource_id "id";
+       ignore_active_certificates_on_deletion =
+         Prop.computed __resource_type __resource_id
+           "ignore_active_certificates_on_deletion";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       lifetime =
+         Prop.computed __resource_type __resource_id "lifetime";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       pem_ca_certificate =
+         Prop.computed __resource_type __resource_id
+           "pem_ca_certificate";
+       pem_ca_certificates =
+         Prop.computed __resource_type __resource_id
+           "pem_ca_certificates";
+       pool = Prop.computed __resource_type __resource_id "pool";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       skip_grace_period =
+         Prop.computed __resource_type __resource_id
+           "skip_grace_period";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

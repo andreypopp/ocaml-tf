@@ -6,6 +6,7 @@ type aws_networkfirewall_logging_configuration__logging_configuration__log_desti
 
 type aws_networkfirewall_logging_configuration__logging_configuration
 type aws_networkfirewall_logging_configuration
+type t = private { firewall_arn : string prop; id : string prop }
 
 val aws_networkfirewall_logging_configuration :
   ?id:string prop ->
@@ -14,4 +15,4 @@ val aws_networkfirewall_logging_configuration :
     aws_networkfirewall_logging_configuration__logging_configuration
     list ->
   string ->
-  unit
+  t

@@ -66,26 +66,59 @@ Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
 [@@deriving yojson_of]
 (** google_dialogflow_cx_entity_type *)
 
+type t = {
+  auto_expansion_mode : string prop;
+  display_name : string prop;
+  enable_fuzzy_extraction : bool prop;
+  id : string prop;
+  kind : string prop;
+  language_code : string prop;
+  name : string prop;
+  parent : string prop;
+  redact : bool prop;
+}
+
 let google_dialogflow_cx_entity_type ?auto_expansion_mode
     ?enable_fuzzy_extraction ?id ?language_code ?parent ?redact
     ?timeouts ~display_name ~kind ~entities ~excluded_phrases
     __resource_id =
   let __resource_type = "google_dialogflow_cx_entity_type" in
   let __resource =
-    {
-      auto_expansion_mode;
-      display_name;
-      enable_fuzzy_extraction;
-      id;
-      kind;
-      language_code;
-      parent;
-      redact;
-      entities;
-      excluded_phrases;
-      timeouts;
-    }
+    ({
+       auto_expansion_mode;
+       display_name;
+       enable_fuzzy_extraction;
+       id;
+       kind;
+       language_code;
+       parent;
+       redact;
+       entities;
+       excluded_phrases;
+       timeouts;
+     }
+      : google_dialogflow_cx_entity_type)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_entity_type __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_expansion_mode =
+         Prop.computed __resource_type __resource_id
+           "auto_expansion_mode";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enable_fuzzy_extraction =
+         Prop.computed __resource_type __resource_id
+           "enable_fuzzy_extraction";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       language_code =
+         Prop.computed __resource_type __resource_id "language_code";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       redact = Prop.computed __resource_type __resource_id "redact";
+     }
+      : t)
+  in
+  __resource_attributes

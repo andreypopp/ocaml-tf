@@ -4,10 +4,18 @@ open! Tf.Prelude
 
 type google_binary_authorization_attestor_iam_policy
 
+type t = private {
+  attestor : string prop;
+  etag : string prop;
+  id : string prop;
+  policy_data : string prop;
+  project : string prop;
+}
+
 val google_binary_authorization_attestor_iam_policy :
   ?id:string prop ->
   ?project:string prop ->
   attestor:string prop ->
   policy_data:string prop ->
   string ->
-  unit
+  t

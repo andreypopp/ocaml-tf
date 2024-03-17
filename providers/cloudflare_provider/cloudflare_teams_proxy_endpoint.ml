@@ -18,10 +18,32 @@ Endpoints are used for pointing proxy clients at Cloudflare Secure
 Gateway.
  *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  ips : string list prop;
+  name : string prop;
+  subdomain : string prop;
+}
+
 let cloudflare_teams_proxy_endpoint ?id ~account_id ~ips ~name
     __resource_id =
   let __resource_type = "cloudflare_teams_proxy_endpoint" in
-  let __resource = { account_id; id; ips; name } in
+  let __resource =
+    ({ account_id; id; ips; name } : cloudflare_teams_proxy_endpoint)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_proxy_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       ips = Prop.computed __resource_type __resource_id "ips";
+       name = Prop.computed __resource_type __resource_id "name";
+       subdomain =
+         Prop.computed __resource_type __resource_id "subdomain";
+     }
+      : t)
+  in
+  __resource_attributes

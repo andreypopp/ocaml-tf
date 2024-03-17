@@ -36,21 +36,49 @@ type azurerm_load_test = {
 [@@deriving yojson_of]
 (** azurerm_load_test *)
 
+type t = {
+  data_plane_uri : string prop;
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_load_test ?description ?id ?tags ?timeouts ~location
     ~name ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_load_test" in
   let __resource =
-    {
-      description;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      identity;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       identity;
+       timeouts;
+     }
+      : azurerm_load_test)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_load_test __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data_plane_uri =
+         Prop.computed __resource_type __resource_id "data_plane_uri";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

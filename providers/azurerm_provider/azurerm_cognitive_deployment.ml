@@ -46,22 +46,47 @@ type azurerm_cognitive_deployment = {
 [@@deriving yojson_of]
 (** azurerm_cognitive_deployment *)
 
+type t = {
+  cognitive_account_id : string prop;
+  id : string prop;
+  name : string prop;
+  rai_policy_name : string prop;
+  version_upgrade_option : string prop;
+}
+
 let azurerm_cognitive_deployment ?id ?rai_policy_name
     ?version_upgrade_option ?timeouts ~cognitive_account_id ~name
     ~model ~scale __resource_id =
   let __resource_type = "azurerm_cognitive_deployment" in
   let __resource =
-    {
-      cognitive_account_id;
-      id;
-      name;
-      rai_policy_name;
-      version_upgrade_option;
-      model;
-      scale;
-      timeouts;
-    }
+    ({
+       cognitive_account_id;
+       id;
+       name;
+       rai_policy_name;
+       version_upgrade_option;
+       model;
+       scale;
+       timeouts;
+     }
+      : azurerm_cognitive_deployment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cognitive_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cognitive_account_id =
+         Prop.computed __resource_type __resource_id
+           "cognitive_account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       rai_policy_name =
+         Prop.computed __resource_type __resource_id
+           "rai_policy_name";
+       version_upgrade_option =
+         Prop.computed __resource_type __resource_id
+           "version_upgrade_option";
+     }
+      : t)
+  in
+  __resource_attributes

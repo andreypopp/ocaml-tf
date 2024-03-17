@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_data_share_dataset_kusto_cluster__timeouts
 type azurerm_data_share_dataset_kusto_cluster
 
+type t = private {
+  display_name : string prop;
+  id : string prop;
+  kusto_cluster_id : string prop;
+  kusto_cluster_location : string prop;
+  name : string prop;
+  share_id : string prop;
+}
+
 val azurerm_data_share_dataset_kusto_cluster :
   ?id:string prop ->
   ?timeouts:azurerm_data_share_dataset_kusto_cluster__timeouts ->
@@ -12,4 +21,4 @@ val azurerm_data_share_dataset_kusto_cluster :
   name:string prop ->
   share_id:string prop ->
   string ->
-  unit
+  t

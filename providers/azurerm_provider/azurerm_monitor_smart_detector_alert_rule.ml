@@ -43,6 +43,20 @@ type azurerm_monitor_smart_detector_alert_rule = {
 [@@deriving yojson_of]
 (** azurerm_monitor_smart_detector_alert_rule *)
 
+type t = {
+  description : string prop;
+  detector_type : string prop;
+  enabled : bool prop;
+  frequency : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scope_resource_ids : string list prop;
+  severity : string prop;
+  tags : (string * string) list prop;
+  throttling_duration : string prop;
+}
+
 let azurerm_monitor_smart_detector_alert_rule ?description ?enabled
     ?id ?tags ?throttling_duration ?timeouts ~detector_type
     ~frequency ~name ~resource_group_name ~scope_resource_ids
@@ -51,22 +65,50 @@ let azurerm_monitor_smart_detector_alert_rule ?description ?enabled
     "azurerm_monitor_smart_detector_alert_rule"
   in
   let __resource =
-    {
-      description;
-      detector_type;
-      enabled;
-      frequency;
-      id;
-      name;
-      resource_group_name;
-      scope_resource_ids;
-      severity;
-      tags;
-      throttling_duration;
-      action_group;
-      timeouts;
-    }
+    ({
+       description;
+       detector_type;
+       enabled;
+       frequency;
+       id;
+       name;
+       resource_group_name;
+       scope_resource_ids;
+       severity;
+       tags;
+       throttling_duration;
+       action_group;
+       timeouts;
+     }
+      : azurerm_monitor_smart_detector_alert_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_smart_detector_alert_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       detector_type =
+         Prop.computed __resource_type __resource_id "detector_type";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scope_resource_ids =
+         Prop.computed __resource_type __resource_id
+           "scope_resource_ids";
+       severity =
+         Prop.computed __resource_type __resource_id "severity";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       throttling_duration =
+         Prop.computed __resource_type __resource_id
+           "throttling_duration";
+     }
+      : t)
+  in
+  __resource_attributes

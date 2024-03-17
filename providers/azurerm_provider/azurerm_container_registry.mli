@@ -44,6 +44,32 @@ type azurerm_container_registry__trust_policy = {
 
 type azurerm_container_registry
 
+type t = private {
+  admin_enabled : bool prop;
+  admin_password : string prop;
+  admin_username : string prop;
+  anonymous_pull_enabled : bool prop;
+  data_endpoint_enabled : bool prop;
+  encryption : azurerm_container_registry__encryption list prop;
+  export_policy_enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  login_server : string prop;
+  name : string prop;
+  network_rule_bypass_option : string prop;
+  network_rule_set :
+    azurerm_container_registry__network_rule_set list prop;
+  public_network_access_enabled : bool prop;
+  quarantine_policy_enabled : bool prop;
+  resource_group_name : string prop;
+  retention_policy :
+    azurerm_container_registry__retention_policy list prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  trust_policy : azurerm_container_registry__trust_policy list prop;
+  zone_redundancy_enabled : bool prop;
+}
+
 val azurerm_container_registry :
   ?admin_enabled:bool prop ->
   ?anonymous_pull_enabled:bool prop ->
@@ -67,4 +93,4 @@ val azurerm_container_registry :
   georeplications:azurerm_container_registry__georeplications list ->
   identity:azurerm_container_registry__identity list ->
   string ->
-  unit
+  t

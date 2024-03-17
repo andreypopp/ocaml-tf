@@ -44,20 +44,41 @@ type google_dns_response_policy = {
 [@@deriving yojson_of]
 (** google_dns_response_policy *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  project : string prop;
+  response_policy_name : string prop;
+}
+
 let google_dns_response_policy ?description ?id ?project ?timeouts
     ~response_policy_name ~gke_clusters ~networks __resource_id =
   let __resource_type = "google_dns_response_policy" in
   let __resource =
-    {
-      description;
-      id;
-      project;
-      response_policy_name;
-      gke_clusters;
-      networks;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       project;
+       response_policy_name;
+       gke_clusters;
+       networks;
+       timeouts;
+     }
+      : google_dns_response_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_response_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       response_policy_name =
+         Prop.computed __resource_type __resource_id
+           "response_policy_name";
+     }
+      : t)
+  in
+  __resource_attributes

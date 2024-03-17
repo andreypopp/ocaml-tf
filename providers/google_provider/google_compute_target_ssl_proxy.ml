@@ -47,24 +47,71 @@ resource will not have any SSL policy configured. *)
 [@@deriving yojson_of]
 (** google_compute_target_ssl_proxy *)
 
+type t = {
+  backend_service : string prop;
+  certificate_map : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  proxy_header : string prop;
+  proxy_id : float prop;
+  self_link : string prop;
+  ssl_certificates : string list prop;
+  ssl_policy : string prop;
+}
+
 let google_compute_target_ssl_proxy ?certificate_map ?description ?id
     ?project ?proxy_header ?ssl_certificates ?ssl_policy ?timeouts
     ~backend_service ~name __resource_id =
   let __resource_type = "google_compute_target_ssl_proxy" in
   let __resource =
-    {
-      backend_service;
-      certificate_map;
-      description;
-      id;
-      name;
-      project;
-      proxy_header;
-      ssl_certificates;
-      ssl_policy;
-      timeouts;
-    }
+    ({
+       backend_service;
+       certificate_map;
+       description;
+       id;
+       name;
+       project;
+       proxy_header;
+       ssl_certificates;
+       ssl_policy;
+       timeouts;
+     }
+      : google_compute_target_ssl_proxy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_ssl_proxy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backend_service =
+         Prop.computed __resource_type __resource_id
+           "backend_service";
+       certificate_map =
+         Prop.computed __resource_type __resource_id
+           "certificate_map";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       proxy_header =
+         Prop.computed __resource_type __resource_id "proxy_header";
+       proxy_id =
+         Prop.computed __resource_type __resource_id "proxy_id";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       ssl_certificates =
+         Prop.computed __resource_type __resource_id
+           "ssl_certificates";
+       ssl_policy =
+         Prop.computed __resource_type __resource_id "ssl_policy";
+     }
+      : t)
+  in
+  __resource_attributes

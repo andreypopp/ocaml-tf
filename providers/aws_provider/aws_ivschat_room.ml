@@ -40,23 +40,55 @@ type aws_ivschat_room = {
 [@@deriving yojson_of]
 (** aws_ivschat_room *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  logging_configuration_identifiers : string list prop;
+  maximum_message_length : float prop;
+  maximum_message_rate_per_second : float prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ivschat_room ?id ?logging_configuration_identifiers
     ?maximum_message_length ?maximum_message_rate_per_second ?name
     ?tags ?tags_all ?timeouts ~message_review_handler __resource_id =
   let __resource_type = "aws_ivschat_room" in
   let __resource =
-    {
-      id;
-      logging_configuration_identifiers;
-      maximum_message_length;
-      maximum_message_rate_per_second;
-      name;
-      tags;
-      tags_all;
-      message_review_handler;
-      timeouts;
-    }
+    ({
+       id;
+       logging_configuration_identifiers;
+       maximum_message_length;
+       maximum_message_rate_per_second;
+       name;
+       tags;
+       tags_all;
+       message_review_handler;
+       timeouts;
+     }
+      : aws_ivschat_room)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ivschat_room __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       logging_configuration_identifiers =
+         Prop.computed __resource_type __resource_id
+           "logging_configuration_identifiers";
+       maximum_message_length =
+         Prop.computed __resource_type __resource_id
+           "maximum_message_length";
+       maximum_message_rate_per_second =
+         Prop.computed __resource_type __resource_id
+           "maximum_message_rate_per_second";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

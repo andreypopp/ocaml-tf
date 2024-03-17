@@ -244,24 +244,69 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_gke_backup_restore_plan *)
 
+type t = {
+  backup_plan : string prop;
+  cluster : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  state_reason : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+}
+
 let google_gke_backup_restore_plan ?description ?id ?labels ?project
     ?timeouts ~backup_plan ~cluster ~location ~name ~restore_config
     __resource_id =
   let __resource_type = "google_gke_backup_restore_plan" in
   let __resource =
-    {
-      backup_plan;
-      cluster;
-      description;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      restore_config;
-      timeouts;
-    }
+    ({
+       backup_plan;
+       cluster;
+       description;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       restore_config;
+       timeouts;
+     }
+      : google_gke_backup_restore_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_backup_restore_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backup_plan =
+         Prop.computed __resource_type __resource_id "backup_plan";
+       cluster =
+         Prop.computed __resource_type __resource_id "cluster";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_reason =
+         Prop.computed __resource_type __resource_id "state_reason";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+     }
+      : t)
+  in
+  __resource_attributes

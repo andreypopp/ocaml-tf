@@ -92,6 +92,14 @@ type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack = {
 [@@deriving yojson_of]
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  rulestack_id : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
     ?id ?tags ?timeouts ~name ~resource_group_name ~rulestack_id
     ~destination_nat ~dns_settings ~network_profile __resource_id =
@@ -99,19 +107,33 @@ let azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
     "azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack"
   in
   let __resource =
-    {
-      id;
-      name;
-      resource_group_name;
-      rulestack_id;
-      tags;
-      destination_nat;
-      dns_settings;
-      network_profile;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       resource_group_name;
+       rulestack_id;
+       tags;
+       destination_nat;
+       dns_settings;
+       network_profile;
+       timeouts;
+     }
+      : azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       rulestack_id =
+         Prop.computed __resource_type __resource_id "rulestack_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

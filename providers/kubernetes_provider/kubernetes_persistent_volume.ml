@@ -495,10 +495,17 @@ type kubernetes_persistent_volume = {
 [@@deriving yojson_of]
 (** kubernetes_persistent_volume *)
 
+type t = { id : string prop }
+
 let kubernetes_persistent_volume ?id ?timeouts ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_persistent_volume" in
-  let __resource = { id; metadata; spec; timeouts } in
+  let __resource =
+    ({ id; metadata; spec; timeouts } : kubernetes_persistent_volume)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_persistent_volume __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

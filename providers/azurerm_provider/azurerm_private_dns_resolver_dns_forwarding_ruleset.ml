@@ -28,6 +28,15 @@ type azurerm_private_dns_resolver_dns_forwarding_ruleset = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_dns_forwarding_ruleset *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_dns_resolver_outbound_endpoint_ids : string list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_private_dns_resolver_dns_forwarding_ruleset ?id ?tags
     ?timeouts ~location ~name
     ~private_dns_resolver_outbound_endpoint_ids ~resource_group_name
@@ -36,17 +45,34 @@ let azurerm_private_dns_resolver_dns_forwarding_ruleset ?id ?tags
     "azurerm_private_dns_resolver_dns_forwarding_ruleset"
   in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      private_dns_resolver_outbound_endpoint_ids;
-      resource_group_name;
-      tags;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       private_dns_resolver_outbound_endpoint_ids;
+       resource_group_name;
+       tags;
+       timeouts;
+     }
+      : azurerm_private_dns_resolver_dns_forwarding_ruleset)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_resolver_dns_forwarding_ruleset
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_dns_resolver_outbound_endpoint_ids =
+         Prop.computed __resource_type __resource_id
+           "private_dns_resolver_outbound_endpoint_ids";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

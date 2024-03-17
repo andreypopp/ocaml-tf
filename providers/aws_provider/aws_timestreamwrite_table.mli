@@ -12,6 +12,15 @@ type aws_timestreamwrite_table__schema__composite_partition_key
 type aws_timestreamwrite_table__schema
 type aws_timestreamwrite_table
 
+type t = private {
+  arn : string prop;
+  database_name : string prop;
+  id : string prop;
+  table_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_timestreamwrite_table :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -24,4 +33,4 @@ val aws_timestreamwrite_table :
     aws_timestreamwrite_table__retention_properties list ->
   schema:aws_timestreamwrite_table__schema list ->
   string ->
-  unit
+  t

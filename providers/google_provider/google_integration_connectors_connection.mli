@@ -114,6 +114,37 @@ type google_integration_connectors_connection__status = {
 
 type google_integration_connectors_connection
 
+type t = private {
+  connection_revision : string prop;
+  connector_version : string prop;
+  connector_version_infra_config :
+    google_integration_connectors_connection__connector_version_infra_config
+    list
+    prop;
+  connector_version_launch_stage : string prop;
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  eventing_enablement_type : string prop;
+  eventing_runtime_data :
+    google_integration_connectors_connection__eventing_runtime_data
+    list
+    prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  service_account : string prop;
+  service_directory : string prop;
+  status :
+    google_integration_connectors_connection__status list prop;
+  subscription_type : string prop;
+  suspended : bool prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_integration_connectors_connection :
   ?description:string prop ->
   ?eventing_enablement_type:string prop ->
@@ -143,4 +174,4 @@ val google_integration_connectors_connection :
   ssl_config:
     google_integration_connectors_connection__ssl_config list ->
   string ->
-  unit
+  t

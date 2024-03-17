@@ -5,6 +5,22 @@ open! Tf.Prelude
 type google_sql_source_representation_instance__timeouts
 type google_sql_source_representation_instance
 
+type t = private {
+  ca_certificate : string prop;
+  client_certificate : string prop;
+  client_key : string prop;
+  database_version : string prop;
+  dump_file_path : string prop;
+  host : string prop;
+  id : string prop;
+  name : string prop;
+  password : string prop;
+  port : float prop;
+  project : string prop;
+  region : string prop;
+  username : string prop;
+}
+
 val google_sql_source_representation_instance :
   ?ca_certificate:string prop ->
   ?client_certificate:string prop ->
@@ -21,4 +37,4 @@ val google_sql_source_representation_instance :
   host:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

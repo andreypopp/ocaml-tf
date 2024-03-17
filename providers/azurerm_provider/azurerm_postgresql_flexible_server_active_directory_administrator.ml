@@ -27,6 +27,16 @@ type azurerm_postgresql_flexible_server_active_directory_administrator = {
 [@@deriving yojson_of]
 (** azurerm_postgresql_flexible_server_active_directory_administrator *)
 
+type t = {
+  id : string prop;
+  object_id : string prop;
+  principal_name : string prop;
+  principal_type : string prop;
+  resource_group_name : string prop;
+  server_name : string prop;
+  tenant_id : string prop;
+}
+
 let azurerm_postgresql_flexible_server_active_directory_administrator
     ?id ?timeouts ~object_id ~principal_name ~principal_type
     ~resource_group_name ~server_name ~tenant_id __resource_id =
@@ -34,18 +44,38 @@ let azurerm_postgresql_flexible_server_active_directory_administrator
     "azurerm_postgresql_flexible_server_active_directory_administrator"
   in
   let __resource =
-    {
-      id;
-      object_id;
-      principal_name;
-      principal_type;
-      resource_group_name;
-      server_name;
-      tenant_id;
-      timeouts;
-    }
+    ({
+       id;
+       object_id;
+       principal_name;
+       principal_type;
+       resource_group_name;
+       server_name;
+       tenant_id;
+       timeouts;
+     }
+      : azurerm_postgresql_flexible_server_active_directory_administrator)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_postgresql_flexible_server_active_directory_administrator
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       object_id =
+         Prop.computed __resource_type __resource_id "object_id";
+       principal_name =
+         Prop.computed __resource_type __resource_id "principal_name";
+       principal_type =
+         Prop.computed __resource_type __resource_id "principal_type";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       server_name =
+         Prop.computed __resource_type __resource_id "server_name";
+       tenant_id =
+         Prop.computed __resource_type __resource_id "tenant_id";
+     }
+      : t)
+  in
+  __resource_attributes

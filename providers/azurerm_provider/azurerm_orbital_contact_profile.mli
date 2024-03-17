@@ -8,6 +8,19 @@ type azurerm_orbital_contact_profile__links
 type azurerm_orbital_contact_profile__timeouts
 type azurerm_orbital_contact_profile
 
+type t = private {
+  auto_tracking : string prop;
+  event_hub_uri : string prop;
+  id : string prop;
+  location : string prop;
+  minimum_elevation_degrees : float prop;
+  minimum_variable_contact_duration : string prop;
+  name : string prop;
+  network_configuration_subnet_id : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_orbital_contact_profile :
   ?event_hub_uri:string prop ->
   ?id:string prop ->
@@ -22,4 +35,4 @@ val azurerm_orbital_contact_profile :
   resource_group_name:string prop ->
   links:azurerm_orbital_contact_profile__links list ->
   string ->
-  unit
+  t

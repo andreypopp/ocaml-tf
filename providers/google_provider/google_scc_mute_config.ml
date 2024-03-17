@@ -33,12 +33,45 @@ projects/[project_id]. *)
 [@@deriving yojson_of]
 (** google_scc_mute_config *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  filter : string prop;
+  id : string prop;
+  most_recent_editor : string prop;
+  mute_config_id : string prop;
+  name : string prop;
+  parent : string prop;
+  update_time : string prop;
+}
+
 let google_scc_mute_config ?description ?id ?timeouts ~filter
     ~mute_config_id ~parent __resource_id =
   let __resource_type = "google_scc_mute_config" in
   let __resource =
-    { description; filter; id; mute_config_id; parent; timeouts }
+    ({ description; filter; id; mute_config_id; parent; timeouts }
+      : google_scc_mute_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_mute_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       filter = Prop.computed __resource_type __resource_id "filter";
+       id = Prop.computed __resource_type __resource_id "id";
+       most_recent_editor =
+         Prop.computed __resource_type __resource_id
+           "most_recent_editor";
+       mute_config_id =
+         Prop.computed __resource_type __resource_id "mute_config_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

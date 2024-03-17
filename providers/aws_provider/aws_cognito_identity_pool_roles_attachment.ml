@@ -35,12 +35,31 @@ type aws_cognito_identity_pool_roles_attachment = {
 [@@deriving yojson_of]
 (** aws_cognito_identity_pool_roles_attachment *)
 
+type t = {
+  id : string prop;
+  identity_pool_id : string prop;
+  roles : (string * string) list prop;
+}
+
 let aws_cognito_identity_pool_roles_attachment ?id ~identity_pool_id
     ~roles ~role_mapping __resource_id =
   let __resource_type =
     "aws_cognito_identity_pool_roles_attachment"
   in
-  let __resource = { id; identity_pool_id; roles; role_mapping } in
+  let __resource =
+    ({ id; identity_pool_id; roles; role_mapping }
+      : aws_cognito_identity_pool_roles_attachment)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_identity_pool_roles_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_pool_id =
+         Prop.computed __resource_type __resource_id
+           "identity_pool_id";
+       roles = Prop.computed __resource_type __resource_id "roles";
+     }
+      : t)
+  in
+  __resource_attributes

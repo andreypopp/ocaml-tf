@@ -15,12 +15,36 @@ type aws_glue_registry = {
 [@@deriving yojson_of]
 (** aws_glue_registry *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  registry_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_glue_registry ?description ?id ?tags ?tags_all ~registry_name
     __resource_id =
   let __resource_type = "aws_glue_registry" in
   let __resource =
-    { description; id; registry_name; tags; tags_all }
+    ({ description; id; registry_name; tags; tags_all }
+      : aws_glue_registry)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_registry __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       registry_name =
+         Prop.computed __resource_type __resource_id "registry_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

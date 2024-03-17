@@ -5,6 +5,18 @@ open! Tf.Prelude
 type azurerm_iothub_endpoint_eventhub__timeouts
 type azurerm_iothub_endpoint_eventhub
 
+type t = private {
+  authentication_type : string prop;
+  connection_string : string prop;
+  endpoint_uri : string prop;
+  entity_path : string prop;
+  id : string prop;
+  identity_id : string prop;
+  iothub_id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_iothub_endpoint_eventhub :
   ?authentication_type:string prop ->
   ?connection_string:string prop ->
@@ -17,4 +29,4 @@ val azurerm_iothub_endpoint_eventhub :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

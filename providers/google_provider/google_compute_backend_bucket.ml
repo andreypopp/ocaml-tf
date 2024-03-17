@@ -110,26 +110,70 @@ last character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_backend_bucket *)
 
+type t = {
+  bucket_name : string prop;
+  compression_mode : string prop;
+  creation_timestamp : string prop;
+  custom_response_headers : string list prop;
+  description : string prop;
+  edge_security_policy : string prop;
+  enable_cdn : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 let google_compute_backend_bucket ?compression_mode
     ?custom_response_headers ?description ?edge_security_policy
     ?enable_cdn ?id ?project ?timeouts ~bucket_name ~name ~cdn_policy
     __resource_id =
   let __resource_type = "google_compute_backend_bucket" in
   let __resource =
-    {
-      bucket_name;
-      compression_mode;
-      custom_response_headers;
-      description;
-      edge_security_policy;
-      enable_cdn;
-      id;
-      name;
-      project;
-      cdn_policy;
-      timeouts;
-    }
+    ({
+       bucket_name;
+       compression_mode;
+       custom_response_headers;
+       description;
+       edge_security_policy;
+       enable_cdn;
+       id;
+       name;
+       project;
+       cdn_policy;
+       timeouts;
+     }
+      : google_compute_backend_bucket)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_backend_bucket __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket_name =
+         Prop.computed __resource_type __resource_id "bucket_name";
+       compression_mode =
+         Prop.computed __resource_type __resource_id
+           "compression_mode";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       custom_response_headers =
+         Prop.computed __resource_type __resource_id
+           "custom_response_headers";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       edge_security_policy =
+         Prop.computed __resource_type __resource_id
+           "edge_security_policy";
+       enable_cdn =
+         Prop.computed __resource_type __resource_id "enable_cdn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

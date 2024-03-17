@@ -583,6 +583,37 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_integration_connectors_connection *)
 
+type t = {
+  connection_revision : string prop;
+  connector_version : string prop;
+  connector_version_infra_config :
+    google_integration_connectors_connection__connector_version_infra_config
+    list
+    prop;
+  connector_version_launch_stage : string prop;
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  eventing_enablement_type : string prop;
+  eventing_runtime_data :
+    google_integration_connectors_connection__eventing_runtime_data
+    list
+    prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  service_account : string prop;
+  service_directory : string prop;
+  status :
+    google_integration_connectors_connection__status list prop;
+  subscription_type : string prop;
+  suspended : bool prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_integration_connectors_connection ?description
     ?eventing_enablement_type ?id ?labels ?project ?service_account
     ?suspended ?timeouts ~connector_version ~location ~name
@@ -591,28 +622,83 @@ let google_integration_connectors_connection ?description
     ~ssl_config __resource_id =
   let __resource_type = "google_integration_connectors_connection" in
   let __resource =
-    {
-      connector_version;
-      description;
-      eventing_enablement_type;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      service_account;
-      suspended;
-      auth_config;
-      config_variable;
-      destination_config;
-      eventing_config;
-      lock_config;
-      log_config;
-      node_config;
-      ssl_config;
-      timeouts;
-    }
+    ({
+       connector_version;
+       description;
+       eventing_enablement_type;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       service_account;
+       suspended;
+       auth_config;
+       config_variable;
+       destination_config;
+       eventing_config;
+       lock_config;
+       log_config;
+       node_config;
+       ssl_config;
+       timeouts;
+     }
+      : google_integration_connectors_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_integration_connectors_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connection_revision =
+         Prop.computed __resource_type __resource_id
+           "connection_revision";
+       connector_version =
+         Prop.computed __resource_type __resource_id
+           "connector_version";
+       connector_version_infra_config =
+         Prop.computed __resource_type __resource_id
+           "connector_version_infra_config";
+       connector_version_launch_stage =
+         Prop.computed __resource_type __resource_id
+           "connector_version_launch_stage";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       eventing_enablement_type =
+         Prop.computed __resource_type __resource_id
+           "eventing_enablement_type";
+       eventing_runtime_data =
+         Prop.computed __resource_type __resource_id
+           "eventing_runtime_data";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       service_account =
+         Prop.computed __resource_type __resource_id
+           "service_account";
+       service_directory =
+         Prop.computed __resource_type __resource_id
+           "service_directory";
+       status = Prop.computed __resource_type __resource_id "status";
+       subscription_type =
+         Prop.computed __resource_type __resource_id
+           "subscription_type";
+       suspended =
+         Prop.computed __resource_type __resource_id "suspended";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

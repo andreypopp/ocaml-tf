@@ -43,6 +43,15 @@ type google_document_ai_warehouse_document_schema__property_definitions
 type google_document_ai_warehouse_document_schema__timeouts
 type google_document_ai_warehouse_document_schema
 
+type t = private {
+  display_name : string prop;
+  document_is_folder : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project_number : string prop;
+}
+
 val google_document_ai_warehouse_document_schema :
   ?document_is_folder:bool prop ->
   ?id:string prop ->
@@ -54,4 +63,4 @@ val google_document_ai_warehouse_document_schema :
     google_document_ai_warehouse_document_schema__property_definitions
     list ->
   string ->
-  unit
+  t

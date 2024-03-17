@@ -32,15 +32,43 @@ A duration in seconds with up to nine fractional digits, ending with 's'. Exampl
 [@@deriving yojson_of]
 (** google_firebase_app_check_recaptcha_v3_config *)
 
+type t = {
+  app_id : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  site_secret : string prop;
+  site_secret_set : bool prop;
+  token_ttl : string prop;
+}
+
 let google_firebase_app_check_recaptcha_v3_config ?id ?project
     ?token_ttl ?timeouts ~app_id ~site_secret __resource_id =
   let __resource_type =
     "google_firebase_app_check_recaptcha_v3_config"
   in
   let __resource =
-    { app_id; id; project; site_secret; token_ttl; timeouts }
+    ({ app_id; id; project; site_secret; token_ttl; timeouts }
+      : google_firebase_app_check_recaptcha_v3_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebase_app_check_recaptcha_v3_config
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_id = Prop.computed __resource_type __resource_id "app_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       site_secret =
+         Prop.computed __resource_type __resource_id "site_secret";
+       site_secret_set =
+         Prop.computed __resource_type __resource_id
+           "site_secret_set";
+       token_ttl =
+         Prop.computed __resource_type __resource_id "token_ttl";
+     }
+      : t)
+  in
+  __resource_attributes

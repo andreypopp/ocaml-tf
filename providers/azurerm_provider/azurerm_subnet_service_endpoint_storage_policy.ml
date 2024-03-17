@@ -36,6 +36,14 @@ type azurerm_subnet_service_endpoint_storage_policy = {
 [@@deriving yojson_of]
 (** azurerm_subnet_service_endpoint_storage_policy *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_subnet_service_endpoint_storage_policy ?id ?tags
     ?timeouts ~location ~name ~resource_group_name ~definition
     __resource_id =
@@ -43,17 +51,31 @@ let azurerm_subnet_service_endpoint_storage_policy ?id ?tags
     "azurerm_subnet_service_endpoint_storage_policy"
   in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      definition;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       definition;
+       timeouts;
+     }
+      : azurerm_subnet_service_endpoint_storage_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_subnet_service_endpoint_storage_policy
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

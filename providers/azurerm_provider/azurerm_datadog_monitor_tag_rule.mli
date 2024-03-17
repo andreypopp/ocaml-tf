@@ -9,6 +9,12 @@ type azurerm_datadog_monitor_tag_rule__metric
 type azurerm_datadog_monitor_tag_rule__timeouts
 type azurerm_datadog_monitor_tag_rule
 
+type t = private {
+  datadog_monitor_id : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val azurerm_datadog_monitor_tag_rule :
   ?id:string prop ->
   ?name:string prop ->
@@ -17,4 +23,4 @@ val azurerm_datadog_monitor_tag_rule :
   log:azurerm_datadog_monitor_tag_rule__log list ->
   metric:azurerm_datadog_monitor_tag_rule__metric list ->
   string ->
-  unit
+  t

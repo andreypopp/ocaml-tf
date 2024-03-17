@@ -50,6 +50,25 @@ type aws_ssm_association = {
 [@@deriving yojson_of]
 (** aws_ssm_association *)
 
+type t = {
+  apply_only_at_cron_interval : bool prop;
+  arn : string prop;
+  association_id : string prop;
+  association_name : string prop;
+  automation_target_parameter_name : string prop;
+  compliance_severity : string prop;
+  document_version : string prop;
+  id : string prop;
+  instance_id : string prop;
+  max_concurrency : string prop;
+  max_errors : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  schedule_expression : string prop;
+  sync_compliance : string prop;
+  wait_for_success_timeout_seconds : float prop;
+}
+
 let aws_ssm_association ?apply_only_at_cron_interval
     ?association_name ?automation_target_parameter_name
     ?compliance_severity ?document_version ?id ?instance_id
@@ -58,25 +77,69 @@ let aws_ssm_association ?apply_only_at_cron_interval
     ~output_location ~targets __resource_id =
   let __resource_type = "aws_ssm_association" in
   let __resource =
-    {
-      apply_only_at_cron_interval;
-      association_name;
-      automation_target_parameter_name;
-      compliance_severity;
-      document_version;
-      id;
-      instance_id;
-      max_concurrency;
-      max_errors;
-      name;
-      parameters;
-      schedule_expression;
-      sync_compliance;
-      wait_for_success_timeout_seconds;
-      output_location;
-      targets;
-    }
+    ({
+       apply_only_at_cron_interval;
+       association_name;
+       automation_target_parameter_name;
+       compliance_severity;
+       document_version;
+       id;
+       instance_id;
+       max_concurrency;
+       max_errors;
+       name;
+       parameters;
+       schedule_expression;
+       sync_compliance;
+       wait_for_success_timeout_seconds;
+       output_location;
+       targets;
+     }
+      : aws_ssm_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_association __resource);
-  ()
+  let __resource_attributes =
+    ({
+       apply_only_at_cron_interval =
+         Prop.computed __resource_type __resource_id
+           "apply_only_at_cron_interval";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       association_id =
+         Prop.computed __resource_type __resource_id "association_id";
+       association_name =
+         Prop.computed __resource_type __resource_id
+           "association_name";
+       automation_target_parameter_name =
+         Prop.computed __resource_type __resource_id
+           "automation_target_parameter_name";
+       compliance_severity =
+         Prop.computed __resource_type __resource_id
+           "compliance_severity";
+       document_version =
+         Prop.computed __resource_type __resource_id
+           "document_version";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_id =
+         Prop.computed __resource_type __resource_id "instance_id";
+       max_concurrency =
+         Prop.computed __resource_type __resource_id
+           "max_concurrency";
+       max_errors =
+         Prop.computed __resource_type __resource_id "max_errors";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       schedule_expression =
+         Prop.computed __resource_type __resource_id
+           "schedule_expression";
+       sync_compliance =
+         Prop.computed __resource_type __resource_id
+           "sync_compliance";
+       wait_for_success_timeout_seconds =
+         Prop.computed __resource_type __resource_id
+           "wait_for_success_timeout_seconds";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -26,22 +26,51 @@ type azurerm_netapp_volume_quota_rule = {
 [@@deriving yojson_of]
 (** azurerm_netapp_volume_quota_rule *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  quota_size_in_kib : float prop;
+  quota_target : string prop;
+  quota_type : string prop;
+  volume_id : string prop;
+}
+
 let azurerm_netapp_volume_quota_rule ?id ?quota_target ?timeouts
     ~location ~name ~quota_size_in_kib ~quota_type ~volume_id
     __resource_id =
   let __resource_type = "azurerm_netapp_volume_quota_rule" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      quota_size_in_kib;
-      quota_target;
-      quota_type;
-      volume_id;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       quota_size_in_kib;
+       quota_target;
+       quota_type;
+       volume_id;
+       timeouts;
+     }
+      : azurerm_netapp_volume_quota_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_volume_quota_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       quota_size_in_kib =
+         Prop.computed __resource_type __resource_id
+           "quota_size_in_kib";
+       quota_target =
+         Prop.computed __resource_type __resource_id "quota_target";
+       quota_type =
+         Prop.computed __resource_type __resource_id "quota_type";
+       volume_id =
+         Prop.computed __resource_type __resource_id "volume_id";
+     }
+      : t)
+  in
+  __resource_attributes

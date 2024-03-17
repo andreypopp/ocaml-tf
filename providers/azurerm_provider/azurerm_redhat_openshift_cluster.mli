@@ -12,6 +12,15 @@ type azurerm_redhat_openshift_cluster__timeouts
 type azurerm_redhat_openshift_cluster__worker_profile
 type azurerm_redhat_openshift_cluster
 
+type t = private {
+  console_url : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_redhat_openshift_cluster :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -33,4 +42,4 @@ val azurerm_redhat_openshift_cluster :
   worker_profile:
     azurerm_redhat_openshift_cluster__worker_profile list ->
   string ->
-  unit
+  t

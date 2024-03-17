@@ -172,10 +172,29 @@ type cloudflare_tunnel_config = {
 (** Provides a Cloudflare Tunnel configuration resource.
  *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  tunnel_id : string prop;
+}
+
 let cloudflare_tunnel_config ?id ~account_id ~tunnel_id ~config
     __resource_id =
   let __resource_type = "cloudflare_tunnel_config" in
-  let __resource = { account_id; id; tunnel_id; config } in
+  let __resource =
+    ({ account_id; id; tunnel_id; config }
+      : cloudflare_tunnel_config)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_tunnel_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       tunnel_id =
+         Prop.computed __resource_type __resource_id "tunnel_id";
+     }
+      : t)
+  in
+  __resource_attributes

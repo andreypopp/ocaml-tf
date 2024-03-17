@@ -36,20 +36,50 @@ type aws_ssoadmin_trusted_token_issuer = {
 [@@deriving yojson_of]
 (** aws_ssoadmin_trusted_token_issuer *)
 
+type t = {
+  arn : string prop;
+  client_token : string prop;
+  id : string prop;
+  instance_arn : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  trusted_token_issuer_type : string prop;
+}
+
 let aws_ssoadmin_trusted_token_issuer ?client_token ?tags
     ~instance_arn ~name ~trusted_token_issuer_type
     ~trusted_token_issuer_configuration __resource_id =
   let __resource_type = "aws_ssoadmin_trusted_token_issuer" in
   let __resource =
-    {
-      client_token;
-      instance_arn;
-      name;
-      tags;
-      trusted_token_issuer_type;
-      trusted_token_issuer_configuration;
-    }
+    ({
+       client_token;
+       instance_arn;
+       name;
+       tags;
+       trusted_token_issuer_type;
+       trusted_token_issuer_configuration;
+     }
+      : aws_ssoadmin_trusted_token_issuer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssoadmin_trusted_token_issuer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       client_token =
+         Prop.computed __resource_type __resource_id "client_token";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_arn =
+         Prop.computed __resource_type __resource_id "instance_arn";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       trusted_token_issuer_type =
+         Prop.computed __resource_type __resource_id
+           "trusted_token_issuer_type";
+     }
+      : t)
+  in
+  __resource_attributes

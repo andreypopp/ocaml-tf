@@ -206,6 +206,37 @@ create the disk. Provide this when creating the disk. *)
 [@@deriving yojson_of]
 (** google_compute_disk *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  disk_id : string prop;
+  effective_labels : (string * string) list prop;
+  enable_confidential_compute : bool prop;
+  id : string prop;
+  image : string prop;
+  label_fingerprint : string prop;
+  labels : (string * string) list prop;
+  last_attach_timestamp : string prop;
+  last_detach_timestamp : string prop;
+  licenses : string list prop;
+  name : string prop;
+  physical_block_size_bytes : float prop;
+  project : string prop;
+  provisioned_iops : float prop;
+  provisioned_throughput : float prop;
+  self_link : string prop;
+  size : float prop;
+  snapshot : string prop;
+  source_disk : string prop;
+  source_disk_id : string prop;
+  source_image_id : string prop;
+  source_snapshot_id : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+  users : string list prop;
+  zone : string prop;
+}
+
 let google_compute_disk ?description ?enable_confidential_compute ?id
     ?image ?labels ?licenses ?physical_block_size_bytes ?project
     ?provisioned_iops ?provisioned_throughput ?size ?snapshot
@@ -215,31 +246,97 @@ let google_compute_disk ?description ?enable_confidential_compute ?id
     __resource_id =
   let __resource_type = "google_compute_disk" in
   let __resource =
-    {
-      description;
-      enable_confidential_compute;
-      id;
-      image;
-      labels;
-      licenses;
-      name;
-      physical_block_size_bytes;
-      project;
-      provisioned_iops;
-      provisioned_throughput;
-      size;
-      snapshot;
-      source_disk;
-      type_;
-      zone;
-      async_primary_disk;
-      disk_encryption_key;
-      guest_os_features;
-      source_image_encryption_key;
-      source_snapshot_encryption_key;
-      timeouts;
-    }
+    ({
+       description;
+       enable_confidential_compute;
+       id;
+       image;
+       labels;
+       licenses;
+       name;
+       physical_block_size_bytes;
+       project;
+       provisioned_iops;
+       provisioned_throughput;
+       size;
+       snapshot;
+       source_disk;
+       type_;
+       zone;
+       async_primary_disk;
+       disk_encryption_key;
+       guest_os_features;
+       source_image_encryption_key;
+       source_snapshot_encryption_key;
+       timeouts;
+     }
+      : google_compute_disk)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_disk __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disk_id =
+         Prop.computed __resource_type __resource_id "disk_id";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       enable_confidential_compute =
+         Prop.computed __resource_type __resource_id
+           "enable_confidential_compute";
+       id = Prop.computed __resource_type __resource_id "id";
+       image = Prop.computed __resource_type __resource_id "image";
+       label_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "label_fingerprint";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       last_attach_timestamp =
+         Prop.computed __resource_type __resource_id
+           "last_attach_timestamp";
+       last_detach_timestamp =
+         Prop.computed __resource_type __resource_id
+           "last_detach_timestamp";
+       licenses =
+         Prop.computed __resource_type __resource_id "licenses";
+       name = Prop.computed __resource_type __resource_id "name";
+       physical_block_size_bytes =
+         Prop.computed __resource_type __resource_id
+           "physical_block_size_bytes";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       provisioned_iops =
+         Prop.computed __resource_type __resource_id
+           "provisioned_iops";
+       provisioned_throughput =
+         Prop.computed __resource_type __resource_id
+           "provisioned_throughput";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       size = Prop.computed __resource_type __resource_id "size";
+       snapshot =
+         Prop.computed __resource_type __resource_id "snapshot";
+       source_disk =
+         Prop.computed __resource_type __resource_id "source_disk";
+       source_disk_id =
+         Prop.computed __resource_type __resource_id "source_disk_id";
+       source_image_id =
+         Prop.computed __resource_type __resource_id
+           "source_image_id";
+       source_snapshot_id =
+         Prop.computed __resource_type __resource_id
+           "source_snapshot_id";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       users = Prop.computed __resource_type __resource_id "users";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

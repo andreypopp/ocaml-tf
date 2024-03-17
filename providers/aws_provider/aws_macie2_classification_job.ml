@@ -263,28 +263,82 @@ type aws_macie2_classification_job = {
 [@@deriving yojson_of]
 (** aws_macie2_classification_job *)
 
+type t = {
+  created_at : string prop;
+  custom_data_identifier_ids : string list prop;
+  description : string prop;
+  id : string prop;
+  initial_run : bool prop;
+  job_arn : string prop;
+  job_id : string prop;
+  job_status : string prop;
+  job_type : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  sampling_percentage : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_paused_details :
+    aws_macie2_classification_job__user_paused_details list prop;
+}
+
 let aws_macie2_classification_job ?custom_data_identifier_ids
     ?description ?id ?initial_run ?job_status ?name ?name_prefix
     ?sampling_percentage ?tags ?tags_all ~job_type ~s3_job_definition
     ~schedule_frequency __resource_id =
   let __resource_type = "aws_macie2_classification_job" in
   let __resource =
-    {
-      custom_data_identifier_ids;
-      description;
-      id;
-      initial_run;
-      job_status;
-      job_type;
-      name;
-      name_prefix;
-      sampling_percentage;
-      tags;
-      tags_all;
-      s3_job_definition;
-      schedule_frequency;
-    }
+    ({
+       custom_data_identifier_ids;
+       description;
+       id;
+       initial_run;
+       job_status;
+       job_type;
+       name;
+       name_prefix;
+       sampling_percentage;
+       tags;
+       tags_all;
+       s3_job_definition;
+       schedule_frequency;
+     }
+      : aws_macie2_classification_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_macie2_classification_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       custom_data_identifier_ids =
+         Prop.computed __resource_type __resource_id
+           "custom_data_identifier_ids";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       initial_run =
+         Prop.computed __resource_type __resource_id "initial_run";
+       job_arn =
+         Prop.computed __resource_type __resource_id "job_arn";
+       job_id = Prop.computed __resource_type __resource_id "job_id";
+       job_status =
+         Prop.computed __resource_type __resource_id "job_status";
+       job_type =
+         Prop.computed __resource_type __resource_id "job_type";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       sampling_percentage =
+         Prop.computed __resource_type __resource_id
+           "sampling_percentage";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       user_paused_details =
+         Prop.computed __resource_type __resource_id
+           "user_paused_details";
+     }
+      : t)
+  in
+  __resource_attributes

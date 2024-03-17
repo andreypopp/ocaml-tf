@@ -55,12 +55,39 @@ type digitalocean_firewall = {
 [@@deriving yojson_of]
 (** digitalocean_firewall *)
 
+type t = {
+  created_at : string prop;
+  droplet_ids : float list prop;
+  id : string prop;
+  name : string prop;
+  pending_changes : digitalocean_firewall__pending_changes list prop;
+  status : string prop;
+  tags : string list prop;
+}
+
 let digitalocean_firewall ?droplet_ids ?id ?tags ~name ~inbound_rule
     ~outbound_rule __resource_id =
   let __resource_type = "digitalocean_firewall" in
   let __resource =
-    { droplet_ids; id; name; tags; inbound_rule; outbound_rule }
+    ({ droplet_ids; id; name; tags; inbound_rule; outbound_rule }
+      : digitalocean_firewall)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_firewall __resource);
-  ()
+  let __resource_attributes =
+    ({
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       droplet_ids =
+         Prop.computed __resource_type __resource_id "droplet_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       pending_changes =
+         Prop.computed __resource_type __resource_id
+           "pending_changes";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

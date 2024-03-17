@@ -7,6 +7,20 @@ type google_monitoring_metric_descriptor__metadata
 type google_monitoring_metric_descriptor__timeouts
 type google_monitoring_metric_descriptor
 
+type t = private {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  launch_stage : string prop;
+  metric_kind : string prop;
+  monitored_resource_types : string list prop;
+  name : string prop;
+  project : string prop;
+  type_ : string prop;
+  unit : string prop;
+  value_type : string prop;
+}
+
 val google_monitoring_metric_descriptor :
   ?id:string prop ->
   ?launch_stage:string prop ->
@@ -21,4 +35,4 @@ val google_monitoring_metric_descriptor :
   labels:google_monitoring_metric_descriptor__labels list ->
   metadata:google_monitoring_metric_descriptor__metadata list ->
   string ->
-  unit
+  t

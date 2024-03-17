@@ -57,29 +57,71 @@ type azurerm_virtual_network = {
 [@@deriving yojson_of]
 (** azurerm_virtual_network *)
 
+type t = {
+  address_space : string list prop;
+  bgp_community : string prop;
+  dns_servers : string list prop;
+  edge_zone : string prop;
+  flow_timeout_in_minutes : float prop;
+  guid : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  subnet : azurerm_virtual_network__subnet list prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_virtual_network ?bgp_community ?dns_servers ?edge_zone
     ?flow_timeout_in_minutes ?id ?subnet ?tags ?timeouts
     ~address_space ~location ~name ~resource_group_name
     ~ddos_protection_plan ~encryption __resource_id =
   let __resource_type = "azurerm_virtual_network" in
   let __resource =
-    {
-      address_space;
-      bgp_community;
-      dns_servers;
-      edge_zone;
-      flow_timeout_in_minutes;
-      id;
-      location;
-      name;
-      resource_group_name;
-      subnet;
-      tags;
-      ddos_protection_plan;
-      encryption;
-      timeouts;
-    }
+    ({
+       address_space;
+       bgp_community;
+       dns_servers;
+       edge_zone;
+       flow_timeout_in_minutes;
+       id;
+       location;
+       name;
+       resource_group_name;
+       subnet;
+       tags;
+       ddos_protection_plan;
+       encryption;
+       timeouts;
+     }
+      : azurerm_virtual_network)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network __resource);
-  ()
+  let __resource_attributes =
+    ({
+       address_space =
+         Prop.computed __resource_type __resource_id "address_space";
+       bgp_community =
+         Prop.computed __resource_type __resource_id "bgp_community";
+       dns_servers =
+         Prop.computed __resource_type __resource_id "dns_servers";
+       edge_zone =
+         Prop.computed __resource_type __resource_id "edge_zone";
+       flow_timeout_in_minutes =
+         Prop.computed __resource_type __resource_id
+           "flow_timeout_in_minutes";
+       guid = Prop.computed __resource_type __resource_id "guid";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       subnet = Prop.computed __resource_type __resource_id "subnet";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

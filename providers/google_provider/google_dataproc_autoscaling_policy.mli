@@ -9,6 +9,14 @@ type google_dataproc_autoscaling_policy__timeouts
 type google_dataproc_autoscaling_policy__worker_config
 type google_dataproc_autoscaling_policy
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  policy_id : string prop;
+  project : string prop;
+}
+
 val google_dataproc_autoscaling_policy :
   ?id:string prop ->
   ?location:string prop ->
@@ -22,4 +30,4 @@ val google_dataproc_autoscaling_policy :
   worker_config:
     google_dataproc_autoscaling_policy__worker_config list ->
   string ->
-  unit
+  t

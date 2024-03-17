@@ -29,6 +29,14 @@ type azurerm_network_manager_security_admin_configuration = {
 [@@deriving yojson_of]
 (** azurerm_network_manager_security_admin_configuration *)
 
+type t = {
+  apply_on_network_intent_policy_based_services : string list prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  network_manager_id : string prop;
+}
+
 let azurerm_network_manager_security_admin_configuration
     ?apply_on_network_intent_policy_based_services ?description ?id
     ?timeouts ~name ~network_manager_id __resource_id =
@@ -36,16 +44,32 @@ let azurerm_network_manager_security_admin_configuration
     "azurerm_network_manager_security_admin_configuration"
   in
   let __resource =
-    {
-      apply_on_network_intent_policy_based_services;
-      description;
-      id;
-      name;
-      network_manager_id;
-      timeouts;
-    }
+    ({
+       apply_on_network_intent_policy_based_services;
+       description;
+       id;
+       name;
+       network_manager_id;
+       timeouts;
+     }
+      : azurerm_network_manager_security_admin_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_security_admin_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       apply_on_network_intent_policy_based_services =
+         Prop.computed __resource_type __resource_id
+           "apply_on_network_intent_policy_based_services";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_manager_id =
+         Prop.computed __resource_type __resource_id
+           "network_manager_id";
+     }
+      : t)
+  in
+  __resource_attributes

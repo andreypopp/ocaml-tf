@@ -74,6 +74,15 @@ type azurerm_logic_app_integration_account_batch_configuration = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_batch_configuration *)
 
+type t = {
+  batch_group_name : string prop;
+  id : string prop;
+  integration_account_name : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_logic_app_integration_account_batch_configuration ?id
     ?metadata ?timeouts ~batch_group_name ~integration_account_name
     ~name ~resource_group_name ~release_criteria __resource_id =
@@ -81,18 +90,37 @@ let azurerm_logic_app_integration_account_batch_configuration ?id
     "azurerm_logic_app_integration_account_batch_configuration"
   in
   let __resource =
-    {
-      batch_group_name;
-      id;
-      integration_account_name;
-      metadata;
-      name;
-      resource_group_name;
-      release_criteria;
-      timeouts;
-    }
+    ({
+       batch_group_name;
+       id;
+       integration_account_name;
+       metadata;
+       name;
+       resource_group_name;
+       release_criteria;
+       timeouts;
+     }
+      : azurerm_logic_app_integration_account_batch_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_batch_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       batch_group_name =
+         Prop.computed __resource_type __resource_id
+           "batch_group_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_account_name =
+         Prop.computed __resource_type __resource_id
+           "integration_account_name";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

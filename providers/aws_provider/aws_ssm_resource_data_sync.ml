@@ -22,10 +22,21 @@ type aws_ssm_resource_data_sync = {
 [@@deriving yojson_of]
 (** aws_ssm_resource_data_sync *)
 
+type t = { id : string prop; name : string prop }
+
 let aws_ssm_resource_data_sync ?id ~name ~s3_destination
     __resource_id =
   let __resource_type = "aws_ssm_resource_data_sync" in
-  let __resource = { id; name; s3_destination } in
+  let __resource =
+    ({ id; name; s3_destination } : aws_ssm_resource_data_sync)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_resource_data_sync __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

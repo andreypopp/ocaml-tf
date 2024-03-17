@@ -39,12 +39,42 @@ type azurerm_dns_zone = {
 [@@deriving yojson_of]
 (** azurerm_dns_zone *)
 
+type t = {
+  id : string prop;
+  max_number_of_record_sets : float prop;
+  name : string prop;
+  name_servers : string list prop;
+  number_of_record_sets : float prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_dns_zone ?id ?tags ?timeouts ~name ~resource_group_name
     ~soa_record __resource_id =
   let __resource_type = "azurerm_dns_zone" in
   let __resource =
-    { id; name; resource_group_name; tags; soa_record; timeouts }
+    ({ id; name; resource_group_name; tags; soa_record; timeouts }
+      : azurerm_dns_zone)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dns_zone __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       max_number_of_record_sets =
+         Prop.computed __resource_type __resource_id
+           "max_number_of_record_sets";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_servers =
+         Prop.computed __resource_type __resource_id "name_servers";
+       number_of_record_sets =
+         Prop.computed __resource_type __resource_id
+           "number_of_record_sets";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

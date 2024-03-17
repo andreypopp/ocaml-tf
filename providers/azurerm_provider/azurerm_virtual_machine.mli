@@ -22,6 +22,23 @@ type azurerm_virtual_machine__storage_os_disk
 type azurerm_virtual_machine__timeouts
 type azurerm_virtual_machine
 
+type t = private {
+  availability_set_id : string prop;
+  delete_data_disks_on_termination : bool prop;
+  delete_os_disk_on_termination : bool prop;
+  id : string prop;
+  license_type : string prop;
+  location : string prop;
+  name : string prop;
+  network_interface_ids : string list prop;
+  primary_network_interface_id : string prop;
+  proximity_placement_group_id : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  vm_size : string prop;
+  zones : string list prop;
+}
+
 val azurerm_virtual_machine :
   ?availability_set_id:string prop ->
   ?delete_data_disks_on_termination:bool prop ->
@@ -54,4 +71,4 @@ val azurerm_virtual_machine :
     azurerm_virtual_machine__storage_image_reference list ->
   storage_os_disk:azurerm_virtual_machine__storage_os_disk list ->
   string ->
-  unit
+  t

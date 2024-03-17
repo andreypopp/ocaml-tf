@@ -5,6 +5,15 @@ open! Tf.Prelude
 type aws_route53recoveryreadiness_readiness_check__timeouts
 type aws_route53recoveryreadiness_readiness_check
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  readiness_check_name : string prop;
+  resource_set_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_route53recoveryreadiness_readiness_check :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -13,4 +22,4 @@ val aws_route53recoveryreadiness_readiness_check :
   readiness_check_name:string prop ->
   resource_set_name:string prop ->
   string ->
-  unit
+  t

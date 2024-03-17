@@ -874,9 +874,43 @@ type digitalocean_app = {
 [@@deriving yojson_of]
 (** digitalocean_app *)
 
+type t = {
+  active_deployment_id : string prop;
+  created_at : string prop;
+  default_ingress : string prop;
+  id : string prop;
+  live_url : string prop;
+  project_id : string prop;
+  updated_at : string prop;
+  urn : string prop;
+}
+
 let digitalocean_app ?id ?project_id ?timeouts ~spec __resource_id =
   let __resource_type = "digitalocean_app" in
-  let __resource = { id; project_id; spec; timeouts } in
+  let __resource =
+    ({ id; project_id; spec; timeouts } : digitalocean_app)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_app __resource);
-  ()
+  let __resource_attributes =
+    ({
+       active_deployment_id =
+         Prop.computed __resource_type __resource_id
+           "active_deployment_id";
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       default_ingress =
+         Prop.computed __resource_type __resource_id
+           "default_ingress";
+       id = Prop.computed __resource_type __resource_id "id";
+       live_url =
+         Prop.computed __resource_type __resource_id "live_url";
+       project_id =
+         Prop.computed __resource_type __resource_id "project_id";
+       updated_at =
+         Prop.computed __resource_type __resource_id "updated_at";
+       urn = Prop.computed __resource_type __resource_id "urn";
+     }
+      : t)
+  in
+  __resource_attributes

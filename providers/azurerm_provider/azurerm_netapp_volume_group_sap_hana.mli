@@ -12,6 +12,16 @@ type azurerm_netapp_volume_group_sap_hana__volume__export_policy_rule
 type azurerm_netapp_volume_group_sap_hana__volume
 type azurerm_netapp_volume_group_sap_hana
 
+type t = private {
+  account_name : string prop;
+  application_identifier : string prop;
+  group_description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_netapp_volume_group_sap_hana :
   ?id:string prop ->
   ?timeouts:azurerm_netapp_volume_group_sap_hana__timeouts ->
@@ -23,4 +33,4 @@ val azurerm_netapp_volume_group_sap_hana :
   resource_group_name:string prop ->
   volume:azurerm_netapp_volume_group_sap_hana__volume list ->
   string ->
-  unit
+  t

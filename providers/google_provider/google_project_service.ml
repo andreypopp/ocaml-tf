@@ -26,20 +26,45 @@ type google_project_service = {
 [@@deriving yojson_of]
 (** google_project_service *)
 
+type t = {
+  disable_dependent_services : bool prop;
+  disable_on_destroy : bool prop;
+  id : string prop;
+  project : string prop;
+  service : string prop;
+}
+
 let google_project_service ?disable_dependent_services
     ?disable_on_destroy ?id ?project ?timeouts ~service __resource_id
     =
   let __resource_type = "google_project_service" in
   let __resource =
-    {
-      disable_dependent_services;
-      disable_on_destroy;
-      id;
-      project;
-      service;
-      timeouts;
-    }
+    ({
+       disable_dependent_services;
+       disable_on_destroy;
+       id;
+       project;
+       service;
+       timeouts;
+     }
+      : google_project_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       disable_dependent_services =
+         Prop.computed __resource_type __resource_id
+           "disable_dependent_services";
+       disable_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "disable_on_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+     }
+      : t)
+  in
+  __resource_attributes

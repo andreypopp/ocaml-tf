@@ -37,6 +37,23 @@ type azurerm_cosmosdb_cassandra_datacenter = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_datacenter *)
 
+type t = {
+  availability_zones_enabled : bool prop;
+  backup_storage_customer_key_uri : string prop;
+  base64_encoded_yaml_fragment : string prop;
+  cassandra_cluster_id : string prop;
+  delegated_management_subnet_id : string prop;
+  disk_count : float prop;
+  disk_sku : string prop;
+  id : string prop;
+  location : string prop;
+  managed_disk_customer_key_uri : string prop;
+  name : string prop;
+  node_count : float prop;
+  seed_node_ip_addresses : string list prop;
+  sku_name : string prop;
+}
+
 let azurerm_cosmosdb_cassandra_datacenter ?availability_zones_enabled
     ?backup_storage_customer_key_uri ?base64_encoded_yaml_fragment
     ?disk_count ?disk_sku ?id ?managed_disk_customer_key_uri
@@ -44,23 +61,62 @@ let azurerm_cosmosdb_cassandra_datacenter ?availability_zones_enabled
     ~delegated_management_subnet_id ~location ~name __resource_id =
   let __resource_type = "azurerm_cosmosdb_cassandra_datacenter" in
   let __resource =
-    {
-      availability_zones_enabled;
-      backup_storage_customer_key_uri;
-      base64_encoded_yaml_fragment;
-      cassandra_cluster_id;
-      delegated_management_subnet_id;
-      disk_count;
-      disk_sku;
-      id;
-      location;
-      managed_disk_customer_key_uri;
-      name;
-      node_count;
-      sku_name;
-      timeouts;
-    }
+    ({
+       availability_zones_enabled;
+       backup_storage_customer_key_uri;
+       base64_encoded_yaml_fragment;
+       cassandra_cluster_id;
+       delegated_management_subnet_id;
+       disk_count;
+       disk_sku;
+       id;
+       location;
+       managed_disk_customer_key_uri;
+       name;
+       node_count;
+       sku_name;
+       timeouts;
+     }
+      : azurerm_cosmosdb_cassandra_datacenter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_cassandra_datacenter __resource);
-  ()
+  let __resource_attributes =
+    ({
+       availability_zones_enabled =
+         Prop.computed __resource_type __resource_id
+           "availability_zones_enabled";
+       backup_storage_customer_key_uri =
+         Prop.computed __resource_type __resource_id
+           "backup_storage_customer_key_uri";
+       base64_encoded_yaml_fragment =
+         Prop.computed __resource_type __resource_id
+           "base64_encoded_yaml_fragment";
+       cassandra_cluster_id =
+         Prop.computed __resource_type __resource_id
+           "cassandra_cluster_id";
+       delegated_management_subnet_id =
+         Prop.computed __resource_type __resource_id
+           "delegated_management_subnet_id";
+       disk_count =
+         Prop.computed __resource_type __resource_id "disk_count";
+       disk_sku =
+         Prop.computed __resource_type __resource_id "disk_sku";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       managed_disk_customer_key_uri =
+         Prop.computed __resource_type __resource_id
+           "managed_disk_customer_key_uri";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_count =
+         Prop.computed __resource_type __resource_id "node_count";
+       seed_node_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "seed_node_ip_addresses";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+     }
+      : t)
+  in
+  __resource_attributes

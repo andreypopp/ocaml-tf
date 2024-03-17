@@ -6,6 +6,13 @@ type azurerm_bot_channel_directline__site
 type azurerm_bot_channel_directline__timeouts
 type azurerm_bot_channel_directline
 
+type t = private {
+  bot_name : string prop;
+  id : string prop;
+  location : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_bot_channel_directline :
   ?id:string prop ->
   ?timeouts:azurerm_bot_channel_directline__timeouts ->
@@ -14,4 +21,4 @@ val azurerm_bot_channel_directline :
   resource_group_name:string prop ->
   site:azurerm_bot_channel_directline__site list ->
   string ->
-  unit
+  t

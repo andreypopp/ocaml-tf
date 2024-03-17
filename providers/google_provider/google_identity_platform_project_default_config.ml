@@ -79,13 +79,31 @@ type google_identity_platform_project_default_config = {
 [@@deriving yojson_of]
 (** google_identity_platform_project_default_config *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_identity_platform_project_default_config ?id ?project
     ?timeouts ~sign_in __resource_id =
   let __resource_type =
     "google_identity_platform_project_default_config"
   in
-  let __resource = { id; project; sign_in; timeouts } in
+  let __resource =
+    ({ id; project; sign_in; timeouts }
+      : google_identity_platform_project_default_config)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_project_default_config
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

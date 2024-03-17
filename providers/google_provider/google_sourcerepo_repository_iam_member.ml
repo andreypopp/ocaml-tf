@@ -23,12 +23,35 @@ type google_sourcerepo_repository_iam_member = {
 [@@deriving yojson_of]
 (** google_sourcerepo_repository_iam_member *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  project : string prop;
+  repository : string prop;
+  role : string prop;
+}
+
 let google_sourcerepo_repository_iam_member ?id ?project ~member
     ~repository ~role ~condition __resource_id =
   let __resource_type = "google_sourcerepo_repository_iam_member" in
   let __resource =
-    { id; member; project; repository; role; condition }
+    ({ id; member; project; repository; role; condition }
+      : google_sourcerepo_repository_iam_member)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sourcerepo_repository_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       repository =
+         Prop.computed __resource_type __resource_id "repository";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

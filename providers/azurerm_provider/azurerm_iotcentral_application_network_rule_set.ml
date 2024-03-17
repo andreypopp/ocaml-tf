@@ -36,6 +36,13 @@ type azurerm_iotcentral_application_network_rule_set = {
 [@@deriving yojson_of]
 (** azurerm_iotcentral_application_network_rule_set *)
 
+type t = {
+  apply_to_device : bool prop;
+  default_action : string prop;
+  id : string prop;
+  iotcentral_application_id : string prop;
+}
+
 let azurerm_iotcentral_application_network_rule_set ?apply_to_device
     ?default_action ?id ?timeouts ~iotcentral_application_id ~ip_rule
     __resource_id =
@@ -43,16 +50,31 @@ let azurerm_iotcentral_application_network_rule_set ?apply_to_device
     "azurerm_iotcentral_application_network_rule_set"
   in
   let __resource =
-    {
-      apply_to_device;
-      default_action;
-      id;
-      iotcentral_application_id;
-      ip_rule;
-      timeouts;
-    }
+    ({
+       apply_to_device;
+       default_action;
+       id;
+       iotcentral_application_id;
+       ip_rule;
+       timeouts;
+     }
+      : azurerm_iotcentral_application_network_rule_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iotcentral_application_network_rule_set
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       apply_to_device =
+         Prop.computed __resource_type __resource_id
+           "apply_to_device";
+       default_action =
+         Prop.computed __resource_type __resource_id "default_action";
+       id = Prop.computed __resource_type __resource_id "id";
+       iotcentral_application_id =
+         Prop.computed __resource_type __resource_id
+           "iotcentral_application_id";
+     }
+      : t)
+  in
+  __resource_attributes

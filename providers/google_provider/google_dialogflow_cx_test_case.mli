@@ -137,6 +137,18 @@ type google_dialogflow_cx_test_case__last_test_result = {
 
 type google_dialogflow_cx_test_case
 
+type t = private {
+  creation_time : string prop;
+  display_name : string prop;
+  id : string prop;
+  last_test_result :
+    google_dialogflow_cx_test_case__last_test_result list prop;
+  name : string prop;
+  notes : string prop;
+  parent : string prop;
+  tags : string list prop;
+}
+
 val google_dialogflow_cx_test_case :
   ?id:string prop ->
   ?notes:string prop ->
@@ -148,4 +160,4 @@ val google_dialogflow_cx_test_case :
     google_dialogflow_cx_test_case__test_case_conversation_turns list ->
   test_config:google_dialogflow_cx_test_case__test_config list ->
   string ->
-  unit
+  t

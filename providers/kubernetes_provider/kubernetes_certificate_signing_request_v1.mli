@@ -7,6 +7,12 @@ type kubernetes_certificate_signing_request_v1__spec
 type kubernetes_certificate_signing_request_v1__timeouts
 type kubernetes_certificate_signing_request_v1
 
+type t = private {
+  auto_approve : bool prop;
+  certificate : string prop;
+  id : string prop;
+}
+
 val kubernetes_certificate_signing_request_v1 :
   ?auto_approve:bool prop ->
   ?id:string prop ->
@@ -14,4 +20,4 @@ val kubernetes_certificate_signing_request_v1 :
   metadata:kubernetes_certificate_signing_request_v1__metadata list ->
   spec:kubernetes_certificate_signing_request_v1__spec list ->
   string ->
-  unit
+  t

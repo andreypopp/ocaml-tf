@@ -45,21 +45,49 @@ type google_firestore_index = {
 [@@deriving yojson_of]
 (** google_firestore_index *)
 
+type t = {
+  api_scope : string prop;
+  collection : string prop;
+  database : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  query_scope : string prop;
+}
+
 let google_firestore_index ?api_scope ?database ?id ?project
     ?query_scope ?timeouts ~collection ~fields __resource_id =
   let __resource_type = "google_firestore_index" in
   let __resource =
-    {
-      api_scope;
-      collection;
-      database;
-      id;
-      project;
-      query_scope;
-      fields;
-      timeouts;
-    }
+    ({
+       api_scope;
+       collection;
+       database;
+       id;
+       project;
+       query_scope;
+       fields;
+       timeouts;
+     }
+      : google_firestore_index)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firestore_index __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_scope =
+         Prop.computed __resource_type __resource_id "api_scope";
+       collection =
+         Prop.computed __resource_type __resource_id "collection";
+       database =
+         Prop.computed __resource_type __resource_id "database";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       query_scope =
+         Prop.computed __resource_type __resource_id "query_scope";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -17,6 +17,16 @@ type azurerm_monitor_action_group__webhook_receiver__aad_auth
 type azurerm_monitor_action_group__webhook_receiver
 type azurerm_monitor_action_group
 
+type t = private {
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  short_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_monitor_action_group :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -45,4 +55,4 @@ val azurerm_monitor_action_group :
   webhook_receiver:
     azurerm_monitor_action_group__webhook_receiver list ->
   string ->
-  unit
+  t

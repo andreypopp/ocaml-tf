@@ -15,12 +15,39 @@ type aws_apprunner_connection = {
 [@@deriving yojson_of]
 (** aws_apprunner_connection *)
 
+type t = {
+  arn : string prop;
+  connection_name : string prop;
+  id : string prop;
+  provider_type : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_apprunner_connection ?id ?tags ?tags_all ~connection_name
     ~provider_type __resource_id =
   let __resource_type = "aws_apprunner_connection" in
   let __resource =
-    { connection_name; id; provider_type; tags; tags_all }
+    ({ connection_name; id; provider_type; tags; tags_all }
+      : aws_apprunner_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apprunner_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       connection_name =
+         Prop.computed __resource_type __resource_id
+           "connection_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       provider_type =
+         Prop.computed __resource_type __resource_id "provider_type";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

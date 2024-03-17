@@ -19,6 +19,22 @@ type azurerm_automation_runbook__job_schedule = {
 
 type azurerm_automation_runbook
 
+type t = private {
+  automation_account_name : string prop;
+  content : string prop;
+  description : string prop;
+  id : string prop;
+  job_schedule : azurerm_automation_runbook__job_schedule list prop;
+  location : string prop;
+  log_activity_trace_level : float prop;
+  log_progress : bool prop;
+  log_verbose : bool prop;
+  name : string prop;
+  resource_group_name : string prop;
+  runbook_type : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_automation_runbook :
   ?content:string prop ->
   ?description:string prop ->
@@ -38,4 +54,4 @@ val azurerm_automation_runbook :
   publish_content_link:
     azurerm_automation_runbook__publish_content_link list ->
   string ->
-  unit
+  t

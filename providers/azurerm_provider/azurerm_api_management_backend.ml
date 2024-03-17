@@ -95,29 +95,63 @@ type azurerm_api_management_backend = {
 [@@deriving yojson_of]
 (** azurerm_api_management_backend *)
 
+type t = {
+  api_management_name : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  protocol : string prop;
+  resource_group_name : string prop;
+  resource_id : string prop;
+  title : string prop;
+  url : string prop;
+}
+
 let azurerm_api_management_backend ?description ?id ?resource_id
     ?title ?timeouts ~api_management_name ~name ~protocol
     ~resource_group_name ~url ~credentials ~proxy
     ~service_fabric_cluster ~tls __resource_id =
   let __resource_type = "azurerm_api_management_backend" in
   let __resource =
-    {
-      api_management_name;
-      description;
-      id;
-      name;
-      protocol;
-      resource_group_name;
-      resource_id;
-      title;
-      url;
-      credentials;
-      proxy;
-      service_fabric_cluster;
-      timeouts;
-      tls;
-    }
+    ({
+       api_management_name;
+       description;
+       id;
+       name;
+       protocol;
+       resource_group_name;
+       resource_id;
+       title;
+       url;
+       credentials;
+       proxy;
+       service_fabric_cluster;
+       timeouts;
+       tls;
+     }
+      : azurerm_api_management_backend)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_backend __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       resource_id =
+         Prop.computed __resource_type __resource_id "resource_id";
+       title = Prop.computed __resource_type __resource_id "title";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

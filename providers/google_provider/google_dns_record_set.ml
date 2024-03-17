@@ -189,21 +189,47 @@ type google_dns_record_set = {
 [@@deriving yojson_of]
 (** google_dns_record_set *)
 
+type t = {
+  id : string prop;
+  managed_zone : string prop;
+  name : string prop;
+  project : string prop;
+  rrdatas : string list prop;
+  ttl : float prop;
+  type_ : string prop;
+}
+
 let google_dns_record_set ?id ?project ?rrdatas ?ttl ~managed_zone
     ~name ~type_ ~routing_policy __resource_id =
   let __resource_type = "google_dns_record_set" in
   let __resource =
-    {
-      id;
-      managed_zone;
-      name;
-      project;
-      rrdatas;
-      ttl;
-      type_;
-      routing_policy;
-    }
+    ({
+       id;
+       managed_zone;
+       name;
+       project;
+       rrdatas;
+       ttl;
+       type_;
+       routing_policy;
+     }
+      : google_dns_record_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_record_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       managed_zone =
+         Prop.computed __resource_type __resource_id "managed_zone";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       rrdatas =
+         Prop.computed __resource_type __resource_id "rrdatas";
+       ttl = Prop.computed __resource_type __resource_id "ttl";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

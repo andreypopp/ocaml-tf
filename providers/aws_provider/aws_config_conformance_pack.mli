@@ -5,6 +5,16 @@ open! Tf.Prelude
 type aws_config_conformance_pack__input_parameter
 type aws_config_conformance_pack
 
+type t = private {
+  arn : string prop;
+  delivery_s3_bucket : string prop;
+  delivery_s3_key_prefix : string prop;
+  id : string prop;
+  name : string prop;
+  template_body : string prop;
+  template_s3_uri : string prop;
+}
+
 val aws_config_conformance_pack :
   ?delivery_s3_bucket:string prop ->
   ?delivery_s3_key_prefix:string prop ->
@@ -14,4 +24,4 @@ val aws_config_conformance_pack :
   name:string prop ->
   input_parameter:aws_config_conformance_pack__input_parameter list ->
   string ->
-  unit
+  t

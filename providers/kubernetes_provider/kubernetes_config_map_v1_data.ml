@@ -25,10 +25,30 @@ type kubernetes_config_map_v1_data = {
 [@@deriving yojson_of]
 (** kubernetes_config_map_v1_data *)
 
+type t = {
+  data : (string * string) list prop;
+  field_manager : string prop;
+  force : bool prop;
+  id : string prop;
+}
+
 let kubernetes_config_map_v1_data ?field_manager ?force ?id ~data
     ~metadata __resource_id =
   let __resource_type = "kubernetes_config_map_v1_data" in
-  let __resource = { data; field_manager; force; id; metadata } in
+  let __resource =
+    ({ data; field_manager; force; id; metadata }
+      : kubernetes_config_map_v1_data)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_config_map_v1_data __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data = Prop.computed __resource_type __resource_id "data";
+       field_manager =
+         Prop.computed __resource_type __resource_id "field_manager";
+       force = Prop.computed __resource_type __resource_id "force";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

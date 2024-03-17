@@ -37,6 +37,17 @@ type google_privateca_ca_pool__publishing_options
 type google_privateca_ca_pool__timeouts
 type google_privateca_ca_pool
 
+type t = private {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  tier : string prop;
+}
+
 val google_privateca_ca_pool :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -49,4 +60,4 @@ val google_privateca_ca_pool :
   publishing_options:
     google_privateca_ca_pool__publishing_options list ->
   string ->
-  unit
+  t

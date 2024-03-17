@@ -181,21 +181,51 @@ character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_autoscaler *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  target : string prop;
+  zone : string prop;
+}
+
 let google_compute_autoscaler ?description ?id ?project ?zone
     ?timeouts ~name ~target ~autoscaling_policy __resource_id =
   let __resource_type = "google_compute_autoscaler" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      project;
-      target;
-      zone;
-      autoscaling_policy;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       project;
+       target;
+       zone;
+       autoscaling_policy;
+       timeouts;
+     }
+      : google_compute_autoscaler)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_autoscaler __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       target = Prop.computed __resource_type __resource_id "target";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

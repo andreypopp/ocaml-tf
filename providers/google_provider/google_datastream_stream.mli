@@ -106,6 +106,21 @@ type google_datastream_stream__source_config
 type google_datastream_stream__timeouts
 type google_datastream_stream
 
+type t = private {
+  customer_managed_encryption_key : string prop;
+  desired_state : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  stream_id : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_datastream_stream :
   ?customer_managed_encryption_key:string prop ->
   ?desired_state:string prop ->
@@ -122,4 +137,4 @@ val google_datastream_stream :
     google_datastream_stream__destination_config list ->
   source_config:google_datastream_stream__source_config list ->
   string ->
-  unit
+  t

@@ -43,6 +43,21 @@ type azurerm_managed_application_definition = {
 [@@deriving yojson_of]
 (** azurerm_managed_application_definition *)
 
+type t = {
+  create_ui_definition : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  lock_level : string prop;
+  main_template : string prop;
+  name : string prop;
+  package_enabled : bool prop;
+  package_file_uri : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_managed_application_definition ?create_ui_definition
     ?description ?id ?main_template ?package_enabled
     ?package_file_uri ?tags ?timeouts ~display_name ~location
@@ -50,23 +65,54 @@ let azurerm_managed_application_definition ?create_ui_definition
     __resource_id =
   let __resource_type = "azurerm_managed_application_definition" in
   let __resource =
-    {
-      create_ui_definition;
-      description;
-      display_name;
-      id;
-      location;
-      lock_level;
-      main_template;
-      name;
-      package_enabled;
-      package_file_uri;
-      resource_group_name;
-      tags;
-      authorization;
-      timeouts;
-    }
+    ({
+       create_ui_definition;
+       description;
+       display_name;
+       id;
+       location;
+       lock_level;
+       main_template;
+       name;
+       package_enabled;
+       package_file_uri;
+       resource_group_name;
+       tags;
+       authorization;
+       timeouts;
+     }
+      : azurerm_managed_application_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_managed_application_definition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_ui_definition =
+         Prop.computed __resource_type __resource_id
+           "create_ui_definition";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       lock_level =
+         Prop.computed __resource_type __resource_id "lock_level";
+       main_template =
+         Prop.computed __resource_type __resource_id "main_template";
+       name = Prop.computed __resource_type __resource_id "name";
+       package_enabled =
+         Prop.computed __resource_type __resource_id
+           "package_enabled";
+       package_file_uri =
+         Prop.computed __resource_type __resource_id
+           "package_file_uri";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

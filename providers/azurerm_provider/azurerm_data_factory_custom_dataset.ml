@@ -44,28 +44,69 @@ type azurerm_data_factory_custom_dataset = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_custom_dataset *)
 
+type t = {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  folder : string prop;
+  id : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  schema_json : string prop;
+  type_ : string prop;
+  type_properties_json : string prop;
+}
+
 let azurerm_data_factory_custom_dataset ?additional_properties
     ?annotations ?description ?folder ?id ?parameters ?schema_json
     ?timeouts ~data_factory_id ~name ~type_ ~type_properties_json
     ~linked_service __resource_id =
   let __resource_type = "azurerm_data_factory_custom_dataset" in
   let __resource =
-    {
-      additional_properties;
-      annotations;
-      data_factory_id;
-      description;
-      folder;
-      id;
-      name;
-      parameters;
-      schema_json;
-      type_;
-      type_properties_json;
-      linked_service;
-      timeouts;
-    }
+    ({
+       additional_properties;
+       annotations;
+       data_factory_id;
+       description;
+       folder;
+       id;
+       name;
+       parameters;
+       schema_json;
+       type_;
+       type_properties_json;
+       linked_service;
+       timeouts;
+     }
+      : azurerm_data_factory_custom_dataset)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_custom_dataset __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_properties =
+         Prop.computed __resource_type __resource_id
+           "additional_properties";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       folder = Prop.computed __resource_type __resource_id "folder";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       schema_json =
+         Prop.computed __resource_type __resource_id "schema_json";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       type_properties_json =
+         Prop.computed __resource_type __resource_id
+           "type_properties_json";
+     }
+      : t)
+  in
+  __resource_attributes

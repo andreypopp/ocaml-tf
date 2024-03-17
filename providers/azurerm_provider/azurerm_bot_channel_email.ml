@@ -27,22 +27,52 @@ type azurerm_bot_channel_email = {
 [@@deriving yojson_of]
 (** azurerm_bot_channel_email *)
 
+type t = {
+  bot_name : string prop;
+  email_address : string prop;
+  email_password : string prop;
+  id : string prop;
+  location : string prop;
+  magic_code : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_bot_channel_email ?email_password ?id ?magic_code
     ?timeouts ~bot_name ~email_address ~location ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_bot_channel_email" in
   let __resource =
-    {
-      bot_name;
-      email_address;
-      email_password;
-      id;
-      location;
-      magic_code;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       bot_name;
+       email_address;
+       email_password;
+       id;
+       location;
+       magic_code;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_bot_channel_email)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_bot_channel_email __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bot_name =
+         Prop.computed __resource_type __resource_id "bot_name";
+       email_address =
+         Prop.computed __resource_type __resource_id "email_address";
+       email_password =
+         Prop.computed __resource_type __resource_id "email_password";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       magic_code =
+         Prop.computed __resource_type __resource_id "magic_code";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

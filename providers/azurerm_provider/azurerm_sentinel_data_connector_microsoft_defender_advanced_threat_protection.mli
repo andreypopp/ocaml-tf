@@ -6,6 +6,13 @@ type azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protecti
 
 type azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protection
 
+type t = private {
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  tenant_id : string prop;
+}
+
 val azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protection :
   ?id:string prop ->
   ?tenant_id:string prop ->
@@ -14,4 +21,4 @@ val azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protectio
   log_analytics_workspace_id:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

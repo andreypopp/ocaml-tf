@@ -40,6 +40,26 @@ can either be a project number or a project ID. *)
 [@@deriving yojson_of]
 (** google_vmwareengine_network_peering *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  export_custom_routes : bool prop;
+  export_custom_routes_with_public_ip : bool prop;
+  id : string prop;
+  import_custom_routes : bool prop;
+  import_custom_routes_with_public_ip : bool prop;
+  name : string prop;
+  peer_network : string prop;
+  peer_network_type : string prop;
+  project : string prop;
+  state : string prop;
+  state_details : string prop;
+  uid : string prop;
+  update_time : string prop;
+  vmware_engine_network : string prop;
+  vmware_engine_network_canonical : string prop;
+}
+
 let google_vmwareengine_network_peering ?description
     ?export_custom_routes ?export_custom_routes_with_public_ip ?id
     ?import_custom_routes ?import_custom_routes_with_public_ip
@@ -47,21 +67,64 @@ let google_vmwareengine_network_peering ?description
     ~vmware_engine_network __resource_id =
   let __resource_type = "google_vmwareengine_network_peering" in
   let __resource =
-    {
-      description;
-      export_custom_routes;
-      export_custom_routes_with_public_ip;
-      id;
-      import_custom_routes;
-      import_custom_routes_with_public_ip;
-      name;
-      peer_network;
-      peer_network_type;
-      project;
-      vmware_engine_network;
-      timeouts;
-    }
+    ({
+       description;
+       export_custom_routes;
+       export_custom_routes_with_public_ip;
+       id;
+       import_custom_routes;
+       import_custom_routes_with_public_ip;
+       name;
+       peer_network;
+       peer_network_type;
+       project;
+       vmware_engine_network;
+       timeouts;
+     }
+      : google_vmwareengine_network_peering)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_network_peering __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       export_custom_routes =
+         Prop.computed __resource_type __resource_id
+           "export_custom_routes";
+       export_custom_routes_with_public_ip =
+         Prop.computed __resource_type __resource_id
+           "export_custom_routes_with_public_ip";
+       id = Prop.computed __resource_type __resource_id "id";
+       import_custom_routes =
+         Prop.computed __resource_type __resource_id
+           "import_custom_routes";
+       import_custom_routes_with_public_ip =
+         Prop.computed __resource_type __resource_id
+           "import_custom_routes_with_public_ip";
+       name = Prop.computed __resource_type __resource_id "name";
+       peer_network =
+         Prop.computed __resource_type __resource_id "peer_network";
+       peer_network_type =
+         Prop.computed __resource_type __resource_id
+           "peer_network_type";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_details =
+         Prop.computed __resource_type __resource_id "state_details";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       vmware_engine_network =
+         Prop.computed __resource_type __resource_id
+           "vmware_engine_network";
+       vmware_engine_network_canonical =
+         Prop.computed __resource_type __resource_id
+           "vmware_engine_network_canonical";
+     }
+      : t)
+  in
+  __resource_attributes

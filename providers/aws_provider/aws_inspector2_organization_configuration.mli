@@ -6,10 +6,15 @@ type aws_inspector2_organization_configuration__auto_enable
 type aws_inspector2_organization_configuration__timeouts
 type aws_inspector2_organization_configuration
 
+type t = private {
+  id : string prop;
+  max_account_limit_reached : bool prop;
+}
+
 val aws_inspector2_organization_configuration :
   ?id:string prop ->
   ?timeouts:aws_inspector2_organization_configuration__timeouts ->
   auto_enable:
     aws_inspector2_organization_configuration__auto_enable list ->
   string ->
-  unit
+  t

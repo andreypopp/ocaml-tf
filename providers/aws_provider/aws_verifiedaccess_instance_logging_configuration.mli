@@ -11,6 +11,11 @@ type aws_verifiedaccess_instance_logging_configuration__access_logs__s3
 type aws_verifiedaccess_instance_logging_configuration__access_logs
 type aws_verifiedaccess_instance_logging_configuration
 
+type t = private {
+  id : string prop;
+  verifiedaccess_instance_id : string prop;
+}
+
 val aws_verifiedaccess_instance_logging_configuration :
   ?id:string prop ->
   verifiedaccess_instance_id:string prop ->
@@ -18,4 +23,4 @@ val aws_verifiedaccess_instance_logging_configuration :
     aws_verifiedaccess_instance_logging_configuration__access_logs
     list ->
   string ->
-  unit
+  t

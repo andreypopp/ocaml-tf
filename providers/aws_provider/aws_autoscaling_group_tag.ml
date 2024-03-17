@@ -21,10 +21,23 @@ type aws_autoscaling_group_tag = {
 [@@deriving yojson_of]
 (** aws_autoscaling_group_tag *)
 
+type t = { autoscaling_group_name : string prop; id : string prop }
+
 let aws_autoscaling_group_tag ?id ~autoscaling_group_name ~tag
     __resource_id =
   let __resource_type = "aws_autoscaling_group_tag" in
-  let __resource = { autoscaling_group_name; id; tag } in
+  let __resource =
+    ({ autoscaling_group_name; id; tag } : aws_autoscaling_group_tag)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_group_tag __resource);
-  ()
+  let __resource_attributes =
+    ({
+       autoscaling_group_name =
+         Prop.computed __resource_type __resource_id
+           "autoscaling_group_name";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

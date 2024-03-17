@@ -43,22 +43,48 @@ type azurerm_firewall_nat_rule_collection = {
 [@@deriving yojson_of]
 (** azurerm_firewall_nat_rule_collection *)
 
+type t = {
+  action : string prop;
+  azure_firewall_name : string prop;
+  id : string prop;
+  name : string prop;
+  priority : float prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_firewall_nat_rule_collection ?id ?timeouts ~action
     ~azure_firewall_name ~name ~priority ~resource_group_name ~rule
     __resource_id =
   let __resource_type = "azurerm_firewall_nat_rule_collection" in
   let __resource =
-    {
-      action;
-      azure_firewall_name;
-      id;
-      name;
-      priority;
-      resource_group_name;
-      rule;
-      timeouts;
-    }
+    ({
+       action;
+       azure_firewall_name;
+       id;
+       name;
+       priority;
+       resource_group_name;
+       rule;
+       timeouts;
+     }
+      : azurerm_firewall_nat_rule_collection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_firewall_nat_rule_collection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       azure_firewall_name =
+         Prop.computed __resource_type __resource_id
+           "azure_firewall_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

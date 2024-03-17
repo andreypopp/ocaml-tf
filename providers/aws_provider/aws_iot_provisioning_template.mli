@@ -5,6 +5,20 @@ open! Tf.Prelude
 type aws_iot_provisioning_template__pre_provisioning_hook
 type aws_iot_provisioning_template
 
+type t = private {
+  arn : string prop;
+  default_version_id : float prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  provisioning_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  template_body : string prop;
+  type_ : string prop;
+}
+
 val aws_iot_provisioning_template :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -18,4 +32,4 @@ val aws_iot_provisioning_template :
   pre_provisioning_hook:
     aws_iot_provisioning_template__pre_provisioning_hook list ->
   string ->
-  unit
+  t

@@ -8,6 +8,13 @@ type azurerm_media_asset_filter__track_selection__condition
 type azurerm_media_asset_filter__track_selection
 type azurerm_media_asset_filter
 
+type t = private {
+  asset_id : string prop;
+  first_quality_bitrate : float prop;
+  id : string prop;
+  name : string prop;
+}
+
 val azurerm_media_asset_filter :
   ?first_quality_bitrate:float prop ->
   ?id:string prop ->
@@ -18,4 +25,4 @@ val azurerm_media_asset_filter :
     azurerm_media_asset_filter__presentation_time_range list ->
   track_selection:azurerm_media_asset_filter__track_selection list ->
   string ->
-  unit
+  t

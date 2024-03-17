@@ -25,6 +25,38 @@ type aws_mwaa_environment__last_updated = {
 
 type aws_mwaa_environment
 
+type t = private {
+  airflow_configuration_options : (string * string) list prop;
+  airflow_version : string prop;
+  arn : string prop;
+  created_at : string prop;
+  dag_s3_path : string prop;
+  endpoint_management : string prop;
+  environment_class : string prop;
+  execution_role_arn : string prop;
+  id : string prop;
+  kms_key : string prop;
+  last_updated : aws_mwaa_environment__last_updated list prop;
+  max_workers : float prop;
+  min_workers : float prop;
+  name : string prop;
+  plugins_s3_object_version : string prop;
+  plugins_s3_path : string prop;
+  requirements_s3_object_version : string prop;
+  requirements_s3_path : string prop;
+  schedulers : float prop;
+  service_role_arn : string prop;
+  source_bucket_arn : string prop;
+  startup_script_s3_object_version : string prop;
+  startup_script_s3_path : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  webserver_access_mode : string prop;
+  webserver_url : string prop;
+  weekly_maintenance_window_start : string prop;
+}
+
 val aws_mwaa_environment :
   ?airflow_configuration_options:(string * string prop) list ->
   ?airflow_version:string prop ->
@@ -55,4 +87,4 @@ val aws_mwaa_environment :
   network_configuration:
     aws_mwaa_environment__network_configuration list ->
   string ->
-  unit
+  t

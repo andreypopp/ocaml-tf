@@ -24,12 +24,34 @@ type azurerm_synapse_private_link_hub = {
 [@@deriving yojson_of]
 (** azurerm_synapse_private_link_hub *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_synapse_private_link_hub ?id ?tags ?timeouts ~location
     ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_synapse_private_link_hub" in
   let __resource =
-    { id; location; name; resource_group_name; tags; timeouts }
+    ({ id; location; name; resource_group_name; tags; timeouts }
+      : azurerm_synapse_private_link_hub)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_private_link_hub __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

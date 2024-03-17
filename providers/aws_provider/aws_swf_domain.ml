@@ -18,21 +18,51 @@ type aws_swf_domain = {
 [@@deriving yojson_of]
 (** aws_swf_domain *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  workflow_execution_retention_period_in_days : string prop;
+}
+
 let aws_swf_domain ?description ?id ?name ?name_prefix ?tags
     ?tags_all ~workflow_execution_retention_period_in_days
     __resource_id =
   let __resource_type = "aws_swf_domain" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      name_prefix;
-      tags;
-      tags_all;
-      workflow_execution_retention_period_in_days;
-    }
+    ({
+       description;
+       id;
+       name;
+       name_prefix;
+       tags;
+       tags_all;
+       workflow_execution_retention_period_in_days;
+     }
+      : aws_swf_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_swf_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       workflow_execution_retention_period_in_days =
+         Prop.computed __resource_type __resource_id
+           "workflow_execution_retention_period_in_days";
+     }
+      : t)
+  in
+  __resource_attributes

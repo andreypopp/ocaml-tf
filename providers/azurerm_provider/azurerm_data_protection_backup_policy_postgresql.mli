@@ -8,6 +8,16 @@ type azurerm_data_protection_backup_policy_postgresql__retention_rule
 type azurerm_data_protection_backup_policy_postgresql__timeouts
 type azurerm_data_protection_backup_policy_postgresql
 
+type t = private {
+  backup_repeating_time_intervals : string list prop;
+  default_retention_duration : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  time_zone : string prop;
+  vault_name : string prop;
+}
+
 val azurerm_data_protection_backup_policy_postgresql :
   ?id:string prop ->
   ?time_zone:string prop ->
@@ -22,4 +32,4 @@ val azurerm_data_protection_backup_policy_postgresql :
     azurerm_data_protection_backup_policy_postgresql__retention_rule
     list ->
   string ->
-  unit
+  t

@@ -6,6 +6,24 @@ type azurerm_shared_image_version__target_region
 type azurerm_shared_image_version__timeouts
 type azurerm_shared_image_version
 
+type t = private {
+  blob_uri : string prop;
+  deletion_of_replicated_locations_enabled : bool prop;
+  end_of_life_date : string prop;
+  exclude_from_latest : bool prop;
+  gallery_name : string prop;
+  id : string prop;
+  image_name : string prop;
+  location : string prop;
+  managed_image_id : string prop;
+  name : string prop;
+  os_disk_snapshot_id : string prop;
+  replication_mode : string prop;
+  resource_group_name : string prop;
+  storage_account_id : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_shared_image_version :
   ?blob_uri:string prop ->
   ?deletion_of_replicated_locations_enabled:bool prop ->
@@ -25,4 +43,4 @@ val azurerm_shared_image_version :
   resource_group_name:string prop ->
   target_region:azurerm_shared_image_version__target_region list ->
   string ->
-  unit
+  t

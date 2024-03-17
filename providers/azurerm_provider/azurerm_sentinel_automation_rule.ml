@@ -66,29 +66,66 @@ type azurerm_sentinel_automation_rule = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_automation_rule *)
 
+type t = {
+  condition_json : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  expiration : string prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  order : float prop;
+  triggers_on : string prop;
+  triggers_when : string prop;
+}
+
 let azurerm_sentinel_automation_rule ?condition_json ?enabled
     ?expiration ?id ?triggers_on ?triggers_when ?timeouts
     ~display_name ~log_analytics_workspace_id ~name ~order
     ~action_incident ~action_playbook ~condition __resource_id =
   let __resource_type = "azurerm_sentinel_automation_rule" in
   let __resource =
-    {
-      condition_json;
-      display_name;
-      enabled;
-      expiration;
-      id;
-      log_analytics_workspace_id;
-      name;
-      order;
-      triggers_on;
-      triggers_when;
-      action_incident;
-      action_playbook;
-      condition;
-      timeouts;
-    }
+    ({
+       condition_json;
+       display_name;
+       enabled;
+       expiration;
+       id;
+       log_analytics_workspace_id;
+       name;
+       order;
+       triggers_on;
+       triggers_when;
+       action_incident;
+       action_playbook;
+       condition;
+       timeouts;
+     }
+      : azurerm_sentinel_automation_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_automation_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       condition_json =
+         Prop.computed __resource_type __resource_id "condition_json";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       expiration =
+         Prop.computed __resource_type __resource_id "expiration";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       order = Prop.computed __resource_type __resource_id "order";
+       triggers_on =
+         Prop.computed __resource_type __resource_id "triggers_on";
+       triggers_when =
+         Prop.computed __resource_type __resource_id "triggers_when";
+     }
+      : t)
+  in
+  __resource_attributes

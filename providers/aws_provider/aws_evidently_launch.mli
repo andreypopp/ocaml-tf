@@ -19,6 +19,23 @@ type aws_evidently_launch__execution = {
 
 type aws_evidently_launch
 
+type t = private {
+  arn : string prop;
+  created_time : string prop;
+  description : string prop;
+  execution : aws_evidently_launch__execution list prop;
+  id : string prop;
+  last_updated_time : string prop;
+  name : string prop;
+  project : string prop;
+  randomization_salt : string prop;
+  status : string prop;
+  status_reason : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_evidently_launch :
   ?description:string prop ->
   ?id:string prop ->
@@ -33,4 +50,4 @@ val aws_evidently_launch :
   scheduled_splits_config:
     aws_evidently_launch__scheduled_splits_config list ->
   string ->
-  unit
+  t

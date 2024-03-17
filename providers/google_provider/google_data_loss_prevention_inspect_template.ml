@@ -450,6 +450,15 @@ that is, it must match the regular expression: [a-zA-Z\d-_]+. The maximum length
 [@@deriving yojson_of]
 (** google_data_loss_prevention_inspect_template *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  template_id : string prop;
+}
+
 let google_data_loss_prevention_inspect_template ?description
     ?display_name ?id ?template_id ?timeouts ~parent ~inspect_config
     __resource_id =
@@ -457,17 +466,32 @@ let google_data_loss_prevention_inspect_template ?description
     "google_data_loss_prevention_inspect_template"
   in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      parent;
-      template_id;
-      inspect_config;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       parent;
+       template_id;
+       inspect_config;
+       timeouts;
+     }
+      : google_data_loss_prevention_inspect_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_loss_prevention_inspect_template
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       template_id =
+         Prop.computed __resource_type __resource_id "template_id";
+     }
+      : t)
+  in
+  __resource_attributes

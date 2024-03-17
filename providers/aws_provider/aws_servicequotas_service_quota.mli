@@ -22,10 +22,26 @@ type aws_servicequotas_service_quota__usage_metric = {
 
 type aws_servicequotas_service_quota
 
+type t = private {
+  adjustable : bool prop;
+  arn : string prop;
+  default_value : float prop;
+  id : string prop;
+  quota_code : string prop;
+  quota_name : string prop;
+  request_id : string prop;
+  request_status : string prop;
+  service_code : string prop;
+  service_name : string prop;
+  usage_metric :
+    aws_servicequotas_service_quota__usage_metric list prop;
+  value : float prop;
+}
+
 val aws_servicequotas_service_quota :
   ?id:string prop ->
   quota_code:string prop ->
   service_code:string prop ->
   value:float prop ->
   string ->
-  unit
+  t

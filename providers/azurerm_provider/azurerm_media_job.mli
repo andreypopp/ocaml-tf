@@ -7,6 +7,16 @@ type azurerm_media_job__output_asset
 type azurerm_media_job__timeouts
 type azurerm_media_job
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  priority : string prop;
+  resource_group_name : string prop;
+  transform_name : string prop;
+}
+
 val azurerm_media_job :
   ?description:string prop ->
   ?id:string prop ->
@@ -19,4 +29,4 @@ val azurerm_media_job :
   input_asset:azurerm_media_job__input_asset list ->
   output_asset:azurerm_media_job__output_asset list ->
   string ->
-  unit
+  t

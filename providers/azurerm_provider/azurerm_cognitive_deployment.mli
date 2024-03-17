@@ -7,6 +7,14 @@ type azurerm_cognitive_deployment__scale
 type azurerm_cognitive_deployment__timeouts
 type azurerm_cognitive_deployment
 
+type t = private {
+  cognitive_account_id : string prop;
+  id : string prop;
+  name : string prop;
+  rai_policy_name : string prop;
+  version_upgrade_option : string prop;
+}
+
 val azurerm_cognitive_deployment :
   ?id:string prop ->
   ?rai_policy_name:string prop ->
@@ -17,4 +25,4 @@ val azurerm_cognitive_deployment :
   model:azurerm_cognitive_deployment__model list ->
   scale:azurerm_cognitive_deployment__scale list ->
   string ->
-  unit
+  t

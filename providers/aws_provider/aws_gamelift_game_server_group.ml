@@ -70,6 +70,21 @@ type aws_gamelift_game_server_group = {
 [@@deriving yojson_of]
 (** aws_gamelift_game_server_group *)
 
+type t = {
+  arn : string prop;
+  auto_scaling_group_arn : string prop;
+  balancing_strategy : string prop;
+  game_server_group_name : string prop;
+  game_server_protection_policy : string prop;
+  id : string prop;
+  max_size : float prop;
+  min_size : float prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_subnets : string list prop;
+}
+
 let aws_gamelift_game_server_group ?balancing_strategy
     ?game_server_protection_policy ?id ?tags ?tags_all ?vpc_subnets
     ?timeouts ~game_server_group_name ~max_size ~min_size ~role_arn
@@ -77,23 +92,54 @@ let aws_gamelift_game_server_group ?balancing_strategy
     __resource_id =
   let __resource_type = "aws_gamelift_game_server_group" in
   let __resource =
-    {
-      balancing_strategy;
-      game_server_group_name;
-      game_server_protection_policy;
-      id;
-      max_size;
-      min_size;
-      role_arn;
-      tags;
-      tags_all;
-      vpc_subnets;
-      auto_scaling_policy;
-      instance_definition;
-      launch_template;
-      timeouts;
-    }
+    ({
+       balancing_strategy;
+       game_server_group_name;
+       game_server_protection_policy;
+       id;
+       max_size;
+       min_size;
+       role_arn;
+       tags;
+       tags_all;
+       vpc_subnets;
+       auto_scaling_policy;
+       instance_definition;
+       launch_template;
+       timeouts;
+     }
+      : aws_gamelift_game_server_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_gamelift_game_server_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auto_scaling_group_arn =
+         Prop.computed __resource_type __resource_id
+           "auto_scaling_group_arn";
+       balancing_strategy =
+         Prop.computed __resource_type __resource_id
+           "balancing_strategy";
+       game_server_group_name =
+         Prop.computed __resource_type __resource_id
+           "game_server_group_name";
+       game_server_protection_policy =
+         Prop.computed __resource_type __resource_id
+           "game_server_protection_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       max_size =
+         Prop.computed __resource_type __resource_id "max_size";
+       min_size =
+         Prop.computed __resource_type __resource_id "min_size";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       vpc_subnets =
+         Prop.computed __resource_type __resource_id "vpc_subnets";
+     }
+      : t)
+  in
+  __resource_attributes

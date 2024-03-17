@@ -45,6 +45,17 @@ type azurerm_site_recovery_protection_container_mapping = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_protection_container_mapping *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  recovery_fabric_name : string prop;
+  recovery_replication_policy_id : string prop;
+  recovery_source_protection_container_name : string prop;
+  recovery_target_protection_container_id : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_site_recovery_protection_container_mapping ?id ?timeouts
     ~name ~recovery_fabric_name ~recovery_replication_policy_id
     ~recovery_source_protection_container_name
@@ -54,20 +65,46 @@ let azurerm_site_recovery_protection_container_mapping ?id ?timeouts
     "azurerm_site_recovery_protection_container_mapping"
   in
   let __resource =
-    {
-      id;
-      name;
-      recovery_fabric_name;
-      recovery_replication_policy_id;
-      recovery_source_protection_container_name;
-      recovery_target_protection_container_id;
-      recovery_vault_name;
-      resource_group_name;
-      automatic_update;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       recovery_fabric_name;
+       recovery_replication_policy_id;
+       recovery_source_protection_container_name;
+       recovery_target_protection_container_id;
+       recovery_vault_name;
+       resource_group_name;
+       automatic_update;
+       timeouts;
+     }
+      : azurerm_site_recovery_protection_container_mapping)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_site_recovery_protection_container_mapping
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       recovery_fabric_name =
+         Prop.computed __resource_type __resource_id
+           "recovery_fabric_name";
+       recovery_replication_policy_id =
+         Prop.computed __resource_type __resource_id
+           "recovery_replication_policy_id";
+       recovery_source_protection_container_name =
+         Prop.computed __resource_type __resource_id
+           "recovery_source_protection_container_name";
+       recovery_target_protection_container_id =
+         Prop.computed __resource_type __resource_id
+           "recovery_target_protection_container_id";
+       recovery_vault_name =
+         Prop.computed __resource_type __resource_id
+           "recovery_vault_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

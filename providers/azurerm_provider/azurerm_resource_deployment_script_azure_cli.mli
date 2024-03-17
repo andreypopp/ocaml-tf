@@ -11,6 +11,24 @@ type azurerm_resource_deployment_script_azure_cli__storage_account
 type azurerm_resource_deployment_script_azure_cli__timeouts
 type azurerm_resource_deployment_script_azure_cli
 
+type t = private {
+  cleanup_preference : string prop;
+  command_line : string prop;
+  force_update_tag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  outputs : string prop;
+  primary_script_uri : string prop;
+  resource_group_name : string prop;
+  retention_interval : string prop;
+  script_content : string prop;
+  supporting_script_uris : string list prop;
+  tags : (string * string) list prop;
+  timeout : string prop;
+  version : string prop;
+}
+
 val azurerm_resource_deployment_script_azure_cli :
   ?cleanup_preference:string prop ->
   ?command_line:string prop ->
@@ -38,4 +56,4 @@ val azurerm_resource_deployment_script_azure_cli :
     azurerm_resource_deployment_script_azure_cli__storage_account
     list ->
   string ->
-  unit
+  t

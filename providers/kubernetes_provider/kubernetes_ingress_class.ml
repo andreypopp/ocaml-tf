@@ -52,9 +52,16 @@ type kubernetes_ingress_class = {
 [@@deriving yojson_of]
 (** kubernetes_ingress_class *)
 
+type t = { id : string prop }
+
 let kubernetes_ingress_class ?id ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_ingress_class" in
-  let __resource = { id; metadata; spec } in
+  let __resource =
+    ({ id; metadata; spec } : kubernetes_ingress_class)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_ingress_class __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

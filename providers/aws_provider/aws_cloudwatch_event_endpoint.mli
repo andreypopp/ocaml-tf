@@ -13,6 +13,15 @@ type aws_cloudwatch_event_endpoint__routing_config__failover_config
 type aws_cloudwatch_event_endpoint__routing_config
 type aws_cloudwatch_event_endpoint
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  endpoint_url : string prop;
+  id : string prop;
+  name : string prop;
+  role_arn : string prop;
+}
+
 val aws_cloudwatch_event_endpoint :
   ?description:string prop ->
   ?id:string prop ->
@@ -23,4 +32,4 @@ val aws_cloudwatch_event_endpoint :
     aws_cloudwatch_event_endpoint__replication_config list ->
   routing_config:aws_cloudwatch_event_endpoint__routing_config list ->
   string ->
-  unit
+  t

@@ -55,26 +55,88 @@ for information about how to choose. Possible values: [FIRESTORE_NATIVE, DATASTO
 [@@deriving yojson_of]
 (** google_firestore_database *)
 
+type t = {
+  app_engine_integration_mode : string prop;
+  concurrency_mode : string prop;
+  create_time : string prop;
+  delete_protection_state : string prop;
+  deletion_policy : string prop;
+  earliest_version_time : string prop;
+  etag : string prop;
+  id : string prop;
+  key_prefix : string prop;
+  location_id : string prop;
+  name : string prop;
+  point_in_time_recovery_enablement : string prop;
+  project : string prop;
+  type_ : string prop;
+  uid : string prop;
+  update_time : string prop;
+  version_retention_period : string prop;
+}
+
 let google_firestore_database ?app_engine_integration_mode
     ?concurrency_mode ?delete_protection_state ?deletion_policy ?id
     ?point_in_time_recovery_enablement ?project ?timeouts
     ~location_id ~name ~type_ __resource_id =
   let __resource_type = "google_firestore_database" in
   let __resource =
-    {
-      app_engine_integration_mode;
-      concurrency_mode;
-      delete_protection_state;
-      deletion_policy;
-      id;
-      location_id;
-      name;
-      point_in_time_recovery_enablement;
-      project;
-      type_;
-      timeouts;
-    }
+    ({
+       app_engine_integration_mode;
+       concurrency_mode;
+       delete_protection_state;
+       deletion_policy;
+       id;
+       location_id;
+       name;
+       point_in_time_recovery_enablement;
+       project;
+       type_;
+       timeouts;
+     }
+      : google_firestore_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firestore_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_engine_integration_mode =
+         Prop.computed __resource_type __resource_id
+           "app_engine_integration_mode";
+       concurrency_mode =
+         Prop.computed __resource_type __resource_id
+           "concurrency_mode";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_protection_state =
+         Prop.computed __resource_type __resource_id
+           "delete_protection_state";
+       deletion_policy =
+         Prop.computed __resource_type __resource_id
+           "deletion_policy";
+       earliest_version_time =
+         Prop.computed __resource_type __resource_id
+           "earliest_version_time";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_prefix =
+         Prop.computed __resource_type __resource_id "key_prefix";
+       location_id =
+         Prop.computed __resource_type __resource_id "location_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       point_in_time_recovery_enablement =
+         Prop.computed __resource_type __resource_id
+           "point_in_time_recovery_enablement";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       version_retention_period =
+         Prop.computed __resource_type __resource_id
+           "version_retention_period";
+     }
+      : t)
+  in
+  __resource_attributes

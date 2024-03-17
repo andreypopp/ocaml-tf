@@ -36,23 +36,57 @@ except the last character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_public_delegated_prefix *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  ip_cidr_range : string prop;
+  is_live_migration : bool prop;
+  name : string prop;
+  parent_prefix : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+}
+
 let google_compute_public_delegated_prefix ?description ?id
     ?is_live_migration ?project ?timeouts ~ip_cidr_range ~name
     ~parent_prefix ~region __resource_id =
   let __resource_type = "google_compute_public_delegated_prefix" in
   let __resource =
-    {
-      description;
-      id;
-      ip_cidr_range;
-      is_live_migration;
-      name;
-      parent_prefix;
-      project;
-      region;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       ip_cidr_range;
+       is_live_migration;
+       name;
+       parent_prefix;
+       project;
+       region;
+       timeouts;
+     }
+      : google_compute_public_delegated_prefix)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_public_delegated_prefix __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_cidr_range =
+         Prop.computed __resource_type __resource_id "ip_cidr_range";
+       is_live_migration =
+         Prop.computed __resource_type __resource_id
+           "is_live_migration";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_prefix =
+         Prop.computed __resource_type __resource_id "parent_prefix";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

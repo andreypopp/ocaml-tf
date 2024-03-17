@@ -197,25 +197,52 @@ type google_compute_security_policy = {
 [@@deriving yojson_of]
 (** google_compute_security_policy *)
 
+type t = {
+  description : string prop;
+  fingerprint : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  type_ : string prop;
+}
+
 let google_compute_security_policy ?description ?id ?project ?type_
     ?timeouts ~name ~adaptive_protection_config
     ~advanced_options_config ~recaptcha_options_config ~rule
     __resource_id =
   let __resource_type = "google_compute_security_policy" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      project;
-      type_;
-      adaptive_protection_config;
-      advanced_options_config;
-      recaptcha_options_config;
-      rule;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       project;
+       type_;
+       adaptive_protection_config;
+       advanced_options_config;
+       recaptcha_options_config;
+       rule;
+       timeouts;
+     }
+      : google_compute_security_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_security_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

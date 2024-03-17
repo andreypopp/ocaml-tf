@@ -5,6 +5,17 @@ open! Tf.Prelude
 type azurerm_spring_cloud_certificate__timeouts
 type azurerm_spring_cloud_certificate
 
+type t = private {
+  certificate_content : string prop;
+  exclude_private_key : bool prop;
+  id : string prop;
+  key_vault_certificate_id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  service_name : string prop;
+  thumbprint : string prop;
+}
+
 val azurerm_spring_cloud_certificate :
   ?certificate_content:string prop ->
   ?exclude_private_key:bool prop ->
@@ -15,4 +26,4 @@ val azurerm_spring_cloud_certificate :
   resource_group_name:string prop ->
   service_name:string prop ->
   string ->
-  unit
+  t

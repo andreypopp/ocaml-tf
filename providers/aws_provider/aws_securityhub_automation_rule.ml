@@ -490,22 +490,55 @@ type aws_securityhub_automation_rule = {
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  is_terminal : bool prop;
+  rule_name : string prop;
+  rule_order : float prop;
+  rule_status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_securityhub_automation_rule ?is_terminal ?rule_status ?tags
     ~description ~rule_name ~rule_order ~actions ~criteria
     __resource_id =
   let __resource_type = "aws_securityhub_automation_rule" in
   let __resource =
-    {
-      description;
-      is_terminal;
-      rule_name;
-      rule_order;
-      rule_status;
-      tags;
-      actions;
-      criteria;
-    }
+    ({
+       description;
+       is_terminal;
+       rule_name;
+       rule_order;
+       rule_status;
+       tags;
+       actions;
+       criteria;
+     }
+      : aws_securityhub_automation_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_automation_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_terminal =
+         Prop.computed __resource_type __resource_id "is_terminal";
+       rule_name =
+         Prop.computed __resource_type __resource_id "rule_name";
+       rule_order =
+         Prop.computed __resource_type __resource_id "rule_order";
+       rule_status =
+         Prop.computed __resource_type __resource_id "rule_status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

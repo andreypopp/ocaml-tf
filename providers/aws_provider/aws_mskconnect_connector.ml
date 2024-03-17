@@ -184,6 +184,17 @@ type aws_mskconnect_connector = {
 [@@deriving yojson_of]
 (** aws_mskconnect_connector *)
 
+type t = {
+  arn : string prop;
+  connector_configuration : (string * string) list prop;
+  description : string prop;
+  id : string prop;
+  kafkaconnect_version : string prop;
+  name : string prop;
+  service_execution_role_arn : string prop;
+  version : string prop;
+}
+
 let aws_mskconnect_connector ?description ?id ?timeouts
     ~connector_configuration ~kafkaconnect_version ~name
     ~service_execution_role_arn ~capacity ~kafka_cluster
@@ -192,23 +203,45 @@ let aws_mskconnect_connector ?description ?id ?timeouts
     ~worker_configuration __resource_id =
   let __resource_type = "aws_mskconnect_connector" in
   let __resource =
-    {
-      connector_configuration;
-      description;
-      id;
-      kafkaconnect_version;
-      name;
-      service_execution_role_arn;
-      capacity;
-      kafka_cluster;
-      kafka_cluster_client_authentication;
-      kafka_cluster_encryption_in_transit;
-      log_delivery;
-      plugin;
-      timeouts;
-      worker_configuration;
-    }
+    ({
+       connector_configuration;
+       description;
+       id;
+       kafkaconnect_version;
+       name;
+       service_execution_role_arn;
+       capacity;
+       kafka_cluster;
+       kafka_cluster_client_authentication;
+       kafka_cluster_encryption_in_transit;
+       log_delivery;
+       plugin;
+       timeouts;
+       worker_configuration;
+     }
+      : aws_mskconnect_connector)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_mskconnect_connector __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       connector_configuration =
+         Prop.computed __resource_type __resource_id
+           "connector_configuration";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       kafkaconnect_version =
+         Prop.computed __resource_type __resource_id
+           "kafkaconnect_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       service_execution_role_arn =
+         Prop.computed __resource_type __resource_id
+           "service_execution_role_arn";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

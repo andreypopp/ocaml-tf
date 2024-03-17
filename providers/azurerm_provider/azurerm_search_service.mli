@@ -12,6 +12,27 @@ type azurerm_search_service__query_keys = {
 
 type azurerm_search_service
 
+type t = private {
+  allowed_ips : string list prop;
+  authentication_failure_mode : string prop;
+  customer_managed_key_enforcement_enabled : bool prop;
+  hosting_mode : string prop;
+  id : string prop;
+  local_authentication_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  partition_count : float prop;
+  primary_key : string prop;
+  public_network_access_enabled : bool prop;
+  query_keys : azurerm_search_service__query_keys list prop;
+  replica_count : float prop;
+  resource_group_name : string prop;
+  secondary_key : string prop;
+  semantic_search_sku : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_search_service :
   ?allowed_ips:string prop list ->
   ?authentication_failure_mode:string prop ->
@@ -31,4 +52,4 @@ val azurerm_search_service :
   sku:string prop ->
   identity:azurerm_search_service__identity list ->
   string ->
-  unit
+  t

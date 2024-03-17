@@ -4,6 +4,23 @@ open! Tf.Prelude
 
 type aws_ssm_maintenance_window
 
+type t = private {
+  allow_unassociated_targets : bool prop;
+  cutoff : float prop;
+  description : string prop;
+  duration : float prop;
+  enabled : bool prop;
+  end_date : string prop;
+  id : string prop;
+  name : string prop;
+  schedule : string prop;
+  schedule_offset : float prop;
+  schedule_timezone : string prop;
+  start_date : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_ssm_maintenance_window :
   ?allow_unassociated_targets:bool prop ->
   ?description:string prop ->
@@ -20,4 +37,4 @@ val aws_ssm_maintenance_window :
   name:string prop ->
   schedule:string prop ->
   string ->
-  unit
+  t

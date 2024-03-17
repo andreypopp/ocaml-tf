@@ -21,6 +21,17 @@ type aws_imagebuilder_distribution_configuration__distribution__launch_template_
 type aws_imagebuilder_distribution_configuration__distribution
 type aws_imagebuilder_distribution_configuration
 
+type t = private {
+  arn : string prop;
+  date_created : string prop;
+  date_updated : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_imagebuilder_distribution_configuration :
   ?description:string prop ->
   ?id:string prop ->
@@ -30,4 +41,4 @@ val aws_imagebuilder_distribution_configuration :
   distribution:
     aws_imagebuilder_distribution_configuration__distribution list ->
   string ->
-  unit
+  t

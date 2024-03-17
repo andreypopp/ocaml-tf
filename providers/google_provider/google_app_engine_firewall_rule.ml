@@ -33,20 +33,45 @@ this rule can be modified by the user. *)
 [@@deriving yojson_of]
 (** google_app_engine_firewall_rule *)
 
+type t = {
+  action : string prop;
+  description : string prop;
+  id : string prop;
+  priority : float prop;
+  project : string prop;
+  source_range : string prop;
+}
+
 let google_app_engine_firewall_rule ?description ?id ?priority
     ?project ?timeouts ~action ~source_range __resource_id =
   let __resource_type = "google_app_engine_firewall_rule" in
   let __resource =
-    {
-      action;
-      description;
-      id;
-      priority;
-      project;
-      source_range;
-      timeouts;
-    }
+    ({
+       action;
+       description;
+       id;
+       priority;
+       project;
+       source_range;
+       timeouts;
+     }
+      : google_app_engine_firewall_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_firewall_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       source_range =
+         Prop.computed __resource_type __resource_id "source_range";
+     }
+      : t)
+  in
+  __resource_attributes

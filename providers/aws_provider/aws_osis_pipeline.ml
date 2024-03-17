@@ -70,25 +70,61 @@ type aws_osis_pipeline = {
 [@@deriving yojson_of]
 (** aws_osis_pipeline *)
 
+type t = {
+  id : string prop;
+  ingest_endpoint_urls : string list prop;
+  max_units : float prop;
+  min_units : float prop;
+  pipeline_arn : string prop;
+  pipeline_configuration_body : string prop;
+  pipeline_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_osis_pipeline ?tags ?timeouts ~max_units ~min_units
     ~pipeline_configuration_body ~pipeline_name ~buffer_options
     ~encryption_at_rest_options ~log_publishing_options ~vpc_options
     __resource_id =
   let __resource_type = "aws_osis_pipeline" in
   let __resource =
-    {
-      max_units;
-      min_units;
-      pipeline_configuration_body;
-      pipeline_name;
-      tags;
-      buffer_options;
-      encryption_at_rest_options;
-      log_publishing_options;
-      timeouts;
-      vpc_options;
-    }
+    ({
+       max_units;
+       min_units;
+       pipeline_configuration_body;
+       pipeline_name;
+       tags;
+       buffer_options;
+       encryption_at_rest_options;
+       log_publishing_options;
+       timeouts;
+       vpc_options;
+     }
+      : aws_osis_pipeline)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_osis_pipeline __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       ingest_endpoint_urls =
+         Prop.computed __resource_type __resource_id
+           "ingest_endpoint_urls";
+       max_units =
+         Prop.computed __resource_type __resource_id "max_units";
+       min_units =
+         Prop.computed __resource_type __resource_id "min_units";
+       pipeline_arn =
+         Prop.computed __resource_type __resource_id "pipeline_arn";
+       pipeline_configuration_body =
+         Prop.computed __resource_type __resource_id
+           "pipeline_configuration_body";
+       pipeline_name =
+         Prop.computed __resource_type __resource_id "pipeline_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

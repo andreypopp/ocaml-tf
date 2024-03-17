@@ -147,6 +147,17 @@ type aws_kinesis_firehose_delivery_stream__splunk_configuration
 type aws_kinesis_firehose_delivery_stream__timeouts
 type aws_kinesis_firehose_delivery_stream
 
+type t = private {
+  arn : string prop;
+  destination : string prop;
+  destination_id : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version_id : string prop;
+}
+
 val aws_kinesis_firehose_delivery_stream :
   ?arn:string prop ->
   ?destination_id:string prop ->
@@ -185,4 +196,4 @@ val aws_kinesis_firehose_delivery_stream :
   splunk_configuration:
     aws_kinesis_firehose_delivery_stream__splunk_configuration list ->
   string ->
-  unit
+  t

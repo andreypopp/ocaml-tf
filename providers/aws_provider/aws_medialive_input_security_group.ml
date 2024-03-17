@@ -30,12 +30,32 @@ type aws_medialive_input_security_group = {
 [@@deriving yojson_of]
 (** aws_medialive_input_security_group *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  inputs : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_medialive_input_security_group ?id ?tags ?tags_all ?timeouts
     ~whitelist_rules __resource_id =
   let __resource_type = "aws_medialive_input_security_group" in
   let __resource =
-    { id; tags; tags_all; timeouts; whitelist_rules }
+    ({ id; tags; tags_all; timeouts; whitelist_rules }
+      : aws_medialive_input_security_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_medialive_input_security_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       inputs = Prop.computed __resource_type __resource_id "inputs";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

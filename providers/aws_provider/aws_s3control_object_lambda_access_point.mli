@@ -11,6 +11,14 @@ type aws_s3control_object_lambda_access_point__configuration__transformation_con
 type aws_s3control_object_lambda_access_point__configuration
 type aws_s3control_object_lambda_access_point
 
+type t = private {
+  account_id : string prop;
+  alias : string prop;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val aws_s3control_object_lambda_access_point :
   ?account_id:string prop ->
   ?id:string prop ->
@@ -18,4 +26,4 @@ val aws_s3control_object_lambda_access_point :
   configuration:
     aws_s3control_object_lambda_access_point__configuration list ->
   string ->
-  unit
+  t

@@ -35,9 +35,25 @@ type hcloud_firewall = {
 [@@deriving yojson_of]
 (** hcloud_firewall *)
 
+type t = {
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+}
+
 let hcloud_firewall ?id ?labels ~name ~apply_to ~rule __resource_id =
   let __resource_type = "hcloud_firewall" in
-  let __resource = { id; labels; name; apply_to; rule } in
+  let __resource =
+    ({ id; labels; name; apply_to; rule } : hcloud_firewall)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_firewall __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -59,24 +59,57 @@ type azurerm_storage_account_local_user = {
 [@@deriving yojson_of]
 (** azurerm_storage_account_local_user *)
 
+type t = {
+  home_directory : string prop;
+  id : string prop;
+  name : string prop;
+  password : string prop;
+  sid : string prop;
+  ssh_key_enabled : bool prop;
+  ssh_password_enabled : bool prop;
+  storage_account_id : string prop;
+}
+
 let azurerm_storage_account_local_user ?home_directory ?id
     ?ssh_key_enabled ?ssh_password_enabled ?timeouts ~name
     ~storage_account_id ~permission_scope ~ssh_authorized_key
     __resource_id =
   let __resource_type = "azurerm_storage_account_local_user" in
   let __resource =
-    {
-      home_directory;
-      id;
-      name;
-      ssh_key_enabled;
-      ssh_password_enabled;
-      storage_account_id;
-      permission_scope;
-      ssh_authorized_key;
-      timeouts;
-    }
+    ({
+       home_directory;
+       id;
+       name;
+       ssh_key_enabled;
+       ssh_password_enabled;
+       storage_account_id;
+       permission_scope;
+       ssh_authorized_key;
+       timeouts;
+     }
+      : azurerm_storage_account_local_user)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_account_local_user __resource);
-  ()
+  let __resource_attributes =
+    ({
+       home_directory =
+         Prop.computed __resource_type __resource_id "home_directory";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       sid = Prop.computed __resource_type __resource_id "sid";
+       ssh_key_enabled =
+         Prop.computed __resource_type __resource_id
+           "ssh_key_enabled";
+       ssh_password_enabled =
+         Prop.computed __resource_type __resource_id
+           "ssh_password_enabled";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+     }
+      : t)
+  in
+  __resource_attributes

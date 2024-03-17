@@ -101,15 +101,26 @@ type google_access_context_manager_service_perimeter_egress_policy = {
 [@@deriving yojson_of]
 (** google_access_context_manager_service_perimeter_egress_policy *)
 
+type t = { id : string prop; perimeter : string prop }
+
 let google_access_context_manager_service_perimeter_egress_policy ?id
     ?timeouts ~perimeter ~egress_from ~egress_to __resource_id =
   let __resource_type =
     "google_access_context_manager_service_perimeter_egress_policy"
   in
   let __resource =
-    { id; perimeter; egress_from; egress_to; timeouts }
+    ({ id; perimeter; egress_from; egress_to; timeouts }
+      : google_access_context_manager_service_perimeter_egress_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_service_perimeter_egress_policy
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       perimeter =
+         Prop.computed __resource_type __resource_id "perimeter";
+     }
+      : t)
+  in
+  __resource_attributes

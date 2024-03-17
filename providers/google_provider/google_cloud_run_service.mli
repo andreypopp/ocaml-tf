@@ -83,6 +83,15 @@ type google_cloud_run_service__status = {
 
 type google_cloud_run_service
 
+type t = private {
+  autogenerate_revision_name : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  status : google_cloud_run_service__status list prop;
+}
+
 val google_cloud_run_service :
   ?autogenerate_revision_name:bool prop ->
   ?id:string prop ->
@@ -94,4 +103,4 @@ val google_cloud_run_service :
   template:google_cloud_run_service__template list ->
   traffic:google_cloud_run_service__traffic list ->
   string ->
-  unit
+  t

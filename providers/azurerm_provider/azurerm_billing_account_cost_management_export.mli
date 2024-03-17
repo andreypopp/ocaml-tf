@@ -9,6 +9,16 @@ type azurerm_billing_account_cost_management_export__export_data_storage_locatio
 type azurerm_billing_account_cost_management_export__timeouts
 type azurerm_billing_account_cost_management_export
 
+type t = private {
+  active : bool prop;
+  billing_account_id : string prop;
+  id : string prop;
+  name : string prop;
+  recurrence_period_end_date : string prop;
+  recurrence_period_start_date : string prop;
+  recurrence_type : string prop;
+}
+
 val azurerm_billing_account_cost_management_export :
   ?active:bool prop ->
   ?id:string prop ->
@@ -25,4 +35,4 @@ val azurerm_billing_account_cost_management_export :
     azurerm_billing_account_cost_management_export__export_data_storage_location
     list ->
   string ->
-  unit
+  t

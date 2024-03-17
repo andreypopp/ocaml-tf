@@ -54,23 +54,53 @@ If not specified, IPV4_ONLY will be used. Default value: IPV4_ONLY Possible valu
 [@@deriving yojson_of]
 (** google_compute_ha_vpn_gateway *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+  stack_type : string prop;
+}
+
 let google_compute_ha_vpn_gateway ?description ?id ?project ?region
     ?stack_type ?timeouts ~name ~network ~vpn_interfaces
     __resource_id =
   let __resource_type = "google_compute_ha_vpn_gateway" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      network;
-      project;
-      region;
-      stack_type;
-      timeouts;
-      vpn_interfaces;
-    }
+    ({
+       description;
+       id;
+       name;
+       network;
+       project;
+       region;
+       stack_type;
+       timeouts;
+       vpn_interfaces;
+     }
+      : google_compute_ha_vpn_gateway)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_ha_vpn_gateway __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       stack_type =
+         Prop.computed __resource_type __resource_id "stack_type";
+     }
+      : t)
+  in
+  __resource_attributes

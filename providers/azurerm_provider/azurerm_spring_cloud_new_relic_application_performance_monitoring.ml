@@ -42,6 +42,22 @@ type azurerm_spring_cloud_new_relic_application_performance_monitoring = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_new_relic_application_performance_monitoring *)
 
+type t = {
+  agent_enabled : bool prop;
+  app_name : string prop;
+  app_server_port : float prop;
+  audit_mode_enabled : bool prop;
+  auto_app_naming_enabled : bool prop;
+  auto_transaction_naming_enabled : bool prop;
+  custom_tracing_enabled : bool prop;
+  globally_enabled : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  license_key : string prop;
+  name : string prop;
+  spring_cloud_service_id : string prop;
+}
+
 let azurerm_spring_cloud_new_relic_application_performance_monitoring
     ?agent_enabled ?app_server_port ?audit_mode_enabled
     ?auto_app_naming_enabled ?auto_transaction_naming_enabled
@@ -52,24 +68,60 @@ let azurerm_spring_cloud_new_relic_application_performance_monitoring
     "azurerm_spring_cloud_new_relic_application_performance_monitoring"
   in
   let __resource =
-    {
-      agent_enabled;
-      app_name;
-      app_server_port;
-      audit_mode_enabled;
-      auto_app_naming_enabled;
-      auto_transaction_naming_enabled;
-      custom_tracing_enabled;
-      globally_enabled;
-      id;
-      labels;
-      license_key;
-      name;
-      spring_cloud_service_id;
-      timeouts;
-    }
+    ({
+       agent_enabled;
+       app_name;
+       app_server_port;
+       audit_mode_enabled;
+       auto_app_naming_enabled;
+       auto_transaction_naming_enabled;
+       custom_tracing_enabled;
+       globally_enabled;
+       id;
+       labels;
+       license_key;
+       name;
+       spring_cloud_service_id;
+       timeouts;
+     }
+      : azurerm_spring_cloud_new_relic_application_performance_monitoring)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_new_relic_application_performance_monitoring
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       agent_enabled =
+         Prop.computed __resource_type __resource_id "agent_enabled";
+       app_name =
+         Prop.computed __resource_type __resource_id "app_name";
+       app_server_port =
+         Prop.computed __resource_type __resource_id
+           "app_server_port";
+       audit_mode_enabled =
+         Prop.computed __resource_type __resource_id
+           "audit_mode_enabled";
+       auto_app_naming_enabled =
+         Prop.computed __resource_type __resource_id
+           "auto_app_naming_enabled";
+       auto_transaction_naming_enabled =
+         Prop.computed __resource_type __resource_id
+           "auto_transaction_naming_enabled";
+       custom_tracing_enabled =
+         Prop.computed __resource_type __resource_id
+           "custom_tracing_enabled";
+       globally_enabled =
+         Prop.computed __resource_type __resource_id
+           "globally_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       license_key =
+         Prop.computed __resource_type __resource_id "license_key";
+       name = Prop.computed __resource_type __resource_id "name";
+       spring_cloud_service_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_service_id";
+     }
+      : t)
+  in
+  __resource_attributes

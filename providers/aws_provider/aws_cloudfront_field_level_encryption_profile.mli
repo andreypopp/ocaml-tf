@@ -10,6 +10,14 @@ type aws_cloudfront_field_level_encryption_profile__encryption_entities
 
 type aws_cloudfront_field_level_encryption_profile
 
+type t = private {
+  caller_reference : string prop;
+  comment : string prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val aws_cloudfront_field_level_encryption_profile :
   ?comment:string prop ->
   ?id:string prop ->
@@ -18,4 +26,4 @@ val aws_cloudfront_field_level_encryption_profile :
     aws_cloudfront_field_level_encryption_profile__encryption_entities
     list ->
   string ->
-  unit
+  t

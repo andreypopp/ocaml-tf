@@ -8,6 +8,17 @@ type aws_codepipeline_custom_action_type__output_artifact_details
 type aws_codepipeline_custom_action_type__settings
 type aws_codepipeline_custom_action_type
 
+type t = private {
+  arn : string prop;
+  category : string prop;
+  id : string prop;
+  owner : string prop;
+  provider_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+}
+
 val aws_codepipeline_custom_action_type :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -23,4 +34,4 @@ val aws_codepipeline_custom_action_type :
     aws_codepipeline_custom_action_type__output_artifact_details list ->
   settings:aws_codepipeline_custom_action_type__settings list ->
   string ->
-  unit
+  t

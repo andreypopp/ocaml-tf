@@ -9,6 +9,18 @@ type azurerm_maintenance_configuration__timeouts
 type azurerm_maintenance_configuration__window
 type azurerm_maintenance_configuration
 
+type t = private {
+  id : string prop;
+  in_guest_user_patch_mode : string prop;
+  location : string prop;
+  name : string prop;
+  properties : (string * string) list prop;
+  resource_group_name : string prop;
+  scope : string prop;
+  tags : (string * string) list prop;
+  visibility : string prop;
+}
+
 val azurerm_maintenance_configuration :
   ?id:string prop ->
   ?in_guest_user_patch_mode:string prop ->
@@ -24,4 +36,4 @@ val azurerm_maintenance_configuration :
     azurerm_maintenance_configuration__install_patches list ->
   window:azurerm_maintenance_configuration__window list ->
   string ->
-  unit
+  t

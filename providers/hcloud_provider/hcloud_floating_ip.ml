@@ -19,21 +19,57 @@ type hcloud_floating_ip = {
 [@@deriving yojson_of]
 (** hcloud_floating_ip *)
 
+type t = {
+  delete_protection : bool prop;
+  description : string prop;
+  home_location : string prop;
+  id : string prop;
+  ip_address : string prop;
+  ip_network : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  server_id : float prop;
+  type_ : string prop;
+}
+
 let hcloud_floating_ip ?delete_protection ?description ?home_location
     ?id ?labels ?name ?server_id ~type_ __resource_id =
   let __resource_type = "hcloud_floating_ip" in
   let __resource =
-    {
-      delete_protection;
-      description;
-      home_location;
-      id;
-      labels;
-      name;
-      server_id;
-      type_;
-    }
+    ({
+       delete_protection;
+       description;
+       home_location;
+       id;
+       labels;
+       name;
+       server_id;
+       type_;
+     }
+      : hcloud_floating_ip)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_floating_ip __resource);
-  ()
+  let __resource_attributes =
+    ({
+       delete_protection =
+         Prop.computed __resource_type __resource_id
+           "delete_protection";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       home_location =
+         Prop.computed __resource_type __resource_id "home_location";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       ip_network =
+         Prop.computed __resource_type __resource_id "ip_network";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

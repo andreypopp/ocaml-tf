@@ -25,20 +25,45 @@ type azurerm_security_center_contact = {
 [@@deriving yojson_of]
 (** azurerm_security_center_contact *)
 
+type t = {
+  alert_notifications : bool prop;
+  alerts_to_admins : bool prop;
+  email : string prop;
+  id : string prop;
+  name : string prop;
+  phone : string prop;
+}
+
 let azurerm_security_center_contact ?id ?name ?phone ?timeouts
     ~alert_notifications ~alerts_to_admins ~email __resource_id =
   let __resource_type = "azurerm_security_center_contact" in
   let __resource =
-    {
-      alert_notifications;
-      alerts_to_admins;
-      email;
-      id;
-      name;
-      phone;
-      timeouts;
-    }
+    ({
+       alert_notifications;
+       alerts_to_admins;
+       email;
+       id;
+       name;
+       phone;
+       timeouts;
+     }
+      : azurerm_security_center_contact)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_contact __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alert_notifications =
+         Prop.computed __resource_type __resource_id
+           "alert_notifications";
+       alerts_to_admins =
+         Prop.computed __resource_type __resource_id
+           "alerts_to_admins";
+       email = Prop.computed __resource_type __resource_id "email";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       phone = Prop.computed __resource_type __resource_id "phone";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -27,6 +27,18 @@ type aws_codestarnotifications_notification_rule = {
 [@@deriving yojson_of]
 (** aws_codestarnotifications_notification_rule *)
 
+type t = {
+  arn : string prop;
+  detail_type : string prop;
+  event_type_ids : string list prop;
+  id : string prop;
+  name : string prop;
+  resource : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_codestarnotifications_notification_rule ?id ?status ?tags
     ?tags_all ~detail_type ~event_type_ids ~name ~resource ~target
     __resource_id =
@@ -34,18 +46,37 @@ let aws_codestarnotifications_notification_rule ?id ?status ?tags
     "aws_codestarnotifications_notification_rule"
   in
   let __resource =
-    {
-      detail_type;
-      event_type_ids;
-      id;
-      name;
-      resource;
-      status;
-      tags;
-      tags_all;
-      target;
-    }
+    ({
+       detail_type;
+       event_type_ids;
+       id;
+       name;
+       resource;
+       status;
+       tags;
+       tags_all;
+       target;
+     }
+      : aws_codestarnotifications_notification_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codestarnotifications_notification_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       detail_type =
+         Prop.computed __resource_type __resource_id "detail_type";
+       event_type_ids =
+         Prop.computed __resource_type __resource_id "event_type_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource =
+         Prop.computed __resource_type __resource_id "resource";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

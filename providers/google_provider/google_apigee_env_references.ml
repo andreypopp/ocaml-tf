@@ -29,20 +29,43 @@ in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
 [@@deriving yojson_of]
 (** google_apigee_env_references *)
 
+type t = {
+  description : string prop;
+  env_id : string prop;
+  id : string prop;
+  name : string prop;
+  refers : string prop;
+  resource_type : string prop;
+}
+
 let google_apigee_env_references ?description ?id ?timeouts ~env_id
     ~name ~refers ~resource_type __resource_id =
   let __resource_type = "google_apigee_env_references" in
   let __resource =
-    {
-      description;
-      env_id;
-      id;
-      name;
-      refers;
-      resource_type;
-      timeouts;
-    }
+    ({
+       description;
+       env_id;
+       id;
+       name;
+       refers;
+       resource_type;
+       timeouts;
+     }
+      : google_apigee_env_references)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_env_references __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       env_id = Prop.computed __resource_type __resource_id "env_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       refers = Prop.computed __resource_type __resource_id "refers";
+       resource_type =
+         Prop.computed __resource_type __resource_id "resource_type";
+     }
+      : t)
+  in
+  __resource_attributes

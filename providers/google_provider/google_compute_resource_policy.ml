@@ -191,25 +191,49 @@ which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_resource_policy *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+}
+
 let google_compute_resource_policy ?description ?id ?project ?region
     ?timeouts ~name ~disk_consistency_group_policy
     ~group_placement_policy ~instance_schedule_policy
     ~snapshot_schedule_policy __resource_id =
   let __resource_type = "google_compute_resource_policy" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      project;
-      region;
-      disk_consistency_group_policy;
-      group_placement_policy;
-      instance_schedule_policy;
-      snapshot_schedule_policy;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       project;
+       region;
+       disk_consistency_group_policy;
+       group_placement_policy;
+       instance_schedule_policy;
+       snapshot_schedule_policy;
+       timeouts;
+     }
+      : google_compute_resource_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_resource_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -15,6 +15,19 @@ type aws_verifiedaccess_instance__verified_access_trust_providers = {
 
 type aws_verifiedaccess_instance
 
+type t = private {
+  creation_time : string prop;
+  description : string prop;
+  fips_enabled : bool prop;
+  id : string prop;
+  last_updated_time : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  verified_access_trust_providers :
+    aws_verifiedaccess_instance__verified_access_trust_providers list
+    prop;
+}
+
 val aws_verifiedaccess_instance :
   ?description:string prop ->
   ?fips_enabled:bool prop ->
@@ -22,4 +35,4 @@ val aws_verifiedaccess_instance :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   string ->
-  unit
+  t

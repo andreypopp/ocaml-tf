@@ -24,13 +24,31 @@ type aws_shield_application_layer_automatic_response = {
 [@@deriving yojson_of]
 (** aws_shield_application_layer_automatic_response *)
 
+type t = {
+  action : string prop;
+  id : string prop;
+  resource_arn : string prop;
+}
+
 let aws_shield_application_layer_automatic_response ?timeouts ~action
     ~resource_arn __resource_id =
   let __resource_type =
     "aws_shield_application_layer_automatic_response"
   in
-  let __resource = { action; resource_arn; timeouts } in
+  let __resource =
+    ({ action; resource_arn; timeouts }
+      : aws_shield_application_layer_automatic_response)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_shield_application_layer_automatic_response
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_arn =
+         Prop.computed __resource_type __resource_id "resource_arn";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -33,12 +33,46 @@ character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_vpn_gateway *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  gateway_id : float prop;
+  id : string prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+}
+
 let google_compute_vpn_gateway ?description ?id ?project ?region
     ?timeouts ~name ~network __resource_id =
   let __resource_type = "google_compute_vpn_gateway" in
   let __resource =
-    { description; id; name; network; project; region; timeouts }
+    ({ description; id; name; network; project; region; timeouts }
+      : google_compute_vpn_gateway)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_vpn_gateway __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       gateway_id =
+         Prop.computed __resource_type __resource_id "gateway_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

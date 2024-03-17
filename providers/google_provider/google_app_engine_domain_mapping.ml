@@ -54,19 +54,47 @@ By default, overrides are rejected. Default value: STRICT Possible values: [STRI
 [@@deriving yojson_of]
 (** google_app_engine_domain_mapping *)
 
+type t = {
+  domain_name : string prop;
+  id : string prop;
+  name : string prop;
+  override_strategy : string prop;
+  project : string prop;
+  resource_records :
+    google_app_engine_domain_mapping__resource_records list prop;
+}
+
 let google_app_engine_domain_mapping ?id ?override_strategy ?project
     ?timeouts ~domain_name ~ssl_settings __resource_id =
   let __resource_type = "google_app_engine_domain_mapping" in
   let __resource =
-    {
-      domain_name;
-      id;
-      override_strategy;
-      project;
-      ssl_settings;
-      timeouts;
-    }
+    ({
+       domain_name;
+       id;
+       override_strategy;
+       project;
+       ssl_settings;
+       timeouts;
+     }
+      : google_app_engine_domain_mapping)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_domain_mapping __resource);
-  ()
+  let __resource_attributes =
+    ({
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       override_strategy =
+         Prop.computed __resource_type __resource_id
+           "override_strategy";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       resource_records =
+         Prop.computed __resource_type __resource_id
+           "resource_records";
+     }
+      : t)
+  in
+  __resource_attributes

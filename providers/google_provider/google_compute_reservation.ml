@@ -108,23 +108,60 @@ affinity for any reservation. Defaults to false. *)
 [@@deriving yojson_of]
 (** google_compute_reservation *)
 
+type t = {
+  commitment : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  specific_reservation_required : bool prop;
+  status : string prop;
+  zone : string prop;
+}
+
 let google_compute_reservation ?description ?id ?project
     ?specific_reservation_required ?timeouts ~name ~zone
     ~share_settings ~specific_reservation __resource_id =
   let __resource_type = "google_compute_reservation" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      project;
-      specific_reservation_required;
-      zone;
-      share_settings;
-      specific_reservation;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       project;
+       specific_reservation_required;
+       zone;
+       share_settings;
+       specific_reservation;
+       timeouts;
+     }
+      : google_compute_reservation)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_reservation __resource);
-  ()
+  let __resource_attributes =
+    ({
+       commitment =
+         Prop.computed __resource_type __resource_id "commitment";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       specific_reservation_required =
+         Prop.computed __resource_type __resource_id
+           "specific_reservation_required";
+       status = Prop.computed __resource_type __resource_id "status";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

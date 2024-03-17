@@ -30,6 +30,16 @@ type azurerm_web_application_firewall_policy__policy_settings
 type azurerm_web_application_firewall_policy__timeouts
 type azurerm_web_application_firewall_policy
 
+type t = private {
+  http_listener_ids : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  path_based_rule_ids : string list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_web_application_firewall_policy :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -44,4 +54,4 @@ val azurerm_web_application_firewall_policy :
   policy_settings:
     azurerm_web_application_firewall_policy__policy_settings list ->
   string ->
-  unit
+  t

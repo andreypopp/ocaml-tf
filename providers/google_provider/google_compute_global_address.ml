@@ -58,25 +58,69 @@ when purpose=PRIVATE_SERVICE_CONNECT *)
 [@@deriving yojson_of]
 (** google_compute_global_address *)
 
+type t = {
+  address : string prop;
+  address_type : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  ip_version : string prop;
+  name : string prop;
+  network : string prop;
+  prefix_length : float prop;
+  project : string prop;
+  purpose : string prop;
+  self_link : string prop;
+}
+
 let google_compute_global_address ?address ?address_type ?description
     ?id ?ip_version ?network ?prefix_length ?project ?purpose
     ?timeouts ~name __resource_id =
   let __resource_type = "google_compute_global_address" in
   let __resource =
-    {
-      address;
-      address_type;
-      description;
-      id;
-      ip_version;
-      name;
-      network;
-      prefix_length;
-      project;
-      purpose;
-      timeouts;
-    }
+    ({
+       address;
+       address_type;
+       description;
+       id;
+       ip_version;
+       name;
+       network;
+       prefix_length;
+       project;
+       purpose;
+       timeouts;
+     }
+      : google_compute_global_address)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_global_address __resource);
-  ()
+  let __resource_attributes =
+    ({
+       address =
+         Prop.computed __resource_type __resource_id "address";
+       address_type =
+         Prop.computed __resource_type __resource_id "address_type";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_version =
+         Prop.computed __resource_type __resource_id "ip_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       prefix_length =
+         Prop.computed __resource_type __resource_id "prefix_length";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       purpose =
+         Prop.computed __resource_type __resource_id "purpose";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

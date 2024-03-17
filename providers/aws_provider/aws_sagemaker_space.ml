@@ -206,23 +206,57 @@ type aws_sagemaker_space = {
 [@@deriving yojson_of]
 (** aws_sagemaker_space *)
 
+type t = {
+  arn : string prop;
+  domain_id : string prop;
+  home_efs_file_system_uid : string prop;
+  id : string prop;
+  space_display_name : string prop;
+  space_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url : string prop;
+}
+
 let aws_sagemaker_space ?id ?space_display_name ?tags ?tags_all
     ~domain_id ~space_name ~ownership_settings ~space_settings
     ~space_sharing_settings __resource_id =
   let __resource_type = "aws_sagemaker_space" in
   let __resource =
-    {
-      domain_id;
-      id;
-      space_display_name;
-      space_name;
-      tags;
-      tags_all;
-      ownership_settings;
-      space_settings;
-      space_sharing_settings;
-    }
+    ({
+       domain_id;
+       id;
+       space_display_name;
+       space_name;
+       tags;
+       tags_all;
+       ownership_settings;
+       space_settings;
+       space_sharing_settings;
+     }
+      : aws_sagemaker_space)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_space __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       domain_id =
+         Prop.computed __resource_type __resource_id "domain_id";
+       home_efs_file_system_uid =
+         Prop.computed __resource_type __resource_id
+           "home_efs_file_system_uid";
+       id = Prop.computed __resource_type __resource_id "id";
+       space_display_name =
+         Prop.computed __resource_type __resource_id
+           "space_display_name";
+       space_name =
+         Prop.computed __resource_type __resource_id "space_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

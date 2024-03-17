@@ -27,6 +27,15 @@ type azurerm_datadog_monitor_sso_configuration = {
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor_sso_configuration *)
 
+type t = {
+  datadog_monitor_id : string prop;
+  enterprise_application_id : string prop;
+  id : string prop;
+  login_url : string prop;
+  name : string prop;
+  single_sign_on_enabled : string prop;
+}
+
 let azurerm_datadog_monitor_sso_configuration ?id ?name ?timeouts
     ~datadog_monitor_id ~enterprise_application_id
     ~single_sign_on_enabled __resource_id =
@@ -34,15 +43,34 @@ let azurerm_datadog_monitor_sso_configuration ?id ?name ?timeouts
     "azurerm_datadog_monitor_sso_configuration"
   in
   let __resource =
-    {
-      datadog_monitor_id;
-      enterprise_application_id;
-      id;
-      name;
-      single_sign_on_enabled;
-      timeouts;
-    }
+    ({
+       datadog_monitor_id;
+       enterprise_application_id;
+       id;
+       name;
+       single_sign_on_enabled;
+       timeouts;
+     }
+      : azurerm_datadog_monitor_sso_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_datadog_monitor_sso_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       datadog_monitor_id =
+         Prop.computed __resource_type __resource_id
+           "datadog_monitor_id";
+       enterprise_application_id =
+         Prop.computed __resource_type __resource_id
+           "enterprise_application_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       login_url =
+         Prop.computed __resource_type __resource_id "login_url";
+       name = Prop.computed __resource_type __resource_id "name";
+       single_sign_on_enabled =
+         Prop.computed __resource_type __resource_id
+           "single_sign_on_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

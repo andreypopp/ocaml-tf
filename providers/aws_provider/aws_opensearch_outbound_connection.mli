@@ -10,6 +10,14 @@ type aws_opensearch_outbound_connection__remote_domain_info
 type aws_opensearch_outbound_connection__timeouts
 type aws_opensearch_outbound_connection
 
+type t = private {
+  accept_connection : bool prop;
+  connection_alias : string prop;
+  connection_mode : string prop;
+  connection_status : string prop;
+  id : string prop;
+}
+
 val aws_opensearch_outbound_connection :
   ?accept_connection:bool prop ->
   ?connection_mode:string prop ->
@@ -23,4 +31,4 @@ val aws_opensearch_outbound_connection :
   remote_domain_info:
     aws_opensearch_outbound_connection__remote_domain_info list ->
   string ->
-  unit
+  t

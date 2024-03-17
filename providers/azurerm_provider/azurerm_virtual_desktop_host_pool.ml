@@ -62,6 +62,25 @@ type azurerm_virtual_desktop_host_pool = {
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_host_pool *)
 
+type t = {
+  custom_rdp_properties : string prop;
+  description : string prop;
+  friendly_name : string prop;
+  id : string prop;
+  load_balancer_type : string prop;
+  location : string prop;
+  maximum_sessions_allowed : float prop;
+  name : string prop;
+  personal_desktop_assignment_type : string prop;
+  preferred_app_group_type : string prop;
+  resource_group_name : string prop;
+  start_vm_on_connect : bool prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+  validate_environment : bool prop;
+  vm_template : string prop;
+}
+
 let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
     ?description ?friendly_name ?id ?maximum_sessions_allowed
     ?personal_desktop_assignment_type ?preferred_app_group_type
@@ -71,27 +90,69 @@ let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
     __resource_id =
   let __resource_type = "azurerm_virtual_desktop_host_pool" in
   let __resource =
-    {
-      custom_rdp_properties;
-      description;
-      friendly_name;
-      id;
-      load_balancer_type;
-      location;
-      maximum_sessions_allowed;
-      name;
-      personal_desktop_assignment_type;
-      preferred_app_group_type;
-      resource_group_name;
-      start_vm_on_connect;
-      tags;
-      type_;
-      validate_environment;
-      vm_template;
-      scheduled_agent_updates;
-      timeouts;
-    }
+    ({
+       custom_rdp_properties;
+       description;
+       friendly_name;
+       id;
+       load_balancer_type;
+       location;
+       maximum_sessions_allowed;
+       name;
+       personal_desktop_assignment_type;
+       preferred_app_group_type;
+       resource_group_name;
+       start_vm_on_connect;
+       tags;
+       type_;
+       validate_environment;
+       vm_template;
+       scheduled_agent_updates;
+       timeouts;
+     }
+      : azurerm_virtual_desktop_host_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_desktop_host_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       custom_rdp_properties =
+         Prop.computed __resource_type __resource_id
+           "custom_rdp_properties";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       friendly_name =
+         Prop.computed __resource_type __resource_id "friendly_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       load_balancer_type =
+         Prop.computed __resource_type __resource_id
+           "load_balancer_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       maximum_sessions_allowed =
+         Prop.computed __resource_type __resource_id
+           "maximum_sessions_allowed";
+       name = Prop.computed __resource_type __resource_id "name";
+       personal_desktop_assignment_type =
+         Prop.computed __resource_type __resource_id
+           "personal_desktop_assignment_type";
+       preferred_app_group_type =
+         Prop.computed __resource_type __resource_id
+           "preferred_app_group_type";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       start_vm_on_connect =
+         Prop.computed __resource_type __resource_id
+           "start_vm_on_connect";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       validate_environment =
+         Prop.computed __resource_type __resource_id
+           "validate_environment";
+       vm_template =
+         Prop.computed __resource_type __resource_id "vm_template";
+     }
+      : t)
+  in
+  __resource_attributes

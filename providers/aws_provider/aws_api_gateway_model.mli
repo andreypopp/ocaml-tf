@@ -4,6 +4,15 @@ open! Tf.Prelude
 
 type aws_api_gateway_model
 
+type t = private {
+  content_type : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  rest_api_id : string prop;
+  schema : string prop;
+}
+
 val aws_api_gateway_model :
   ?description:string prop ->
   ?id:string prop ->
@@ -12,4 +21,4 @@ val aws_api_gateway_model :
   name:string prop ->
   rest_api_id:string prop ->
   string ->
-  unit
+  t

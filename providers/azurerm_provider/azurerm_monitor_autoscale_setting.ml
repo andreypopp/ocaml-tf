@@ -152,25 +152,54 @@ type azurerm_monitor_autoscale_setting = {
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting *)
 
+type t = {
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  target_resource_id : string prop;
+}
+
 let azurerm_monitor_autoscale_setting ?enabled ?id ?tags ?timeouts
     ~location ~name ~resource_group_name ~target_resource_id
     ~notification ~predictive ~profile __resource_id =
   let __resource_type = "azurerm_monitor_autoscale_setting" in
   let __resource =
-    {
-      enabled;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      target_resource_id;
-      notification;
-      predictive;
-      profile;
-      timeouts;
-    }
+    ({
+       enabled;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       target_resource_id;
+       notification;
+       predictive;
+       profile;
+       timeouts;
+     }
+      : azurerm_monitor_autoscale_setting)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_autoscale_setting __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       target_resource_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

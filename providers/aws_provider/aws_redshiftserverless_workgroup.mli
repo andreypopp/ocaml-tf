@@ -31,6 +31,24 @@ type aws_redshiftserverless_workgroup__endpoint = {
 
 type aws_redshiftserverless_workgroup
 
+type t = private {
+  arn : string prop;
+  base_capacity : float prop;
+  endpoint : aws_redshiftserverless_workgroup__endpoint list prop;
+  enhanced_vpc_routing : bool prop;
+  id : string prop;
+  max_capacity : float prop;
+  namespace_name : string prop;
+  port : float prop;
+  publicly_accessible : bool prop;
+  security_group_ids : string list prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  workgroup_id : string prop;
+  workgroup_name : string prop;
+}
+
 val aws_redshiftserverless_workgroup :
   ?base_capacity:float prop ->
   ?enhanced_vpc_routing:bool prop ->
@@ -48,4 +66,4 @@ val aws_redshiftserverless_workgroup :
   config_parameter:
     aws_redshiftserverless_workgroup__config_parameter list ->
   string ->
-  unit
+  t

@@ -6,6 +6,18 @@ type azurerm_spring_cloud_api_portal__sso
 type azurerm_spring_cloud_api_portal__timeouts
 type azurerm_spring_cloud_api_portal
 
+type t = private {
+  api_try_out_enabled : bool prop;
+  gateway_ids : string list prop;
+  https_only_enabled : bool prop;
+  id : string prop;
+  instance_count : float prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  spring_cloud_service_id : string prop;
+  url : string prop;
+}
+
 val azurerm_spring_cloud_api_portal :
   ?api_try_out_enabled:bool prop ->
   ?gateway_ids:string prop list ->
@@ -18,4 +30,4 @@ val azurerm_spring_cloud_api_portal :
   spring_cloud_service_id:string prop ->
   sso:azurerm_spring_cloud_api_portal__sso list ->
   string ->
-  unit
+  t

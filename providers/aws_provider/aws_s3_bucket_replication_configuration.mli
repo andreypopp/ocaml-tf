@@ -33,6 +33,13 @@ type aws_s3_bucket_replication_configuration__rule__source_selection_criteria
 type aws_s3_bucket_replication_configuration__rule
 type aws_s3_bucket_replication_configuration
 
+type t = private {
+  bucket : string prop;
+  id : string prop;
+  role : string prop;
+  token : string prop;
+}
+
 val aws_s3_bucket_replication_configuration :
   ?id:string prop ->
   ?token:string prop ->
@@ -40,4 +47,4 @@ val aws_s3_bucket_replication_configuration :
   role:string prop ->
   rule:aws_s3_bucket_replication_configuration__rule list ->
   string ->
-  unit
+  t

@@ -10,6 +10,37 @@ type google_compute_disk__source_snapshot_encryption_key
 type google_compute_disk__timeouts
 type google_compute_disk
 
+type t = private {
+  creation_timestamp : string prop;
+  description : string prop;
+  disk_id : string prop;
+  effective_labels : (string * string) list prop;
+  enable_confidential_compute : bool prop;
+  id : string prop;
+  image : string prop;
+  label_fingerprint : string prop;
+  labels : (string * string) list prop;
+  last_attach_timestamp : string prop;
+  last_detach_timestamp : string prop;
+  licenses : string list prop;
+  name : string prop;
+  physical_block_size_bytes : float prop;
+  project : string prop;
+  provisioned_iops : float prop;
+  provisioned_throughput : float prop;
+  self_link : string prop;
+  size : float prop;
+  snapshot : string prop;
+  source_disk : string prop;
+  source_disk_id : string prop;
+  source_image_id : string prop;
+  source_snapshot_id : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+  users : string list prop;
+  zone : string prop;
+}
+
 val google_compute_disk :
   ?description:string prop ->
   ?enable_confidential_compute:bool prop ->
@@ -36,4 +67,4 @@ val google_compute_disk :
   source_snapshot_encryption_key:
     google_compute_disk__source_snapshot_encryption_key list ->
   string ->
-  unit
+  t

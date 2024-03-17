@@ -54,25 +54,80 @@ type aws_evidently_feature = {
 [@@deriving yojson_of]
 (** aws_evidently_feature *)
 
+type t = {
+  arn : string prop;
+  created_time : string prop;
+  default_variation : string prop;
+  description : string prop;
+  entity_overrides : (string * string) list prop;
+  evaluation_rules :
+    aws_evidently_feature__evaluation_rules list prop;
+  evaluation_strategy : string prop;
+  id : string prop;
+  last_updated_time : string prop;
+  name : string prop;
+  project : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  value_type : string prop;
+}
+
 let aws_evidently_feature ?default_variation ?description
     ?entity_overrides ?evaluation_strategy ?id ?tags ?tags_all
     ?timeouts ~name ~project ~variations __resource_id =
   let __resource_type = "aws_evidently_feature" in
   let __resource =
-    {
-      default_variation;
-      description;
-      entity_overrides;
-      evaluation_strategy;
-      id;
-      name;
-      project;
-      tags;
-      tags_all;
-      timeouts;
-      variations;
-    }
+    ({
+       default_variation;
+       description;
+       entity_overrides;
+       evaluation_strategy;
+       id;
+       name;
+       project;
+       tags;
+       tags_all;
+       timeouts;
+       variations;
+     }
+      : aws_evidently_feature)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_evidently_feature __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_time =
+         Prop.computed __resource_type __resource_id "created_time";
+       default_variation =
+         Prop.computed __resource_type __resource_id
+           "default_variation";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       entity_overrides =
+         Prop.computed __resource_type __resource_id
+           "entity_overrides";
+       evaluation_rules =
+         Prop.computed __resource_type __resource_id
+           "evaluation_rules";
+       evaluation_strategy =
+         Prop.computed __resource_type __resource_id
+           "evaluation_strategy";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_updated_time =
+         Prop.computed __resource_type __resource_id
+           "last_updated_time";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       value_type =
+         Prop.computed __resource_type __resource_id "value_type";
+     }
+      : t)
+  in
+  __resource_attributes

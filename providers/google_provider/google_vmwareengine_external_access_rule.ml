@@ -62,27 +62,70 @@ For example: projects/my-project/locations/us-west1-a/networkPolicies/my-policy 
 [@@deriving yojson_of]
 (** google_vmwareengine_external_access_rule *)
 
+type t = {
+  action : string prop;
+  create_time : string prop;
+  description : string prop;
+  destination_ports : string list prop;
+  id : string prop;
+  ip_protocol : string prop;
+  name : string prop;
+  parent : string prop;
+  priority : float prop;
+  source_ports : string list prop;
+  state : string prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_vmwareengine_external_access_rule ?description ?id
     ?timeouts ~action ~destination_ports ~ip_protocol ~name ~parent
     ~priority ~source_ports ~destination_ip_ranges ~source_ip_ranges
     __resource_id =
   let __resource_type = "google_vmwareengine_external_access_rule" in
   let __resource =
-    {
-      action;
-      description;
-      destination_ports;
-      id;
-      ip_protocol;
-      name;
-      parent;
-      priority;
-      source_ports;
-      destination_ip_ranges;
-      source_ip_ranges;
-      timeouts;
-    }
+    ({
+       action;
+       description;
+       destination_ports;
+       id;
+       ip_protocol;
+       name;
+       parent;
+       priority;
+       source_ports;
+       destination_ip_ranges;
+       source_ip_ranges;
+       timeouts;
+     }
+      : google_vmwareengine_external_access_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_external_access_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       destination_ports =
+         Prop.computed __resource_type __resource_id
+           "destination_ports";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_protocol =
+         Prop.computed __resource_type __resource_id "ip_protocol";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       source_ports =
+         Prop.computed __resource_type __resource_id "source_ports";
+       state = Prop.computed __resource_type __resource_id "state";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

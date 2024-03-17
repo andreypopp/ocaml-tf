@@ -41,6 +41,16 @@ type azurerm_key_vault_managed_hardware_security_module_role_definition = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_hardware_security_module_role_definition *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  resource_manager_id : string prop;
+  role_name : string prop;
+  role_type : string prop;
+  vault_base_url : string prop;
+}
+
 let azurerm_key_vault_managed_hardware_security_module_role_definition
     ?description ?id ?role_name ?timeouts ~name ~vault_base_url
     ~permission __resource_id =
@@ -48,17 +58,36 @@ let azurerm_key_vault_managed_hardware_security_module_role_definition
     "azurerm_key_vault_managed_hardware_security_module_role_definition"
   in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      role_name;
-      vault_base_url;
-      permission;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       role_name;
+       vault_base_url;
+       permission;
+       timeouts;
+     }
+      : azurerm_key_vault_managed_hardware_security_module_role_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_managed_hardware_security_module_role_definition
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_manager_id =
+         Prop.computed __resource_type __resource_id
+           "resource_manager_id";
+       role_name =
+         Prop.computed __resource_type __resource_id "role_name";
+       role_type =
+         Prop.computed __resource_type __resource_id "role_type";
+       vault_base_url =
+         Prop.computed __resource_type __resource_id "vault_base_url";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -60,6 +60,24 @@ type aws_opsworks_application = {
 [@@deriving yojson_of]
 (** aws_opsworks_application *)
 
+type t = {
+  auto_bundle_on_deploy : string prop;
+  aws_flow_ruby_settings : string prop;
+  data_source_arn : string prop;
+  data_source_database_name : string prop;
+  data_source_type : string prop;
+  description : string prop;
+  document_root : string prop;
+  domains : string list prop;
+  enable_ssl : bool prop;
+  id : string prop;
+  name : string prop;
+  rails_env : string prop;
+  short_name : string prop;
+  stack_id : string prop;
+  type_ : string prop;
+}
+
 let aws_opsworks_application ?auto_bundle_on_deploy
     ?aws_flow_ruby_settings ?data_source_arn
     ?data_source_database_name ?data_source_type ?description
@@ -68,27 +86,65 @@ let aws_opsworks_application ?auto_bundle_on_deploy
     ~ssl_configuration __resource_id =
   let __resource_type = "aws_opsworks_application" in
   let __resource =
-    {
-      auto_bundle_on_deploy;
-      aws_flow_ruby_settings;
-      data_source_arn;
-      data_source_database_name;
-      data_source_type;
-      description;
-      document_root;
-      domains;
-      enable_ssl;
-      id;
-      name;
-      rails_env;
-      short_name;
-      stack_id;
-      type_;
-      app_source;
-      environment;
-      ssl_configuration;
-    }
+    ({
+       auto_bundle_on_deploy;
+       aws_flow_ruby_settings;
+       data_source_arn;
+       data_source_database_name;
+       data_source_type;
+       description;
+       document_root;
+       domains;
+       enable_ssl;
+       id;
+       name;
+       rails_env;
+       short_name;
+       stack_id;
+       type_;
+       app_source;
+       environment;
+       ssl_configuration;
+     }
+      : aws_opsworks_application)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opsworks_application __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_bundle_on_deploy =
+         Prop.computed __resource_type __resource_id
+           "auto_bundle_on_deploy";
+       aws_flow_ruby_settings =
+         Prop.computed __resource_type __resource_id
+           "aws_flow_ruby_settings";
+       data_source_arn =
+         Prop.computed __resource_type __resource_id
+           "data_source_arn";
+       data_source_database_name =
+         Prop.computed __resource_type __resource_id
+           "data_source_database_name";
+       data_source_type =
+         Prop.computed __resource_type __resource_id
+           "data_source_type";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       document_root =
+         Prop.computed __resource_type __resource_id "document_root";
+       domains =
+         Prop.computed __resource_type __resource_id "domains";
+       enable_ssl =
+         Prop.computed __resource_type __resource_id "enable_ssl";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       rails_env =
+         Prop.computed __resource_type __resource_id "rails_env";
+       short_name =
+         Prop.computed __resource_type __resource_id "short_name";
+       stack_id =
+         Prop.computed __resource_type __resource_id "stack_id";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

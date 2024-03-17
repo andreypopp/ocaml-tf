@@ -26,22 +26,51 @@ type azurerm_api_management_global_schema = {
 [@@deriving yojson_of]
 (** azurerm_api_management_global_schema *)
 
+type t = {
+  api_management_name : string prop;
+  description : string prop;
+  id : string prop;
+  resource_group_name : string prop;
+  schema_id : string prop;
+  type_ : string prop;
+  value : string prop;
+}
+
 let azurerm_api_management_global_schema ?description ?id ?timeouts
     ~api_management_name ~resource_group_name ~schema_id ~type_
     ~value __resource_id =
   let __resource_type = "azurerm_api_management_global_schema" in
   let __resource =
-    {
-      api_management_name;
-      description;
-      id;
-      resource_group_name;
-      schema_id;
-      type_;
-      value;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       description;
+       id;
+       resource_group_name;
+       schema_id;
+       type_;
+       value;
+       timeouts;
+     }
+      : azurerm_api_management_global_schema)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_global_schema __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       schema_id =
+         Prop.computed __resource_type __resource_id "schema_id";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

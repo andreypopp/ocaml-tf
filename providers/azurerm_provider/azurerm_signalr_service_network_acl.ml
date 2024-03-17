@@ -45,20 +45,38 @@ type azurerm_signalr_service_network_acl = {
 [@@deriving yojson_of]
 (** azurerm_signalr_service_network_acl *)
 
+type t = {
+  default_action : string prop;
+  id : string prop;
+  signalr_service_id : string prop;
+}
+
 let azurerm_signalr_service_network_acl ?id ?timeouts ~default_action
     ~signalr_service_id ~private_endpoint ~public_network
     __resource_id =
   let __resource_type = "azurerm_signalr_service_network_acl" in
   let __resource =
-    {
-      default_action;
-      id;
-      signalr_service_id;
-      private_endpoint;
-      public_network;
-      timeouts;
-    }
+    ({
+       default_action;
+       id;
+       signalr_service_id;
+       private_endpoint;
+       public_network;
+       timeouts;
+     }
+      : azurerm_signalr_service_network_acl)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_signalr_service_network_acl __resource);
-  ()
+  let __resource_attributes =
+    ({
+       default_action =
+         Prop.computed __resource_type __resource_id "default_action";
+       id = Prop.computed __resource_type __resource_id "id";
+       signalr_service_id =
+         Prop.computed __resource_type __resource_id
+           "signalr_service_id";
+     }
+      : t)
+  in
+  __resource_attributes

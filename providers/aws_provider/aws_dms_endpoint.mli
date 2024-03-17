@@ -13,6 +13,29 @@ type aws_dms_endpoint__s3_settings
 type aws_dms_endpoint__timeouts
 type aws_dms_endpoint
 
+type t = private {
+  certificate_arn : string prop;
+  database_name : string prop;
+  endpoint_arn : string prop;
+  endpoint_id : string prop;
+  endpoint_type : string prop;
+  engine_name : string prop;
+  extra_connection_attributes : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  password : string prop;
+  pause_replication_tasks : bool prop;
+  port : float prop;
+  secrets_manager_access_role_arn : string prop;
+  secrets_manager_arn : string prop;
+  server_name : string prop;
+  service_access_role : string prop;
+  ssl_mode : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  username : string prop;
+}
+
 val aws_dms_endpoint :
   ?certificate_arn:string prop ->
   ?database_name:string prop ->
@@ -44,4 +67,4 @@ val aws_dms_endpoint :
   redshift_settings:aws_dms_endpoint__redshift_settings list ->
   s3_settings:aws_dms_endpoint__s3_settings list ->
   string ->
-  unit
+  t

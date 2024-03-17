@@ -481,21 +481,45 @@ type azurerm_media_transform = {
 [@@deriving yojson_of]
 (** azurerm_media_transform *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_media_transform ?description ?id ?timeouts
     ~media_services_account_name ~name ~resource_group_name ~output
     __resource_id =
   let __resource_type = "azurerm_media_transform" in
   let __resource =
-    {
-      description;
-      id;
-      media_services_account_name;
-      name;
-      resource_group_name;
-      output;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       media_services_account_name;
+       name;
+       resource_group_name;
+       output;
+       timeouts;
+     }
+      : azurerm_media_transform)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_media_transform __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       media_services_account_name =
+         Prop.computed __resource_type __resource_id
+           "media_services_account_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

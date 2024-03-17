@@ -91,30 +91,90 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_clouddeploy_target *)
 
+type t = {
+  annotations : (string * string) list prop;
+  create_time : string prop;
+  deploy_parameters : (string * string) list prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  require_approval : bool prop;
+  target_id : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_clouddeploy_target ?annotations ?deploy_parameters
     ?description ?id ?labels ?project ?require_approval ?timeouts
     ~location ~name ~anthos_cluster ~execution_configs ~gke
     ~multi_target ~run __resource_id =
   let __resource_type = "google_clouddeploy_target" in
   let __resource =
-    {
-      annotations;
-      deploy_parameters;
-      description;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      require_approval;
-      anthos_cluster;
-      execution_configs;
-      gke;
-      multi_target;
-      run;
-      timeouts;
-    }
+    ({
+       annotations;
+       deploy_parameters;
+       description;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       require_approval;
+       anthos_cluster;
+       execution_configs;
+       gke;
+       multi_target;
+       run;
+       timeouts;
+     }
+      : google_clouddeploy_target)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_clouddeploy_target __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       deploy_parameters =
+         Prop.computed __resource_type __resource_id
+           "deploy_parameters";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       require_approval =
+         Prop.computed __resource_type __resource_id
+           "require_approval";
+       target_id =
+         Prop.computed __resource_type __resource_id "target_id";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

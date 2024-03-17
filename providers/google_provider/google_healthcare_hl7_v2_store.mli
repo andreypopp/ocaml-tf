@@ -8,6 +8,17 @@ type google_healthcare_hl7_v2_store__parser_config
 type google_healthcare_hl7_v2_store__timeouts
 type google_healthcare_hl7_v2_store
 
+type t = private {
+  dataset : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  reject_duplicate_message : bool prop;
+  self_link : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_healthcare_hl7_v2_store :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -21,4 +32,4 @@ val google_healthcare_hl7_v2_store :
     google_healthcare_hl7_v2_store__notification_configs list ->
   parser_config:google_healthcare_hl7_v2_store__parser_config list ->
   string ->
-  unit
+  t

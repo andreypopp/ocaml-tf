@@ -14,6 +14,22 @@ type google_pubsub_subscription__retry_policy
 type google_pubsub_subscription__timeouts
 type google_pubsub_subscription
 
+type t = private {
+  ack_deadline_seconds : float prop;
+  effective_labels : (string * string) list prop;
+  enable_exactly_once_delivery : bool prop;
+  enable_message_ordering : bool prop;
+  filter : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  message_retention_duration : string prop;
+  name : string prop;
+  project : string prop;
+  retain_acked_messages : bool prop;
+  terraform_labels : (string * string) list prop;
+  topic : string prop;
+}
+
 val google_pubsub_subscription :
   ?ack_deadline_seconds:float prop ->
   ?enable_exactly_once_delivery:bool prop ->
@@ -37,4 +53,4 @@ val google_pubsub_subscription :
   push_config:google_pubsub_subscription__push_config list ->
   retry_policy:google_pubsub_subscription__retry_policy list ->
   string ->
-  unit
+  t

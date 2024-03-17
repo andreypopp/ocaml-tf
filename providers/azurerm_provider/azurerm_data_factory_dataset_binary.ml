@@ -85,6 +85,18 @@ type azurerm_data_factory_dataset_binary = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_dataset_binary *)
 
+type t = {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  folder : string prop;
+  id : string prop;
+  linked_service_name : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+}
+
 let azurerm_data_factory_dataset_binary ?additional_properties
     ?annotations ?description ?folder ?id ?parameters ?timeouts
     ~data_factory_id ~linked_service_name ~name
@@ -92,23 +104,47 @@ let azurerm_data_factory_dataset_binary ?additional_properties
     ~sftp_server_location __resource_id =
   let __resource_type = "azurerm_data_factory_dataset_binary" in
   let __resource =
-    {
-      additional_properties;
-      annotations;
-      data_factory_id;
-      description;
-      folder;
-      id;
-      linked_service_name;
-      name;
-      parameters;
-      azure_blob_storage_location;
-      compression;
-      http_server_location;
-      sftp_server_location;
-      timeouts;
-    }
+    ({
+       additional_properties;
+       annotations;
+       data_factory_id;
+       description;
+       folder;
+       id;
+       linked_service_name;
+       name;
+       parameters;
+       azure_blob_storage_location;
+       compression;
+       http_server_location;
+       sftp_server_location;
+       timeouts;
+     }
+      : azurerm_data_factory_dataset_binary)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_dataset_binary __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_properties =
+         Prop.computed __resource_type __resource_id
+           "additional_properties";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       folder = Prop.computed __resource_type __resource_id "folder";
+       id = Prop.computed __resource_type __resource_id "id";
+       linked_service_name =
+         Prop.computed __resource_type __resource_id
+           "linked_service_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+     }
+      : t)
+  in
+  __resource_attributes

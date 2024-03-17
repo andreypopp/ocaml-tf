@@ -59,27 +59,68 @@ type azurerm_sql_server = {
 [@@deriving yojson_of]
 (** azurerm_sql_server *)
 
+type t = {
+  administrator_login : string prop;
+  administrator_login_password : string prop;
+  connection_policy : string prop;
+  fully_qualified_domain_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  version : string prop;
+}
+
 let azurerm_sql_server ?connection_policy ?id ?tags ?timeouts
     ~administrator_login ~administrator_login_password ~location
     ~name ~resource_group_name ~version ~identity
     ~threat_detection_policy __resource_id =
   let __resource_type = "azurerm_sql_server" in
   let __resource =
-    {
-      administrator_login;
-      administrator_login_password;
-      connection_policy;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      version;
-      identity;
-      threat_detection_policy;
-      timeouts;
-    }
+    ({
+       administrator_login;
+       administrator_login_password;
+       connection_policy;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       version;
+       identity;
+       threat_detection_policy;
+       timeouts;
+     }
+      : azurerm_sql_server)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sql_server __resource);
-  ()
+  let __resource_attributes =
+    ({
+       administrator_login =
+         Prop.computed __resource_type __resource_id
+           "administrator_login";
+       administrator_login_password =
+         Prop.computed __resource_type __resource_id
+           "administrator_login_password";
+       connection_policy =
+         Prop.computed __resource_type __resource_id
+           "connection_policy";
+       fully_qualified_domain_name =
+         Prop.computed __resource_type __resource_id
+           "fully_qualified_domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

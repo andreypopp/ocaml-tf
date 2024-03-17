@@ -67,24 +67,52 @@ in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
 [@@deriving yojson_of]
 (** google_apigee_target_server *)
 
+type t = {
+  description : string prop;
+  env_id : string prop;
+  host : string prop;
+  id : string prop;
+  is_enabled : bool prop;
+  name : string prop;
+  port : float prop;
+  protocol : string prop;
+}
+
 let google_apigee_target_server ?description ?id ?is_enabled
     ?protocol ?timeouts ~env_id ~host ~name ~port ~s_sl_info
     __resource_id =
   let __resource_type = "google_apigee_target_server" in
   let __resource =
-    {
-      description;
-      env_id;
-      host;
-      id;
-      is_enabled;
-      name;
-      port;
-      protocol;
-      s_sl_info;
-      timeouts;
-    }
+    ({
+       description;
+       env_id;
+       host;
+       id;
+       is_enabled;
+       name;
+       port;
+       protocol;
+       s_sl_info;
+       timeouts;
+     }
+      : google_apigee_target_server)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_target_server __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       env_id = Prop.computed __resource_type __resource_id "env_id";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_enabled =
+         Prop.computed __resource_type __resource_id "is_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       port = Prop.computed __resource_type __resource_id "port";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -24,12 +24,45 @@ type azurerm_graph_services_account = {
 [@@deriving yojson_of]
 (** azurerm_graph_services_account *)
 
+type t = {
+  application_id : string prop;
+  billing_plan_id : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_graph_services_account ?id ?tags ?timeouts
     ~application_id ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_graph_services_account" in
   let __resource =
-    { application_id; id; name; resource_group_name; tags; timeouts }
+    ({
+       application_id;
+       id;
+       name;
+       resource_group_name;
+       tags;
+       timeouts;
+     }
+      : azurerm_graph_services_account)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_graph_services_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_id =
+         Prop.computed __resource_type __resource_id "application_id";
+       billing_plan_id =
+         Prop.computed __resource_type __resource_id
+           "billing_plan_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

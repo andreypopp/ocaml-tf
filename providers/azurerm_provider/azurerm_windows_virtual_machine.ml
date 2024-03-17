@@ -229,6 +229,55 @@ type azurerm_windows_virtual_machine = {
 [@@deriving yojson_of]
 (** azurerm_windows_virtual_machine *)
 
+type t = {
+  admin_password : string prop;
+  admin_username : string prop;
+  allow_extension_operations : bool prop;
+  availability_set_id : string prop;
+  bypass_platform_safety_checks_on_user_schedule_enabled : bool prop;
+  capacity_reservation_group_id : string prop;
+  computer_name : string prop;
+  custom_data : string prop;
+  dedicated_host_group_id : string prop;
+  dedicated_host_id : string prop;
+  disk_controller_type : string prop;
+  edge_zone : string prop;
+  enable_automatic_updates : bool prop;
+  encryption_at_host_enabled : bool prop;
+  eviction_policy : string prop;
+  extensions_time_budget : string prop;
+  hotpatching_enabled : bool prop;
+  id : string prop;
+  license_type : string prop;
+  location : string prop;
+  max_bid_price : float prop;
+  name : string prop;
+  network_interface_ids : string list prop;
+  patch_assessment_mode : string prop;
+  patch_mode : string prop;
+  platform_fault_domain : float prop;
+  priority : string prop;
+  private_ip_address : string prop;
+  private_ip_addresses : string list prop;
+  provision_vm_agent : bool prop;
+  proximity_placement_group_id : string prop;
+  public_ip_address : string prop;
+  public_ip_addresses : string list prop;
+  reboot_setting : string prop;
+  resource_group_name : string prop;
+  secure_boot_enabled : bool prop;
+  size : string prop;
+  source_image_id : string prop;
+  tags : (string * string) list prop;
+  timezone : string prop;
+  user_data : string prop;
+  virtual_machine_id : string prop;
+  virtual_machine_scale_set_id : string prop;
+  vm_agent_platform_updates_enabled : bool prop;
+  vtpm_enabled : bool prop;
+  zone : string prop;
+}
+
 let azurerm_windows_virtual_machine ?allow_extension_operations
     ?availability_set_id
     ?bypass_platform_safety_checks_on_user_schedule_enabled
@@ -249,63 +298,183 @@ let azurerm_windows_virtual_machine ?allow_extension_operations
     ~termination_notification ~winrm_listener __resource_id =
   let __resource_type = "azurerm_windows_virtual_machine" in
   let __resource =
-    {
-      admin_password;
-      admin_username;
-      allow_extension_operations;
-      availability_set_id;
-      bypass_platform_safety_checks_on_user_schedule_enabled;
-      capacity_reservation_group_id;
-      computer_name;
-      custom_data;
-      dedicated_host_group_id;
-      dedicated_host_id;
-      disk_controller_type;
-      edge_zone;
-      enable_automatic_updates;
-      encryption_at_host_enabled;
-      eviction_policy;
-      extensions_time_budget;
-      hotpatching_enabled;
-      id;
-      license_type;
-      location;
-      max_bid_price;
-      name;
-      network_interface_ids;
-      patch_assessment_mode;
-      patch_mode;
-      platform_fault_domain;
-      priority;
-      provision_vm_agent;
-      proximity_placement_group_id;
-      reboot_setting;
-      resource_group_name;
-      secure_boot_enabled;
-      size;
-      source_image_id;
-      tags;
-      timezone;
-      user_data;
-      virtual_machine_scale_set_id;
-      vm_agent_platform_updates_enabled;
-      vtpm_enabled;
-      zone;
-      additional_capabilities;
-      additional_unattend_content;
-      boot_diagnostics;
-      gallery_application;
-      identity;
-      os_disk;
-      os_image_notification;
-      plan;
-      secret;
-      source_image_reference;
-      termination_notification;
-      timeouts;
-      winrm_listener;
-    }
+    ({
+       admin_password;
+       admin_username;
+       allow_extension_operations;
+       availability_set_id;
+       bypass_platform_safety_checks_on_user_schedule_enabled;
+       capacity_reservation_group_id;
+       computer_name;
+       custom_data;
+       dedicated_host_group_id;
+       dedicated_host_id;
+       disk_controller_type;
+       edge_zone;
+       enable_automatic_updates;
+       encryption_at_host_enabled;
+       eviction_policy;
+       extensions_time_budget;
+       hotpatching_enabled;
+       id;
+       license_type;
+       location;
+       max_bid_price;
+       name;
+       network_interface_ids;
+       patch_assessment_mode;
+       patch_mode;
+       platform_fault_domain;
+       priority;
+       provision_vm_agent;
+       proximity_placement_group_id;
+       reboot_setting;
+       resource_group_name;
+       secure_boot_enabled;
+       size;
+       source_image_id;
+       tags;
+       timezone;
+       user_data;
+       virtual_machine_scale_set_id;
+       vm_agent_platform_updates_enabled;
+       vtpm_enabled;
+       zone;
+       additional_capabilities;
+       additional_unattend_content;
+       boot_diagnostics;
+       gallery_application;
+       identity;
+       os_disk;
+       os_image_notification;
+       plan;
+       secret;
+       source_image_reference;
+       termination_notification;
+       timeouts;
+       winrm_listener;
+     }
+      : azurerm_windows_virtual_machine)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_windows_virtual_machine __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin_password =
+         Prop.computed __resource_type __resource_id "admin_password";
+       admin_username =
+         Prop.computed __resource_type __resource_id "admin_username";
+       allow_extension_operations =
+         Prop.computed __resource_type __resource_id
+           "allow_extension_operations";
+       availability_set_id =
+         Prop.computed __resource_type __resource_id
+           "availability_set_id";
+       bypass_platform_safety_checks_on_user_schedule_enabled =
+         Prop.computed __resource_type __resource_id
+           "bypass_platform_safety_checks_on_user_schedule_enabled";
+       capacity_reservation_group_id =
+         Prop.computed __resource_type __resource_id
+           "capacity_reservation_group_id";
+       computer_name =
+         Prop.computed __resource_type __resource_id "computer_name";
+       custom_data =
+         Prop.computed __resource_type __resource_id "custom_data";
+       dedicated_host_group_id =
+         Prop.computed __resource_type __resource_id
+           "dedicated_host_group_id";
+       dedicated_host_id =
+         Prop.computed __resource_type __resource_id
+           "dedicated_host_id";
+       disk_controller_type =
+         Prop.computed __resource_type __resource_id
+           "disk_controller_type";
+       edge_zone =
+         Prop.computed __resource_type __resource_id "edge_zone";
+       enable_automatic_updates =
+         Prop.computed __resource_type __resource_id
+           "enable_automatic_updates";
+       encryption_at_host_enabled =
+         Prop.computed __resource_type __resource_id
+           "encryption_at_host_enabled";
+       eviction_policy =
+         Prop.computed __resource_type __resource_id
+           "eviction_policy";
+       extensions_time_budget =
+         Prop.computed __resource_type __resource_id
+           "extensions_time_budget";
+       hotpatching_enabled =
+         Prop.computed __resource_type __resource_id
+           "hotpatching_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       license_type =
+         Prop.computed __resource_type __resource_id "license_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       max_bid_price =
+         Prop.computed __resource_type __resource_id "max_bid_price";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_interface_ids =
+         Prop.computed __resource_type __resource_id
+           "network_interface_ids";
+       patch_assessment_mode =
+         Prop.computed __resource_type __resource_id
+           "patch_assessment_mode";
+       patch_mode =
+         Prop.computed __resource_type __resource_id "patch_mode";
+       platform_fault_domain =
+         Prop.computed __resource_type __resource_id
+           "platform_fault_domain";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       private_ip_address =
+         Prop.computed __resource_type __resource_id
+           "private_ip_address";
+       private_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "private_ip_addresses";
+       provision_vm_agent =
+         Prop.computed __resource_type __resource_id
+           "provision_vm_agent";
+       proximity_placement_group_id =
+         Prop.computed __resource_type __resource_id
+           "proximity_placement_group_id";
+       public_ip_address =
+         Prop.computed __resource_type __resource_id
+           "public_ip_address";
+       public_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "public_ip_addresses";
+       reboot_setting =
+         Prop.computed __resource_type __resource_id "reboot_setting";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secure_boot_enabled =
+         Prop.computed __resource_type __resource_id
+           "secure_boot_enabled";
+       size = Prop.computed __resource_type __resource_id "size";
+       source_image_id =
+         Prop.computed __resource_type __resource_id
+           "source_image_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       timezone =
+         Prop.computed __resource_type __resource_id "timezone";
+       user_data =
+         Prop.computed __resource_type __resource_id "user_data";
+       virtual_machine_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_id";
+       virtual_machine_scale_set_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_scale_set_id";
+       vm_agent_platform_updates_enabled =
+         Prop.computed __resource_type __resource_id
+           "vm_agent_platform_updates_enabled";
+       vtpm_enabled =
+         Prop.computed __resource_type __resource_id "vtpm_enabled";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

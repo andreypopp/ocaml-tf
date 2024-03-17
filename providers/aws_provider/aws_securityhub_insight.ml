@@ -931,10 +931,31 @@ type aws_securityhub_insight = {
 [@@deriving yojson_of]
 (** aws_securityhub_insight *)
 
+type t = {
+  arn : string prop;
+  group_by_attribute : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let aws_securityhub_insight ?id ~group_by_attribute ~name ~filters
     __resource_id =
   let __resource_type = "aws_securityhub_insight" in
-  let __resource = { group_by_attribute; id; name; filters } in
+  let __resource =
+    ({ group_by_attribute; id; name; filters }
+      : aws_securityhub_insight)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_insight __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       group_by_attribute =
+         Prop.computed __resource_type __resource_id
+           "group_by_attribute";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

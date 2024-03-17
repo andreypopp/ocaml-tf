@@ -120,6 +120,32 @@ type azurerm_container_registry = {
 [@@deriving yojson_of]
 (** azurerm_container_registry *)
 
+type t = {
+  admin_enabled : bool prop;
+  admin_password : string prop;
+  admin_username : string prop;
+  anonymous_pull_enabled : bool prop;
+  data_endpoint_enabled : bool prop;
+  encryption : azurerm_container_registry__encryption list prop;
+  export_policy_enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  login_server : string prop;
+  name : string prop;
+  network_rule_bypass_option : string prop;
+  network_rule_set :
+    azurerm_container_registry__network_rule_set list prop;
+  public_network_access_enabled : bool prop;
+  quarantine_policy_enabled : bool prop;
+  resource_group_name : string prop;
+  retention_policy :
+    azurerm_container_registry__retention_policy list prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  trust_policy : azurerm_container_registry__trust_policy list prop;
+  zone_redundancy_enabled : bool prop;
+}
+
 let azurerm_container_registry ?admin_enabled ?anonymous_pull_enabled
     ?data_endpoint_enabled ?encryption ?export_policy_enabled ?id
     ?network_rule_bypass_option ?network_rule_set
@@ -129,30 +155,84 @@ let azurerm_container_registry ?admin_enabled ?anonymous_pull_enabled
     ~georeplications ~identity __resource_id =
   let __resource_type = "azurerm_container_registry" in
   let __resource =
-    {
-      admin_enabled;
-      anonymous_pull_enabled;
-      data_endpoint_enabled;
-      encryption;
-      export_policy_enabled;
-      id;
-      location;
-      name;
-      network_rule_bypass_option;
-      network_rule_set;
-      public_network_access_enabled;
-      quarantine_policy_enabled;
-      resource_group_name;
-      retention_policy;
-      sku;
-      tags;
-      trust_policy;
-      zone_redundancy_enabled;
-      georeplications;
-      identity;
-      timeouts;
-    }
+    ({
+       admin_enabled;
+       anonymous_pull_enabled;
+       data_endpoint_enabled;
+       encryption;
+       export_policy_enabled;
+       id;
+       location;
+       name;
+       network_rule_bypass_option;
+       network_rule_set;
+       public_network_access_enabled;
+       quarantine_policy_enabled;
+       resource_group_name;
+       retention_policy;
+       sku;
+       tags;
+       trust_policy;
+       zone_redundancy_enabled;
+       georeplications;
+       identity;
+       timeouts;
+     }
+      : azurerm_container_registry)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_registry __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin_enabled =
+         Prop.computed __resource_type __resource_id "admin_enabled";
+       admin_password =
+         Prop.computed __resource_type __resource_id "admin_password";
+       admin_username =
+         Prop.computed __resource_type __resource_id "admin_username";
+       anonymous_pull_enabled =
+         Prop.computed __resource_type __resource_id
+           "anonymous_pull_enabled";
+       data_endpoint_enabled =
+         Prop.computed __resource_type __resource_id
+           "data_endpoint_enabled";
+       encryption =
+         Prop.computed __resource_type __resource_id "encryption";
+       export_policy_enabled =
+         Prop.computed __resource_type __resource_id
+           "export_policy_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       login_server =
+         Prop.computed __resource_type __resource_id "login_server";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_rule_bypass_option =
+         Prop.computed __resource_type __resource_id
+           "network_rule_bypass_option";
+       network_rule_set =
+         Prop.computed __resource_type __resource_id
+           "network_rule_set";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       quarantine_policy_enabled =
+         Prop.computed __resource_type __resource_id
+           "quarantine_policy_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       retention_policy =
+         Prop.computed __resource_type __resource_id
+           "retention_policy";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       trust_policy =
+         Prop.computed __resource_type __resource_id "trust_policy";
+       zone_redundancy_enabled =
+         Prop.computed __resource_type __resource_id
+           "zone_redundancy_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

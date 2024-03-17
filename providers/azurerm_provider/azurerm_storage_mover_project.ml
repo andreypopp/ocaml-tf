@@ -23,12 +23,32 @@ type azurerm_storage_mover_project = {
 [@@deriving yojson_of]
 (** azurerm_storage_mover_project *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  storage_mover_id : string prop;
+}
+
 let azurerm_storage_mover_project ?description ?id ?timeouts ~name
     ~storage_mover_id __resource_id =
   let __resource_type = "azurerm_storage_mover_project" in
   let __resource =
-    { description; id; name; storage_mover_id; timeouts }
+    ({ description; id; name; storage_mover_id; timeouts }
+      : azurerm_storage_mover_project)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_mover_project __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       storage_mover_id =
+         Prop.computed __resource_type __resource_id
+           "storage_mover_id";
+     }
+      : t)
+  in
+  __resource_attributes

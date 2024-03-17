@@ -76,6 +76,35 @@ This field must reference a 'google_compute_ha_vpn_gateway' resource. *)
 [@@deriving yojson_of]
 (** google_compute_vpn_tunnel *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  detailed_status : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  ike_version : float prop;
+  label_fingerprint : string prop;
+  labels : (string * string) list prop;
+  local_traffic_selector : string list prop;
+  name : string prop;
+  peer_external_gateway : string prop;
+  peer_external_gateway_interface : float prop;
+  peer_gcp_gateway : string prop;
+  peer_ip : string prop;
+  project : string prop;
+  region : string prop;
+  remote_traffic_selector : string list prop;
+  router : string prop;
+  self_link : string prop;
+  shared_secret : string prop;
+  shared_secret_hash : string prop;
+  target_vpn_gateway : string prop;
+  terraform_labels : (string * string) list prop;
+  tunnel_id : string prop;
+  vpn_gateway : string prop;
+  vpn_gateway_interface : float prop;
+}
+
 let google_compute_vpn_tunnel ?description ?id ?ike_version ?labels
     ?local_traffic_selector ?peer_external_gateway
     ?peer_external_gateway_interface ?peer_gcp_gateway ?peer_ip
@@ -84,28 +113,94 @@ let google_compute_vpn_tunnel ?description ?id ?ike_version ?labels
     ~name ~shared_secret __resource_id =
   let __resource_type = "google_compute_vpn_tunnel" in
   let __resource =
-    {
-      description;
-      id;
-      ike_version;
-      labels;
-      local_traffic_selector;
-      name;
-      peer_external_gateway;
-      peer_external_gateway_interface;
-      peer_gcp_gateway;
-      peer_ip;
-      project;
-      region;
-      remote_traffic_selector;
-      router;
-      shared_secret;
-      target_vpn_gateway;
-      vpn_gateway;
-      vpn_gateway_interface;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       ike_version;
+       labels;
+       local_traffic_selector;
+       name;
+       peer_external_gateway;
+       peer_external_gateway_interface;
+       peer_gcp_gateway;
+       peer_ip;
+       project;
+       region;
+       remote_traffic_selector;
+       router;
+       shared_secret;
+       target_vpn_gateway;
+       vpn_gateway;
+       vpn_gateway_interface;
+       timeouts;
+     }
+      : google_compute_vpn_tunnel)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_vpn_tunnel __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       detailed_status =
+         Prop.computed __resource_type __resource_id
+           "detailed_status";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       ike_version =
+         Prop.computed __resource_type __resource_id "ike_version";
+       label_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "label_fingerprint";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       local_traffic_selector =
+         Prop.computed __resource_type __resource_id
+           "local_traffic_selector";
+       name = Prop.computed __resource_type __resource_id "name";
+       peer_external_gateway =
+         Prop.computed __resource_type __resource_id
+           "peer_external_gateway";
+       peer_external_gateway_interface =
+         Prop.computed __resource_type __resource_id
+           "peer_external_gateway_interface";
+       peer_gcp_gateway =
+         Prop.computed __resource_type __resource_id
+           "peer_gcp_gateway";
+       peer_ip =
+         Prop.computed __resource_type __resource_id "peer_ip";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       remote_traffic_selector =
+         Prop.computed __resource_type __resource_id
+           "remote_traffic_selector";
+       router = Prop.computed __resource_type __resource_id "router";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       shared_secret =
+         Prop.computed __resource_type __resource_id "shared_secret";
+       shared_secret_hash =
+         Prop.computed __resource_type __resource_id
+           "shared_secret_hash";
+       target_vpn_gateway =
+         Prop.computed __resource_type __resource_id
+           "target_vpn_gateway";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       tunnel_id =
+         Prop.computed __resource_type __resource_id "tunnel_id";
+       vpn_gateway =
+         Prop.computed __resource_type __resource_id "vpn_gateway";
+       vpn_gateway_interface =
+         Prop.computed __resource_type __resource_id
+           "vpn_gateway_interface";
+     }
+      : t)
+  in
+  __resource_attributes

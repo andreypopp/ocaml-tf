@@ -7,6 +7,18 @@ type azurerm_vpn_gateway_nat_rule__internal_mapping
 type azurerm_vpn_gateway_nat_rule__timeouts
 type azurerm_vpn_gateway_nat_rule
 
+type t = private {
+  external_address_space_mappings : string list prop;
+  id : string prop;
+  internal_address_space_mappings : string list prop;
+  ip_configuration_id : string prop;
+  mode : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  type_ : string prop;
+  vpn_gateway_id : string prop;
+}
+
 val azurerm_vpn_gateway_nat_rule :
   ?external_address_space_mappings:string prop list ->
   ?id:string prop ->
@@ -23,4 +35,4 @@ val azurerm_vpn_gateway_nat_rule :
   internal_mapping:
     azurerm_vpn_gateway_nat_rule__internal_mapping list ->
   string ->
-  unit
+  t

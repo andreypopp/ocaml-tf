@@ -6,6 +6,13 @@ type google_compute_network_endpoints__network_endpoints
 type google_compute_network_endpoints__timeouts
 type google_compute_network_endpoints
 
+type t = private {
+  id : string prop;
+  network_endpoint_group : string prop;
+  project : string prop;
+  zone : string prop;
+}
+
 val google_compute_network_endpoints :
   ?id:string prop ->
   ?project:string prop ->
@@ -15,4 +22,4 @@ val google_compute_network_endpoints :
   network_endpoints:
     google_compute_network_endpoints__network_endpoints list ->
   string ->
-  unit
+  t

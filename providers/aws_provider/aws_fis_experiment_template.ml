@@ -116,24 +116,46 @@ type aws_fis_experiment_template = {
 [@@deriving yojson_of]
 (** aws_fis_experiment_template *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_fis_experiment_template ?id ?tags ?tags_all ?timeouts
     ~description ~role_arn ~action ~log_configuration ~stop_condition
     ~target __resource_id =
   let __resource_type = "aws_fis_experiment_template" in
   let __resource =
-    {
-      description;
-      id;
-      role_arn;
-      tags;
-      tags_all;
-      action;
-      log_configuration;
-      stop_condition;
-      target;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       role_arn;
+       tags;
+       tags_all;
+       action;
+       log_configuration;
+       stop_condition;
+       target;
+       timeouts;
+     }
+      : aws_fis_experiment_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fis_experiment_template __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

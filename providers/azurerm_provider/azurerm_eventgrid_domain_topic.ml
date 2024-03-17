@@ -22,12 +22,32 @@ type azurerm_eventgrid_domain_topic = {
 [@@deriving yojson_of]
 (** azurerm_eventgrid_domain_topic *)
 
+type t = {
+  domain_name : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_eventgrid_domain_topic ?id ?timeouts ~domain_name ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_eventgrid_domain_topic" in
   let __resource =
-    { domain_name; id; name; resource_group_name; timeouts }
+    ({ domain_name; id; name; resource_group_name; timeouts }
+      : azurerm_eventgrid_domain_topic)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventgrid_domain_topic __resource);
-  ()
+  let __resource_attributes =
+    ({
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

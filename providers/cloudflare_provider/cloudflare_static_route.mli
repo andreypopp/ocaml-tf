@@ -4,6 +4,18 @@ open! Tf.Prelude
 
 type cloudflare_static_route
 
+type t = private {
+  account_id : string prop;
+  colo_names : string list prop;
+  colo_regions : string list prop;
+  description : string prop;
+  id : string prop;
+  nexthop : string prop;
+  prefix : string prop;
+  priority : float prop;
+  weight : float prop;
+}
+
 val cloudflare_static_route :
   ?account_id:string prop ->
   ?colo_names:string prop list ->
@@ -15,4 +27,4 @@ val cloudflare_static_route :
   prefix:string prop ->
   priority:float prop ->
   string ->
-  unit
+  t

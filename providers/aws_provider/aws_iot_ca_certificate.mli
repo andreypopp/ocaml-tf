@@ -11,6 +11,21 @@ type aws_iot_ca_certificate__validity = {
 
 type aws_iot_ca_certificate
 
+type t = private {
+  active : bool prop;
+  allow_auto_registration : bool prop;
+  arn : string prop;
+  ca_certificate_pem : string prop;
+  certificate_mode : string prop;
+  customer_version : float prop;
+  generation_id : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  validity : aws_iot_ca_certificate__validity list prop;
+  verification_certificate_pem : string prop;
+}
+
 val aws_iot_ca_certificate :
   ?certificate_mode:string prop ->
   ?id:string prop ->
@@ -23,4 +38,4 @@ val aws_iot_ca_certificate :
   registration_config:
     aws_iot_ca_certificate__registration_config list ->
   string ->
-  unit
+  t

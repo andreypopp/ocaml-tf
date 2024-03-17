@@ -187,6 +187,20 @@ type azurerm_api_management_diagnostic = {
 [@@deriving yojson_of]
 (** azurerm_api_management_diagnostic *)
 
+type t = {
+  always_log_errors : bool prop;
+  api_management_logger_id : string prop;
+  api_management_name : string prop;
+  http_correlation_protocol : string prop;
+  id : string prop;
+  identifier : string prop;
+  log_client_ip : bool prop;
+  operation_name_format : string prop;
+  resource_group_name : string prop;
+  sampling_percentage : float prop;
+  verbosity : string prop;
+}
+
 let azurerm_api_management_diagnostic ?always_log_errors
     ?http_correlation_protocol ?id ?log_client_ip
     ?operation_name_format ?sampling_percentage ?verbosity ?timeouts
@@ -195,25 +209,59 @@ let azurerm_api_management_diagnostic ?always_log_errors
     ~frontend_request ~frontend_response __resource_id =
   let __resource_type = "azurerm_api_management_diagnostic" in
   let __resource =
-    {
-      always_log_errors;
-      api_management_logger_id;
-      api_management_name;
-      http_correlation_protocol;
-      id;
-      identifier;
-      log_client_ip;
-      operation_name_format;
-      resource_group_name;
-      sampling_percentage;
-      verbosity;
-      backend_request;
-      backend_response;
-      frontend_request;
-      frontend_response;
-      timeouts;
-    }
+    ({
+       always_log_errors;
+       api_management_logger_id;
+       api_management_name;
+       http_correlation_protocol;
+       id;
+       identifier;
+       log_client_ip;
+       operation_name_format;
+       resource_group_name;
+       sampling_percentage;
+       verbosity;
+       backend_request;
+       backend_response;
+       frontend_request;
+       frontend_response;
+       timeouts;
+     }
+      : azurerm_api_management_diagnostic)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_diagnostic __resource);
-  ()
+  let __resource_attributes =
+    ({
+       always_log_errors =
+         Prop.computed __resource_type __resource_id
+           "always_log_errors";
+       api_management_logger_id =
+         Prop.computed __resource_type __resource_id
+           "api_management_logger_id";
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       http_correlation_protocol =
+         Prop.computed __resource_type __resource_id
+           "http_correlation_protocol";
+       id = Prop.computed __resource_type __resource_id "id";
+       identifier =
+         Prop.computed __resource_type __resource_id "identifier";
+       log_client_ip =
+         Prop.computed __resource_type __resource_id "log_client_ip";
+       operation_name_format =
+         Prop.computed __resource_type __resource_id
+           "operation_name_format";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sampling_percentage =
+         Prop.computed __resource_type __resource_id
+           "sampling_percentage";
+       verbosity =
+         Prop.computed __resource_type __resource_id "verbosity";
+     }
+      : t)
+  in
+  __resource_attributes

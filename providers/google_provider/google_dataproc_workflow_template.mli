@@ -108,6 +108,20 @@ type google_dataproc_workflow_template__placement
 type google_dataproc_workflow_template__timeouts
 type google_dataproc_workflow_template
 
+type t = private {
+  create_time : string prop;
+  dag_timeout : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+  version : float prop;
+}
+
 val google_dataproc_workflow_template :
   ?dag_timeout:string prop ->
   ?id:string prop ->
@@ -121,4 +135,4 @@ val google_dataproc_workflow_template :
   parameters:google_dataproc_workflow_template__parameters list ->
   placement:google_dataproc_workflow_template__placement list ->
   string ->
-  unit
+  t

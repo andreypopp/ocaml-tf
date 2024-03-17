@@ -24,6 +24,20 @@ type azurerm_virtual_machine_run_command__instance_view = {
 
 type azurerm_virtual_machine_run_command
 
+type t = private {
+  error_blob_uri : string prop;
+  id : string prop;
+  instance_view :
+    azurerm_virtual_machine_run_command__instance_view list prop;
+  location : string prop;
+  name : string prop;
+  output_blob_uri : string prop;
+  run_as_password : string prop;
+  run_as_user : string prop;
+  tags : (string * string) list prop;
+  virtual_machine_id : string prop;
+}
+
 val azurerm_virtual_machine_run_command :
   ?error_blob_uri:string prop ->
   ?id:string prop ->
@@ -46,4 +60,4 @@ val azurerm_virtual_machine_run_command :
     azurerm_virtual_machine_run_command__protected_parameter list ->
   source:azurerm_virtual_machine_run_command__source list ->
   string ->
-  unit
+  t

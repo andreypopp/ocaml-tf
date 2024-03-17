@@ -74,22 +74,66 @@ type aws_finspace_kx_environment = {
 [@@deriving yojson_of]
 (** aws_finspace_kx_environment *)
 
+type t = {
+  arn : string prop;
+  availability_zones : string list prop;
+  created_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  infrastructure_account_id : string prop;
+  kms_key_id : string prop;
+  last_modified_timestamp : string prop;
+  name : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_finspace_kx_environment ?description ?tags ?tags_all
     ?timeouts ~kms_key_id ~name ~custom_dns_configuration
     ~transit_gateway_configuration __resource_id =
   let __resource_type = "aws_finspace_kx_environment" in
   let __resource =
-    {
-      description;
-      kms_key_id;
-      name;
-      tags;
-      tags_all;
-      custom_dns_configuration;
-      timeouts;
-      transit_gateway_configuration;
-    }
+    ({
+       description;
+       kms_key_id;
+       name;
+       tags;
+       tags_all;
+       custom_dns_configuration;
+       timeouts;
+       transit_gateway_configuration;
+     }
+      : aws_finspace_kx_environment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_finspace_kx_environment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       availability_zones =
+         Prop.computed __resource_type __resource_id
+           "availability_zones";
+       created_timestamp =
+         Prop.computed __resource_type __resource_id
+           "created_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       infrastructure_account_id =
+         Prop.computed __resource_type __resource_id
+           "infrastructure_account_id";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       last_modified_timestamp =
+         Prop.computed __resource_type __resource_id
+           "last_modified_timestamp";
+       name = Prop.computed __resource_type __resource_id "name";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

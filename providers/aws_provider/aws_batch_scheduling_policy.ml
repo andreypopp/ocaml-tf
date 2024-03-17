@@ -35,10 +35,32 @@ type aws_batch_scheduling_policy = {
 [@@deriving yojson_of]
 (** aws_batch_scheduling_policy *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_batch_scheduling_policy ?id ?tags ?tags_all ~name
     ~fair_share_policy __resource_id =
   let __resource_type = "aws_batch_scheduling_policy" in
-  let __resource = { id; name; tags; tags_all; fair_share_policy } in
+  let __resource =
+    ({ id; name; tags; tags_all; fair_share_policy }
+      : aws_batch_scheduling_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_batch_scheduling_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -8,6 +8,7 @@ type kubernetes_endpoint_slice_v1__endpoint
 type kubernetes_endpoint_slice_v1__metadata
 type kubernetes_endpoint_slice_v1__port
 type kubernetes_endpoint_slice_v1
+type t = private { address_type : string prop; id : string prop }
 
 val kubernetes_endpoint_slice_v1 :
   ?id:string prop ->
@@ -16,4 +17,4 @@ val kubernetes_endpoint_slice_v1 :
   metadata:kubernetes_endpoint_slice_v1__metadata list ->
   port:kubernetes_endpoint_slice_v1__port list ->
   string ->
-  unit
+  t

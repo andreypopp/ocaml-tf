@@ -81,6 +81,19 @@ type azurerm_data_factory = {
 [@@deriving yojson_of]
 (** azurerm_data_factory *)
 
+type t = {
+  customer_managed_key_id : string prop;
+  customer_managed_key_identity_id : string prop;
+  id : string prop;
+  location : string prop;
+  managed_virtual_network_enabled : bool prop;
+  name : string prop;
+  public_network_enabled : bool prop;
+  purview_id : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_data_factory ?customer_managed_key_id
     ?customer_managed_key_identity_id ?id
     ?managed_virtual_network_enabled ?public_network_enabled
@@ -89,24 +102,52 @@ let azurerm_data_factory ?customer_managed_key_id
     ~vsts_configuration __resource_id =
   let __resource_type = "azurerm_data_factory" in
   let __resource =
-    {
-      customer_managed_key_id;
-      customer_managed_key_identity_id;
-      id;
-      location;
-      managed_virtual_network_enabled;
-      name;
-      public_network_enabled;
-      purview_id;
-      resource_group_name;
-      tags;
-      github_configuration;
-      global_parameter;
-      identity;
-      timeouts;
-      vsts_configuration;
-    }
+    ({
+       customer_managed_key_id;
+       customer_managed_key_identity_id;
+       id;
+       location;
+       managed_virtual_network_enabled;
+       name;
+       public_network_enabled;
+       purview_id;
+       resource_group_name;
+       tags;
+       github_configuration;
+       global_parameter;
+       identity;
+       timeouts;
+       vsts_configuration;
+     }
+      : azurerm_data_factory)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory __resource);
-  ()
+  let __resource_attributes =
+    ({
+       customer_managed_key_id =
+         Prop.computed __resource_type __resource_id
+           "customer_managed_key_id";
+       customer_managed_key_identity_id =
+         Prop.computed __resource_type __resource_id
+           "customer_managed_key_identity_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       managed_virtual_network_enabled =
+         Prop.computed __resource_type __resource_id
+           "managed_virtual_network_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_enabled";
+       purview_id =
+         Prop.computed __resource_type __resource_id "purview_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

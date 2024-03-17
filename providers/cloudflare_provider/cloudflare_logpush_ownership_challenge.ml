@@ -20,10 +20,37 @@ however this resource should be used in conjunction to create
 Logpush jobs.
  *)
 
+type t = {
+  account_id : string prop;
+  destination_conf : string prop;
+  id : string prop;
+  ownership_challenge_filename : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_logpush_ownership_challenge ?account_id ?id ?zone_id
     ~destination_conf __resource_id =
   let __resource_type = "cloudflare_logpush_ownership_challenge" in
-  let __resource = { account_id; destination_conf; id; zone_id } in
+  let __resource =
+    ({ account_id; destination_conf; id; zone_id }
+      : cloudflare_logpush_ownership_challenge)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_logpush_ownership_challenge __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       destination_conf =
+         Prop.computed __resource_type __resource_id
+           "destination_conf";
+       id = Prop.computed __resource_type __resource_id "id";
+       ownership_challenge_filename =
+         Prop.computed __resource_type __resource_id
+           "ownership_challenge_filename";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

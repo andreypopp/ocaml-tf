@@ -30,25 +30,63 @@ type azurerm_netapp_pool = {
 [@@deriving yojson_of]
 (** azurerm_netapp_pool *)
 
+type t = {
+  account_name : string prop;
+  encryption_type : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  qos_type : string prop;
+  resource_group_name : string prop;
+  service_level : string prop;
+  size_in_tb : float prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_netapp_pool ?encryption_type ?id ?qos_type ?tags
     ?timeouts ~account_name ~location ~name ~resource_group_name
     ~service_level ~size_in_tb __resource_id =
   let __resource_type = "azurerm_netapp_pool" in
   let __resource =
-    {
-      account_name;
-      encryption_type;
-      id;
-      location;
-      name;
-      qos_type;
-      resource_group_name;
-      service_level;
-      size_in_tb;
-      tags;
-      timeouts;
-    }
+    ({
+       account_name;
+       encryption_type;
+       id;
+       location;
+       name;
+       qos_type;
+       resource_group_name;
+       service_level;
+       size_in_tb;
+       tags;
+       timeouts;
+     }
+      : azurerm_netapp_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_netapp_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_name =
+         Prop.computed __resource_type __resource_id "account_name";
+       encryption_type =
+         Prop.computed __resource_type __resource_id
+           "encryption_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       qos_type =
+         Prop.computed __resource_type __resource_id "qos_type";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       service_level =
+         Prop.computed __resource_type __resource_id "service_level";
+       size_in_tb =
+         Prop.computed __resource_type __resource_id "size_in_tb";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

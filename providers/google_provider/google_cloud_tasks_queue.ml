@@ -123,23 +123,42 @@ type google_cloud_tasks_queue = {
 [@@deriving yojson_of]
 (** google_cloud_tasks_queue *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_cloud_tasks_queue ?id ?name ?project ?timeouts ~location
     ~app_engine_routing_override ~rate_limits ~retry_config
     ~stackdriver_logging_config __resource_id =
   let __resource_type = "google_cloud_tasks_queue" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      project;
-      app_engine_routing_override;
-      rate_limits;
-      retry_config;
-      stackdriver_logging_config;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       project;
+       app_engine_routing_override;
+       rate_limits;
+       retry_config;
+       stackdriver_logging_config;
+       timeouts;
+     }
+      : google_cloud_tasks_queue)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_tasks_queue __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

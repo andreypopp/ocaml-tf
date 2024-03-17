@@ -359,6 +359,19 @@ type azurerm_workloads_sap_three_tier_virtual_instance = {
 [@@deriving yojson_of]
 (** azurerm_workloads_sap_three_tier_virtual_instance *)
 
+type t = {
+  app_location : string prop;
+  environment : string prop;
+  id : string prop;
+  location : string prop;
+  managed_resource_group_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  sap_fqdn : string prop;
+  sap_product : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_workloads_sap_three_tier_virtual_instance ?id
     ?managed_resource_group_name ?tags ?timeouts ~app_location
     ~environment ~location ~name ~resource_group_name ~sap_fqdn
@@ -367,23 +380,48 @@ let azurerm_workloads_sap_three_tier_virtual_instance ?id
     "azurerm_workloads_sap_three_tier_virtual_instance"
   in
   let __resource =
-    {
-      app_location;
-      environment;
-      id;
-      location;
-      managed_resource_group_name;
-      name;
-      resource_group_name;
-      sap_fqdn;
-      sap_product;
-      tags;
-      identity;
-      three_tier_configuration;
-      timeouts;
-    }
+    ({
+       app_location;
+       environment;
+       id;
+       location;
+       managed_resource_group_name;
+       name;
+       resource_group_name;
+       sap_fqdn;
+       sap_product;
+       tags;
+       identity;
+       three_tier_configuration;
+       timeouts;
+     }
+      : azurerm_workloads_sap_three_tier_virtual_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_workloads_sap_three_tier_virtual_instance
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_location =
+         Prop.computed __resource_type __resource_id "app_location";
+       environment =
+         Prop.computed __resource_type __resource_id "environment";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       managed_resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "managed_resource_group_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sap_fqdn =
+         Prop.computed __resource_type __resource_id "sap_fqdn";
+       sap_product =
+         Prop.computed __resource_type __resource_id "sap_product";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

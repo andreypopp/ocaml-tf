@@ -52,20 +52,50 @@ type aws_connect_quick_connect = {
 [@@deriving yojson_of]
 (** aws_connect_quick_connect *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  instance_id : string prop;
+  name : string prop;
+  quick_connect_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_connect_quick_connect ?description ?id ?tags ?tags_all
     ~instance_id ~name ~quick_connect_config __resource_id =
   let __resource_type = "aws_connect_quick_connect" in
   let __resource =
-    {
-      description;
-      id;
-      instance_id;
-      name;
-      tags;
-      tags_all;
-      quick_connect_config;
-    }
+    ({
+       description;
+       id;
+       instance_id;
+       name;
+       tags;
+       tags_all;
+       quick_connect_config;
+     }
+      : aws_connect_quick_connect)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_quick_connect __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_id =
+         Prop.computed __resource_type __resource_id "instance_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       quick_connect_id =
+         Prop.computed __resource_type __resource_id
+           "quick_connect_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -21,6 +21,16 @@ type azurerm_network_connection_monitor__test_group
 type azurerm_network_connection_monitor__timeouts
 type azurerm_network_connection_monitor
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  network_watcher_id : string prop;
+  notes : string prop;
+  output_workspace_resource_ids : string list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_network_connection_monitor :
   ?id:string prop ->
   ?notes:string prop ->
@@ -35,4 +45,4 @@ val azurerm_network_connection_monitor :
     azurerm_network_connection_monitor__test_configuration list ->
   test_group:azurerm_network_connection_monitor__test_group list ->
   string ->
-  unit
+  t

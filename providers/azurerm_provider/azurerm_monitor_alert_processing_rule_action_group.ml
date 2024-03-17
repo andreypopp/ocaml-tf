@@ -200,6 +200,17 @@ type azurerm_monitor_alert_processing_rule_action_group = {
 [@@deriving yojson_of]
 (** azurerm_monitor_alert_processing_rule_action_group *)
 
+type t = {
+  add_action_group_ids : string list prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_monitor_alert_processing_rule_action_group ?description
     ?enabled ?id ?tags ?timeouts ~add_action_group_ids ~name
     ~resource_group_name ~scopes ~condition ~schedule __resource_id =
@@ -207,21 +218,41 @@ let azurerm_monitor_alert_processing_rule_action_group ?description
     "azurerm_monitor_alert_processing_rule_action_group"
   in
   let __resource =
-    {
-      add_action_group_ids;
-      description;
-      enabled;
-      id;
-      name;
-      resource_group_name;
-      scopes;
-      tags;
-      condition;
-      schedule;
-      timeouts;
-    }
+    ({
+       add_action_group_ids;
+       description;
+       enabled;
+       id;
+       name;
+       resource_group_name;
+       scopes;
+       tags;
+       condition;
+       schedule;
+       timeouts;
+     }
+      : azurerm_monitor_alert_processing_rule_action_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_alert_processing_rule_action_group
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       add_action_group_ids =
+         Prop.computed __resource_type __resource_id
+           "add_action_group_ids";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scopes = Prop.computed __resource_type __resource_id "scopes";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

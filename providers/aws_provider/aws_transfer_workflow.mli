@@ -45,6 +45,14 @@ type aws_transfer_workflow__steps__tag_step_details
 type aws_transfer_workflow__steps
 type aws_transfer_workflow
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_transfer_workflow :
   ?description:string prop ->
   ?id:string prop ->
@@ -53,4 +61,4 @@ val aws_transfer_workflow :
   on_exception_steps:aws_transfer_workflow__on_exception_steps list ->
   steps:aws_transfer_workflow__steps list ->
   string ->
-  unit
+  t

@@ -29,6 +29,16 @@ type aws_networkfirewall_firewall_policy__firewall_policy__stateless_rule_group_
 type aws_networkfirewall_firewall_policy__firewall_policy
 type aws_networkfirewall_firewall_policy
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  update_token : string prop;
+}
+
 val aws_networkfirewall_firewall_policy :
   ?description:string prop ->
   ?id:string prop ->
@@ -41,4 +51,4 @@ val aws_networkfirewall_firewall_policy :
   firewall_policy:
     aws_networkfirewall_firewall_policy__firewall_policy list ->
   string ->
-  unit
+  t

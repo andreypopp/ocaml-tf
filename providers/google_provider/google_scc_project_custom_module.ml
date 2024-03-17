@@ -113,19 +113,52 @@ characters or underscores only. *)
 [@@deriving yojson_of]
 (** google_scc_project_custom_module *)
 
+type t = {
+  ancestor_module : string prop;
+  display_name : string prop;
+  enablement_state : string prop;
+  id : string prop;
+  last_editor : string prop;
+  name : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 let google_scc_project_custom_module ?id ?project ?timeouts
     ~display_name ~enablement_state ~custom_config __resource_id =
   let __resource_type = "google_scc_project_custom_module" in
   let __resource =
-    {
-      display_name;
-      enablement_state;
-      id;
-      project;
-      custom_config;
-      timeouts;
-    }
+    ({
+       display_name;
+       enablement_state;
+       id;
+       project;
+       custom_config;
+       timeouts;
+     }
+      : google_scc_project_custom_module)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_project_custom_module __resource);
-  ()
+  let __resource_attributes =
+    ({
+       ancestor_module =
+         Prop.computed __resource_type __resource_id
+           "ancestor_module";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enablement_state =
+         Prop.computed __resource_type __resource_id
+           "enablement_state";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_editor =
+         Prop.computed __resource_type __resource_id "last_editor";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

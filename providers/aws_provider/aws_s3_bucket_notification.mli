@@ -7,6 +7,12 @@ type aws_s3_bucket_notification__queue
 type aws_s3_bucket_notification__topic
 type aws_s3_bucket_notification
 
+type t = private {
+  bucket : string prop;
+  eventbridge : bool prop;
+  id : string prop;
+}
+
 val aws_s3_bucket_notification :
   ?eventbridge:bool prop ->
   ?id:string prop ->
@@ -15,4 +21,4 @@ val aws_s3_bucket_notification :
   queue:aws_s3_bucket_notification__queue list ->
   topic:aws_s3_bucket_notification__topic list ->
   string ->
-  unit
+  t

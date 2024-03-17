@@ -49,6 +49,16 @@ type azurerm_billing_account_cost_management_export = {
 [@@deriving yojson_of]
 (** azurerm_billing_account_cost_management_export *)
 
+type t = {
+  active : bool prop;
+  billing_account_id : string prop;
+  id : string prop;
+  name : string prop;
+  recurrence_period_end_date : string prop;
+  recurrence_period_start_date : string prop;
+  recurrence_type : string prop;
+}
+
 let azurerm_billing_account_cost_management_export ?active ?id
     ?timeouts ~billing_account_id ~name ~recurrence_period_end_date
     ~recurrence_period_start_date ~recurrence_type
@@ -58,20 +68,41 @@ let azurerm_billing_account_cost_management_export ?active ?id
     "azurerm_billing_account_cost_management_export"
   in
   let __resource =
-    {
-      active;
-      billing_account_id;
-      id;
-      name;
-      recurrence_period_end_date;
-      recurrence_period_start_date;
-      recurrence_type;
-      export_data_options;
-      export_data_storage_location;
-      timeouts;
-    }
+    ({
+       active;
+       billing_account_id;
+       id;
+       name;
+       recurrence_period_end_date;
+       recurrence_period_start_date;
+       recurrence_type;
+       export_data_options;
+       export_data_storage_location;
+       timeouts;
+     }
+      : azurerm_billing_account_cost_management_export)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_billing_account_cost_management_export
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       active = Prop.computed __resource_type __resource_id "active";
+       billing_account_id =
+         Prop.computed __resource_type __resource_id
+           "billing_account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       recurrence_period_end_date =
+         Prop.computed __resource_type __resource_id
+           "recurrence_period_end_date";
+       recurrence_period_start_date =
+         Prop.computed __resource_type __resource_id
+           "recurrence_period_start_date";
+       recurrence_type =
+         Prop.computed __resource_type __resource_id
+           "recurrence_type";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -8,6 +8,27 @@ type google_compute_image__raw_disk
 type google_compute_image__timeouts
 type google_compute_image
 
+type t = private {
+  archive_size_bytes : float prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  disk_size_gb : float prop;
+  effective_labels : (string * string) list prop;
+  family : string prop;
+  id : string prop;
+  label_fingerprint : string prop;
+  labels : (string * string) list prop;
+  licenses : string list prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  source_disk : string prop;
+  source_image : string prop;
+  source_snapshot : string prop;
+  storage_locations : string list prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_compute_image :
   ?description:string prop ->
   ?disk_size_gb:float prop ->
@@ -27,4 +48,4 @@ val google_compute_image :
     google_compute_image__image_encryption_key list ->
   raw_disk:google_compute_image__raw_disk list ->
   string ->
-  unit
+  t

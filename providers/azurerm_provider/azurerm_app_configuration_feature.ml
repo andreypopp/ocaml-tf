@@ -60,29 +60,66 @@ type azurerm_app_configuration_feature = {
 [@@deriving yojson_of]
 (** azurerm_app_configuration_feature *)
 
+type t = {
+  configuration_store_id : string prop;
+  description : string prop;
+  enabled : bool prop;
+  etag : string prop;
+  id : string prop;
+  key : string prop;
+  label : string prop;
+  locked : bool prop;
+  name : string prop;
+  percentage_filter_value : float prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_app_configuration_feature ?description ?enabled ?etag ?id
     ?key ?label ?locked ?percentage_filter_value ?tags ?timeouts
     ~configuration_store_id ~name ~targeting_filter
     ~timewindow_filter __resource_id =
   let __resource_type = "azurerm_app_configuration_feature" in
   let __resource =
-    {
-      configuration_store_id;
-      description;
-      enabled;
-      etag;
-      id;
-      key;
-      label;
-      locked;
-      name;
-      percentage_filter_value;
-      tags;
-      targeting_filter;
-      timeouts;
-      timewindow_filter;
-    }
+    ({
+       configuration_store_id;
+       description;
+       enabled;
+       etag;
+       id;
+       key;
+       label;
+       locked;
+       name;
+       percentage_filter_value;
+       tags;
+       targeting_filter;
+       timeouts;
+       timewindow_filter;
+     }
+      : azurerm_app_configuration_feature)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_configuration_feature __resource);
-  ()
+  let __resource_attributes =
+    ({
+       configuration_store_id =
+         Prop.computed __resource_type __resource_id
+           "configuration_store_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       key = Prop.computed __resource_type __resource_id "key";
+       label = Prop.computed __resource_type __resource_id "label";
+       locked = Prop.computed __resource_type __resource_id "locked";
+       name = Prop.computed __resource_type __resource_id "name";
+       percentage_filter_value =
+         Prop.computed __resource_type __resource_id
+           "percentage_filter_value";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

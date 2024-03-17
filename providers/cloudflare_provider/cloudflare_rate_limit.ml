@@ -83,24 +83,53 @@ be used to limit the traffic you receive zone-wide, or matching more
 specific types of requests/responses.
  *)
 
+type t = {
+  bypass_url_patterns : string list prop;
+  description : string prop;
+  disabled : bool prop;
+  id : string prop;
+  period : float prop;
+  threshold : float prop;
+  zone_id : string prop;
+}
+
 let cloudflare_rate_limit ?bypass_url_patterns ?description ?disabled
     ?id ~period ~threshold ~zone_id ~action ~correlate ~match_
     __resource_id =
   let __resource_type = "cloudflare_rate_limit" in
   let __resource =
-    {
-      bypass_url_patterns;
-      description;
-      disabled;
-      id;
-      period;
-      threshold;
-      zone_id;
-      action;
-      correlate;
-      match_;
-    }
+    ({
+       bypass_url_patterns;
+       description;
+       disabled;
+       id;
+       period;
+       threshold;
+       zone_id;
+       action;
+       correlate;
+       match_;
+     }
+      : cloudflare_rate_limit)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_rate_limit __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bypass_url_patterns =
+         Prop.computed __resource_type __resource_id
+           "bypass_url_patterns";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       period = Prop.computed __resource_type __resource_id "period";
+       threshold =
+         Prop.computed __resource_type __resource_id "threshold";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

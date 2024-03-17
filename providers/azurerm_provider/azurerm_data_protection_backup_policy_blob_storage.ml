@@ -24,15 +24,35 @@ type azurerm_data_protection_backup_policy_blob_storage = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_blob_storage *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  retention_duration : string prop;
+  vault_id : string prop;
+}
+
 let azurerm_data_protection_backup_policy_blob_storage ?id ?timeouts
     ~name ~retention_duration ~vault_id __resource_id =
   let __resource_type =
     "azurerm_data_protection_backup_policy_blob_storage"
   in
   let __resource =
-    { id; name; retention_duration; vault_id; timeouts }
+    ({ id; name; retention_duration; vault_id; timeouts }
+      : azurerm_data_protection_backup_policy_blob_storage)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_policy_blob_storage
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       retention_duration =
+         Prop.computed __resource_type __resource_id
+           "retention_duration";
+       vault_id =
+         Prop.computed __resource_type __resource_id "vault_id";
+     }
+      : t)
+  in
+  __resource_attributes

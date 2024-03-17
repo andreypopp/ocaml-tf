@@ -388,26 +388,62 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
 [@@deriving yojson_of]
 (** google_os_config_patch_deployment *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  duration : string prop;
+  id : string prop;
+  last_execute_time : string prop;
+  name : string prop;
+  patch_deployment_id : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 let google_os_config_patch_deployment ?description ?duration ?id
     ?project ?timeouts ~patch_deployment_id ~instance_filter
     ~one_time_schedule ~patch_config ~recurring_schedule ~rollout
     __resource_id =
   let __resource_type = "google_os_config_patch_deployment" in
   let __resource =
-    {
-      description;
-      duration;
-      id;
-      patch_deployment_id;
-      project;
-      instance_filter;
-      one_time_schedule;
-      patch_config;
-      recurring_schedule;
-      rollout;
-      timeouts;
-    }
+    ({
+       description;
+       duration;
+       id;
+       patch_deployment_id;
+       project;
+       instance_filter;
+       one_time_schedule;
+       patch_config;
+       recurring_schedule;
+       rollout;
+       timeouts;
+     }
+      : google_os_config_patch_deployment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_os_config_patch_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       duration =
+         Prop.computed __resource_type __resource_id "duration";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_execute_time =
+         Prop.computed __resource_type __resource_id
+           "last_execute_time";
+       name = Prop.computed __resource_type __resource_id "name";
+       patch_deployment_id =
+         Prop.computed __resource_type __resource_id
+           "patch_deployment_id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

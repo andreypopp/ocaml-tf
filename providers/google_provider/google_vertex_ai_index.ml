@@ -120,23 +120,81 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_index *)
 
+type t = {
+  create_time : string prop;
+  deployed_indexes :
+    google_vertex_ai_index__deployed_indexes list prop;
+  description : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  index_stats : google_vertex_ai_index__index_stats list prop;
+  index_update_method : string prop;
+  labels : (string * string) list prop;
+  metadata_schema_uri : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_vertex_ai_index ?description ?id ?index_update_method
     ?labels ?project ?region ?timeouts ~display_name ~metadata
     __resource_id =
   let __resource_type = "google_vertex_ai_index" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      index_update_method;
-      labels;
-      project;
-      region;
-      metadata;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       index_update_method;
+       labels;
+       project;
+       region;
+       metadata;
+       timeouts;
+     }
+      : google_vertex_ai_index)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_index __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       deployed_indexes =
+         Prop.computed __resource_type __resource_id
+           "deployed_indexes";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       index_stats =
+         Prop.computed __resource_type __resource_id "index_stats";
+       index_update_method =
+         Prop.computed __resource_type __resource_id
+           "index_update_method";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       metadata_schema_uri =
+         Prop.computed __resource_type __resource_id
+           "metadata_schema_uri";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

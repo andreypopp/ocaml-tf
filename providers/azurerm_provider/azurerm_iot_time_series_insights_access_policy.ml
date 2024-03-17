@@ -27,6 +27,15 @@ type azurerm_iot_time_series_insights_access_policy = {
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_access_policy *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  principal_object_id : string prop;
+  roles : string list prop;
+  time_series_insights_environment_id : string prop;
+}
+
 let azurerm_iot_time_series_insights_access_policy ?description ?id
     ?timeouts ~name ~principal_object_id ~roles
     ~time_series_insights_environment_id __resource_id =
@@ -34,17 +43,34 @@ let azurerm_iot_time_series_insights_access_policy ?description ?id
     "azurerm_iot_time_series_insights_access_policy"
   in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      principal_object_id;
-      roles;
-      time_series_insights_environment_id;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       principal_object_id;
+       roles;
+       time_series_insights_environment_id;
+       timeouts;
+     }
+      : azurerm_iot_time_series_insights_access_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iot_time_series_insights_access_policy
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       principal_object_id =
+         Prop.computed __resource_type __resource_id
+           "principal_object_id";
+       roles = Prop.computed __resource_type __resource_id "roles";
+       time_series_insights_environment_id =
+         Prop.computed __resource_type __resource_id
+           "time_series_insights_environment_id";
+     }
+      : t)
+  in
+  __resource_attributes

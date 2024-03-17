@@ -11,6 +11,21 @@ type google_storage_default_object_access_control__project_team = {
 
 type google_storage_default_object_access_control
 
+type t = private {
+  bucket : string prop;
+  domain : string prop;
+  email : string prop;
+  entity : string prop;
+  entity_id : string prop;
+  generation : float prop;
+  id : string prop;
+  object_ : string prop;
+  project_team :
+    google_storage_default_object_access_control__project_team list
+    prop;
+  role : string prop;
+}
+
 val google_storage_default_object_access_control :
   ?id:string prop ->
   ?object_:string prop ->
@@ -19,4 +34,4 @@ val google_storage_default_object_access_control :
   entity:string prop ->
   role:string prop ->
   string ->
-  unit
+  t

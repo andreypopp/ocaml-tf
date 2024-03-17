@@ -32,20 +32,43 @@ type aws_chimesdkvoice_voice_profile_domain = {
 [@@deriving yojson_of]
 (** aws_chimesdkvoice_voice_profile_domain *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_chimesdkvoice_voice_profile_domain ?description ?tags
     ?tags_all ?timeouts ~name ~server_side_encryption_configuration
     __resource_id =
   let __resource_type = "aws_chimesdkvoice_voice_profile_domain" in
   let __resource =
-    {
-      description;
-      name;
-      tags;
-      tags_all;
-      server_side_encryption_configuration;
-      timeouts;
-    }
+    ({
+       description;
+       name;
+       tags;
+       tags_all;
+       server_side_encryption_configuration;
+       timeouts;
+     }
+      : aws_chimesdkvoice_voice_profile_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chimesdkvoice_voice_profile_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

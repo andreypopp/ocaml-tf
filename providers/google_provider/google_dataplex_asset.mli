@@ -39,6 +39,28 @@ type google_dataplex_asset__security_status = {
 
 type google_dataplex_asset
 
+type t = private {
+  create_time : string prop;
+  dataplex_zone : string prop;
+  description : string prop;
+  discovery_status :
+    google_dataplex_asset__discovery_status list prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  lake : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  resource_status : google_dataplex_asset__resource_status list prop;
+  security_status : google_dataplex_asset__security_status list prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_dataplex_asset :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -53,4 +75,4 @@ val google_dataplex_asset :
   discovery_spec:google_dataplex_asset__discovery_spec list ->
   resource_spec:google_dataplex_asset__resource_spec list ->
   string ->
-  unit
+  t

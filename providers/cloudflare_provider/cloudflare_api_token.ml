@@ -47,12 +47,41 @@ Read more about permission groups and their applicable scopes in the
 [developer documentation](https://developers.cloudflare.com/api/tokens/create/permissions).
  *)
 
+type t = {
+  expires_on : string prop;
+  id : string prop;
+  issued_on : string prop;
+  modified_on : string prop;
+  name : string prop;
+  not_before : string prop;
+  status : string prop;
+  value : string prop;
+}
+
 let cloudflare_api_token ?expires_on ?id ?not_before ~name ~condition
     ~policy __resource_id =
   let __resource_type = "cloudflare_api_token" in
   let __resource =
-    { expires_on; id; name; not_before; condition; policy }
+    ({ expires_on; id; name; not_before; condition; policy }
+      : cloudflare_api_token)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_api_token __resource);
-  ()
+  let __resource_attributes =
+    ({
+       expires_on =
+         Prop.computed __resource_type __resource_id "expires_on";
+       id = Prop.computed __resource_type __resource_id "id";
+       issued_on =
+         Prop.computed __resource_type __resource_id "issued_on";
+       modified_on =
+         Prop.computed __resource_type __resource_id "modified_on";
+       name = Prop.computed __resource_type __resource_id "name";
+       not_before =
+         Prop.computed __resource_type __resource_id "not_before";
+       status = Prop.computed __resource_type __resource_id "status";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

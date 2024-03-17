@@ -124,6 +124,31 @@ type aws_lambda_event_source_mapping = {
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping *)
 
+type t = {
+  batch_size : float prop;
+  bisect_batch_on_function_error : bool prop;
+  enabled : bool prop;
+  event_source_arn : string prop;
+  function_arn : string prop;
+  function_name : string prop;
+  function_response_types : string list prop;
+  id : string prop;
+  last_modified : string prop;
+  last_processing_result : string prop;
+  maximum_batching_window_in_seconds : float prop;
+  maximum_record_age_in_seconds : float prop;
+  maximum_retry_attempts : float prop;
+  parallelization_factor : float prop;
+  queues : string list prop;
+  starting_position : string prop;
+  starting_position_timestamp : string prop;
+  state : string prop;
+  state_transition_reason : string prop;
+  topics : string list prop;
+  tumbling_window_in_seconds : float prop;
+  uuid : string prop;
+}
+
 let aws_lambda_event_source_mapping ?batch_size
     ?bisect_batch_on_function_error ?enabled ?event_source_arn
     ?function_response_types ?id ?maximum_batching_window_in_seconds
@@ -137,33 +162,90 @@ let aws_lambda_event_source_mapping ?batch_size
     ~source_access_configuration __resource_id =
   let __resource_type = "aws_lambda_event_source_mapping" in
   let __resource =
-    {
-      batch_size;
-      bisect_batch_on_function_error;
-      enabled;
-      event_source_arn;
-      function_name;
-      function_response_types;
-      id;
-      maximum_batching_window_in_seconds;
-      maximum_record_age_in_seconds;
-      maximum_retry_attempts;
-      parallelization_factor;
-      queues;
-      starting_position;
-      starting_position_timestamp;
-      topics;
-      tumbling_window_in_seconds;
-      amazon_managed_kafka_event_source_config;
-      destination_config;
-      document_db_event_source_config;
-      filter_criteria;
-      scaling_config;
-      self_managed_event_source;
-      self_managed_kafka_event_source_config;
-      source_access_configuration;
-    }
+    ({
+       batch_size;
+       bisect_batch_on_function_error;
+       enabled;
+       event_source_arn;
+       function_name;
+       function_response_types;
+       id;
+       maximum_batching_window_in_seconds;
+       maximum_record_age_in_seconds;
+       maximum_retry_attempts;
+       parallelization_factor;
+       queues;
+       starting_position;
+       starting_position_timestamp;
+       topics;
+       tumbling_window_in_seconds;
+       amazon_managed_kafka_event_source_config;
+       destination_config;
+       document_db_event_source_config;
+       filter_criteria;
+       scaling_config;
+       self_managed_event_source;
+       self_managed_kafka_event_source_config;
+       source_access_configuration;
+     }
+      : aws_lambda_event_source_mapping)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_event_source_mapping __resource);
-  ()
+  let __resource_attributes =
+    ({
+       batch_size =
+         Prop.computed __resource_type __resource_id "batch_size";
+       bisect_batch_on_function_error =
+         Prop.computed __resource_type __resource_id
+           "bisect_batch_on_function_error";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       event_source_arn =
+         Prop.computed __resource_type __resource_id
+           "event_source_arn";
+       function_arn =
+         Prop.computed __resource_type __resource_id "function_arn";
+       function_name =
+         Prop.computed __resource_type __resource_id "function_name";
+       function_response_types =
+         Prop.computed __resource_type __resource_id
+           "function_response_types";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_modified =
+         Prop.computed __resource_type __resource_id "last_modified";
+       last_processing_result =
+         Prop.computed __resource_type __resource_id
+           "last_processing_result";
+       maximum_batching_window_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "maximum_batching_window_in_seconds";
+       maximum_record_age_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "maximum_record_age_in_seconds";
+       maximum_retry_attempts =
+         Prop.computed __resource_type __resource_id
+           "maximum_retry_attempts";
+       parallelization_factor =
+         Prop.computed __resource_type __resource_id
+           "parallelization_factor";
+       queues = Prop.computed __resource_type __resource_id "queues";
+       starting_position =
+         Prop.computed __resource_type __resource_id
+           "starting_position";
+       starting_position_timestamp =
+         Prop.computed __resource_type __resource_id
+           "starting_position_timestamp";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_transition_reason =
+         Prop.computed __resource_type __resource_id
+           "state_transition_reason";
+       topics = Prop.computed __resource_type __resource_id "topics";
+       tumbling_window_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "tumbling_window_in_seconds";
+       uuid = Prop.computed __resource_type __resource_id "uuid";
+     }
+      : t)
+  in
+  __resource_attributes

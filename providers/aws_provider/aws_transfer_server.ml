@@ -86,6 +86,31 @@ type aws_transfer_server = {
 [@@deriving yojson_of]
 (** aws_transfer_server *)
 
+type t = {
+  arn : string prop;
+  certificate : string prop;
+  directory_id : string prop;
+  domain : string prop;
+  endpoint : string prop;
+  endpoint_type : string prop;
+  force_destroy : bool prop;
+  function_ : string prop;
+  host_key : string prop;
+  host_key_fingerprint : string prop;
+  id : string prop;
+  identity_provider_type : string prop;
+  invocation_role : string prop;
+  logging_role : string prop;
+  post_authentication_login_banner : string prop;
+  pre_authentication_login_banner : string prop;
+  protocols : string list prop;
+  security_policy_name : string prop;
+  structured_log_destinations : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url : string prop;
+}
+
 let aws_transfer_server ?certificate ?directory_id ?domain
     ?endpoint_type ?force_destroy ?function_ ?host_key ?id
     ?identity_provider_type ?invocation_role ?logging_role
@@ -96,31 +121,83 @@ let aws_transfer_server ?certificate ?directory_id ?domain
     __resource_id =
   let __resource_type = "aws_transfer_server" in
   let __resource =
-    {
-      certificate;
-      directory_id;
-      domain;
-      endpoint_type;
-      force_destroy;
-      function_;
-      host_key;
-      id;
-      identity_provider_type;
-      invocation_role;
-      logging_role;
-      post_authentication_login_banner;
-      pre_authentication_login_banner;
-      protocols;
-      security_policy_name;
-      structured_log_destinations;
-      tags;
-      tags_all;
-      url;
-      endpoint_details;
-      protocol_details;
-      workflow_details;
-    }
+    ({
+       certificate;
+       directory_id;
+       domain;
+       endpoint_type;
+       force_destroy;
+       function_;
+       host_key;
+       id;
+       identity_provider_type;
+       invocation_role;
+       logging_role;
+       post_authentication_login_banner;
+       pre_authentication_login_banner;
+       protocols;
+       security_policy_name;
+       structured_log_destinations;
+       tags;
+       tags_all;
+       url;
+       endpoint_details;
+       protocol_details;
+       workflow_details;
+     }
+      : aws_transfer_server)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_server __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       certificate =
+         Prop.computed __resource_type __resource_id "certificate";
+       directory_id =
+         Prop.computed __resource_type __resource_id "directory_id";
+       domain = Prop.computed __resource_type __resource_id "domain";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       endpoint_type =
+         Prop.computed __resource_type __resource_id "endpoint_type";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       function_ =
+         Prop.computed __resource_type __resource_id "function";
+       host_key =
+         Prop.computed __resource_type __resource_id "host_key";
+       host_key_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "host_key_fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_provider_type =
+         Prop.computed __resource_type __resource_id
+           "identity_provider_type";
+       invocation_role =
+         Prop.computed __resource_type __resource_id
+           "invocation_role";
+       logging_role =
+         Prop.computed __resource_type __resource_id "logging_role";
+       post_authentication_login_banner =
+         Prop.computed __resource_type __resource_id
+           "post_authentication_login_banner";
+       pre_authentication_login_banner =
+         Prop.computed __resource_type __resource_id
+           "pre_authentication_login_banner";
+       protocols =
+         Prop.computed __resource_type __resource_id "protocols";
+       security_policy_name =
+         Prop.computed __resource_type __resource_id
+           "security_policy_name";
+       structured_log_destinations =
+         Prop.computed __resource_type __resource_id
+           "structured_log_destinations";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -7,6 +7,15 @@ type aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuratio
 type aws_chimesdkvoice_voice_profile_domain__timeouts
 type aws_chimesdkvoice_voice_profile_domain
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_chimesdkvoice_voice_profile_domain :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
@@ -17,4 +26,4 @@ val aws_chimesdkvoice_voice_profile_domain :
     aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration
     list ->
   string ->
-  unit
+  t

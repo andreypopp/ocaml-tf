@@ -79,10 +79,21 @@ type digitalocean_app__spec
 type digitalocean_app__timeouts
 type digitalocean_app
 
+type t = private {
+  active_deployment_id : string prop;
+  created_at : string prop;
+  default_ingress : string prop;
+  id : string prop;
+  live_url : string prop;
+  project_id : string prop;
+  updated_at : string prop;
+  urn : string prop;
+}
+
 val digitalocean_app :
   ?id:string prop ->
   ?project_id:string prop ->
   ?timeouts:digitalocean_app__timeouts ->
   spec:digitalocean_app__spec list ->
   string ->
-  unit
+  t

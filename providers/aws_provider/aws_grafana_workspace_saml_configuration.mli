@@ -5,6 +5,24 @@ open! Tf.Prelude
 type aws_grafana_workspace_saml_configuration__timeouts
 type aws_grafana_workspace_saml_configuration
 
+type t = private {
+  admin_role_values : string list prop;
+  allowed_organizations : string list prop;
+  editor_role_values : string list prop;
+  email_assertion : string prop;
+  groups_assertion : string prop;
+  id : string prop;
+  idp_metadata_url : string prop;
+  idp_metadata_xml : string prop;
+  login_assertion : string prop;
+  login_validity_duration : float prop;
+  name_assertion : string prop;
+  org_assertion : string prop;
+  role_assertion : string prop;
+  status : string prop;
+  workspace_id : string prop;
+}
+
 val aws_grafana_workspace_saml_configuration :
   ?admin_role_values:string prop list ->
   ?allowed_organizations:string prop list ->
@@ -22,4 +40,4 @@ val aws_grafana_workspace_saml_configuration :
   editor_role_values:string prop list ->
   workspace_id:string prop ->
   string ->
-  unit
+  t

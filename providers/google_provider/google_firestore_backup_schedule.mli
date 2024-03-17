@@ -7,6 +7,14 @@ type google_firestore_backup_schedule__timeouts
 type google_firestore_backup_schedule__weekly_recurrence
 type google_firestore_backup_schedule
 
+type t = private {
+  database : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  retention : string prop;
+}
+
 val google_firestore_backup_schedule :
   ?database:string prop ->
   ?id:string prop ->
@@ -18,4 +26,4 @@ val google_firestore_backup_schedule :
   weekly_recurrence:
     google_firestore_backup_schedule__weekly_recurrence list ->
   string ->
-  unit
+  t

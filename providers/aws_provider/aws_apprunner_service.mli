@@ -29,6 +29,18 @@ type aws_apprunner_service__source_configuration__image_repository
 type aws_apprunner_service__source_configuration
 type aws_apprunner_service
 
+type t = private {
+  arn : string prop;
+  auto_scaling_configuration_arn : string prop;
+  id : string prop;
+  service_id : string prop;
+  service_name : string prop;
+  service_url : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_apprunner_service :
   ?auto_scaling_configuration_arn:string prop ->
   ?id:string prop ->
@@ -48,4 +60,4 @@ val aws_apprunner_service :
   source_configuration:
     aws_apprunner_service__source_configuration list ->
   string ->
-  unit
+  t

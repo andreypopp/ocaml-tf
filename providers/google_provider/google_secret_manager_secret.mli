@@ -16,6 +16,22 @@ type google_secret_manager_secret__timeouts
 type google_secret_manager_secret__topics
 type google_secret_manager_secret
 
+type t = private {
+  annotations : (string * string) list prop;
+  create_time : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  expire_time : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  secret_id : string prop;
+  terraform_labels : (string * string) list prop;
+  ttl : string prop;
+  version_aliases : (string * string) list prop;
+}
+
 val google_secret_manager_secret :
   ?annotations:(string * string prop) list ->
   ?expire_time:string prop ->
@@ -30,4 +46,4 @@ val google_secret_manager_secret :
   rotation:google_secret_manager_secret__rotation list ->
   topics:google_secret_manager_secret__topics list ->
   string ->
-  unit
+  t

@@ -31,6 +31,29 @@ type azurerm_container_group__exposed_port = {
 
 type azurerm_container_group
 
+type t = private {
+  dns_name_label : string prop;
+  dns_name_label_reuse_policy : string prop;
+  exposed_port : azurerm_container_group__exposed_port list prop;
+  fqdn : string prop;
+  id : string prop;
+  ip_address : string prop;
+  ip_address_type : string prop;
+  key_vault_key_id : string prop;
+  key_vault_user_assigned_identity_id : string prop;
+  location : string prop;
+  name : string prop;
+  network_profile_id : string prop;
+  os_type : string prop;
+  priority : string prop;
+  resource_group_name : string prop;
+  restart_policy : string prop;
+  sku : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  zones : string list prop;
+}
+
 val azurerm_container_group :
   ?dns_name_label:string prop ->
   ?dns_name_label_reuse_policy:string prop ->
@@ -59,4 +82,4 @@ val azurerm_container_group :
     azurerm_container_group__image_registry_credential list ->
   init_container:azurerm_container_group__init_container list ->
   string ->
-  unit
+  t

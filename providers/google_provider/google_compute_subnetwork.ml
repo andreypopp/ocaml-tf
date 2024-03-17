@@ -120,6 +120,31 @@ If not specified IPV4_ONLY will be used. Possible values: [IPV4_ONLY, IPV4_IPV6]
 [@@deriving yojson_of]
 (** google_compute_subnetwork *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  external_ipv6_prefix : string prop;
+  fingerprint : string prop;
+  gateway_address : string prop;
+  id : string prop;
+  internal_ipv6_prefix : string prop;
+  ip_cidr_range : string prop;
+  ipv6_access_type : string prop;
+  ipv6_cidr_range : string prop;
+  name : string prop;
+  network : string prop;
+  private_ip_google_access : bool prop;
+  private_ipv6_google_access : string prop;
+  project : string prop;
+  purpose : string prop;
+  region : string prop;
+  role : string prop;
+  secondary_ip_range :
+    google_compute_subnetwork__secondary_ip_range list prop;
+  self_link : string prop;
+  stack_type : string prop;
+}
+
 let google_compute_subnetwork ?description ?external_ipv6_prefix ?id
     ?ipv6_access_type ?private_ip_google_access
     ?private_ipv6_google_access ?project ?purpose ?region ?role
@@ -127,26 +152,79 @@ let google_compute_subnetwork ?description ?external_ipv6_prefix ?id
     ~network ~log_config __resource_id =
   let __resource_type = "google_compute_subnetwork" in
   let __resource =
-    {
-      description;
-      external_ipv6_prefix;
-      id;
-      ip_cidr_range;
-      ipv6_access_type;
-      name;
-      network;
-      private_ip_google_access;
-      private_ipv6_google_access;
-      project;
-      purpose;
-      region;
-      role;
-      secondary_ip_range;
-      stack_type;
-      log_config;
-      timeouts;
-    }
+    ({
+       description;
+       external_ipv6_prefix;
+       id;
+       ip_cidr_range;
+       ipv6_access_type;
+       name;
+       network;
+       private_ip_google_access;
+       private_ipv6_google_access;
+       project;
+       purpose;
+       region;
+       role;
+       secondary_ip_range;
+       stack_type;
+       log_config;
+       timeouts;
+     }
+      : google_compute_subnetwork)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_subnetwork __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       external_ipv6_prefix =
+         Prop.computed __resource_type __resource_id
+           "external_ipv6_prefix";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       gateway_address =
+         Prop.computed __resource_type __resource_id
+           "gateway_address";
+       id = Prop.computed __resource_type __resource_id "id";
+       internal_ipv6_prefix =
+         Prop.computed __resource_type __resource_id
+           "internal_ipv6_prefix";
+       ip_cidr_range =
+         Prop.computed __resource_type __resource_id "ip_cidr_range";
+       ipv6_access_type =
+         Prop.computed __resource_type __resource_id
+           "ipv6_access_type";
+       ipv6_cidr_range =
+         Prop.computed __resource_type __resource_id
+           "ipv6_cidr_range";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       private_ip_google_access =
+         Prop.computed __resource_type __resource_id
+           "private_ip_google_access";
+       private_ipv6_google_access =
+         Prop.computed __resource_type __resource_id
+           "private_ipv6_google_access";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       purpose =
+         Prop.computed __resource_type __resource_id "purpose";
+       region = Prop.computed __resource_type __resource_id "region";
+       role = Prop.computed __resource_type __resource_id "role";
+       secondary_ip_range =
+         Prop.computed __resource_type __resource_id
+           "secondary_ip_range";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       stack_type =
+         Prop.computed __resource_type __resource_id "stack_type";
+     }
+      : t)
+  in
+  __resource_attributes

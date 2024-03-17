@@ -35,24 +35,61 @@ type aws_glue_connection = {
 [@@deriving yojson_of]
 (** aws_glue_connection *)
 
+type t = {
+  arn : string prop;
+  catalog_id : string prop;
+  connection_properties : (string * string) list prop;
+  connection_type : string prop;
+  description : string prop;
+  id : string prop;
+  match_criteria : string list prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_glue_connection ?catalog_id ?connection_properties
     ?connection_type ?description ?id ?match_criteria ?tags ?tags_all
     ~name ~physical_connection_requirements __resource_id =
   let __resource_type = "aws_glue_connection" in
   let __resource =
-    {
-      catalog_id;
-      connection_properties;
-      connection_type;
-      description;
-      id;
-      match_criteria;
-      name;
-      tags;
-      tags_all;
-      physical_connection_requirements;
-    }
+    ({
+       catalog_id;
+       connection_properties;
+       connection_type;
+       description;
+       id;
+       match_criteria;
+       name;
+       tags;
+       tags_all;
+       physical_connection_requirements;
+     }
+      : aws_glue_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       catalog_id =
+         Prop.computed __resource_type __resource_id "catalog_id";
+       connection_properties =
+         Prop.computed __resource_type __resource_id
+           "connection_properties";
+       connection_type =
+         Prop.computed __resource_type __resource_id
+           "connection_type";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       match_criteria =
+         Prop.computed __resource_type __resource_id "match_criteria";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

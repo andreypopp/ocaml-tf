@@ -28,10 +28,29 @@ type aws_ecr_registry_scanning_configuration = {
 [@@deriving yojson_of]
 (** aws_ecr_registry_scanning_configuration *)
 
+type t = {
+  id : string prop;
+  registry_id : string prop;
+  scan_type : string prop;
+}
+
 let aws_ecr_registry_scanning_configuration ?id ~scan_type ~rule
     __resource_id =
   let __resource_type = "aws_ecr_registry_scanning_configuration" in
-  let __resource = { id; scan_type; rule } in
+  let __resource =
+    ({ id; scan_type; rule }
+      : aws_ecr_registry_scanning_configuration)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecr_registry_scanning_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       registry_id =
+         Prop.computed __resource_type __resource_id "registry_id";
+       scan_type =
+         Prop.computed __resource_type __resource_id "scan_type";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -39,6 +39,18 @@ type aws_datasync_location_fsx_openzfs_file_system = {
 [@@deriving yojson_of]
 (** aws_datasync_location_fsx_openzfs_file_system *)
 
+type t = {
+  arn : string prop;
+  creation_time : string prop;
+  fsx_filesystem_arn : string prop;
+  id : string prop;
+  security_group_arns : string list prop;
+  subdirectory : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  uri : string prop;
+}
+
 let aws_datasync_location_fsx_openzfs_file_system ?id ?subdirectory
     ?tags ?tags_all ~fsx_filesystem_arn ~security_group_arns
     ~protocol __resource_id =
@@ -46,17 +58,39 @@ let aws_datasync_location_fsx_openzfs_file_system ?id ?subdirectory
     "aws_datasync_location_fsx_openzfs_file_system"
   in
   let __resource =
-    {
-      fsx_filesystem_arn;
-      id;
-      security_group_arns;
-      subdirectory;
-      tags;
-      tags_all;
-      protocol;
-    }
+    ({
+       fsx_filesystem_arn;
+       id;
+       security_group_arns;
+       subdirectory;
+       tags;
+       tags_all;
+       protocol;
+     }
+      : aws_datasync_location_fsx_openzfs_file_system)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_location_fsx_openzfs_file_system
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       fsx_filesystem_arn =
+         Prop.computed __resource_type __resource_id
+           "fsx_filesystem_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       security_group_arns =
+         Prop.computed __resource_type __resource_id
+           "security_group_arns";
+       subdirectory =
+         Prop.computed __resource_type __resource_id "subdirectory";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       uri = Prop.computed __resource_type __resource_id "uri";
+     }
+      : t)
+  in
+  __resource_attributes

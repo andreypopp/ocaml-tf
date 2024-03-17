@@ -22,12 +22,43 @@ type aws_location_map = {
 [@@deriving yojson_of]
 (** aws_location_map *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  id : string prop;
+  map_arn : string prop;
+  map_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  update_time : string prop;
+}
+
 let aws_location_map ?description ?id ?tags ?tags_all ~map_name
     ~configuration __resource_id =
   let __resource_type = "aws_location_map" in
   let __resource =
-    { description; id; map_name; tags; tags_all; configuration }
+    ({ description; id; map_name; tags; tags_all; configuration }
+      : aws_location_map)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_location_map __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       map_arn =
+         Prop.computed __resource_type __resource_id "map_arn";
+       map_name =
+         Prop.computed __resource_type __resource_id "map_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

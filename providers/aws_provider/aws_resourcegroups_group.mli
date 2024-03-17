@@ -8,6 +8,15 @@ type aws_resourcegroups_group__resource_query
 type aws_resourcegroups_group__timeouts
 type aws_resourcegroups_group
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_resourcegroups_group :
   ?description:string prop ->
   ?id:string prop ->
@@ -18,4 +27,4 @@ val aws_resourcegroups_group :
   configuration:aws_resourcegroups_group__configuration list ->
   resource_query:aws_resourcegroups_group__resource_query list ->
   string ->
-  unit
+  t

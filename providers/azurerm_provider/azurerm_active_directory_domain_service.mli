@@ -9,6 +9,23 @@ type azurerm_active_directory_domain_service__security
 type azurerm_active_directory_domain_service__timeouts
 type azurerm_active_directory_domain_service
 
+type t = private {
+  deployment_id : string prop;
+  domain_configuration_type : string prop;
+  domain_name : string prop;
+  filtered_sync_enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  resource_id : string prop;
+  sku : string prop;
+  sync_owner : string prop;
+  tags : (string * string) list prop;
+  tenant_id : string prop;
+  version : float prop;
+}
+
 val azurerm_active_directory_domain_service :
   ?domain_configuration_type:string prop ->
   ?filtered_sync_enabled:bool prop ->
@@ -28,4 +45,4 @@ val azurerm_active_directory_domain_service :
     azurerm_active_directory_domain_service__secure_ldap list ->
   security:azurerm_active_directory_domain_service__security list ->
   string ->
-  unit
+  t

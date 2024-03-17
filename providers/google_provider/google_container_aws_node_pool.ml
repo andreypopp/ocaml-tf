@@ -163,29 +163,79 @@ Please refer to the field `effective_annotations` for all of the annotations pre
 [@@deriving yojson_of]
 (** google_container_aws_node_pool *)
 
+type t = {
+  annotations : (string * string) list prop;
+  cluster : string prop;
+  create_time : string prop;
+  effective_annotations : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  subnet_id : string prop;
+  uid : string prop;
+  update_time : string prop;
+  version : string prop;
+}
+
 let google_container_aws_node_pool ?annotations ?id ?project
     ?timeouts ~cluster ~location ~name ~subnet_id ~version
     ~autoscaling ~config ~management ~max_pods_constraint
     ~update_settings __resource_id =
   let __resource_type = "google_container_aws_node_pool" in
   let __resource =
-    {
-      annotations;
-      cluster;
-      id;
-      location;
-      name;
-      project;
-      subnet_id;
-      version;
-      autoscaling;
-      config;
-      management;
-      max_pods_constraint;
-      timeouts;
-      update_settings;
-    }
+    ({
+       annotations;
+       cluster;
+       id;
+       location;
+       name;
+       project;
+       subnet_id;
+       version;
+       autoscaling;
+       config;
+       management;
+       max_pods_constraint;
+       timeouts;
+       update_settings;
+     }
+      : google_container_aws_node_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_aws_node_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       cluster =
+         Prop.computed __resource_type __resource_id "cluster";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       state = Prop.computed __resource_type __resource_id "state";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

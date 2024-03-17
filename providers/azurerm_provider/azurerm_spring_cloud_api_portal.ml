@@ -43,25 +43,62 @@ type azurerm_spring_cloud_api_portal = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_api_portal *)
 
+type t = {
+  api_try_out_enabled : bool prop;
+  gateway_ids : string list prop;
+  https_only_enabled : bool prop;
+  id : string prop;
+  instance_count : float prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  spring_cloud_service_id : string prop;
+  url : string prop;
+}
+
 let azurerm_spring_cloud_api_portal ?api_try_out_enabled ?gateway_ids
     ?https_only_enabled ?id ?instance_count
     ?public_network_access_enabled ?timeouts ~name
     ~spring_cloud_service_id ~sso __resource_id =
   let __resource_type = "azurerm_spring_cloud_api_portal" in
   let __resource =
-    {
-      api_try_out_enabled;
-      gateway_ids;
-      https_only_enabled;
-      id;
-      instance_count;
-      name;
-      public_network_access_enabled;
-      spring_cloud_service_id;
-      sso;
-      timeouts;
-    }
+    ({
+       api_try_out_enabled;
+       gateway_ids;
+       https_only_enabled;
+       id;
+       instance_count;
+       name;
+       public_network_access_enabled;
+       spring_cloud_service_id;
+       sso;
+       timeouts;
+     }
+      : azurerm_spring_cloud_api_portal)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_api_portal __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_try_out_enabled =
+         Prop.computed __resource_type __resource_id
+           "api_try_out_enabled";
+       gateway_ids =
+         Prop.computed __resource_type __resource_id "gateway_ids";
+       https_only_enabled =
+         Prop.computed __resource_type __resource_id
+           "https_only_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_count =
+         Prop.computed __resource_type __resource_id "instance_count";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       spring_cloud_service_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_service_id";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

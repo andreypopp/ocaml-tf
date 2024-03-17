@@ -66,28 +66,73 @@ type aws_cloudwatch_metric_stream = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_metric_stream *)
 
+type t = {
+  arn : string prop;
+  creation_date : string prop;
+  firehose_arn : string prop;
+  id : string prop;
+  include_linked_accounts_metrics : bool prop;
+  last_update_date : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  output_format : string prop;
+  role_arn : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_cloudwatch_metric_stream ?id ?include_linked_accounts_metrics
     ?name ?name_prefix ?tags ?tags_all ?timeouts ~firehose_arn
     ~output_format ~role_arn ~exclude_filter ~include_filter
     ~statistics_configuration __resource_id =
   let __resource_type = "aws_cloudwatch_metric_stream" in
   let __resource =
-    {
-      firehose_arn;
-      id;
-      include_linked_accounts_metrics;
-      name;
-      name_prefix;
-      output_format;
-      role_arn;
-      tags;
-      tags_all;
-      exclude_filter;
-      include_filter;
-      statistics_configuration;
-      timeouts;
-    }
+    ({
+       firehose_arn;
+       id;
+       include_linked_accounts_metrics;
+       name;
+       name_prefix;
+       output_format;
+       role_arn;
+       tags;
+       tags_all;
+       exclude_filter;
+       include_filter;
+       statistics_configuration;
+       timeouts;
+     }
+      : aws_cloudwatch_metric_stream)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_metric_stream __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       creation_date =
+         Prop.computed __resource_type __resource_id "creation_date";
+       firehose_arn =
+         Prop.computed __resource_type __resource_id "firehose_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       include_linked_accounts_metrics =
+         Prop.computed __resource_type __resource_id
+           "include_linked_accounts_metrics";
+       last_update_date =
+         Prop.computed __resource_type __resource_id
+           "last_update_date";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       output_format =
+         Prop.computed __resource_type __resource_id "output_format";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

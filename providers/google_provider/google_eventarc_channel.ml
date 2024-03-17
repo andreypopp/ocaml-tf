@@ -28,20 +28,64 @@ type google_eventarc_channel = {
 [@@deriving yojson_of]
 (** google_eventarc_channel *)
 
+type t = {
+  activation_token : string prop;
+  create_time : string prop;
+  crypto_key_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  pubsub_topic : string prop;
+  state : string prop;
+  third_party_provider : string prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_eventarc_channel ?crypto_key_name ?id ?project
     ?third_party_provider ?timeouts ~location ~name __resource_id =
   let __resource_type = "google_eventarc_channel" in
   let __resource =
-    {
-      crypto_key_name;
-      id;
-      location;
-      name;
-      project;
-      third_party_provider;
-      timeouts;
-    }
+    ({
+       crypto_key_name;
+       id;
+       location;
+       name;
+       project;
+       third_party_provider;
+       timeouts;
+     }
+      : google_eventarc_channel)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_eventarc_channel __resource);
-  ()
+  let __resource_attributes =
+    ({
+       activation_token =
+         Prop.computed __resource_type __resource_id
+           "activation_token";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       crypto_key_name =
+         Prop.computed __resource_type __resource_id
+           "crypto_key_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       pubsub_topic =
+         Prop.computed __resource_type __resource_id "pubsub_topic";
+       state = Prop.computed __resource_type __resource_id "state";
+       third_party_provider =
+         Prop.computed __resource_type __resource_id
+           "third_party_provider";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

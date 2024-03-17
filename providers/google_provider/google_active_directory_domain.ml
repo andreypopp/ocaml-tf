@@ -40,23 +40,67 @@ Ranges must be unique and non-overlapping with existing subnets in authorizedNet
 [@@deriving yojson_of]
 (** google_active_directory_domain *)
 
+type t = {
+  admin : string prop;
+  authorized_networks : string list prop;
+  domain_name : string prop;
+  effective_labels : (string * string) list prop;
+  fqdn : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  locations : string list prop;
+  name : string prop;
+  project : string prop;
+  reserved_ip_range : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_active_directory_domain ?admin ?authorized_networks ?id
     ?labels ?project ?timeouts ~domain_name ~locations
     ~reserved_ip_range __resource_id =
   let __resource_type = "google_active_directory_domain" in
   let __resource =
-    {
-      admin;
-      authorized_networks;
-      domain_name;
-      id;
-      labels;
-      locations;
-      project;
-      reserved_ip_range;
-      timeouts;
-    }
+    ({
+       admin;
+       authorized_networks;
+       domain_name;
+       id;
+       labels;
+       locations;
+       project;
+       reserved_ip_range;
+       timeouts;
+     }
+      : google_active_directory_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_active_directory_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin = Prop.computed __resource_type __resource_id "admin";
+       authorized_networks =
+         Prop.computed __resource_type __resource_id
+           "authorized_networks";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       locations =
+         Prop.computed __resource_type __resource_id "locations";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reserved_ip_range =
+         Prop.computed __resource_type __resource_id
+           "reserved_ip_range";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

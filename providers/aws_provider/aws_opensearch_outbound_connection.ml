@@ -61,23 +61,50 @@ type aws_opensearch_outbound_connection = {
 [@@deriving yojson_of]
 (** aws_opensearch_outbound_connection *)
 
+type t = {
+  accept_connection : bool prop;
+  connection_alias : string prop;
+  connection_mode : string prop;
+  connection_status : string prop;
+  id : string prop;
+}
+
 let aws_opensearch_outbound_connection ?accept_connection
     ?connection_mode ?id ?timeouts ~connection_alias
     ~connection_properties ~local_domain_info ~remote_domain_info
     __resource_id =
   let __resource_type = "aws_opensearch_outbound_connection" in
   let __resource =
-    {
-      accept_connection;
-      connection_alias;
-      connection_mode;
-      id;
-      connection_properties;
-      local_domain_info;
-      remote_domain_info;
-      timeouts;
-    }
+    ({
+       accept_connection;
+       connection_alias;
+       connection_mode;
+       id;
+       connection_properties;
+       local_domain_info;
+       remote_domain_info;
+       timeouts;
+     }
+      : aws_opensearch_outbound_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearch_outbound_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accept_connection =
+         Prop.computed __resource_type __resource_id
+           "accept_connection";
+       connection_alias =
+         Prop.computed __resource_type __resource_id
+           "connection_alias";
+       connection_mode =
+         Prop.computed __resource_type __resource_id
+           "connection_mode";
+       connection_status =
+         Prop.computed __resource_type __resource_id
+           "connection_status";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

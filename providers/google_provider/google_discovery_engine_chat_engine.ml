@@ -66,26 +66,73 @@ type google_discovery_engine_chat_engine = {
 [@@deriving yojson_of]
 (** google_discovery_engine_chat_engine *)
 
+type t = {
+  chat_engine_metadata :
+    google_discovery_engine_chat_engine__chat_engine_metadata list
+    prop;
+  collection_id : string prop;
+  create_time : string prop;
+  data_store_ids : string list prop;
+  display_name : string prop;
+  engine_id : string prop;
+  id : string prop;
+  industry_vertical : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 let google_discovery_engine_chat_engine ?id ?industry_vertical
     ?project ?timeouts ~collection_id ~data_store_ids ~display_name
     ~engine_id ~location ~chat_engine_config ~common_config
     __resource_id =
   let __resource_type = "google_discovery_engine_chat_engine" in
   let __resource =
-    {
-      collection_id;
-      data_store_ids;
-      display_name;
-      engine_id;
-      id;
-      industry_vertical;
-      location;
-      project;
-      chat_engine_config;
-      common_config;
-      timeouts;
-    }
+    ({
+       collection_id;
+       data_store_ids;
+       display_name;
+       engine_id;
+       id;
+       industry_vertical;
+       location;
+       project;
+       chat_engine_config;
+       common_config;
+       timeouts;
+     }
+      : google_discovery_engine_chat_engine)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_discovery_engine_chat_engine __resource);
-  ()
+  let __resource_attributes =
+    ({
+       chat_engine_metadata =
+         Prop.computed __resource_type __resource_id
+           "chat_engine_metadata";
+       collection_id =
+         Prop.computed __resource_type __resource_id "collection_id";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       data_store_ids =
+         Prop.computed __resource_type __resource_id "data_store_ids";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       engine_id =
+         Prop.computed __resource_type __resource_id "engine_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       industry_vertical =
+         Prop.computed __resource_type __resource_id
+           "industry_vertical";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

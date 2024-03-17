@@ -14,6 +14,15 @@ type azurerm_logic_app_integration_account_batch_configuration__timeouts
 
 type azurerm_logic_app_integration_account_batch_configuration
 
+type t = private {
+  batch_group_name : string prop;
+  id : string prop;
+  integration_account_name : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_logic_app_integration_account_batch_configuration :
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
@@ -27,4 +36,4 @@ val azurerm_logic_app_integration_account_batch_configuration :
     azurerm_logic_app_integration_account_batch_configuration__release_criteria
     list ->
   string ->
-  unit
+  t

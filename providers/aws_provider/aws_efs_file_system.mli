@@ -13,6 +13,26 @@ type aws_efs_file_system__size_in_bytes = {
 
 type aws_efs_file_system
 
+type t = private {
+  arn : string prop;
+  availability_zone_id : string prop;
+  availability_zone_name : string prop;
+  creation_token : string prop;
+  dns_name : string prop;
+  encrypted : bool prop;
+  id : string prop;
+  kms_key_id : string prop;
+  name : string prop;
+  number_of_mount_targets : float prop;
+  owner_id : string prop;
+  performance_mode : string prop;
+  provisioned_throughput_in_mibps : float prop;
+  size_in_bytes : aws_efs_file_system__size_in_bytes list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  throughput_mode : string prop;
+}
+
 val aws_efs_file_system :
   ?availability_zone_name:string prop ->
   ?creation_token:string prop ->
@@ -27,4 +47,4 @@ val aws_efs_file_system :
   lifecycle_policy:aws_efs_file_system__lifecycle_policy list ->
   protection:aws_efs_file_system__protection list ->
   string ->
-  unit
+  t

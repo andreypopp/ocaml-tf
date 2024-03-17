@@ -43,6 +43,21 @@ type azurerm_container_app__template
 type azurerm_container_app__timeouts
 type azurerm_container_app
 
+type t = private {
+  container_app_environment_id : string prop;
+  custom_domain_verification_id : string prop;
+  id : string prop;
+  latest_revision_fqdn : string prop;
+  latest_revision_name : string prop;
+  location : string prop;
+  name : string prop;
+  outbound_ip_addresses : string list prop;
+  resource_group_name : string prop;
+  revision_mode : string prop;
+  tags : (string * string) list prop;
+  workload_profile_name : string prop;
+}
+
 val azurerm_container_app :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -59,4 +74,4 @@ val azurerm_container_app :
   secret:azurerm_container_app__secret list ->
   template:azurerm_container_app__template list ->
   string ->
-  unit
+  t

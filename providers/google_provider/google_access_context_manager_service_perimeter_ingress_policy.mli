@@ -15,6 +15,7 @@ type google_access_context_manager_service_perimeter_ingress_policy__ingress_to
 type google_access_context_manager_service_perimeter_ingress_policy__timeouts
 
 type google_access_context_manager_service_perimeter_ingress_policy
+type t = private { id : string prop; perimeter : string prop }
 
 val google_access_context_manager_service_perimeter_ingress_policy :
   ?id:string prop ->
@@ -28,4 +29,4 @@ val google_access_context_manager_service_perimeter_ingress_policy :
     google_access_context_manager_service_perimeter_ingress_policy__ingress_to
     list ->
   string ->
-  unit
+  t

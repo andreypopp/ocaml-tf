@@ -39,27 +39,66 @@ type azurerm_automation_source_control = {
 [@@deriving yojson_of]
 (** azurerm_automation_source_control *)
 
+type t = {
+  automatic_sync : bool prop;
+  automation_account_id : string prop;
+  branch : string prop;
+  description : string prop;
+  folder_path : string prop;
+  id : string prop;
+  name : string prop;
+  publish_runbook_enabled : bool prop;
+  repository_url : string prop;
+  source_control_type : string prop;
+}
+
 let azurerm_automation_source_control ?automatic_sync ?branch
     ?description ?id ?publish_runbook_enabled ?timeouts
     ~automation_account_id ~folder_path ~name ~repository_url
     ~source_control_type ~security __resource_id =
   let __resource_type = "azurerm_automation_source_control" in
   let __resource =
-    {
-      automatic_sync;
-      automation_account_id;
-      branch;
-      description;
-      folder_path;
-      id;
-      name;
-      publish_runbook_enabled;
-      repository_url;
-      source_control_type;
-      security;
-      timeouts;
-    }
+    ({
+       automatic_sync;
+       automation_account_id;
+       branch;
+       description;
+       folder_path;
+       id;
+       name;
+       publish_runbook_enabled;
+       repository_url;
+       source_control_type;
+       security;
+       timeouts;
+     }
+      : azurerm_automation_source_control)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_source_control __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automatic_sync =
+         Prop.computed __resource_type __resource_id "automatic_sync";
+       automation_account_id =
+         Prop.computed __resource_type __resource_id
+           "automation_account_id";
+       branch = Prop.computed __resource_type __resource_id "branch";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       folder_path =
+         Prop.computed __resource_type __resource_id "folder_path";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       publish_runbook_enabled =
+         Prop.computed __resource_type __resource_id
+           "publish_runbook_enabled";
+       repository_url =
+         Prop.computed __resource_type __resource_id "repository_url";
+       source_control_type =
+         Prop.computed __resource_type __resource_id
+           "source_control_type";
+     }
+      : t)
+  in
+  __resource_attributes

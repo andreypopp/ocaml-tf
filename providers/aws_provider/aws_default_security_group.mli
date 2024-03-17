@@ -28,6 +28,21 @@ type aws_default_security_group__ingress = {
 
 type aws_default_security_group
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  egress : aws_default_security_group__egress list prop;
+  id : string prop;
+  ingress : aws_default_security_group__ingress list prop;
+  name : string prop;
+  name_prefix : string prop;
+  owner_id : string prop;
+  revoke_rules_on_delete : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 val aws_default_security_group :
   ?egress:aws_default_security_group__egress list ->
   ?id:string prop ->
@@ -37,4 +52,4 @@ val aws_default_security_group :
   ?tags_all:(string * string prop) list ->
   ?vpc_id:string prop ->
   string ->
-  unit
+  t

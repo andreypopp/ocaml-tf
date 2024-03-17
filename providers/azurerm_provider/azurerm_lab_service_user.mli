@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_lab_service_user__timeouts
 type azurerm_lab_service_user
 
+type t = private {
+  additional_usage_quota : string prop;
+  email : string prop;
+  id : string prop;
+  lab_id : string prop;
+  name : string prop;
+}
+
 val azurerm_lab_service_user :
   ?additional_usage_quota:string prop ->
   ?id:string prop ->
@@ -13,4 +21,4 @@ val azurerm_lab_service_user :
   lab_id:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

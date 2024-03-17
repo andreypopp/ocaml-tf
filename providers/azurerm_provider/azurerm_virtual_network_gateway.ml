@@ -184,6 +184,28 @@ type azurerm_virtual_network_gateway = {
 [@@deriving yojson_of]
 (** azurerm_virtual_network_gateway *)
 
+type t = {
+  active_active : bool prop;
+  bgp_route_translation_for_nat_enabled : bool prop;
+  default_local_network_gateway_id : string prop;
+  dns_forwarding_enabled : bool prop;
+  edge_zone : string prop;
+  enable_bgp : bool prop;
+  generation : string prop;
+  id : string prop;
+  ip_sec_replay_protection_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  private_ip_address_enabled : bool prop;
+  remote_vnet_traffic_enabled : bool prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+  virtual_wan_traffic_enabled : bool prop;
+  vpn_type : string prop;
+}
+
 let azurerm_virtual_network_gateway ?active_active
     ?bgp_route_translation_for_nat_enabled
     ?default_local_network_gateway_id ?dns_forwarding_enabled
@@ -195,34 +217,81 @@ let azurerm_virtual_network_gateway ?active_active
     ~policy_group ~vpn_client_configuration __resource_id =
   let __resource_type = "azurerm_virtual_network_gateway" in
   let __resource =
-    {
-      active_active;
-      bgp_route_translation_for_nat_enabled;
-      default_local_network_gateway_id;
-      dns_forwarding_enabled;
-      edge_zone;
-      enable_bgp;
-      generation;
-      id;
-      ip_sec_replay_protection_enabled;
-      location;
-      name;
-      private_ip_address_enabled;
-      remote_vnet_traffic_enabled;
-      resource_group_name;
-      sku;
-      tags;
-      type_;
-      virtual_wan_traffic_enabled;
-      vpn_type;
-      bgp_settings;
-      custom_route;
-      ip_configuration;
-      policy_group;
-      timeouts;
-      vpn_client_configuration;
-    }
+    ({
+       active_active;
+       bgp_route_translation_for_nat_enabled;
+       default_local_network_gateway_id;
+       dns_forwarding_enabled;
+       edge_zone;
+       enable_bgp;
+       generation;
+       id;
+       ip_sec_replay_protection_enabled;
+       location;
+       name;
+       private_ip_address_enabled;
+       remote_vnet_traffic_enabled;
+       resource_group_name;
+       sku;
+       tags;
+       type_;
+       virtual_wan_traffic_enabled;
+       vpn_type;
+       bgp_settings;
+       custom_route;
+       ip_configuration;
+       policy_group;
+       timeouts;
+       vpn_client_configuration;
+     }
+      : azurerm_virtual_network_gateway)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network_gateway __resource);
-  ()
+  let __resource_attributes =
+    ({
+       active_active =
+         Prop.computed __resource_type __resource_id "active_active";
+       bgp_route_translation_for_nat_enabled =
+         Prop.computed __resource_type __resource_id
+           "bgp_route_translation_for_nat_enabled";
+       default_local_network_gateway_id =
+         Prop.computed __resource_type __resource_id
+           "default_local_network_gateway_id";
+       dns_forwarding_enabled =
+         Prop.computed __resource_type __resource_id
+           "dns_forwarding_enabled";
+       edge_zone =
+         Prop.computed __resource_type __resource_id "edge_zone";
+       enable_bgp =
+         Prop.computed __resource_type __resource_id "enable_bgp";
+       generation =
+         Prop.computed __resource_type __resource_id "generation";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_sec_replay_protection_enabled =
+         Prop.computed __resource_type __resource_id
+           "ip_sec_replay_protection_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_ip_address_enabled =
+         Prop.computed __resource_type __resource_id
+           "private_ip_address_enabled";
+       remote_vnet_traffic_enabled =
+         Prop.computed __resource_type __resource_id
+           "remote_vnet_traffic_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       virtual_wan_traffic_enabled =
+         Prop.computed __resource_type __resource_id
+           "virtual_wan_traffic_enabled";
+       vpn_type =
+         Prop.computed __resource_type __resource_id "vpn_type";
+     }
+      : t)
+  in
+  __resource_attributes

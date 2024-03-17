@@ -106,6 +106,22 @@ type azurerm_monitor_metric_alert = {
 [@@deriving yojson_of]
 (** azurerm_monitor_metric_alert *)
 
+type t = {
+  auto_mitigate : bool prop;
+  description : string prop;
+  enabled : bool prop;
+  frequency : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  severity : float prop;
+  tags : (string * string) list prop;
+  target_resource_location : string prop;
+  target_resource_type : string prop;
+  window_size : string prop;
+}
+
 let azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
     ?frequency ?id ?severity ?tags ?target_resource_location
     ?target_resource_type ?window_size ?timeouts ~name
@@ -114,27 +130,58 @@ let azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
     ~criteria ~dynamic_criteria __resource_id =
   let __resource_type = "azurerm_monitor_metric_alert" in
   let __resource =
-    {
-      auto_mitigate;
-      description;
-      enabled;
-      frequency;
-      id;
-      name;
-      resource_group_name;
-      scopes;
-      severity;
-      tags;
-      target_resource_location;
-      target_resource_type;
-      window_size;
-      action;
-      application_insights_web_test_location_availability_criteria;
-      criteria;
-      dynamic_criteria;
-      timeouts;
-    }
+    ({
+       auto_mitigate;
+       description;
+       enabled;
+       frequency;
+       id;
+       name;
+       resource_group_name;
+       scopes;
+       severity;
+       tags;
+       target_resource_location;
+       target_resource_type;
+       window_size;
+       action;
+       application_insights_web_test_location_availability_criteria;
+       criteria;
+       dynamic_criteria;
+       timeouts;
+     }
+      : azurerm_monitor_metric_alert)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_metric_alert __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_mitigate =
+         Prop.computed __resource_type __resource_id "auto_mitigate";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scopes = Prop.computed __resource_type __resource_id "scopes";
+       severity =
+         Prop.computed __resource_type __resource_id "severity";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       target_resource_location =
+         Prop.computed __resource_type __resource_id
+           "target_resource_location";
+       target_resource_type =
+         Prop.computed __resource_type __resource_id
+           "target_resource_type";
+       window_size =
+         Prop.computed __resource_type __resource_id "window_size";
+     }
+      : t)
+  in
+  __resource_attributes

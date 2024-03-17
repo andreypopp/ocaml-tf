@@ -29,13 +29,36 @@ A duration in seconds with up to nine fractional digits, ending with 's'. Exampl
 [@@deriving yojson_of]
 (** google_firebase_app_check_play_integrity_config *)
 
+type t = {
+  app_id : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  token_ttl : string prop;
+}
+
 let google_firebase_app_check_play_integrity_config ?id ?project
     ?token_ttl ?timeouts ~app_id __resource_id =
   let __resource_type =
     "google_firebase_app_check_play_integrity_config"
   in
-  let __resource = { app_id; id; project; token_ttl; timeouts } in
+  let __resource =
+    ({ app_id; id; project; token_ttl; timeouts }
+      : google_firebase_app_check_play_integrity_config)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebase_app_check_play_integrity_config
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_id = Prop.computed __resource_type __resource_id "app_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       token_ttl =
+         Prop.computed __resource_type __resource_id "token_ttl";
+     }
+      : t)
+  in
+  __resource_attributes

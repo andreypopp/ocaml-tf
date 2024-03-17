@@ -31,10 +31,23 @@ type aws_wafregional_size_constraint_set = {
 [@@deriving yojson_of]
 (** aws_wafregional_size_constraint_set *)
 
+type t = { arn : string prop; id : string prop; name : string prop }
+
 let aws_wafregional_size_constraint_set ?id ~name ~size_constraints
     __resource_id =
   let __resource_type = "aws_wafregional_size_constraint_set" in
-  let __resource = { id; name; size_constraints } in
+  let __resource =
+    ({ id; name; size_constraints }
+      : aws_wafregional_size_constraint_set)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_wafregional_size_constraint_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

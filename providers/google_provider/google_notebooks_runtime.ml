@@ -330,23 +330,60 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_notebooks_runtime *)
 
+type t = {
+  effective_labels : (string * string) list prop;
+  health_state : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  metrics : google_notebooks_runtime__metrics list prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_notebooks_runtime ?id ?labels ?project ?timeouts ~location
     ~name ~access_config ~software_config ~virtual_machine
     __resource_id =
   let __resource_type = "google_notebooks_runtime" in
   let __resource =
-    {
-      id;
-      labels;
-      location;
-      name;
-      project;
-      access_config;
-      software_config;
-      timeouts;
-      virtual_machine;
-    }
+    ({
+       id;
+       labels;
+       location;
+       name;
+       project;
+       access_config;
+       software_config;
+       timeouts;
+       virtual_machine;
+     }
+      : google_notebooks_runtime)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_notebooks_runtime __resource);
-  ()
+  let __resource_attributes =
+    ({
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       health_state =
+         Prop.computed __resource_type __resource_id "health_state";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       metrics =
+         Prop.computed __resource_type __resource_id "metrics";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

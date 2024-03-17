@@ -18,6 +18,21 @@ type azurerm_cdn_frontdoor_firewall_policy__managed_rule
 type azurerm_cdn_frontdoor_firewall_policy__timeouts
 type azurerm_cdn_frontdoor_firewall_policy
 
+type t = private {
+  custom_block_response_body : string prop;
+  custom_block_response_status_code : float prop;
+  enabled : bool prop;
+  frontend_endpoint_ids : string list prop;
+  id : string prop;
+  mode : string prop;
+  name : string prop;
+  redirect_url : string prop;
+  request_body_check_enabled : bool prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_cdn_frontdoor_firewall_policy :
   ?custom_block_response_body:string prop ->
   ?custom_block_response_status_code:float prop ->
@@ -35,4 +50,4 @@ val azurerm_cdn_frontdoor_firewall_policy :
   managed_rule:
     azurerm_cdn_frontdoor_firewall_policy__managed_rule list ->
   string ->
-  unit
+  t

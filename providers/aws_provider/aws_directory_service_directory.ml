@@ -55,31 +55,85 @@ type aws_directory_service_directory = {
 [@@deriving yojson_of]
 (** aws_directory_service_directory *)
 
+type t = {
+  access_url : string prop;
+  alias : string prop;
+  description : string prop;
+  desired_number_of_domain_controllers : float prop;
+  dns_ip_addresses : string list prop;
+  edition : string prop;
+  enable_sso : bool prop;
+  id : string prop;
+  name : string prop;
+  password : string prop;
+  security_group_id : string prop;
+  short_name : string prop;
+  size : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_directory_service_directory ?alias ?description
     ?desired_number_of_domain_controllers ?edition ?enable_sso ?id
     ?short_name ?size ?tags ?tags_all ?type_ ?timeouts ~name
     ~password ~connect_settings ~vpc_settings __resource_id =
   let __resource_type = "aws_directory_service_directory" in
   let __resource =
-    {
-      alias;
-      description;
-      desired_number_of_domain_controllers;
-      edition;
-      enable_sso;
-      id;
-      name;
-      password;
-      short_name;
-      size;
-      tags;
-      tags_all;
-      type_;
-      connect_settings;
-      timeouts;
-      vpc_settings;
-    }
+    ({
+       alias;
+       description;
+       desired_number_of_domain_controllers;
+       edition;
+       enable_sso;
+       id;
+       name;
+       password;
+       short_name;
+       size;
+       tags;
+       tags_all;
+       type_;
+       connect_settings;
+       timeouts;
+       vpc_settings;
+     }
+      : aws_directory_service_directory)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_directory_service_directory __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_url =
+         Prop.computed __resource_type __resource_id "access_url";
+       alias = Prop.computed __resource_type __resource_id "alias";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       desired_number_of_domain_controllers =
+         Prop.computed __resource_type __resource_id
+           "desired_number_of_domain_controllers";
+       dns_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "dns_ip_addresses";
+       edition =
+         Prop.computed __resource_type __resource_id "edition";
+       enable_sso =
+         Prop.computed __resource_type __resource_id "enable_sso";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       security_group_id =
+         Prop.computed __resource_type __resource_id
+           "security_group_id";
+       short_name =
+         Prop.computed __resource_type __resource_id "short_name";
+       size = Prop.computed __resource_type __resource_id "size";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

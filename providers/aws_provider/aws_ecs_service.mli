@@ -28,6 +28,29 @@ type aws_ecs_service__service_registries
 type aws_ecs_service__timeouts
 type aws_ecs_service
 
+type t = private {
+  cluster : string prop;
+  deployment_maximum_percent : float prop;
+  deployment_minimum_healthy_percent : float prop;
+  desired_count : float prop;
+  enable_ecs_managed_tags : bool prop;
+  enable_execute_command : bool prop;
+  force_new_deployment : bool prop;
+  health_check_grace_period_seconds : float prop;
+  iam_role : string prop;
+  id : string prop;
+  launch_type : string prop;
+  name : string prop;
+  platform_version : string prop;
+  propagate_tags : string prop;
+  scheduling_strategy : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  task_definition : string prop;
+  triggers : (string * string) list prop;
+  wait_for_steady_state : bool prop;
+}
+
 val aws_ecs_service :
   ?cluster:string prop ->
   ?deployment_maximum_percent:float prop ->
@@ -65,4 +88,4 @@ val aws_ecs_service :
     aws_ecs_service__service_connect_configuration list ->
   service_registries:aws_ecs_service__service_registries list ->
   string ->
-  unit
+  t

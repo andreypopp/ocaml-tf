@@ -9,6 +9,19 @@ type azurerm_managed_lustre_file_system__maintenance_window
 type azurerm_managed_lustre_file_system__timeouts
 type azurerm_managed_lustre_file_system
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  mgs_address : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  storage_capacity_in_tb : float prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+  zones : string list prop;
+}
+
 val azurerm_managed_lustre_file_system :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -27,4 +40,4 @@ val azurerm_managed_lustre_file_system :
   maintenance_window:
     azurerm_managed_lustre_file_system__maintenance_window list ->
   string ->
-  unit
+  t

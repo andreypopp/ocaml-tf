@@ -185,22 +185,42 @@ type google_billing_budget = {
 [@@deriving yojson_of]
 (** google_billing_budget *)
 
+type t = {
+  billing_account : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let google_billing_budget ?display_name ?id ?timeouts
     ~billing_account ~all_updates_rule ~amount ~budget_filter
     ~threshold_rules __resource_id =
   let __resource_type = "google_billing_budget" in
   let __resource =
-    {
-      billing_account;
-      display_name;
-      id;
-      all_updates_rule;
-      amount;
-      budget_filter;
-      threshold_rules;
-      timeouts;
-    }
+    ({
+       billing_account;
+       display_name;
+       id;
+       all_updates_rule;
+       amount;
+       budget_filter;
+       threshold_rules;
+       timeouts;
+     }
+      : google_billing_budget)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_billing_budget __resource);
-  ()
+  let __resource_attributes =
+    ({
+       billing_account =
+         Prop.computed __resource_type __resource_id
+           "billing_account";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

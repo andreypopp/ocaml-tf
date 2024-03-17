@@ -8,6 +8,16 @@ type kubernetes_storage_class_v1__allowed_topologies
 type kubernetes_storage_class_v1__metadata
 type kubernetes_storage_class_v1
 
+type t = private {
+  allow_volume_expansion : bool prop;
+  id : string prop;
+  mount_options : string list prop;
+  parameters : (string * string) list prop;
+  reclaim_policy : string prop;
+  storage_provisioner : string prop;
+  volume_binding_mode : string prop;
+}
+
 val kubernetes_storage_class_v1 :
   ?allow_volume_expansion:bool prop ->
   ?id:string prop ->
@@ -20,4 +30,4 @@ val kubernetes_storage_class_v1 :
     kubernetes_storage_class_v1__allowed_topologies list ->
   metadata:kubernetes_storage_class_v1__metadata list ->
   string ->
-  unit
+  t

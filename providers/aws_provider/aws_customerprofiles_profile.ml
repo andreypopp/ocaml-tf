@@ -104,6 +104,28 @@ type aws_customerprofiles_profile = {
 [@@deriving yojson_of]
 (** aws_customerprofiles_profile *)
 
+type t = {
+  account_number : string prop;
+  additional_information : string prop;
+  attributes : (string * string) list prop;
+  birth_date : string prop;
+  business_email_address : string prop;
+  business_name : string prop;
+  business_phone_number : string prop;
+  domain_name : string prop;
+  email_address : string prop;
+  first_name : string prop;
+  gender_string : string prop;
+  home_phone_number : string prop;
+  id : string prop;
+  last_name : string prop;
+  middle_name : string prop;
+  mobile_phone_number : string prop;
+  party_type_string : string prop;
+  personal_email_address : string prop;
+  phone_number : string prop;
+}
+
 let aws_customerprofiles_profile ?account_number
     ?additional_information ?attributes ?birth_date
     ?business_email_address ?business_name ?business_phone_number
@@ -114,32 +136,82 @@ let aws_customerprofiles_profile ?account_number
     =
   let __resource_type = "aws_customerprofiles_profile" in
   let __resource =
-    {
-      account_number;
-      additional_information;
-      attributes;
-      birth_date;
-      business_email_address;
-      business_name;
-      business_phone_number;
-      domain_name;
-      email_address;
-      first_name;
-      gender_string;
-      home_phone_number;
-      id;
-      last_name;
-      middle_name;
-      mobile_phone_number;
-      party_type_string;
-      personal_email_address;
-      phone_number;
-      address;
-      billing_address;
-      mailing_address;
-      shipping_address;
-    }
+    ({
+       account_number;
+       additional_information;
+       attributes;
+       birth_date;
+       business_email_address;
+       business_name;
+       business_phone_number;
+       domain_name;
+       email_address;
+       first_name;
+       gender_string;
+       home_phone_number;
+       id;
+       last_name;
+       middle_name;
+       mobile_phone_number;
+       party_type_string;
+       personal_email_address;
+       phone_number;
+       address;
+       billing_address;
+       mailing_address;
+       shipping_address;
+     }
+      : aws_customerprofiles_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_customerprofiles_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_number =
+         Prop.computed __resource_type __resource_id "account_number";
+       additional_information =
+         Prop.computed __resource_type __resource_id
+           "additional_information";
+       attributes =
+         Prop.computed __resource_type __resource_id "attributes";
+       birth_date =
+         Prop.computed __resource_type __resource_id "birth_date";
+       business_email_address =
+         Prop.computed __resource_type __resource_id
+           "business_email_address";
+       business_name =
+         Prop.computed __resource_type __resource_id "business_name";
+       business_phone_number =
+         Prop.computed __resource_type __resource_id
+           "business_phone_number";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       email_address =
+         Prop.computed __resource_type __resource_id "email_address";
+       first_name =
+         Prop.computed __resource_type __resource_id "first_name";
+       gender_string =
+         Prop.computed __resource_type __resource_id "gender_string";
+       home_phone_number =
+         Prop.computed __resource_type __resource_id
+           "home_phone_number";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_name =
+         Prop.computed __resource_type __resource_id "last_name";
+       middle_name =
+         Prop.computed __resource_type __resource_id "middle_name";
+       mobile_phone_number =
+         Prop.computed __resource_type __resource_id
+           "mobile_phone_number";
+       party_type_string =
+         Prop.computed __resource_type __resource_id
+           "party_type_string";
+       personal_email_address =
+         Prop.computed __resource_type __resource_id
+           "personal_email_address";
+       phone_number =
+         Prop.computed __resource_type __resource_id "phone_number";
+     }
+      : t)
+  in
+  __resource_attributes

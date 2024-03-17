@@ -13,6 +13,23 @@ type azurerm_automation_account__private_endpoint_connection = {
 
 type azurerm_automation_account
 
+type t = private {
+  dsc_primary_access_key : string prop;
+  dsc_secondary_access_key : string prop;
+  dsc_server_endpoint : string prop;
+  hybrid_service_url : string prop;
+  id : string prop;
+  local_authentication_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  private_endpoint_connection :
+    azurerm_automation_account__private_endpoint_connection list prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_automation_account :
   ?id:string prop ->
   ?local_authentication_enabled:bool prop ->
@@ -26,4 +43,4 @@ val azurerm_automation_account :
   encryption:azurerm_automation_account__encryption list ->
   identity:azurerm_automation_account__identity list ->
   string ->
-  unit
+  t

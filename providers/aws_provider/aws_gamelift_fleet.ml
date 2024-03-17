@@ -87,6 +87,26 @@ type aws_gamelift_fleet = {
 [@@deriving yojson_of]
 (** aws_gamelift_fleet *)
 
+type t = {
+  arn : string prop;
+  build_arn : string prop;
+  build_id : string prop;
+  description : string prop;
+  ec2_instance_type : string prop;
+  fleet_type : string prop;
+  id : string prop;
+  instance_role_arn : string prop;
+  log_paths : string list prop;
+  metric_groups : string list prop;
+  name : string prop;
+  new_game_session_protection_policy : string prop;
+  operating_system : string prop;
+  script_arn : string prop;
+  script_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
     ?instance_role_arn ?metric_groups
     ?new_game_session_protection_policy ?script_id ?tags ?tags_all
@@ -95,26 +115,66 @@ let aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
     ~runtime_configuration __resource_id =
   let __resource_type = "aws_gamelift_fleet" in
   let __resource =
-    {
-      build_id;
-      description;
-      ec2_instance_type;
-      fleet_type;
-      id;
-      instance_role_arn;
-      metric_groups;
-      name;
-      new_game_session_protection_policy;
-      script_id;
-      tags;
-      tags_all;
-      certificate_configuration;
-      ec2_inbound_permission;
-      resource_creation_limit_policy;
-      runtime_configuration;
-      timeouts;
-    }
+    ({
+       build_id;
+       description;
+       ec2_instance_type;
+       fleet_type;
+       id;
+       instance_role_arn;
+       metric_groups;
+       name;
+       new_game_session_protection_policy;
+       script_id;
+       tags;
+       tags_all;
+       certificate_configuration;
+       ec2_inbound_permission;
+       resource_creation_limit_policy;
+       runtime_configuration;
+       timeouts;
+     }
+      : aws_gamelift_fleet)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_gamelift_fleet __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       build_arn =
+         Prop.computed __resource_type __resource_id "build_arn";
+       build_id =
+         Prop.computed __resource_type __resource_id "build_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       ec2_instance_type =
+         Prop.computed __resource_type __resource_id
+           "ec2_instance_type";
+       fleet_type =
+         Prop.computed __resource_type __resource_id "fleet_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_role_arn =
+         Prop.computed __resource_type __resource_id
+           "instance_role_arn";
+       log_paths =
+         Prop.computed __resource_type __resource_id "log_paths";
+       metric_groups =
+         Prop.computed __resource_type __resource_id "metric_groups";
+       name = Prop.computed __resource_type __resource_id "name";
+       new_game_session_protection_policy =
+         Prop.computed __resource_type __resource_id
+           "new_game_session_protection_policy";
+       operating_system =
+         Prop.computed __resource_type __resource_id
+           "operating_system";
+       script_arn =
+         Prop.computed __resource_type __resource_id "script_arn";
+       script_id =
+         Prop.computed __resource_type __resource_id "script_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

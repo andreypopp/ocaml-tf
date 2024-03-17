@@ -25,12 +25,46 @@ type cloudflare_web_analytics_site = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Web Analytics Site resource. *)
 
+type t = {
+  account_id : string prop;
+  auto_install : bool prop;
+  host : string prop;
+  id : string prop;
+  ruleset_id : string prop;
+  site_tag : string prop;
+  site_token : string prop;
+  snippet : string prop;
+  zone_tag : string prop;
+}
+
 let cloudflare_web_analytics_site ?host ?id ?zone_tag ?timeouts
     ~account_id ~auto_install __resource_id =
   let __resource_type = "cloudflare_web_analytics_site" in
   let __resource =
-    { account_id; auto_install; host; id; zone_tag; timeouts }
+    ({ account_id; auto_install; host; id; zone_tag; timeouts }
+      : cloudflare_web_analytics_site)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_web_analytics_site __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       auto_install =
+         Prop.computed __resource_type __resource_id "auto_install";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       ruleset_id =
+         Prop.computed __resource_type __resource_id "ruleset_id";
+       site_tag =
+         Prop.computed __resource_type __resource_id "site_tag";
+       site_token =
+         Prop.computed __resource_type __resource_id "site_token";
+       snippet =
+         Prop.computed __resource_type __resource_id "snippet";
+       zone_tag =
+         Prop.computed __resource_type __resource_id "zone_tag";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -26,6 +26,14 @@ type azurerm_api_management_identity_provider_facebook = {
 [@@deriving yojson_of]
 (** azurerm_api_management_identity_provider_facebook *)
 
+type t = {
+  api_management_name : string prop;
+  app_id : string prop;
+  app_secret : string prop;
+  id : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_api_management_identity_provider_facebook ?id ?timeouts
     ~api_management_name ~app_id ~app_secret ~resource_group_name
     __resource_id =
@@ -33,16 +41,32 @@ let azurerm_api_management_identity_provider_facebook ?id ?timeouts
     "azurerm_api_management_identity_provider_facebook"
   in
   let __resource =
-    {
-      api_management_name;
-      app_id;
-      app_secret;
-      id;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       app_id;
+       app_secret;
+       id;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_api_management_identity_provider_facebook)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_identity_provider_facebook
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       app_id = Prop.computed __resource_type __resource_id "app_id";
+       app_secret =
+         Prop.computed __resource_type __resource_id "app_secret";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

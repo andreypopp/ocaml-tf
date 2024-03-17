@@ -132,6 +132,15 @@ characters. Can be empty to allow the system to generate one. *)
 [@@deriving yojson_of]
 (** google_data_loss_prevention_stored_info_type *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  stored_info_type_id : string prop;
+}
+
 let google_data_loss_prevention_stored_info_type ?description
     ?display_name ?id ?stored_info_type_id ?timeouts ~parent
     ~dictionary ~large_custom_dictionary ~regex __resource_id =
@@ -139,19 +148,35 @@ let google_data_loss_prevention_stored_info_type ?description
     "google_data_loss_prevention_stored_info_type"
   in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      parent;
-      stored_info_type_id;
-      dictionary;
-      large_custom_dictionary;
-      regex;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       parent;
+       stored_info_type_id;
+       dictionary;
+       large_custom_dictionary;
+       regex;
+       timeouts;
+     }
+      : google_data_loss_prevention_stored_info_type)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_loss_prevention_stored_info_type
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       stored_info_type_id =
+         Prop.computed __resource_type __resource_id
+           "stored_info_type_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -76,27 +76,61 @@ type azurerm_maintenance_configuration = {
 [@@deriving yojson_of]
 (** azurerm_maintenance_configuration *)
 
+type t = {
+  id : string prop;
+  in_guest_user_patch_mode : string prop;
+  location : string prop;
+  name : string prop;
+  properties : (string * string) list prop;
+  resource_group_name : string prop;
+  scope : string prop;
+  tags : (string * string) list prop;
+  visibility : string prop;
+}
+
 let azurerm_maintenance_configuration ?id ?in_guest_user_patch_mode
     ?properties ?tags ?visibility ?timeouts ~location ~name
     ~resource_group_name ~scope ~install_patches ~window
     __resource_id =
   let __resource_type = "azurerm_maintenance_configuration" in
   let __resource =
-    {
-      id;
-      in_guest_user_patch_mode;
-      location;
-      name;
-      properties;
-      resource_group_name;
-      scope;
-      tags;
-      visibility;
-      install_patches;
-      timeouts;
-      window;
-    }
+    ({
+       id;
+       in_guest_user_patch_mode;
+       location;
+       name;
+       properties;
+       resource_group_name;
+       scope;
+       tags;
+       visibility;
+       install_patches;
+       timeouts;
+       window;
+     }
+      : azurerm_maintenance_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_maintenance_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       in_guest_user_patch_mode =
+         Prop.computed __resource_type __resource_id
+           "in_guest_user_patch_mode";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       properties =
+         Prop.computed __resource_type __resource_id "properties";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scope = Prop.computed __resource_type __resource_id "scope";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       visibility =
+         Prop.computed __resource_type __resource_id "visibility";
+     }
+      : t)
+  in
+  __resource_attributes

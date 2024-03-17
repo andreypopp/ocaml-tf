@@ -28,12 +28,46 @@ For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)
 [@@deriving yojson_of]
 (** google_vmwareengine_external_address *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  external_ip : string prop;
+  id : string prop;
+  internal_ip : string prop;
+  name : string prop;
+  parent : string prop;
+  state : string prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_vmwareengine_external_address ?description ?id ?timeouts
     ~internal_ip ~name ~parent __resource_id =
   let __resource_type = "google_vmwareengine_external_address" in
   let __resource =
-    { description; id; internal_ip; name; parent; timeouts }
+    ({ description; id; internal_ip; name; parent; timeouts }
+      : google_vmwareengine_external_address)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_external_address __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       external_ip =
+         Prop.computed __resource_type __resource_id "external_ip";
+       id = Prop.computed __resource_type __resource_id "id";
+       internal_ip =
+         Prop.computed __resource_type __resource_id "internal_ip";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       state = Prop.computed __resource_type __resource_id "state";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

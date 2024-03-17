@@ -11,6 +11,19 @@ type aws_budgets_budget_action__subscriber
 type aws_budgets_budget_action__timeouts
 type aws_budgets_budget_action
 
+type t = private {
+  account_id : string prop;
+  action_id : string prop;
+  action_type : string prop;
+  approval_model : string prop;
+  arn : string prop;
+  budget_name : string prop;
+  execution_role_arn : string prop;
+  id : string prop;
+  notification_type : string prop;
+  status : string prop;
+}
+
 val aws_budgets_budget_action :
   ?account_id:string prop ->
   ?id:string prop ->
@@ -24,4 +37,4 @@ val aws_budgets_budget_action :
   definition:aws_budgets_budget_action__definition list ->
   subscriber:aws_budgets_budget_action__subscriber list ->
   string ->
-  unit
+  t

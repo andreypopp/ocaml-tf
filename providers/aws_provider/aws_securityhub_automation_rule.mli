@@ -71,6 +71,18 @@ type aws_securityhub_automation_rule__criteria__workflow_status
 type aws_securityhub_automation_rule__criteria
 type aws_securityhub_automation_rule
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  is_terminal : bool prop;
+  rule_name : string prop;
+  rule_order : float prop;
+  rule_status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_securityhub_automation_rule :
   ?is_terminal:bool prop ->
   ?rule_status:string prop ->
@@ -81,4 +93,4 @@ val aws_securityhub_automation_rule :
   actions:aws_securityhub_automation_rule__actions list ->
   criteria:aws_securityhub_automation_rule__criteria list ->
   string ->
-  unit
+  t

@@ -30,19 +30,39 @@ type aws_glue_partition_index = {
 [@@deriving yojson_of]
 (** aws_glue_partition_index *)
 
+type t = {
+  catalog_id : string prop;
+  database_name : string prop;
+  id : string prop;
+  table_name : string prop;
+}
+
 let aws_glue_partition_index ?catalog_id ?id ?timeouts ~database_name
     ~table_name ~partition_index __resource_id =
   let __resource_type = "aws_glue_partition_index" in
   let __resource =
-    {
-      catalog_id;
-      database_name;
-      id;
-      table_name;
-      partition_index;
-      timeouts;
-    }
+    ({
+       catalog_id;
+       database_name;
+       id;
+       table_name;
+       partition_index;
+       timeouts;
+     }
+      : aws_glue_partition_index)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_partition_index __resource);
-  ()
+  let __resource_attributes =
+    ({
+       catalog_id =
+         Prop.computed __resource_type __resource_id "catalog_id";
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       table_name =
+         Prop.computed __resource_type __resource_id "table_name";
+     }
+      : t)
+  in
+  __resource_attributes

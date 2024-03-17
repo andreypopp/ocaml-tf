@@ -28,6 +28,16 @@ type azurerm_logic_app_integration_account_schema = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_schema *)
 
+type t = {
+  content : string prop;
+  file_name : string prop;
+  id : string prop;
+  integration_account_name : string prop;
+  metadata : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_logic_app_integration_account_schema ?file_name ?id
     ?metadata ?timeouts ~content ~integration_account_name ~name
     ~resource_group_name __resource_id =
@@ -35,18 +45,38 @@ let azurerm_logic_app_integration_account_schema ?file_name ?id
     "azurerm_logic_app_integration_account_schema"
   in
   let __resource =
-    {
-      content;
-      file_name;
-      id;
-      integration_account_name;
-      metadata;
-      name;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       content;
+       file_name;
+       id;
+       integration_account_name;
+       metadata;
+       name;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_logic_app_integration_account_schema)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_schema
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       content =
+         Prop.computed __resource_type __resource_id "content";
+       file_name =
+         Prop.computed __resource_type __resource_id "file_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_account_name =
+         Prop.computed __resource_type __resource_id
+           "integration_account_name";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

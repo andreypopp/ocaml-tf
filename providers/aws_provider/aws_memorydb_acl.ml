@@ -16,12 +16,42 @@ type aws_memorydb_acl = {
 [@@deriving yojson_of]
 (** aws_memorydb_acl *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  minimum_engine_version : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_names : string list prop;
+}
+
 let aws_memorydb_acl ?id ?name ?name_prefix ?tags ?tags_all
     ?user_names __resource_id =
   let __resource_type = "aws_memorydb_acl" in
   let __resource =
-    { id; name; name_prefix; tags; tags_all; user_names }
+    ({ id; name; name_prefix; tags; tags_all; user_names }
+      : aws_memorydb_acl)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_memorydb_acl __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       minimum_engine_version =
+         Prop.computed __resource_type __resource_id
+           "minimum_engine_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       user_names =
+         Prop.computed __resource_type __resource_id "user_names";
+     }
+      : t)
+  in
+  __resource_attributes

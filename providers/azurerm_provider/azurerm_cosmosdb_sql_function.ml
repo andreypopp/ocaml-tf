@@ -23,10 +23,30 @@ type azurerm_cosmosdb_sql_function = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_function *)
 
+type t = {
+  body : string prop;
+  container_id : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let azurerm_cosmosdb_sql_function ?id ?timeouts ~body ~container_id
     ~name __resource_id =
   let __resource_type = "azurerm_cosmosdb_sql_function" in
-  let __resource = { body; container_id; id; name; timeouts } in
+  let __resource =
+    ({ body; container_id; id; name; timeouts }
+      : azurerm_cosmosdb_sql_function)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_sql_function __resource);
-  ()
+  let __resource_attributes =
+    ({
+       body = Prop.computed __resource_type __resource_id "body";
+       container_id =
+         Prop.computed __resource_type __resource_id "container_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

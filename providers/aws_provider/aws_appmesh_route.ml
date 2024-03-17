@@ -441,21 +441,61 @@ type aws_appmesh_route = {
 [@@deriving yojson_of]
 (** aws_appmesh_route *)
 
+type t = {
+  arn : string prop;
+  created_date : string prop;
+  id : string prop;
+  last_updated_date : string prop;
+  mesh_name : string prop;
+  mesh_owner : string prop;
+  name : string prop;
+  resource_owner : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  virtual_router_name : string prop;
+}
+
 let aws_appmesh_route ?id ?mesh_owner ?tags ?tags_all ~mesh_name
     ~name ~virtual_router_name ~spec __resource_id =
   let __resource_type = "aws_appmesh_route" in
   let __resource =
-    {
-      id;
-      mesh_name;
-      mesh_owner;
-      name;
-      tags;
-      tags_all;
-      virtual_router_name;
-      spec;
-    }
+    ({
+       id;
+       mesh_name;
+       mesh_owner;
+       name;
+       tags;
+       tags_all;
+       virtual_router_name;
+       spec;
+     }
+      : aws_appmesh_route)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appmesh_route __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_date =
+         Prop.computed __resource_type __resource_id "created_date";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_updated_date =
+         Prop.computed __resource_type __resource_id
+           "last_updated_date";
+       mesh_name =
+         Prop.computed __resource_type __resource_id "mesh_name";
+       mesh_owner =
+         Prop.computed __resource_type __resource_id "mesh_owner";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_owner =
+         Prop.computed __resource_type __resource_id "resource_owner";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       virtual_router_name =
+         Prop.computed __resource_type __resource_id
+           "virtual_router_name";
+     }
+      : t)
+  in
+  __resource_attributes

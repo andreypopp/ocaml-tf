@@ -279,24 +279,57 @@ type aws_networkfirewall_rule_group = {
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group *)
 
+type t = {
+  arn : string prop;
+  capacity : float prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  rules : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  update_token : string prop;
+}
+
 let aws_networkfirewall_rule_group ?description ?id ?rules ?tags
     ?tags_all ~capacity ~name ~type_ ~encryption_configuration
     ~rule_group __resource_id =
   let __resource_type = "aws_networkfirewall_rule_group" in
   let __resource =
-    {
-      capacity;
-      description;
-      id;
-      name;
-      rules;
-      tags;
-      tags_all;
-      type_;
-      encryption_configuration;
-      rule_group;
-    }
+    ({
+       capacity;
+       description;
+       id;
+       name;
+       rules;
+       tags;
+       tags_all;
+       type_;
+       encryption_configuration;
+       rule_group;
+     }
+      : aws_networkfirewall_rule_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkfirewall_rule_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       capacity =
+         Prop.computed __resource_type __resource_id "capacity";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       rules = Prop.computed __resource_type __resource_id "rules";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       update_token =
+         Prop.computed __resource_type __resource_id "update_token";
+     }
+      : t)
+  in
+  __resource_attributes

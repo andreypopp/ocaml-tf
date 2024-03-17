@@ -22,10 +22,32 @@ type google_kms_key_ring_iam_member = {
 [@@deriving yojson_of]
 (** google_kms_key_ring_iam_member *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  key_ring_id : string prop;
+  member : string prop;
+  role : string prop;
+}
+
 let google_kms_key_ring_iam_member ?id ~key_ring_id ~member ~role
     ~condition __resource_id =
   let __resource_type = "google_kms_key_ring_iam_member" in
-  let __resource = { id; key_ring_id; member; role; condition } in
+  let __resource =
+    ({ id; key_ring_id; member; role; condition }
+      : google_kms_key_ring_iam_member)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_key_ring_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_ring_id =
+         Prop.computed __resource_type __resource_id "key_ring_id";
+       member = Prop.computed __resource_type __resource_id "member";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

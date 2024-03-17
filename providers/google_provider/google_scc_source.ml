@@ -30,12 +30,34 @@ lives in. *)
 [@@deriving yojson_of]
 (** google_scc_source *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  organization : string prop;
+}
+
 let google_scc_source ?description ?id ?timeouts ~display_name
     ~organization __resource_id =
   let __resource_type = "google_scc_source" in
   let __resource =
-    { description; display_name; id; organization; timeouts }
+    ({ description; display_name; id; organization; timeouts }
+      : google_scc_source)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_source __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       organization =
+         Prop.computed __resource_type __resource_id "organization";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -311,6 +311,19 @@ type aws_medialive_channel__timeouts
 type aws_medialive_channel__vpc
 type aws_medialive_channel
 
+type t = private {
+  arn : string prop;
+  channel_class : string prop;
+  channel_id : string prop;
+  id : string prop;
+  log_level : string prop;
+  name : string prop;
+  role_arn : string prop;
+  start_channel : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_medialive_channel :
   ?id:string prop ->
   ?log_level:string prop ->
@@ -330,4 +343,4 @@ val aws_medialive_channel :
   maintenance:aws_medialive_channel__maintenance list ->
   vpc:aws_medialive_channel__vpc list ->
   string ->
-  unit
+  t

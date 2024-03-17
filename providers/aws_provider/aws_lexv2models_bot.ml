@@ -48,24 +48,60 @@ type aws_lexv2models_bot = {
 [@@deriving yojson_of]
 (** aws_lexv2models_bot *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  idle_session_ttl_in_seconds : float prop;
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  test_bot_alias_tags : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
     ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
     ~data_privacy ~members __resource_id =
   let __resource_type = "aws_lexv2models_bot" in
   let __resource =
-    {
-      description;
-      idle_session_ttl_in_seconds;
-      name;
-      role_arn;
-      tags;
-      test_bot_alias_tags;
-      type_;
-      data_privacy;
-      members;
-      timeouts;
-    }
+    ({
+       description;
+       idle_session_ttl_in_seconds;
+       name;
+       role_arn;
+       tags;
+       test_bot_alias_tags;
+       type_;
+       data_privacy;
+       members;
+       timeouts;
+     }
+      : aws_lexv2models_bot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_bot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       idle_session_ttl_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "idle_session_ttl_in_seconds";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       test_bot_alias_tags =
+         Prop.computed __resource_type __resource_id
+           "test_bot_alias_tags";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

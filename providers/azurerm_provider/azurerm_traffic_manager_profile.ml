@@ -66,26 +66,61 @@ type azurerm_traffic_manager_profile = {
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_profile *)
 
+type t = {
+  fqdn : string prop;
+  id : string prop;
+  max_return : float prop;
+  name : string prop;
+  profile_status : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  traffic_routing_method : string prop;
+  traffic_view_enabled : bool prop;
+}
+
 let azurerm_traffic_manager_profile ?id ?max_return ?profile_status
     ?tags ?traffic_view_enabled ?timeouts ~name ~resource_group_name
     ~traffic_routing_method ~dns_config ~monitor_config __resource_id
     =
   let __resource_type = "azurerm_traffic_manager_profile" in
   let __resource =
-    {
-      id;
-      max_return;
-      name;
-      profile_status;
-      resource_group_name;
-      tags;
-      traffic_routing_method;
-      traffic_view_enabled;
-      dns_config;
-      monitor_config;
-      timeouts;
-    }
+    ({
+       id;
+       max_return;
+       name;
+       profile_status;
+       resource_group_name;
+       tags;
+       traffic_routing_method;
+       traffic_view_enabled;
+       dns_config;
+       monitor_config;
+       timeouts;
+     }
+      : azurerm_traffic_manager_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_traffic_manager_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       id = Prop.computed __resource_type __resource_id "id";
+       max_return =
+         Prop.computed __resource_type __resource_id "max_return";
+       name = Prop.computed __resource_type __resource_id "name";
+       profile_status =
+         Prop.computed __resource_type __resource_id "profile_status";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       traffic_routing_method =
+         Prop.computed __resource_type __resource_id
+           "traffic_routing_method";
+       traffic_view_enabled =
+         Prop.computed __resource_type __resource_id
+           "traffic_view_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

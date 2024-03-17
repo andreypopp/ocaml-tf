@@ -12,10 +12,32 @@ type aws_backup_vault_policy = {
 [@@deriving yojson_of]
 (** aws_backup_vault_policy *)
 
+type t = {
+  backup_vault_arn : string prop;
+  backup_vault_name : string prop;
+  id : string prop;
+  policy : string prop;
+}
+
 let aws_backup_vault_policy ?id ~backup_vault_name ~policy
     __resource_id =
   let __resource_type = "aws_backup_vault_policy" in
-  let __resource = { backup_vault_name; id; policy } in
+  let __resource =
+    ({ backup_vault_name; id; policy } : aws_backup_vault_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_backup_vault_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backup_vault_arn =
+         Prop.computed __resource_type __resource_id
+           "backup_vault_arn";
+       backup_vault_name =
+         Prop.computed __resource_type __resource_id
+           "backup_vault_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       policy = Prop.computed __resource_type __resource_id "policy";
+     }
+      : t)
+  in
+  __resource_attributes

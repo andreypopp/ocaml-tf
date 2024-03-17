@@ -245,6 +245,35 @@ projects/{projectNumber}/global/networks/{network_id}. *)
 [@@deriving yojson_of]
 (** google_alloydb_cluster *)
 
+type t = {
+  annotations : (string * string) list prop;
+  backup_source : google_alloydb_cluster__backup_source list prop;
+  cluster_id : string prop;
+  cluster_type : string prop;
+  continuous_backup_info :
+    google_alloydb_cluster__continuous_backup_info list prop;
+  database_version : string prop;
+  deletion_policy : string prop;
+  display_name : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  encryption_info :
+    google_alloydb_cluster__encryption_info list prop;
+  etag : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  migration_source :
+    google_alloydb_cluster__migration_source list prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+}
+
 let google_alloydb_cluster ?annotations ?cluster_type
     ?database_version ?deletion_policy ?display_name ?etag ?id
     ?labels ?network ?project ?timeouts ~cluster_id ~location
@@ -254,30 +283,84 @@ let google_alloydb_cluster ?annotations ?cluster_type
     ~secondary_config __resource_id =
   let __resource_type = "google_alloydb_cluster" in
   let __resource =
-    {
-      annotations;
-      cluster_id;
-      cluster_type;
-      database_version;
-      deletion_policy;
-      display_name;
-      etag;
-      id;
-      labels;
-      location;
-      network;
-      project;
-      automated_backup_policy;
-      continuous_backup_config;
-      encryption_config;
-      initial_user;
-      network_config;
-      restore_backup_source;
-      restore_continuous_backup_source;
-      secondary_config;
-      timeouts;
-    }
+    ({
+       annotations;
+       cluster_id;
+       cluster_type;
+       database_version;
+       deletion_policy;
+       display_name;
+       etag;
+       id;
+       labels;
+       location;
+       network;
+       project;
+       automated_backup_policy;
+       continuous_backup_config;
+       encryption_config;
+       initial_user;
+       network_config;
+       restore_backup_source;
+       restore_continuous_backup_source;
+       secondary_config;
+       timeouts;
+     }
+      : google_alloydb_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_alloydb_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       backup_source =
+         Prop.computed __resource_type __resource_id "backup_source";
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       cluster_type =
+         Prop.computed __resource_type __resource_id "cluster_type";
+       continuous_backup_info =
+         Prop.computed __resource_type __resource_id
+           "continuous_backup_info";
+       database_version =
+         Prop.computed __resource_type __resource_id
+           "database_version";
+       deletion_policy =
+         Prop.computed __resource_type __resource_id
+           "deletion_policy";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       encryption_info =
+         Prop.computed __resource_type __resource_id
+           "encryption_info";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       migration_source =
+         Prop.computed __resource_type __resource_id
+           "migration_source";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+     }
+      : t)
+  in
+  __resource_attributes

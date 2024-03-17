@@ -10,6 +10,15 @@ type azurerm_frontdoor_rules_engine__rule
 type azurerm_frontdoor_rules_engine__timeouts
 type azurerm_frontdoor_rules_engine
 
+type t = private {
+  enabled : bool prop;
+  frontdoor_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_frontdoor_rules_engine :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -19,4 +28,4 @@ val azurerm_frontdoor_rules_engine :
   resource_group_name:string prop ->
   rule:azurerm_frontdoor_rules_engine__rule list ->
   string ->
-  unit
+  t

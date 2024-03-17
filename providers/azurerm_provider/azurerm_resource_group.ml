@@ -24,12 +24,33 @@ type azurerm_resource_group = {
 [@@deriving yojson_of]
 (** azurerm_resource_group *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  managed_by : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_resource_group ?id ?managed_by ?tags ?timeouts ~location
     ~name __resource_id =
   let __resource_type = "azurerm_resource_group" in
   let __resource =
-    { id; location; managed_by; name; tags; timeouts }
+    ({ id; location; managed_by; name; tags; timeouts }
+      : azurerm_resource_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_resource_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       managed_by =
+         Prop.computed __resource_type __resource_id "managed_by";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

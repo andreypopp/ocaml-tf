@@ -66,29 +66,66 @@ type aws_appsync_resolver = {
 [@@deriving yojson_of]
 (** aws_appsync_resolver *)
 
+type t = {
+  api_id : string prop;
+  arn : string prop;
+  code : string prop;
+  data_source : string prop;
+  field : string prop;
+  id : string prop;
+  kind : string prop;
+  max_batch_size : float prop;
+  request_template : string prop;
+  response_template : string prop;
+  type_ : string prop;
+}
+
 let aws_appsync_resolver ?code ?data_source ?id ?kind ?max_batch_size
     ?request_template ?response_template ~api_id ~field ~type_
     ~caching_config ~pipeline_config ~runtime ~sync_config
     __resource_id =
   let __resource_type = "aws_appsync_resolver" in
   let __resource =
-    {
-      api_id;
-      code;
-      data_source;
-      field;
-      id;
-      kind;
-      max_batch_size;
-      request_template;
-      response_template;
-      type_;
-      caching_config;
-      pipeline_config;
-      runtime;
-      sync_config;
-    }
+    ({
+       api_id;
+       code;
+       data_source;
+       field;
+       id;
+       kind;
+       max_batch_size;
+       request_template;
+       response_template;
+       type_;
+       caching_config;
+       pipeline_config;
+       runtime;
+       sync_config;
+     }
+      : aws_appsync_resolver)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appsync_resolver __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_id = Prop.computed __resource_type __resource_id "api_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       code = Prop.computed __resource_type __resource_id "code";
+       data_source =
+         Prop.computed __resource_type __resource_id "data_source";
+       field = Prop.computed __resource_type __resource_id "field";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       max_batch_size =
+         Prop.computed __resource_type __resource_id "max_batch_size";
+       request_template =
+         Prop.computed __resource_type __resource_id
+           "request_template";
+       response_template =
+         Prop.computed __resource_type __resource_id
+           "response_template";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

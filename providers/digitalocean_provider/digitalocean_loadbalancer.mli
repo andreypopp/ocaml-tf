@@ -8,6 +8,28 @@ type digitalocean_loadbalancer__healthcheck
 type digitalocean_loadbalancer__sticky_sessions
 type digitalocean_loadbalancer
 
+type t = private {
+  algorithm : string prop;
+  disable_lets_encrypt_dns_records : bool prop;
+  droplet_ids : float list prop;
+  droplet_tag : string prop;
+  enable_backend_keepalive : bool prop;
+  enable_proxy_protocol : bool prop;
+  http_idle_timeout_seconds : float prop;
+  id : string prop;
+  ip : string prop;
+  name : string prop;
+  project_id : string prop;
+  redirect_http_to_https : bool prop;
+  region : string prop;
+  size : string prop;
+  size_unit : float prop;
+  status : string prop;
+  type_ : string prop;
+  urn : string prop;
+  vpc_uuid : string prop;
+}
+
 val digitalocean_loadbalancer :
   ?algorithm:string prop ->
   ?disable_lets_encrypt_dns_records:bool prop ->
@@ -30,4 +52,4 @@ val digitalocean_loadbalancer :
   healthcheck:digitalocean_loadbalancer__healthcheck list ->
   sticky_sessions:digitalocean_loadbalancer__sticky_sessions list ->
   string ->
-  unit
+  t

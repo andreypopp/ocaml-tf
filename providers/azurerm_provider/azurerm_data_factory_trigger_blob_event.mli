@@ -6,6 +6,21 @@ type azurerm_data_factory_trigger_blob_event__pipeline
 type azurerm_data_factory_trigger_blob_event__timeouts
 type azurerm_data_factory_trigger_blob_event
 
+type t = private {
+  activated : bool prop;
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  blob_path_begins_with : string prop;
+  blob_path_ends_with : string prop;
+  data_factory_id : string prop;
+  description : string prop;
+  events : string list prop;
+  id : string prop;
+  ignore_empty_blobs : bool prop;
+  name : string prop;
+  storage_account_id : string prop;
+}
+
 val azurerm_data_factory_trigger_blob_event :
   ?activated:bool prop ->
   ?additional_properties:(string * string prop) list ->
@@ -22,4 +37,4 @@ val azurerm_data_factory_trigger_blob_event :
   storage_account_id:string prop ->
   pipeline:azurerm_data_factory_trigger_blob_event__pipeline list ->
   string ->
-  unit
+  t

@@ -68,26 +68,78 @@ This is empty if NAT is not used. *)
 [@@deriving yojson_of]
 (** google_edgecontainer_vpn_connection *)
 
+type t = {
+  cluster : string prop;
+  create_time : string prop;
+  details : google_edgecontainer_vpn_connection__details list prop;
+  effective_labels : (string * string) list prop;
+  enable_high_availability : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  nat_gateway_ip : string prop;
+  project : string prop;
+  router : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+  vpc : string prop;
+}
+
 let google_edgecontainer_vpn_connection ?enable_high_availability ?id
     ?labels ?nat_gateway_ip ?project ?router ?vpc ?timeouts ~cluster
     ~location ~name ~vpc_project __resource_id =
   let __resource_type = "google_edgecontainer_vpn_connection" in
   let __resource =
-    {
-      cluster;
-      enable_high_availability;
-      id;
-      labels;
-      location;
-      name;
-      nat_gateway_ip;
-      project;
-      router;
-      vpc;
-      timeouts;
-      vpc_project;
-    }
+    ({
+       cluster;
+       enable_high_availability;
+       id;
+       labels;
+       location;
+       name;
+       nat_gateway_ip;
+       project;
+       router;
+       vpc;
+       timeouts;
+       vpc_project;
+     }
+      : google_edgecontainer_vpn_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_edgecontainer_vpn_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster =
+         Prop.computed __resource_type __resource_id "cluster";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       details =
+         Prop.computed __resource_type __resource_id "details";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       enable_high_availability =
+         Prop.computed __resource_type __resource_id
+           "enable_high_availability";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       nat_gateway_ip =
+         Prop.computed __resource_type __resource_id "nat_gateway_ip";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       router = Prop.computed __resource_type __resource_id "router";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       vpc = Prop.computed __resource_type __resource_id "vpc";
+     }
+      : t)
+  in
+  __resource_attributes

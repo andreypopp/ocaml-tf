@@ -24,10 +24,38 @@ type aws_workspaces_connection_alias = {
 [@@deriving yojson_of]
 (** aws_workspaces_connection_alias *)
 
+type t = {
+  connection_string : string prop;
+  id : string prop;
+  owner_account_id : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_workspaces_connection_alias ?tags ?timeouts
     ~connection_string __resource_id =
   let __resource_type = "aws_workspaces_connection_alias" in
-  let __resource = { connection_string; tags; timeouts } in
+  let __resource =
+    ({ connection_string; tags; timeouts }
+      : aws_workspaces_connection_alias)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_workspaces_connection_alias __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connection_string =
+         Prop.computed __resource_type __resource_id
+           "connection_string";
+       id = Prop.computed __resource_type __resource_id "id";
+       owner_account_id =
+         Prop.computed __resource_type __resource_id
+           "owner_account_id";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -45,6 +45,23 @@ type azurerm_batch_pool__user_accounts
 type azurerm_batch_pool__windows
 type azurerm_batch_pool
 
+type t = private {
+  account_name : string prop;
+  display_name : string prop;
+  id : string prop;
+  inter_node_communication : string prop;
+  license_type : string prop;
+  max_tasks_per_node : float prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  node_agent_sku_id : string prop;
+  os_disk_placement : string prop;
+  resource_group_name : string prop;
+  stop_pending_resize_operation : bool prop;
+  target_node_communication_mode : string prop;
+  vm_size : string prop;
+}
+
 val azurerm_batch_pool :
   ?display_name:string prop ->
   ?id:string prop ->
@@ -82,4 +99,4 @@ val azurerm_batch_pool :
   user_accounts:azurerm_batch_pool__user_accounts list ->
   windows:azurerm_batch_pool__windows list ->
   string ->
-  unit
+  t

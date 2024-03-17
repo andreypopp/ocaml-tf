@@ -44,25 +44,65 @@ Currently only one region per model is supported *)
 [@@deriving yojson_of]
 (** google_ml_engine_model *)
 
+type t = {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  online_prediction_console_logging : bool prop;
+  online_prediction_logging : bool prop;
+  project : string prop;
+  regions : string list prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_ml_engine_model ?description ?id ?labels
     ?online_prediction_console_logging ?online_prediction_logging
     ?project ?regions ?timeouts ~name ~default_version __resource_id
     =
   let __resource_type = "google_ml_engine_model" in
   let __resource =
-    {
-      description;
-      id;
-      labels;
-      name;
-      online_prediction_console_logging;
-      online_prediction_logging;
-      project;
-      regions;
-      default_version;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       labels;
+       name;
+       online_prediction_console_logging;
+       online_prediction_logging;
+       project;
+       regions;
+       default_version;
+       timeouts;
+     }
+      : google_ml_engine_model)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_ml_engine_model __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       online_prediction_console_logging =
+         Prop.computed __resource_type __resource_id
+           "online_prediction_console_logging";
+       online_prediction_logging =
+         Prop.computed __resource_type __resource_id
+           "online_prediction_logging";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       regions =
+         Prop.computed __resource_type __resource_id "regions";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

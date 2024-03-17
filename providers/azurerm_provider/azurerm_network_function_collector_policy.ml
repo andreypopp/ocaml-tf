@@ -41,6 +41,14 @@ type azurerm_network_function_collector_policy = {
 [@@deriving yojson_of]
 (** azurerm_network_function_collector_policy *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  traffic_collector_id : string prop;
+}
+
 let azurerm_network_function_collector_policy ?id ?tags ?timeouts
     ~location ~name ~traffic_collector_id ~ipfx_emission
     ~ipfx_ingestion __resource_id =
@@ -48,17 +56,31 @@ let azurerm_network_function_collector_policy ?id ?tags ?timeouts
     "azurerm_network_function_collector_policy"
   in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      tags;
-      traffic_collector_id;
-      ipfx_emission;
-      ipfx_ingestion;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       tags;
+       traffic_collector_id;
+       ipfx_emission;
+       ipfx_ingestion;
+       timeouts;
+     }
+      : azurerm_network_function_collector_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_function_collector_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       traffic_collector_id =
+         Prop.computed __resource_type __resource_id
+           "traffic_collector_id";
+     }
+      : t)
+  in
+  __resource_attributes

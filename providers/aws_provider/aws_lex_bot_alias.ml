@@ -42,20 +42,54 @@ type aws_lex_bot_alias = {
 [@@deriving yojson_of]
 (** aws_lex_bot_alias *)
 
+type t = {
+  arn : string prop;
+  bot_name : string prop;
+  bot_version : string prop;
+  checksum : string prop;
+  created_date : string prop;
+  description : string prop;
+  id : string prop;
+  last_updated_date : string prop;
+  name : string prop;
+}
+
 let aws_lex_bot_alias ?description ?id ?timeouts ~bot_name
     ~bot_version ~name ~conversation_logs __resource_id =
   let __resource_type = "aws_lex_bot_alias" in
   let __resource =
-    {
-      bot_name;
-      bot_version;
-      description;
-      id;
-      name;
-      conversation_logs;
-      timeouts;
-    }
+    ({
+       bot_name;
+       bot_version;
+       description;
+       id;
+       name;
+       conversation_logs;
+       timeouts;
+     }
+      : aws_lex_bot_alias)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lex_bot_alias __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       bot_name =
+         Prop.computed __resource_type __resource_id "bot_name";
+       bot_version =
+         Prop.computed __resource_type __resource_id "bot_version";
+       checksum =
+         Prop.computed __resource_type __resource_id "checksum";
+       created_date =
+         Prop.computed __resource_type __resource_id "created_date";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_updated_date =
+         Prop.computed __resource_type __resource_id
+           "last_updated_date";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

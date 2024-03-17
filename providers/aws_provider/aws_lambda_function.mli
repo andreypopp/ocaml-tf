@@ -14,6 +14,44 @@ type aws_lambda_function__tracing_config
 type aws_lambda_function__vpc_config
 type aws_lambda_function
 
+type t = private {
+  architectures : string list prop;
+  arn : string prop;
+  code_signing_config_arn : string prop;
+  description : string prop;
+  filename : string prop;
+  function_name : string prop;
+  handler : string prop;
+  id : string prop;
+  image_uri : string prop;
+  invoke_arn : string prop;
+  kms_key_arn : string prop;
+  last_modified : string prop;
+  layers : string list prop;
+  memory_size : float prop;
+  package_type : string prop;
+  publish : bool prop;
+  qualified_arn : string prop;
+  qualified_invoke_arn : string prop;
+  replace_security_groups_on_destroy : bool prop;
+  replacement_security_group_ids : string list prop;
+  reserved_concurrent_executions : float prop;
+  role : string prop;
+  runtime : string prop;
+  s3_bucket : string prop;
+  s3_key : string prop;
+  s3_object_version : string prop;
+  signing_job_arn : string prop;
+  signing_profile_version_arn : string prop;
+  skip_destroy : bool prop;
+  source_code_hash : string prop;
+  source_code_size : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  timeout : float prop;
+  version : string prop;
+}
+
 val aws_lambda_function :
   ?architectures:string prop list ->
   ?code_signing_config_arn:string prop ->
@@ -52,4 +90,4 @@ val aws_lambda_function :
   tracing_config:aws_lambda_function__tracing_config list ->
   vpc_config:aws_lambda_function__vpc_config list ->
   string ->
-  unit
+  t

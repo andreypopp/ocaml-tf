@@ -101,6 +101,28 @@ type aws_eks_node_group = {
 [@@deriving yojson_of]
 (** aws_eks_node_group *)
 
+type t = {
+  ami_type : string prop;
+  arn : string prop;
+  capacity_type : string prop;
+  cluster_name : string prop;
+  disk_size : float prop;
+  force_update_version : bool prop;
+  id : string prop;
+  instance_types : string list prop;
+  labels : (string * string) list prop;
+  node_group_name : string prop;
+  node_group_name_prefix : string prop;
+  node_role_arn : string prop;
+  release_version : string prop;
+  resources : aws_eks_node_group__resources list prop;
+  status : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+}
+
 let aws_eks_node_group ?ami_type ?capacity_type ?disk_size
     ?force_update_version ?id ?instance_types ?labels
     ?node_group_name ?node_group_name_prefix ?release_version ?tags
@@ -109,31 +131,74 @@ let aws_eks_node_group ?ami_type ?capacity_type ?disk_size
     ~taint ~update_config __resource_id =
   let __resource_type = "aws_eks_node_group" in
   let __resource =
-    {
-      ami_type;
-      capacity_type;
-      cluster_name;
-      disk_size;
-      force_update_version;
-      id;
-      instance_types;
-      labels;
-      node_group_name;
-      node_group_name_prefix;
-      node_role_arn;
-      release_version;
-      subnet_ids;
-      tags;
-      tags_all;
-      version;
-      launch_template;
-      remote_access;
-      scaling_config;
-      taint;
-      timeouts;
-      update_config;
-    }
+    ({
+       ami_type;
+       capacity_type;
+       cluster_name;
+       disk_size;
+       force_update_version;
+       id;
+       instance_types;
+       labels;
+       node_group_name;
+       node_group_name_prefix;
+       node_role_arn;
+       release_version;
+       subnet_ids;
+       tags;
+       tags_all;
+       version;
+       launch_template;
+       remote_access;
+       scaling_config;
+       taint;
+       timeouts;
+       update_config;
+     }
+      : aws_eks_node_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_node_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       ami_type =
+         Prop.computed __resource_type __resource_id "ami_type";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       capacity_type =
+         Prop.computed __resource_type __resource_id "capacity_type";
+       cluster_name =
+         Prop.computed __resource_type __resource_id "cluster_name";
+       disk_size =
+         Prop.computed __resource_type __resource_id "disk_size";
+       force_update_version =
+         Prop.computed __resource_type __resource_id
+           "force_update_version";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_types =
+         Prop.computed __resource_type __resource_id "instance_types";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       node_group_name =
+         Prop.computed __resource_type __resource_id
+           "node_group_name";
+       node_group_name_prefix =
+         Prop.computed __resource_type __resource_id
+           "node_group_name_prefix";
+       node_role_arn =
+         Prop.computed __resource_type __resource_id "node_role_arn";
+       release_version =
+         Prop.computed __resource_type __resource_id
+           "release_version";
+       resources =
+         Prop.computed __resource_type __resource_id "resources";
+       status = Prop.computed __resource_type __resource_id "status";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

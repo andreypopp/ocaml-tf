@@ -48,21 +48,55 @@ consent1 *)
 [@@deriving yojson_of]
 (** google_healthcare_consent_store *)
 
+type t = {
+  dataset : string prop;
+  default_consent_ttl : string prop;
+  effective_labels : (string * string) list prop;
+  enable_consent_create_on_update : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_healthcare_consent_store ?default_consent_ttl
     ?enable_consent_create_on_update ?id ?labels ?timeouts ~dataset
     ~name __resource_id =
   let __resource_type = "google_healthcare_consent_store" in
   let __resource =
-    {
-      dataset;
-      default_consent_ttl;
-      enable_consent_create_on_update;
-      id;
-      labels;
-      name;
-      timeouts;
-    }
+    ({
+       dataset;
+       default_consent_ttl;
+       enable_consent_create_on_update;
+       id;
+       labels;
+       name;
+       timeouts;
+     }
+      : google_healthcare_consent_store)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_consent_store __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dataset =
+         Prop.computed __resource_type __resource_id "dataset";
+       default_consent_ttl =
+         Prop.computed __resource_type __resource_id
+           "default_consent_ttl";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       enable_consent_create_on_update =
+         Prop.computed __resource_type __resource_id
+           "enable_consent_create_on_update";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

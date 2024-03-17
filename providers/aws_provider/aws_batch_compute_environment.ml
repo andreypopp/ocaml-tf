@@ -91,26 +91,68 @@ type aws_batch_compute_environment = {
 [@@deriving yojson_of]
 (** aws_batch_compute_environment *)
 
+type t = {
+  arn : string prop;
+  compute_environment_name : string prop;
+  compute_environment_name_prefix : string prop;
+  ecs_cluster_arn : string prop;
+  id : string prop;
+  service_role : string prop;
+  state : string prop;
+  status : string prop;
+  status_reason : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_batch_compute_environment ?compute_environment_name
     ?compute_environment_name_prefix ?id ?service_role ?state ?tags
     ?tags_all ~type_ ~compute_resources ~eks_configuration
     ~update_policy __resource_id =
   let __resource_type = "aws_batch_compute_environment" in
   let __resource =
-    {
-      compute_environment_name;
-      compute_environment_name_prefix;
-      id;
-      service_role;
-      state;
-      tags;
-      tags_all;
-      type_;
-      compute_resources;
-      eks_configuration;
-      update_policy;
-    }
+    ({
+       compute_environment_name;
+       compute_environment_name_prefix;
+       id;
+       service_role;
+       state;
+       tags;
+       tags_all;
+       type_;
+       compute_resources;
+       eks_configuration;
+       update_policy;
+     }
+      : aws_batch_compute_environment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_batch_compute_environment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       compute_environment_name =
+         Prop.computed __resource_type __resource_id
+           "compute_environment_name";
+       compute_environment_name_prefix =
+         Prop.computed __resource_type __resource_id
+           "compute_environment_name_prefix";
+       ecs_cluster_arn =
+         Prop.computed __resource_type __resource_id
+           "ecs_cluster_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       service_role =
+         Prop.computed __resource_type __resource_id "service_role";
+       state = Prop.computed __resource_type __resource_id "state";
+       status = Prop.computed __resource_type __resource_id "status";
+       status_reason =
+         Prop.computed __resource_type __resource_id "status_reason";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -4,10 +4,17 @@ open! Tf.Prelude
 
 type aws_sesv2_email_identity_mail_from_attributes
 
+type t = private {
+  behavior_on_mx_failure : string prop;
+  email_identity : string prop;
+  id : string prop;
+  mail_from_domain : string prop;
+}
+
 val aws_sesv2_email_identity_mail_from_attributes :
   ?behavior_on_mx_failure:string prop ->
   ?id:string prop ->
   ?mail_from_domain:string prop ->
   email_identity:string prop ->
   string ->
-  unit
+  t

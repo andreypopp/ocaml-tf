@@ -8,6 +8,14 @@ type azurerm_media_services_account_filter__track_selection__condition
 type azurerm_media_services_account_filter__track_selection
 type azurerm_media_services_account_filter
 
+type t = private {
+  first_quality_bitrate : float prop;
+  id : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_media_services_account_filter :
   ?first_quality_bitrate:float prop ->
   ?id:string prop ->
@@ -21,4 +29,4 @@ val azurerm_media_services_account_filter :
   track_selection:
     azurerm_media_services_account_filter__track_selection list ->
   string ->
-  unit
+  t

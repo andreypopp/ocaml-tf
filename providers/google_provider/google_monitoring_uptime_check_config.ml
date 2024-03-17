@@ -180,30 +180,68 @@ type google_monitoring_uptime_check_config = {
 [@@deriving yojson_of]
 (** google_monitoring_uptime_check_config *)
 
+type t = {
+  checker_type : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  period : string prop;
+  project : string prop;
+  selected_regions : string list prop;
+  timeout : string prop;
+  uptime_check_id : string prop;
+  user_labels : (string * string) list prop;
+}
+
 let google_monitoring_uptime_check_config ?checker_type ?id ?period
     ?project ?selected_regions ?user_labels ?timeouts ~display_name
     ~timeout ~content_matchers ~http_check ~monitored_resource
     ~resource_group ~synthetic_monitor ~tcp_check __resource_id =
   let __resource_type = "google_monitoring_uptime_check_config" in
   let __resource =
-    {
-      checker_type;
-      display_name;
-      id;
-      period;
-      project;
-      selected_regions;
-      timeout;
-      user_labels;
-      content_matchers;
-      http_check;
-      monitored_resource;
-      resource_group;
-      synthetic_monitor;
-      tcp_check;
-      timeouts;
-    }
+    ({
+       checker_type;
+       display_name;
+       id;
+       period;
+       project;
+       selected_regions;
+       timeout;
+       user_labels;
+       content_matchers;
+       http_check;
+       monitored_resource;
+       resource_group;
+       synthetic_monitor;
+       tcp_check;
+       timeouts;
+     }
+      : google_monitoring_uptime_check_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_uptime_check_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       checker_type =
+         Prop.computed __resource_type __resource_id "checker_type";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       period = Prop.computed __resource_type __resource_id "period";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       selected_regions =
+         Prop.computed __resource_type __resource_id
+           "selected_regions";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+       uptime_check_id =
+         Prop.computed __resource_type __resource_id
+           "uptime_check_id";
+       user_labels =
+         Prop.computed __resource_type __resource_id "user_labels";
+     }
+      : t)
+  in
+  __resource_attributes

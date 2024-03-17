@@ -8,6 +8,22 @@ type google_bigquery_data_transfer_config__sensitive_params
 type google_bigquery_data_transfer_config__timeouts
 type google_bigquery_data_transfer_config
 
+type t = private {
+  data_refresh_window_days : float prop;
+  data_source_id : string prop;
+  destination_dataset_id : string prop;
+  disabled : bool prop;
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  notification_pubsub_topic : string prop;
+  params : (string * string) list prop;
+  project : string prop;
+  schedule : string prop;
+  service_account_name : string prop;
+}
+
 val google_bigquery_data_transfer_config :
   ?data_refresh_window_days:float prop ->
   ?destination_dataset_id:string prop ->
@@ -29,4 +45,4 @@ val google_bigquery_data_transfer_config :
   sensitive_params:
     google_bigquery_data_transfer_config__sensitive_params list ->
   string ->
-  unit
+  t

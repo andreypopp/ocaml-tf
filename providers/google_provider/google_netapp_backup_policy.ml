@@ -41,25 +41,81 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_netapp_backup_policy *)
 
+type t = {
+  assigned_volume_count : float prop;
+  create_time : string prop;
+  daily_backup_limit : float prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  enabled : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  monthly_backup_limit : float prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  weekly_backup_limit : float prop;
+}
+
 let google_netapp_backup_policy ?description ?enabled ?id ?labels
     ?project ?timeouts ~daily_backup_limit ~location
     ~monthly_backup_limit ~name ~weekly_backup_limit __resource_id =
   let __resource_type = "google_netapp_backup_policy" in
   let __resource =
-    {
-      daily_backup_limit;
-      description;
-      enabled;
-      id;
-      labels;
-      location;
-      monthly_backup_limit;
-      name;
-      project;
-      weekly_backup_limit;
-      timeouts;
-    }
+    ({
+       daily_backup_limit;
+       description;
+       enabled;
+       id;
+       labels;
+       location;
+       monthly_backup_limit;
+       name;
+       project;
+       weekly_backup_limit;
+       timeouts;
+     }
+      : google_netapp_backup_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_backup_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       assigned_volume_count =
+         Prop.computed __resource_type __resource_id
+           "assigned_volume_count";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       daily_backup_limit =
+         Prop.computed __resource_type __resource_id
+           "daily_backup_limit";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       monthly_backup_limit =
+         Prop.computed __resource_type __resource_id
+           "monthly_backup_limit";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       weekly_backup_limit =
+         Prop.computed __resource_type __resource_id
+           "weekly_backup_limit";
+     }
+      : t)
+  in
+  __resource_attributes

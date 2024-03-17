@@ -24,6 +24,18 @@ type aws_default_route_table__route = {
 
 type aws_default_route_table
 
+type t = private {
+  arn : string prop;
+  default_route_table_id : string prop;
+  id : string prop;
+  owner_id : string prop;
+  propagating_vgws : string list prop;
+  route : aws_default_route_table__route list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 val aws_default_route_table :
   ?id:string prop ->
   ?propagating_vgws:string prop list ->
@@ -33,4 +45,4 @@ val aws_default_route_table :
   ?timeouts:aws_default_route_table__timeouts ->
   default_route_table_id:string prop ->
   string ->
-  unit
+  t

@@ -9,6 +9,14 @@ type aws_lambda_function_event_invoke_config__destination_config__on_success
 type aws_lambda_function_event_invoke_config__destination_config
 type aws_lambda_function_event_invoke_config
 
+type t = private {
+  function_name : string prop;
+  id : string prop;
+  maximum_event_age_in_seconds : float prop;
+  maximum_retry_attempts : float prop;
+  qualifier : string prop;
+}
+
 val aws_lambda_function_event_invoke_config :
   ?id:string prop ->
   ?maximum_event_age_in_seconds:float prop ->
@@ -18,4 +26,4 @@ val aws_lambda_function_event_invoke_config :
   destination_config:
     aws_lambda_function_event_invoke_config__destination_config list ->
   string ->
-  unit
+  t

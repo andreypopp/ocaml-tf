@@ -23,6 +23,27 @@ type google_dataproc_metastore_service__telemetry_config
 type google_dataproc_metastore_service__timeouts
 type google_dataproc_metastore_service
 
+type t = private {
+  artifact_gcs_uri : string prop;
+  database_type : string prop;
+  effective_labels : (string * string) list prop;
+  endpoint_uri : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  network : string prop;
+  port : float prop;
+  project : string prop;
+  release_channel : string prop;
+  service_id : string prop;
+  state : string prop;
+  state_message : string prop;
+  terraform_labels : (string * string) list prop;
+  tier : string prop;
+  uid : string prop;
+}
+
 val google_dataproc_metastore_service :
   ?database_type:string prop ->
   ?id:string prop ->
@@ -50,4 +71,4 @@ val google_dataproc_metastore_service :
   telemetry_config:
     google_dataproc_metastore_service__telemetry_config list ->
   string ->
-  unit
+  t

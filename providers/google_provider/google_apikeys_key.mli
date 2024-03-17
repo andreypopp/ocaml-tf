@@ -13,6 +13,15 @@ type google_apikeys_key__restrictions
 type google_apikeys_key__timeouts
 type google_apikeys_key
 
+type t = private {
+  display_name : string prop;
+  id : string prop;
+  key_string : string prop;
+  name : string prop;
+  project : string prop;
+  uid : string prop;
+}
+
 val google_apikeys_key :
   ?display_name:string prop ->
   ?id:string prop ->
@@ -21,4 +30,4 @@ val google_apikeys_key :
   name:string prop ->
   restrictions:google_apikeys_key__restrictions list ->
   string ->
-  unit
+  t

@@ -18,6 +18,16 @@ type aws_cloudfront_cache_policy__parameters_in_cache_key_and_forwarded_to_origi
 
 type aws_cloudfront_cache_policy
 
+type t = private {
+  comment : string prop;
+  default_ttl : float prop;
+  etag : string prop;
+  id : string prop;
+  max_ttl : float prop;
+  min_ttl : float prop;
+  name : string prop;
+}
+
 val aws_cloudfront_cache_policy :
   ?comment:string prop ->
   ?default_ttl:float prop ->
@@ -29,4 +39,4 @@ val aws_cloudfront_cache_policy :
     aws_cloudfront_cache_policy__parameters_in_cache_key_and_forwarded_to_origin
     list ->
   string ->
-  unit
+  t

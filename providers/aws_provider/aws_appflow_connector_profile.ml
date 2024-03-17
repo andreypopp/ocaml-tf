@@ -574,21 +574,54 @@ type aws_appflow_connector_profile = {
 [@@deriving yojson_of]
 (** aws_appflow_connector_profile *)
 
+type t = {
+  arn : string prop;
+  connection_mode : string prop;
+  connector_label : string prop;
+  connector_type : string prop;
+  credentials_arn : string prop;
+  id : string prop;
+  kms_arn : string prop;
+  name : string prop;
+}
+
 let aws_appflow_connector_profile ?connector_label ?id ?kms_arn
     ~connection_mode ~connector_type ~name ~connector_profile_config
     __resource_id =
   let __resource_type = "aws_appflow_connector_profile" in
   let __resource =
-    {
-      connection_mode;
-      connector_label;
-      connector_type;
-      id;
-      kms_arn;
-      name;
-      connector_profile_config;
-    }
+    ({
+       connection_mode;
+       connector_label;
+       connector_type;
+       id;
+       kms_arn;
+       name;
+       connector_profile_config;
+     }
+      : aws_appflow_connector_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appflow_connector_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       connection_mode =
+         Prop.computed __resource_type __resource_id
+           "connection_mode";
+       connector_label =
+         Prop.computed __resource_type __resource_id
+           "connector_label";
+       connector_type =
+         Prop.computed __resource_type __resource_id "connector_type";
+       credentials_arn =
+         Prop.computed __resource_type __resource_id
+           "credentials_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_arn =
+         Prop.computed __resource_type __resource_id "kms_arn";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

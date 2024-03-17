@@ -40,6 +40,23 @@ type aws_kendra_index__index_statistics = {
 
 type aws_kendra_index
 
+type t = private {
+  arn : string prop;
+  created_at : string prop;
+  description : string prop;
+  edition : string prop;
+  error_message : string prop;
+  id : string prop;
+  index_statistics : aws_kendra_index__index_statistics list prop;
+  name : string prop;
+  role_arn : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  updated_at : string prop;
+  user_context_policy : string prop;
+}
+
 val aws_kendra_index :
   ?description:string prop ->
   ?edition:string prop ->
@@ -60,4 +77,4 @@ val aws_kendra_index :
   user_token_configurations:
     aws_kendra_index__user_token_configurations list ->
   string ->
-  unit
+  t

@@ -32,6 +32,21 @@ type google_apigee_keystores_aliases_self_signed_cert__certs_info = {
 
 type google_apigee_keystores_aliases_self_signed_cert
 
+type t = private {
+  alias : string prop;
+  cert_validity_in_days : float prop;
+  certs_info :
+    google_apigee_keystores_aliases_self_signed_cert__certs_info list
+    prop;
+  environment : string prop;
+  id : string prop;
+  key_size : string prop;
+  keystore : string prop;
+  org_id : string prop;
+  sig_alg : string prop;
+  type_ : string prop;
+}
+
 val google_apigee_keystores_aliases_self_signed_cert :
   ?cert_validity_in_days:float prop ->
   ?id:string prop ->
@@ -49,4 +64,4 @@ val google_apigee_keystores_aliases_self_signed_cert :
     google_apigee_keystores_aliases_self_signed_cert__subject_alternative_dns_names
     list ->
   string ->
-  unit
+  t

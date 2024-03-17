@@ -6,6 +6,21 @@ type azurerm_container_connected_registry__notification
 type azurerm_container_connected_registry__timeouts
 type azurerm_container_connected_registry
 
+type t = private {
+  audit_log_enabled : bool prop;
+  client_token_ids : string list prop;
+  container_registry_id : string prop;
+  id : string prop;
+  log_level : string prop;
+  mode : string prop;
+  name : string prop;
+  parent_registry_id : string prop;
+  sync_message_ttl : string prop;
+  sync_schedule : string prop;
+  sync_token_id : string prop;
+  sync_window : string prop;
+}
+
 val azurerm_container_connected_registry :
   ?audit_log_enabled:bool prop ->
   ?client_token_ids:string prop list ->
@@ -23,4 +38,4 @@ val azurerm_container_connected_registry :
   notification:
     azurerm_container_connected_registry__notification list ->
   string ->
-  unit
+  t

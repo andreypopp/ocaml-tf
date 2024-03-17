@@ -25,14 +25,39 @@ type google_cloudfunctions_function_iam_member = {
 [@@deriving yojson_of]
 (** google_cloudfunctions_function_iam_member *)
 
+type t = {
+  cloud_function : string prop;
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  project : string prop;
+  region : string prop;
+  role : string prop;
+}
+
 let google_cloudfunctions_function_iam_member ?id ?project ?region
     ~cloud_function ~member ~role ~condition __resource_id =
   let __resource_type =
     "google_cloudfunctions_function_iam_member"
   in
   let __resource =
-    { cloud_function; id; member; project; region; role; condition }
+    ({ cloud_function; id; member; project; region; role; condition }
+      : google_cloudfunctions_function_iam_member)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudfunctions_function_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cloud_function =
+         Prop.computed __resource_type __resource_id "cloud_function";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

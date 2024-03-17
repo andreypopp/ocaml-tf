@@ -64,6 +64,20 @@ projects/{project}/global/networks/{network}, where {project} is a project numbe
 [@@deriving yojson_of]
 (** google_cloudbuild_bitbucket_server_config *)
 
+type t = {
+  api_key : string prop;
+  config_id : string prop;
+  host_uri : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  peered_network : string prop;
+  project : string prop;
+  ssl_ca : string prop;
+  username : string prop;
+  webhook_key : string prop;
+}
+
 let google_cloudbuild_bitbucket_server_config ?id ?peered_network
     ?project ?ssl_ca ?timeouts ~api_key ~config_id ~host_uri
     ~location ~username ~connected_repositories ~secrets
@@ -72,21 +86,46 @@ let google_cloudbuild_bitbucket_server_config ?id ?peered_network
     "google_cloudbuild_bitbucket_server_config"
   in
   let __resource =
-    {
-      api_key;
-      config_id;
-      host_uri;
-      id;
-      location;
-      peered_network;
-      project;
-      ssl_ca;
-      username;
-      connected_repositories;
-      secrets;
-      timeouts;
-    }
+    ({
+       api_key;
+       config_id;
+       host_uri;
+       id;
+       location;
+       peered_network;
+       project;
+       ssl_ca;
+       username;
+       connected_repositories;
+       secrets;
+       timeouts;
+     }
+      : google_cloudbuild_bitbucket_server_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudbuild_bitbucket_server_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_key =
+         Prop.computed __resource_type __resource_id "api_key";
+       config_id =
+         Prop.computed __resource_type __resource_id "config_id";
+       host_uri =
+         Prop.computed __resource_type __resource_id "host_uri";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       peered_network =
+         Prop.computed __resource_type __resource_id "peered_network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       ssl_ca = Prop.computed __resource_type __resource_id "ssl_ca";
+       username =
+         Prop.computed __resource_type __resource_id "username";
+       webhook_key =
+         Prop.computed __resource_type __resource_id "webhook_key";
+     }
+      : t)
+  in
+  __resource_attributes

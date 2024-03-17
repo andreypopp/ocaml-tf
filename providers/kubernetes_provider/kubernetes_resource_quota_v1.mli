@@ -10,6 +10,7 @@ type kubernetes_resource_quota_v1__spec__scope_selector
 type kubernetes_resource_quota_v1__spec
 type kubernetes_resource_quota_v1__timeouts
 type kubernetes_resource_quota_v1
+type t = private { id : string prop }
 
 val kubernetes_resource_quota_v1 :
   ?id:string prop ->
@@ -17,4 +18,4 @@ val kubernetes_resource_quota_v1 :
   metadata:kubernetes_resource_quota_v1__metadata list ->
   spec:kubernetes_resource_quota_v1__spec list ->
   string ->
-  unit
+  t

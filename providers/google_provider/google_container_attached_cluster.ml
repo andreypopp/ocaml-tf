@@ -170,6 +170,30 @@ eks, aks. *)
 [@@deriving yojson_of]
 (** google_container_attached_cluster *)
 
+type t = {
+  annotations : (string * string) list prop;
+  cluster_region : string prop;
+  create_time : string prop;
+  deletion_policy : string prop;
+  description : string prop;
+  distribution : string prop;
+  effective_annotations : (string * string) list prop;
+  errors : google_container_attached_cluster__errors list prop;
+  id : string prop;
+  kubernetes_version : string prop;
+  location : string prop;
+  name : string prop;
+  platform_version : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  uid : string prop;
+  update_time : string prop;
+  workload_identity_config :
+    google_container_attached_cluster__workload_identity_config list
+    prop;
+}
+
 let google_container_attached_cluster ?annotations ?deletion_policy
     ?description ?id ?project ?timeouts ~distribution ~location ~name
     ~platform_version ~authorization ~binary_authorization ~fleet
@@ -177,26 +201,70 @@ let google_container_attached_cluster ?annotations ?deletion_policy
     __resource_id =
   let __resource_type = "google_container_attached_cluster" in
   let __resource =
-    {
-      annotations;
-      deletion_policy;
-      description;
-      distribution;
-      id;
-      location;
-      name;
-      platform_version;
-      project;
-      authorization;
-      binary_authorization;
-      fleet;
-      logging_config;
-      monitoring_config;
-      oidc_config;
-      proxy_config;
-      timeouts;
-    }
+    ({
+       annotations;
+       deletion_policy;
+       description;
+       distribution;
+       id;
+       location;
+       name;
+       platform_version;
+       project;
+       authorization;
+       binary_authorization;
+       fleet;
+       logging_config;
+       monitoring_config;
+       oidc_config;
+       proxy_config;
+       timeouts;
+     }
+      : google_container_attached_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_attached_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       cluster_region =
+         Prop.computed __resource_type __resource_id "cluster_region";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       deletion_policy =
+         Prop.computed __resource_type __resource_id
+           "deletion_policy";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       distribution =
+         Prop.computed __resource_type __resource_id "distribution";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       errors = Prop.computed __resource_type __resource_id "errors";
+       id = Prop.computed __resource_type __resource_id "id";
+       kubernetes_version =
+         Prop.computed __resource_type __resource_id
+           "kubernetes_version";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       platform_version =
+         Prop.computed __resource_type __resource_id
+           "platform_version";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       state = Prop.computed __resource_type __resource_id "state";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       workload_identity_config =
+         Prop.computed __resource_type __resource_id
+           "workload_identity_config";
+     }
+      : t)
+  in
+  __resource_attributes

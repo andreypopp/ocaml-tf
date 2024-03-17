@@ -31,6 +31,14 @@ type azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group
 type azurerm_site_recovery_replication_recovery_plan__timeouts
 type azurerm_site_recovery_replication_recovery_plan
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  recovery_vault_id : string prop;
+  source_recovery_fabric_id : string prop;
+  target_recovery_fabric_id : string prop;
+}
+
 val azurerm_site_recovery_replication_recovery_plan :
   ?id:string prop ->
   ?timeouts:azurerm_site_recovery_replication_recovery_plan__timeouts ->
@@ -54,4 +62,4 @@ val azurerm_site_recovery_replication_recovery_plan :
     azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group
     list ->
   string ->
-  unit
+  t

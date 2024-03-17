@@ -92,6 +92,28 @@ type azurerm_app_configuration = {
 [@@deriving yojson_of]
 (** azurerm_app_configuration *)
 
+type t = {
+  endpoint : string prop;
+  id : string prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  primary_read_key :
+    azurerm_app_configuration__primary_read_key list prop;
+  primary_write_key :
+    azurerm_app_configuration__primary_write_key list prop;
+  public_network_access : string prop;
+  purge_protection_enabled : bool prop;
+  resource_group_name : string prop;
+  secondary_read_key :
+    azurerm_app_configuration__secondary_read_key list prop;
+  secondary_write_key :
+    azurerm_app_configuration__secondary_write_key list prop;
+  sku : string prop;
+  soft_delete_retention_days : float prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_app_configuration ?id ?local_auth_enabled
     ?public_network_access ?purge_protection_enabled ?sku
     ?soft_delete_retention_days ?tags ?timeouts ~location ~name
@@ -99,23 +121,64 @@ let azurerm_app_configuration ?id ?local_auth_enabled
     =
   let __resource_type = "azurerm_app_configuration" in
   let __resource =
-    {
-      id;
-      local_auth_enabled;
-      location;
-      name;
-      public_network_access;
-      purge_protection_enabled;
-      resource_group_name;
-      sku;
-      soft_delete_retention_days;
-      tags;
-      encryption;
-      identity;
-      replica;
-      timeouts;
-    }
+    ({
+       id;
+       local_auth_enabled;
+       location;
+       name;
+       public_network_access;
+       purge_protection_enabled;
+       resource_group_name;
+       sku;
+       soft_delete_retention_days;
+       tags;
+       encryption;
+       identity;
+       replica;
+       timeouts;
+     }
+      : azurerm_app_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       id = Prop.computed __resource_type __resource_id "id";
+       local_auth_enabled =
+         Prop.computed __resource_type __resource_id
+           "local_auth_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       primary_read_key =
+         Prop.computed __resource_type __resource_id
+           "primary_read_key";
+       primary_write_key =
+         Prop.computed __resource_type __resource_id
+           "primary_write_key";
+       public_network_access =
+         Prop.computed __resource_type __resource_id
+           "public_network_access";
+       purge_protection_enabled =
+         Prop.computed __resource_type __resource_id
+           "purge_protection_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secondary_read_key =
+         Prop.computed __resource_type __resource_id
+           "secondary_read_key";
+       secondary_write_key =
+         Prop.computed __resource_type __resource_id
+           "secondary_write_key";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       soft_delete_retention_days =
+         Prop.computed __resource_type __resource_id
+           "soft_delete_retention_days";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

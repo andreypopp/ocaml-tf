@@ -22,6 +22,14 @@ type azurerm_media_content_key_policy__policy_option
 type azurerm_media_content_key_policy__timeouts
 type azurerm_media_content_key_policy
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_media_content_key_policy :
   ?description:string prop ->
   ?id:string prop ->
@@ -31,4 +39,4 @@ val azurerm_media_content_key_policy :
   resource_group_name:string prop ->
   policy_option:azurerm_media_content_key_policy__policy_option list ->
   string ->
-  unit
+  t

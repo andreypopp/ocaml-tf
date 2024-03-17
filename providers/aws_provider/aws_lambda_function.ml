@@ -131,6 +131,44 @@ type aws_lambda_function = {
 [@@deriving yojson_of]
 (** aws_lambda_function *)
 
+type t = {
+  architectures : string list prop;
+  arn : string prop;
+  code_signing_config_arn : string prop;
+  description : string prop;
+  filename : string prop;
+  function_name : string prop;
+  handler : string prop;
+  id : string prop;
+  image_uri : string prop;
+  invoke_arn : string prop;
+  kms_key_arn : string prop;
+  last_modified : string prop;
+  layers : string list prop;
+  memory_size : float prop;
+  package_type : string prop;
+  publish : bool prop;
+  qualified_arn : string prop;
+  qualified_invoke_arn : string prop;
+  replace_security_groups_on_destroy : bool prop;
+  replacement_security_group_ids : string list prop;
+  reserved_concurrent_executions : float prop;
+  role : string prop;
+  runtime : string prop;
+  s3_bucket : string prop;
+  s3_key : string prop;
+  s3_object_version : string prop;
+  signing_job_arn : string prop;
+  signing_profile_version_arn : string prop;
+  skip_destroy : bool prop;
+  source_code_hash : string prop;
+  source_code_size : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  timeout : float prop;
+  version : string prop;
+}
+
 let aws_lambda_function ?architectures ?code_signing_config_arn
     ?description ?filename ?handler ?id ?image_uri ?kms_key_arn
     ?layers ?memory_size ?package_type ?publish
@@ -144,45 +182,125 @@ let aws_lambda_function ?architectures ?code_signing_config_arn
     __resource_id =
   let __resource_type = "aws_lambda_function" in
   let __resource =
-    {
-      architectures;
-      code_signing_config_arn;
-      description;
-      filename;
-      function_name;
-      handler;
-      id;
-      image_uri;
-      kms_key_arn;
-      layers;
-      memory_size;
-      package_type;
-      publish;
-      replace_security_groups_on_destroy;
-      replacement_security_group_ids;
-      reserved_concurrent_executions;
-      role;
-      runtime;
-      s3_bucket;
-      s3_key;
-      s3_object_version;
-      skip_destroy;
-      source_code_hash;
-      tags;
-      tags_all;
-      timeout;
-      dead_letter_config;
-      environment;
-      ephemeral_storage;
-      file_system_config;
-      image_config;
-      logging_config;
-      snap_start;
-      timeouts;
-      tracing_config;
-      vpc_config;
-    }
+    ({
+       architectures;
+       code_signing_config_arn;
+       description;
+       filename;
+       function_name;
+       handler;
+       id;
+       image_uri;
+       kms_key_arn;
+       layers;
+       memory_size;
+       package_type;
+       publish;
+       replace_security_groups_on_destroy;
+       replacement_security_group_ids;
+       reserved_concurrent_executions;
+       role;
+       runtime;
+       s3_bucket;
+       s3_key;
+       s3_object_version;
+       skip_destroy;
+       source_code_hash;
+       tags;
+       tags_all;
+       timeout;
+       dead_letter_config;
+       environment;
+       ephemeral_storage;
+       file_system_config;
+       image_config;
+       logging_config;
+       snap_start;
+       timeouts;
+       tracing_config;
+       vpc_config;
+     }
+      : aws_lambda_function)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_function __resource);
-  ()
+  let __resource_attributes =
+    ({
+       architectures =
+         Prop.computed __resource_type __resource_id "architectures";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       code_signing_config_arn =
+         Prop.computed __resource_type __resource_id
+           "code_signing_config_arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       filename =
+         Prop.computed __resource_type __resource_id "filename";
+       function_name =
+         Prop.computed __resource_type __resource_id "function_name";
+       handler =
+         Prop.computed __resource_type __resource_id "handler";
+       id = Prop.computed __resource_type __resource_id "id";
+       image_uri =
+         Prop.computed __resource_type __resource_id "image_uri";
+       invoke_arn =
+         Prop.computed __resource_type __resource_id "invoke_arn";
+       kms_key_arn =
+         Prop.computed __resource_type __resource_id "kms_key_arn";
+       last_modified =
+         Prop.computed __resource_type __resource_id "last_modified";
+       layers = Prop.computed __resource_type __resource_id "layers";
+       memory_size =
+         Prop.computed __resource_type __resource_id "memory_size";
+       package_type =
+         Prop.computed __resource_type __resource_id "package_type";
+       publish =
+         Prop.computed __resource_type __resource_id "publish";
+       qualified_arn =
+         Prop.computed __resource_type __resource_id "qualified_arn";
+       qualified_invoke_arn =
+         Prop.computed __resource_type __resource_id
+           "qualified_invoke_arn";
+       replace_security_groups_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "replace_security_groups_on_destroy";
+       replacement_security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "replacement_security_group_ids";
+       reserved_concurrent_executions =
+         Prop.computed __resource_type __resource_id
+           "reserved_concurrent_executions";
+       role = Prop.computed __resource_type __resource_id "role";
+       runtime =
+         Prop.computed __resource_type __resource_id "runtime";
+       s3_bucket =
+         Prop.computed __resource_type __resource_id "s3_bucket";
+       s3_key = Prop.computed __resource_type __resource_id "s3_key";
+       s3_object_version =
+         Prop.computed __resource_type __resource_id
+           "s3_object_version";
+       signing_job_arn =
+         Prop.computed __resource_type __resource_id
+           "signing_job_arn";
+       signing_profile_version_arn =
+         Prop.computed __resource_type __resource_id
+           "signing_profile_version_arn";
+       skip_destroy =
+         Prop.computed __resource_type __resource_id "skip_destroy";
+       source_code_hash =
+         Prop.computed __resource_type __resource_id
+           "source_code_hash";
+       source_code_size =
+         Prop.computed __resource_type __resource_id
+           "source_code_size";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

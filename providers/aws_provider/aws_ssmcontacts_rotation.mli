@@ -22,6 +22,17 @@ type aws_ssmcontacts_rotation__recurrence__weekly_settings
 type aws_ssmcontacts_rotation__recurrence
 type aws_ssmcontacts_rotation
 
+type t = private {
+  arn : string prop;
+  contact_ids : string list prop;
+  id : string prop;
+  name : string prop;
+  start_time : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  time_zone_id : string prop;
+}
+
 val aws_ssmcontacts_rotation :
   ?start_time:string prop ->
   ?tags:(string * string prop) list ->
@@ -30,4 +41,4 @@ val aws_ssmcontacts_rotation :
   time_zone_id:string prop ->
   recurrence:aws_ssmcontacts_rotation__recurrence list ->
   string ->
-  unit
+  t

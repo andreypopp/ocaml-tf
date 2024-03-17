@@ -55,24 +55,62 @@ type azurerm_lb = {
 [@@deriving yojson_of]
 (** azurerm_lb *)
 
+type t = {
+  edge_zone : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_ip_address : string prop;
+  private_ip_addresses : string list prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  sku_tier : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_lb ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts
     ~location ~name ~resource_group_name ~frontend_ip_configuration
     __resource_id =
   let __resource_type = "azurerm_lb" in
   let __resource =
-    {
-      edge_zone;
-      id;
-      location;
-      name;
-      resource_group_name;
-      sku;
-      sku_tier;
-      tags;
-      frontend_ip_configuration;
-      timeouts;
-    }
+    ({
+       edge_zone;
+       id;
+       location;
+       name;
+       resource_group_name;
+       sku;
+       sku_tier;
+       tags;
+       frontend_ip_configuration;
+       timeouts;
+     }
+      : azurerm_lb)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lb __resource);
-  ()
+  let __resource_attributes =
+    ({
+       edge_zone =
+         Prop.computed __resource_type __resource_id "edge_zone";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_ip_address =
+         Prop.computed __resource_type __resource_id
+           "private_ip_address";
+       private_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "private_ip_addresses";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       sku_tier =
+         Prop.computed __resource_type __resource_id "sku_tier";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

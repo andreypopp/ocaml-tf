@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_mobile_network_data_network__timeouts
 type azurerm_mobile_network_data_network
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_mobile_network_data_network :
   ?description:string prop ->
   ?id:string prop ->
@@ -14,4 +23,4 @@ val azurerm_mobile_network_data_network :
   mobile_network_id:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

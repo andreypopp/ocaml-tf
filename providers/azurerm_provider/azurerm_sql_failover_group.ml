@@ -53,25 +53,55 @@ type azurerm_sql_failover_group = {
 [@@deriving yojson_of]
 (** azurerm_sql_failover_group *)
 
+type t = {
+  databases : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  role : string prop;
+  server_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_sql_failover_group ?databases ?id ?tags ?timeouts ~name
     ~resource_group_name ~server_name ~partner_servers
     ~read_write_endpoint_failover_policy
     ~readonly_endpoint_failover_policy __resource_id =
   let __resource_type = "azurerm_sql_failover_group" in
   let __resource =
-    {
-      databases;
-      id;
-      name;
-      resource_group_name;
-      server_name;
-      tags;
-      partner_servers;
-      read_write_endpoint_failover_policy;
-      readonly_endpoint_failover_policy;
-      timeouts;
-    }
+    ({
+       databases;
+       id;
+       name;
+       resource_group_name;
+       server_name;
+       tags;
+       partner_servers;
+       read_write_endpoint_failover_policy;
+       readonly_endpoint_failover_policy;
+       timeouts;
+     }
+      : azurerm_sql_failover_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sql_failover_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       databases =
+         Prop.computed __resource_type __resource_id "databases";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       role = Prop.computed __resource_type __resource_id "role";
+       server_name =
+         Prop.computed __resource_type __resource_id "server_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

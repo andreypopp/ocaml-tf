@@ -232,28 +232,52 @@ type google_identity_platform_config = {
 [@@deriving yojson_of]
 (** google_identity_platform_config *)
 
+type t = {
+  authorized_domains : string list prop;
+  autodelete_anonymous_users : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_identity_platform_config ?authorized_domains
     ?autodelete_anonymous_users ?id ?project ?timeouts
     ~blocking_functions ~client ~mfa ~monitoring ~multi_tenant ~quota
     ~sign_in ~sms_region_config __resource_id =
   let __resource_type = "google_identity_platform_config" in
   let __resource =
-    {
-      authorized_domains;
-      autodelete_anonymous_users;
-      id;
-      project;
-      blocking_functions;
-      client;
-      mfa;
-      monitoring;
-      multi_tenant;
-      quota;
-      sign_in;
-      sms_region_config;
-      timeouts;
-    }
+    ({
+       authorized_domains;
+       autodelete_anonymous_users;
+       id;
+       project;
+       blocking_functions;
+       client;
+       mfa;
+       monitoring;
+       multi_tenant;
+       quota;
+       sign_in;
+       sms_region_config;
+       timeouts;
+     }
+      : google_identity_platform_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authorized_domains =
+         Prop.computed __resource_type __resource_id
+           "authorized_domains";
+       autodelete_anonymous_users =
+         Prop.computed __resource_type __resource_id
+           "autodelete_anonymous_users";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

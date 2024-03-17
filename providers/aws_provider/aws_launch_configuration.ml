@@ -80,6 +80,25 @@ type aws_launch_configuration = {
 [@@deriving yojson_of]
 (** aws_launch_configuration *)
 
+type t = {
+  arn : string prop;
+  associate_public_ip_address : bool prop;
+  ebs_optimized : bool prop;
+  enable_monitoring : bool prop;
+  iam_instance_profile : string prop;
+  id : string prop;
+  image_id : string prop;
+  instance_type : string prop;
+  key_name : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  placement_tenancy : string prop;
+  security_groups : string list prop;
+  spot_price : string prop;
+  user_data : string prop;
+  user_data_base64 : string prop;
+}
+
 let aws_launch_configuration ?associate_public_ip_address
     ?ebs_optimized ?enable_monitoring ?iam_instance_profile ?id
     ?key_name ?name ?name_prefix ?placement_tenancy ?security_groups
@@ -88,28 +107,69 @@ let aws_launch_configuration ?associate_public_ip_address
     ~root_block_device __resource_id =
   let __resource_type = "aws_launch_configuration" in
   let __resource =
-    {
-      associate_public_ip_address;
-      ebs_optimized;
-      enable_monitoring;
-      iam_instance_profile;
-      id;
-      image_id;
-      instance_type;
-      key_name;
-      name;
-      name_prefix;
-      placement_tenancy;
-      security_groups;
-      spot_price;
-      user_data;
-      user_data_base64;
-      ebs_block_device;
-      ephemeral_block_device;
-      metadata_options;
-      root_block_device;
-    }
+    ({
+       associate_public_ip_address;
+       ebs_optimized;
+       enable_monitoring;
+       iam_instance_profile;
+       id;
+       image_id;
+       instance_type;
+       key_name;
+       name;
+       name_prefix;
+       placement_tenancy;
+       security_groups;
+       spot_price;
+       user_data;
+       user_data_base64;
+       ebs_block_device;
+       ephemeral_block_device;
+       metadata_options;
+       root_block_device;
+     }
+      : aws_launch_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_launch_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       associate_public_ip_address =
+         Prop.computed __resource_type __resource_id
+           "associate_public_ip_address";
+       ebs_optimized =
+         Prop.computed __resource_type __resource_id "ebs_optimized";
+       enable_monitoring =
+         Prop.computed __resource_type __resource_id
+           "enable_monitoring";
+       iam_instance_profile =
+         Prop.computed __resource_type __resource_id
+           "iam_instance_profile";
+       id = Prop.computed __resource_type __resource_id "id";
+       image_id =
+         Prop.computed __resource_type __resource_id "image_id";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       key_name =
+         Prop.computed __resource_type __resource_id "key_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       placement_tenancy =
+         Prop.computed __resource_type __resource_id
+           "placement_tenancy";
+       security_groups =
+         Prop.computed __resource_type __resource_id
+           "security_groups";
+       spot_price =
+         Prop.computed __resource_type __resource_id "spot_price";
+       user_data =
+         Prop.computed __resource_type __resource_id "user_data";
+       user_data_base64 =
+         Prop.computed __resource_type __resource_id
+           "user_data_base64";
+     }
+      : t)
+  in
+  __resource_attributes

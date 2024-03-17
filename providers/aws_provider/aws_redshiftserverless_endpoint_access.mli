@@ -20,6 +20,20 @@ type aws_redshiftserverless_endpoint_access__vpc_endpoint = {
 
 type aws_redshiftserverless_endpoint_access
 
+type t = private {
+  address : string prop;
+  arn : string prop;
+  endpoint_name : string prop;
+  id : string prop;
+  owner_account : string prop;
+  port : float prop;
+  subnet_ids : string list prop;
+  vpc_endpoint :
+    aws_redshiftserverless_endpoint_access__vpc_endpoint list prop;
+  vpc_security_group_ids : string list prop;
+  workgroup_name : string prop;
+}
+
 val aws_redshiftserverless_endpoint_access :
   ?id:string prop ->
   ?owner_account:string prop ->
@@ -28,4 +42,4 @@ val aws_redshiftserverless_endpoint_access :
   subnet_ids:string prop list ->
   workgroup_name:string prop ->
   string ->
-  unit
+  t

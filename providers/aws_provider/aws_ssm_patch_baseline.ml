@@ -67,6 +67,22 @@ type aws_ssm_patch_baseline = {
 [@@deriving yojson_of]
 (** aws_ssm_patch_baseline *)
 
+type t = {
+  approved_patches : string list prop;
+  approved_patches_compliance_level : string prop;
+  approved_patches_enable_non_security : bool prop;
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  json : string prop;
+  name : string prop;
+  operating_system : string prop;
+  rejected_patches : string list prop;
+  rejected_patches_action : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ssm_patch_baseline ?approved_patches
     ?approved_patches_compliance_level
     ?approved_patches_enable_non_security ?description ?id
@@ -75,23 +91,56 @@ let aws_ssm_patch_baseline ?approved_patches
     __resource_id =
   let __resource_type = "aws_ssm_patch_baseline" in
   let __resource =
-    {
-      approved_patches;
-      approved_patches_compliance_level;
-      approved_patches_enable_non_security;
-      description;
-      id;
-      name;
-      operating_system;
-      rejected_patches;
-      rejected_patches_action;
-      tags;
-      tags_all;
-      approval_rule;
-      global_filter;
-      source;
-    }
+    ({
+       approved_patches;
+       approved_patches_compliance_level;
+       approved_patches_enable_non_security;
+       description;
+       id;
+       name;
+       operating_system;
+       rejected_patches;
+       rejected_patches_action;
+       tags;
+       tags_all;
+       approval_rule;
+       global_filter;
+       source;
+     }
+      : aws_ssm_patch_baseline)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_patch_baseline __resource);
-  ()
+  let __resource_attributes =
+    ({
+       approved_patches =
+         Prop.computed __resource_type __resource_id
+           "approved_patches";
+       approved_patches_compliance_level =
+         Prop.computed __resource_type __resource_id
+           "approved_patches_compliance_level";
+       approved_patches_enable_non_security =
+         Prop.computed __resource_type __resource_id
+           "approved_patches_enable_non_security";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       json = Prop.computed __resource_type __resource_id "json";
+       name = Prop.computed __resource_type __resource_id "name";
+       operating_system =
+         Prop.computed __resource_type __resource_id
+           "operating_system";
+       rejected_patches =
+         Prop.computed __resource_type __resource_id
+           "rejected_patches";
+       rejected_patches_action =
+         Prop.computed __resource_type __resource_id
+           "rejected_patches_action";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

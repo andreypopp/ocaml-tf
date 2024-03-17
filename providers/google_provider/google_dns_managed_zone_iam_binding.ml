@@ -23,12 +23,36 @@ type google_dns_managed_zone_iam_binding = {
 [@@deriving yojson_of]
 (** google_dns_managed_zone_iam_binding *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  managed_zone : string prop;
+  members : string list prop;
+  project : string prop;
+  role : string prop;
+}
+
 let google_dns_managed_zone_iam_binding ?id ?project ~managed_zone
     ~members ~role ~condition __resource_id =
   let __resource_type = "google_dns_managed_zone_iam_binding" in
   let __resource =
-    { id; managed_zone; members; project; role; condition }
+    ({ id; managed_zone; members; project; role; condition }
+      : google_dns_managed_zone_iam_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_managed_zone_iam_binding __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       managed_zone =
+         Prop.computed __resource_type __resource_id "managed_zone";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

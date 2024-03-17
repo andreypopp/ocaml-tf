@@ -74,30 +74,77 @@ type aws_identitystore_user = {
 [@@deriving yojson_of]
 (** aws_identitystore_user *)
 
+type t = {
+  display_name : string prop;
+  external_ids : aws_identitystore_user__external_ids list prop;
+  id : string prop;
+  identity_store_id : string prop;
+  locale : string prop;
+  nickname : string prop;
+  preferred_language : string prop;
+  profile_url : string prop;
+  timezone : string prop;
+  title : string prop;
+  user_id : string prop;
+  user_name : string prop;
+  user_type : string prop;
+}
+
 let aws_identitystore_user ?id ?locale ?nickname ?preferred_language
     ?profile_url ?timezone ?title ?user_type ~display_name
     ~identity_store_id ~user_name ~addresses ~emails ~name
     ~phone_numbers __resource_id =
   let __resource_type = "aws_identitystore_user" in
   let __resource =
-    {
-      display_name;
-      id;
-      identity_store_id;
-      locale;
-      nickname;
-      preferred_language;
-      profile_url;
-      timezone;
-      title;
-      user_name;
-      user_type;
-      addresses;
-      emails;
-      name;
-      phone_numbers;
-    }
+    ({
+       display_name;
+       id;
+       identity_store_id;
+       locale;
+       nickname;
+       preferred_language;
+       profile_url;
+       timezone;
+       title;
+       user_name;
+       user_type;
+       addresses;
+       emails;
+       name;
+       phone_numbers;
+     }
+      : aws_identitystore_user)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_identitystore_user __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       external_ids =
+         Prop.computed __resource_type __resource_id "external_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_store_id =
+         Prop.computed __resource_type __resource_id
+           "identity_store_id";
+       locale = Prop.computed __resource_type __resource_id "locale";
+       nickname =
+         Prop.computed __resource_type __resource_id "nickname";
+       preferred_language =
+         Prop.computed __resource_type __resource_id
+           "preferred_language";
+       profile_url =
+         Prop.computed __resource_type __resource_id "profile_url";
+       timezone =
+         Prop.computed __resource_type __resource_id "timezone";
+       title = Prop.computed __resource_type __resource_id "title";
+       user_id =
+         Prop.computed __resource_type __resource_id "user_id";
+       user_name =
+         Prop.computed __resource_type __resource_id "user_name";
+       user_type =
+         Prop.computed __resource_type __resource_id "user_type";
+     }
+      : t)
+  in
+  __resource_attributes

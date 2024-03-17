@@ -148,6 +148,38 @@ type aws_opsworks_haproxy_layer = {
 [@@deriving yojson_of]
 (** aws_opsworks_haproxy_layer *)
 
+type t = {
+  arn : string prop;
+  auto_assign_elastic_ips : bool prop;
+  auto_assign_public_ips : bool prop;
+  auto_healing : bool prop;
+  custom_configure_recipes : string list prop;
+  custom_deploy_recipes : string list prop;
+  custom_instance_profile_arn : string prop;
+  custom_json : string prop;
+  custom_security_group_ids : string list prop;
+  custom_setup_recipes : string list prop;
+  custom_shutdown_recipes : string list prop;
+  custom_undeploy_recipes : string list prop;
+  drain_elb_on_shutdown : bool prop;
+  elastic_load_balancer : string prop;
+  healthcheck_method : string prop;
+  healthcheck_url : string prop;
+  id : string prop;
+  install_updates_on_boot : bool prop;
+  instance_shutdown_timeout : float prop;
+  name : string prop;
+  stack_id : string prop;
+  stats_enabled : bool prop;
+  stats_password : string prop;
+  stats_url : string prop;
+  stats_user : string prop;
+  system_packages : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  use_ebs_optimized_instances : bool prop;
+}
+
 let aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
     ?auto_assign_public_ips ?auto_healing ?custom_configure_recipes
     ?custom_deploy_recipes ?custom_instance_profile_arn ?custom_json
@@ -162,40 +194,117 @@ let aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
     __resource_id =
   let __resource_type = "aws_opsworks_haproxy_layer" in
   let __resource =
-    {
-      auto_assign_elastic_ips;
-      auto_assign_public_ips;
-      auto_healing;
-      custom_configure_recipes;
-      custom_deploy_recipes;
-      custom_instance_profile_arn;
-      custom_json;
-      custom_security_group_ids;
-      custom_setup_recipes;
-      custom_shutdown_recipes;
-      custom_undeploy_recipes;
-      drain_elb_on_shutdown;
-      elastic_load_balancer;
-      healthcheck_method;
-      healthcheck_url;
-      id;
-      install_updates_on_boot;
-      instance_shutdown_timeout;
-      name;
-      stack_id;
-      stats_enabled;
-      stats_password;
-      stats_url;
-      stats_user;
-      system_packages;
-      tags;
-      tags_all;
-      use_ebs_optimized_instances;
-      cloudwatch_configuration;
-      ebs_volume;
-      load_based_auto_scaling;
-    }
+    ({
+       auto_assign_elastic_ips;
+       auto_assign_public_ips;
+       auto_healing;
+       custom_configure_recipes;
+       custom_deploy_recipes;
+       custom_instance_profile_arn;
+       custom_json;
+       custom_security_group_ids;
+       custom_setup_recipes;
+       custom_shutdown_recipes;
+       custom_undeploy_recipes;
+       drain_elb_on_shutdown;
+       elastic_load_balancer;
+       healthcheck_method;
+       healthcheck_url;
+       id;
+       install_updates_on_boot;
+       instance_shutdown_timeout;
+       name;
+       stack_id;
+       stats_enabled;
+       stats_password;
+       stats_url;
+       stats_user;
+       system_packages;
+       tags;
+       tags_all;
+       use_ebs_optimized_instances;
+       cloudwatch_configuration;
+       ebs_volume;
+       load_based_auto_scaling;
+     }
+      : aws_opsworks_haproxy_layer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opsworks_haproxy_layer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auto_assign_elastic_ips =
+         Prop.computed __resource_type __resource_id
+           "auto_assign_elastic_ips";
+       auto_assign_public_ips =
+         Prop.computed __resource_type __resource_id
+           "auto_assign_public_ips";
+       auto_healing =
+         Prop.computed __resource_type __resource_id "auto_healing";
+       custom_configure_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_configure_recipes";
+       custom_deploy_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_deploy_recipes";
+       custom_instance_profile_arn =
+         Prop.computed __resource_type __resource_id
+           "custom_instance_profile_arn";
+       custom_json =
+         Prop.computed __resource_type __resource_id "custom_json";
+       custom_security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "custom_security_group_ids";
+       custom_setup_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_setup_recipes";
+       custom_shutdown_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_shutdown_recipes";
+       custom_undeploy_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_undeploy_recipes";
+       drain_elb_on_shutdown =
+         Prop.computed __resource_type __resource_id
+           "drain_elb_on_shutdown";
+       elastic_load_balancer =
+         Prop.computed __resource_type __resource_id
+           "elastic_load_balancer";
+       healthcheck_method =
+         Prop.computed __resource_type __resource_id
+           "healthcheck_method";
+       healthcheck_url =
+         Prop.computed __resource_type __resource_id
+           "healthcheck_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       install_updates_on_boot =
+         Prop.computed __resource_type __resource_id
+           "install_updates_on_boot";
+       instance_shutdown_timeout =
+         Prop.computed __resource_type __resource_id
+           "instance_shutdown_timeout";
+       name = Prop.computed __resource_type __resource_id "name";
+       stack_id =
+         Prop.computed __resource_type __resource_id "stack_id";
+       stats_enabled =
+         Prop.computed __resource_type __resource_id "stats_enabled";
+       stats_password =
+         Prop.computed __resource_type __resource_id "stats_password";
+       stats_url =
+         Prop.computed __resource_type __resource_id "stats_url";
+       stats_user =
+         Prop.computed __resource_type __resource_id "stats_user";
+       system_packages =
+         Prop.computed __resource_type __resource_id
+           "system_packages";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       use_ebs_optimized_instances =
+         Prop.computed __resource_type __resource_id
+           "use_ebs_optimized_instances";
+     }
+      : t)
+  in
+  __resource_attributes

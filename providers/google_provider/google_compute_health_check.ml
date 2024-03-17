@@ -294,6 +294,20 @@ consecutive failures. The default value is 2. *)
 [@@deriving yojson_of]
 (** google_compute_health_check *)
 
+type t = {
+  check_interval_sec : float prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  healthy_threshold : float prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  timeout_sec : float prop;
+  type_ : string prop;
+  unhealthy_threshold : float prop;
+}
+
 let google_compute_health_check ?check_interval_sec ?description
     ?healthy_threshold ?id ?project ?timeout_sec ?unhealthy_threshold
     ?timeouts ~name ~grpc_health_check ~http2_health_check
@@ -301,25 +315,54 @@ let google_compute_health_check ?check_interval_sec ?description
     ~ssl_health_check ~tcp_health_check __resource_id =
   let __resource_type = "google_compute_health_check" in
   let __resource =
-    {
-      check_interval_sec;
-      description;
-      healthy_threshold;
-      id;
-      name;
-      project;
-      timeout_sec;
-      unhealthy_threshold;
-      grpc_health_check;
-      http2_health_check;
-      http_health_check;
-      https_health_check;
-      log_config;
-      ssl_health_check;
-      tcp_health_check;
-      timeouts;
-    }
+    ({
+       check_interval_sec;
+       description;
+       healthy_threshold;
+       id;
+       name;
+       project;
+       timeout_sec;
+       unhealthy_threshold;
+       grpc_health_check;
+       http2_health_check;
+       http_health_check;
+       https_health_check;
+       log_config;
+       ssl_health_check;
+       tcp_health_check;
+       timeouts;
+     }
+      : google_compute_health_check)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_health_check __resource);
-  ()
+  let __resource_attributes =
+    ({
+       check_interval_sec =
+         Prop.computed __resource_type __resource_id
+           "check_interval_sec";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       healthy_threshold =
+         Prop.computed __resource_type __resource_id
+           "healthy_threshold";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       timeout_sec =
+         Prop.computed __resource_type __resource_id "timeout_sec";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       unhealthy_threshold =
+         Prop.computed __resource_type __resource_id
+           "unhealthy_threshold";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -68,12 +68,32 @@ type google_iam_deny_policy = {
 [@@deriving yojson_of]
 (** google_iam_deny_policy *)
 
+type t = {
+  display_name : string prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+}
+
 let google_iam_deny_policy ?display_name ?id ?timeouts ~name ~parent
     ~rules __resource_id =
   let __resource_type = "google_iam_deny_policy" in
   let __resource =
-    { display_name; id; name; parent; rules; timeouts }
+    ({ display_name; id; name; parent; rules; timeouts }
+      : google_iam_deny_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iam_deny_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+     }
+      : t)
+  in
+  __resource_attributes

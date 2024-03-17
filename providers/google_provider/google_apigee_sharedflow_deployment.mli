@@ -5,6 +5,15 @@ open! Tf.Prelude
 type google_apigee_sharedflow_deployment__timeouts
 type google_apigee_sharedflow_deployment
 
+type t = private {
+  environment : string prop;
+  id : string prop;
+  org_id : string prop;
+  revision : string prop;
+  service_account : string prop;
+  sharedflow_id : string prop;
+}
+
 val google_apigee_sharedflow_deployment :
   ?id:string prop ->
   ?service_account:string prop ->
@@ -14,4 +23,4 @@ val google_apigee_sharedflow_deployment :
   revision:string prop ->
   sharedflow_id:string prop ->
   string ->
-  unit
+  t

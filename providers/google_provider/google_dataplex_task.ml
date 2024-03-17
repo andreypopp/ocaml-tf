@@ -217,27 +217,82 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_dataplex_task *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  execution_status :
+    google_dataplex_task__execution_status list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  lake : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  task_id : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_dataplex_task ?description ?display_name ?id ?labels ?lake
     ?location ?project ?task_id ?timeouts ~execution_spec ~notebook
     ~spark ~trigger_spec __resource_id =
   let __resource_type = "google_dataplex_task" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      labels;
-      lake;
-      location;
-      project;
-      task_id;
-      execution_spec;
-      notebook;
-      spark;
-      timeouts;
-      trigger_spec;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       labels;
+       lake;
+       location;
+       project;
+       task_id;
+       execution_spec;
+       notebook;
+       spark;
+       timeouts;
+       trigger_spec;
+     }
+      : google_dataplex_task)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataplex_task __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       execution_status =
+         Prop.computed __resource_type __resource_id
+           "execution_status";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       lake = Prop.computed __resource_type __resource_id "lake";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       task_id =
+         Prop.computed __resource_type __resource_id "task_id";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

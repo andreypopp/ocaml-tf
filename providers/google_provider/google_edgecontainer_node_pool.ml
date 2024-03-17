@@ -59,27 +59,77 @@ documented in more detail in [AIP-160](https://google.aip.dev/160). *)
 [@@deriving yojson_of]
 (** google_edgecontainer_node_pool *)
 
+type t = {
+  cluster : string prop;
+  create_time : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  machine_filter : string prop;
+  name : string prop;
+  node_count : float prop;
+  node_location : string prop;
+  node_version : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_edgecontainer_node_pool ?id ?labels ?machine_filter
     ?project ?timeouts ~cluster ~location ~name ~node_count
     ~node_location ~local_disk_encryption ~node_config __resource_id
     =
   let __resource_type = "google_edgecontainer_node_pool" in
   let __resource =
-    {
-      cluster;
-      id;
-      labels;
-      location;
-      machine_filter;
-      name;
-      node_count;
-      node_location;
-      project;
-      local_disk_encryption;
-      node_config;
-      timeouts;
-    }
+    ({
+       cluster;
+       id;
+       labels;
+       location;
+       machine_filter;
+       name;
+       node_count;
+       node_location;
+       project;
+       local_disk_encryption;
+       node_config;
+       timeouts;
+     }
+      : google_edgecontainer_node_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_edgecontainer_node_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster =
+         Prop.computed __resource_type __resource_id "cluster";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       machine_filter =
+         Prop.computed __resource_type __resource_id "machine_filter";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_count =
+         Prop.computed __resource_type __resource_id "node_count";
+       node_location =
+         Prop.computed __resource_type __resource_id "node_location";
+       node_version =
+         Prop.computed __resource_type __resource_id "node_version";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

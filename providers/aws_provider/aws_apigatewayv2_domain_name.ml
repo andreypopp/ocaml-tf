@@ -47,21 +47,46 @@ type aws_apigatewayv2_domain_name = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_domain_name *)
 
+type t = {
+  api_mapping_selection_expression : string prop;
+  arn : string prop;
+  domain_name : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_apigatewayv2_domain_name ?id ?tags ?tags_all ?timeouts
     ~domain_name ~domain_name_configuration
     ~mutual_tls_authentication __resource_id =
   let __resource_type = "aws_apigatewayv2_domain_name" in
   let __resource =
-    {
-      domain_name;
-      id;
-      tags;
-      tags_all;
-      domain_name_configuration;
-      mutual_tls_authentication;
-      timeouts;
-    }
+    ({
+       domain_name;
+       id;
+       tags;
+       tags_all;
+       domain_name_configuration;
+       mutual_tls_authentication;
+       timeouts;
+     }
+      : aws_apigatewayv2_domain_name)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_domain_name __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_mapping_selection_expression =
+         Prop.computed __resource_type __resource_id
+           "api_mapping_selection_expression";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

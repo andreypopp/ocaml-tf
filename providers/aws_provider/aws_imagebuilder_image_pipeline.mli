@@ -9,6 +9,26 @@ type aws_imagebuilder_image_pipeline__image_tests_configuration
 type aws_imagebuilder_image_pipeline__schedule
 type aws_imagebuilder_image_pipeline
 
+type t = private {
+  arn : string prop;
+  container_recipe_arn : string prop;
+  date_created : string prop;
+  date_last_run : string prop;
+  date_next_run : string prop;
+  date_updated : string prop;
+  description : string prop;
+  distribution_configuration_arn : string prop;
+  enhanced_image_metadata_enabled : bool prop;
+  id : string prop;
+  image_recipe_arn : string prop;
+  infrastructure_configuration_arn : string prop;
+  name : string prop;
+  platform : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_imagebuilder_image_pipeline :
   ?container_recipe_arn:string prop ->
   ?description:string prop ->
@@ -28,4 +48,4 @@ val aws_imagebuilder_image_pipeline :
     aws_imagebuilder_image_pipeline__image_tests_configuration list ->
   schedule:aws_imagebuilder_image_pipeline__schedule list ->
   string ->
-  unit
+  t

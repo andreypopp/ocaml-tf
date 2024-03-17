@@ -69,12 +69,42 @@ Allowed characters are: lowercase and uppercase letters, numbers, hyphen, single
 [@@deriving yojson_of]
 (** google_gke_hub_fleet *)
 
+type t = {
+  create_time : string prop;
+  delete_time : string prop;
+  display_name : string prop;
+  id : string prop;
+  project : string prop;
+  state : google_gke_hub_fleet__state list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_gke_hub_fleet ?display_name ?id ?project ?timeouts
     ~default_cluster_config __resource_id =
   let __resource_type = "google_gke_hub_fleet" in
   let __resource =
-    { display_name; id; project; default_cluster_config; timeouts }
+    ({ display_name; id; project; default_cluster_config; timeouts }
+      : google_gke_hub_fleet)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_fleet __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

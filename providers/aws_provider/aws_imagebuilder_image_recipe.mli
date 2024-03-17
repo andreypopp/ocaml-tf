@@ -9,6 +9,22 @@ type aws_imagebuilder_image_recipe__component
 type aws_imagebuilder_image_recipe__systems_manager_agent
 type aws_imagebuilder_image_recipe
 
+type t = private {
+  arn : string prop;
+  date_created : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  owner : string prop;
+  parent_image : string prop;
+  platform : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_data_base64 : string prop;
+  version : string prop;
+  working_directory : string prop;
+}
+
 val aws_imagebuilder_image_recipe :
   ?description:string prop ->
   ?id:string prop ->
@@ -25,4 +41,4 @@ val aws_imagebuilder_image_recipe :
   systems_manager_agent:
     aws_imagebuilder_image_recipe__systems_manager_agent list ->
   string ->
-  unit
+  t

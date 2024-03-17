@@ -141,6 +141,27 @@ this Cloud Router. The VM instance is the peer side of the BGP session. *)
 [@@deriving yojson_of]
 (** google_compute_router_peer *)
 
+type t = {
+  advertise_mode : string prop;
+  advertised_groups : string list prop;
+  advertised_route_priority : float prop;
+  enable : bool prop;
+  enable_ipv6 : bool prop;
+  id : string prop;
+  interface : string prop;
+  ip_address : string prop;
+  ipv6_nexthop_address : string prop;
+  management_type : string prop;
+  name : string prop;
+  peer_asn : float prop;
+  peer_ip_address : string prop;
+  peer_ipv6_nexthop_address : string prop;
+  project : string prop;
+  region : string prop;
+  router : string prop;
+  router_appliance_instance : string prop;
+}
+
 let google_compute_router_peer ?advertise_mode ?advertised_groups
     ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
     ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
@@ -149,30 +170,74 @@ let google_compute_router_peer ?advertise_mode ?advertised_groups
     ~md5_authentication_key __resource_id =
   let __resource_type = "google_compute_router_peer" in
   let __resource =
-    {
-      advertise_mode;
-      advertised_groups;
-      advertised_route_priority;
-      enable;
-      enable_ipv6;
-      id;
-      interface;
-      ip_address;
-      ipv6_nexthop_address;
-      name;
-      peer_asn;
-      peer_ip_address;
-      peer_ipv6_nexthop_address;
-      project;
-      region;
-      router;
-      router_appliance_instance;
-      advertised_ip_ranges;
-      bfd;
-      md5_authentication_key;
-      timeouts;
-    }
+    ({
+       advertise_mode;
+       advertised_groups;
+       advertised_route_priority;
+       enable;
+       enable_ipv6;
+       id;
+       interface;
+       ip_address;
+       ipv6_nexthop_address;
+       name;
+       peer_asn;
+       peer_ip_address;
+       peer_ipv6_nexthop_address;
+       project;
+       region;
+       router;
+       router_appliance_instance;
+       advertised_ip_ranges;
+       bfd;
+       md5_authentication_key;
+       timeouts;
+     }
+      : google_compute_router_peer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_router_peer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       advertise_mode =
+         Prop.computed __resource_type __resource_id "advertise_mode";
+       advertised_groups =
+         Prop.computed __resource_type __resource_id
+           "advertised_groups";
+       advertised_route_priority =
+         Prop.computed __resource_type __resource_id
+           "advertised_route_priority";
+       enable = Prop.computed __resource_type __resource_id "enable";
+       enable_ipv6 =
+         Prop.computed __resource_type __resource_id "enable_ipv6";
+       id = Prop.computed __resource_type __resource_id "id";
+       interface =
+         Prop.computed __resource_type __resource_id "interface";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       ipv6_nexthop_address =
+         Prop.computed __resource_type __resource_id
+           "ipv6_nexthop_address";
+       management_type =
+         Prop.computed __resource_type __resource_id
+           "management_type";
+       name = Prop.computed __resource_type __resource_id "name";
+       peer_asn =
+         Prop.computed __resource_type __resource_id "peer_asn";
+       peer_ip_address =
+         Prop.computed __resource_type __resource_id
+           "peer_ip_address";
+       peer_ipv6_nexthop_address =
+         Prop.computed __resource_type __resource_id
+           "peer_ipv6_nexthop_address";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       router = Prop.computed __resource_type __resource_id "router";
+       router_appliance_instance =
+         Prop.computed __resource_type __resource_id
+           "router_appliance_instance";
+     }
+      : t)
+  in
+  __resource_attributes

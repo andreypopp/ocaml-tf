@@ -7,6 +7,13 @@ type azurerm_cdn_endpoint_custom_domain__timeouts
 type azurerm_cdn_endpoint_custom_domain__user_managed_https
 type azurerm_cdn_endpoint_custom_domain
 
+type t = private {
+  cdn_endpoint_id : string prop;
+  host_name : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val azurerm_cdn_endpoint_custom_domain :
   ?id:string prop ->
   ?timeouts:azurerm_cdn_endpoint_custom_domain__timeouts ->
@@ -18,4 +25,4 @@ val azurerm_cdn_endpoint_custom_domain :
   user_managed_https:
     azurerm_cdn_endpoint_custom_domain__user_managed_https list ->
   string ->
-  unit
+  t

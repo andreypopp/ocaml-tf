@@ -5,6 +5,16 @@ open! Tf.Prelude
 type azurerm_batch_application__timeouts
 type azurerm_batch_application
 
+type t = private {
+  account_name : string prop;
+  allow_updates : bool prop;
+  default_version : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_batch_application :
   ?allow_updates:bool prop ->
   ?default_version:string prop ->
@@ -15,4 +25,4 @@ val azurerm_batch_application :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

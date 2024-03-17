@@ -6,6 +6,13 @@ type azurerm_iotcentral_application_network_rule_set__ip_rule
 type azurerm_iotcentral_application_network_rule_set__timeouts
 type azurerm_iotcentral_application_network_rule_set
 
+type t = private {
+  apply_to_device : bool prop;
+  default_action : string prop;
+  id : string prop;
+  iotcentral_application_id : string prop;
+}
+
 val azurerm_iotcentral_application_network_rule_set :
   ?apply_to_device:bool prop ->
   ?default_action:string prop ->
@@ -15,4 +22,4 @@ val azurerm_iotcentral_application_network_rule_set :
   ip_rule:
     azurerm_iotcentral_application_network_rule_set__ip_rule list ->
   string ->
-  unit
+  t

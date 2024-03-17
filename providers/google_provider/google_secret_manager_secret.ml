@@ -149,26 +149,74 @@ An object containing a list of key: value pairs. Example:
 [@@deriving yojson_of]
 (** google_secret_manager_secret *)
 
+type t = {
+  annotations : (string * string) list prop;
+  create_time : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  expire_time : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  secret_id : string prop;
+  terraform_labels : (string * string) list prop;
+  ttl : string prop;
+  version_aliases : (string * string) list prop;
+}
+
 let google_secret_manager_secret ?annotations ?expire_time ?id
     ?labels ?project ?ttl ?version_aliases ?timeouts ~secret_id
     ~replication ~rotation ~topics __resource_id =
   let __resource_type = "google_secret_manager_secret" in
   let __resource =
-    {
-      annotations;
-      expire_time;
-      id;
-      labels;
-      project;
-      secret_id;
-      ttl;
-      version_aliases;
-      replication;
-      rotation;
-      timeouts;
-      topics;
-    }
+    ({
+       annotations;
+       expire_time;
+       id;
+       labels;
+       project;
+       secret_id;
+       ttl;
+       version_aliases;
+       replication;
+       rotation;
+       timeouts;
+       topics;
+     }
+      : google_secret_manager_secret)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_secret_manager_secret __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       expire_time =
+         Prop.computed __resource_type __resource_id "expire_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       secret_id =
+         Prop.computed __resource_type __resource_id "secret_id";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       ttl = Prop.computed __resource_type __resource_id "ttl";
+       version_aliases =
+         Prop.computed __resource_type __resource_id
+           "version_aliases";
+     }
+      : t)
+  in
+  __resource_attributes

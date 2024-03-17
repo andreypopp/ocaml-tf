@@ -6,6 +6,16 @@ type azurerm_private_dns_srv_record__record
 type azurerm_private_dns_srv_record__timeouts
 type azurerm_private_dns_srv_record
 
+type t = private {
+  fqdn : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  ttl : float prop;
+  zone_name : string prop;
+}
+
 val azurerm_private_dns_srv_record :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -16,4 +26,4 @@ val azurerm_private_dns_srv_record :
   zone_name:string prop ->
   record:azurerm_private_dns_srv_record__record list ->
   string ->
-  unit
+  t

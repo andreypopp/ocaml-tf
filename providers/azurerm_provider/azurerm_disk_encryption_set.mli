@@ -6,6 +6,19 @@ type azurerm_disk_encryption_set__identity
 type azurerm_disk_encryption_set__timeouts
 type azurerm_disk_encryption_set
 
+type t = private {
+  auto_key_rotation_enabled : bool prop;
+  encryption_type : string prop;
+  federated_client_id : string prop;
+  id : string prop;
+  key_vault_key_id : string prop;
+  key_vault_key_url : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_disk_encryption_set :
   ?auto_key_rotation_enabled:bool prop ->
   ?encryption_type:string prop ->
@@ -19,4 +32,4 @@ val azurerm_disk_encryption_set :
   resource_group_name:string prop ->
   identity:azurerm_disk_encryption_set__identity list ->
   string ->
-  unit
+  t

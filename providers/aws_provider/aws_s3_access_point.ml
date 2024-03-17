@@ -38,22 +38,63 @@ type aws_s3_access_point = {
 [@@deriving yojson_of]
 (** aws_s3_access_point *)
 
+type t = {
+  account_id : string prop;
+  alias : string prop;
+  arn : string prop;
+  bucket : string prop;
+  bucket_account_id : string prop;
+  domain_name : string prop;
+  endpoints : (string * string) list prop;
+  has_public_access_policy : bool prop;
+  id : string prop;
+  name : string prop;
+  network_origin : string prop;
+  policy : string prop;
+}
+
 let aws_s3_access_point ?account_id ?bucket_account_id ?id ?policy
     ~bucket ~name ~public_access_block_configuration
     ~vpc_configuration __resource_id =
   let __resource_type = "aws_s3_access_point" in
   let __resource =
-    {
-      account_id;
-      bucket;
-      bucket_account_id;
-      id;
-      name;
-      policy;
-      public_access_block_configuration;
-      vpc_configuration;
-    }
+    ({
+       account_id;
+       bucket;
+       bucket_account_id;
+       id;
+       name;
+       policy;
+       public_access_block_configuration;
+       vpc_configuration;
+     }
+      : aws_s3_access_point)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_access_point __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       alias = Prop.computed __resource_type __resource_id "alias";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       bucket_account_id =
+         Prop.computed __resource_type __resource_id
+           "bucket_account_id";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       endpoints =
+         Prop.computed __resource_type __resource_id "endpoints";
+       has_public_access_policy =
+         Prop.computed __resource_type __resource_id
+           "has_public_access_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_origin =
+         Prop.computed __resource_type __resource_id "network_origin";
+       policy = Prop.computed __resource_type __resource_id "policy";
+     }
+      : t)
+  in
+  __resource_attributes

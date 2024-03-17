@@ -57,26 +57,65 @@ type aws_cloudtrail_event_data_store = {
 [@@deriving yojson_of]
 (** aws_cloudtrail_event_data_store *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  kms_key_id : string prop;
+  multi_region_enabled : bool prop;
+  name : string prop;
+  organization_enabled : bool prop;
+  retention_period : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  termination_protection_enabled : bool prop;
+}
+
 let aws_cloudtrail_event_data_store ?id ?kms_key_id
     ?multi_region_enabled ?organization_enabled ?retention_period
     ?tags ?tags_all ?termination_protection_enabled ?timeouts ~name
     ~advanced_event_selector __resource_id =
   let __resource_type = "aws_cloudtrail_event_data_store" in
   let __resource =
-    {
-      id;
-      kms_key_id;
-      multi_region_enabled;
-      name;
-      organization_enabled;
-      retention_period;
-      tags;
-      tags_all;
-      termination_protection_enabled;
-      advanced_event_selector;
-      timeouts;
-    }
+    ({
+       id;
+       kms_key_id;
+       multi_region_enabled;
+       name;
+       organization_enabled;
+       retention_period;
+       tags;
+       tags_all;
+       termination_protection_enabled;
+       advanced_event_selector;
+       timeouts;
+     }
+      : aws_cloudtrail_event_data_store)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudtrail_event_data_store __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       multi_region_enabled =
+         Prop.computed __resource_type __resource_id
+           "multi_region_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       organization_enabled =
+         Prop.computed __resource_type __resource_id
+           "organization_enabled";
+       retention_period =
+         Prop.computed __resource_type __resource_id
+           "retention_period";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       termination_protection_enabled =
+         Prop.computed __resource_type __resource_id
+           "termination_protection_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

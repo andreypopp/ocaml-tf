@@ -208,25 +208,51 @@ type aws_sagemaker_endpoint_configuration = {
 [@@deriving yojson_of]
 (** aws_sagemaker_endpoint_configuration *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sagemaker_endpoint_configuration ?id ?kms_key_arn ?name
     ?name_prefix ?tags ?tags_all ~async_inference_config
     ~data_capture_config ~production_variants
     ~shadow_production_variants __resource_id =
   let __resource_type = "aws_sagemaker_endpoint_configuration" in
   let __resource =
-    {
-      id;
-      kms_key_arn;
-      name;
-      name_prefix;
-      tags;
-      tags_all;
-      async_inference_config;
-      data_capture_config;
-      production_variants;
-      shadow_production_variants;
-    }
+    ({
+       id;
+       kms_key_arn;
+       name;
+       name_prefix;
+       tags;
+       tags_all;
+       async_inference_config;
+       data_capture_config;
+       production_variants;
+       shadow_production_variants;
+     }
+      : aws_sagemaker_endpoint_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_endpoint_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_arn =
+         Prop.computed __resource_type __resource_id "kms_key_arn";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

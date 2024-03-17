@@ -30,18 +30,43 @@ type aws_lexv2models_bot_version = {
 [@@deriving yojson_of]
 (** aws_lexv2models_bot_version *)
 
+type t = {
+  bot_id : string prop;
+  bot_version : string prop;
+  description : string prop;
+  id : string prop;
+  locale_specification :
+    (string * aws_lexv2models_bot_version__locale_specification) list
+    prop;
+}
+
 let aws_lexv2models_bot_version ?bot_version ?description ?timeouts
     ~bot_id ~locale_specification __resource_id =
   let __resource_type = "aws_lexv2models_bot_version" in
   let __resource =
-    {
-      bot_id;
-      bot_version;
-      description;
-      locale_specification;
-      timeouts;
-    }
+    ({
+       bot_id;
+       bot_version;
+       description;
+       locale_specification;
+       timeouts;
+     }
+      : aws_lexv2models_bot_version)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_bot_version __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bot_id = Prop.computed __resource_type __resource_id "bot_id";
+       bot_version =
+         Prop.computed __resource_type __resource_id "bot_version";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       locale_specification =
+         Prop.computed __resource_type __resource_id
+           "locale_specification";
+     }
+      : t)
+  in
+  __resource_attributes

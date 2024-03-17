@@ -21,6 +21,19 @@ type azurerm_mssql_virtual_machine__timeouts
 type azurerm_mssql_virtual_machine__wsfc_domain_credential
 type azurerm_mssql_virtual_machine
 
+type t = private {
+  id : string prop;
+  r_services_enabled : bool prop;
+  sql_connectivity_port : float prop;
+  sql_connectivity_type : string prop;
+  sql_connectivity_update_password : string prop;
+  sql_connectivity_update_username : string prop;
+  sql_license_type : string prop;
+  sql_virtual_machine_group_id : string prop;
+  tags : (string * string) list prop;
+  virtual_machine_id : string prop;
+}
+
 val azurerm_mssql_virtual_machine :
   ?id:string prop ->
   ?r_services_enabled:bool prop ->
@@ -44,4 +57,4 @@ val azurerm_mssql_virtual_machine :
   wsfc_domain_credential:
     azurerm_mssql_virtual_machine__wsfc_domain_credential list ->
   string ->
-  unit
+  t

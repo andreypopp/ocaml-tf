@@ -108,6 +108,17 @@ type aws_appflow_flow__trigger_config__trigger_properties
 type aws_appflow_flow__trigger_config
 type aws_appflow_flow
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  flow_status : string prop;
+  id : string prop;
+  kms_arn : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_appflow_flow :
   ?description:string prop ->
   ?id:string prop ->
@@ -121,4 +132,4 @@ val aws_appflow_flow :
   task:aws_appflow_flow__task list ->
   trigger_config:aws_appflow_flow__trigger_config list ->
   string ->
-  unit
+  t

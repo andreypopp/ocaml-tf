@@ -53,26 +53,63 @@ type azurerm_network_packet_capture = {
 [@@deriving yojson_of]
 (** azurerm_network_packet_capture *)
 
+type t = {
+  id : string prop;
+  maximum_bytes_per_packet : float prop;
+  maximum_bytes_per_session : float prop;
+  maximum_capture_duration : float prop;
+  name : string prop;
+  network_watcher_name : string prop;
+  resource_group_name : string prop;
+  target_resource_id : string prop;
+}
+
 let azurerm_network_packet_capture ?id ?maximum_bytes_per_packet
     ?maximum_bytes_per_session ?maximum_capture_duration ?timeouts
     ~name ~network_watcher_name ~resource_group_name
     ~target_resource_id ~filter ~storage_location __resource_id =
   let __resource_type = "azurerm_network_packet_capture" in
   let __resource =
-    {
-      id;
-      maximum_bytes_per_packet;
-      maximum_bytes_per_session;
-      maximum_capture_duration;
-      name;
-      network_watcher_name;
-      resource_group_name;
-      target_resource_id;
-      filter;
-      storage_location;
-      timeouts;
-    }
+    ({
+       id;
+       maximum_bytes_per_packet;
+       maximum_bytes_per_session;
+       maximum_capture_duration;
+       name;
+       network_watcher_name;
+       resource_group_name;
+       target_resource_id;
+       filter;
+       storage_location;
+       timeouts;
+     }
+      : azurerm_network_packet_capture)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_packet_capture __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       maximum_bytes_per_packet =
+         Prop.computed __resource_type __resource_id
+           "maximum_bytes_per_packet";
+       maximum_bytes_per_session =
+         Prop.computed __resource_type __resource_id
+           "maximum_bytes_per_session";
+       maximum_capture_duration =
+         Prop.computed __resource_type __resource_id
+           "maximum_capture_duration";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_watcher_name =
+         Prop.computed __resource_type __resource_id
+           "network_watcher_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       target_resource_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -23,12 +23,35 @@ type google_pubsub_subscription_iam_member = {
 [@@deriving yojson_of]
 (** google_pubsub_subscription_iam_member *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  project : string prop;
+  role : string prop;
+  subscription : string prop;
+}
+
 let google_pubsub_subscription_iam_member ?id ?project ~member ~role
     ~subscription ~condition __resource_id =
   let __resource_type = "google_pubsub_subscription_iam_member" in
   let __resource =
-    { id; member; project; role; subscription; condition }
+    ({ id; member; project; role; subscription; condition }
+      : google_pubsub_subscription_iam_member)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_subscription_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+       subscription =
+         Prop.computed __resource_type __resource_id "subscription";
+     }
+      : t)
+  in
+  __resource_attributes

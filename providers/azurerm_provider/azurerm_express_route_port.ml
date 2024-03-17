@@ -76,28 +76,71 @@ type azurerm_express_route_port = {
 [@@deriving yojson_of]
 (** azurerm_express_route_port *)
 
+type t = {
+  bandwidth_in_gbps : float prop;
+  billing_type : string prop;
+  encapsulation : string prop;
+  ethertype : string prop;
+  guid : string prop;
+  id : string prop;
+  location : string prop;
+  mtu : string prop;
+  name : string prop;
+  peering_location : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_express_route_port ?billing_type ?id ?tags ?timeouts
     ~bandwidth_in_gbps ~encapsulation ~location ~name
     ~peering_location ~resource_group_name ~identity ~link1 ~link2
     __resource_id =
   let __resource_type = "azurerm_express_route_port" in
   let __resource =
-    {
-      bandwidth_in_gbps;
-      billing_type;
-      encapsulation;
-      id;
-      location;
-      name;
-      peering_location;
-      resource_group_name;
-      tags;
-      identity;
-      link1;
-      link2;
-      timeouts;
-    }
+    ({
+       bandwidth_in_gbps;
+       billing_type;
+       encapsulation;
+       id;
+       location;
+       name;
+       peering_location;
+       resource_group_name;
+       tags;
+       identity;
+       link1;
+       link2;
+       timeouts;
+     }
+      : azurerm_express_route_port)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_express_route_port __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bandwidth_in_gbps =
+         Prop.computed __resource_type __resource_id
+           "bandwidth_in_gbps";
+       billing_type =
+         Prop.computed __resource_type __resource_id "billing_type";
+       encapsulation =
+         Prop.computed __resource_type __resource_id "encapsulation";
+       ethertype =
+         Prop.computed __resource_type __resource_id "ethertype";
+       guid = Prop.computed __resource_type __resource_id "guid";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mtu = Prop.computed __resource_type __resource_id "mtu";
+       name = Prop.computed __resource_type __resource_id "name";
+       peering_location =
+         Prop.computed __resource_type __resource_id
+           "peering_location";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

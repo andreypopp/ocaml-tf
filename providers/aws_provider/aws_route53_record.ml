@@ -94,6 +94,20 @@ type aws_route53_record = {
 [@@deriving yojson_of]
 (** aws_route53_record *)
 
+type t = {
+  allow_overwrite : bool prop;
+  fqdn : string prop;
+  health_check_id : string prop;
+  id : string prop;
+  multivalue_answer_routing_policy : bool prop;
+  name : string prop;
+  records : string list prop;
+  set_identifier : string prop;
+  ttl : float prop;
+  type_ : string prop;
+  zone_id : string prop;
+}
+
 let aws_route53_record ?allow_overwrite ?health_check_id ?id
     ?multivalue_answer_routing_policy ?records ?set_identifier ?ttl
     ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
@@ -102,26 +116,52 @@ let aws_route53_record ?allow_overwrite ?health_check_id ?id
     ~weighted_routing_policy __resource_id =
   let __resource_type = "aws_route53_record" in
   let __resource =
-    {
-      allow_overwrite;
-      health_check_id;
-      id;
-      multivalue_answer_routing_policy;
-      name;
-      records;
-      set_identifier;
-      ttl;
-      type_;
-      zone_id;
-      alias;
-      cidr_routing_policy;
-      failover_routing_policy;
-      geolocation_routing_policy;
-      geoproximity_routing_policy;
-      latency_routing_policy;
-      weighted_routing_policy;
-    }
+    ({
+       allow_overwrite;
+       health_check_id;
+       id;
+       multivalue_answer_routing_policy;
+       name;
+       records;
+       set_identifier;
+       ttl;
+       type_;
+       zone_id;
+       alias;
+       cidr_routing_policy;
+       failover_routing_policy;
+       geolocation_routing_policy;
+       geoproximity_routing_policy;
+       latency_routing_policy;
+       weighted_routing_policy;
+     }
+      : aws_route53_record)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_record __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allow_overwrite =
+         Prop.computed __resource_type __resource_id
+           "allow_overwrite";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       health_check_id =
+         Prop.computed __resource_type __resource_id
+           "health_check_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       multivalue_answer_routing_policy =
+         Prop.computed __resource_type __resource_id
+           "multivalue_answer_routing_policy";
+       name = Prop.computed __resource_type __resource_id "name";
+       records =
+         Prop.computed __resource_type __resource_id "records";
+       set_identifier =
+         Prop.computed __resource_type __resource_id "set_identifier";
+       ttl = Prop.computed __resource_type __resource_id "ttl";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

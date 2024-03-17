@@ -130,24 +130,49 @@ type azurerm_monitor_action_rule_suppression = {
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression *)
 
+type t = {
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_monitor_action_rule_suppression ?description ?enabled ?id
     ?tags ?timeouts ~name ~resource_group_name ~condition ~scope
     ~suppression __resource_id =
   let __resource_type = "azurerm_monitor_action_rule_suppression" in
   let __resource =
-    {
-      description;
-      enabled;
-      id;
-      name;
-      resource_group_name;
-      tags;
-      condition;
-      scope;
-      suppression;
-      timeouts;
-    }
+    ({
+       description;
+       enabled;
+       id;
+       name;
+       resource_group_name;
+       tags;
+       condition;
+       scope;
+       suppression;
+       timeouts;
+     }
+      : azurerm_monitor_action_rule_suppression)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_action_rule_suppression __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -6,6 +6,14 @@ type google_access_context_manager_access_policy_iam_binding__condition
 
 type google_access_context_manager_access_policy_iam_binding
 
+type t = private {
+  etag : string prop;
+  id : string prop;
+  members : string list prop;
+  name : string prop;
+  role : string prop;
+}
+
 val google_access_context_manager_access_policy_iam_binding :
   ?id:string prop ->
   members:string prop list ->
@@ -15,4 +23,4 @@ val google_access_context_manager_access_policy_iam_binding :
     google_access_context_manager_access_policy_iam_binding__condition
     list ->
   string ->
-  unit
+  t

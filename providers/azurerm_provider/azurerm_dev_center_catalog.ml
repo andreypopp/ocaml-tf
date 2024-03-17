@@ -43,21 +43,41 @@ type azurerm_dev_center_catalog = {
 [@@deriving yojson_of]
 (** azurerm_dev_center_catalog *)
 
+type t = {
+  dev_center_id : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_dev_center_catalog ?id ?timeouts ~dev_center_id ~name
     ~resource_group_name ~catalog_adogit ~catalog_github
     __resource_id =
   let __resource_type = "azurerm_dev_center_catalog" in
   let __resource =
-    {
-      dev_center_id;
-      id;
-      name;
-      resource_group_name;
-      catalog_adogit;
-      catalog_github;
-      timeouts;
-    }
+    ({
+       dev_center_id;
+       id;
+       name;
+       resource_group_name;
+       catalog_adogit;
+       catalog_github;
+       timeouts;
+     }
+      : azurerm_dev_center_catalog)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_center_catalog __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dev_center_id =
+         Prop.computed __resource_type __resource_id "dev_center_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

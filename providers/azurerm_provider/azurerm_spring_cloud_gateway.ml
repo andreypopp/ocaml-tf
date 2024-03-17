@@ -121,6 +121,20 @@ type azurerm_spring_cloud_gateway = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway *)
 
+type t = {
+  application_performance_monitoring_ids : string list prop;
+  application_performance_monitoring_types : string list prop;
+  environment_variables : (string * string) list prop;
+  https_only : bool prop;
+  id : string prop;
+  instance_count : float prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  sensitive_environment_variables : (string * string) list prop;
+  spring_cloud_service_id : string prop;
+  url : string prop;
+}
+
 let azurerm_spring_cloud_gateway
     ?application_performance_monitoring_ids
     ?application_performance_monitoring_types ?environment_variables
@@ -131,27 +145,58 @@ let azurerm_spring_cloud_gateway
     ~local_response_cache_per_route ~quota ~sso __resource_id =
   let __resource_type = "azurerm_spring_cloud_gateway" in
   let __resource =
-    {
-      application_performance_monitoring_ids;
-      application_performance_monitoring_types;
-      environment_variables;
-      https_only;
-      id;
-      instance_count;
-      name;
-      public_network_access_enabled;
-      sensitive_environment_variables;
-      spring_cloud_service_id;
-      api_metadata;
-      client_authorization;
-      cors;
-      local_response_cache_per_instance;
-      local_response_cache_per_route;
-      quota;
-      sso;
-      timeouts;
-    }
+    ({
+       application_performance_monitoring_ids;
+       application_performance_monitoring_types;
+       environment_variables;
+       https_only;
+       id;
+       instance_count;
+       name;
+       public_network_access_enabled;
+       sensitive_environment_variables;
+       spring_cloud_service_id;
+       api_metadata;
+       client_authorization;
+       cors;
+       local_response_cache_per_instance;
+       local_response_cache_per_route;
+       quota;
+       sso;
+       timeouts;
+     }
+      : azurerm_spring_cloud_gateway)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_gateway __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_performance_monitoring_ids =
+         Prop.computed __resource_type __resource_id
+           "application_performance_monitoring_ids";
+       application_performance_monitoring_types =
+         Prop.computed __resource_type __resource_id
+           "application_performance_monitoring_types";
+       environment_variables =
+         Prop.computed __resource_type __resource_id
+           "environment_variables";
+       https_only =
+         Prop.computed __resource_type __resource_id "https_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_count =
+         Prop.computed __resource_type __resource_id "instance_count";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       sensitive_environment_variables =
+         Prop.computed __resource_type __resource_id
+           "sensitive_environment_variables";
+       spring_cloud_service_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_service_id";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

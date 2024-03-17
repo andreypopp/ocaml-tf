@@ -60,6 +60,28 @@ type aws_appstream_fleet = {
 [@@deriving yojson_of]
 (** aws_appstream_fleet *)
 
+type t = {
+  arn : string prop;
+  created_time : string prop;
+  description : string prop;
+  disconnect_timeout_in_seconds : float prop;
+  display_name : string prop;
+  enable_default_internet_access : bool prop;
+  fleet_type : string prop;
+  iam_role_arn : string prop;
+  id : string prop;
+  idle_disconnect_timeout_in_seconds : float prop;
+  image_arn : string prop;
+  image_name : string prop;
+  instance_type : string prop;
+  max_user_duration_in_seconds : float prop;
+  name : string prop;
+  state : string prop;
+  stream_view : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
     ?display_name ?enable_default_internet_access ?fleet_type
     ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds ?image_arn
@@ -68,28 +90,71 @@ let aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
     ~domain_join_info ~vpc_config __resource_id =
   let __resource_type = "aws_appstream_fleet" in
   let __resource =
-    {
-      description;
-      disconnect_timeout_in_seconds;
-      display_name;
-      enable_default_internet_access;
-      fleet_type;
-      iam_role_arn;
-      id;
-      idle_disconnect_timeout_in_seconds;
-      image_arn;
-      image_name;
-      instance_type;
-      max_user_duration_in_seconds;
-      name;
-      stream_view;
-      tags;
-      tags_all;
-      compute_capacity;
-      domain_join_info;
-      vpc_config;
-    }
+    ({
+       description;
+       disconnect_timeout_in_seconds;
+       display_name;
+       enable_default_internet_access;
+       fleet_type;
+       iam_role_arn;
+       id;
+       idle_disconnect_timeout_in_seconds;
+       image_arn;
+       image_name;
+       instance_type;
+       max_user_duration_in_seconds;
+       name;
+       stream_view;
+       tags;
+       tags_all;
+       compute_capacity;
+       domain_join_info;
+       vpc_config;
+     }
+      : aws_appstream_fleet)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_fleet __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_time =
+         Prop.computed __resource_type __resource_id "created_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disconnect_timeout_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "disconnect_timeout_in_seconds";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enable_default_internet_access =
+         Prop.computed __resource_type __resource_id
+           "enable_default_internet_access";
+       fleet_type =
+         Prop.computed __resource_type __resource_id "fleet_type";
+       iam_role_arn =
+         Prop.computed __resource_type __resource_id "iam_role_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       idle_disconnect_timeout_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "idle_disconnect_timeout_in_seconds";
+       image_arn =
+         Prop.computed __resource_type __resource_id "image_arn";
+       image_name =
+         Prop.computed __resource_type __resource_id "image_name";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       max_user_duration_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "max_user_duration_in_seconds";
+       name = Prop.computed __resource_type __resource_id "name";
+       state = Prop.computed __resource_type __resource_id "state";
+       stream_view =
+         Prop.computed __resource_type __resource_id "stream_view";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

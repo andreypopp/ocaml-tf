@@ -94,6 +94,23 @@ type azurerm_active_directory_domain_service = {
 [@@deriving yojson_of]
 (** azurerm_active_directory_domain_service *)
 
+type t = {
+  deployment_id : string prop;
+  domain_configuration_type : string prop;
+  domain_name : string prop;
+  filtered_sync_enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  resource_id : string prop;
+  sku : string prop;
+  sync_owner : string prop;
+  tags : (string * string) list prop;
+  tenant_id : string prop;
+  version : float prop;
+}
+
 let azurerm_active_directory_domain_service
     ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
     ?timeouts ~domain_name ~location ~name ~resource_group_name ~sku
@@ -101,23 +118,56 @@ let azurerm_active_directory_domain_service
     __resource_id =
   let __resource_type = "azurerm_active_directory_domain_service" in
   let __resource =
-    {
-      domain_configuration_type;
-      domain_name;
-      filtered_sync_enabled;
-      id;
-      location;
-      name;
-      resource_group_name;
-      sku;
-      tags;
-      initial_replica_set;
-      notifications;
-      secure_ldap;
-      security;
-      timeouts;
-    }
+    ({
+       domain_configuration_type;
+       domain_name;
+       filtered_sync_enabled;
+       id;
+       location;
+       name;
+       resource_group_name;
+       sku;
+       tags;
+       initial_replica_set;
+       notifications;
+       secure_ldap;
+       security;
+       timeouts;
+     }
+      : azurerm_active_directory_domain_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_active_directory_domain_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       deployment_id =
+         Prop.computed __resource_type __resource_id "deployment_id";
+       domain_configuration_type =
+         Prop.computed __resource_type __resource_id
+           "domain_configuration_type";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       filtered_sync_enabled =
+         Prop.computed __resource_type __resource_id
+           "filtered_sync_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       resource_id =
+         Prop.computed __resource_type __resource_id "resource_id";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       sync_owner =
+         Prop.computed __resource_type __resource_id "sync_owner";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tenant_id =
+         Prop.computed __resource_type __resource_id "tenant_id";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

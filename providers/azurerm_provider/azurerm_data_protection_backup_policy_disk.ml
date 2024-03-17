@@ -47,6 +47,15 @@ type azurerm_data_protection_backup_policy_disk = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_disk *)
 
+type t = {
+  backup_repeating_time_intervals : string list prop;
+  default_retention_duration : string prop;
+  id : string prop;
+  name : string prop;
+  time_zone : string prop;
+  vault_id : string prop;
+}
+
 let azurerm_data_protection_backup_policy_disk ?id ?time_zone
     ?timeouts ~backup_repeating_time_intervals
     ~default_retention_duration ~name ~vault_id ~retention_rule
@@ -55,17 +64,35 @@ let azurerm_data_protection_backup_policy_disk ?id ?time_zone
     "azurerm_data_protection_backup_policy_disk"
   in
   let __resource =
-    {
-      backup_repeating_time_intervals;
-      default_retention_duration;
-      id;
-      name;
-      time_zone;
-      vault_id;
-      retention_rule;
-      timeouts;
-    }
+    ({
+       backup_repeating_time_intervals;
+       default_retention_duration;
+       id;
+       name;
+       time_zone;
+       vault_id;
+       retention_rule;
+       timeouts;
+     }
+      : azurerm_data_protection_backup_policy_disk)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_policy_disk __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backup_repeating_time_intervals =
+         Prop.computed __resource_type __resource_id
+           "backup_repeating_time_intervals";
+       default_retention_duration =
+         Prop.computed __resource_type __resource_id
+           "default_retention_duration";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+       vault_id =
+         Prop.computed __resource_type __resource_id "vault_id";
+     }
+      : t)
+  in
+  __resource_attributes

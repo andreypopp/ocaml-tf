@@ -30,10 +30,29 @@ requests will be passed back to other DNS servers configured on
 existing network interfaces on the device.
  *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  policy_id : string prop;
+}
+
 let cloudflare_fallback_domain ?id ?policy_id ~account_id ~domains
     __resource_id =
   let __resource_type = "cloudflare_fallback_domain" in
-  let __resource = { account_id; id; policy_id; domains } in
+  let __resource =
+    ({ account_id; id; policy_id; domains }
+      : cloudflare_fallback_domain)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_fallback_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       policy_id =
+         Prop.computed __resource_type __resource_id "policy_id";
+     }
+      : t)
+  in
+  __resource_attributes

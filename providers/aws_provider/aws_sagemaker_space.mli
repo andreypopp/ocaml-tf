@@ -37,6 +37,18 @@ type aws_sagemaker_space__space_settings
 type aws_sagemaker_space__space_sharing_settings
 type aws_sagemaker_space
 
+type t = private {
+  arn : string prop;
+  domain_id : string prop;
+  home_efs_file_system_uid : string prop;
+  id : string prop;
+  space_display_name : string prop;
+  space_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url : string prop;
+}
+
 val aws_sagemaker_space :
   ?id:string prop ->
   ?space_display_name:string prop ->
@@ -49,4 +61,4 @@ val aws_sagemaker_space :
   space_sharing_settings:
     aws_sagemaker_space__space_sharing_settings list ->
   string ->
-  unit
+  t

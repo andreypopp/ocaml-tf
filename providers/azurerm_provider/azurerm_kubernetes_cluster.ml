@@ -765,6 +765,53 @@ type azurerm_kubernetes_cluster = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster *)
 
+type t = {
+  api_server_authorized_ip_ranges : string list prop;
+  automatic_channel_upgrade : string prop;
+  azure_policy_enabled : bool prop;
+  current_kubernetes_version : string prop;
+  custom_ca_trust_certificates_base64 : string list prop;
+  disk_encryption_set_id : string prop;
+  dns_prefix : string prop;
+  dns_prefix_private_cluster : string prop;
+  edge_zone : string prop;
+  enable_pod_security_policy : bool prop;
+  fqdn : string prop;
+  http_application_routing_enabled : bool prop;
+  http_application_routing_zone_name : string prop;
+  id : string prop;
+  image_cleaner_enabled : bool prop;
+  image_cleaner_interval_hours : float prop;
+  kube_admin_config :
+    azurerm_kubernetes_cluster__kube_admin_config list prop;
+  kube_admin_config_raw : string prop;
+  kube_config : azurerm_kubernetes_cluster__kube_config list prop;
+  kube_config_raw : string prop;
+  kubernetes_version : string prop;
+  local_account_disabled : bool prop;
+  location : string prop;
+  name : string prop;
+  node_os_channel_upgrade : string prop;
+  node_resource_group : string prop;
+  node_resource_group_id : string prop;
+  oidc_issuer_enabled : bool prop;
+  oidc_issuer_url : string prop;
+  open_service_mesh_enabled : bool prop;
+  portal_fqdn : string prop;
+  private_cluster_enabled : bool prop;
+  private_cluster_public_fqdn_enabled : bool prop;
+  private_dns_zone_id : string prop;
+  private_fqdn : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  role_based_access_control_enabled : bool prop;
+  run_command_enabled : bool prop;
+  sku_tier : string prop;
+  support_plan : string prop;
+  tags : (string * string) list prop;
+  workload_identity_enabled : bool prop;
+}
+
 let azurerm_kubernetes_cluster ?api_server_authorized_ip_ranges
     ?automatic_channel_upgrade ?azure_policy_enabled
     ?custom_ca_trust_certificates_base64 ?disk_encryption_set_id
@@ -791,68 +838,187 @@ let azurerm_kubernetes_cluster ?api_server_authorized_ip_ranges
     ~windows_profile ~workload_autoscaler_profile __resource_id =
   let __resource_type = "azurerm_kubernetes_cluster" in
   let __resource =
-    {
-      api_server_authorized_ip_ranges;
-      automatic_channel_upgrade;
-      azure_policy_enabled;
-      custom_ca_trust_certificates_base64;
-      disk_encryption_set_id;
-      dns_prefix;
-      dns_prefix_private_cluster;
-      edge_zone;
-      enable_pod_security_policy;
-      http_application_routing_enabled;
-      id;
-      image_cleaner_enabled;
-      image_cleaner_interval_hours;
-      kubernetes_version;
-      local_account_disabled;
-      location;
-      name;
-      node_os_channel_upgrade;
-      node_resource_group;
-      oidc_issuer_enabled;
-      open_service_mesh_enabled;
-      private_cluster_enabled;
-      private_cluster_public_fqdn_enabled;
-      private_dns_zone_id;
-      public_network_access_enabled;
-      resource_group_name;
-      role_based_access_control_enabled;
-      run_command_enabled;
-      sku_tier;
-      support_plan;
-      tags;
-      workload_identity_enabled;
-      aci_connector_linux;
-      api_server_access_profile;
-      auto_scaler_profile;
-      azure_active_directory_role_based_access_control;
-      confidential_computing;
-      default_node_pool;
-      http_proxy_config;
-      identity;
-      ingress_application_gateway;
-      key_management_service;
-      key_vault_secrets_provider;
-      kubelet_identity;
-      linux_profile;
-      maintenance_window;
-      maintenance_window_auto_upgrade;
-      maintenance_window_node_os;
-      microsoft_defender;
-      monitor_metrics;
-      network_profile;
-      oms_agent;
-      service_mesh_profile;
-      service_principal;
-      storage_profile;
-      timeouts;
-      web_app_routing;
-      windows_profile;
-      workload_autoscaler_profile;
-    }
+    ({
+       api_server_authorized_ip_ranges;
+       automatic_channel_upgrade;
+       azure_policy_enabled;
+       custom_ca_trust_certificates_base64;
+       disk_encryption_set_id;
+       dns_prefix;
+       dns_prefix_private_cluster;
+       edge_zone;
+       enable_pod_security_policy;
+       http_application_routing_enabled;
+       id;
+       image_cleaner_enabled;
+       image_cleaner_interval_hours;
+       kubernetes_version;
+       local_account_disabled;
+       location;
+       name;
+       node_os_channel_upgrade;
+       node_resource_group;
+       oidc_issuer_enabled;
+       open_service_mesh_enabled;
+       private_cluster_enabled;
+       private_cluster_public_fqdn_enabled;
+       private_dns_zone_id;
+       public_network_access_enabled;
+       resource_group_name;
+       role_based_access_control_enabled;
+       run_command_enabled;
+       sku_tier;
+       support_plan;
+       tags;
+       workload_identity_enabled;
+       aci_connector_linux;
+       api_server_access_profile;
+       auto_scaler_profile;
+       azure_active_directory_role_based_access_control;
+       confidential_computing;
+       default_node_pool;
+       http_proxy_config;
+       identity;
+       ingress_application_gateway;
+       key_management_service;
+       key_vault_secrets_provider;
+       kubelet_identity;
+       linux_profile;
+       maintenance_window;
+       maintenance_window_auto_upgrade;
+       maintenance_window_node_os;
+       microsoft_defender;
+       monitor_metrics;
+       network_profile;
+       oms_agent;
+       service_mesh_profile;
+       service_principal;
+       storage_profile;
+       timeouts;
+       web_app_routing;
+       windows_profile;
+       workload_autoscaler_profile;
+     }
+      : azurerm_kubernetes_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_server_authorized_ip_ranges =
+         Prop.computed __resource_type __resource_id
+           "api_server_authorized_ip_ranges";
+       automatic_channel_upgrade =
+         Prop.computed __resource_type __resource_id
+           "automatic_channel_upgrade";
+       azure_policy_enabled =
+         Prop.computed __resource_type __resource_id
+           "azure_policy_enabled";
+       current_kubernetes_version =
+         Prop.computed __resource_type __resource_id
+           "current_kubernetes_version";
+       custom_ca_trust_certificates_base64 =
+         Prop.computed __resource_type __resource_id
+           "custom_ca_trust_certificates_base64";
+       disk_encryption_set_id =
+         Prop.computed __resource_type __resource_id
+           "disk_encryption_set_id";
+       dns_prefix =
+         Prop.computed __resource_type __resource_id "dns_prefix";
+       dns_prefix_private_cluster =
+         Prop.computed __resource_type __resource_id
+           "dns_prefix_private_cluster";
+       edge_zone =
+         Prop.computed __resource_type __resource_id "edge_zone";
+       enable_pod_security_policy =
+         Prop.computed __resource_type __resource_id
+           "enable_pod_security_policy";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       http_application_routing_enabled =
+         Prop.computed __resource_type __resource_id
+           "http_application_routing_enabled";
+       http_application_routing_zone_name =
+         Prop.computed __resource_type __resource_id
+           "http_application_routing_zone_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       image_cleaner_enabled =
+         Prop.computed __resource_type __resource_id
+           "image_cleaner_enabled";
+       image_cleaner_interval_hours =
+         Prop.computed __resource_type __resource_id
+           "image_cleaner_interval_hours";
+       kube_admin_config =
+         Prop.computed __resource_type __resource_id
+           "kube_admin_config";
+       kube_admin_config_raw =
+         Prop.computed __resource_type __resource_id
+           "kube_admin_config_raw";
+       kube_config =
+         Prop.computed __resource_type __resource_id "kube_config";
+       kube_config_raw =
+         Prop.computed __resource_type __resource_id
+           "kube_config_raw";
+       kubernetes_version =
+         Prop.computed __resource_type __resource_id
+           "kubernetes_version";
+       local_account_disabled =
+         Prop.computed __resource_type __resource_id
+           "local_account_disabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_os_channel_upgrade =
+         Prop.computed __resource_type __resource_id
+           "node_os_channel_upgrade";
+       node_resource_group =
+         Prop.computed __resource_type __resource_id
+           "node_resource_group";
+       node_resource_group_id =
+         Prop.computed __resource_type __resource_id
+           "node_resource_group_id";
+       oidc_issuer_enabled =
+         Prop.computed __resource_type __resource_id
+           "oidc_issuer_enabled";
+       oidc_issuer_url =
+         Prop.computed __resource_type __resource_id
+           "oidc_issuer_url";
+       open_service_mesh_enabled =
+         Prop.computed __resource_type __resource_id
+           "open_service_mesh_enabled";
+       portal_fqdn =
+         Prop.computed __resource_type __resource_id "portal_fqdn";
+       private_cluster_enabled =
+         Prop.computed __resource_type __resource_id
+           "private_cluster_enabled";
+       private_cluster_public_fqdn_enabled =
+         Prop.computed __resource_type __resource_id
+           "private_cluster_public_fqdn_enabled";
+       private_dns_zone_id =
+         Prop.computed __resource_type __resource_id
+           "private_dns_zone_id";
+       private_fqdn =
+         Prop.computed __resource_type __resource_id "private_fqdn";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       role_based_access_control_enabled =
+         Prop.computed __resource_type __resource_id
+           "role_based_access_control_enabled";
+       run_command_enabled =
+         Prop.computed __resource_type __resource_id
+           "run_command_enabled";
+       sku_tier =
+         Prop.computed __resource_type __resource_id "sku_tier";
+       support_plan =
+         Prop.computed __resource_type __resource_id "support_plan";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       workload_identity_enabled =
+         Prop.computed __resource_type __resource_id
+           "workload_identity_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

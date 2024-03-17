@@ -6,6 +6,21 @@ type azurerm_media_streaming_locator__content_key
 type azurerm_media_streaming_locator__timeouts
 type azurerm_media_streaming_locator
 
+type t = private {
+  alternative_media_id : string prop;
+  asset_name : string prop;
+  default_content_key_policy_name : string prop;
+  end_time : string prop;
+  filter_names : string list prop;
+  id : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  start_time : string prop;
+  streaming_locator_id : string prop;
+  streaming_policy_name : string prop;
+}
+
 val azurerm_media_streaming_locator :
   ?alternative_media_id:string prop ->
   ?default_content_key_policy_name:string prop ->
@@ -22,4 +37,4 @@ val azurerm_media_streaming_locator :
   streaming_policy_name:string prop ->
   content_key:azurerm_media_streaming_locator__content_key list ->
   string ->
-  unit
+  t

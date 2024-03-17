@@ -167,28 +167,71 @@ type aws_scheduler_schedule = {
 [@@deriving yojson_of]
 (** aws_scheduler_schedule *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  end_date : string prop;
+  group_name : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  schedule_expression : string prop;
+  schedule_expression_timezone : string prop;
+  start_date : string prop;
+  state : string prop;
+}
+
 let aws_scheduler_schedule ?description ?end_date ?group_name ?id
     ?kms_key_arn ?name ?name_prefix ?schedule_expression_timezone
     ?start_date ?state ~schedule_expression ~flexible_time_window
     ~target __resource_id =
   let __resource_type = "aws_scheduler_schedule" in
   let __resource =
-    {
-      description;
-      end_date;
-      group_name;
-      id;
-      kms_key_arn;
-      name;
-      name_prefix;
-      schedule_expression;
-      schedule_expression_timezone;
-      start_date;
-      state;
-      flexible_time_window;
-      target;
-    }
+    ({
+       description;
+       end_date;
+       group_name;
+       id;
+       kms_key_arn;
+       name;
+       name_prefix;
+       schedule_expression;
+       schedule_expression_timezone;
+       start_date;
+       state;
+       flexible_time_window;
+       target;
+     }
+      : aws_scheduler_schedule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_scheduler_schedule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       end_date =
+         Prop.computed __resource_type __resource_id "end_date";
+       group_name =
+         Prop.computed __resource_type __resource_id "group_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_arn =
+         Prop.computed __resource_type __resource_id "kms_key_arn";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       schedule_expression =
+         Prop.computed __resource_type __resource_id
+           "schedule_expression";
+       schedule_expression_timezone =
+         Prop.computed __resource_type __resource_id
+           "schedule_expression_timezone";
+       start_date =
+         Prop.computed __resource_type __resource_id "start_date";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

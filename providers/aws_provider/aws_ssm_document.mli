@@ -13,6 +13,32 @@ type aws_ssm_document__parameter = {
 
 type aws_ssm_document
 
+type t = private {
+  arn : string prop;
+  content : string prop;
+  created_date : string prop;
+  default_version : string prop;
+  description : string prop;
+  document_format : string prop;
+  document_type : string prop;
+  document_version : string prop;
+  hash : string prop;
+  hash_type : string prop;
+  id : string prop;
+  latest_version : string prop;
+  name : string prop;
+  owner : string prop;
+  parameter : aws_ssm_document__parameter list prop;
+  permissions : (string * string) list prop;
+  platform_types : string list prop;
+  schema_version : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_type : string prop;
+  version_name : string prop;
+}
+
 val aws_ssm_document :
   ?document_format:string prop ->
   ?id:string prop ->
@@ -26,4 +52,4 @@ val aws_ssm_document :
   name:string prop ->
   attachments_source:aws_ssm_document__attachments_source list ->
   string ->
-  unit
+  t

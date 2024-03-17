@@ -146,6 +146,40 @@ type google_cloudfunctions_function = {
 [@@deriving yojson_of]
 (** google_cloudfunctions_function *)
 
+type t = {
+  available_memory_mb : float prop;
+  build_environment_variables : (string * string) list prop;
+  build_worker_pool : string prop;
+  description : string prop;
+  docker_registry : string prop;
+  docker_repository : string prop;
+  effective_labels : (string * string) list prop;
+  entry_point : string prop;
+  environment_variables : (string * string) list prop;
+  https_trigger_security_level : string prop;
+  https_trigger_url : string prop;
+  id : string prop;
+  ingress_settings : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  max_instances : float prop;
+  min_instances : float prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  runtime : string prop;
+  service_account_email : string prop;
+  source_archive_bucket : string prop;
+  source_archive_object : string prop;
+  status : string prop;
+  terraform_labels : (string * string) list prop;
+  timeout : float prop;
+  trigger_http : bool prop;
+  version_id : string prop;
+  vpc_connector : string prop;
+  vpc_connector_egress_settings : string prop;
+}
+
 let google_cloudfunctions_function ?available_memory_mb
     ?build_environment_variables ?build_worker_pool ?description
     ?docker_registry ?docker_repository ?entry_point
@@ -159,41 +193,119 @@ let google_cloudfunctions_function ?available_memory_mb
     ~source_repository __resource_id =
   let __resource_type = "google_cloudfunctions_function" in
   let __resource =
-    {
-      available_memory_mb;
-      build_environment_variables;
-      build_worker_pool;
-      description;
-      docker_registry;
-      docker_repository;
-      entry_point;
-      environment_variables;
-      https_trigger_security_level;
-      https_trigger_url;
-      id;
-      ingress_settings;
-      kms_key_name;
-      labels;
-      max_instances;
-      min_instances;
-      name;
-      project;
-      region;
-      runtime;
-      service_account_email;
-      source_archive_bucket;
-      source_archive_object;
-      timeout;
-      trigger_http;
-      vpc_connector;
-      vpc_connector_egress_settings;
-      event_trigger;
-      secret_environment_variables;
-      secret_volumes;
-      source_repository;
-      timeouts;
-    }
+    ({
+       available_memory_mb;
+       build_environment_variables;
+       build_worker_pool;
+       description;
+       docker_registry;
+       docker_repository;
+       entry_point;
+       environment_variables;
+       https_trigger_security_level;
+       https_trigger_url;
+       id;
+       ingress_settings;
+       kms_key_name;
+       labels;
+       max_instances;
+       min_instances;
+       name;
+       project;
+       region;
+       runtime;
+       service_account_email;
+       source_archive_bucket;
+       source_archive_object;
+       timeout;
+       trigger_http;
+       vpc_connector;
+       vpc_connector_egress_settings;
+       event_trigger;
+       secret_environment_variables;
+       secret_volumes;
+       source_repository;
+       timeouts;
+     }
+      : google_cloudfunctions_function)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudfunctions_function __resource);
-  ()
+  let __resource_attributes =
+    ({
+       available_memory_mb =
+         Prop.computed __resource_type __resource_id
+           "available_memory_mb";
+       build_environment_variables =
+         Prop.computed __resource_type __resource_id
+           "build_environment_variables";
+       build_worker_pool =
+         Prop.computed __resource_type __resource_id
+           "build_worker_pool";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       docker_registry =
+         Prop.computed __resource_type __resource_id
+           "docker_registry";
+       docker_repository =
+         Prop.computed __resource_type __resource_id
+           "docker_repository";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       entry_point =
+         Prop.computed __resource_type __resource_id "entry_point";
+       environment_variables =
+         Prop.computed __resource_type __resource_id
+           "environment_variables";
+       https_trigger_security_level =
+         Prop.computed __resource_type __resource_id
+           "https_trigger_security_level";
+       https_trigger_url =
+         Prop.computed __resource_type __resource_id
+           "https_trigger_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       ingress_settings =
+         Prop.computed __resource_type __resource_id
+           "ingress_settings";
+       kms_key_name =
+         Prop.computed __resource_type __resource_id "kms_key_name";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       max_instances =
+         Prop.computed __resource_type __resource_id "max_instances";
+       min_instances =
+         Prop.computed __resource_type __resource_id "min_instances";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       runtime =
+         Prop.computed __resource_type __resource_id "runtime";
+       service_account_email =
+         Prop.computed __resource_type __resource_id
+           "service_account_email";
+       source_archive_bucket =
+         Prop.computed __resource_type __resource_id
+           "source_archive_bucket";
+       source_archive_object =
+         Prop.computed __resource_type __resource_id
+           "source_archive_object";
+       status = Prop.computed __resource_type __resource_id "status";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+       trigger_http =
+         Prop.computed __resource_type __resource_id "trigger_http";
+       version_id =
+         Prop.computed __resource_type __resource_id "version_id";
+       vpc_connector =
+         Prop.computed __resource_type __resource_id "vpc_connector";
+       vpc_connector_egress_settings =
+         Prop.computed __resource_type __resource_id
+           "vpc_connector_egress_settings";
+     }
+      : t)
+  in
+  __resource_attributes

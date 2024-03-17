@@ -77,10 +77,18 @@ type kubernetes_cluster_role_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_cluster_role_v1 *)
 
+type t = { id : string prop }
+
 let kubernetes_cluster_role_v1 ?id ~aggregation_rule ~metadata ~rule
     __resource_id =
   let __resource_type = "kubernetes_cluster_role_v1" in
-  let __resource = { id; aggregation_rule; metadata; rule } in
+  let __resource =
+    ({ id; aggregation_rule; metadata; rule }
+      : kubernetes_cluster_role_v1)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_cluster_role_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

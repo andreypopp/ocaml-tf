@@ -5,6 +5,16 @@ open! Tf.Prelude
 type azurerm_proximity_placement_group__timeouts
 type azurerm_proximity_placement_group
 
+type t = private {
+  allowed_vm_sizes : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  zone : string prop;
+}
+
 val azurerm_proximity_placement_group :
   ?allowed_vm_sizes:string prop list ->
   ?id:string prop ->
@@ -15,4 +25,4 @@ val azurerm_proximity_placement_group :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

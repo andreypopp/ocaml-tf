@@ -57,6 +57,35 @@ type google_alloydb_cluster__migration_source = {
 
 type google_alloydb_cluster
 
+type t = private {
+  annotations : (string * string) list prop;
+  backup_source : google_alloydb_cluster__backup_source list prop;
+  cluster_id : string prop;
+  cluster_type : string prop;
+  continuous_backup_info :
+    google_alloydb_cluster__continuous_backup_info list prop;
+  database_version : string prop;
+  deletion_policy : string prop;
+  display_name : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  encryption_info :
+    google_alloydb_cluster__encryption_info list prop;
+  etag : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  migration_source :
+    google_alloydb_cluster__migration_source list prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+}
+
 val google_alloydb_cluster :
   ?annotations:(string * string prop) list ->
   ?cluster_type:string prop ->
@@ -84,4 +113,4 @@ val google_alloydb_cluster :
     google_alloydb_cluster__restore_continuous_backup_source list ->
   secondary_config:google_alloydb_cluster__secondary_config list ->
   string ->
-  unit
+  t

@@ -18,6 +18,16 @@ type cloudflare_teams_account__proxy
 type cloudflare_teams_account__ssh_session_log
 type cloudflare_teams_account
 
+type t = private {
+  account_id : string prop;
+  activity_log_enabled : bool prop;
+  id : string prop;
+  non_identity_browser_isolation_enabled : bool prop;
+  protocol_detection_enabled : bool prop;
+  tls_decrypt_enabled : bool prop;
+  url_browser_isolation_enabled : bool prop;
+}
+
 val cloudflare_teams_account :
   ?activity_log_enabled:bool prop ->
   ?id:string prop ->
@@ -37,4 +47,4 @@ val cloudflare_teams_account :
   proxy:cloudflare_teams_account__proxy list ->
   ssh_session_log:cloudflare_teams_account__ssh_session_log list ->
   string ->
-  unit
+  t

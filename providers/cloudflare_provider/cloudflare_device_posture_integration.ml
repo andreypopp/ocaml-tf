@@ -43,12 +43,36 @@ posture integrations configure third-party data providers for device
 posture rules.
  *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  identifier : string prop;
+  interval : string prop;
+  name : string prop;
+  type_ : string prop;
+}
+
 let cloudflare_device_posture_integration ?id ?identifier ?interval
     ~account_id ~name ~type_ ~config __resource_id =
   let __resource_type = "cloudflare_device_posture_integration" in
   let __resource =
-    { account_id; id; identifier; interval; name; type_; config }
+    ({ account_id; id; identifier; interval; name; type_; config }
+      : cloudflare_device_posture_integration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_posture_integration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       identifier =
+         Prop.computed __resource_type __resource_id "identifier";
+       interval =
+         Prop.computed __resource_type __resource_id "interval";
+       name = Prop.computed __resource_type __resource_id "name";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

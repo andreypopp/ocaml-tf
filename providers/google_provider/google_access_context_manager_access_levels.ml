@@ -180,12 +180,24 @@ Format: accessPolicies/{policy_id} *)
 [@@deriving yojson_of]
 (** google_access_context_manager_access_levels *)
 
+type t = { id : string prop; parent : string prop }
+
 let google_access_context_manager_access_levels ?id ?timeouts ~parent
     ~access_levels __resource_id =
   let __resource_type =
     "google_access_context_manager_access_levels"
   in
-  let __resource = { id; parent; access_levels; timeouts } in
+  let __resource =
+    ({ id; parent; access_levels; timeouts }
+      : google_access_context_manager_access_levels)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_access_levels __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       parent = Prop.computed __resource_type __resource_id "parent";
+     }
+      : t)
+  in
+  __resource_attributes

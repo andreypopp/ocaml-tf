@@ -41,21 +41,55 @@ Currently only NO_NAT (default value) is supported. Default value: NO_NAT Possib
 [@@deriving yojson_of]
 (** google_compute_target_instance *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  instance : string prop;
+  name : string prop;
+  nat_policy : string prop;
+  project : string prop;
+  self_link : string prop;
+  zone : string prop;
+}
+
 let google_compute_target_instance ?description ?id ?nat_policy
     ?project ?zone ?timeouts ~instance ~name __resource_id =
   let __resource_type = "google_compute_target_instance" in
   let __resource =
-    {
-      description;
-      id;
-      instance;
-      name;
-      nat_policy;
-      project;
-      zone;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       instance;
+       name;
+       nat_policy;
+       project;
+       zone;
+       timeouts;
+     }
+      : google_compute_target_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance =
+         Prop.computed __resource_type __resource_id "instance";
+       name = Prop.computed __resource_type __resource_id "name";
+       nat_policy =
+         Prop.computed __resource_type __resource_id "nat_policy";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

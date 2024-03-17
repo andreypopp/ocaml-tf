@@ -29,23 +29,57 @@ type azurerm_automation_job_schedule = {
 [@@deriving yojson_of]
 (** azurerm_automation_job_schedule *)
 
+type t = {
+  automation_account_name : string prop;
+  id : string prop;
+  job_schedule_id : string prop;
+  parameters : (string * string) list prop;
+  resource_group_name : string prop;
+  run_on : string prop;
+  runbook_name : string prop;
+  schedule_name : string prop;
+}
+
 let azurerm_automation_job_schedule ?id ?job_schedule_id ?parameters
     ?run_on ?timeouts ~automation_account_name ~resource_group_name
     ~runbook_name ~schedule_name __resource_id =
   let __resource_type = "azurerm_automation_job_schedule" in
   let __resource =
-    {
-      automation_account_name;
-      id;
-      job_schedule_id;
-      parameters;
-      resource_group_name;
-      run_on;
-      runbook_name;
-      schedule_name;
-      timeouts;
-    }
+    ({
+       automation_account_name;
+       id;
+       job_schedule_id;
+       parameters;
+       resource_group_name;
+       run_on;
+       runbook_name;
+       schedule_name;
+       timeouts;
+     }
+      : azurerm_automation_job_schedule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_job_schedule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automation_account_name =
+         Prop.computed __resource_type __resource_id
+           "automation_account_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       job_schedule_id =
+         Prop.computed __resource_type __resource_id
+           "job_schedule_id";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       run_on = Prop.computed __resource_type __resource_id "run_on";
+       runbook_name =
+         Prop.computed __resource_type __resource_id "runbook_name";
+       schedule_name =
+         Prop.computed __resource_type __resource_id "schedule_name";
+     }
+      : t)
+  in
+  __resource_attributes

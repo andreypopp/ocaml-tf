@@ -19,12 +19,35 @@ type cloudflare_zone_hold = {
 the hostname to another account for use.
  *)
 
+type t = {
+  hold : bool prop;
+  hold_after : string prop;
+  id : string prop;
+  include_subdomains : bool prop;
+  zone_id : string prop;
+}
+
 let cloudflare_zone_hold ?hold_after ?id ?include_subdomains ~hold
     ~zone_id __resource_id =
   let __resource_type = "cloudflare_zone_hold" in
   let __resource =
-    { hold; hold_after; id; include_subdomains; zone_id }
+    ({ hold; hold_after; id; include_subdomains; zone_id }
+      : cloudflare_zone_hold)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_hold __resource);
-  ()
+  let __resource_attributes =
+    ({
+       hold = Prop.computed __resource_type __resource_id "hold";
+       hold_after =
+         Prop.computed __resource_type __resource_id "hold_after";
+       id = Prop.computed __resource_type __resource_id "id";
+       include_subdomains =
+         Prop.computed __resource_type __resource_id
+           "include_subdomains";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -31,12 +31,26 @@ type aws_inspector2_organization_configuration = {
 [@@deriving yojson_of]
 (** aws_inspector2_organization_configuration *)
 
+type t = { id : string prop; max_account_limit_reached : bool prop }
+
 let aws_inspector2_organization_configuration ?id ?timeouts
     ~auto_enable __resource_id =
   let __resource_type =
     "aws_inspector2_organization_configuration"
   in
-  let __resource = { id; auto_enable; timeouts } in
+  let __resource =
+    ({ id; auto_enable; timeouts }
+      : aws_inspector2_organization_configuration)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_inspector2_organization_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       max_account_limit_reached =
+         Prop.computed __resource_type __resource_id
+           "max_account_limit_reached";
+     }
+      : t)
+  in
+  __resource_attributes

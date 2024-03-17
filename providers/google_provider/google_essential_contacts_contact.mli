@@ -5,6 +5,15 @@ open! Tf.Prelude
 type google_essential_contacts_contact__timeouts
 type google_essential_contacts_contact
 
+type t = private {
+  email : string prop;
+  id : string prop;
+  language_tag : string prop;
+  name : string prop;
+  notification_category_subscriptions : string list prop;
+  parent : string prop;
+}
+
 val google_essential_contacts_contact :
   ?id:string prop ->
   ?timeouts:google_essential_contacts_contact__timeouts ->
@@ -13,4 +22,4 @@ val google_essential_contacts_contact :
   notification_category_subscriptions:string prop list ->
   parent:string prop ->
   string ->
-  unit
+  t

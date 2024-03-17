@@ -63,19 +63,45 @@ type digitalocean_database_kafka_topic = {
 [@@deriving yojson_of]
 (** digitalocean_database_kafka_topic *)
 
+type t = {
+  cluster_id : string prop;
+  id : string prop;
+  name : string prop;
+  partition_count : float prop;
+  replication_factor : float prop;
+  state : string prop;
+}
+
 let digitalocean_database_kafka_topic ?id ?partition_count
     ?replication_factor ~cluster_id ~name ~config __resource_id =
   let __resource_type = "digitalocean_database_kafka_topic" in
   let __resource =
-    {
-      cluster_id;
-      id;
-      name;
-      partition_count;
-      replication_factor;
-      config;
-    }
+    ({
+       cluster_id;
+       id;
+       name;
+       partition_count;
+       replication_factor;
+       config;
+     }
+      : digitalocean_database_kafka_topic)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_kafka_topic __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       partition_count =
+         Prop.computed __resource_type __resource_id
+           "partition_count";
+       replication_factor =
+         Prop.computed __resource_type __resource_id
+           "replication_factor";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

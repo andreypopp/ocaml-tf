@@ -126,6 +126,17 @@ type cloudflare_worker_script = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare worker script resource. In order for a script to be active, you'll also need to setup a `cloudflare_worker_route`. *)
 
+type t = {
+  account_id : string prop;
+  compatibility_date : string prop;
+  compatibility_flags : string list prop;
+  content : string prop;
+  id : string prop;
+  logpush : bool prop;
+  module_ : bool prop;
+  name : string prop;
+}
+
 let cloudflare_worker_script ?compatibility_date ?compatibility_flags
     ?id ?logpush ?module_ ~account_id ~content ~name
     ~analytics_engine_binding ~d1_database_binding
@@ -134,27 +145,48 @@ let cloudflare_worker_script ?compatibility_date ?compatibility_flags
     ~service_binding ~webassembly_binding __resource_id =
   let __resource_type = "cloudflare_worker_script" in
   let __resource =
-    {
-      account_id;
-      compatibility_date;
-      compatibility_flags;
-      content;
-      id;
-      logpush;
-      module_;
-      name;
-      analytics_engine_binding;
-      d1_database_binding;
-      kv_namespace_binding;
-      placement;
-      plain_text_binding;
-      queue_binding;
-      r2_bucket_binding;
-      secret_text_binding;
-      service_binding;
-      webassembly_binding;
-    }
+    ({
+       account_id;
+       compatibility_date;
+       compatibility_flags;
+       content;
+       id;
+       logpush;
+       module_;
+       name;
+       analytics_engine_binding;
+       d1_database_binding;
+       kv_namespace_binding;
+       placement;
+       plain_text_binding;
+       queue_binding;
+       r2_bucket_binding;
+       secret_text_binding;
+       service_binding;
+       webassembly_binding;
+     }
+      : cloudflare_worker_script)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_worker_script __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       compatibility_date =
+         Prop.computed __resource_type __resource_id
+           "compatibility_date";
+       compatibility_flags =
+         Prop.computed __resource_type __resource_id
+           "compatibility_flags";
+       content =
+         Prop.computed __resource_type __resource_id "content";
+       id = Prop.computed __resource_type __resource_id "id";
+       logpush =
+         Prop.computed __resource_type __resource_id "logpush";
+       module_ = Prop.computed __resource_type __resource_id "module";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

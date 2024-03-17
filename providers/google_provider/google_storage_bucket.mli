@@ -16,6 +16,26 @@ type google_storage_bucket__versioning
 type google_storage_bucket__website
 type google_storage_bucket
 
+type t = private {
+  default_event_based_hold : bool prop;
+  effective_labels : (string * string) list prop;
+  enable_object_retention : bool prop;
+  force_destroy : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  public_access_prevention : string prop;
+  requester_pays : bool prop;
+  rpo : string prop;
+  self_link : string prop;
+  storage_class : string prop;
+  terraform_labels : (string * string) list prop;
+  uniform_bucket_level_access : bool prop;
+  url : string prop;
+}
+
 val google_storage_bucket :
   ?default_event_based_hold:bool prop ->
   ?enable_object_retention:bool prop ->
@@ -42,4 +62,4 @@ val google_storage_bucket :
   versioning:google_storage_bucket__versioning list ->
   website:google_storage_bucket__website list ->
   string ->
-  unit
+  t

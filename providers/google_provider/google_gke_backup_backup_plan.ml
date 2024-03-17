@@ -135,26 +135,77 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_gke_backup_backup_plan *)
 
+type t = {
+  cluster : string prop;
+  deactivated : bool prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  protected_pod_count : float prop;
+  state : string prop;
+  state_reason : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+}
+
 let google_gke_backup_backup_plan ?deactivated ?description ?id
     ?labels ?project ?timeouts ~cluster ~location ~name
     ~backup_config ~backup_schedule ~retention_policy __resource_id =
   let __resource_type = "google_gke_backup_backup_plan" in
   let __resource =
-    {
-      cluster;
-      deactivated;
-      description;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      backup_config;
-      backup_schedule;
-      retention_policy;
-      timeouts;
-    }
+    ({
+       cluster;
+       deactivated;
+       description;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       backup_config;
+       backup_schedule;
+       retention_policy;
+       timeouts;
+     }
+      : google_gke_backup_backup_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_backup_backup_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster =
+         Prop.computed __resource_type __resource_id "cluster";
+       deactivated =
+         Prop.computed __resource_type __resource_id "deactivated";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       protected_pod_count =
+         Prop.computed __resource_type __resource_id
+           "protected_pod_count";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_reason =
+         Prop.computed __resource_type __resource_id "state_reason";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+     }
+      : t)
+  in
+  __resource_attributes

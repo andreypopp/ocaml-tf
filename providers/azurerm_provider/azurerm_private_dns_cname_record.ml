@@ -26,21 +26,49 @@ type azurerm_private_dns_cname_record = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_cname_record *)
 
+type t = {
+  fqdn : string prop;
+  id : string prop;
+  name : string prop;
+  record : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  ttl : float prop;
+  zone_name : string prop;
+}
+
 let azurerm_private_dns_cname_record ?id ?tags ?timeouts ~name
     ~record ~resource_group_name ~ttl ~zone_name __resource_id =
   let __resource_type = "azurerm_private_dns_cname_record" in
   let __resource =
-    {
-      id;
-      name;
-      record;
-      resource_group_name;
-      tags;
-      ttl;
-      zone_name;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       record;
+       resource_group_name;
+       tags;
+       ttl;
+       zone_name;
+       timeouts;
+     }
+      : azurerm_private_dns_cname_record)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_cname_record __resource);
-  ()
+  let __resource_attributes =
+    ({
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       record = Prop.computed __resource_type __resource_id "record";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       ttl = Prop.computed __resource_type __resource_id "ttl";
+       zone_name =
+         Prop.computed __resource_type __resource_id "zone_name";
+     }
+      : t)
+  in
+  __resource_attributes

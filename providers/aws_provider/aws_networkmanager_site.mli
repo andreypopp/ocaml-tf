@@ -6,6 +6,15 @@ type aws_networkmanager_site__location
 type aws_networkmanager_site__timeouts
 type aws_networkmanager_site
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  global_network_id : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_networkmanager_site :
   ?description:string prop ->
   ?id:string prop ->
@@ -15,4 +24,4 @@ val aws_networkmanager_site :
   global_network_id:string prop ->
   location:aws_networkmanager_site__location list ->
   string ->
-  unit
+  t

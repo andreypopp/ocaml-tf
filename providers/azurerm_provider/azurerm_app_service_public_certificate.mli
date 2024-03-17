@@ -5,6 +5,16 @@ open! Tf.Prelude
 type azurerm_app_service_public_certificate__timeouts
 type azurerm_app_service_public_certificate
 
+type t = private {
+  app_service_name : string prop;
+  blob : string prop;
+  certificate_location : string prop;
+  certificate_name : string prop;
+  id : string prop;
+  resource_group_name : string prop;
+  thumbprint : string prop;
+}
+
 val azurerm_app_service_public_certificate :
   ?id:string prop ->
   ?timeouts:azurerm_app_service_public_certificate__timeouts ->
@@ -14,4 +24,4 @@ val azurerm_app_service_public_certificate :
   certificate_name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

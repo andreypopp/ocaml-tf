@@ -43,6 +43,15 @@ type google_gke_hub_feature_membership__policycontroller
 type google_gke_hub_feature_membership__timeouts
 type google_gke_hub_feature_membership
 
+type t = private {
+  feature : string prop;
+  id : string prop;
+  location : string prop;
+  membership : string prop;
+  membership_location : string prop;
+  project : string prop;
+}
+
 val google_gke_hub_feature_membership :
   ?id:string prop ->
   ?membership_location:string prop ->
@@ -57,4 +66,4 @@ val google_gke_hub_feature_membership :
   policycontroller:
     google_gke_hub_feature_membership__policycontroller list ->
   string ->
-  unit
+  t

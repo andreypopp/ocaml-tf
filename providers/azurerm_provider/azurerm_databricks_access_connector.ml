@@ -35,20 +35,42 @@ type azurerm_databricks_access_connector = {
 [@@deriving yojson_of]
 (** azurerm_databricks_access_connector *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_databricks_access_connector ?id ?tags ?timeouts ~location
     ~name ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_databricks_access_connector" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      identity;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       identity;
+       timeouts;
+     }
+      : azurerm_databricks_access_connector)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_databricks_access_connector __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

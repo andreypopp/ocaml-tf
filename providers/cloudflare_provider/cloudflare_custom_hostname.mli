@@ -21,6 +21,19 @@ type cloudflare_custom_hostname__ssl__validation_records = {
 type cloudflare_custom_hostname__ssl
 type cloudflare_custom_hostname
 
+type t = private {
+  custom_metadata : (string * string) list prop;
+  custom_origin_server : string prop;
+  custom_origin_sni : string prop;
+  hostname : string prop;
+  id : string prop;
+  ownership_verification : (string * string) list prop;
+  ownership_verification_http : (string * string) list prop;
+  status : string prop;
+  wait_for_ssl_pending_validation : bool prop;
+  zone_id : string prop;
+}
+
 val cloudflare_custom_hostname :
   ?custom_metadata:(string * string prop) list ->
   ?custom_origin_server:string prop ->
@@ -31,4 +44,4 @@ val cloudflare_custom_hostname :
   zone_id:string prop ->
   ssl:cloudflare_custom_hostname__ssl list ->
   string ->
-  unit
+  t

@@ -77,19 +77,59 @@ type azurerm_databox_edge_order = {
 [@@deriving yojson_of]
 (** azurerm_databox_edge_order *)
 
+type t = {
+  device_name : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  return_tracking :
+    azurerm_databox_edge_order__return_tracking list prop;
+  serial_number : string prop;
+  shipment_history :
+    azurerm_databox_edge_order__shipment_history list prop;
+  shipment_tracking :
+    azurerm_databox_edge_order__shipment_tracking list prop;
+  status : azurerm_databox_edge_order__status list prop;
+}
+
 let azurerm_databox_edge_order ?id ?timeouts ~device_name
     ~resource_group_name ~contact ~shipment_address __resource_id =
   let __resource_type = "azurerm_databox_edge_order" in
   let __resource =
-    {
-      device_name;
-      id;
-      resource_group_name;
-      contact;
-      shipment_address;
-      timeouts;
-    }
+    ({
+       device_name;
+       id;
+       resource_group_name;
+       contact;
+       shipment_address;
+       timeouts;
+     }
+      : azurerm_databox_edge_order)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_databox_edge_order __resource);
-  ()
+  let __resource_attributes =
+    ({
+       device_name =
+         Prop.computed __resource_type __resource_id "device_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       return_tracking =
+         Prop.computed __resource_type __resource_id
+           "return_tracking";
+       serial_number =
+         Prop.computed __resource_type __resource_id "serial_number";
+       shipment_history =
+         Prop.computed __resource_type __resource_id
+           "shipment_history";
+       shipment_tracking =
+         Prop.computed __resource_type __resource_id
+           "shipment_tracking";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

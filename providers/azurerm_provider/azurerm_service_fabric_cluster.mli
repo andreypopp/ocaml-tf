@@ -29,6 +29,23 @@ type azurerm_service_fabric_cluster__upgrade_policy__health_policy
 type azurerm_service_fabric_cluster__upgrade_policy
 type azurerm_service_fabric_cluster
 
+type t = private {
+  add_on_features : string list prop;
+  cluster_code_version : string prop;
+  cluster_endpoint : string prop;
+  id : string prop;
+  location : string prop;
+  management_endpoint : string prop;
+  name : string prop;
+  reliability_level : string prop;
+  resource_group_name : string prop;
+  service_fabric_zonal_upgrade_mode : string prop;
+  tags : (string * string) list prop;
+  upgrade_mode : string prop;
+  vm_image : string prop;
+  vmss_zonal_upgrade_mode : string prop;
+}
+
 val azurerm_service_fabric_cluster :
   ?add_on_features:string prop list ->
   ?cluster_code_version:string prop ->
@@ -67,4 +84,4 @@ val azurerm_service_fabric_cluster :
     list ->
   upgrade_policy:azurerm_service_fabric_cluster__upgrade_policy list ->
   string ->
-  unit
+  t

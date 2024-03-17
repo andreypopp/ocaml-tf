@@ -4,10 +4,19 @@ open! Tf.Prelude
 
 type aws_ec2_carrier_gateway
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  owner_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 val aws_ec2_carrier_gateway :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   vpc_id:string prop ->
   string ->
-  unit
+  t

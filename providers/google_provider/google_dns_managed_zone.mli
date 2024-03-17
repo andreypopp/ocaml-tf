@@ -15,6 +15,22 @@ type google_dns_managed_zone__private_visibility_config
 type google_dns_managed_zone__timeouts
 type google_dns_managed_zone
 
+type t = private {
+  creation_time : string prop;
+  description : string prop;
+  dns_name : string prop;
+  effective_labels : (string * string) list prop;
+  force_destroy : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  managed_zone_id : float prop;
+  name : string prop;
+  name_servers : string list prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  visibility : string prop;
+}
+
 val google_dns_managed_zone :
   ?description:string prop ->
   ?force_destroy:bool prop ->
@@ -33,4 +49,4 @@ val google_dns_managed_zone :
   private_visibility_config:
     google_dns_managed_zone__private_visibility_config list ->
   string ->
-  unit
+  t

@@ -15,6 +15,23 @@ type azurerm_firewall_policy__timeouts
 type azurerm_firewall_policy__tls_certificate
 type azurerm_firewall_policy
 
+type t = private {
+  auto_learn_private_ranges_enabled : bool prop;
+  base_policy_id : string prop;
+  child_policies : string list prop;
+  firewalls : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_ip_ranges : string list prop;
+  resource_group_name : string prop;
+  rule_collection_groups : string list prop;
+  sku : string prop;
+  sql_redirect_allowed : bool prop;
+  tags : (string * string) list prop;
+  threat_intelligence_mode : string prop;
+}
+
 val azurerm_firewall_policy :
   ?auto_learn_private_ranges_enabled:bool prop ->
   ?base_policy_id:string prop ->
@@ -38,4 +55,4 @@ val azurerm_firewall_policy :
     azurerm_firewall_policy__threat_intelligence_allowlist list ->
   tls_certificate:azurerm_firewall_policy__tls_certificate list ->
   string ->
-  unit
+  t

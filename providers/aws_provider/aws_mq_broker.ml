@@ -122,6 +122,29 @@ type aws_mq_broker = {
 [@@deriving yojson_of]
 (** aws_mq_broker *)
 
+type t = {
+  apply_immediately : bool prop;
+  arn : string prop;
+  authentication_strategy : string prop;
+  auto_minor_version_upgrade : bool prop;
+  broker_name : string prop;
+  data_replication_mode : string prop;
+  data_replication_primary_broker_arn : string prop;
+  deployment_mode : string prop;
+  engine_type : string prop;
+  engine_version : string prop;
+  host_instance_type : string prop;
+  id : string prop;
+  instances : aws_mq_broker__instances list prop;
+  pending_data_replication_mode : string prop;
+  publicly_accessible : bool prop;
+  security_groups : string list prop;
+  storage_type : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_mq_broker ?apply_immediately ?authentication_strategy
     ?auto_minor_version_upgrade ?data_replication_mode
     ?data_replication_primary_broker_arn ?deployment_mode ?id
@@ -132,33 +155,86 @@ let aws_mq_broker ?apply_immediately ?authentication_strategy
     ~maintenance_window_start_time ~user __resource_id =
   let __resource_type = "aws_mq_broker" in
   let __resource =
-    {
-      apply_immediately;
-      authentication_strategy;
-      auto_minor_version_upgrade;
-      broker_name;
-      data_replication_mode;
-      data_replication_primary_broker_arn;
-      deployment_mode;
-      engine_type;
-      engine_version;
-      host_instance_type;
-      id;
-      publicly_accessible;
-      security_groups;
-      storage_type;
-      subnet_ids;
-      tags;
-      tags_all;
-      configuration;
-      encryption_options;
-      ldap_server_metadata;
-      logs;
-      maintenance_window_start_time;
-      timeouts;
-      user;
-    }
+    ({
+       apply_immediately;
+       authentication_strategy;
+       auto_minor_version_upgrade;
+       broker_name;
+       data_replication_mode;
+       data_replication_primary_broker_arn;
+       deployment_mode;
+       engine_type;
+       engine_version;
+       host_instance_type;
+       id;
+       publicly_accessible;
+       security_groups;
+       storage_type;
+       subnet_ids;
+       tags;
+       tags_all;
+       configuration;
+       encryption_options;
+       ldap_server_metadata;
+       logs;
+       maintenance_window_start_time;
+       timeouts;
+       user;
+     }
+      : aws_mq_broker)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_mq_broker __resource);
-  ()
+  let __resource_attributes =
+    ({
+       apply_immediately =
+         Prop.computed __resource_type __resource_id
+           "apply_immediately";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       authentication_strategy =
+         Prop.computed __resource_type __resource_id
+           "authentication_strategy";
+       auto_minor_version_upgrade =
+         Prop.computed __resource_type __resource_id
+           "auto_minor_version_upgrade";
+       broker_name =
+         Prop.computed __resource_type __resource_id "broker_name";
+       data_replication_mode =
+         Prop.computed __resource_type __resource_id
+           "data_replication_mode";
+       data_replication_primary_broker_arn =
+         Prop.computed __resource_type __resource_id
+           "data_replication_primary_broker_arn";
+       deployment_mode =
+         Prop.computed __resource_type __resource_id
+           "deployment_mode";
+       engine_type =
+         Prop.computed __resource_type __resource_id "engine_type";
+       engine_version =
+         Prop.computed __resource_type __resource_id "engine_version";
+       host_instance_type =
+         Prop.computed __resource_type __resource_id
+           "host_instance_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       instances =
+         Prop.computed __resource_type __resource_id "instances";
+       pending_data_replication_mode =
+         Prop.computed __resource_type __resource_id
+           "pending_data_replication_mode";
+       publicly_accessible =
+         Prop.computed __resource_type __resource_id
+           "publicly_accessible";
+       security_groups =
+         Prop.computed __resource_type __resource_id
+           "security_groups";
+       storage_type =
+         Prop.computed __resource_type __resource_id "storage_type";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

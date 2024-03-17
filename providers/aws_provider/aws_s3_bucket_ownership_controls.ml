@@ -18,10 +18,21 @@ type aws_s3_bucket_ownership_controls = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_ownership_controls *)
 
+type t = { bucket : string prop; id : string prop }
+
 let aws_s3_bucket_ownership_controls ?id ~bucket ~rule __resource_id
     =
   let __resource_type = "aws_s3_bucket_ownership_controls" in
-  let __resource = { bucket; id; rule } in
+  let __resource =
+    ({ bucket; id; rule } : aws_s3_bucket_ownership_controls)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_ownership_controls __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

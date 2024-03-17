@@ -47,6 +47,21 @@ type azurerm_cdn_frontdoor_origin = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_origin *)
 
+type t = {
+  cdn_frontdoor_origin_group_id : string prop;
+  certificate_name_check_enabled : bool prop;
+  enabled : bool prop;
+  health_probes_enabled : bool prop;
+  host_name : string prop;
+  http_port : float prop;
+  https_port : float prop;
+  id : string prop;
+  name : string prop;
+  origin_host_header : string prop;
+  priority : float prop;
+  weight : float prop;
+}
+
 let azurerm_cdn_frontdoor_origin ?enabled ?health_probes_enabled
     ?http_port ?https_port ?id ?origin_host_header ?priority ?weight
     ?timeouts ~cdn_frontdoor_origin_group_id
@@ -54,23 +69,54 @@ let azurerm_cdn_frontdoor_origin ?enabled ?health_probes_enabled
     __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_origin" in
   let __resource =
-    {
-      cdn_frontdoor_origin_group_id;
-      certificate_name_check_enabled;
-      enabled;
-      health_probes_enabled;
-      host_name;
-      http_port;
-      https_port;
-      id;
-      name;
-      origin_host_header;
-      priority;
-      weight;
-      private_link;
-      timeouts;
-    }
+    ({
+       cdn_frontdoor_origin_group_id;
+       certificate_name_check_enabled;
+       enabled;
+       health_probes_enabled;
+       host_name;
+       http_port;
+       https_port;
+       id;
+       name;
+       origin_host_header;
+       priority;
+       weight;
+       private_link;
+       timeouts;
+     }
+      : azurerm_cdn_frontdoor_origin)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_origin __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cdn_frontdoor_origin_group_id =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_origin_group_id";
+       certificate_name_check_enabled =
+         Prop.computed __resource_type __resource_id
+           "certificate_name_check_enabled";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       health_probes_enabled =
+         Prop.computed __resource_type __resource_id
+           "health_probes_enabled";
+       host_name =
+         Prop.computed __resource_type __resource_id "host_name";
+       http_port =
+         Prop.computed __resource_type __resource_id "http_port";
+       https_port =
+         Prop.computed __resource_type __resource_id "https_port";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       origin_host_header =
+         Prop.computed __resource_type __resource_id
+           "origin_host_header";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       weight = Prop.computed __resource_type __resource_id "weight";
+     }
+      : t)
+  in
+  __resource_attributes

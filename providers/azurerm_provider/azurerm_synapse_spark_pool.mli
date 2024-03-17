@@ -9,6 +9,25 @@ type azurerm_synapse_spark_pool__spark_config
 type azurerm_synapse_spark_pool__timeouts
 type azurerm_synapse_spark_pool
 
+type t = private {
+  cache_size : float prop;
+  compute_isolation_enabled : bool prop;
+  dynamic_executor_allocation_enabled : bool prop;
+  id : string prop;
+  max_executors : float prop;
+  min_executors : float prop;
+  name : string prop;
+  node_count : float prop;
+  node_size : string prop;
+  node_size_family : string prop;
+  session_level_packages_enabled : bool prop;
+  spark_events_folder : string prop;
+  spark_log_folder : string prop;
+  spark_version : string prop;
+  synapse_workspace_id : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_synapse_spark_pool :
   ?cache_size:float prop ->
   ?compute_isolation_enabled:bool prop ->
@@ -33,4 +52,4 @@ val azurerm_synapse_spark_pool :
     azurerm_synapse_spark_pool__library_requirement list ->
   spark_config:azurerm_synapse_spark_pool__spark_config list ->
   string ->
-  unit
+  t

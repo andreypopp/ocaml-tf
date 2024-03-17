@@ -132,20 +132,75 @@ type azurerm_key_vault_certificate = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate *)
 
+type t = {
+  certificate_attribute :
+    azurerm_key_vault_certificate__certificate_attribute list prop;
+  certificate_data : string prop;
+  certificate_data_base64 : string prop;
+  id : string prop;
+  key_vault_id : string prop;
+  name : string prop;
+  resource_manager_id : string prop;
+  resource_manager_versionless_id : string prop;
+  secret_id : string prop;
+  tags : (string * string) list prop;
+  thumbprint : string prop;
+  version : string prop;
+  versionless_id : string prop;
+  versionless_secret_id : string prop;
+}
+
 let azurerm_key_vault_certificate ?id ?tags ?timeouts ~key_vault_id
     ~name ~certificate ~certificate_policy __resource_id =
   let __resource_type = "azurerm_key_vault_certificate" in
   let __resource =
-    {
-      id;
-      key_vault_id;
-      name;
-      tags;
-      certificate;
-      certificate_policy;
-      timeouts;
-    }
+    ({
+       id;
+       key_vault_id;
+       name;
+       tags;
+       certificate;
+       certificate_policy;
+       timeouts;
+     }
+      : azurerm_key_vault_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_attribute =
+         Prop.computed __resource_type __resource_id
+           "certificate_attribute";
+       certificate_data =
+         Prop.computed __resource_type __resource_id
+           "certificate_data";
+       certificate_data_base64 =
+         Prop.computed __resource_type __resource_id
+           "certificate_data_base64";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_id =
+         Prop.computed __resource_type __resource_id "key_vault_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_manager_id =
+         Prop.computed __resource_type __resource_id
+           "resource_manager_id";
+       resource_manager_versionless_id =
+         Prop.computed __resource_type __resource_id
+           "resource_manager_versionless_id";
+       secret_id =
+         Prop.computed __resource_type __resource_id "secret_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       thumbprint =
+         Prop.computed __resource_type __resource_id "thumbprint";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       versionless_id =
+         Prop.computed __resource_type __resource_id "versionless_id";
+       versionless_secret_id =
+         Prop.computed __resource_type __resource_id
+           "versionless_secret_id";
+     }
+      : t)
+  in
+  __resource_attributes

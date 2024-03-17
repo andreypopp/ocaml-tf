@@ -47,20 +47,60 @@ type aws_default_security_group = {
 [@@deriving yojson_of]
 (** aws_default_security_group *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  egress : aws_default_security_group__egress list prop;
+  id : string prop;
+  ingress : aws_default_security_group__ingress list prop;
+  name : string prop;
+  name_prefix : string prop;
+  owner_id : string prop;
+  revoke_rules_on_delete : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 let aws_default_security_group ?egress ?id ?ingress
     ?revoke_rules_on_delete ?tags ?tags_all ?vpc_id __resource_id =
   let __resource_type = "aws_default_security_group" in
   let __resource =
-    {
-      egress;
-      id;
-      ingress;
-      revoke_rules_on_delete;
-      tags;
-      tags_all;
-      vpc_id;
-    }
+    ({
+       egress;
+       id;
+       ingress;
+       revoke_rules_on_delete;
+       tags;
+       tags_all;
+       vpc_id;
+     }
+      : aws_default_security_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_security_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       egress = Prop.computed __resource_type __resource_id "egress";
+       id = Prop.computed __resource_type __resource_id "id";
+       ingress =
+         Prop.computed __resource_type __resource_id "ingress";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       owner_id =
+         Prop.computed __resource_type __resource_id "owner_id";
+       revoke_rules_on_delete =
+         Prop.computed __resource_type __resource_id
+           "revoke_rules_on_delete";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -351,6 +351,22 @@ type azurerm_eventgrid_system_topic_event_subscription = {
 [@@deriving yojson_of]
 (** azurerm_eventgrid_system_topic_event_subscription *)
 
+type t = {
+  advanced_filtering_on_arrays_enabled : bool prop;
+  event_delivery_schema : string prop;
+  eventhub_endpoint_id : string prop;
+  expiration_time_utc : string prop;
+  hybrid_connection_endpoint_id : string prop;
+  id : string prop;
+  included_event_types : string list prop;
+  labels : string list prop;
+  name : string prop;
+  resource_group_name : string prop;
+  service_bus_queue_endpoint_id : string prop;
+  service_bus_topic_endpoint_id : string prop;
+  system_topic : string prop;
+}
+
 let azurerm_eventgrid_system_topic_event_subscription
     ?advanced_filtering_on_arrays_enabled ?event_delivery_schema
     ?eventhub_endpoint_id ?expiration_time_utc
@@ -365,34 +381,72 @@ let azurerm_eventgrid_system_topic_event_subscription
     "azurerm_eventgrid_system_topic_event_subscription"
   in
   let __resource =
-    {
-      advanced_filtering_on_arrays_enabled;
-      event_delivery_schema;
-      eventhub_endpoint_id;
-      expiration_time_utc;
-      hybrid_connection_endpoint_id;
-      id;
-      included_event_types;
-      labels;
-      name;
-      resource_group_name;
-      service_bus_queue_endpoint_id;
-      service_bus_topic_endpoint_id;
-      system_topic;
-      advanced_filter;
-      azure_function_endpoint;
-      dead_letter_identity;
-      delivery_identity;
-      delivery_property;
-      retry_policy;
-      storage_blob_dead_letter_destination;
-      storage_queue_endpoint;
-      subject_filter;
-      timeouts;
-      webhook_endpoint;
-    }
+    ({
+       advanced_filtering_on_arrays_enabled;
+       event_delivery_schema;
+       eventhub_endpoint_id;
+       expiration_time_utc;
+       hybrid_connection_endpoint_id;
+       id;
+       included_event_types;
+       labels;
+       name;
+       resource_group_name;
+       service_bus_queue_endpoint_id;
+       service_bus_topic_endpoint_id;
+       system_topic;
+       advanced_filter;
+       azure_function_endpoint;
+       dead_letter_identity;
+       delivery_identity;
+       delivery_property;
+       retry_policy;
+       storage_blob_dead_letter_destination;
+       storage_queue_endpoint;
+       subject_filter;
+       timeouts;
+       webhook_endpoint;
+     }
+      : azurerm_eventgrid_system_topic_event_subscription)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventgrid_system_topic_event_subscription
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       advanced_filtering_on_arrays_enabled =
+         Prop.computed __resource_type __resource_id
+           "advanced_filtering_on_arrays_enabled";
+       event_delivery_schema =
+         Prop.computed __resource_type __resource_id
+           "event_delivery_schema";
+       eventhub_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "eventhub_endpoint_id";
+       expiration_time_utc =
+         Prop.computed __resource_type __resource_id
+           "expiration_time_utc";
+       hybrid_connection_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "hybrid_connection_endpoint_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       included_event_types =
+         Prop.computed __resource_type __resource_id
+           "included_event_types";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       service_bus_queue_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "service_bus_queue_endpoint_id";
+       service_bus_topic_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "service_bus_topic_endpoint_id";
+       system_topic =
+         Prop.computed __resource_type __resource_id "system_topic";
+     }
+      : t)
+  in
+  __resource_attributes

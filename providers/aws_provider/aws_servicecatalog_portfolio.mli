@@ -5,6 +5,17 @@ open! Tf.Prelude
 type aws_servicecatalog_portfolio__timeouts
 type aws_servicecatalog_portfolio
 
+type t = private {
+  arn : string prop;
+  created_time : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  provider_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_servicecatalog_portfolio :
   ?description:string prop ->
   ?id:string prop ->
@@ -14,4 +25,4 @@ val aws_servicecatalog_portfolio :
   name:string prop ->
   provider_name:string prop ->
   string ->
-  unit
+  t

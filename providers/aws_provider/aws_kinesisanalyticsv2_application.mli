@@ -89,6 +89,23 @@ type aws_kinesisanalyticsv2_application__cloudwatch_logging_options
 type aws_kinesisanalyticsv2_application__timeouts
 type aws_kinesisanalyticsv2_application
 
+type t = private {
+  arn : string prop;
+  create_timestamp : string prop;
+  description : string prop;
+  force_stop : bool prop;
+  id : string prop;
+  last_update_timestamp : string prop;
+  name : string prop;
+  runtime_environment : string prop;
+  service_execution_role : string prop;
+  start_application : bool prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version_id : float prop;
+}
+
 val aws_kinesisanalyticsv2_application :
   ?description:string prop ->
   ?force_stop:bool prop ->
@@ -107,4 +124,4 @@ val aws_kinesisanalyticsv2_application :
     aws_kinesisanalyticsv2_application__cloudwatch_logging_options
     list ->
   string ->
-  unit
+  t

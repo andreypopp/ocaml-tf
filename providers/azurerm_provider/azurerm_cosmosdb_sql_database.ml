@@ -32,21 +32,44 @@ type azurerm_cosmosdb_sql_database = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_database *)
 
+type t = {
+  account_name : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  throughput : float prop;
+}
+
 let azurerm_cosmosdb_sql_database ?id ?throughput ?timeouts
     ~account_name ~name ~resource_group_name ~autoscale_settings
     __resource_id =
   let __resource_type = "azurerm_cosmosdb_sql_database" in
   let __resource =
-    {
-      account_name;
-      id;
-      name;
-      resource_group_name;
-      throughput;
-      autoscale_settings;
-      timeouts;
-    }
+    ({
+       account_name;
+       id;
+       name;
+       resource_group_name;
+       throughput;
+       autoscale_settings;
+       timeouts;
+     }
+      : azurerm_cosmosdb_sql_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_sql_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_name =
+         Prop.computed __resource_type __resource_id "account_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       throughput =
+         Prop.computed __resource_type __resource_id "throughput";
+     }
+      : t)
+  in
+  __resource_attributes

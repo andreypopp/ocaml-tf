@@ -21,10 +21,28 @@ type azurerm_api_management_gateway_api = {
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway_api *)
 
+type t = {
+  api_id : string prop;
+  gateway_id : string prop;
+  id : string prop;
+}
+
 let azurerm_api_management_gateway_api ?id ?timeouts ~api_id
     ~gateway_id __resource_id =
   let __resource_type = "azurerm_api_management_gateway_api" in
-  let __resource = { api_id; gateway_id; id; timeouts } in
+  let __resource =
+    ({ api_id; gateway_id; id; timeouts }
+      : azurerm_api_management_gateway_api)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_gateway_api __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_id = Prop.computed __resource_type __resource_id "api_id";
+       gateway_id =
+         Prop.computed __resource_type __resource_id "gateway_id";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

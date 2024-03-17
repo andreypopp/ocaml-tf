@@ -127,6 +127,21 @@ type azurerm_cdn_frontdoor_firewall_policy = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_firewall_policy *)
 
+type t = {
+  custom_block_response_body : string prop;
+  custom_block_response_status_code : float prop;
+  enabled : bool prop;
+  frontend_endpoint_ids : string list prop;
+  id : string prop;
+  mode : string prop;
+  name : string prop;
+  redirect_url : string prop;
+  request_body_check_enabled : bool prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_cdn_frontdoor_firewall_policy ?custom_block_response_body
     ?custom_block_response_status_code ?enabled ?id ?redirect_url
     ?request_body_check_enabled ?tags ?timeouts ~mode ~name
@@ -134,23 +149,54 @@ let azurerm_cdn_frontdoor_firewall_policy ?custom_block_response_body
     __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_firewall_policy" in
   let __resource =
-    {
-      custom_block_response_body;
-      custom_block_response_status_code;
-      enabled;
-      id;
-      mode;
-      name;
-      redirect_url;
-      request_body_check_enabled;
-      resource_group_name;
-      sku_name;
-      tags;
-      custom_rule;
-      managed_rule;
-      timeouts;
-    }
+    ({
+       custom_block_response_body;
+       custom_block_response_status_code;
+       enabled;
+       id;
+       mode;
+       name;
+       redirect_url;
+       request_body_check_enabled;
+       resource_group_name;
+       sku_name;
+       tags;
+       custom_rule;
+       managed_rule;
+       timeouts;
+     }
+      : azurerm_cdn_frontdoor_firewall_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_firewall_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       custom_block_response_body =
+         Prop.computed __resource_type __resource_id
+           "custom_block_response_body";
+       custom_block_response_status_code =
+         Prop.computed __resource_type __resource_id
+           "custom_block_response_status_code";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       frontend_endpoint_ids =
+         Prop.computed __resource_type __resource_id
+           "frontend_endpoint_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       name = Prop.computed __resource_type __resource_id "name";
+       redirect_url =
+         Prop.computed __resource_type __resource_id "redirect_url";
+       request_body_check_enabled =
+         Prop.computed __resource_type __resource_id
+           "request_body_check_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

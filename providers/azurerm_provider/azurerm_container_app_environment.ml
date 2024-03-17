@@ -49,6 +49,25 @@ type azurerm_container_app_environment = {
 [@@deriving yojson_of]
 (** azurerm_container_app_environment *)
 
+type t = {
+  dapr_application_insights_connection_string : string prop;
+  default_domain : string prop;
+  docker_bridge_cidr : string prop;
+  id : string prop;
+  infrastructure_resource_group_name : string prop;
+  infrastructure_subnet_id : string prop;
+  internal_load_balancer_enabled : bool prop;
+  location : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  platform_reserved_cidr : string prop;
+  platform_reserved_dns_ip_address : string prop;
+  resource_group_name : string prop;
+  static_ip_address : string prop;
+  tags : (string * string) list prop;
+  zone_redundancy_enabled : bool prop;
+}
+
 let azurerm_container_app_environment
     ?dapr_application_insights_connection_string ?id
     ?infrastructure_resource_group_name ?infrastructure_subnet_id
@@ -57,22 +76,68 @@ let azurerm_container_app_environment
     ~resource_group_name ~workload_profile __resource_id =
   let __resource_type = "azurerm_container_app_environment" in
   let __resource =
-    {
-      dapr_application_insights_connection_string;
-      id;
-      infrastructure_resource_group_name;
-      infrastructure_subnet_id;
-      internal_load_balancer_enabled;
-      location;
-      log_analytics_workspace_id;
-      name;
-      resource_group_name;
-      tags;
-      zone_redundancy_enabled;
-      timeouts;
-      workload_profile;
-    }
+    ({
+       dapr_application_insights_connection_string;
+       id;
+       infrastructure_resource_group_name;
+       infrastructure_subnet_id;
+       internal_load_balancer_enabled;
+       location;
+       log_analytics_workspace_id;
+       name;
+       resource_group_name;
+       tags;
+       zone_redundancy_enabled;
+       timeouts;
+       workload_profile;
+     }
+      : azurerm_container_app_environment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_app_environment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dapr_application_insights_connection_string =
+         Prop.computed __resource_type __resource_id
+           "dapr_application_insights_connection_string";
+       default_domain =
+         Prop.computed __resource_type __resource_id "default_domain";
+       docker_bridge_cidr =
+         Prop.computed __resource_type __resource_id
+           "docker_bridge_cidr";
+       id = Prop.computed __resource_type __resource_id "id";
+       infrastructure_resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "infrastructure_resource_group_name";
+       infrastructure_subnet_id =
+         Prop.computed __resource_type __resource_id
+           "infrastructure_subnet_id";
+       internal_load_balancer_enabled =
+         Prop.computed __resource_type __resource_id
+           "internal_load_balancer_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       platform_reserved_cidr =
+         Prop.computed __resource_type __resource_id
+           "platform_reserved_cidr";
+       platform_reserved_dns_ip_address =
+         Prop.computed __resource_type __resource_id
+           "platform_reserved_dns_ip_address";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       static_ip_address =
+         Prop.computed __resource_type __resource_id
+           "static_ip_address";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zone_redundancy_enabled =
+         Prop.computed __resource_type __resource_id
+           "zone_redundancy_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

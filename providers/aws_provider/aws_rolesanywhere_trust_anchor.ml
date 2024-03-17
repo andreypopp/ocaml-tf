@@ -32,10 +32,35 @@ type aws_rolesanywhere_trust_anchor = {
 [@@deriving yojson_of]
 (** aws_rolesanywhere_trust_anchor *)
 
+type t = {
+  arn : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_rolesanywhere_trust_anchor ?enabled ?id ?tags ?tags_all ~name
     ~source __resource_id =
   let __resource_type = "aws_rolesanywhere_trust_anchor" in
-  let __resource = { enabled; id; name; tags; tags_all; source } in
+  let __resource =
+    ({ enabled; id; name; tags; tags_all; source }
+      : aws_rolesanywhere_trust_anchor)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rolesanywhere_trust_anchor __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

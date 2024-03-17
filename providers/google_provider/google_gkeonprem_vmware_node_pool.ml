@@ -128,24 +128,80 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 [@@deriving yojson_of]
 (** google_gkeonprem_vmware_node_pool *)
 
+type t = {
+  annotations : (string * string) list prop;
+  create_time : string prop;
+  delete_time : string prop;
+  display_name : string prop;
+  effective_annotations : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  on_prem_version : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  status : google_gkeonprem_vmware_node_pool__status list prop;
+  uid : string prop;
+  update_time : string prop;
+  vmware_cluster : string prop;
+}
+
 let google_gkeonprem_vmware_node_pool ?annotations ?display_name ?id
     ?project ?timeouts ~location ~name ~vmware_cluster ~config
     ~node_pool_autoscaling __resource_id =
   let __resource_type = "google_gkeonprem_vmware_node_pool" in
   let __resource =
-    {
-      annotations;
-      display_name;
-      id;
-      location;
-      name;
-      project;
-      vmware_cluster;
-      config;
-      node_pool_autoscaling;
-      timeouts;
-    }
+    ({
+       annotations;
+       display_name;
+       id;
+       location;
+       name;
+       project;
+       vmware_cluster;
+       config;
+       node_pool_autoscaling;
+       timeouts;
+     }
+      : google_gkeonprem_vmware_node_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gkeonprem_vmware_node_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       on_prem_version =
+         Prop.computed __resource_type __resource_id
+           "on_prem_version";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       state = Prop.computed __resource_type __resource_id "state";
+       status = Prop.computed __resource_type __resource_id "status";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       vmware_cluster =
+         Prop.computed __resource_type __resource_id "vmware_cluster";
+     }
+      : t)
+  in
+  __resource_attributes

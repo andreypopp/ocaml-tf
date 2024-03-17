@@ -110,23 +110,47 @@ type azurerm_vpn_gateway_connection = {
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway_connection *)
 
+type t = {
+  id : string prop;
+  internet_security_enabled : bool prop;
+  name : string prop;
+  remote_vpn_site_id : string prop;
+  vpn_gateway_id : string prop;
+}
+
 let azurerm_vpn_gateway_connection ?id ?internet_security_enabled
     ?timeouts ~name ~remote_vpn_site_id ~vpn_gateway_id ~routing
     ~traffic_selector_policy ~vpn_link __resource_id =
   let __resource_type = "azurerm_vpn_gateway_connection" in
   let __resource =
-    {
-      id;
-      internet_security_enabled;
-      name;
-      remote_vpn_site_id;
-      vpn_gateway_id;
-      routing;
-      timeouts;
-      traffic_selector_policy;
-      vpn_link;
-    }
+    ({
+       id;
+       internet_security_enabled;
+       name;
+       remote_vpn_site_id;
+       vpn_gateway_id;
+       routing;
+       timeouts;
+       traffic_selector_policy;
+       vpn_link;
+     }
+      : azurerm_vpn_gateway_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vpn_gateway_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       internet_security_enabled =
+         Prop.computed __resource_type __resource_id
+           "internet_security_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       remote_vpn_site_id =
+         Prop.computed __resource_type __resource_id
+           "remote_vpn_site_id";
+       vpn_gateway_id =
+         Prop.computed __resource_type __resource_id "vpn_gateway_id";
+     }
+      : t)
+  in
+  __resource_attributes

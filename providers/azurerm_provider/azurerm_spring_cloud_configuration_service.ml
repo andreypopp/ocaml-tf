@@ -50,6 +50,14 @@ type azurerm_spring_cloud_configuration_service = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_configuration_service *)
 
+type t = {
+  generation : string prop;
+  id : string prop;
+  name : string prop;
+  refresh_interval_in_seconds : float prop;
+  spring_cloud_service_id : string prop;
+}
+
 let azurerm_spring_cloud_configuration_service ?generation ?id
     ?refresh_interval_in_seconds ?timeouts ~name
     ~spring_cloud_service_id ~repository __resource_id =
@@ -57,16 +65,32 @@ let azurerm_spring_cloud_configuration_service ?generation ?id
     "azurerm_spring_cloud_configuration_service"
   in
   let __resource =
-    {
-      generation;
-      id;
-      name;
-      refresh_interval_in_seconds;
-      spring_cloud_service_id;
-      repository;
-      timeouts;
-    }
+    ({
+       generation;
+       id;
+       name;
+       refresh_interval_in_seconds;
+       spring_cloud_service_id;
+       repository;
+       timeouts;
+     }
+      : azurerm_spring_cloud_configuration_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_configuration_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       generation =
+         Prop.computed __resource_type __resource_id "generation";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       refresh_interval_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "refresh_interval_in_seconds";
+       spring_cloud_service_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_service_id";
+     }
+      : t)
+  in
+  __resource_attributes

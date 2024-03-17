@@ -23,12 +23,34 @@ type google_scc_source_iam_member = {
 [@@deriving yojson_of]
 (** google_scc_source_iam_member *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  organization : string prop;
+  role : string prop;
+  source : string prop;
+}
+
 let google_scc_source_iam_member ?id ~member ~organization ~role
     ~source ~condition __resource_id =
   let __resource_type = "google_scc_source_iam_member" in
   let __resource =
-    { id; member; organization; role; source; condition }
+    ({ id; member; organization; role; source; condition }
+      : google_scc_source_iam_member)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_source_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       organization =
+         Prop.computed __resource_type __resource_id "organization";
+       role = Prop.computed __resource_type __resource_id "role";
+       source = Prop.computed __resource_type __resource_id "source";
+     }
+      : t)
+  in
+  __resource_attributes

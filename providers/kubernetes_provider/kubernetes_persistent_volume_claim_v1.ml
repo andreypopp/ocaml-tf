@@ -89,12 +89,24 @@ type kubernetes_persistent_volume_claim_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_persistent_volume_claim_v1 *)
 
+type t = { id : string prop; wait_until_bound : bool prop }
+
 let kubernetes_persistent_volume_claim_v1 ?id ?wait_until_bound
     ?timeouts ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_persistent_volume_claim_v1" in
   let __resource =
-    { id; wait_until_bound; metadata; spec; timeouts }
+    ({ id; wait_until_bound; metadata; spec; timeouts }
+      : kubernetes_persistent_volume_claim_v1)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_persistent_volume_claim_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       wait_until_bound =
+         Prop.computed __resource_type __resource_id
+           "wait_until_bound";
+     }
+      : t)
+  in
+  __resource_attributes

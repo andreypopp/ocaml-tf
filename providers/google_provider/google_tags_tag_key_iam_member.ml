@@ -22,10 +22,32 @@ type google_tags_tag_key_iam_member = {
 [@@deriving yojson_of]
 (** google_tags_tag_key_iam_member *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  role : string prop;
+  tag_key : string prop;
+}
+
 let google_tags_tag_key_iam_member ?id ~member ~role ~tag_key
     ~condition __resource_id =
   let __resource_type = "google_tags_tag_key_iam_member" in
-  let __resource = { id; member; role; tag_key; condition } in
+  let __resource =
+    ({ id; member; role; tag_key; condition }
+      : google_tags_tag_key_iam_member)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_tag_key_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       role = Prop.computed __resource_type __resource_id "role";
+       tag_key =
+         Prop.computed __resource_type __resource_id "tag_key";
+     }
+      : t)
+  in
+  __resource_attributes

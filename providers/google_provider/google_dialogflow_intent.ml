@@ -63,29 +63,88 @@ filling prompt is forwarded to the webhook. Possible values: [WEBHOOK_STATE_ENAB
 [@@deriving yojson_of]
 (** google_dialogflow_intent *)
 
+type t = {
+  action : string prop;
+  default_response_platforms : string list prop;
+  display_name : string prop;
+  events : string list prop;
+  followup_intent_info :
+    google_dialogflow_intent__followup_intent_info list prop;
+  id : string prop;
+  input_context_names : string list prop;
+  is_fallback : bool prop;
+  ml_disabled : bool prop;
+  name : string prop;
+  parent_followup_intent_name : string prop;
+  priority : float prop;
+  project : string prop;
+  reset_contexts : bool prop;
+  root_followup_intent_name : string prop;
+  webhook_state : string prop;
+}
+
 let google_dialogflow_intent ?action ?default_response_platforms
     ?events ?id ?input_context_names ?is_fallback ?ml_disabled
     ?parent_followup_intent_name ?priority ?project ?reset_contexts
     ?webhook_state ?timeouts ~display_name __resource_id =
   let __resource_type = "google_dialogflow_intent" in
   let __resource =
-    {
-      action;
-      default_response_platforms;
-      display_name;
-      events;
-      id;
-      input_context_names;
-      is_fallback;
-      ml_disabled;
-      parent_followup_intent_name;
-      priority;
-      project;
-      reset_contexts;
-      webhook_state;
-      timeouts;
-    }
+    ({
+       action;
+       default_response_platforms;
+       display_name;
+       events;
+       id;
+       input_context_names;
+       is_fallback;
+       ml_disabled;
+       parent_followup_intent_name;
+       priority;
+       project;
+       reset_contexts;
+       webhook_state;
+       timeouts;
+     }
+      : google_dialogflow_intent)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_intent __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       default_response_platforms =
+         Prop.computed __resource_type __resource_id
+           "default_response_platforms";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       events = Prop.computed __resource_type __resource_id "events";
+       followup_intent_info =
+         Prop.computed __resource_type __resource_id
+           "followup_intent_info";
+       id = Prop.computed __resource_type __resource_id "id";
+       input_context_names =
+         Prop.computed __resource_type __resource_id
+           "input_context_names";
+       is_fallback =
+         Prop.computed __resource_type __resource_id "is_fallback";
+       ml_disabled =
+         Prop.computed __resource_type __resource_id "ml_disabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_followup_intent_name =
+         Prop.computed __resource_type __resource_id
+           "parent_followup_intent_name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reset_contexts =
+         Prop.computed __resource_type __resource_id "reset_contexts";
+       root_followup_intent_name =
+         Prop.computed __resource_type __resource_id
+           "root_followup_intent_name";
+       webhook_state =
+         Prop.computed __resource_type __resource_id "webhook_state";
+     }
+      : t)
+  in
+  __resource_attributes

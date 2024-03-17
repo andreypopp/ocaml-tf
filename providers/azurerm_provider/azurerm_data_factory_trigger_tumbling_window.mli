@@ -8,6 +8,22 @@ type azurerm_data_factory_trigger_tumbling_window__timeouts
 type azurerm_data_factory_trigger_tumbling_window__trigger_dependency
 type azurerm_data_factory_trigger_tumbling_window
 
+type t = private {
+  activated : bool prop;
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  delay : string prop;
+  description : string prop;
+  end_time : string prop;
+  frequency : string prop;
+  id : string prop;
+  interval : float prop;
+  max_concurrency : float prop;
+  name : string prop;
+  start_time : string prop;
+}
+
 val azurerm_data_factory_trigger_tumbling_window :
   ?activated:bool prop ->
   ?additional_properties:(string * string prop) list ->
@@ -30,4 +46,4 @@ val azurerm_data_factory_trigger_tumbling_window :
     azurerm_data_factory_trigger_tumbling_window__trigger_dependency
     list ->
   string ->
-  unit
+  t

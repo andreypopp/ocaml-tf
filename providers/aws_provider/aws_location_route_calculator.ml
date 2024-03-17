@@ -25,20 +25,55 @@ type aws_location_route_calculator = {
 [@@deriving yojson_of]
 (** aws_location_route_calculator *)
 
+type t = {
+  calculator_arn : string prop;
+  calculator_name : string prop;
+  create_time : string prop;
+  data_source : string prop;
+  description : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  update_time : string prop;
+}
+
 let aws_location_route_calculator ?description ?id ?tags ?tags_all
     ?timeouts ~calculator_name ~data_source __resource_id =
   let __resource_type = "aws_location_route_calculator" in
   let __resource =
-    {
-      calculator_name;
-      data_source;
-      description;
-      id;
-      tags;
-      tags_all;
-      timeouts;
-    }
+    ({
+       calculator_name;
+       data_source;
+       description;
+       id;
+       tags;
+       tags_all;
+       timeouts;
+     }
+      : aws_location_route_calculator)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_location_route_calculator __resource);
-  ()
+  let __resource_attributes =
+    ({
+       calculator_arn =
+         Prop.computed __resource_type __resource_id "calculator_arn";
+       calculator_name =
+         Prop.computed __resource_type __resource_id
+           "calculator_name";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       data_source =
+         Prop.computed __resource_type __resource_id "data_source";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

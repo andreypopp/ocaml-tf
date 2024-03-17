@@ -238,25 +238,70 @@ be unique globally and match pattern 'projects/*/locations/*/functions/*'. *)
 [@@deriving yojson_of]
 (** google_cloudfunctions2_function *)
 
+type t = {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  environment : string prop;
+  id : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+  url : string prop;
+}
+
 let google_cloudfunctions2_function ?description ?id ?kms_key_name
     ?labels ?project ?timeouts ~location ~name ~build_config
     ~event_trigger ~service_config __resource_id =
   let __resource_type = "google_cloudfunctions2_function" in
   let __resource =
-    {
-      description;
-      id;
-      kms_key_name;
-      labels;
-      location;
-      name;
-      project;
-      build_config;
-      event_trigger;
-      service_config;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       kms_key_name;
+       labels;
+       location;
+       name;
+       project;
+       build_config;
+       event_trigger;
+       service_config;
+       timeouts;
+     }
+      : google_cloudfunctions2_function)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudfunctions2_function __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       environment =
+         Prop.computed __resource_type __resource_id "environment";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_name =
+         Prop.computed __resource_type __resource_id "kms_key_name";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

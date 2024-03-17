@@ -37,20 +37,44 @@ type azurerm_bot_channel_web_chat = {
 [@@deriving yojson_of]
 (** azurerm_bot_channel_web_chat *)
 
+type t = {
+  bot_name : string prop;
+  id : string prop;
+  location : string prop;
+  resource_group_name : string prop;
+  site_names : string list prop;
+}
+
 let azurerm_bot_channel_web_chat ?id ?site_names ?timeouts ~bot_name
     ~location ~resource_group_name ~site __resource_id =
   let __resource_type = "azurerm_bot_channel_web_chat" in
   let __resource =
-    {
-      bot_name;
-      id;
-      location;
-      resource_group_name;
-      site_names;
-      site;
-      timeouts;
-    }
+    ({
+       bot_name;
+       id;
+       location;
+       resource_group_name;
+       site_names;
+       site;
+       timeouts;
+     }
+      : azurerm_bot_channel_web_chat)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_bot_channel_web_chat __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bot_name =
+         Prop.computed __resource_type __resource_id "bot_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       site_names =
+         Prop.computed __resource_type __resource_id "site_names";
+     }
+      : t)
+  in
+  __resource_attributes

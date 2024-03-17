@@ -29,22 +29,61 @@ type google_service_account = {
 [@@deriving yojson_of]
 (** google_service_account *)
 
+type t = {
+  account_id : string prop;
+  create_ignore_already_exists : bool prop;
+  description : string prop;
+  disabled : bool prop;
+  display_name : string prop;
+  email : string prop;
+  id : string prop;
+  member : string prop;
+  name : string prop;
+  project : string prop;
+  unique_id : string prop;
+}
+
 let google_service_account ?create_ignore_already_exists ?description
     ?disabled ?display_name ?id ?project ?timeouts ~account_id
     __resource_id =
   let __resource_type = "google_service_account" in
   let __resource =
-    {
-      account_id;
-      create_ignore_already_exists;
-      description;
-      disabled;
-      display_name;
-      id;
-      project;
-      timeouts;
-    }
+    ({
+       account_id;
+       create_ignore_already_exists;
+       description;
+       disabled;
+       display_name;
+       id;
+       project;
+       timeouts;
+     }
+      : google_service_account)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_service_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       create_ignore_already_exists =
+         Prop.computed __resource_type __resource_id
+           "create_ignore_already_exists";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       email = Prop.computed __resource_type __resource_id "email";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       unique_id =
+         Prop.computed __resource_type __resource_id "unique_id";
+     }
+      : t)
+  in
+  __resource_attributes

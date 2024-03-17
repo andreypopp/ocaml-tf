@@ -23,12 +23,30 @@ type azurerm_virtual_network_dns_servers = {
 [@@deriving yojson_of]
 (** azurerm_virtual_network_dns_servers *)
 
+type t = {
+  dns_servers : string list prop;
+  id : string prop;
+  virtual_network_id : string prop;
+}
+
 let azurerm_virtual_network_dns_servers ?dns_servers ?id ?timeouts
     ~virtual_network_id __resource_id =
   let __resource_type = "azurerm_virtual_network_dns_servers" in
   let __resource =
-    { dns_servers; id; virtual_network_id; timeouts }
+    ({ dns_servers; id; virtual_network_id; timeouts }
+      : azurerm_virtual_network_dns_servers)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network_dns_servers __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dns_servers =
+         Prop.computed __resource_type __resource_id "dns_servers";
+       id = Prop.computed __resource_type __resource_id "id";
+       virtual_network_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_id";
+     }
+      : t)
+  in
+  __resource_attributes

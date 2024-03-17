@@ -4,6 +4,26 @@ open! Tf.Prelude
 
 type aws_ec2_capacity_reservation
 
+type t = private {
+  arn : string prop;
+  availability_zone : string prop;
+  ebs_optimized : bool prop;
+  end_date : string prop;
+  end_date_type : string prop;
+  ephemeral_storage : bool prop;
+  id : string prop;
+  instance_count : float prop;
+  instance_match_criteria : string prop;
+  instance_platform : string prop;
+  instance_type : string prop;
+  outpost_arn : string prop;
+  owner_id : string prop;
+  placement_group_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  tenancy : string prop;
+}
+
 val aws_ec2_capacity_reservation :
   ?ebs_optimized:bool prop ->
   ?end_date:string prop ->
@@ -21,4 +41,4 @@ val aws_ec2_capacity_reservation :
   instance_platform:string prop ->
   instance_type:string prop ->
   string ->
-  unit
+  t

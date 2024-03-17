@@ -78,6 +78,24 @@ type azurerm_resource_deployment_script_azure_cli = {
 [@@deriving yojson_of]
 (** azurerm_resource_deployment_script_azure_cli *)
 
+type t = {
+  cleanup_preference : string prop;
+  command_line : string prop;
+  force_update_tag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  outputs : string prop;
+  primary_script_uri : string prop;
+  resource_group_name : string prop;
+  retention_interval : string prop;
+  script_content : string prop;
+  supporting_script_uris : string list prop;
+  tags : (string * string) list prop;
+  timeout : string prop;
+  version : string prop;
+}
+
 let azurerm_resource_deployment_script_azure_cli ?cleanup_preference
     ?command_line ?force_update_tag ?id ?primary_script_uri
     ?script_content ?supporting_script_uris ?tags ?timeout ?timeouts
@@ -88,29 +106,68 @@ let azurerm_resource_deployment_script_azure_cli ?cleanup_preference
     "azurerm_resource_deployment_script_azure_cli"
   in
   let __resource =
-    {
-      cleanup_preference;
-      command_line;
-      force_update_tag;
-      id;
-      location;
-      name;
-      primary_script_uri;
-      resource_group_name;
-      retention_interval;
-      script_content;
-      supporting_script_uris;
-      tags;
-      timeout;
-      version;
-      container;
-      environment_variable;
-      identity;
-      storage_account;
-      timeouts;
-    }
+    ({
+       cleanup_preference;
+       command_line;
+       force_update_tag;
+       id;
+       location;
+       name;
+       primary_script_uri;
+       resource_group_name;
+       retention_interval;
+       script_content;
+       supporting_script_uris;
+       tags;
+       timeout;
+       version;
+       container;
+       environment_variable;
+       identity;
+       storage_account;
+       timeouts;
+     }
+      : azurerm_resource_deployment_script_azure_cli)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_resource_deployment_script_azure_cli
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cleanup_preference =
+         Prop.computed __resource_type __resource_id
+           "cleanup_preference";
+       command_line =
+         Prop.computed __resource_type __resource_id "command_line";
+       force_update_tag =
+         Prop.computed __resource_type __resource_id
+           "force_update_tag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       outputs =
+         Prop.computed __resource_type __resource_id "outputs";
+       primary_script_uri =
+         Prop.computed __resource_type __resource_id
+           "primary_script_uri";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       retention_interval =
+         Prop.computed __resource_type __resource_id
+           "retention_interval";
+       script_content =
+         Prop.computed __resource_type __resource_id "script_content";
+       supporting_script_uris =
+         Prop.computed __resource_type __resource_id
+           "supporting_script_uris";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

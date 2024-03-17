@@ -4,6 +4,15 @@ open! Tf.Prelude
 
 type aws_iam_policy_attachment
 
+type t = private {
+  groups : string list prop;
+  id : string prop;
+  name : string prop;
+  policy_arn : string prop;
+  roles : string list prop;
+  users : string list prop;
+}
+
 val aws_iam_policy_attachment :
   ?groups:string prop list ->
   ?id:string prop ->
@@ -12,4 +21,4 @@ val aws_iam_policy_attachment :
   name:string prop ->
   policy_arn:string prop ->
   string ->
-  unit
+  t

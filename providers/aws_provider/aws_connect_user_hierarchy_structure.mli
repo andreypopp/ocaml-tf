@@ -14,6 +14,7 @@ type aws_connect_user_hierarchy_structure__hierarchy_structure__level_two
 
 type aws_connect_user_hierarchy_structure__hierarchy_structure
 type aws_connect_user_hierarchy_structure
+type t = private { id : string prop; instance_id : string prop }
 
 val aws_connect_user_hierarchy_structure :
   ?id:string prop ->
@@ -21,4 +22,4 @@ val aws_connect_user_hierarchy_structure :
   hierarchy_structure:
     aws_connect_user_hierarchy_structure__hierarchy_structure list ->
   string ->
-  unit
+  t

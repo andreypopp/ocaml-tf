@@ -75,6 +75,23 @@ type google_container_node_pool__upgrade_settings__blue_green_settings
 type google_container_node_pool__upgrade_settings
 type google_container_node_pool
 
+type t = private {
+  cluster : string prop;
+  id : string prop;
+  initial_node_count : float prop;
+  instance_group_urls : string list prop;
+  location : string prop;
+  managed_instance_group_urls : string list prop;
+  max_pods_per_node : float prop;
+  name : string prop;
+  name_prefix : string prop;
+  node_count : float prop;
+  node_locations : string list prop;
+  operation : string prop;
+  project : string prop;
+  version : string prop;
+}
+
 val google_container_node_pool :
   ?id:string prop ->
   ?initial_node_count:float prop ->
@@ -95,4 +112,4 @@ val google_container_node_pool :
   placement_policy:google_container_node_pool__placement_policy list ->
   upgrade_settings:google_container_node_pool__upgrade_settings list ->
   string ->
-  unit
+  t

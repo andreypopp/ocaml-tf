@@ -120,6 +120,18 @@ State will be removed on the next instance recreation or update. *)
 [@@deriving yojson_of]
 (** google_compute_region_per_instance_config *)
 
+type t = {
+  id : string prop;
+  minimal_action : string prop;
+  most_disruptive_allowed_action : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  region_instance_group_manager : string prop;
+  remove_instance_on_destroy : bool prop;
+  remove_instance_state_on_destroy : bool prop;
+}
+
 let google_compute_region_per_instance_config ?id ?minimal_action
     ?most_disruptive_allowed_action ?project ?region
     ?remove_instance_on_destroy ?remove_instance_state_on_destroy
@@ -129,20 +141,45 @@ let google_compute_region_per_instance_config ?id ?minimal_action
     "google_compute_region_per_instance_config"
   in
   let __resource =
-    {
-      id;
-      minimal_action;
-      most_disruptive_allowed_action;
-      name;
-      project;
-      region;
-      region_instance_group_manager;
-      remove_instance_on_destroy;
-      remove_instance_state_on_destroy;
-      preserved_state;
-      timeouts;
-    }
+    ({
+       id;
+       minimal_action;
+       most_disruptive_allowed_action;
+       name;
+       project;
+       region;
+       region_instance_group_manager;
+       remove_instance_on_destroy;
+       remove_instance_state_on_destroy;
+       preserved_state;
+       timeouts;
+     }
+      : google_compute_region_per_instance_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_per_instance_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       minimal_action =
+         Prop.computed __resource_type __resource_id "minimal_action";
+       most_disruptive_allowed_action =
+         Prop.computed __resource_type __resource_id
+           "most_disruptive_allowed_action";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       region_instance_group_manager =
+         Prop.computed __resource_type __resource_id
+           "region_instance_group_manager";
+       remove_instance_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "remove_instance_on_destroy";
+       remove_instance_state_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "remove_instance_state_on_destroy";
+     }
+      : t)
+  in
+  __resource_attributes

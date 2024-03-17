@@ -37,23 +37,51 @@ type aws_transfer_access = {
 [@@deriving yojson_of]
 (** aws_transfer_access *)
 
+type t = {
+  external_id : string prop;
+  home_directory : string prop;
+  home_directory_type : string prop;
+  id : string prop;
+  policy : string prop;
+  role : string prop;
+  server_id : string prop;
+}
+
 let aws_transfer_access ?home_directory ?home_directory_type ?id
     ?policy ?role ~external_id ~server_id ~home_directory_mappings
     ~posix_profile __resource_id =
   let __resource_type = "aws_transfer_access" in
   let __resource =
-    {
-      external_id;
-      home_directory;
-      home_directory_type;
-      id;
-      policy;
-      role;
-      server_id;
-      home_directory_mappings;
-      posix_profile;
-    }
+    ({
+       external_id;
+       home_directory;
+       home_directory_type;
+       id;
+       policy;
+       role;
+       server_id;
+       home_directory_mappings;
+       posix_profile;
+     }
+      : aws_transfer_access)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_access __resource);
-  ()
+  let __resource_attributes =
+    ({
+       external_id =
+         Prop.computed __resource_type __resource_id "external_id";
+       home_directory =
+         Prop.computed __resource_type __resource_id "home_directory";
+       home_directory_type =
+         Prop.computed __resource_type __resource_id
+           "home_directory_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       role = Prop.computed __resource_type __resource_id "role";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+     }
+      : t)
+  in
+  __resource_attributes

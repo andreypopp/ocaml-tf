@@ -14,6 +14,23 @@ type google_app_engine_application__url_dispatch_rule = {
 
 type google_app_engine_application
 
+type t = private {
+  app_id : string prop;
+  auth_domain : string prop;
+  code_bucket : string prop;
+  database_type : string prop;
+  default_bucket : string prop;
+  default_hostname : string prop;
+  gcr_domain : string prop;
+  id : string prop;
+  location_id : string prop;
+  name : string prop;
+  project : string prop;
+  serving_status : string prop;
+  url_dispatch_rule :
+    google_app_engine_application__url_dispatch_rule list prop;
+}
+
 val google_app_engine_application :
   ?auth_domain:string prop ->
   ?database_type:string prop ->
@@ -26,4 +43,4 @@ val google_app_engine_application :
     google_app_engine_application__feature_settings list ->
   iap:google_app_engine_application__iap list ->
   string ->
-  unit
+  t

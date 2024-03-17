@@ -66,6 +66,42 @@ type azurerm_sentinel_alert_rule_anomaly_built_in = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_anomaly_built_in *)
 
+type t = {
+  anomaly_settings_version : float prop;
+  anomaly_version : string prop;
+  description : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  frequency : string prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  mode : string prop;
+  multi_select_observation :
+    azurerm_sentinel_alert_rule_anomaly_built_in__multi_select_observation
+    list
+    prop;
+  name : string prop;
+  prioritized_exclude_observation :
+    azurerm_sentinel_alert_rule_anomaly_built_in__prioritized_exclude_observation
+    list
+    prop;
+  required_data_connector :
+    azurerm_sentinel_alert_rule_anomaly_built_in__required_data_connector
+    list
+    prop;
+  settings_definition_id : string prop;
+  single_select_observation :
+    azurerm_sentinel_alert_rule_anomaly_built_in__single_select_observation
+    list
+    prop;
+  tactics : string list prop;
+  techniques : string list prop;
+  threshold_observation :
+    azurerm_sentinel_alert_rule_anomaly_built_in__threshold_observation
+    list
+    prop;
+}
+
 let azurerm_sentinel_alert_rule_anomaly_built_in ?display_name ?id
     ?name ?timeouts ~enabled ~log_analytics_workspace_id ~mode
     __resource_id =
@@ -73,17 +109,65 @@ let azurerm_sentinel_alert_rule_anomaly_built_in ?display_name ?id
     "azurerm_sentinel_alert_rule_anomaly_built_in"
   in
   let __resource =
-    {
-      display_name;
-      enabled;
-      id;
-      log_analytics_workspace_id;
-      mode;
-      name;
-      timeouts;
-    }
+    ({
+       display_name;
+       enabled;
+       id;
+       log_analytics_workspace_id;
+       mode;
+       name;
+       timeouts;
+     }
+      : azurerm_sentinel_alert_rule_anomaly_built_in)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_alert_rule_anomaly_built_in
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       anomaly_settings_version =
+         Prop.computed __resource_type __resource_id
+           "anomaly_settings_version";
+       anomaly_version =
+         Prop.computed __resource_type __resource_id
+           "anomaly_version";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       multi_select_observation =
+         Prop.computed __resource_type __resource_id
+           "multi_select_observation";
+       name = Prop.computed __resource_type __resource_id "name";
+       prioritized_exclude_observation =
+         Prop.computed __resource_type __resource_id
+           "prioritized_exclude_observation";
+       required_data_connector =
+         Prop.computed __resource_type __resource_id
+           "required_data_connector";
+       settings_definition_id =
+         Prop.computed __resource_type __resource_id
+           "settings_definition_id";
+       single_select_observation =
+         Prop.computed __resource_type __resource_id
+           "single_select_observation";
+       tactics =
+         Prop.computed __resource_type __resource_id "tactics";
+       techniques =
+         Prop.computed __resource_type __resource_id "techniques";
+       threshold_observation =
+         Prop.computed __resource_type __resource_id
+           "threshold_observation";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -66,6 +66,32 @@ type aws_storagegateway_nfs_file_share = {
 [@@deriving yojson_of]
 (** aws_storagegateway_nfs_file_share *)
 
+type t = {
+  arn : string prop;
+  audit_destination_arn : string prop;
+  bucket_region : string prop;
+  client_list : string list prop;
+  default_storage_class : string prop;
+  file_share_name : string prop;
+  fileshare_id : string prop;
+  gateway_arn : string prop;
+  guess_mime_type_enabled : bool prop;
+  id : string prop;
+  kms_encrypted : bool prop;
+  kms_key_arn : string prop;
+  location_arn : string prop;
+  notification_policy : string prop;
+  object_acl : string prop;
+  path : string prop;
+  read_only : bool prop;
+  requester_pays : bool prop;
+  role_arn : string prop;
+  squash : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_endpoint_dns_name : string prop;
+}
+
 let aws_storagegateway_nfs_file_share ?audit_destination_arn
     ?bucket_region ?default_storage_class ?file_share_name
     ?guess_mime_type_enabled ?id ?kms_encrypted ?kms_key_arn
@@ -75,32 +101,85 @@ let aws_storagegateway_nfs_file_share ?audit_destination_arn
     ~cache_attributes ~nfs_file_share_defaults __resource_id =
   let __resource_type = "aws_storagegateway_nfs_file_share" in
   let __resource =
-    {
-      audit_destination_arn;
-      bucket_region;
-      client_list;
-      default_storage_class;
-      file_share_name;
-      gateway_arn;
-      guess_mime_type_enabled;
-      id;
-      kms_encrypted;
-      kms_key_arn;
-      location_arn;
-      notification_policy;
-      object_acl;
-      read_only;
-      requester_pays;
-      role_arn;
-      squash;
-      tags;
-      tags_all;
-      vpc_endpoint_dns_name;
-      cache_attributes;
-      nfs_file_share_defaults;
-      timeouts;
-    }
+    ({
+       audit_destination_arn;
+       bucket_region;
+       client_list;
+       default_storage_class;
+       file_share_name;
+       gateway_arn;
+       guess_mime_type_enabled;
+       id;
+       kms_encrypted;
+       kms_key_arn;
+       location_arn;
+       notification_policy;
+       object_acl;
+       read_only;
+       requester_pays;
+       role_arn;
+       squash;
+       tags;
+       tags_all;
+       vpc_endpoint_dns_name;
+       cache_attributes;
+       nfs_file_share_defaults;
+       timeouts;
+     }
+      : aws_storagegateway_nfs_file_share)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_storagegateway_nfs_file_share __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       audit_destination_arn =
+         Prop.computed __resource_type __resource_id
+           "audit_destination_arn";
+       bucket_region =
+         Prop.computed __resource_type __resource_id "bucket_region";
+       client_list =
+         Prop.computed __resource_type __resource_id "client_list";
+       default_storage_class =
+         Prop.computed __resource_type __resource_id
+           "default_storage_class";
+       file_share_name =
+         Prop.computed __resource_type __resource_id
+           "file_share_name";
+       fileshare_id =
+         Prop.computed __resource_type __resource_id "fileshare_id";
+       gateway_arn =
+         Prop.computed __resource_type __resource_id "gateway_arn";
+       guess_mime_type_enabled =
+         Prop.computed __resource_type __resource_id
+           "guess_mime_type_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_encrypted =
+         Prop.computed __resource_type __resource_id "kms_encrypted";
+       kms_key_arn =
+         Prop.computed __resource_type __resource_id "kms_key_arn";
+       location_arn =
+         Prop.computed __resource_type __resource_id "location_arn";
+       notification_policy =
+         Prop.computed __resource_type __resource_id
+           "notification_policy";
+       object_acl =
+         Prop.computed __resource_type __resource_id "object_acl";
+       path = Prop.computed __resource_type __resource_id "path";
+       read_only =
+         Prop.computed __resource_type __resource_id "read_only";
+       requester_pays =
+         Prop.computed __resource_type __resource_id "requester_pays";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       squash = Prop.computed __resource_type __resource_id "squash";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       vpc_endpoint_dns_name =
+         Prop.computed __resource_type __resource_id
+           "vpc_endpoint_dns_name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -6,6 +6,17 @@ type aws_vpc_ipam_resource_discovery__operating_regions
 type aws_vpc_ipam_resource_discovery__timeouts
 type aws_vpc_ipam_resource_discovery
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  ipam_resource_discovery_region : string prop;
+  is_default : bool prop;
+  owner_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_vpc_ipam_resource_discovery :
   ?description:string prop ->
   ?id:string prop ->
@@ -15,4 +26,4 @@ val aws_vpc_ipam_resource_discovery :
   operating_regions:
     aws_vpc_ipam_resource_discovery__operating_regions list ->
   string ->
-  unit
+  t

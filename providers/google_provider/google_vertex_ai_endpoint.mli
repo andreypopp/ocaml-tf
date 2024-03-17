@@ -68,6 +68,26 @@ type google_vertex_ai_endpoint__deployed_models = {
 
 type google_vertex_ai_endpoint
 
+type t = private {
+  create_time : string prop;
+  deployed_models :
+    google_vertex_ai_endpoint__deployed_models list prop;
+  description : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  model_deployment_monitoring_job : string prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_vertex_ai_endpoint :
   ?description:string prop ->
   ?id:string prop ->
@@ -81,4 +101,4 @@ val google_vertex_ai_endpoint :
   name:string prop ->
   encryption_spec:google_vertex_ai_endpoint__encryption_spec list ->
   string ->
-  unit
+  t

@@ -28,6 +28,26 @@ type google_container_aws_cluster__workload_identity_config = {
 
 type google_container_aws_cluster
 
+type t = private {
+  annotations : (string * string) list prop;
+  aws_region : string prop;
+  create_time : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  endpoint : string prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  uid : string prop;
+  update_time : string prop;
+  workload_identity_config :
+    google_container_aws_cluster__workload_identity_config list prop;
+}
+
 val google_container_aws_cluster :
   ?annotations:(string * string prop) list ->
   ?description:string prop ->
@@ -44,4 +64,4 @@ val google_container_aws_cluster :
   fleet:google_container_aws_cluster__fleet list ->
   networking:google_container_aws_cluster__networking list ->
   string ->
-  unit
+  t

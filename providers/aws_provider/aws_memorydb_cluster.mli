@@ -31,6 +31,40 @@ type aws_memorydb_cluster__shards = {
 
 type aws_memorydb_cluster
 
+type t = private {
+  acl_name : string prop;
+  arn : string prop;
+  auto_minor_version_upgrade : bool prop;
+  cluster_endpoint :
+    aws_memorydb_cluster__cluster_endpoint list prop;
+  data_tiering : bool prop;
+  description : string prop;
+  engine_patch_version : string prop;
+  engine_version : string prop;
+  final_snapshot_name : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  maintenance_window : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  node_type : string prop;
+  num_replicas_per_shard : float prop;
+  num_shards : float prop;
+  parameter_group_name : string prop;
+  port : float prop;
+  security_group_ids : string list prop;
+  shards : aws_memorydb_cluster__shards list prop;
+  snapshot_arns : string list prop;
+  snapshot_name : string prop;
+  snapshot_retention_limit : float prop;
+  snapshot_window : string prop;
+  sns_topic_arn : string prop;
+  subnet_group_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  tls_enabled : bool prop;
+}
+
 val aws_memorydb_cluster :
   ?auto_minor_version_upgrade:bool prop ->
   ?data_tiering:bool prop ->
@@ -60,4 +94,4 @@ val aws_memorydb_cluster :
   acl_name:string prop ->
   node_type:string prop ->
   string ->
-  unit
+  t

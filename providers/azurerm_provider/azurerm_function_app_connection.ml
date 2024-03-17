@@ -47,23 +47,50 @@ type azurerm_function_app_connection = {
 [@@deriving yojson_of]
 (** azurerm_function_app_connection *)
 
+type t = {
+  client_type : string prop;
+  function_app_id : string prop;
+  id : string prop;
+  name : string prop;
+  target_resource_id : string prop;
+  vnet_solution : string prop;
+}
+
 let azurerm_function_app_connection ?client_type ?id ?vnet_solution
     ?timeouts ~function_app_id ~name ~target_resource_id
     ~authentication ~secret_store __resource_id =
   let __resource_type = "azurerm_function_app_connection" in
   let __resource =
-    {
-      client_type;
-      function_app_id;
-      id;
-      name;
-      target_resource_id;
-      vnet_solution;
-      authentication;
-      secret_store;
-      timeouts;
-    }
+    ({
+       client_type;
+       function_app_id;
+       id;
+       name;
+       target_resource_id;
+       vnet_solution;
+       authentication;
+       secret_store;
+       timeouts;
+     }
+      : azurerm_function_app_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_function_app_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       client_type =
+         Prop.computed __resource_type __resource_id "client_type";
+       function_app_id =
+         Prop.computed __resource_type __resource_id
+           "function_app_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       target_resource_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_id";
+       vnet_solution =
+         Prop.computed __resource_type __resource_id "vnet_solution";
+     }
+      : t)
+  in
+  __resource_attributes

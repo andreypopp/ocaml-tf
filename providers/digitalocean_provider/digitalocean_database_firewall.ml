@@ -21,10 +21,22 @@ type digitalocean_database_firewall = {
 [@@deriving yojson_of]
 (** digitalocean_database_firewall *)
 
+type t = { cluster_id : string prop; id : string prop }
+
 let digitalocean_database_firewall ?id ~cluster_id ~rule
     __resource_id =
   let __resource_type = "digitalocean_database_firewall" in
-  let __resource = { cluster_id; id; rule } in
+  let __resource =
+    ({ cluster_id; id; rule } : digitalocean_database_firewall)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_firewall __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

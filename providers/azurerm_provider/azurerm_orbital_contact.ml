@@ -26,22 +26,54 @@ type azurerm_orbital_contact = {
 [@@deriving yojson_of]
 (** azurerm_orbital_contact *)
 
+type t = {
+  contact_profile_id : string prop;
+  ground_station_name : string prop;
+  id : string prop;
+  name : string prop;
+  reservation_end_time : string prop;
+  reservation_start_time : string prop;
+  spacecraft_id : string prop;
+}
+
 let azurerm_orbital_contact ?id ?timeouts ~contact_profile_id
     ~ground_station_name ~name ~reservation_end_time
     ~reservation_start_time ~spacecraft_id __resource_id =
   let __resource_type = "azurerm_orbital_contact" in
   let __resource =
-    {
-      contact_profile_id;
-      ground_station_name;
-      id;
-      name;
-      reservation_end_time;
-      reservation_start_time;
-      spacecraft_id;
-      timeouts;
-    }
+    ({
+       contact_profile_id;
+       ground_station_name;
+       id;
+       name;
+       reservation_end_time;
+       reservation_start_time;
+       spacecraft_id;
+       timeouts;
+     }
+      : azurerm_orbital_contact)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_orbital_contact __resource);
-  ()
+  let __resource_attributes =
+    ({
+       contact_profile_id =
+         Prop.computed __resource_type __resource_id
+           "contact_profile_id";
+       ground_station_name =
+         Prop.computed __resource_type __resource_id
+           "ground_station_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       reservation_end_time =
+         Prop.computed __resource_type __resource_id
+           "reservation_end_time";
+       reservation_start_time =
+         Prop.computed __resource_type __resource_id
+           "reservation_start_time";
+       spacecraft_id =
+         Prop.computed __resource_type __resource_id "spacecraft_id";
+     }
+      : t)
+  in
+  __resource_attributes

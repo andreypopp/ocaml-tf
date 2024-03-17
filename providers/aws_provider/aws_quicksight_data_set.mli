@@ -83,11 +83,23 @@ type aws_quicksight_data_set__output_columns = {
 }
 type aws_quicksight_data_set
 
+type t = private {
+  arn: string prop;
+  aws_account_id: string prop;
+  data_set_id: string prop;
+  id: string prop;
+  import_mode: string prop;
+  name: string prop;
+  output_columns: aws_quicksight_data_set__output_columns list prop;
+  tags: (string * string) list prop;
+  tags_all: (string * string) list prop;
+}
+
 val aws_quicksight_data_set :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string prop) list ->
-    ?tags_all:(string * string prop) list ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
     data_set_id:string prop ->
     import_mode:string prop ->
     name:string prop ->
@@ -102,5 +114,5 @@ val aws_quicksight_data_set :
     row_level_permission_data_set:aws_quicksight_data_set__row_level_permission_data_set list ->
     row_level_permission_tag_configuration:aws_quicksight_data_set__row_level_permission_tag_configuration list ->
     string ->
-    unit
+    t
 

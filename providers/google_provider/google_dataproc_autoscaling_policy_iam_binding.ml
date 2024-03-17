@@ -25,15 +25,42 @@ type google_dataproc_autoscaling_policy_iam_binding = {
 [@@deriving yojson_of]
 (** google_dataproc_autoscaling_policy_iam_binding *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  members : string list prop;
+  policy_id : string prop;
+  project : string prop;
+  role : string prop;
+}
+
 let google_dataproc_autoscaling_policy_iam_binding ?id ?location
     ?project ~members ~policy_id ~role ~condition __resource_id =
   let __resource_type =
     "google_dataproc_autoscaling_policy_iam_binding"
   in
   let __resource =
-    { id; location; members; policy_id; project; role; condition }
+    ({ id; location; members; policy_id; project; role; condition }
+      : google_dataproc_autoscaling_policy_iam_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataproc_autoscaling_policy_iam_binding
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       policy_id =
+         Prop.computed __resource_type __resource_id "policy_id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

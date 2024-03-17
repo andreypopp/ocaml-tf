@@ -7,6 +7,14 @@ type aws_sagemaker_monitoring_schedule__monitoring_schedule_config__schedule_con
 type aws_sagemaker_monitoring_schedule__monitoring_schedule_config
 type aws_sagemaker_monitoring_schedule
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_sagemaker_monitoring_schedule :
   ?id:string prop ->
   ?name:string prop ->
@@ -16,4 +24,4 @@ val aws_sagemaker_monitoring_schedule :
     aws_sagemaker_monitoring_schedule__monitoring_schedule_config
     list ->
   string ->
-  unit
+  t

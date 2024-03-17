@@ -7,6 +7,24 @@ type aws_opsworks_application__environment
 type aws_opsworks_application__ssl_configuration
 type aws_opsworks_application
 
+type t = private {
+  auto_bundle_on_deploy : string prop;
+  aws_flow_ruby_settings : string prop;
+  data_source_arn : string prop;
+  data_source_database_name : string prop;
+  data_source_type : string prop;
+  description : string prop;
+  document_root : string prop;
+  domains : string list prop;
+  enable_ssl : bool prop;
+  id : string prop;
+  name : string prop;
+  rails_env : string prop;
+  short_name : string prop;
+  stack_id : string prop;
+  type_ : string prop;
+}
+
 val aws_opsworks_application :
   ?auto_bundle_on_deploy:string prop ->
   ?aws_flow_ruby_settings:string prop ->
@@ -27,4 +45,4 @@ val aws_opsworks_application :
   environment:aws_opsworks_application__environment list ->
   ssl_configuration:aws_opsworks_application__ssl_configuration list ->
   string ->
-  unit
+  t

@@ -9,6 +9,15 @@ type google_dns_policy__networks
 type google_dns_policy__timeouts
 type google_dns_policy
 
+type t = private {
+  description : string prop;
+  enable_inbound_forwarding : bool prop;
+  enable_logging : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_dns_policy :
   ?description:string prop ->
   ?enable_inbound_forwarding:bool prop ->
@@ -21,4 +30,4 @@ val google_dns_policy :
     google_dns_policy__alternative_name_server_config list ->
   networks:google_dns_policy__networks list ->
   string ->
-  unit
+  t

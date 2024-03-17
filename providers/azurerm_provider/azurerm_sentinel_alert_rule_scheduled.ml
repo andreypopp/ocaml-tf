@@ -138,6 +138,28 @@ type azurerm_sentinel_alert_rule_scheduled = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_scheduled *)
 
+type t = {
+  alert_rule_template_guid : string prop;
+  alert_rule_template_version : string prop;
+  custom_details : (string * string) list prop;
+  description : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  query : string prop;
+  query_frequency : string prop;
+  query_period : string prop;
+  severity : string prop;
+  suppression_duration : string prop;
+  suppression_enabled : bool prop;
+  tactics : string list prop;
+  techniques : string list prop;
+  trigger_operator : string prop;
+  trigger_threshold : float prop;
+}
+
 let azurerm_sentinel_alert_rule_scheduled ?alert_rule_template_guid
     ?alert_rule_template_version ?custom_details ?description
     ?enabled ?id ?query_frequency ?query_period ?suppression_duration
@@ -148,34 +170,83 @@ let azurerm_sentinel_alert_rule_scheduled ?alert_rule_template_guid
     ~incident_configuration ~sentinel_entity_mapping __resource_id =
   let __resource_type = "azurerm_sentinel_alert_rule_scheduled" in
   let __resource =
-    {
-      alert_rule_template_guid;
-      alert_rule_template_version;
-      custom_details;
-      description;
-      display_name;
-      enabled;
-      id;
-      log_analytics_workspace_id;
-      name;
-      query;
-      query_frequency;
-      query_period;
-      severity;
-      suppression_duration;
-      suppression_enabled;
-      tactics;
-      techniques;
-      trigger_operator;
-      trigger_threshold;
-      alert_details_override;
-      entity_mapping;
-      event_grouping;
-      incident_configuration;
-      sentinel_entity_mapping;
-      timeouts;
-    }
+    ({
+       alert_rule_template_guid;
+       alert_rule_template_version;
+       custom_details;
+       description;
+       display_name;
+       enabled;
+       id;
+       log_analytics_workspace_id;
+       name;
+       query;
+       query_frequency;
+       query_period;
+       severity;
+       suppression_duration;
+       suppression_enabled;
+       tactics;
+       techniques;
+       trigger_operator;
+       trigger_threshold;
+       alert_details_override;
+       entity_mapping;
+       event_grouping;
+       incident_configuration;
+       sentinel_entity_mapping;
+       timeouts;
+     }
+      : azurerm_sentinel_alert_rule_scheduled)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_alert_rule_scheduled __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alert_rule_template_guid =
+         Prop.computed __resource_type __resource_id
+           "alert_rule_template_guid";
+       alert_rule_template_version =
+         Prop.computed __resource_type __resource_id
+           "alert_rule_template_version";
+       custom_details =
+         Prop.computed __resource_type __resource_id "custom_details";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       query = Prop.computed __resource_type __resource_id "query";
+       query_frequency =
+         Prop.computed __resource_type __resource_id
+           "query_frequency";
+       query_period =
+         Prop.computed __resource_type __resource_id "query_period";
+       severity =
+         Prop.computed __resource_type __resource_id "severity";
+       suppression_duration =
+         Prop.computed __resource_type __resource_id
+           "suppression_duration";
+       suppression_enabled =
+         Prop.computed __resource_type __resource_id
+           "suppression_enabled";
+       tactics =
+         Prop.computed __resource_type __resource_id "tactics";
+       techniques =
+         Prop.computed __resource_type __resource_id "techniques";
+       trigger_operator =
+         Prop.computed __resource_type __resource_id
+           "trigger_operator";
+       trigger_threshold =
+         Prop.computed __resource_type __resource_id
+           "trigger_threshold";
+     }
+      : t)
+  in
+  __resource_attributes

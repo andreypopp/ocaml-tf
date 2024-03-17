@@ -28,23 +28,56 @@ Transit or Magic WAN. Static routes are used to route traffic
 through GRE tunnels.
  *)
 
+type t = {
+  account_id : string prop;
+  colo_names : string list prop;
+  colo_regions : string list prop;
+  description : string prop;
+  id : string prop;
+  nexthop : string prop;
+  prefix : string prop;
+  priority : float prop;
+  weight : float prop;
+}
+
 let cloudflare_static_route ?account_id ?colo_names ?colo_regions
     ?description ?id ?weight ~nexthop ~prefix ~priority __resource_id
     =
   let __resource_type = "cloudflare_static_route" in
   let __resource =
-    {
-      account_id;
-      colo_names;
-      colo_regions;
-      description;
-      id;
-      nexthop;
-      prefix;
-      priority;
-      weight;
-    }
+    ({
+       account_id;
+       colo_names;
+       colo_regions;
+       description;
+       id;
+       nexthop;
+       prefix;
+       priority;
+       weight;
+     }
+      : cloudflare_static_route)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_static_route __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       colo_names =
+         Prop.computed __resource_type __resource_id "colo_names";
+       colo_regions =
+         Prop.computed __resource_type __resource_id "colo_regions";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       nexthop =
+         Prop.computed __resource_type __resource_id "nexthop";
+       prefix = Prop.computed __resource_type __resource_id "prefix";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       weight = Prop.computed __resource_type __resource_id "weight";
+     }
+      : t)
+  in
+  __resource_attributes

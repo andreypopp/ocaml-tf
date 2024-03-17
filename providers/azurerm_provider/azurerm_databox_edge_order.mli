@@ -37,6 +37,21 @@ type azurerm_databox_edge_order__status = {
 
 type azurerm_databox_edge_order
 
+type t = private {
+  device_name : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  return_tracking :
+    azurerm_databox_edge_order__return_tracking list prop;
+  serial_number : string prop;
+  shipment_history :
+    azurerm_databox_edge_order__shipment_history list prop;
+  shipment_tracking :
+    azurerm_databox_edge_order__shipment_tracking list prop;
+  status : azurerm_databox_edge_order__status list prop;
+}
+
 val azurerm_databox_edge_order :
   ?id:string prop ->
   ?timeouts:azurerm_databox_edge_order__timeouts ->
@@ -45,4 +60,4 @@ val azurerm_databox_edge_order :
   contact:azurerm_databox_edge_order__contact list ->
   shipment_address:azurerm_databox_edge_order__shipment_address list ->
   string ->
-  unit
+  t

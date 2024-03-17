@@ -33,25 +33,68 @@ type google_compute_network_peering = {
 [@@deriving yojson_of]
 (** google_compute_network_peering *)
 
+type t = {
+  export_custom_routes : bool prop;
+  export_subnet_routes_with_public_ip : bool prop;
+  id : string prop;
+  import_custom_routes : bool prop;
+  import_subnet_routes_with_public_ip : bool prop;
+  name : string prop;
+  network : string prop;
+  peer_network : string prop;
+  stack_type : string prop;
+  state : string prop;
+  state_details : string prop;
+}
+
 let google_compute_network_peering ?export_custom_routes
     ?export_subnet_routes_with_public_ip ?id ?import_custom_routes
     ?import_subnet_routes_with_public_ip ?stack_type ?timeouts ~name
     ~network ~peer_network __resource_id =
   let __resource_type = "google_compute_network_peering" in
   let __resource =
-    {
-      export_custom_routes;
-      export_subnet_routes_with_public_ip;
-      id;
-      import_custom_routes;
-      import_subnet_routes_with_public_ip;
-      name;
-      network;
-      peer_network;
-      stack_type;
-      timeouts;
-    }
+    ({
+       export_custom_routes;
+       export_subnet_routes_with_public_ip;
+       id;
+       import_custom_routes;
+       import_subnet_routes_with_public_ip;
+       name;
+       network;
+       peer_network;
+       stack_type;
+       timeouts;
+     }
+      : google_compute_network_peering)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_peering __resource);
-  ()
+  let __resource_attributes =
+    ({
+       export_custom_routes =
+         Prop.computed __resource_type __resource_id
+           "export_custom_routes";
+       export_subnet_routes_with_public_ip =
+         Prop.computed __resource_type __resource_id
+           "export_subnet_routes_with_public_ip";
+       id = Prop.computed __resource_type __resource_id "id";
+       import_custom_routes =
+         Prop.computed __resource_type __resource_id
+           "import_custom_routes";
+       import_subnet_routes_with_public_ip =
+         Prop.computed __resource_type __resource_id
+           "import_subnet_routes_with_public_ip";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       peer_network =
+         Prop.computed __resource_type __resource_id "peer_network";
+       stack_type =
+         Prop.computed __resource_type __resource_id "stack_type";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_details =
+         Prop.computed __resource_type __resource_id "state_details";
+     }
+      : t)
+  in
+  __resource_attributes

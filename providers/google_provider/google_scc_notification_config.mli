@@ -6,6 +6,16 @@ type google_scc_notification_config__streaming_config
 type google_scc_notification_config__timeouts
 type google_scc_notification_config
 
+type t = private {
+  config_id : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  organization : string prop;
+  pubsub_topic : string prop;
+  service_account : string prop;
+}
+
 val google_scc_notification_config :
   ?description:string prop ->
   ?id:string prop ->
@@ -16,4 +26,4 @@ val google_scc_notification_config :
   streaming_config:
     google_scc_notification_config__streaming_config list ->
   string ->
-  unit
+  t

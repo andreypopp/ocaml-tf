@@ -321,22 +321,53 @@ running 'gcloud privateca locations list'. *)
 [@@deriving yojson_of]
 (** google_privateca_ca_pool *)
 
+type t = {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  tier : string prop;
+}
+
 let google_privateca_ca_pool ?id ?labels ?project ?timeouts ~location
     ~name ~tier ~issuance_policy ~publishing_options __resource_id =
   let __resource_type = "google_privateca_ca_pool" in
   let __resource =
-    {
-      id;
-      labels;
-      location;
-      name;
-      project;
-      tier;
-      issuance_policy;
-      publishing_options;
-      timeouts;
-    }
+    ({
+       id;
+       labels;
+       location;
+       name;
+       project;
+       tier;
+       issuance_policy;
+       publishing_options;
+       timeouts;
+     }
+      : google_privateca_ca_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_privateca_ca_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       tier = Prop.computed __resource_type __resource_id "tier";
+     }
+      : t)
+  in
+  __resource_attributes

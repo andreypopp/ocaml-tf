@@ -91,6 +91,38 @@ type azurerm_sentinel_threat_intelligence_indicator = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_threat_intelligence_indicator *)
 
+type t = {
+  confidence : float prop;
+  created_by : string prop;
+  created_on : string prop;
+  defanged : bool prop;
+  description : string prop;
+  display_name : string prop;
+  extension : string prop;
+  external_id : string prop;
+  external_last_updated_time_utc : string prop;
+  guid : string prop;
+  id : string prop;
+  indicator_type : string list prop;
+  language : string prop;
+  last_updated_time_utc : string prop;
+  object_marking_refs : string list prop;
+  parsed_pattern :
+    azurerm_sentinel_threat_intelligence_indicator__parsed_pattern
+    list
+    prop;
+  pattern : string prop;
+  pattern_type : string prop;
+  pattern_version : string prop;
+  revoked : bool prop;
+  source : string prop;
+  tags : string list prop;
+  threat_types : string list prop;
+  validate_from_utc : string prop;
+  validate_until_utc : string prop;
+  workspace_id : string prop;
+}
+
 let azurerm_sentinel_threat_intelligence_indicator ?confidence
     ?created_by ?description ?extension ?id ?language
     ?object_marking_refs ?pattern_version ?revoked ?tags
@@ -102,32 +134,92 @@ let azurerm_sentinel_threat_intelligence_indicator ?confidence
     "azurerm_sentinel_threat_intelligence_indicator"
   in
   let __resource =
-    {
-      confidence;
-      created_by;
-      description;
-      display_name;
-      extension;
-      id;
-      language;
-      object_marking_refs;
-      pattern;
-      pattern_type;
-      pattern_version;
-      revoked;
-      source;
-      tags;
-      threat_types;
-      validate_from_utc;
-      validate_until_utc;
-      workspace_id;
-      external_reference;
-      granular_marking;
-      kill_chain_phase;
-      timeouts;
-    }
+    ({
+       confidence;
+       created_by;
+       description;
+       display_name;
+       extension;
+       id;
+       language;
+       object_marking_refs;
+       pattern;
+       pattern_type;
+       pattern_version;
+       revoked;
+       source;
+       tags;
+       threat_types;
+       validate_from_utc;
+       validate_until_utc;
+       workspace_id;
+       external_reference;
+       granular_marking;
+       kill_chain_phase;
+       timeouts;
+     }
+      : azurerm_sentinel_threat_intelligence_indicator)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_threat_intelligence_indicator
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       confidence =
+         Prop.computed __resource_type __resource_id "confidence";
+       created_by =
+         Prop.computed __resource_type __resource_id "created_by";
+       created_on =
+         Prop.computed __resource_type __resource_id "created_on";
+       defanged =
+         Prop.computed __resource_type __resource_id "defanged";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       extension =
+         Prop.computed __resource_type __resource_id "extension";
+       external_id =
+         Prop.computed __resource_type __resource_id "external_id";
+       external_last_updated_time_utc =
+         Prop.computed __resource_type __resource_id
+           "external_last_updated_time_utc";
+       guid = Prop.computed __resource_type __resource_id "guid";
+       id = Prop.computed __resource_type __resource_id "id";
+       indicator_type =
+         Prop.computed __resource_type __resource_id "indicator_type";
+       language =
+         Prop.computed __resource_type __resource_id "language";
+       last_updated_time_utc =
+         Prop.computed __resource_type __resource_id
+           "last_updated_time_utc";
+       object_marking_refs =
+         Prop.computed __resource_type __resource_id
+           "object_marking_refs";
+       parsed_pattern =
+         Prop.computed __resource_type __resource_id "parsed_pattern";
+       pattern =
+         Prop.computed __resource_type __resource_id "pattern";
+       pattern_type =
+         Prop.computed __resource_type __resource_id "pattern_type";
+       pattern_version =
+         Prop.computed __resource_type __resource_id
+           "pattern_version";
+       revoked =
+         Prop.computed __resource_type __resource_id "revoked";
+       source = Prop.computed __resource_type __resource_id "source";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       threat_types =
+         Prop.computed __resource_type __resource_id "threat_types";
+       validate_from_utc =
+         Prop.computed __resource_type __resource_id
+           "validate_from_utc";
+       validate_until_utc =
+         Prop.computed __resource_type __resource_id
+           "validate_until_utc";
+       workspace_id =
+         Prop.computed __resource_type __resource_id "workspace_id";
+     }
+      : t)
+  in
+  __resource_attributes

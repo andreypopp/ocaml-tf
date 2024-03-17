@@ -43,6 +43,21 @@ type azurerm_mobile_network_sim = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_sim *)
 
+type t = {
+  authentication_key : string prop;
+  device_type : string prop;
+  id : string prop;
+  integrated_circuit_card_identifier : string prop;
+  international_mobile_subscriber_identity : string prop;
+  mobile_network_sim_group_id : string prop;
+  name : string prop;
+  operator_key_code : string prop;
+  sim_policy_id : string prop;
+  sim_state : string prop;
+  vendor_key_fingerprint : string prop;
+  vendor_name : string prop;
+}
+
 let azurerm_mobile_network_sim ?device_type ?id ?sim_policy_id
     ?timeouts ~authentication_key ~integrated_circuit_card_identifier
     ~international_mobile_subscriber_identity
@@ -50,20 +65,54 @@ let azurerm_mobile_network_sim ?device_type ?id ?sim_policy_id
     ~static_ip_configuration __resource_id =
   let __resource_type = "azurerm_mobile_network_sim" in
   let __resource =
-    {
-      authentication_key;
-      device_type;
-      id;
-      integrated_circuit_card_identifier;
-      international_mobile_subscriber_identity;
-      mobile_network_sim_group_id;
-      name;
-      operator_key_code;
-      sim_policy_id;
-      static_ip_configuration;
-      timeouts;
-    }
+    ({
+       authentication_key;
+       device_type;
+       id;
+       integrated_circuit_card_identifier;
+       international_mobile_subscriber_identity;
+       mobile_network_sim_group_id;
+       name;
+       operator_key_code;
+       sim_policy_id;
+       static_ip_configuration;
+       timeouts;
+     }
+      : azurerm_mobile_network_sim)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mobile_network_sim __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authentication_key =
+         Prop.computed __resource_type __resource_id
+           "authentication_key";
+       device_type =
+         Prop.computed __resource_type __resource_id "device_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       integrated_circuit_card_identifier =
+         Prop.computed __resource_type __resource_id
+           "integrated_circuit_card_identifier";
+       international_mobile_subscriber_identity =
+         Prop.computed __resource_type __resource_id
+           "international_mobile_subscriber_identity";
+       mobile_network_sim_group_id =
+         Prop.computed __resource_type __resource_id
+           "mobile_network_sim_group_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       operator_key_code =
+         Prop.computed __resource_type __resource_id
+           "operator_key_code";
+       sim_policy_id =
+         Prop.computed __resource_type __resource_id "sim_policy_id";
+       sim_state =
+         Prop.computed __resource_type __resource_id "sim_state";
+       vendor_key_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "vendor_key_fingerprint";
+       vendor_name =
+         Prop.computed __resource_type __resource_id "vendor_name";
+     }
+      : t)
+  in
+  __resource_attributes

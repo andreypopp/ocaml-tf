@@ -31,10 +31,11 @@ type kubernetes_network_policy__spec__pod_selector__match_expressions
 type kubernetes_network_policy__spec__pod_selector
 type kubernetes_network_policy__spec
 type kubernetes_network_policy
+type t = private { id : string prop }
 
 val kubernetes_network_policy :
   ?id:string prop ->
   metadata:kubernetes_network_policy__metadata list ->
   spec:kubernetes_network_policy__spec list ->
   string ->
-  unit
+  t

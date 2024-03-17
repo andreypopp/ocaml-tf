@@ -199,20 +199,47 @@ type aws_dlm_lifecycle_policy = {
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  execution_role_arn : string prop;
+  id : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_dlm_lifecycle_policy ?id ?state ?tags ?tags_all ~description
     ~execution_role_arn ~policy_details __resource_id =
   let __resource_type = "aws_dlm_lifecycle_policy" in
   let __resource =
-    {
-      description;
-      execution_role_arn;
-      id;
-      state;
-      tags;
-      tags_all;
-      policy_details;
-    }
+    ({
+       description;
+       execution_role_arn;
+       id;
+       state;
+       tags;
+       tags_all;
+       policy_details;
+     }
+      : aws_dlm_lifecycle_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dlm_lifecycle_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       execution_role_arn =
+         Prop.computed __resource_type __resource_id
+           "execution_role_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

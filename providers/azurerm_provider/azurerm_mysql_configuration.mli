@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_mysql_configuration__timeouts
 type azurerm_mysql_configuration
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  server_name : string prop;
+  value : string prop;
+}
+
 val azurerm_mysql_configuration :
   ?id:string prop ->
   ?timeouts:azurerm_mysql_configuration__timeouts ->
@@ -13,4 +21,4 @@ val azurerm_mysql_configuration :
   server_name:string prop ->
   value:string prop ->
   string ->
-  unit
+  t

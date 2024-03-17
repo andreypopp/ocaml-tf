@@ -6,6 +6,20 @@ type azurerm_analysis_services_server__ipv4_firewall_rule
 type azurerm_analysis_services_server__timeouts
 type azurerm_analysis_services_server
 
+type t = private {
+  admin_users : string list prop;
+  backup_blob_container_uri : string prop;
+  enable_power_bi_service : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  querypool_connection_mode : string prop;
+  resource_group_name : string prop;
+  server_full_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_analysis_services_server :
   ?admin_users:string prop list ->
   ?backup_blob_container_uri:string prop ->
@@ -21,4 +35,4 @@ val azurerm_analysis_services_server :
   ipv4_firewall_rule:
     azurerm_analysis_services_server__ipv4_firewall_rule list ->
   string ->
-  unit
+  t

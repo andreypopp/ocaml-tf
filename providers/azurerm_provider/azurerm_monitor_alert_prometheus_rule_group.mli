@@ -10,6 +10,19 @@ type azurerm_monitor_alert_prometheus_rule_group__rule
 type azurerm_monitor_alert_prometheus_rule_group__timeouts
 type azurerm_monitor_alert_prometheus_rule_group
 
+type t = private {
+  cluster_name : string prop;
+  description : string prop;
+  id : string prop;
+  interval : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  rule_group_enabled : bool prop;
+  scopes : string list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_monitor_alert_prometheus_rule_group :
   ?cluster_name:string prop ->
   ?description:string prop ->
@@ -24,4 +37,4 @@ val azurerm_monitor_alert_prometheus_rule_group :
   scopes:string prop list ->
   rule:azurerm_monitor_alert_prometheus_rule_group__rule list ->
   string ->
-  unit
+  t

@@ -59,23 +59,46 @@ type azurerm_elastic_san_volume_group = {
 [@@deriving yojson_of]
 (** azurerm_elastic_san_volume_group *)
 
+type t = {
+  elastic_san_id : string prop;
+  encryption_type : string prop;
+  id : string prop;
+  name : string prop;
+  protocol_type : string prop;
+}
+
 let azurerm_elastic_san_volume_group ?encryption_type ?id
     ?protocol_type ?timeouts ~elastic_san_id ~name ~encryption
     ~identity ~network_rule __resource_id =
   let __resource_type = "azurerm_elastic_san_volume_group" in
   let __resource =
-    {
-      elastic_san_id;
-      encryption_type;
-      id;
-      name;
-      protocol_type;
-      encryption;
-      identity;
-      network_rule;
-      timeouts;
-    }
+    ({
+       elastic_san_id;
+       encryption_type;
+       id;
+       name;
+       protocol_type;
+       encryption;
+       identity;
+       network_rule;
+       timeouts;
+     }
+      : azurerm_elastic_san_volume_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_elastic_san_volume_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       elastic_san_id =
+         Prop.computed __resource_type __resource_id "elastic_san_id";
+       encryption_type =
+         Prop.computed __resource_type __resource_id
+           "encryption_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       protocol_type =
+         Prop.computed __resource_type __resource_id "protocol_type";
+     }
+      : t)
+  in
+  __resource_attributes

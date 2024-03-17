@@ -46,20 +46,53 @@ type aws_default_route_table = {
 [@@deriving yojson_of]
 (** aws_default_route_table *)
 
+type t = {
+  arn : string prop;
+  default_route_table_id : string prop;
+  id : string prop;
+  owner_id : string prop;
+  propagating_vgws : string list prop;
+  route : aws_default_route_table__route list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 let aws_default_route_table ?id ?propagating_vgws ?route ?tags
     ?tags_all ?timeouts ~default_route_table_id __resource_id =
   let __resource_type = "aws_default_route_table" in
   let __resource =
-    {
-      default_route_table_id;
-      id;
-      propagating_vgws;
-      route;
-      tags;
-      tags_all;
-      timeouts;
-    }
+    ({
+       default_route_table_id;
+       id;
+       propagating_vgws;
+       route;
+       tags;
+       tags_all;
+       timeouts;
+     }
+      : aws_default_route_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_route_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       default_route_table_id =
+         Prop.computed __resource_type __resource_id
+           "default_route_table_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       owner_id =
+         Prop.computed __resource_type __resource_id "owner_id";
+       propagating_vgws =
+         Prop.computed __resource_type __resource_id
+           "propagating_vgws";
+       route = Prop.computed __resource_type __resource_id "route";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+     }
+      : t)
+  in
+  __resource_attributes

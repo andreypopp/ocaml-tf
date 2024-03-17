@@ -173,6 +173,26 @@ type azurerm_spring_cloud_service = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_service *)
 
+type t = {
+  build_agent_pool_size : string prop;
+  id : string prop;
+  location : string prop;
+  log_stream_public_endpoint_enabled : bool prop;
+  managed_environment_id : string prop;
+  name : string prop;
+  outbound_public_ip_addresses : string list prop;
+  required_network_traffic_rules :
+    azurerm_spring_cloud_service__required_network_traffic_rules list
+    prop;
+  resource_group_name : string prop;
+  service_registry_enabled : bool prop;
+  service_registry_id : string prop;
+  sku_name : string prop;
+  sku_tier : string prop;
+  tags : (string * string) list prop;
+  zone_redundant : bool prop;
+}
+
 let azurerm_spring_cloud_service ?build_agent_pool_size ?id
     ?log_stream_public_endpoint_enabled ?managed_environment_id
     ?service_registry_enabled ?sku_name ?sku_tier ?tags
@@ -182,28 +202,69 @@ let azurerm_spring_cloud_service ?build_agent_pool_size ?id
     =
   let __resource_type = "azurerm_spring_cloud_service" in
   let __resource =
-    {
-      build_agent_pool_size;
-      id;
-      location;
-      log_stream_public_endpoint_enabled;
-      managed_environment_id;
-      name;
-      resource_group_name;
-      service_registry_enabled;
-      sku_name;
-      sku_tier;
-      tags;
-      zone_redundant;
-      config_server_git_setting;
-      container_registry;
-      default_build_service;
-      marketplace;
-      network;
-      timeouts;
-      trace;
-    }
+    ({
+       build_agent_pool_size;
+       id;
+       location;
+       log_stream_public_endpoint_enabled;
+       managed_environment_id;
+       name;
+       resource_group_name;
+       service_registry_enabled;
+       sku_name;
+       sku_tier;
+       tags;
+       zone_redundant;
+       config_server_git_setting;
+       container_registry;
+       default_build_service;
+       marketplace;
+       network;
+       timeouts;
+       trace;
+     }
+      : azurerm_spring_cloud_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       build_agent_pool_size =
+         Prop.computed __resource_type __resource_id
+           "build_agent_pool_size";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       log_stream_public_endpoint_enabled =
+         Prop.computed __resource_type __resource_id
+           "log_stream_public_endpoint_enabled";
+       managed_environment_id =
+         Prop.computed __resource_type __resource_id
+           "managed_environment_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_public_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "outbound_public_ip_addresses";
+       required_network_traffic_rules =
+         Prop.computed __resource_type __resource_id
+           "required_network_traffic_rules";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       service_registry_enabled =
+         Prop.computed __resource_type __resource_id
+           "service_registry_enabled";
+       service_registry_id =
+         Prop.computed __resource_type __resource_id
+           "service_registry_id";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       sku_tier =
+         Prop.computed __resource_type __resource_id "sku_tier";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zone_redundant =
+         Prop.computed __resource_type __resource_id "zone_redundant";
+     }
+      : t)
+  in
+  __resource_attributes

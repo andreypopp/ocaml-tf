@@ -8,6 +8,19 @@ type cloudflare_spectrum_application__origin_dns
 type cloudflare_spectrum_application__origin_port_range
 type cloudflare_spectrum_application
 
+type t = private {
+  argo_smart_routing : bool prop;
+  id : string prop;
+  ip_firewall : bool prop;
+  origin_direct : string list prop;
+  origin_port : float prop;
+  protocol : string prop;
+  proxy_protocol : string prop;
+  tls : string prop;
+  traffic_type : string prop;
+  zone_id : string prop;
+}
+
 val cloudflare_spectrum_application :
   ?argo_smart_routing:bool prop ->
   ?id:string prop ->
@@ -25,4 +38,4 @@ val cloudflare_spectrum_application :
   origin_port_range:
     cloudflare_spectrum_application__origin_port_range list ->
   string ->
-  unit
+  t

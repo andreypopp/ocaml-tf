@@ -94,6 +94,24 @@ type aws_acmpca_certificate_authority = {
 [@@deriving yojson_of]
 (** aws_acmpca_certificate_authority *)
 
+type t = {
+  arn : string prop;
+  certificate : string prop;
+  certificate_chain : string prop;
+  certificate_signing_request : string prop;
+  enabled : bool prop;
+  id : string prop;
+  key_storage_security_standard : string prop;
+  not_after : string prop;
+  not_before : string prop;
+  permanent_deletion_time_in_days : float prop;
+  serial : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  usage_mode : string prop;
+}
+
 let aws_acmpca_certificate_authority ?enabled ?id
     ?key_storage_security_standard ?permanent_deletion_time_in_days
     ?tags ?tags_all ?type_ ?usage_mode ?timeouts
@@ -101,20 +119,55 @@ let aws_acmpca_certificate_authority ?enabled ?id
     __resource_id =
   let __resource_type = "aws_acmpca_certificate_authority" in
   let __resource =
-    {
-      enabled;
-      id;
-      key_storage_security_standard;
-      permanent_deletion_time_in_days;
-      tags;
-      tags_all;
-      type_;
-      usage_mode;
-      certificate_authority_configuration;
-      revocation_configuration;
-      timeouts;
-    }
+    ({
+       enabled;
+       id;
+       key_storage_security_standard;
+       permanent_deletion_time_in_days;
+       tags;
+       tags_all;
+       type_;
+       usage_mode;
+       certificate_authority_configuration;
+       revocation_configuration;
+       timeouts;
+     }
+      : aws_acmpca_certificate_authority)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_acmpca_certificate_authority __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       certificate =
+         Prop.computed __resource_type __resource_id "certificate";
+       certificate_chain =
+         Prop.computed __resource_type __resource_id
+           "certificate_chain";
+       certificate_signing_request =
+         Prop.computed __resource_type __resource_id
+           "certificate_signing_request";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_storage_security_standard =
+         Prop.computed __resource_type __resource_id
+           "key_storage_security_standard";
+       not_after =
+         Prop.computed __resource_type __resource_id "not_after";
+       not_before =
+         Prop.computed __resource_type __resource_id "not_before";
+       permanent_deletion_time_in_days =
+         Prop.computed __resource_type __resource_id
+           "permanent_deletion_time_in_days";
+       serial = Prop.computed __resource_type __resource_id "serial";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       usage_mode =
+         Prop.computed __resource_type __resource_id "usage_mode";
+     }
+      : t)
+  in
+  __resource_attributes

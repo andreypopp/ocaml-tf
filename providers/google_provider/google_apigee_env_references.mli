@@ -5,6 +5,15 @@ open! Tf.Prelude
 type google_apigee_env_references__timeouts
 type google_apigee_env_references
 
+type t = private {
+  description : string prop;
+  env_id : string prop;
+  id : string prop;
+  name : string prop;
+  refers : string prop;
+  resource_type : string prop;
+}
+
 val google_apigee_env_references :
   ?description:string prop ->
   ?id:string prop ->
@@ -14,4 +23,4 @@ val google_apigee_env_references :
   refers:string prop ->
   resource_type:string prop ->
   string ->
-  unit
+  t

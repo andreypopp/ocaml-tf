@@ -9,6 +9,13 @@ type google_cloud_tasks_queue__stackdriver_logging_config
 type google_cloud_tasks_queue__timeouts
 type google_cloud_tasks_queue
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_cloud_tasks_queue :
   ?id:string prop ->
   ?name:string prop ->
@@ -22,4 +29,4 @@ val google_cloud_tasks_queue :
   stackdriver_logging_config:
     google_cloud_tasks_queue__stackdriver_logging_config list ->
   string ->
-  unit
+  t

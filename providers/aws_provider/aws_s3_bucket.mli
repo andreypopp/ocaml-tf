@@ -39,6 +39,27 @@ type aws_s3_bucket__versioning
 type aws_s3_bucket__website
 type aws_s3_bucket
 
+type t = private {
+  acceleration_status : string prop;
+  acl : string prop;
+  arn : string prop;
+  bucket : string prop;
+  bucket_domain_name : string prop;
+  bucket_prefix : string prop;
+  bucket_regional_domain_name : string prop;
+  force_destroy : bool prop;
+  hosted_zone_id : string prop;
+  id : string prop;
+  object_lock_enabled : bool prop;
+  policy : string prop;
+  region : string prop;
+  request_payer : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  website_domain : string prop;
+  website_endpoint : string prop;
+}
+
 val aws_s3_bucket :
   ?acceleration_status:string prop ->
   ?acl:string prop ->
@@ -65,4 +86,4 @@ val aws_s3_bucket :
   versioning:aws_s3_bucket__versioning list ->
   website:aws_s3_bucket__website list ->
   string ->
-  unit
+  t

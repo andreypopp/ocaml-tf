@@ -41,21 +41,54 @@ type aws_connect_hours_of_operation = {
 [@@deriving yojson_of]
 (** aws_connect_hours_of_operation *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  hours_of_operation_id : string prop;
+  id : string prop;
+  instance_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  time_zone : string prop;
+}
+
 let aws_connect_hours_of_operation ?description ?id ?tags ?tags_all
     ~instance_id ~name ~time_zone ~config __resource_id =
   let __resource_type = "aws_connect_hours_of_operation" in
   let __resource =
-    {
-      description;
-      id;
-      instance_id;
-      name;
-      tags;
-      tags_all;
-      time_zone;
-      config;
-    }
+    ({
+       description;
+       id;
+       instance_id;
+       name;
+       tags;
+       tags_all;
+       time_zone;
+       config;
+     }
+      : aws_connect_hours_of_operation)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_hours_of_operation __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       hours_of_operation_id =
+         Prop.computed __resource_type __resource_id
+           "hours_of_operation_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_id =
+         Prop.computed __resource_type __resource_id "instance_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+     }
+      : t)
+  in
+  __resource_attributes

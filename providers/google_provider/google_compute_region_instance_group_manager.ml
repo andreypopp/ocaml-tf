@@ -212,6 +212,28 @@ type google_compute_region_instance_group_manager = {
 [@@deriving yojson_of]
 (** google_compute_region_instance_group_manager *)
 
+type t = {
+  base_instance_name : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  distribution_policy_target_shape : string prop;
+  distribution_policy_zones : string list prop;
+  fingerprint : string prop;
+  id : string prop;
+  instance_group : string prop;
+  list_managed_instances_results : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+  status :
+    google_compute_region_instance_group_manager__status list prop;
+  target_pools : string list prop;
+  target_size : float prop;
+  wait_for_instances : bool prop;
+  wait_for_instances_status : string prop;
+}
+
 let google_compute_region_instance_group_manager ?description
     ?distribution_policy_target_shape ?distribution_policy_zones ?id
     ?list_managed_instances_results ?project ?region ?target_pools
@@ -224,33 +246,78 @@ let google_compute_region_instance_group_manager ?description
     "google_compute_region_instance_group_manager"
   in
   let __resource =
-    {
-      base_instance_name;
-      description;
-      distribution_policy_target_shape;
-      distribution_policy_zones;
-      id;
-      list_managed_instances_results;
-      name;
-      project;
-      region;
-      target_pools;
-      target_size;
-      wait_for_instances;
-      wait_for_instances_status;
-      all_instances_config;
-      auto_healing_policies;
-      instance_lifecycle_policy;
-      named_port;
-      stateful_disk;
-      stateful_external_ip;
-      stateful_internal_ip;
-      timeouts;
-      update_policy;
-      version;
-    }
+    ({
+       base_instance_name;
+       description;
+       distribution_policy_target_shape;
+       distribution_policy_zones;
+       id;
+       list_managed_instances_results;
+       name;
+       project;
+       region;
+       target_pools;
+       target_size;
+       wait_for_instances;
+       wait_for_instances_status;
+       all_instances_config;
+       auto_healing_policies;
+       instance_lifecycle_policy;
+       named_port;
+       stateful_disk;
+       stateful_external_ip;
+       stateful_internal_ip;
+       timeouts;
+       update_policy;
+       version;
+     }
+      : google_compute_region_instance_group_manager)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_instance_group_manager
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       base_instance_name =
+         Prop.computed __resource_type __resource_id
+           "base_instance_name";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       distribution_policy_target_shape =
+         Prop.computed __resource_type __resource_id
+           "distribution_policy_target_shape";
+       distribution_policy_zones =
+         Prop.computed __resource_type __resource_id
+           "distribution_policy_zones";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_group =
+         Prop.computed __resource_type __resource_id "instance_group";
+       list_managed_instances_results =
+         Prop.computed __resource_type __resource_id
+           "list_managed_instances_results";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       status = Prop.computed __resource_type __resource_id "status";
+       target_pools =
+         Prop.computed __resource_type __resource_id "target_pools";
+       target_size =
+         Prop.computed __resource_type __resource_id "target_size";
+       wait_for_instances =
+         Prop.computed __resource_type __resource_id
+           "wait_for_instances";
+       wait_for_instances_status =
+         Prop.computed __resource_type __resource_id
+           "wait_for_instances_status";
+     }
+      : t)
+  in
+  __resource_attributes

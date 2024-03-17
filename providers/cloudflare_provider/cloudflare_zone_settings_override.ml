@@ -226,10 +226,44 @@ type cloudflare_zone_settings_override = {
 [@@deriving yojson_of]
 (** Provides a resource which customizes Cloudflare zone settings. *)
 
+type t = {
+  id : string prop;
+  initial_settings :
+    cloudflare_zone_settings_override__initial_settings list prop;
+  initial_settings_read_at : string prop;
+  readonly_settings : string list prop;
+  zone_id : string prop;
+  zone_status : string prop;
+  zone_type : string prop;
+}
+
 let cloudflare_zone_settings_override ?id ~zone_id ~settings
     __resource_id =
   let __resource_type = "cloudflare_zone_settings_override" in
-  let __resource = { id; zone_id; settings } in
+  let __resource =
+    ({ id; zone_id; settings } : cloudflare_zone_settings_override)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_settings_override __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       initial_settings =
+         Prop.computed __resource_type __resource_id
+           "initial_settings";
+       initial_settings_read_at =
+         Prop.computed __resource_type __resource_id
+           "initial_settings_read_at";
+       readonly_settings =
+         Prop.computed __resource_type __resource_id
+           "readonly_settings";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+       zone_status =
+         Prop.computed __resource_type __resource_id "zone_status";
+       zone_type =
+         Prop.computed __resource_type __resource_id "zone_type";
+     }
+      : t)
+  in
+  __resource_attributes

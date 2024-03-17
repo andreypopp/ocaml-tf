@@ -55,9 +55,20 @@ type kubernetes_token_request_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_token_request_v1 *)
 
+type t = { id : string prop; token : string prop }
+
 let kubernetes_token_request_v1 ?id ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_token_request_v1" in
-  let __resource = { id; metadata; spec } in
+  let __resource =
+    ({ id; metadata; spec } : kubernetes_token_request_v1)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_token_request_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       token = Prop.computed __resource_type __resource_id "token";
+     }
+      : t)
+  in
+  __resource_attributes

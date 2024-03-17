@@ -5,6 +5,16 @@ open! Tf.Prelude
 type azurerm_virtual_machine_data_disk_attachment__timeouts
 type azurerm_virtual_machine_data_disk_attachment
 
+type t = private {
+  caching : string prop;
+  create_option : string prop;
+  id : string prop;
+  lun : float prop;
+  managed_disk_id : string prop;
+  virtual_machine_id : string prop;
+  write_accelerator_enabled : bool prop;
+}
+
 val azurerm_virtual_machine_data_disk_attachment :
   ?create_option:string prop ->
   ?id:string prop ->
@@ -15,4 +25,4 @@ val azurerm_virtual_machine_data_disk_attachment :
   managed_disk_id:string prop ->
   virtual_machine_id:string prop ->
   string ->
-  unit
+  t

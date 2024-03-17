@@ -79,6 +79,24 @@ type azurerm_mobile_network_packet_core_control_plane = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_packet_core_control_plane *)
 
+type t = {
+  control_plane_access_ipv4_address : string prop;
+  control_plane_access_ipv4_gateway : string prop;
+  control_plane_access_ipv4_subnet : string prop;
+  control_plane_access_name : string prop;
+  core_network_technology : string prop;
+  id : string prop;
+  interoperability_settings_json : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  site_ids : string list prop;
+  sku : string prop;
+  software_version : string prop;
+  tags : (string * string) list prop;
+  user_equipment_mtu_in_bytes : float prop;
+}
+
 let azurerm_mobile_network_packet_core_control_plane
     ?control_plane_access_ipv4_address
     ?control_plane_access_ipv4_gateway
@@ -91,29 +109,70 @@ let azurerm_mobile_network_packet_core_control_plane
     "azurerm_mobile_network_packet_core_control_plane"
   in
   let __resource =
-    {
-      control_plane_access_ipv4_address;
-      control_plane_access_ipv4_gateway;
-      control_plane_access_ipv4_subnet;
-      control_plane_access_name;
-      core_network_technology;
-      id;
-      interoperability_settings_json;
-      location;
-      name;
-      resource_group_name;
-      site_ids;
-      sku;
-      software_version;
-      tags;
-      user_equipment_mtu_in_bytes;
-      identity;
-      local_diagnostics_access;
-      platform;
-      timeouts;
-    }
+    ({
+       control_plane_access_ipv4_address;
+       control_plane_access_ipv4_gateway;
+       control_plane_access_ipv4_subnet;
+       control_plane_access_name;
+       core_network_technology;
+       id;
+       interoperability_settings_json;
+       location;
+       name;
+       resource_group_name;
+       site_ids;
+       sku;
+       software_version;
+       tags;
+       user_equipment_mtu_in_bytes;
+       identity;
+       local_diagnostics_access;
+       platform;
+       timeouts;
+     }
+      : azurerm_mobile_network_packet_core_control_plane)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mobile_network_packet_core_control_plane
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       control_plane_access_ipv4_address =
+         Prop.computed __resource_type __resource_id
+           "control_plane_access_ipv4_address";
+       control_plane_access_ipv4_gateway =
+         Prop.computed __resource_type __resource_id
+           "control_plane_access_ipv4_gateway";
+       control_plane_access_ipv4_subnet =
+         Prop.computed __resource_type __resource_id
+           "control_plane_access_ipv4_subnet";
+       control_plane_access_name =
+         Prop.computed __resource_type __resource_id
+           "control_plane_access_name";
+       core_network_technology =
+         Prop.computed __resource_type __resource_id
+           "core_network_technology";
+       id = Prop.computed __resource_type __resource_id "id";
+       interoperability_settings_json =
+         Prop.computed __resource_type __resource_id
+           "interoperability_settings_json";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       site_ids =
+         Prop.computed __resource_type __resource_id "site_ids";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       software_version =
+         Prop.computed __resource_type __resource_id
+           "software_version";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       user_equipment_mtu_in_bytes =
+         Prop.computed __resource_type __resource_id
+           "user_equipment_mtu_in_bytes";
+     }
+      : t)
+  in
+  __resource_attributes

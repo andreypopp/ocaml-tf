@@ -233,23 +233,54 @@ type google_storage_transfer_job = {
 [@@deriving yojson_of]
 (** google_storage_transfer_job *)
 
+type t = {
+  creation_time : string prop;
+  deletion_time : string prop;
+  description : string prop;
+  id : string prop;
+  last_modification_time : string prop;
+  name : string prop;
+  project : string prop;
+  status : string prop;
+}
+
 let google_storage_transfer_job ?id ?name ?project ?status
     ~description ~event_stream ~notification_config ~schedule
     ~transfer_spec __resource_id =
   let __resource_type = "google_storage_transfer_job" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      project;
-      status;
-      event_stream;
-      notification_config;
-      schedule;
-      transfer_spec;
-    }
+    ({
+       description;
+       id;
+       name;
+       project;
+       status;
+       event_stream;
+       notification_config;
+       schedule;
+       transfer_spec;
+     }
+      : google_storage_transfer_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_transfer_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       deletion_time =
+         Prop.computed __resource_type __resource_id "deletion_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_modification_time =
+         Prop.computed __resource_type __resource_id
+           "last_modification_time";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

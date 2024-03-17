@@ -52,6 +52,16 @@ type azurerm_network_manager_connectivity_configuration = {
 [@@deriving yojson_of]
 (** azurerm_network_manager_connectivity_configuration *)
 
+type t = {
+  connectivity_topology : string prop;
+  delete_existing_peering_enabled : bool prop;
+  description : string prop;
+  global_mesh_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  network_manager_id : string prop;
+}
+
 let azurerm_network_manager_connectivity_configuration
     ?delete_existing_peering_enabled ?description
     ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
@@ -60,20 +70,42 @@ let azurerm_network_manager_connectivity_configuration
     "azurerm_network_manager_connectivity_configuration"
   in
   let __resource =
-    {
-      connectivity_topology;
-      delete_existing_peering_enabled;
-      description;
-      global_mesh_enabled;
-      id;
-      name;
-      network_manager_id;
-      applies_to_group;
-      hub;
-      timeouts;
-    }
+    ({
+       connectivity_topology;
+       delete_existing_peering_enabled;
+       description;
+       global_mesh_enabled;
+       id;
+       name;
+       network_manager_id;
+       applies_to_group;
+       hub;
+       timeouts;
+     }
+      : azurerm_network_manager_connectivity_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_connectivity_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connectivity_topology =
+         Prop.computed __resource_type __resource_id
+           "connectivity_topology";
+       delete_existing_peering_enabled =
+         Prop.computed __resource_type __resource_id
+           "delete_existing_peering_enabled";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       global_mesh_enabled =
+         Prop.computed __resource_type __resource_id
+           "global_mesh_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_manager_id =
+         Prop.computed __resource_type __resource_id
+           "network_manager_id";
+     }
+      : t)
+  in
+  __resource_attributes

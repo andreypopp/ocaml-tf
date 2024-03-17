@@ -70,6 +70,24 @@ type aws_redshiftserverless_workgroup = {
 [@@deriving yojson_of]
 (** aws_redshiftserverless_workgroup *)
 
+type t = {
+  arn : string prop;
+  base_capacity : float prop;
+  endpoint : aws_redshiftserverless_workgroup__endpoint list prop;
+  enhanced_vpc_routing : bool prop;
+  id : string prop;
+  max_capacity : float prop;
+  namespace_name : string prop;
+  port : float prop;
+  publicly_accessible : bool prop;
+  security_group_ids : string list prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  workgroup_id : string prop;
+  workgroup_name : string prop;
+}
+
 let aws_redshiftserverless_workgroup ?base_capacity
     ?enhanced_vpc_routing ?id ?max_capacity ?port
     ?publicly_accessible ?security_group_ids ?subnet_ids ?tags
@@ -77,23 +95,58 @@ let aws_redshiftserverless_workgroup ?base_capacity
     ~config_parameter __resource_id =
   let __resource_type = "aws_redshiftserverless_workgroup" in
   let __resource =
-    {
-      base_capacity;
-      enhanced_vpc_routing;
-      id;
-      max_capacity;
-      namespace_name;
-      port;
-      publicly_accessible;
-      security_group_ids;
-      subnet_ids;
-      tags;
-      tags_all;
-      workgroup_name;
-      config_parameter;
-      timeouts;
-    }
+    ({
+       base_capacity;
+       enhanced_vpc_routing;
+       id;
+       max_capacity;
+       namespace_name;
+       port;
+       publicly_accessible;
+       security_group_ids;
+       subnet_ids;
+       tags;
+       tags_all;
+       workgroup_name;
+       config_parameter;
+       timeouts;
+     }
+      : aws_redshiftserverless_workgroup)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshiftserverless_workgroup __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       base_capacity =
+         Prop.computed __resource_type __resource_id "base_capacity";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       enhanced_vpc_routing =
+         Prop.computed __resource_type __resource_id
+           "enhanced_vpc_routing";
+       id = Prop.computed __resource_type __resource_id "id";
+       max_capacity =
+         Prop.computed __resource_type __resource_id "max_capacity";
+       namespace_name =
+         Prop.computed __resource_type __resource_id "namespace_name";
+       port = Prop.computed __resource_type __resource_id "port";
+       publicly_accessible =
+         Prop.computed __resource_type __resource_id
+           "publicly_accessible";
+       security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "security_group_ids";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       workgroup_id =
+         Prop.computed __resource_type __resource_id "workgroup_id";
+       workgroup_name =
+         Prop.computed __resource_type __resource_id "workgroup_name";
+     }
+      : t)
+  in
+  __resource_attributes

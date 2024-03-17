@@ -35,23 +35,57 @@ type aws_eks_fargate_profile = {
 [@@deriving yojson_of]
 (** aws_eks_fargate_profile *)
 
+type t = {
+  arn : string prop;
+  cluster_name : string prop;
+  fargate_profile_name : string prop;
+  id : string prop;
+  pod_execution_role_arn : string prop;
+  status : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_eks_fargate_profile ?id ?subnet_ids ?tags ?tags_all ?timeouts
     ~cluster_name ~fargate_profile_name ~pod_execution_role_arn
     ~selector __resource_id =
   let __resource_type = "aws_eks_fargate_profile" in
   let __resource =
-    {
-      cluster_name;
-      fargate_profile_name;
-      id;
-      pod_execution_role_arn;
-      subnet_ids;
-      tags;
-      tags_all;
-      selector;
-      timeouts;
-    }
+    ({
+       cluster_name;
+       fargate_profile_name;
+       id;
+       pod_execution_role_arn;
+       subnet_ids;
+       tags;
+       tags_all;
+       selector;
+       timeouts;
+     }
+      : aws_eks_fargate_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_fargate_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       cluster_name =
+         Prop.computed __resource_type __resource_id "cluster_name";
+       fargate_profile_name =
+         Prop.computed __resource_type __resource_id
+           "fargate_profile_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       pod_execution_role_arn =
+         Prop.computed __resource_type __resource_id
+           "pod_execution_role_arn";
+       status = Prop.computed __resource_type __resource_id "status";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

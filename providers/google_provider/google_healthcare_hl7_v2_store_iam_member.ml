@@ -23,14 +23,35 @@ type google_healthcare_hl7_v2_store_iam_member = {
 [@@deriving yojson_of]
 (** google_healthcare_hl7_v2_store_iam_member *)
 
+type t = {
+  etag : string prop;
+  hl7_v2_store_id : string prop;
+  id : string prop;
+  member : string prop;
+  role : string prop;
+}
+
 let google_healthcare_hl7_v2_store_iam_member ?id ~hl7_v2_store_id
     ~member ~role ~condition __resource_id =
   let __resource_type =
     "google_healthcare_hl7_v2_store_iam_member"
   in
   let __resource =
-    { hl7_v2_store_id; id; member; role; condition }
+    ({ hl7_v2_store_id; id; member; role; condition }
+      : google_healthcare_hl7_v2_store_iam_member)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_hl7_v2_store_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       hl7_v2_store_id =
+         Prop.computed __resource_type __resource_id
+           "hl7_v2_store_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

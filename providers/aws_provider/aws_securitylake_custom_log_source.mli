@@ -21,6 +21,17 @@ type aws_securitylake_custom_log_source__provider_details = {
 
 type aws_securitylake_custom_log_source
 
+type t = private {
+  attributes :
+    aws_securitylake_custom_log_source__attributes list prop;
+  event_classes : string list prop;
+  id : string prop;
+  provider_details :
+    aws_securitylake_custom_log_source__provider_details list prop;
+  source_name : string prop;
+  source_version : string prop;
+}
+
 val aws_securitylake_custom_log_source :
   ?event_classes:string prop list ->
   ?source_version:string prop ->
@@ -28,4 +39,4 @@ val aws_securitylake_custom_log_source :
   configuration:
     aws_securitylake_custom_log_source__configuration list ->
   string ->
-  unit
+  t

@@ -13,6 +13,23 @@ type azurerm_kubernetes_cluster_extension__aks_assigned_identity = {
 
 type azurerm_kubernetes_cluster_extension
 
+type t = private {
+  aks_assigned_identity :
+    azurerm_kubernetes_cluster_extension__aks_assigned_identity list
+    prop;
+  cluster_id : string prop;
+  configuration_protected_settings : (string * string) list prop;
+  configuration_settings : (string * string) list prop;
+  current_version : string prop;
+  extension_type : string prop;
+  id : string prop;
+  name : string prop;
+  release_namespace : string prop;
+  release_train : string prop;
+  target_namespace : string prop;
+  version : string prop;
+}
+
 val azurerm_kubernetes_cluster_extension :
   ?configuration_protected_settings:(string * string prop) list ->
   ?configuration_settings:(string * string prop) list ->
@@ -27,4 +44,4 @@ val azurerm_kubernetes_cluster_extension :
   name:string prop ->
   plan:azurerm_kubernetes_cluster_extension__plan list ->
   string ->
-  unit
+  t

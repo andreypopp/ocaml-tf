@@ -39,6 +39,26 @@ type google_dataplex_task__execution_status = {
 
 type google_dataplex_task
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  execution_status :
+    google_dataplex_task__execution_status list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  lake : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  task_id : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_dataplex_task :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -54,4 +74,4 @@ val google_dataplex_task :
   spark:google_dataplex_task__spark list ->
   trigger_spec:google_dataplex_task__trigger_spec list ->
   string ->
-  unit
+  t

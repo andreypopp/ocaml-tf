@@ -14,6 +14,22 @@ type aws_signer_signing_profile__revocation_record = {
 
 type aws_signer_signing_profile
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  platform_display_name : string prop;
+  platform_id : string prop;
+  revocation_record :
+    aws_signer_signing_profile__revocation_record list prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+  version_arn : string prop;
+}
+
 val aws_signer_signing_profile :
   ?id:string prop ->
   ?name:string prop ->
@@ -25,4 +41,4 @@ val aws_signer_signing_profile :
     aws_signer_signing_profile__signature_validity_period list ->
   signing_material:aws_signer_signing_profile__signing_material list ->
   string ->
-  unit
+  t

@@ -18,6 +18,29 @@ type aws_mq_broker__instances = {
 
 type aws_mq_broker
 
+type t = private {
+  apply_immediately : bool prop;
+  arn : string prop;
+  authentication_strategy : string prop;
+  auto_minor_version_upgrade : bool prop;
+  broker_name : string prop;
+  data_replication_mode : string prop;
+  data_replication_primary_broker_arn : string prop;
+  deployment_mode : string prop;
+  engine_type : string prop;
+  engine_version : string prop;
+  host_instance_type : string prop;
+  id : string prop;
+  instances : aws_mq_broker__instances list prop;
+  pending_data_replication_mode : string prop;
+  publicly_accessible : bool prop;
+  security_groups : string list prop;
+  storage_type : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_mq_broker :
   ?apply_immediately:bool prop ->
   ?authentication_strategy:string prop ->
@@ -45,4 +68,4 @@ val aws_mq_broker :
     aws_mq_broker__maintenance_window_start_time list ->
   user:aws_mq_broker__user list ->
   string ->
-  unit
+  t

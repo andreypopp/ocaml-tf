@@ -13,6 +13,16 @@ type google_app_engine_domain_mapping__resource_records = {
 
 type google_app_engine_domain_mapping
 
+type t = private {
+  domain_name : string prop;
+  id : string prop;
+  name : string prop;
+  override_strategy : string prop;
+  project : string prop;
+  resource_records :
+    google_app_engine_domain_mapping__resource_records list prop;
+}
+
 val google_app_engine_domain_mapping :
   ?id:string prop ->
   ?override_strategy:string prop ->
@@ -21,4 +31,4 @@ val google_app_engine_domain_mapping :
   domain_name:string prop ->
   ssl_settings:google_app_engine_domain_mapping__ssl_settings list ->
   string ->
-  unit
+  t

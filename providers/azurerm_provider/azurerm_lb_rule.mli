@@ -5,6 +5,24 @@ open! Tf.Prelude
 type azurerm_lb_rule__timeouts
 type azurerm_lb_rule
 
+type t = private {
+  backend_address_pool_ids : string list prop;
+  backend_port : float prop;
+  disable_outbound_snat : bool prop;
+  enable_floating_ip : bool prop;
+  enable_tcp_reset : bool prop;
+  frontend_ip_configuration_id : string prop;
+  frontend_ip_configuration_name : string prop;
+  frontend_port : float prop;
+  id : string prop;
+  idle_timeout_in_minutes : float prop;
+  load_distribution : string prop;
+  loadbalancer_id : string prop;
+  name : string prop;
+  probe_id : string prop;
+  protocol : string prop;
+}
+
 val azurerm_lb_rule :
   ?backend_address_pool_ids:string prop list ->
   ?disable_outbound_snat:bool prop ->
@@ -22,4 +40,4 @@ val azurerm_lb_rule :
   name:string prop ->
   protocol:string prop ->
   string ->
-  unit
+  t

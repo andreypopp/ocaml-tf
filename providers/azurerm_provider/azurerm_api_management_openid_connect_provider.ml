@@ -29,6 +29,18 @@ type azurerm_api_management_openid_connect_provider = {
 [@@deriving yojson_of]
 (** azurerm_api_management_openid_connect_provider *)
 
+type t = {
+  api_management_name : string prop;
+  client_id : string prop;
+  client_secret : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  metadata_endpoint : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_api_management_openid_connect_provider ?description ?id
     ?timeouts ~api_management_name ~client_id ~client_secret
     ~display_name ~metadata_endpoint ~name ~resource_group_name
@@ -37,20 +49,45 @@ let azurerm_api_management_openid_connect_provider ?description ?id
     "azurerm_api_management_openid_connect_provider"
   in
   let __resource =
-    {
-      api_management_name;
-      client_id;
-      client_secret;
-      description;
-      display_name;
-      id;
-      metadata_endpoint;
-      name;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       client_id;
+       client_secret;
+       description;
+       display_name;
+       id;
+       metadata_endpoint;
+       name;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_api_management_openid_connect_provider)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_openid_connect_provider
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       client_id =
+         Prop.computed __resource_type __resource_id "client_id";
+       client_secret =
+         Prop.computed __resource_type __resource_id "client_secret";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       metadata_endpoint =
+         Prop.computed __resource_type __resource_id
+           "metadata_endpoint";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

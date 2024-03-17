@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_cosmosdb_sql_trigger__timeouts
 type azurerm_cosmosdb_sql_trigger
 
+type t = private {
+  body : string prop;
+  container_id : string prop;
+  id : string prop;
+  name : string prop;
+  operation : string prop;
+  type_ : string prop;
+}
+
 val azurerm_cosmosdb_sql_trigger :
   ?id:string prop ->
   ?timeouts:azurerm_cosmosdb_sql_trigger__timeouts ->
@@ -14,4 +23,4 @@ val azurerm_cosmosdb_sql_trigger :
   operation:string prop ->
   type_:string prop ->
   string ->
-  unit
+  t

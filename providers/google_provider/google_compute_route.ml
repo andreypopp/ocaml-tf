@@ -83,30 +83,89 @@ Default value is 1000. Valid range is 0 through 65535. *)
 [@@deriving yojson_of]
 (** google_compute_route *)
 
+type t = {
+  description : string prop;
+  dest_range : string prop;
+  id : string prop;
+  name : string prop;
+  network : string prop;
+  next_hop_gateway : string prop;
+  next_hop_ilb : string prop;
+  next_hop_instance : string prop;
+  next_hop_instance_zone : string prop;
+  next_hop_ip : string prop;
+  next_hop_network : string prop;
+  next_hop_vpn_tunnel : string prop;
+  priority : float prop;
+  project : string prop;
+  self_link : string prop;
+  tags : string list prop;
+}
+
 let google_compute_route ?description ?id ?next_hop_gateway
     ?next_hop_ilb ?next_hop_instance ?next_hop_instance_zone
     ?next_hop_ip ?next_hop_vpn_tunnel ?priority ?project ?tags
     ?timeouts ~dest_range ~name ~network __resource_id =
   let __resource_type = "google_compute_route" in
   let __resource =
-    {
-      description;
-      dest_range;
-      id;
-      name;
-      network;
-      next_hop_gateway;
-      next_hop_ilb;
-      next_hop_instance;
-      next_hop_instance_zone;
-      next_hop_ip;
-      next_hop_vpn_tunnel;
-      priority;
-      project;
-      tags;
-      timeouts;
-    }
+    ({
+       description;
+       dest_range;
+       id;
+       name;
+       network;
+       next_hop_gateway;
+       next_hop_ilb;
+       next_hop_instance;
+       next_hop_instance_zone;
+       next_hop_ip;
+       next_hop_vpn_tunnel;
+       priority;
+       project;
+       tags;
+       timeouts;
+     }
+      : google_compute_route)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_route __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       dest_range =
+         Prop.computed __resource_type __resource_id "dest_range";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       next_hop_gateway =
+         Prop.computed __resource_type __resource_id
+           "next_hop_gateway";
+       next_hop_ilb =
+         Prop.computed __resource_type __resource_id "next_hop_ilb";
+       next_hop_instance =
+         Prop.computed __resource_type __resource_id
+           "next_hop_instance";
+       next_hop_instance_zone =
+         Prop.computed __resource_type __resource_id
+           "next_hop_instance_zone";
+       next_hop_ip =
+         Prop.computed __resource_type __resource_id "next_hop_ip";
+       next_hop_network =
+         Prop.computed __resource_type __resource_id
+           "next_hop_network";
+       next_hop_vpn_tunnel =
+         Prop.computed __resource_type __resource_id
+           "next_hop_vpn_tunnel";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

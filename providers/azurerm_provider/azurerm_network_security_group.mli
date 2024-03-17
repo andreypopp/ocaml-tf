@@ -32,6 +32,16 @@ type azurerm_network_security_group__security_rule = {
 
 type azurerm_network_security_group
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  security_rule :
+    azurerm_network_security_group__security_rule list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_network_security_group :
   ?id:string prop ->
   ?security_rule:azurerm_network_security_group__security_rule list ->
@@ -41,4 +51,4 @@ val azurerm_network_security_group :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

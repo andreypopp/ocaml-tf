@@ -5,6 +5,16 @@ open! Tf.Prelude
 type google_compute_network_endpoint__timeouts
 type google_compute_network_endpoint
 
+type t = private {
+  id : string prop;
+  instance : string prop;
+  ip_address : string prop;
+  network_endpoint_group : string prop;
+  port : float prop;
+  project : string prop;
+  zone : string prop;
+}
+
 val google_compute_network_endpoint :
   ?id:string prop ->
   ?instance:string prop ->
@@ -15,4 +25,4 @@ val google_compute_network_endpoint :
   ip_address:string prop ->
   network_endpoint_group:string prop ->
   string ->
-  unit
+  t

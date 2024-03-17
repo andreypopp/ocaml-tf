@@ -88,24 +88,53 @@ type aws_ssmincidents_response_plan = {
 [@@deriving yojson_of]
 (** aws_ssmincidents_response_plan *)
 
+type t = {
+  arn : string prop;
+  chat_channel : string list prop;
+  display_name : string prop;
+  engagements : string list prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ssmincidents_response_plan ?chat_channel ?display_name
     ?engagements ?id ?tags ?tags_all ~name ~action ~incident_template
     ~integration __resource_id =
   let __resource_type = "aws_ssmincidents_response_plan" in
   let __resource =
-    {
-      chat_channel;
-      display_name;
-      engagements;
-      id;
-      name;
-      tags;
-      tags_all;
-      action;
-      incident_template;
-      integration;
-    }
+    ({
+       chat_channel;
+       display_name;
+       engagements;
+       id;
+       name;
+       tags;
+       tags_all;
+       action;
+       incident_template;
+       integration;
+     }
+      : aws_ssmincidents_response_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmincidents_response_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       chat_channel =
+         Prop.computed __resource_type __resource_id "chat_channel";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       engagements =
+         Prop.computed __resource_type __resource_id "engagements";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

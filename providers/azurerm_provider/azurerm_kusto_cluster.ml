@@ -88,6 +88,30 @@ type azurerm_kusto_cluster = {
 [@@deriving yojson_of]
 (** azurerm_kusto_cluster *)
 
+type t = {
+  allowed_fqdns : string list prop;
+  allowed_ip_ranges : string list prop;
+  auto_stop_enabled : bool prop;
+  data_ingestion_uri : string prop;
+  disk_encryption_enabled : bool prop;
+  double_encryption_enabled : bool prop;
+  engine : string prop;
+  id : string prop;
+  language_extensions : string list prop;
+  location : string prop;
+  name : string prop;
+  outbound_network_access_restricted : bool prop;
+  public_ip_type : string prop;
+  public_network_access_enabled : bool prop;
+  purge_enabled : bool prop;
+  resource_group_name : string prop;
+  streaming_ingestion_enabled : bool prop;
+  tags : (string * string) list prop;
+  trusted_external_tenants : string list prop;
+  uri : string prop;
+  zones : string list prop;
+}
+
 let azurerm_kusto_cluster ?allowed_fqdns ?allowed_ip_ranges
     ?auto_stop_enabled ?disk_encryption_enabled
     ?double_encryption_enabled ?engine ?id ?language_extensions
@@ -99,33 +123,86 @@ let azurerm_kusto_cluster ?allowed_fqdns ?allowed_ip_ranges
     __resource_id =
   let __resource_type = "azurerm_kusto_cluster" in
   let __resource =
-    {
-      allowed_fqdns;
-      allowed_ip_ranges;
-      auto_stop_enabled;
-      disk_encryption_enabled;
-      double_encryption_enabled;
-      engine;
-      id;
-      language_extensions;
-      location;
-      name;
-      outbound_network_access_restricted;
-      public_ip_type;
-      public_network_access_enabled;
-      purge_enabled;
-      resource_group_name;
-      streaming_ingestion_enabled;
-      tags;
-      trusted_external_tenants;
-      zones;
-      identity;
-      optimized_auto_scale;
-      sku;
-      timeouts;
-      virtual_network_configuration;
-    }
+    ({
+       allowed_fqdns;
+       allowed_ip_ranges;
+       auto_stop_enabled;
+       disk_encryption_enabled;
+       double_encryption_enabled;
+       engine;
+       id;
+       language_extensions;
+       location;
+       name;
+       outbound_network_access_restricted;
+       public_ip_type;
+       public_network_access_enabled;
+       purge_enabled;
+       resource_group_name;
+       streaming_ingestion_enabled;
+       tags;
+       trusted_external_tenants;
+       zones;
+       identity;
+       optimized_auto_scale;
+       sku;
+       timeouts;
+       virtual_network_configuration;
+     }
+      : azurerm_kusto_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allowed_fqdns =
+         Prop.computed __resource_type __resource_id "allowed_fqdns";
+       allowed_ip_ranges =
+         Prop.computed __resource_type __resource_id
+           "allowed_ip_ranges";
+       auto_stop_enabled =
+         Prop.computed __resource_type __resource_id
+           "auto_stop_enabled";
+       data_ingestion_uri =
+         Prop.computed __resource_type __resource_id
+           "data_ingestion_uri";
+       disk_encryption_enabled =
+         Prop.computed __resource_type __resource_id
+           "disk_encryption_enabled";
+       double_encryption_enabled =
+         Prop.computed __resource_type __resource_id
+           "double_encryption_enabled";
+       engine = Prop.computed __resource_type __resource_id "engine";
+       id = Prop.computed __resource_type __resource_id "id";
+       language_extensions =
+         Prop.computed __resource_type __resource_id
+           "language_extensions";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_network_access_restricted =
+         Prop.computed __resource_type __resource_id
+           "outbound_network_access_restricted";
+       public_ip_type =
+         Prop.computed __resource_type __resource_id "public_ip_type";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       purge_enabled =
+         Prop.computed __resource_type __resource_id "purge_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       streaming_ingestion_enabled =
+         Prop.computed __resource_type __resource_id
+           "streaming_ingestion_enabled";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       trusted_external_tenants =
+         Prop.computed __resource_type __resource_id
+           "trusted_external_tenants";
+       uri = Prop.computed __resource_type __resource_id "uri";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

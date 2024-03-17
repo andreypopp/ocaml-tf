@@ -45,6 +45,24 @@ type google_database_migration_service_connection_profile__error = {
 
 type google_database_migration_service_connection_profile
 
+type t = private {
+  connection_profile_id : string prop;
+  create_time : string prop;
+  dbprovider : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  error :
+    google_database_migration_service_connection_profile__error list
+    prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_database_migration_service_connection_profile :
   ?display_name:string prop ->
   ?id:string prop ->
@@ -68,4 +86,4 @@ val google_database_migration_service_connection_profile :
     google_database_migration_service_connection_profile__postgresql
     list ->
   string ->
-  unit
+  t

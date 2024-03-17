@@ -53,12 +53,41 @@ type aws_securitylake_custom_log_source = {
 [@@deriving yojson_of]
 (** aws_securitylake_custom_log_source *)
 
+type t = {
+  attributes :
+    aws_securitylake_custom_log_source__attributes list prop;
+  event_classes : string list prop;
+  id : string prop;
+  provider_details :
+    aws_securitylake_custom_log_source__provider_details list prop;
+  source_name : string prop;
+  source_version : string prop;
+}
+
 let aws_securitylake_custom_log_source ?event_classes ?source_version
     ~source_name ~configuration __resource_id =
   let __resource_type = "aws_securitylake_custom_log_source" in
   let __resource =
-    { event_classes; source_name; source_version; configuration }
+    ({ event_classes; source_name; source_version; configuration }
+      : aws_securitylake_custom_log_source)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securitylake_custom_log_source __resource);
-  ()
+  let __resource_attributes =
+    ({
+       attributes =
+         Prop.computed __resource_type __resource_id "attributes";
+       event_classes =
+         Prop.computed __resource_type __resource_id "event_classes";
+       id = Prop.computed __resource_type __resource_id "id";
+       provider_details =
+         Prop.computed __resource_type __resource_id
+           "provider_details";
+       source_name =
+         Prop.computed __resource_type __resource_id "source_name";
+       source_version =
+         Prop.computed __resource_type __resource_id "source_version";
+     }
+      : t)
+  in
+  __resource_attributes

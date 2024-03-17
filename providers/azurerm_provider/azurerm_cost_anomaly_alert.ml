@@ -27,22 +27,52 @@ type azurerm_cost_anomaly_alert = {
 [@@deriving yojson_of]
 (** azurerm_cost_anomaly_alert *)
 
+type t = {
+  display_name : string prop;
+  email_addresses : string list prop;
+  email_subject : string prop;
+  id : string prop;
+  message : string prop;
+  name : string prop;
+  subscription_id : string prop;
+}
+
 let azurerm_cost_anomaly_alert ?id ?message ?subscription_id
     ?timeouts ~display_name ~email_addresses ~email_subject ~name
     __resource_id =
   let __resource_type = "azurerm_cost_anomaly_alert" in
   let __resource =
-    {
-      display_name;
-      email_addresses;
-      email_subject;
-      id;
-      message;
-      name;
-      subscription_id;
-      timeouts;
-    }
+    ({
+       display_name;
+       email_addresses;
+       email_subject;
+       id;
+       message;
+       name;
+       subscription_id;
+       timeouts;
+     }
+      : azurerm_cost_anomaly_alert)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cost_anomaly_alert __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       email_addresses =
+         Prop.computed __resource_type __resource_id
+           "email_addresses";
+       email_subject =
+         Prop.computed __resource_type __resource_id "email_subject";
+       id = Prop.computed __resource_type __resource_id "id";
+       message =
+         Prop.computed __resource_type __resource_id "message";
+       name = Prop.computed __resource_type __resource_id "name";
+       subscription_id =
+         Prop.computed __resource_type __resource_id
+           "subscription_id";
+     }
+      : t)
+  in
+  __resource_attributes

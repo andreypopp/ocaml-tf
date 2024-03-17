@@ -97,6 +97,19 @@ type azurerm_cosmosdb_gremlin_graph = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_gremlin_graph *)
 
+type t = {
+  account_name : string prop;
+  analytical_storage_ttl : float prop;
+  database_name : string prop;
+  default_ttl : float prop;
+  id : string prop;
+  name : string prop;
+  partition_key_path : string prop;
+  partition_key_version : float prop;
+  resource_group_name : string prop;
+  throughput : float prop;
+}
+
 let azurerm_cosmosdb_gremlin_graph ?analytical_storage_ttl
     ?default_ttl ?id ?partition_key_version ?throughput ?timeouts
     ~account_name ~database_name ~name ~partition_key_path
@@ -105,24 +118,52 @@ let azurerm_cosmosdb_gremlin_graph ?analytical_storage_ttl
     __resource_id =
   let __resource_type = "azurerm_cosmosdb_gremlin_graph" in
   let __resource =
-    {
-      account_name;
-      analytical_storage_ttl;
-      database_name;
-      default_ttl;
-      id;
-      name;
-      partition_key_path;
-      partition_key_version;
-      resource_group_name;
-      throughput;
-      autoscale_settings;
-      conflict_resolution_policy;
-      index_policy;
-      timeouts;
-      unique_key;
-    }
+    ({
+       account_name;
+       analytical_storage_ttl;
+       database_name;
+       default_ttl;
+       id;
+       name;
+       partition_key_path;
+       partition_key_version;
+       resource_group_name;
+       throughput;
+       autoscale_settings;
+       conflict_resolution_policy;
+       index_policy;
+       timeouts;
+       unique_key;
+     }
+      : azurerm_cosmosdb_gremlin_graph)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_gremlin_graph __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_name =
+         Prop.computed __resource_type __resource_id "account_name";
+       analytical_storage_ttl =
+         Prop.computed __resource_type __resource_id
+           "analytical_storage_ttl";
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       default_ttl =
+         Prop.computed __resource_type __resource_id "default_ttl";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       partition_key_path =
+         Prop.computed __resource_type __resource_id
+           "partition_key_path";
+       partition_key_version =
+         Prop.computed __resource_type __resource_id
+           "partition_key_version";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       throughput =
+         Prop.computed __resource_type __resource_id "throughput";
+     }
+      : t)
+  in
+  __resource_attributes

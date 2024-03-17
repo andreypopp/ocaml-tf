@@ -23,12 +23,33 @@ type aws_workspaces_ip_group = {
 [@@deriving yojson_of]
 (** aws_workspaces_ip_group *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_workspaces_ip_group ?description ?id ?tags ?tags_all ~name
     ~rules __resource_id =
   let __resource_type = "aws_workspaces_ip_group" in
   let __resource =
-    { description; id; name; tags; tags_all; rules }
+    ({ description; id; name; tags; tags_all; rules }
+      : aws_workspaces_ip_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_workspaces_ip_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

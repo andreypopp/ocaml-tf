@@ -17,10 +17,33 @@ type cloudflare_workers_kv = {
 [@@deriving yojson_of]
 (** Provides a resource to manage a Cloudflare Workers KV Pair. *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  key : string prop;
+  namespace_id : string prop;
+  value : string prop;
+}
+
 let cloudflare_workers_kv ?id ~account_id ~key ~namespace_id ~value
     __resource_id =
   let __resource_type = "cloudflare_workers_kv" in
-  let __resource = { account_id; id; key; namespace_id; value } in
+  let __resource =
+    ({ account_id; id; key; namespace_id; value }
+      : cloudflare_workers_kv)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_workers_kv __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       key = Prop.computed __resource_type __resource_id "key";
+       namespace_id =
+         Prop.computed __resource_type __resource_id "namespace_id";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -52,23 +52,49 @@ type azurerm_cdn_frontdoor_origin_group = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_origin_group *)
 
+type t = {
+  cdn_frontdoor_profile_id : string prop;
+  id : string prop;
+  name : string prop;
+  restore_traffic_time_to_healed_or_new_endpoint_in_minutes :
+    float prop;
+  session_affinity_enabled : bool prop;
+}
+
 let azurerm_cdn_frontdoor_origin_group ?id
     ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
     ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
     ~name ~health_probe ~load_balancing __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_origin_group" in
   let __resource =
-    {
-      cdn_frontdoor_profile_id;
-      id;
-      name;
-      restore_traffic_time_to_healed_or_new_endpoint_in_minutes;
-      session_affinity_enabled;
-      health_probe;
-      load_balancing;
-      timeouts;
-    }
+    ({
+       cdn_frontdoor_profile_id;
+       id;
+       name;
+       restore_traffic_time_to_healed_or_new_endpoint_in_minutes;
+       session_affinity_enabled;
+       health_probe;
+       load_balancing;
+       timeouts;
+     }
+      : azurerm_cdn_frontdoor_origin_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_origin_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cdn_frontdoor_profile_id =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_profile_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       restore_traffic_time_to_healed_or_new_endpoint_in_minutes =
+         Prop.computed __resource_type __resource_id
+           "restore_traffic_time_to_healed_or_new_endpoint_in_minutes";
+       session_affinity_enabled =
+         Prop.computed __resource_type __resource_id
+           "session_affinity_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

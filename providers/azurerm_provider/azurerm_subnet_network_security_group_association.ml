@@ -24,15 +24,33 @@ type azurerm_subnet_network_security_group_association = {
 [@@deriving yojson_of]
 (** azurerm_subnet_network_security_group_association *)
 
+type t = {
+  id : string prop;
+  network_security_group_id : string prop;
+  subnet_id : string prop;
+}
+
 let azurerm_subnet_network_security_group_association ?id ?timeouts
     ~network_security_group_id ~subnet_id __resource_id =
   let __resource_type =
     "azurerm_subnet_network_security_group_association"
   in
   let __resource =
-    { id; network_security_group_id; subnet_id; timeouts }
+    ({ id; network_security_group_id; subnet_id; timeouts }
+      : azurerm_subnet_network_security_group_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_subnet_network_security_group_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       network_security_group_id =
+         Prop.computed __resource_type __resource_id
+           "network_security_group_id";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+     }
+      : t)
+  in
+  __resource_attributes

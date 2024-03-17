@@ -13,10 +13,32 @@ type aws_autoscaling_notification = {
 [@@deriving yojson_of]
 (** aws_autoscaling_notification *)
 
+type t = {
+  group_names : string list prop;
+  id : string prop;
+  notifications : string list prop;
+  topic_arn : string prop;
+}
+
 let aws_autoscaling_notification ?id ~group_names ~notifications
     ~topic_arn __resource_id =
   let __resource_type = "aws_autoscaling_notification" in
-  let __resource = { group_names; id; notifications; topic_arn } in
+  let __resource =
+    ({ group_names; id; notifications; topic_arn }
+      : aws_autoscaling_notification)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_notification __resource);
-  ()
+  let __resource_attributes =
+    ({
+       group_names =
+         Prop.computed __resource_type __resource_id "group_names";
+       id = Prop.computed __resource_type __resource_id "id";
+       notifications =
+         Prop.computed __resource_type __resource_id "notifications";
+       topic_arn =
+         Prop.computed __resource_type __resource_id "topic_arn";
+     }
+      : t)
+  in
+  __resource_attributes

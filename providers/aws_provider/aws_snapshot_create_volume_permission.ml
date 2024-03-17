@@ -20,10 +20,29 @@ type aws_snapshot_create_volume_permission = {
 [@@deriving yojson_of]
 (** aws_snapshot_create_volume_permission *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  snapshot_id : string prop;
+}
+
 let aws_snapshot_create_volume_permission ?id ?timeouts ~account_id
     ~snapshot_id __resource_id =
   let __resource_type = "aws_snapshot_create_volume_permission" in
-  let __resource = { account_id; id; snapshot_id; timeouts } in
+  let __resource =
+    ({ account_id; id; snapshot_id; timeouts }
+      : aws_snapshot_create_volume_permission)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_snapshot_create_volume_permission __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       snapshot_id =
+         Prop.computed __resource_type __resource_id "snapshot_id";
+     }
+      : t)
+  in
+  __resource_attributes

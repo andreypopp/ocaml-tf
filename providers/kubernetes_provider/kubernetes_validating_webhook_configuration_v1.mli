@@ -19,6 +19,7 @@ type kubernetes_validating_webhook_configuration_v1__webhook__object_selector
 type kubernetes_validating_webhook_configuration_v1__webhook__rule
 type kubernetes_validating_webhook_configuration_v1__webhook
 type kubernetes_validating_webhook_configuration_v1
+type t = private { id : string prop }
 
 val kubernetes_validating_webhook_configuration_v1 :
   ?id:string prop ->
@@ -27,4 +28,4 @@ val kubernetes_validating_webhook_configuration_v1 :
   webhook:
     kubernetes_validating_webhook_configuration_v1__webhook list ->
   string ->
-  unit
+  t

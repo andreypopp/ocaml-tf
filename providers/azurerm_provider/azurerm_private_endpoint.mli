@@ -37,6 +37,22 @@ type azurerm_private_endpoint__private_dns_zone_configs = {
 
 type azurerm_private_endpoint
 
+type t = private {
+  custom_dns_configs :
+    azurerm_private_endpoint__custom_dns_configs list prop;
+  custom_network_interface_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  network_interface :
+    azurerm_private_endpoint__network_interface list prop;
+  private_dns_zone_configs :
+    azurerm_private_endpoint__private_dns_zone_configs list prop;
+  resource_group_name : string prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_private_endpoint :
   ?custom_network_interface_name:string prop ->
   ?id:string prop ->
@@ -52,4 +68,4 @@ val azurerm_private_endpoint :
   private_service_connection:
     azurerm_private_endpoint__private_service_connection list ->
   string ->
-  unit
+  t

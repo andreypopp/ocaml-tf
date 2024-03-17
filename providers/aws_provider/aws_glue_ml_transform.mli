@@ -13,6 +13,24 @@ type aws_glue_ml_transform__schema = {
 
 type aws_glue_ml_transform
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  glue_version : string prop;
+  id : string prop;
+  label_count : float prop;
+  max_capacity : float prop;
+  max_retries : float prop;
+  name : string prop;
+  number_of_workers : float prop;
+  role_arn : string prop;
+  schema : aws_glue_ml_transform__schema list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  timeout : float prop;
+  worker_type : string prop;
+}
+
 val aws_glue_ml_transform :
   ?description:string prop ->
   ?glue_version:string prop ->
@@ -29,4 +47,4 @@ val aws_glue_ml_transform :
   input_record_tables:aws_glue_ml_transform__input_record_tables list ->
   parameters:aws_glue_ml_transform__parameters list ->
   string ->
-  unit
+  t

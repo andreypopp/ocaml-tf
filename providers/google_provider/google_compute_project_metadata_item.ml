@@ -24,10 +24,30 @@ type google_compute_project_metadata_item = {
 [@@deriving yojson_of]
 (** google_compute_project_metadata_item *)
 
+type t = {
+  id : string prop;
+  key : string prop;
+  project : string prop;
+  value : string prop;
+}
+
 let google_compute_project_metadata_item ?id ?project ?timeouts ~key
     ~value __resource_id =
   let __resource_type = "google_compute_project_metadata_item" in
-  let __resource = { id; key; project; value; timeouts } in
+  let __resource =
+    ({ id; key; project; value; timeouts }
+      : google_compute_project_metadata_item)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_project_metadata_item __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       key = Prop.computed __resource_type __resource_id "key";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

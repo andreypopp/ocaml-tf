@@ -20,6 +20,32 @@ type aws_acm_certificate__renewal_summary = {
 
 type aws_acm_certificate
 
+type t = private {
+  arn : string prop;
+  certificate_authority_arn : string prop;
+  certificate_body : string prop;
+  certificate_chain : string prop;
+  domain_name : string prop;
+  domain_validation_options :
+    aws_acm_certificate__domain_validation_options list prop;
+  early_renewal_duration : string prop;
+  id : string prop;
+  key_algorithm : string prop;
+  not_after : string prop;
+  not_before : string prop;
+  pending_renewal : bool prop;
+  private_key : string prop;
+  renewal_eligibility : string prop;
+  renewal_summary : aws_acm_certificate__renewal_summary list prop;
+  status : string prop;
+  subject_alternative_names : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  validation_emails : string list prop;
+  validation_method : string prop;
+}
+
 val aws_acm_certificate :
   ?certificate_authority_arn:string prop ->
   ?certificate_body:string prop ->
@@ -36,4 +62,4 @@ val aws_acm_certificate :
   options:aws_acm_certificate__options list ->
   validation_option:aws_acm_certificate__validation_option list ->
   string ->
-  unit
+  t

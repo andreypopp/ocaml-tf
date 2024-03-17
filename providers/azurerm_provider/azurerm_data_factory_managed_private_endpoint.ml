@@ -26,6 +26,15 @@ type azurerm_data_factory_managed_private_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_managed_private_endpoint *)
 
+type t = {
+  data_factory_id : string prop;
+  fqdns : string list prop;
+  id : string prop;
+  name : string prop;
+  subresource_name : string prop;
+  target_resource_id : string prop;
+}
+
 let azurerm_data_factory_managed_private_endpoint ?fqdns ?id
     ?subresource_name ?timeouts ~data_factory_id ~name
     ~target_resource_id __resource_id =
@@ -33,17 +42,35 @@ let azurerm_data_factory_managed_private_endpoint ?fqdns ?id
     "azurerm_data_factory_managed_private_endpoint"
   in
   let __resource =
-    {
-      data_factory_id;
-      fqdns;
-      id;
-      name;
-      subresource_name;
-      target_resource_id;
-      timeouts;
-    }
+    ({
+       data_factory_id;
+       fqdns;
+       id;
+       name;
+       subresource_name;
+       target_resource_id;
+       timeouts;
+     }
+      : azurerm_data_factory_managed_private_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_managed_private_endpoint
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       fqdns = Prop.computed __resource_type __resource_id "fqdns";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       subresource_name =
+         Prop.computed __resource_type __resource_id
+           "subresource_name";
+       target_resource_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

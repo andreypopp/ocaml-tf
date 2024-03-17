@@ -121,26 +121,35 @@ let rec find_object_types acc path = function
   | Opt ty -> find_object_types acc path ty
   | String | Number | Bool | Dynamic -> acc
 
-let rec gen_attribute_type_name path ppf = function
-  | String -> Format.fprintf ppf "string prop"
-  | Number -> Format.fprintf ppf "float prop"
-  | Bool -> Format.fprintf ppf "bool prop"
-  | Dynamic -> Format.fprintf ppf "json prop"
+let rec gen_attribute_type_name' ctor path ppf =
+  let ctor = match ctor with "" -> "" | ctor -> " " ^ ctor in
+  function
+  | String -> Format.fprintf ppf "string%s" ctor
+  | Number -> Format.fprintf ppf "float%s" ctor
+  | Bool -> Format.fprintf ppf "bool%s" ctor
+  | Dynamic -> Format.fprintf ppf "json%s" ctor
   | Opt ty ->
       Format.fprintf ppf "%a option"
-        (gen_attribute_type_name path)
+        (gen_attribute_type_name' ctor path)
         ty
   | Set ty ->
-      Format.fprintf ppf "%a list" (gen_attribute_type_name path) ty
+      Format.fprintf ppf "%a list"
+        (gen_attribute_type_name' ctor path)
+        ty
   | Map ty ->
       Format.fprintf ppf "(string * %a) list"
-        (gen_attribute_type_name path)
+        (gen_attribute_type_name' ctor path)
         ty
   | List ty ->
-      Format.fprintf ppf "%a list" (gen_attribute_type_name path) ty
+      Format.fprintf ppf "%a list"
+        (gen_attribute_type_name' ctor path)
+        ty
   | Object _ ->
       let ty_name = List.rev path |> String.concat ~sep:"__" in
       Format.fprintf ppf "%s" ty_name
+
+let gen_attribute_type_name path ppf ty =
+  gen_attribute_type_name' "prop" path ppf ty
 
 let to_ocaml_name = function
   | "type" -> "type_"
@@ -332,7 +341,7 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
     (concat_space args)
     (concat_space block_args);
   Format.fprintf ppf "  let __resource_type = %S in@." name;
-  Format.fprintf ppf "  let __resource = {@.";
+  Format.fprintf ppf "  let __resource = ({@.";
   List.iter schema.block.attributes ~f:(fun (attr_name, attr) ->
       if not (is_input_attribute attr) then ()
       else
@@ -341,12 +350,30 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
   List.iter schema.block.block_types ~f:(fun (block_name, _) ->
       let ocaml_name = to_ocaml_name block_name in
       Format.fprintf ppf "    %s;@." ocaml_name);
-  Format.fprintf ppf "  } in@.";
+  Format.fprintf ppf "  } : %s) in@." (to_ocaml_name name);
   Format.fprintf ppf
     "  Resource.add ~type_:__resource_type ~id:__resource_id@.";
   Format.fprintf ppf "    (yojson_of_%s __resource);@." name;
-  Format.fprintf ppf "  ()@.";
-  Format.fprintf ppf "  ;;@.@."
+  Format.fprintf ppf "  let __resource_attributes = ({@.";
+  List.iter schema.block.attributes ~f:(fun (attr_name, _attr) ->
+      let ocaml_name = to_ocaml_name attr_name in
+      let ocaml_value =
+        sprintf "Prop.computed __resource_type __resource_id %S"
+          attr_name
+      in
+      Format.fprintf ppf "    %s = %s;@." ocaml_name ocaml_value);
+  Format.fprintf ppf "  } : t) in@.";
+  Format.fprintf ppf "  __resource_attributes;;@.@."
+
+let gen_resource_attributes_ty ~is_mli ppf (name, (schema : schema))
+    =
+  Format.fprintf ppf "type t = %s{@."
+    (if is_mli then "private " else "");
+  List.iter schema.block.attributes ~f:(fun (attr_name, attr) ->
+      let ocaml_name = to_ocaml_name attr_name in
+      let ty = gen_attribute_type_name' "" [ attr_name; name ] in
+      Format.fprintf ppf "  %s: %a prop;@." ocaml_name ty attr.type_);
+  Format.fprintf ppf "}@.@."
 
 let gen_resource_constructor_sig ppf (name, (schema : schema)) =
   let collect_args f =
@@ -399,11 +426,7 @@ let gen_resource_constructor_sig ppf (name, (schema : schema)) =
            Printf.sprintf "%s:%s" arg ty)
   in
   let ty =
-    opt_args
-    @ opt_block_args
-    @ args
-    @ block_args
-    @ [ "string"; "unit" ]
+    opt_args @ opt_block_args @ args @ block_args @ [ "string"; "t" ]
     |> String.concat ~sep:" ->\n    "
   in
   Format.fprintf ppf "val %s :@.    %s@.@." name ty
@@ -414,6 +437,8 @@ let gen_resource_impl ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "open! Tf.Prelude@.@.";
   gen_block_type_ml ~input_only:true ~is_mli:false ppf
     (resource_name, resource.block);
+  gen_resource_attributes_ty ~is_mli:false ppf
+    (resource_name, resource);
   gen_resource_constructor ppf (resource_name, resource)
 
 let gen_resource_iface ppf (resource_name, (resource : schema)) =
@@ -421,6 +446,8 @@ let gen_resource_iface ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "open! Tf.Prelude@.@.";
   gen_block_type_ml ~input_only:true ~is_mli:true ppf
     (resource_name, resource.block);
+  gen_resource_attributes_ty ~is_mli:true ppf
+    (resource_name, resource);
   gen_resource_constructor_sig ppf (resource_name, resource)
 
 let file_t ?doc n =

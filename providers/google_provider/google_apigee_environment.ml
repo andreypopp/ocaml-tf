@@ -60,24 +60,54 @@ An Apigee org can support heterogeneous Environments. Possible values: [ENVIRONM
 [@@deriving yojson_of]
 (** google_apigee_environment *)
 
+type t = {
+  api_proxy_type : string prop;
+  deployment_type : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  org_id : string prop;
+  type_ : string prop;
+}
+
 let google_apigee_environment ?api_proxy_type ?deployment_type
     ?description ?display_name ?id ?type_ ?timeouts ~name ~org_id
     ~node_config __resource_id =
   let __resource_type = "google_apigee_environment" in
   let __resource =
-    {
-      api_proxy_type;
-      deployment_type;
-      description;
-      display_name;
-      id;
-      name;
-      org_id;
-      type_;
-      node_config;
-      timeouts;
-    }
+    ({
+       api_proxy_type;
+       deployment_type;
+       description;
+       display_name;
+       id;
+       name;
+       org_id;
+       type_;
+       node_config;
+       timeouts;
+     }
+      : google_apigee_environment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_environment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_proxy_type =
+         Prop.computed __resource_type __resource_id "api_proxy_type";
+       deployment_type =
+         Prop.computed __resource_type __resource_id
+           "deployment_type";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

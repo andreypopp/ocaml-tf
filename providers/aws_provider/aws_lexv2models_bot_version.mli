@@ -10,6 +10,16 @@ type aws_lexv2models_bot_version__locale_specification = {
 
 type aws_lexv2models_bot_version
 
+type t = private {
+  bot_id : string prop;
+  bot_version : string prop;
+  description : string prop;
+  id : string prop;
+  locale_specification :
+    (string * aws_lexv2models_bot_version__locale_specification) list
+    prop;
+}
+
 val aws_lexv2models_bot_version :
   ?bot_version:string prop ->
   ?description:string prop ->
@@ -18,4 +28,4 @@ val aws_lexv2models_bot_version :
   locale_specification:
     (string * aws_lexv2models_bot_version__locale_specification) list ->
   string ->
-  unit
+  t

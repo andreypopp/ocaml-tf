@@ -38,22 +38,55 @@ type aws_batch_job_queue = {
 [@@deriving yojson_of]
 (** aws_batch_job_queue *)
 
+type t = {
+  arn : string prop;
+  compute_environments : string list prop;
+  id : string prop;
+  name : string prop;
+  priority : float prop;
+  scheduling_policy_arn : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_batch_job_queue ?compute_environments ?scheduling_policy_arn
     ?tags ?timeouts ~name ~priority ~state ~compute_environment_order
     __resource_id =
   let __resource_type = "aws_batch_job_queue" in
   let __resource =
-    {
-      compute_environments;
-      name;
-      priority;
-      scheduling_policy_arn;
-      state;
-      tags;
-      compute_environment_order;
-      timeouts;
-    }
+    ({
+       compute_environments;
+       name;
+       priority;
+       scheduling_policy_arn;
+       state;
+       tags;
+       compute_environment_order;
+       timeouts;
+     }
+      : aws_batch_job_queue)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_batch_job_queue __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       compute_environments =
+         Prop.computed __resource_type __resource_id
+           "compute_environments";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       scheduling_policy_arn =
+         Prop.computed __resource_type __resource_id
+           "scheduling_policy_arn";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

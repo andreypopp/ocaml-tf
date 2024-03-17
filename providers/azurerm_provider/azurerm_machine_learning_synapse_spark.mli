@@ -6,6 +6,17 @@ type azurerm_machine_learning_synapse_spark__identity
 type azurerm_machine_learning_synapse_spark__timeouts
 type azurerm_machine_learning_synapse_spark
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  machine_learning_workspace_id : string prop;
+  name : string prop;
+  synapse_spark_pool_id : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_machine_learning_synapse_spark :
   ?description:string prop ->
   ?id:string prop ->
@@ -18,4 +29,4 @@ val azurerm_machine_learning_synapse_spark :
   synapse_spark_pool_id:string prop ->
   identity:azurerm_machine_learning_synapse_spark__identity list ->
   string ->
-  unit
+  t

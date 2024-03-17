@@ -22,6 +22,26 @@ type aws_lightsail_distribution__location = {
 
 type aws_lightsail_distribution
 
+type t = private {
+  alternative_domain_names : string list prop;
+  arn : string prop;
+  bundle_id : string prop;
+  certificate_name : string prop;
+  created_at : string prop;
+  domain_name : string prop;
+  id : string prop;
+  ip_address_type : string prop;
+  is_enabled : bool prop;
+  location : aws_lightsail_distribution__location list prop;
+  name : string prop;
+  origin_public_dns : string prop;
+  resource_type : string prop;
+  status : string prop;
+  support_code : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_lightsail_distribution :
   ?certificate_name:string prop ->
   ?id:string prop ->
@@ -39,4 +59,4 @@ val aws_lightsail_distribution :
     aws_lightsail_distribution__default_cache_behavior list ->
   origin:aws_lightsail_distribution__origin list ->
   string ->
-  unit
+  t

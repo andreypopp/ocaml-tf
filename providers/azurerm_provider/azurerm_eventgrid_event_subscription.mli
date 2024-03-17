@@ -55,6 +55,21 @@ type azurerm_eventgrid_event_subscription__timeouts
 type azurerm_eventgrid_event_subscription__webhook_endpoint
 type azurerm_eventgrid_event_subscription
 
+type t = private {
+  advanced_filtering_on_arrays_enabled : bool prop;
+  event_delivery_schema : string prop;
+  eventhub_endpoint_id : string prop;
+  expiration_time_utc : string prop;
+  hybrid_connection_endpoint_id : string prop;
+  id : string prop;
+  included_event_types : string list prop;
+  labels : string list prop;
+  name : string prop;
+  scope : string prop;
+  service_bus_queue_endpoint_id : string prop;
+  service_bus_topic_endpoint_id : string prop;
+}
+
 val azurerm_eventgrid_event_subscription :
   ?advanced_filtering_on_arrays_enabled:bool prop ->
   ?event_delivery_schema:string prop ->
@@ -92,4 +107,4 @@ val azurerm_eventgrid_event_subscription :
   webhook_endpoint:
     azurerm_eventgrid_event_subscription__webhook_endpoint list ->
   string ->
-  unit
+  t

@@ -13,6 +13,20 @@ type azurerm_subscription_policy_assignment__resource_selectors
 type azurerm_subscription_policy_assignment__timeouts
 type azurerm_subscription_policy_assignment
 
+type t = private {
+  description : string prop;
+  display_name : string prop;
+  enforce : bool prop;
+  id : string prop;
+  location : string prop;
+  metadata : string prop;
+  name : string prop;
+  not_scopes : string list prop;
+  parameters : string prop;
+  policy_definition_id : string prop;
+  subscription_id : string prop;
+}
+
 val azurerm_subscription_policy_assignment :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -34,4 +48,4 @@ val azurerm_subscription_policy_assignment :
   resource_selectors:
     azurerm_subscription_policy_assignment__resource_selectors list ->
   string ->
-  unit
+  t

@@ -8,6 +8,20 @@ type azurerm_app_configuration_feature__timeouts
 type azurerm_app_configuration_feature__timewindow_filter
 type azurerm_app_configuration_feature
 
+type t = private {
+  configuration_store_id : string prop;
+  description : string prop;
+  enabled : bool prop;
+  etag : string prop;
+  id : string prop;
+  key : string prop;
+  label : string prop;
+  locked : bool prop;
+  name : string prop;
+  percentage_filter_value : float prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_app_configuration_feature :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -26,4 +40,4 @@ val azurerm_app_configuration_feature :
   timewindow_filter:
     azurerm_app_configuration_feature__timewindow_filter list ->
   string ->
-  unit
+  t

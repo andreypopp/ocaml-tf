@@ -133,23 +133,55 @@ type aws_appautoscaling_policy = {
 [@@deriving yojson_of]
 (** aws_appautoscaling_policy *)
 
+type t = {
+  alarm_arns : string list prop;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  policy_type : string prop;
+  resource_id : string prop;
+  scalable_dimension : string prop;
+  service_namespace : string prop;
+}
+
 let aws_appautoscaling_policy ?id ?policy_type ~name ~resource_id
     ~scalable_dimension ~service_namespace
     ~step_scaling_policy_configuration
     ~target_tracking_scaling_policy_configuration __resource_id =
   let __resource_type = "aws_appautoscaling_policy" in
   let __resource =
-    {
-      id;
-      name;
-      policy_type;
-      resource_id;
-      scalable_dimension;
-      service_namespace;
-      step_scaling_policy_configuration;
-      target_tracking_scaling_policy_configuration;
-    }
+    ({
+       id;
+       name;
+       policy_type;
+       resource_id;
+       scalable_dimension;
+       service_namespace;
+       step_scaling_policy_configuration;
+       target_tracking_scaling_policy_configuration;
+     }
+      : aws_appautoscaling_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appautoscaling_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alarm_arns =
+         Prop.computed __resource_type __resource_id "alarm_arns";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       policy_type =
+         Prop.computed __resource_type __resource_id "policy_type";
+       resource_id =
+         Prop.computed __resource_type __resource_id "resource_id";
+       scalable_dimension =
+         Prop.computed __resource_type __resource_id
+           "scalable_dimension";
+       service_namespace =
+         Prop.computed __resource_type __resource_id
+           "service_namespace";
+     }
+      : t)
+  in
+  __resource_attributes

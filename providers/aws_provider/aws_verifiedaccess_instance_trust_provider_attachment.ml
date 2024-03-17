@@ -14,6 +14,12 @@ type aws_verifiedaccess_instance_trust_provider_attachment = {
 [@@deriving yojson_of]
 (** aws_verifiedaccess_instance_trust_provider_attachment *)
 
+type t = {
+  id : string prop;
+  verifiedaccess_instance_id : string prop;
+  verifiedaccess_trust_provider_id : string prop;
+}
+
 let aws_verifiedaccess_instance_trust_provider_attachment ?id
     ~verifiedaccess_instance_id ~verifiedaccess_trust_provider_id
     __resource_id =
@@ -21,13 +27,26 @@ let aws_verifiedaccess_instance_trust_provider_attachment ?id
     "aws_verifiedaccess_instance_trust_provider_attachment"
   in
   let __resource =
-    {
-      id;
-      verifiedaccess_instance_id;
-      verifiedaccess_trust_provider_id;
-    }
+    ({
+       id;
+       verifiedaccess_instance_id;
+       verifiedaccess_trust_provider_id;
+     }
+      : aws_verifiedaccess_instance_trust_provider_attachment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedaccess_instance_trust_provider_attachment
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       verifiedaccess_instance_id =
+         Prop.computed __resource_type __resource_id
+           "verifiedaccess_instance_id";
+       verifiedaccess_trust_provider_id =
+         Prop.computed __resource_type __resource_id
+           "verifiedaccess_trust_provider_id";
+     }
+      : t)
+  in
+  __resource_attributes

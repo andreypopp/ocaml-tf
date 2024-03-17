@@ -88,24 +88,49 @@ type aws_sagemaker_flow_definition = {
 [@@deriving yojson_of]
 (** aws_sagemaker_flow_definition *)
 
+type t = {
+  arn : string prop;
+  flow_definition_name : string prop;
+  id : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sagemaker_flow_definition ?id ?tags ?tags_all
     ~flow_definition_name ~role_arn ~human_loop_activation_config
     ~human_loop_config ~human_loop_request_source ~output_config
     __resource_id =
   let __resource_type = "aws_sagemaker_flow_definition" in
   let __resource =
-    {
-      flow_definition_name;
-      id;
-      role_arn;
-      tags;
-      tags_all;
-      human_loop_activation_config;
-      human_loop_config;
-      human_loop_request_source;
-      output_config;
-    }
+    ({
+       flow_definition_name;
+       id;
+       role_arn;
+       tags;
+       tags_all;
+       human_loop_activation_config;
+       human_loop_config;
+       human_loop_request_source;
+       output_config;
+     }
+      : aws_sagemaker_flow_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_flow_definition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       flow_definition_name =
+         Prop.computed __resource_type __resource_id
+           "flow_definition_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

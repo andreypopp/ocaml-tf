@@ -377,6 +377,44 @@ type aws_autoscaling_group = {
 [@@deriving yojson_of]
 (** aws_autoscaling_group *)
 
+type t = {
+  arn : string prop;
+  availability_zones : string list prop;
+  capacity_rebalance : bool prop;
+  context : string prop;
+  default_cooldown : float prop;
+  default_instance_warmup : float prop;
+  desired_capacity : float prop;
+  desired_capacity_type : string prop;
+  enabled_metrics : string list prop;
+  force_delete : bool prop;
+  force_delete_warm_pool : bool prop;
+  health_check_grace_period : float prop;
+  health_check_type : string prop;
+  id : string prop;
+  ignore_failed_scaling_activities : bool prop;
+  launch_configuration : string prop;
+  load_balancers : string list prop;
+  max_instance_lifetime : float prop;
+  max_size : float prop;
+  metrics_granularity : string prop;
+  min_elb_capacity : float prop;
+  min_size : float prop;
+  name : string prop;
+  name_prefix : string prop;
+  placement_group : string prop;
+  predicted_capacity : float prop;
+  protect_from_scale_in : bool prop;
+  service_linked_role_arn : string prop;
+  suspended_processes : string list prop;
+  target_group_arns : string list prop;
+  termination_policies : string list prop;
+  vpc_zone_identifier : string list prop;
+  wait_for_capacity_timeout : string prop;
+  wait_for_elb_capacity : float prop;
+  warm_pool_size : float prop;
+}
+
 let aws_autoscaling_group ?availability_zones ?capacity_rebalance
     ?context ?default_cooldown ?default_instance_warmup
     ?desired_capacity ?desired_capacity_type ?enabled_metrics
@@ -393,50 +431,148 @@ let aws_autoscaling_group ?availability_zones ?capacity_rebalance
     ~traffic_source ~warm_pool __resource_id =
   let __resource_type = "aws_autoscaling_group" in
   let __resource =
-    {
-      availability_zones;
-      capacity_rebalance;
-      context;
-      default_cooldown;
-      default_instance_warmup;
-      desired_capacity;
-      desired_capacity_type;
-      enabled_metrics;
-      force_delete;
-      force_delete_warm_pool;
-      health_check_grace_period;
-      health_check_type;
-      id;
-      ignore_failed_scaling_activities;
-      launch_configuration;
-      load_balancers;
-      max_instance_lifetime;
-      max_size;
-      metrics_granularity;
-      min_elb_capacity;
-      min_size;
-      name;
-      name_prefix;
-      placement_group;
-      protect_from_scale_in;
-      service_linked_role_arn;
-      suspended_processes;
-      target_group_arns;
-      termination_policies;
-      vpc_zone_identifier;
-      wait_for_capacity_timeout;
-      wait_for_elb_capacity;
-      initial_lifecycle_hook;
-      instance_maintenance_policy;
-      instance_refresh;
-      launch_template;
-      mixed_instances_policy;
-      tag;
-      timeouts;
-      traffic_source;
-      warm_pool;
-    }
+    ({
+       availability_zones;
+       capacity_rebalance;
+       context;
+       default_cooldown;
+       default_instance_warmup;
+       desired_capacity;
+       desired_capacity_type;
+       enabled_metrics;
+       force_delete;
+       force_delete_warm_pool;
+       health_check_grace_period;
+       health_check_type;
+       id;
+       ignore_failed_scaling_activities;
+       launch_configuration;
+       load_balancers;
+       max_instance_lifetime;
+       max_size;
+       metrics_granularity;
+       min_elb_capacity;
+       min_size;
+       name;
+       name_prefix;
+       placement_group;
+       protect_from_scale_in;
+       service_linked_role_arn;
+       suspended_processes;
+       target_group_arns;
+       termination_policies;
+       vpc_zone_identifier;
+       wait_for_capacity_timeout;
+       wait_for_elb_capacity;
+       initial_lifecycle_hook;
+       instance_maintenance_policy;
+       instance_refresh;
+       launch_template;
+       mixed_instances_policy;
+       tag;
+       timeouts;
+       traffic_source;
+       warm_pool;
+     }
+      : aws_autoscaling_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       availability_zones =
+         Prop.computed __resource_type __resource_id
+           "availability_zones";
+       capacity_rebalance =
+         Prop.computed __resource_type __resource_id
+           "capacity_rebalance";
+       context =
+         Prop.computed __resource_type __resource_id "context";
+       default_cooldown =
+         Prop.computed __resource_type __resource_id
+           "default_cooldown";
+       default_instance_warmup =
+         Prop.computed __resource_type __resource_id
+           "default_instance_warmup";
+       desired_capacity =
+         Prop.computed __resource_type __resource_id
+           "desired_capacity";
+       desired_capacity_type =
+         Prop.computed __resource_type __resource_id
+           "desired_capacity_type";
+       enabled_metrics =
+         Prop.computed __resource_type __resource_id
+           "enabled_metrics";
+       force_delete =
+         Prop.computed __resource_type __resource_id "force_delete";
+       force_delete_warm_pool =
+         Prop.computed __resource_type __resource_id
+           "force_delete_warm_pool";
+       health_check_grace_period =
+         Prop.computed __resource_type __resource_id
+           "health_check_grace_period";
+       health_check_type =
+         Prop.computed __resource_type __resource_id
+           "health_check_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       ignore_failed_scaling_activities =
+         Prop.computed __resource_type __resource_id
+           "ignore_failed_scaling_activities";
+       launch_configuration =
+         Prop.computed __resource_type __resource_id
+           "launch_configuration";
+       load_balancers =
+         Prop.computed __resource_type __resource_id "load_balancers";
+       max_instance_lifetime =
+         Prop.computed __resource_type __resource_id
+           "max_instance_lifetime";
+       max_size =
+         Prop.computed __resource_type __resource_id "max_size";
+       metrics_granularity =
+         Prop.computed __resource_type __resource_id
+           "metrics_granularity";
+       min_elb_capacity =
+         Prop.computed __resource_type __resource_id
+           "min_elb_capacity";
+       min_size =
+         Prop.computed __resource_type __resource_id "min_size";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       placement_group =
+         Prop.computed __resource_type __resource_id
+           "placement_group";
+       predicted_capacity =
+         Prop.computed __resource_type __resource_id
+           "predicted_capacity";
+       protect_from_scale_in =
+         Prop.computed __resource_type __resource_id
+           "protect_from_scale_in";
+       service_linked_role_arn =
+         Prop.computed __resource_type __resource_id
+           "service_linked_role_arn";
+       suspended_processes =
+         Prop.computed __resource_type __resource_id
+           "suspended_processes";
+       target_group_arns =
+         Prop.computed __resource_type __resource_id
+           "target_group_arns";
+       termination_policies =
+         Prop.computed __resource_type __resource_id
+           "termination_policies";
+       vpc_zone_identifier =
+         Prop.computed __resource_type __resource_id
+           "vpc_zone_identifier";
+       wait_for_capacity_timeout =
+         Prop.computed __resource_type __resource_id
+           "wait_for_capacity_timeout";
+       wait_for_elb_capacity =
+         Prop.computed __resource_type __resource_id
+           "wait_for_elb_capacity";
+       warm_pool_size =
+         Prop.computed __resource_type __resource_id "warm_pool_size";
+     }
+      : t)
+  in
+  __resource_attributes

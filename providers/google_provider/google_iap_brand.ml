@@ -27,12 +27,39 @@ is an owner of the specified group in Cloud Identity. *)
 [@@deriving yojson_of]
 (** google_iap_brand *)
 
+type t = {
+  application_title : string prop;
+  id : string prop;
+  name : string prop;
+  org_internal_only : bool prop;
+  project : string prop;
+  support_email : string prop;
+}
+
 let google_iap_brand ?id ?project ?timeouts ~application_title
     ~support_email __resource_id =
   let __resource_type = "google_iap_brand" in
   let __resource =
-    { application_title; id; project; support_email; timeouts }
+    ({ application_title; id; project; support_email; timeouts }
+      : google_iap_brand)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_brand __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_title =
+         Prop.computed __resource_type __resource_id
+           "application_title";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       org_internal_only =
+         Prop.computed __resource_type __resource_id
+           "org_internal_only";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       support_email =
+         Prop.computed __resource_type __resource_id "support_email";
+     }
+      : t)
+  in
+  __resource_attributes

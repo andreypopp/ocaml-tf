@@ -25,21 +25,48 @@ type azurerm_iothub_dps_certificate = {
 [@@deriving yojson_of]
 (** azurerm_iothub_dps_certificate *)
 
+type t = {
+  certificate_content : string prop;
+  id : string prop;
+  iot_dps_name : string prop;
+  is_verified : bool prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_iothub_dps_certificate ?id ?is_verified ?timeouts
     ~certificate_content ~iot_dps_name ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_iothub_dps_certificate" in
   let __resource =
-    {
-      certificate_content;
-      id;
-      iot_dps_name;
-      is_verified;
-      name;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       certificate_content;
+       id;
+       iot_dps_name;
+       is_verified;
+       name;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_iothub_dps_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_dps_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_content =
+         Prop.computed __resource_type __resource_id
+           "certificate_content";
+       id = Prop.computed __resource_type __resource_id "id";
+       iot_dps_name =
+         Prop.computed __resource_type __resource_id "iot_dps_name";
+       is_verified =
+         Prop.computed __resource_type __resource_id "is_verified";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

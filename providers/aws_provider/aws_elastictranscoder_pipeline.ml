@@ -64,26 +64,53 @@ type aws_elastictranscoder_pipeline = {
 [@@deriving yojson_of]
 (** aws_elastictranscoder_pipeline *)
 
+type t = {
+  arn : string prop;
+  aws_kms_key_arn : string prop;
+  id : string prop;
+  input_bucket : string prop;
+  name : string prop;
+  output_bucket : string prop;
+  role : string prop;
+}
+
 let aws_elastictranscoder_pipeline ?aws_kms_key_arn ?id ?name
     ?output_bucket ~input_bucket ~role ~content_config
     ~content_config_permissions ~notifications ~thumbnail_config
     ~thumbnail_config_permissions __resource_id =
   let __resource_type = "aws_elastictranscoder_pipeline" in
   let __resource =
-    {
-      aws_kms_key_arn;
-      id;
-      input_bucket;
-      name;
-      output_bucket;
-      role;
-      content_config;
-      content_config_permissions;
-      notifications;
-      thumbnail_config;
-      thumbnail_config_permissions;
-    }
+    ({
+       aws_kms_key_arn;
+       id;
+       input_bucket;
+       name;
+       output_bucket;
+       role;
+       content_config;
+       content_config_permissions;
+       notifications;
+       thumbnail_config;
+       thumbnail_config_permissions;
+     }
+      : aws_elastictranscoder_pipeline)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elastictranscoder_pipeline __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       aws_kms_key_arn =
+         Prop.computed __resource_type __resource_id
+           "aws_kms_key_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       input_bucket =
+         Prop.computed __resource_type __resource_id "input_bucket";
+       name = Prop.computed __resource_type __resource_id "name";
+       output_bucket =
+         Prop.computed __resource_type __resource_id "output_bucket";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

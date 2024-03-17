@@ -76,6 +76,15 @@ type google_data_loss_prevention_inspect_template__inspect_config
 type google_data_loss_prevention_inspect_template__timeouts
 type google_data_loss_prevention_inspect_template
 
+type t = private {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  template_id : string prop;
+}
+
 val google_data_loss_prevention_inspect_template :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -86,4 +95,4 @@ val google_data_loss_prevention_inspect_template :
   inspect_config:
     google_data_loss_prevention_inspect_template__inspect_config list ->
   string ->
-  unit
+  t

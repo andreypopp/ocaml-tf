@@ -11,6 +11,15 @@ type aws_s3_bucket_inventory__filter
 type aws_s3_bucket_inventory__schedule
 type aws_s3_bucket_inventory
 
+type t = private {
+  bucket : string prop;
+  enabled : bool prop;
+  id : string prop;
+  included_object_versions : string prop;
+  name : string prop;
+  optional_fields : string list prop;
+}
+
 val aws_s3_bucket_inventory :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -22,4 +31,4 @@ val aws_s3_bucket_inventory :
   filter:aws_s3_bucket_inventory__filter list ->
   schedule:aws_s3_bucket_inventory__schedule list ->
   string ->
-  unit
+  t

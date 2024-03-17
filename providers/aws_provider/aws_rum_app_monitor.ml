@@ -45,21 +45,52 @@ type aws_rum_app_monitor = {
 [@@deriving yojson_of]
 (** aws_rum_app_monitor *)
 
+type t = {
+  app_monitor_id : string prop;
+  arn : string prop;
+  cw_log_enabled : bool prop;
+  cw_log_group : string prop;
+  domain : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_rum_app_monitor ?cw_log_enabled ?id ?tags ?tags_all ~domain
     ~name ~app_monitor_configuration ~custom_events __resource_id =
   let __resource_type = "aws_rum_app_monitor" in
   let __resource =
-    {
-      cw_log_enabled;
-      domain;
-      id;
-      name;
-      tags;
-      tags_all;
-      app_monitor_configuration;
-      custom_events;
-    }
+    ({
+       cw_log_enabled;
+       domain;
+       id;
+       name;
+       tags;
+       tags_all;
+       app_monitor_configuration;
+       custom_events;
+     }
+      : aws_rum_app_monitor)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rum_app_monitor __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_monitor_id =
+         Prop.computed __resource_type __resource_id "app_monitor_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       cw_log_enabled =
+         Prop.computed __resource_type __resource_id "cw_log_enabled";
+       cw_log_group =
+         Prop.computed __resource_type __resource_id "cw_log_group";
+       domain = Prop.computed __resource_type __resource_id "domain";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

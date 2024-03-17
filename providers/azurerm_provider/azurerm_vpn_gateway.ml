@@ -63,26 +63,62 @@ type azurerm_vpn_gateway = {
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway *)
 
+type t = {
+  bgp_route_translation_for_nat_enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  routing_preference : string prop;
+  scale_unit : float prop;
+  tags : (string * string) list prop;
+  virtual_hub_id : string prop;
+}
+
 let azurerm_vpn_gateway ?bgp_route_translation_for_nat_enabled ?id
     ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
     ~resource_group_name ~virtual_hub_id ~bgp_settings __resource_id
     =
   let __resource_type = "azurerm_vpn_gateway" in
   let __resource =
-    {
-      bgp_route_translation_for_nat_enabled;
-      id;
-      location;
-      name;
-      resource_group_name;
-      routing_preference;
-      scale_unit;
-      tags;
-      virtual_hub_id;
-      bgp_settings;
-      timeouts;
-    }
+    ({
+       bgp_route_translation_for_nat_enabled;
+       id;
+       location;
+       name;
+       resource_group_name;
+       routing_preference;
+       scale_unit;
+       tags;
+       virtual_hub_id;
+       bgp_settings;
+       timeouts;
+     }
+      : azurerm_vpn_gateway)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vpn_gateway __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bgp_route_translation_for_nat_enabled =
+         Prop.computed __resource_type __resource_id
+           "bgp_route_translation_for_nat_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       routing_preference =
+         Prop.computed __resource_type __resource_id
+           "routing_preference";
+       scale_unit =
+         Prop.computed __resource_type __resource_id "scale_unit";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_hub_id =
+         Prop.computed __resource_type __resource_id "virtual_hub_id";
+     }
+      : t)
+  in
+  __resource_attributes

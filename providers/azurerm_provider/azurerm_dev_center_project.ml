@@ -28,23 +28,58 @@ type azurerm_dev_center_project = {
 [@@deriving yojson_of]
 (** azurerm_dev_center_project *)
 
+type t = {
+  description : string prop;
+  dev_center_id : string prop;
+  dev_center_uri : string prop;
+  id : string prop;
+  location : string prop;
+  maximum_dev_boxes_per_user : float prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_dev_center_project ?description ?id
     ?maximum_dev_boxes_per_user ?tags ?timeouts ~dev_center_id
     ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_dev_center_project" in
   let __resource =
-    {
-      description;
-      dev_center_id;
-      id;
-      location;
-      maximum_dev_boxes_per_user;
-      name;
-      resource_group_name;
-      tags;
-      timeouts;
-    }
+    ({
+       description;
+       dev_center_id;
+       id;
+       location;
+       maximum_dev_boxes_per_user;
+       name;
+       resource_group_name;
+       tags;
+       timeouts;
+     }
+      : azurerm_dev_center_project)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_center_project __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       dev_center_id =
+         Prop.computed __resource_type __resource_id "dev_center_id";
+       dev_center_uri =
+         Prop.computed __resource_type __resource_id "dev_center_uri";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       maximum_dev_boxes_per_user =
+         Prop.computed __resource_type __resource_id
+           "maximum_dev_boxes_per_user";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

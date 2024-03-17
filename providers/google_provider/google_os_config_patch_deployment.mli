@@ -46,6 +46,18 @@ type google_os_config_patch_deployment__rollout
 type google_os_config_patch_deployment__timeouts
 type google_os_config_patch_deployment
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  duration : string prop;
+  id : string prop;
+  last_execute_time : string prop;
+  name : string prop;
+  patch_deployment_id : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 val google_os_config_patch_deployment :
   ?description:string prop ->
   ?duration:string prop ->
@@ -62,4 +74,4 @@ val google_os_config_patch_deployment :
     google_os_config_patch_deployment__recurring_schedule list ->
   rollout:google_os_config_patch_deployment__rollout list ->
   string ->
-  unit
+  t

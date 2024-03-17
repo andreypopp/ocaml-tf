@@ -6,6 +6,13 @@ type azurerm_security_center_subscription_pricing__extension
 type azurerm_security_center_subscription_pricing__timeouts
 type azurerm_security_center_subscription_pricing
 
+type t = private {
+  id : string prop;
+  resource_type : string prop;
+  subplan : string prop;
+  tier : string prop;
+}
+
 val azurerm_security_center_subscription_pricing :
   ?id:string prop ->
   ?resource_type:string prop ->
@@ -15,4 +22,4 @@ val azurerm_security_center_subscription_pricing :
   extension:
     azurerm_security_center_subscription_pricing__extension list ->
   string ->
-  unit
+  t

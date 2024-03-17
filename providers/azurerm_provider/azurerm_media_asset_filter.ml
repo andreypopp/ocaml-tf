@@ -57,21 +57,41 @@ type azurerm_media_asset_filter = {
 [@@deriving yojson_of]
 (** azurerm_media_asset_filter *)
 
+type t = {
+  asset_id : string prop;
+  first_quality_bitrate : float prop;
+  id : string prop;
+  name : string prop;
+}
+
 let azurerm_media_asset_filter ?first_quality_bitrate ?id ?timeouts
     ~asset_id ~name ~presentation_time_range ~track_selection
     __resource_id =
   let __resource_type = "azurerm_media_asset_filter" in
   let __resource =
-    {
-      asset_id;
-      first_quality_bitrate;
-      id;
-      name;
-      presentation_time_range;
-      timeouts;
-      track_selection;
-    }
+    ({
+       asset_id;
+       first_quality_bitrate;
+       id;
+       name;
+       presentation_time_range;
+       timeouts;
+       track_selection;
+     }
+      : azurerm_media_asset_filter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_media_asset_filter __resource);
-  ()
+  let __resource_attributes =
+    ({
+       asset_id =
+         Prop.computed __resource_type __resource_id "asset_id";
+       first_quality_bitrate =
+         Prop.computed __resource_type __resource_id
+           "first_quality_bitrate";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

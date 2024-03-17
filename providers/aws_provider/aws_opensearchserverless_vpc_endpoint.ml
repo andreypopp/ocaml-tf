@@ -26,12 +26,34 @@ type aws_opensearchserverless_vpc_endpoint = {
 [@@deriving yojson_of]
 (** aws_opensearchserverless_vpc_endpoint *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  security_group_ids : string list prop;
+  subnet_ids : string list prop;
+  vpc_id : string prop;
+}
+
 let aws_opensearchserverless_vpc_endpoint ?security_group_ids
     ?timeouts ~name ~subnet_ids ~vpc_id __resource_id =
   let __resource_type = "aws_opensearchserverless_vpc_endpoint" in
   let __resource =
-    { name; security_group_ids; subnet_ids; vpc_id; timeouts }
+    ({ name; security_group_ids; subnet_ids; vpc_id; timeouts }
+      : aws_opensearchserverless_vpc_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearchserverless_vpc_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "security_group_ids";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -11,9 +11,24 @@ type aws_lightsail_domain = {
 [@@deriving yojson_of]
 (** aws_lightsail_domain *)
 
+type t = {
+  arn : string prop;
+  domain_name : string prop;
+  id : string prop;
+}
+
 let aws_lightsail_domain ?id ~domain_name __resource_id =
   let __resource_type = "aws_lightsail_domain" in
-  let __resource = { domain_name; id } in
+  let __resource = ({ domain_name; id } : aws_lightsail_domain) in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

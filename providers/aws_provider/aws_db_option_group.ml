@@ -47,24 +47,58 @@ type aws_db_option_group = {
 [@@deriving yojson_of]
 (** aws_db_option_group *)
 
+type t = {
+  arn : string prop;
+  engine_name : string prop;
+  id : string prop;
+  major_engine_version : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  option_group_description : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_db_option_group ?id ?name ?name_prefix
     ?option_group_description ?tags ?tags_all ?timeouts ~engine_name
     ~major_engine_version ~option __resource_id =
   let __resource_type = "aws_db_option_group" in
   let __resource =
-    {
-      engine_name;
-      id;
-      major_engine_version;
-      name;
-      name_prefix;
-      option_group_description;
-      tags;
-      tags_all;
-      option;
-      timeouts;
-    }
+    ({
+       engine_name;
+       id;
+       major_engine_version;
+       name;
+       name_prefix;
+       option_group_description;
+       tags;
+       tags_all;
+       option;
+       timeouts;
+     }
+      : aws_db_option_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_option_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       engine_name =
+         Prop.computed __resource_type __resource_id "engine_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       major_engine_version =
+         Prop.computed __resource_type __resource_id
+           "major_engine_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       option_group_description =
+         Prop.computed __resource_type __resource_id
+           "option_group_description";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

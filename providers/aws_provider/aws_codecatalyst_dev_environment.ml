@@ -49,25 +49,51 @@ type aws_codecatalyst_dev_environment = {
 [@@deriving yojson_of]
 (** aws_codecatalyst_dev_environment *)
 
+type t = {
+  alias : string prop;
+  id : string prop;
+  inactivity_timeout_minutes : float prop;
+  instance_type : string prop;
+  project_name : string prop;
+  space_name : string prop;
+}
+
 let aws_codecatalyst_dev_environment ?alias ?id
     ?inactivity_timeout_minutes ?timeouts ~instance_type
     ~project_name ~space_name ~ides ~persistent_storage ~repositories
     __resource_id =
   let __resource_type = "aws_codecatalyst_dev_environment" in
   let __resource =
-    {
-      alias;
-      id;
-      inactivity_timeout_minutes;
-      instance_type;
-      project_name;
-      space_name;
-      ides;
-      persistent_storage;
-      repositories;
-      timeouts;
-    }
+    ({
+       alias;
+       id;
+       inactivity_timeout_minutes;
+       instance_type;
+       project_name;
+       space_name;
+       ides;
+       persistent_storage;
+       repositories;
+       timeouts;
+     }
+      : aws_codecatalyst_dev_environment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecatalyst_dev_environment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alias = Prop.computed __resource_type __resource_id "alias";
+       id = Prop.computed __resource_type __resource_id "id";
+       inactivity_timeout_minutes =
+         Prop.computed __resource_type __resource_id
+           "inactivity_timeout_minutes";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       project_name =
+         Prop.computed __resource_type __resource_id "project_name";
+       space_name =
+         Prop.computed __resource_type __resource_id "space_name";
+     }
+      : t)
+  in
+  __resource_attributes

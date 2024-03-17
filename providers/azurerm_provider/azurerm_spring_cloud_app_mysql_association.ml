@@ -27,6 +27,16 @@ type azurerm_spring_cloud_app_mysql_association = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app_mysql_association *)
 
+type t = {
+  database_name : string prop;
+  id : string prop;
+  mysql_server_id : string prop;
+  name : string prop;
+  password : string prop;
+  spring_cloud_app_id : string prop;
+  username : string prop;
+}
+
 let azurerm_spring_cloud_app_mysql_association ?id ?timeouts
     ~database_name ~mysql_server_id ~name ~password
     ~spring_cloud_app_id ~username __resource_id =
@@ -34,17 +44,37 @@ let azurerm_spring_cloud_app_mysql_association ?id ?timeouts
     "azurerm_spring_cloud_app_mysql_association"
   in
   let __resource =
-    {
-      database_name;
-      id;
-      mysql_server_id;
-      name;
-      password;
-      spring_cloud_app_id;
-      username;
-      timeouts;
-    }
+    ({
+       database_name;
+       id;
+       mysql_server_id;
+       name;
+       password;
+       spring_cloud_app_id;
+       username;
+       timeouts;
+     }
+      : azurerm_spring_cloud_app_mysql_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_app_mysql_association __resource);
-  ()
+  let __resource_attributes =
+    ({
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       mysql_server_id =
+         Prop.computed __resource_type __resource_id
+           "mysql_server_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       spring_cloud_app_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_app_id";
+       username =
+         Prop.computed __resource_type __resource_id "username";
+     }
+      : t)
+  in
+  __resource_attributes

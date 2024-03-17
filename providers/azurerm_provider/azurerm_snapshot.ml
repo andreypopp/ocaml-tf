@@ -58,28 +58,75 @@ type azurerm_snapshot = {
 [@@deriving yojson_of]
 (** azurerm_snapshot *)
 
+type t = {
+  create_option : string prop;
+  disk_size_gb : float prop;
+  id : string prop;
+  incremental_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  source_resource_id : string prop;
+  source_uri : string prop;
+  storage_account_id : string prop;
+  tags : (string * string) list prop;
+  trusted_launch_enabled : bool prop;
+}
+
 let azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
     ?source_resource_id ?source_uri ?storage_account_id ?tags
     ?timeouts ~create_option ~location ~name ~resource_group_name
     ~encryption_settings __resource_id =
   let __resource_type = "azurerm_snapshot" in
   let __resource =
-    {
-      create_option;
-      disk_size_gb;
-      id;
-      incremental_enabled;
-      location;
-      name;
-      resource_group_name;
-      source_resource_id;
-      source_uri;
-      storage_account_id;
-      tags;
-      encryption_settings;
-      timeouts;
-    }
+    ({
+       create_option;
+       disk_size_gb;
+       id;
+       incremental_enabled;
+       location;
+       name;
+       resource_group_name;
+       source_resource_id;
+       source_uri;
+       storage_account_id;
+       tags;
+       encryption_settings;
+       timeouts;
+     }
+      : azurerm_snapshot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_snapshot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_option =
+         Prop.computed __resource_type __resource_id "create_option";
+       disk_size_gb =
+         Prop.computed __resource_type __resource_id "disk_size_gb";
+       id = Prop.computed __resource_type __resource_id "id";
+       incremental_enabled =
+         Prop.computed __resource_type __resource_id
+           "incremental_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       source_resource_id =
+         Prop.computed __resource_type __resource_id
+           "source_resource_id";
+       source_uri =
+         Prop.computed __resource_type __resource_id "source_uri";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       trusted_launch_enabled =
+         Prop.computed __resource_type __resource_id
+           "trusted_launch_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

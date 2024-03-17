@@ -64,20 +64,38 @@ type aws_cloudfront_origin_request_policy = {
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_request_policy *)
 
+type t = {
+  comment : string prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let aws_cloudfront_origin_request_policy ?comment ?id ~name
     ~cookies_config ~headers_config ~query_strings_config
     __resource_id =
   let __resource_type = "aws_cloudfront_origin_request_policy" in
   let __resource =
-    {
-      comment;
-      id;
-      name;
-      cookies_config;
-      headers_config;
-      query_strings_config;
-    }
+    ({
+       comment;
+       id;
+       name;
+       cookies_config;
+       headers_config;
+       query_strings_config;
+     }
+      : aws_cloudfront_origin_request_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_origin_request_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       comment =
+         Prop.computed __resource_type __resource_id "comment";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

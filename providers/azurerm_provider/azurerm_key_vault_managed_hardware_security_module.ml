@@ -51,6 +51,24 @@ type azurerm_key_vault_managed_hardware_security_module = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_hardware_security_module *)
 
+type t = {
+  admin_object_ids : string list prop;
+  hsm_uri : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  purge_protection_enabled : bool prop;
+  resource_group_name : string prop;
+  security_domain_encrypted_data : string prop;
+  security_domain_key_vault_certificate_ids : string list prop;
+  security_domain_quorum : float prop;
+  sku_name : string prop;
+  soft_delete_retention_days : float prop;
+  tags : (string * string) list prop;
+  tenant_id : string prop;
+}
+
 let azurerm_key_vault_managed_hardware_security_module ?id
     ?public_network_access_enabled ?purge_protection_enabled
     ?security_domain_key_vault_certificate_ids
@@ -61,25 +79,66 @@ let azurerm_key_vault_managed_hardware_security_module ?id
     "azurerm_key_vault_managed_hardware_security_module"
   in
   let __resource =
-    {
-      admin_object_ids;
-      id;
-      location;
-      name;
-      public_network_access_enabled;
-      purge_protection_enabled;
-      resource_group_name;
-      security_domain_key_vault_certificate_ids;
-      security_domain_quorum;
-      sku_name;
-      soft_delete_retention_days;
-      tags;
-      tenant_id;
-      network_acls;
-      timeouts;
-    }
+    ({
+       admin_object_ids;
+       id;
+       location;
+       name;
+       public_network_access_enabled;
+       purge_protection_enabled;
+       resource_group_name;
+       security_domain_key_vault_certificate_ids;
+       security_domain_quorum;
+       sku_name;
+       soft_delete_retention_days;
+       tags;
+       tenant_id;
+       network_acls;
+       timeouts;
+     }
+      : azurerm_key_vault_managed_hardware_security_module)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_managed_hardware_security_module
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin_object_ids =
+         Prop.computed __resource_type __resource_id
+           "admin_object_ids";
+       hsm_uri =
+         Prop.computed __resource_type __resource_id "hsm_uri";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       purge_protection_enabled =
+         Prop.computed __resource_type __resource_id
+           "purge_protection_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       security_domain_encrypted_data =
+         Prop.computed __resource_type __resource_id
+           "security_domain_encrypted_data";
+       security_domain_key_vault_certificate_ids =
+         Prop.computed __resource_type __resource_id
+           "security_domain_key_vault_certificate_ids";
+       security_domain_quorum =
+         Prop.computed __resource_type __resource_id
+           "security_domain_quorum";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       soft_delete_retention_days =
+         Prop.computed __resource_type __resource_id
+           "soft_delete_retention_days";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tenant_id =
+         Prop.computed __resource_type __resource_id "tenant_id";
+     }
+      : t)
+  in
+  __resource_attributes

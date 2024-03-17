@@ -21,21 +21,57 @@ type google_storage_notification = {
 [@@deriving yojson_of]
 (** google_storage_notification *)
 
+type t = {
+  bucket : string prop;
+  custom_attributes : (string * string) list prop;
+  event_types : string list prop;
+  id : string prop;
+  notification_id : string prop;
+  object_name_prefix : string prop;
+  payload_format : string prop;
+  self_link : string prop;
+  topic : string prop;
+}
+
 let google_storage_notification ?custom_attributes ?event_types ?id
     ?object_name_prefix ~bucket ~payload_format ~topic __resource_id
     =
   let __resource_type = "google_storage_notification" in
   let __resource =
-    {
-      bucket;
-      custom_attributes;
-      event_types;
-      id;
-      object_name_prefix;
-      payload_format;
-      topic;
-    }
+    ({
+       bucket;
+       custom_attributes;
+       event_types;
+       id;
+       object_name_prefix;
+       payload_format;
+       topic;
+     }
+      : google_storage_notification)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_notification __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       custom_attributes =
+         Prop.computed __resource_type __resource_id
+           "custom_attributes";
+       event_types =
+         Prop.computed __resource_type __resource_id "event_types";
+       id = Prop.computed __resource_type __resource_id "id";
+       notification_id =
+         Prop.computed __resource_type __resource_id
+           "notification_id";
+       object_name_prefix =
+         Prop.computed __resource_type __resource_id
+           "object_name_prefix";
+       payload_format =
+         Prop.computed __resource_type __resource_id "payload_format";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       topic = Prop.computed __resource_type __resource_id "topic";
+     }
+      : t)
+  in
+  __resource_attributes

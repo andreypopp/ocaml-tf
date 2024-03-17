@@ -14,15 +14,41 @@ type google_bigquery_analytics_hub_data_exchange_iam_policy = {
 [@@deriving yojson_of]
 (** google_bigquery_analytics_hub_data_exchange_iam_policy *)
 
+type t = {
+  data_exchange_id : string prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  policy_data : string prop;
+  project : string prop;
+}
+
 let google_bigquery_analytics_hub_data_exchange_iam_policy ?id
     ?location ?project ~data_exchange_id ~policy_data __resource_id =
   let __resource_type =
     "google_bigquery_analytics_hub_data_exchange_iam_policy"
   in
   let __resource =
-    { data_exchange_id; id; location; policy_data; project }
+    ({ data_exchange_id; id; location; policy_data; project }
+      : google_bigquery_analytics_hub_data_exchange_iam_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_analytics_hub_data_exchange_iam_policy
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data_exchange_id =
+         Prop.computed __resource_type __resource_id
+           "data_exchange_id";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       policy_data =
+         Prop.computed __resource_type __resource_id "policy_data";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -24,26 +24,70 @@ type aws_cloudwatch_event_rule = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_rule *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  event_bus_name : string prop;
+  event_pattern : string prop;
+  id : string prop;
+  is_enabled : bool prop;
+  name : string prop;
+  name_prefix : string prop;
+  role_arn : string prop;
+  schedule_expression : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_cloudwatch_event_rule ?description ?event_bus_name
     ?event_pattern ?id ?is_enabled ?name ?name_prefix ?role_arn
     ?schedule_expression ?state ?tags ?tags_all __resource_id =
   let __resource_type = "aws_cloudwatch_event_rule" in
   let __resource =
-    {
-      description;
-      event_bus_name;
-      event_pattern;
-      id;
-      is_enabled;
-      name;
-      name_prefix;
-      role_arn;
-      schedule_expression;
-      state;
-      tags;
-      tags_all;
-    }
+    ({
+       description;
+       event_bus_name;
+       event_pattern;
+       id;
+       is_enabled;
+       name;
+       name_prefix;
+       role_arn;
+       schedule_expression;
+       state;
+       tags;
+       tags_all;
+     }
+      : aws_cloudwatch_event_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       event_bus_name =
+         Prop.computed __resource_type __resource_id "event_bus_name";
+       event_pattern =
+         Prop.computed __resource_type __resource_id "event_pattern";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_enabled =
+         Prop.computed __resource_type __resource_id "is_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       schedule_expression =
+         Prop.computed __resource_type __resource_id
+           "schedule_expression";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

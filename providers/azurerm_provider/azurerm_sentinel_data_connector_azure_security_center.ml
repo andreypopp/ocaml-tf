@@ -26,6 +26,13 @@ type azurerm_sentinel_data_connector_azure_security_center = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_azure_security_center *)
 
+type t = {
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  subscription_id : string prop;
+}
+
 let azurerm_sentinel_data_connector_azure_security_center ?id
     ?subscription_id ?timeouts ~log_analytics_workspace_id ~name
     __resource_id =
@@ -33,15 +40,29 @@ let azurerm_sentinel_data_connector_azure_security_center ?id
     "azurerm_sentinel_data_connector_azure_security_center"
   in
   let __resource =
-    {
-      id;
-      log_analytics_workspace_id;
-      name;
-      subscription_id;
-      timeouts;
-    }
+    ({
+       id;
+       log_analytics_workspace_id;
+       name;
+       subscription_id;
+       timeouts;
+     }
+      : azurerm_sentinel_data_connector_azure_security_center)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_data_connector_azure_security_center
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       subscription_id =
+         Prop.computed __resource_type __resource_id
+           "subscription_id";
+     }
+      : t)
+  in
+  __resource_attributes

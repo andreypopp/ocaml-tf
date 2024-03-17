@@ -81,23 +81,76 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_clouddeploy_custom_target_type *)
 
+type t = {
+  annotations : (string * string) list prop;
+  create_time : string prop;
+  custom_target_type_id : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_clouddeploy_custom_target_type ?annotations ?description
     ?id ?labels ?project ?timeouts ~location ~name ~custom_actions
     __resource_id =
   let __resource_type = "google_clouddeploy_custom_target_type" in
   let __resource =
-    {
-      annotations;
-      description;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      custom_actions;
-      timeouts;
-    }
+    ({
+       annotations;
+       description;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       custom_actions;
+       timeouts;
+     }
+      : google_clouddeploy_custom_target_type)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_clouddeploy_custom_target_type __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       custom_target_type_id =
+         Prop.computed __resource_type __resource_id
+           "custom_target_type_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

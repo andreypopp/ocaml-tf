@@ -46,6 +46,25 @@ type google_cloudbuild_trigger__trigger_template
 type google_cloudbuild_trigger__webhook_config
 type google_cloudbuild_trigger
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  disabled : bool prop;
+  filename : string prop;
+  filter : string prop;
+  id : string prop;
+  ignored_files : string list prop;
+  include_build_logs : string prop;
+  included_files : string list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  service_account : string prop;
+  substitutions : (string * string) list prop;
+  tags : string list prop;
+  trigger_id : string prop;
+}
+
 val google_cloudbuild_trigger :
   ?description:string prop ->
   ?disabled:bool prop ->
@@ -75,4 +94,4 @@ val google_cloudbuild_trigger :
   trigger_template:google_cloudbuild_trigger__trigger_template list ->
   webhook_config:google_cloudbuild_trigger__webhook_config list ->
   string ->
-  unit
+  t

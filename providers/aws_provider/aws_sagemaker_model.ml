@@ -138,25 +138,53 @@ type aws_sagemaker_model = {
 [@@deriving yojson_of]
 (** aws_sagemaker_model *)
 
+type t = {
+  arn : string prop;
+  enable_network_isolation : bool prop;
+  execution_role_arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sagemaker_model ?enable_network_isolation ?id ?name ?tags
     ?tags_all ~execution_role_arn ~container
     ~inference_execution_config ~primary_container ~vpc_config
     __resource_id =
   let __resource_type = "aws_sagemaker_model" in
   let __resource =
-    {
-      enable_network_isolation;
-      execution_role_arn;
-      id;
-      name;
-      tags;
-      tags_all;
-      container;
-      inference_execution_config;
-      primary_container;
-      vpc_config;
-    }
+    ({
+       enable_network_isolation;
+       execution_role_arn;
+       id;
+       name;
+       tags;
+       tags_all;
+       container;
+       inference_execution_config;
+       primary_container;
+       vpc_config;
+     }
+      : aws_sagemaker_model)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_model __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       enable_network_isolation =
+         Prop.computed __resource_type __resource_id
+           "enable_network_isolation";
+       execution_role_arn =
+         Prop.computed __resource_type __resource_id
+           "execution_role_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

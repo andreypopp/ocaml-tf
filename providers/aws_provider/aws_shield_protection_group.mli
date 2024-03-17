@@ -4,6 +4,18 @@ open! Tf.Prelude
 
 type aws_shield_protection_group
 
+type t = private {
+  aggregation : string prop;
+  id : string prop;
+  members : string list prop;
+  pattern : string prop;
+  protection_group_arn : string prop;
+  protection_group_id : string prop;
+  resource_type : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_shield_protection_group :
   ?id:string prop ->
   ?members:string prop list ->
@@ -14,4 +26,4 @@ val aws_shield_protection_group :
   pattern:string prop ->
   protection_group_id:string prop ->
   string ->
-  unit
+  t

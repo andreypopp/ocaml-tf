@@ -17,12 +17,40 @@ type aws_athena_data_catalog = {
 [@@deriving yojson_of]
 (** aws_athena_data_catalog *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_athena_data_catalog ?id ?tags ?tags_all ~description ~name
     ~parameters ~type_ __resource_id =
   let __resource_type = "aws_athena_data_catalog" in
   let __resource =
-    { description; id; name; parameters; tags; tags_all; type_ }
+    ({ description; id; name; parameters; tags; tags_all; type_ }
+      : aws_athena_data_catalog)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_athena_data_catalog __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

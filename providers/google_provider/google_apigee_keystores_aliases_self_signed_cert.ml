@@ -89,6 +89,21 @@ this parameter or the JSON body. *)
 [@@deriving yojson_of]
 (** google_apigee_keystores_aliases_self_signed_cert *)
 
+type t = {
+  alias : string prop;
+  cert_validity_in_days : float prop;
+  certs_info :
+    google_apigee_keystores_aliases_self_signed_cert__certs_info list
+    prop;
+  environment : string prop;
+  id : string prop;
+  key_size : string prop;
+  keystore : string prop;
+  org_id : string prop;
+  sig_alg : string prop;
+  type_ : string prop;
+}
+
 let google_apigee_keystores_aliases_self_signed_cert
     ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
     ~environment ~keystore ~org_id ~sig_alg ~subject
@@ -97,21 +112,44 @@ let google_apigee_keystores_aliases_self_signed_cert
     "google_apigee_keystores_aliases_self_signed_cert"
   in
   let __resource =
-    {
-      alias;
-      cert_validity_in_days;
-      environment;
-      id;
-      key_size;
-      keystore;
-      org_id;
-      sig_alg;
-      subject;
-      subject_alternative_dns_names;
-      timeouts;
-    }
+    ({
+       alias;
+       cert_validity_in_days;
+       environment;
+       id;
+       key_size;
+       keystore;
+       org_id;
+       sig_alg;
+       subject;
+       subject_alternative_dns_names;
+       timeouts;
+     }
+      : google_apigee_keystores_aliases_self_signed_cert)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_keystores_aliases_self_signed_cert
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alias = Prop.computed __resource_type __resource_id "alias";
+       cert_validity_in_days =
+         Prop.computed __resource_type __resource_id
+           "cert_validity_in_days";
+       certs_info =
+         Prop.computed __resource_type __resource_id "certs_info";
+       environment =
+         Prop.computed __resource_type __resource_id "environment";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_size =
+         Prop.computed __resource_type __resource_id "key_size";
+       keystore =
+         Prop.computed __resource_type __resource_id "keystore";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       sig_alg =
+         Prop.computed __resource_type __resource_id "sig_alg";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

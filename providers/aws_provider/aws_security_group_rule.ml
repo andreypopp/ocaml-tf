@@ -32,28 +32,78 @@ type aws_security_group_rule = {
 [@@deriving yojson_of]
 (** aws_security_group_rule *)
 
+type t = {
+  cidr_blocks : string list prop;
+  description : string prop;
+  from_port : float prop;
+  id : string prop;
+  ipv6_cidr_blocks : string list prop;
+  prefix_list_ids : string list prop;
+  protocol : string prop;
+  security_group_id : string prop;
+  security_group_rule_id : string prop;
+  self : bool prop;
+  source_security_group_id : string prop;
+  to_port : float prop;
+  type_ : string prop;
+}
+
 let aws_security_group_rule ?cidr_blocks ?description ?id
     ?ipv6_cidr_blocks ?prefix_list_ids ?self
     ?source_security_group_id ?timeouts ~from_port ~protocol
     ~security_group_id ~to_port ~type_ __resource_id =
   let __resource_type = "aws_security_group_rule" in
   let __resource =
-    {
-      cidr_blocks;
-      description;
-      from_port;
-      id;
-      ipv6_cidr_blocks;
-      prefix_list_ids;
-      protocol;
-      security_group_id;
-      self;
-      source_security_group_id;
-      to_port;
-      type_;
-      timeouts;
-    }
+    ({
+       cidr_blocks;
+       description;
+       from_port;
+       id;
+       ipv6_cidr_blocks;
+       prefix_list_ids;
+       protocol;
+       security_group_id;
+       self;
+       source_security_group_id;
+       to_port;
+       type_;
+       timeouts;
+     }
+      : aws_security_group_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_security_group_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cidr_blocks =
+         Prop.computed __resource_type __resource_id "cidr_blocks";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       from_port =
+         Prop.computed __resource_type __resource_id "from_port";
+       id = Prop.computed __resource_type __resource_id "id";
+       ipv6_cidr_blocks =
+         Prop.computed __resource_type __resource_id
+           "ipv6_cidr_blocks";
+       prefix_list_ids =
+         Prop.computed __resource_type __resource_id
+           "prefix_list_ids";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       security_group_id =
+         Prop.computed __resource_type __resource_id
+           "security_group_id";
+       security_group_rule_id =
+         Prop.computed __resource_type __resource_id
+           "security_group_rule_id";
+       self = Prop.computed __resource_type __resource_id "self";
+       source_security_group_id =
+         Prop.computed __resource_type __resource_id
+           "source_security_group_id";
+       to_port =
+         Prop.computed __resource_type __resource_id "to_port";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -35,21 +35,47 @@ type azurerm_logz_tag_rule = {
 [@@deriving yojson_of]
 (** azurerm_logz_tag_rule *)
 
+type t = {
+  id : string prop;
+  logz_monitor_id : string prop;
+  send_aad_logs : bool prop;
+  send_activity_logs : bool prop;
+  send_subscription_logs : bool prop;
+}
+
 let azurerm_logz_tag_rule ?id ?send_aad_logs ?send_activity_logs
     ?send_subscription_logs ?timeouts ~logz_monitor_id ~tag_filter
     __resource_id =
   let __resource_type = "azurerm_logz_tag_rule" in
   let __resource =
-    {
-      id;
-      logz_monitor_id;
-      send_aad_logs;
-      send_activity_logs;
-      send_subscription_logs;
-      tag_filter;
-      timeouts;
-    }
+    ({
+       id;
+       logz_monitor_id;
+       send_aad_logs;
+       send_activity_logs;
+       send_subscription_logs;
+       tag_filter;
+       timeouts;
+     }
+      : azurerm_logz_tag_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logz_tag_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       logz_monitor_id =
+         Prop.computed __resource_type __resource_id
+           "logz_monitor_id";
+       send_aad_logs =
+         Prop.computed __resource_type __resource_id "send_aad_logs";
+       send_activity_logs =
+         Prop.computed __resource_type __resource_id
+           "send_activity_logs";
+       send_subscription_logs =
+         Prop.computed __resource_type __resource_id
+           "send_subscription_logs";
+     }
+      : t)
+  in
+  __resource_attributes

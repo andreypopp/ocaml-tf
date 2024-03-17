@@ -14,6 +14,19 @@ type azurerm_cosmosdb_gremlin_graph__timeouts
 type azurerm_cosmosdb_gremlin_graph__unique_key
 type azurerm_cosmosdb_gremlin_graph
 
+type t = private {
+  account_name : string prop;
+  analytical_storage_ttl : float prop;
+  database_name : string prop;
+  default_ttl : float prop;
+  id : string prop;
+  name : string prop;
+  partition_key_path : string prop;
+  partition_key_version : float prop;
+  resource_group_name : string prop;
+  throughput : float prop;
+}
+
 val azurerm_cosmosdb_gremlin_graph :
   ?analytical_storage_ttl:float prop ->
   ?default_ttl:float prop ->
@@ -33,4 +46,4 @@ val azurerm_cosmosdb_gremlin_graph :
   index_policy:azurerm_cosmosdb_gremlin_graph__index_policy list ->
   unique_key:azurerm_cosmosdb_gremlin_graph__unique_key list ->
   string ->
-  unit
+  t

@@ -206,6 +206,20 @@ type aws_elasticsearch_domain = {
 [@@deriving yojson_of]
 (** aws_elasticsearch_domain *)
 
+type t = {
+  access_policies : string prop;
+  advanced_options : (string * string) list prop;
+  arn : string prop;
+  domain_id : string prop;
+  domain_name : string prop;
+  elasticsearch_version : string prop;
+  endpoint : string prop;
+  id : string prop;
+  kibana_endpoint : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_elasticsearch_domain ?access_policies ?advanced_options
     ?elasticsearch_version ?id ?tags ?tags_all ?timeouts ~domain_name
     ~advanced_security_options ~auto_tune_options ~cluster_config
@@ -214,28 +228,57 @@ let aws_elasticsearch_domain ?access_policies ?advanced_options
     ~snapshot_options ~vpc_options __resource_id =
   let __resource_type = "aws_elasticsearch_domain" in
   let __resource =
-    {
-      access_policies;
-      advanced_options;
-      domain_name;
-      elasticsearch_version;
-      id;
-      tags;
-      tags_all;
-      advanced_security_options;
-      auto_tune_options;
-      cluster_config;
-      cognito_options;
-      domain_endpoint_options;
-      ebs_options;
-      encrypt_at_rest;
-      log_publishing_options;
-      node_to_node_encryption;
-      snapshot_options;
-      timeouts;
-      vpc_options;
-    }
+    ({
+       access_policies;
+       advanced_options;
+       domain_name;
+       elasticsearch_version;
+       id;
+       tags;
+       tags_all;
+       advanced_security_options;
+       auto_tune_options;
+       cluster_config;
+       cognito_options;
+       domain_endpoint_options;
+       ebs_options;
+       encrypt_at_rest;
+       log_publishing_options;
+       node_to_node_encryption;
+       snapshot_options;
+       timeouts;
+       vpc_options;
+     }
+      : aws_elasticsearch_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticsearch_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_policies =
+         Prop.computed __resource_type __resource_id
+           "access_policies";
+       advanced_options =
+         Prop.computed __resource_type __resource_id
+           "advanced_options";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       domain_id =
+         Prop.computed __resource_type __resource_id "domain_id";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       elasticsearch_version =
+         Prop.computed __resource_type __resource_id
+           "elasticsearch_version";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       id = Prop.computed __resource_type __resource_id "id";
+       kibana_endpoint =
+         Prop.computed __resource_type __resource_id
+           "kibana_endpoint";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

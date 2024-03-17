@@ -74,22 +74,46 @@ type google_folder_organization_policy = {
 [@@deriving yojson_of]
 (** google_folder_organization_policy *)
 
+type t = {
+  constraint_ : string prop;
+  etag : string prop;
+  folder : string prop;
+  id : string prop;
+  update_time : string prop;
+  version : float prop;
+}
+
 let google_folder_organization_policy ?id ?version ?timeouts
     ~constraint_ ~folder ~boolean_policy ~list_policy ~restore_policy
     __resource_id =
   let __resource_type = "google_folder_organization_policy" in
   let __resource =
-    {
-      constraint_;
-      folder;
-      id;
-      version;
-      boolean_policy;
-      list_policy;
-      restore_policy;
-      timeouts;
-    }
+    ({
+       constraint_;
+       folder;
+       id;
+       version;
+       boolean_policy;
+       list_policy;
+       restore_policy;
+       timeouts;
+     }
+      : google_folder_organization_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_folder_organization_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       constraint_ =
+         Prop.computed __resource_type __resource_id "constraint";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       folder = Prop.computed __resource_type __resource_id "folder";
+       id = Prop.computed __resource_type __resource_id "id";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -57,12 +57,41 @@ type aws_ivschat_logging_configuration = {
 [@@deriving yojson_of]
 (** aws_ivschat_logging_configuration *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ivschat_logging_configuration ?id ?name ?tags ?tags_all
     ?timeouts ~destination_configuration __resource_id =
   let __resource_type = "aws_ivschat_logging_configuration" in
   let __resource =
-    { id; name; tags; tags_all; destination_configuration; timeouts }
+    ({
+       id;
+       name;
+       tags;
+       tags_all;
+       destination_configuration;
+       timeouts;
+     }
+      : aws_ivschat_logging_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ivschat_logging_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

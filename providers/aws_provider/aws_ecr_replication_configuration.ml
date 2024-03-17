@@ -45,10 +45,23 @@ type aws_ecr_replication_configuration = {
 [@@deriving yojson_of]
 (** aws_ecr_replication_configuration *)
 
+type t = { id : string prop; registry_id : string prop }
+
 let aws_ecr_replication_configuration ?id ~replication_configuration
     __resource_id =
   let __resource_type = "aws_ecr_replication_configuration" in
-  let __resource = { id; replication_configuration } in
+  let __resource =
+    ({ id; replication_configuration }
+      : aws_ecr_replication_configuration)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecr_replication_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       registry_id =
+         Prop.computed __resource_type __resource_id "registry_id";
+     }
+      : t)
+  in
+  __resource_attributes

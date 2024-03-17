@@ -14,6 +14,24 @@ type azurerm_eventgrid_domain__inbound_ip_rule = {
 
 type azurerm_eventgrid_domain
 
+type t = private {
+  auto_create_topic_with_first_subscription : bool prop;
+  auto_delete_topic_with_last_subscription : bool prop;
+  endpoint : string prop;
+  id : string prop;
+  inbound_ip_rule :
+    azurerm_eventgrid_domain__inbound_ip_rule list prop;
+  input_schema : string prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  primary_access_key : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_eventgrid_domain :
   ?auto_create_topic_with_first_subscription:bool prop ->
   ?auto_delete_topic_with_last_subscription:bool prop ->
@@ -33,4 +51,4 @@ val azurerm_eventgrid_domain :
   input_mapping_fields:
     azurerm_eventgrid_domain__input_mapping_fields list ->
   string ->
-  unit
+  t

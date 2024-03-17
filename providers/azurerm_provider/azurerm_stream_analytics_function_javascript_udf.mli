@@ -7,6 +7,14 @@ type azurerm_stream_analytics_function_javascript_udf__output
 type azurerm_stream_analytics_function_javascript_udf__timeouts
 type azurerm_stream_analytics_function_javascript_udf
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  script : string prop;
+  stream_analytics_job_name : string prop;
+}
+
 val azurerm_stream_analytics_function_javascript_udf :
   ?id:string prop ->
   ?timeouts:
@@ -19,4 +27,4 @@ val azurerm_stream_analytics_function_javascript_udf :
   output:
     azurerm_stream_analytics_function_javascript_udf__output list ->
   string ->
-  unit
+  t

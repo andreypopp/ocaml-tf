@@ -22,13 +22,32 @@ type azurerm_site_recovery_services_vault_hyperv_site = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_services_vault_hyperv_site *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  recovery_vault_id : string prop;
+}
+
 let azurerm_site_recovery_services_vault_hyperv_site ?id ?timeouts
     ~name ~recovery_vault_id __resource_id =
   let __resource_type =
     "azurerm_site_recovery_services_vault_hyperv_site"
   in
-  let __resource = { id; name; recovery_vault_id; timeouts } in
+  let __resource =
+    ({ id; name; recovery_vault_id; timeouts }
+      : azurerm_site_recovery_services_vault_hyperv_site)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_site_recovery_services_vault_hyperv_site
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       recovery_vault_id =
+         Prop.computed __resource_type __resource_id
+           "recovery_vault_id";
+     }
+      : t)
+  in
+  __resource_attributes

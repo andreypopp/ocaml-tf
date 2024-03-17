@@ -16,9 +16,27 @@ type cloudflare_tiered_cache = {
 This allows you to adjust topologies for your zone.
  *)
 
+type t = {
+  cache_type : string prop;
+  id : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_tiered_cache ?id ~cache_type ~zone_id __resource_id =
   let __resource_type = "cloudflare_tiered_cache" in
-  let __resource = { cache_type; id; zone_id } in
+  let __resource =
+    ({ cache_type; id; zone_id } : cloudflare_tiered_cache)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_tiered_cache __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cache_type =
+         Prop.computed __resource_type __resource_id "cache_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

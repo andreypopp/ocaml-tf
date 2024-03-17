@@ -44,23 +44,58 @@ type azurerm_storage_share = {
 [@@deriving yojson_of]
 (** azurerm_storage_share *)
 
+type t = {
+  access_tier : string prop;
+  enabled_protocol : string prop;
+  id : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  quota : float prop;
+  resource_manager_id : string prop;
+  storage_account_name : string prop;
+  url : string prop;
+}
+
 let azurerm_storage_share ?access_tier ?enabled_protocol ?id
     ?metadata ?timeouts ~name ~quota ~storage_account_name ~acl
     __resource_id =
   let __resource_type = "azurerm_storage_share" in
   let __resource =
-    {
-      access_tier;
-      enabled_protocol;
-      id;
-      metadata;
-      name;
-      quota;
-      storage_account_name;
-      acl;
-      timeouts;
-    }
+    ({
+       access_tier;
+       enabled_protocol;
+       id;
+       metadata;
+       name;
+       quota;
+       storage_account_name;
+       acl;
+       timeouts;
+     }
+      : azurerm_storage_share)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_share __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_tier =
+         Prop.computed __resource_type __resource_id "access_tier";
+       enabled_protocol =
+         Prop.computed __resource_type __resource_id
+           "enabled_protocol";
+       id = Prop.computed __resource_type __resource_id "id";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       quota = Prop.computed __resource_type __resource_id "quota";
+       resource_manager_id =
+         Prop.computed __resource_type __resource_id
+           "resource_manager_id";
+       storage_account_name =
+         Prop.computed __resource_type __resource_id
+           "storage_account_name";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -77,10 +77,29 @@ type kubernetes_certificate_signing_request = {
 [@@deriving yojson_of]
 (** kubernetes_certificate_signing_request *)
 
+type t = {
+  auto_approve : bool prop;
+  certificate : string prop;
+  id : string prop;
+}
+
 let kubernetes_certificate_signing_request ?auto_approve ?id
     ?timeouts ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_certificate_signing_request" in
-  let __resource = { auto_approve; id; metadata; spec; timeouts } in
+  let __resource =
+    ({ auto_approve; id; metadata; spec; timeouts }
+      : kubernetes_certificate_signing_request)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_certificate_signing_request __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_approve =
+         Prop.computed __resource_type __resource_id "auto_approve";
+       certificate =
+         Prop.computed __resource_type __resource_id "certificate";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

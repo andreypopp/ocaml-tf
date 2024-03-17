@@ -41,6 +41,12 @@ type aws_ssoadmin_permissions_boundary_attachment = {
 [@@deriving yojson_of]
 (** aws_ssoadmin_permissions_boundary_attachment *)
 
+type t = {
+  id : string prop;
+  instance_arn : string prop;
+  permission_set_arn : string prop;
+}
+
 let aws_ssoadmin_permissions_boundary_attachment ?id ?timeouts
     ~instance_arn ~permission_set_arn ~permissions_boundary
     __resource_id =
@@ -48,15 +54,27 @@ let aws_ssoadmin_permissions_boundary_attachment ?id ?timeouts
     "aws_ssoadmin_permissions_boundary_attachment"
   in
   let __resource =
-    {
-      id;
-      instance_arn;
-      permission_set_arn;
-      permissions_boundary;
-      timeouts;
-    }
+    ({
+       id;
+       instance_arn;
+       permission_set_arn;
+       permissions_boundary;
+       timeouts;
+     }
+      : aws_ssoadmin_permissions_boundary_attachment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssoadmin_permissions_boundary_attachment
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_arn =
+         Prop.computed __resource_type __resource_id "instance_arn";
+       permission_set_arn =
+         Prop.computed __resource_type __resource_id
+           "permission_set_arn";
+     }
+      : t)
+  in
+  __resource_attributes

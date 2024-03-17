@@ -31,21 +31,51 @@ Filter expressions needs to be created first before using Firewall
 Rule.
  *)
 
+type t = {
+  action : string prop;
+  description : string prop;
+  filter_id : string prop;
+  id : string prop;
+  paused : bool prop;
+  priority : float prop;
+  products : string list prop;
+  zone_id : string prop;
+}
+
 let cloudflare_firewall_rule ?description ?id ?paused ?priority
     ?products ~action ~filter_id ~zone_id __resource_id =
   let __resource_type = "cloudflare_firewall_rule" in
   let __resource =
-    {
-      action;
-      description;
-      filter_id;
-      id;
-      paused;
-      priority;
-      products;
-      zone_id;
-    }
+    ({
+       action;
+       description;
+       filter_id;
+       id;
+       paused;
+       priority;
+       products;
+       zone_id;
+     }
+      : cloudflare_firewall_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_firewall_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       filter_id =
+         Prop.computed __resource_type __resource_id "filter_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       paused = Prop.computed __resource_type __resource_id "paused";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       products =
+         Prop.computed __resource_type __resource_id "products";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

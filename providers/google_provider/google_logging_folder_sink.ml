@@ -46,24 +46,58 @@ type google_logging_folder_sink = {
 [@@deriving yojson_of]
 (** google_logging_folder_sink *)
 
+type t = {
+  description : string prop;
+  destination : string prop;
+  disabled : bool prop;
+  filter : string prop;
+  folder : string prop;
+  id : string prop;
+  include_children : bool prop;
+  name : string prop;
+  writer_identity : string prop;
+}
+
 let google_logging_folder_sink ?description ?disabled ?filter ?id
     ?include_children ~destination ~folder ~name ~bigquery_options
     ~exclusions __resource_id =
   let __resource_type = "google_logging_folder_sink" in
   let __resource =
-    {
-      description;
-      destination;
-      disabled;
-      filter;
-      folder;
-      id;
-      include_children;
-      name;
-      bigquery_options;
-      exclusions;
-    }
+    ({
+       description;
+       destination;
+       disabled;
+       filter;
+       folder;
+       id;
+       include_children;
+       name;
+       bigquery_options;
+       exclusions;
+     }
+      : google_logging_folder_sink)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_folder_sink __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       destination =
+         Prop.computed __resource_type __resource_id "destination";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       filter = Prop.computed __resource_type __resource_id "filter";
+       folder = Prop.computed __resource_type __resource_id "folder";
+       id = Prop.computed __resource_type __resource_id "id";
+       include_children =
+         Prop.computed __resource_type __resource_id
+           "include_children";
+       name = Prop.computed __resource_type __resource_id "name";
+       writer_identity =
+         Prop.computed __resource_type __resource_id
+           "writer_identity";
+     }
+      : t)
+  in
+  __resource_attributes

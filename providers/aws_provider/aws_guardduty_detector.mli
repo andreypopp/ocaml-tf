@@ -14,6 +14,16 @@ type aws_guardduty_detector__datasources__s3_logs
 type aws_guardduty_detector__datasources
 type aws_guardduty_detector
 
+type t = private {
+  account_id : string prop;
+  arn : string prop;
+  enable : bool prop;
+  finding_publishing_frequency : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_guardduty_detector :
   ?enable:bool prop ->
   ?finding_publishing_frequency:string prop ->
@@ -22,4 +32,4 @@ val aws_guardduty_detector :
   ?tags_all:(string * string prop) list ->
   datasources:aws_guardduty_detector__datasources list ->
   string ->
-  unit
+  t

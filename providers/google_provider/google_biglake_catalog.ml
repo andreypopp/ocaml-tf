@@ -24,10 +24,43 @@ projects/{project_id_or_number}/locations/{locationId}/catalogs/{catalogId} *)
 [@@deriving yojson_of]
 (** google_biglake_catalog *)
 
+type t = {
+  create_time : string prop;
+  delete_time : string prop;
+  expire_time : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 let google_biglake_catalog ?id ?project ?timeouts ~location ~name
     __resource_id =
   let __resource_type = "google_biglake_catalog" in
-  let __resource = { id; location; name; project; timeouts } in
+  let __resource =
+    ({ id; location; name; project; timeouts }
+      : google_biglake_catalog)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_biglake_catalog __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       expire_time =
+         Prop.computed __resource_type __resource_id "expire_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

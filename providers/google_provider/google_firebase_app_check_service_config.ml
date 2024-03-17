@@ -58,12 +58,35 @@ clients in use. Possible values: [UNENFORCED, ENFORCED] *)
 [@@deriving yojson_of]
 (** google_firebase_app_check_service_config *)
 
+type t = {
+  enforcement_mode : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  service_id : string prop;
+}
+
 let google_firebase_app_check_service_config ?enforcement_mode ?id
     ?project ?timeouts ~service_id __resource_id =
   let __resource_type = "google_firebase_app_check_service_config" in
   let __resource =
-    { enforcement_mode; id; project; service_id; timeouts }
+    ({ enforcement_mode; id; project; service_id; timeouts }
+      : google_firebase_app_check_service_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebase_app_check_service_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enforcement_mode =
+         Prop.computed __resource_type __resource_id
+           "enforcement_mode";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       service_id =
+         Prop.computed __resource_type __resource_id "service_id";
+     }
+      : t)
+  in
+  __resource_attributes

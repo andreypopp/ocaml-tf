@@ -12,6 +12,20 @@ type google_compute_backend_bucket__cdn_policy
 type google_compute_backend_bucket__timeouts
 type google_compute_backend_bucket
 
+type t = private {
+  bucket_name : string prop;
+  compression_mode : string prop;
+  creation_timestamp : string prop;
+  custom_response_headers : string list prop;
+  description : string prop;
+  edge_security_policy : string prop;
+  enable_cdn : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 val google_compute_backend_bucket :
   ?compression_mode:string prop ->
   ?custom_response_headers:string prop list ->
@@ -25,4 +39,4 @@ val google_compute_backend_bucket :
   name:string prop ->
   cdn_policy:google_compute_backend_bucket__cdn_policy list ->
   string ->
-  unit
+  t

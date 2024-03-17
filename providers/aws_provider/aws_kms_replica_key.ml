@@ -21,23 +21,73 @@ type aws_kms_replica_key = {
 [@@deriving yojson_of]
 (** aws_kms_replica_key *)
 
+type t = {
+  arn : string prop;
+  bypass_policy_lockout_safety_check : bool prop;
+  deletion_window_in_days : float prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  key_id : string prop;
+  key_rotation_enabled : bool prop;
+  key_spec : string prop;
+  key_usage : string prop;
+  policy : string prop;
+  primary_key_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_kms_replica_key ?bypass_policy_lockout_safety_check
     ?deletion_window_in_days ?description ?enabled ?id ?policy ?tags
     ?tags_all ~primary_key_arn __resource_id =
   let __resource_type = "aws_kms_replica_key" in
   let __resource =
-    {
-      bypass_policy_lockout_safety_check;
-      deletion_window_in_days;
-      description;
-      enabled;
-      id;
-      policy;
-      primary_key_arn;
-      tags;
-      tags_all;
-    }
+    ({
+       bypass_policy_lockout_safety_check;
+       deletion_window_in_days;
+       description;
+       enabled;
+       id;
+       policy;
+       primary_key_arn;
+       tags;
+       tags_all;
+     }
+      : aws_kms_replica_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kms_replica_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       bypass_policy_lockout_safety_check =
+         Prop.computed __resource_type __resource_id
+           "bypass_policy_lockout_safety_check";
+       deletion_window_in_days =
+         Prop.computed __resource_type __resource_id
+           "deletion_window_in_days";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_id = Prop.computed __resource_type __resource_id "key_id";
+       key_rotation_enabled =
+         Prop.computed __resource_type __resource_id
+           "key_rotation_enabled";
+       key_spec =
+         Prop.computed __resource_type __resource_id "key_spec";
+       key_usage =
+         Prop.computed __resource_type __resource_id "key_usage";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       primary_key_arn =
+         Prop.computed __resource_type __resource_id
+           "primary_key_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

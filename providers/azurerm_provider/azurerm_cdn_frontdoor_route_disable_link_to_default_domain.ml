@@ -26,6 +26,12 @@ type azurerm_cdn_frontdoor_route_disable_link_to_default_domain = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_route_disable_link_to_default_domain *)
 
+type t = {
+  cdn_frontdoor_custom_domain_ids : string list prop;
+  cdn_frontdoor_route_id : string prop;
+  id : string prop;
+}
+
 let azurerm_cdn_frontdoor_route_disable_link_to_default_domain ?id
     ?timeouts ~cdn_frontdoor_custom_domain_ids
     ~cdn_frontdoor_route_id __resource_id =
@@ -33,14 +39,27 @@ let azurerm_cdn_frontdoor_route_disable_link_to_default_domain ?id
     "azurerm_cdn_frontdoor_route_disable_link_to_default_domain"
   in
   let __resource =
-    {
-      cdn_frontdoor_custom_domain_ids;
-      cdn_frontdoor_route_id;
-      id;
-      timeouts;
-    }
+    ({
+       cdn_frontdoor_custom_domain_ids;
+       cdn_frontdoor_route_id;
+       id;
+       timeouts;
+     }
+      : azurerm_cdn_frontdoor_route_disable_link_to_default_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_route_disable_link_to_default_domain
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cdn_frontdoor_custom_domain_ids =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_custom_domain_ids";
+       cdn_frontdoor_route_id =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_route_id";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

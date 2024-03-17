@@ -36,6 +36,25 @@ type google_data_catalog_entry__bigquery_table_spec = {
 
 type google_data_catalog_entry
 
+type t = private {
+  bigquery_date_sharded_spec :
+    google_data_catalog_entry__bigquery_date_sharded_spec list prop;
+  bigquery_table_spec :
+    google_data_catalog_entry__bigquery_table_spec list prop;
+  description : string prop;
+  display_name : string prop;
+  entry_group : string prop;
+  entry_id : string prop;
+  id : string prop;
+  integrated_system : string prop;
+  linked_resource : string prop;
+  name : string prop;
+  schema : string prop;
+  type_ : string prop;
+  user_specified_system : string prop;
+  user_specified_type : string prop;
+}
+
 val google_data_catalog_entry :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -50,4 +69,4 @@ val google_data_catalog_entry :
   entry_id:string prop ->
   gcs_fileset_spec:google_data_catalog_entry__gcs_fileset_spec list ->
   string ->
-  unit
+  t

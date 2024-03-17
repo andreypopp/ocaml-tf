@@ -235,6 +235,30 @@ type google_privateca_certificate__revocation_details = {
 
 type google_privateca_certificate
 
+type t = private {
+  certificate_authority : string prop;
+  certificate_description :
+    google_privateca_certificate__certificate_description list prop;
+  certificate_template : string prop;
+  create_time : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  issuer_certificate_authority : string prop;
+  labels : (string * string) list prop;
+  lifetime : string prop;
+  location : string prop;
+  name : string prop;
+  pem_certificate : string prop;
+  pem_certificate_chain : string list prop;
+  pem_csr : string prop;
+  pool : string prop;
+  project : string prop;
+  revocation_details :
+    google_privateca_certificate__revocation_details list prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_privateca_certificate :
   ?certificate_authority:string prop ->
   ?certificate_template:string prop ->
@@ -249,4 +273,4 @@ val google_privateca_certificate :
   pool:string prop ->
   config:google_privateca_certificate__config list ->
   string ->
-  unit
+  t

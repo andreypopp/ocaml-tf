@@ -9,6 +9,20 @@ type aws_appstream_stack__streaming_experience_settings
 type aws_appstream_stack__user_settings
 type aws_appstream_stack
 
+type t = private {
+  arn : string prop;
+  created_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  embed_host_domains : string list prop;
+  feedback_url : string prop;
+  id : string prop;
+  name : string prop;
+  redirect_url : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_appstream_stack :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -26,4 +40,4 @@ val aws_appstream_stack :
     aws_appstream_stack__streaming_experience_settings list ->
   user_settings:aws_appstream_stack__user_settings list ->
   string ->
-  unit
+  t

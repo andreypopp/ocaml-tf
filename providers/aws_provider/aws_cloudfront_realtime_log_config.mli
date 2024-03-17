@@ -7,6 +7,14 @@ type aws_cloudfront_realtime_log_config__endpoint__kinesis_stream_config
 type aws_cloudfront_realtime_log_config__endpoint
 type aws_cloudfront_realtime_log_config
 
+type t = private {
+  arn : string prop;
+  fields : string list prop;
+  id : string prop;
+  name : string prop;
+  sampling_rate : float prop;
+}
+
 val aws_cloudfront_realtime_log_config :
   ?id:string prop ->
   fields:string prop list ->
@@ -14,4 +22,4 @@ val aws_cloudfront_realtime_log_config :
   sampling_rate:float prop ->
   endpoint:aws_cloudfront_realtime_log_config__endpoint list ->
   string ->
-  unit
+  t

@@ -30,12 +30,33 @@ type cloudflare_user_agent_blocking_rule = {
 (** Provides a resource to manage User Agent Blocking Rules.
  *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  mode : string prop;
+  paused : bool prop;
+  zone_id : string prop;
+}
+
 let cloudflare_user_agent_blocking_rule ?id ~description ~mode
     ~paused ~zone_id ~configuration __resource_id =
   let __resource_type = "cloudflare_user_agent_blocking_rule" in
   let __resource =
-    { description; id; mode; paused; zone_id; configuration }
+    ({ description; id; mode; paused; zone_id; configuration }
+      : cloudflare_user_agent_blocking_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_user_agent_blocking_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       paused = Prop.computed __resource_type __resource_id "paused";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -10,6 +10,13 @@ type azurerm_chaos_studio_experiment__steps
 type azurerm_chaos_studio_experiment__timeouts
 type azurerm_chaos_studio_experiment
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_chaos_studio_experiment :
   ?id:string prop ->
   ?timeouts:azurerm_chaos_studio_experiment__timeouts ->
@@ -20,4 +27,4 @@ val azurerm_chaos_studio_experiment :
   selectors:azurerm_chaos_studio_experiment__selectors list ->
   steps:azurerm_chaos_studio_experiment__steps list ->
   string ->
-  unit
+  t

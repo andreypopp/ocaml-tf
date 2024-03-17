@@ -31,6 +31,18 @@ type azurerm_automation_connection_service_principal = {
 [@@deriving yojson_of]
 (** azurerm_automation_connection_service_principal *)
 
+type t = {
+  application_id : string prop;
+  automation_account_name : string prop;
+  certificate_thumbprint : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  subscription_id : string prop;
+  tenant_id : string prop;
+}
+
 let azurerm_automation_connection_service_principal ?description ?id
     ?timeouts ~application_id ~automation_account_name
     ~certificate_thumbprint ~name ~resource_group_name
@@ -39,20 +51,46 @@ let azurerm_automation_connection_service_principal ?description ?id
     "azurerm_automation_connection_service_principal"
   in
   let __resource =
-    {
-      application_id;
-      automation_account_name;
-      certificate_thumbprint;
-      description;
-      id;
-      name;
-      resource_group_name;
-      subscription_id;
-      tenant_id;
-      timeouts;
-    }
+    ({
+       application_id;
+       automation_account_name;
+       certificate_thumbprint;
+       description;
+       id;
+       name;
+       resource_group_name;
+       subscription_id;
+       tenant_id;
+       timeouts;
+     }
+      : azurerm_automation_connection_service_principal)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_connection_service_principal
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_id =
+         Prop.computed __resource_type __resource_id "application_id";
+       automation_account_name =
+         Prop.computed __resource_type __resource_id
+           "automation_account_name";
+       certificate_thumbprint =
+         Prop.computed __resource_type __resource_id
+           "certificate_thumbprint";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       subscription_id =
+         Prop.computed __resource_type __resource_id
+           "subscription_id";
+       tenant_id =
+         Prop.computed __resource_type __resource_id "tenant_id";
+     }
+      : t)
+  in
+  __resource_attributes

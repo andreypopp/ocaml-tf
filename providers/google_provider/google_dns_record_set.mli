@@ -27,6 +27,16 @@ type google_dns_record_set__routing_policy__wrr
 type google_dns_record_set__routing_policy
 type google_dns_record_set
 
+type t = private {
+  id : string prop;
+  managed_zone : string prop;
+  name : string prop;
+  project : string prop;
+  rrdatas : string list prop;
+  ttl : float prop;
+  type_ : string prop;
+}
+
 val google_dns_record_set :
   ?id:string prop ->
   ?project:string prop ->
@@ -37,4 +47,4 @@ val google_dns_record_set :
   type_:string prop ->
   routing_policy:google_dns_record_set__routing_policy list ->
   string ->
-  unit
+  t

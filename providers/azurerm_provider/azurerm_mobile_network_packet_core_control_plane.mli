@@ -10,6 +10,24 @@ type azurerm_mobile_network_packet_core_control_plane__platform
 type azurerm_mobile_network_packet_core_control_plane__timeouts
 type azurerm_mobile_network_packet_core_control_plane
 
+type t = private {
+  control_plane_access_ipv4_address : string prop;
+  control_plane_access_ipv4_gateway : string prop;
+  control_plane_access_ipv4_subnet : string prop;
+  control_plane_access_name : string prop;
+  core_network_technology : string prop;
+  id : string prop;
+  interoperability_settings_json : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  site_ids : string list prop;
+  sku : string prop;
+  software_version : string prop;
+  tags : (string * string) list prop;
+  user_equipment_mtu_in_bytes : float prop;
+}
+
 val azurerm_mobile_network_packet_core_control_plane :
   ?control_plane_access_ipv4_address:string prop ->
   ?control_plane_access_ipv4_gateway:string prop ->
@@ -36,4 +54,4 @@ val azurerm_mobile_network_packet_core_control_plane :
   platform:
     azurerm_mobile_network_packet_core_control_plane__platform list ->
   string ->
-  unit
+  t

@@ -27,23 +27,64 @@ type aws_eks_access_entry = {
 [@@deriving yojson_of]
 (** aws_eks_access_entry *)
 
+type t = {
+  access_entry_arn : string prop;
+  cluster_name : string prop;
+  created_at : string prop;
+  id : string prop;
+  kubernetes_groups : string list prop;
+  modified_at : string prop;
+  principal_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  user_name : string prop;
+}
+
 let aws_eks_access_entry ?id ?kubernetes_groups ?tags ?tags_all
     ?type_ ?user_name ?timeouts ~cluster_name ~principal_arn
     __resource_id =
   let __resource_type = "aws_eks_access_entry" in
   let __resource =
-    {
-      cluster_name;
-      id;
-      kubernetes_groups;
-      principal_arn;
-      tags;
-      tags_all;
-      type_;
-      user_name;
-      timeouts;
-    }
+    ({
+       cluster_name;
+       id;
+       kubernetes_groups;
+       principal_arn;
+       tags;
+       tags_all;
+       type_;
+       user_name;
+       timeouts;
+     }
+      : aws_eks_access_entry)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_access_entry __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_entry_arn =
+         Prop.computed __resource_type __resource_id
+           "access_entry_arn";
+       cluster_name =
+         Prop.computed __resource_type __resource_id "cluster_name";
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       id = Prop.computed __resource_type __resource_id "id";
+       kubernetes_groups =
+         Prop.computed __resource_type __resource_id
+           "kubernetes_groups";
+       modified_at =
+         Prop.computed __resource_type __resource_id "modified_at";
+       principal_arn =
+         Prop.computed __resource_type __resource_id "principal_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       user_name =
+         Prop.computed __resource_type __resource_id "user_name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -63,25 +63,55 @@ type azurerm_security_center_automation = {
 [@@deriving yojson_of]
 (** azurerm_security_center_automation *)
 
+type t = {
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_security_center_automation ?description ?enabled ?id
     ?tags ?timeouts ~location ~name ~resource_group_name ~scopes
     ~action ~source __resource_id =
   let __resource_type = "azurerm_security_center_automation" in
   let __resource =
-    {
-      description;
-      enabled;
-      id;
-      location;
-      name;
-      resource_group_name;
-      scopes;
-      tags;
-      action;
-      source;
-      timeouts;
-    }
+    ({
+       description;
+       enabled;
+       id;
+       location;
+       name;
+       resource_group_name;
+       scopes;
+       tags;
+       action;
+       source;
+       timeouts;
+     }
+      : azurerm_security_center_automation)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_automation __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scopes = Prop.computed __resource_type __resource_id "scopes";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

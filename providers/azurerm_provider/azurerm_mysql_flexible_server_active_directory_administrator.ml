@@ -27,6 +27,15 @@ type azurerm_mysql_flexible_server_active_directory_administrator = {
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server_active_directory_administrator *)
 
+type t = {
+  id : string prop;
+  identity_id : string prop;
+  login : string prop;
+  object_id : string prop;
+  server_id : string prop;
+  tenant_id : string prop;
+}
+
 let azurerm_mysql_flexible_server_active_directory_administrator ?id
     ?timeouts ~identity_id ~login ~object_id ~server_id ~tenant_id
     __resource_id =
@@ -34,17 +43,33 @@ let azurerm_mysql_flexible_server_active_directory_administrator ?id
     "azurerm_mysql_flexible_server_active_directory_administrator"
   in
   let __resource =
-    {
-      id;
-      identity_id;
-      login;
-      object_id;
-      server_id;
-      tenant_id;
-      timeouts;
-    }
+    ({
+       id;
+       identity_id;
+       login;
+       object_id;
+       server_id;
+       tenant_id;
+       timeouts;
+     }
+      : azurerm_mysql_flexible_server_active_directory_administrator)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mysql_flexible_server_active_directory_administrator
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_id =
+         Prop.computed __resource_type __resource_id "identity_id";
+       login = Prop.computed __resource_type __resource_id "login";
+       object_id =
+         Prop.computed __resource_type __resource_id "object_id";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       tenant_id =
+         Prop.computed __resource_type __resource_id "tenant_id";
+     }
+      : t)
+  in
+  __resource_attributes

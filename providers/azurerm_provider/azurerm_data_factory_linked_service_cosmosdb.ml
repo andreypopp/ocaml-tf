@@ -39,6 +39,21 @@ type azurerm_data_factory_linked_service_cosmosdb = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_cosmosdb *)
 
+type t = {
+  account_endpoint : string prop;
+  account_key : string prop;
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  connection_string : string prop;
+  data_factory_id : string prop;
+  database : string prop;
+  description : string prop;
+  id : string prop;
+  integration_runtime_name : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+}
+
 let azurerm_data_factory_linked_service_cosmosdb ?account_endpoint
     ?account_key ?additional_properties ?annotations
     ?connection_string ?database ?description ?id
@@ -48,23 +63,56 @@ let azurerm_data_factory_linked_service_cosmosdb ?account_endpoint
     "azurerm_data_factory_linked_service_cosmosdb"
   in
   let __resource =
-    {
-      account_endpoint;
-      account_key;
-      additional_properties;
-      annotations;
-      connection_string;
-      data_factory_id;
-      database;
-      description;
-      id;
-      integration_runtime_name;
-      name;
-      parameters;
-      timeouts;
-    }
+    ({
+       account_endpoint;
+       account_key;
+       additional_properties;
+       annotations;
+       connection_string;
+       data_factory_id;
+       database;
+       description;
+       id;
+       integration_runtime_name;
+       name;
+       parameters;
+       timeouts;
+     }
+      : azurerm_data_factory_linked_service_cosmosdb)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_cosmosdb
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_endpoint =
+         Prop.computed __resource_type __resource_id
+           "account_endpoint";
+       account_key =
+         Prop.computed __resource_type __resource_id "account_key";
+       additional_properties =
+         Prop.computed __resource_type __resource_id
+           "additional_properties";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       connection_string =
+         Prop.computed __resource_type __resource_id
+           "connection_string";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       database =
+         Prop.computed __resource_type __resource_id "database";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_runtime_name =
+         Prop.computed __resource_type __resource_id
+           "integration_runtime_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+     }
+      : t)
+  in
+  __resource_attributes

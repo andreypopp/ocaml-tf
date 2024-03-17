@@ -6,6 +6,24 @@ type azurerm_key_vault_managed_hardware_security_module__network_acls
 type azurerm_key_vault_managed_hardware_security_module__timeouts
 type azurerm_key_vault_managed_hardware_security_module
 
+type t = private {
+  admin_object_ids : string list prop;
+  hsm_uri : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  purge_protection_enabled : bool prop;
+  resource_group_name : string prop;
+  security_domain_encrypted_data : string prop;
+  security_domain_key_vault_certificate_ids : string list prop;
+  security_domain_quorum : float prop;
+  sku_name : string prop;
+  soft_delete_retention_days : float prop;
+  tags : (string * string) list prop;
+  tenant_id : string prop;
+}
+
 val azurerm_key_vault_managed_hardware_security_module :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
@@ -26,4 +44,4 @@ val azurerm_key_vault_managed_hardware_security_module :
     azurerm_key_vault_managed_hardware_security_module__network_acls
     list ->
   string ->
-  unit
+  t

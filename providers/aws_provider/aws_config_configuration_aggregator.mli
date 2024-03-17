@@ -8,6 +8,14 @@ type aws_config_configuration_aggregator__organization_aggregation_source
 
 type aws_config_configuration_aggregator
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_config_configuration_aggregator :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -20,4 +28,4 @@ val aws_config_configuration_aggregator :
     aws_config_configuration_aggregator__organization_aggregation_source
     list ->
   string ->
-  unit
+  t

@@ -53,22 +53,72 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_secure_source_manager_instance *)
 
+type t = {
+  create_time : string prop;
+  effective_labels : (string * string) list prop;
+  host_config :
+    google_secure_source_manager_instance__host_config list prop;
+  id : string prop;
+  instance_id : string prop;
+  kms_key : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  state_note : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_secure_source_manager_instance ?id ?kms_key ?labels
     ?project ?timeouts ~instance_id ~location ~private_config
     __resource_id =
   let __resource_type = "google_secure_source_manager_instance" in
   let __resource =
-    {
-      id;
-      instance_id;
-      kms_key;
-      labels;
-      location;
-      project;
-      private_config;
-      timeouts;
-    }
+    ({
+       id;
+       instance_id;
+       kms_key;
+       labels;
+       location;
+       project;
+       private_config;
+       timeouts;
+     }
+      : google_secure_source_manager_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_secure_source_manager_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       host_config =
+         Prop.computed __resource_type __resource_id "host_config";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_id =
+         Prop.computed __resource_type __resource_id "instance_id";
+       kms_key =
+         Prop.computed __resource_type __resource_id "kms_key";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_note =
+         Prop.computed __resource_type __resource_id "state_note";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

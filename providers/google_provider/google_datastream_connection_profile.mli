@@ -13,6 +13,18 @@ type google_datastream_connection_profile__private_connectivity
 type google_datastream_connection_profile__timeouts
 type google_datastream_connection_profile
 
+type t = private {
+  connection_profile_id : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_datastream_connection_profile :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -36,4 +48,4 @@ val google_datastream_connection_profile :
   private_connectivity:
     google_datastream_connection_profile__private_connectivity list ->
   string ->
-  unit
+  t

@@ -13,6 +13,12 @@ type aws_config_configuration_recorder__recording_mode__recording_mode_override
 type aws_config_configuration_recorder__recording_mode
 type aws_config_configuration_recorder
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  role_arn : string prop;
+}
+
 val aws_config_configuration_recorder :
   ?id:string prop ->
   ?name:string prop ->
@@ -22,4 +28,4 @@ val aws_config_configuration_recorder :
   recording_mode:
     aws_config_configuration_recorder__recording_mode list ->
   string ->
-  unit
+  t

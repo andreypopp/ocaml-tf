@@ -45,29 +45,79 @@ type azurerm_bastion_host = {
 [@@deriving yojson_of]
 (** azurerm_bastion_host *)
 
+type t = {
+  copy_paste_enabled : bool prop;
+  dns_name : string prop;
+  file_copy_enabled : bool prop;
+  id : string prop;
+  ip_connect_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scale_units : float prop;
+  shareable_link_enabled : bool prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  tunneling_enabled : bool prop;
+}
+
 let azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled ?id
     ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
     ?tags ?tunneling_enabled ?timeouts ~location ~name
     ~resource_group_name ~ip_configuration __resource_id =
   let __resource_type = "azurerm_bastion_host" in
   let __resource =
-    {
-      copy_paste_enabled;
-      file_copy_enabled;
-      id;
-      ip_connect_enabled;
-      location;
-      name;
-      resource_group_name;
-      scale_units;
-      shareable_link_enabled;
-      sku;
-      tags;
-      tunneling_enabled;
-      ip_configuration;
-      timeouts;
-    }
+    ({
+       copy_paste_enabled;
+       file_copy_enabled;
+       id;
+       ip_connect_enabled;
+       location;
+       name;
+       resource_group_name;
+       scale_units;
+       shareable_link_enabled;
+       sku;
+       tags;
+       tunneling_enabled;
+       ip_configuration;
+       timeouts;
+     }
+      : azurerm_bastion_host)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_bastion_host __resource);
-  ()
+  let __resource_attributes =
+    ({
+       copy_paste_enabled =
+         Prop.computed __resource_type __resource_id
+           "copy_paste_enabled";
+       dns_name =
+         Prop.computed __resource_type __resource_id "dns_name";
+       file_copy_enabled =
+         Prop.computed __resource_type __resource_id
+           "file_copy_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_connect_enabled =
+         Prop.computed __resource_type __resource_id
+           "ip_connect_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scale_units =
+         Prop.computed __resource_type __resource_id "scale_units";
+       shareable_link_enabled =
+         Prop.computed __resource_type __resource_id
+           "shareable_link_enabled";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tunneling_enabled =
+         Prop.computed __resource_type __resource_id
+           "tunneling_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -93,27 +93,57 @@ type azurerm_media_services_account = {
 [@@deriving yojson_of]
 (** azurerm_media_services_account *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  storage_authentication_type : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_media_services_account ?id ?public_network_access_enabled
     ?storage_authentication_type ?tags ?timeouts ~location ~name
     ~resource_group_name ~encryption ~identity
     ~key_delivery_access_control ~storage_account __resource_id =
   let __resource_type = "azurerm_media_services_account" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      storage_authentication_type;
-      tags;
-      encryption;
-      identity;
-      key_delivery_access_control;
-      storage_account;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       storage_authentication_type;
+       tags;
+       encryption;
+       identity;
+       key_delivery_access_control;
+       storage_account;
+       timeouts;
+     }
+      : azurerm_media_services_account)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_media_services_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       storage_authentication_type =
+         Prop.computed __resource_type __resource_id
+           "storage_authentication_type";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

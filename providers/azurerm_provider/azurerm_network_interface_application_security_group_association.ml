@@ -24,6 +24,12 @@ type azurerm_network_interface_application_security_group_association = {
 [@@deriving yojson_of]
 (** azurerm_network_interface_application_security_group_association *)
 
+type t = {
+  application_security_group_id : string prop;
+  id : string prop;
+  network_interface_id : string prop;
+}
+
 let azurerm_network_interface_application_security_group_association
     ?id ?timeouts ~application_security_group_id
     ~network_interface_id __resource_id =
@@ -31,14 +37,27 @@ let azurerm_network_interface_application_security_group_association
     "azurerm_network_interface_application_security_group_association"
   in
   let __resource =
-    {
-      application_security_group_id;
-      id;
-      network_interface_id;
-      timeouts;
-    }
+    ({
+       application_security_group_id;
+       id;
+       network_interface_id;
+       timeouts;
+     }
+      : azurerm_network_interface_application_security_group_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_interface_application_security_group_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_security_group_id =
+         Prop.computed __resource_type __resource_id
+           "application_security_group_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       network_interface_id =
+         Prop.computed __resource_type __resource_id
+           "network_interface_id";
+     }
+      : t)
+  in
+  __resource_attributes

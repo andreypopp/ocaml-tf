@@ -23,12 +23,36 @@ type google_gke_hub_scope_iam_binding = {
 [@@deriving yojson_of]
 (** google_gke_hub_scope_iam_binding *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  members : string list prop;
+  project : string prop;
+  role : string prop;
+  scope_id : string prop;
+}
+
 let google_gke_hub_scope_iam_binding ?id ?project ~members ~role
     ~scope_id ~condition __resource_id =
   let __resource_type = "google_gke_hub_scope_iam_binding" in
   let __resource =
-    { id; members; project; role; scope_id; condition }
+    ({ id; members; project; role; scope_id; condition }
+      : google_gke_hub_scope_iam_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_scope_iam_binding __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+       scope_id =
+         Prop.computed __resource_type __resource_id "scope_id";
+     }
+      : t)
+  in
+  __resource_attributes

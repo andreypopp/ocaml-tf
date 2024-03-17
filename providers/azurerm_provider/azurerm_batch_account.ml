@@ -109,6 +109,24 @@ type azurerm_batch_account = {
 [@@deriving yojson_of]
 (** azurerm_batch_account *)
 
+type t = {
+  account_endpoint : string prop;
+  allowed_authentication_modes : string list prop;
+  encryption : azurerm_batch_account__encryption list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  pool_allocation_mode : string prop;
+  primary_access_key : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  storage_account_authentication_mode : string prop;
+  storage_account_id : string prop;
+  storage_account_node_identity : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_batch_account ?allowed_authentication_modes ?encryption
     ?id ?pool_allocation_mode ?public_network_access_enabled
     ?storage_account_authentication_mode ?storage_account_id
@@ -117,25 +135,68 @@ let azurerm_batch_account ?allowed_authentication_modes ?encryption
     ~network_profile __resource_id =
   let __resource_type = "azurerm_batch_account" in
   let __resource =
-    {
-      allowed_authentication_modes;
-      encryption;
-      id;
-      location;
-      name;
-      pool_allocation_mode;
-      public_network_access_enabled;
-      resource_group_name;
-      storage_account_authentication_mode;
-      storage_account_id;
-      storage_account_node_identity;
-      tags;
-      identity;
-      key_vault_reference;
-      network_profile;
-      timeouts;
-    }
+    ({
+       allowed_authentication_modes;
+       encryption;
+       id;
+       location;
+       name;
+       pool_allocation_mode;
+       public_network_access_enabled;
+       resource_group_name;
+       storage_account_authentication_mode;
+       storage_account_id;
+       storage_account_node_identity;
+       tags;
+       identity;
+       key_vault_reference;
+       network_profile;
+       timeouts;
+     }
+      : azurerm_batch_account)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_batch_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_endpoint =
+         Prop.computed __resource_type __resource_id
+           "account_endpoint";
+       allowed_authentication_modes =
+         Prop.computed __resource_type __resource_id
+           "allowed_authentication_modes";
+       encryption =
+         Prop.computed __resource_type __resource_id "encryption";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       pool_allocation_mode =
+         Prop.computed __resource_type __resource_id
+           "pool_allocation_mode";
+       primary_access_key =
+         Prop.computed __resource_type __resource_id
+           "primary_access_key";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secondary_access_key =
+         Prop.computed __resource_type __resource_id
+           "secondary_access_key";
+       storage_account_authentication_mode =
+         Prop.computed __resource_type __resource_id
+           "storage_account_authentication_mode";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+       storage_account_node_identity =
+         Prop.computed __resource_type __resource_id
+           "storage_account_node_identity";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

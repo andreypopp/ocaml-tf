@@ -27,6 +27,15 @@ type aws_cloudwatch_event_connection__auth_parameters__oauth
 type aws_cloudwatch_event_connection__auth_parameters
 type aws_cloudwatch_event_connection
 
+type t = private {
+  arn : string prop;
+  authorization_type : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  secret_arn : string prop;
+}
+
 val aws_cloudwatch_event_connection :
   ?description:string prop ->
   ?id:string prop ->
@@ -35,4 +44,4 @@ val aws_cloudwatch_event_connection :
   auth_parameters:
     aws_cloudwatch_event_connection__auth_parameters list ->
   string ->
-  unit
+  t

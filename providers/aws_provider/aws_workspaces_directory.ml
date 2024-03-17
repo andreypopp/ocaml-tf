@@ -73,24 +73,76 @@ type aws_workspaces_directory = {
 [@@deriving yojson_of]
 (** aws_workspaces_directory *)
 
+type t = {
+  alias : string prop;
+  customer_user_name : string prop;
+  directory_id : string prop;
+  directory_name : string prop;
+  directory_type : string prop;
+  dns_ip_addresses : string list prop;
+  iam_role_id : string prop;
+  id : string prop;
+  ip_group_ids : string list prop;
+  registration_code : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  workspace_security_group_id : string prop;
+}
+
 let aws_workspaces_directory ?id ?ip_group_ids ?subnet_ids ?tags
     ?tags_all ~directory_id ~self_service_permissions
     ~workspace_access_properties ~workspace_creation_properties
     __resource_id =
   let __resource_type = "aws_workspaces_directory" in
   let __resource =
-    {
-      directory_id;
-      id;
-      ip_group_ids;
-      subnet_ids;
-      tags;
-      tags_all;
-      self_service_permissions;
-      workspace_access_properties;
-      workspace_creation_properties;
-    }
+    ({
+       directory_id;
+       id;
+       ip_group_ids;
+       subnet_ids;
+       tags;
+       tags_all;
+       self_service_permissions;
+       workspace_access_properties;
+       workspace_creation_properties;
+     }
+      : aws_workspaces_directory)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_workspaces_directory __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alias = Prop.computed __resource_type __resource_id "alias";
+       customer_user_name =
+         Prop.computed __resource_type __resource_id
+           "customer_user_name";
+       directory_id =
+         Prop.computed __resource_type __resource_id "directory_id";
+       directory_name =
+         Prop.computed __resource_type __resource_id "directory_name";
+       directory_type =
+         Prop.computed __resource_type __resource_id "directory_type";
+       dns_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "dns_ip_addresses";
+       iam_role_id =
+         Prop.computed __resource_type __resource_id "iam_role_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_group_ids =
+         Prop.computed __resource_type __resource_id "ip_group_ids";
+       registration_code =
+         Prop.computed __resource_type __resource_id
+           "registration_code";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       workspace_security_group_id =
+         Prop.computed __resource_type __resource_id
+           "workspace_security_group_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -36,6 +36,21 @@ type azurerm_iot_time_series_insights_event_source_eventhub = {
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_event_source_eventhub *)
 
+type t = {
+  consumer_group_name : string prop;
+  environment_id : string prop;
+  event_source_resource_id : string prop;
+  eventhub_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  namespace_name : string prop;
+  shared_access_key : string prop;
+  shared_access_key_name : string prop;
+  tags : (string * string) list prop;
+  timestamp_property_name : string prop;
+}
+
 let azurerm_iot_time_series_insights_event_source_eventhub ?id ?tags
     ?timestamp_property_name ?timeouts ~consumer_group_name
     ~environment_id ~event_source_resource_id ~eventhub_name
@@ -45,23 +60,55 @@ let azurerm_iot_time_series_insights_event_source_eventhub ?id ?tags
     "azurerm_iot_time_series_insights_event_source_eventhub"
   in
   let __resource =
-    {
-      consumer_group_name;
-      environment_id;
-      event_source_resource_id;
-      eventhub_name;
-      id;
-      location;
-      name;
-      namespace_name;
-      shared_access_key;
-      shared_access_key_name;
-      tags;
-      timestamp_property_name;
-      timeouts;
-    }
+    ({
+       consumer_group_name;
+       environment_id;
+       event_source_resource_id;
+       eventhub_name;
+       id;
+       location;
+       name;
+       namespace_name;
+       shared_access_key;
+       shared_access_key_name;
+       tags;
+       timestamp_property_name;
+       timeouts;
+     }
+      : azurerm_iot_time_series_insights_event_source_eventhub)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iot_time_series_insights_event_source_eventhub
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       consumer_group_name =
+         Prop.computed __resource_type __resource_id
+           "consumer_group_name";
+       environment_id =
+         Prop.computed __resource_type __resource_id "environment_id";
+       event_source_resource_id =
+         Prop.computed __resource_type __resource_id
+           "event_source_resource_id";
+       eventhub_name =
+         Prop.computed __resource_type __resource_id "eventhub_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       namespace_name =
+         Prop.computed __resource_type __resource_id "namespace_name";
+       shared_access_key =
+         Prop.computed __resource_type __resource_id
+           "shared_access_key";
+       shared_access_key_name =
+         Prop.computed __resource_type __resource_id
+           "shared_access_key_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       timestamp_property_name =
+         Prop.computed __resource_type __resource_id
+           "timestamp_property_name";
+     }
+      : t)
+  in
+  __resource_attributes

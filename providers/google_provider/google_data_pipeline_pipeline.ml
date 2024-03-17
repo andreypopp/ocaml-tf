@@ -228,26 +228,69 @@ https://cloud.google.com/dataflow/docs/reference/data-pipelines/rest/v1/projects
 [@@deriving yojson_of]
 (** google_data_pipeline_pipeline *)
 
+type t = {
+  create_time : string prop;
+  display_name : string prop;
+  id : string prop;
+  job_count : float prop;
+  last_update_time : string prop;
+  name : string prop;
+  pipeline_sources : (string * string) list prop;
+  project : string prop;
+  region : string prop;
+  scheduler_service_account_email : string prop;
+  state : string prop;
+  type_ : string prop;
+}
+
 let google_data_pipeline_pipeline ?display_name ?id ?pipeline_sources
     ?project ?region ?scheduler_service_account_email ?timeouts ~name
     ~state ~type_ ~schedule_info ~workload __resource_id =
   let __resource_type = "google_data_pipeline_pipeline" in
   let __resource =
-    {
-      display_name;
-      id;
-      name;
-      pipeline_sources;
-      project;
-      region;
-      scheduler_service_account_email;
-      state;
-      type_;
-      schedule_info;
-      timeouts;
-      workload;
-    }
+    ({
+       display_name;
+       id;
+       name;
+       pipeline_sources;
+       project;
+       region;
+       scheduler_service_account_email;
+       state;
+       type_;
+       schedule_info;
+       timeouts;
+       workload;
+     }
+      : google_data_pipeline_pipeline)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_pipeline_pipeline __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       job_count =
+         Prop.computed __resource_type __resource_id "job_count";
+       last_update_time =
+         Prop.computed __resource_type __resource_id
+           "last_update_time";
+       name = Prop.computed __resource_type __resource_id "name";
+       pipeline_sources =
+         Prop.computed __resource_type __resource_id
+           "pipeline_sources";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       scheduler_service_account_email =
+         Prop.computed __resource_type __resource_id
+           "scheduler_service_account_email";
+       state = Prop.computed __resource_type __resource_id "state";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

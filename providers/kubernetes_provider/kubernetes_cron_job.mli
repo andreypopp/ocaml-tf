@@ -397,6 +397,7 @@ type kubernetes_cron_job__spec__job_template
 type kubernetes_cron_job__spec
 type kubernetes_cron_job__timeouts
 type kubernetes_cron_job
+type t = private { id : string prop }
 
 val kubernetes_cron_job :
   ?id:string prop ->
@@ -404,4 +405,4 @@ val kubernetes_cron_job :
   metadata:kubernetes_cron_job__metadata list ->
   spec:kubernetes_cron_job__spec list ->
   string ->
-  unit
+  t

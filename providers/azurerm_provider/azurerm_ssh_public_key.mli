@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_ssh_public_key__timeouts
 type azurerm_ssh_public_key
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  public_key : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_ssh_public_key :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -14,4 +23,4 @@ val azurerm_ssh_public_key :
   public_key:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

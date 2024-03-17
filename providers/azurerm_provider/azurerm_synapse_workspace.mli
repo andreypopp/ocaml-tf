@@ -22,6 +22,29 @@ type azurerm_synapse_workspace__sql_aad_admin = {
 
 type azurerm_synapse_workspace
 
+type t = private {
+  aad_admin : azurerm_synapse_workspace__aad_admin list prop;
+  azuread_authentication_only : bool prop;
+  compute_subnet_id : string prop;
+  connectivity_endpoints : (string * string) list prop;
+  data_exfiltration_protection_enabled : bool prop;
+  id : string prop;
+  linking_allowed_for_aad_tenant_ids : string list prop;
+  location : string prop;
+  managed_resource_group_name : string prop;
+  managed_virtual_network_enabled : bool prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  purview_id : string prop;
+  resource_group_name : string prop;
+  sql_aad_admin : azurerm_synapse_workspace__sql_aad_admin list prop;
+  sql_administrator_login : string prop;
+  sql_administrator_login_password : string prop;
+  sql_identity_control_enabled : bool prop;
+  storage_data_lake_gen2_filesystem_id : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_synapse_workspace :
   ?aad_admin:azurerm_synapse_workspace__aad_admin list ->
   ?azuread_authentication_only:bool prop ->
@@ -49,4 +72,4 @@ val azurerm_synapse_workspace :
   github_repo:azurerm_synapse_workspace__github_repo list ->
   identity:azurerm_synapse_workspace__identity list ->
   string ->
-  unit
+  t

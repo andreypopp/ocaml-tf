@@ -88,6 +88,16 @@ type azurerm_backup_policy_vm = {
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm *)
 
+type t = {
+  id : string prop;
+  instant_restore_retention_days : float prop;
+  name : string prop;
+  policy_type : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+  timezone : string prop;
+}
+
 let azurerm_backup_policy_vm ?id ?instant_restore_retention_days
     ?policy_type ?timezone ?timeouts ~name ~recovery_vault_name
     ~resource_group_name ~backup ~instant_restore_resource_group
@@ -95,23 +105,44 @@ let azurerm_backup_policy_vm ?id ?instant_restore_retention_days
     ~retention_yearly __resource_id =
   let __resource_type = "azurerm_backup_policy_vm" in
   let __resource =
-    {
-      id;
-      instant_restore_retention_days;
-      name;
-      policy_type;
-      recovery_vault_name;
-      resource_group_name;
-      timezone;
-      backup;
-      instant_restore_resource_group;
-      retention_daily;
-      retention_monthly;
-      retention_weekly;
-      retention_yearly;
-      timeouts;
-    }
+    ({
+       id;
+       instant_restore_retention_days;
+       name;
+       policy_type;
+       recovery_vault_name;
+       resource_group_name;
+       timezone;
+       backup;
+       instant_restore_resource_group;
+       retention_daily;
+       retention_monthly;
+       retention_weekly;
+       retention_yearly;
+       timeouts;
+     }
+      : azurerm_backup_policy_vm)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_backup_policy_vm __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       instant_restore_retention_days =
+         Prop.computed __resource_type __resource_id
+           "instant_restore_retention_days";
+       name = Prop.computed __resource_type __resource_id "name";
+       policy_type =
+         Prop.computed __resource_type __resource_id "policy_type";
+       recovery_vault_name =
+         Prop.computed __resource_type __resource_id
+           "recovery_vault_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       timezone =
+         Prop.computed __resource_type __resource_id "timezone";
+     }
+      : t)
+  in
+  __resource_attributes

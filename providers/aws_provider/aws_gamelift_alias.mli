@@ -5,6 +5,15 @@ open! Tf.Prelude
 type aws_gamelift_alias__routing_strategy
 type aws_gamelift_alias
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_gamelift_alias :
   ?description:string prop ->
   ?id:string prop ->
@@ -13,4 +22,4 @@ val aws_gamelift_alias :
   name:string prop ->
   routing_strategy:aws_gamelift_alias__routing_strategy list ->
   string ->
-  unit
+  t

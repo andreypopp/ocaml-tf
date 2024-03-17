@@ -121,6 +121,17 @@ type aws_lexv2models_slot_type = {
 [@@deriving yojson_of]
 (** aws_lexv2models_slot_type *)
 
+type t = {
+  bot_id : string prop;
+  bot_version : string prop;
+  description : string prop;
+  id : string prop;
+  locale_id : string prop;
+  name : string prop;
+  parent_slot_type_signature : string prop;
+  slot_type_id : string prop;
+}
+
 let aws_lexv2models_slot_type ?description
     ?parent_slot_type_signature ?timeouts ~bot_id ~bot_version
     ~locale_id ~name ~composite_slot_type_setting
@@ -128,20 +139,40 @@ let aws_lexv2models_slot_type ?description
     ~value_selection_setting __resource_id =
   let __resource_type = "aws_lexv2models_slot_type" in
   let __resource =
-    {
-      bot_id;
-      bot_version;
-      description;
-      locale_id;
-      name;
-      parent_slot_type_signature;
-      composite_slot_type_setting;
-      external_source_setting;
-      slot_type_values;
-      timeouts;
-      value_selection_setting;
-    }
+    ({
+       bot_id;
+       bot_version;
+       description;
+       locale_id;
+       name;
+       parent_slot_type_signature;
+       composite_slot_type_setting;
+       external_source_setting;
+       slot_type_values;
+       timeouts;
+       value_selection_setting;
+     }
+      : aws_lexv2models_slot_type)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_slot_type __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bot_id = Prop.computed __resource_type __resource_id "bot_id";
+       bot_version =
+         Prop.computed __resource_type __resource_id "bot_version";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       locale_id =
+         Prop.computed __resource_type __resource_id "locale_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_slot_type_signature =
+         Prop.computed __resource_type __resource_id
+           "parent_slot_type_signature";
+       slot_type_id =
+         Prop.computed __resource_type __resource_id "slot_type_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -9,6 +9,18 @@ type aws_glue_partition__storage_descriptor__sort_columns
 type aws_glue_partition__storage_descriptor
 type aws_glue_partition
 
+type t = private {
+  catalog_id : string prop;
+  creation_time : string prop;
+  database_name : string prop;
+  id : string prop;
+  last_accessed_time : string prop;
+  last_analyzed_time : string prop;
+  parameters : (string * string) list prop;
+  partition_values : string list prop;
+  table_name : string prop;
+}
+
 val aws_glue_partition :
   ?catalog_id:string prop ->
   ?id:string prop ->
@@ -18,4 +30,4 @@ val aws_glue_partition :
   table_name:string prop ->
   storage_descriptor:aws_glue_partition__storage_descriptor list ->
   string ->
-  unit
+  t

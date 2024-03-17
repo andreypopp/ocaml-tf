@@ -381,6 +381,7 @@ type kubernetes_replication_controller__spec__template
 type kubernetes_replication_controller__spec
 type kubernetes_replication_controller__timeouts
 type kubernetes_replication_controller
+type t = private { id : string prop }
 
 val kubernetes_replication_controller :
   ?id:string prop ->
@@ -388,4 +389,4 @@ val kubernetes_replication_controller :
   metadata:kubernetes_replication_controller__metadata list ->
   spec:kubernetes_replication_controller__spec list ->
   string ->
-  unit
+  t

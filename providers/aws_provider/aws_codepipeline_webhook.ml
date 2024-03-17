@@ -35,23 +35,55 @@ type aws_codepipeline_webhook = {
 [@@deriving yojson_of]
 (** aws_codepipeline_webhook *)
 
+type t = {
+  arn : string prop;
+  authentication : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_action : string prop;
+  target_pipeline : string prop;
+  url : string prop;
+}
+
 let aws_codepipeline_webhook ?id ?tags ?tags_all ~authentication
     ~name ~target_action ~target_pipeline
     ~authentication_configuration ~filter __resource_id =
   let __resource_type = "aws_codepipeline_webhook" in
   let __resource =
-    {
-      authentication;
-      id;
-      name;
-      tags;
-      tags_all;
-      target_action;
-      target_pipeline;
-      authentication_configuration;
-      filter;
-    }
+    ({
+       authentication;
+       id;
+       name;
+       tags;
+       tags_all;
+       target_action;
+       target_pipeline;
+       authentication_configuration;
+       filter;
+     }
+      : aws_codepipeline_webhook)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codepipeline_webhook __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       authentication =
+         Prop.computed __resource_type __resource_id "authentication";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       target_action =
+         Prop.computed __resource_type __resource_id "target_action";
+       target_pipeline =
+         Prop.computed __resource_type __resource_id
+           "target_pipeline";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

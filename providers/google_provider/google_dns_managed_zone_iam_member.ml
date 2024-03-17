@@ -23,12 +23,35 @@ type google_dns_managed_zone_iam_member = {
 [@@deriving yojson_of]
 (** google_dns_managed_zone_iam_member *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  managed_zone : string prop;
+  member : string prop;
+  project : string prop;
+  role : string prop;
+}
+
 let google_dns_managed_zone_iam_member ?id ?project ~managed_zone
     ~member ~role ~condition __resource_id =
   let __resource_type = "google_dns_managed_zone_iam_member" in
   let __resource =
-    { id; managed_zone; member; project; role; condition }
+    ({ id; managed_zone; member; project; role; condition }
+      : google_dns_managed_zone_iam_member)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_managed_zone_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       managed_zone =
+         Prop.computed __resource_type __resource_id "managed_zone";
+       member = Prop.computed __resource_type __resource_id "member";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

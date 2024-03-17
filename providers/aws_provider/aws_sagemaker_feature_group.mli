@@ -14,6 +14,18 @@ type aws_sagemaker_feature_group__online_store_config__ttl_duration
 type aws_sagemaker_feature_group__online_store_config
 type aws_sagemaker_feature_group
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  event_time_feature_name : string prop;
+  feature_group_name : string prop;
+  id : string prop;
+  record_identifier_feature_name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_sagemaker_feature_group :
   ?description:string prop ->
   ?id:string prop ->
@@ -30,4 +42,4 @@ val aws_sagemaker_feature_group :
   online_store_config:
     aws_sagemaker_feature_group__online_store_config list ->
   string ->
-  unit
+  t

@@ -5,9 +5,15 @@ open! Tf.Prelude
 type aws_macie2_invitation_accepter__timeouts
 type aws_macie2_invitation_accepter
 
+type t = private {
+  administrator_account_id : string prop;
+  id : string prop;
+  invitation_id : string prop;
+}
+
 val aws_macie2_invitation_accepter :
   ?id:string prop ->
   ?timeouts:aws_macie2_invitation_accepter__timeouts ->
   administrator_account_id:string prop ->
   string ->
-  unit
+  t

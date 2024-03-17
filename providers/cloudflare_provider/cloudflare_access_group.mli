@@ -28,6 +28,13 @@ type cloudflare_access_group__require__saml
 type cloudflare_access_group__require
 type cloudflare_access_group
 
+type t = private {
+  account_id : string prop;
+  id : string prop;
+  name : string prop;
+  zone_id : string prop;
+}
+
 val cloudflare_access_group :
   ?account_id:string prop ->
   ?id:string prop ->
@@ -37,4 +44,4 @@ val cloudflare_access_group :
   include_:cloudflare_access_group__include list ->
   require:cloudflare_access_group__require list ->
   string ->
-  unit
+  t

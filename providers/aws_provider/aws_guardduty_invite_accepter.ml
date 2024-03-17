@@ -19,12 +19,30 @@ type aws_guardduty_invite_accepter = {
 [@@deriving yojson_of]
 (** aws_guardduty_invite_accepter *)
 
+type t = {
+  detector_id : string prop;
+  id : string prop;
+  master_account_id : string prop;
+}
+
 let aws_guardduty_invite_accepter ?id ?timeouts ~detector_id
     ~master_account_id __resource_id =
   let __resource_type = "aws_guardduty_invite_accepter" in
   let __resource =
-    { detector_id; id; master_account_id; timeouts }
+    ({ detector_id; id; master_account_id; timeouts }
+      : aws_guardduty_invite_accepter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_invite_accepter __resource);
-  ()
+  let __resource_attributes =
+    ({
+       detector_id =
+         Prop.computed __resource_type __resource_id "detector_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       master_account_id =
+         Prop.computed __resource_type __resource_id
+           "master_account_id";
+     }
+      : t)
+  in
+  __resource_attributes

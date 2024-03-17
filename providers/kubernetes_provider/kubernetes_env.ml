@@ -91,22 +91,49 @@ type kubernetes_env = {
 [@@deriving yojson_of]
 (** kubernetes_env *)
 
+type t = {
+  api_version : string prop;
+  container : string prop;
+  field_manager : string prop;
+  force : bool prop;
+  id : string prop;
+  init_container : string prop;
+  kind : string prop;
+}
+
 let kubernetes_env ?container ?field_manager ?force ?id
     ?init_container ~api_version ~kind ~env ~metadata __resource_id =
   let __resource_type = "kubernetes_env" in
   let __resource =
-    {
-      api_version;
-      container;
-      field_manager;
-      force;
-      id;
-      init_container;
-      kind;
-      env;
-      metadata;
-    }
+    ({
+       api_version;
+       container;
+       field_manager;
+       force;
+       id;
+       init_container;
+       kind;
+       env;
+       metadata;
+     }
+      : kubernetes_env)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_env __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_version =
+         Prop.computed __resource_type __resource_id "api_version";
+       container =
+         Prop.computed __resource_type __resource_id "container";
+       field_manager =
+         Prop.computed __resource_type __resource_id "field_manager";
+       force = Prop.computed __resource_type __resource_id "force";
+       id = Prop.computed __resource_type __resource_id "id";
+       init_container =
+         Prop.computed __resource_type __resource_id "init_container";
+       kind = Prop.computed __resource_type __resource_id "kind";
+     }
+      : t)
+  in
+  __resource_attributes

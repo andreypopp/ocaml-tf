@@ -13,6 +13,23 @@ type aws_fms_policy__security_service_policy_data__policy_option
 type aws_fms_policy__security_service_policy_data
 type aws_fms_policy
 
+type t = private {
+  arn : string prop;
+  delete_all_policy_resources : bool prop;
+  delete_unused_fm_managed_resources : bool prop;
+  description : string prop;
+  exclude_resource_tags : bool prop;
+  id : string prop;
+  name : string prop;
+  policy_update_token : string prop;
+  remediation_enabled : bool prop;
+  resource_tags : (string * string) list prop;
+  resource_type : string prop;
+  resource_type_list : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_fms_policy :
   ?delete_all_policy_resources:bool prop ->
   ?delete_unused_fm_managed_resources:bool prop ->
@@ -31,4 +48,4 @@ val aws_fms_policy :
   security_service_policy_data:
     aws_fms_policy__security_service_policy_data list ->
   string ->
-  unit
+  t

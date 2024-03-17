@@ -81,24 +81,78 @@ If not provided, encryption is disabled for the cluster. Default value: TRANSIT_
 [@@deriving yojson_of]
 (** google_redis_cluster *)
 
+type t = {
+  authorization_mode : string prop;
+  create_time : string prop;
+  discovery_endpoints :
+    google_redis_cluster__discovery_endpoints list prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  psc_connections : google_redis_cluster__psc_connections list prop;
+  region : string prop;
+  replica_count : float prop;
+  shard_count : float prop;
+  size_gb : float prop;
+  state : string prop;
+  state_info : google_redis_cluster__state_info list prop;
+  transit_encryption_mode : string prop;
+  uid : string prop;
+}
+
 let google_redis_cluster ?authorization_mode ?id ?name ?project
     ?region ?replica_count ?transit_encryption_mode ?timeouts
     ~shard_count ~psc_configs __resource_id =
   let __resource_type = "google_redis_cluster" in
   let __resource =
-    {
-      authorization_mode;
-      id;
-      name;
-      project;
-      region;
-      replica_count;
-      shard_count;
-      transit_encryption_mode;
-      psc_configs;
-      timeouts;
-    }
+    ({
+       authorization_mode;
+       id;
+       name;
+       project;
+       region;
+       replica_count;
+       shard_count;
+       transit_encryption_mode;
+       psc_configs;
+       timeouts;
+     }
+      : google_redis_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_redis_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authorization_mode =
+         Prop.computed __resource_type __resource_id
+           "authorization_mode";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       discovery_endpoints =
+         Prop.computed __resource_type __resource_id
+           "discovery_endpoints";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       psc_connections =
+         Prop.computed __resource_type __resource_id
+           "psc_connections";
+       region = Prop.computed __resource_type __resource_id "region";
+       replica_count =
+         Prop.computed __resource_type __resource_id "replica_count";
+       shard_count =
+         Prop.computed __resource_type __resource_id "shard_count";
+       size_gb =
+         Prop.computed __resource_type __resource_id "size_gb";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_info =
+         Prop.computed __resource_type __resource_id "state_info";
+       transit_encryption_mode =
+         Prop.computed __resource_type __resource_id
+           "transit_encryption_mode";
+       uid = Prop.computed __resource_type __resource_id "uid";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -49,13 +49,25 @@ type aws_s3control_bucket_lifecycle_configuration = {
 [@@deriving yojson_of]
 (** aws_s3control_bucket_lifecycle_configuration *)
 
+type t = { bucket : string prop; id : string prop }
+
 let aws_s3control_bucket_lifecycle_configuration ?id ~bucket ~rule
     __resource_id =
   let __resource_type =
     "aws_s3control_bucket_lifecycle_configuration"
   in
-  let __resource = { bucket; id; rule } in
+  let __resource =
+    ({ bucket; id; rule }
+      : aws_s3control_bucket_lifecycle_configuration)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_bucket_lifecycle_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

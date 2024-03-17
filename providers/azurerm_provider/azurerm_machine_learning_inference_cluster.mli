@@ -7,6 +7,17 @@ type azurerm_machine_learning_inference_cluster__ssl
 type azurerm_machine_learning_inference_cluster__timeouts
 type azurerm_machine_learning_inference_cluster
 
+type t = private {
+  cluster_purpose : string prop;
+  description : string prop;
+  id : string prop;
+  kubernetes_cluster_id : string prop;
+  location : string prop;
+  machine_learning_workspace_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_machine_learning_inference_cluster :
   ?cluster_purpose:string prop ->
   ?description:string prop ->
@@ -20,4 +31,4 @@ val azurerm_machine_learning_inference_cluster :
   identity:azurerm_machine_learning_inference_cluster__identity list ->
   ssl:azurerm_machine_learning_inference_cluster__ssl list ->
   string ->
-  unit
+  t

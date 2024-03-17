@@ -19,12 +19,39 @@ type aws_identitystore_group = {
 [@@deriving yojson_of]
 (** aws_identitystore_group *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  external_ids : aws_identitystore_group__external_ids list prop;
+  group_id : string prop;
+  id : string prop;
+  identity_store_id : string prop;
+}
+
 let aws_identitystore_group ?description ?id ~display_name
     ~identity_store_id __resource_id =
   let __resource_type = "aws_identitystore_group" in
   let __resource =
-    { description; display_name; id; identity_store_id }
+    ({ description; display_name; id; identity_store_id }
+      : aws_identitystore_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_identitystore_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       external_ids =
+         Prop.computed __resource_type __resource_id "external_ids";
+       group_id =
+         Prop.computed __resource_type __resource_id "group_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_store_id =
+         Prop.computed __resource_type __resource_id
+           "identity_store_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -27,6 +27,15 @@ type azurerm_data_protection_backup_instance_blob_storage = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_instance_blob_storage *)
 
+type t = {
+  backup_policy_id : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  storage_account_id : string prop;
+  vault_id : string prop;
+}
+
 let azurerm_data_protection_backup_instance_blob_storage ?id
     ?timeouts ~backup_policy_id ~location ~name ~storage_account_id
     ~vault_id __resource_id =
@@ -34,17 +43,35 @@ let azurerm_data_protection_backup_instance_blob_storage ?id
     "azurerm_data_protection_backup_instance_blob_storage"
   in
   let __resource =
-    {
-      backup_policy_id;
-      id;
-      location;
-      name;
-      storage_account_id;
-      vault_id;
-      timeouts;
-    }
+    ({
+       backup_policy_id;
+       id;
+       location;
+       name;
+       storage_account_id;
+       vault_id;
+       timeouts;
+     }
+      : azurerm_data_protection_backup_instance_blob_storage)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_instance_blob_storage
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backup_policy_id =
+         Prop.computed __resource_type __resource_id
+           "backup_policy_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+       vault_id =
+         Prop.computed __resource_type __resource_id "vault_id";
+     }
+      : t)
+  in
+  __resource_attributes

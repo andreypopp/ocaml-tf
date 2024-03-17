@@ -282,6 +282,22 @@ the topic is in the same project as the subscription. *)
 [@@deriving yojson_of]
 (** google_pubsub_subscription *)
 
+type t = {
+  ack_deadline_seconds : float prop;
+  effective_labels : (string * string) list prop;
+  enable_exactly_once_delivery : bool prop;
+  enable_message_ordering : bool prop;
+  filter : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  message_retention_duration : string prop;
+  name : string prop;
+  project : string prop;
+  retain_acked_messages : bool prop;
+  terraform_labels : (string * string) list prop;
+  topic : string prop;
+}
+
 let google_pubsub_subscription ?ack_deadline_seconds
     ?enable_exactly_once_delivery ?enable_message_ordering ?filter
     ?id ?labels ?message_retention_duration ?project
@@ -290,27 +306,61 @@ let google_pubsub_subscription ?ack_deadline_seconds
     ~push_config ~retry_policy __resource_id =
   let __resource_type = "google_pubsub_subscription" in
   let __resource =
-    {
-      ack_deadline_seconds;
-      enable_exactly_once_delivery;
-      enable_message_ordering;
-      filter;
-      id;
-      labels;
-      message_retention_duration;
-      name;
-      project;
-      retain_acked_messages;
-      topic;
-      bigquery_config;
-      cloud_storage_config;
-      dead_letter_policy;
-      expiration_policy;
-      push_config;
-      retry_policy;
-      timeouts;
-    }
+    ({
+       ack_deadline_seconds;
+       enable_exactly_once_delivery;
+       enable_message_ordering;
+       filter;
+       id;
+       labels;
+       message_retention_duration;
+       name;
+       project;
+       retain_acked_messages;
+       topic;
+       bigquery_config;
+       cloud_storage_config;
+       dead_letter_policy;
+       expiration_policy;
+       push_config;
+       retry_policy;
+       timeouts;
+     }
+      : google_pubsub_subscription)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_subscription __resource);
-  ()
+  let __resource_attributes =
+    ({
+       ack_deadline_seconds =
+         Prop.computed __resource_type __resource_id
+           "ack_deadline_seconds";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       enable_exactly_once_delivery =
+         Prop.computed __resource_type __resource_id
+           "enable_exactly_once_delivery";
+       enable_message_ordering =
+         Prop.computed __resource_type __resource_id
+           "enable_message_ordering";
+       filter = Prop.computed __resource_type __resource_id "filter";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       message_retention_duration =
+         Prop.computed __resource_type __resource_id
+           "message_retention_duration";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       retain_acked_messages =
+         Prop.computed __resource_type __resource_id
+           "retain_acked_messages";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       topic = Prop.computed __resource_type __resource_id "topic";
+     }
+      : t)
+  in
+  __resource_attributes

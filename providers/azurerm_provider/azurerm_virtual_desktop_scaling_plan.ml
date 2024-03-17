@@ -72,27 +72,61 @@ type azurerm_virtual_desktop_scaling_plan = {
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_scaling_plan *)
 
+type t = {
+  description : string prop;
+  exclusion_tag : string prop;
+  friendly_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  time_zone : string prop;
+}
+
 let azurerm_virtual_desktop_scaling_plan ?description ?exclusion_tag
     ?friendly_name ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~time_zone ~host_pool ~schedule
     __resource_id =
   let __resource_type = "azurerm_virtual_desktop_scaling_plan" in
   let __resource =
-    {
-      description;
-      exclusion_tag;
-      friendly_name;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      time_zone;
-      host_pool;
-      schedule;
-      timeouts;
-    }
+    ({
+       description;
+       exclusion_tag;
+       friendly_name;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       time_zone;
+       host_pool;
+       schedule;
+       timeouts;
+     }
+      : azurerm_virtual_desktop_scaling_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_desktop_scaling_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       exclusion_tag =
+         Prop.computed __resource_type __resource_id "exclusion_tag";
+       friendly_name =
+         Prop.computed __resource_type __resource_id "friendly_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+     }
+      : t)
+  in
+  __resource_attributes

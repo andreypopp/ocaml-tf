@@ -38,6 +38,16 @@ type azurerm_monitor_alert_processing_rule_suppression__schedule
 type azurerm_monitor_alert_processing_rule_suppression__timeouts
 type azurerm_monitor_alert_processing_rule_suppression
 
+type t = private {
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_monitor_alert_processing_rule_suppression :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -53,4 +63,4 @@ val azurerm_monitor_alert_processing_rule_suppression :
   schedule:
     azurerm_monitor_alert_processing_rule_suppression__schedule list ->
   string ->
-  unit
+  t

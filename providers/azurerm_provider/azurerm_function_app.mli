@@ -64,6 +64,32 @@ type azurerm_function_app__site_credential = {
 
 type azurerm_function_app
 
+type t = private {
+  app_service_plan_id : string prop;
+  app_settings : (string * string) list prop;
+  client_cert_mode : string prop;
+  custom_domain_verification_id : string prop;
+  daily_memory_time_quota : float prop;
+  default_hostname : string prop;
+  enable_builtin_logging : bool prop;
+  enabled : bool prop;
+  https_only : bool prop;
+  id : string prop;
+  key_vault_reference_identity_id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  os_type : string prop;
+  outbound_ip_addresses : string prop;
+  possible_outbound_ip_addresses : string prop;
+  resource_group_name : string prop;
+  site_credential : azurerm_function_app__site_credential list prop;
+  storage_account_access_key : string prop;
+  storage_account_name : string prop;
+  tags : (string * string) list prop;
+  version : string prop;
+}
+
 val azurerm_function_app :
   ?app_settings:(string * string prop) list ->
   ?client_cert_mode:string prop ->
@@ -89,4 +115,4 @@ val azurerm_function_app :
   site_config:azurerm_function_app__site_config list ->
   source_control:azurerm_function_app__source_control list ->
   string ->
-  unit
+  t

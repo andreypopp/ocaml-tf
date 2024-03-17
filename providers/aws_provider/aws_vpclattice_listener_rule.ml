@@ -109,24 +109,58 @@ type aws_vpclattice_listener_rule = {
 [@@deriving yojson_of]
 (** aws_vpclattice_listener_rule *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  listener_identifier : string prop;
+  name : string prop;
+  priority : float prop;
+  rule_id : string prop;
+  service_identifier : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_vpclattice_listener_rule ?id ?tags ?tags_all ?timeouts
     ~listener_identifier ~name ~priority ~service_identifier ~action
     ~match_ __resource_id =
   let __resource_type = "aws_vpclattice_listener_rule" in
   let __resource =
-    {
-      id;
-      listener_identifier;
-      name;
-      priority;
-      service_identifier;
-      tags;
-      tags_all;
-      action;
-      match_;
-      timeouts;
-    }
+    ({
+       id;
+       listener_identifier;
+       name;
+       priority;
+       service_identifier;
+       tags;
+       tags_all;
+       action;
+       match_;
+       timeouts;
+     }
+      : aws_vpclattice_listener_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_listener_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       listener_identifier =
+         Prop.computed __resource_type __resource_id
+           "listener_identifier";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       rule_id =
+         Prop.computed __resource_type __resource_id "rule_id";
+       service_identifier =
+         Prop.computed __resource_type __resource_id
+           "service_identifier";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

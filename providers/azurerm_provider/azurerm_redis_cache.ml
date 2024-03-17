@@ -108,6 +108,35 @@ type azurerm_redis_cache = {
 [@@deriving yojson_of]
 (** azurerm_redis_cache *)
 
+type t = {
+  capacity : float prop;
+  enable_non_ssl_port : bool prop;
+  family : string prop;
+  hostname : string prop;
+  id : string prop;
+  location : string prop;
+  minimum_tls_version : string prop;
+  name : string prop;
+  port : float prop;
+  primary_access_key : string prop;
+  primary_connection_string : string prop;
+  private_static_ip_address : string prop;
+  public_network_access_enabled : bool prop;
+  redis_version : string prop;
+  replicas_per_master : float prop;
+  replicas_per_primary : float prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  secondary_connection_string : string prop;
+  shard_count : float prop;
+  sku_name : string prop;
+  ssl_port : float prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+  tenant_settings : (string * string) list prop;
+  zones : string list prop;
+}
+
 let azurerm_redis_cache ?enable_non_ssl_port ?id ?minimum_tls_version
     ?private_static_ip_address ?public_network_access_enabled
     ?redis_version ?replicas_per_master ?replicas_per_primary
@@ -116,32 +145,96 @@ let azurerm_redis_cache ?enable_non_ssl_port ?id ?minimum_tls_version
     ~identity ~patch_schedule ~redis_configuration __resource_id =
   let __resource_type = "azurerm_redis_cache" in
   let __resource =
-    {
-      capacity;
-      enable_non_ssl_port;
-      family;
-      id;
-      location;
-      minimum_tls_version;
-      name;
-      private_static_ip_address;
-      public_network_access_enabled;
-      redis_version;
-      replicas_per_master;
-      replicas_per_primary;
-      resource_group_name;
-      shard_count;
-      sku_name;
-      subnet_id;
-      tags;
-      tenant_settings;
-      zones;
-      identity;
-      patch_schedule;
-      redis_configuration;
-      timeouts;
-    }
+    ({
+       capacity;
+       enable_non_ssl_port;
+       family;
+       id;
+       location;
+       minimum_tls_version;
+       name;
+       private_static_ip_address;
+       public_network_access_enabled;
+       redis_version;
+       replicas_per_master;
+       replicas_per_primary;
+       resource_group_name;
+       shard_count;
+       sku_name;
+       subnet_id;
+       tags;
+       tenant_settings;
+       zones;
+       identity;
+       patch_schedule;
+       redis_configuration;
+       timeouts;
+     }
+      : azurerm_redis_cache)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_redis_cache __resource);
-  ()
+  let __resource_attributes =
+    ({
+       capacity =
+         Prop.computed __resource_type __resource_id "capacity";
+       enable_non_ssl_port =
+         Prop.computed __resource_type __resource_id
+           "enable_non_ssl_port";
+       family = Prop.computed __resource_type __resource_id "family";
+       hostname =
+         Prop.computed __resource_type __resource_id "hostname";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       minimum_tls_version =
+         Prop.computed __resource_type __resource_id
+           "minimum_tls_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       port = Prop.computed __resource_type __resource_id "port";
+       primary_access_key =
+         Prop.computed __resource_type __resource_id
+           "primary_access_key";
+       primary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "primary_connection_string";
+       private_static_ip_address =
+         Prop.computed __resource_type __resource_id
+           "private_static_ip_address";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       redis_version =
+         Prop.computed __resource_type __resource_id "redis_version";
+       replicas_per_master =
+         Prop.computed __resource_type __resource_id
+           "replicas_per_master";
+       replicas_per_primary =
+         Prop.computed __resource_type __resource_id
+           "replicas_per_primary";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secondary_access_key =
+         Prop.computed __resource_type __resource_id
+           "secondary_access_key";
+       secondary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "secondary_connection_string";
+       shard_count =
+         Prop.computed __resource_type __resource_id "shard_count";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       ssl_port =
+         Prop.computed __resource_type __resource_id "ssl_port";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tenant_settings =
+         Prop.computed __resource_type __resource_id
+           "tenant_settings";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

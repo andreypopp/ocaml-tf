@@ -51,23 +51,56 @@ type azurerm_eventhub = {
 [@@deriving yojson_of]
 (** azurerm_eventhub *)
 
+type t = {
+  id : string prop;
+  message_retention : float prop;
+  name : string prop;
+  namespace_name : string prop;
+  partition_count : float prop;
+  partition_ids : string list prop;
+  resource_group_name : string prop;
+  status : string prop;
+}
+
 let azurerm_eventhub ?id ?status ?timeouts ~message_retention ~name
     ~namespace_name ~partition_count ~resource_group_name
     ~capture_description __resource_id =
   let __resource_type = "azurerm_eventhub" in
   let __resource =
-    {
-      id;
-      message_retention;
-      name;
-      namespace_name;
-      partition_count;
-      resource_group_name;
-      status;
-      capture_description;
-      timeouts;
-    }
+    ({
+       id;
+       message_retention;
+       name;
+       namespace_name;
+       partition_count;
+       resource_group_name;
+       status;
+       capture_description;
+       timeouts;
+     }
+      : azurerm_eventhub)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventhub __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       message_retention =
+         Prop.computed __resource_type __resource_id
+           "message_retention";
+       name = Prop.computed __resource_type __resource_id "name";
+       namespace_name =
+         Prop.computed __resource_type __resource_id "namespace_name";
+       partition_count =
+         Prop.computed __resource_type __resource_id
+           "partition_count";
+       partition_ids =
+         Prop.computed __resource_type __resource_id "partition_ids";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

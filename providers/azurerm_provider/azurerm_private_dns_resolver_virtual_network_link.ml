@@ -28,6 +28,14 @@ type azurerm_private_dns_resolver_virtual_network_link = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_virtual_network_link *)
 
+type t = {
+  dns_forwarding_ruleset_id : string prop;
+  id : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  virtual_network_id : string prop;
+}
+
 let azurerm_private_dns_resolver_virtual_network_link ?id ?metadata
     ?timeouts ~dns_forwarding_ruleset_id ~name ~virtual_network_id
     __resource_id =
@@ -35,16 +43,32 @@ let azurerm_private_dns_resolver_virtual_network_link ?id ?metadata
     "azurerm_private_dns_resolver_virtual_network_link"
   in
   let __resource =
-    {
-      dns_forwarding_ruleset_id;
-      id;
-      metadata;
-      name;
-      virtual_network_id;
-      timeouts;
-    }
+    ({
+       dns_forwarding_ruleset_id;
+       id;
+       metadata;
+       name;
+       virtual_network_id;
+       timeouts;
+     }
+      : azurerm_private_dns_resolver_virtual_network_link)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_resolver_virtual_network_link
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dns_forwarding_ruleset_id =
+         Prop.computed __resource_type __resource_id
+           "dns_forwarding_ruleset_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       virtual_network_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_id";
+     }
+      : t)
+  in
+  __resource_attributes

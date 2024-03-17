@@ -9,6 +9,12 @@ type azurerm_route_map__rule
 type azurerm_route_map__timeouts
 type azurerm_route_map
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  virtual_hub_id : string prop;
+}
+
 val azurerm_route_map :
   ?id:string prop ->
   ?timeouts:azurerm_route_map__timeouts ->
@@ -16,4 +22,4 @@ val azurerm_route_map :
   virtual_hub_id:string prop ->
   rule:azurerm_route_map__rule list ->
   string ->
-  unit
+  t

@@ -107,6 +107,30 @@ type azurerm_api_management_api = {
 [@@deriving yojson_of]
 (** azurerm_api_management_api *)
 
+type t = {
+  api_management_name : string prop;
+  api_type : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  is_current : bool prop;
+  is_online : bool prop;
+  name : string prop;
+  path : string prop;
+  protocols : string list prop;
+  resource_group_name : string prop;
+  revision : string prop;
+  revision_description : string prop;
+  service_url : string prop;
+  soap_pass_through : bool prop;
+  source_api_id : string prop;
+  subscription_required : bool prop;
+  terms_of_service_url : string prop;
+  version : string prop;
+  version_description : string prop;
+  version_set_id : string prop;
+}
+
 let azurerm_api_management_api ?api_type ?description ?display_name
     ?id ?path ?protocols ?revision_description ?service_url
     ?soap_pass_through ?source_api_id ?subscription_required
@@ -117,35 +141,87 @@ let azurerm_api_management_api ?api_type ?description ?display_name
     ~subscription_key_parameter_names __resource_id =
   let __resource_type = "azurerm_api_management_api" in
   let __resource =
-    {
-      api_management_name;
-      api_type;
-      description;
-      display_name;
-      id;
-      name;
-      path;
-      protocols;
-      resource_group_name;
-      revision;
-      revision_description;
-      service_url;
-      soap_pass_through;
-      source_api_id;
-      subscription_required;
-      terms_of_service_url;
-      version;
-      version_description;
-      version_set_id;
-      contact;
-      import;
-      license;
-      oauth2_authorization;
-      openid_authentication;
-      subscription_key_parameter_names;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       api_type;
+       description;
+       display_name;
+       id;
+       name;
+       path;
+       protocols;
+       resource_group_name;
+       revision;
+       revision_description;
+       service_url;
+       soap_pass_through;
+       source_api_id;
+       subscription_required;
+       terms_of_service_url;
+       version;
+       version_description;
+       version_set_id;
+       contact;
+       import;
+       license;
+       oauth2_authorization;
+       openid_authentication;
+       subscription_key_parameter_names;
+       timeouts;
+     }
+      : azurerm_api_management_api)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_api __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       api_type =
+         Prop.computed __resource_type __resource_id "api_type";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_current =
+         Prop.computed __resource_type __resource_id "is_current";
+       is_online =
+         Prop.computed __resource_type __resource_id "is_online";
+       name = Prop.computed __resource_type __resource_id "name";
+       path = Prop.computed __resource_type __resource_id "path";
+       protocols =
+         Prop.computed __resource_type __resource_id "protocols";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       revision =
+         Prop.computed __resource_type __resource_id "revision";
+       revision_description =
+         Prop.computed __resource_type __resource_id
+           "revision_description";
+       service_url =
+         Prop.computed __resource_type __resource_id "service_url";
+       soap_pass_through =
+         Prop.computed __resource_type __resource_id
+           "soap_pass_through";
+       source_api_id =
+         Prop.computed __resource_type __resource_id "source_api_id";
+       subscription_required =
+         Prop.computed __resource_type __resource_id
+           "subscription_required";
+       terms_of_service_url =
+         Prop.computed __resource_type __resource_id
+           "terms_of_service_url";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       version_description =
+         Prop.computed __resource_type __resource_id
+           "version_description";
+       version_set_id =
+         Prop.computed __resource_type __resource_id "version_set_id";
+     }
+      : t)
+  in
+  __resource_attributes

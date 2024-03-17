@@ -2470,10 +2470,18 @@ type kubernetes_replication_controller_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_replication_controller_v1 *)
 
+type t = { id : string prop }
+
 let kubernetes_replication_controller_v1 ?id ?timeouts ~metadata
     ~spec __resource_id =
   let __resource_type = "kubernetes_replication_controller_v1" in
-  let __resource = { id; metadata; spec; timeouts } in
+  let __resource =
+    ({ id; metadata; spec; timeouts }
+      : kubernetes_replication_controller_v1)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_replication_controller_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

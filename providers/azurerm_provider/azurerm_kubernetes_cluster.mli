@@ -118,6 +118,53 @@ type azurerm_kubernetes_cluster__kube_config = {
 
 type azurerm_kubernetes_cluster
 
+type t = private {
+  api_server_authorized_ip_ranges : string list prop;
+  automatic_channel_upgrade : string prop;
+  azure_policy_enabled : bool prop;
+  current_kubernetes_version : string prop;
+  custom_ca_trust_certificates_base64 : string list prop;
+  disk_encryption_set_id : string prop;
+  dns_prefix : string prop;
+  dns_prefix_private_cluster : string prop;
+  edge_zone : string prop;
+  enable_pod_security_policy : bool prop;
+  fqdn : string prop;
+  http_application_routing_enabled : bool prop;
+  http_application_routing_zone_name : string prop;
+  id : string prop;
+  image_cleaner_enabled : bool prop;
+  image_cleaner_interval_hours : float prop;
+  kube_admin_config :
+    azurerm_kubernetes_cluster__kube_admin_config list prop;
+  kube_admin_config_raw : string prop;
+  kube_config : azurerm_kubernetes_cluster__kube_config list prop;
+  kube_config_raw : string prop;
+  kubernetes_version : string prop;
+  local_account_disabled : bool prop;
+  location : string prop;
+  name : string prop;
+  node_os_channel_upgrade : string prop;
+  node_resource_group : string prop;
+  node_resource_group_id : string prop;
+  oidc_issuer_enabled : bool prop;
+  oidc_issuer_url : string prop;
+  open_service_mesh_enabled : bool prop;
+  portal_fqdn : string prop;
+  private_cluster_enabled : bool prop;
+  private_cluster_public_fqdn_enabled : bool prop;
+  private_dns_zone_id : string prop;
+  private_fqdn : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  role_based_access_control_enabled : bool prop;
+  run_command_enabled : bool prop;
+  sku_tier : string prop;
+  support_plan : string prop;
+  tags : (string * string) list prop;
+  workload_identity_enabled : bool prop;
+}
+
 val azurerm_kubernetes_cluster :
   ?api_server_authorized_ip_ranges:string prop list ->
   ?automatic_channel_upgrade:string prop ->
@@ -197,4 +244,4 @@ val azurerm_kubernetes_cluster :
   workload_autoscaler_profile:
     azurerm_kubernetes_cluster__workload_autoscaler_profile list ->
   string ->
-  unit
+  t

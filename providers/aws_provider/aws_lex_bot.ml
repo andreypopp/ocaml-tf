@@ -76,6 +76,28 @@ type aws_lex_bot = {
 [@@deriving yojson_of]
 (** aws_lex_bot *)
 
+type t = {
+  arn : string prop;
+  checksum : string prop;
+  child_directed : bool prop;
+  create_version : bool prop;
+  created_date : string prop;
+  description : string prop;
+  detect_sentiment : bool prop;
+  enable_model_improvements : bool prop;
+  failure_reason : string prop;
+  id : string prop;
+  idle_session_ttl_in_seconds : float prop;
+  last_updated_date : string prop;
+  locale : string prop;
+  name : string prop;
+  nlu_intent_confidence_threshold : float prop;
+  process_behavior : string prop;
+  status : string prop;
+  version : string prop;
+  voice_id : string prop;
+}
+
 let aws_lex_bot ?create_version ?description ?detect_sentiment
     ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
     ?locale ?nlu_intent_confidence_threshold ?process_behavior
@@ -83,25 +105,70 @@ let aws_lex_bot ?create_version ?description ?detect_sentiment
     ~clarification_prompt ~intent __resource_id =
   let __resource_type = "aws_lex_bot" in
   let __resource =
-    {
-      child_directed;
-      create_version;
-      description;
-      detect_sentiment;
-      enable_model_improvements;
-      id;
-      idle_session_ttl_in_seconds;
-      locale;
-      name;
-      nlu_intent_confidence_threshold;
-      process_behavior;
-      voice_id;
-      abort_statement;
-      clarification_prompt;
-      intent;
-      timeouts;
-    }
+    ({
+       child_directed;
+       create_version;
+       description;
+       detect_sentiment;
+       enable_model_improvements;
+       id;
+       idle_session_ttl_in_seconds;
+       locale;
+       name;
+       nlu_intent_confidence_threshold;
+       process_behavior;
+       voice_id;
+       abort_statement;
+       clarification_prompt;
+       intent;
+       timeouts;
+     }
+      : aws_lex_bot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lex_bot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       checksum =
+         Prop.computed __resource_type __resource_id "checksum";
+       child_directed =
+         Prop.computed __resource_type __resource_id "child_directed";
+       create_version =
+         Prop.computed __resource_type __resource_id "create_version";
+       created_date =
+         Prop.computed __resource_type __resource_id "created_date";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       detect_sentiment =
+         Prop.computed __resource_type __resource_id
+           "detect_sentiment";
+       enable_model_improvements =
+         Prop.computed __resource_type __resource_id
+           "enable_model_improvements";
+       failure_reason =
+         Prop.computed __resource_type __resource_id "failure_reason";
+       id = Prop.computed __resource_type __resource_id "id";
+       idle_session_ttl_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "idle_session_ttl_in_seconds";
+       last_updated_date =
+         Prop.computed __resource_type __resource_id
+           "last_updated_date";
+       locale = Prop.computed __resource_type __resource_id "locale";
+       name = Prop.computed __resource_type __resource_id "name";
+       nlu_intent_confidence_threshold =
+         Prop.computed __resource_type __resource_id
+           "nlu_intent_confidence_threshold";
+       process_behavior =
+         Prop.computed __resource_type __resource_id
+           "process_behavior";
+       status = Prop.computed __resource_type __resource_id "status";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       voice_id =
+         Prop.computed __resource_type __resource_id "voice_id";
+     }
+      : t)
+  in
+  __resource_attributes

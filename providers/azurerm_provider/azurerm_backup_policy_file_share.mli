@@ -11,6 +11,14 @@ type azurerm_backup_policy_file_share__retention_yearly
 type azurerm_backup_policy_file_share__timeouts
 type azurerm_backup_policy_file_share
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+  timezone : string prop;
+}
+
 val azurerm_backup_policy_file_share :
   ?id:string prop ->
   ?timezone:string prop ->
@@ -28,4 +36,4 @@ val azurerm_backup_policy_file_share :
   retention_yearly:
     azurerm_backup_policy_file_share__retention_yearly list ->
   string ->
-  unit
+  t

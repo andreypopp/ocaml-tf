@@ -11,6 +11,18 @@ type google_vmwareengine_network__vpc_networks = {
 
 type google_vmwareengine_network
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  type_ : string prop;
+  uid : string prop;
+  vpc_networks : google_vmwareengine_network__vpc_networks list prop;
+}
+
 val google_vmwareengine_network :
   ?description:string prop ->
   ?id:string prop ->
@@ -20,4 +32,4 @@ val google_vmwareengine_network :
   name:string prop ->
   type_:string prop ->
   string ->
-  unit
+  t

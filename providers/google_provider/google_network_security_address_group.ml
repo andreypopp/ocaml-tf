@@ -38,24 +38,68 @@ The default value is 'global'. *)
 [@@deriving yojson_of]
 (** google_network_security_address_group *)
 
+type t = {
+  capacity : float prop;
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  items : string list prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  parent : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+  update_time : string prop;
+}
+
 let google_network_security_address_group ?description ?id ?items
     ?labels ?parent ?timeouts ~capacity ~location ~name ~type_
     __resource_id =
   let __resource_type = "google_network_security_address_group" in
   let __resource =
-    {
-      capacity;
-      description;
-      id;
-      items;
-      labels;
-      location;
-      name;
-      parent;
-      type_;
-      timeouts;
-    }
+    ({
+       capacity;
+       description;
+       id;
+       items;
+       labels;
+       location;
+       name;
+       parent;
+       type_;
+       timeouts;
+     }
+      : google_network_security_address_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_security_address_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       capacity =
+         Prop.computed __resource_type __resource_id "capacity";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       items = Prop.computed __resource_type __resource_id "items";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

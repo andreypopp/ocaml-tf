@@ -27,19 +27,53 @@ type google_logging_folder_settings = {
 [@@deriving yojson_of]
 (** google_logging_folder_settings *)
 
+type t = {
+  disable_default_sink : bool prop;
+  folder : string prop;
+  id : string prop;
+  kms_key_name : string prop;
+  kms_service_account_id : string prop;
+  logging_service_account_id : string prop;
+  name : string prop;
+  storage_location : string prop;
+}
+
 let google_logging_folder_settings ?disable_default_sink ?id
     ?kms_key_name ?storage_location ?timeouts ~folder __resource_id =
   let __resource_type = "google_logging_folder_settings" in
   let __resource =
-    {
-      disable_default_sink;
-      folder;
-      id;
-      kms_key_name;
-      storage_location;
-      timeouts;
-    }
+    ({
+       disable_default_sink;
+       folder;
+       id;
+       kms_key_name;
+       storage_location;
+       timeouts;
+     }
+      : google_logging_folder_settings)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_folder_settings __resource);
-  ()
+  let __resource_attributes =
+    ({
+       disable_default_sink =
+         Prop.computed __resource_type __resource_id
+           "disable_default_sink";
+       folder = Prop.computed __resource_type __resource_id "folder";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_name =
+         Prop.computed __resource_type __resource_id "kms_key_name";
+       kms_service_account_id =
+         Prop.computed __resource_type __resource_id
+           "kms_service_account_id";
+       logging_service_account_id =
+         Prop.computed __resource_type __resource_id
+           "logging_service_account_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       storage_location =
+         Prop.computed __resource_type __resource_id
+           "storage_location";
+     }
+      : t)
+  in
+  __resource_attributes

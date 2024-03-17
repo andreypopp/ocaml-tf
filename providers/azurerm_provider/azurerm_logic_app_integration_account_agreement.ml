@@ -51,6 +51,18 @@ type azurerm_logic_app_integration_account_agreement = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_agreement *)
 
+type t = {
+  agreement_type : string prop;
+  content : string prop;
+  guest_partner_name : string prop;
+  host_partner_name : string prop;
+  id : string prop;
+  integration_account_name : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_logic_app_integration_account_agreement ?id ?metadata
     ?timeouts ~agreement_type ~content ~guest_partner_name
     ~host_partner_name ~integration_account_name ~name
@@ -60,22 +72,48 @@ let azurerm_logic_app_integration_account_agreement ?id ?metadata
     "azurerm_logic_app_integration_account_agreement"
   in
   let __resource =
-    {
-      agreement_type;
-      content;
-      guest_partner_name;
-      host_partner_name;
-      id;
-      integration_account_name;
-      metadata;
-      name;
-      resource_group_name;
-      guest_identity;
-      host_identity;
-      timeouts;
-    }
+    ({
+       agreement_type;
+       content;
+       guest_partner_name;
+       host_partner_name;
+       id;
+       integration_account_name;
+       metadata;
+       name;
+       resource_group_name;
+       guest_identity;
+       host_identity;
+       timeouts;
+     }
+      : azurerm_logic_app_integration_account_agreement)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_agreement
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       agreement_type =
+         Prop.computed __resource_type __resource_id "agreement_type";
+       content =
+         Prop.computed __resource_type __resource_id "content";
+       guest_partner_name =
+         Prop.computed __resource_type __resource_id
+           "guest_partner_name";
+       host_partner_name =
+         Prop.computed __resource_type __resource_id
+           "host_partner_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_account_name =
+         Prop.computed __resource_type __resource_id
+           "integration_account_name";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

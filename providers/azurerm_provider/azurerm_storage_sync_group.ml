@@ -21,10 +21,29 @@ type azurerm_storage_sync_group = {
 [@@deriving yojson_of]
 (** azurerm_storage_sync_group *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  storage_sync_id : string prop;
+}
+
 let azurerm_storage_sync_group ?id ?timeouts ~name ~storage_sync_id
     __resource_id =
   let __resource_type = "azurerm_storage_sync_group" in
-  let __resource = { id; name; storage_sync_id; timeouts } in
+  let __resource =
+    ({ id; name; storage_sync_id; timeouts }
+      : azurerm_storage_sync_group)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_sync_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       storage_sync_id =
+         Prop.computed __resource_type __resource_id
+           "storage_sync_id";
+     }
+      : t)
+  in
+  __resource_attributes

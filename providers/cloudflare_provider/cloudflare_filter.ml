@@ -22,12 +22,36 @@ e.g. Firewall Rules. See [what is a filter](https://developers.cloudflare.com/fi
 for more details and available fields and operators.
  *)
 
+type t = {
+  description : string prop;
+  expression : string prop;
+  id : string prop;
+  paused : bool prop;
+  ref : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_filter ?description ?id ?paused ?ref ~expression
     ~zone_id __resource_id =
   let __resource_type = "cloudflare_filter" in
   let __resource =
-    { description; expression; id; paused; ref; zone_id }
+    ({ description; expression; id; paused; ref; zone_id }
+      : cloudflare_filter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_filter __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       expression =
+         Prop.computed __resource_type __resource_id "expression";
+       id = Prop.computed __resource_type __resource_id "id";
+       paused = Prop.computed __resource_type __resource_id "paused";
+       ref = Prop.computed __resource_type __resource_id "ref";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

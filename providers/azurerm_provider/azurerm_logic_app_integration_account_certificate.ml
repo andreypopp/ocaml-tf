@@ -40,6 +40,15 @@ type azurerm_logic_app_integration_account_certificate = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_certificate *)
 
+type t = {
+  id : string prop;
+  integration_account_name : string prop;
+  metadata : string prop;
+  name : string prop;
+  public_certificate : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_logic_app_integration_account_certificate ?id ?metadata
     ?public_certificate ?timeouts ~integration_account_name ~name
     ~resource_group_name ~key_vault_key __resource_id =
@@ -47,18 +56,37 @@ let azurerm_logic_app_integration_account_certificate ?id ?metadata
     "azurerm_logic_app_integration_account_certificate"
   in
   let __resource =
-    {
-      id;
-      integration_account_name;
-      metadata;
-      name;
-      public_certificate;
-      resource_group_name;
-      key_vault_key;
-      timeouts;
-    }
+    ({
+       id;
+       integration_account_name;
+       metadata;
+       name;
+       public_certificate;
+       resource_group_name;
+       key_vault_key;
+       timeouts;
+     }
+      : azurerm_logic_app_integration_account_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_certificate
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_account_name =
+         Prop.computed __resource_type __resource_id
+           "integration_account_name";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_certificate =
+         Prop.computed __resource_type __resource_id
+           "public_certificate";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

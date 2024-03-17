@@ -34,12 +34,34 @@ type azurerm_logz_sub_account = {
 [@@deriving yojson_of]
 (** azurerm_logz_sub_account *)
 
+type t = {
+  enabled : bool prop;
+  id : string prop;
+  logz_monitor_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_logz_sub_account ?enabled ?id ?tags ?timeouts
     ~logz_monitor_id ~name ~user __resource_id =
   let __resource_type = "azurerm_logz_sub_account" in
   let __resource =
-    { enabled; id; logz_monitor_id; name; tags; timeouts; user }
+    ({ enabled; id; logz_monitor_id; name; tags; timeouts; user }
+      : azurerm_logz_sub_account)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logz_sub_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       logz_monitor_id =
+         Prop.computed __resource_type __resource_id
+           "logz_monitor_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

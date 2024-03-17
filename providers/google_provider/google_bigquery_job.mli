@@ -43,6 +43,20 @@ type google_bigquery_job__status = {
 
 type google_bigquery_job
 
+type t = private {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  job_id : string prop;
+  job_timeout_ms : string prop;
+  job_type : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  project : string prop;
+  status : google_bigquery_job__status list prop;
+  terraform_labels : (string * string) list prop;
+  user_email : string prop;
+}
+
 val google_bigquery_job :
   ?id:string prop ->
   ?job_timeout_ms:string prop ->
@@ -56,4 +70,4 @@ val google_bigquery_job :
   load:google_bigquery_job__load list ->
   query:google_bigquery_job__query list ->
   string ->
-  unit
+  t

@@ -280,27 +280,84 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_clouddomains_registration *)
 
+type t = {
+  contact_notices : string list prop;
+  create_time : string prop;
+  domain_name : string prop;
+  domain_notices : string list prop;
+  effective_labels : (string * string) list prop;
+  expire_time : string prop;
+  id : string prop;
+  issues : string list prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  register_failure_reason : string prop;
+  state : string prop;
+  supported_privacy : string list prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_clouddomains_registration ?contact_notices ?domain_notices
     ?id ?labels ?project ?timeouts ~domain_name ~location
     ~contact_settings ~dns_settings ~management_settings
     ~yearly_price __resource_id =
   let __resource_type = "google_clouddomains_registration" in
   let __resource =
-    {
-      contact_notices;
-      domain_name;
-      domain_notices;
-      id;
-      labels;
-      location;
-      project;
-      contact_settings;
-      dns_settings;
-      management_settings;
-      timeouts;
-      yearly_price;
-    }
+    ({
+       contact_notices;
+       domain_name;
+       domain_notices;
+       id;
+       labels;
+       location;
+       project;
+       contact_settings;
+       dns_settings;
+       management_settings;
+       timeouts;
+       yearly_price;
+     }
+      : google_clouddomains_registration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_clouddomains_registration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       contact_notices =
+         Prop.computed __resource_type __resource_id
+           "contact_notices";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       domain_notices =
+         Prop.computed __resource_type __resource_id "domain_notices";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       expire_time =
+         Prop.computed __resource_type __resource_id "expire_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       issues = Prop.computed __resource_type __resource_id "issues";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       register_failure_reason =
+         Prop.computed __resource_type __resource_id
+           "register_failure_reason";
+       state = Prop.computed __resource_type __resource_id "state";
+       supported_privacy =
+         Prop.computed __resource_type __resource_id
+           "supported_privacy";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

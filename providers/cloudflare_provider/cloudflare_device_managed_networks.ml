@@ -26,10 +26,30 @@ type cloudflare_device_managed_networks = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Device Managed Network resource. Device managed networks allow for building location-aware device settings policies. *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  name : string prop;
+  type_ : string prop;
+}
+
 let cloudflare_device_managed_networks ?id ~account_id ~name ~type_
     ~config __resource_id =
   let __resource_type = "cloudflare_device_managed_networks" in
-  let __resource = { account_id; id; name; type_; config } in
+  let __resource =
+    ({ account_id; id; name; type_; config }
+      : cloudflare_device_managed_networks)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_managed_networks __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

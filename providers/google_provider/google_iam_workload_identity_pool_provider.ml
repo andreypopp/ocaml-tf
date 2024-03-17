@@ -176,6 +176,20 @@ value must be 4-32 characters, and may contain the characters [a-z0-9-]. The pre
 [@@deriving yojson_of]
 (** google_iam_workload_identity_pool_provider *)
 
+type t = {
+  attribute_condition : string prop;
+  attribute_mapping : (string * string) list prop;
+  description : string prop;
+  disabled : bool prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  workload_identity_pool_id : string prop;
+  workload_identity_pool_provider_id : string prop;
+}
+
 let google_iam_workload_identity_pool_provider ?attribute_condition
     ?attribute_mapping ?description ?disabled ?display_name ?id
     ?project ?timeouts ~workload_identity_pool_id
@@ -185,22 +199,51 @@ let google_iam_workload_identity_pool_provider ?attribute_condition
     "google_iam_workload_identity_pool_provider"
   in
   let __resource =
-    {
-      attribute_condition;
-      attribute_mapping;
-      description;
-      disabled;
-      display_name;
-      id;
-      project;
-      workload_identity_pool_id;
-      workload_identity_pool_provider_id;
-      aws;
-      oidc;
-      saml;
-      timeouts;
-    }
+    ({
+       attribute_condition;
+       attribute_mapping;
+       description;
+       disabled;
+       display_name;
+       id;
+       project;
+       workload_identity_pool_id;
+       workload_identity_pool_provider_id;
+       aws;
+       oidc;
+       saml;
+       timeouts;
+     }
+      : google_iam_workload_identity_pool_provider)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iam_workload_identity_pool_provider __resource);
-  ()
+  let __resource_attributes =
+    ({
+       attribute_condition =
+         Prop.computed __resource_type __resource_id
+           "attribute_condition";
+       attribute_mapping =
+         Prop.computed __resource_type __resource_id
+           "attribute_mapping";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       workload_identity_pool_id =
+         Prop.computed __resource_type __resource_id
+           "workload_identity_pool_id";
+       workload_identity_pool_provider_id =
+         Prop.computed __resource_type __resource_id
+           "workload_identity_pool_provider_id";
+     }
+      : t)
+  in
+  __resource_attributes

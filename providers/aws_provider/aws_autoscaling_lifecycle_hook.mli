@@ -4,6 +4,18 @@ open! Tf.Prelude
 
 type aws_autoscaling_lifecycle_hook
 
+type t = private {
+  autoscaling_group_name : string prop;
+  default_result : string prop;
+  heartbeat_timeout : float prop;
+  id : string prop;
+  lifecycle_transition : string prop;
+  name : string prop;
+  notification_metadata : string prop;
+  notification_target_arn : string prop;
+  role_arn : string prop;
+}
+
 val aws_autoscaling_lifecycle_hook :
   ?default_result:string prop ->
   ?heartbeat_timeout:float prop ->
@@ -15,4 +27,4 @@ val aws_autoscaling_lifecycle_hook :
   lifecycle_transition:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

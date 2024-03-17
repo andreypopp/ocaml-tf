@@ -32,26 +32,65 @@ type azurerm_automation_webhook = {
 [@@deriving yojson_of]
 (** azurerm_automation_webhook *)
 
+type t = {
+  automation_account_name : string prop;
+  enabled : bool prop;
+  expiry_time : string prop;
+  id : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  resource_group_name : string prop;
+  run_on_worker_group : string prop;
+  runbook_name : string prop;
+  uri : string prop;
+}
+
 let azurerm_automation_webhook ?enabled ?id ?parameters
     ?run_on_worker_group ?uri ?timeouts ~automation_account_name
     ~expiry_time ~name ~resource_group_name ~runbook_name
     __resource_id =
   let __resource_type = "azurerm_automation_webhook" in
   let __resource =
-    {
-      automation_account_name;
-      enabled;
-      expiry_time;
-      id;
-      name;
-      parameters;
-      resource_group_name;
-      run_on_worker_group;
-      runbook_name;
-      uri;
-      timeouts;
-    }
+    ({
+       automation_account_name;
+       enabled;
+       expiry_time;
+       id;
+       name;
+       parameters;
+       resource_group_name;
+       run_on_worker_group;
+       runbook_name;
+       uri;
+       timeouts;
+     }
+      : azurerm_automation_webhook)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_webhook __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automation_account_name =
+         Prop.computed __resource_type __resource_id
+           "automation_account_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       expiry_time =
+         Prop.computed __resource_type __resource_id "expiry_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       run_on_worker_group =
+         Prop.computed __resource_type __resource_id
+           "run_on_worker_group";
+       runbook_name =
+         Prop.computed __resource_type __resource_id "runbook_name";
+       uri = Prop.computed __resource_type __resource_id "uri";
+     }
+      : t)
+  in
+  __resource_attributes

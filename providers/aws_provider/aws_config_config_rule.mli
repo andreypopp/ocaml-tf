@@ -9,6 +9,18 @@ type aws_config_config_rule__source__source_detail
 type aws_config_config_rule__source
 type aws_config_config_rule
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  input_parameters : string prop;
+  maximum_execution_frequency : string prop;
+  name : string prop;
+  rule_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_config_config_rule :
   ?description:string prop ->
   ?id:string prop ->
@@ -21,4 +33,4 @@ val aws_config_config_rule :
   scope:aws_config_config_rule__scope list ->
   source:aws_config_config_rule__source list ->
   string ->
-  unit
+  t

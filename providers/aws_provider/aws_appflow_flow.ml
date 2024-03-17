@@ -626,24 +626,53 @@ type aws_appflow_flow = {
 [@@deriving yojson_of]
 (** aws_appflow_flow *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  flow_status : string prop;
+  id : string prop;
+  kms_arn : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_appflow_flow ?description ?id ?kms_arn ?tags ?tags_all ~name
     ~destination_flow_config ~source_flow_config ~task
     ~trigger_config __resource_id =
   let __resource_type = "aws_appflow_flow" in
   let __resource =
-    {
-      description;
-      id;
-      kms_arn;
-      name;
-      tags;
-      tags_all;
-      destination_flow_config;
-      source_flow_config;
-      task;
-      trigger_config;
-    }
+    ({
+       description;
+       id;
+       kms_arn;
+       name;
+       tags;
+       tags_all;
+       destination_flow_config;
+       source_flow_config;
+       task;
+       trigger_config;
+     }
+      : aws_appflow_flow)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appflow_flow __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       flow_status =
+         Prop.computed __resource_type __resource_id "flow_status";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_arn =
+         Prop.computed __resource_type __resource_id "kms_arn";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

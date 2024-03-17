@@ -49,6 +49,17 @@ type azurerm_dedicated_hardware_security_module = {
 [@@deriving yojson_of]
 (** azurerm_dedicated_hardware_security_module *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  stamp_id : string prop;
+  tags : (string * string) list prop;
+  zones : string list prop;
+}
+
 let azurerm_dedicated_hardware_security_module ?id ?stamp_id ?tags
     ?zones ?timeouts ~location ~name ~resource_group_name ~sku_name
     ~management_network_profile ~network_profile __resource_id =
@@ -56,20 +67,39 @@ let azurerm_dedicated_hardware_security_module ?id ?stamp_id ?tags
     "azurerm_dedicated_hardware_security_module"
   in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      sku_name;
-      stamp_id;
-      tags;
-      zones;
-      management_network_profile;
-      network_profile;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       sku_name;
+       stamp_id;
+       tags;
+       zones;
+       management_network_profile;
+       network_profile;
+       timeouts;
+     }
+      : azurerm_dedicated_hardware_security_module)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dedicated_hardware_security_module __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       stamp_id =
+         Prop.computed __resource_type __resource_id "stamp_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

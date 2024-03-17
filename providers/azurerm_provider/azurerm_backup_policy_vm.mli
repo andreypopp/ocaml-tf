@@ -11,6 +11,16 @@ type azurerm_backup_policy_vm__retention_yearly
 type azurerm_backup_policy_vm__timeouts
 type azurerm_backup_policy_vm
 
+type t = private {
+  id : string prop;
+  instant_restore_retention_days : float prop;
+  name : string prop;
+  policy_type : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+  timezone : string prop;
+}
+
 val azurerm_backup_policy_vm :
   ?id:string prop ->
   ?instant_restore_retention_days:float prop ->
@@ -28,4 +38,4 @@ val azurerm_backup_policy_vm :
   retention_weekly:azurerm_backup_policy_vm__retention_weekly list ->
   retention_yearly:azurerm_backup_policy_vm__retention_yearly list ->
   string ->
-  unit
+  t

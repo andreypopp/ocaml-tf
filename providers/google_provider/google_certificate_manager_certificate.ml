@@ -106,24 +106,58 @@ See https://cloud.google.com/compute/docs/regions-zones *)
 [@@deriving yojson_of]
 (** google_certificate_manager_certificate *)
 
+type t = {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  scope : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_certificate_manager_certificate ?description ?id ?labels
     ?location ?project ?scope ?timeouts ~name ~managed ~self_managed
     __resource_id =
   let __resource_type = "google_certificate_manager_certificate" in
   let __resource =
-    {
-      description;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      scope;
-      managed;
-      self_managed;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       scope;
+       managed;
+       self_managed;
+       timeouts;
+     }
+      : google_certificate_manager_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       scope = Prop.computed __resource_type __resource_id "scope";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

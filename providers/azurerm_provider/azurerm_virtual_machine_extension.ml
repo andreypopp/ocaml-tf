@@ -47,6 +47,22 @@ type azurerm_virtual_machine_extension = {
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_extension *)
 
+type t = {
+  auto_upgrade_minor_version : bool prop;
+  automatic_upgrade_enabled : bool prop;
+  failure_suppression_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  protected_settings : string prop;
+  provision_after_extensions : string list prop;
+  publisher : string prop;
+  settings : string prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+  type_handler_version : string prop;
+  virtual_machine_id : string prop;
+}
+
 let azurerm_virtual_machine_extension ?auto_upgrade_minor_version
     ?automatic_upgrade_enabled ?failure_suppression_enabled ?id
     ?protected_settings ?provision_after_extensions ?settings ?tags
@@ -55,24 +71,59 @@ let azurerm_virtual_machine_extension ?auto_upgrade_minor_version
     __resource_id =
   let __resource_type = "azurerm_virtual_machine_extension" in
   let __resource =
-    {
-      auto_upgrade_minor_version;
-      automatic_upgrade_enabled;
-      failure_suppression_enabled;
-      id;
-      name;
-      protected_settings;
-      provision_after_extensions;
-      publisher;
-      settings;
-      tags;
-      type_;
-      type_handler_version;
-      virtual_machine_id;
-      protected_settings_from_key_vault;
-      timeouts;
-    }
+    ({
+       auto_upgrade_minor_version;
+       automatic_upgrade_enabled;
+       failure_suppression_enabled;
+       id;
+       name;
+       protected_settings;
+       provision_after_extensions;
+       publisher;
+       settings;
+       tags;
+       type_;
+       type_handler_version;
+       virtual_machine_id;
+       protected_settings_from_key_vault;
+       timeouts;
+     }
+      : azurerm_virtual_machine_extension)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_machine_extension __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_upgrade_minor_version =
+         Prop.computed __resource_type __resource_id
+           "auto_upgrade_minor_version";
+       automatic_upgrade_enabled =
+         Prop.computed __resource_type __resource_id
+           "automatic_upgrade_enabled";
+       failure_suppression_enabled =
+         Prop.computed __resource_type __resource_id
+           "failure_suppression_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       protected_settings =
+         Prop.computed __resource_type __resource_id
+           "protected_settings";
+       provision_after_extensions =
+         Prop.computed __resource_type __resource_id
+           "provision_after_extensions";
+       publisher =
+         Prop.computed __resource_type __resource_id "publisher";
+       settings =
+         Prop.computed __resource_type __resource_id "settings";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       type_handler_version =
+         Prop.computed __resource_type __resource_id
+           "type_handler_version";
+       virtual_machine_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_id";
+     }
+      : t)
+  in
+  __resource_attributes

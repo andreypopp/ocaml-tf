@@ -5,6 +5,18 @@ open! Tf.Prelude
 type azurerm_dns_aaaa_record__timeouts
 type azurerm_dns_aaaa_record
 
+type t = private {
+  fqdn : string prop;
+  id : string prop;
+  name : string prop;
+  records : string list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  target_resource_id : string prop;
+  ttl : float prop;
+  zone_name : string prop;
+}
+
 val azurerm_dns_aaaa_record :
   ?id:string prop ->
   ?records:string prop list ->
@@ -16,4 +28,4 @@ val azurerm_dns_aaaa_record :
   ttl:float prop ->
   zone_name:string prop ->
   string ->
-  unit
+  t

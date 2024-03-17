@@ -39,31 +39,88 @@ type aws_cloudformation_stack = {
 [@@deriving yojson_of]
 (** aws_cloudformation_stack *)
 
+type t = {
+  capabilities : string list prop;
+  disable_rollback : bool prop;
+  iam_role_arn : string prop;
+  id : string prop;
+  name : string prop;
+  notification_arns : string list prop;
+  on_failure : string prop;
+  outputs : (string * string) list prop;
+  parameters : (string * string) list prop;
+  policy_body : string prop;
+  policy_url : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  template_body : string prop;
+  template_url : string prop;
+  timeout_in_minutes : float prop;
+}
+
 let aws_cloudformation_stack ?capabilities ?disable_rollback
     ?iam_role_arn ?id ?notification_arns ?on_failure ?parameters
     ?policy_body ?policy_url ?tags ?tags_all ?template_body
     ?template_url ?timeout_in_minutes ?timeouts ~name __resource_id =
   let __resource_type = "aws_cloudformation_stack" in
   let __resource =
-    {
-      capabilities;
-      disable_rollback;
-      iam_role_arn;
-      id;
-      name;
-      notification_arns;
-      on_failure;
-      parameters;
-      policy_body;
-      policy_url;
-      tags;
-      tags_all;
-      template_body;
-      template_url;
-      timeout_in_minutes;
-      timeouts;
-    }
+    ({
+       capabilities;
+       disable_rollback;
+       iam_role_arn;
+       id;
+       name;
+       notification_arns;
+       on_failure;
+       parameters;
+       policy_body;
+       policy_url;
+       tags;
+       tags_all;
+       template_body;
+       template_url;
+       timeout_in_minutes;
+       timeouts;
+     }
+      : aws_cloudformation_stack)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudformation_stack __resource);
-  ()
+  let __resource_attributes =
+    ({
+       capabilities =
+         Prop.computed __resource_type __resource_id "capabilities";
+       disable_rollback =
+         Prop.computed __resource_type __resource_id
+           "disable_rollback";
+       iam_role_arn =
+         Prop.computed __resource_type __resource_id "iam_role_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       notification_arns =
+         Prop.computed __resource_type __resource_id
+           "notification_arns";
+       on_failure =
+         Prop.computed __resource_type __resource_id "on_failure";
+       outputs =
+         Prop.computed __resource_type __resource_id "outputs";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       policy_body =
+         Prop.computed __resource_type __resource_id "policy_body";
+       policy_url =
+         Prop.computed __resource_type __resource_id "policy_url";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       template_body =
+         Prop.computed __resource_type __resource_id "template_body";
+       template_url =
+         Prop.computed __resource_type __resource_id "template_url";
+       timeout_in_minutes =
+         Prop.computed __resource_type __resource_id
+           "timeout_in_minutes";
+     }
+      : t)
+  in
+  __resource_attributes

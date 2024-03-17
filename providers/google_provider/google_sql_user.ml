@@ -66,23 +66,58 @@ type google_sql_user = {
 [@@deriving yojson_of]
 (** google_sql_user *)
 
+type t = {
+  deletion_policy : string prop;
+  host : string prop;
+  id : string prop;
+  instance : string prop;
+  name : string prop;
+  password : string prop;
+  project : string prop;
+  sql_server_user_details :
+    google_sql_user__sql_server_user_details list prop;
+  type_ : string prop;
+}
+
 let google_sql_user ?deletion_policy ?host ?id ?password ?project
     ?type_ ?timeouts ~instance ~name ~password_policy __resource_id =
   let __resource_type = "google_sql_user" in
   let __resource =
-    {
-      deletion_policy;
-      host;
-      id;
-      instance;
-      name;
-      password;
-      project;
-      type_;
-      password_policy;
-      timeouts;
-    }
+    ({
+       deletion_policy;
+       host;
+       id;
+       instance;
+       name;
+       password;
+       project;
+       type_;
+       password_policy;
+       timeouts;
+     }
+      : google_sql_user)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_user __resource);
-  ()
+  let __resource_attributes =
+    ({
+       deletion_policy =
+         Prop.computed __resource_type __resource_id
+           "deletion_policy";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance =
+         Prop.computed __resource_type __resource_id "instance";
+       name = Prop.computed __resource_type __resource_id "name";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       sql_server_user_details =
+         Prop.computed __resource_type __resource_id
+           "sql_server_user_details";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

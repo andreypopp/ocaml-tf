@@ -23,19 +23,46 @@ Trust. Tunnel routes are used to direct IP traffic through
 Cloudflare Tunnels.
  *)
 
+type t = {
+  account_id : string prop;
+  comment : string prop;
+  id : string prop;
+  network : string prop;
+  tunnel_id : string prop;
+  virtual_network_id : string prop;
+}
+
 let cloudflare_tunnel_route ?comment ?id ?virtual_network_id
     ~account_id ~network ~tunnel_id __resource_id =
   let __resource_type = "cloudflare_tunnel_route" in
   let __resource =
-    {
-      account_id;
-      comment;
-      id;
-      network;
-      tunnel_id;
-      virtual_network_id;
-    }
+    ({
+       account_id;
+       comment;
+       id;
+       network;
+       tunnel_id;
+       virtual_network_id;
+     }
+      : cloudflare_tunnel_route)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_tunnel_route __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       comment =
+         Prop.computed __resource_type __resource_id "comment";
+       id = Prop.computed __resource_type __resource_id "id";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       tunnel_id =
+         Prop.computed __resource_type __resource_id "tunnel_id";
+       virtual_network_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -49,21 +49,42 @@ type azurerm_mssql_managed_database = {
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_database *)
 
+type t = {
+  id : string prop;
+  managed_instance_id : string prop;
+  name : string prop;
+  short_term_retention_days : float prop;
+}
+
 let azurerm_mssql_managed_database ?id ?short_term_retention_days
     ?timeouts ~managed_instance_id ~name ~long_term_retention_policy
     ~point_in_time_restore __resource_id =
   let __resource_type = "azurerm_mssql_managed_database" in
   let __resource =
-    {
-      id;
-      managed_instance_id;
-      name;
-      short_term_retention_days;
-      long_term_retention_policy;
-      point_in_time_restore;
-      timeouts;
-    }
+    ({
+       id;
+       managed_instance_id;
+       name;
+       short_term_retention_days;
+       long_term_retention_policy;
+       point_in_time_restore;
+       timeouts;
+     }
+      : azurerm_mssql_managed_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_managed_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       managed_instance_id =
+         Prop.computed __resource_type __resource_id
+           "managed_instance_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       short_term_retention_days =
+         Prop.computed __resource_type __resource_id
+           "short_term_retention_days";
+     }
+      : t)
+  in
+  __resource_attributes

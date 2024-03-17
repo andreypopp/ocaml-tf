@@ -36,28 +36,74 @@ type azurerm_data_factory_linked_service_web = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_web *)
 
+type t = {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  authentication_type : string prop;
+  data_factory_id : string prop;
+  description : string prop;
+  id : string prop;
+  integration_runtime_name : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  password : string prop;
+  url : string prop;
+  username : string prop;
+}
+
 let azurerm_data_factory_linked_service_web ?additional_properties
     ?annotations ?description ?id ?integration_runtime_name
     ?parameters ?password ?username ?timeouts ~authentication_type
     ~data_factory_id ~name ~url __resource_id =
   let __resource_type = "azurerm_data_factory_linked_service_web" in
   let __resource =
-    {
-      additional_properties;
-      annotations;
-      authentication_type;
-      data_factory_id;
-      description;
-      id;
-      integration_runtime_name;
-      name;
-      parameters;
-      password;
-      url;
-      username;
-      timeouts;
-    }
+    ({
+       additional_properties;
+       annotations;
+       authentication_type;
+       data_factory_id;
+       description;
+       id;
+       integration_runtime_name;
+       name;
+       parameters;
+       password;
+       url;
+       username;
+       timeouts;
+     }
+      : azurerm_data_factory_linked_service_web)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_web __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_properties =
+         Prop.computed __resource_type __resource_id
+           "additional_properties";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       authentication_type =
+         Prop.computed __resource_type __resource_id
+           "authentication_type";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_runtime_name =
+         Prop.computed __resource_type __resource_id
+           "integration_runtime_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       url = Prop.computed __resource_type __resource_id "url";
+       username =
+         Prop.computed __resource_type __resource_id "username";
+     }
+      : t)
+  in
+  __resource_attributes

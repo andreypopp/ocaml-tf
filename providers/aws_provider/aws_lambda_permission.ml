@@ -26,27 +26,74 @@ type aws_lambda_permission = {
 [@@deriving yojson_of]
 (** aws_lambda_permission *)
 
+type t = {
+  action : string prop;
+  event_source_token : string prop;
+  function_name : string prop;
+  function_url_auth_type : string prop;
+  id : string prop;
+  principal : string prop;
+  principal_org_id : string prop;
+  qualifier : string prop;
+  source_account : string prop;
+  source_arn : string prop;
+  statement_id : string prop;
+  statement_id_prefix : string prop;
+}
+
 let aws_lambda_permission ?event_source_token ?function_url_auth_type
     ?id ?principal_org_id ?qualifier ?source_account ?source_arn
     ?statement_id ?statement_id_prefix ~action ~function_name
     ~principal __resource_id =
   let __resource_type = "aws_lambda_permission" in
   let __resource =
-    {
-      action;
-      event_source_token;
-      function_name;
-      function_url_auth_type;
-      id;
-      principal;
-      principal_org_id;
-      qualifier;
-      source_account;
-      source_arn;
-      statement_id;
-      statement_id_prefix;
-    }
+    ({
+       action;
+       event_source_token;
+       function_name;
+       function_url_auth_type;
+       id;
+       principal;
+       principal_org_id;
+       qualifier;
+       source_account;
+       source_arn;
+       statement_id;
+       statement_id_prefix;
+     }
+      : aws_lambda_permission)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_permission __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       event_source_token =
+         Prop.computed __resource_type __resource_id
+           "event_source_token";
+       function_name =
+         Prop.computed __resource_type __resource_id "function_name";
+       function_url_auth_type =
+         Prop.computed __resource_type __resource_id
+           "function_url_auth_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       principal =
+         Prop.computed __resource_type __resource_id "principal";
+       principal_org_id =
+         Prop.computed __resource_type __resource_id
+           "principal_org_id";
+       qualifier =
+         Prop.computed __resource_type __resource_id "qualifier";
+       source_account =
+         Prop.computed __resource_type __resource_id "source_account";
+       source_arn =
+         Prop.computed __resource_type __resource_id "source_arn";
+       statement_id =
+         Prop.computed __resource_type __resource_id "statement_id";
+       statement_id_prefix =
+         Prop.computed __resource_type __resource_id
+           "statement_id_prefix";
+     }
+      : t)
+  in
+  __resource_attributes

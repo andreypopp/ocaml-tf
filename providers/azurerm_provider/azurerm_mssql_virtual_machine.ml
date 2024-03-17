@@ -195,6 +195,19 @@ type azurerm_mssql_virtual_machine = {
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_machine *)
 
+type t = {
+  id : string prop;
+  r_services_enabled : bool prop;
+  sql_connectivity_port : float prop;
+  sql_connectivity_type : string prop;
+  sql_connectivity_update_password : string prop;
+  sql_connectivity_update_username : string prop;
+  sql_license_type : string prop;
+  sql_virtual_machine_group_id : string prop;
+  tags : (string * string) list prop;
+  virtual_machine_id : string prop;
+}
+
 let azurerm_mssql_virtual_machine ?id ?r_services_enabled
     ?sql_connectivity_port ?sql_connectivity_type
     ?sql_connectivity_update_password
@@ -205,27 +218,59 @@ let azurerm_mssql_virtual_machine ?id ?r_services_enabled
     __resource_id =
   let __resource_type = "azurerm_mssql_virtual_machine" in
   let __resource =
-    {
-      id;
-      r_services_enabled;
-      sql_connectivity_port;
-      sql_connectivity_type;
-      sql_connectivity_update_password;
-      sql_connectivity_update_username;
-      sql_license_type;
-      sql_virtual_machine_group_id;
-      tags;
-      virtual_machine_id;
-      assessment;
-      auto_backup;
-      auto_patching;
-      key_vault_credential;
-      sql_instance;
-      storage_configuration;
-      timeouts;
-      wsfc_domain_credential;
-    }
+    ({
+       id;
+       r_services_enabled;
+       sql_connectivity_port;
+       sql_connectivity_type;
+       sql_connectivity_update_password;
+       sql_connectivity_update_username;
+       sql_license_type;
+       sql_virtual_machine_group_id;
+       tags;
+       virtual_machine_id;
+       assessment;
+       auto_backup;
+       auto_patching;
+       key_vault_credential;
+       sql_instance;
+       storage_configuration;
+       timeouts;
+       wsfc_domain_credential;
+     }
+      : azurerm_mssql_virtual_machine)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_virtual_machine __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       r_services_enabled =
+         Prop.computed __resource_type __resource_id
+           "r_services_enabled";
+       sql_connectivity_port =
+         Prop.computed __resource_type __resource_id
+           "sql_connectivity_port";
+       sql_connectivity_type =
+         Prop.computed __resource_type __resource_id
+           "sql_connectivity_type";
+       sql_connectivity_update_password =
+         Prop.computed __resource_type __resource_id
+           "sql_connectivity_update_password";
+       sql_connectivity_update_username =
+         Prop.computed __resource_type __resource_id
+           "sql_connectivity_update_username";
+       sql_license_type =
+         Prop.computed __resource_type __resource_id
+           "sql_license_type";
+       sql_virtual_machine_group_id =
+         Prop.computed __resource_type __resource_id
+           "sql_virtual_machine_group_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_machine_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_id";
+     }
+      : t)
+  in
+  __resource_attributes

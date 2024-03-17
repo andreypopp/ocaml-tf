@@ -15,6 +15,24 @@ type google_gke_backup_backup_plan__retention_policy
 type google_gke_backup_backup_plan__timeouts
 type google_gke_backup_backup_plan
 
+type t = private {
+  cluster : string prop;
+  deactivated : bool prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  protected_pod_count : float prop;
+  state : string prop;
+  state_reason : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+}
+
 val google_gke_backup_backup_plan :
   ?deactivated:bool prop ->
   ?description:string prop ->
@@ -30,4 +48,4 @@ val google_gke_backup_backup_plan :
   retention_policy:
     google_gke_backup_backup_plan__retention_policy list ->
   string ->
-  unit
+  t

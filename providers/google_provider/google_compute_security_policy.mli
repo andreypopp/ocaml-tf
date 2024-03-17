@@ -30,6 +30,16 @@ type google_compute_security_policy__rule
 type google_compute_security_policy__timeouts
 type google_compute_security_policy
 
+type t = private {
+  description : string prop;
+  fingerprint : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  type_ : string prop;
+}
+
 val google_compute_security_policy :
   ?description:string prop ->
   ?id:string prop ->
@@ -45,4 +55,4 @@ val google_compute_security_policy :
     google_compute_security_policy__recaptcha_options_config list ->
   rule:google_compute_security_policy__rule list ->
   string ->
-  unit
+  t

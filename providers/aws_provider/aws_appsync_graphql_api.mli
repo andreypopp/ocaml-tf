@@ -15,6 +15,22 @@ type aws_appsync_graphql_api__openid_connect_config
 type aws_appsync_graphql_api__user_pool_config
 type aws_appsync_graphql_api
 
+type t = private {
+  arn : string prop;
+  authentication_type : string prop;
+  id : string prop;
+  introspection_config : string prop;
+  name : string prop;
+  query_depth_limit : float prop;
+  resolver_count_limit : float prop;
+  schema : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  uris : (string * string) list prop;
+  visibility : string prop;
+  xray_enabled : bool prop;
+}
+
 val aws_appsync_graphql_api :
   ?id:string prop ->
   ?introspection_config:string prop ->
@@ -36,4 +52,4 @@ val aws_appsync_graphql_api :
     aws_appsync_graphql_api__openid_connect_config list ->
   user_pool_config:aws_appsync_graphql_api__user_pool_config list ->
   string ->
-  unit
+  t

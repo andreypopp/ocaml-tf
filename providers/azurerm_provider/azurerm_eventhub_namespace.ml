@@ -83,6 +83,31 @@ type azurerm_eventhub_namespace = {
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace *)
 
+type t = {
+  auto_inflate_enabled : bool prop;
+  capacity : float prop;
+  dedicated_cluster_id : string prop;
+  default_primary_connection_string : string prop;
+  default_primary_connection_string_alias : string prop;
+  default_primary_key : string prop;
+  default_secondary_connection_string : string prop;
+  default_secondary_connection_string_alias : string prop;
+  default_secondary_key : string prop;
+  id : string prop;
+  local_authentication_enabled : bool prop;
+  location : string prop;
+  maximum_throughput_units : float prop;
+  minimum_tls_version : string prop;
+  name : string prop;
+  network_rulesets :
+    azurerm_eventhub_namespace__network_rulesets list prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  zone_redundant : bool prop;
+}
+
 let azurerm_eventhub_namespace ?auto_inflate_enabled ?capacity
     ?dedicated_cluster_id ?id ?local_authentication_enabled
     ?maximum_throughput_units ?minimum_tls_version ?network_rulesets
@@ -91,26 +116,84 @@ let azurerm_eventhub_namespace ?auto_inflate_enabled ?capacity
     =
   let __resource_type = "azurerm_eventhub_namespace" in
   let __resource =
-    {
-      auto_inflate_enabled;
-      capacity;
-      dedicated_cluster_id;
-      id;
-      local_authentication_enabled;
-      location;
-      maximum_throughput_units;
-      minimum_tls_version;
-      name;
-      network_rulesets;
-      public_network_access_enabled;
-      resource_group_name;
-      sku;
-      tags;
-      zone_redundant;
-      identity;
-      timeouts;
-    }
+    ({
+       auto_inflate_enabled;
+       capacity;
+       dedicated_cluster_id;
+       id;
+       local_authentication_enabled;
+       location;
+       maximum_throughput_units;
+       minimum_tls_version;
+       name;
+       network_rulesets;
+       public_network_access_enabled;
+       resource_group_name;
+       sku;
+       tags;
+       zone_redundant;
+       identity;
+       timeouts;
+     }
+      : azurerm_eventhub_namespace)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventhub_namespace __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_inflate_enabled =
+         Prop.computed __resource_type __resource_id
+           "auto_inflate_enabled";
+       capacity =
+         Prop.computed __resource_type __resource_id "capacity";
+       dedicated_cluster_id =
+         Prop.computed __resource_type __resource_id
+           "dedicated_cluster_id";
+       default_primary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "default_primary_connection_string";
+       default_primary_connection_string_alias =
+         Prop.computed __resource_type __resource_id
+           "default_primary_connection_string_alias";
+       default_primary_key =
+         Prop.computed __resource_type __resource_id
+           "default_primary_key";
+       default_secondary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "default_secondary_connection_string";
+       default_secondary_connection_string_alias =
+         Prop.computed __resource_type __resource_id
+           "default_secondary_connection_string_alias";
+       default_secondary_key =
+         Prop.computed __resource_type __resource_id
+           "default_secondary_key";
+       id = Prop.computed __resource_type __resource_id "id";
+       local_authentication_enabled =
+         Prop.computed __resource_type __resource_id
+           "local_authentication_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       maximum_throughput_units =
+         Prop.computed __resource_type __resource_id
+           "maximum_throughput_units";
+       minimum_tls_version =
+         Prop.computed __resource_type __resource_id
+           "minimum_tls_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_rulesets =
+         Prop.computed __resource_type __resource_id
+           "network_rulesets";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zone_redundant =
+         Prop.computed __resource_type __resource_id "zone_redundant";
+     }
+      : t)
+  in
+  __resource_attributes

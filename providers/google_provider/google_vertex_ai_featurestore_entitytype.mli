@@ -14,6 +14,20 @@ type google_vertex_ai_featurestore_entitytype__monitoring_config
 type google_vertex_ai_featurestore_entitytype__timeouts
 type google_vertex_ai_featurestore_entitytype
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  featurestore : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_vertex_ai_featurestore_entitytype :
   ?description:string prop ->
   ?id:string prop ->
@@ -24,4 +38,4 @@ val google_vertex_ai_featurestore_entitytype :
   monitoring_config:
     google_vertex_ai_featurestore_entitytype__monitoring_config list ->
   string ->
-  unit
+  t

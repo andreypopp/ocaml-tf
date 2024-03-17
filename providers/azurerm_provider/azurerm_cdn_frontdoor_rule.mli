@@ -35,6 +35,15 @@ type azurerm_cdn_frontdoor_rule__conditions
 type azurerm_cdn_frontdoor_rule__timeouts
 type azurerm_cdn_frontdoor_rule
 
+type t = private {
+  behavior_on_match : string prop;
+  cdn_frontdoor_rule_set_id : string prop;
+  cdn_frontdoor_rule_set_name : string prop;
+  id : string prop;
+  name : string prop;
+  order : float prop;
+}
+
 val azurerm_cdn_frontdoor_rule :
   ?behavior_on_match:string prop ->
   ?id:string prop ->
@@ -45,4 +54,4 @@ val azurerm_cdn_frontdoor_rule :
   actions:azurerm_cdn_frontdoor_rule__actions list ->
   conditions:azurerm_cdn_frontdoor_rule__conditions list ->
   string ->
-  unit
+  t

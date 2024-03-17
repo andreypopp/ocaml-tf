@@ -22,12 +22,27 @@ type azurerm_portal_tenant_configuration = {
 [@@deriving yojson_of]
 (** azurerm_portal_tenant_configuration *)
 
+type t = {
+  id : string prop;
+  private_markdown_storage_enforced : bool prop;
+}
+
 let azurerm_portal_tenant_configuration ?id ?timeouts
     ~private_markdown_storage_enforced __resource_id =
   let __resource_type = "azurerm_portal_tenant_configuration" in
   let __resource =
-    { id; private_markdown_storage_enforced; timeouts }
+    ({ id; private_markdown_storage_enforced; timeouts }
+      : azurerm_portal_tenant_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_portal_tenant_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       private_markdown_storage_enforced =
+         Prop.computed __resource_type __resource_id
+           "private_markdown_storage_enforced";
+     }
+      : t)
+  in
+  __resource_attributes

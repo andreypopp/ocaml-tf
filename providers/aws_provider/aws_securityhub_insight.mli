@@ -137,10 +137,17 @@ type aws_securityhub_insight__filters__workflow_status
 type aws_securityhub_insight__filters
 type aws_securityhub_insight
 
+type t = private {
+  arn : string prop;
+  group_by_attribute : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val aws_securityhub_insight :
   ?id:string prop ->
   group_by_attribute:string prop ->
   name:string prop ->
   filters:aws_securityhub_insight__filters list ->
   string ->
-  unit
+  t

@@ -58,6 +58,34 @@ type azurerm_logic_app_standard__site_credential = {
 
 type azurerm_logic_app_standard
 
+type t = private {
+  app_service_plan_id : string prop;
+  app_settings : (string * string) list prop;
+  bundle_version : string prop;
+  client_affinity_enabled : bool prop;
+  client_certificate_mode : string prop;
+  custom_domain_verification_id : string prop;
+  default_hostname : string prop;
+  enabled : bool prop;
+  https_only : bool prop;
+  id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  outbound_ip_addresses : string prop;
+  possible_outbound_ip_addresses : string prop;
+  resource_group_name : string prop;
+  site_credential :
+    azurerm_logic_app_standard__site_credential list prop;
+  storage_account_access_key : string prop;
+  storage_account_name : string prop;
+  storage_account_share_name : string prop;
+  tags : (string * string) list prop;
+  use_extension_bundle : bool prop;
+  version : string prop;
+  virtual_network_subnet_id : string prop;
+}
+
 val azurerm_logic_app_standard :
   ?app_settings:(string * string prop) list ->
   ?bundle_version:string prop ->
@@ -83,4 +111,4 @@ val azurerm_logic_app_standard :
   identity:azurerm_logic_app_standard__identity list ->
   site_config:azurerm_logic_app_standard__site_config list ->
   string ->
-  unit
+  t

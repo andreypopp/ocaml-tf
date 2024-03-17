@@ -17,6 +17,14 @@ type aws_fis_experiment_template__target
 type aws_fis_experiment_template__timeouts
 type aws_fis_experiment_template
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_fis_experiment_template :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -30,4 +38,4 @@ val aws_fis_experiment_template :
   stop_condition:aws_fis_experiment_template__stop_condition list ->
   target:aws_fis_experiment_template__target list ->
   string ->
-  unit
+  t

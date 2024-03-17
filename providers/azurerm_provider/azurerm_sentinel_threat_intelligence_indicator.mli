@@ -23,6 +23,38 @@ type azurerm_sentinel_threat_intelligence_indicator__parsed_pattern = {
 
 type azurerm_sentinel_threat_intelligence_indicator
 
+type t = private {
+  confidence : float prop;
+  created_by : string prop;
+  created_on : string prop;
+  defanged : bool prop;
+  description : string prop;
+  display_name : string prop;
+  extension : string prop;
+  external_id : string prop;
+  external_last_updated_time_utc : string prop;
+  guid : string prop;
+  id : string prop;
+  indicator_type : string list prop;
+  language : string prop;
+  last_updated_time_utc : string prop;
+  object_marking_refs : string list prop;
+  parsed_pattern :
+    azurerm_sentinel_threat_intelligence_indicator__parsed_pattern
+    list
+    prop;
+  pattern : string prop;
+  pattern_type : string prop;
+  pattern_version : string prop;
+  revoked : bool prop;
+  source : string prop;
+  tags : string list prop;
+  threat_types : string list prop;
+  validate_from_utc : string prop;
+  validate_until_utc : string prop;
+  workspace_id : string prop;
+}
+
 val azurerm_sentinel_threat_intelligence_indicator :
   ?confidence:float prop ->
   ?created_by:string prop ->
@@ -53,4 +85,4 @@ val azurerm_sentinel_threat_intelligence_indicator :
     azurerm_sentinel_threat_intelligence_indicator__kill_chain_phase
     list ->
   string ->
-  unit
+  t

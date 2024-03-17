@@ -16,6 +16,16 @@ type aws_keyspaces_table__timeouts
 type aws_keyspaces_table__ttl
 type aws_keyspaces_table
 
+type t = private {
+  arn : string prop;
+  default_time_to_live : float prop;
+  id : string prop;
+  keyspace_name : string prop;
+  table_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_keyspaces_table :
   ?default_time_to_live:float prop ->
   ?id:string prop ->
@@ -36,4 +46,4 @@ val aws_keyspaces_table :
   schema_definition:aws_keyspaces_table__schema_definition list ->
   ttl:aws_keyspaces_table__ttl list ->
   string ->
-  unit
+  t

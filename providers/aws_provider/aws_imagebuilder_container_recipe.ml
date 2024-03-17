@@ -88,6 +88,27 @@ type aws_imagebuilder_container_recipe = {
 [@@deriving yojson_of]
 (** aws_imagebuilder_container_recipe *)
 
+type t = {
+  arn : string prop;
+  container_type : string prop;
+  date_created : string prop;
+  description : string prop;
+  dockerfile_template_data : string prop;
+  dockerfile_template_uri : string prop;
+  encrypted : bool prop;
+  id : string prop;
+  kms_key_id : string prop;
+  name : string prop;
+  owner : string prop;
+  parent_image : string prop;
+  platform : string prop;
+  platform_override : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+  working_directory : string prop;
+}
+
 let aws_imagebuilder_container_recipe ?description
     ?dockerfile_template_data ?dockerfile_template_uri ?id
     ?kms_key_id ?platform_override ?tags ?tags_all ?working_directory
@@ -95,25 +116,66 @@ let aws_imagebuilder_container_recipe ?description
     ~instance_configuration ~target_repository __resource_id =
   let __resource_type = "aws_imagebuilder_container_recipe" in
   let __resource =
-    {
-      container_type;
-      description;
-      dockerfile_template_data;
-      dockerfile_template_uri;
-      id;
-      kms_key_id;
-      name;
-      parent_image;
-      platform_override;
-      tags;
-      tags_all;
-      version;
-      working_directory;
-      component;
-      instance_configuration;
-      target_repository;
-    }
+    ({
+       container_type;
+       description;
+       dockerfile_template_data;
+       dockerfile_template_uri;
+       id;
+       kms_key_id;
+       name;
+       parent_image;
+       platform_override;
+       tags;
+       tags_all;
+       version;
+       working_directory;
+       component;
+       instance_configuration;
+       target_repository;
+     }
+      : aws_imagebuilder_container_recipe)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_imagebuilder_container_recipe __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       container_type =
+         Prop.computed __resource_type __resource_id "container_type";
+       date_created =
+         Prop.computed __resource_type __resource_id "date_created";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       dockerfile_template_data =
+         Prop.computed __resource_type __resource_id
+           "dockerfile_template_data";
+       dockerfile_template_uri =
+         Prop.computed __resource_type __resource_id
+           "dockerfile_template_uri";
+       encrypted =
+         Prop.computed __resource_type __resource_id "encrypted";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       owner = Prop.computed __resource_type __resource_id "owner";
+       parent_image =
+         Prop.computed __resource_type __resource_id "parent_image";
+       platform =
+         Prop.computed __resource_type __resource_id "platform";
+       platform_override =
+         Prop.computed __resource_type __resource_id
+           "platform_override";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       working_directory =
+         Prop.computed __resource_type __resource_id
+           "working_directory";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -44,6 +44,22 @@ If it is not provided, the provider region is used. *)
 [@@deriving yojson_of]
 (** google_sql_source_representation_instance *)
 
+type t = {
+  ca_certificate : string prop;
+  client_certificate : string prop;
+  client_key : string prop;
+  database_version : string prop;
+  dump_file_path : string prop;
+  host : string prop;
+  id : string prop;
+  name : string prop;
+  password : string prop;
+  port : float prop;
+  project : string prop;
+  region : string prop;
+  username : string prop;
+}
+
 let google_sql_source_representation_instance ?ca_certificate
     ?client_certificate ?client_key ?dump_file_path ?id ?password
     ?port ?project ?region ?username ?timeouts ~database_version
@@ -52,23 +68,52 @@ let google_sql_source_representation_instance ?ca_certificate
     "google_sql_source_representation_instance"
   in
   let __resource =
-    {
-      ca_certificate;
-      client_certificate;
-      client_key;
-      database_version;
-      dump_file_path;
-      host;
-      id;
-      name;
-      password;
-      port;
-      project;
-      region;
-      username;
-      timeouts;
-    }
+    ({
+       ca_certificate;
+       client_certificate;
+       client_key;
+       database_version;
+       dump_file_path;
+       host;
+       id;
+       name;
+       password;
+       port;
+       project;
+       region;
+       username;
+       timeouts;
+     }
+      : google_sql_source_representation_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_source_representation_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       ca_certificate =
+         Prop.computed __resource_type __resource_id "ca_certificate";
+       client_certificate =
+         Prop.computed __resource_type __resource_id
+           "client_certificate";
+       client_key =
+         Prop.computed __resource_type __resource_id "client_key";
+       database_version =
+         Prop.computed __resource_type __resource_id
+           "database_version";
+       dump_file_path =
+         Prop.computed __resource_type __resource_id "dump_file_path";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       port = Prop.computed __resource_type __resource_id "port";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       username =
+         Prop.computed __resource_type __resource_id "username";
+     }
+      : t)
+  in
+  __resource_attributes

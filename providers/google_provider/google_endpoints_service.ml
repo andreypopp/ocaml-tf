@@ -52,21 +52,59 @@ type google_endpoints_service = {
 [@@deriving yojson_of]
 (** google_endpoints_service *)
 
+type t = {
+  apis : google_endpoints_service__apis list prop;
+  config_id : string prop;
+  dns_address : string prop;
+  endpoints : google_endpoints_service__endpoints list prop;
+  grpc_config : string prop;
+  id : string prop;
+  openapi_config : string prop;
+  project : string prop;
+  protoc_output_base64 : string prop;
+  service_name : string prop;
+}
+
 let google_endpoints_service ?grpc_config ?id ?openapi_config
     ?project ?protoc_output_base64 ?timeouts ~service_name
     __resource_id =
   let __resource_type = "google_endpoints_service" in
   let __resource =
-    {
-      grpc_config;
-      id;
-      openapi_config;
-      project;
-      protoc_output_base64;
-      service_name;
-      timeouts;
-    }
+    ({
+       grpc_config;
+       id;
+       openapi_config;
+       project;
+       protoc_output_base64;
+       service_name;
+       timeouts;
+     }
+      : google_endpoints_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_endpoints_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       apis = Prop.computed __resource_type __resource_id "apis";
+       config_id =
+         Prop.computed __resource_type __resource_id "config_id";
+       dns_address =
+         Prop.computed __resource_type __resource_id "dns_address";
+       endpoints =
+         Prop.computed __resource_type __resource_id "endpoints";
+       grpc_config =
+         Prop.computed __resource_type __resource_id "grpc_config";
+       id = Prop.computed __resource_type __resource_id "id";
+       openapi_config =
+         Prop.computed __resource_type __resource_id "openapi_config";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       protoc_output_base64 =
+         Prop.computed __resource_type __resource_id
+           "protoc_output_base64";
+       service_name =
+         Prop.computed __resource_type __resource_id "service_name";
+     }
+      : t)
+  in
+  __resource_attributes

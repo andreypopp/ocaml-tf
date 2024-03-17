@@ -18,12 +18,36 @@ type google_logging_project_exclusion = {
 [@@deriving yojson_of]
 (** google_logging_project_exclusion *)
 
+type t = {
+  description : string prop;
+  disabled : bool prop;
+  filter : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_logging_project_exclusion ?description ?disabled ?id
     ?project ~filter ~name __resource_id =
   let __resource_type = "google_logging_project_exclusion" in
   let __resource =
-    { description; disabled; filter; id; name; project }
+    ({ description; disabled; filter; id; name; project }
+      : google_logging_project_exclusion)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_project_exclusion __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       filter = Prop.computed __resource_type __resource_id "filter";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

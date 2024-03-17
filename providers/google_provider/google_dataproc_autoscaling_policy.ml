@@ -137,22 +137,44 @@ and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of 
 [@@deriving yojson_of]
 (** google_dataproc_autoscaling_policy *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  policy_id : string prop;
+  project : string prop;
+}
+
 let google_dataproc_autoscaling_policy ?id ?location ?project
     ?timeouts ~policy_id ~basic_algorithm ~secondary_worker_config
     ~worker_config __resource_id =
   let __resource_type = "google_dataproc_autoscaling_policy" in
   let __resource =
-    {
-      id;
-      location;
-      policy_id;
-      project;
-      basic_algorithm;
-      secondary_worker_config;
-      timeouts;
-      worker_config;
-    }
+    ({
+       id;
+       location;
+       policy_id;
+       project;
+       basic_algorithm;
+       secondary_worker_config;
+       timeouts;
+       worker_config;
+     }
+      : google_dataproc_autoscaling_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataproc_autoscaling_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       policy_id =
+         Prop.computed __resource_type __resource_id "policy_id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

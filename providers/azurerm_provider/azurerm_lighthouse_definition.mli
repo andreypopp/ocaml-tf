@@ -13,6 +13,15 @@ type azurerm_lighthouse_definition__plan
 type azurerm_lighthouse_definition__timeouts
 type azurerm_lighthouse_definition
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  lighthouse_definition_id : string prop;
+  managing_tenant_id : string prop;
+  name : string prop;
+  scope : string prop;
+}
+
 val azurerm_lighthouse_definition :
   ?description:string prop ->
   ?id:string prop ->
@@ -26,4 +35,4 @@ val azurerm_lighthouse_definition :
     azurerm_lighthouse_definition__eligible_authorization list ->
   plan:azurerm_lighthouse_definition__plan list ->
   string ->
-  unit
+  t

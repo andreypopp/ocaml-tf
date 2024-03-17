@@ -5,6 +5,15 @@ open! Tf.Prelude
 type aws_iot_thing_type__properties
 type aws_iot_thing_type
 
+type t = private {
+  arn : string prop;
+  deprecated : bool prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_iot_thing_type :
   ?deprecated:bool prop ->
   ?id:string prop ->
@@ -13,4 +22,4 @@ val aws_iot_thing_type :
   name:string prop ->
   properties:aws_iot_thing_type__properties list ->
   string ->
-  unit
+  t

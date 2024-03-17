@@ -4,6 +4,20 @@ open! Tf.Prelude
 
 type aws_appconfig_deployment_strategy
 
+type t = private {
+  arn : string prop;
+  deployment_duration_in_minutes : float prop;
+  description : string prop;
+  final_bake_time_in_minutes : float prop;
+  growth_factor : float prop;
+  growth_type : string prop;
+  id : string prop;
+  name : string prop;
+  replicate_to : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_appconfig_deployment_strategy :
   ?description:string prop ->
   ?final_bake_time_in_minutes:float prop ->
@@ -16,4 +30,4 @@ val aws_appconfig_deployment_strategy :
   name:string prop ->
   replicate_to:string prop ->
   string ->
-  unit
+  t

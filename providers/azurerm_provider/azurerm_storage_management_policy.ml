@@ -164,10 +164,24 @@ type azurerm_storage_management_policy = {
 [@@deriving yojson_of]
 (** azurerm_storage_management_policy *)
 
+type t = { id : string prop; storage_account_id : string prop }
+
 let azurerm_storage_management_policy ?id ?timeouts
     ~storage_account_id ~rule __resource_id =
   let __resource_type = "azurerm_storage_management_policy" in
-  let __resource = { id; storage_account_id; rule; timeouts } in
+  let __resource =
+    ({ id; storage_account_id; rule; timeouts }
+      : azurerm_storage_management_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_management_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+     }
+      : t)
+  in
+  __resource_attributes

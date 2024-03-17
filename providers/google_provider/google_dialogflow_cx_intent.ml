@@ -98,28 +98,76 @@ If the supplied value is negative, the intent is ignored in runtime detect inten
 [@@deriving yojson_of]
 (** google_dialogflow_cx_intent *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  is_default_negative_intent : bool prop;
+  is_default_welcome_intent : bool prop;
+  is_fallback : bool prop;
+  labels : (string * string) list prop;
+  language_code : string prop;
+  name : string prop;
+  parent : string prop;
+  priority : float prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_dialogflow_cx_intent ?description ?id
     ?is_default_negative_intent ?is_default_welcome_intent
     ?is_fallback ?labels ?language_code ?parent ?priority ?timeouts
     ~display_name ~parameters ~training_phrases __resource_id =
   let __resource_type = "google_dialogflow_cx_intent" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      is_default_negative_intent;
-      is_default_welcome_intent;
-      is_fallback;
-      labels;
-      language_code;
-      parent;
-      priority;
-      parameters;
-      timeouts;
-      training_phrases;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       is_default_negative_intent;
+       is_default_welcome_intent;
+       is_fallback;
+       labels;
+       language_code;
+       parent;
+       priority;
+       parameters;
+       timeouts;
+       training_phrases;
+     }
+      : google_dialogflow_cx_intent)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_intent __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_default_negative_intent =
+         Prop.computed __resource_type __resource_id
+           "is_default_negative_intent";
+       is_default_welcome_intent =
+         Prop.computed __resource_type __resource_id
+           "is_default_welcome_intent";
+       is_fallback =
+         Prop.computed __resource_type __resource_id "is_fallback";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       language_code =
+         Prop.computed __resource_type __resource_id "language_code";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

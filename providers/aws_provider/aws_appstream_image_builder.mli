@@ -7,6 +7,24 @@ type aws_appstream_image_builder__domain_join_info
 type aws_appstream_image_builder__vpc_config
 type aws_appstream_image_builder
 
+type t = private {
+  appstream_agent_version : string prop;
+  arn : string prop;
+  created_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  enable_default_internet_access : bool prop;
+  iam_role_arn : string prop;
+  id : string prop;
+  image_arn : string prop;
+  image_name : string prop;
+  instance_type : string prop;
+  name : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_appstream_image_builder :
   ?appstream_agent_version:string prop ->
   ?description:string prop ->
@@ -24,4 +42,4 @@ val aws_appstream_image_builder :
   domain_join_info:aws_appstream_image_builder__domain_join_info list ->
   vpc_config:aws_appstream_image_builder__vpc_config list ->
   string ->
-  unit
+  t

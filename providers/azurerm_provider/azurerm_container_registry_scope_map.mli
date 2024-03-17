@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_container_registry_scope_map__timeouts
 type azurerm_container_registry_scope_map
 
+type t = private {
+  actions : string list prop;
+  container_registry_name : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_container_registry_scope_map :
   ?description:string prop ->
   ?id:string prop ->
@@ -14,4 +23,4 @@ val azurerm_container_registry_scope_map :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

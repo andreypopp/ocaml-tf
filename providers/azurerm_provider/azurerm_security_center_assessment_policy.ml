@@ -31,6 +31,19 @@ type azurerm_security_center_assessment_policy = {
 [@@deriving yojson_of]
 (** azurerm_security_center_assessment_policy *)
 
+type t = {
+  categories : string list prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  implementation_effort : string prop;
+  name : string prop;
+  remediation_description : string prop;
+  severity : string prop;
+  threats : string list prop;
+  user_impact : string prop;
+}
+
 let azurerm_security_center_assessment_policy ?categories ?id
     ?implementation_effort ?remediation_description ?severity
     ?threats ?user_impact ?timeouts ~description ~display_name
@@ -39,19 +52,45 @@ let azurerm_security_center_assessment_policy ?categories ?id
     "azurerm_security_center_assessment_policy"
   in
   let __resource =
-    {
-      categories;
-      description;
-      display_name;
-      id;
-      implementation_effort;
-      remediation_description;
-      severity;
-      threats;
-      user_impact;
-      timeouts;
-    }
+    ({
+       categories;
+       description;
+       display_name;
+       id;
+       implementation_effort;
+       remediation_description;
+       severity;
+       threats;
+       user_impact;
+       timeouts;
+     }
+      : azurerm_security_center_assessment_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_assessment_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       categories =
+         Prop.computed __resource_type __resource_id "categories";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       implementation_effort =
+         Prop.computed __resource_type __resource_id
+           "implementation_effort";
+       name = Prop.computed __resource_type __resource_id "name";
+       remediation_description =
+         Prop.computed __resource_type __resource_id
+           "remediation_description";
+       severity =
+         Prop.computed __resource_type __resource_id "severity";
+       threats =
+         Prop.computed __resource_type __resource_id "threats";
+       user_impact =
+         Prop.computed __resource_type __resource_id "user_impact";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -57,6 +57,17 @@ type google_logging_organization_bucket_config = {
 [@@deriving yojson_of]
 (** google_logging_organization_bucket_config *)
 
+type t = {
+  bucket_id : string prop;
+  description : string prop;
+  id : string prop;
+  lifecycle_state : string prop;
+  location : string prop;
+  name : string prop;
+  organization : string prop;
+  retention_days : float prop;
+}
+
 let google_logging_organization_bucket_config ?description ?id
     ?retention_days ~bucket_id ~location ~organization ~cmek_settings
     ~index_configs __resource_id =
@@ -64,17 +75,38 @@ let google_logging_organization_bucket_config ?description ?id
     "google_logging_organization_bucket_config"
   in
   let __resource =
-    {
-      bucket_id;
-      description;
-      id;
-      location;
-      organization;
-      retention_days;
-      cmek_settings;
-      index_configs;
-    }
+    ({
+       bucket_id;
+       description;
+       id;
+       location;
+       organization;
+       retention_days;
+       cmek_settings;
+       index_configs;
+     }
+      : google_logging_organization_bucket_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_organization_bucket_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket_id =
+         Prop.computed __resource_type __resource_id "bucket_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       lifecycle_state =
+         Prop.computed __resource_type __resource_id
+           "lifecycle_state";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       organization =
+         Prop.computed __resource_type __resource_id "organization";
+       retention_days =
+         Prop.computed __resource_type __resource_id "retention_days";
+     }
+      : t)
+  in
+  __resource_attributes

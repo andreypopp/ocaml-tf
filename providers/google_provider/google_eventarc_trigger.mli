@@ -13,6 +13,24 @@ type google_eventarc_trigger__transport__pubsub
 type google_eventarc_trigger__transport
 type google_eventarc_trigger
 
+type t = private {
+  channel : string prop;
+  conditions : (string * string) list prop;
+  create_time : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  event_data_content_type : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  service_account : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_eventarc_trigger :
   ?channel:string prop ->
   ?event_data_content_type:string prop ->
@@ -27,4 +45,4 @@ val google_eventarc_trigger :
   matching_criteria:google_eventarc_trigger__matching_criteria list ->
   transport:google_eventarc_trigger__transport list ->
   string ->
-  unit
+  t

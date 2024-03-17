@@ -16,6 +16,13 @@ type aws_guardduty_organization_configuration__datasources__s3_logs
 type aws_guardduty_organization_configuration__datasources
 type aws_guardduty_organization_configuration
 
+type t = private {
+  auto_enable : bool prop;
+  auto_enable_organization_members : string prop;
+  detector_id : string prop;
+  id : string prop;
+}
+
 val aws_guardduty_organization_configuration :
   ?auto_enable:bool prop ->
   ?auto_enable_organization_members:string prop ->
@@ -24,4 +31,4 @@ val aws_guardduty_organization_configuration :
   datasources:
     aws_guardduty_organization_configuration__datasources list ->
   string ->
-  unit
+  t

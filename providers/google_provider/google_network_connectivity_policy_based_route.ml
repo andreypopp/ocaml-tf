@@ -80,6 +80,26 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_network_connectivity_policy_based_route *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  kind : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  network : string prop;
+  next_hop_ilb_ip : string prop;
+  next_hop_other_routes : string prop;
+  priority : float prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+  warnings :
+    google_network_connectivity_policy_based_route__warnings list
+    prop;
+}
+
 let google_network_connectivity_policy_based_route ?description ?id
     ?labels ?next_hop_ilb_ip ?next_hop_other_routes ?priority
     ?project ?timeouts ~name ~network ~filter
@@ -88,23 +108,59 @@ let google_network_connectivity_policy_based_route ?description ?id
     "google_network_connectivity_policy_based_route"
   in
   let __resource =
-    {
-      description;
-      id;
-      labels;
-      name;
-      network;
-      next_hop_ilb_ip;
-      next_hop_other_routes;
-      priority;
-      project;
-      filter;
-      interconnect_attachment;
-      timeouts;
-      virtual_machine;
-    }
+    ({
+       description;
+       id;
+       labels;
+       name;
+       network;
+       next_hop_ilb_ip;
+       next_hop_other_routes;
+       priority;
+       project;
+       filter;
+       interconnect_attachment;
+       timeouts;
+       virtual_machine;
+     }
+      : google_network_connectivity_policy_based_route)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_connectivity_policy_based_route
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       next_hop_ilb_ip =
+         Prop.computed __resource_type __resource_id
+           "next_hop_ilb_ip";
+       next_hop_other_routes =
+         Prop.computed __resource_type __resource_id
+           "next_hop_other_routes";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       warnings =
+         Prop.computed __resource_type __resource_id "warnings";
+     }
+      : t)
+  in
+  __resource_attributes

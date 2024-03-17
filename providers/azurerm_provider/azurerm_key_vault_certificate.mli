@@ -34,6 +34,24 @@ type azurerm_key_vault_certificate__certificate_attribute = {
 
 type azurerm_key_vault_certificate
 
+type t = private {
+  certificate_attribute :
+    azurerm_key_vault_certificate__certificate_attribute list prop;
+  certificate_data : string prop;
+  certificate_data_base64 : string prop;
+  id : string prop;
+  key_vault_id : string prop;
+  name : string prop;
+  resource_manager_id : string prop;
+  resource_manager_versionless_id : string prop;
+  secret_id : string prop;
+  tags : (string * string) list prop;
+  thumbprint : string prop;
+  version : string prop;
+  versionless_id : string prop;
+  versionless_secret_id : string prop;
+}
+
 val azurerm_key_vault_certificate :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -44,4 +62,4 @@ val azurerm_key_vault_certificate :
   certificate_policy:
     azurerm_key_vault_certificate__certificate_policy list ->
   string ->
-  unit
+  t

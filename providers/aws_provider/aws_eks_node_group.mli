@@ -23,6 +23,28 @@ type aws_eks_node_group__resources = {
 
 type aws_eks_node_group
 
+type t = private {
+  ami_type : string prop;
+  arn : string prop;
+  capacity_type : string prop;
+  cluster_name : string prop;
+  disk_size : float prop;
+  force_update_version : bool prop;
+  id : string prop;
+  instance_types : string list prop;
+  labels : (string * string) list prop;
+  node_group_name : string prop;
+  node_group_name_prefix : string prop;
+  node_role_arn : string prop;
+  release_version : string prop;
+  resources : aws_eks_node_group__resources list prop;
+  status : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+}
+
 val aws_eks_node_group :
   ?ami_type:string prop ->
   ?capacity_type:string prop ->
@@ -47,4 +69,4 @@ val aws_eks_node_group :
   taint:aws_eks_node_group__taint list ->
   update_config:aws_eks_node_group__update_config list ->
   string ->
-  unit
+  t

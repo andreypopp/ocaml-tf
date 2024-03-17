@@ -5,6 +5,16 @@ open! Tf.Prelude
 type google_bigtable_table_iam_binding__condition
 type google_bigtable_table_iam_binding
 
+type t = private {
+  etag : string prop;
+  id : string prop;
+  instance : string prop;
+  members : string list prop;
+  project : string prop;
+  role : string prop;
+  table : string prop;
+}
+
 val google_bigtable_table_iam_binding :
   ?id:string prop ->
   ?project:string prop ->
@@ -14,4 +24,4 @@ val google_bigtable_table_iam_binding :
   table:string prop ->
   condition:google_bigtable_table_iam_binding__condition list ->
   string ->
-  unit
+  t

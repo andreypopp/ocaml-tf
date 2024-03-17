@@ -26,12 +26,37 @@ type google_os_login_ssh_public_key = {
 [@@deriving yojson_of]
 (** google_os_login_ssh_public_key *)
 
+type t = {
+  expiration_time_usec : string prop;
+  fingerprint : string prop;
+  id : string prop;
+  key : string prop;
+  project : string prop;
+  user : string prop;
+}
+
 let google_os_login_ssh_public_key ?expiration_time_usec ?id ?project
     ?timeouts ~key ~user __resource_id =
   let __resource_type = "google_os_login_ssh_public_key" in
   let __resource =
-    { expiration_time_usec; id; key; project; user; timeouts }
+    ({ expiration_time_usec; id; key; project; user; timeouts }
+      : google_os_login_ssh_public_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_os_login_ssh_public_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       expiration_time_usec =
+         Prop.computed __resource_type __resource_id
+           "expiration_time_usec";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       key = Prop.computed __resource_type __resource_id "key";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       user = Prop.computed __resource_type __resource_id "user";
+     }
+      : t)
+  in
+  __resource_attributes

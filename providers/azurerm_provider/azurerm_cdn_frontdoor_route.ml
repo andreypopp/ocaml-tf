@@ -57,6 +57,23 @@ type azurerm_cdn_frontdoor_route = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_route *)
 
+type t = {
+  cdn_frontdoor_custom_domain_ids : string list prop;
+  cdn_frontdoor_endpoint_id : string prop;
+  cdn_frontdoor_origin_group_id : string prop;
+  cdn_frontdoor_origin_ids : string list prop;
+  cdn_frontdoor_origin_path : string prop;
+  cdn_frontdoor_rule_set_ids : string list prop;
+  enabled : bool prop;
+  forwarding_protocol : string prop;
+  https_redirect_enabled : bool prop;
+  id : string prop;
+  link_to_default_domain : bool prop;
+  name : string prop;
+  patterns_to_match : string list prop;
+  supported_protocols : string list prop;
+}
+
 let azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
     ?cdn_frontdoor_origin_path ?cdn_frontdoor_rule_set_ids ?enabled
     ?forwarding_protocol ?https_redirect_enabled ?id
@@ -65,25 +82,68 @@ let azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
     ~patterns_to_match ~supported_protocols ~cache __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_route" in
   let __resource =
-    {
-      cdn_frontdoor_custom_domain_ids;
-      cdn_frontdoor_endpoint_id;
-      cdn_frontdoor_origin_group_id;
-      cdn_frontdoor_origin_ids;
-      cdn_frontdoor_origin_path;
-      cdn_frontdoor_rule_set_ids;
-      enabled;
-      forwarding_protocol;
-      https_redirect_enabled;
-      id;
-      link_to_default_domain;
-      name;
-      patterns_to_match;
-      supported_protocols;
-      cache;
-      timeouts;
-    }
+    ({
+       cdn_frontdoor_custom_domain_ids;
+       cdn_frontdoor_endpoint_id;
+       cdn_frontdoor_origin_group_id;
+       cdn_frontdoor_origin_ids;
+       cdn_frontdoor_origin_path;
+       cdn_frontdoor_rule_set_ids;
+       enabled;
+       forwarding_protocol;
+       https_redirect_enabled;
+       id;
+       link_to_default_domain;
+       name;
+       patterns_to_match;
+       supported_protocols;
+       cache;
+       timeouts;
+     }
+      : azurerm_cdn_frontdoor_route)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_route __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cdn_frontdoor_custom_domain_ids =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_custom_domain_ids";
+       cdn_frontdoor_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_endpoint_id";
+       cdn_frontdoor_origin_group_id =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_origin_group_id";
+       cdn_frontdoor_origin_ids =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_origin_ids";
+       cdn_frontdoor_origin_path =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_origin_path";
+       cdn_frontdoor_rule_set_ids =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_rule_set_ids";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       forwarding_protocol =
+         Prop.computed __resource_type __resource_id
+           "forwarding_protocol";
+       https_redirect_enabled =
+         Prop.computed __resource_type __resource_id
+           "https_redirect_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       link_to_default_domain =
+         Prop.computed __resource_type __resource_id
+           "link_to_default_domain";
+       name = Prop.computed __resource_type __resource_id "name";
+       patterns_to_match =
+         Prop.computed __resource_type __resource_id
+           "patterns_to_match";
+       supported_protocols =
+         Prop.computed __resource_type __resource_id
+           "supported_protocols";
+     }
+      : t)
+  in
+  __resource_attributes

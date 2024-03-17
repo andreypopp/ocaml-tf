@@ -98,25 +98,52 @@ type aws_elastictranscoder_preset = {
 [@@deriving yojson_of]
 (** aws_elastictranscoder_preset *)
 
+type t = {
+  arn : string prop;
+  container : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  type_ : string prop;
+  video_codec_options : (string * string) list prop;
+}
+
 let aws_elastictranscoder_preset ?description ?id ?name ?type_
     ?video_codec_options ~container ~audio ~audio_codec_options
     ~thumbnails ~video ~video_watermarks __resource_id =
   let __resource_type = "aws_elastictranscoder_preset" in
   let __resource =
-    {
-      container;
-      description;
-      id;
-      name;
-      type_;
-      video_codec_options;
-      audio;
-      audio_codec_options;
-      thumbnails;
-      video;
-      video_watermarks;
-    }
+    ({
+       container;
+       description;
+       id;
+       name;
+       type_;
+       video_codec_options;
+       audio;
+       audio_codec_options;
+       thumbnails;
+       video;
+       video_watermarks;
+     }
+      : aws_elastictranscoder_preset)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elastictranscoder_preset __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       container =
+         Prop.computed __resource_type __resource_id "container";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       video_codec_options =
+         Prop.computed __resource_type __resource_id
+           "video_codec_options";
+     }
+      : t)
+  in
+  __resource_attributes

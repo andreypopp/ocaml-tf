@@ -19,6 +19,17 @@ type aws_ec2_transit_gateway_peering_attachment = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_peering_attachment *)
 
+type t = {
+  id : string prop;
+  peer_account_id : string prop;
+  peer_region : string prop;
+  peer_transit_gateway_id : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  transit_gateway_id : string prop;
+}
+
 let aws_ec2_transit_gateway_peering_attachment ?id ?peer_account_id
     ?tags ?tags_all ~peer_region ~peer_transit_gateway_id
     ~transit_gateway_id __resource_id =
@@ -26,16 +37,38 @@ let aws_ec2_transit_gateway_peering_attachment ?id ?peer_account_id
     "aws_ec2_transit_gateway_peering_attachment"
   in
   let __resource =
-    {
-      id;
-      peer_account_id;
-      peer_region;
-      peer_transit_gateway_id;
-      tags;
-      tags_all;
-      transit_gateway_id;
-    }
+    ({
+       id;
+       peer_account_id;
+       peer_region;
+       peer_transit_gateway_id;
+       tags;
+       tags_all;
+       transit_gateway_id;
+     }
+      : aws_ec2_transit_gateway_peering_attachment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_peering_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       peer_account_id =
+         Prop.computed __resource_type __resource_id
+           "peer_account_id";
+       peer_region =
+         Prop.computed __resource_type __resource_id "peer_region";
+       peer_transit_gateway_id =
+         Prop.computed __resource_type __resource_id
+           "peer_transit_gateway_id";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       transit_gateway_id =
+         Prop.computed __resource_type __resource_id
+           "transit_gateway_id";
+     }
+      : t)
+  in
+  __resource_attributes

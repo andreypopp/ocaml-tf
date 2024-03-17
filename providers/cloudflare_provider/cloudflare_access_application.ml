@@ -173,6 +173,36 @@ Applications are used to restrict access to a whole application using an
 authorisation gateway managed by Cloudflare.
  *)
 
+type t = {
+  account_id : string prop;
+  allow_authenticate_via_warp : bool prop;
+  allowed_idps : string list prop;
+  app_launcher_logo_url : string prop;
+  app_launcher_visible : bool prop;
+  aud : string prop;
+  auto_redirect_to_identity : bool prop;
+  bg_color : string prop;
+  custom_deny_message : string prop;
+  custom_deny_url : string prop;
+  custom_non_identity_deny_url : string prop;
+  custom_pages : string list prop;
+  domain : string prop;
+  enable_binding_cookie : bool prop;
+  header_bg_color : string prop;
+  http_only_cookie_attribute : bool prop;
+  id : string prop;
+  logo_url : string prop;
+  name : string prop;
+  same_site_cookie_attribute : string prop;
+  self_hosted_domains : string list prop;
+  service_auth_401_redirect : bool prop;
+  session_duration : string prop;
+  skip_interstitial : bool prop;
+  tags : string list prop;
+  type_ : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_access_application ?account_id
     ?allow_authenticate_via_warp ?allowed_idps ?app_launcher_logo_url
     ?app_launcher_visible ?auto_redirect_to_identity ?bg_color
@@ -186,39 +216,108 @@ let cloudflare_access_application ?account_id
     ~landing_page_design ~saas_app __resource_id =
   let __resource_type = "cloudflare_access_application" in
   let __resource =
-    {
-      account_id;
-      allow_authenticate_via_warp;
-      allowed_idps;
-      app_launcher_logo_url;
-      app_launcher_visible;
-      auto_redirect_to_identity;
-      bg_color;
-      custom_deny_message;
-      custom_deny_url;
-      custom_non_identity_deny_url;
-      custom_pages;
-      domain;
-      enable_binding_cookie;
-      header_bg_color;
-      http_only_cookie_attribute;
-      id;
-      logo_url;
-      name;
-      same_site_cookie_attribute;
-      self_hosted_domains;
-      service_auth_401_redirect;
-      session_duration;
-      skip_interstitial;
-      tags;
-      type_;
-      zone_id;
-      cors_headers;
-      footer_links;
-      landing_page_design;
-      saas_app;
-    }
+    ({
+       account_id;
+       allow_authenticate_via_warp;
+       allowed_idps;
+       app_launcher_logo_url;
+       app_launcher_visible;
+       auto_redirect_to_identity;
+       bg_color;
+       custom_deny_message;
+       custom_deny_url;
+       custom_non_identity_deny_url;
+       custom_pages;
+       domain;
+       enable_binding_cookie;
+       header_bg_color;
+       http_only_cookie_attribute;
+       id;
+       logo_url;
+       name;
+       same_site_cookie_attribute;
+       self_hosted_domains;
+       service_auth_401_redirect;
+       session_duration;
+       skip_interstitial;
+       tags;
+       type_;
+       zone_id;
+       cors_headers;
+       footer_links;
+       landing_page_design;
+       saas_app;
+     }
+      : cloudflare_access_application)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_application __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       allow_authenticate_via_warp =
+         Prop.computed __resource_type __resource_id
+           "allow_authenticate_via_warp";
+       allowed_idps =
+         Prop.computed __resource_type __resource_id "allowed_idps";
+       app_launcher_logo_url =
+         Prop.computed __resource_type __resource_id
+           "app_launcher_logo_url";
+       app_launcher_visible =
+         Prop.computed __resource_type __resource_id
+           "app_launcher_visible";
+       aud = Prop.computed __resource_type __resource_id "aud";
+       auto_redirect_to_identity =
+         Prop.computed __resource_type __resource_id
+           "auto_redirect_to_identity";
+       bg_color =
+         Prop.computed __resource_type __resource_id "bg_color";
+       custom_deny_message =
+         Prop.computed __resource_type __resource_id
+           "custom_deny_message";
+       custom_deny_url =
+         Prop.computed __resource_type __resource_id
+           "custom_deny_url";
+       custom_non_identity_deny_url =
+         Prop.computed __resource_type __resource_id
+           "custom_non_identity_deny_url";
+       custom_pages =
+         Prop.computed __resource_type __resource_id "custom_pages";
+       domain = Prop.computed __resource_type __resource_id "domain";
+       enable_binding_cookie =
+         Prop.computed __resource_type __resource_id
+           "enable_binding_cookie";
+       header_bg_color =
+         Prop.computed __resource_type __resource_id
+           "header_bg_color";
+       http_only_cookie_attribute =
+         Prop.computed __resource_type __resource_id
+           "http_only_cookie_attribute";
+       id = Prop.computed __resource_type __resource_id "id";
+       logo_url =
+         Prop.computed __resource_type __resource_id "logo_url";
+       name = Prop.computed __resource_type __resource_id "name";
+       same_site_cookie_attribute =
+         Prop.computed __resource_type __resource_id
+           "same_site_cookie_attribute";
+       self_hosted_domains =
+         Prop.computed __resource_type __resource_id
+           "self_hosted_domains";
+       service_auth_401_redirect =
+         Prop.computed __resource_type __resource_id
+           "service_auth_401_redirect";
+       session_duration =
+         Prop.computed __resource_type __resource_id
+           "session_duration";
+       skip_interstitial =
+         Prop.computed __resource_type __resource_id
+           "skip_interstitial";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

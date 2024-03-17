@@ -53,6 +53,31 @@ type azurerm_iothub__shared_access_policy = {
 
 type azurerm_iothub
 
+type t = private {
+  endpoint : azurerm_iothub__endpoint list prop;
+  enrichment : azurerm_iothub__enrichment list prop;
+  event_hub_events_endpoint : string prop;
+  event_hub_events_namespace : string prop;
+  event_hub_events_path : string prop;
+  event_hub_operations_endpoint : string prop;
+  event_hub_operations_path : string prop;
+  event_hub_partition_count : float prop;
+  event_hub_retention_in_days : float prop;
+  hostname : string prop;
+  id : string prop;
+  local_authentication_enabled : bool prop;
+  location : string prop;
+  min_tls_version : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  route : azurerm_iothub__route list prop;
+  shared_access_policy :
+    azurerm_iothub__shared_access_policy list prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+}
+
 val azurerm_iothub :
   ?endpoint:azurerm_iothub__endpoint list ->
   ?enrichment:azurerm_iothub__enrichment list ->
@@ -75,4 +100,4 @@ val azurerm_iothub :
   network_rule_set:azurerm_iothub__network_rule_set list ->
   sku:azurerm_iothub__sku list ->
   string ->
-  unit
+  t

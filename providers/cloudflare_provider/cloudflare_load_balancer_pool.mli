@@ -8,6 +8,22 @@ type cloudflare_load_balancer_pool__origins__header
 type cloudflare_load_balancer_pool__origins
 type cloudflare_load_balancer_pool
 
+type t = private {
+  account_id : string prop;
+  check_regions : string list prop;
+  created_on : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  latitude : float prop;
+  longitude : float prop;
+  minimum_origins : float prop;
+  modified_on : string prop;
+  monitor : string prop;
+  name : string prop;
+  notification_email : string prop;
+}
+
 val cloudflare_load_balancer_pool :
   ?check_regions:string prop list ->
   ?description:string prop ->
@@ -24,4 +40,4 @@ val cloudflare_load_balancer_pool :
   origin_steering:cloudflare_load_balancer_pool__origin_steering list ->
   origins:cloudflare_load_balancer_pool__origins list ->
   string ->
-  unit
+  t

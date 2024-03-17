@@ -69,6 +69,33 @@ type aws_cloudwatch_metric_alarm = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_metric_alarm *)
 
+type t = {
+  actions_enabled : bool prop;
+  alarm_actions : string list prop;
+  alarm_description : string prop;
+  alarm_name : string prop;
+  arn : string prop;
+  comparison_operator : string prop;
+  datapoints_to_alarm : float prop;
+  dimensions : (string * string) list prop;
+  evaluate_low_sample_count_percentiles : string prop;
+  evaluation_periods : float prop;
+  extended_statistic : string prop;
+  id : string prop;
+  insufficient_data_actions : string list prop;
+  metric_name : string prop;
+  namespace : string prop;
+  ok_actions : string list prop;
+  period : float prop;
+  statistic : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  threshold : float prop;
+  threshold_metric_id : string prop;
+  treat_missing_data : string prop;
+  unit : string prop;
+}
+
 let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
     ?alarm_description ?datapoints_to_alarm ?dimensions
     ?evaluate_low_sample_count_percentiles ?extended_statistic ?id
@@ -79,33 +106,92 @@ let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
     __resource_id =
   let __resource_type = "aws_cloudwatch_metric_alarm" in
   let __resource =
-    {
-      actions_enabled;
-      alarm_actions;
-      alarm_description;
-      alarm_name;
-      comparison_operator;
-      datapoints_to_alarm;
-      dimensions;
-      evaluate_low_sample_count_percentiles;
-      evaluation_periods;
-      extended_statistic;
-      id;
-      insufficient_data_actions;
-      metric_name;
-      namespace;
-      ok_actions;
-      period;
-      statistic;
-      tags;
-      tags_all;
-      threshold;
-      threshold_metric_id;
-      treat_missing_data;
-      unit;
-      metric_query;
-    }
+    ({
+       actions_enabled;
+       alarm_actions;
+       alarm_description;
+       alarm_name;
+       comparison_operator;
+       datapoints_to_alarm;
+       dimensions;
+       evaluate_low_sample_count_percentiles;
+       evaluation_periods;
+       extended_statistic;
+       id;
+       insufficient_data_actions;
+       metric_name;
+       namespace;
+       ok_actions;
+       period;
+       statistic;
+       tags;
+       tags_all;
+       threshold;
+       threshold_metric_id;
+       treat_missing_data;
+       unit;
+       metric_query;
+     }
+      : aws_cloudwatch_metric_alarm)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_metric_alarm __resource);
-  ()
+  let __resource_attributes =
+    ({
+       actions_enabled =
+         Prop.computed __resource_type __resource_id
+           "actions_enabled";
+       alarm_actions =
+         Prop.computed __resource_type __resource_id "alarm_actions";
+       alarm_description =
+         Prop.computed __resource_type __resource_id
+           "alarm_description";
+       alarm_name =
+         Prop.computed __resource_type __resource_id "alarm_name";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       comparison_operator =
+         Prop.computed __resource_type __resource_id
+           "comparison_operator";
+       datapoints_to_alarm =
+         Prop.computed __resource_type __resource_id
+           "datapoints_to_alarm";
+       dimensions =
+         Prop.computed __resource_type __resource_id "dimensions";
+       evaluate_low_sample_count_percentiles =
+         Prop.computed __resource_type __resource_id
+           "evaluate_low_sample_count_percentiles";
+       evaluation_periods =
+         Prop.computed __resource_type __resource_id
+           "evaluation_periods";
+       extended_statistic =
+         Prop.computed __resource_type __resource_id
+           "extended_statistic";
+       id = Prop.computed __resource_type __resource_id "id";
+       insufficient_data_actions =
+         Prop.computed __resource_type __resource_id
+           "insufficient_data_actions";
+       metric_name =
+         Prop.computed __resource_type __resource_id "metric_name";
+       namespace =
+         Prop.computed __resource_type __resource_id "namespace";
+       ok_actions =
+         Prop.computed __resource_type __resource_id "ok_actions";
+       period = Prop.computed __resource_type __resource_id "period";
+       statistic =
+         Prop.computed __resource_type __resource_id "statistic";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       threshold =
+         Prop.computed __resource_type __resource_id "threshold";
+       threshold_metric_id =
+         Prop.computed __resource_type __resource_id
+           "threshold_metric_id";
+       treat_missing_data =
+         Prop.computed __resource_type __resource_id
+           "treat_missing_data";
+       unit = Prop.computed __resource_type __resource_id "unit";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -14,10 +14,35 @@ type google_compute_disk_iam_policy = {
 [@@deriving yojson_of]
 (** google_compute_disk_iam_policy *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+  policy_data : string prop;
+  project : string prop;
+  zone : string prop;
+}
+
 let google_compute_disk_iam_policy ?id ?project ?zone ~name
     ~policy_data __resource_id =
   let __resource_type = "google_compute_disk_iam_policy" in
-  let __resource = { id; name; policy_data; project; zone } in
+  let __resource =
+    ({ id; name; policy_data; project; zone }
+      : google_compute_disk_iam_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_disk_iam_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       policy_data =
+         Prop.computed __resource_type __resource_id "policy_data";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

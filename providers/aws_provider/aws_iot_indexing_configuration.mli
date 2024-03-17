@@ -16,6 +16,7 @@ type aws_iot_indexing_configuration__thing_indexing_configuration__managed_field
 
 type aws_iot_indexing_configuration__thing_indexing_configuration
 type aws_iot_indexing_configuration
+type t = private { id : string prop }
 
 val aws_iot_indexing_configuration :
   ?id:string prop ->
@@ -25,4 +26,4 @@ val aws_iot_indexing_configuration :
   thing_indexing_configuration:
     aws_iot_indexing_configuration__thing_indexing_configuration list ->
   string ->
-  unit
+  t

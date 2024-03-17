@@ -111,24 +111,53 @@ type azurerm_monitor_action_rule_action_group = {
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_action_group *)
 
+type t = {
+  action_group_id : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_monitor_action_rule_action_group ?description ?enabled
     ?id ?tags ?timeouts ~action_group_id ~name ~resource_group_name
     ~condition ~scope __resource_id =
   let __resource_type = "azurerm_monitor_action_rule_action_group" in
   let __resource =
-    {
-      action_group_id;
-      description;
-      enabled;
-      id;
-      name;
-      resource_group_name;
-      tags;
-      condition;
-      scope;
-      timeouts;
-    }
+    ({
+       action_group_id;
+       description;
+       enabled;
+       id;
+       name;
+       resource_group_name;
+       tags;
+       condition;
+       scope;
+       timeouts;
+     }
+      : azurerm_monitor_action_rule_action_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_action_rule_action_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action_group_id =
+         Prop.computed __resource_type __resource_id
+           "action_group_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

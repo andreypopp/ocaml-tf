@@ -48,27 +48,75 @@ type google_vpc_access_connector = {
 [@@deriving yojson_of]
 (** google_vpc_access_connector *)
 
+type t = {
+  connected_projects : string list prop;
+  id : string prop;
+  ip_cidr_range : string prop;
+  machine_type : string prop;
+  max_instances : float prop;
+  max_throughput : float prop;
+  min_instances : float prop;
+  min_throughput : float prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+  state : string prop;
+}
+
 let google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
     ?max_instances ?max_throughput ?min_instances ?min_throughput
     ?network ?project ?region ?timeouts ~name ~subnet __resource_id =
   let __resource_type = "google_vpc_access_connector" in
   let __resource =
-    {
-      id;
-      ip_cidr_range;
-      machine_type;
-      max_instances;
-      max_throughput;
-      min_instances;
-      min_throughput;
-      name;
-      network;
-      project;
-      region;
-      subnet;
-      timeouts;
-    }
+    ({
+       id;
+       ip_cidr_range;
+       machine_type;
+       max_instances;
+       max_throughput;
+       min_instances;
+       min_throughput;
+       name;
+       network;
+       project;
+       region;
+       subnet;
+       timeouts;
+     }
+      : google_vpc_access_connector)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vpc_access_connector __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connected_projects =
+         Prop.computed __resource_type __resource_id
+           "connected_projects";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_cidr_range =
+         Prop.computed __resource_type __resource_id "ip_cidr_range";
+       machine_type =
+         Prop.computed __resource_type __resource_id "machine_type";
+       max_instances =
+         Prop.computed __resource_type __resource_id "max_instances";
+       max_throughput =
+         Prop.computed __resource_type __resource_id "max_throughput";
+       min_instances =
+         Prop.computed __resource_type __resource_id "min_instances";
+       min_throughput =
+         Prop.computed __resource_type __resource_id "min_throughput";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

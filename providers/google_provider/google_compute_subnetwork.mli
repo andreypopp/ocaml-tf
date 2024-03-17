@@ -12,6 +12,31 @@ type google_compute_subnetwork__secondary_ip_range = {
 
 type google_compute_subnetwork
 
+type t = private {
+  creation_timestamp : string prop;
+  description : string prop;
+  external_ipv6_prefix : string prop;
+  fingerprint : string prop;
+  gateway_address : string prop;
+  id : string prop;
+  internal_ipv6_prefix : string prop;
+  ip_cidr_range : string prop;
+  ipv6_access_type : string prop;
+  ipv6_cidr_range : string prop;
+  name : string prop;
+  network : string prop;
+  private_ip_google_access : bool prop;
+  private_ipv6_google_access : string prop;
+  project : string prop;
+  purpose : string prop;
+  region : string prop;
+  role : string prop;
+  secondary_ip_range :
+    google_compute_subnetwork__secondary_ip_range list prop;
+  self_link : string prop;
+  stack_type : string prop;
+}
+
 val google_compute_subnetwork :
   ?description:string prop ->
   ?external_ipv6_prefix:string prop ->
@@ -32,4 +57,4 @@ val google_compute_subnetwork :
   network:string prop ->
   log_config:google_compute_subnetwork__log_config list ->
   string ->
-  unit
+  t

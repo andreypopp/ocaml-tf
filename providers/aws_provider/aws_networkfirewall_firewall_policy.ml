@@ -140,21 +140,47 @@ type aws_networkfirewall_firewall_policy = {
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall_policy *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  update_token : string prop;
+}
+
 let aws_networkfirewall_firewall_policy ?description ?id ?tags
     ?tags_all ~name ~encryption_configuration ~firewall_policy
     __resource_id =
   let __resource_type = "aws_networkfirewall_firewall_policy" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      tags;
-      tags_all;
-      encryption_configuration;
-      firewall_policy;
-    }
+    ({
+       description;
+       id;
+       name;
+       tags;
+       tags_all;
+       encryption_configuration;
+       firewall_policy;
+     }
+      : aws_networkfirewall_firewall_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkfirewall_firewall_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       update_token =
+         Prop.computed __resource_type __resource_id "update_token";
+     }
+      : t)
+  in
+  __resource_attributes

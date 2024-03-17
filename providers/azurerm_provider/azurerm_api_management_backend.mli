@@ -13,6 +13,18 @@ type azurerm_api_management_backend__timeouts
 type azurerm_api_management_backend__tls
 type azurerm_api_management_backend
 
+type t = private {
+  api_management_name : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  protocol : string prop;
+  resource_group_name : string prop;
+  resource_id : string prop;
+  title : string prop;
+  url : string prop;
+}
+
 val azurerm_api_management_backend :
   ?description:string prop ->
   ?id:string prop ->
@@ -30,4 +42,4 @@ val azurerm_api_management_backend :
     azurerm_api_management_backend__service_fabric_cluster list ->
   tls:azurerm_api_management_backend__tls list ->
   string ->
-  unit
+  t

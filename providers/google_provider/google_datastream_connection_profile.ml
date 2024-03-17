@@ -141,6 +141,18 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_datastream_connection_profile *)
 
+type t = {
+  connection_profile_id : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_datastream_connection_profile ?id ?labels ?project
     ?timeouts ~connection_profile_id ~display_name ~location
     ~bigquery_profile ~forward_ssh_connectivity ~gcs_profile
@@ -148,23 +160,47 @@ let google_datastream_connection_profile ?id ?labels ?project
     ~private_connectivity __resource_id =
   let __resource_type = "google_datastream_connection_profile" in
   let __resource =
-    {
-      connection_profile_id;
-      display_name;
-      id;
-      labels;
-      location;
-      project;
-      bigquery_profile;
-      forward_ssh_connectivity;
-      gcs_profile;
-      mysql_profile;
-      oracle_profile;
-      postgresql_profile;
-      private_connectivity;
-      timeouts;
-    }
+    ({
+       connection_profile_id;
+       display_name;
+       id;
+       labels;
+       location;
+       project;
+       bigquery_profile;
+       forward_ssh_connectivity;
+       gcs_profile;
+       mysql_profile;
+       oracle_profile;
+       postgresql_profile;
+       private_connectivity;
+       timeouts;
+     }
+      : google_datastream_connection_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_datastream_connection_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connection_profile_id =
+         Prop.computed __resource_type __resource_id
+           "connection_profile_id";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

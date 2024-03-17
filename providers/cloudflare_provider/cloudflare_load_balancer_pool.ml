@@ -76,29 +76,77 @@ type cloudflare_load_balancer_pool = {
 pool of origins that can be used by a Cloudflare Load Balancer.
  *)
 
+type t = {
+  account_id : string prop;
+  check_regions : string list prop;
+  created_on : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  latitude : float prop;
+  longitude : float prop;
+  minimum_origins : float prop;
+  modified_on : string prop;
+  monitor : string prop;
+  name : string prop;
+  notification_email : string prop;
+}
+
 let cloudflare_load_balancer_pool ?check_regions ?description
     ?enabled ?id ?latitude ?longitude ?minimum_origins ?monitor
     ?notification_email ~account_id ~name ~load_shedding
     ~origin_steering ~origins __resource_id =
   let __resource_type = "cloudflare_load_balancer_pool" in
   let __resource =
-    {
-      account_id;
-      check_regions;
-      description;
-      enabled;
-      id;
-      latitude;
-      longitude;
-      minimum_origins;
-      monitor;
-      name;
-      notification_email;
-      load_shedding;
-      origin_steering;
-      origins;
-    }
+    ({
+       account_id;
+       check_regions;
+       description;
+       enabled;
+       id;
+       latitude;
+       longitude;
+       minimum_origins;
+       monitor;
+       name;
+       notification_email;
+       load_shedding;
+       origin_steering;
+       origins;
+     }
+      : cloudflare_load_balancer_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_load_balancer_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       check_regions =
+         Prop.computed __resource_type __resource_id "check_regions";
+       created_on =
+         Prop.computed __resource_type __resource_id "created_on";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       latitude =
+         Prop.computed __resource_type __resource_id "latitude";
+       longitude =
+         Prop.computed __resource_type __resource_id "longitude";
+       minimum_origins =
+         Prop.computed __resource_type __resource_id
+           "minimum_origins";
+       modified_on =
+         Prop.computed __resource_type __resource_id "modified_on";
+       monitor =
+         Prop.computed __resource_type __resource_id "monitor";
+       name = Prop.computed __resource_type __resource_id "name";
+       notification_email =
+         Prop.computed __resource_type __resource_id
+           "notification_email";
+     }
+      : t)
+  in
+  __resource_attributes

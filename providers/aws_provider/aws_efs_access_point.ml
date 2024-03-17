@@ -41,19 +41,47 @@ type aws_efs_access_point = {
 [@@deriving yojson_of]
 (** aws_efs_access_point *)
 
+type t = {
+  arn : string prop;
+  file_system_arn : string prop;
+  file_system_id : string prop;
+  id : string prop;
+  owner_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_efs_access_point ?id ?tags ?tags_all ~file_system_id
     ~posix_user ~root_directory __resource_id =
   let __resource_type = "aws_efs_access_point" in
   let __resource =
-    {
-      file_system_id;
-      id;
-      tags;
-      tags_all;
-      posix_user;
-      root_directory;
-    }
+    ({
+       file_system_id;
+       id;
+       tags;
+       tags_all;
+       posix_user;
+       root_directory;
+     }
+      : aws_efs_access_point)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_efs_access_point __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       file_system_arn =
+         Prop.computed __resource_type __resource_id
+           "file_system_arn";
+       file_system_id =
+         Prop.computed __resource_type __resource_id "file_system_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       owner_id =
+         Prop.computed __resource_type __resource_id "owner_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

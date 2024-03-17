@@ -26,21 +26,48 @@ type azurerm_sentinel_data_connector_aws_s3 = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_aws_s3 *)
 
+type t = {
+  aws_role_arn : string prop;
+  destination_table : string prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  sqs_urls : string list prop;
+}
+
 let azurerm_sentinel_data_connector_aws_s3 ?id ?timeouts
     ~aws_role_arn ~destination_table ~log_analytics_workspace_id
     ~name ~sqs_urls __resource_id =
   let __resource_type = "azurerm_sentinel_data_connector_aws_s3" in
   let __resource =
-    {
-      aws_role_arn;
-      destination_table;
-      id;
-      log_analytics_workspace_id;
-      name;
-      sqs_urls;
-      timeouts;
-    }
+    ({
+       aws_role_arn;
+       destination_table;
+       id;
+       log_analytics_workspace_id;
+       name;
+       sqs_urls;
+       timeouts;
+     }
+      : azurerm_sentinel_data_connector_aws_s3)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_data_connector_aws_s3 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       aws_role_arn =
+         Prop.computed __resource_type __resource_id "aws_role_arn";
+       destination_table =
+         Prop.computed __resource_type __resource_id
+           "destination_table";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       sqs_urls =
+         Prop.computed __resource_type __resource_id "sqs_urls";
+     }
+      : t)
+  in
+  __resource_attributes

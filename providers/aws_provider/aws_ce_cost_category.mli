@@ -24,6 +24,18 @@ type aws_ce_cost_category__split_charge_rule__parameter
 type aws_ce_cost_category__split_charge_rule
 type aws_ce_cost_category
 
+type t = private {
+  arn : string prop;
+  default_value : string prop;
+  effective_end : string prop;
+  effective_start : string prop;
+  id : string prop;
+  name : string prop;
+  rule_version : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_ce_cost_category :
   ?default_value:string prop ->
   ?effective_start:string prop ->
@@ -35,4 +47,4 @@ val aws_ce_cost_category :
   rule:aws_ce_cost_category__rule list ->
   split_charge_rule:aws_ce_cost_category__split_charge_rule list ->
   string ->
-  unit
+  t

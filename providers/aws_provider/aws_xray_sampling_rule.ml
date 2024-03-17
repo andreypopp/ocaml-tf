@@ -26,30 +26,83 @@ type aws_xray_sampling_rule = {
 [@@deriving yojson_of]
 (** aws_xray_sampling_rule *)
 
+type t = {
+  arn : string prop;
+  attributes : (string * string) list prop;
+  fixed_rate : float prop;
+  host : string prop;
+  http_method : string prop;
+  id : string prop;
+  priority : float prop;
+  reservoir_size : float prop;
+  resource_arn : string prop;
+  rule_name : string prop;
+  service_name : string prop;
+  service_type : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url_path : string prop;
+  version : float prop;
+}
+
 let aws_xray_sampling_rule ?attributes ?id ?rule_name ?tags ?tags_all
     ~fixed_rate ~host ~http_method ~priority ~reservoir_size
     ~resource_arn ~service_name ~service_type ~url_path ~version
     __resource_id =
   let __resource_type = "aws_xray_sampling_rule" in
   let __resource =
-    {
-      attributes;
-      fixed_rate;
-      host;
-      http_method;
-      id;
-      priority;
-      reservoir_size;
-      resource_arn;
-      rule_name;
-      service_name;
-      service_type;
-      tags;
-      tags_all;
-      url_path;
-      version;
-    }
+    ({
+       attributes;
+       fixed_rate;
+       host;
+       http_method;
+       id;
+       priority;
+       reservoir_size;
+       resource_arn;
+       rule_name;
+       service_name;
+       service_type;
+       tags;
+       tags_all;
+       url_path;
+       version;
+     }
+      : aws_xray_sampling_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_xray_sampling_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       attributes =
+         Prop.computed __resource_type __resource_id "attributes";
+       fixed_rate =
+         Prop.computed __resource_type __resource_id "fixed_rate";
+       host = Prop.computed __resource_type __resource_id "host";
+       http_method =
+         Prop.computed __resource_type __resource_id "http_method";
+       id = Prop.computed __resource_type __resource_id "id";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       reservoir_size =
+         Prop.computed __resource_type __resource_id "reservoir_size";
+       resource_arn =
+         Prop.computed __resource_type __resource_id "resource_arn";
+       rule_name =
+         Prop.computed __resource_type __resource_id "rule_name";
+       service_name =
+         Prop.computed __resource_type __resource_id "service_name";
+       service_type =
+         Prop.computed __resource_type __resource_id "service_type";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       url_path =
+         Prop.computed __resource_type __resource_id "url_path";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

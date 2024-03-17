@@ -6,6 +6,31 @@ type cloudflare_healthcheck__header
 type cloudflare_healthcheck__timeouts
 type cloudflare_healthcheck
 
+type t = private {
+  address : string prop;
+  allow_insecure : bool prop;
+  check_regions : string list prop;
+  consecutive_fails : float prop;
+  consecutive_successes : float prop;
+  created_on : string prop;
+  description : string prop;
+  expected_body : string prop;
+  expected_codes : string list prop;
+  follow_redirects : bool prop;
+  id : string prop;
+  interval : float prop;
+  method_ : string prop;
+  modified_on : string prop;
+  name : string prop;
+  path : string prop;
+  port : float prop;
+  retries : float prop;
+  suspended : bool prop;
+  timeout : float prop;
+  type_ : string prop;
+  zone_id : string prop;
+}
+
 val cloudflare_healthcheck :
   ?allow_insecure:bool prop ->
   ?check_regions:string prop list ->
@@ -30,4 +55,4 @@ val cloudflare_healthcheck :
   zone_id:string prop ->
   header:cloudflare_healthcheck__header list ->
   string ->
-  unit
+  t

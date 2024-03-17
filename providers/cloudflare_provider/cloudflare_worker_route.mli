@@ -4,10 +4,17 @@ open! Tf.Prelude
 
 type cloudflare_worker_route
 
+type t = private {
+  id : string prop;
+  pattern : string prop;
+  script_name : string prop;
+  zone_id : string prop;
+}
+
 val cloudflare_worker_route :
   ?id:string prop ->
   ?script_name:string prop ->
   pattern:string prop ->
   zone_id:string prop ->
   string ->
-  unit
+  t

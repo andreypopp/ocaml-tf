@@ -10,6 +10,16 @@ type google_data_catalog_tag_template__fields
 type google_data_catalog_tag_template__timeouts
 type google_data_catalog_tag_template
 
+type t = private {
+  display_name : string prop;
+  force_delete : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  tag_template_id : string prop;
+}
+
 val google_data_catalog_tag_template :
   ?display_name:string prop ->
   ?force_delete:bool prop ->
@@ -20,4 +30,4 @@ val google_data_catalog_tag_template :
   tag_template_id:string prop ->
   fields:google_data_catalog_tag_template__fields list ->
   string ->
-  unit
+  t

@@ -11,13 +11,30 @@ type aws_apprunner_default_auto_scaling_configuration_version = {
 [@@deriving yojson_of]
 (** aws_apprunner_default_auto_scaling_configuration_version *)
 
+type t = {
+  auto_scaling_configuration_arn : string prop;
+  id : string prop;
+}
+
 let aws_apprunner_default_auto_scaling_configuration_version
     ~auto_scaling_configuration_arn __resource_id =
   let __resource_type =
     "aws_apprunner_default_auto_scaling_configuration_version"
   in
-  let __resource = { auto_scaling_configuration_arn } in
+  let __resource =
+    ({ auto_scaling_configuration_arn }
+      : aws_apprunner_default_auto_scaling_configuration_version)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apprunner_default_auto_scaling_configuration_version
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_scaling_configuration_arn =
+         Prop.computed __resource_type __resource_id
+           "auto_scaling_configuration_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

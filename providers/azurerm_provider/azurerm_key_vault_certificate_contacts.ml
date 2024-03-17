@@ -30,10 +30,23 @@ type azurerm_key_vault_certificate_contacts = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate_contacts *)
 
+type t = { id : string prop; key_vault_id : string prop }
+
 let azurerm_key_vault_certificate_contacts ?id ?timeouts
     ~key_vault_id ~contact __resource_id =
   let __resource_type = "azurerm_key_vault_certificate_contacts" in
-  let __resource = { id; key_vault_id; contact; timeouts } in
+  let __resource =
+    ({ id; key_vault_id; contact; timeouts }
+      : azurerm_key_vault_certificate_contacts)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_certificate_contacts __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_id =
+         Prop.computed __resource_type __resource_id "key_vault_id";
+     }
+      : t)
+  in
+  __resource_attributes

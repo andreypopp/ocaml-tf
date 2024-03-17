@@ -39,21 +39,42 @@ type azurerm_nginx_configuration = {
 [@@deriving yojson_of]
 (** azurerm_nginx_configuration *)
 
+type t = {
+  id : string prop;
+  nginx_deployment_id : string prop;
+  package_data : string prop;
+  root_file : string prop;
+}
+
 let azurerm_nginx_configuration ?id ?package_data ?timeouts
     ~nginx_deployment_id ~root_file ~config_file ~protected_file
     __resource_id =
   let __resource_type = "azurerm_nginx_configuration" in
   let __resource =
-    {
-      id;
-      nginx_deployment_id;
-      package_data;
-      root_file;
-      config_file;
-      protected_file;
-      timeouts;
-    }
+    ({
+       id;
+       nginx_deployment_id;
+       package_data;
+       root_file;
+       config_file;
+       protected_file;
+       timeouts;
+     }
+      : azurerm_nginx_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_nginx_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       nginx_deployment_id =
+         Prop.computed __resource_type __resource_id
+           "nginx_deployment_id";
+       package_data =
+         Prop.computed __resource_type __resource_id "package_data";
+       root_file =
+         Prop.computed __resource_type __resource_id "root_file";
+     }
+      : t)
+  in
+  __resource_attributes

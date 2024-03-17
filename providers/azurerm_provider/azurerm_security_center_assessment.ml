@@ -33,19 +33,42 @@ type azurerm_security_center_assessment = {
 [@@deriving yojson_of]
 (** azurerm_security_center_assessment *)
 
+type t = {
+  additional_data : (string * string) list prop;
+  assessment_policy_id : string prop;
+  id : string prop;
+  target_resource_id : string prop;
+}
+
 let azurerm_security_center_assessment ?additional_data ?id ?timeouts
     ~assessment_policy_id ~target_resource_id ~status __resource_id =
   let __resource_type = "azurerm_security_center_assessment" in
   let __resource =
-    {
-      additional_data;
-      assessment_policy_id;
-      id;
-      target_resource_id;
-      status;
-      timeouts;
-    }
+    ({
+       additional_data;
+       assessment_policy_id;
+       id;
+       target_resource_id;
+       status;
+       timeouts;
+     }
+      : azurerm_security_center_assessment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_assessment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_data =
+         Prop.computed __resource_type __resource_id
+           "additional_data";
+       assessment_policy_id =
+         Prop.computed __resource_type __resource_id
+           "assessment_policy_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       target_resource_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -59,6 +59,32 @@ type azurerm_mssql_managed_instance = {
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_instance *)
 
+type t = {
+  administrator_login : string prop;
+  administrator_login_password : string prop;
+  collation : string prop;
+  dns_zone : string prop;
+  dns_zone_partner_id : string prop;
+  fqdn : string prop;
+  id : string prop;
+  license_type : string prop;
+  location : string prop;
+  maintenance_configuration_name : string prop;
+  minimum_tls_version : string prop;
+  name : string prop;
+  proxy_override : string prop;
+  public_data_endpoint_enabled : bool prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  storage_account_type : string prop;
+  storage_size_in_gb : float prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+  timezone_id : string prop;
+  vcores : float prop;
+  zone_redundant_enabled : bool prop;
+}
+
 let azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
     ?id ?maintenance_configuration_name ?minimum_tls_version
     ?proxy_override ?public_data_endpoint_enabled
@@ -68,32 +94,89 @@ let azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
     ~storage_size_in_gb ~subnet_id ~vcores ~identity __resource_id =
   let __resource_type = "azurerm_mssql_managed_instance" in
   let __resource =
-    {
-      administrator_login;
-      administrator_login_password;
-      collation;
-      dns_zone_partner_id;
-      id;
-      license_type;
-      location;
-      maintenance_configuration_name;
-      minimum_tls_version;
-      name;
-      proxy_override;
-      public_data_endpoint_enabled;
-      resource_group_name;
-      sku_name;
-      storage_account_type;
-      storage_size_in_gb;
-      subnet_id;
-      tags;
-      timezone_id;
-      vcores;
-      zone_redundant_enabled;
-      identity;
-      timeouts;
-    }
+    ({
+       administrator_login;
+       administrator_login_password;
+       collation;
+       dns_zone_partner_id;
+       id;
+       license_type;
+       location;
+       maintenance_configuration_name;
+       minimum_tls_version;
+       name;
+       proxy_override;
+       public_data_endpoint_enabled;
+       resource_group_name;
+       sku_name;
+       storage_account_type;
+       storage_size_in_gb;
+       subnet_id;
+       tags;
+       timezone_id;
+       vcores;
+       zone_redundant_enabled;
+       identity;
+       timeouts;
+     }
+      : azurerm_mssql_managed_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_managed_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       administrator_login =
+         Prop.computed __resource_type __resource_id
+           "administrator_login";
+       administrator_login_password =
+         Prop.computed __resource_type __resource_id
+           "administrator_login_password";
+       collation =
+         Prop.computed __resource_type __resource_id "collation";
+       dns_zone =
+         Prop.computed __resource_type __resource_id "dns_zone";
+       dns_zone_partner_id =
+         Prop.computed __resource_type __resource_id
+           "dns_zone_partner_id";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       id = Prop.computed __resource_type __resource_id "id";
+       license_type =
+         Prop.computed __resource_type __resource_id "license_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       maintenance_configuration_name =
+         Prop.computed __resource_type __resource_id
+           "maintenance_configuration_name";
+       minimum_tls_version =
+         Prop.computed __resource_type __resource_id
+           "minimum_tls_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       proxy_override =
+         Prop.computed __resource_type __resource_id "proxy_override";
+       public_data_endpoint_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_data_endpoint_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       storage_account_type =
+         Prop.computed __resource_type __resource_id
+           "storage_account_type";
+       storage_size_in_gb =
+         Prop.computed __resource_type __resource_id
+           "storage_size_in_gb";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       timezone_id =
+         Prop.computed __resource_type __resource_id "timezone_id";
+       vcores = Prop.computed __resource_type __resource_id "vcores";
+       zone_redundant_enabled =
+         Prop.computed __resource_type __resource_id
+           "zone_redundant_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

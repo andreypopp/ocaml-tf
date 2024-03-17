@@ -36,6 +36,16 @@ character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_global_network_endpoint_group *)
 
+type t = {
+  default_port : float prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  network_endpoint_type : string prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 let google_compute_global_network_endpoint_group ?default_port
     ?description ?id ?project ?timeouts ~name ~network_endpoint_type
     __resource_id =
@@ -43,17 +53,36 @@ let google_compute_global_network_endpoint_group ?default_port
     "google_compute_global_network_endpoint_group"
   in
   let __resource =
-    {
-      default_port;
-      description;
-      id;
-      name;
-      network_endpoint_type;
-      project;
-      timeouts;
-    }
+    ({
+       default_port;
+       description;
+       id;
+       name;
+       network_endpoint_type;
+       project;
+       timeouts;
+     }
+      : google_compute_global_network_endpoint_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_global_network_endpoint_group
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       default_port =
+         Prop.computed __resource_type __resource_id "default_port";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_endpoint_type =
+         Prop.computed __resource_type __resource_id
+           "network_endpoint_type";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

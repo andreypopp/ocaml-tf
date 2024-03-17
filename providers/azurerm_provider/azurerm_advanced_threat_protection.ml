@@ -22,10 +22,30 @@ type azurerm_advanced_threat_protection = {
 [@@deriving yojson_of]
 (** azurerm_advanced_threat_protection *)
 
+type t = {
+  enabled : bool prop;
+  id : string prop;
+  target_resource_id : string prop;
+}
+
 let azurerm_advanced_threat_protection ?id ?timeouts ~enabled
     ~target_resource_id __resource_id =
   let __resource_type = "azurerm_advanced_threat_protection" in
-  let __resource = { enabled; id; target_resource_id; timeouts } in
+  let __resource =
+    ({ enabled; id; target_resource_id; timeouts }
+      : azurerm_advanced_threat_protection)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_advanced_threat_protection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       target_resource_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

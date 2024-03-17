@@ -12,6 +12,21 @@ type google_compute_region_health_check__tcp_health_check
 type google_compute_region_health_check__timeouts
 type google_compute_region_health_check
 
+type t = private {
+  check_interval_sec : float prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  healthy_threshold : float prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+  timeout_sec : float prop;
+  type_ : string prop;
+  unhealthy_threshold : float prop;
+}
+
 val google_compute_region_health_check :
   ?check_interval_sec:float prop ->
   ?description:string prop ->
@@ -37,4 +52,4 @@ val google_compute_region_health_check :
   tcp_health_check:
     google_compute_region_health_check__tcp_health_check list ->
   string ->
-  unit
+  t

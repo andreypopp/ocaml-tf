@@ -309,12 +309,31 @@ in conjunction with Access Policies to restrict access to a
 particular resource based on group membership.
  *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  name : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_access_group ?account_id ?id ?zone_id ~name ~exclude
     ~include_ ~require __resource_id =
   let __resource_type = "cloudflare_access_group" in
   let __resource =
-    { account_id; id; name; zone_id; exclude; include_; require }
+    ({ account_id; id; name; zone_id; exclude; include_; require }
+      : cloudflare_access_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

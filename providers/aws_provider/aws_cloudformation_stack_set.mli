@@ -8,6 +8,24 @@ type aws_cloudformation_stack_set__operation_preferences
 type aws_cloudformation_stack_set__timeouts
 type aws_cloudformation_stack_set
 
+type t = private {
+  administration_role_arn : string prop;
+  arn : string prop;
+  call_as : string prop;
+  capabilities : string list prop;
+  description : string prop;
+  execution_role_name : string prop;
+  id : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  permission_model : string prop;
+  stack_set_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  template_body : string prop;
+  template_url : string prop;
+}
+
 val aws_cloudformation_stack_set :
   ?administration_role_arn:string prop ->
   ?call_as:string prop ->
@@ -29,4 +47,4 @@ val aws_cloudformation_stack_set :
   operation_preferences:
     aws_cloudformation_stack_set__operation_preferences list ->
   string ->
-  unit
+  t

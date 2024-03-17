@@ -24,12 +24,35 @@ type aws_iot_thing_type = {
 [@@deriving yojson_of]
 (** aws_iot_thing_type *)
 
+type t = {
+  arn : string prop;
+  deprecated : bool prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_iot_thing_type ?deprecated ?id ?tags ?tags_all ~name
     ~properties __resource_id =
   let __resource_type = "aws_iot_thing_type" in
   let __resource =
-    { deprecated; id; name; tags; tags_all; properties }
+    ({ deprecated; id; name; tags; tags_all; properties }
+      : aws_iot_thing_type)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_thing_type __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       deprecated =
+         Prop.computed __resource_type __resource_id "deprecated";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

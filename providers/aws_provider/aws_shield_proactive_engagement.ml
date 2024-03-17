@@ -20,10 +20,23 @@ type aws_shield_proactive_engagement = {
 [@@deriving yojson_of]
 (** aws_shield_proactive_engagement *)
 
+type t = { enabled : bool prop; id : string prop }
+
 let aws_shield_proactive_engagement ~enabled ~emergency_contact
     __resource_id =
   let __resource_type = "aws_shield_proactive_engagement" in
-  let __resource = { enabled; emergency_contact } in
+  let __resource =
+    ({ enabled; emergency_contact }
+      : aws_shield_proactive_engagement)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_shield_proactive_engagement __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

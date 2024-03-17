@@ -183,6 +183,18 @@ type azurerm_container_registry_task = {
 [@@deriving yojson_of]
 (** azurerm_container_registry_task *)
 
+type t = {
+  agent_pool_name : string prop;
+  container_registry_id : string prop;
+  enabled : bool prop;
+  id : string prop;
+  is_system_task : bool prop;
+  log_template : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  timeout_in_seconds : float prop;
+}
+
 let azurerm_container_registry_task ?agent_pool_name ?enabled ?id
     ?is_system_task ?log_template ?tags ?timeout_in_seconds ?timeouts
     ~container_registry_id ~name ~agent_setting ~base_image_trigger
@@ -191,29 +203,53 @@ let azurerm_container_registry_task ?agent_pool_name ?enabled ?id
     =
   let __resource_type = "azurerm_container_registry_task" in
   let __resource =
-    {
-      agent_pool_name;
-      container_registry_id;
-      enabled;
-      id;
-      is_system_task;
-      log_template;
-      name;
-      tags;
-      timeout_in_seconds;
-      agent_setting;
-      base_image_trigger;
-      docker_step;
-      encoded_step;
-      file_step;
-      identity;
-      platform;
-      registry_credential;
-      source_trigger;
-      timeouts;
-      timer_trigger;
-    }
+    ({
+       agent_pool_name;
+       container_registry_id;
+       enabled;
+       id;
+       is_system_task;
+       log_template;
+       name;
+       tags;
+       timeout_in_seconds;
+       agent_setting;
+       base_image_trigger;
+       docker_step;
+       encoded_step;
+       file_step;
+       identity;
+       platform;
+       registry_credential;
+       source_trigger;
+       timeouts;
+       timer_trigger;
+     }
+      : azurerm_container_registry_task)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_registry_task __resource);
-  ()
+  let __resource_attributes =
+    ({
+       agent_pool_name =
+         Prop.computed __resource_type __resource_id
+           "agent_pool_name";
+       container_registry_id =
+         Prop.computed __resource_type __resource_id
+           "container_registry_id";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_system_task =
+         Prop.computed __resource_type __resource_id "is_system_task";
+       log_template =
+         Prop.computed __resource_type __resource_id "log_template";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       timeout_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "timeout_in_seconds";
+     }
+      : t)
+  in
+  __resource_attributes

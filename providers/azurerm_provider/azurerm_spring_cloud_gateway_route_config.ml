@@ -56,6 +56,17 @@ type azurerm_spring_cloud_gateway_route_config = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway_route_config *)
 
+type t = {
+  filters : string list prop;
+  id : string prop;
+  name : string prop;
+  predicates : string list prop;
+  protocol : string prop;
+  spring_cloud_app_id : string prop;
+  spring_cloud_gateway_id : string prop;
+  sso_validation_enabled : bool prop;
+}
+
 let azurerm_spring_cloud_gateway_route_config ?filters ?id
     ?predicates ?protocol ?spring_cloud_app_id
     ?sso_validation_enabled ?timeouts ~name ~spring_cloud_gateway_id
@@ -64,20 +75,43 @@ let azurerm_spring_cloud_gateway_route_config ?filters ?id
     "azurerm_spring_cloud_gateway_route_config"
   in
   let __resource =
-    {
-      filters;
-      id;
-      name;
-      predicates;
-      protocol;
-      spring_cloud_app_id;
-      spring_cloud_gateway_id;
-      sso_validation_enabled;
-      open_api;
-      route;
-      timeouts;
-    }
+    ({
+       filters;
+       id;
+       name;
+       predicates;
+       protocol;
+       spring_cloud_app_id;
+       spring_cloud_gateway_id;
+       sso_validation_enabled;
+       open_api;
+       route;
+       timeouts;
+     }
+      : azurerm_spring_cloud_gateway_route_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_gateway_route_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       filters =
+         Prop.computed __resource_type __resource_id "filters";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       predicates =
+         Prop.computed __resource_type __resource_id "predicates";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       spring_cloud_app_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_app_id";
+       spring_cloud_gateway_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_gateway_id";
+       sso_validation_enabled =
+         Prop.computed __resource_type __resource_id
+           "sso_validation_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

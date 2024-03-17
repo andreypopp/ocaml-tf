@@ -6,6 +6,22 @@ type aws_db_proxy__auth
 type aws_db_proxy__timeouts
 type aws_db_proxy
 
+type t = private {
+  arn : string prop;
+  debug_logging : bool prop;
+  endpoint : string prop;
+  engine_family : string prop;
+  id : string prop;
+  idle_client_timeout : float prop;
+  name : string prop;
+  require_tls : bool prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_security_group_ids : string list prop;
+  vpc_subnet_ids : string list prop;
+}
+
 val aws_db_proxy :
   ?debug_logging:bool prop ->
   ?id:string prop ->
@@ -21,4 +37,4 @@ val aws_db_proxy :
   vpc_subnet_ids:string prop list ->
   auth:aws_db_proxy__auth list ->
   string ->
-  unit
+  t

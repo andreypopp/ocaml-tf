@@ -32,12 +32,34 @@ type google_datastore_index = {
 [@@deriving yojson_of]
 (** google_datastore_index *)
 
+type t = {
+  ancestor : string prop;
+  id : string prop;
+  index_id : string prop;
+  kind : string prop;
+  project : string prop;
+}
+
 let google_datastore_index ?ancestor ?id ?project ?timeouts ~kind
     ~properties __resource_id =
   let __resource_type = "google_datastore_index" in
   let __resource =
-    { ancestor; id; kind; project; properties; timeouts }
+    ({ ancestor; id; kind; project; properties; timeouts }
+      : google_datastore_index)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_datastore_index __resource);
-  ()
+  let __resource_attributes =
+    ({
+       ancestor =
+         Prop.computed __resource_type __resource_id "ancestor";
+       id = Prop.computed __resource_type __resource_id "id";
+       index_id =
+         Prop.computed __resource_type __resource_id "index_id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

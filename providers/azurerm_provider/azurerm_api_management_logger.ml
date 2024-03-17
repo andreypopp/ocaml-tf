@@ -46,25 +46,55 @@ type azurerm_api_management_logger = {
 [@@deriving yojson_of]
 (** azurerm_api_management_logger *)
 
+type t = {
+  api_management_name : string prop;
+  buffered : bool prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  resource_id : string prop;
+}
+
 let azurerm_api_management_logger ?buffered ?description ?id
     ?resource_id ?timeouts ~api_management_name ~name
     ~resource_group_name ~application_insights ~eventhub
     __resource_id =
   let __resource_type = "azurerm_api_management_logger" in
   let __resource =
-    {
-      api_management_name;
-      buffered;
-      description;
-      id;
-      name;
-      resource_group_name;
-      resource_id;
-      application_insights;
-      eventhub;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       buffered;
+       description;
+       id;
+       name;
+       resource_group_name;
+       resource_id;
+       application_insights;
+       eventhub;
+       timeouts;
+     }
+      : azurerm_api_management_logger)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_logger __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       buffered =
+         Prop.computed __resource_type __resource_id "buffered";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       resource_id =
+         Prop.computed __resource_type __resource_id "resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

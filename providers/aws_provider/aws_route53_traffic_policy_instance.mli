@@ -4,6 +4,15 @@ open! Tf.Prelude
 
 type aws_route53_traffic_policy_instance
 
+type t = private {
+  hosted_zone_id : string prop;
+  id : string prop;
+  name : string prop;
+  traffic_policy_id : string prop;
+  traffic_policy_version : float prop;
+  ttl : float prop;
+}
+
 val aws_route53_traffic_policy_instance :
   ?id:string prop ->
   hosted_zone_id:string prop ->
@@ -12,4 +21,4 @@ val aws_route53_traffic_policy_instance :
   traffic_policy_version:float prop ->
   ttl:float prop ->
   string ->
-  unit
+  t

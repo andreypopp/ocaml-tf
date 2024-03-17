@@ -575,6 +575,24 @@ If not set, the EdgeCacheService has no SSL policy configured, and will default 
 [@@deriving yojson_of]
 (** google_network_services_edge_cache_service *)
 
+type t = {
+  description : string prop;
+  disable_http2 : bool prop;
+  disable_quic : bool prop;
+  edge_security_policy : string prop;
+  edge_ssl_certificates : string list prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  ipv4_addresses : string list prop;
+  ipv6_addresses : string list prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  require_tls : bool prop;
+  ssl_policy : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_network_services_edge_cache_service ?description
     ?disable_http2 ?disable_quic ?edge_security_policy
     ?edge_ssl_certificates ?id ?labels ?project ?require_tls
@@ -583,23 +601,60 @@ let google_network_services_edge_cache_service ?description
     "google_network_services_edge_cache_service"
   in
   let __resource =
-    {
-      description;
-      disable_http2;
-      disable_quic;
-      edge_security_policy;
-      edge_ssl_certificates;
-      id;
-      labels;
-      name;
-      project;
-      require_tls;
-      ssl_policy;
-      log_config;
-      routing;
-      timeouts;
-    }
+    ({
+       description;
+       disable_http2;
+       disable_quic;
+       edge_security_policy;
+       edge_ssl_certificates;
+       id;
+       labels;
+       name;
+       project;
+       require_tls;
+       ssl_policy;
+       log_config;
+       routing;
+       timeouts;
+     }
+      : google_network_services_edge_cache_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_services_edge_cache_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disable_http2 =
+         Prop.computed __resource_type __resource_id "disable_http2";
+       disable_quic =
+         Prop.computed __resource_type __resource_id "disable_quic";
+       edge_security_policy =
+         Prop.computed __resource_type __resource_id
+           "edge_security_policy";
+       edge_ssl_certificates =
+         Prop.computed __resource_type __resource_id
+           "edge_ssl_certificates";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       ipv4_addresses =
+         Prop.computed __resource_type __resource_id "ipv4_addresses";
+       ipv6_addresses =
+         Prop.computed __resource_type __resource_id "ipv6_addresses";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       require_tls =
+         Prop.computed __resource_type __resource_id "require_tls";
+       ssl_policy =
+         Prop.computed __resource_type __resource_id "ssl_policy";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -28,6 +28,15 @@ type google_compute_network_peering_routes_config = {
 [@@deriving yojson_of]
 (** google_compute_network_peering_routes_config *)
 
+type t = {
+  export_custom_routes : bool prop;
+  id : string prop;
+  import_custom_routes : bool prop;
+  network : string prop;
+  peering : string prop;
+  project : string prop;
+}
+
 let google_compute_network_peering_routes_config ?id ?project
     ?timeouts ~export_custom_routes ~import_custom_routes ~network
     ~peering __resource_id =
@@ -35,17 +44,36 @@ let google_compute_network_peering_routes_config ?id ?project
     "google_compute_network_peering_routes_config"
   in
   let __resource =
-    {
-      export_custom_routes;
-      id;
-      import_custom_routes;
-      network;
-      peering;
-      project;
-      timeouts;
-    }
+    ({
+       export_custom_routes;
+       id;
+       import_custom_routes;
+       network;
+       peering;
+       project;
+       timeouts;
+     }
+      : google_compute_network_peering_routes_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_peering_routes_config
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       export_custom_routes =
+         Prop.computed __resource_type __resource_id
+           "export_custom_routes";
+       id = Prop.computed __resource_type __resource_id "id";
+       import_custom_routes =
+         Prop.computed __resource_type __resource_id
+           "import_custom_routes";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       peering =
+         Prop.computed __resource_type __resource_id "peering";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

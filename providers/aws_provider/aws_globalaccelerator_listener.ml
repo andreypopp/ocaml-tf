@@ -31,19 +31,41 @@ type aws_globalaccelerator_listener = {
 [@@deriving yojson_of]
 (** aws_globalaccelerator_listener *)
 
+type t = {
+  accelerator_arn : string prop;
+  client_affinity : string prop;
+  id : string prop;
+  protocol : string prop;
+}
+
 let aws_globalaccelerator_listener ?client_affinity ?id ?timeouts
     ~accelerator_arn ~protocol ~port_range __resource_id =
   let __resource_type = "aws_globalaccelerator_listener" in
   let __resource =
-    {
-      accelerator_arn;
-      client_affinity;
-      id;
-      protocol;
-      port_range;
-      timeouts;
-    }
+    ({
+       accelerator_arn;
+       client_affinity;
+       id;
+       protocol;
+       port_range;
+       timeouts;
+     }
+      : aws_globalaccelerator_listener)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_globalaccelerator_listener __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accelerator_arn =
+         Prop.computed __resource_type __resource_id
+           "accelerator_arn";
+       client_affinity =
+         Prop.computed __resource_type __resource_id
+           "client_affinity";
+       id = Prop.computed __resource_type __resource_id "id";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+     }
+      : t)
+  in
+  __resource_attributes

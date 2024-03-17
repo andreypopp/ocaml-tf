@@ -27,6 +27,17 @@ type aws_ce_anomaly_subscription__threshold_expression__tags
 type aws_ce_anomaly_subscription__threshold_expression
 type aws_ce_anomaly_subscription
 
+type t = private {
+  account_id : string prop;
+  arn : string prop;
+  frequency : string prop;
+  id : string prop;
+  monitor_arn_list : string list prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_ce_anomaly_subscription :
   ?account_id:string prop ->
   ?id:string prop ->
@@ -39,4 +50,4 @@ val aws_ce_anomaly_subscription :
   threshold_expression:
     aws_ce_anomaly_subscription__threshold_expression list ->
   string ->
-  unit
+  t

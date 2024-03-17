@@ -27,6 +27,22 @@ type google_cloudbuildv2_connection__installation_state = {
 
 type google_cloudbuildv2_connection
 
+type t = private {
+  annotations : (string * string) list prop;
+  create_time : string prop;
+  disabled : bool prop;
+  effective_annotations : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  installation_state :
+    google_cloudbuildv2_connection__installation_state list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  update_time : string prop;
+}
+
 val google_cloudbuildv2_connection :
   ?annotations:(string * string prop) list ->
   ?disabled:bool prop ->
@@ -40,4 +56,4 @@ val google_cloudbuildv2_connection :
     google_cloudbuildv2_connection__github_enterprise_config list ->
   gitlab_config:google_cloudbuildv2_connection__gitlab_config list ->
   string ->
-  unit
+  t

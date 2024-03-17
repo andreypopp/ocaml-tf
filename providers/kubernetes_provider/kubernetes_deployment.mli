@@ -367,6 +367,7 @@ type kubernetes_deployment__spec__template
 type kubernetes_deployment__spec
 type kubernetes_deployment__timeouts
 type kubernetes_deployment
+type t = private { id : string prop; wait_for_rollout : bool prop }
 
 val kubernetes_deployment :
   ?id:string prop ->
@@ -375,4 +376,4 @@ val kubernetes_deployment :
   metadata:kubernetes_deployment__metadata list ->
   spec:kubernetes_deployment__spec list ->
   string ->
-  unit
+  t

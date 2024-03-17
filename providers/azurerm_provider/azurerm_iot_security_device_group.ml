@@ -47,12 +47,28 @@ type azurerm_iot_security_device_group = {
 [@@deriving yojson_of]
 (** azurerm_iot_security_device_group *)
 
+type t = {
+  id : string prop;
+  iothub_id : string prop;
+  name : string prop;
+}
+
 let azurerm_iot_security_device_group ?id ?timeouts ~iothub_id ~name
     ~allow_rule ~range_rule __resource_id =
   let __resource_type = "azurerm_iot_security_device_group" in
   let __resource =
-    { id; iothub_id; name; allow_rule; range_rule; timeouts }
+    ({ id; iothub_id; name; allow_rule; range_rule; timeouts }
+      : azurerm_iot_security_device_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iot_security_device_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       iothub_id =
+         Prop.computed __resource_type __resource_id "iothub_id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

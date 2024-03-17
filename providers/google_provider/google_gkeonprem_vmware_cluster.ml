@@ -407,6 +407,33 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 [@@deriving yojson_of]
 (** google_gkeonprem_vmware_cluster *)
 
+type t = {
+  admin_cluster_membership : string prop;
+  annotations : (string * string) list prop;
+  create_time : string prop;
+  delete_time : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  enable_control_plane_v2 : bool prop;
+  endpoint : string prop;
+  etag : string prop;
+  fleet : google_gkeonprem_vmware_cluster__fleet list prop;
+  id : string prop;
+  local_name : string prop;
+  location : string prop;
+  name : string prop;
+  on_prem_version : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  status : google_gkeonprem_vmware_cluster__status list prop;
+  uid : string prop;
+  update_time : string prop;
+  validation_check :
+    google_gkeonprem_vmware_cluster__validation_check list prop;
+  vm_tracking_enabled : bool prop;
+}
+
 let google_gkeonprem_vmware_cluster ?annotations ?description
     ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
     ?timeouts ~admin_cluster_membership ~location ~name
@@ -416,30 +443,81 @@ let google_gkeonprem_vmware_cluster ?annotations ?description
     __resource_id =
   let __resource_type = "google_gkeonprem_vmware_cluster" in
   let __resource =
-    {
-      admin_cluster_membership;
-      annotations;
-      description;
-      enable_control_plane_v2;
-      id;
-      location;
-      name;
-      on_prem_version;
-      project;
-      vm_tracking_enabled;
-      anti_affinity_groups;
-      authorization;
-      auto_repair_config;
-      control_plane_node;
-      dataplane_v2;
-      load_balancer;
-      network_config;
-      storage;
-      timeouts;
-      upgrade_policy;
-      vcenter;
-    }
+    ({
+       admin_cluster_membership;
+       annotations;
+       description;
+       enable_control_plane_v2;
+       id;
+       location;
+       name;
+       on_prem_version;
+       project;
+       vm_tracking_enabled;
+       anti_affinity_groups;
+       authorization;
+       auto_repair_config;
+       control_plane_node;
+       dataplane_v2;
+       load_balancer;
+       network_config;
+       storage;
+       timeouts;
+       upgrade_policy;
+       vcenter;
+     }
+      : google_gkeonprem_vmware_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gkeonprem_vmware_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin_cluster_membership =
+         Prop.computed __resource_type __resource_id
+           "admin_cluster_membership";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       enable_control_plane_v2 =
+         Prop.computed __resource_type __resource_id
+           "enable_control_plane_v2";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       fleet = Prop.computed __resource_type __resource_id "fleet";
+       id = Prop.computed __resource_type __resource_id "id";
+       local_name =
+         Prop.computed __resource_type __resource_id "local_name";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       on_prem_version =
+         Prop.computed __resource_type __resource_id
+           "on_prem_version";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       state = Prop.computed __resource_type __resource_id "state";
+       status = Prop.computed __resource_type __resource_id "status";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       validation_check =
+         Prop.computed __resource_type __resource_id
+           "validation_check";
+       vm_tracking_enabled =
+         Prop.computed __resource_type __resource_id
+           "vm_tracking_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

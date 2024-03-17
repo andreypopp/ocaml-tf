@@ -4,6 +4,14 @@ open! Tf.Prelude
 
 type cloudflare_magic_firewall_ruleset
 
+type t = private {
+  account_id : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  rules : (string * string) list list prop;
+}
+
 val cloudflare_magic_firewall_ruleset :
   ?description:string prop ->
   ?id:string prop ->
@@ -11,4 +19,4 @@ val cloudflare_magic_firewall_ruleset :
   account_id:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

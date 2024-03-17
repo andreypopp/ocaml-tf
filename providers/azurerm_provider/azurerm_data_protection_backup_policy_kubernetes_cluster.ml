@@ -83,6 +83,15 @@ type azurerm_data_protection_backup_policy_kubernetes_cluster = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_kubernetes_cluster *)
 
+type t = {
+  backup_repeating_time_intervals : string list prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  time_zone : string prop;
+  vault_name : string prop;
+}
+
 let azurerm_data_protection_backup_policy_kubernetes_cluster ?id
     ?time_zone ?timeouts ~backup_repeating_time_intervals ~name
     ~resource_group_name ~vault_name ~default_retention_rule
@@ -91,19 +100,37 @@ let azurerm_data_protection_backup_policy_kubernetes_cluster ?id
     "azurerm_data_protection_backup_policy_kubernetes_cluster"
   in
   let __resource =
-    {
-      backup_repeating_time_intervals;
-      id;
-      name;
-      resource_group_name;
-      time_zone;
-      vault_name;
-      default_retention_rule;
-      retention_rule;
-      timeouts;
-    }
+    ({
+       backup_repeating_time_intervals;
+       id;
+       name;
+       resource_group_name;
+       time_zone;
+       vault_name;
+       default_retention_rule;
+       retention_rule;
+       timeouts;
+     }
+      : azurerm_data_protection_backup_policy_kubernetes_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_policy_kubernetes_cluster
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backup_repeating_time_intervals =
+         Prop.computed __resource_type __resource_id
+           "backup_repeating_time_intervals";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+       vault_name =
+         Prop.computed __resource_type __resource_id "vault_name";
+     }
+      : t)
+  in
+  __resource_attributes

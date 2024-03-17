@@ -28,6 +28,19 @@ type google_notebooks_runtime__metrics = {
 
 type google_notebooks_runtime
 
+type t = private {
+  effective_labels : (string * string) list prop;
+  health_state : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  metrics : google_notebooks_runtime__metrics list prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_notebooks_runtime :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -39,4 +52,4 @@ val google_notebooks_runtime :
   software_config:google_notebooks_runtime__software_config list ->
   virtual_machine:google_notebooks_runtime__virtual_machine list ->
   string ->
-  unit
+  t

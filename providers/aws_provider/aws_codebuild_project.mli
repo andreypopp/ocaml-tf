@@ -24,6 +24,26 @@ type aws_codebuild_project__source
 type aws_codebuild_project__vpc_config
 type aws_codebuild_project
 
+type t = private {
+  arn : string prop;
+  badge_enabled : bool prop;
+  badge_url : string prop;
+  build_timeout : float prop;
+  concurrent_build_limit : float prop;
+  description : string prop;
+  encryption_key : string prop;
+  id : string prop;
+  name : string prop;
+  project_visibility : string prop;
+  public_project_alias : string prop;
+  queued_timeout : float prop;
+  resource_access_role : string prop;
+  service_role : string prop;
+  source_version : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_codebuild_project :
   ?badge_enabled:bool prop ->
   ?build_timeout:float prop ->
@@ -53,4 +73,4 @@ val aws_codebuild_project :
   source:aws_codebuild_project__source list ->
   vpc_config:aws_codebuild_project__vpc_config list ->
   string ->
-  unit
+  t

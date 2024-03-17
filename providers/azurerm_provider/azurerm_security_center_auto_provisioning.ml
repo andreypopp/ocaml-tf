@@ -22,12 +22,25 @@ type azurerm_security_center_auto_provisioning = {
 [@@deriving yojson_of]
 (** azurerm_security_center_auto_provisioning *)
 
+type t = { auto_provision : string prop; id : string prop }
+
 let azurerm_security_center_auto_provisioning ?id ?timeouts
     ~auto_provision __resource_id =
   let __resource_type =
     "azurerm_security_center_auto_provisioning"
   in
-  let __resource = { auto_provision; id; timeouts } in
+  let __resource =
+    ({ auto_provision; id; timeouts }
+      : azurerm_security_center_auto_provisioning)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_auto_provisioning __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_provision =
+         Prop.computed __resource_type __resource_id "auto_provision";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

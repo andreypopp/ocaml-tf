@@ -6,6 +6,17 @@ type azurerm_arc_resource_bridge_appliance__identity
 type azurerm_arc_resource_bridge_appliance__timeouts
 type azurerm_arc_resource_bridge_appliance
 
+type t = private {
+  distro : string prop;
+  id : string prop;
+  infrastructure_provider : string prop;
+  location : string prop;
+  name : string prop;
+  public_key_base64 : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_arc_resource_bridge_appliance :
   ?id:string prop ->
   ?public_key_base64:string prop ->
@@ -18,4 +29,4 @@ val azurerm_arc_resource_bridge_appliance :
   resource_group_name:string prop ->
   identity:azurerm_arc_resource_bridge_appliance__identity list ->
   string ->
-  unit
+  t

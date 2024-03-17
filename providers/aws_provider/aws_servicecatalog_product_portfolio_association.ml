@@ -26,6 +26,14 @@ type aws_servicecatalog_product_portfolio_association = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_product_portfolio_association *)
 
+type t = {
+  accept_language : string prop;
+  id : string prop;
+  portfolio_id : string prop;
+  product_id : string prop;
+  source_portfolio_id : string prop;
+}
+
 let aws_servicecatalog_product_portfolio_association ?accept_language
     ?id ?source_portfolio_id ?timeouts ~portfolio_id ~product_id
     __resource_id =
@@ -33,16 +41,33 @@ let aws_servicecatalog_product_portfolio_association ?accept_language
     "aws_servicecatalog_product_portfolio_association"
   in
   let __resource =
-    {
-      accept_language;
-      id;
-      portfolio_id;
-      product_id;
-      source_portfolio_id;
-      timeouts;
-    }
+    ({
+       accept_language;
+       id;
+       portfolio_id;
+       product_id;
+       source_portfolio_id;
+       timeouts;
+     }
+      : aws_servicecatalog_product_portfolio_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_product_portfolio_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accept_language =
+         Prop.computed __resource_type __resource_id
+           "accept_language";
+       id = Prop.computed __resource_type __resource_id "id";
+       portfolio_id =
+         Prop.computed __resource_type __resource_id "portfolio_id";
+       product_id =
+         Prop.computed __resource_type __resource_id "product_id";
+       source_portfolio_id =
+         Prop.computed __resource_type __resource_id
+           "source_portfolio_id";
+     }
+      : t)
+  in
+  __resource_attributes

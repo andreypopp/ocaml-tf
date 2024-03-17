@@ -108,22 +108,46 @@ type azurerm_backup_policy_vm_workload = {
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm_workload *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+  workload_type : string prop;
+}
+
 let azurerm_backup_policy_vm_workload ?id ?timeouts ~name
     ~recovery_vault_name ~resource_group_name ~workload_type
     ~protection_policy ~settings __resource_id =
   let __resource_type = "azurerm_backup_policy_vm_workload" in
   let __resource =
-    {
-      id;
-      name;
-      recovery_vault_name;
-      resource_group_name;
-      workload_type;
-      protection_policy;
-      settings;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       recovery_vault_name;
+       resource_group_name;
+       workload_type;
+       protection_policy;
+       settings;
+       timeouts;
+     }
+      : azurerm_backup_policy_vm_workload)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_backup_policy_vm_workload __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       recovery_vault_name =
+         Prop.computed __resource_type __resource_id
+           "recovery_vault_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       workload_type =
+         Prop.computed __resource_type __resource_id "workload_type";
+     }
+      : t)
+  in
+  __resource_attributes

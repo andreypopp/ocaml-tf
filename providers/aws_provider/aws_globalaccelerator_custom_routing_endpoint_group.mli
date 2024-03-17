@@ -9,6 +9,13 @@ type aws_globalaccelerator_custom_routing_endpoint_group__endpoint_configuration
 type aws_globalaccelerator_custom_routing_endpoint_group__timeouts
 type aws_globalaccelerator_custom_routing_endpoint_group
 
+type t = private {
+  arn : string prop;
+  endpoint_group_region : string prop;
+  id : string prop;
+  listener_arn : string prop;
+}
+
 val aws_globalaccelerator_custom_routing_endpoint_group :
   ?endpoint_group_region:string prop ->
   ?id:string prop ->
@@ -22,4 +29,4 @@ val aws_globalaccelerator_custom_routing_endpoint_group :
     aws_globalaccelerator_custom_routing_endpoint_group__endpoint_configuration
     list ->
   string ->
-  unit
+  t

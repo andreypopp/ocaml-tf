@@ -35,6 +35,18 @@ type azurerm_synapse_sql_pool_security_alert_policy = {
 [@@deriving yojson_of]
 (** azurerm_synapse_sql_pool_security_alert_policy *)
 
+type t = {
+  disabled_alerts : string list prop;
+  email_account_admins_enabled : bool prop;
+  email_addresses : string list prop;
+  id : string prop;
+  policy_state : string prop;
+  retention_days : float prop;
+  sql_pool_id : string prop;
+  storage_account_access_key : string prop;
+  storage_endpoint : string prop;
+}
+
 let azurerm_synapse_sql_pool_security_alert_policy ?disabled_alerts
     ?email_account_admins_enabled ?email_addresses ?id
     ?retention_days ?storage_account_access_key ?storage_endpoint
@@ -43,20 +55,48 @@ let azurerm_synapse_sql_pool_security_alert_policy ?disabled_alerts
     "azurerm_synapse_sql_pool_security_alert_policy"
   in
   let __resource =
-    {
-      disabled_alerts;
-      email_account_admins_enabled;
-      email_addresses;
-      id;
-      policy_state;
-      retention_days;
-      sql_pool_id;
-      storage_account_access_key;
-      storage_endpoint;
-      timeouts;
-    }
+    ({
+       disabled_alerts;
+       email_account_admins_enabled;
+       email_addresses;
+       id;
+       policy_state;
+       retention_days;
+       sql_pool_id;
+       storage_account_access_key;
+       storage_endpoint;
+       timeouts;
+     }
+      : azurerm_synapse_sql_pool_security_alert_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_sql_pool_security_alert_policy
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       disabled_alerts =
+         Prop.computed __resource_type __resource_id
+           "disabled_alerts";
+       email_account_admins_enabled =
+         Prop.computed __resource_type __resource_id
+           "email_account_admins_enabled";
+       email_addresses =
+         Prop.computed __resource_type __resource_id
+           "email_addresses";
+       id = Prop.computed __resource_type __resource_id "id";
+       policy_state =
+         Prop.computed __resource_type __resource_id "policy_state";
+       retention_days =
+         Prop.computed __resource_type __resource_id "retention_days";
+       sql_pool_id =
+         Prop.computed __resource_type __resource_id "sql_pool_id";
+       storage_account_access_key =
+         Prop.computed __resource_type __resource_id
+           "storage_account_access_key";
+       storage_endpoint =
+         Prop.computed __resource_type __resource_id
+           "storage_endpoint";
+     }
+      : t)
+  in
+  __resource_attributes

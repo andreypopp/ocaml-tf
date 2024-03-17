@@ -9,6 +9,19 @@ type google_deployment_manager_deployment__target
 type google_deployment_manager_deployment__timeouts
 type google_deployment_manager_deployment
 
+type t = private {
+  create_policy : string prop;
+  delete_policy : string prop;
+  deployment_id : string prop;
+  description : string prop;
+  id : string prop;
+  manifest : string prop;
+  name : string prop;
+  preview : bool prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 val google_deployment_manager_deployment :
   ?create_policy:string prop ->
   ?delete_policy:string prop ->
@@ -21,4 +34,4 @@ val google_deployment_manager_deployment :
   labels:google_deployment_manager_deployment__labels list ->
   target:google_deployment_manager_deployment__target list ->
   string ->
-  unit
+  t

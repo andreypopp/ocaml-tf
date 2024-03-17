@@ -938,20 +938,85 @@ type aws_ec2_network_insights_analysis = {
 [@@deriving yojson_of]
 (** aws_ec2_network_insights_analysis *)
 
+type t = {
+  alternate_path_hints :
+    aws_ec2_network_insights_analysis__alternate_path_hints list prop;
+  arn : string prop;
+  explanations :
+    aws_ec2_network_insights_analysis__explanations list prop;
+  filter_in_arns : string list prop;
+  forward_path_components :
+    aws_ec2_network_insights_analysis__forward_path_components list
+    prop;
+  id : string prop;
+  network_insights_path_id : string prop;
+  path_found : bool prop;
+  return_path_components :
+    aws_ec2_network_insights_analysis__return_path_components list
+    prop;
+  start_date : string prop;
+  status : string prop;
+  status_message : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  wait_for_completion : bool prop;
+  warning_message : string prop;
+}
+
 let aws_ec2_network_insights_analysis ?filter_in_arns ?id ?tags
     ?tags_all ?wait_for_completion ~network_insights_path_id
     __resource_id =
   let __resource_type = "aws_ec2_network_insights_analysis" in
   let __resource =
-    {
-      filter_in_arns;
-      id;
-      network_insights_path_id;
-      tags;
-      tags_all;
-      wait_for_completion;
-    }
+    ({
+       filter_in_arns;
+       id;
+       network_insights_path_id;
+       tags;
+       tags_all;
+       wait_for_completion;
+     }
+      : aws_ec2_network_insights_analysis)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_network_insights_analysis __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alternate_path_hints =
+         Prop.computed __resource_type __resource_id
+           "alternate_path_hints";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       explanations =
+         Prop.computed __resource_type __resource_id "explanations";
+       filter_in_arns =
+         Prop.computed __resource_type __resource_id "filter_in_arns";
+       forward_path_components =
+         Prop.computed __resource_type __resource_id
+           "forward_path_components";
+       id = Prop.computed __resource_type __resource_id "id";
+       network_insights_path_id =
+         Prop.computed __resource_type __resource_id
+           "network_insights_path_id";
+       path_found =
+         Prop.computed __resource_type __resource_id "path_found";
+       return_path_components =
+         Prop.computed __resource_type __resource_id
+           "return_path_components";
+       start_date =
+         Prop.computed __resource_type __resource_id "start_date";
+       status = Prop.computed __resource_type __resource_id "status";
+       status_message =
+         Prop.computed __resource_type __resource_id "status_message";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       wait_for_completion =
+         Prop.computed __resource_type __resource_id
+           "wait_for_completion";
+       warning_message =
+         Prop.computed __resource_type __resource_id
+           "warning_message";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -14,6 +14,16 @@ type azurerm_vpn_server_configuration__radius
 type azurerm_vpn_server_configuration__timeouts
 type azurerm_vpn_server_configuration
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  vpn_authentication_types : string list prop;
+  vpn_protocols : string list prop;
+}
+
 val azurerm_vpn_server_configuration :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -33,4 +43,4 @@ val azurerm_vpn_server_configuration :
   ipsec_policy:azurerm_vpn_server_configuration__ipsec_policy list ->
   radius:azurerm_vpn_server_configuration__radius list ->
   string ->
-  unit
+  t

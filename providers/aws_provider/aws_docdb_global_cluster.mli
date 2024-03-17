@@ -11,6 +11,22 @@ type aws_docdb_global_cluster__global_cluster_members = {
 
 type aws_docdb_global_cluster
 
+type t = private {
+  arn : string prop;
+  database_name : string prop;
+  deletion_protection : bool prop;
+  engine : string prop;
+  engine_version : string prop;
+  global_cluster_identifier : string prop;
+  global_cluster_members :
+    aws_docdb_global_cluster__global_cluster_members list prop;
+  global_cluster_resource_id : string prop;
+  id : string prop;
+  source_db_cluster_identifier : string prop;
+  status : string prop;
+  storage_encrypted : bool prop;
+}
+
 val aws_docdb_global_cluster :
   ?database_name:string prop ->
   ?deletion_protection:bool prop ->
@@ -22,4 +38,4 @@ val aws_docdb_global_cluster :
   ?timeouts:aws_docdb_global_cluster__timeouts ->
   global_cluster_identifier:string prop ->
   string ->
-  unit
+  t

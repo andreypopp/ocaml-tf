@@ -6,6 +6,23 @@ type azurerm_voice_services_communications_gateway__service_location
 type azurerm_voice_services_communications_gateway__timeouts
 type azurerm_voice_services_communications_gateway
 
+type t = private {
+  api_bridge : string prop;
+  auto_generated_domain_name_label_scope : string prop;
+  codecs : string prop;
+  connectivity : string prop;
+  e911_type : string prop;
+  emergency_dial_strings : string list prop;
+  id : string prop;
+  location : string prop;
+  microsoft_teams_voicemail_pilot_number : string prop;
+  name : string prop;
+  on_prem_mcp_enabled : bool prop;
+  platforms : string list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_voice_services_communications_gateway :
   ?api_bridge:string prop ->
   ?auto_generated_domain_name_label_scope:string prop ->
@@ -26,4 +43,4 @@ val azurerm_voice_services_communications_gateway :
     azurerm_voice_services_communications_gateway__service_location
     list ->
   string ->
-  unit
+  t

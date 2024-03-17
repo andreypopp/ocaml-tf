@@ -38,27 +38,68 @@ type google_compute_router_interface = {
 [@@deriving yojson_of]
 (** google_compute_router_interface *)
 
+type t = {
+  id : string prop;
+  interconnect_attachment : string prop;
+  ip_range : string prop;
+  name : string prop;
+  private_ip_address : string prop;
+  project : string prop;
+  redundant_interface : string prop;
+  region : string prop;
+  router : string prop;
+  subnetwork : string prop;
+  vpn_tunnel : string prop;
+}
+
 let google_compute_router_interface ?id ?interconnect_attachment
     ?ip_range ?private_ip_address ?project ?redundant_interface
     ?region ?subnetwork ?vpn_tunnel ?timeouts ~name ~router
     __resource_id =
   let __resource_type = "google_compute_router_interface" in
   let __resource =
-    {
-      id;
-      interconnect_attachment;
-      ip_range;
-      name;
-      private_ip_address;
-      project;
-      redundant_interface;
-      region;
-      router;
-      subnetwork;
-      vpn_tunnel;
-      timeouts;
-    }
+    ({
+       id;
+       interconnect_attachment;
+       ip_range;
+       name;
+       private_ip_address;
+       project;
+       redundant_interface;
+       region;
+       router;
+       subnetwork;
+       vpn_tunnel;
+       timeouts;
+     }
+      : google_compute_router_interface)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_router_interface __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       interconnect_attachment =
+         Prop.computed __resource_type __resource_id
+           "interconnect_attachment";
+       ip_range =
+         Prop.computed __resource_type __resource_id "ip_range";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_ip_address =
+         Prop.computed __resource_type __resource_id
+           "private_ip_address";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       redundant_interface =
+         Prop.computed __resource_type __resource_id
+           "redundant_interface";
+       region = Prop.computed __resource_type __resource_id "region";
+       router = Prop.computed __resource_type __resource_id "router";
+       subnetwork =
+         Prop.computed __resource_type __resource_id "subnetwork";
+       vpn_tunnel =
+         Prop.computed __resource_type __resource_id "vpn_tunnel";
+     }
+      : t)
+  in
+  __resource_attributes

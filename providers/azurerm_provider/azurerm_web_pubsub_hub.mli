@@ -8,6 +8,13 @@ type azurerm_web_pubsub_hub__event_listener
 type azurerm_web_pubsub_hub__timeouts
 type azurerm_web_pubsub_hub
 
+type t = private {
+  anonymous_connections_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  web_pubsub_id : string prop;
+}
+
 val azurerm_web_pubsub_hub :
   ?anonymous_connections_enabled:bool prop ->
   ?id:string prop ->
@@ -17,4 +24,4 @@ val azurerm_web_pubsub_hub :
   event_handler:azurerm_web_pubsub_hub__event_handler list ->
   event_listener:azurerm_web_pubsub_hub__event_listener list ->
   string ->
-  unit
+  t

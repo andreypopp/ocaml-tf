@@ -105,6 +105,15 @@ type azurerm_consumption_budget_resource_group = {
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_resource_group *)
 
+type t = {
+  amount : float prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_id : string prop;
+  time_grain : string prop;
+}
+
 let azurerm_consumption_budget_resource_group ?etag ?id ?time_grain
     ?timeouts ~amount ~name ~resource_group_id ~filter ~notification
     ~time_period __resource_id =
@@ -112,19 +121,34 @@ let azurerm_consumption_budget_resource_group ?etag ?id ?time_grain
     "azurerm_consumption_budget_resource_group"
   in
   let __resource =
-    {
-      amount;
-      etag;
-      id;
-      name;
-      resource_group_id;
-      time_grain;
-      filter;
-      notification;
-      time_period;
-      timeouts;
-    }
+    ({
+       amount;
+       etag;
+       id;
+       name;
+       resource_group_id;
+       time_grain;
+       filter;
+       notification;
+       time_period;
+       timeouts;
+     }
+      : azurerm_consumption_budget_resource_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_consumption_budget_resource_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       amount = Prop.computed __resource_type __resource_id "amount";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_id =
+         Prop.computed __resource_type __resource_id
+           "resource_group_id";
+       time_grain =
+         Prop.computed __resource_type __resource_id "time_grain";
+     }
+      : t)
+  in
+  __resource_attributes

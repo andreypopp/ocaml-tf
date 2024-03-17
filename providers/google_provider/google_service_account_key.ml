@@ -22,21 +22,68 @@ type google_service_account_key = {
 [@@deriving yojson_of]
 (** google_service_account_key *)
 
+type t = {
+  id : string prop;
+  keepers : (string * string) list prop;
+  key_algorithm : string prop;
+  name : string prop;
+  private_key : string prop;
+  private_key_type : string prop;
+  public_key : string prop;
+  public_key_data : string prop;
+  public_key_type : string prop;
+  service_account_id : string prop;
+  valid_after : string prop;
+  valid_before : string prop;
+}
+
 let google_service_account_key ?id ?keepers ?key_algorithm
     ?private_key_type ?public_key_data ?public_key_type
     ~service_account_id __resource_id =
   let __resource_type = "google_service_account_key" in
   let __resource =
-    {
-      id;
-      keepers;
-      key_algorithm;
-      private_key_type;
-      public_key_data;
-      public_key_type;
-      service_account_id;
-    }
+    ({
+       id;
+       keepers;
+       key_algorithm;
+       private_key_type;
+       public_key_data;
+       public_key_type;
+       service_account_id;
+     }
+      : google_service_account_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_service_account_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       keepers =
+         Prop.computed __resource_type __resource_id "keepers";
+       key_algorithm =
+         Prop.computed __resource_type __resource_id "key_algorithm";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_key =
+         Prop.computed __resource_type __resource_id "private_key";
+       private_key_type =
+         Prop.computed __resource_type __resource_id
+           "private_key_type";
+       public_key =
+         Prop.computed __resource_type __resource_id "public_key";
+       public_key_data =
+         Prop.computed __resource_type __resource_id
+           "public_key_data";
+       public_key_type =
+         Prop.computed __resource_type __resource_id
+           "public_key_type";
+       service_account_id =
+         Prop.computed __resource_type __resource_id
+           "service_account_id";
+       valid_after =
+         Prop.computed __resource_type __resource_id "valid_after";
+       valid_before =
+         Prop.computed __resource_type __resource_id "valid_before";
+     }
+      : t)
+  in
+  __resource_attributes

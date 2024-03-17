@@ -51,6 +51,21 @@ type azurerm_static_web_app = {
 [@@deriving yojson_of]
 (** azurerm_static_web_app *)
 
+type t = {
+  api_key : string prop;
+  app_settings : (string * string) list prop;
+  configuration_file_changes_enabled : bool prop;
+  default_host_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  preview_environments_enabled : bool prop;
+  resource_group_name : string prop;
+  sku_size : string prop;
+  sku_tier : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_static_web_app ?app_settings
     ?configuration_file_changes_enabled ?id
     ?preview_environments_enabled ?sku_size ?sku_tier ?tags ?timeouts
@@ -58,22 +73,53 @@ let azurerm_static_web_app ?app_settings
     __resource_id =
   let __resource_type = "azurerm_static_web_app" in
   let __resource =
-    {
-      app_settings;
-      configuration_file_changes_enabled;
-      id;
-      location;
-      name;
-      preview_environments_enabled;
-      resource_group_name;
-      sku_size;
-      sku_tier;
-      tags;
-      basic_auth;
-      identity;
-      timeouts;
-    }
+    ({
+       app_settings;
+       configuration_file_changes_enabled;
+       id;
+       location;
+       name;
+       preview_environments_enabled;
+       resource_group_name;
+       sku_size;
+       sku_tier;
+       tags;
+       basic_auth;
+       identity;
+       timeouts;
+     }
+      : azurerm_static_web_app)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_static_web_app __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_key =
+         Prop.computed __resource_type __resource_id "api_key";
+       app_settings =
+         Prop.computed __resource_type __resource_id "app_settings";
+       configuration_file_changes_enabled =
+         Prop.computed __resource_type __resource_id
+           "configuration_file_changes_enabled";
+       default_host_name =
+         Prop.computed __resource_type __resource_id
+           "default_host_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       preview_environments_enabled =
+         Prop.computed __resource_type __resource_id
+           "preview_environments_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_size =
+         Prop.computed __resource_type __resource_id "sku_size";
+       sku_tier =
+         Prop.computed __resource_type __resource_id "sku_tier";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

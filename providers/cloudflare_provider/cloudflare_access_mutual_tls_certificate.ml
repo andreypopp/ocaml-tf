@@ -24,20 +24,49 @@ trusted in both directions between a client and server and can be
  corresponding client certificate.
  *)
 
+type t = {
+  account_id : string prop;
+  associated_hostnames : string list prop;
+  certificate : string prop;
+  fingerprint : string prop;
+  id : string prop;
+  name : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_access_mutual_tls_certificate ?account_id
     ?associated_hostnames ?certificate ?id ?zone_id ~name
     __resource_id =
   let __resource_type = "cloudflare_access_mutual_tls_certificate" in
   let __resource =
-    {
-      account_id;
-      associated_hostnames;
-      certificate;
-      id;
-      name;
-      zone_id;
-    }
+    ({
+       account_id;
+       associated_hostnames;
+       certificate;
+       id;
+       name;
+       zone_id;
+     }
+      : cloudflare_access_mutual_tls_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_mutual_tls_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       associated_hostnames =
+         Prop.computed __resource_type __resource_id
+           "associated_hostnames";
+       certificate =
+         Prop.computed __resource_type __resource_id "certificate";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -27,6 +27,17 @@ type google_storage_transfer_job__transfer_spec__transfer_options
 type google_storage_transfer_job__transfer_spec
 type google_storage_transfer_job
 
+type t = private {
+  creation_time : string prop;
+  deletion_time : string prop;
+  description : string prop;
+  id : string prop;
+  last_modification_time : string prop;
+  name : string prop;
+  project : string prop;
+  status : string prop;
+}
+
 val google_storage_transfer_job :
   ?id:string prop ->
   ?name:string prop ->
@@ -39,4 +50,4 @@ val google_storage_transfer_job :
   schedule:google_storage_transfer_job__schedule list ->
   transfer_spec:google_storage_transfer_job__transfer_spec list ->
   string ->
-  unit
+  t

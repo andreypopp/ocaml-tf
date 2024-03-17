@@ -57,6 +57,18 @@ Example: 'organizations/123456' *)
 [@@deriving yojson_of]
 (** google_access_context_manager_authorized_orgs_desc *)
 
+type t = {
+  asset_type : string prop;
+  authorization_direction : string prop;
+  authorization_type : string prop;
+  create_time : string prop;
+  id : string prop;
+  name : string prop;
+  orgs : string list prop;
+  parent : string prop;
+  update_time : string prop;
+}
+
 let google_access_context_manager_authorized_orgs_desc ?asset_type
     ?authorization_direction ?authorization_type ?id ?orgs ?timeouts
     ~name ~parent __resource_id =
@@ -64,18 +76,40 @@ let google_access_context_manager_authorized_orgs_desc ?asset_type
     "google_access_context_manager_authorized_orgs_desc"
   in
   let __resource =
-    {
-      asset_type;
-      authorization_direction;
-      authorization_type;
-      id;
-      name;
-      orgs;
-      parent;
-      timeouts;
-    }
+    ({
+       asset_type;
+       authorization_direction;
+       authorization_type;
+       id;
+       name;
+       orgs;
+       parent;
+       timeouts;
+     }
+      : google_access_context_manager_authorized_orgs_desc)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_authorized_orgs_desc
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       asset_type =
+         Prop.computed __resource_type __resource_id "asset_type";
+       authorization_direction =
+         Prop.computed __resource_type __resource_id
+           "authorization_direction";
+       authorization_type =
+         Prop.computed __resource_type __resource_id
+           "authorization_type";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       orgs = Prop.computed __resource_type __resource_id "orgs";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

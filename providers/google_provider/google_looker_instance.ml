@@ -198,6 +198,25 @@ private service access connection. User may or may not specify this in a request
 [@@deriving yojson_of]
 (** google_looker_instance *)
 
+type t = {
+  consumer_network : string prop;
+  create_time : string prop;
+  egress_public_ip : string prop;
+  id : string prop;
+  ingress_private_ip : string prop;
+  ingress_public_ip : string prop;
+  looker_uri : string prop;
+  looker_version : string prop;
+  name : string prop;
+  platform_edition : string prop;
+  private_ip_enabled : bool prop;
+  project : string prop;
+  public_ip_enabled : bool prop;
+  region : string prop;
+  reserved_range : string prop;
+  update_time : string prop;
+}
+
 let google_looker_instance ?consumer_network ?id ?platform_edition
     ?private_ip_enabled ?project ?public_ip_enabled ?region
     ?reserved_range ?timeouts ~name ~admin_settings ~custom_domain
@@ -205,26 +224,68 @@ let google_looker_instance ?consumer_network ?id ?platform_edition
     ~oauth_config ~user_metadata __resource_id =
   let __resource_type = "google_looker_instance" in
   let __resource =
-    {
-      consumer_network;
-      id;
-      name;
-      platform_edition;
-      private_ip_enabled;
-      project;
-      public_ip_enabled;
-      region;
-      reserved_range;
-      admin_settings;
-      custom_domain;
-      deny_maintenance_period;
-      encryption_config;
-      maintenance_window;
-      oauth_config;
-      timeouts;
-      user_metadata;
-    }
+    ({
+       consumer_network;
+       id;
+       name;
+       platform_edition;
+       private_ip_enabled;
+       project;
+       public_ip_enabled;
+       region;
+       reserved_range;
+       admin_settings;
+       custom_domain;
+       deny_maintenance_period;
+       encryption_config;
+       maintenance_window;
+       oauth_config;
+       timeouts;
+       user_metadata;
+     }
+      : google_looker_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_looker_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       consumer_network =
+         Prop.computed __resource_type __resource_id
+           "consumer_network";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       egress_public_ip =
+         Prop.computed __resource_type __resource_id
+           "egress_public_ip";
+       id = Prop.computed __resource_type __resource_id "id";
+       ingress_private_ip =
+         Prop.computed __resource_type __resource_id
+           "ingress_private_ip";
+       ingress_public_ip =
+         Prop.computed __resource_type __resource_id
+           "ingress_public_ip";
+       looker_uri =
+         Prop.computed __resource_type __resource_id "looker_uri";
+       looker_version =
+         Prop.computed __resource_type __resource_id "looker_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       platform_edition =
+         Prop.computed __resource_type __resource_id
+           "platform_edition";
+       private_ip_enabled =
+         Prop.computed __resource_type __resource_id
+           "private_ip_enabled";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       public_ip_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_ip_enabled";
+       region = Prop.computed __resource_type __resource_id "region";
+       reserved_range =
+         Prop.computed __resource_type __resource_id "reserved_range";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

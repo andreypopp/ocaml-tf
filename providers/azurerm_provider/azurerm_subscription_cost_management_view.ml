@@ -78,6 +78,17 @@ type azurerm_subscription_cost_management_view = {
 [@@deriving yojson_of]
 (** azurerm_subscription_cost_management_view *)
 
+type t = {
+  accumulated : bool prop;
+  chart_type : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  report_type : string prop;
+  subscription_id : string prop;
+  timeframe : string prop;
+}
+
 let azurerm_subscription_cost_management_view ?id ?timeouts
     ~accumulated ~chart_type ~display_name ~name ~report_type
     ~subscription_id ~timeframe ~dataset ~kpi ~pivot __resource_id =
@@ -85,21 +96,42 @@ let azurerm_subscription_cost_management_view ?id ?timeouts
     "azurerm_subscription_cost_management_view"
   in
   let __resource =
-    {
-      accumulated;
-      chart_type;
-      display_name;
-      id;
-      name;
-      report_type;
-      subscription_id;
-      timeframe;
-      dataset;
-      kpi;
-      pivot;
-      timeouts;
-    }
+    ({
+       accumulated;
+       chart_type;
+       display_name;
+       id;
+       name;
+       report_type;
+       subscription_id;
+       timeframe;
+       dataset;
+       kpi;
+       pivot;
+       timeouts;
+     }
+      : azurerm_subscription_cost_management_view)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_subscription_cost_management_view __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accumulated =
+         Prop.computed __resource_type __resource_id "accumulated";
+       chart_type =
+         Prop.computed __resource_type __resource_id "chart_type";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       report_type =
+         Prop.computed __resource_type __resource_id "report_type";
+       subscription_id =
+         Prop.computed __resource_type __resource_id
+           "subscription_id";
+       timeframe =
+         Prop.computed __resource_type __resource_id "timeframe";
+     }
+      : t)
+  in
+  __resource_attributes

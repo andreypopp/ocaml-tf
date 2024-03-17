@@ -31,6 +31,25 @@ type aws_imagebuilder_image__output_resources = {
 
 type aws_imagebuilder_image
 
+type t = private {
+  arn : string prop;
+  container_recipe_arn : string prop;
+  date_created : string prop;
+  distribution_configuration_arn : string prop;
+  enhanced_image_metadata_enabled : bool prop;
+  id : string prop;
+  image_recipe_arn : string prop;
+  infrastructure_configuration_arn : string prop;
+  name : string prop;
+  os_version : string prop;
+  output_resources :
+    aws_imagebuilder_image__output_resources list prop;
+  platform : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+}
+
 val aws_imagebuilder_image :
   ?container_recipe_arn:string prop ->
   ?distribution_configuration_arn:string prop ->
@@ -46,4 +65,4 @@ val aws_imagebuilder_image :
   image_tests_configuration:
     aws_imagebuilder_image__image_tests_configuration list ->
   string ->
-  unit
+  t

@@ -40,12 +40,32 @@ type aws_api_gateway_method_settings = {
 [@@deriving yojson_of]
 (** aws_api_gateway_method_settings *)
 
+type t = {
+  id : string prop;
+  method_path : string prop;
+  rest_api_id : string prop;
+  stage_name : string prop;
+}
+
 let aws_api_gateway_method_settings ?id ~method_path ~rest_api_id
     ~stage_name ~settings __resource_id =
   let __resource_type = "aws_api_gateway_method_settings" in
   let __resource =
-    { id; method_path; rest_api_id; stage_name; settings }
+    ({ id; method_path; rest_api_id; stage_name; settings }
+      : aws_api_gateway_method_settings)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_method_settings __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       method_path =
+         Prop.computed __resource_type __resource_id "method_path";
+       rest_api_id =
+         Prop.computed __resource_type __resource_id "rest_api_id";
+       stage_name =
+         Prop.computed __resource_type __resource_id "stage_name";
+     }
+      : t)
+  in
+  __resource_attributes

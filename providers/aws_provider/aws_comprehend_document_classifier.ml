@@ -79,6 +79,21 @@ type aws_comprehend_document_classifier = {
 [@@deriving yojson_of]
 (** aws_comprehend_document_classifier *)
 
+type t = {
+  arn : string prop;
+  data_access_role_arn : string prop;
+  id : string prop;
+  language_code : string prop;
+  mode : string prop;
+  model_kms_key_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version_name : string prop;
+  version_name_prefix : string prop;
+  volume_kms_key_id : string prop;
+}
+
 let aws_comprehend_document_classifier ?id ?mode ?model_kms_key_id
     ?tags ?tags_all ?version_name ?version_name_prefix
     ?volume_kms_key_id ?timeouts ~data_access_role_arn ~language_code
@@ -86,24 +101,53 @@ let aws_comprehend_document_classifier ?id ?mode ?model_kms_key_id
     __resource_id =
   let __resource_type = "aws_comprehend_document_classifier" in
   let __resource =
-    {
-      data_access_role_arn;
-      id;
-      language_code;
-      mode;
-      model_kms_key_id;
-      name;
-      tags;
-      tags_all;
-      version_name;
-      version_name_prefix;
-      volume_kms_key_id;
-      input_data_config;
-      output_data_config;
-      timeouts;
-      vpc_config;
-    }
+    ({
+       data_access_role_arn;
+       id;
+       language_code;
+       mode;
+       model_kms_key_id;
+       name;
+       tags;
+       tags_all;
+       version_name;
+       version_name_prefix;
+       volume_kms_key_id;
+       input_data_config;
+       output_data_config;
+       timeouts;
+       vpc_config;
+     }
+      : aws_comprehend_document_classifier)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_comprehend_document_classifier __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       data_access_role_arn =
+         Prop.computed __resource_type __resource_id
+           "data_access_role_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       language_code =
+         Prop.computed __resource_type __resource_id "language_code";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       model_kms_key_id =
+         Prop.computed __resource_type __resource_id
+           "model_kms_key_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version_name =
+         Prop.computed __resource_type __resource_id "version_name";
+       version_name_prefix =
+         Prop.computed __resource_type __resource_id
+           "version_name_prefix";
+       volume_kms_key_id =
+         Prop.computed __resource_type __resource_id
+           "volume_kms_key_id";
+     }
+      : t)
+  in
+  __resource_attributes

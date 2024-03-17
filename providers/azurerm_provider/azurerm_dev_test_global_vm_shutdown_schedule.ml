@@ -40,6 +40,16 @@ type azurerm_dev_test_global_vm_shutdown_schedule = {
 [@@deriving yojson_of]
 (** azurerm_dev_test_global_vm_shutdown_schedule *)
 
+type t = {
+  daily_recurrence_time : string prop;
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  tags : (string * string) list prop;
+  timezone : string prop;
+  virtual_machine_id : string prop;
+}
+
 let azurerm_dev_test_global_vm_shutdown_schedule ?enabled ?id ?tags
     ?timeouts ~daily_recurrence_time ~location ~timezone
     ~virtual_machine_id ~notification_settings __resource_id =
@@ -47,19 +57,39 @@ let azurerm_dev_test_global_vm_shutdown_schedule ?enabled ?id ?tags
     "azurerm_dev_test_global_vm_shutdown_schedule"
   in
   let __resource =
-    {
-      daily_recurrence_time;
-      enabled;
-      id;
-      location;
-      tags;
-      timezone;
-      virtual_machine_id;
-      notification_settings;
-      timeouts;
-    }
+    ({
+       daily_recurrence_time;
+       enabled;
+       id;
+       location;
+       tags;
+       timezone;
+       virtual_machine_id;
+       notification_settings;
+       timeouts;
+     }
+      : azurerm_dev_test_global_vm_shutdown_schedule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_test_global_vm_shutdown_schedule
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       daily_recurrence_time =
+         Prop.computed __resource_type __resource_id
+           "daily_recurrence_time";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       timezone =
+         Prop.computed __resource_type __resource_id "timezone";
+       virtual_machine_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_id";
+     }
+      : t)
+  in
+  __resource_attributes

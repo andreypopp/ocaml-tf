@@ -49,6 +49,16 @@ type azurerm_subscription_cost_management_export = {
 [@@deriving yojson_of]
 (** azurerm_subscription_cost_management_export *)
 
+type t = {
+  active : bool prop;
+  id : string prop;
+  name : string prop;
+  recurrence_period_end_date : string prop;
+  recurrence_period_start_date : string prop;
+  recurrence_type : string prop;
+  subscription_id : string prop;
+}
+
 let azurerm_subscription_cost_management_export ?active ?id ?timeouts
     ~name ~recurrence_period_end_date ~recurrence_period_start_date
     ~recurrence_type ~subscription_id ~export_data_options
@@ -57,19 +67,40 @@ let azurerm_subscription_cost_management_export ?active ?id ?timeouts
     "azurerm_subscription_cost_management_export"
   in
   let __resource =
-    {
-      active;
-      id;
-      name;
-      recurrence_period_end_date;
-      recurrence_period_start_date;
-      recurrence_type;
-      subscription_id;
-      export_data_options;
-      export_data_storage_location;
-      timeouts;
-    }
+    ({
+       active;
+       id;
+       name;
+       recurrence_period_end_date;
+       recurrence_period_start_date;
+       recurrence_type;
+       subscription_id;
+       export_data_options;
+       export_data_storage_location;
+       timeouts;
+     }
+      : azurerm_subscription_cost_management_export)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_subscription_cost_management_export __resource);
-  ()
+  let __resource_attributes =
+    ({
+       active = Prop.computed __resource_type __resource_id "active";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       recurrence_period_end_date =
+         Prop.computed __resource_type __resource_id
+           "recurrence_period_end_date";
+       recurrence_period_start_date =
+         Prop.computed __resource_type __resource_id
+           "recurrence_period_start_date";
+       recurrence_type =
+         Prop.computed __resource_type __resource_id
+           "recurrence_type";
+       subscription_id =
+         Prop.computed __resource_type __resource_id
+           "subscription_id";
+     }
+      : t)
+  in
+  __resource_attributes

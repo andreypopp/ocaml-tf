@@ -77,24 +77,58 @@ enablement check, quota, and billing. *)
 [@@deriving yojson_of]
 (** google_cloud_asset_folder_feed *)
 
+type t = {
+  asset_names : string list prop;
+  asset_types : string list prop;
+  billing_project : string prop;
+  content_type : string prop;
+  feed_id : string prop;
+  folder : string prop;
+  folder_id : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let google_cloud_asset_folder_feed ?asset_names ?asset_types
     ?content_type ?id ?timeouts ~billing_project ~feed_id ~folder
     ~condition ~feed_output_config __resource_id =
   let __resource_type = "google_cloud_asset_folder_feed" in
   let __resource =
-    {
-      asset_names;
-      asset_types;
-      billing_project;
-      content_type;
-      feed_id;
-      folder;
-      id;
-      condition;
-      feed_output_config;
-      timeouts;
-    }
+    ({
+       asset_names;
+       asset_types;
+       billing_project;
+       content_type;
+       feed_id;
+       folder;
+       id;
+       condition;
+       feed_output_config;
+       timeouts;
+     }
+      : google_cloud_asset_folder_feed)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_asset_folder_feed __resource);
-  ()
+  let __resource_attributes =
+    ({
+       asset_names =
+         Prop.computed __resource_type __resource_id "asset_names";
+       asset_types =
+         Prop.computed __resource_type __resource_id "asset_types";
+       billing_project =
+         Prop.computed __resource_type __resource_id
+           "billing_project";
+       content_type =
+         Prop.computed __resource_type __resource_id "content_type";
+       feed_id =
+         Prop.computed __resource_type __resource_id "feed_id";
+       folder = Prop.computed __resource_type __resource_id "folder";
+       folder_id =
+         Prop.computed __resource_type __resource_id "folder_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -29,6 +29,19 @@ type google_dataproc_job__status = {
 
 type google_dataproc_job
 
+type t = private {
+  driver_controls_files_uri : string prop;
+  driver_output_resource_uri : string prop;
+  effective_labels : (string * string) list prop;
+  force_delete : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  project : string prop;
+  region : string prop;
+  status : google_dataproc_job__status list prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_dataproc_job :
   ?force_delete:bool prop ->
   ?id:string prop ->
@@ -47,4 +60,4 @@ val google_dataproc_job :
   spark_config:google_dataproc_job__spark_config list ->
   sparksql_config:google_dataproc_job__sparksql_config list ->
   string ->
-  unit
+  t

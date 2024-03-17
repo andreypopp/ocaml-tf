@@ -190,26 +190,56 @@ type azurerm_data_factory_data_flow = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_data_flow *)
 
+type t = {
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  folder : string prop;
+  id : string prop;
+  name : string prop;
+  script : string prop;
+  script_lines : string list prop;
+}
+
 let azurerm_data_factory_data_flow ?annotations ?description ?folder
     ?id ?script ?script_lines ?timeouts ~data_factory_id ~name ~sink
     ~source ~transformation __resource_id =
   let __resource_type = "azurerm_data_factory_data_flow" in
   let __resource =
-    {
-      annotations;
-      data_factory_id;
-      description;
-      folder;
-      id;
-      name;
-      script;
-      script_lines;
-      sink;
-      source;
-      timeouts;
-      transformation;
-    }
+    ({
+       annotations;
+       data_factory_id;
+       description;
+       folder;
+       id;
+       name;
+       script;
+       script_lines;
+       sink;
+       source;
+       timeouts;
+       transformation;
+     }
+      : azurerm_data_factory_data_flow)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_data_flow __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       folder = Prop.computed __resource_type __resource_id "folder";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       script = Prop.computed __resource_type __resource_id "script";
+       script_lines =
+         Prop.computed __resource_type __resource_id "script_lines";
+     }
+      : t)
+  in
+  __resource_attributes

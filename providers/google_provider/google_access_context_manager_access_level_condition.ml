@@ -115,6 +115,16 @@ Format: accessPolicies/{policy_id}/accessLevels/{short_name} *)
 [@@deriving yojson_of]
 (** google_access_context_manager_access_level_condition *)
 
+type t = {
+  access_level : string prop;
+  id : string prop;
+  ip_subnetworks : string list prop;
+  members : string list prop;
+  negate : bool prop;
+  regions : string list prop;
+  required_access_levels : string list prop;
+}
+
 let google_access_context_manager_access_level_condition ?id
     ?ip_subnetworks ?members ?negate ?regions ?required_access_levels
     ?timeouts ~access_level ~device_policy ~vpc_network_sources
@@ -123,20 +133,39 @@ let google_access_context_manager_access_level_condition ?id
     "google_access_context_manager_access_level_condition"
   in
   let __resource =
-    {
-      access_level;
-      id;
-      ip_subnetworks;
-      members;
-      negate;
-      regions;
-      required_access_levels;
-      device_policy;
-      timeouts;
-      vpc_network_sources;
-    }
+    ({
+       access_level;
+       id;
+       ip_subnetworks;
+       members;
+       negate;
+       regions;
+       required_access_levels;
+       device_policy;
+       timeouts;
+       vpc_network_sources;
+     }
+      : google_access_context_manager_access_level_condition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_access_level_condition
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_level =
+         Prop.computed __resource_type __resource_id "access_level";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_subnetworks =
+         Prop.computed __resource_type __resource_id "ip_subnetworks";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       negate = Prop.computed __resource_type __resource_id "negate";
+       regions =
+         Prop.computed __resource_type __resource_id "regions";
+       required_access_levels =
+         Prop.computed __resource_type __resource_id
+           "required_access_levels";
+     }
+      : t)
+  in
+  __resource_attributes

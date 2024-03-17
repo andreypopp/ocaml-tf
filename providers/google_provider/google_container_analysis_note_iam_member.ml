@@ -24,12 +24,36 @@ type google_container_analysis_note_iam_member = {
 [@@deriving yojson_of]
 (** google_container_analysis_note_iam_member *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  note : string prop;
+  project : string prop;
+  role : string prop;
+}
+
 let google_container_analysis_note_iam_member ?id ?project ~member
     ~note ~role ~condition __resource_id =
   let __resource_type =
     "google_container_analysis_note_iam_member"
   in
-  let __resource = { id; member; note; project; role; condition } in
+  let __resource =
+    ({ id; member; note; project; role; condition }
+      : google_container_analysis_note_iam_member)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_analysis_note_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       note = Prop.computed __resource_type __resource_id "note";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

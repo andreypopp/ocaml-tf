@@ -4,6 +4,17 @@ open! Tf.Prelude
 
 type aws_ce_anomaly_monitor
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  monitor_dimension : string prop;
+  monitor_specification : string prop;
+  monitor_type : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_ce_anomaly_monitor :
   ?id:string prop ->
   ?monitor_dimension:string prop ->
@@ -13,4 +24,4 @@ val aws_ce_anomaly_monitor :
   monitor_type:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

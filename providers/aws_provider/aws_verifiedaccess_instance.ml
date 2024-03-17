@@ -27,12 +27,47 @@ type aws_verifiedaccess_instance = {
 [@@deriving yojson_of]
 (** aws_verifiedaccess_instance *)
 
+type t = {
+  creation_time : string prop;
+  description : string prop;
+  fips_enabled : bool prop;
+  id : string prop;
+  last_updated_time : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  verified_access_trust_providers :
+    aws_verifiedaccess_instance__verified_access_trust_providers list
+    prop;
+}
+
 let aws_verifiedaccess_instance ?description ?fips_enabled ?id ?tags
     ?tags_all __resource_id =
   let __resource_type = "aws_verifiedaccess_instance" in
   let __resource =
-    { description; fips_enabled; id; tags; tags_all }
+    ({ description; fips_enabled; id; tags; tags_all }
+      : aws_verifiedaccess_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedaccess_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       fips_enabled =
+         Prop.computed __resource_type __resource_id "fips_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_updated_time =
+         Prop.computed __resource_type __resource_id
+           "last_updated_time";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       verified_access_trust_providers =
+         Prop.computed __resource_type __resource_id
+           "verified_access_trust_providers";
+     }
+      : t)
+  in
+  __resource_attributes

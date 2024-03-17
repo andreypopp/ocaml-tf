@@ -277,22 +277,52 @@ Each tag should start with # and has a limit of 30 characters *)
 [@@deriving yojson_of]
 (** google_dialogflow_cx_test_case *)
 
+type t = {
+  creation_time : string prop;
+  display_name : string prop;
+  id : string prop;
+  last_test_result :
+    google_dialogflow_cx_test_case__last_test_result list prop;
+  name : string prop;
+  notes : string prop;
+  parent : string prop;
+  tags : string list prop;
+}
+
 let google_dialogflow_cx_test_case ?id ?notes ?parent ?tags ?timeouts
     ~display_name ~test_case_conversation_turns ~test_config
     __resource_id =
   let __resource_type = "google_dialogflow_cx_test_case" in
   let __resource =
-    {
-      display_name;
-      id;
-      notes;
-      parent;
-      tags;
-      test_case_conversation_turns;
-      test_config;
-      timeouts;
-    }
+    ({
+       display_name;
+       id;
+       notes;
+       parent;
+       tags;
+       test_case_conversation_turns;
+       test_config;
+       timeouts;
+     }
+      : google_dialogflow_cx_test_case)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_test_case __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_test_result =
+         Prop.computed __resource_type __resource_id
+           "last_test_result";
+       name = Prop.computed __resource_type __resource_id "name";
+       notes = Prop.computed __resource_type __resource_id "notes";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

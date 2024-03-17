@@ -12,6 +12,19 @@ type aws_datasync_location_fsx_ontap_file_system__protocol__smb
 type aws_datasync_location_fsx_ontap_file_system__protocol
 type aws_datasync_location_fsx_ontap_file_system
 
+type t = private {
+  arn : string prop;
+  creation_time : string prop;
+  fsx_filesystem_arn : string prop;
+  id : string prop;
+  security_group_arns : string list prop;
+  storage_virtual_machine_arn : string prop;
+  subdirectory : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  uri : string prop;
+}
+
 val aws_datasync_location_fsx_ontap_file_system :
   ?id:string prop ->
   ?subdirectory:string prop ->
@@ -21,4 +34,4 @@ val aws_datasync_location_fsx_ontap_file_system :
   storage_virtual_machine_arn:string prop ->
   protocol:aws_datasync_location_fsx_ontap_file_system__protocol list ->
   string ->
-  unit
+  t

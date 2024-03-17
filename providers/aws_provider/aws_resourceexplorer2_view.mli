@@ -6,6 +6,15 @@ type aws_resourceexplorer2_view__filters
 type aws_resourceexplorer2_view__included_property
 type aws_resourceexplorer2_view
 
+type t = private {
+  arn : string prop;
+  default_view : bool prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_resourceexplorer2_view :
   ?default_view:bool prop ->
   ?tags:(string * string prop) list ->
@@ -14,4 +23,4 @@ val aws_resourceexplorer2_view :
   included_property:
     aws_resourceexplorer2_view__included_property list ->
   string ->
-  unit
+  t

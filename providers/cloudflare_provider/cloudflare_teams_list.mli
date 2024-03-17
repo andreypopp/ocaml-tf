@@ -4,6 +4,15 @@ open! Tf.Prelude
 
 type cloudflare_teams_list
 
+type t = private {
+  account_id : string prop;
+  description : string prop;
+  id : string prop;
+  items : string list prop;
+  name : string prop;
+  type_ : string prop;
+}
+
 val cloudflare_teams_list :
   ?description:string prop ->
   ?id:string prop ->
@@ -12,4 +21,4 @@ val cloudflare_teams_list :
   name:string prop ->
   type_:string prop ->
   string ->
-  unit
+  t

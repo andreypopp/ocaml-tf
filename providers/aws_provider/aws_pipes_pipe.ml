@@ -593,30 +593,69 @@ type aws_pipes_pipe = {
 [@@deriving yojson_of]
 (** aws_pipes_pipe *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  desired_state : string prop;
+  enrichment : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  role_arn : string prop;
+  source : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target : string prop;
+}
+
 let aws_pipes_pipe ?description ?desired_state ?enrichment ?id ?name
     ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source ~target
     ~enrichment_parameters ~source_parameters ~target_parameters
     __resource_id =
   let __resource_type = "aws_pipes_pipe" in
   let __resource =
-    {
-      description;
-      desired_state;
-      enrichment;
-      id;
-      name;
-      name_prefix;
-      role_arn;
-      source;
-      tags;
-      tags_all;
-      target;
-      enrichment_parameters;
-      source_parameters;
-      target_parameters;
-      timeouts;
-    }
+    ({
+       description;
+       desired_state;
+       enrichment;
+       id;
+       name;
+       name_prefix;
+       role_arn;
+       source;
+       tags;
+       tags_all;
+       target;
+       enrichment_parameters;
+       source_parameters;
+       target_parameters;
+       timeouts;
+     }
+      : aws_pipes_pipe)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_pipes_pipe __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       desired_state =
+         Prop.computed __resource_type __resource_id "desired_state";
+       enrichment =
+         Prop.computed __resource_type __resource_id "enrichment";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       source = Prop.computed __resource_type __resource_id "source";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       target = Prop.computed __resource_type __resource_id "target";
+     }
+      : t)
+  in
+  __resource_attributes

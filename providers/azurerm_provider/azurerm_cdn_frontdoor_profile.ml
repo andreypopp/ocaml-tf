@@ -26,20 +26,49 @@ type azurerm_cdn_frontdoor_profile = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_profile *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  resource_guid : string prop;
+  response_timeout_seconds : float prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_cdn_frontdoor_profile ?id ?response_timeout_seconds ?tags
     ?timeouts ~name ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_profile" in
   let __resource =
-    {
-      id;
-      name;
-      resource_group_name;
-      response_timeout_seconds;
-      sku_name;
-      tags;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       resource_group_name;
+       response_timeout_seconds;
+       sku_name;
+       tags;
+       timeouts;
+     }
+      : azurerm_cdn_frontdoor_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       resource_guid =
+         Prop.computed __resource_type __resource_id "resource_guid";
+       response_timeout_seconds =
+         Prop.computed __resource_type __resource_id
+           "response_timeout_seconds";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

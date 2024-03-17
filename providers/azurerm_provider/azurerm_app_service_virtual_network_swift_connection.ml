@@ -24,13 +24,32 @@ type azurerm_app_service_virtual_network_swift_connection = {
 [@@deriving yojson_of]
 (** azurerm_app_service_virtual_network_swift_connection *)
 
+type t = {
+  app_service_id : string prop;
+  id : string prop;
+  subnet_id : string prop;
+}
+
 let azurerm_app_service_virtual_network_swift_connection ?id
     ?timeouts ~app_service_id ~subnet_id __resource_id =
   let __resource_type =
     "azurerm_app_service_virtual_network_swift_connection"
   in
-  let __resource = { app_service_id; id; subnet_id; timeouts } in
+  let __resource =
+    ({ app_service_id; id; subnet_id; timeouts }
+      : azurerm_app_service_virtual_network_swift_connection)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_virtual_network_swift_connection
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_service_id =
+         Prop.computed __resource_type __resource_id "app_service_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+     }
+      : t)
+  in
+  __resource_attributes

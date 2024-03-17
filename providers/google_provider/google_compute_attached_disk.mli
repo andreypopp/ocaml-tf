@@ -5,6 +5,16 @@ open! Tf.Prelude
 type google_compute_attached_disk__timeouts
 type google_compute_attached_disk
 
+type t = private {
+  device_name : string prop;
+  disk : string prop;
+  id : string prop;
+  instance : string prop;
+  mode : string prop;
+  project : string prop;
+  zone : string prop;
+}
+
 val google_compute_attached_disk :
   ?device_name:string prop ->
   ?id:string prop ->
@@ -15,4 +25,4 @@ val google_compute_attached_disk :
   disk:string prop ->
   instance:string prop ->
   string ->
-  unit
+  t

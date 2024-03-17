@@ -21,6 +21,7 @@ type google_access_context_manager_access_levels__access_levels__custom
 type google_access_context_manager_access_levels__access_levels
 type google_access_context_manager_access_levels__timeouts
 type google_access_context_manager_access_levels
+type t = private { id : string prop; parent : string prop }
 
 val google_access_context_manager_access_levels :
   ?id:string prop ->
@@ -29,4 +30,4 @@ val google_access_context_manager_access_levels :
   access_levels:
     google_access_context_manager_access_levels__access_levels list ->
   string ->
-  unit
+  t

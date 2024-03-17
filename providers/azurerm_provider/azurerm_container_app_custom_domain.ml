@@ -26,21 +26,46 @@ type azurerm_container_app_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_container_app_custom_domain *)
 
+type t = {
+  certificate_binding_type : string prop;
+  container_app_environment_certificate_id : string prop;
+  container_app_id : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let azurerm_container_app_custom_domain ?id ?timeouts
     ~certificate_binding_type
     ~container_app_environment_certificate_id ~container_app_id ~name
     __resource_id =
   let __resource_type = "azurerm_container_app_custom_domain" in
   let __resource =
-    {
-      certificate_binding_type;
-      container_app_environment_certificate_id;
-      container_app_id;
-      id;
-      name;
-      timeouts;
-    }
+    ({
+       certificate_binding_type;
+       container_app_environment_certificate_id;
+       container_app_id;
+       id;
+       name;
+       timeouts;
+     }
+      : azurerm_container_app_custom_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_app_custom_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_binding_type =
+         Prop.computed __resource_type __resource_id
+           "certificate_binding_type";
+       container_app_environment_certificate_id =
+         Prop.computed __resource_type __resource_id
+           "container_app_environment_certificate_id";
+       container_app_id =
+         Prop.computed __resource_type __resource_id
+           "container_app_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

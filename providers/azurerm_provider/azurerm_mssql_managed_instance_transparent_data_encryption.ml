@@ -27,6 +27,13 @@ type azurerm_mssql_managed_instance_transparent_data_encryption = {
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_instance_transparent_data_encryption *)
 
+type t = {
+  auto_rotation_enabled : bool prop;
+  id : string prop;
+  key_vault_key_id : string prop;
+  managed_instance_id : string prop;
+}
+
 let azurerm_mssql_managed_instance_transparent_data_encryption
     ?auto_rotation_enabled ?id ?key_vault_key_id ?timeouts
     ~managed_instance_id __resource_id =
@@ -34,15 +41,31 @@ let azurerm_mssql_managed_instance_transparent_data_encryption
     "azurerm_mssql_managed_instance_transparent_data_encryption"
   in
   let __resource =
-    {
-      auto_rotation_enabled;
-      id;
-      key_vault_key_id;
-      managed_instance_id;
-      timeouts;
-    }
+    ({
+       auto_rotation_enabled;
+       id;
+       key_vault_key_id;
+       managed_instance_id;
+       timeouts;
+     }
+      : azurerm_mssql_managed_instance_transparent_data_encryption)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_managed_instance_transparent_data_encryption
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_rotation_enabled =
+         Prop.computed __resource_type __resource_id
+           "auto_rotation_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_key_id";
+       managed_instance_id =
+         Prop.computed __resource_type __resource_id
+           "managed_instance_id";
+     }
+      : t)
+  in
+  __resource_attributes

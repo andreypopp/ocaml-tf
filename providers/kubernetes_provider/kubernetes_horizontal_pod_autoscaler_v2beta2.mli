@@ -60,6 +60,7 @@ type kubernetes_horizontal_pod_autoscaler_v2beta2__spec__scale_target_ref
 
 type kubernetes_horizontal_pod_autoscaler_v2beta2__spec
 type kubernetes_horizontal_pod_autoscaler_v2beta2
+type t = private { id : string prop }
 
 val kubernetes_horizontal_pod_autoscaler_v2beta2 :
   ?id:string prop ->
@@ -67,4 +68,4 @@ val kubernetes_horizontal_pod_autoscaler_v2beta2 :
     kubernetes_horizontal_pod_autoscaler_v2beta2__metadata list ->
   spec:kubernetes_horizontal_pod_autoscaler_v2beta2__spec list ->
   string ->
-  unit
+  t

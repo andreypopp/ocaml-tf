@@ -224,19 +224,43 @@ type aws_s3control_storage_lens_configuration = {
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration *)
 
+type t = {
+  account_id : string prop;
+  arn : string prop;
+  config_id : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_s3control_storage_lens_configuration ?account_id ?id ?tags
     ?tags_all ~config_id ~storage_lens_configuration __resource_id =
   let __resource_type = "aws_s3control_storage_lens_configuration" in
   let __resource =
-    {
-      account_id;
-      config_id;
-      id;
-      tags;
-      tags_all;
-      storage_lens_configuration;
-    }
+    ({
+       account_id;
+       config_id;
+       id;
+       tags;
+       tags_all;
+       storage_lens_configuration;
+     }
+      : aws_s3control_storage_lens_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_storage_lens_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       config_id =
+         Prop.computed __resource_type __resource_id "config_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

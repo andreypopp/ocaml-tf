@@ -32,6 +32,24 @@ type aws_codegurureviewer_repository_association__s3_repository_details = {
 
 type aws_codegurureviewer_repository_association
 
+type t = private {
+  arn : string prop;
+  association_id : string prop;
+  connection_arn : string prop;
+  id : string prop;
+  name : string prop;
+  owner : string prop;
+  provider_type : string prop;
+  s3_repository_details :
+    aws_codegurureviewer_repository_association__s3_repository_details
+    list
+    prop;
+  state : string prop;
+  state_reason : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_codegurureviewer_repository_association :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -42,4 +60,4 @@ val aws_codegurureviewer_repository_association :
   repository:
     aws_codegurureviewer_repository_association__repository list ->
   string ->
-  unit
+  t

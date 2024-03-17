@@ -23,18 +23,37 @@ type aws_s3_bucket_versioning = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_versioning *)
 
+type t = {
+  bucket : string prop;
+  expected_bucket_owner : string prop;
+  id : string prop;
+  mfa : string prop;
+}
+
 let aws_s3_bucket_versioning ?expected_bucket_owner ?id ?mfa ~bucket
     ~versioning_configuration __resource_id =
   let __resource_type = "aws_s3_bucket_versioning" in
   let __resource =
-    {
-      bucket;
-      expected_bucket_owner;
-      id;
-      mfa;
-      versioning_configuration;
-    }
+    ({
+       bucket;
+       expected_bucket_owner;
+       id;
+       mfa;
+       versioning_configuration;
+     }
+      : aws_s3_bucket_versioning)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_versioning __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       expected_bucket_owner =
+         Prop.computed __resource_type __resource_id
+           "expected_bucket_owner";
+       id = Prop.computed __resource_type __resource_id "id";
+       mfa = Prop.computed __resource_type __resource_id "mfa";
+     }
+      : t)
+  in
+  __resource_attributes

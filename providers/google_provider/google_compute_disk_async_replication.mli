@@ -5,6 +5,7 @@ open! Tf.Prelude
 type google_compute_disk_async_replication__secondary_disk
 type google_compute_disk_async_replication__timeouts
 type google_compute_disk_async_replication
+type t = private { id : string prop; primary_disk : string prop }
 
 val google_compute_disk_async_replication :
   ?id:string prop ->
@@ -13,4 +14,4 @@ val google_compute_disk_async_replication :
   secondary_disk:
     google_compute_disk_async_replication__secondary_disk list ->
   string ->
-  unit
+  t

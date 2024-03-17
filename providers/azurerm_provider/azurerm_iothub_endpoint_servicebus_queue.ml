@@ -31,24 +31,61 @@ type azurerm_iothub_endpoint_servicebus_queue = {
 [@@deriving yojson_of]
 (** azurerm_iothub_endpoint_servicebus_queue *)
 
+type t = {
+  authentication_type : string prop;
+  connection_string : string prop;
+  endpoint_uri : string prop;
+  entity_path : string prop;
+  id : string prop;
+  identity_id : string prop;
+  iothub_id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_iothub_endpoint_servicebus_queue ?authentication_type
     ?connection_string ?endpoint_uri ?entity_path ?id ?identity_id
     ?timeouts ~iothub_id ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_iothub_endpoint_servicebus_queue" in
   let __resource =
-    {
-      authentication_type;
-      connection_string;
-      endpoint_uri;
-      entity_path;
-      id;
-      identity_id;
-      iothub_id;
-      name;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       authentication_type;
+       connection_string;
+       endpoint_uri;
+       entity_path;
+       id;
+       identity_id;
+       iothub_id;
+       name;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_iothub_endpoint_servicebus_queue)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_endpoint_servicebus_queue __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authentication_type =
+         Prop.computed __resource_type __resource_id
+           "authentication_type";
+       connection_string =
+         Prop.computed __resource_type __resource_id
+           "connection_string";
+       endpoint_uri =
+         Prop.computed __resource_type __resource_id "endpoint_uri";
+       entity_path =
+         Prop.computed __resource_type __resource_id "entity_path";
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_id =
+         Prop.computed __resource_type __resource_id "identity_id";
+       iothub_id =
+         Prop.computed __resource_type __resource_id "iothub_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

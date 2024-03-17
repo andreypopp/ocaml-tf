@@ -46,6 +46,21 @@ type aws_kinesis_analytics_application__reference_data_sources__schema
 type aws_kinesis_analytics_application__reference_data_sources
 type aws_kinesis_analytics_application
 
+type t = private {
+  arn : string prop;
+  code : string prop;
+  create_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  last_update_timestamp : string prop;
+  name : string prop;
+  start_application : bool prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : float prop;
+}
+
 val aws_kinesis_analytics_application :
   ?code:string prop ->
   ?description:string prop ->
@@ -62,4 +77,4 @@ val aws_kinesis_analytics_application :
   reference_data_sources:
     aws_kinesis_analytics_application__reference_data_sources list ->
   string ->
-  unit
+  t

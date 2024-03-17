@@ -32,12 +32,31 @@ type aws_route53domains_delegation_signer_record = {
 [@@deriving yojson_of]
 (** aws_route53domains_delegation_signer_record *)
 
+type t = {
+  dnssec_key_id : string prop;
+  domain_name : string prop;
+  id : string prop;
+}
+
 let aws_route53domains_delegation_signer_record ?timeouts
     ~domain_name ~signing_attributes __resource_id =
   let __resource_type =
     "aws_route53domains_delegation_signer_record"
   in
-  let __resource = { domain_name; signing_attributes; timeouts } in
+  let __resource =
+    ({ domain_name; signing_attributes; timeouts }
+      : aws_route53domains_delegation_signer_record)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53domains_delegation_signer_record __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dnssec_key_id =
+         Prop.computed __resource_type __resource_id "dnssec_key_id";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

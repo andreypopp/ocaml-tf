@@ -37,24 +37,52 @@ type azurerm_logic_app_action_http = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_action_http *)
 
+type t = {
+  body : string prop;
+  headers : (string * string) list prop;
+  id : string prop;
+  logic_app_id : string prop;
+  method_ : string prop;
+  name : string prop;
+  queries : (string * string) list prop;
+  uri : string prop;
+}
+
 let azurerm_logic_app_action_http ?body ?headers ?id ?queries
     ?timeouts ~logic_app_id ~method_ ~name ~uri ~run_after
     __resource_id =
   let __resource_type = "azurerm_logic_app_action_http" in
   let __resource =
-    {
-      body;
-      headers;
-      id;
-      logic_app_id;
-      method_;
-      name;
-      queries;
-      uri;
-      run_after;
-      timeouts;
-    }
+    ({
+       body;
+       headers;
+       id;
+       logic_app_id;
+       method_;
+       name;
+       queries;
+       uri;
+       run_after;
+       timeouts;
+     }
+      : azurerm_logic_app_action_http)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_action_http __resource);
-  ()
+  let __resource_attributes =
+    ({
+       body = Prop.computed __resource_type __resource_id "body";
+       headers =
+         Prop.computed __resource_type __resource_id "headers";
+       id = Prop.computed __resource_type __resource_id "id";
+       logic_app_id =
+         Prop.computed __resource_type __resource_id "logic_app_id";
+       method_ = Prop.computed __resource_type __resource_id "method";
+       name = Prop.computed __resource_type __resource_id "name";
+       queries =
+         Prop.computed __resource_type __resource_id "queries";
+       uri = Prop.computed __resource_type __resource_id "uri";
+     }
+      : t)
+  in
+  __resource_attributes

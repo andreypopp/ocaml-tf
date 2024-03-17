@@ -13,6 +13,15 @@ type aws_wafregional_web_acl__rule__override_action
 type aws_wafregional_web_acl__rule
 type aws_wafregional_web_acl
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  metric_name : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_wafregional_web_acl :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -24,4 +33,4 @@ val aws_wafregional_web_acl :
     aws_wafregional_web_acl__logging_configuration list ->
   rule:aws_wafregional_web_acl__rule list ->
   string ->
-  unit
+  t

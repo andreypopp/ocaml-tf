@@ -5,6 +5,19 @@ open! Tf.Prelude
 type azurerm_machine_learning_datastore_fileshare__timeouts
 type azurerm_machine_learning_datastore_fileshare
 
+type t = private {
+  account_key : string prop;
+  description : string prop;
+  id : string prop;
+  is_default : bool prop;
+  name : string prop;
+  service_data_identity : string prop;
+  shared_access_signature : string prop;
+  storage_fileshare_id : string prop;
+  tags : (string * string) list prop;
+  workspace_id : string prop;
+}
+
 val azurerm_machine_learning_datastore_fileshare :
   ?account_key:string prop ->
   ?description:string prop ->
@@ -17,4 +30,4 @@ val azurerm_machine_learning_datastore_fileshare :
   storage_fileshare_id:string prop ->
   workspace_id:string prop ->
   string ->
-  unit
+  t

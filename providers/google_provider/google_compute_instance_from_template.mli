@@ -68,6 +68,46 @@ type google_compute_instance_from_template__service_account = {
 
 type google_compute_instance_from_template
 
+type t = private {
+  allow_stopping_for_update : bool prop;
+  attached_disk :
+    google_compute_instance_from_template__attached_disk list prop;
+  can_ip_forward : bool prop;
+  cpu_platform : string prop;
+  current_status : string prop;
+  deletion_protection : bool prop;
+  description : string prop;
+  desired_status : string prop;
+  effective_labels : (string * string) list prop;
+  enable_display : bool prop;
+  guest_accelerator :
+    google_compute_instance_from_template__guest_accelerator list
+    prop;
+  hostname : string prop;
+  id : string prop;
+  instance_id : string prop;
+  label_fingerprint : string prop;
+  labels : (string * string) list prop;
+  machine_type : string prop;
+  metadata : (string * string) list prop;
+  metadata_fingerprint : string prop;
+  metadata_startup_script : string prop;
+  min_cpu_platform : string prop;
+  name : string prop;
+  project : string prop;
+  resource_policies : string list prop;
+  scratch_disk :
+    google_compute_instance_from_template__scratch_disk list prop;
+  self_link : string prop;
+  service_account :
+    google_compute_instance_from_template__service_account list prop;
+  source_instance_template : string prop;
+  tags : string list prop;
+  tags_fingerprint : string prop;
+  terraform_labels : (string * string) list prop;
+  zone : string prop;
+}
+
 val google_compute_instance_from_template :
   ?allow_stopping_for_update:bool prop ->
   ?attached_disk:
@@ -117,4 +157,4 @@ val google_compute_instance_from_template :
     google_compute_instance_from_template__shielded_instance_config
     list ->
   string ->
-  unit
+  t

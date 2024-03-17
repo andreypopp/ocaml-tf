@@ -26,6 +26,17 @@ type aws_cloudwatch_event_target__sagemaker_pipeline_target
 type aws_cloudwatch_event_target__sqs_target
 type aws_cloudwatch_event_target
 
+type t = private {
+  arn : string prop;
+  event_bus_name : string prop;
+  id : string prop;
+  input : string prop;
+  input_path : string prop;
+  role_arn : string prop;
+  rule : string prop;
+  target_id : string prop;
+}
+
 val aws_cloudwatch_event_target :
   ?event_bus_name:string prop ->
   ?id:string prop ->
@@ -51,4 +62,4 @@ val aws_cloudwatch_event_target :
     aws_cloudwatch_event_target__sagemaker_pipeline_target list ->
   sqs_target:aws_cloudwatch_event_target__sqs_target list ->
   string ->
-  unit
+  t

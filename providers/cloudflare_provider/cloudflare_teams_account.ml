@@ -167,6 +167,16 @@ type cloudflare_teams_account = {
 resource defines configuration for secure web gateway.
  *)
 
+type t = {
+  account_id : string prop;
+  activity_log_enabled : bool prop;
+  id : string prop;
+  non_identity_browser_isolation_enabled : bool prop;
+  protocol_detection_enabled : bool prop;
+  tls_decrypt_enabled : bool prop;
+  url_browser_isolation_enabled : bool prop;
+}
+
 let cloudflare_teams_account ?activity_log_enabled ?id
     ?non_identity_browser_isolation_enabled
     ?protocol_detection_enabled ?tls_decrypt_enabled
@@ -175,25 +185,49 @@ let cloudflare_teams_account ?activity_log_enabled ?id
     ~payload_log ~proxy ~ssh_session_log __resource_id =
   let __resource_type = "cloudflare_teams_account" in
   let __resource =
-    {
-      account_id;
-      activity_log_enabled;
-      id;
-      non_identity_browser_isolation_enabled;
-      protocol_detection_enabled;
-      tls_decrypt_enabled;
-      url_browser_isolation_enabled;
-      antivirus;
-      block_page;
-      body_scanning;
-      extended_email_matching;
-      fips;
-      logging;
-      payload_log;
-      proxy;
-      ssh_session_log;
-    }
+    ({
+       account_id;
+       activity_log_enabled;
+       id;
+       non_identity_browser_isolation_enabled;
+       protocol_detection_enabled;
+       tls_decrypt_enabled;
+       url_browser_isolation_enabled;
+       antivirus;
+       block_page;
+       body_scanning;
+       extended_email_matching;
+       fips;
+       logging;
+       payload_log;
+       proxy;
+       ssh_session_log;
+     }
+      : cloudflare_teams_account)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       activity_log_enabled =
+         Prop.computed __resource_type __resource_id
+           "activity_log_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       non_identity_browser_isolation_enabled =
+         Prop.computed __resource_type __resource_id
+           "non_identity_browser_isolation_enabled";
+       protocol_detection_enabled =
+         Prop.computed __resource_type __resource_id
+           "protocol_detection_enabled";
+       tls_decrypt_enabled =
+         Prop.computed __resource_type __resource_id
+           "tls_decrypt_enabled";
+       url_browser_isolation_enabled =
+         Prop.computed __resource_type __resource_id
+           "url_browser_isolation_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

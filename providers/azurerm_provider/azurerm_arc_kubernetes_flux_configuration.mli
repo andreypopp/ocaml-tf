@@ -11,6 +11,15 @@ type azurerm_arc_kubernetes_flux_configuration__kustomizations
 type azurerm_arc_kubernetes_flux_configuration__timeouts
 type azurerm_arc_kubernetes_flux_configuration
 
+type t = private {
+  cluster_id : string prop;
+  continuous_reconciliation_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  namespace : string prop;
+  scope : string prop;
+}
+
 val azurerm_arc_kubernetes_flux_configuration :
   ?continuous_reconciliation_enabled:bool prop ->
   ?id:string prop ->
@@ -27,4 +36,4 @@ val azurerm_arc_kubernetes_flux_configuration :
   kustomizations:
     azurerm_arc_kubernetes_flux_configuration__kustomizations list ->
   string ->
-  unit
+  t

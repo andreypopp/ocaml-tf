@@ -58,6 +58,37 @@ type aws_emr_cluster__step = {
 
 type aws_emr_cluster
 
+type t = private {
+  additional_info : string prop;
+  applications : string list prop;
+  arn : string prop;
+  autoscaling_role : string prop;
+  cluster_state : string prop;
+  configurations : string prop;
+  configurations_json : string prop;
+  custom_ami_id : string prop;
+  ebs_root_volume_size : float prop;
+  id : string prop;
+  keep_job_flow_alive_when_no_steps : bool prop;
+  list_steps_states : string list prop;
+  log_encryption_kms_key_id : string prop;
+  log_uri : string prop;
+  master_public_dns : string prop;
+  name : string prop;
+  placement_group_config :
+    aws_emr_cluster__placement_group_config list prop;
+  release_label : string prop;
+  scale_down_behavior : string prop;
+  security_configuration : string prop;
+  service_role : string prop;
+  step : aws_emr_cluster__step list prop;
+  step_concurrency_level : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  termination_protection : bool prop;
+  visible_to_all_users : bool prop;
+}
+
 val aws_emr_cluster :
   ?additional_info:string prop ->
   ?applications:string prop list ->
@@ -94,4 +125,4 @@ val aws_emr_cluster :
   master_instance_fleet:aws_emr_cluster__master_instance_fleet list ->
   master_instance_group:aws_emr_cluster__master_instance_group list ->
   string ->
-  unit
+  t

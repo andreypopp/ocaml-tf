@@ -35,6 +35,21 @@ type azurerm_hdinsight_kafka_cluster__storage_account_gen2
 type azurerm_hdinsight_kafka_cluster__timeouts
 type azurerm_hdinsight_kafka_cluster
 
+type t = private {
+  cluster_version : string prop;
+  encryption_in_transit_enabled : bool prop;
+  https_endpoint : string prop;
+  id : string prop;
+  kafka_rest_proxy_endpoint : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  ssh_endpoint : string prop;
+  tags : (string * string) list prop;
+  tier : string prop;
+  tls_min_version : string prop;
+}
+
 val azurerm_hdinsight_kafka_cluster :
   ?encryption_in_transit_enabled:bool prop ->
   ?id:string prop ->
@@ -66,4 +81,4 @@ val azurerm_hdinsight_kafka_cluster :
   storage_account_gen2:
     azurerm_hdinsight_kafka_cluster__storage_account_gen2 list ->
   string ->
-  unit
+  t

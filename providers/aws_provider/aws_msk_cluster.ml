@@ -228,6 +228,32 @@ type aws_msk_cluster = {
 [@@deriving yojson_of]
 (** aws_msk_cluster *)
 
+type t = {
+  arn : string prop;
+  bootstrap_brokers : string prop;
+  bootstrap_brokers_public_sasl_iam : string prop;
+  bootstrap_brokers_public_sasl_scram : string prop;
+  bootstrap_brokers_public_tls : string prop;
+  bootstrap_brokers_sasl_iam : string prop;
+  bootstrap_brokers_sasl_scram : string prop;
+  bootstrap_brokers_tls : string prop;
+  bootstrap_brokers_vpc_connectivity_sasl_iam : string prop;
+  bootstrap_brokers_vpc_connectivity_sasl_scram : string prop;
+  bootstrap_brokers_vpc_connectivity_tls : string prop;
+  cluster_name : string prop;
+  cluster_uuid : string prop;
+  current_version : string prop;
+  enhanced_monitoring : string prop;
+  id : string prop;
+  kafka_version : string prop;
+  number_of_broker_nodes : float prop;
+  storage_mode : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  zookeeper_connect_string : string prop;
+  zookeeper_connect_string_tls : string prop;
+}
+
 let aws_msk_cluster ?enhanced_monitoring ?id ?storage_mode ?tags
     ?tags_all ?timeouts ~cluster_name ~kafka_version
     ~number_of_broker_nodes ~broker_node_group_info
@@ -235,24 +261,88 @@ let aws_msk_cluster ?enhanced_monitoring ?id ?storage_mode ?tags
     ~logging_info ~open_monitoring __resource_id =
   let __resource_type = "aws_msk_cluster" in
   let __resource =
-    {
-      cluster_name;
-      enhanced_monitoring;
-      id;
-      kafka_version;
-      number_of_broker_nodes;
-      storage_mode;
-      tags;
-      tags_all;
-      broker_node_group_info;
-      client_authentication;
-      configuration_info;
-      encryption_info;
-      logging_info;
-      open_monitoring;
-      timeouts;
-    }
+    ({
+       cluster_name;
+       enhanced_monitoring;
+       id;
+       kafka_version;
+       number_of_broker_nodes;
+       storage_mode;
+       tags;
+       tags_all;
+       broker_node_group_info;
+       client_authentication;
+       configuration_info;
+       encryption_info;
+       logging_info;
+       open_monitoring;
+       timeouts;
+     }
+      : aws_msk_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_msk_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       bootstrap_brokers =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers";
+       bootstrap_brokers_public_sasl_iam =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers_public_sasl_iam";
+       bootstrap_brokers_public_sasl_scram =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers_public_sasl_scram";
+       bootstrap_brokers_public_tls =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers_public_tls";
+       bootstrap_brokers_sasl_iam =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers_sasl_iam";
+       bootstrap_brokers_sasl_scram =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers_sasl_scram";
+       bootstrap_brokers_tls =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers_tls";
+       bootstrap_brokers_vpc_connectivity_sasl_iam =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers_vpc_connectivity_sasl_iam";
+       bootstrap_brokers_vpc_connectivity_sasl_scram =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers_vpc_connectivity_sasl_scram";
+       bootstrap_brokers_vpc_connectivity_tls =
+         Prop.computed __resource_type __resource_id
+           "bootstrap_brokers_vpc_connectivity_tls";
+       cluster_name =
+         Prop.computed __resource_type __resource_id "cluster_name";
+       cluster_uuid =
+         Prop.computed __resource_type __resource_id "cluster_uuid";
+       current_version =
+         Prop.computed __resource_type __resource_id
+           "current_version";
+       enhanced_monitoring =
+         Prop.computed __resource_type __resource_id
+           "enhanced_monitoring";
+       id = Prop.computed __resource_type __resource_id "id";
+       kafka_version =
+         Prop.computed __resource_type __resource_id "kafka_version";
+       number_of_broker_nodes =
+         Prop.computed __resource_type __resource_id
+           "number_of_broker_nodes";
+       storage_mode =
+         Prop.computed __resource_type __resource_id "storage_mode";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       zookeeper_connect_string =
+         Prop.computed __resource_type __resource_id
+           "zookeeper_connect_string";
+       zookeeper_connect_string_tls =
+         Prop.computed __resource_type __resource_id
+           "zookeeper_connect_string_tls";
+     }
+      : t)
+  in
+  __resource_attributes

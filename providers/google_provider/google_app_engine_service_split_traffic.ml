@@ -34,12 +34,33 @@ type google_app_engine_service_split_traffic = {
 [@@deriving yojson_of]
 (** google_app_engine_service_split_traffic *)
 
+type t = {
+  id : string prop;
+  migrate_traffic : bool prop;
+  project : string prop;
+  service : string prop;
+}
+
 let google_app_engine_service_split_traffic ?id ?migrate_traffic
     ?project ?timeouts ~service ~split __resource_id =
   let __resource_type = "google_app_engine_service_split_traffic" in
   let __resource =
-    { id; migrate_traffic; project; service; split; timeouts }
+    ({ id; migrate_traffic; project; service; split; timeouts }
+      : google_app_engine_service_split_traffic)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_service_split_traffic __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       migrate_traffic =
+         Prop.computed __resource_type __resource_id
+           "migrate_traffic";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+     }
+      : t)
+  in
+  __resource_attributes

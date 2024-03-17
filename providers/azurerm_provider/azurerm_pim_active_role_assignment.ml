@@ -53,22 +53,48 @@ type azurerm_pim_active_role_assignment = {
 [@@deriving yojson_of]
 (** azurerm_pim_active_role_assignment *)
 
+type t = {
+  id : string prop;
+  justification : string prop;
+  principal_id : string prop;
+  principal_type : string prop;
+  role_definition_id : string prop;
+  scope : string prop;
+}
+
 let azurerm_pim_active_role_assignment ?id ?justification ?timeouts
     ~principal_id ~role_definition_id ~scope ~schedule ~ticket
     __resource_id =
   let __resource_type = "azurerm_pim_active_role_assignment" in
   let __resource =
-    {
-      id;
-      justification;
-      principal_id;
-      role_definition_id;
-      scope;
-      schedule;
-      ticket;
-      timeouts;
-    }
+    ({
+       id;
+       justification;
+       principal_id;
+       role_definition_id;
+       scope;
+       schedule;
+       ticket;
+       timeouts;
+     }
+      : azurerm_pim_active_role_assignment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_pim_active_role_assignment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       justification =
+         Prop.computed __resource_type __resource_id "justification";
+       principal_id =
+         Prop.computed __resource_type __resource_id "principal_id";
+       principal_type =
+         Prop.computed __resource_type __resource_id "principal_type";
+       role_definition_id =
+         Prop.computed __resource_type __resource_id
+           "role_definition_id";
+       scope = Prop.computed __resource_type __resource_id "scope";
+     }
+      : t)
+  in
+  __resource_attributes

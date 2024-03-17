@@ -43,6 +43,26 @@ type aws_api_gateway_integration = {
 [@@deriving yojson_of]
 (** aws_api_gateway_integration *)
 
+type t = {
+  cache_key_parameters : string list prop;
+  cache_namespace : string prop;
+  connection_id : string prop;
+  connection_type : string prop;
+  content_handling : string prop;
+  credentials : string prop;
+  http_method : string prop;
+  id : string prop;
+  integration_http_method : string prop;
+  passthrough_behavior : string prop;
+  request_parameters : (string * string) list prop;
+  request_templates : (string * string) list prop;
+  resource_id : string prop;
+  rest_api_id : string prop;
+  timeout_milliseconds : float prop;
+  type_ : string prop;
+  uri : string prop;
+}
+
 let aws_api_gateway_integration ?cache_key_parameters
     ?cache_namespace ?connection_id ?connection_type
     ?content_handling ?credentials ?id ?integration_http_method
@@ -51,27 +71,73 @@ let aws_api_gateway_integration ?cache_key_parameters
     ~type_ ~tls_config __resource_id =
   let __resource_type = "aws_api_gateway_integration" in
   let __resource =
-    {
-      cache_key_parameters;
-      cache_namespace;
-      connection_id;
-      connection_type;
-      content_handling;
-      credentials;
-      http_method;
-      id;
-      integration_http_method;
-      passthrough_behavior;
-      request_parameters;
-      request_templates;
-      resource_id;
-      rest_api_id;
-      timeout_milliseconds;
-      type_;
-      uri;
-      tls_config;
-    }
+    ({
+       cache_key_parameters;
+       cache_namespace;
+       connection_id;
+       connection_type;
+       content_handling;
+       credentials;
+       http_method;
+       id;
+       integration_http_method;
+       passthrough_behavior;
+       request_parameters;
+       request_templates;
+       resource_id;
+       rest_api_id;
+       timeout_milliseconds;
+       type_;
+       uri;
+       tls_config;
+     }
+      : aws_api_gateway_integration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_integration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cache_key_parameters =
+         Prop.computed __resource_type __resource_id
+           "cache_key_parameters";
+       cache_namespace =
+         Prop.computed __resource_type __resource_id
+           "cache_namespace";
+       connection_id =
+         Prop.computed __resource_type __resource_id "connection_id";
+       connection_type =
+         Prop.computed __resource_type __resource_id
+           "connection_type";
+       content_handling =
+         Prop.computed __resource_type __resource_id
+           "content_handling";
+       credentials =
+         Prop.computed __resource_type __resource_id "credentials";
+       http_method =
+         Prop.computed __resource_type __resource_id "http_method";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_http_method =
+         Prop.computed __resource_type __resource_id
+           "integration_http_method";
+       passthrough_behavior =
+         Prop.computed __resource_type __resource_id
+           "passthrough_behavior";
+       request_parameters =
+         Prop.computed __resource_type __resource_id
+           "request_parameters";
+       request_templates =
+         Prop.computed __resource_type __resource_id
+           "request_templates";
+       resource_id =
+         Prop.computed __resource_type __resource_id "resource_id";
+       rest_api_id =
+         Prop.computed __resource_type __resource_id "rest_api_id";
+       timeout_milliseconds =
+         Prop.computed __resource_type __resource_id
+           "timeout_milliseconds";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       uri = Prop.computed __resource_type __resource_id "uri";
+     }
+      : t)
+  in
+  __resource_attributes

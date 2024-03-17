@@ -260,6 +260,26 @@ type aws_codebuild_project = {
 [@@deriving yojson_of]
 (** aws_codebuild_project *)
 
+type t = {
+  arn : string prop;
+  badge_enabled : bool prop;
+  badge_url : string prop;
+  build_timeout : float prop;
+  concurrent_build_limit : float prop;
+  description : string prop;
+  encryption_key : string prop;
+  id : string prop;
+  name : string prop;
+  project_visibility : string prop;
+  public_project_alias : string prop;
+  queued_timeout : float prop;
+  resource_access_role : string prop;
+  service_role : string prop;
+  source_version : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_codebuild_project ?badge_enabled ?build_timeout
     ?concurrent_build_limit ?description ?encryption_key ?id
     ?project_visibility ?queued_timeout ?resource_access_role
@@ -269,34 +289,74 @@ let aws_codebuild_project ?badge_enabled ?build_timeout
     ~secondary_sources ~source ~vpc_config __resource_id =
   let __resource_type = "aws_codebuild_project" in
   let __resource =
-    {
-      badge_enabled;
-      build_timeout;
-      concurrent_build_limit;
-      description;
-      encryption_key;
-      id;
-      name;
-      project_visibility;
-      queued_timeout;
-      resource_access_role;
-      service_role;
-      source_version;
-      tags;
-      tags_all;
-      artifacts;
-      build_batch_config;
-      cache;
-      environment;
-      file_system_locations;
-      logs_config;
-      secondary_artifacts;
-      secondary_source_version;
-      secondary_sources;
-      source;
-      vpc_config;
-    }
+    ({
+       badge_enabled;
+       build_timeout;
+       concurrent_build_limit;
+       description;
+       encryption_key;
+       id;
+       name;
+       project_visibility;
+       queued_timeout;
+       resource_access_role;
+       service_role;
+       source_version;
+       tags;
+       tags_all;
+       artifacts;
+       build_batch_config;
+       cache;
+       environment;
+       file_system_locations;
+       logs_config;
+       secondary_artifacts;
+       secondary_source_version;
+       secondary_sources;
+       source;
+       vpc_config;
+     }
+      : aws_codebuild_project)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codebuild_project __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       badge_enabled =
+         Prop.computed __resource_type __resource_id "badge_enabled";
+       badge_url =
+         Prop.computed __resource_type __resource_id "badge_url";
+       build_timeout =
+         Prop.computed __resource_type __resource_id "build_timeout";
+       concurrent_build_limit =
+         Prop.computed __resource_type __resource_id
+           "concurrent_build_limit";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       encryption_key =
+         Prop.computed __resource_type __resource_id "encryption_key";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project_visibility =
+         Prop.computed __resource_type __resource_id
+           "project_visibility";
+       public_project_alias =
+         Prop.computed __resource_type __resource_id
+           "public_project_alias";
+       queued_timeout =
+         Prop.computed __resource_type __resource_id "queued_timeout";
+       resource_access_role =
+         Prop.computed __resource_type __resource_id
+           "resource_access_role";
+       service_role =
+         Prop.computed __resource_type __resource_id "service_role";
+       source_version =
+         Prop.computed __resource_type __resource_id "source_version";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

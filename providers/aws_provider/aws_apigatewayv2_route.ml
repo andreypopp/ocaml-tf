@@ -36,6 +36,21 @@ type aws_apigatewayv2_route = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_route *)
 
+type t = {
+  api_id : string prop;
+  api_key_required : bool prop;
+  authorization_scopes : string list prop;
+  authorization_type : string prop;
+  authorizer_id : string prop;
+  id : string prop;
+  model_selection_expression : string prop;
+  operation_name : string prop;
+  request_models : (string * string) list prop;
+  route_key : string prop;
+  route_response_selection_expression : string prop;
+  target : string prop;
+}
+
 let aws_apigatewayv2_route ?api_key_required ?authorization_scopes
     ?authorization_type ?authorizer_id ?id
     ?model_selection_expression ?operation_name ?request_models
@@ -43,22 +58,54 @@ let aws_apigatewayv2_route ?api_key_required ?authorization_scopes
     ~request_parameter __resource_id =
   let __resource_type = "aws_apigatewayv2_route" in
   let __resource =
-    {
-      api_id;
-      api_key_required;
-      authorization_scopes;
-      authorization_type;
-      authorizer_id;
-      id;
-      model_selection_expression;
-      operation_name;
-      request_models;
-      route_key;
-      route_response_selection_expression;
-      target;
-      request_parameter;
-    }
+    ({
+       api_id;
+       api_key_required;
+       authorization_scopes;
+       authorization_type;
+       authorizer_id;
+       id;
+       model_selection_expression;
+       operation_name;
+       request_models;
+       route_key;
+       route_response_selection_expression;
+       target;
+       request_parameter;
+     }
+      : aws_apigatewayv2_route)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_route __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_id = Prop.computed __resource_type __resource_id "api_id";
+       api_key_required =
+         Prop.computed __resource_type __resource_id
+           "api_key_required";
+       authorization_scopes =
+         Prop.computed __resource_type __resource_id
+           "authorization_scopes";
+       authorization_type =
+         Prop.computed __resource_type __resource_id
+           "authorization_type";
+       authorizer_id =
+         Prop.computed __resource_type __resource_id "authorizer_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       model_selection_expression =
+         Prop.computed __resource_type __resource_id
+           "model_selection_expression";
+       operation_name =
+         Prop.computed __resource_type __resource_id "operation_name";
+       request_models =
+         Prop.computed __resource_type __resource_id "request_models";
+       route_key =
+         Prop.computed __resource_type __resource_id "route_key";
+       route_response_selection_expression =
+         Prop.computed __resource_type __resource_id
+           "route_response_selection_expression";
+       target = Prop.computed __resource_type __resource_id "target";
+     }
+      : t)
+  in
+  __resource_attributes

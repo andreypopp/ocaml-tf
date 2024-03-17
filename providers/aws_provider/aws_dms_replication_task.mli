@@ -4,6 +4,24 @@ open! Tf.Prelude
 
 type aws_dms_replication_task
 
+type t = private {
+  cdc_start_position : string prop;
+  cdc_start_time : string prop;
+  id : string prop;
+  migration_type : string prop;
+  replication_instance_arn : string prop;
+  replication_task_arn : string prop;
+  replication_task_id : string prop;
+  replication_task_settings : string prop;
+  source_endpoint_arn : string prop;
+  start_replication_task : bool prop;
+  status : string prop;
+  table_mappings : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_endpoint_arn : string prop;
+}
+
 val aws_dms_replication_task :
   ?cdc_start_position:string prop ->
   ?cdc_start_time:string prop ->
@@ -19,4 +37,4 @@ val aws_dms_replication_task :
   table_mappings:string prop ->
   target_endpoint_arn:string prop ->
   string ->
-  unit
+  t

@@ -85,25 +85,47 @@ type aws_sesv2_configuration_set = {
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set *)
 
+type t = {
+  arn : string prop;
+  configuration_set_name : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sesv2_configuration_set ?id ?tags ?tags_all
     ~configuration_set_name ~delivery_options ~reputation_options
     ~sending_options ~suppression_options ~tracking_options
     ~vdm_options __resource_id =
   let __resource_type = "aws_sesv2_configuration_set" in
   let __resource =
-    {
-      configuration_set_name;
-      id;
-      tags;
-      tags_all;
-      delivery_options;
-      reputation_options;
-      sending_options;
-      suppression_options;
-      tracking_options;
-      vdm_options;
-    }
+    ({
+       configuration_set_name;
+       id;
+       tags;
+       tags_all;
+       delivery_options;
+       reputation_options;
+       sending_options;
+       suppression_options;
+       tracking_options;
+       vdm_options;
+     }
+      : aws_sesv2_configuration_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sesv2_configuration_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       configuration_set_name =
+         Prop.computed __resource_type __resource_id
+           "configuration_set_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

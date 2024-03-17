@@ -99,26 +99,70 @@ type azurerm_private_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_private_endpoint *)
 
+type t = {
+  custom_dns_configs :
+    azurerm_private_endpoint__custom_dns_configs list prop;
+  custom_network_interface_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  network_interface :
+    azurerm_private_endpoint__network_interface list prop;
+  private_dns_zone_configs :
+    azurerm_private_endpoint__private_dns_zone_configs list prop;
+  resource_group_name : string prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_private_endpoint ?custom_network_interface_name ?id ?tags
     ?timeouts ~location ~name ~resource_group_name ~subnet_id
     ~ip_configuration ~private_dns_zone_group
     ~private_service_connection __resource_id =
   let __resource_type = "azurerm_private_endpoint" in
   let __resource =
-    {
-      custom_network_interface_name;
-      id;
-      location;
-      name;
-      resource_group_name;
-      subnet_id;
-      tags;
-      ip_configuration;
-      private_dns_zone_group;
-      private_service_connection;
-      timeouts;
-    }
+    ({
+       custom_network_interface_name;
+       id;
+       location;
+       name;
+       resource_group_name;
+       subnet_id;
+       tags;
+       ip_configuration;
+       private_dns_zone_group;
+       private_service_connection;
+       timeouts;
+     }
+      : azurerm_private_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       custom_dns_configs =
+         Prop.computed __resource_type __resource_id
+           "custom_dns_configs";
+       custom_network_interface_name =
+         Prop.computed __resource_type __resource_id
+           "custom_network_interface_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_interface =
+         Prop.computed __resource_type __resource_id
+           "network_interface";
+       private_dns_zone_configs =
+         Prop.computed __resource_type __resource_id
+           "private_dns_zone_configs";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

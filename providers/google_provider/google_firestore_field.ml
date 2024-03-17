@@ -58,21 +58,45 @@ type google_firestore_field = {
 [@@deriving yojson_of]
 (** google_firestore_field *)
 
+type t = {
+  collection : string prop;
+  database : string prop;
+  field : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_firestore_field ?database ?id ?project ?timeouts
     ~collection ~field ~index_config ~ttl_config __resource_id =
   let __resource_type = "google_firestore_field" in
   let __resource =
-    {
-      collection;
-      database;
-      field;
-      id;
-      project;
-      index_config;
-      timeouts;
-      ttl_config;
-    }
+    ({
+       collection;
+       database;
+       field;
+       id;
+       project;
+       index_config;
+       timeouts;
+       ttl_config;
+     }
+      : google_firestore_field)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firestore_field __resource);
-  ()
+  let __resource_attributes =
+    ({
+       collection =
+         Prop.computed __resource_type __resource_id "collection";
+       database =
+         Prop.computed __resource_type __resource_id "database";
+       field = Prop.computed __resource_type __resource_id "field";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,15 @@ open! Tf.Prelude
 type google_secret_manager_secret_iam_member__condition
 type google_secret_manager_secret_iam_member
 
+type t = private {
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  project : string prop;
+  role : string prop;
+  secret_id : string prop;
+}
+
 val google_secret_manager_secret_iam_member :
   ?id:string prop ->
   ?project:string prop ->
@@ -13,4 +22,4 @@ val google_secret_manager_secret_iam_member :
   secret_id:string prop ->
   condition:google_secret_manager_secret_iam_member__condition list ->
   string ->
-  unit
+  t

@@ -181,6 +181,27 @@ and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of 
 [@@deriving yojson_of]
 (** google_dataproc_metastore_service *)
 
+type t = {
+  artifact_gcs_uri : string prop;
+  database_type : string prop;
+  effective_labels : (string * string) list prop;
+  endpoint_uri : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  network : string prop;
+  port : float prop;
+  project : string prop;
+  release_channel : string prop;
+  service_id : string prop;
+  state : string prop;
+  state_message : string prop;
+  terraform_labels : (string * string) list prop;
+  tier : string prop;
+  uid : string prop;
+}
+
 let google_dataproc_metastore_service ?database_type ?id ?labels
     ?location ?network ?port ?project ?release_channel ?tier
     ?timeouts ~service_id ~encryption_config ~hive_metastore_config
@@ -188,27 +209,66 @@ let google_dataproc_metastore_service ?database_type ?id ?labels
     ~scaling_config ~telemetry_config __resource_id =
   let __resource_type = "google_dataproc_metastore_service" in
   let __resource =
-    {
-      database_type;
-      id;
-      labels;
-      location;
-      network;
-      port;
-      project;
-      release_channel;
-      service_id;
-      tier;
-      encryption_config;
-      hive_metastore_config;
-      maintenance_window;
-      metadata_integration;
-      network_config;
-      scaling_config;
-      telemetry_config;
-      timeouts;
-    }
+    ({
+       database_type;
+       id;
+       labels;
+       location;
+       network;
+       port;
+       project;
+       release_channel;
+       service_id;
+       tier;
+       encryption_config;
+       hive_metastore_config;
+       maintenance_window;
+       metadata_integration;
+       network_config;
+       scaling_config;
+       telemetry_config;
+       timeouts;
+     }
+      : google_dataproc_metastore_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataproc_metastore_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       artifact_gcs_uri =
+         Prop.computed __resource_type __resource_id
+           "artifact_gcs_uri";
+       database_type =
+         Prop.computed __resource_type __resource_id "database_type";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       endpoint_uri =
+         Prop.computed __resource_type __resource_id "endpoint_uri";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       port = Prop.computed __resource_type __resource_id "port";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       release_channel =
+         Prop.computed __resource_type __resource_id
+           "release_channel";
+       service_id =
+         Prop.computed __resource_type __resource_id "service_id";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_message =
+         Prop.computed __resource_type __resource_id "state_message";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       tier = Prop.computed __resource_type __resource_id "tier";
+       uid = Prop.computed __resource_type __resource_id "uid";
+     }
+      : t)
+  in
+  __resource_attributes

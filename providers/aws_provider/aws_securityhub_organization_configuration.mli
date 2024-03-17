@@ -7,6 +7,12 @@ type aws_securityhub_organization_configuration__organization_configuration
 type aws_securityhub_organization_configuration__timeouts
 type aws_securityhub_organization_configuration
 
+type t = private {
+  auto_enable : bool prop;
+  auto_enable_standards : string prop;
+  id : string prop;
+}
+
 val aws_securityhub_organization_configuration :
   ?auto_enable_standards:string prop ->
   ?id:string prop ->
@@ -16,4 +22,4 @@ val aws_securityhub_organization_configuration :
     aws_securityhub_organization_configuration__organization_configuration
     list ->
   string ->
-  unit
+  t

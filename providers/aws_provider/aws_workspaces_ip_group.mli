@@ -5,6 +5,14 @@ open! Tf.Prelude
 type aws_workspaces_ip_group__rules
 type aws_workspaces_ip_group
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_workspaces_ip_group :
   ?description:string prop ->
   ?id:string prop ->
@@ -13,4 +21,4 @@ val aws_workspaces_ip_group :
   name:string prop ->
   rules:aws_workspaces_ip_group__rules list ->
   string ->
-  unit
+  t

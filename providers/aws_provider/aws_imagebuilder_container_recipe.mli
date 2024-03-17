@@ -13,6 +13,27 @@ type aws_imagebuilder_container_recipe__instance_configuration
 type aws_imagebuilder_container_recipe__target_repository
 type aws_imagebuilder_container_recipe
 
+type t = private {
+  arn : string prop;
+  container_type : string prop;
+  date_created : string prop;
+  description : string prop;
+  dockerfile_template_data : string prop;
+  dockerfile_template_uri : string prop;
+  encrypted : bool prop;
+  id : string prop;
+  kms_key_id : string prop;
+  name : string prop;
+  owner : string prop;
+  parent_image : string prop;
+  platform : string prop;
+  platform_override : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+  working_directory : string prop;
+}
+
 val aws_imagebuilder_container_recipe :
   ?description:string prop ->
   ?dockerfile_template_data:string prop ->
@@ -33,4 +54,4 @@ val aws_imagebuilder_container_recipe :
   target_repository:
     aws_imagebuilder_container_recipe__target_repository list ->
   string ->
-  unit
+  t

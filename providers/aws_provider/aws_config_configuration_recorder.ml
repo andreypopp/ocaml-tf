@@ -63,12 +63,28 @@ type aws_config_configuration_recorder = {
 [@@deriving yojson_of]
 (** aws_config_configuration_recorder *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  role_arn : string prop;
+}
+
 let aws_config_configuration_recorder ?id ?name ~role_arn
     ~recording_group ~recording_mode __resource_id =
   let __resource_type = "aws_config_configuration_recorder" in
   let __resource =
-    { id; name; role_arn; recording_group; recording_mode }
+    ({ id; name; role_arn; recording_group; recording_mode }
+      : aws_config_configuration_recorder)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_config_configuration_recorder __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+     }
+      : t)
+  in
+  __resource_attributes

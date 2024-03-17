@@ -470,31 +470,140 @@ For example, if ALPHA is provided as input, but only BETA and GA-level features 
 [@@deriving yojson_of]
 (** google_cloud_run_v2_service *)
 
+type t = {
+  annotations : (string * string) list prop;
+  client : string prop;
+  client_version : string prop;
+  conditions : google_cloud_run_v2_service__conditions list prop;
+  create_time : string prop;
+  creator : string prop;
+  custom_audiences : string list prop;
+  delete_time : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  expire_time : string prop;
+  generation : string prop;
+  id : string prop;
+  ingress : string prop;
+  labels : (string * string) list prop;
+  last_modifier : string prop;
+  latest_created_revision : string prop;
+  latest_ready_revision : string prop;
+  launch_stage : string prop;
+  location : string prop;
+  name : string prop;
+  observed_generation : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  terminal_condition :
+    google_cloud_run_v2_service__terminal_condition list prop;
+  terraform_labels : (string * string) list prop;
+  traffic_statuses :
+    google_cloud_run_v2_service__traffic_statuses list prop;
+  uid : string prop;
+  update_time : string prop;
+  uri : string prop;
+}
+
 let google_cloud_run_v2_service ?annotations ?client ?client_version
     ?custom_audiences ?description ?id ?ingress ?labels ?launch_stage
     ?project ?timeouts ~location ~name ~binary_authorization
     ~template ~traffic __resource_id =
   let __resource_type = "google_cloud_run_v2_service" in
   let __resource =
-    {
-      annotations;
-      client;
-      client_version;
-      custom_audiences;
-      description;
-      id;
-      ingress;
-      labels;
-      launch_stage;
-      location;
-      name;
-      project;
-      binary_authorization;
-      template;
-      timeouts;
-      traffic;
-    }
+    ({
+       annotations;
+       client;
+       client_version;
+       custom_audiences;
+       description;
+       id;
+       ingress;
+       labels;
+       launch_stage;
+       location;
+       name;
+       project;
+       binary_authorization;
+       template;
+       timeouts;
+       traffic;
+     }
+      : google_cloud_run_v2_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_run_v2_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       client = Prop.computed __resource_type __resource_id "client";
+       client_version =
+         Prop.computed __resource_type __resource_id "client_version";
+       conditions =
+         Prop.computed __resource_type __resource_id "conditions";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       creator =
+         Prop.computed __resource_type __resource_id "creator";
+       custom_audiences =
+         Prop.computed __resource_type __resource_id
+           "custom_audiences";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       expire_time =
+         Prop.computed __resource_type __resource_id "expire_time";
+       generation =
+         Prop.computed __resource_type __resource_id "generation";
+       id = Prop.computed __resource_type __resource_id "id";
+       ingress =
+         Prop.computed __resource_type __resource_id "ingress";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       last_modifier =
+         Prop.computed __resource_type __resource_id "last_modifier";
+       latest_created_revision =
+         Prop.computed __resource_type __resource_id
+           "latest_created_revision";
+       latest_ready_revision =
+         Prop.computed __resource_type __resource_id
+           "latest_ready_revision";
+       launch_stage =
+         Prop.computed __resource_type __resource_id "launch_stage";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       observed_generation =
+         Prop.computed __resource_type __resource_id
+           "observed_generation";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       terminal_condition =
+         Prop.computed __resource_type __resource_id
+           "terminal_condition";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       traffic_statuses =
+         Prop.computed __resource_type __resource_id
+           "traffic_statuses";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       uri = Prop.computed __resource_type __resource_id "uri";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -6,6 +6,15 @@ type azurerm_data_share__snapshot_schedule
 type azurerm_data_share__timeouts
 type azurerm_data_share
 
+type t = private {
+  account_id : string prop;
+  description : string prop;
+  id : string prop;
+  kind : string prop;
+  name : string prop;
+  terms : string prop;
+}
+
 val azurerm_data_share :
   ?description:string prop ->
   ?id:string prop ->
@@ -16,4 +25,4 @@ val azurerm_data_share :
   name:string prop ->
   snapshot_schedule:azurerm_data_share__snapshot_schedule list ->
   string ->
-  unit
+  t

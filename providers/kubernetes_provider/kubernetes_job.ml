@@ -2470,12 +2470,24 @@ type kubernetes_job = {
 [@@deriving yojson_of]
 (** kubernetes_job *)
 
+type t = { id : string prop; wait_for_completion : bool prop }
+
 let kubernetes_job ?id ?wait_for_completion ?timeouts ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_job" in
   let __resource =
-    { id; wait_for_completion; metadata; spec; timeouts }
+    ({ id; wait_for_completion; metadata; spec; timeouts }
+      : kubernetes_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       wait_for_completion =
+         Prop.computed __resource_type __resource_id
+           "wait_for_completion";
+     }
+      : t)
+  in
+  __resource_attributes

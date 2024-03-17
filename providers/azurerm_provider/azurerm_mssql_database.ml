@@ -137,6 +137,40 @@ type azurerm_mssql_database = {
 [@@deriving yojson_of]
 (** azurerm_mssql_database *)
 
+type t = {
+  auto_pause_delay_in_minutes : float prop;
+  collation : string prop;
+  create_mode : string prop;
+  creation_source_database_id : string prop;
+  elastic_pool_id : string prop;
+  enclave_type : string prop;
+  geo_backup_enabled : bool prop;
+  id : string prop;
+  ledger_enabled : bool prop;
+  license_type : string prop;
+  maintenance_configuration_name : string prop;
+  max_size_gb : float prop;
+  min_capacity : float prop;
+  name : string prop;
+  read_replica_count : float prop;
+  read_scale : bool prop;
+  recover_database_id : string prop;
+  recovery_point_id : string prop;
+  restore_dropped_database_id : string prop;
+  restore_long_term_retention_backup_id : string prop;
+  restore_point_in_time : string prop;
+  sample_name : string prop;
+  server_id : string prop;
+  sku_name : string prop;
+  storage_account_type : string prop;
+  tags : (string * string) list prop;
+  transparent_data_encryption_enabled : bool prop;
+  transparent_data_encryption_key_automatic_rotation_enabled :
+    bool prop;
+  transparent_data_encryption_key_vault_key_id : string prop;
+  zone_redundant : bool prop;
+}
+
 let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
     ?create_mode ?creation_source_database_id ?elastic_pool_id
     ?enclave_type ?geo_backup_enabled ?id ?ledger_enabled
@@ -154,45 +188,123 @@ let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
     ~threat_detection_policy __resource_id =
   let __resource_type = "azurerm_mssql_database" in
   let __resource =
-    {
-      auto_pause_delay_in_minutes;
-      collation;
-      create_mode;
-      creation_source_database_id;
-      elastic_pool_id;
-      enclave_type;
-      geo_backup_enabled;
-      id;
-      ledger_enabled;
-      license_type;
-      maintenance_configuration_name;
-      max_size_gb;
-      min_capacity;
-      name;
-      read_replica_count;
-      read_scale;
-      recover_database_id;
-      recovery_point_id;
-      restore_dropped_database_id;
-      restore_long_term_retention_backup_id;
-      restore_point_in_time;
-      sample_name;
-      server_id;
-      sku_name;
-      storage_account_type;
-      tags;
-      transparent_data_encryption_enabled;
-      transparent_data_encryption_key_automatic_rotation_enabled;
-      transparent_data_encryption_key_vault_key_id;
-      zone_redundant;
-      identity;
-      import;
-      long_term_retention_policy;
-      short_term_retention_policy;
-      threat_detection_policy;
-      timeouts;
-    }
+    ({
+       auto_pause_delay_in_minutes;
+       collation;
+       create_mode;
+       creation_source_database_id;
+       elastic_pool_id;
+       enclave_type;
+       geo_backup_enabled;
+       id;
+       ledger_enabled;
+       license_type;
+       maintenance_configuration_name;
+       max_size_gb;
+       min_capacity;
+       name;
+       read_replica_count;
+       read_scale;
+       recover_database_id;
+       recovery_point_id;
+       restore_dropped_database_id;
+       restore_long_term_retention_backup_id;
+       restore_point_in_time;
+       sample_name;
+       server_id;
+       sku_name;
+       storage_account_type;
+       tags;
+       transparent_data_encryption_enabled;
+       transparent_data_encryption_key_automatic_rotation_enabled;
+       transparent_data_encryption_key_vault_key_id;
+       zone_redundant;
+       identity;
+       import;
+       long_term_retention_policy;
+       short_term_retention_policy;
+       threat_detection_policy;
+       timeouts;
+     }
+      : azurerm_mssql_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_pause_delay_in_minutes =
+         Prop.computed __resource_type __resource_id
+           "auto_pause_delay_in_minutes";
+       collation =
+         Prop.computed __resource_type __resource_id "collation";
+       create_mode =
+         Prop.computed __resource_type __resource_id "create_mode";
+       creation_source_database_id =
+         Prop.computed __resource_type __resource_id
+           "creation_source_database_id";
+       elastic_pool_id =
+         Prop.computed __resource_type __resource_id
+           "elastic_pool_id";
+       enclave_type =
+         Prop.computed __resource_type __resource_id "enclave_type";
+       geo_backup_enabled =
+         Prop.computed __resource_type __resource_id
+           "geo_backup_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       ledger_enabled =
+         Prop.computed __resource_type __resource_id "ledger_enabled";
+       license_type =
+         Prop.computed __resource_type __resource_id "license_type";
+       maintenance_configuration_name =
+         Prop.computed __resource_type __resource_id
+           "maintenance_configuration_name";
+       max_size_gb =
+         Prop.computed __resource_type __resource_id "max_size_gb";
+       min_capacity =
+         Prop.computed __resource_type __resource_id "min_capacity";
+       name = Prop.computed __resource_type __resource_id "name";
+       read_replica_count =
+         Prop.computed __resource_type __resource_id
+           "read_replica_count";
+       read_scale =
+         Prop.computed __resource_type __resource_id "read_scale";
+       recover_database_id =
+         Prop.computed __resource_type __resource_id
+           "recover_database_id";
+       recovery_point_id =
+         Prop.computed __resource_type __resource_id
+           "recovery_point_id";
+       restore_dropped_database_id =
+         Prop.computed __resource_type __resource_id
+           "restore_dropped_database_id";
+       restore_long_term_retention_backup_id =
+         Prop.computed __resource_type __resource_id
+           "restore_long_term_retention_backup_id";
+       restore_point_in_time =
+         Prop.computed __resource_type __resource_id
+           "restore_point_in_time";
+       sample_name =
+         Prop.computed __resource_type __resource_id "sample_name";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       storage_account_type =
+         Prop.computed __resource_type __resource_id
+           "storage_account_type";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       transparent_data_encryption_enabled =
+         Prop.computed __resource_type __resource_id
+           "transparent_data_encryption_enabled";
+       transparent_data_encryption_key_automatic_rotation_enabled =
+         Prop.computed __resource_type __resource_id
+           "transparent_data_encryption_key_automatic_rotation_enabled";
+       transparent_data_encryption_key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "transparent_data_encryption_key_vault_key_id";
+       zone_redundant =
+         Prop.computed __resource_type __resource_id "zone_redundant";
+     }
+      : t)
+  in
+  __resource_attributes

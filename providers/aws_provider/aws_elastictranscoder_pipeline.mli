@@ -9,6 +9,16 @@ type aws_elastictranscoder_pipeline__thumbnail_config
 type aws_elastictranscoder_pipeline__thumbnail_config_permissions
 type aws_elastictranscoder_pipeline
 
+type t = private {
+  arn : string prop;
+  aws_kms_key_arn : string prop;
+  id : string prop;
+  input_bucket : string prop;
+  name : string prop;
+  output_bucket : string prop;
+  role : string prop;
+}
+
 val aws_elastictranscoder_pipeline :
   ?aws_kms_key_arn:string prop ->
   ?id:string prop ->
@@ -25,4 +35,4 @@ val aws_elastictranscoder_pipeline :
   thumbnail_config_permissions:
     aws_elastictranscoder_pipeline__thumbnail_config_permissions list ->
   string ->
-  unit
+  t

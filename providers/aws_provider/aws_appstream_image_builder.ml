@@ -54,30 +54,81 @@ type aws_appstream_image_builder = {
 [@@deriving yojson_of]
 (** aws_appstream_image_builder *)
 
+type t = {
+  appstream_agent_version : string prop;
+  arn : string prop;
+  created_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  enable_default_internet_access : bool prop;
+  iam_role_arn : string prop;
+  id : string prop;
+  image_arn : string prop;
+  image_name : string prop;
+  instance_type : string prop;
+  name : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_appstream_image_builder ?appstream_agent_version ?description
     ?display_name ?enable_default_internet_access ?iam_role_arn ?id
     ?image_arn ?image_name ?tags ?tags_all ~instance_type ~name
     ~access_endpoint ~domain_join_info ~vpc_config __resource_id =
   let __resource_type = "aws_appstream_image_builder" in
   let __resource =
-    {
-      appstream_agent_version;
-      description;
-      display_name;
-      enable_default_internet_access;
-      iam_role_arn;
-      id;
-      image_arn;
-      image_name;
-      instance_type;
-      name;
-      tags;
-      tags_all;
-      access_endpoint;
-      domain_join_info;
-      vpc_config;
-    }
+    ({
+       appstream_agent_version;
+       description;
+       display_name;
+       enable_default_internet_access;
+       iam_role_arn;
+       id;
+       image_arn;
+       image_name;
+       instance_type;
+       name;
+       tags;
+       tags_all;
+       access_endpoint;
+       domain_join_info;
+       vpc_config;
+     }
+      : aws_appstream_image_builder)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_image_builder __resource);
-  ()
+  let __resource_attributes =
+    ({
+       appstream_agent_version =
+         Prop.computed __resource_type __resource_id
+           "appstream_agent_version";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_time =
+         Prop.computed __resource_type __resource_id "created_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enable_default_internet_access =
+         Prop.computed __resource_type __resource_id
+           "enable_default_internet_access";
+       iam_role_arn =
+         Prop.computed __resource_type __resource_id "iam_role_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       image_arn =
+         Prop.computed __resource_type __resource_id "image_arn";
+       image_name =
+         Prop.computed __resource_type __resource_id "image_name";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       name = Prop.computed __resource_type __resource_id "name";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

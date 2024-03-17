@@ -30,6 +30,21 @@ type aws_opensearch_domain__timeouts
 type aws_opensearch_domain__vpc_options
 type aws_opensearch_domain
 
+type t = private {
+  access_policies : string prop;
+  advanced_options : (string * string) list prop;
+  arn : string prop;
+  dashboard_endpoint : string prop;
+  domain_id : string prop;
+  domain_name : string prop;
+  endpoint : string prop;
+  engine_version : string prop;
+  id : string prop;
+  kibana_endpoint : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_opensearch_domain :
   ?access_policies:string prop ->
   ?advanced_options:(string * string prop) list ->
@@ -59,4 +74,4 @@ val aws_opensearch_domain :
     aws_opensearch_domain__software_update_options list ->
   vpc_options:aws_opensearch_domain__vpc_options list ->
   string ->
-  unit
+  t

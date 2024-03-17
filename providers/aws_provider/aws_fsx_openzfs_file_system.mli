@@ -14,6 +14,35 @@ type aws_fsx_openzfs_file_system__root_volume_configuration
 type aws_fsx_openzfs_file_system__timeouts
 type aws_fsx_openzfs_file_system
 
+type t = private {
+  arn : string prop;
+  automatic_backup_retention_days : float prop;
+  backup_id : string prop;
+  copy_tags_to_backups : bool prop;
+  copy_tags_to_volumes : bool prop;
+  daily_automatic_backup_start_time : string prop;
+  deployment_type : string prop;
+  dns_name : string prop;
+  endpoint_ip_address_range : string prop;
+  id : string prop;
+  kms_key_id : string prop;
+  network_interface_ids : string list prop;
+  owner_id : string prop;
+  preferred_subnet_id : string prop;
+  root_volume_id : string prop;
+  route_table_ids : string list prop;
+  security_group_ids : string list prop;
+  skip_final_backup : bool prop;
+  storage_capacity : float prop;
+  storage_type : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  throughput_capacity : float prop;
+  vpc_id : string prop;
+  weekly_maintenance_start_time : string prop;
+}
+
 val aws_fsx_openzfs_file_system :
   ?automatic_backup_retention_days:float prop ->
   ?backup_id:string prop ->
@@ -41,4 +70,4 @@ val aws_fsx_openzfs_file_system :
   root_volume_configuration:
     aws_fsx_openzfs_file_system__root_volume_configuration list ->
   string ->
-  unit
+  t

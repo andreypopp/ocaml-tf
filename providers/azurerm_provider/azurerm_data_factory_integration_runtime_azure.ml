@@ -33,6 +33,19 @@ type azurerm_data_factory_integration_runtime_azure = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure *)
 
+type t = {
+  cleanup_enabled : bool prop;
+  compute_type : string prop;
+  core_count : float prop;
+  data_factory_id : string prop;
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  time_to_live_min : float prop;
+  virtual_network_enabled : bool prop;
+}
+
 let azurerm_data_factory_integration_runtime_azure ?cleanup_enabled
     ?compute_type ?core_count ?description ?id ?time_to_live_min
     ?virtual_network_enabled ?timeouts ~data_factory_id ~location
@@ -41,21 +54,49 @@ let azurerm_data_factory_integration_runtime_azure ?cleanup_enabled
     "azurerm_data_factory_integration_runtime_azure"
   in
   let __resource =
-    {
-      cleanup_enabled;
-      compute_type;
-      core_count;
-      data_factory_id;
-      description;
-      id;
-      location;
-      name;
-      time_to_live_min;
-      virtual_network_enabled;
-      timeouts;
-    }
+    ({
+       cleanup_enabled;
+       compute_type;
+       core_count;
+       data_factory_id;
+       description;
+       id;
+       location;
+       name;
+       time_to_live_min;
+       virtual_network_enabled;
+       timeouts;
+     }
+      : azurerm_data_factory_integration_runtime_azure)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_integration_runtime_azure
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cleanup_enabled =
+         Prop.computed __resource_type __resource_id
+           "cleanup_enabled";
+       compute_type =
+         Prop.computed __resource_type __resource_id "compute_type";
+       core_count =
+         Prop.computed __resource_type __resource_id "core_count";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       time_to_live_min =
+         Prop.computed __resource_type __resource_id
+           "time_to_live_min";
+       virtual_network_enabled =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

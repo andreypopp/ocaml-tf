@@ -14,6 +14,29 @@ type aws_dax_cluster__nodes = {
 
 type aws_dax_cluster
 
+type t = private {
+  arn : string prop;
+  availability_zones : string list prop;
+  cluster_address : string prop;
+  cluster_endpoint_encryption_type : string prop;
+  cluster_name : string prop;
+  configuration_endpoint : string prop;
+  description : string prop;
+  iam_role_arn : string prop;
+  id : string prop;
+  maintenance_window : string prop;
+  node_type : string prop;
+  nodes : aws_dax_cluster__nodes list prop;
+  notification_topic_arn : string prop;
+  parameter_group_name : string prop;
+  port : float prop;
+  replication_factor : float prop;
+  security_group_ids : string list prop;
+  subnet_group_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_dax_cluster :
   ?availability_zones:string prop list ->
   ?cluster_endpoint_encryption_type:string prop ->
@@ -33,4 +56,4 @@ val aws_dax_cluster :
   replication_factor:float prop ->
   server_side_encryption:aws_dax_cluster__server_side_encryption list ->
   string ->
-  unit
+  t

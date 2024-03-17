@@ -28,21 +28,64 @@ type azurerm_function_app_hybrid_connection = {
 [@@deriving yojson_of]
 (** azurerm_function_app_hybrid_connection *)
 
+type t = {
+  function_app_id : string prop;
+  hostname : string prop;
+  id : string prop;
+  namespace_name : string prop;
+  port : float prop;
+  relay_id : string prop;
+  relay_name : string prop;
+  send_key_name : string prop;
+  send_key_value : string prop;
+  service_bus_namespace : string prop;
+  service_bus_suffix : string prop;
+}
+
 let azurerm_function_app_hybrid_connection ?id ?send_key_name
     ?timeouts ~function_app_id ~hostname ~port ~relay_id
     __resource_id =
   let __resource_type = "azurerm_function_app_hybrid_connection" in
   let __resource =
-    {
-      function_app_id;
-      hostname;
-      id;
-      port;
-      relay_id;
-      send_key_name;
-      timeouts;
-    }
+    ({
+       function_app_id;
+       hostname;
+       id;
+       port;
+       relay_id;
+       send_key_name;
+       timeouts;
+     }
+      : azurerm_function_app_hybrid_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_function_app_hybrid_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       function_app_id =
+         Prop.computed __resource_type __resource_id
+           "function_app_id";
+       hostname =
+         Prop.computed __resource_type __resource_id "hostname";
+       id = Prop.computed __resource_type __resource_id "id";
+       namespace_name =
+         Prop.computed __resource_type __resource_id "namespace_name";
+       port = Prop.computed __resource_type __resource_id "port";
+       relay_id =
+         Prop.computed __resource_type __resource_id "relay_id";
+       relay_name =
+         Prop.computed __resource_type __resource_id "relay_name";
+       send_key_name =
+         Prop.computed __resource_type __resource_id "send_key_name";
+       send_key_value =
+         Prop.computed __resource_type __resource_id "send_key_value";
+       service_bus_namespace =
+         Prop.computed __resource_type __resource_id
+           "service_bus_namespace";
+       service_bus_suffix =
+         Prop.computed __resource_type __resource_id
+           "service_bus_suffix";
+     }
+      : t)
+  in
+  __resource_attributes

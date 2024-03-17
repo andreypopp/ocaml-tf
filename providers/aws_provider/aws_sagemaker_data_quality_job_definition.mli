@@ -38,6 +38,15 @@ type aws_sagemaker_data_quality_job_definition__network_config
 type aws_sagemaker_data_quality_job_definition__stopping_condition
 type aws_sagemaker_data_quality_job_definition
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_sagemaker_data_quality_job_definition :
   ?id:string prop ->
   ?name:string prop ->
@@ -64,4 +73,4 @@ val aws_sagemaker_data_quality_job_definition :
     aws_sagemaker_data_quality_job_definition__stopping_condition
     list ->
   string ->
-  unit
+  t

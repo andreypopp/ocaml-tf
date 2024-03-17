@@ -21,6 +21,19 @@ type azurerm_automation_software_update_configuration__timeouts
 type azurerm_automation_software_update_configuration__windows
 type azurerm_automation_software_update_configuration
 
+type t = private {
+  automation_account_id : string prop;
+  duration : string prop;
+  error_code : string prop;
+  error_meesage : string prop;
+  error_message : string prop;
+  id : string prop;
+  name : string prop;
+  non_azure_computer_names : string list prop;
+  operating_system : string prop;
+  virtual_machine_ids : string list prop;
+}
+
 val azurerm_automation_software_update_configuration :
   ?duration:string prop ->
   ?id:string prop ->
@@ -43,4 +56,4 @@ val azurerm_automation_software_update_configuration :
   windows:
     azurerm_automation_software_update_configuration__windows list ->
   string ->
-  unit
+  t

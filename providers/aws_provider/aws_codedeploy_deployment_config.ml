@@ -51,19 +51,44 @@ type aws_codedeploy_deployment_config = {
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_config *)
 
+type t = {
+  arn : string prop;
+  compute_platform : string prop;
+  deployment_config_id : string prop;
+  deployment_config_name : string prop;
+  id : string prop;
+}
+
 let aws_codedeploy_deployment_config ?compute_platform ?id
     ~deployment_config_name ~minimum_healthy_hosts
     ~traffic_routing_config __resource_id =
   let __resource_type = "aws_codedeploy_deployment_config" in
   let __resource =
-    {
-      compute_platform;
-      deployment_config_name;
-      id;
-      minimum_healthy_hosts;
-      traffic_routing_config;
-    }
+    ({
+       compute_platform;
+       deployment_config_name;
+       id;
+       minimum_healthy_hosts;
+       traffic_routing_config;
+     }
+      : aws_codedeploy_deployment_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codedeploy_deployment_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       compute_platform =
+         Prop.computed __resource_type __resource_id
+           "compute_platform";
+       deployment_config_id =
+         Prop.computed __resource_type __resource_id
+           "deployment_config_id";
+       deployment_config_name =
+         Prop.computed __resource_type __resource_id
+           "deployment_config_name";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -40,20 +40,50 @@ type aws_backup_report_plan = {
 [@@deriving yojson_of]
 (** aws_backup_report_plan *)
 
+type t = {
+  arn : string prop;
+  creation_time : string prop;
+  deployment_status : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_backup_report_plan ?description ?id ?tags ?tags_all ~name
     ~report_delivery_channel ~report_setting __resource_id =
   let __resource_type = "aws_backup_report_plan" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      tags;
-      tags_all;
-      report_delivery_channel;
-      report_setting;
-    }
+    ({
+       description;
+       id;
+       name;
+       tags;
+       tags_all;
+       report_delivery_channel;
+       report_setting;
+     }
+      : aws_backup_report_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_backup_report_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       deployment_status =
+         Prop.computed __resource_type __resource_id
+           "deployment_status";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

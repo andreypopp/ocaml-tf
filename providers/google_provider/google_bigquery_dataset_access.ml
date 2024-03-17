@@ -110,27 +110,64 @@ fred@example.com *)
 [@@deriving yojson_of]
 (** google_bigquery_dataset_access *)
 
+type t = {
+  api_updated_member : bool prop;
+  dataset_id : string prop;
+  domain : string prop;
+  group_by_email : string prop;
+  iam_member : string prop;
+  id : string prop;
+  project : string prop;
+  role : string prop;
+  special_group : string prop;
+  user_by_email : string prop;
+}
+
 let google_bigquery_dataset_access ?domain ?group_by_email
     ?iam_member ?id ?project ?role ?special_group ?user_by_email
     ?timeouts ~dataset_id ~dataset ~routine ~view __resource_id =
   let __resource_type = "google_bigquery_dataset_access" in
   let __resource =
-    {
-      dataset_id;
-      domain;
-      group_by_email;
-      iam_member;
-      id;
-      project;
-      role;
-      special_group;
-      user_by_email;
-      dataset;
-      routine;
-      timeouts;
-      view;
-    }
+    ({
+       dataset_id;
+       domain;
+       group_by_email;
+       iam_member;
+       id;
+       project;
+       role;
+       special_group;
+       user_by_email;
+       dataset;
+       routine;
+       timeouts;
+       view;
+     }
+      : google_bigquery_dataset_access)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_dataset_access __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_updated_member =
+         Prop.computed __resource_type __resource_id
+           "api_updated_member";
+       dataset_id =
+         Prop.computed __resource_type __resource_id "dataset_id";
+       domain = Prop.computed __resource_type __resource_id "domain";
+       group_by_email =
+         Prop.computed __resource_type __resource_id "group_by_email";
+       iam_member =
+         Prop.computed __resource_type __resource_id "iam_member";
+       id = Prop.computed __resource_type __resource_id "id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+       special_group =
+         Prop.computed __resource_type __resource_id "special_group";
+       user_by_email =
+         Prop.computed __resource_type __resource_id "user_by_email";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -136,6 +136,23 @@ type azurerm_service_fabric_managed_cluster = {
 [@@deriving yojson_of]
 (** azurerm_service_fabric_managed_cluster *)
 
+type t = {
+  backup_service_enabled : bool prop;
+  client_connection_port : float prop;
+  dns_name : string prop;
+  dns_service_enabled : bool prop;
+  http_gateway_port : float prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  password : string prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  upgrade_wave : string prop;
+  username : string prop;
+}
+
 let azurerm_service_fabric_managed_cluster ?backup_service_enabled
     ?dns_name ?dns_service_enabled ?id ?password ?sku ?tags
     ?upgrade_wave ?username ?timeouts ~client_connection_port
@@ -144,28 +161,63 @@ let azurerm_service_fabric_managed_cluster ?backup_service_enabled
     __resource_id =
   let __resource_type = "azurerm_service_fabric_managed_cluster" in
   let __resource =
-    {
-      backup_service_enabled;
-      client_connection_port;
-      dns_name;
-      dns_service_enabled;
-      http_gateway_port;
-      id;
-      location;
-      name;
-      password;
-      resource_group_name;
-      sku;
-      tags;
-      upgrade_wave;
-      username;
-      authentication;
-      custom_fabric_setting;
-      lb_rule;
-      node_type;
-      timeouts;
-    }
+    ({
+       backup_service_enabled;
+       client_connection_port;
+       dns_name;
+       dns_service_enabled;
+       http_gateway_port;
+       id;
+       location;
+       name;
+       password;
+       resource_group_name;
+       sku;
+       tags;
+       upgrade_wave;
+       username;
+       authentication;
+       custom_fabric_setting;
+       lb_rule;
+       node_type;
+       timeouts;
+     }
+      : azurerm_service_fabric_managed_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_service_fabric_managed_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backup_service_enabled =
+         Prop.computed __resource_type __resource_id
+           "backup_service_enabled";
+       client_connection_port =
+         Prop.computed __resource_type __resource_id
+           "client_connection_port";
+       dns_name =
+         Prop.computed __resource_type __resource_id "dns_name";
+       dns_service_enabled =
+         Prop.computed __resource_type __resource_id
+           "dns_service_enabled";
+       http_gateway_port =
+         Prop.computed __resource_type __resource_id
+           "http_gateway_port";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       upgrade_wave =
+         Prop.computed __resource_type __resource_id "upgrade_wave";
+       username =
+         Prop.computed __resource_type __resource_id "username";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -69,6 +69,7 @@ type kubernetes_persistent_volume__spec__persistent_volume_source
 type kubernetes_persistent_volume__spec
 type kubernetes_persistent_volume__timeouts
 type kubernetes_persistent_volume
+type t = private { id : string prop }
 
 val kubernetes_persistent_volume :
   ?id:string prop ->
@@ -76,4 +77,4 @@ val kubernetes_persistent_volume :
   metadata:kubernetes_persistent_volume__metadata list ->
   spec:kubernetes_persistent_volume__spec list ->
   string ->
-  unit
+  t

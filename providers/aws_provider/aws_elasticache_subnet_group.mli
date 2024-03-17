@@ -4,6 +4,17 @@ open! Tf.Prelude
 
 type aws_elasticache_subnet_group
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 val aws_elasticache_subnet_group :
   ?description:string prop ->
   ?id:string prop ->
@@ -12,4 +23,4 @@ val aws_elasticache_subnet_group :
   name:string prop ->
   subnet_ids:string prop list ->
   string ->
-  unit
+  t

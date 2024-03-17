@@ -157,6 +157,23 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_healthcare_fhir_store *)
 
+type t = {
+  complex_data_type_reference_parsing : string prop;
+  dataset : string prop;
+  default_search_handling_strict : bool prop;
+  disable_referential_integrity : bool prop;
+  disable_resource_versioning : bool prop;
+  effective_labels : (string * string) list prop;
+  enable_history_import : bool prop;
+  enable_update_create : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  self_link : string prop;
+  terraform_labels : (string * string) list prop;
+  version : string prop;
+}
+
 let google_healthcare_fhir_store ?complex_data_type_reference_parsing
     ?default_search_handling_strict ?disable_referential_integrity
     ?disable_resource_versioning ?enable_history_import
@@ -164,23 +181,62 @@ let google_healthcare_fhir_store ?complex_data_type_reference_parsing
     ~version ~notification_config ~stream_configs __resource_id =
   let __resource_type = "google_healthcare_fhir_store" in
   let __resource =
-    {
-      complex_data_type_reference_parsing;
-      dataset;
-      default_search_handling_strict;
-      disable_referential_integrity;
-      disable_resource_versioning;
-      enable_history_import;
-      enable_update_create;
-      id;
-      labels;
-      name;
-      version;
-      notification_config;
-      stream_configs;
-      timeouts;
-    }
+    ({
+       complex_data_type_reference_parsing;
+       dataset;
+       default_search_handling_strict;
+       disable_referential_integrity;
+       disable_resource_versioning;
+       enable_history_import;
+       enable_update_create;
+       id;
+       labels;
+       name;
+       version;
+       notification_config;
+       stream_configs;
+       timeouts;
+     }
+      : google_healthcare_fhir_store)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_fhir_store __resource);
-  ()
+  let __resource_attributes =
+    ({
+       complex_data_type_reference_parsing =
+         Prop.computed __resource_type __resource_id
+           "complex_data_type_reference_parsing";
+       dataset =
+         Prop.computed __resource_type __resource_id "dataset";
+       default_search_handling_strict =
+         Prop.computed __resource_type __resource_id
+           "default_search_handling_strict";
+       disable_referential_integrity =
+         Prop.computed __resource_type __resource_id
+           "disable_referential_integrity";
+       disable_resource_versioning =
+         Prop.computed __resource_type __resource_id
+           "disable_resource_versioning";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       enable_history_import =
+         Prop.computed __resource_type __resource_id
+           "enable_history_import";
+       enable_update_create =
+         Prop.computed __resource_type __resource_id
+           "enable_update_create";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

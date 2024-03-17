@@ -2257,10 +2257,22 @@ type kubernetes_pod = {
 [@@deriving yojson_of]
 (** kubernetes_pod *)
 
+type t = { id : string prop; target_state : string list prop }
+
 let kubernetes_pod ?id ?target_state ?timeouts ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_pod" in
-  let __resource = { id; target_state; metadata; spec; timeouts } in
+  let __resource =
+    ({ id; target_state; metadata; spec; timeouts } : kubernetes_pod)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_pod __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       target_state =
+         Prop.computed __resource_type __resource_id "target_state";
+     }
+      : t)
+  in
+  __resource_attributes

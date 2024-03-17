@@ -339,6 +339,21 @@ used in conjunction with Access Applications to restrict access to
 a particular resource.
  *)
 
+type t = {
+  account_id : string prop;
+  application_id : string prop;
+  approval_required : bool prop;
+  decision : string prop;
+  id : string prop;
+  isolation_required : bool prop;
+  name : string prop;
+  precedence : float prop;
+  purpose_justification_prompt : string prop;
+  purpose_justification_required : bool prop;
+  session_duration : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_access_policy ?account_id ?approval_required ?id
     ?isolation_required ?purpose_justification_prompt
     ?purpose_justification_required ?session_duration ?zone_id
@@ -346,25 +361,58 @@ let cloudflare_access_policy ?account_id ?approval_required ?id
     ~exclude ~include_ ~require __resource_id =
   let __resource_type = "cloudflare_access_policy" in
   let __resource =
-    {
-      account_id;
-      application_id;
-      approval_required;
-      decision;
-      id;
-      isolation_required;
-      name;
-      precedence;
-      purpose_justification_prompt;
-      purpose_justification_required;
-      session_duration;
-      zone_id;
-      approval_group;
-      exclude;
-      include_;
-      require;
-    }
+    ({
+       account_id;
+       application_id;
+       approval_required;
+       decision;
+       id;
+       isolation_required;
+       name;
+       precedence;
+       purpose_justification_prompt;
+       purpose_justification_required;
+       session_duration;
+       zone_id;
+       approval_group;
+       exclude;
+       include_;
+       require;
+     }
+      : cloudflare_access_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       application_id =
+         Prop.computed __resource_type __resource_id "application_id";
+       approval_required =
+         Prop.computed __resource_type __resource_id
+           "approval_required";
+       decision =
+         Prop.computed __resource_type __resource_id "decision";
+       id = Prop.computed __resource_type __resource_id "id";
+       isolation_required =
+         Prop.computed __resource_type __resource_id
+           "isolation_required";
+       name = Prop.computed __resource_type __resource_id "name";
+       precedence =
+         Prop.computed __resource_type __resource_id "precedence";
+       purpose_justification_prompt =
+         Prop.computed __resource_type __resource_id
+           "purpose_justification_prompt";
+       purpose_justification_required =
+         Prop.computed __resource_type __resource_id
+           "purpose_justification_required";
+       session_duration =
+         Prop.computed __resource_type __resource_id
+           "session_duration";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

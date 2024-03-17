@@ -482,12 +482,38 @@ in different products, allowing you to configure several products using the same
 basic syntax.
  *)
 
+type t = {
+  account_id : string prop;
+  description : string prop;
+  id : string prop;
+  kind : string prop;
+  name : string prop;
+  phase : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_ruleset ?account_id ?description ?zone_id ~kind ~name
     ~phase ~rules __resource_id =
   let __resource_type = "cloudflare_ruleset" in
   let __resource =
-    { account_id; description; kind; name; phase; zone_id; rules }
+    ({ account_id; description; kind; name; phase; zone_id; rules }
+      : cloudflare_ruleset)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_ruleset __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       name = Prop.computed __resource_type __resource_id "name";
+       phase = Prop.computed __resource_type __resource_id "phase";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

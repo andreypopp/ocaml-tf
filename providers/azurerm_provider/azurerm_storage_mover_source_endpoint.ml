@@ -26,22 +26,49 @@ type azurerm_storage_mover_source_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_storage_mover_source_endpoint *)
 
+type t = {
+  description : string prop;
+  export : string prop;
+  host : string prop;
+  id : string prop;
+  name : string prop;
+  nfs_version : string prop;
+  storage_mover_id : string prop;
+}
+
 let azurerm_storage_mover_source_endpoint ?description ?export ?id
     ?nfs_version ?timeouts ~host ~name ~storage_mover_id
     __resource_id =
   let __resource_type = "azurerm_storage_mover_source_endpoint" in
   let __resource =
-    {
-      description;
-      export;
-      host;
-      id;
-      name;
-      nfs_version;
-      storage_mover_id;
-      timeouts;
-    }
+    ({
+       description;
+       export;
+       host;
+       id;
+       name;
+       nfs_version;
+       storage_mover_id;
+       timeouts;
+     }
+      : azurerm_storage_mover_source_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_mover_source_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       export = Prop.computed __resource_type __resource_id "export";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       nfs_version =
+         Prop.computed __resource_type __resource_id "nfs_version";
+       storage_mover_id =
+         Prop.computed __resource_type __resource_id
+           "storage_mover_id";
+     }
+      : t)
+  in
+  __resource_attributes

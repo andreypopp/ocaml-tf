@@ -25,6 +25,21 @@ type aws_scheduler_schedule__target__sqs_parameters
 type aws_scheduler_schedule__target
 type aws_scheduler_schedule
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  end_date : string prop;
+  group_name : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  schedule_expression : string prop;
+  schedule_expression_timezone : string prop;
+  start_date : string prop;
+  state : string prop;
+}
+
 val aws_scheduler_schedule :
   ?description:string prop ->
   ?end_date:string prop ->
@@ -41,4 +56,4 @@ val aws_scheduler_schedule :
     aws_scheduler_schedule__flexible_time_window list ->
   target:aws_scheduler_schedule__target list ->
   string ->
-  unit
+  t

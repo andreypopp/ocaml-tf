@@ -54,6 +54,17 @@ type aws_verifiedaccess_trust_provider = {
 [@@deriving yojson_of]
 (** aws_verifiedaccess_trust_provider *)
 
+type t = {
+  description : string prop;
+  device_trust_provider_type : string prop;
+  id : string prop;
+  policy_reference_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  trust_provider_type : string prop;
+  user_trust_provider_type : string prop;
+}
+
 let aws_verifiedaccess_trust_provider ?description
     ?device_trust_provider_type ?id ?tags ?tags_all
     ?user_trust_provider_type ?timeouts ~policy_reference_name
@@ -61,20 +72,44 @@ let aws_verifiedaccess_trust_provider ?description
     =
   let __resource_type = "aws_verifiedaccess_trust_provider" in
   let __resource =
-    {
-      description;
-      device_trust_provider_type;
-      id;
-      policy_reference_name;
-      tags;
-      tags_all;
-      trust_provider_type;
-      user_trust_provider_type;
-      device_options;
-      oidc_options;
-      timeouts;
-    }
+    ({
+       description;
+       device_trust_provider_type;
+       id;
+       policy_reference_name;
+       tags;
+       tags_all;
+       trust_provider_type;
+       user_trust_provider_type;
+       device_options;
+       oidc_options;
+       timeouts;
+     }
+      : aws_verifiedaccess_trust_provider)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedaccess_trust_provider __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       device_trust_provider_type =
+         Prop.computed __resource_type __resource_id
+           "device_trust_provider_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       policy_reference_name =
+         Prop.computed __resource_type __resource_id
+           "policy_reference_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       trust_provider_type =
+         Prop.computed __resource_type __resource_id
+           "trust_provider_type";
+       user_trust_provider_type =
+         Prop.computed __resource_type __resource_id
+           "user_trust_provider_type";
+     }
+      : t)
+  in
+  __resource_attributes

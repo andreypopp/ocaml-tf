@@ -5,6 +5,19 @@ open! Tf.Prelude
 type google_org_policy_custom_constraint__timeouts
 type google_org_policy_custom_constraint
 
+type t = private {
+  action_type : string prop;
+  condition : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  method_types : string list prop;
+  name : string prop;
+  parent : string prop;
+  resource_types : string list prop;
+  update_time : string prop;
+}
+
 val google_org_policy_custom_constraint :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -17,4 +30,4 @@ val google_org_policy_custom_constraint :
   parent:string prop ->
   resource_types:string prop list ->
   string ->
-  unit
+  t

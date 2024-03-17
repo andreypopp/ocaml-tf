@@ -19,20 +19,50 @@ type aws_s3_account_public_access_block = {
 [@@deriving yojson_of]
 (** aws_s3_account_public_access_block *)
 
+type t = {
+  account_id : string prop;
+  block_public_acls : bool prop;
+  block_public_policy : bool prop;
+  id : string prop;
+  ignore_public_acls : bool prop;
+  restrict_public_buckets : bool prop;
+}
+
 let aws_s3_account_public_access_block ?account_id ?block_public_acls
     ?block_public_policy ?id ?ignore_public_acls
     ?restrict_public_buckets __resource_id =
   let __resource_type = "aws_s3_account_public_access_block" in
   let __resource =
-    {
-      account_id;
-      block_public_acls;
-      block_public_policy;
-      id;
-      ignore_public_acls;
-      restrict_public_buckets;
-    }
+    ({
+       account_id;
+       block_public_acls;
+       block_public_policy;
+       id;
+       ignore_public_acls;
+       restrict_public_buckets;
+     }
+      : aws_s3_account_public_access_block)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_account_public_access_block __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       block_public_acls =
+         Prop.computed __resource_type __resource_id
+           "block_public_acls";
+       block_public_policy =
+         Prop.computed __resource_type __resource_id
+           "block_public_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       ignore_public_acls =
+         Prop.computed __resource_type __resource_id
+           "ignore_public_acls";
+       restrict_public_buckets =
+         Prop.computed __resource_type __resource_id
+           "restrict_public_buckets";
+     }
+      : t)
+  in
+  __resource_attributes

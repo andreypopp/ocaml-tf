@@ -47,25 +47,54 @@ type azurerm_virtual_network_gateway_nat_rule = {
 [@@deriving yojson_of]
 (** azurerm_virtual_network_gateway_nat_rule *)
 
+type t = {
+  id : string prop;
+  ip_configuration_id : string prop;
+  mode : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  type_ : string prop;
+  virtual_network_gateway_id : string prop;
+}
+
 let azurerm_virtual_network_gateway_nat_rule ?id ?ip_configuration_id
     ?mode ?type_ ?timeouts ~name ~resource_group_name
     ~virtual_network_gateway_id ~external_mapping ~internal_mapping
     __resource_id =
   let __resource_type = "azurerm_virtual_network_gateway_nat_rule" in
   let __resource =
-    {
-      id;
-      ip_configuration_id;
-      mode;
-      name;
-      resource_group_name;
-      type_;
-      virtual_network_gateway_id;
-      external_mapping;
-      internal_mapping;
-      timeouts;
-    }
+    ({
+       id;
+       ip_configuration_id;
+       mode;
+       name;
+       resource_group_name;
+       type_;
+       virtual_network_gateway_id;
+       external_mapping;
+       internal_mapping;
+       timeouts;
+     }
+      : azurerm_virtual_network_gateway_nat_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network_gateway_nat_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_configuration_id =
+         Prop.computed __resource_type __resource_id
+           "ip_configuration_id";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       virtual_network_gateway_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_gateway_id";
+     }
+      : t)
+  in
+  __resource_attributes

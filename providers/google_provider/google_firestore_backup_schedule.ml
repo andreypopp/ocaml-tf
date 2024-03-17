@@ -41,20 +41,42 @@ For a daily backup recurrence, set this to a value up to 7 days. If you set a we
 [@@deriving yojson_of]
 (** google_firestore_backup_schedule *)
 
+type t = {
+  database : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  retention : string prop;
+}
+
 let google_firestore_backup_schedule ?database ?id ?project ?timeouts
     ~retention ~daily_recurrence ~weekly_recurrence __resource_id =
   let __resource_type = "google_firestore_backup_schedule" in
   let __resource =
-    {
-      database;
-      id;
-      project;
-      retention;
-      daily_recurrence;
-      timeouts;
-      weekly_recurrence;
-    }
+    ({
+       database;
+       id;
+       project;
+       retention;
+       daily_recurrence;
+       timeouts;
+       weekly_recurrence;
+     }
+      : google_firestore_backup_schedule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firestore_backup_schedule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       database =
+         Prop.computed __resource_type __resource_id "database";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       retention =
+         Prop.computed __resource_type __resource_id "retention";
+     }
+      : t)
+  in
+  __resource_attributes

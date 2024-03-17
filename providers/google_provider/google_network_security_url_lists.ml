@@ -27,12 +27,42 @@ This value should be 1-63 characters long, containing only letters, numbers, hyp
 [@@deriving yojson_of]
 (** google_network_security_url_lists *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  update_time : string prop;
+  values : string list prop;
+}
+
 let google_network_security_url_lists ?description ?id ?project
     ?timeouts ~location ~name ~values __resource_id =
   let __resource_type = "google_network_security_url_lists" in
   let __resource =
-    { description; id; location; name; project; values; timeouts }
+    ({ description; id; location; name; project; values; timeouts }
+      : google_network_security_url_lists)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_security_url_lists __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       values = Prop.computed __resource_type __resource_id "values";
+     }
+      : t)
+  in
+  __resource_attributes

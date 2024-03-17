@@ -21,6 +21,16 @@ type aws_sagemaker_model__primary_container
 type aws_sagemaker_model__vpc_config
 type aws_sagemaker_model
 
+type t = private {
+  arn : string prop;
+  enable_network_isolation : bool prop;
+  execution_role_arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_sagemaker_model :
   ?enable_network_isolation:bool prop ->
   ?id:string prop ->
@@ -34,4 +44,4 @@ val aws_sagemaker_model :
   primary_container:aws_sagemaker_model__primary_container list ->
   vpc_config:aws_sagemaker_model__vpc_config list ->
   string ->
-  unit
+  t

@@ -62,21 +62,50 @@ projects/[project_id]/topics/[topic]. *)
 [@@deriving yojson_of]
 (** google_scc_notification_config *)
 
+type t = {
+  config_id : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  organization : string prop;
+  pubsub_topic : string prop;
+  service_account : string prop;
+}
+
 let google_scc_notification_config ?description ?id ?timeouts
     ~config_id ~organization ~pubsub_topic ~streaming_config
     __resource_id =
   let __resource_type = "google_scc_notification_config" in
   let __resource =
-    {
-      config_id;
-      description;
-      id;
-      organization;
-      pubsub_topic;
-      streaming_config;
-      timeouts;
-    }
+    ({
+       config_id;
+       description;
+       id;
+       organization;
+       pubsub_topic;
+       streaming_config;
+       timeouts;
+     }
+      : google_scc_notification_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_notification_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       config_id =
+         Prop.computed __resource_type __resource_id "config_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       organization =
+         Prop.computed __resource_type __resource_id "organization";
+       pubsub_topic =
+         Prop.computed __resource_type __resource_id "pubsub_topic";
+       service_account =
+         Prop.computed __resource_type __resource_id
+           "service_account";
+     }
+      : t)
+  in
+  __resource_attributes

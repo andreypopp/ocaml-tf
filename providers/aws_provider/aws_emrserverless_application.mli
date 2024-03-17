@@ -15,6 +15,17 @@ type aws_emrserverless_application__maximum_capacity
 type aws_emrserverless_application__network_configuration
 type aws_emrserverless_application
 
+type t = private {
+  architecture : string prop;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  release_label : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_emrserverless_application :
   ?architecture:string prop ->
   ?id:string prop ->
@@ -36,4 +47,4 @@ val aws_emrserverless_application :
   network_configuration:
     aws_emrserverless_application__network_configuration list ->
   string ->
-  unit
+  t

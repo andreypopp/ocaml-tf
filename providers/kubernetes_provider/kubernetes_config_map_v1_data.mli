@@ -5,6 +5,13 @@ open! Tf.Prelude
 type kubernetes_config_map_v1_data__metadata
 type kubernetes_config_map_v1_data
 
+type t = private {
+  data : (string * string) list prop;
+  field_manager : string prop;
+  force : bool prop;
+  id : string prop;
+}
+
 val kubernetes_config_map_v1_data :
   ?field_manager:string prop ->
   ?force:bool prop ->
@@ -12,4 +19,4 @@ val kubernetes_config_map_v1_data :
   data:(string * string prop) list ->
   metadata:kubernetes_config_map_v1_data__metadata list ->
   string ->
-  unit
+  t

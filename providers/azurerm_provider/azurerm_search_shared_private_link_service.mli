@@ -5,6 +5,16 @@ open! Tf.Prelude
 type azurerm_search_shared_private_link_service__timeouts
 type azurerm_search_shared_private_link_service
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  request_message : string prop;
+  search_service_id : string prop;
+  status : string prop;
+  subresource_name : string prop;
+  target_resource_id : string prop;
+}
+
 val azurerm_search_shared_private_link_service :
   ?id:string prop ->
   ?request_message:string prop ->
@@ -14,4 +24,4 @@ val azurerm_search_shared_private_link_service :
   subresource_name:string prop ->
   target_resource_id:string prop ->
   string ->
-  unit
+  t

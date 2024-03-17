@@ -92,24 +92,64 @@ type aws_fsx_ontap_storage_virtual_machine = {
 [@@deriving yojson_of]
 (** aws_fsx_ontap_storage_virtual_machine *)
 
+type t = {
+  arn : string prop;
+  endpoints :
+    aws_fsx_ontap_storage_virtual_machine__endpoints list prop;
+  file_system_id : string prop;
+  id : string prop;
+  name : string prop;
+  root_volume_security_style : string prop;
+  subtype : string prop;
+  svm_admin_password : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  uuid : string prop;
+}
+
 let aws_fsx_ontap_storage_virtual_machine ?id
     ?root_volume_security_style ?svm_admin_password ?tags ?tags_all
     ?timeouts ~file_system_id ~name ~active_directory_configuration
     __resource_id =
   let __resource_type = "aws_fsx_ontap_storage_virtual_machine" in
   let __resource =
-    {
-      file_system_id;
-      id;
-      name;
-      root_volume_security_style;
-      svm_admin_password;
-      tags;
-      tags_all;
-      active_directory_configuration;
-      timeouts;
-    }
+    ({
+       file_system_id;
+       id;
+       name;
+       root_volume_security_style;
+       svm_admin_password;
+       tags;
+       tags_all;
+       active_directory_configuration;
+       timeouts;
+     }
+      : aws_fsx_ontap_storage_virtual_machine)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_ontap_storage_virtual_machine __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       endpoints =
+         Prop.computed __resource_type __resource_id "endpoints";
+       file_system_id =
+         Prop.computed __resource_type __resource_id "file_system_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       root_volume_security_style =
+         Prop.computed __resource_type __resource_id
+           "root_volume_security_style";
+       subtype =
+         Prop.computed __resource_type __resource_id "subtype";
+       svm_admin_password =
+         Prop.computed __resource_type __resource_id
+           "svm_admin_password";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       uuid = Prop.computed __resource_type __resource_id "uuid";
+     }
+      : t)
+  in
+  __resource_attributes

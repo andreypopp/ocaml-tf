@@ -36,23 +36,50 @@ type azurerm_key_vault_certificate_issuer = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate_issuer *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  key_vault_id : string prop;
+  name : string prop;
+  org_id : string prop;
+  password : string prop;
+  provider_name : string prop;
+}
+
 let azurerm_key_vault_certificate_issuer ?account_id ?id ?org_id
     ?password ?timeouts ~key_vault_id ~name ~provider_name ~admin
     __resource_id =
   let __resource_type = "azurerm_key_vault_certificate_issuer" in
   let __resource =
-    {
-      account_id;
-      id;
-      key_vault_id;
-      name;
-      org_id;
-      password;
-      provider_name;
-      admin;
-      timeouts;
-    }
+    ({
+       account_id;
+       id;
+       key_vault_id;
+       name;
+       org_id;
+       password;
+       provider_name;
+       admin;
+       timeouts;
+     }
+      : azurerm_key_vault_certificate_issuer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_certificate_issuer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_id =
+         Prop.computed __resource_type __resource_id "key_vault_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       provider_name =
+         Prop.computed __resource_type __resource_id "provider_name";
+     }
+      : t)
+  in
+  __resource_attributes

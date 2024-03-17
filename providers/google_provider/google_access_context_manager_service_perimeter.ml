@@ -529,6 +529,18 @@ bet set to True if any of the fields in the spec are set to non-default values. 
 [@@deriving yojson_of]
 (** google_access_context_manager_service_perimeter *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  perimeter_type : string prop;
+  title : string prop;
+  update_time : string prop;
+  use_explicit_dry_run_spec : bool prop;
+}
+
 let google_access_context_manager_service_perimeter ?description ?id
     ?perimeter_type ?use_explicit_dry_run_spec ?timeouts ~name
     ~parent ~title ~spec ~status __resource_id =
@@ -536,20 +548,41 @@ let google_access_context_manager_service_perimeter ?description ?id
     "google_access_context_manager_service_perimeter"
   in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      parent;
-      perimeter_type;
-      title;
-      use_explicit_dry_run_spec;
-      spec;
-      status;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       parent;
+       perimeter_type;
+       title;
+       use_explicit_dry_run_spec;
+       spec;
+       status;
+       timeouts;
+     }
+      : google_access_context_manager_service_perimeter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_service_perimeter
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       perimeter_type =
+         Prop.computed __resource_type __resource_id "perimeter_type";
+       title = Prop.computed __resource_type __resource_id "title";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       use_explicit_dry_run_spec =
+         Prop.computed __resource_type __resource_id
+           "use_explicit_dry_run_spec";
+     }
+      : t)
+  in
+  __resource_attributes

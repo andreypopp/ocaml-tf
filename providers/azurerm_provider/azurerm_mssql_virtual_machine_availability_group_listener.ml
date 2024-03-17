@@ -66,6 +66,14 @@ type azurerm_mssql_virtual_machine_availability_group_listener = {
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_machine_availability_group_listener *)
 
+type t = {
+  availability_group_name : string prop;
+  id : string prop;
+  name : string prop;
+  port : float prop;
+  sql_virtual_machine_group_id : string prop;
+}
+
 let azurerm_mssql_virtual_machine_availability_group_listener
     ?availability_group_name ?id ?port ?timeouts ~name
     ~sql_virtual_machine_group_id ~load_balancer_configuration
@@ -74,19 +82,34 @@ let azurerm_mssql_virtual_machine_availability_group_listener
     "azurerm_mssql_virtual_machine_availability_group_listener"
   in
   let __resource =
-    {
-      availability_group_name;
-      id;
-      name;
-      port;
-      sql_virtual_machine_group_id;
-      load_balancer_configuration;
-      multi_subnet_ip_configuration;
-      replica;
-      timeouts;
-    }
+    ({
+       availability_group_name;
+       id;
+       name;
+       port;
+       sql_virtual_machine_group_id;
+       load_balancer_configuration;
+       multi_subnet_ip_configuration;
+       replica;
+       timeouts;
+     }
+      : azurerm_mssql_virtual_machine_availability_group_listener)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_virtual_machine_availability_group_listener
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       availability_group_name =
+         Prop.computed __resource_type __resource_id
+           "availability_group_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       port = Prop.computed __resource_type __resource_id "port";
+       sql_virtual_machine_group_id =
+         Prop.computed __resource_type __resource_id
+           "sql_virtual_machine_group_id";
+     }
+      : t)
+  in
+  __resource_attributes

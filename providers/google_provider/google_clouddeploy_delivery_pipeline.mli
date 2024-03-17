@@ -75,6 +75,26 @@ type google_clouddeploy_delivery_pipeline__condition = {
 
 type google_clouddeploy_delivery_pipeline
 
+type t = private {
+  annotations : (string * string) list prop;
+  condition :
+    google_clouddeploy_delivery_pipeline__condition list prop;
+  create_time : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  suspended : bool prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_clouddeploy_delivery_pipeline :
   ?annotations:(string * string prop) list ->
   ?description:string prop ->
@@ -88,4 +108,4 @@ val google_clouddeploy_delivery_pipeline :
   serial_pipeline:
     google_clouddeploy_delivery_pipeline__serial_pipeline list ->
   string ->
-  unit
+  t

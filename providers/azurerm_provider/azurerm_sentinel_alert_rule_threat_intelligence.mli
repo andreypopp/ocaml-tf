@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_sentinel_alert_rule_threat_intelligence__timeouts
 type azurerm_sentinel_alert_rule_threat_intelligence
 
+type t = private {
+  alert_rule_template_guid : string prop;
+  enabled : bool prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+}
+
 val azurerm_sentinel_alert_rule_threat_intelligence :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -13,4 +21,4 @@ val azurerm_sentinel_alert_rule_threat_intelligence :
   log_analytics_workspace_id:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

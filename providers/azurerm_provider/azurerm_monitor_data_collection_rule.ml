@@ -315,29 +315,63 @@ type azurerm_monitor_data_collection_rule = {
 [@@deriving yojson_of]
 (** azurerm_monitor_data_collection_rule *)
 
+type t = {
+  data_collection_endpoint_id : string prop;
+  description : string prop;
+  id : string prop;
+  immutable_id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_monitor_data_collection_rule ?data_collection_endpoint_id
     ?description ?id ?kind ?tags ?timeouts ~location ~name
     ~resource_group_name ~data_flow ~data_sources ~destinations
     ~identity ~stream_declaration __resource_id =
   let __resource_type = "azurerm_monitor_data_collection_rule" in
   let __resource =
-    {
-      data_collection_endpoint_id;
-      description;
-      id;
-      kind;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      data_flow;
-      data_sources;
-      destinations;
-      identity;
-      stream_declaration;
-      timeouts;
-    }
+    ({
+       data_collection_endpoint_id;
+       description;
+       id;
+       kind;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       data_flow;
+       data_sources;
+       destinations;
+       identity;
+       stream_declaration;
+       timeouts;
+     }
+      : azurerm_monitor_data_collection_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_data_collection_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data_collection_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "data_collection_endpoint_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       immutable_id =
+         Prop.computed __resource_type __resource_id "immutable_id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -29,13 +29,35 @@ type aws_s3control_multi_region_access_point_policy = {
 [@@deriving yojson_of]
 (** aws_s3control_multi_region_access_point_policy *)
 
+type t = {
+  account_id : string prop;
+  established : string prop;
+  id : string prop;
+  proposed : string prop;
+}
+
 let aws_s3control_multi_region_access_point_policy ?account_id ?id
     ?timeouts ~details __resource_id =
   let __resource_type =
     "aws_s3control_multi_region_access_point_policy"
   in
-  let __resource = { account_id; id; details; timeouts } in
+  let __resource =
+    ({ account_id; id; details; timeouts }
+      : aws_s3control_multi_region_access_point_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_multi_region_access_point_policy
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       established =
+         Prop.computed __resource_type __resource_id "established";
+       id = Prop.computed __resource_type __resource_id "id";
+       proposed =
+         Prop.computed __resource_type __resource_id "proposed";
+     }
+      : t)
+  in
+  __resource_attributes

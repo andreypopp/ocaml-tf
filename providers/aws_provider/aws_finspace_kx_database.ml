@@ -25,20 +25,54 @@ type aws_finspace_kx_database = {
 [@@deriving yojson_of]
 (** aws_finspace_kx_database *)
 
+type t = {
+  arn : string prop;
+  created_timestamp : string prop;
+  description : string prop;
+  environment_id : string prop;
+  id : string prop;
+  last_modified_timestamp : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_finspace_kx_database ?description ?id ?tags ?tags_all
     ?timeouts ~environment_id ~name __resource_id =
   let __resource_type = "aws_finspace_kx_database" in
   let __resource =
-    {
-      description;
-      environment_id;
-      id;
-      name;
-      tags;
-      tags_all;
-      timeouts;
-    }
+    ({
+       description;
+       environment_id;
+       id;
+       name;
+       tags;
+       tags_all;
+       timeouts;
+     }
+      : aws_finspace_kx_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_finspace_kx_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_timestamp =
+         Prop.computed __resource_type __resource_id
+           "created_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       environment_id =
+         Prop.computed __resource_type __resource_id "environment_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_modified_timestamp =
+         Prop.computed __resource_type __resource_id
+           "last_modified_timestamp";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

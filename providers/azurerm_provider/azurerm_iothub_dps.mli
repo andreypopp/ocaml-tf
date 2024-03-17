@@ -8,6 +8,20 @@ type azurerm_iothub_dps__sku
 type azurerm_iothub_dps__timeouts
 type azurerm_iothub_dps
 
+type t = private {
+  allocation_policy : string prop;
+  data_residency_enabled : bool prop;
+  device_provisioning_host_name : string prop;
+  id : string prop;
+  id_scope : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  service_operations_host_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_iothub_dps :
   ?allocation_policy:string prop ->
   ?data_residency_enabled:bool prop ->
@@ -22,4 +36,4 @@ val azurerm_iothub_dps :
   linked_hub:azurerm_iothub_dps__linked_hub list ->
   sku:azurerm_iothub_dps__sku list ->
   string ->
-  unit
+  t

@@ -20,12 +20,43 @@ type google_organization_iam_custom_role = {
 [@@deriving yojson_of]
 (** google_organization_iam_custom_role *)
 
+type t = {
+  deleted : bool prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  org_id : string prop;
+  permissions : string list prop;
+  role_id : string prop;
+  stage : string prop;
+  title : string prop;
+}
+
 let google_organization_iam_custom_role ?description ?id ?stage
     ~org_id ~permissions ~role_id ~title __resource_id =
   let __resource_type = "google_organization_iam_custom_role" in
   let __resource =
-    { description; id; org_id; permissions; role_id; stage; title }
+    ({ description; id; org_id; permissions; role_id; stage; title }
+      : google_organization_iam_custom_role)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_organization_iam_custom_role __resource);
-  ()
+  let __resource_attributes =
+    ({
+       deleted =
+         Prop.computed __resource_type __resource_id "deleted";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       permissions =
+         Prop.computed __resource_type __resource_id "permissions";
+       role_id =
+         Prop.computed __resource_type __resource_id "role_id";
+       stage = Prop.computed __resource_type __resource_id "stage";
+       title = Prop.computed __resource_type __resource_id "title";
+     }
+      : t)
+  in
+  __resource_attributes

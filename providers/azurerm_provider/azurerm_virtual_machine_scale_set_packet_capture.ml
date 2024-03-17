@@ -68,6 +68,16 @@ type azurerm_virtual_machine_scale_set_packet_capture = {
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set_packet_capture *)
 
+type t = {
+  id : string prop;
+  maximum_bytes_per_packet : float prop;
+  maximum_bytes_per_session : float prop;
+  maximum_capture_duration_in_seconds : float prop;
+  name : string prop;
+  network_watcher_id : string prop;
+  virtual_machine_scale_set_id : string prop;
+}
+
 let azurerm_virtual_machine_scale_set_packet_capture ?id
     ?maximum_bytes_per_packet ?maximum_bytes_per_session
     ?maximum_capture_duration_in_seconds ?timeouts ~name
@@ -77,21 +87,44 @@ let azurerm_virtual_machine_scale_set_packet_capture ?id
     "azurerm_virtual_machine_scale_set_packet_capture"
   in
   let __resource =
-    {
-      id;
-      maximum_bytes_per_packet;
-      maximum_bytes_per_session;
-      maximum_capture_duration_in_seconds;
-      name;
-      network_watcher_id;
-      virtual_machine_scale_set_id;
-      filter;
-      machine_scope;
-      storage_location;
-      timeouts;
-    }
+    ({
+       id;
+       maximum_bytes_per_packet;
+       maximum_bytes_per_session;
+       maximum_capture_duration_in_seconds;
+       name;
+       network_watcher_id;
+       virtual_machine_scale_set_id;
+       filter;
+       machine_scope;
+       storage_location;
+       timeouts;
+     }
+      : azurerm_virtual_machine_scale_set_packet_capture)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_machine_scale_set_packet_capture
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       maximum_bytes_per_packet =
+         Prop.computed __resource_type __resource_id
+           "maximum_bytes_per_packet";
+       maximum_bytes_per_session =
+         Prop.computed __resource_type __resource_id
+           "maximum_bytes_per_session";
+       maximum_capture_duration_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "maximum_capture_duration_in_seconds";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_watcher_id =
+         Prop.computed __resource_type __resource_id
+           "network_watcher_id";
+       virtual_machine_scale_set_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_scale_set_id";
+     }
+      : t)
+  in
+  __resource_attributes

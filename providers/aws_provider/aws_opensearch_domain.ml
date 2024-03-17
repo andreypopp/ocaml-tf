@@ -244,6 +244,21 @@ type aws_opensearch_domain = {
 [@@deriving yojson_of]
 (** aws_opensearch_domain *)
 
+type t = {
+  access_policies : string prop;
+  advanced_options : (string * string) list prop;
+  arn : string prop;
+  dashboard_endpoint : string prop;
+  domain_id : string prop;
+  domain_name : string prop;
+  endpoint : string prop;
+  engine_version : string prop;
+  id : string prop;
+  kibana_endpoint : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_opensearch_domain ?access_policies ?advanced_options
     ?engine_version ?id ?tags ?tags_all ?timeouts ~domain_name
     ~advanced_security_options ~auto_tune_options ~cluster_config
@@ -253,30 +268,61 @@ let aws_opensearch_domain ?access_policies ?advanced_options
     ~software_update_options ~vpc_options __resource_id =
   let __resource_type = "aws_opensearch_domain" in
   let __resource =
-    {
-      access_policies;
-      advanced_options;
-      domain_name;
-      engine_version;
-      id;
-      tags;
-      tags_all;
-      advanced_security_options;
-      auto_tune_options;
-      cluster_config;
-      cognito_options;
-      domain_endpoint_options;
-      ebs_options;
-      encrypt_at_rest;
-      log_publishing_options;
-      node_to_node_encryption;
-      off_peak_window_options;
-      snapshot_options;
-      software_update_options;
-      timeouts;
-      vpc_options;
-    }
+    ({
+       access_policies;
+       advanced_options;
+       domain_name;
+       engine_version;
+       id;
+       tags;
+       tags_all;
+       advanced_security_options;
+       auto_tune_options;
+       cluster_config;
+       cognito_options;
+       domain_endpoint_options;
+       ebs_options;
+       encrypt_at_rest;
+       log_publishing_options;
+       node_to_node_encryption;
+       off_peak_window_options;
+       snapshot_options;
+       software_update_options;
+       timeouts;
+       vpc_options;
+     }
+      : aws_opensearch_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearch_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_policies =
+         Prop.computed __resource_type __resource_id
+           "access_policies";
+       advanced_options =
+         Prop.computed __resource_type __resource_id
+           "advanced_options";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       dashboard_endpoint =
+         Prop.computed __resource_type __resource_id
+           "dashboard_endpoint";
+       domain_id =
+         Prop.computed __resource_type __resource_id "domain_id";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       engine_version =
+         Prop.computed __resource_type __resource_id "engine_version";
+       id = Prop.computed __resource_type __resource_id "id";
+       kibana_endpoint =
+         Prop.computed __resource_type __resource_id
+           "kibana_endpoint";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

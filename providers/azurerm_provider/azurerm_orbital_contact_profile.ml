@@ -65,6 +65,19 @@ type azurerm_orbital_contact_profile = {
 [@@deriving yojson_of]
 (** azurerm_orbital_contact_profile *)
 
+type t = {
+  auto_tracking : string prop;
+  event_hub_uri : string prop;
+  id : string prop;
+  location : string prop;
+  minimum_elevation_degrees : float prop;
+  minimum_variable_contact_duration : string prop;
+  name : string prop;
+  network_configuration_subnet_id : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_orbital_contact_profile ?event_hub_uri ?id
     ?minimum_elevation_degrees ?tags ?timeouts ~auto_tracking
     ~location ~minimum_variable_contact_duration ~name
@@ -72,21 +85,48 @@ let azurerm_orbital_contact_profile ?event_hub_uri ?id
     __resource_id =
   let __resource_type = "azurerm_orbital_contact_profile" in
   let __resource =
-    {
-      auto_tracking;
-      event_hub_uri;
-      id;
-      location;
-      minimum_elevation_degrees;
-      minimum_variable_contact_duration;
-      name;
-      network_configuration_subnet_id;
-      resource_group_name;
-      tags;
-      links;
-      timeouts;
-    }
+    ({
+       auto_tracking;
+       event_hub_uri;
+       id;
+       location;
+       minimum_elevation_degrees;
+       minimum_variable_contact_duration;
+       name;
+       network_configuration_subnet_id;
+       resource_group_name;
+       tags;
+       links;
+       timeouts;
+     }
+      : azurerm_orbital_contact_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_orbital_contact_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_tracking =
+         Prop.computed __resource_type __resource_id "auto_tracking";
+       event_hub_uri =
+         Prop.computed __resource_type __resource_id "event_hub_uri";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       minimum_elevation_degrees =
+         Prop.computed __resource_type __resource_id
+           "minimum_elevation_degrees";
+       minimum_variable_contact_duration =
+         Prop.computed __resource_type __resource_id
+           "minimum_variable_contact_duration";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_configuration_subnet_id =
+         Prop.computed __resource_type __resource_id
+           "network_configuration_subnet_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

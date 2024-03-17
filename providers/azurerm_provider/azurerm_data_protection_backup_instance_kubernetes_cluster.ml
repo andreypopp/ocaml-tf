@@ -50,6 +50,16 @@ type azurerm_data_protection_backup_instance_kubernetes_cluster = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_instance_kubernetes_cluster *)
 
+type t = {
+  backup_policy_id : string prop;
+  id : string prop;
+  kubernetes_cluster_id : string prop;
+  location : string prop;
+  name : string prop;
+  snapshot_resource_group_name : string prop;
+  vault_id : string prop;
+}
+
 let azurerm_data_protection_backup_instance_kubernetes_cluster ?id
     ?timeouts ~backup_policy_id ~kubernetes_cluster_id ~location
     ~name ~snapshot_resource_group_name ~vault_id
@@ -58,19 +68,40 @@ let azurerm_data_protection_backup_instance_kubernetes_cluster ?id
     "azurerm_data_protection_backup_instance_kubernetes_cluster"
   in
   let __resource =
-    {
-      backup_policy_id;
-      id;
-      kubernetes_cluster_id;
-      location;
-      name;
-      snapshot_resource_group_name;
-      vault_id;
-      backup_datasource_parameters;
-      timeouts;
-    }
+    ({
+       backup_policy_id;
+       id;
+       kubernetes_cluster_id;
+       location;
+       name;
+       snapshot_resource_group_name;
+       vault_id;
+       backup_datasource_parameters;
+       timeouts;
+     }
+      : azurerm_data_protection_backup_instance_kubernetes_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_instance_kubernetes_cluster
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backup_policy_id =
+         Prop.computed __resource_type __resource_id
+           "backup_policy_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       kubernetes_cluster_id =
+         Prop.computed __resource_type __resource_id
+           "kubernetes_cluster_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       snapshot_resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "snapshot_resource_group_name";
+       vault_id =
+         Prop.computed __resource_type __resource_id "vault_id";
+     }
+      : t)
+  in
+  __resource_attributes

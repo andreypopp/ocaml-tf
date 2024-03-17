@@ -270,28 +270,64 @@ type azurerm_api_management_api_operation = {
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation *)
 
+type t = {
+  api_management_name : string prop;
+  api_name : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  method_ : string prop;
+  operation_id : string prop;
+  resource_group_name : string prop;
+  url_template : string prop;
+}
+
 let azurerm_api_management_api_operation ?description ?id ?timeouts
     ~api_management_name ~api_name ~display_name ~method_
     ~operation_id ~resource_group_name ~url_template ~request
     ~response ~template_parameter __resource_id =
   let __resource_type = "azurerm_api_management_api_operation" in
   let __resource =
-    {
-      api_management_name;
-      api_name;
-      description;
-      display_name;
-      id;
-      method_;
-      operation_id;
-      resource_group_name;
-      url_template;
-      request;
-      response;
-      template_parameter;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       api_name;
+       description;
+       display_name;
+       id;
+       method_;
+       operation_id;
+       resource_group_name;
+       url_template;
+       request;
+       response;
+       template_parameter;
+       timeouts;
+     }
+      : azurerm_api_management_api_operation)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_api_operation __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       api_name =
+         Prop.computed __resource_type __resource_id "api_name";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       method_ = Prop.computed __resource_type __resource_id "method";
+       operation_id =
+         Prop.computed __resource_type __resource_id "operation_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       url_template =
+         Prop.computed __resource_type __resource_id "url_template";
+     }
+      : t)
+  in
+  __resource_attributes

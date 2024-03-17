@@ -48,6 +48,13 @@ type azurerm_policy_virtual_machine_configuration_assignment = {
 [@@deriving yojson_of]
 (** azurerm_policy_virtual_machine_configuration_assignment *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  virtual_machine_id : string prop;
+}
+
 let azurerm_policy_virtual_machine_configuration_assignment ?id
     ?timeouts ~location ~name ~virtual_machine_id ~configuration
     __resource_id =
@@ -55,16 +62,29 @@ let azurerm_policy_virtual_machine_configuration_assignment ?id
     "azurerm_policy_virtual_machine_configuration_assignment"
   in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      virtual_machine_id;
-      configuration;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       virtual_machine_id;
+       configuration;
+       timeouts;
+     }
+      : azurerm_policy_virtual_machine_configuration_assignment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_policy_virtual_machine_configuration_assignment
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       virtual_machine_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_id";
+     }
+      : t)
+  in
+  __resource_attributes

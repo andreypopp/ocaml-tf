@@ -23,12 +23,32 @@ type azurerm_resource_management_private_link = {
 [@@deriving yojson_of]
 (** azurerm_resource_management_private_link *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_resource_management_private_link ?id ?timeouts ~location
     ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_resource_management_private_link" in
   let __resource =
-    { id; location; name; resource_group_name; timeouts }
+    ({ id; location; name; resource_group_name; timeouts }
+      : azurerm_resource_management_private_link)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_resource_management_private_link __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

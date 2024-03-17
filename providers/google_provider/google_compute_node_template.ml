@@ -69,25 +69,64 @@ If it is not provided, the provider region is used. *)
 [@@deriving yojson_of]
 (** google_compute_node_template *)
 
+type t = {
+  cpu_overcommit_type : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  node_affinity_labels : (string * string) list prop;
+  node_type : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+}
+
 let google_compute_node_template ?cpu_overcommit_type ?description
     ?id ?name ?node_affinity_labels ?node_type ?project ?region
     ?timeouts ~node_type_flexibility ~server_binding __resource_id =
   let __resource_type = "google_compute_node_template" in
   let __resource =
-    {
-      cpu_overcommit_type;
-      description;
-      id;
-      name;
-      node_affinity_labels;
-      node_type;
-      project;
-      region;
-      node_type_flexibility;
-      server_binding;
-      timeouts;
-    }
+    ({
+       cpu_overcommit_type;
+       description;
+       id;
+       name;
+       node_affinity_labels;
+       node_type;
+       project;
+       region;
+       node_type_flexibility;
+       server_binding;
+       timeouts;
+     }
+      : google_compute_node_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_node_template __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cpu_overcommit_type =
+         Prop.computed __resource_type __resource_id
+           "cpu_overcommit_type";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_affinity_labels =
+         Prop.computed __resource_type __resource_id
+           "node_affinity_labels";
+       node_type =
+         Prop.computed __resource_type __resource_id "node_type";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

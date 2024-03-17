@@ -10,6 +10,15 @@ type aws_s3_bucket_website_configuration__routing_rule__redirect
 type aws_s3_bucket_website_configuration__routing_rule
 type aws_s3_bucket_website_configuration
 
+type t = private {
+  bucket : string prop;
+  expected_bucket_owner : string prop;
+  id : string prop;
+  routing_rules : string prop;
+  website_domain : string prop;
+  website_endpoint : string prop;
+}
+
 val aws_s3_bucket_website_configuration :
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
@@ -24,4 +33,4 @@ val aws_s3_bucket_website_configuration :
     list ->
   routing_rule:aws_s3_bucket_website_configuration__routing_rule list ->
   string ->
-  unit
+  t

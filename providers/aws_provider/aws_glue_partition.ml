@@ -79,20 +79,58 @@ type aws_glue_partition = {
 [@@deriving yojson_of]
 (** aws_glue_partition *)
 
+type t = {
+  catalog_id : string prop;
+  creation_time : string prop;
+  database_name : string prop;
+  id : string prop;
+  last_accessed_time : string prop;
+  last_analyzed_time : string prop;
+  parameters : (string * string) list prop;
+  partition_values : string list prop;
+  table_name : string prop;
+}
+
 let aws_glue_partition ?catalog_id ?id ?parameters ~database_name
     ~partition_values ~table_name ~storage_descriptor __resource_id =
   let __resource_type = "aws_glue_partition" in
   let __resource =
-    {
-      catalog_id;
-      database_name;
-      id;
-      parameters;
-      partition_values;
-      table_name;
-      storage_descriptor;
-    }
+    ({
+       catalog_id;
+       database_name;
+       id;
+       parameters;
+       partition_values;
+       table_name;
+       storage_descriptor;
+     }
+      : aws_glue_partition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_partition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       catalog_id =
+         Prop.computed __resource_type __resource_id "catalog_id";
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_accessed_time =
+         Prop.computed __resource_type __resource_id
+           "last_accessed_time";
+       last_analyzed_time =
+         Prop.computed __resource_type __resource_id
+           "last_analyzed_time";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       partition_values =
+         Prop.computed __resource_type __resource_id
+           "partition_values";
+       table_name =
+         Prop.computed __resource_type __resource_id "table_name";
+     }
+      : t)
+  in
+  __resource_attributes

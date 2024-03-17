@@ -73,6 +73,24 @@ type azurerm_app_service_slot__site_credential = {
 
 type azurerm_app_service_slot
 
+type t = private {
+  app_service_name : string prop;
+  app_service_plan_id : string prop;
+  app_settings : (string * string) list prop;
+  client_affinity_enabled : bool prop;
+  default_site_hostname : string prop;
+  enabled : bool prop;
+  https_only : bool prop;
+  id : string prop;
+  key_vault_reference_identity_id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  site_credential :
+    azurerm_app_service_slot__site_credential list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_app_service_slot :
   ?app_settings:(string * string prop) list ->
   ?client_affinity_enabled:bool prop ->
@@ -94,4 +112,4 @@ val azurerm_app_service_slot :
   site_config:azurerm_app_service_slot__site_config list ->
   storage_account:azurerm_app_service_slot__storage_account list ->
   string ->
-  unit
+  t

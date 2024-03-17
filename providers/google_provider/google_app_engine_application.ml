@@ -56,23 +56,71 @@ type google_app_engine_application = {
 [@@deriving yojson_of]
 (** google_app_engine_application *)
 
+type t = {
+  app_id : string prop;
+  auth_domain : string prop;
+  code_bucket : string prop;
+  database_type : string prop;
+  default_bucket : string prop;
+  default_hostname : string prop;
+  gcr_domain : string prop;
+  id : string prop;
+  location_id : string prop;
+  name : string prop;
+  project : string prop;
+  serving_status : string prop;
+  url_dispatch_rule :
+    google_app_engine_application__url_dispatch_rule list prop;
+}
+
 let google_app_engine_application ?auth_domain ?database_type ?id
     ?project ?serving_status ?timeouts ~location_id ~feature_settings
     ~iap __resource_id =
   let __resource_type = "google_app_engine_application" in
   let __resource =
-    {
-      auth_domain;
-      database_type;
-      id;
-      location_id;
-      project;
-      serving_status;
-      feature_settings;
-      iap;
-      timeouts;
-    }
+    ({
+       auth_domain;
+       database_type;
+       id;
+       location_id;
+       project;
+       serving_status;
+       feature_settings;
+       iap;
+       timeouts;
+     }
+      : google_app_engine_application)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_application __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_id = Prop.computed __resource_type __resource_id "app_id";
+       auth_domain =
+         Prop.computed __resource_type __resource_id "auth_domain";
+       code_bucket =
+         Prop.computed __resource_type __resource_id "code_bucket";
+       database_type =
+         Prop.computed __resource_type __resource_id "database_type";
+       default_bucket =
+         Prop.computed __resource_type __resource_id "default_bucket";
+       default_hostname =
+         Prop.computed __resource_type __resource_id
+           "default_hostname";
+       gcr_domain =
+         Prop.computed __resource_type __resource_id "gcr_domain";
+       id = Prop.computed __resource_type __resource_id "id";
+       location_id =
+         Prop.computed __resource_type __resource_id "location_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       serving_status =
+         Prop.computed __resource_type __resource_id "serving_status";
+       url_dispatch_rule =
+         Prop.computed __resource_type __resource_id
+           "url_dispatch_rule";
+     }
+      : t)
+  in
+  __resource_attributes

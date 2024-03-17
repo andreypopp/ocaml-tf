@@ -33,13 +33,32 @@ type aws_s3_bucket_server_side_encryption_configuration = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_server_side_encryption_configuration *)
 
+type t = {
+  bucket : string prop;
+  expected_bucket_owner : string prop;
+  id : string prop;
+}
+
 let aws_s3_bucket_server_side_encryption_configuration
     ?expected_bucket_owner ?id ~bucket ~rule __resource_id =
   let __resource_type =
     "aws_s3_bucket_server_side_encryption_configuration"
   in
-  let __resource = { bucket; expected_bucket_owner; id; rule } in
+  let __resource =
+    ({ bucket; expected_bucket_owner; id; rule }
+      : aws_s3_bucket_server_side_encryption_configuration)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_server_side_encryption_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       expected_bucket_owner =
+         Prop.computed __resource_type __resource_id
+           "expected_bucket_owner";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_data_factory_credential_user_managed_identity__timeouts
 type azurerm_data_factory_credential_user_managed_identity
 
+type t = private {
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  id : string prop;
+  identity_id : string prop;
+  name : string prop;
+}
+
 val azurerm_data_factory_credential_user_managed_identity :
   ?annotations:string prop list ->
   ?description:string prop ->
@@ -15,4 +24,4 @@ val azurerm_data_factory_credential_user_managed_identity :
   identity_id:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

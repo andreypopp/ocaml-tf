@@ -3,6 +3,7 @@
 open! Tf.Prelude
 
 type aws_sagemaker_servicecatalog_portfolio_status
+type t = private { id : string prop; status : string prop }
 
 val aws_sagemaker_servicecatalog_portfolio_status :
-  ?id:string prop -> status:string prop -> string -> unit
+  ?id:string prop -> status:string prop -> string -> t

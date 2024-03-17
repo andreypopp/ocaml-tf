@@ -32,6 +32,19 @@ type azurerm_media_live_event_output = {
 [@@deriving yojson_of]
 (** azurerm_media_live_event_output *)
 
+type t = {
+  archive_window_duration : string prop;
+  asset_name : string prop;
+  description : string prop;
+  hls_fragments_per_ts_segment : float prop;
+  id : string prop;
+  live_event_id : string prop;
+  manifest_name : string prop;
+  name : string prop;
+  output_snap_time_in_seconds : float prop;
+  rewind_window_duration : string prop;
+}
+
 let azurerm_media_live_event_output ?description
     ?hls_fragments_per_ts_segment ?id ?manifest_name
     ?output_snap_time_in_seconds ?rewind_window_duration ?timeouts
@@ -39,20 +52,48 @@ let azurerm_media_live_event_output ?description
     __resource_id =
   let __resource_type = "azurerm_media_live_event_output" in
   let __resource =
-    {
-      archive_window_duration;
-      asset_name;
-      description;
-      hls_fragments_per_ts_segment;
-      id;
-      live_event_id;
-      manifest_name;
-      name;
-      output_snap_time_in_seconds;
-      rewind_window_duration;
-      timeouts;
-    }
+    ({
+       archive_window_duration;
+       asset_name;
+       description;
+       hls_fragments_per_ts_segment;
+       id;
+       live_event_id;
+       manifest_name;
+       name;
+       output_snap_time_in_seconds;
+       rewind_window_duration;
+       timeouts;
+     }
+      : azurerm_media_live_event_output)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_media_live_event_output __resource);
-  ()
+  let __resource_attributes =
+    ({
+       archive_window_duration =
+         Prop.computed __resource_type __resource_id
+           "archive_window_duration";
+       asset_name =
+         Prop.computed __resource_type __resource_id "asset_name";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       hls_fragments_per_ts_segment =
+         Prop.computed __resource_type __resource_id
+           "hls_fragments_per_ts_segment";
+       id = Prop.computed __resource_type __resource_id "id";
+       live_event_id =
+         Prop.computed __resource_type __resource_id "live_event_id";
+       manifest_name =
+         Prop.computed __resource_type __resource_id "manifest_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       output_snap_time_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "output_snap_time_in_seconds";
+       rewind_window_duration =
+         Prop.computed __resource_type __resource_id
+           "rewind_window_duration";
+     }
+      : t)
+  in
+  __resource_attributes

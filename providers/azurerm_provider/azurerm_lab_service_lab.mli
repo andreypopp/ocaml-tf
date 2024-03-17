@@ -15,6 +15,17 @@ type azurerm_lab_service_lab__virtual_machine__sku
 type azurerm_lab_service_lab__virtual_machine
 type azurerm_lab_service_lab
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  lab_plan_id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  title : string prop;
+}
+
 val azurerm_lab_service_lab :
   ?description:string prop ->
   ?id:string prop ->
@@ -32,4 +43,4 @@ val azurerm_lab_service_lab :
   security:azurerm_lab_service_lab__security list ->
   virtual_machine:azurerm_lab_service_lab__virtual_machine list ->
   string ->
-  unit
+  t

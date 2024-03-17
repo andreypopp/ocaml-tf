@@ -49,6 +49,22 @@ type azurerm_data_factory_linked_service_azure_file_storage = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_file_storage *)
 
+type t = {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  connection_string : string prop;
+  data_factory_id : string prop;
+  description : string prop;
+  file_share : string prop;
+  host : string prop;
+  id : string prop;
+  integration_runtime_name : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  password : string prop;
+  user_id : string prop;
+}
+
 let azurerm_data_factory_linked_service_azure_file_storage
     ?additional_properties ?annotations ?description ?file_share
     ?host ?id ?integration_runtime_name ?parameters ?password
@@ -58,25 +74,58 @@ let azurerm_data_factory_linked_service_azure_file_storage
     "azurerm_data_factory_linked_service_azure_file_storage"
   in
   let __resource =
-    {
-      additional_properties;
-      annotations;
-      connection_string;
-      data_factory_id;
-      description;
-      file_share;
-      host;
-      id;
-      integration_runtime_name;
-      name;
-      parameters;
-      password;
-      user_id;
-      key_vault_password;
-      timeouts;
-    }
+    ({
+       additional_properties;
+       annotations;
+       connection_string;
+       data_factory_id;
+       description;
+       file_share;
+       host;
+       id;
+       integration_runtime_name;
+       name;
+       parameters;
+       password;
+       user_id;
+       key_vault_password;
+       timeouts;
+     }
+      : azurerm_data_factory_linked_service_azure_file_storage)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_azure_file_storage
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_properties =
+         Prop.computed __resource_type __resource_id
+           "additional_properties";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       connection_string =
+         Prop.computed __resource_type __resource_id
+           "connection_string";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       file_share =
+         Prop.computed __resource_type __resource_id "file_share";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_runtime_name =
+         Prop.computed __resource_type __resource_id
+           "integration_runtime_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       user_id =
+         Prop.computed __resource_type __resource_id "user_id";
+     }
+      : t)
+  in
+  __resource_attributes

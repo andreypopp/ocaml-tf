@@ -28,6 +28,28 @@ type google_compute_region_backend_service__outlier_detection
 type google_compute_region_backend_service__timeouts
 type google_compute_region_backend_service
 
+type t = private {
+  affinity_cookie_ttl_sec : float prop;
+  connection_draining_timeout_sec : float prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  enable_cdn : bool prop;
+  fingerprint : string prop;
+  health_checks : string list prop;
+  id : string prop;
+  load_balancing_scheme : string prop;
+  locality_lb_policy : string prop;
+  name : string prop;
+  network : string prop;
+  port_name : string prop;
+  project : string prop;
+  protocol : string prop;
+  region : string prop;
+  self_link : string prop;
+  session_affinity : string prop;
+  timeout_sec : float prop;
+}
+
 val google_compute_region_backend_service :
   ?affinity_cookie_ttl_sec:float prop ->
   ?connection_draining_timeout_sec:float prop ->
@@ -59,4 +81,4 @@ val google_compute_region_backend_service :
   outlier_detection:
     google_compute_region_backend_service__outlier_detection list ->
   string ->
-  unit
+  t

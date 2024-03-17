@@ -31,10 +31,23 @@ type google_compute_disk_async_replication = {
 [@@deriving yojson_of]
 (** google_compute_disk_async_replication *)
 
+type t = { id : string prop; primary_disk : string prop }
+
 let google_compute_disk_async_replication ?id ?timeouts ~primary_disk
     ~secondary_disk __resource_id =
   let __resource_type = "google_compute_disk_async_replication" in
-  let __resource = { id; primary_disk; secondary_disk; timeouts } in
+  let __resource =
+    ({ id; primary_disk; secondary_disk; timeouts }
+      : google_compute_disk_async_replication)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_disk_async_replication __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       primary_disk =
+         Prop.computed __resource_type __resource_id "primary_disk";
+     }
+      : t)
+  in
+  __resource_attributes

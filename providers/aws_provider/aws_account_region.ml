@@ -21,12 +21,35 @@ type aws_account_region = {
 [@@deriving yojson_of]
 (** aws_account_region *)
 
+type t = {
+  account_id : string prop;
+  enabled : bool prop;
+  id : string prop;
+  opt_status : string prop;
+  region_name : string prop;
+}
+
 let aws_account_region ?account_id ?id ?timeouts ~enabled
     ~region_name __resource_id =
   let __resource_type = "aws_account_region" in
   let __resource =
-    { account_id; enabled; id; region_name; timeouts }
+    ({ account_id; enabled; id; region_name; timeouts }
+      : aws_account_region)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_account_region __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       opt_status =
+         Prop.computed __resource_type __resource_id "opt_status";
+       region_name =
+         Prop.computed __resource_type __resource_id "region_name";
+     }
+      : t)
+  in
+  __resource_attributes

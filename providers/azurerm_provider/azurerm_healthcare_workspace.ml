@@ -30,12 +30,40 @@ type azurerm_healthcare_workspace = {
 [@@deriving yojson_of]
 (** azurerm_healthcare_workspace *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_endpoint_connection :
+    azurerm_healthcare_workspace__private_endpoint_connection list
+    prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_healthcare_workspace ?id ?tags ?timeouts ~location ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_healthcare_workspace" in
   let __resource =
-    { id; location; name; resource_group_name; tags; timeouts }
+    ({ id; location; name; resource_group_name; tags; timeouts }
+      : azurerm_healthcare_workspace)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_healthcare_workspace __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_endpoint_connection =
+         Prop.computed __resource_type __resource_id
+           "private_endpoint_connection";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

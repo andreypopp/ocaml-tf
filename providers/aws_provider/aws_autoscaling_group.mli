@@ -45,6 +45,44 @@ type aws_autoscaling_group__warm_pool__instance_reuse_policy
 type aws_autoscaling_group__warm_pool
 type aws_autoscaling_group
 
+type t = private {
+  arn : string prop;
+  availability_zones : string list prop;
+  capacity_rebalance : bool prop;
+  context : string prop;
+  default_cooldown : float prop;
+  default_instance_warmup : float prop;
+  desired_capacity : float prop;
+  desired_capacity_type : string prop;
+  enabled_metrics : string list prop;
+  force_delete : bool prop;
+  force_delete_warm_pool : bool prop;
+  health_check_grace_period : float prop;
+  health_check_type : string prop;
+  id : string prop;
+  ignore_failed_scaling_activities : bool prop;
+  launch_configuration : string prop;
+  load_balancers : string list prop;
+  max_instance_lifetime : float prop;
+  max_size : float prop;
+  metrics_granularity : string prop;
+  min_elb_capacity : float prop;
+  min_size : float prop;
+  name : string prop;
+  name_prefix : string prop;
+  placement_group : string prop;
+  predicted_capacity : float prop;
+  protect_from_scale_in : bool prop;
+  service_linked_role_arn : string prop;
+  suspended_processes : string list prop;
+  target_group_arns : string list prop;
+  termination_policies : string list prop;
+  vpc_zone_identifier : string list prop;
+  wait_for_capacity_timeout : string prop;
+  wait_for_elb_capacity : float prop;
+  warm_pool_size : float prop;
+}
+
 val aws_autoscaling_group :
   ?availability_zones:string prop list ->
   ?capacity_rebalance:bool prop ->
@@ -91,4 +129,4 @@ val aws_autoscaling_group :
   traffic_source:aws_autoscaling_group__traffic_source list ->
   warm_pool:aws_autoscaling_group__warm_pool list ->
   string ->
-  unit
+  t

@@ -26,6 +26,24 @@ type google_edgecontainer_vpn_connection__details = {
 
 type google_edgecontainer_vpn_connection
 
+type t = private {
+  cluster : string prop;
+  create_time : string prop;
+  details : google_edgecontainer_vpn_connection__details list prop;
+  effective_labels : (string * string) list prop;
+  enable_high_availability : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  nat_gateway_ip : string prop;
+  project : string prop;
+  router : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+  vpc : string prop;
+}
+
 val google_edgecontainer_vpn_connection :
   ?enable_high_availability:bool prop ->
   ?id:string prop ->
@@ -40,4 +58,4 @@ val google_edgecontainer_vpn_connection :
   name:string prop ->
   vpc_project:google_edgecontainer_vpn_connection__vpc_project list ->
   string ->
-  unit
+  t

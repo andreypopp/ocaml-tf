@@ -9,6 +9,16 @@ type aws_elastictranscoder_preset__video
 type aws_elastictranscoder_preset__video_watermarks
 type aws_elastictranscoder_preset
 
+type t = private {
+  arn : string prop;
+  container : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  type_ : string prop;
+  video_codec_options : (string * string) list prop;
+}
+
 val aws_elastictranscoder_preset :
   ?description:string prop ->
   ?id:string prop ->
@@ -24,4 +34,4 @@ val aws_elastictranscoder_preset :
   video_watermarks:
     aws_elastictranscoder_preset__video_watermarks list ->
   string ->
-  unit
+  t

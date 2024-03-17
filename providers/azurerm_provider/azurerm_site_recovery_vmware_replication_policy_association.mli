@@ -6,6 +6,13 @@ type azurerm_site_recovery_vmware_replication_policy_association__timeouts
 
 type azurerm_site_recovery_vmware_replication_policy_association
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  policy_id : string prop;
+  recovery_vault_id : string prop;
+}
+
 val azurerm_site_recovery_vmware_replication_policy_association :
   ?id:string prop ->
   ?timeouts:
@@ -14,4 +21,4 @@ val azurerm_site_recovery_vmware_replication_policy_association :
   policy_id:string prop ->
   recovery_vault_id:string prop ->
   string ->
-  unit
+  t

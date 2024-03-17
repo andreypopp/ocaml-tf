@@ -28,6 +28,15 @@ type azurerm_mssql_managed_instance_active_directory_administrator = {
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_instance_active_directory_administrator *)
 
+type t = {
+  azuread_authentication_only : bool prop;
+  id : string prop;
+  login_username : string prop;
+  managed_instance_id : string prop;
+  object_id : string prop;
+  tenant_id : string prop;
+}
+
 let azurerm_mssql_managed_instance_active_directory_administrator
     ?azuread_authentication_only ?id ?timeouts ~login_username
     ~managed_instance_id ~object_id ~tenant_id __resource_id =
@@ -35,17 +44,36 @@ let azurerm_mssql_managed_instance_active_directory_administrator
     "azurerm_mssql_managed_instance_active_directory_administrator"
   in
   let __resource =
-    {
-      azuread_authentication_only;
-      id;
-      login_username;
-      managed_instance_id;
-      object_id;
-      tenant_id;
-      timeouts;
-    }
+    ({
+       azuread_authentication_only;
+       id;
+       login_username;
+       managed_instance_id;
+       object_id;
+       tenant_id;
+       timeouts;
+     }
+      : azurerm_mssql_managed_instance_active_directory_administrator)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_managed_instance_active_directory_administrator
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       azuread_authentication_only =
+         Prop.computed __resource_type __resource_id
+           "azuread_authentication_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       login_username =
+         Prop.computed __resource_type __resource_id "login_username";
+       managed_instance_id =
+         Prop.computed __resource_type __resource_id
+           "managed_instance_id";
+       object_id =
+         Prop.computed __resource_type __resource_id "object_id";
+       tenant_id =
+         Prop.computed __resource_type __resource_id "tenant_id";
+     }
+      : t)
+  in
+  __resource_attributes

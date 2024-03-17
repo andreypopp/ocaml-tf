@@ -5,6 +5,17 @@ open! Tf.Prelude
 type google_storage_hmac_key__timeouts
 type google_storage_hmac_key
 
+type t = private {
+  access_id : string prop;
+  id : string prop;
+  project : string prop;
+  secret : string prop;
+  service_account_email : string prop;
+  state : string prop;
+  time_created : string prop;
+  updated : string prop;
+}
+
 val google_storage_hmac_key :
   ?id:string prop ->
   ?project:string prop ->
@@ -12,4 +23,4 @@ val google_storage_hmac_key :
   ?timeouts:google_storage_hmac_key__timeouts ->
   service_account_email:string prop ->
   string ->
-  unit
+  t

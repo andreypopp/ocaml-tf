@@ -25,20 +25,54 @@ type aws_bedrock_provisioned_model_throughput = {
 [@@deriving yojson_of]
 (** aws_bedrock_provisioned_model_throughput *)
 
+type t = {
+  commitment_duration : string prop;
+  id : string prop;
+  model_arn : string prop;
+  model_units : float prop;
+  provisioned_model_arn : string prop;
+  provisioned_model_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_bedrock_provisioned_model_throughput ?commitment_duration
     ?tags ?timeouts ~model_arn ~model_units ~provisioned_model_name
     __resource_id =
   let __resource_type = "aws_bedrock_provisioned_model_throughput" in
   let __resource =
-    {
-      commitment_duration;
-      model_arn;
-      model_units;
-      provisioned_model_name;
-      tags;
-      timeouts;
-    }
+    ({
+       commitment_duration;
+       model_arn;
+       model_units;
+       provisioned_model_name;
+       tags;
+       timeouts;
+     }
+      : aws_bedrock_provisioned_model_throughput)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_bedrock_provisioned_model_throughput __resource);
-  ()
+  let __resource_attributes =
+    ({
+       commitment_duration =
+         Prop.computed __resource_type __resource_id
+           "commitment_duration";
+       id = Prop.computed __resource_type __resource_id "id";
+       model_arn =
+         Prop.computed __resource_type __resource_id "model_arn";
+       model_units =
+         Prop.computed __resource_type __resource_id "model_units";
+       provisioned_model_arn =
+         Prop.computed __resource_type __resource_id
+           "provisioned_model_arn";
+       provisioned_model_name =
+         Prop.computed __resource_type __resource_id
+           "provisioned_model_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

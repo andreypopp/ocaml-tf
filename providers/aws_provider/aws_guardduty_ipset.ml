@@ -18,21 +18,52 @@ type aws_guardduty_ipset = {
 [@@deriving yojson_of]
 (** aws_guardduty_ipset *)
 
+type t = {
+  activate : bool prop;
+  arn : string prop;
+  detector_id : string prop;
+  format : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_guardduty_ipset ?id ?tags ?tags_all ~activate ~detector_id
     ~format ~location ~name __resource_id =
   let __resource_type = "aws_guardduty_ipset" in
   let __resource =
-    {
-      activate;
-      detector_id;
-      format;
-      id;
-      location;
-      name;
-      tags;
-      tags_all;
-    }
+    ({
+       activate;
+       detector_id;
+       format;
+       id;
+       location;
+       name;
+       tags;
+       tags_all;
+     }
+      : aws_guardduty_ipset)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_ipset __resource);
-  ()
+  let __resource_attributes =
+    ({
+       activate =
+         Prop.computed __resource_type __resource_id "activate";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       detector_id =
+         Prop.computed __resource_type __resource_id "detector_id";
+       format = Prop.computed __resource_type __resource_id "format";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

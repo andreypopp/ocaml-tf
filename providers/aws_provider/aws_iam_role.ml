@@ -34,28 +34,82 @@ type aws_iam_role = {
 [@@deriving yojson_of]
 (** aws_iam_role *)
 
+type t = {
+  arn : string prop;
+  assume_role_policy : string prop;
+  create_date : string prop;
+  description : string prop;
+  force_detach_policies : bool prop;
+  id : string prop;
+  managed_policy_arns : string list prop;
+  max_session_duration : float prop;
+  name : string prop;
+  name_prefix : string prop;
+  path : string prop;
+  permissions_boundary : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  unique_id : string prop;
+}
+
 let aws_iam_role ?description ?force_detach_policies ?id
     ?managed_policy_arns ?max_session_duration ?name ?name_prefix
     ?path ?permissions_boundary ?tags ?tags_all ~assume_role_policy
     ~inline_policy __resource_id =
   let __resource_type = "aws_iam_role" in
   let __resource =
-    {
-      assume_role_policy;
-      description;
-      force_detach_policies;
-      id;
-      managed_policy_arns;
-      max_session_duration;
-      name;
-      name_prefix;
-      path;
-      permissions_boundary;
-      tags;
-      tags_all;
-      inline_policy;
-    }
+    ({
+       assume_role_policy;
+       description;
+       force_detach_policies;
+       id;
+       managed_policy_arns;
+       max_session_duration;
+       name;
+       name_prefix;
+       path;
+       permissions_boundary;
+       tags;
+       tags_all;
+       inline_policy;
+     }
+      : aws_iam_role)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_role __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       assume_role_policy =
+         Prop.computed __resource_type __resource_id
+           "assume_role_policy";
+       create_date =
+         Prop.computed __resource_type __resource_id "create_date";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       force_detach_policies =
+         Prop.computed __resource_type __resource_id
+           "force_detach_policies";
+       id = Prop.computed __resource_type __resource_id "id";
+       managed_policy_arns =
+         Prop.computed __resource_type __resource_id
+           "managed_policy_arns";
+       max_session_duration =
+         Prop.computed __resource_type __resource_id
+           "max_session_duration";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       path = Prop.computed __resource_type __resource_id "path";
+       permissions_boundary =
+         Prop.computed __resource_type __resource_id
+           "permissions_boundary";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       unique_id =
+         Prop.computed __resource_type __resource_id "unique_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -4,6 +4,14 @@ open! Tf.Prelude
 
 type aws_lb_target_group_attachment
 
+type t = private {
+  availability_zone : string prop;
+  id : string prop;
+  port : float prop;
+  target_group_arn : string prop;
+  target_id : string prop;
+}
+
 val aws_lb_target_group_attachment :
   ?availability_zone:string prop ->
   ?id:string prop ->
@@ -11,4 +19,4 @@ val aws_lb_target_group_attachment :
   target_group_arn:string prop ->
   target_id:string prop ->
   string ->
-  unit
+  t

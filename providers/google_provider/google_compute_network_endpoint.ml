@@ -35,22 +35,50 @@ with the type of 'GCE_VM_IP' *)
 [@@deriving yojson_of]
 (** google_compute_network_endpoint *)
 
+type t = {
+  id : string prop;
+  instance : string prop;
+  ip_address : string prop;
+  network_endpoint_group : string prop;
+  port : float prop;
+  project : string prop;
+  zone : string prop;
+}
+
 let google_compute_network_endpoint ?id ?instance ?port ?project
     ?zone ?timeouts ~ip_address ~network_endpoint_group __resource_id
     =
   let __resource_type = "google_compute_network_endpoint" in
   let __resource =
-    {
-      id;
-      instance;
-      ip_address;
-      network_endpoint_group;
-      port;
-      project;
-      zone;
-      timeouts;
-    }
+    ({
+       id;
+       instance;
+       ip_address;
+       network_endpoint_group;
+       port;
+       project;
+       zone;
+       timeouts;
+     }
+      : google_compute_network_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       instance =
+         Prop.computed __resource_type __resource_id "instance";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       network_endpoint_group =
+         Prop.computed __resource_type __resource_id
+           "network_endpoint_group";
+       port = Prop.computed __resource_type __resource_id "port";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

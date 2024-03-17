@@ -47,22 +47,60 @@ which type this is. Default value: MANAGED Possible values: [MANAGED] *)
 [@@deriving yojson_of]
 (** google_compute_managed_ssl_certificate *)
 
+type t = {
+  certificate_id : float prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  expire_time : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  subject_alternative_names : string list prop;
+  type_ : string prop;
+}
+
 let google_compute_managed_ssl_certificate ?certificate_id
     ?description ?id ?name ?project ?type_ ?timeouts ~managed
     __resource_id =
   let __resource_type = "google_compute_managed_ssl_certificate" in
   let __resource =
-    {
-      certificate_id;
-      description;
-      id;
-      name;
-      project;
-      type_;
-      managed;
-      timeouts;
-    }
+    ({
+       certificate_id;
+       description;
+       id;
+       name;
+       project;
+       type_;
+       managed;
+       timeouts;
+     }
+      : google_compute_managed_ssl_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_managed_ssl_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_id =
+         Prop.computed __resource_type __resource_id "certificate_id";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       expire_time =
+         Prop.computed __resource_type __resource_id "expire_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       subject_alternative_names =
+         Prop.computed __resource_type __resource_id
+           "subject_alternative_names";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

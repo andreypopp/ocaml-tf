@@ -136,24 +136,69 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 [@@deriving yojson_of]
 (** google_cloudbuildv2_connection *)
 
+type t = {
+  annotations : (string * string) list prop;
+  create_time : string prop;
+  disabled : bool prop;
+  effective_annotations : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  installation_state :
+    google_cloudbuildv2_connection__installation_state list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  update_time : string prop;
+}
+
 let google_cloudbuildv2_connection ?annotations ?disabled ?id
     ?project ?timeouts ~location ~name ~github_config
     ~github_enterprise_config ~gitlab_config __resource_id =
   let __resource_type = "google_cloudbuildv2_connection" in
   let __resource =
-    {
-      annotations;
-      disabled;
-      id;
-      location;
-      name;
-      project;
-      github_config;
-      github_enterprise_config;
-      gitlab_config;
-      timeouts;
-    }
+    ({
+       annotations;
+       disabled;
+       id;
+       location;
+       name;
+       project;
+       github_config;
+       github_enterprise_config;
+       gitlab_config;
+       timeouts;
+     }
+      : google_cloudbuildv2_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudbuildv2_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       installation_state =
+         Prop.computed __resource_type __resource_id
+           "installation_state";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

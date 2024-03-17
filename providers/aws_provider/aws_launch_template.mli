@@ -44,6 +44,31 @@ type aws_launch_template__private_dns_name_options
 type aws_launch_template__tag_specifications
 type aws_launch_template
 
+type t = private {
+  arn : string prop;
+  default_version : float prop;
+  description : string prop;
+  disable_api_stop : bool prop;
+  disable_api_termination : bool prop;
+  ebs_optimized : string prop;
+  id : string prop;
+  image_id : string prop;
+  instance_initiated_shutdown_behavior : string prop;
+  instance_type : string prop;
+  kernel_id : string prop;
+  key_name : string prop;
+  latest_version : float prop;
+  name : string prop;
+  name_prefix : string prop;
+  ram_disk_id : string prop;
+  security_group_names : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  update_default_version : bool prop;
+  user_data : string prop;
+  vpc_security_group_ids : string list prop;
+}
+
 val aws_launch_template :
   ?default_version:float prop ->
   ?description:string prop ->
@@ -93,4 +118,4 @@ val aws_launch_template :
     aws_launch_template__private_dns_name_options list ->
   tag_specifications:aws_launch_template__tag_specifications list ->
   string ->
-  unit
+  t

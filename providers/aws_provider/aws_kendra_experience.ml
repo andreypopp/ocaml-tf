@@ -58,20 +58,52 @@ type aws_kendra_experience = {
 [@@deriving yojson_of]
 (** aws_kendra_experience *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  endpoints : aws_kendra_experience__endpoints list prop;
+  experience_id : string prop;
+  id : string prop;
+  index_id : string prop;
+  name : string prop;
+  role_arn : string prop;
+  status : string prop;
+}
+
 let aws_kendra_experience ?description ?id ?timeouts ~index_id ~name
     ~role_arn ~configuration __resource_id =
   let __resource_type = "aws_kendra_experience" in
   let __resource =
-    {
-      description;
-      id;
-      index_id;
-      name;
-      role_arn;
-      configuration;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       index_id;
+       name;
+       role_arn;
+       configuration;
+       timeouts;
+     }
+      : aws_kendra_experience)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kendra_experience __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       endpoints =
+         Prop.computed __resource_type __resource_id "endpoints";
+       experience_id =
+         Prop.computed __resource_type __resource_id "experience_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       index_id =
+         Prop.computed __resource_type __resource_id "index_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -25,10 +25,30 @@ type google_organization_iam_audit_config = {
 [@@deriving yojson_of]
 (** google_organization_iam_audit_config *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  org_id : string prop;
+  service : string prop;
+}
+
 let google_organization_iam_audit_config ?id ~org_id ~service
     ~audit_log_config __resource_id =
   let __resource_type = "google_organization_iam_audit_config" in
-  let __resource = { id; org_id; service; audit_log_config } in
+  let __resource =
+    ({ id; org_id; service; audit_log_config }
+      : google_organization_iam_audit_config)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_organization_iam_audit_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -37,12 +37,39 @@ type aws_mskconnect_custom_plugin = {
 [@@deriving yojson_of]
 (** aws_mskconnect_custom_plugin *)
 
+type t = {
+  arn : string prop;
+  content_type : string prop;
+  description : string prop;
+  id : string prop;
+  latest_revision : float prop;
+  name : string prop;
+  state : string prop;
+}
+
 let aws_mskconnect_custom_plugin ?description ?id ?timeouts
     ~content_type ~name ~location __resource_id =
   let __resource_type = "aws_mskconnect_custom_plugin" in
   let __resource =
-    { content_type; description; id; name; location; timeouts }
+    ({ content_type; description; id; name; location; timeouts }
+      : aws_mskconnect_custom_plugin)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_mskconnect_custom_plugin __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       content_type =
+         Prop.computed __resource_type __resource_id "content_type";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       latest_revision =
+         Prop.computed __resource_type __resource_id
+           "latest_revision";
+       name = Prop.computed __resource_type __resource_id "name";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

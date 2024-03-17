@@ -84,6 +84,26 @@ type aws_cloudtrail = {
 [@@deriving yojson_of]
 (** aws_cloudtrail *)
 
+type t = {
+  arn : string prop;
+  cloud_watch_logs_group_arn : string prop;
+  cloud_watch_logs_role_arn : string prop;
+  enable_log_file_validation : bool prop;
+  enable_logging : bool prop;
+  home_region : string prop;
+  id : string prop;
+  include_global_service_events : bool prop;
+  is_multi_region_trail : bool prop;
+  is_organization_trail : bool prop;
+  kms_key_id : string prop;
+  name : string prop;
+  s3_bucket_name : string prop;
+  s3_key_prefix : string prop;
+  sns_topic_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_cloudtrail ?cloud_watch_logs_group_arn
     ?cloud_watch_logs_role_arn ?enable_log_file_validation
     ?enable_logging ?id ?include_global_service_events
@@ -93,27 +113,69 @@ let aws_cloudtrail ?cloud_watch_logs_group_arn
     ~insight_selector __resource_id =
   let __resource_type = "aws_cloudtrail" in
   let __resource =
-    {
-      cloud_watch_logs_group_arn;
-      cloud_watch_logs_role_arn;
-      enable_log_file_validation;
-      enable_logging;
-      id;
-      include_global_service_events;
-      is_multi_region_trail;
-      is_organization_trail;
-      kms_key_id;
-      name;
-      s3_bucket_name;
-      s3_key_prefix;
-      sns_topic_name;
-      tags;
-      tags_all;
-      advanced_event_selector;
-      event_selector;
-      insight_selector;
-    }
+    ({
+       cloud_watch_logs_group_arn;
+       cloud_watch_logs_role_arn;
+       enable_log_file_validation;
+       enable_logging;
+       id;
+       include_global_service_events;
+       is_multi_region_trail;
+       is_organization_trail;
+       kms_key_id;
+       name;
+       s3_bucket_name;
+       s3_key_prefix;
+       sns_topic_name;
+       tags;
+       tags_all;
+       advanced_event_selector;
+       event_selector;
+       insight_selector;
+     }
+      : aws_cloudtrail)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudtrail __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       cloud_watch_logs_group_arn =
+         Prop.computed __resource_type __resource_id
+           "cloud_watch_logs_group_arn";
+       cloud_watch_logs_role_arn =
+         Prop.computed __resource_type __resource_id
+           "cloud_watch_logs_role_arn";
+       enable_log_file_validation =
+         Prop.computed __resource_type __resource_id
+           "enable_log_file_validation";
+       enable_logging =
+         Prop.computed __resource_type __resource_id "enable_logging";
+       home_region =
+         Prop.computed __resource_type __resource_id "home_region";
+       id = Prop.computed __resource_type __resource_id "id";
+       include_global_service_events =
+         Prop.computed __resource_type __resource_id
+           "include_global_service_events";
+       is_multi_region_trail =
+         Prop.computed __resource_type __resource_id
+           "is_multi_region_trail";
+       is_organization_trail =
+         Prop.computed __resource_type __resource_id
+           "is_organization_trail";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       s3_bucket_name =
+         Prop.computed __resource_type __resource_id "s3_bucket_name";
+       s3_key_prefix =
+         Prop.computed __resource_type __resource_id "s3_key_prefix";
+       sns_topic_name =
+         Prop.computed __resource_type __resource_id "sns_topic_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

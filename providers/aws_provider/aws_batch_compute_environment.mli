@@ -10,6 +10,21 @@ type aws_batch_compute_environment__eks_configuration
 type aws_batch_compute_environment__update_policy
 type aws_batch_compute_environment
 
+type t = private {
+  arn : string prop;
+  compute_environment_name : string prop;
+  compute_environment_name_prefix : string prop;
+  ecs_cluster_arn : string prop;
+  id : string prop;
+  service_role : string prop;
+  state : string prop;
+  status : string prop;
+  status_reason : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_batch_compute_environment :
   ?compute_environment_name:string prop ->
   ?compute_environment_name_prefix:string prop ->
@@ -25,4 +40,4 @@ val aws_batch_compute_environment :
     aws_batch_compute_environment__eks_configuration list ->
   update_policy:aws_batch_compute_environment__update_policy list ->
   string ->
-  unit
+  t

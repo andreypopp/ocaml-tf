@@ -20,10 +20,30 @@ type aws_opensearch_domain_policy = {
 [@@deriving yojson_of]
 (** aws_opensearch_domain_policy *)
 
+type t = {
+  access_policies : string prop;
+  domain_name : string prop;
+  id : string prop;
+}
+
 let aws_opensearch_domain_policy ?id ?timeouts ~access_policies
     ~domain_name __resource_id =
   let __resource_type = "aws_opensearch_domain_policy" in
-  let __resource = { access_policies; domain_name; id; timeouts } in
+  let __resource =
+    ({ access_policies; domain_name; id; timeouts }
+      : aws_opensearch_domain_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearch_domain_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_policies =
+         Prop.computed __resource_type __resource_id
+           "access_policies";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -71,6 +71,21 @@ type azurerm_recovery_services_vault = {
 [@@deriving yojson_of]
 (** azurerm_recovery_services_vault *)
 
+type t = {
+  classic_vmware_replication_enabled : bool prop;
+  cross_region_restore_enabled : bool prop;
+  id : string prop;
+  immutability : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  soft_delete_enabled : bool prop;
+  storage_mode_type : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_recovery_services_vault
     ?classic_vmware_replication_enabled ?cross_region_restore_enabled
     ?id ?immutability ?public_network_access_enabled
@@ -79,25 +94,57 @@ let azurerm_recovery_services_vault
     __resource_id =
   let __resource_type = "azurerm_recovery_services_vault" in
   let __resource =
-    {
-      classic_vmware_replication_enabled;
-      cross_region_restore_enabled;
-      id;
-      immutability;
-      location;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      sku;
-      soft_delete_enabled;
-      storage_mode_type;
-      tags;
-      encryption;
-      identity;
-      monitoring;
-      timeouts;
-    }
+    ({
+       classic_vmware_replication_enabled;
+       cross_region_restore_enabled;
+       id;
+       immutability;
+       location;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       sku;
+       soft_delete_enabled;
+       storage_mode_type;
+       tags;
+       encryption;
+       identity;
+       monitoring;
+       timeouts;
+     }
+      : azurerm_recovery_services_vault)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_recovery_services_vault __resource);
-  ()
+  let __resource_attributes =
+    ({
+       classic_vmware_replication_enabled =
+         Prop.computed __resource_type __resource_id
+           "classic_vmware_replication_enabled";
+       cross_region_restore_enabled =
+         Prop.computed __resource_type __resource_id
+           "cross_region_restore_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       immutability =
+         Prop.computed __resource_type __resource_id "immutability";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       soft_delete_enabled =
+         Prop.computed __resource_type __resource_id
+           "soft_delete_enabled";
+       storage_mode_type =
+         Prop.computed __resource_type __resource_id
+           "storage_mode_type";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

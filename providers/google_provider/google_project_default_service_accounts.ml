@@ -27,12 +27,35 @@ type google_project_default_service_accounts = {
 [@@deriving yojson_of]
 (** google_project_default_service_accounts *)
 
+type t = {
+  action : string prop;
+  id : string prop;
+  project : string prop;
+  restore_policy : string prop;
+  service_accounts : (string * string) list prop;
+}
+
 let google_project_default_service_accounts ?id ?restore_policy
     ?timeouts ~action ~project __resource_id =
   let __resource_type = "google_project_default_service_accounts" in
   let __resource =
-    { action; id; project; restore_policy; timeouts }
+    ({ action; id; project; restore_policy; timeouts }
+      : google_project_default_service_accounts)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project_default_service_accounts __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       id = Prop.computed __resource_type __resource_id "id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       restore_policy =
+         Prop.computed __resource_type __resource_id "restore_policy";
+       service_accounts =
+         Prop.computed __resource_type __resource_id
+           "service_accounts";
+     }
+      : t)
+  in
+  __resource_attributes

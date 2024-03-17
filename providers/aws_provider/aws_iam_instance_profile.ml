@@ -17,12 +17,45 @@ type aws_iam_instance_profile = {
 [@@deriving yojson_of]
 (** aws_iam_instance_profile *)
 
+type t = {
+  arn : string prop;
+  create_date : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  path : string prop;
+  role : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  unique_id : string prop;
+}
+
 let aws_iam_instance_profile ?id ?name ?name_prefix ?path ?role ?tags
     ?tags_all __resource_id =
   let __resource_type = "aws_iam_instance_profile" in
   let __resource =
-    { id; name; name_prefix; path; role; tags; tags_all }
+    ({ id; name; name_prefix; path; role; tags; tags_all }
+      : aws_iam_instance_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_instance_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       create_date =
+         Prop.computed __resource_type __resource_id "create_date";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       path = Prop.computed __resource_type __resource_id "path";
+       role = Prop.computed __resource_type __resource_id "role";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       unique_id =
+         Prop.computed __resource_type __resource_id "unique_id";
+     }
+      : t)
+  in
+  __resource_attributes

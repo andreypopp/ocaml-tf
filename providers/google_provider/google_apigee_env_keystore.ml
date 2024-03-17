@@ -23,10 +23,29 @@ in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
 [@@deriving yojson_of]
 (** google_apigee_env_keystore *)
 
+type t = {
+  aliases : string list prop;
+  env_id : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let google_apigee_env_keystore ?id ?name ?timeouts ~env_id
     __resource_id =
   let __resource_type = "google_apigee_env_keystore" in
-  let __resource = { env_id; id; name; timeouts } in
+  let __resource =
+    ({ env_id; id; name; timeouts } : google_apigee_env_keystore)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_env_keystore __resource);
-  ()
+  let __resource_attributes =
+    ({
+       aliases =
+         Prop.computed __resource_type __resource_id "aliases";
+       env_id = Prop.computed __resource_type __resource_id "env_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -6,6 +6,7 @@ type kubernetes_cluster_role_binding__metadata
 type kubernetes_cluster_role_binding__role_ref
 type kubernetes_cluster_role_binding__subject
 type kubernetes_cluster_role_binding
+type t = private { id : string prop }
 
 val kubernetes_cluster_role_binding :
   ?id:string prop ->
@@ -13,4 +14,4 @@ val kubernetes_cluster_role_binding :
   role_ref:kubernetes_cluster_role_binding__role_ref list ->
   subject:kubernetes_cluster_role_binding__subject list ->
   string ->
-  unit
+  t

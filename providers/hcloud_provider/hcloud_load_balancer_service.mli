@@ -7,6 +7,15 @@ type hcloud_load_balancer_service__health_check
 type hcloud_load_balancer_service__http
 type hcloud_load_balancer_service
 
+type t = private {
+  destination_port : float prop;
+  id : string prop;
+  listen_port : float prop;
+  load_balancer_id : string prop;
+  protocol : string prop;
+  proxyprotocol : bool prop;
+}
+
 val hcloud_load_balancer_service :
   ?destination_port:float prop ->
   ?id:string prop ->
@@ -17,4 +26,4 @@ val hcloud_load_balancer_service :
   health_check:hcloud_load_balancer_service__health_check list ->
   http:hcloud_load_balancer_service__http list ->
   string ->
-  unit
+  t

@@ -63,29 +63,82 @@ Europe/Paris. *)
 [@@deriving yojson_of]
 (** google_dialogflow_agent *)
 
+type t = {
+  api_version : string prop;
+  avatar_uri : string prop;
+  avatar_uri_backend : string prop;
+  classification_threshold : float prop;
+  default_language_code : string prop;
+  description : string prop;
+  display_name : string prop;
+  enable_logging : bool prop;
+  id : string prop;
+  match_mode : string prop;
+  project : string prop;
+  supported_language_codes : string list prop;
+  tier : string prop;
+  time_zone : string prop;
+}
+
 let google_dialogflow_agent ?api_version ?avatar_uri
     ?classification_threshold ?description ?enable_logging ?id
     ?match_mode ?project ?supported_language_codes ?tier ?timeouts
     ~default_language_code ~display_name ~time_zone __resource_id =
   let __resource_type = "google_dialogflow_agent" in
   let __resource =
-    {
-      api_version;
-      avatar_uri;
-      classification_threshold;
-      default_language_code;
-      description;
-      display_name;
-      enable_logging;
-      id;
-      match_mode;
-      project;
-      supported_language_codes;
-      tier;
-      time_zone;
-      timeouts;
-    }
+    ({
+       api_version;
+       avatar_uri;
+       classification_threshold;
+       default_language_code;
+       description;
+       display_name;
+       enable_logging;
+       id;
+       match_mode;
+       project;
+       supported_language_codes;
+       tier;
+       time_zone;
+       timeouts;
+     }
+      : google_dialogflow_agent)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_agent __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_version =
+         Prop.computed __resource_type __resource_id "api_version";
+       avatar_uri =
+         Prop.computed __resource_type __resource_id "avatar_uri";
+       avatar_uri_backend =
+         Prop.computed __resource_type __resource_id
+           "avatar_uri_backend";
+       classification_threshold =
+         Prop.computed __resource_type __resource_id
+           "classification_threshold";
+       default_language_code =
+         Prop.computed __resource_type __resource_id
+           "default_language_code";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enable_logging =
+         Prop.computed __resource_type __resource_id "enable_logging";
+       id = Prop.computed __resource_type __resource_id "id";
+       match_mode =
+         Prop.computed __resource_type __resource_id "match_mode";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       supported_language_codes =
+         Prop.computed __resource_type __resource_id
+           "supported_language_codes";
+       tier = Prop.computed __resource_type __resource_id "tier";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -48,20 +48,42 @@ type google_dialogflow_fulfillment = {
 [@@deriving yojson_of]
 (** google_dialogflow_fulfillment *)
 
+type t = {
+  display_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_dialogflow_fulfillment ?enabled ?id ?project ?timeouts
     ~display_name ~features ~generic_web_service __resource_id =
   let __resource_type = "google_dialogflow_fulfillment" in
   let __resource =
-    {
-      display_name;
-      enabled;
-      id;
-      project;
-      features;
-      generic_web_service;
-      timeouts;
-    }
+    ({
+       display_name;
+       enabled;
+       id;
+       project;
+       features;
+       generic_web_service;
+       timeouts;
+     }
+      : google_dialogflow_fulfillment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_fulfillment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

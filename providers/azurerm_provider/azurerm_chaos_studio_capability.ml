@@ -22,12 +22,33 @@ type azurerm_chaos_studio_capability = {
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_capability *)
 
+type t = {
+  capability_type : string prop;
+  chaos_studio_target_id : string prop;
+  id : string prop;
+  urn : string prop;
+}
+
 let azurerm_chaos_studio_capability ?id ?timeouts ~capability_type
     ~chaos_studio_target_id __resource_id =
   let __resource_type = "azurerm_chaos_studio_capability" in
   let __resource =
-    { capability_type; chaos_studio_target_id; id; timeouts }
+    ({ capability_type; chaos_studio_target_id; id; timeouts }
+      : azurerm_chaos_studio_capability)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_chaos_studio_capability __resource);
-  ()
+  let __resource_attributes =
+    ({
+       capability_type =
+         Prop.computed __resource_type __resource_id
+           "capability_type";
+       chaos_studio_target_id =
+         Prop.computed __resource_type __resource_id
+           "chaos_studio_target_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       urn = Prop.computed __resource_type __resource_id "urn";
+     }
+      : t)
+  in
+  __resource_attributes

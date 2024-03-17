@@ -12,10 +12,28 @@ type aws_networkfirewall_resource_policy = {
 [@@deriving yojson_of]
 (** aws_networkfirewall_resource_policy *)
 
+type t = {
+  id : string prop;
+  policy : string prop;
+  resource_arn : string prop;
+}
+
 let aws_networkfirewall_resource_policy ?id ~policy ~resource_arn
     __resource_id =
   let __resource_type = "aws_networkfirewall_resource_policy" in
-  let __resource = { id; policy; resource_arn } in
+  let __resource =
+    ({ id; policy; resource_arn }
+      : aws_networkfirewall_resource_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkfirewall_resource_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       resource_arn =
+         Prop.computed __resource_type __resource_id "resource_arn";
+     }
+      : t)
+  in
+  __resource_attributes

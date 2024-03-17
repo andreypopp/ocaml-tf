@@ -36,23 +36,56 @@ type digitalocean_monitor_alert = {
 [@@deriving yojson_of]
 (** digitalocean_monitor_alert *)
 
+type t = {
+  compare : string prop;
+  description : string prop;
+  enabled : bool prop;
+  entities : string list prop;
+  id : string prop;
+  tags : string list prop;
+  type_ : string prop;
+  uuid : string prop;
+  value : float prop;
+  window : string prop;
+}
+
 let digitalocean_monitor_alert ?enabled ?entities ?id ?tags ~compare
     ~description ~type_ ~value ~window ~alerts __resource_id =
   let __resource_type = "digitalocean_monitor_alert" in
   let __resource =
-    {
-      compare;
-      description;
-      enabled;
-      entities;
-      id;
-      tags;
-      type_;
-      value;
-      window;
-      alerts;
-    }
+    ({
+       compare;
+       description;
+       enabled;
+       entities;
+       id;
+       tags;
+       type_;
+       value;
+       window;
+       alerts;
+     }
+      : digitalocean_monitor_alert)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_monitor_alert __resource);
-  ()
+  let __resource_attributes =
+    ({
+       compare =
+         Prop.computed __resource_type __resource_id "compare";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       entities =
+         Prop.computed __resource_type __resource_id "entities";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       uuid = Prop.computed __resource_type __resource_id "uuid";
+       value = Prop.computed __resource_type __resource_id "value";
+       window = Prop.computed __resource_type __resource_id "window";
+     }
+      : t)
+  in
+  __resource_attributes

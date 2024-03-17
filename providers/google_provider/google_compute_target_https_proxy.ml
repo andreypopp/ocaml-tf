@@ -76,6 +76,25 @@ to the BackendService. *)
 [@@deriving yojson_of]
 (** google_compute_target_https_proxy *)
 
+type t = {
+  certificate_manager_certificates : string list prop;
+  certificate_map : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  http_keep_alive_timeout_sec : float prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  proxy_bind : bool prop;
+  proxy_id : float prop;
+  quic_override : string prop;
+  self_link : string prop;
+  server_tls_policy : string prop;
+  ssl_certificates : string list prop;
+  ssl_policy : string prop;
+  url_map : string prop;
+}
+
 let google_compute_target_https_proxy
     ?certificate_manager_certificates ?certificate_map ?description
     ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind
@@ -83,23 +102,65 @@ let google_compute_target_https_proxy
     ?timeouts ~name ~url_map __resource_id =
   let __resource_type = "google_compute_target_https_proxy" in
   let __resource =
-    {
-      certificate_manager_certificates;
-      certificate_map;
-      description;
-      http_keep_alive_timeout_sec;
-      id;
-      name;
-      project;
-      proxy_bind;
-      quic_override;
-      server_tls_policy;
-      ssl_certificates;
-      ssl_policy;
-      url_map;
-      timeouts;
-    }
+    ({
+       certificate_manager_certificates;
+       certificate_map;
+       description;
+       http_keep_alive_timeout_sec;
+       id;
+       name;
+       project;
+       proxy_bind;
+       quic_override;
+       server_tls_policy;
+       ssl_certificates;
+       ssl_policy;
+       url_map;
+       timeouts;
+     }
+      : google_compute_target_https_proxy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_https_proxy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_manager_certificates =
+         Prop.computed __resource_type __resource_id
+           "certificate_manager_certificates";
+       certificate_map =
+         Prop.computed __resource_type __resource_id
+           "certificate_map";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       http_keep_alive_timeout_sec =
+         Prop.computed __resource_type __resource_id
+           "http_keep_alive_timeout_sec";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       proxy_bind =
+         Prop.computed __resource_type __resource_id "proxy_bind";
+       proxy_id =
+         Prop.computed __resource_type __resource_id "proxy_id";
+       quic_override =
+         Prop.computed __resource_type __resource_id "quic_override";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       server_tls_policy =
+         Prop.computed __resource_type __resource_id
+           "server_tls_policy";
+       ssl_certificates =
+         Prop.computed __resource_type __resource_id
+           "ssl_certificates";
+       ssl_policy =
+         Prop.computed __resource_type __resource_id "ssl_policy";
+       url_map =
+         Prop.computed __resource_type __resource_id "url_map";
+     }
+      : t)
+  in
+  __resource_attributes

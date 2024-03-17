@@ -32,6 +32,30 @@ type google_container_attached_cluster__workload_identity_config = {
 
 type google_container_attached_cluster
 
+type t = private {
+  annotations : (string * string) list prop;
+  cluster_region : string prop;
+  create_time : string prop;
+  deletion_policy : string prop;
+  description : string prop;
+  distribution : string prop;
+  effective_annotations : (string * string) list prop;
+  errors : google_container_attached_cluster__errors list prop;
+  id : string prop;
+  kubernetes_version : string prop;
+  location : string prop;
+  name : string prop;
+  platform_version : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  uid : string prop;
+  update_time : string prop;
+  workload_identity_config :
+    google_container_attached_cluster__workload_identity_config list
+    prop;
+}
+
 val google_container_attached_cluster :
   ?annotations:(string * string prop) list ->
   ?deletion_policy:string prop ->
@@ -54,4 +78,4 @@ val google_container_attached_cluster :
   oidc_config:google_container_attached_cluster__oidc_config list ->
   proxy_config:google_container_attached_cluster__proxy_config list ->
   string ->
-  unit
+  t

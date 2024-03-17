@@ -37,20 +37,51 @@ type aws_ecrpublic_repository = {
 [@@deriving yojson_of]
 (** aws_ecrpublic_repository *)
 
+type t = {
+  arn : string prop;
+  force_destroy : bool prop;
+  id : string prop;
+  registry_id : string prop;
+  repository_name : string prop;
+  repository_uri : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ecrpublic_repository ?force_destroy ?id ?tags ?tags_all
     ?timeouts ~repository_name ~catalog_data __resource_id =
   let __resource_type = "aws_ecrpublic_repository" in
   let __resource =
-    {
-      force_destroy;
-      id;
-      repository_name;
-      tags;
-      tags_all;
-      catalog_data;
-      timeouts;
-    }
+    ({
+       force_destroy;
+       id;
+       repository_name;
+       tags;
+       tags_all;
+       catalog_data;
+       timeouts;
+     }
+      : aws_ecrpublic_repository)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecrpublic_repository __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       registry_id =
+         Prop.computed __resource_type __resource_id "registry_id";
+       repository_name =
+         Prop.computed __resource_type __resource_id
+           "repository_name";
+       repository_uri =
+         Prop.computed __resource_type __resource_id "repository_uri";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

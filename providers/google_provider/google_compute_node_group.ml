@@ -81,27 +81,67 @@ type google_compute_node_group = {
 [@@deriving yojson_of]
 (** google_compute_node_group *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  initial_size : float prop;
+  maintenance_policy : string prop;
+  name : string prop;
+  node_template : string prop;
+  project : string prop;
+  self_link : string prop;
+  size : float prop;
+  zone : string prop;
+}
+
 let google_compute_node_group ?description ?id ?initial_size
     ?maintenance_policy ?name ?project ?zone ?timeouts ~node_template
     ~autoscaling_policy ~maintenance_window ~share_settings
     __resource_id =
   let __resource_type = "google_compute_node_group" in
   let __resource =
-    {
-      description;
-      id;
-      initial_size;
-      maintenance_policy;
-      name;
-      node_template;
-      project;
-      zone;
-      autoscaling_policy;
-      maintenance_window;
-      share_settings;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       initial_size;
+       maintenance_policy;
+       name;
+       node_template;
+       project;
+       zone;
+       autoscaling_policy;
+       maintenance_window;
+       share_settings;
+       timeouts;
+     }
+      : google_compute_node_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_node_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       initial_size =
+         Prop.computed __resource_type __resource_id "initial_size";
+       maintenance_policy =
+         Prop.computed __resource_type __resource_id
+           "maintenance_policy";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_template =
+         Prop.computed __resource_type __resource_id "node_template";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       size = Prop.computed __resource_type __resource_id "size";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

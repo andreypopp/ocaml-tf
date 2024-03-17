@@ -52,10 +52,43 @@ Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyring}}/crypt
 [@@deriving yojson_of]
 (** google_kms_crypto_key_version *)
 
+type t = {
+  algorithm : string prop;
+  attestation : google_kms_crypto_key_version__attestation list prop;
+  crypto_key : string prop;
+  generate_time : string prop;
+  id : string prop;
+  name : string prop;
+  protection_level : string prop;
+  state : string prop;
+}
+
 let google_kms_crypto_key_version ?id ?state ?timeouts ~crypto_key
     __resource_id =
   let __resource_type = "google_kms_crypto_key_version" in
-  let __resource = { crypto_key; id; state; timeouts } in
+  let __resource =
+    ({ crypto_key; id; state; timeouts }
+      : google_kms_crypto_key_version)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_crypto_key_version __resource);
-  ()
+  let __resource_attributes =
+    ({
+       algorithm =
+         Prop.computed __resource_type __resource_id "algorithm";
+       attestation =
+         Prop.computed __resource_type __resource_id "attestation";
+       crypto_key =
+         Prop.computed __resource_type __resource_id "crypto_key";
+       generate_time =
+         Prop.computed __resource_type __resource_id "generate_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       protection_level =
+         Prop.computed __resource_type __resource_id
+           "protection_level";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

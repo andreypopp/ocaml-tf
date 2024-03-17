@@ -57,19 +57,30 @@ type aws_datapipeline_pipeline_definition = {
 [@@deriving yojson_of]
 (** aws_datapipeline_pipeline_definition *)
 
+type t = { id : string prop; pipeline_id : string prop }
+
 let aws_datapipeline_pipeline_definition ?id ~pipeline_id
     ~parameter_object ~parameter_value ~pipeline_object __resource_id
     =
   let __resource_type = "aws_datapipeline_pipeline_definition" in
   let __resource =
-    {
-      id;
-      pipeline_id;
-      parameter_object;
-      parameter_value;
-      pipeline_object;
-    }
+    ({
+       id;
+       pipeline_id;
+       parameter_object;
+       parameter_value;
+       pipeline_object;
+     }
+      : aws_datapipeline_pipeline_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datapipeline_pipeline_definition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       pipeline_id =
+         Prop.computed __resource_type __resource_id "pipeline_id";
+     }
+      : t)
+  in
+  __resource_attributes

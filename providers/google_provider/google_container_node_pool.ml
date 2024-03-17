@@ -396,6 +396,23 @@ type google_container_node_pool = {
 [@@deriving yojson_of]
 (** google_container_node_pool *)
 
+type t = {
+  cluster : string prop;
+  id : string prop;
+  initial_node_count : float prop;
+  instance_group_urls : string list prop;
+  location : string prop;
+  managed_instance_group_urls : string list prop;
+  max_pods_per_node : float prop;
+  name : string prop;
+  name_prefix : string prop;
+  node_count : float prop;
+  node_locations : string list prop;
+  operation : string prop;
+  project : string prop;
+  version : string prop;
+}
+
 let google_container_node_pool ?id ?initial_node_count ?location
     ?max_pods_per_node ?name ?name_prefix ?node_count ?node_locations
     ?project ?version ?timeouts ~cluster ~autoscaling ~management
@@ -403,27 +420,63 @@ let google_container_node_pool ?id ?initial_node_count ?location
     __resource_id =
   let __resource_type = "google_container_node_pool" in
   let __resource =
-    {
-      cluster;
-      id;
-      initial_node_count;
-      location;
-      max_pods_per_node;
-      name;
-      name_prefix;
-      node_count;
-      node_locations;
-      project;
-      version;
-      autoscaling;
-      management;
-      network_config;
-      node_config;
-      placement_policy;
-      timeouts;
-      upgrade_settings;
-    }
+    ({
+       cluster;
+       id;
+       initial_node_count;
+       location;
+       max_pods_per_node;
+       name;
+       name_prefix;
+       node_count;
+       node_locations;
+       project;
+       version;
+       autoscaling;
+       management;
+       network_config;
+       node_config;
+       placement_policy;
+       timeouts;
+       upgrade_settings;
+     }
+      : google_container_node_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_node_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster =
+         Prop.computed __resource_type __resource_id "cluster";
+       id = Prop.computed __resource_type __resource_id "id";
+       initial_node_count =
+         Prop.computed __resource_type __resource_id
+           "initial_node_count";
+       instance_group_urls =
+         Prop.computed __resource_type __resource_id
+           "instance_group_urls";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       managed_instance_group_urls =
+         Prop.computed __resource_type __resource_id
+           "managed_instance_group_urls";
+       max_pods_per_node =
+         Prop.computed __resource_type __resource_id
+           "max_pods_per_node";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       node_count =
+         Prop.computed __resource_type __resource_id "node_count";
+       node_locations =
+         Prop.computed __resource_type __resource_id "node_locations";
+       operation =
+         Prop.computed __resource_type __resource_id "operation";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

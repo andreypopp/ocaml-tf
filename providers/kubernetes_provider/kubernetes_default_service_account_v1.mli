@@ -8,6 +8,12 @@ type kubernetes_default_service_account_v1__secret
 type kubernetes_default_service_account_v1__timeouts
 type kubernetes_default_service_account_v1
 
+type t = private {
+  automount_service_account_token : bool prop;
+  default_secret_name : string prop;
+  id : string prop;
+}
+
 val kubernetes_default_service_account_v1 :
   ?automount_service_account_token:bool prop ->
   ?id:string prop ->
@@ -17,4 +23,4 @@ val kubernetes_default_service_account_v1 :
   metadata:kubernetes_default_service_account_v1__metadata list ->
   secret:kubernetes_default_service_account_v1__secret list ->
   string ->
-  unit
+  t

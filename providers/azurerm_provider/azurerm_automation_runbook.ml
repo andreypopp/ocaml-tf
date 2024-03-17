@@ -102,6 +102,22 @@ type azurerm_automation_runbook = {
 [@@deriving yojson_of]
 (** azurerm_automation_runbook *)
 
+type t = {
+  automation_account_name : string prop;
+  content : string prop;
+  description : string prop;
+  id : string prop;
+  job_schedule : azurerm_automation_runbook__job_schedule list prop;
+  location : string prop;
+  log_activity_trace_level : float prop;
+  log_progress : bool prop;
+  log_verbose : bool prop;
+  name : string prop;
+  resource_group_name : string prop;
+  runbook_type : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_automation_runbook ?content ?description ?id
     ?job_schedule ?log_activity_trace_level ?tags ?timeouts
     ~automation_account_name ~location ~log_progress ~log_verbose
@@ -109,25 +125,57 @@ let azurerm_automation_runbook ?content ?description ?id
     ~publish_content_link __resource_id =
   let __resource_type = "azurerm_automation_runbook" in
   let __resource =
-    {
-      automation_account_name;
-      content;
-      description;
-      id;
-      job_schedule;
-      location;
-      log_activity_trace_level;
-      log_progress;
-      log_verbose;
-      name;
-      resource_group_name;
-      runbook_type;
-      tags;
-      draft;
-      publish_content_link;
-      timeouts;
-    }
+    ({
+       automation_account_name;
+       content;
+       description;
+       id;
+       job_schedule;
+       location;
+       log_activity_trace_level;
+       log_progress;
+       log_verbose;
+       name;
+       resource_group_name;
+       runbook_type;
+       tags;
+       draft;
+       publish_content_link;
+       timeouts;
+     }
+      : azurerm_automation_runbook)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_runbook __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automation_account_name =
+         Prop.computed __resource_type __resource_id
+           "automation_account_name";
+       content =
+         Prop.computed __resource_type __resource_id "content";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       job_schedule =
+         Prop.computed __resource_type __resource_id "job_schedule";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       log_activity_trace_level =
+         Prop.computed __resource_type __resource_id
+           "log_activity_trace_level";
+       log_progress =
+         Prop.computed __resource_type __resource_id "log_progress";
+       log_verbose =
+         Prop.computed __resource_type __resource_id "log_verbose";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       runbook_type =
+         Prop.computed __resource_type __resource_id "runbook_type";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

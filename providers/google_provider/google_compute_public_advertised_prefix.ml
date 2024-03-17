@@ -32,21 +32,50 @@ except the last character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_public_advertised_prefix *)
 
+type t = {
+  description : string prop;
+  dns_verification_ip : string prop;
+  id : string prop;
+  ip_cidr_range : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 let google_compute_public_advertised_prefix ?description ?id ?project
     ?timeouts ~dns_verification_ip ~ip_cidr_range ~name __resource_id
     =
   let __resource_type = "google_compute_public_advertised_prefix" in
   let __resource =
-    {
-      description;
-      dns_verification_ip;
-      id;
-      ip_cidr_range;
-      name;
-      project;
-      timeouts;
-    }
+    ({
+       description;
+       dns_verification_ip;
+       id;
+       ip_cidr_range;
+       name;
+       project;
+       timeouts;
+     }
+      : google_compute_public_advertised_prefix)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_public_advertised_prefix __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       dns_verification_ip =
+         Prop.computed __resource_type __resource_id
+           "dns_verification_ip";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_cidr_range =
+         Prop.computed __resource_type __resource_id "ip_cidr_range";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

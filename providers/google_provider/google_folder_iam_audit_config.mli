@@ -5,6 +5,13 @@ open! Tf.Prelude
 type google_folder_iam_audit_config__audit_log_config
 type google_folder_iam_audit_config
 
+type t = private {
+  etag : string prop;
+  folder : string prop;
+  id : string prop;
+  service : string prop;
+}
+
 val google_folder_iam_audit_config :
   ?id:string prop ->
   folder:string prop ->
@@ -12,4 +19,4 @@ val google_folder_iam_audit_config :
   audit_log_config:
     google_folder_iam_audit_config__audit_log_config list ->
   string ->
-  unit
+  t

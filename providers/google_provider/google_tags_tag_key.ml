@@ -35,20 +35,57 @@ The short name must be 1-63 characters, beginning and ending with an alphanumeri
 [@@deriving yojson_of]
 (** google_tags_tag_key *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  namespaced_name : string prop;
+  parent : string prop;
+  purpose : string prop;
+  purpose_data : (string * string) list prop;
+  short_name : string prop;
+  update_time : string prop;
+}
+
 let google_tags_tag_key ?description ?id ?purpose ?purpose_data
     ?timeouts ~parent ~short_name __resource_id =
   let __resource_type = "google_tags_tag_key" in
   let __resource =
-    {
-      description;
-      id;
-      parent;
-      purpose;
-      purpose_data;
-      short_name;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       parent;
+       purpose;
+       purpose_data;
+       short_name;
+       timeouts;
+     }
+      : google_tags_tag_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_tag_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       namespaced_name =
+         Prop.computed __resource_type __resource_id
+           "namespaced_name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       purpose =
+         Prop.computed __resource_type __resource_id "purpose";
+       purpose_data =
+         Prop.computed __resource_type __resource_id "purpose_data";
+       short_name =
+         Prop.computed __resource_type __resource_id "short_name";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

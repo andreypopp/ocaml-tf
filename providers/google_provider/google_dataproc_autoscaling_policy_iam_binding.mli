@@ -5,6 +5,16 @@ open! Tf.Prelude
 type google_dataproc_autoscaling_policy_iam_binding__condition
 type google_dataproc_autoscaling_policy_iam_binding
 
+type t = private {
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  members : string list prop;
+  policy_id : string prop;
+  project : string prop;
+  role : string prop;
+}
+
 val google_dataproc_autoscaling_policy_iam_binding :
   ?id:string prop ->
   ?location:string prop ->
@@ -15,4 +25,4 @@ val google_dataproc_autoscaling_policy_iam_binding :
   condition:
     google_dataproc_autoscaling_policy_iam_binding__condition list ->
   string ->
-  unit
+  t

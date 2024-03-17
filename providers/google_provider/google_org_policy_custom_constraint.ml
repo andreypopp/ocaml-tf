@@ -35,24 +35,60 @@ type google_org_policy_custom_constraint = {
 [@@deriving yojson_of]
 (** google_org_policy_custom_constraint *)
 
+type t = {
+  action_type : string prop;
+  condition : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  method_types : string list prop;
+  name : string prop;
+  parent : string prop;
+  resource_types : string list prop;
+  update_time : string prop;
+}
+
 let google_org_policy_custom_constraint ?description ?display_name
     ?id ?timeouts ~action_type ~condition ~method_types ~name ~parent
     ~resource_types __resource_id =
   let __resource_type = "google_org_policy_custom_constraint" in
   let __resource =
-    {
-      action_type;
-      condition;
-      description;
-      display_name;
-      id;
-      method_types;
-      name;
-      parent;
-      resource_types;
-      timeouts;
-    }
+    ({
+       action_type;
+       condition;
+       description;
+       display_name;
+       id;
+       method_types;
+       name;
+       parent;
+       resource_types;
+       timeouts;
+     }
+      : google_org_policy_custom_constraint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_org_policy_custom_constraint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action_type =
+         Prop.computed __resource_type __resource_id "action_type";
+       condition =
+         Prop.computed __resource_type __resource_id "condition";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       method_types =
+         Prop.computed __resource_type __resource_id "method_types";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       resource_types =
+         Prop.computed __resource_type __resource_id "resource_types";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

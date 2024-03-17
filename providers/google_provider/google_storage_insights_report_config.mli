@@ -19,6 +19,14 @@ type google_storage_insights_report_config__object_metadata_report_options
 type google_storage_insights_report_config__timeouts
 type google_storage_insights_report_config
 
+type t = private {
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_storage_insights_report_config :
   ?display_name:string prop ->
   ?id:string prop ->
@@ -32,4 +40,4 @@ val google_storage_insights_report_config :
     google_storage_insights_report_config__object_metadata_report_options
     list ->
   string ->
-  unit
+  t

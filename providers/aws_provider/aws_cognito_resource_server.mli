@@ -5,6 +5,14 @@ open! Tf.Prelude
 type aws_cognito_resource_server__scope
 type aws_cognito_resource_server
 
+type t = private {
+  id : string prop;
+  identifier : string prop;
+  name : string prop;
+  scope_identifiers : string list prop;
+  user_pool_id : string prop;
+}
+
 val aws_cognito_resource_server :
   ?id:string prop ->
   identifier:string prop ->
@@ -12,4 +20,4 @@ val aws_cognito_resource_server :
   user_pool_id:string prop ->
   scope:aws_cognito_resource_server__scope list ->
   string ->
-  unit
+  t

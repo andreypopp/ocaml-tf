@@ -61,6 +61,38 @@ type google_cloud_run_v2_job__terminal_condition = {
 
 type google_cloud_run_v2_job
 
+type t = private {
+  annotations : (string * string) list prop;
+  client : string prop;
+  client_version : string prop;
+  conditions : google_cloud_run_v2_job__conditions list prop;
+  create_time : string prop;
+  creator : string prop;
+  delete_time : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  execution_count : float prop;
+  expire_time : string prop;
+  generation : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  last_modifier : string prop;
+  latest_created_execution :
+    google_cloud_run_v2_job__latest_created_execution list prop;
+  launch_stage : string prop;
+  location : string prop;
+  name : string prop;
+  observed_generation : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  terminal_condition :
+    google_cloud_run_v2_job__terminal_condition list prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_cloud_run_v2_job :
   ?annotations:(string * string prop) list ->
   ?client:string prop ->
@@ -76,4 +108,4 @@ val google_cloud_run_v2_job :
     google_cloud_run_v2_job__binary_authorization list ->
   template:google_cloud_run_v2_job__template list ->
   string ->
-  unit
+  t

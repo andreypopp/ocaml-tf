@@ -107,25 +107,68 @@ or node_count must be present in terraform. *)
 [@@deriving yojson_of]
 (** google_spanner_instance *)
 
+type t = {
+  config : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  force_destroy : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  num_nodes : float prop;
+  processing_units : float prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_spanner_instance ?force_destroy ?id ?labels ?name
     ?num_nodes ?processing_units ?project ?timeouts ~config
     ~display_name ~autoscaling_config __resource_id =
   let __resource_type = "google_spanner_instance" in
   let __resource =
-    {
-      config;
-      display_name;
-      force_destroy;
-      id;
-      labels;
-      name;
-      num_nodes;
-      processing_units;
-      project;
-      autoscaling_config;
-      timeouts;
-    }
+    ({
+       config;
+       display_name;
+       force_destroy;
+       id;
+       labels;
+       name;
+       num_nodes;
+       processing_units;
+       project;
+       autoscaling_config;
+       timeouts;
+     }
+      : google_spanner_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_spanner_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       config = Prop.computed __resource_type __resource_id "config";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       num_nodes =
+         Prop.computed __resource_type __resource_id "num_nodes";
+       processing_units =
+         Prop.computed __resource_type __resource_id
+           "processing_units";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

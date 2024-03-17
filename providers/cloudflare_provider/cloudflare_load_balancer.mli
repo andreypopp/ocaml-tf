@@ -23,6 +23,23 @@ type cloudflare_load_balancer__rules
 type cloudflare_load_balancer__session_affinity_attributes
 type cloudflare_load_balancer
 
+type t = private {
+  created_on : string prop;
+  default_pool_ids : string list prop;
+  description : string prop;
+  enabled : bool prop;
+  fallback_pool_id : string prop;
+  id : string prop;
+  modified_on : string prop;
+  name : string prop;
+  proxied : bool prop;
+  session_affinity : string prop;
+  session_affinity_ttl : float prop;
+  steering_policy : string prop;
+  ttl : float prop;
+  zone_id : string prop;
+}
+
 val cloudflare_load_balancer :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -46,4 +63,4 @@ val cloudflare_load_balancer :
   session_affinity_attributes:
     cloudflare_load_balancer__session_affinity_attributes list ->
   string ->
-  unit
+  t

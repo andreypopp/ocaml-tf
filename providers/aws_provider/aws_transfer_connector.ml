@@ -42,21 +42,50 @@ type aws_transfer_connector = {
 [@@deriving yojson_of]
 (** aws_transfer_connector *)
 
+type t = {
+  access_role : string prop;
+  arn : string prop;
+  connector_id : string prop;
+  id : string prop;
+  logging_role : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url : string prop;
+}
+
 let aws_transfer_connector ?id ?logging_role ?tags ?tags_all
     ~access_role ~url ~as2_config ~sftp_config __resource_id =
   let __resource_type = "aws_transfer_connector" in
   let __resource =
-    {
-      access_role;
-      id;
-      logging_role;
-      tags;
-      tags_all;
-      url;
-      as2_config;
-      sftp_config;
-    }
+    ({
+       access_role;
+       id;
+       logging_role;
+       tags;
+       tags_all;
+       url;
+       as2_config;
+       sftp_config;
+     }
+      : aws_transfer_connector)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_connector __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_role =
+         Prop.computed __resource_type __resource_id "access_role";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       connector_id =
+         Prop.computed __resource_type __resource_id "connector_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       logging_role =
+         Prop.computed __resource_type __resource_id "logging_role";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -19,6 +19,25 @@ type azurerm_key_vault__access_policy = {
 
 type azurerm_key_vault
 
+type t = private {
+  access_policy : azurerm_key_vault__access_policy list prop;
+  enable_rbac_authorization : bool prop;
+  enabled_for_deployment : bool prop;
+  enabled_for_disk_encryption : bool prop;
+  enabled_for_template_deployment : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  purge_protection_enabled : bool prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  soft_delete_retention_days : float prop;
+  tags : (string * string) list prop;
+  tenant_id : string prop;
+  vault_uri : string prop;
+}
+
 val azurerm_key_vault :
   ?access_policy:azurerm_key_vault__access_policy list ->
   ?enable_rbac_authorization:bool prop ->
@@ -39,4 +58,4 @@ val azurerm_key_vault :
   contact:azurerm_key_vault__contact list ->
   network_acls:azurerm_key_vault__network_acls list ->
   string ->
-  unit
+  t

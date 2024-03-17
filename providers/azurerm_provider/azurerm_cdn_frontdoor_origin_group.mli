@@ -7,6 +7,15 @@ type azurerm_cdn_frontdoor_origin_group__load_balancing
 type azurerm_cdn_frontdoor_origin_group__timeouts
 type azurerm_cdn_frontdoor_origin_group
 
+type t = private {
+  cdn_frontdoor_profile_id : string prop;
+  id : string prop;
+  name : string prop;
+  restore_traffic_time_to_healed_or_new_endpoint_in_minutes :
+    float prop;
+  session_affinity_enabled : bool prop;
+}
+
 val azurerm_cdn_frontdoor_origin_group :
   ?id:string prop ->
   ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes:
@@ -19,4 +28,4 @@ val azurerm_cdn_frontdoor_origin_group :
   load_balancing:
     azurerm_cdn_frontdoor_origin_group__load_balancing list ->
   string ->
-  unit
+  t

@@ -54,22 +54,54 @@ type aws_rbin_rule = {
 [@@deriving yojson_of]
 (** aws_rbin_rule *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  lock_end_time : string prop;
+  lock_state : string prop;
+  resource_type : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_rbin_rule ?description ?tags ?tags_all ?timeouts
     ~resource_type ~lock_configuration ~resource_tags
     ~retention_period __resource_id =
   let __resource_type = "aws_rbin_rule" in
   let __resource =
-    {
-      description;
-      resource_type;
-      tags;
-      tags_all;
-      lock_configuration;
-      resource_tags;
-      retention_period;
-      timeouts;
-    }
+    ({
+       description;
+       resource_type;
+       tags;
+       tags_all;
+       lock_configuration;
+       resource_tags;
+       retention_period;
+       timeouts;
+     }
+      : aws_rbin_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rbin_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       lock_end_time =
+         Prop.computed __resource_type __resource_id "lock_end_time";
+       lock_state =
+         Prop.computed __resource_type __resource_id "lock_state";
+       resource_type =
+         Prop.computed __resource_type __resource_id "resource_type";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -68,27 +68,61 @@ type azurerm_lab_service_plan = {
 [@@deriving yojson_of]
 (** azurerm_lab_service_plan *)
 
+type t = {
+  allowed_regions : string list prop;
+  default_network_subnet_id : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  shared_gallery_id : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_lab_service_plan ?default_network_subnet_id ?id
     ?shared_gallery_id ?tags ?timeouts ~allowed_regions ~location
     ~name ~resource_group_name ~default_auto_shutdown
     ~default_connection ~support __resource_id =
   let __resource_type = "azurerm_lab_service_plan" in
   let __resource =
-    {
-      allowed_regions;
-      default_network_subnet_id;
-      id;
-      location;
-      name;
-      resource_group_name;
-      shared_gallery_id;
-      tags;
-      default_auto_shutdown;
-      default_connection;
-      support;
-      timeouts;
-    }
+    ({
+       allowed_regions;
+       default_network_subnet_id;
+       id;
+       location;
+       name;
+       resource_group_name;
+       shared_gallery_id;
+       tags;
+       default_auto_shutdown;
+       default_connection;
+       support;
+       timeouts;
+     }
+      : azurerm_lab_service_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lab_service_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allowed_regions =
+         Prop.computed __resource_type __resource_id
+           "allowed_regions";
+       default_network_subnet_id =
+         Prop.computed __resource_type __resource_id
+           "default_network_subnet_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       shared_gallery_id =
+         Prop.computed __resource_type __resource_id
+           "shared_gallery_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

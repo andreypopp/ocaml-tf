@@ -47,6 +47,21 @@ type aws_globalaccelerator_custom_routing_accelerator = {
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_accelerator *)
 
+type t = {
+  dns_name : string prop;
+  enabled : bool prop;
+  hosted_zone_id : string prop;
+  id : string prop;
+  ip_address_type : string prop;
+  ip_addresses : string list prop;
+  ip_sets :
+    aws_globalaccelerator_custom_routing_accelerator__ip_sets list
+    prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_globalaccelerator_custom_routing_accelerator ?enabled ?id
     ?ip_address_type ?ip_addresses ?tags ?tags_all ?timeouts ~name
     ~attributes __resource_id =
@@ -54,19 +69,43 @@ let aws_globalaccelerator_custom_routing_accelerator ?enabled ?id
     "aws_globalaccelerator_custom_routing_accelerator"
   in
   let __resource =
-    {
-      enabled;
-      id;
-      ip_address_type;
-      ip_addresses;
-      name;
-      tags;
-      tags_all;
-      attributes;
-      timeouts;
-    }
+    ({
+       enabled;
+       id;
+       ip_address_type;
+       ip_addresses;
+       name;
+       tags;
+       tags_all;
+       attributes;
+       timeouts;
+     }
+      : aws_globalaccelerator_custom_routing_accelerator)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_globalaccelerator_custom_routing_accelerator
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dns_name =
+         Prop.computed __resource_type __resource_id "dns_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       hosted_zone_id =
+         Prop.computed __resource_type __resource_id "hosted_zone_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_address_type =
+         Prop.computed __resource_type __resource_id
+           "ip_address_type";
+       ip_addresses =
+         Prop.computed __resource_type __resource_id "ip_addresses";
+       ip_sets =
+         Prop.computed __resource_type __resource_id "ip_sets";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

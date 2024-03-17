@@ -118,29 +118,57 @@ type aws_keyspaces_table = {
 [@@deriving yojson_of]
 (** aws_keyspaces_table *)
 
+type t = {
+  arn : string prop;
+  default_time_to_live : float prop;
+  id : string prop;
+  keyspace_name : string prop;
+  table_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_keyspaces_table ?default_time_to_live ?id ?tags ?tags_all
     ?timeouts ~keyspace_name ~table_name ~capacity_specification
     ~client_side_timestamps ~comment ~encryption_specification
     ~point_in_time_recovery ~schema_definition ~ttl __resource_id =
   let __resource_type = "aws_keyspaces_table" in
   let __resource =
-    {
-      default_time_to_live;
-      id;
-      keyspace_name;
-      table_name;
-      tags;
-      tags_all;
-      capacity_specification;
-      client_side_timestamps;
-      comment;
-      encryption_specification;
-      point_in_time_recovery;
-      schema_definition;
-      timeouts;
-      ttl;
-    }
+    ({
+       default_time_to_live;
+       id;
+       keyspace_name;
+       table_name;
+       tags;
+       tags_all;
+       capacity_specification;
+       client_side_timestamps;
+       comment;
+       encryption_specification;
+       point_in_time_recovery;
+       schema_definition;
+       timeouts;
+       ttl;
+     }
+      : aws_keyspaces_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_keyspaces_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       default_time_to_live =
+         Prop.computed __resource_type __resource_id
+           "default_time_to_live";
+       id = Prop.computed __resource_type __resource_id "id";
+       keyspace_name =
+         Prop.computed __resource_type __resource_id "keyspace_name";
+       table_name =
+         Prop.computed __resource_type __resource_id "table_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

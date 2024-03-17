@@ -24,12 +24,36 @@ type azurerm_storage_queue = {
 [@@deriving yojson_of]
 (** azurerm_storage_queue *)
 
+type t = {
+  id : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  resource_manager_id : string prop;
+  storage_account_name : string prop;
+}
+
 let azurerm_storage_queue ?id ?metadata ?timeouts ~name
     ~storage_account_name __resource_id =
   let __resource_type = "azurerm_storage_queue" in
   let __resource =
-    { id; metadata; name; storage_account_name; timeouts }
+    ({ id; metadata; name; storage_account_name; timeouts }
+      : azurerm_storage_queue)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_queue __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_manager_id =
+         Prop.computed __resource_type __resource_id
+           "resource_manager_id";
+       storage_account_name =
+         Prop.computed __resource_type __resource_id
+           "storage_account_name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -8,6 +8,16 @@ type aws_ivs_recording_configuration__thumbnail_configuration
 type aws_ivs_recording_configuration__timeouts
 type aws_ivs_recording_configuration
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  recording_reconnect_window_seconds : float prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_ivs_recording_configuration :
   ?id:string prop ->
   ?name:string prop ->
@@ -20,4 +30,4 @@ val aws_ivs_recording_configuration :
   thumbnail_configuration:
     aws_ivs_recording_configuration__thumbnail_configuration list ->
   string ->
-  unit
+  t

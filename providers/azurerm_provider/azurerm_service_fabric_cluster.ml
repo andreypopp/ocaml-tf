@@ -245,6 +245,23 @@ type azurerm_service_fabric_cluster = {
 [@@deriving yojson_of]
 (** azurerm_service_fabric_cluster *)
 
+type t = {
+  add_on_features : string list prop;
+  cluster_code_version : string prop;
+  cluster_endpoint : string prop;
+  id : string prop;
+  location : string prop;
+  management_endpoint : string prop;
+  name : string prop;
+  reliability_level : string prop;
+  resource_group_name : string prop;
+  service_fabric_zonal_upgrade_mode : string prop;
+  tags : (string * string) list prop;
+  upgrade_mode : string prop;
+  vm_image : string prop;
+  vmss_zonal_upgrade_mode : string prop;
+}
+
 let azurerm_service_fabric_cluster ?add_on_features
     ?cluster_code_version ?id ?service_fabric_zonal_upgrade_mode
     ?tags ?vmss_zonal_upgrade_mode ?timeouts ~location
@@ -258,34 +275,73 @@ let azurerm_service_fabric_cluster ?add_on_features
     __resource_id =
   let __resource_type = "azurerm_service_fabric_cluster" in
   let __resource =
-    {
-      add_on_features;
-      cluster_code_version;
-      id;
-      location;
-      management_endpoint;
-      name;
-      reliability_level;
-      resource_group_name;
-      service_fabric_zonal_upgrade_mode;
-      tags;
-      upgrade_mode;
-      vm_image;
-      vmss_zonal_upgrade_mode;
-      azure_active_directory;
-      certificate;
-      certificate_common_names;
-      client_certificate_common_name;
-      client_certificate_thumbprint;
-      diagnostics_config;
-      fabric_settings;
-      node_type;
-      reverse_proxy_certificate;
-      reverse_proxy_certificate_common_names;
-      timeouts;
-      upgrade_policy;
-    }
+    ({
+       add_on_features;
+       cluster_code_version;
+       id;
+       location;
+       management_endpoint;
+       name;
+       reliability_level;
+       resource_group_name;
+       service_fabric_zonal_upgrade_mode;
+       tags;
+       upgrade_mode;
+       vm_image;
+       vmss_zonal_upgrade_mode;
+       azure_active_directory;
+       certificate;
+       certificate_common_names;
+       client_certificate_common_name;
+       client_certificate_thumbprint;
+       diagnostics_config;
+       fabric_settings;
+       node_type;
+       reverse_proxy_certificate;
+       reverse_proxy_certificate_common_names;
+       timeouts;
+       upgrade_policy;
+     }
+      : azurerm_service_fabric_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_service_fabric_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       add_on_features =
+         Prop.computed __resource_type __resource_id
+           "add_on_features";
+       cluster_code_version =
+         Prop.computed __resource_type __resource_id
+           "cluster_code_version";
+       cluster_endpoint =
+         Prop.computed __resource_type __resource_id
+           "cluster_endpoint";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       management_endpoint =
+         Prop.computed __resource_type __resource_id
+           "management_endpoint";
+       name = Prop.computed __resource_type __resource_id "name";
+       reliability_level =
+         Prop.computed __resource_type __resource_id
+           "reliability_level";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       service_fabric_zonal_upgrade_mode =
+         Prop.computed __resource_type __resource_id
+           "service_fabric_zonal_upgrade_mode";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       upgrade_mode =
+         Prop.computed __resource_type __resource_id "upgrade_mode";
+       vm_image =
+         Prop.computed __resource_type __resource_id "vm_image";
+       vmss_zonal_upgrade_mode =
+         Prop.computed __resource_type __resource_id
+           "vmss_zonal_upgrade_mode";
+     }
+      : t)
+  in
+  __resource_attributes

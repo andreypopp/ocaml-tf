@@ -16,6 +16,35 @@ type aws_servicecatalog_provisioned_product__outputs = {
 
 type aws_servicecatalog_provisioned_product
 
+type t = private {
+  accept_language : string prop;
+  arn : string prop;
+  cloudwatch_dashboard_names : string list prop;
+  created_time : string prop;
+  id : string prop;
+  ignore_errors : bool prop;
+  last_provisioning_record_id : string prop;
+  last_record_id : string prop;
+  last_successful_provisioning_record_id : string prop;
+  launch_role_arn : string prop;
+  name : string prop;
+  notification_arns : string list prop;
+  outputs :
+    aws_servicecatalog_provisioned_product__outputs list prop;
+  path_id : string prop;
+  path_name : string prop;
+  product_id : string prop;
+  product_name : string prop;
+  provisioning_artifact_id : string prop;
+  provisioning_artifact_name : string prop;
+  retain_physical_resources : bool prop;
+  status : string prop;
+  status_message : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_servicecatalog_provisioned_product :
   ?accept_language:string prop ->
   ?id:string prop ->
@@ -39,4 +68,4 @@ val aws_servicecatalog_provisioned_product :
     aws_servicecatalog_provisioned_product__stack_set_provisioning_preferences
     list ->
   string ->
-  unit
+  t

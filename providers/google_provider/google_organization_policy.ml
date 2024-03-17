@@ -71,22 +71,46 @@ type google_organization_policy = {
 [@@deriving yojson_of]
 (** google_organization_policy *)
 
+type t = {
+  constraint_ : string prop;
+  etag : string prop;
+  id : string prop;
+  org_id : string prop;
+  update_time : string prop;
+  version : float prop;
+}
+
 let google_organization_policy ?id ?version ?timeouts ~constraint_
     ~org_id ~boolean_policy ~list_policy ~restore_policy
     __resource_id =
   let __resource_type = "google_organization_policy" in
   let __resource =
-    {
-      constraint_;
-      id;
-      org_id;
-      version;
-      boolean_policy;
-      list_policy;
-      restore_policy;
-      timeouts;
-    }
+    ({
+       constraint_;
+       id;
+       org_id;
+       version;
+       boolean_policy;
+       list_policy;
+       restore_policy;
+       timeouts;
+     }
+      : google_organization_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_organization_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       constraint_ =
+         Prop.computed __resource_type __resource_id "constraint";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

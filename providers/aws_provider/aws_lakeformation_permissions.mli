@@ -12,6 +12,15 @@ type aws_lakeformation_permissions__table
 type aws_lakeformation_permissions__table_with_columns
 type aws_lakeformation_permissions
 
+type t = private {
+  catalog_id : string prop;
+  catalog_resource : bool prop;
+  id : string prop;
+  permissions : string list prop;
+  permissions_with_grant_option : string list prop;
+  principal : string prop;
+}
+
 val aws_lakeformation_permissions :
   ?catalog_id:string prop ->
   ?catalog_resource:bool prop ->
@@ -29,4 +38,4 @@ val aws_lakeformation_permissions :
   table_with_columns:
     aws_lakeformation_permissions__table_with_columns list ->
   string ->
-  unit
+  t

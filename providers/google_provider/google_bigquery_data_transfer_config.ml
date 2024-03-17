@@ -108,6 +108,22 @@ requesting user calling this API has permissions to act as this service account.
 [@@deriving yojson_of]
 (** google_bigquery_data_transfer_config *)
 
+type t = {
+  data_refresh_window_days : float prop;
+  data_source_id : string prop;
+  destination_dataset_id : string prop;
+  disabled : bool prop;
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  notification_pubsub_topic : string prop;
+  params : (string * string) list prop;
+  project : string prop;
+  schedule : string prop;
+  service_account_name : string prop;
+}
+
 let google_bigquery_data_transfer_config ?data_refresh_window_days
     ?destination_dataset_id ?disabled ?id ?location
     ?notification_pubsub_topic ?project ?schedule
@@ -116,25 +132,58 @@ let google_bigquery_data_transfer_config ?data_refresh_window_days
     __resource_id =
   let __resource_type = "google_bigquery_data_transfer_config" in
   let __resource =
-    {
-      data_refresh_window_days;
-      data_source_id;
-      destination_dataset_id;
-      disabled;
-      display_name;
-      id;
-      location;
-      notification_pubsub_topic;
-      params;
-      project;
-      schedule;
-      service_account_name;
-      email_preferences;
-      schedule_options;
-      sensitive_params;
-      timeouts;
-    }
+    ({
+       data_refresh_window_days;
+       data_source_id;
+       destination_dataset_id;
+       disabled;
+       display_name;
+       id;
+       location;
+       notification_pubsub_topic;
+       params;
+       project;
+       schedule;
+       service_account_name;
+       email_preferences;
+       schedule_options;
+       sensitive_params;
+       timeouts;
+     }
+      : google_bigquery_data_transfer_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_data_transfer_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data_refresh_window_days =
+         Prop.computed __resource_type __resource_id
+           "data_refresh_window_days";
+       data_source_id =
+         Prop.computed __resource_type __resource_id "data_source_id";
+       destination_dataset_id =
+         Prop.computed __resource_type __resource_id
+           "destination_dataset_id";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       notification_pubsub_topic =
+         Prop.computed __resource_type __resource_id
+           "notification_pubsub_topic";
+       params = Prop.computed __resource_type __resource_id "params";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       schedule =
+         Prop.computed __resource_type __resource_id "schedule";
+       service_account_name =
+         Prop.computed __resource_type __resource_id
+           "service_account_name";
+     }
+      : t)
+  in
+  __resource_attributes

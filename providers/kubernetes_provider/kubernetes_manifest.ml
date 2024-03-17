@@ -64,20 +64,41 @@ type kubernetes_manifest = {
 [@@deriving yojson_of]
 (** kubernetes_manifest *)
 
+type t = {
+  computed_fields : string list prop;
+  manifest : json prop;
+  object_ : json prop;
+  wait_for : kubernetes_manifest__wait_for prop;
+}
+
 let kubernetes_manifest ?computed_fields ?object_ ?wait_for ~manifest
     ~field_manager ~timeouts ~wait __resource_id =
   let __resource_type = "kubernetes_manifest" in
   let __resource =
-    {
-      computed_fields;
-      manifest;
-      object_;
-      wait_for;
-      field_manager;
-      timeouts;
-      wait;
-    }
+    ({
+       computed_fields;
+       manifest;
+       object_;
+       wait_for;
+       field_manager;
+       timeouts;
+       wait;
+     }
+      : kubernetes_manifest)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_manifest __resource);
-  ()
+  let __resource_attributes =
+    ({
+       computed_fields =
+         Prop.computed __resource_type __resource_id
+           "computed_fields";
+       manifest =
+         Prop.computed __resource_type __resource_id "manifest";
+       object_ = Prop.computed __resource_type __resource_id "object";
+       wait_for =
+         Prop.computed __resource_type __resource_id "wait_for";
+     }
+      : t)
+  in
+  __resource_attributes

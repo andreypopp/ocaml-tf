@@ -49,25 +49,61 @@ unit of parallelism. Queries using this reservation might use more slots during 
 [@@deriving yojson_of]
 (** google_bigquery_reservation *)
 
+type t = {
+  concurrency : float prop;
+  edition : string prop;
+  id : string prop;
+  ignore_idle_slots : bool prop;
+  location : string prop;
+  multi_region_auxiliary : bool prop;
+  name : string prop;
+  project : string prop;
+  slot_capacity : float prop;
+}
+
 let google_bigquery_reservation ?concurrency ?edition ?id
     ?ignore_idle_slots ?location ?multi_region_auxiliary ?project
     ?timeouts ~name ~slot_capacity ~autoscale __resource_id =
   let __resource_type = "google_bigquery_reservation" in
   let __resource =
-    {
-      concurrency;
-      edition;
-      id;
-      ignore_idle_slots;
-      location;
-      multi_region_auxiliary;
-      name;
-      project;
-      slot_capacity;
-      autoscale;
-      timeouts;
-    }
+    ({
+       concurrency;
+       edition;
+       id;
+       ignore_idle_slots;
+       location;
+       multi_region_auxiliary;
+       name;
+       project;
+       slot_capacity;
+       autoscale;
+       timeouts;
+     }
+      : google_bigquery_reservation)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_reservation __resource);
-  ()
+  let __resource_attributes =
+    ({
+       concurrency =
+         Prop.computed __resource_type __resource_id "concurrency";
+       edition =
+         Prop.computed __resource_type __resource_id "edition";
+       id = Prop.computed __resource_type __resource_id "id";
+       ignore_idle_slots =
+         Prop.computed __resource_type __resource_id
+           "ignore_idle_slots";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       multi_region_auxiliary =
+         Prop.computed __resource_type __resource_id
+           "multi_region_auxiliary";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       slot_capacity =
+         Prop.computed __resource_type __resource_id "slot_capacity";
+     }
+      : t)
+  in
+  __resource_attributes

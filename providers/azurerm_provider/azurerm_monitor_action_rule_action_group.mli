@@ -20,6 +20,16 @@ type azurerm_monitor_action_rule_action_group__scope
 type azurerm_monitor_action_rule_action_group__timeouts
 type azurerm_monitor_action_rule_action_group
 
+type t = private {
+  action_group_id : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_monitor_action_rule_action_group :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -32,4 +42,4 @@ val azurerm_monitor_action_rule_action_group :
   condition:azurerm_monitor_action_rule_action_group__condition list ->
   scope:azurerm_monitor_action_rule_action_group__scope list ->
   string ->
-  unit
+  t

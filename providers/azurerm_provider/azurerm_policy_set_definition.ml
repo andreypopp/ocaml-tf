@@ -54,26 +54,58 @@ type azurerm_policy_set_definition = {
 [@@deriving yojson_of]
 (** azurerm_policy_set_definition *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  management_group_id : string prop;
+  metadata : string prop;
+  name : string prop;
+  parameters : string prop;
+  policy_type : string prop;
+}
+
 let azurerm_policy_set_definition ?description ?id
     ?management_group_id ?metadata ?parameters ?timeouts
     ~display_name ~name ~policy_type ~policy_definition_group
     ~policy_definition_reference __resource_id =
   let __resource_type = "azurerm_policy_set_definition" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      management_group_id;
-      metadata;
-      name;
-      parameters;
-      policy_type;
-      policy_definition_group;
-      policy_definition_reference;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       management_group_id;
+       metadata;
+       name;
+       parameters;
+       policy_type;
+       policy_definition_group;
+       policy_definition_reference;
+       timeouts;
+     }
+      : azurerm_policy_set_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_policy_set_definition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       management_group_id =
+         Prop.computed __resource_type __resource_id
+           "management_group_id";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       policy_type =
+         Prop.computed __resource_type __resource_id "policy_type";
+     }
+      : t)
+  in
+  __resource_attributes

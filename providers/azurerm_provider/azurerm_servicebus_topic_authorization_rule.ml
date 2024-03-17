@@ -26,14 +26,58 @@ type azurerm_servicebus_topic_authorization_rule = {
 [@@deriving yojson_of]
 (** azurerm_servicebus_topic_authorization_rule *)
 
+type t = {
+  id : string prop;
+  listen : bool prop;
+  manage : bool prop;
+  name : string prop;
+  primary_connection_string : string prop;
+  primary_connection_string_alias : string prop;
+  primary_key : string prop;
+  secondary_connection_string : string prop;
+  secondary_connection_string_alias : string prop;
+  secondary_key : string prop;
+  send : bool prop;
+  topic_id : string prop;
+}
+
 let azurerm_servicebus_topic_authorization_rule ?id ?listen ?manage
     ?send ?timeouts ~name ~topic_id __resource_id =
   let __resource_type =
     "azurerm_servicebus_topic_authorization_rule"
   in
   let __resource =
-    { id; listen; manage; name; send; topic_id; timeouts }
+    ({ id; listen; manage; name; send; topic_id; timeouts }
+      : azurerm_servicebus_topic_authorization_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_servicebus_topic_authorization_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       listen = Prop.computed __resource_type __resource_id "listen";
+       manage = Prop.computed __resource_type __resource_id "manage";
+       name = Prop.computed __resource_type __resource_id "name";
+       primary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "primary_connection_string";
+       primary_connection_string_alias =
+         Prop.computed __resource_type __resource_id
+           "primary_connection_string_alias";
+       primary_key =
+         Prop.computed __resource_type __resource_id "primary_key";
+       secondary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "secondary_connection_string";
+       secondary_connection_string_alias =
+         Prop.computed __resource_type __resource_id
+           "secondary_connection_string_alias";
+       secondary_key =
+         Prop.computed __resource_type __resource_id "secondary_key";
+       send = Prop.computed __resource_type __resource_id "send";
+       topic_id =
+         Prop.computed __resource_type __resource_id "topic_id";
+     }
+      : t)
+  in
+  __resource_attributes

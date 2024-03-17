@@ -46,24 +46,49 @@ type azurerm_mssql_failover_group = {
 [@@deriving yojson_of]
 (** azurerm_mssql_failover_group *)
 
+type t = {
+  databases : string list prop;
+  id : string prop;
+  name : string prop;
+  readonly_endpoint_failover_policy_enabled : bool prop;
+  server_id : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_mssql_failover_group ?databases ?id
     ?readonly_endpoint_failover_policy_enabled ?tags ?timeouts ~name
     ~server_id ~partner_server ~read_write_endpoint_failover_policy
     __resource_id =
   let __resource_type = "azurerm_mssql_failover_group" in
   let __resource =
-    {
-      databases;
-      id;
-      name;
-      readonly_endpoint_failover_policy_enabled;
-      server_id;
-      tags;
-      partner_server;
-      read_write_endpoint_failover_policy;
-      timeouts;
-    }
+    ({
+       databases;
+       id;
+       name;
+       readonly_endpoint_failover_policy_enabled;
+       server_id;
+       tags;
+       partner_server;
+       read_write_endpoint_failover_policy;
+       timeouts;
+     }
+      : azurerm_mssql_failover_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_failover_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       databases =
+         Prop.computed __resource_type __resource_id "databases";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       readonly_endpoint_failover_policy_enabled =
+         Prop.computed __resource_type __resource_id
+           "readonly_endpoint_failover_policy_enabled";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

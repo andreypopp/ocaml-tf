@@ -291,6 +291,24 @@ type azurerm_virtual_machine_scale_set = {
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set *)
 
+type t = {
+  automatic_os_upgrade : bool prop;
+  eviction_policy : string prop;
+  health_probe_id : string prop;
+  id : string prop;
+  license_type : string prop;
+  location : string prop;
+  name : string prop;
+  overprovision : bool prop;
+  priority : string prop;
+  proximity_placement_group_id : string prop;
+  resource_group_name : string prop;
+  single_placement_group : bool prop;
+  tags : (string * string) list prop;
+  upgrade_policy_mode : string prop;
+  zones : string list prop;
+}
+
 let azurerm_virtual_machine_scale_set ?automatic_os_upgrade
     ?eviction_policy ?health_probe_id ?id ?license_type
     ?overprovision ?priority ?proximity_placement_group_id
@@ -303,39 +321,78 @@ let azurerm_virtual_machine_scale_set ?automatic_os_upgrade
     ~storage_profile_os_disk __resource_id =
   let __resource_type = "azurerm_virtual_machine_scale_set" in
   let __resource =
-    {
-      automatic_os_upgrade;
-      eviction_policy;
-      health_probe_id;
-      id;
-      license_type;
-      location;
-      name;
-      overprovision;
-      priority;
-      proximity_placement_group_id;
-      resource_group_name;
-      single_placement_group;
-      tags;
-      upgrade_policy_mode;
-      zones;
-      boot_diagnostics;
-      extension;
-      identity;
-      network_profile;
-      os_profile;
-      os_profile_linux_config;
-      os_profile_secrets;
-      os_profile_windows_config;
-      plan;
-      rolling_upgrade_policy;
-      sku;
-      storage_profile_data_disk;
-      storage_profile_image_reference;
-      storage_profile_os_disk;
-      timeouts;
-    }
+    ({
+       automatic_os_upgrade;
+       eviction_policy;
+       health_probe_id;
+       id;
+       license_type;
+       location;
+       name;
+       overprovision;
+       priority;
+       proximity_placement_group_id;
+       resource_group_name;
+       single_placement_group;
+       tags;
+       upgrade_policy_mode;
+       zones;
+       boot_diagnostics;
+       extension;
+       identity;
+       network_profile;
+       os_profile;
+       os_profile_linux_config;
+       os_profile_secrets;
+       os_profile_windows_config;
+       plan;
+       rolling_upgrade_policy;
+       sku;
+       storage_profile_data_disk;
+       storage_profile_image_reference;
+       storage_profile_os_disk;
+       timeouts;
+     }
+      : azurerm_virtual_machine_scale_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_machine_scale_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automatic_os_upgrade =
+         Prop.computed __resource_type __resource_id
+           "automatic_os_upgrade";
+       eviction_policy =
+         Prop.computed __resource_type __resource_id
+           "eviction_policy";
+       health_probe_id =
+         Prop.computed __resource_type __resource_id
+           "health_probe_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       license_type =
+         Prop.computed __resource_type __resource_id "license_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       overprovision =
+         Prop.computed __resource_type __resource_id "overprovision";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       proximity_placement_group_id =
+         Prop.computed __resource_type __resource_id
+           "proximity_placement_group_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       single_placement_group =
+         Prop.computed __resource_type __resource_id
+           "single_placement_group";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       upgrade_policy_mode =
+         Prop.computed __resource_type __resource_id
+           "upgrade_policy_mode";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

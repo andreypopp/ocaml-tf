@@ -16,6 +16,28 @@ type aws_dynamodb_table__timeouts
 type aws_dynamodb_table__ttl
 type aws_dynamodb_table
 
+type t = private {
+  arn : string prop;
+  billing_mode : string prop;
+  deletion_protection_enabled : bool prop;
+  hash_key : string prop;
+  id : string prop;
+  name : string prop;
+  range_key : string prop;
+  read_capacity : float prop;
+  restore_date_time : string prop;
+  restore_source_name : string prop;
+  restore_to_latest_time : bool prop;
+  stream_arn : string prop;
+  stream_enabled : bool prop;
+  stream_label : string prop;
+  stream_view_type : string prop;
+  table_class : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  write_capacity : float prop;
+}
+
 val aws_dynamodb_table :
   ?billing_mode:string prop ->
   ?deletion_protection_enabled:bool prop ->
@@ -47,4 +69,4 @@ val aws_dynamodb_table :
     aws_dynamodb_table__server_side_encryption list ->
   ttl:aws_dynamodb_table__ttl list ->
   string ->
-  unit
+  t

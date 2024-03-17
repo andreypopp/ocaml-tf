@@ -200,23 +200,56 @@ type aws_ce_cost_category = {
 [@@deriving yojson_of]
 (** aws_ce_cost_category *)
 
+type t = {
+  arn : string prop;
+  default_value : string prop;
+  effective_end : string prop;
+  effective_start : string prop;
+  id : string prop;
+  name : string prop;
+  rule_version : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ce_cost_category ?default_value ?effective_start ?id ?tags
     ?tags_all ~name ~rule_version ~rule ~split_charge_rule
     __resource_id =
   let __resource_type = "aws_ce_cost_category" in
   let __resource =
-    {
-      default_value;
-      effective_start;
-      id;
-      name;
-      rule_version;
-      tags;
-      tags_all;
-      rule;
-      split_charge_rule;
-    }
+    ({
+       default_value;
+       effective_start;
+       id;
+       name;
+       rule_version;
+       tags;
+       tags_all;
+       rule;
+       split_charge_rule;
+     }
+      : aws_ce_cost_category)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ce_cost_category __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       default_value =
+         Prop.computed __resource_type __resource_id "default_value";
+       effective_end =
+         Prop.computed __resource_type __resource_id "effective_end";
+       effective_start =
+         Prop.computed __resource_type __resource_id
+           "effective_start";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       rule_version =
+         Prop.computed __resource_type __resource_id "rule_version";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -19,6 +19,19 @@ type aws_auditmanager_assessment__roles_all = {
 
 type aws_auditmanager_assessment
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  framework_id : string prop;
+  id : string prop;
+  name : string prop;
+  roles : aws_auditmanager_assessment__roles list prop;
+  roles_all : aws_auditmanager_assessment__roles_all list prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_auditmanager_assessment :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
@@ -29,4 +42,4 @@ val aws_auditmanager_assessment :
     aws_auditmanager_assessment__assessment_reports_destination list ->
   scope:aws_auditmanager_assessment__scope list ->
   string ->
-  unit
+  t

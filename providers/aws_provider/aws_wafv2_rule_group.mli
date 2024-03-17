@@ -14178,18 +14178,31 @@ type aws_wafv2_rule_group__visibility_config
 
 type aws_wafv2_rule_group
 
+type t = private {
+  arn: string prop;
+  capacity: float prop;
+  description: string prop;
+  id: string prop;
+  lock_token: string prop;
+  name: string prop;
+  name_prefix: string prop;
+  scope: string prop;
+  tags: (string * string) list prop;
+  tags_all: (string * string) list prop;
+}
+
 val aws_wafv2_rule_group :
     ?description:string prop ->
     ?id:string prop ->
     ?name:string prop ->
     ?name_prefix:string prop ->
-    ?tags:(string * string prop) list ->
-    ?tags_all:(string * string prop) list ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
     capacity:float prop ->
     scope:string prop ->
     custom_response_body:aws_wafv2_rule_group__custom_response_body list ->
     rule:aws_wafv2_rule_group__rule list ->
     visibility_config:aws_wafv2_rule_group__visibility_config list ->
     string ->
-    unit
+    t
 

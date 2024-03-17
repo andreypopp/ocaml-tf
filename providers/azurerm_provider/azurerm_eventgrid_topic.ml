@@ -73,6 +73,22 @@ type azurerm_eventgrid_topic = {
 [@@deriving yojson_of]
 (** azurerm_eventgrid_topic *)
 
+type t = {
+  endpoint : string prop;
+  id : string prop;
+  inbound_ip_rule :
+    azurerm_eventgrid_topic__inbound_ip_rule list prop;
+  input_schema : string prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  primary_access_key : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_eventgrid_topic ?id ?inbound_ip_rule ?input_schema
     ?local_auth_enabled ?public_network_access_enabled ?tags
     ?timeouts ~location ~name ~resource_group_name ~identity
@@ -80,22 +96,55 @@ let azurerm_eventgrid_topic ?id ?inbound_ip_rule ?input_schema
     =
   let __resource_type = "azurerm_eventgrid_topic" in
   let __resource =
-    {
-      id;
-      inbound_ip_rule;
-      input_schema;
-      local_auth_enabled;
-      location;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      tags;
-      identity;
-      input_mapping_default_values;
-      input_mapping_fields;
-      timeouts;
-    }
+    ({
+       id;
+       inbound_ip_rule;
+       input_schema;
+       local_auth_enabled;
+       location;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       tags;
+       identity;
+       input_mapping_default_values;
+       input_mapping_fields;
+       timeouts;
+     }
+      : azurerm_eventgrid_topic)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventgrid_topic __resource);
-  ()
+  let __resource_attributes =
+    ({
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       id = Prop.computed __resource_type __resource_id "id";
+       inbound_ip_rule =
+         Prop.computed __resource_type __resource_id
+           "inbound_ip_rule";
+       input_schema =
+         Prop.computed __resource_type __resource_id "input_schema";
+       local_auth_enabled =
+         Prop.computed __resource_type __resource_id
+           "local_auth_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       primary_access_key =
+         Prop.computed __resource_type __resource_id
+           "primary_access_key";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secondary_access_key =
+         Prop.computed __resource_type __resource_id
+           "secondary_access_key";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

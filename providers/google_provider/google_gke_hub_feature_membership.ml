@@ -289,24 +289,51 @@ type google_gke_hub_feature_membership = {
 [@@deriving yojson_of]
 (** google_gke_hub_feature_membership *)
 
+type t = {
+  feature : string prop;
+  id : string prop;
+  location : string prop;
+  membership : string prop;
+  membership_location : string prop;
+  project : string prop;
+}
+
 let google_gke_hub_feature_membership ?id ?membership_location
     ?project ?timeouts ~feature ~location ~membership
     ~configmanagement ~mesh ~policycontroller __resource_id =
   let __resource_type = "google_gke_hub_feature_membership" in
   let __resource =
-    {
-      feature;
-      id;
-      location;
-      membership;
-      membership_location;
-      project;
-      configmanagement;
-      mesh;
-      policycontroller;
-      timeouts;
-    }
+    ({
+       feature;
+       id;
+       location;
+       membership;
+       membership_location;
+       project;
+       configmanagement;
+       mesh;
+       policycontroller;
+       timeouts;
+     }
+      : google_gke_hub_feature_membership)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_feature_membership __resource);
-  ()
+  let __resource_attributes =
+    ({
+       feature =
+         Prop.computed __resource_type __resource_id "feature";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       membership =
+         Prop.computed __resource_type __resource_id "membership";
+       membership_location =
+         Prop.computed __resource_type __resource_id
+           "membership_location";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -51,6 +51,16 @@ type cloudflare_ruleset__rules__ratelimit
 type cloudflare_ruleset__rules
 type cloudflare_ruleset
 
+type t = private {
+  account_id : string prop;
+  description : string prop;
+  id : string prop;
+  kind : string prop;
+  name : string prop;
+  phase : string prop;
+  zone_id : string prop;
+}
+
 val cloudflare_ruleset :
   ?account_id:string prop ->
   ?description:string prop ->
@@ -60,4 +70,4 @@ val cloudflare_ruleset :
   phase:string prop ->
   rules:cloudflare_ruleset__rules list ->
   string ->
-  unit
+  t

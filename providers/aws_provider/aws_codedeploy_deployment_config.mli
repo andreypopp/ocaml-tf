@@ -11,6 +11,14 @@ type aws_codedeploy_deployment_config__traffic_routing_config__time_based_linear
 type aws_codedeploy_deployment_config__traffic_routing_config
 type aws_codedeploy_deployment_config
 
+type t = private {
+  arn : string prop;
+  compute_platform : string prop;
+  deployment_config_id : string prop;
+  deployment_config_name : string prop;
+  id : string prop;
+}
+
 val aws_codedeploy_deployment_config :
   ?compute_platform:string prop ->
   ?id:string prop ->
@@ -20,4 +28,4 @@ val aws_codedeploy_deployment_config :
   traffic_routing_config:
     aws_codedeploy_deployment_config__traffic_routing_config list ->
   string ->
-  unit
+  t

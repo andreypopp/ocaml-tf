@@ -28,12 +28,34 @@ long, and comply with RFC1035. *)
 [@@deriving yojson_of]
 (** google_compute_instance_group_named_port *)
 
+type t = {
+  group : string prop;
+  id : string prop;
+  name : string prop;
+  port : float prop;
+  project : string prop;
+  zone : string prop;
+}
+
 let google_compute_instance_group_named_port ?id ?project ?zone
     ?timeouts ~group ~name ~port __resource_id =
   let __resource_type = "google_compute_instance_group_named_port" in
   let __resource =
-    { group; id; name; port; project; zone; timeouts }
+    ({ group; id; name; port; project; zone; timeouts }
+      : google_compute_instance_group_named_port)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_instance_group_named_port __resource);
-  ()
+  let __resource_attributes =
+    ({
+       group = Prop.computed __resource_type __resource_id "group";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       port = Prop.computed __resource_type __resource_id "port";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

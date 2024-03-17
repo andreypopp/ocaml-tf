@@ -51,19 +51,46 @@ type aws_prometheus_scraper = {
 [@@deriving yojson_of]
 (** aws_prometheus_scraper *)
 
+type t = {
+  alias : string prop;
+  arn : string prop;
+  id : string prop;
+  role_arn : string prop;
+  scrape_configuration : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_prometheus_scraper ?alias ?tags ?timeouts
     ~scrape_configuration ~destination ~source __resource_id =
   let __resource_type = "aws_prometheus_scraper" in
   let __resource =
-    {
-      alias;
-      scrape_configuration;
-      tags;
-      destination;
-      source;
-      timeouts;
-    }
+    ({
+       alias;
+       scrape_configuration;
+       tags;
+       destination;
+       source;
+       timeouts;
+     }
+      : aws_prometheus_scraper)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_prometheus_scraper __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alias = Prop.computed __resource_type __resource_id "alias";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       scrape_configuration =
+         Prop.computed __resource_type __resource_id
+           "scrape_configuration";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

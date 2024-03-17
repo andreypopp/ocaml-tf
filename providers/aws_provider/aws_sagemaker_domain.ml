@@ -525,6 +525,25 @@ type aws_sagemaker_domain = {
 [@@deriving yojson_of]
 (** aws_sagemaker_domain *)
 
+type t = {
+  app_network_access_type : string prop;
+  app_security_group_management : string prop;
+  arn : string prop;
+  auth_mode : string prop;
+  domain_name : string prop;
+  home_efs_file_system_id : string prop;
+  id : string prop;
+  kms_key_id : string prop;
+  security_group_id_for_domain_boundary : string prop;
+  single_sign_on_application_arn : string prop;
+  single_sign_on_managed_application_instance_id : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url : string prop;
+  vpc_id : string prop;
+}
+
 let aws_sagemaker_domain ?app_network_access_type
     ?app_security_group_management ?id ?kms_key_id ?tags ?tags_all
     ~auth_mode ~domain_name ~subnet_ids ~vpc_id
@@ -532,23 +551,62 @@ let aws_sagemaker_domain ?app_network_access_type
     ~retention_policy __resource_id =
   let __resource_type = "aws_sagemaker_domain" in
   let __resource =
-    {
-      app_network_access_type;
-      app_security_group_management;
-      auth_mode;
-      domain_name;
-      id;
-      kms_key_id;
-      subnet_ids;
-      tags;
-      tags_all;
-      vpc_id;
-      default_space_settings;
-      default_user_settings;
-      domain_settings;
-      retention_policy;
-    }
+    ({
+       app_network_access_type;
+       app_security_group_management;
+       auth_mode;
+       domain_name;
+       id;
+       kms_key_id;
+       subnet_ids;
+       tags;
+       tags_all;
+       vpc_id;
+       default_space_settings;
+       default_user_settings;
+       domain_settings;
+       retention_policy;
+     }
+      : aws_sagemaker_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_network_access_type =
+         Prop.computed __resource_type __resource_id
+           "app_network_access_type";
+       app_security_group_management =
+         Prop.computed __resource_type __resource_id
+           "app_security_group_management";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auth_mode =
+         Prop.computed __resource_type __resource_id "auth_mode";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       home_efs_file_system_id =
+         Prop.computed __resource_type __resource_id
+           "home_efs_file_system_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       security_group_id_for_domain_boundary =
+         Prop.computed __resource_type __resource_id
+           "security_group_id_for_domain_boundary";
+       single_sign_on_application_arn =
+         Prop.computed __resource_type __resource_id
+           "single_sign_on_application_arn";
+       single_sign_on_managed_application_instance_id =
+         Prop.computed __resource_type __resource_id
+           "single_sign_on_managed_application_instance_id";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       url = Prop.computed __resource_type __resource_id "url";
+       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+     }
+      : t)
+  in
+  __resource_attributes

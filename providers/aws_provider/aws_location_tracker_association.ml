@@ -20,10 +20,29 @@ type aws_location_tracker_association = {
 [@@deriving yojson_of]
 (** aws_location_tracker_association *)
 
+type t = {
+  consumer_arn : string prop;
+  id : string prop;
+  tracker_name : string prop;
+}
+
 let aws_location_tracker_association ?id ?timeouts ~consumer_arn
     ~tracker_name __resource_id =
   let __resource_type = "aws_location_tracker_association" in
-  let __resource = { consumer_arn; id; tracker_name; timeouts } in
+  let __resource =
+    ({ consumer_arn; id; tracker_name; timeouts }
+      : aws_location_tracker_association)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_location_tracker_association __resource);
-  ()
+  let __resource_attributes =
+    ({
+       consumer_arn =
+         Prop.computed __resource_type __resource_id "consumer_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       tracker_name =
+         Prop.computed __resource_type __resource_id "tracker_name";
+     }
+      : t)
+  in
+  __resource_attributes

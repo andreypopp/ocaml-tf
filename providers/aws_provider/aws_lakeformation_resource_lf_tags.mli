@@ -8,6 +8,7 @@ type aws_lakeformation_resource_lf_tags__table
 type aws_lakeformation_resource_lf_tags__table_with_columns
 type aws_lakeformation_resource_lf_tags__timeouts
 type aws_lakeformation_resource_lf_tags
+type t = private { catalog_id : string prop; id : string prop }
 
 val aws_lakeformation_resource_lf_tags :
   ?catalog_id:string prop ->
@@ -19,4 +20,4 @@ val aws_lakeformation_resource_lf_tags :
   table_with_columns:
     aws_lakeformation_resource_lf_tags__table_with_columns list ->
   string ->
-  unit
+  t

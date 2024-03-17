@@ -23,6 +23,28 @@ type azurerm_virtual_network_gateway__vpn_client_configuration__virtual_network_
 type azurerm_virtual_network_gateway__vpn_client_configuration
 type azurerm_virtual_network_gateway
 
+type t = private {
+  active_active : bool prop;
+  bgp_route_translation_for_nat_enabled : bool prop;
+  default_local_network_gateway_id : string prop;
+  dns_forwarding_enabled : bool prop;
+  edge_zone : string prop;
+  enable_bgp : bool prop;
+  generation : string prop;
+  id : string prop;
+  ip_sec_replay_protection_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  private_ip_address_enabled : bool prop;
+  remote_vnet_traffic_enabled : bool prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+  virtual_wan_traffic_enabled : bool prop;
+  vpn_type : string prop;
+}
+
 val azurerm_virtual_network_gateway :
   ?active_active:bool prop ->
   ?bgp_route_translation_for_nat_enabled:bool prop ->
@@ -52,4 +74,4 @@ val azurerm_virtual_network_gateway :
   vpn_client_configuration:
     azurerm_virtual_network_gateway__vpn_client_configuration list ->
   string ->
-  unit
+  t

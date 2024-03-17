@@ -21,6 +21,17 @@ type aws_codepipeline__trigger
 type aws_codepipeline__variable
 type aws_codepipeline
 
+type t = private {
+  arn : string prop;
+  execution_mode : string prop;
+  id : string prop;
+  name : string prop;
+  pipeline_type : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_codepipeline :
   ?execution_mode:string prop ->
   ?id:string prop ->
@@ -34,4 +45,4 @@ val aws_codepipeline :
   trigger:aws_codepipeline__trigger list ->
   variable:aws_codepipeline__variable list ->
   string ->
-  unit
+  t

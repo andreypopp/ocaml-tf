@@ -66,6 +66,22 @@ type azurerm_data_factory_trigger_tumbling_window = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_tumbling_window *)
 
+type t = {
+  activated : bool prop;
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  delay : string prop;
+  description : string prop;
+  end_time : string prop;
+  frequency : string prop;
+  id : string prop;
+  interval : float prop;
+  max_concurrency : float prop;
+  name : string prop;
+  start_time : string prop;
+}
+
 let azurerm_data_factory_trigger_tumbling_window ?activated
     ?additional_properties ?annotations ?delay ?description ?end_time
     ?id ?max_concurrency ?timeouts ~data_factory_id ~frequency
@@ -75,27 +91,59 @@ let azurerm_data_factory_trigger_tumbling_window ?activated
     "azurerm_data_factory_trigger_tumbling_window"
   in
   let __resource =
-    {
-      activated;
-      additional_properties;
-      annotations;
-      data_factory_id;
-      delay;
-      description;
-      end_time;
-      frequency;
-      id;
-      interval;
-      max_concurrency;
-      name;
-      start_time;
-      pipeline;
-      retry;
-      timeouts;
-      trigger_dependency;
-    }
+    ({
+       activated;
+       additional_properties;
+       annotations;
+       data_factory_id;
+       delay;
+       description;
+       end_time;
+       frequency;
+       id;
+       interval;
+       max_concurrency;
+       name;
+       start_time;
+       pipeline;
+       retry;
+       timeouts;
+       trigger_dependency;
+     }
+      : azurerm_data_factory_trigger_tumbling_window)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_trigger_tumbling_window
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       activated =
+         Prop.computed __resource_type __resource_id "activated";
+       additional_properties =
+         Prop.computed __resource_type __resource_id
+           "additional_properties";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       delay = Prop.computed __resource_type __resource_id "delay";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       end_time =
+         Prop.computed __resource_type __resource_id "end_time";
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       interval =
+         Prop.computed __resource_type __resource_id "interval";
+       max_concurrency =
+         Prop.computed __resource_type __resource_id
+           "max_concurrency";
+       name = Prop.computed __resource_type __resource_id "name";
+       start_time =
+         Prop.computed __resource_type __resource_id "start_time";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -50,6 +50,15 @@ type aws_s3control_storage_lens_configuration__storage_lens_configuration
 
 type aws_s3control_storage_lens_configuration
 
+type t = private {
+  account_id : string prop;
+  arn : string prop;
+  config_id : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_s3control_storage_lens_configuration :
   ?account_id:string prop ->
   ?id:string prop ->
@@ -60,4 +69,4 @@ val aws_s3control_storage_lens_configuration :
     aws_s3control_storage_lens_configuration__storage_lens_configuration
     list ->
   string ->
-  unit
+  t

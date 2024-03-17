@@ -72,6 +72,24 @@ type aws_cloudformation_stack_set = {
 [@@deriving yojson_of]
 (** aws_cloudformation_stack_set *)
 
+type t = {
+  administration_role_arn : string prop;
+  arn : string prop;
+  call_as : string prop;
+  capabilities : string list prop;
+  description : string prop;
+  execution_role_name : string prop;
+  id : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  permission_model : string prop;
+  stack_set_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  template_body : string prop;
+  template_url : string prop;
+}
+
 let aws_cloudformation_stack_set ?administration_role_arn ?call_as
     ?capabilities ?description ?execution_role_name ?id ?parameters
     ?permission_model ?tags ?tags_all ?template_body ?template_url
@@ -79,26 +97,61 @@ let aws_cloudformation_stack_set ?administration_role_arn ?call_as
     ~operation_preferences __resource_id =
   let __resource_type = "aws_cloudformation_stack_set" in
   let __resource =
-    {
-      administration_role_arn;
-      call_as;
-      capabilities;
-      description;
-      execution_role_name;
-      id;
-      name;
-      parameters;
-      permission_model;
-      tags;
-      tags_all;
-      template_body;
-      template_url;
-      auto_deployment;
-      managed_execution;
-      operation_preferences;
-      timeouts;
-    }
+    ({
+       administration_role_arn;
+       call_as;
+       capabilities;
+       description;
+       execution_role_name;
+       id;
+       name;
+       parameters;
+       permission_model;
+       tags;
+       tags_all;
+       template_body;
+       template_url;
+       auto_deployment;
+       managed_execution;
+       operation_preferences;
+       timeouts;
+     }
+      : aws_cloudformation_stack_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudformation_stack_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       administration_role_arn =
+         Prop.computed __resource_type __resource_id
+           "administration_role_arn";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       call_as =
+         Prop.computed __resource_type __resource_id "call_as";
+       capabilities =
+         Prop.computed __resource_type __resource_id "capabilities";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       execution_role_name =
+         Prop.computed __resource_type __resource_id
+           "execution_role_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       permission_model =
+         Prop.computed __resource_type __resource_id
+           "permission_model";
+       stack_set_id =
+         Prop.computed __resource_type __resource_id "stack_set_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       template_body =
+         Prop.computed __resource_type __resource_id "template_body";
+       template_url =
+         Prop.computed __resource_type __resource_id "template_url";
+     }
+      : t)
+  in
+  __resource_attributes

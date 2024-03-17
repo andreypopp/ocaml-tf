@@ -19,6 +19,15 @@ type aws_lb_listener_rule__condition__source_ip
 type aws_lb_listener_rule__condition
 type aws_lb_listener_rule
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  listener_arn : string prop;
+  priority : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_lb_listener_rule :
   ?id:string prop ->
   ?priority:float prop ->
@@ -28,4 +37,4 @@ val aws_lb_listener_rule :
   action:aws_lb_listener_rule__action list ->
   condition:aws_lb_listener_rule__condition list ->
   string ->
-  unit
+  t

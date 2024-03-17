@@ -12,6 +12,20 @@ type azurerm_spring_cloud_gateway__sso
 type azurerm_spring_cloud_gateway__timeouts
 type azurerm_spring_cloud_gateway
 
+type t = private {
+  application_performance_monitoring_ids : string list prop;
+  application_performance_monitoring_types : string list prop;
+  environment_variables : (string * string) list prop;
+  https_only : bool prop;
+  id : string prop;
+  instance_count : float prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  sensitive_environment_variables : (string * string) list prop;
+  spring_cloud_service_id : string prop;
+  url : string prop;
+}
+
 val azurerm_spring_cloud_gateway :
   ?application_performance_monitoring_ids:string prop list ->
   ?application_performance_monitoring_types:string prop list ->
@@ -36,4 +50,4 @@ val azurerm_spring_cloud_gateway :
   quota:azurerm_spring_cloud_gateway__quota list ->
   sso:azurerm_spring_cloud_gateway__sso list ->
   string ->
-  unit
+  t

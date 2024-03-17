@@ -50,26 +50,91 @@ type azurerm_key_vault_key = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_key *)
 
+type t = {
+  curve : string prop;
+  e : string prop;
+  expiration_date : string prop;
+  id : string prop;
+  key_opts : string list prop;
+  key_size : float prop;
+  key_type : string prop;
+  key_vault_id : string prop;
+  n : string prop;
+  name : string prop;
+  not_before_date : string prop;
+  public_key_openssh : string prop;
+  public_key_pem : string prop;
+  resource_id : string prop;
+  resource_versionless_id : string prop;
+  tags : (string * string) list prop;
+  version : string prop;
+  versionless_id : string prop;
+  x : string prop;
+  y : string prop;
+}
+
 let azurerm_key_vault_key ?curve ?expiration_date ?id ?key_size
     ?not_before_date ?tags ?timeouts ~key_opts ~key_type
     ~key_vault_id ~name ~rotation_policy __resource_id =
   let __resource_type = "azurerm_key_vault_key" in
   let __resource =
-    {
-      curve;
-      expiration_date;
-      id;
-      key_opts;
-      key_size;
-      key_type;
-      key_vault_id;
-      name;
-      not_before_date;
-      tags;
-      rotation_policy;
-      timeouts;
-    }
+    ({
+       curve;
+       expiration_date;
+       id;
+       key_opts;
+       key_size;
+       key_type;
+       key_vault_id;
+       name;
+       not_before_date;
+       tags;
+       rotation_policy;
+       timeouts;
+     }
+      : azurerm_key_vault_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       curve = Prop.computed __resource_type __resource_id "curve";
+       e = Prop.computed __resource_type __resource_id "e";
+       expiration_date =
+         Prop.computed __resource_type __resource_id
+           "expiration_date";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_opts =
+         Prop.computed __resource_type __resource_id "key_opts";
+       key_size =
+         Prop.computed __resource_type __resource_id "key_size";
+       key_type =
+         Prop.computed __resource_type __resource_id "key_type";
+       key_vault_id =
+         Prop.computed __resource_type __resource_id "key_vault_id";
+       n = Prop.computed __resource_type __resource_id "n";
+       name = Prop.computed __resource_type __resource_id "name";
+       not_before_date =
+         Prop.computed __resource_type __resource_id
+           "not_before_date";
+       public_key_openssh =
+         Prop.computed __resource_type __resource_id
+           "public_key_openssh";
+       public_key_pem =
+         Prop.computed __resource_type __resource_id "public_key_pem";
+       resource_id =
+         Prop.computed __resource_type __resource_id "resource_id";
+       resource_versionless_id =
+         Prop.computed __resource_type __resource_id
+           "resource_versionless_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       versionless_id =
+         Prop.computed __resource_type __resource_id "versionless_id";
+       x = Prop.computed __resource_type __resource_id "x";
+       y = Prop.computed __resource_type __resource_id "y";
+     }
+      : t)
+  in
+  __resource_attributes

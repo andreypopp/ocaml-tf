@@ -5,6 +5,23 @@ open! Tf.Prelude
 type google_compute_network__timeouts
 type google_compute_network
 
+type t = private {
+  auto_create_subnetworks : bool prop;
+  delete_default_routes_on_create : bool prop;
+  description : string prop;
+  enable_ula_internal_ipv6 : bool prop;
+  gateway_ipv4 : string prop;
+  id : string prop;
+  internal_ipv6_range : string prop;
+  mtu : float prop;
+  name : string prop;
+  network_firewall_policy_enforcement_order : string prop;
+  numeric_id : string prop;
+  project : string prop;
+  routing_mode : string prop;
+  self_link : string prop;
+}
+
 val google_compute_network :
   ?auto_create_subnetworks:bool prop ->
   ?delete_default_routes_on_create:bool prop ->
@@ -19,4 +36,4 @@ val google_compute_network :
   ?timeouts:google_compute_network__timeouts ->
   name:string prop ->
   string ->
-  unit
+  t

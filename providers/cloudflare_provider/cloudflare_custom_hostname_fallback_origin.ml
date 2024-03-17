@@ -14,12 +14,32 @@ type cloudflare_custom_hostname_fallback_origin = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare custom hostname fallback origin resource. *)
 
+type t = {
+  id : string prop;
+  origin : string prop;
+  status : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_custom_hostname_fallback_origin ?id ~origin ~zone_id
     __resource_id =
   let __resource_type =
     "cloudflare_custom_hostname_fallback_origin"
   in
-  let __resource = { id; origin; zone_id } in
+  let __resource =
+    ({ id; origin; zone_id }
+      : cloudflare_custom_hostname_fallback_origin)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_custom_hostname_fallback_origin __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       origin = Prop.computed __resource_type __resource_id "origin";
+       status = Prop.computed __resource_type __resource_id "status";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -34,23 +34,62 @@ type hcloud_load_balancer = {
 [@@deriving yojson_of]
 (** hcloud_load_balancer *)
 
+type t = {
+  delete_protection : bool prop;
+  id : string prop;
+  ipv4 : string prop;
+  ipv6 : string prop;
+  labels : (string * string) list prop;
+  load_balancer_type : string prop;
+  location : string prop;
+  name : string prop;
+  network_id : float prop;
+  network_ip : string prop;
+  network_zone : string prop;
+}
+
 let hcloud_load_balancer ?delete_protection ?id ?labels ?location
     ?network_zone ~load_balancer_type ~name ~algorithm ~target
     __resource_id =
   let __resource_type = "hcloud_load_balancer" in
   let __resource =
-    {
-      delete_protection;
-      id;
-      labels;
-      load_balancer_type;
-      location;
-      name;
-      network_zone;
-      algorithm;
-      target;
-    }
+    ({
+       delete_protection;
+       id;
+       labels;
+       load_balancer_type;
+       location;
+       name;
+       network_zone;
+       algorithm;
+       target;
+     }
+      : hcloud_load_balancer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_load_balancer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       delete_protection =
+         Prop.computed __resource_type __resource_id
+           "delete_protection";
+       id = Prop.computed __resource_type __resource_id "id";
+       ipv4 = Prop.computed __resource_type __resource_id "ipv4";
+       ipv6 = Prop.computed __resource_type __resource_id "ipv6";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       load_balancer_type =
+         Prop.computed __resource_type __resource_id
+           "load_balancer_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_id =
+         Prop.computed __resource_type __resource_id "network_id";
+       network_ip =
+         Prop.computed __resource_type __resource_id "network_ip";
+       network_zone =
+         Prop.computed __resource_type __resource_id "network_zone";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -136,26 +136,68 @@ type cloudflare_teams_rule = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Teams rule resource. Teams rules comprise secure web gateway policies. *)
 
+type t = {
+  account_id : string prop;
+  action : string prop;
+  description : string prop;
+  device_posture : string prop;
+  enabled : bool prop;
+  filters : string list prop;
+  id : string prop;
+  identity : string prop;
+  name : string prop;
+  precedence : float prop;
+  traffic : string prop;
+  version : float prop;
+}
+
 let cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
     ?identity ?traffic ~account_id ~action ~description ~name
     ~precedence ~rule_settings __resource_id =
   let __resource_type = "cloudflare_teams_rule" in
   let __resource =
-    {
-      account_id;
-      action;
-      description;
-      device_posture;
-      enabled;
-      filters;
-      id;
-      identity;
-      name;
-      precedence;
-      traffic;
-      rule_settings;
-    }
+    ({
+       account_id;
+       action;
+       description;
+       device_posture;
+       enabled;
+       filters;
+       id;
+       identity;
+       name;
+       precedence;
+       traffic;
+       rule_settings;
+     }
+      : cloudflare_teams_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       action = Prop.computed __resource_type __resource_id "action";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       device_posture =
+         Prop.computed __resource_type __resource_id "device_posture";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       filters =
+         Prop.computed __resource_type __resource_id "filters";
+       id = Prop.computed __resource_type __resource_id "id";
+       identity =
+         Prop.computed __resource_type __resource_id "identity";
+       name = Prop.computed __resource_type __resource_id "name";
+       precedence =
+         Prop.computed __resource_type __resource_id "precedence";
+       traffic =
+         Prop.computed __resource_type __resource_id "traffic";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

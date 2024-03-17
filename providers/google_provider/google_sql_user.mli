@@ -18,6 +18,19 @@ type google_sql_user__sql_server_user_details = {
 
 type google_sql_user
 
+type t = private {
+  deletion_policy : string prop;
+  host : string prop;
+  id : string prop;
+  instance : string prop;
+  name : string prop;
+  password : string prop;
+  project : string prop;
+  sql_server_user_details :
+    google_sql_user__sql_server_user_details list prop;
+  type_ : string prop;
+}
+
 val google_sql_user :
   ?deletion_policy:string prop ->
   ?host:string prop ->
@@ -30,4 +43,4 @@ val google_sql_user :
   name:string prop ->
   password_policy:google_sql_user__password_policy list ->
   string ->
-  unit
+  t

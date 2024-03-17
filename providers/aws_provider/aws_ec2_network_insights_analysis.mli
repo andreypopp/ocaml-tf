@@ -841,6 +841,31 @@ type aws_ec2_network_insights_analysis__return_path_components = {
 
 type aws_ec2_network_insights_analysis
 
+type t = private {
+  alternate_path_hints :
+    aws_ec2_network_insights_analysis__alternate_path_hints list prop;
+  arn : string prop;
+  explanations :
+    aws_ec2_network_insights_analysis__explanations list prop;
+  filter_in_arns : string list prop;
+  forward_path_components :
+    aws_ec2_network_insights_analysis__forward_path_components list
+    prop;
+  id : string prop;
+  network_insights_path_id : string prop;
+  path_found : bool prop;
+  return_path_components :
+    aws_ec2_network_insights_analysis__return_path_components list
+    prop;
+  start_date : string prop;
+  status : string prop;
+  status_message : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  wait_for_completion : bool prop;
+  warning_message : string prop;
+}
+
 val aws_ec2_network_insights_analysis :
   ?filter_in_arns:string prop list ->
   ?id:string prop ->
@@ -849,4 +874,4 @@ val aws_ec2_network_insights_analysis :
   ?wait_for_completion:bool prop ->
   network_insights_path_id:string prop ->
   string ->
-  unit
+  t

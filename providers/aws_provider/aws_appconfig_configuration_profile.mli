@@ -5,6 +5,21 @@ open! Tf.Prelude
 type aws_appconfig_configuration_profile__validator
 type aws_appconfig_configuration_profile
 
+type t = private {
+  application_id : string prop;
+  arn : string prop;
+  configuration_profile_id : string prop;
+  description : string prop;
+  id : string prop;
+  kms_key_identifier : string prop;
+  location_uri : string prop;
+  name : string prop;
+  retrieval_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_appconfig_configuration_profile :
   ?description:string prop ->
   ?id:string prop ->
@@ -18,4 +33,4 @@ val aws_appconfig_configuration_profile :
   name:string prop ->
   validator:aws_appconfig_configuration_profile__validator list ->
   string ->
-  unit
+  t

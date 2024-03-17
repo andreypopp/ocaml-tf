@@ -41,21 +41,73 @@ a key. Keys and values must be Kubernetes-conformant. *)
 [@@deriving yojson_of]
 (** google_gke_hub_namespace *)
 
+type t = {
+  create_time : string prop;
+  delete_time : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  namespace_labels : (string * string) list prop;
+  project : string prop;
+  scope : string prop;
+  scope_id : string prop;
+  scope_namespace_id : string prop;
+  state : google_gke_hub_namespace__state list prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_gke_hub_namespace ?id ?labels ?namespace_labels ?project
     ?timeouts ~scope ~scope_id ~scope_namespace_id __resource_id =
   let __resource_type = "google_gke_hub_namespace" in
   let __resource =
-    {
-      id;
-      labels;
-      namespace_labels;
-      project;
-      scope;
-      scope_id;
-      scope_namespace_id;
-      timeouts;
-    }
+    ({
+       id;
+       labels;
+       namespace_labels;
+       project;
+       scope;
+       scope_id;
+       scope_namespace_id;
+       timeouts;
+     }
+      : google_gke_hub_namespace)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_namespace __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       namespace_labels =
+         Prop.computed __resource_type __resource_id
+           "namespace_labels";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       scope = Prop.computed __resource_type __resource_id "scope";
+       scope_id =
+         Prop.computed __resource_type __resource_id "scope_id";
+       scope_namespace_id =
+         Prop.computed __resource_type __resource_id
+           "scope_namespace_id";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

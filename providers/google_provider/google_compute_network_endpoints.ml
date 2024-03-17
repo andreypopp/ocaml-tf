@@ -45,19 +45,39 @@ type google_compute_network_endpoints = {
 [@@deriving yojson_of]
 (** google_compute_network_endpoints *)
 
+type t = {
+  id : string prop;
+  network_endpoint_group : string prop;
+  project : string prop;
+  zone : string prop;
+}
+
 let google_compute_network_endpoints ?id ?project ?zone ?timeouts
     ~network_endpoint_group ~network_endpoints __resource_id =
   let __resource_type = "google_compute_network_endpoints" in
   let __resource =
-    {
-      id;
-      network_endpoint_group;
-      project;
-      zone;
-      network_endpoints;
-      timeouts;
-    }
+    ({
+       id;
+       network_endpoint_group;
+       project;
+       zone;
+       network_endpoints;
+       timeouts;
+     }
+      : google_compute_network_endpoints)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_endpoints __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       network_endpoint_group =
+         Prop.computed __resource_type __resource_id
+           "network_endpoint_group";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

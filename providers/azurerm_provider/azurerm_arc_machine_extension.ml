@@ -35,28 +35,73 @@ type azurerm_arc_machine_extension = {
 [@@deriving yojson_of]
 (** azurerm_arc_machine_extension *)
 
+type t = {
+  arc_machine_id : string prop;
+  automatic_upgrade_enabled : bool prop;
+  force_update_tag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  protected_settings : string prop;
+  publisher : string prop;
+  settings : string prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+  type_handler_version : string prop;
+}
+
 let azurerm_arc_machine_extension ?automatic_upgrade_enabled
     ?force_update_tag ?id ?protected_settings ?settings ?tags
     ?type_handler_version ?timeouts ~arc_machine_id ~location ~name
     ~publisher ~type_ __resource_id =
   let __resource_type = "azurerm_arc_machine_extension" in
   let __resource =
-    {
-      arc_machine_id;
-      automatic_upgrade_enabled;
-      force_update_tag;
-      id;
-      location;
-      name;
-      protected_settings;
-      publisher;
-      settings;
-      tags;
-      type_;
-      type_handler_version;
-      timeouts;
-    }
+    ({
+       arc_machine_id;
+       automatic_upgrade_enabled;
+       force_update_tag;
+       id;
+       location;
+       name;
+       protected_settings;
+       publisher;
+       settings;
+       tags;
+       type_;
+       type_handler_version;
+       timeouts;
+     }
+      : azurerm_arc_machine_extension)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_arc_machine_extension __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arc_machine_id =
+         Prop.computed __resource_type __resource_id "arc_machine_id";
+       automatic_upgrade_enabled =
+         Prop.computed __resource_type __resource_id
+           "automatic_upgrade_enabled";
+       force_update_tag =
+         Prop.computed __resource_type __resource_id
+           "force_update_tag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       protected_settings =
+         Prop.computed __resource_type __resource_id
+           "protected_settings";
+       publisher =
+         Prop.computed __resource_type __resource_id "publisher";
+       settings =
+         Prop.computed __resource_type __resource_id "settings";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       type_handler_version =
+         Prop.computed __resource_type __resource_id
+           "type_handler_version";
+     }
+      : t)
+  in
+  __resource_attributes

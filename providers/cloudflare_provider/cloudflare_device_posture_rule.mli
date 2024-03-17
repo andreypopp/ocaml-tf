@@ -6,6 +6,16 @@ type cloudflare_device_posture_rule__input
 type cloudflare_device_posture_rule__match
 type cloudflare_device_posture_rule
 
+type t = private {
+  account_id : string prop;
+  description : string prop;
+  expiration : string prop;
+  id : string prop;
+  name : string prop;
+  schedule : string prop;
+  type_ : string prop;
+}
+
 val cloudflare_device_posture_rule :
   ?description:string prop ->
   ?expiration:string prop ->
@@ -17,4 +27,4 @@ val cloudflare_device_posture_rule :
   input:cloudflare_device_posture_rule__input list ->
   match_:cloudflare_device_posture_rule__match list ->
   string ->
-  unit
+  t

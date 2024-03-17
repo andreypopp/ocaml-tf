@@ -23,6 +23,13 @@ type azurerm_network_interface_nat_rule_association = {
 [@@deriving yojson_of]
 (** azurerm_network_interface_nat_rule_association *)
 
+type t = {
+  id : string prop;
+  ip_configuration_name : string prop;
+  nat_rule_id : string prop;
+  network_interface_id : string prop;
+}
+
 let azurerm_network_interface_nat_rule_association ?id ?timeouts
     ~ip_configuration_name ~nat_rule_id ~network_interface_id
     __resource_id =
@@ -30,15 +37,30 @@ let azurerm_network_interface_nat_rule_association ?id ?timeouts
     "azurerm_network_interface_nat_rule_association"
   in
   let __resource =
-    {
-      id;
-      ip_configuration_name;
-      nat_rule_id;
-      network_interface_id;
-      timeouts;
-    }
+    ({
+       id;
+       ip_configuration_name;
+       nat_rule_id;
+       network_interface_id;
+       timeouts;
+     }
+      : azurerm_network_interface_nat_rule_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_interface_nat_rule_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_configuration_name =
+         Prop.computed __resource_type __resource_id
+           "ip_configuration_name";
+       nat_rule_id =
+         Prop.computed __resource_type __resource_id "nat_rule_id";
+       network_interface_id =
+         Prop.computed __resource_type __resource_id
+           "network_interface_id";
+     }
+      : t)
+  in
+  __resource_attributes

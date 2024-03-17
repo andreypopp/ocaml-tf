@@ -78,29 +78,69 @@ type azurerm_spring_cloud_app = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app *)
 
+type t = {
+  addon_json : string prop;
+  fqdn : string prop;
+  https_only : bool prop;
+  id : string prop;
+  is_public : bool prop;
+  name : string prop;
+  public_endpoint_enabled : bool prop;
+  resource_group_name : string prop;
+  service_name : string prop;
+  tls_enabled : bool prop;
+  url : string prop;
+}
+
 let azurerm_spring_cloud_app ?addon_json ?https_only ?id ?is_public
     ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
     ~resource_group_name ~service_name ~custom_persistent_disk
     ~identity ~ingress_settings ~persistent_disk __resource_id =
   let __resource_type = "azurerm_spring_cloud_app" in
   let __resource =
-    {
-      addon_json;
-      https_only;
-      id;
-      is_public;
-      name;
-      public_endpoint_enabled;
-      resource_group_name;
-      service_name;
-      tls_enabled;
-      custom_persistent_disk;
-      identity;
-      ingress_settings;
-      persistent_disk;
-      timeouts;
-    }
+    ({
+       addon_json;
+       https_only;
+       id;
+       is_public;
+       name;
+       public_endpoint_enabled;
+       resource_group_name;
+       service_name;
+       tls_enabled;
+       custom_persistent_disk;
+       identity;
+       ingress_settings;
+       persistent_disk;
+       timeouts;
+     }
+      : azurerm_spring_cloud_app)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_app __resource);
-  ()
+  let __resource_attributes =
+    ({
+       addon_json =
+         Prop.computed __resource_type __resource_id "addon_json";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       https_only =
+         Prop.computed __resource_type __resource_id "https_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_public =
+         Prop.computed __resource_type __resource_id "is_public";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_endpoint_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_endpoint_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       service_name =
+         Prop.computed __resource_type __resource_id "service_name";
+       tls_enabled =
+         Prop.computed __resource_type __resource_id "tls_enabled";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

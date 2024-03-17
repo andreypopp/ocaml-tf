@@ -21,23 +21,66 @@ type aws_ec2_network_insights_path = {
 [@@deriving yojson_of]
 (** aws_ec2_network_insights_path *)
 
+type t = {
+  arn : string prop;
+  destination : string prop;
+  destination_arn : string prop;
+  destination_ip : string prop;
+  destination_port : float prop;
+  id : string prop;
+  protocol : string prop;
+  source : string prop;
+  source_arn : string prop;
+  source_ip : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ec2_network_insights_path ?destination_ip ?destination_port
     ?id ?source_ip ?tags ?tags_all ~destination ~protocol ~source
     __resource_id =
   let __resource_type = "aws_ec2_network_insights_path" in
   let __resource =
-    {
-      destination;
-      destination_ip;
-      destination_port;
-      id;
-      protocol;
-      source;
-      source_ip;
-      tags;
-      tags_all;
-    }
+    ({
+       destination;
+       destination_ip;
+       destination_port;
+       id;
+       protocol;
+       source;
+       source_ip;
+       tags;
+       tags_all;
+     }
+      : aws_ec2_network_insights_path)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_network_insights_path __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       destination =
+         Prop.computed __resource_type __resource_id "destination";
+       destination_arn =
+         Prop.computed __resource_type __resource_id
+           "destination_arn";
+       destination_ip =
+         Prop.computed __resource_type __resource_id "destination_ip";
+       destination_port =
+         Prop.computed __resource_type __resource_id
+           "destination_port";
+       id = Prop.computed __resource_type __resource_id "id";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       source = Prop.computed __resource_type __resource_id "source";
+       source_arn =
+         Prop.computed __resource_type __resource_id "source_arn";
+       source_ip =
+         Prop.computed __resource_type __resource_id "source_ip";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

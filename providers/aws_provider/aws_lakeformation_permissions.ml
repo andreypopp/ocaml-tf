@@ -95,28 +95,56 @@ type aws_lakeformation_permissions = {
 [@@deriving yojson_of]
 (** aws_lakeformation_permissions *)
 
+type t = {
+  catalog_id : string prop;
+  catalog_resource : bool prop;
+  id : string prop;
+  permissions : string list prop;
+  permissions_with_grant_option : string list prop;
+  principal : string prop;
+}
+
 let aws_lakeformation_permissions ?catalog_id ?catalog_resource ?id
     ?permissions_with_grant_option ~permissions ~principal
     ~data_cells_filter ~data_location ~database ~lf_tag
     ~lf_tag_policy ~table ~table_with_columns __resource_id =
   let __resource_type = "aws_lakeformation_permissions" in
   let __resource =
-    {
-      catalog_id;
-      catalog_resource;
-      id;
-      permissions;
-      permissions_with_grant_option;
-      principal;
-      data_cells_filter;
-      data_location;
-      database;
-      lf_tag;
-      lf_tag_policy;
-      table;
-      table_with_columns;
-    }
+    ({
+       catalog_id;
+       catalog_resource;
+       id;
+       permissions;
+       permissions_with_grant_option;
+       principal;
+       data_cells_filter;
+       data_location;
+       database;
+       lf_tag;
+       lf_tag_policy;
+       table;
+       table_with_columns;
+     }
+      : aws_lakeformation_permissions)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lakeformation_permissions __resource);
-  ()
+  let __resource_attributes =
+    ({
+       catalog_id =
+         Prop.computed __resource_type __resource_id "catalog_id";
+       catalog_resource =
+         Prop.computed __resource_type __resource_id
+           "catalog_resource";
+       id = Prop.computed __resource_type __resource_id "id";
+       permissions =
+         Prop.computed __resource_type __resource_id "permissions";
+       permissions_with_grant_option =
+         Prop.computed __resource_type __resource_id
+           "permissions_with_grant_option";
+       principal =
+         Prop.computed __resource_type __resource_id "principal";
+     }
+      : t)
+  in
+  __resource_attributes

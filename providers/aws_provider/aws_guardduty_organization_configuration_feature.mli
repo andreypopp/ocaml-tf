@@ -6,6 +6,13 @@ type aws_guardduty_organization_configuration_feature__additional_configuration
 
 type aws_guardduty_organization_configuration_feature
 
+type t = private {
+  auto_enable : string prop;
+  detector_id : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val aws_guardduty_organization_configuration_feature :
   ?id:string prop ->
   auto_enable:string prop ->
@@ -15,4 +22,4 @@ val aws_guardduty_organization_configuration_feature :
     aws_guardduty_organization_configuration_feature__additional_configuration
     list ->
   string ->
-  unit
+  t

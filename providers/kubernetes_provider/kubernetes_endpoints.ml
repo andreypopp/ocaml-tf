@@ -75,9 +75,16 @@ type kubernetes_endpoints = {
 [@@deriving yojson_of]
 (** kubernetes_endpoints *)
 
+type t = { id : string prop }
+
 let kubernetes_endpoints ?id ~metadata ~subset __resource_id =
   let __resource_type = "kubernetes_endpoints" in
-  let __resource = { id; metadata; subset } in
+  let __resource =
+    ({ id; metadata; subset } : kubernetes_endpoints)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_endpoints __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

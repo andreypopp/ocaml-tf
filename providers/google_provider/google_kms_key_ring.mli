@@ -5,6 +5,13 @@ open! Tf.Prelude
 type google_kms_key_ring__timeouts
 type google_kms_key_ring
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_kms_key_ring :
   ?id:string prop ->
   ?project:string prop ->
@@ -12,4 +19,4 @@ val google_kms_key_ring :
   location:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

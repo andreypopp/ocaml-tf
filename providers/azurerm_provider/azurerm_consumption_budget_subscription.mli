@@ -13,6 +13,15 @@ type azurerm_consumption_budget_subscription__time_period
 type azurerm_consumption_budget_subscription__timeouts
 type azurerm_consumption_budget_subscription
 
+type t = private {
+  amount : float prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+  subscription_id : string prop;
+  time_grain : string prop;
+}
+
 val azurerm_consumption_budget_subscription :
   ?etag:string prop ->
   ?id:string prop ->
@@ -27,4 +36,4 @@ val azurerm_consumption_budget_subscription :
   time_period:
     azurerm_consumption_budget_subscription__time_period list ->
   string ->
-  unit
+  t

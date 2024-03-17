@@ -26,6 +26,24 @@ type azurerm_frontdoor__explicit_resource_order = {
 
 type azurerm_frontdoor
 
+type t = private {
+  backend_pool_health_probes : (string * string) list prop;
+  backend_pool_load_balancing_settings : (string * string) list prop;
+  backend_pools : (string * string) list prop;
+  cname : string prop;
+  explicit_resource_order :
+    azurerm_frontdoor__explicit_resource_order list prop;
+  friendly_name : string prop;
+  frontend_endpoints : (string * string) list prop;
+  header_frontdoor_id : string prop;
+  id : string prop;
+  load_balancer_enabled : bool prop;
+  name : string prop;
+  resource_group_name : string prop;
+  routing_rules : (string * string) list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_frontdoor :
   ?friendly_name:string prop ->
   ?id:string prop ->
@@ -43,4 +61,4 @@ val azurerm_frontdoor :
   frontend_endpoint:azurerm_frontdoor__frontend_endpoint list ->
   routing_rule:azurerm_frontdoor__routing_rule list ->
   string ->
-  unit
+  t

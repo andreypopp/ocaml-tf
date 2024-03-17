@@ -145,6 +145,20 @@ type azurerm_automanage_configuration = {
 [@@deriving yojson_of]
 (** azurerm_automanage_configuration *)
 
+type t = {
+  automation_account_enabled : bool prop;
+  boot_diagnostics_enabled : bool prop;
+  defender_for_cloud_enabled : bool prop;
+  guest_configuration_enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  log_analytics_enabled : bool prop;
+  name : string prop;
+  resource_group_name : string prop;
+  status_change_alert_enabled : bool prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_automanage_configuration ?automation_account_enabled
     ?boot_diagnostics_enabled ?defender_for_cloud_enabled
     ?guest_configuration_enabled ?id ?log_analytics_enabled
@@ -153,24 +167,56 @@ let azurerm_automanage_configuration ?automation_account_enabled
     ~backup __resource_id =
   let __resource_type = "azurerm_automanage_configuration" in
   let __resource =
-    {
-      automation_account_enabled;
-      boot_diagnostics_enabled;
-      defender_for_cloud_enabled;
-      guest_configuration_enabled;
-      id;
-      location;
-      log_analytics_enabled;
-      name;
-      resource_group_name;
-      status_change_alert_enabled;
-      tags;
-      antimalware;
-      azure_security_baseline;
-      backup;
-      timeouts;
-    }
+    ({
+       automation_account_enabled;
+       boot_diagnostics_enabled;
+       defender_for_cloud_enabled;
+       guest_configuration_enabled;
+       id;
+       location;
+       log_analytics_enabled;
+       name;
+       resource_group_name;
+       status_change_alert_enabled;
+       tags;
+       antimalware;
+       azure_security_baseline;
+       backup;
+       timeouts;
+     }
+      : azurerm_automanage_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automanage_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automation_account_enabled =
+         Prop.computed __resource_type __resource_id
+           "automation_account_enabled";
+       boot_diagnostics_enabled =
+         Prop.computed __resource_type __resource_id
+           "boot_diagnostics_enabled";
+       defender_for_cloud_enabled =
+         Prop.computed __resource_type __resource_id
+           "defender_for_cloud_enabled";
+       guest_configuration_enabled =
+         Prop.computed __resource_type __resource_id
+           "guest_configuration_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       log_analytics_enabled =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       status_change_alert_enabled =
+         Prop.computed __resource_type __resource_id
+           "status_change_alert_enabled";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

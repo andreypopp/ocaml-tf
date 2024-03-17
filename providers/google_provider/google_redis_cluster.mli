@@ -37,6 +37,25 @@ type google_redis_cluster__state_info = {
 
 type google_redis_cluster
 
+type t = private {
+  authorization_mode : string prop;
+  create_time : string prop;
+  discovery_endpoints :
+    google_redis_cluster__discovery_endpoints list prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  psc_connections : google_redis_cluster__psc_connections list prop;
+  region : string prop;
+  replica_count : float prop;
+  shard_count : float prop;
+  size_gb : float prop;
+  state : string prop;
+  state_info : google_redis_cluster__state_info list prop;
+  transit_encryption_mode : string prop;
+  uid : string prop;
+}
+
 val google_redis_cluster :
   ?authorization_mode:string prop ->
   ?id:string prop ->
@@ -49,4 +68,4 @@ val google_redis_cluster :
   shard_count:float prop ->
   psc_configs:google_redis_cluster__psc_configs list ->
   string ->
-  unit
+  t

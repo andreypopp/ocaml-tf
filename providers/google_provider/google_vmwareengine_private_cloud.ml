@@ -107,23 +107,58 @@ type google_vmwareengine_private_cloud = {
 [@@deriving yojson_of]
 (** google_vmwareengine_private_cloud *)
 
+type t = {
+  description : string prop;
+  hcx : google_vmwareengine_private_cloud__hcx list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  nsx : google_vmwareengine_private_cloud__nsx list prop;
+  project : string prop;
+  state : string prop;
+  type_ : string prop;
+  uid : string prop;
+  vcenter : google_vmwareengine_private_cloud__vcenter list prop;
+}
+
 let google_vmwareengine_private_cloud ?description ?id ?project
     ?type_ ?timeouts ~location ~name ~management_cluster
     ~network_config __resource_id =
   let __resource_type = "google_vmwareengine_private_cloud" in
   let __resource =
-    {
-      description;
-      id;
-      location;
-      name;
-      project;
-      type_;
-      management_cluster;
-      network_config;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       location;
+       name;
+       project;
+       type_;
+       management_cluster;
+       network_config;
+       timeouts;
+     }
+      : google_vmwareengine_private_cloud)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_private_cloud __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       hcx = Prop.computed __resource_type __resource_id "hcx";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       nsx = Prop.computed __resource_type __resource_id "nsx";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       vcenter =
+         Prop.computed __resource_type __resource_id "vcenter";
+     }
+      : t)
+  in
+  __resource_attributes

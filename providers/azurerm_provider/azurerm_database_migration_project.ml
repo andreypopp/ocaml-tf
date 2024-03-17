@@ -27,23 +27,56 @@ type azurerm_database_migration_project = {
 [@@deriving yojson_of]
 (** azurerm_database_migration_project *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  service_name : string prop;
+  source_platform : string prop;
+  tags : (string * string) list prop;
+  target_platform : string prop;
+}
+
 let azurerm_database_migration_project ?id ?tags ?timeouts ~location
     ~name ~resource_group_name ~service_name ~source_platform
     ~target_platform __resource_id =
   let __resource_type = "azurerm_database_migration_project" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      service_name;
-      source_platform;
-      tags;
-      target_platform;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       service_name;
+       source_platform;
+       tags;
+       target_platform;
+       timeouts;
+     }
+      : azurerm_database_migration_project)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_database_migration_project __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       service_name =
+         Prop.computed __resource_type __resource_id "service_name";
+       source_platform =
+         Prop.computed __resource_type __resource_id
+           "source_platform";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       target_platform =
+         Prop.computed __resource_type __resource_id
+           "target_platform";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -27,6 +27,15 @@ type azurerm_active_directory_domain_service_trust = {
 [@@deriving yojson_of]
 (** azurerm_active_directory_domain_service_trust *)
 
+type t = {
+  domain_service_id : string prop;
+  id : string prop;
+  name : string prop;
+  password : string prop;
+  trusted_domain_dns_ips : string list prop;
+  trusted_domain_fqdn : string prop;
+}
+
 let azurerm_active_directory_domain_service_trust ?id ?timeouts
     ~domain_service_id ~name ~password ~trusted_domain_dns_ips
     ~trusted_domain_fqdn __resource_id =
@@ -34,17 +43,36 @@ let azurerm_active_directory_domain_service_trust ?id ?timeouts
     "azurerm_active_directory_domain_service_trust"
   in
   let __resource =
-    {
-      domain_service_id;
-      id;
-      name;
-      password;
-      trusted_domain_dns_ips;
-      trusted_domain_fqdn;
-      timeouts;
-    }
+    ({
+       domain_service_id;
+       id;
+       name;
+       password;
+       trusted_domain_dns_ips;
+       trusted_domain_fqdn;
+       timeouts;
+     }
+      : azurerm_active_directory_domain_service_trust)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_active_directory_domain_service_trust
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       domain_service_id =
+         Prop.computed __resource_type __resource_id
+           "domain_service_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       trusted_domain_dns_ips =
+         Prop.computed __resource_type __resource_id
+           "trusted_domain_dns_ips";
+       trusted_domain_fqdn =
+         Prop.computed __resource_type __resource_id
+           "trusted_domain_fqdn";
+     }
+      : t)
+  in
+  __resource_attributes

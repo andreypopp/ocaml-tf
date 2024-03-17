@@ -33,23 +33,58 @@ type aws_gamelift_game_session_queue = {
 [@@deriving yojson_of]
 (** aws_gamelift_game_session_queue *)
 
+type t = {
+  arn : string prop;
+  custom_event_data : string prop;
+  destinations : string list prop;
+  id : string prop;
+  name : string prop;
+  notification_target : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  timeout_in_seconds : float prop;
+}
+
 let aws_gamelift_game_session_queue ?custom_event_data ?destinations
     ?id ?notification_target ?tags ?tags_all ?timeout_in_seconds
     ~name ~player_latency_policy __resource_id =
   let __resource_type = "aws_gamelift_game_session_queue" in
   let __resource =
-    {
-      custom_event_data;
-      destinations;
-      id;
-      name;
-      notification_target;
-      tags;
-      tags_all;
-      timeout_in_seconds;
-      player_latency_policy;
-    }
+    ({
+       custom_event_data;
+       destinations;
+       id;
+       name;
+       notification_target;
+       tags;
+       tags_all;
+       timeout_in_seconds;
+       player_latency_policy;
+     }
+      : aws_gamelift_game_session_queue)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_gamelift_game_session_queue __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       custom_event_data =
+         Prop.computed __resource_type __resource_id
+           "custom_event_data";
+       destinations =
+         Prop.computed __resource_type __resource_id "destinations";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       notification_target =
+         Prop.computed __resource_type __resource_id
+           "notification_target";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       timeout_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "timeout_in_seconds";
+     }
+      : t)
+  in
+  __resource_attributes

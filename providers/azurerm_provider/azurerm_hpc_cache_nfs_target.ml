@@ -41,25 +41,60 @@ type azurerm_hpc_cache_nfs_target = {
 [@@deriving yojson_of]
 (** azurerm_hpc_cache_nfs_target *)
 
+type t = {
+  cache_name : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  target_host_name : string prop;
+  usage_model : string prop;
+  verification_timer_in_seconds : float prop;
+  write_back_timer_in_seconds : float prop;
+}
+
 let azurerm_hpc_cache_nfs_target ?id ?verification_timer_in_seconds
     ?write_back_timer_in_seconds ?timeouts ~cache_name ~name
     ~resource_group_name ~target_host_name ~usage_model
     ~namespace_junction __resource_id =
   let __resource_type = "azurerm_hpc_cache_nfs_target" in
   let __resource =
-    {
-      cache_name;
-      id;
-      name;
-      resource_group_name;
-      target_host_name;
-      usage_model;
-      verification_timer_in_seconds;
-      write_back_timer_in_seconds;
-      namespace_junction;
-      timeouts;
-    }
+    ({
+       cache_name;
+       id;
+       name;
+       resource_group_name;
+       target_host_name;
+       usage_model;
+       verification_timer_in_seconds;
+       write_back_timer_in_seconds;
+       namespace_junction;
+       timeouts;
+     }
+      : azurerm_hpc_cache_nfs_target)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_hpc_cache_nfs_target __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cache_name =
+         Prop.computed __resource_type __resource_id "cache_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       target_host_name =
+         Prop.computed __resource_type __resource_id
+           "target_host_name";
+       usage_model =
+         Prop.computed __resource_type __resource_id "usage_model";
+       verification_timer_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "verification_timer_in_seconds";
+       write_back_timer_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "write_back_timer_in_seconds";
+     }
+      : t)
+  in
+  __resource_attributes

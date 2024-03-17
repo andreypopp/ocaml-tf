@@ -246,6 +246,23 @@ feature must be enabled in your Cloudflare account before you can use
 this resource.
  *)
 
+type t = {
+  created_on : string prop;
+  default_pool_ids : string list prop;
+  description : string prop;
+  enabled : bool prop;
+  fallback_pool_id : string prop;
+  id : string prop;
+  modified_on : string prop;
+  name : string prop;
+  proxied : bool prop;
+  session_affinity : string prop;
+  session_affinity_ttl : float prop;
+  steering_policy : string prop;
+  ttl : float prop;
+  zone_id : string prop;
+}
+
 let cloudflare_load_balancer ?description ?enabled ?id ?proxied
     ?session_affinity ?session_affinity_ttl ?steering_policy ?ttl
     ~default_pool_ids ~fallback_pool_id ~name ~zone_id
@@ -254,29 +271,65 @@ let cloudflare_load_balancer ?description ?enabled ?id ?proxied
     ~session_affinity_attributes __resource_id =
   let __resource_type = "cloudflare_load_balancer" in
   let __resource =
-    {
-      default_pool_ids;
-      description;
-      enabled;
-      fallback_pool_id;
-      id;
-      name;
-      proxied;
-      session_affinity;
-      session_affinity_ttl;
-      steering_policy;
-      ttl;
-      zone_id;
-      adaptive_routing;
-      country_pools;
-      location_strategy;
-      pop_pools;
-      random_steering;
-      region_pools;
-      rules;
-      session_affinity_attributes;
-    }
+    ({
+       default_pool_ids;
+       description;
+       enabled;
+       fallback_pool_id;
+       id;
+       name;
+       proxied;
+       session_affinity;
+       session_affinity_ttl;
+       steering_policy;
+       ttl;
+       zone_id;
+       adaptive_routing;
+       country_pools;
+       location_strategy;
+       pop_pools;
+       random_steering;
+       region_pools;
+       rules;
+       session_affinity_attributes;
+     }
+      : cloudflare_load_balancer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_load_balancer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       created_on =
+         Prop.computed __resource_type __resource_id "created_on";
+       default_pool_ids =
+         Prop.computed __resource_type __resource_id
+           "default_pool_ids";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       fallback_pool_id =
+         Prop.computed __resource_type __resource_id
+           "fallback_pool_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       modified_on =
+         Prop.computed __resource_type __resource_id "modified_on";
+       name = Prop.computed __resource_type __resource_id "name";
+       proxied =
+         Prop.computed __resource_type __resource_id "proxied";
+       session_affinity =
+         Prop.computed __resource_type __resource_id
+           "session_affinity";
+       session_affinity_ttl =
+         Prop.computed __resource_type __resource_id
+           "session_affinity_ttl";
+       steering_policy =
+         Prop.computed __resource_type __resource_id
+           "steering_policy";
+       ttl = Prop.computed __resource_type __resource_id "ttl";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

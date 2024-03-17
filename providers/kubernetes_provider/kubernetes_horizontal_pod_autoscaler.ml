@@ -357,10 +357,17 @@ type kubernetes_horizontal_pod_autoscaler = {
 [@@deriving yojson_of]
 (** kubernetes_horizontal_pod_autoscaler *)
 
+type t = { id : string prop }
+
 let kubernetes_horizontal_pod_autoscaler ?id ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_horizontal_pod_autoscaler" in
-  let __resource = { id; metadata; spec } in
+  let __resource =
+    ({ id; metadata; spec } : kubernetes_horizontal_pod_autoscaler)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_horizontal_pod_autoscaler __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

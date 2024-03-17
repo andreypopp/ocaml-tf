@@ -28,6 +28,18 @@ type aws_network_acl__ingress = {
 
 type aws_network_acl
 
+type t = private {
+  arn : string prop;
+  egress : aws_network_acl__egress list prop;
+  id : string prop;
+  ingress : aws_network_acl__ingress list prop;
+  owner_id : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 val aws_network_acl :
   ?egress:aws_network_acl__egress list ->
   ?id:string prop ->
@@ -37,4 +49,4 @@ val aws_network_acl :
   ?tags_all:(string * string prop) list ->
   vpc_id:string prop ->
   string ->
-  unit
+  t

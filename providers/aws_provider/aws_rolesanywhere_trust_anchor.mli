@@ -6,6 +6,15 @@ type aws_rolesanywhere_trust_anchor__source__source_data
 type aws_rolesanywhere_trust_anchor__source
 type aws_rolesanywhere_trust_anchor
 
+type t = private {
+  arn : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_rolesanywhere_trust_anchor :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -14,4 +23,4 @@ val aws_rolesanywhere_trust_anchor :
   name:string prop ->
   source:aws_rolesanywhere_trust_anchor__source list ->
   string ->
-  unit
+  t

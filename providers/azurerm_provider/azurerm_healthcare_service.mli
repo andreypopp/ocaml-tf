@@ -7,6 +7,19 @@ type azurerm_healthcare_service__cors_configuration
 type azurerm_healthcare_service__timeouts
 type azurerm_healthcare_service
 
+type t = private {
+  access_policy_object_ids : string list prop;
+  cosmosdb_key_vault_key_versionless_id : string prop;
+  cosmosdb_throughput : float prop;
+  id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_healthcare_service :
   ?access_policy_object_ids:string prop list ->
   ?cosmosdb_key_vault_key_versionless_id:string prop ->
@@ -24,4 +37,4 @@ val azurerm_healthcare_service :
   cors_configuration:
     azurerm_healthcare_service__cors_configuration list ->
   string ->
-  unit
+  t

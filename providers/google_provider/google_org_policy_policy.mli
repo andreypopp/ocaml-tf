@@ -13,6 +13,13 @@ type google_org_policy_policy__spec
 type google_org_policy_policy__timeouts
 type google_org_policy_policy
 
+type t = private {
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+}
+
 val google_org_policy_policy :
   ?id:string prop ->
   ?timeouts:google_org_policy_policy__timeouts ->
@@ -21,4 +28,4 @@ val google_org_policy_policy :
   dry_run_spec:google_org_policy_policy__dry_run_spec list ->
   spec:google_org_policy_policy__spec list ->
   string ->
-  unit
+  t

@@ -87,12 +87,36 @@ type google_apikeys_key = {
 [@@deriving yojson_of]
 (** google_apikeys_key *)
 
+type t = {
+  display_name : string prop;
+  id : string prop;
+  key_string : string prop;
+  name : string prop;
+  project : string prop;
+  uid : string prop;
+}
+
 let google_apikeys_key ?display_name ?id ?project ?timeouts ~name
     ~restrictions __resource_id =
   let __resource_type = "google_apikeys_key" in
   let __resource =
-    { display_name; id; name; project; restrictions; timeouts }
+    ({ display_name; id; name; project; restrictions; timeouts }
+      : google_apikeys_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apikeys_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_string =
+         Prop.computed __resource_type __resource_id "key_string";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       uid = Prop.computed __resource_type __resource_id "uid";
+     }
+      : t)
+  in
+  __resource_attributes

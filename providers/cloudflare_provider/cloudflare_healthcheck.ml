@@ -66,6 +66,31 @@ type cloudflare_healthcheck = {
 without needing a Cloudflare Load Balancer.
  *)
 
+type t = {
+  address : string prop;
+  allow_insecure : bool prop;
+  check_regions : string list prop;
+  consecutive_fails : float prop;
+  consecutive_successes : float prop;
+  created_on : string prop;
+  description : string prop;
+  expected_body : string prop;
+  expected_codes : string list prop;
+  follow_redirects : bool prop;
+  id : string prop;
+  interval : float prop;
+  method_ : string prop;
+  modified_on : string prop;
+  name : string prop;
+  path : string prop;
+  port : float prop;
+  retries : float prop;
+  suspended : bool prop;
+  timeout : float prop;
+  type_ : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_healthcheck ?allow_insecure ?check_regions
     ?consecutive_fails ?consecutive_successes ?description
     ?expected_body ?expected_codes ?follow_redirects ?id ?interval
@@ -73,31 +98,78 @@ let cloudflare_healthcheck ?allow_insecure ?check_regions
     ~address ~name ~type_ ~zone_id ~header __resource_id =
   let __resource_type = "cloudflare_healthcheck" in
   let __resource =
-    {
-      address;
-      allow_insecure;
-      check_regions;
-      consecutive_fails;
-      consecutive_successes;
-      description;
-      expected_body;
-      expected_codes;
-      follow_redirects;
-      id;
-      interval;
-      method_;
-      name;
-      path;
-      port;
-      retries;
-      suspended;
-      timeout;
-      type_;
-      zone_id;
-      header;
-      timeouts;
-    }
+    ({
+       address;
+       allow_insecure;
+       check_regions;
+       consecutive_fails;
+       consecutive_successes;
+       description;
+       expected_body;
+       expected_codes;
+       follow_redirects;
+       id;
+       interval;
+       method_;
+       name;
+       path;
+       port;
+       retries;
+       suspended;
+       timeout;
+       type_;
+       zone_id;
+       header;
+       timeouts;
+     }
+      : cloudflare_healthcheck)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_healthcheck __resource);
-  ()
+  let __resource_attributes =
+    ({
+       address =
+         Prop.computed __resource_type __resource_id "address";
+       allow_insecure =
+         Prop.computed __resource_type __resource_id "allow_insecure";
+       check_regions =
+         Prop.computed __resource_type __resource_id "check_regions";
+       consecutive_fails =
+         Prop.computed __resource_type __resource_id
+           "consecutive_fails";
+       consecutive_successes =
+         Prop.computed __resource_type __resource_id
+           "consecutive_successes";
+       created_on =
+         Prop.computed __resource_type __resource_id "created_on";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       expected_body =
+         Prop.computed __resource_type __resource_id "expected_body";
+       expected_codes =
+         Prop.computed __resource_type __resource_id "expected_codes";
+       follow_redirects =
+         Prop.computed __resource_type __resource_id
+           "follow_redirects";
+       id = Prop.computed __resource_type __resource_id "id";
+       interval =
+         Prop.computed __resource_type __resource_id "interval";
+       method_ = Prop.computed __resource_type __resource_id "method";
+       modified_on =
+         Prop.computed __resource_type __resource_id "modified_on";
+       name = Prop.computed __resource_type __resource_id "name";
+       path = Prop.computed __resource_type __resource_id "path";
+       port = Prop.computed __resource_type __resource_id "port";
+       retries =
+         Prop.computed __resource_type __resource_id "retries";
+       suspended =
+         Prop.computed __resource_type __resource_id "suspended";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

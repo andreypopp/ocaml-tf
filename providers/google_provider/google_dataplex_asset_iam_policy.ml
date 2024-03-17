@@ -16,20 +16,49 @@ type google_dataplex_asset_iam_policy = {
 [@@deriving yojson_of]
 (** google_dataplex_asset_iam_policy *)
 
+type t = {
+  asset : string prop;
+  dataplex_zone : string prop;
+  etag : string prop;
+  id : string prop;
+  lake : string prop;
+  location : string prop;
+  policy_data : string prop;
+  project : string prop;
+}
+
 let google_dataplex_asset_iam_policy ?id ?location ?project ~asset
     ~dataplex_zone ~lake ~policy_data __resource_id =
   let __resource_type = "google_dataplex_asset_iam_policy" in
   let __resource =
-    {
-      asset;
-      dataplex_zone;
-      id;
-      lake;
-      location;
-      policy_data;
-      project;
-    }
+    ({
+       asset;
+       dataplex_zone;
+       id;
+       lake;
+       location;
+       policy_data;
+       project;
+     }
+      : google_dataplex_asset_iam_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataplex_asset_iam_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       asset = Prop.computed __resource_type __resource_id "asset";
+       dataplex_zone =
+         Prop.computed __resource_type __resource_id "dataplex_zone";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       lake = Prop.computed __resource_type __resource_id "lake";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       policy_data =
+         Prop.computed __resource_type __resource_id "policy_data";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

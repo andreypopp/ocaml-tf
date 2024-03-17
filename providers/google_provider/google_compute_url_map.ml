@@ -1685,26 +1685,61 @@ except the last character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_url_map *)
 
+type t = {
+  creation_timestamp : string prop;
+  default_service : string prop;
+  description : string prop;
+  fingerprint : string prop;
+  id : string prop;
+  map_id : float prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 let google_compute_url_map ?default_service ?description ?id ?project
     ?timeouts ~name ~default_route_action ~default_url_redirect
     ~header_action ~host_rule ~path_matcher ~test __resource_id =
   let __resource_type = "google_compute_url_map" in
   let __resource =
-    {
-      default_service;
-      description;
-      id;
-      name;
-      project;
-      default_route_action;
-      default_url_redirect;
-      header_action;
-      host_rule;
-      path_matcher;
-      test;
-      timeouts;
-    }
+    ({
+       default_service;
+       description;
+       id;
+       name;
+       project;
+       default_route_action;
+       default_url_redirect;
+       header_action;
+       host_rule;
+       path_matcher;
+       test;
+       timeouts;
+     }
+      : google_compute_url_map)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_url_map __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       default_service =
+         Prop.computed __resource_type __resource_id
+           "default_service";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       map_id = Prop.computed __resource_type __resource_id "map_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -24,21 +24,47 @@ type aws_ssm_maintenance_window_target = {
 [@@deriving yojson_of]
 (** aws_ssm_maintenance_window_target *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  owner_information : string prop;
+  resource_type : string prop;
+  window_id : string prop;
+}
+
 let aws_ssm_maintenance_window_target ?description ?id ?name
     ?owner_information ~resource_type ~window_id ~targets
     __resource_id =
   let __resource_type = "aws_ssm_maintenance_window_target" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      owner_information;
-      resource_type;
-      window_id;
-      targets;
-    }
+    ({
+       description;
+       id;
+       name;
+       owner_information;
+       resource_type;
+       window_id;
+       targets;
+     }
+      : aws_ssm_maintenance_window_target)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssm_maintenance_window_target __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       owner_information =
+         Prop.computed __resource_type __resource_id
+           "owner_information";
+       resource_type =
+         Prop.computed __resource_type __resource_id "resource_type";
+       window_id =
+         Prop.computed __resource_type __resource_id "window_id";
+     }
+      : t)
+  in
+  __resource_attributes

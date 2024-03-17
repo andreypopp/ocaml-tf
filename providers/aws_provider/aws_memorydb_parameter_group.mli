@@ -5,6 +5,17 @@ open! Tf.Prelude
 type aws_memorydb_parameter_group__parameter
 type aws_memorydb_parameter_group
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  family : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_memorydb_parameter_group :
   ?description:string prop ->
   ?id:string prop ->
@@ -15,4 +26,4 @@ val aws_memorydb_parameter_group :
   family:string prop ->
   parameter:aws_memorydb_parameter_group__parameter list ->
   string ->
-  unit
+  t

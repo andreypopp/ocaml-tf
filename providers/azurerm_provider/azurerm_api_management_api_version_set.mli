@@ -5,6 +5,18 @@ open! Tf.Prelude
 type azurerm_api_management_api_version_set__timeouts
 type azurerm_api_management_api_version_set
 
+type t = private {
+  api_management_name : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  version_header_name : string prop;
+  version_query_name : string prop;
+  versioning_scheme : string prop;
+}
+
 val azurerm_api_management_api_version_set :
   ?description:string prop ->
   ?id:string prop ->
@@ -17,4 +29,4 @@ val azurerm_api_management_api_version_set :
   resource_group_name:string prop ->
   versioning_scheme:string prop ->
   string ->
-  unit
+  t

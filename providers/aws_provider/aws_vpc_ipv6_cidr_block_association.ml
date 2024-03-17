@@ -24,20 +24,45 @@ type aws_vpc_ipv6_cidr_block_association = {
 [@@deriving yojson_of]
 (** aws_vpc_ipv6_cidr_block_association *)
 
+type t = {
+  id : string prop;
+  ipv6_cidr_block : string prop;
+  ipv6_ipam_pool_id : string prop;
+  ipv6_netmask_length : float prop;
+  vpc_id : string prop;
+}
+
 let aws_vpc_ipv6_cidr_block_association ?id ?ipv6_cidr_block
     ?ipv6_netmask_length ?timeouts ~ipv6_ipam_pool_id ~vpc_id
     __resource_id =
   let __resource_type = "aws_vpc_ipv6_cidr_block_association" in
   let __resource =
-    {
-      id;
-      ipv6_cidr_block;
-      ipv6_ipam_pool_id;
-      ipv6_netmask_length;
-      vpc_id;
-      timeouts;
-    }
+    ({
+       id;
+       ipv6_cidr_block;
+       ipv6_ipam_pool_id;
+       ipv6_netmask_length;
+       vpc_id;
+       timeouts;
+     }
+      : aws_vpc_ipv6_cidr_block_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipv6_cidr_block_association __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       ipv6_cidr_block =
+         Prop.computed __resource_type __resource_id
+           "ipv6_cidr_block";
+       ipv6_ipam_pool_id =
+         Prop.computed __resource_type __resource_id
+           "ipv6_ipam_pool_id";
+       ipv6_netmask_length =
+         Prop.computed __resource_type __resource_id
+           "ipv6_netmask_length";
+       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+     }
+      : t)
+  in
+  __resource_attributes

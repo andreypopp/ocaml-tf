@@ -7,6 +7,19 @@ type azurerm_network_watcher_flow_log__timeouts
 type azurerm_network_watcher_flow_log__traffic_analytics
 type azurerm_network_watcher_flow_log
 
+type t = private {
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  network_security_group_id : string prop;
+  network_watcher_name : string prop;
+  resource_group_name : string prop;
+  storage_account_id : string prop;
+  tags : (string * string) list prop;
+  version : float prop;
+}
+
 val azurerm_network_watcher_flow_log :
   ?id:string prop ->
   ?location:string prop ->
@@ -24,4 +37,4 @@ val azurerm_network_watcher_flow_log :
   traffic_analytics:
     azurerm_network_watcher_flow_log__traffic_analytics list ->
   string ->
-  unit
+  t

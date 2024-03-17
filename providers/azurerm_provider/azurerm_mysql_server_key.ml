@@ -22,10 +22,30 @@ type azurerm_mysql_server_key = {
 [@@deriving yojson_of]
 (** azurerm_mysql_server_key *)
 
+type t = {
+  id : string prop;
+  key_vault_key_id : string prop;
+  server_id : string prop;
+}
+
 let azurerm_mysql_server_key ?id ?timeouts ~key_vault_key_id
     ~server_id __resource_id =
   let __resource_type = "azurerm_mysql_server_key" in
-  let __resource = { id; key_vault_key_id; server_id; timeouts } in
+  let __resource =
+    ({ id; key_vault_key_id; server_id; timeouts }
+      : azurerm_mysql_server_key)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mysql_server_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_key_id";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -69,6 +69,30 @@ type google_storage_bucket_object = {
 [@@deriving yojson_of]
 (** google_storage_bucket_object *)
 
+type t = {
+  bucket : string prop;
+  cache_control : string prop;
+  content : string prop;
+  content_disposition : string prop;
+  content_encoding : string prop;
+  content_language : string prop;
+  content_type : string prop;
+  crc32c : string prop;
+  detect_md5hash : string prop;
+  event_based_hold : bool prop;
+  id : string prop;
+  kms_key_name : string prop;
+  md5hash : string prop;
+  media_link : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  output_name : string prop;
+  self_link : string prop;
+  source : string prop;
+  storage_class : string prop;
+  temporary_hold : bool prop;
+}
+
 let google_storage_bucket_object ?cache_control ?content
     ?content_disposition ?content_encoding ?content_language
     ?content_type ?detect_md5hash ?event_based_hold ?id ?kms_key_name
@@ -76,28 +100,75 @@ let google_storage_bucket_object ?cache_control ?content
     ~bucket ~name ~customer_encryption ~retention __resource_id =
   let __resource_type = "google_storage_bucket_object" in
   let __resource =
-    {
-      bucket;
-      cache_control;
-      content;
-      content_disposition;
-      content_encoding;
-      content_language;
-      content_type;
-      detect_md5hash;
-      event_based_hold;
-      id;
-      kms_key_name;
-      metadata;
-      name;
-      source;
-      storage_class;
-      temporary_hold;
-      customer_encryption;
-      retention;
-      timeouts;
-    }
+    ({
+       bucket;
+       cache_control;
+       content;
+       content_disposition;
+       content_encoding;
+       content_language;
+       content_type;
+       detect_md5hash;
+       event_based_hold;
+       id;
+       kms_key_name;
+       metadata;
+       name;
+       source;
+       storage_class;
+       temporary_hold;
+       customer_encryption;
+       retention;
+       timeouts;
+     }
+      : google_storage_bucket_object)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_bucket_object __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       cache_control =
+         Prop.computed __resource_type __resource_id "cache_control";
+       content =
+         Prop.computed __resource_type __resource_id "content";
+       content_disposition =
+         Prop.computed __resource_type __resource_id
+           "content_disposition";
+       content_encoding =
+         Prop.computed __resource_type __resource_id
+           "content_encoding";
+       content_language =
+         Prop.computed __resource_type __resource_id
+           "content_language";
+       content_type =
+         Prop.computed __resource_type __resource_id "content_type";
+       crc32c = Prop.computed __resource_type __resource_id "crc32c";
+       detect_md5hash =
+         Prop.computed __resource_type __resource_id "detect_md5hash";
+       event_based_hold =
+         Prop.computed __resource_type __resource_id
+           "event_based_hold";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_name =
+         Prop.computed __resource_type __resource_id "kms_key_name";
+       md5hash =
+         Prop.computed __resource_type __resource_id "md5hash";
+       media_link =
+         Prop.computed __resource_type __resource_id "media_link";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       output_name =
+         Prop.computed __resource_type __resource_id "output_name";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       source = Prop.computed __resource_type __resource_id "source";
+       storage_class =
+         Prop.computed __resource_type __resource_id "storage_class";
+       temporary_hold =
+         Prop.computed __resource_type __resource_id "temporary_hold";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -25,12 +25,33 @@ type cloudflare_observatory_scheduled_test = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Observatory Scheduled Test resource. *)
 
+type t = {
+  frequency : string prop;
+  id : string prop;
+  region : string prop;
+  url : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_observatory_scheduled_test ?id ?timeouts ~frequency
     ~region ~url ~zone_id __resource_id =
   let __resource_type = "cloudflare_observatory_scheduled_test" in
   let __resource =
-    { frequency; id; region; url; zone_id; timeouts }
+    ({ frequency; id; region; url; zone_id; timeouts }
+      : cloudflare_observatory_scheduled_test)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_observatory_scheduled_test __resource);
-  ()
+  let __resource_attributes =
+    ({
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       region = Prop.computed __resource_type __resource_id "region";
+       url = Prop.computed __resource_type __resource_id "url";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

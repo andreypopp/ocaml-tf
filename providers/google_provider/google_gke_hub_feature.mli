@@ -72,6 +72,21 @@ type google_gke_hub_feature__state = {
 
 type google_gke_hub_feature
 
+type t = private {
+  create_time : string prop;
+  delete_time : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  resource_state : google_gke_hub_feature__resource_state list prop;
+  state : google_gke_hub_feature__state list prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_gke_hub_feature :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -83,4 +98,4 @@ val google_gke_hub_feature :
     google_gke_hub_feature__fleet_default_member_config list ->
   spec:google_gke_hub_feature__spec list ->
   string ->
-  unit
+  t

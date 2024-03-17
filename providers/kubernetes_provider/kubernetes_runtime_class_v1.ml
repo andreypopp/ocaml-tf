@@ -32,10 +32,22 @@ type kubernetes_runtime_class_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_runtime_class_v1 *)
 
+type t = { handler : string prop; id : string prop }
+
 let kubernetes_runtime_class_v1 ?id ~handler ~metadata __resource_id
     =
   let __resource_type = "kubernetes_runtime_class_v1" in
-  let __resource = { handler; id; metadata } in
+  let __resource =
+    ({ handler; id; metadata } : kubernetes_runtime_class_v1)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_runtime_class_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       handler =
+         Prop.computed __resource_type __resource_id "handler";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

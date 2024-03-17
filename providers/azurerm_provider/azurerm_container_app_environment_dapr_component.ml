@@ -55,6 +55,17 @@ type azurerm_container_app_environment_dapr_component = {
 [@@deriving yojson_of]
 (** azurerm_container_app_environment_dapr_component *)
 
+type t = {
+  component_type : string prop;
+  container_app_environment_id : string prop;
+  id : string prop;
+  ignore_errors : bool prop;
+  init_timeout : string prop;
+  name : string prop;
+  scopes : string list prop;
+  version : string prop;
+}
+
 let azurerm_container_app_environment_dapr_component ?id
     ?ignore_errors ?init_timeout ?scopes ?timeouts ~component_type
     ~container_app_environment_id ~name ~version ~metadata ~secret
@@ -63,21 +74,41 @@ let azurerm_container_app_environment_dapr_component ?id
     "azurerm_container_app_environment_dapr_component"
   in
   let __resource =
-    {
-      component_type;
-      container_app_environment_id;
-      id;
-      ignore_errors;
-      init_timeout;
-      name;
-      scopes;
-      version;
-      metadata;
-      secret;
-      timeouts;
-    }
+    ({
+       component_type;
+       container_app_environment_id;
+       id;
+       ignore_errors;
+       init_timeout;
+       name;
+       scopes;
+       version;
+       metadata;
+       secret;
+       timeouts;
+     }
+      : azurerm_container_app_environment_dapr_component)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_app_environment_dapr_component
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       component_type =
+         Prop.computed __resource_type __resource_id "component_type";
+       container_app_environment_id =
+         Prop.computed __resource_type __resource_id
+           "container_app_environment_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       ignore_errors =
+         Prop.computed __resource_type __resource_id "ignore_errors";
+       init_timeout =
+         Prop.computed __resource_type __resource_id "init_timeout";
+       name = Prop.computed __resource_type __resource_id "name";
+       scopes = Prop.computed __resource_type __resource_id "scopes";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

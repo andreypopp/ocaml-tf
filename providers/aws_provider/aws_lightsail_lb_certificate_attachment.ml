@@ -12,10 +12,30 @@ type aws_lightsail_lb_certificate_attachment = {
 [@@deriving yojson_of]
 (** aws_lightsail_lb_certificate_attachment *)
 
+type t = {
+  certificate_name : string prop;
+  id : string prop;
+  lb_name : string prop;
+}
+
 let aws_lightsail_lb_certificate_attachment ?id ~certificate_name
     ~lb_name __resource_id =
   let __resource_type = "aws_lightsail_lb_certificate_attachment" in
-  let __resource = { certificate_name; id; lb_name } in
+  let __resource =
+    ({ certificate_name; id; lb_name }
+      : aws_lightsail_lb_certificate_attachment)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_lb_certificate_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_name =
+         Prop.computed __resource_type __resource_id
+           "certificate_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       lb_name =
+         Prop.computed __resource_type __resource_id "lb_name";
+     }
+      : t)
+  in
+  __resource_attributes

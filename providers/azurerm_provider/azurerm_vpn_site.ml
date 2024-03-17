@@ -68,26 +68,60 @@ type azurerm_vpn_site = {
 [@@deriving yojson_of]
 (** azurerm_vpn_site *)
 
+type t = {
+  address_cidrs : string list prop;
+  device_model : string prop;
+  device_vendor : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  virtual_wan_id : string prop;
+}
+
 let azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor ?id
     ?tags ?timeouts ~location ~name ~resource_group_name
     ~virtual_wan_id ~link ~o365_policy __resource_id =
   let __resource_type = "azurerm_vpn_site" in
   let __resource =
-    {
-      address_cidrs;
-      device_model;
-      device_vendor;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      virtual_wan_id;
-      link;
-      o365_policy;
-      timeouts;
-    }
+    ({
+       address_cidrs;
+       device_model;
+       device_vendor;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       virtual_wan_id;
+       link;
+       o365_policy;
+       timeouts;
+     }
+      : azurerm_vpn_site)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vpn_site __resource);
-  ()
+  let __resource_attributes =
+    ({
+       address_cidrs =
+         Prop.computed __resource_type __resource_id "address_cidrs";
+       device_model =
+         Prop.computed __resource_type __resource_id "device_model";
+       device_vendor =
+         Prop.computed __resource_type __resource_id "device_vendor";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_wan_id =
+         Prop.computed __resource_type __resource_id "virtual_wan_id";
+     }
+      : t)
+  in
+  __resource_attributes

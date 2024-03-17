@@ -29,6 +29,16 @@ type azurerm_system_center_virtual_machine_manager_availability_set = {
 [@@deriving yojson_of]
 (** azurerm_system_center_virtual_machine_manager_availability_set *)
 
+type t = {
+  custom_location_id : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  system_center_virtual_machine_manager_server_id : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_system_center_virtual_machine_manager_availability_set
     ?id ?tags ?timeouts ~custom_location_id ~location ~name
     ~resource_group_name
@@ -37,18 +47,38 @@ let azurerm_system_center_virtual_machine_manager_availability_set
     "azurerm_system_center_virtual_machine_manager_availability_set"
   in
   let __resource =
-    {
-      custom_location_id;
-      id;
-      location;
-      name;
-      resource_group_name;
-      system_center_virtual_machine_manager_server_id;
-      tags;
-      timeouts;
-    }
+    ({
+       custom_location_id;
+       id;
+       location;
+       name;
+       resource_group_name;
+       system_center_virtual_machine_manager_server_id;
+       tags;
+       timeouts;
+     }
+      : azurerm_system_center_virtual_machine_manager_availability_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_system_center_virtual_machine_manager_availability_set
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       custom_location_id =
+         Prop.computed __resource_type __resource_id
+           "custom_location_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       system_center_virtual_machine_manager_server_id =
+         Prop.computed __resource_type __resource_id
+           "system_center_virtual_machine_manager_server_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

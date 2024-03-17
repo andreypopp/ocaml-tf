@@ -25,6 +25,25 @@ type aws_networkmanager_connect_peer__configuration = {
 
 type aws_networkmanager_connect_peer
 
+type t = private {
+  arn : string prop;
+  configuration :
+    aws_networkmanager_connect_peer__configuration list prop;
+  connect_attachment_id : string prop;
+  connect_peer_id : string prop;
+  core_network_address : string prop;
+  core_network_id : string prop;
+  created_at : string prop;
+  edge_location : string prop;
+  id : string prop;
+  inside_cidr_blocks : string list prop;
+  peer_address : string prop;
+  state : string prop;
+  subnet_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_networkmanager_connect_peer :
   ?core_network_address:string prop ->
   ?id:string prop ->
@@ -37,4 +56,4 @@ val aws_networkmanager_connect_peer :
   peer_address:string prop ->
   bgp_options:aws_networkmanager_connect_peer__bgp_options list ->
   string ->
-  unit
+  t

@@ -188,23 +188,53 @@ type aws_ce_anomaly_subscription = {
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription *)
 
+type t = {
+  account_id : string prop;
+  arn : string prop;
+  frequency : string prop;
+  id : string prop;
+  monitor_arn_list : string list prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ce_anomaly_subscription ?account_id ?id ?tags ?tags_all
     ~frequency ~monitor_arn_list ~name ~subscriber
     ~threshold_expression __resource_id =
   let __resource_type = "aws_ce_anomaly_subscription" in
   let __resource =
-    {
-      account_id;
-      frequency;
-      id;
-      monitor_arn_list;
-      name;
-      tags;
-      tags_all;
-      subscriber;
-      threshold_expression;
-    }
+    ({
+       account_id;
+       frequency;
+       id;
+       monitor_arn_list;
+       name;
+       tags;
+       tags_all;
+       subscriber;
+       threshold_expression;
+     }
+      : aws_ce_anomaly_subscription)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ce_anomaly_subscription __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       monitor_arn_list =
+         Prop.computed __resource_type __resource_id
+           "monitor_arn_list";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

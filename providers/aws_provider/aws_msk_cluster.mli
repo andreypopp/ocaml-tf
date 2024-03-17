@@ -36,6 +36,32 @@ type aws_msk_cluster__open_monitoring
 type aws_msk_cluster__timeouts
 type aws_msk_cluster
 
+type t = private {
+  arn : string prop;
+  bootstrap_brokers : string prop;
+  bootstrap_brokers_public_sasl_iam : string prop;
+  bootstrap_brokers_public_sasl_scram : string prop;
+  bootstrap_brokers_public_tls : string prop;
+  bootstrap_brokers_sasl_iam : string prop;
+  bootstrap_brokers_sasl_scram : string prop;
+  bootstrap_brokers_tls : string prop;
+  bootstrap_brokers_vpc_connectivity_sasl_iam : string prop;
+  bootstrap_brokers_vpc_connectivity_sasl_scram : string prop;
+  bootstrap_brokers_vpc_connectivity_tls : string prop;
+  cluster_name : string prop;
+  cluster_uuid : string prop;
+  current_version : string prop;
+  enhanced_monitoring : string prop;
+  id : string prop;
+  kafka_version : string prop;
+  number_of_broker_nodes : float prop;
+  storage_mode : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  zookeeper_connect_string : string prop;
+  zookeeper_connect_string_tls : string prop;
+}
+
 val aws_msk_cluster :
   ?enhanced_monitoring:string prop ->
   ?id:string prop ->
@@ -53,4 +79,4 @@ val aws_msk_cluster :
   logging_info:aws_msk_cluster__logging_info list ->
   open_monitoring:aws_msk_cluster__open_monitoring list ->
   string ->
-  unit
+  t

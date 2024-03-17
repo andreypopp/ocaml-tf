@@ -7,6 +7,18 @@ type google_dialogflow_cx_entity_type__excluded_phrases
 type google_dialogflow_cx_entity_type__timeouts
 type google_dialogflow_cx_entity_type
 
+type t = private {
+  auto_expansion_mode : string prop;
+  display_name : string prop;
+  enable_fuzzy_extraction : bool prop;
+  id : string prop;
+  kind : string prop;
+  language_code : string prop;
+  name : string prop;
+  parent : string prop;
+  redact : bool prop;
+}
+
 val google_dialogflow_cx_entity_type :
   ?auto_expansion_mode:string prop ->
   ?enable_fuzzy_extraction:bool prop ->
@@ -21,4 +33,4 @@ val google_dialogflow_cx_entity_type :
   excluded_phrases:
     google_dialogflow_cx_entity_type__excluded_phrases list ->
   string ->
-  unit
+  t

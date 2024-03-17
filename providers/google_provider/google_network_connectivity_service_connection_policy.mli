@@ -39,6 +39,27 @@ type google_network_connectivity_service_connection_policy__psc_connections = {
 
 type google_network_connectivity_service_connection_policy
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  infrastructure : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  psc_connections :
+    google_network_connectivity_service_connection_policy__psc_connections
+    list
+    prop;
+  service_class : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_network_connectivity_service_connection_policy :
   ?description:string prop ->
   ?id:string prop ->
@@ -54,4 +75,4 @@ val google_network_connectivity_service_connection_policy :
     google_network_connectivity_service_connection_policy__psc_config
     list ->
   string ->
-  unit
+  t

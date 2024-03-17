@@ -9,6 +9,17 @@ type aws_sagemaker_workteam__member_definition
 type aws_sagemaker_workteam__notification_configuration
 type aws_sagemaker_workteam
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  subdomain : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  workforce_name : string prop;
+  workteam_name : string prop;
+}
+
 val aws_sagemaker_workteam :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -20,4 +31,4 @@ val aws_sagemaker_workteam :
   notification_configuration:
     aws_sagemaker_workteam__notification_configuration list ->
   string ->
-  unit
+  t

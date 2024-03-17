@@ -27,6 +27,29 @@ type aws_cognito_user_pool__username_configuration
 type aws_cognito_user_pool__verification_message_template
 type aws_cognito_user_pool
 
+type t = private {
+  alias_attributes : string list prop;
+  arn : string prop;
+  auto_verified_attributes : string list prop;
+  creation_date : string prop;
+  custom_domain : string prop;
+  deletion_protection : string prop;
+  domain : string prop;
+  email_verification_message : string prop;
+  email_verification_subject : string prop;
+  endpoint : string prop;
+  estimated_number_of_users : float prop;
+  id : string prop;
+  last_modified_date : string prop;
+  mfa_configuration : string prop;
+  name : string prop;
+  sms_authentication_message : string prop;
+  sms_verification_message : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  username_attributes : string list prop;
+}
+
 val aws_cognito_user_pool :
   ?alias_attributes:string prop list ->
   ?auto_verified_attributes:string prop list ->
@@ -62,4 +85,4 @@ val aws_cognito_user_pool :
   verification_message_template:
     aws_cognito_user_pool__verification_message_template list ->
   string ->
-  unit
+  t

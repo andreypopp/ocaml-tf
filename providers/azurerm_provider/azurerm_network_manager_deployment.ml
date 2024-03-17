@@ -26,21 +26,49 @@ type azurerm_network_manager_deployment = {
 [@@deriving yojson_of]
 (** azurerm_network_manager_deployment *)
 
+type t = {
+  configuration_ids : string list prop;
+  id : string prop;
+  location : string prop;
+  network_manager_id : string prop;
+  scope_access : string prop;
+  triggers : (string * string) list prop;
+}
+
 let azurerm_network_manager_deployment ?id ?triggers ?timeouts
     ~configuration_ids ~location ~network_manager_id ~scope_access
     __resource_id =
   let __resource_type = "azurerm_network_manager_deployment" in
   let __resource =
-    {
-      configuration_ids;
-      id;
-      location;
-      network_manager_id;
-      scope_access;
-      triggers;
-      timeouts;
-    }
+    ({
+       configuration_ids;
+       id;
+       location;
+       network_manager_id;
+       scope_access;
+       triggers;
+       timeouts;
+     }
+      : azurerm_network_manager_deployment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       configuration_ids =
+         Prop.computed __resource_type __resource_id
+           "configuration_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       network_manager_id =
+         Prop.computed __resource_type __resource_id
+           "network_manager_id";
+       scope_access =
+         Prop.computed __resource_type __resource_id "scope_access";
+       triggers =
+         Prop.computed __resource_type __resource_id "triggers";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -7,6 +7,18 @@ type azurerm_traffic_manager_azure_endpoint__subnet
 type azurerm_traffic_manager_azure_endpoint__timeouts
 type azurerm_traffic_manager_azure_endpoint
 
+type t = private {
+  always_serve_enabled : bool prop;
+  enabled : bool prop;
+  geo_mappings : string list prop;
+  id : string prop;
+  name : string prop;
+  priority : float prop;
+  profile_id : string prop;
+  target_resource_id : string prop;
+  weight : float prop;
+}
+
 val azurerm_traffic_manager_azure_endpoint :
   ?always_serve_enabled:bool prop ->
   ?enabled:bool prop ->
@@ -22,4 +34,4 @@ val azurerm_traffic_manager_azure_endpoint :
     azurerm_traffic_manager_azure_endpoint__custom_header list ->
   subnet:azurerm_traffic_manager_azure_endpoint__subnet list ->
   string ->
-  unit
+  t

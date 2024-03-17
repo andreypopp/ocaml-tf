@@ -64,21 +64,45 @@ type azurerm_virtual_hub_connection = {
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_connection *)
 
+type t = {
+  id : string prop;
+  internet_security_enabled : bool prop;
+  name : string prop;
+  remote_virtual_network_id : string prop;
+  virtual_hub_id : string prop;
+}
+
 let azurerm_virtual_hub_connection ?id ?internet_security_enabled
     ?timeouts ~name ~remote_virtual_network_id ~virtual_hub_id
     ~routing __resource_id =
   let __resource_type = "azurerm_virtual_hub_connection" in
   let __resource =
-    {
-      id;
-      internet_security_enabled;
-      name;
-      remote_virtual_network_id;
-      virtual_hub_id;
-      routing;
-      timeouts;
-    }
+    ({
+       id;
+       internet_security_enabled;
+       name;
+       remote_virtual_network_id;
+       virtual_hub_id;
+       routing;
+       timeouts;
+     }
+      : azurerm_virtual_hub_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_hub_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       internet_security_enabled =
+         Prop.computed __resource_type __resource_id
+           "internet_security_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       remote_virtual_network_id =
+         Prop.computed __resource_type __resource_id
+           "remote_virtual_network_id";
+       virtual_hub_id =
+         Prop.computed __resource_type __resource_id "virtual_hub_id";
+     }
+      : t)
+  in
+  __resource_attributes

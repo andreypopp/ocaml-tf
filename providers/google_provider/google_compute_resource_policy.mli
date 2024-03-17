@@ -29,6 +29,15 @@ type google_compute_resource_policy__snapshot_schedule_policy
 type google_compute_resource_policy__timeouts
 type google_compute_resource_policy
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+}
+
 val google_compute_resource_policy :
   ?description:string prop ->
   ?id:string prop ->
@@ -46,4 +55,4 @@ val google_compute_resource_policy :
   snapshot_schedule_policy:
     google_compute_resource_policy__snapshot_schedule_policy list ->
   string ->
-  unit
+  t

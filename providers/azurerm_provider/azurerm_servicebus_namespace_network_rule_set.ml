@@ -39,6 +39,15 @@ type azurerm_servicebus_namespace_network_rule_set = {
 [@@deriving yojson_of]
 (** azurerm_servicebus_namespace_network_rule_set *)
 
+type t = {
+  default_action : string prop;
+  id : string prop;
+  ip_rules : string list prop;
+  namespace_id : string prop;
+  public_network_access_enabled : bool prop;
+  trusted_services_allowed : bool prop;
+}
+
 let azurerm_servicebus_namespace_network_rule_set ?default_action ?id
     ?ip_rules ?public_network_access_enabled
     ?trusted_services_allowed ?timeouts ~namespace_id ~network_rules
@@ -47,18 +56,37 @@ let azurerm_servicebus_namespace_network_rule_set ?default_action ?id
     "azurerm_servicebus_namespace_network_rule_set"
   in
   let __resource =
-    {
-      default_action;
-      id;
-      ip_rules;
-      namespace_id;
-      public_network_access_enabled;
-      trusted_services_allowed;
-      network_rules;
-      timeouts;
-    }
+    ({
+       default_action;
+       id;
+       ip_rules;
+       namespace_id;
+       public_network_access_enabled;
+       trusted_services_allowed;
+       network_rules;
+       timeouts;
+     }
+      : azurerm_servicebus_namespace_network_rule_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_servicebus_namespace_network_rule_set
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       default_action =
+         Prop.computed __resource_type __resource_id "default_action";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_rules =
+         Prop.computed __resource_type __resource_id "ip_rules";
+       namespace_id =
+         Prop.computed __resource_type __resource_id "namespace_id";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       trusted_services_allowed =
+         Prop.computed __resource_type __resource_id
+           "trusted_services_allowed";
+     }
+      : t)
+  in
+  __resource_attributes

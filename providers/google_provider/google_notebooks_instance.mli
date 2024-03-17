@@ -10,6 +10,42 @@ type google_notebooks_instance__timeouts
 type google_notebooks_instance__vm_image
 type google_notebooks_instance
 
+type t = private {
+  boot_disk_size_gb : float prop;
+  boot_disk_type : string prop;
+  create_time : string prop;
+  custom_gpu_driver_path : string prop;
+  data_disk_size_gb : float prop;
+  data_disk_type : string prop;
+  desired_state : string prop;
+  disk_encryption : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  install_gpu_driver : bool prop;
+  instance_owners : string list prop;
+  kms_key : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  machine_type : string prop;
+  metadata : (string * string) list prop;
+  name : string prop;
+  network : string prop;
+  nic_type : string prop;
+  no_proxy_access : bool prop;
+  no_public_ip : bool prop;
+  no_remove_data_disk : bool prop;
+  post_startup_script : string prop;
+  project : string prop;
+  proxy_uri : string prop;
+  service_account : string prop;
+  service_account_scopes : string list prop;
+  state : string prop;
+  subnet : string prop;
+  tags : string list prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_notebooks_instance :
   ?boot_disk_size_gb:float prop ->
   ?boot_disk_type:string prop ->
@@ -50,4 +86,4 @@ val google_notebooks_instance :
     google_notebooks_instance__shielded_instance_config list ->
   vm_image:google_notebooks_instance__vm_image list ->
   string ->
-  unit
+  t

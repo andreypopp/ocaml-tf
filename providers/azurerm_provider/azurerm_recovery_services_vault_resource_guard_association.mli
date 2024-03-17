@@ -6,6 +6,13 @@ type azurerm_recovery_services_vault_resource_guard_association__timeouts
 
 type azurerm_recovery_services_vault_resource_guard_association
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  resource_guard_id : string prop;
+  vault_id : string prop;
+}
+
 val azurerm_recovery_services_vault_resource_guard_association :
   ?id:string prop ->
   ?name:string prop ->
@@ -14,4 +21,4 @@ val azurerm_recovery_services_vault_resource_guard_association :
   resource_guard_id:string prop ->
   vault_id:string prop ->
   string ->
-  unit
+  t

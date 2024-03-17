@@ -91,26 +91,62 @@ type aws_sagemaker_feature_group = {
 [@@deriving yojson_of]
 (** aws_sagemaker_feature_group *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  event_time_feature_name : string prop;
+  feature_group_name : string prop;
+  id : string prop;
+  record_identifier_feature_name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sagemaker_feature_group ?description ?id ?tags ?tags_all
     ~event_time_feature_name ~feature_group_name
     ~record_identifier_feature_name ~role_arn ~feature_definition
     ~offline_store_config ~online_store_config __resource_id =
   let __resource_type = "aws_sagemaker_feature_group" in
   let __resource =
-    {
-      description;
-      event_time_feature_name;
-      feature_group_name;
-      id;
-      record_identifier_feature_name;
-      role_arn;
-      tags;
-      tags_all;
-      feature_definition;
-      offline_store_config;
-      online_store_config;
-    }
+    ({
+       description;
+       event_time_feature_name;
+       feature_group_name;
+       id;
+       record_identifier_feature_name;
+       role_arn;
+       tags;
+       tags_all;
+       feature_definition;
+       offline_store_config;
+       online_store_config;
+     }
+      : aws_sagemaker_feature_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_feature_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       event_time_feature_name =
+         Prop.computed __resource_type __resource_id
+           "event_time_feature_name";
+       feature_group_name =
+         Prop.computed __resource_type __resource_id
+           "feature_group_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       record_identifier_feature_name =
+         Prop.computed __resource_type __resource_id
+           "record_identifier_feature_name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

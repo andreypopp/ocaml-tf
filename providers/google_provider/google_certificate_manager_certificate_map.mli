@@ -20,6 +20,21 @@ type google_certificate_manager_certificate_map__gclb_targets = {
 
 type google_certificate_manager_certificate_map
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  gclb_targets :
+    google_certificate_manager_certificate_map__gclb_targets list
+    prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_certificate_manager_certificate_map :
   ?description:string prop ->
   ?id:string prop ->
@@ -28,4 +43,4 @@ val google_certificate_manager_certificate_map :
   ?timeouts:google_certificate_manager_certificate_map__timeouts ->
   name:string prop ->
   string ->
-  unit
+  t

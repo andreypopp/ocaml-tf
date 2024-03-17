@@ -41,20 +41,45 @@ type aws_lambda_function_event_invoke_config = {
 [@@deriving yojson_of]
 (** aws_lambda_function_event_invoke_config *)
 
+type t = {
+  function_name : string prop;
+  id : string prop;
+  maximum_event_age_in_seconds : float prop;
+  maximum_retry_attempts : float prop;
+  qualifier : string prop;
+}
+
 let aws_lambda_function_event_invoke_config ?id
     ?maximum_event_age_in_seconds ?maximum_retry_attempts ?qualifier
     ~function_name ~destination_config __resource_id =
   let __resource_type = "aws_lambda_function_event_invoke_config" in
   let __resource =
-    {
-      function_name;
-      id;
-      maximum_event_age_in_seconds;
-      maximum_retry_attempts;
-      qualifier;
-      destination_config;
-    }
+    ({
+       function_name;
+       id;
+       maximum_event_age_in_seconds;
+       maximum_retry_attempts;
+       qualifier;
+       destination_config;
+     }
+      : aws_lambda_function_event_invoke_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_function_event_invoke_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       function_name =
+         Prop.computed __resource_type __resource_id "function_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       maximum_event_age_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "maximum_event_age_in_seconds";
+       maximum_retry_attempts =
+         Prop.computed __resource_type __resource_id
+           "maximum_retry_attempts";
+       qualifier =
+         Prop.computed __resource_type __resource_id "qualifier";
+     }
+      : t)
+  in
+  __resource_attributes

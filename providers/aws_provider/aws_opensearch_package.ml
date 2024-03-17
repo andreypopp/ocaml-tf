@@ -22,18 +22,46 @@ type aws_opensearch_package = {
 [@@deriving yojson_of]
 (** aws_opensearch_package *)
 
+type t = {
+  available_package_version : string prop;
+  id : string prop;
+  package_description : string prop;
+  package_id : string prop;
+  package_name : string prop;
+  package_type : string prop;
+}
+
 let aws_opensearch_package ?id ?package_description ~package_name
     ~package_type ~package_source __resource_id =
   let __resource_type = "aws_opensearch_package" in
   let __resource =
-    {
-      id;
-      package_description;
-      package_name;
-      package_type;
-      package_source;
-    }
+    ({
+       id;
+       package_description;
+       package_name;
+       package_type;
+       package_source;
+     }
+      : aws_opensearch_package)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearch_package __resource);
-  ()
+  let __resource_attributes =
+    ({
+       available_package_version =
+         Prop.computed __resource_type __resource_id
+           "available_package_version";
+       id = Prop.computed __resource_type __resource_id "id";
+       package_description =
+         Prop.computed __resource_type __resource_id
+           "package_description";
+       package_id =
+         Prop.computed __resource_type __resource_id "package_id";
+       package_name =
+         Prop.computed __resource_type __resource_id "package_name";
+       package_type =
+         Prop.computed __resource_type __resource_id "package_type";
+     }
+      : t)
+  in
+  __resource_attributes

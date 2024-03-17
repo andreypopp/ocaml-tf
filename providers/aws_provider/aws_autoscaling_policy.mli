@@ -60,6 +60,21 @@ type aws_autoscaling_policy__target_tracking_configuration__predefined_metric_sp
 type aws_autoscaling_policy__target_tracking_configuration
 type aws_autoscaling_policy
 
+type t = private {
+  adjustment_type : string prop;
+  arn : string prop;
+  autoscaling_group_name : string prop;
+  cooldown : float prop;
+  enabled : bool prop;
+  estimated_instance_warmup : float prop;
+  id : string prop;
+  metric_aggregation_type : string prop;
+  min_adjustment_magnitude : float prop;
+  name : string prop;
+  policy_type : string prop;
+  scaling_adjustment : float prop;
+}
+
 val aws_autoscaling_policy :
   ?adjustment_type:string prop ->
   ?cooldown:float prop ->
@@ -78,4 +93,4 @@ val aws_autoscaling_policy :
   target_tracking_configuration:
     aws_autoscaling_policy__target_tracking_configuration list ->
   string ->
-  unit
+  t

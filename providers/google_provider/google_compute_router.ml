@@ -84,23 +84,58 @@ except the last character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_router *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  encrypted_interconnect_router : bool prop;
+  id : string prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+}
+
 let google_compute_router ?description ?encrypted_interconnect_router
     ?id ?project ?region ?timeouts ~name ~network ~bgp __resource_id
     =
   let __resource_type = "google_compute_router" in
   let __resource =
-    {
-      description;
-      encrypted_interconnect_router;
-      id;
-      name;
-      network;
-      project;
-      region;
-      bgp;
-      timeouts;
-    }
+    ({
+       description;
+       encrypted_interconnect_router;
+       id;
+       name;
+       network;
+       project;
+       region;
+       bgp;
+       timeouts;
+     }
+      : google_compute_router)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_router __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       encrypted_interconnect_router =
+         Prop.computed __resource_type __resource_id
+           "encrypted_interconnect_router";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,19 @@ open! Tf.Prelude
 type aws_apigatewayv2_authorizer__jwt_configuration
 type aws_apigatewayv2_authorizer
 
+type t = private {
+  api_id : string prop;
+  authorizer_credentials_arn : string prop;
+  authorizer_payload_format_version : string prop;
+  authorizer_result_ttl_in_seconds : float prop;
+  authorizer_type : string prop;
+  authorizer_uri : string prop;
+  enable_simple_responses : bool prop;
+  id : string prop;
+  identity_sources : string list prop;
+  name : string prop;
+}
+
 val aws_apigatewayv2_authorizer :
   ?authorizer_credentials_arn:string prop ->
   ?authorizer_payload_format_version:string prop ->
@@ -19,4 +32,4 @@ val aws_apigatewayv2_authorizer :
   jwt_configuration:
     aws_apigatewayv2_authorizer__jwt_configuration list ->
   string ->
-  unit
+  t

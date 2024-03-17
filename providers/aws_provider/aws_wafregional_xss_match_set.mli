@@ -5,10 +5,11 @@ open! Tf.Prelude
 type aws_wafregional_xss_match_set__xss_match_tuple__field_to_match
 type aws_wafregional_xss_match_set__xss_match_tuple
 type aws_wafregional_xss_match_set
+type t = private { id : string prop; name : string prop }
 
 val aws_wafregional_xss_match_set :
   ?id:string prop ->
   name:string prop ->
   xss_match_tuple:aws_wafregional_xss_match_set__xss_match_tuple list ->
   string ->
-  unit
+  t

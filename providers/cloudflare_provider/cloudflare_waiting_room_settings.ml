@@ -14,10 +14,30 @@ type cloudflare_waiting_room_settings = {
 [@@deriving yojson_of]
 (** Configure zone-wide settings for Cloudflare waiting rooms. *)
 
+type t = {
+  id : string prop;
+  search_engine_crawler_bypass : bool prop;
+  zone_id : string prop;
+}
+
 let cloudflare_waiting_room_settings ?id
     ?search_engine_crawler_bypass ~zone_id __resource_id =
   let __resource_type = "cloudflare_waiting_room_settings" in
-  let __resource = { id; search_engine_crawler_bypass; zone_id } in
+  let __resource =
+    ({ id; search_engine_crawler_bypass; zone_id }
+      : cloudflare_waiting_room_settings)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_waiting_room_settings __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       search_engine_crawler_bypass =
+         Prop.computed __resource_type __resource_id
+           "search_engine_crawler_bypass";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

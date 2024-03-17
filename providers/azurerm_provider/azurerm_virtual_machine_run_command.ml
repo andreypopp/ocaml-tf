@@ -98,6 +98,20 @@ type azurerm_virtual_machine_run_command = {
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_run_command *)
 
+type t = {
+  error_blob_uri : string prop;
+  id : string prop;
+  instance_view :
+    azurerm_virtual_machine_run_command__instance_view list prop;
+  location : string prop;
+  name : string prop;
+  output_blob_uri : string prop;
+  run_as_password : string prop;
+  run_as_user : string prop;
+  tags : (string * string) list prop;
+  virtual_machine_id : string prop;
+}
+
 let azurerm_virtual_machine_run_command ?error_blob_uri ?id
     ?output_blob_uri ?run_as_password ?run_as_user ?tags ?timeouts
     ~location ~name ~virtual_machine_id ~error_blob_managed_identity
@@ -105,24 +119,50 @@ let azurerm_virtual_machine_run_command ?error_blob_uri ?id
     ~source __resource_id =
   let __resource_type = "azurerm_virtual_machine_run_command" in
   let __resource =
-    {
-      error_blob_uri;
-      id;
-      location;
-      name;
-      output_blob_uri;
-      run_as_password;
-      run_as_user;
-      tags;
-      virtual_machine_id;
-      error_blob_managed_identity;
-      output_blob_managed_identity;
-      parameter;
-      protected_parameter;
-      source;
-      timeouts;
-    }
+    ({
+       error_blob_uri;
+       id;
+       location;
+       name;
+       output_blob_uri;
+       run_as_password;
+       run_as_user;
+       tags;
+       virtual_machine_id;
+       error_blob_managed_identity;
+       output_blob_managed_identity;
+       parameter;
+       protected_parameter;
+       source;
+       timeouts;
+     }
+      : azurerm_virtual_machine_run_command)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_machine_run_command __resource);
-  ()
+  let __resource_attributes =
+    ({
+       error_blob_uri =
+         Prop.computed __resource_type __resource_id "error_blob_uri";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_view =
+         Prop.computed __resource_type __resource_id "instance_view";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       output_blob_uri =
+         Prop.computed __resource_type __resource_id
+           "output_blob_uri";
+       run_as_password =
+         Prop.computed __resource_type __resource_id
+           "run_as_password";
+       run_as_user =
+         Prop.computed __resource_type __resource_id "run_as_user";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_machine_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_id";
+     }
+      : t)
+  in
+  __resource_attributes

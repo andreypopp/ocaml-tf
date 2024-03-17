@@ -7,6 +7,22 @@ type azurerm_data_factory_linked_service_azure_file_storage__key_vault_password
 type azurerm_data_factory_linked_service_azure_file_storage__timeouts
 type azurerm_data_factory_linked_service_azure_file_storage
 
+type t = private {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  connection_string : string prop;
+  data_factory_id : string prop;
+  description : string prop;
+  file_share : string prop;
+  host : string prop;
+  id : string prop;
+  integration_runtime_name : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  password : string prop;
+  user_id : string prop;
+}
+
 val azurerm_data_factory_linked_service_azure_file_storage :
   ?additional_properties:(string * string prop) list ->
   ?annotations:string prop list ->
@@ -27,4 +43,4 @@ val azurerm_data_factory_linked_service_azure_file_storage :
     azurerm_data_factory_linked_service_azure_file_storage__key_vault_password
     list ->
   string ->
-  unit
+  t

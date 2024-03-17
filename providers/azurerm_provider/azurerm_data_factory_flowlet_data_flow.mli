@@ -29,6 +29,17 @@ type azurerm_data_factory_flowlet_data_flow__transformation__linked_service
 type azurerm_data_factory_flowlet_data_flow__transformation
 type azurerm_data_factory_flowlet_data_flow
 
+type t = private {
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  folder : string prop;
+  id : string prop;
+  name : string prop;
+  script : string prop;
+  script_lines : string list prop;
+}
+
 val azurerm_data_factory_flowlet_data_flow :
   ?annotations:string prop list ->
   ?description:string prop ->
@@ -44,4 +55,4 @@ val azurerm_data_factory_flowlet_data_flow :
   transformation:
     azurerm_data_factory_flowlet_data_flow__transformation list ->
   string ->
-  unit
+  t

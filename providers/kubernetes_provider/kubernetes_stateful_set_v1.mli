@@ -392,6 +392,7 @@ type kubernetes_stateful_set_v1__spec__volume_claim_template
 type kubernetes_stateful_set_v1__spec
 type kubernetes_stateful_set_v1__timeouts
 type kubernetes_stateful_set_v1
+type t = private { id : string prop; wait_for_rollout : bool prop }
 
 val kubernetes_stateful_set_v1 :
   ?id:string prop ->
@@ -400,4 +401,4 @@ val kubernetes_stateful_set_v1 :
   metadata:kubernetes_stateful_set_v1__metadata list ->
   spec:kubernetes_stateful_set_v1__spec list ->
   string ->
-  unit
+  t

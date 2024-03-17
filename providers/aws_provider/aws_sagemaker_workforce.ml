@@ -53,20 +53,39 @@ type aws_sagemaker_workforce = {
 [@@deriving yojson_of]
 (** aws_sagemaker_workforce *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  subdomain : string prop;
+  workforce_name : string prop;
+}
+
 let aws_sagemaker_workforce ?id ~workforce_name ~cognito_config
     ~oidc_config ~source_ip_config ~workforce_vpc_config
     __resource_id =
   let __resource_type = "aws_sagemaker_workforce" in
   let __resource =
-    {
-      id;
-      workforce_name;
-      cognito_config;
-      oidc_config;
-      source_ip_config;
-      workforce_vpc_config;
-    }
+    ({
+       id;
+       workforce_name;
+       cognito_config;
+       oidc_config;
+       source_ip_config;
+       workforce_vpc_config;
+     }
+      : aws_sagemaker_workforce)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_workforce __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       subdomain =
+         Prop.computed __resource_type __resource_id "subdomain";
+       workforce_name =
+         Prop.computed __resource_type __resource_id "workforce_name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -101,26 +101,70 @@ Possible values include: STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, HIGH_SCALE_SSD
 [@@deriving yojson_of]
 (** google_filestore_instance *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  tier : string prop;
+  zone : string prop;
+}
+
 let google_filestore_instance ?description ?id ?kms_key_name ?labels
     ?location ?project ?zone ?timeouts ~name ~tier ~file_shares
     ~networks __resource_id =
   let __resource_type = "google_filestore_instance" in
   let __resource =
-    {
-      description;
-      id;
-      kms_key_name;
-      labels;
-      location;
-      name;
-      project;
-      tier;
-      zone;
-      file_shares;
-      networks;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       kms_key_name;
+       labels;
+       location;
+       name;
+       project;
+       tier;
+       zone;
+       file_shares;
+       networks;
+       timeouts;
+     }
+      : google_filestore_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_filestore_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_name =
+         Prop.computed __resource_type __resource_id "kms_key_name";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       tier = Prop.computed __resource_type __resource_id "tier";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

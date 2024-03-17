@@ -9,6 +9,19 @@ type azurerm_data_factory__timeouts
 type azurerm_data_factory__vsts_configuration
 type azurerm_data_factory
 
+type t = private {
+  customer_managed_key_id : string prop;
+  customer_managed_key_identity_id : string prop;
+  id : string prop;
+  location : string prop;
+  managed_virtual_network_enabled : bool prop;
+  name : string prop;
+  public_network_enabled : bool prop;
+  purview_id : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_data_factory :
   ?customer_managed_key_id:string prop ->
   ?customer_managed_key_identity_id:string prop ->
@@ -27,4 +40,4 @@ val azurerm_data_factory :
   identity:azurerm_data_factory__identity list ->
   vsts_configuration:azurerm_data_factory__vsts_configuration list ->
   string ->
-  unit
+  t

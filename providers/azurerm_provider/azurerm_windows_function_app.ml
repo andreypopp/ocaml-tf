@@ -658,6 +658,45 @@ type azurerm_windows_function_app = {
 [@@deriving yojson_of]
 (** azurerm_windows_function_app *)
 
+type t = {
+  app_settings : (string * string) list prop;
+  builtin_logging_enabled : bool prop;
+  client_certificate_enabled : bool prop;
+  client_certificate_exclusion_paths : string prop;
+  client_certificate_mode : string prop;
+  content_share_force_disabled : bool prop;
+  custom_domain_verification_id : string prop;
+  daily_memory_time_quota : float prop;
+  default_hostname : string prop;
+  enabled : bool prop;
+  ftp_publish_basic_authentication_enabled : bool prop;
+  functions_extension_version : string prop;
+  hosting_environment_id : string prop;
+  https_only : bool prop;
+  id : string prop;
+  key_vault_reference_identity_id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  outbound_ip_address_list : string list prop;
+  outbound_ip_addresses : string prop;
+  possible_outbound_ip_address_list : string list prop;
+  possible_outbound_ip_addresses : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  service_plan_id : string prop;
+  site_credential :
+    azurerm_windows_function_app__site_credential list prop;
+  storage_account_access_key : string prop;
+  storage_account_name : string prop;
+  storage_key_vault_secret_id : string prop;
+  storage_uses_managed_identity : bool prop;
+  tags : (string * string) list prop;
+  virtual_network_subnet_id : string prop;
+  webdeploy_publish_basic_authentication_enabled : bool prop;
+  zip_deploy_file : string prop;
+}
+
 let azurerm_windows_function_app ?app_settings
     ?builtin_logging_enabled ?client_certificate_enabled
     ?client_certificate_exclusion_paths ?client_certificate_mode
@@ -675,44 +714,143 @@ let azurerm_windows_function_app ?app_settings
     __resource_id =
   let __resource_type = "azurerm_windows_function_app" in
   let __resource =
-    {
-      app_settings;
-      builtin_logging_enabled;
-      client_certificate_enabled;
-      client_certificate_exclusion_paths;
-      client_certificate_mode;
-      content_share_force_disabled;
-      daily_memory_time_quota;
-      enabled;
-      ftp_publish_basic_authentication_enabled;
-      functions_extension_version;
-      https_only;
-      id;
-      key_vault_reference_identity_id;
-      location;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      service_plan_id;
-      storage_account_access_key;
-      storage_account_name;
-      storage_key_vault_secret_id;
-      storage_uses_managed_identity;
-      tags;
-      virtual_network_subnet_id;
-      webdeploy_publish_basic_authentication_enabled;
-      zip_deploy_file;
-      auth_settings;
-      auth_settings_v2;
-      backup;
-      connection_string;
-      identity;
-      site_config;
-      sticky_settings;
-      storage_account;
-      timeouts;
-    }
+    ({
+       app_settings;
+       builtin_logging_enabled;
+       client_certificate_enabled;
+       client_certificate_exclusion_paths;
+       client_certificate_mode;
+       content_share_force_disabled;
+       daily_memory_time_quota;
+       enabled;
+       ftp_publish_basic_authentication_enabled;
+       functions_extension_version;
+       https_only;
+       id;
+       key_vault_reference_identity_id;
+       location;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       service_plan_id;
+       storage_account_access_key;
+       storage_account_name;
+       storage_key_vault_secret_id;
+       storage_uses_managed_identity;
+       tags;
+       virtual_network_subnet_id;
+       webdeploy_publish_basic_authentication_enabled;
+       zip_deploy_file;
+       auth_settings;
+       auth_settings_v2;
+       backup;
+       connection_string;
+       identity;
+       site_config;
+       sticky_settings;
+       storage_account;
+       timeouts;
+     }
+      : azurerm_windows_function_app)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_windows_function_app __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_settings =
+         Prop.computed __resource_type __resource_id "app_settings";
+       builtin_logging_enabled =
+         Prop.computed __resource_type __resource_id
+           "builtin_logging_enabled";
+       client_certificate_enabled =
+         Prop.computed __resource_type __resource_id
+           "client_certificate_enabled";
+       client_certificate_exclusion_paths =
+         Prop.computed __resource_type __resource_id
+           "client_certificate_exclusion_paths";
+       client_certificate_mode =
+         Prop.computed __resource_type __resource_id
+           "client_certificate_mode";
+       content_share_force_disabled =
+         Prop.computed __resource_type __resource_id
+           "content_share_force_disabled";
+       custom_domain_verification_id =
+         Prop.computed __resource_type __resource_id
+           "custom_domain_verification_id";
+       daily_memory_time_quota =
+         Prop.computed __resource_type __resource_id
+           "daily_memory_time_quota";
+       default_hostname =
+         Prop.computed __resource_type __resource_id
+           "default_hostname";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       ftp_publish_basic_authentication_enabled =
+         Prop.computed __resource_type __resource_id
+           "ftp_publish_basic_authentication_enabled";
+       functions_extension_version =
+         Prop.computed __resource_type __resource_id
+           "functions_extension_version";
+       hosting_environment_id =
+         Prop.computed __resource_type __resource_id
+           "hosting_environment_id";
+       https_only =
+         Prop.computed __resource_type __resource_id "https_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_reference_identity_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_reference_identity_id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_ip_address_list =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_address_list";
+       outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_addresses";
+       possible_outbound_ip_address_list =
+         Prop.computed __resource_type __resource_id
+           "possible_outbound_ip_address_list";
+       possible_outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "possible_outbound_ip_addresses";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       service_plan_id =
+         Prop.computed __resource_type __resource_id
+           "service_plan_id";
+       site_credential =
+         Prop.computed __resource_type __resource_id
+           "site_credential";
+       storage_account_access_key =
+         Prop.computed __resource_type __resource_id
+           "storage_account_access_key";
+       storage_account_name =
+         Prop.computed __resource_type __resource_id
+           "storage_account_name";
+       storage_key_vault_secret_id =
+         Prop.computed __resource_type __resource_id
+           "storage_key_vault_secret_id";
+       storage_uses_managed_identity =
+         Prop.computed __resource_type __resource_id
+           "storage_uses_managed_identity";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_network_subnet_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_subnet_id";
+       webdeploy_publish_basic_authentication_enabled =
+         Prop.computed __resource_type __resource_id
+           "webdeploy_publish_basic_authentication_enabled";
+       zip_deploy_file =
+         Prop.computed __resource_type __resource_id
+           "zip_deploy_file";
+     }
+      : t)
+  in
+  __resource_attributes

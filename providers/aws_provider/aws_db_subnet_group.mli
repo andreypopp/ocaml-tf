@@ -4,6 +4,19 @@ open! Tf.Prelude
 
 type aws_db_subnet_group
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  subnet_ids : string list prop;
+  supported_network_types : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 val aws_db_subnet_group :
   ?description:string prop ->
   ?id:string prop ->
@@ -13,4 +26,4 @@ val aws_db_subnet_group :
   ?tags_all:(string * string prop) list ->
   subnet_ids:string prop list ->
   string ->
-  unit
+  t

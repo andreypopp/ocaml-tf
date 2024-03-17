@@ -4,6 +4,15 @@ open! Tf.Prelude
 
 type aws_vpc_network_performance_metric_subscription
 
+type t = private {
+  destination : string prop;
+  id : string prop;
+  metric : string prop;
+  period : string prop;
+  source : string prop;
+  statistic : string prop;
+}
+
 val aws_vpc_network_performance_metric_subscription :
   ?id:string prop ->
   ?metric:string prop ->
@@ -11,4 +20,4 @@ val aws_vpc_network_performance_metric_subscription :
   destination:string prop ->
   source:string prop ->
   string ->
-  unit
+  t

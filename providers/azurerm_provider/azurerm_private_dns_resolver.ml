@@ -25,20 +25,46 @@ type azurerm_private_dns_resolver = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  virtual_network_id : string prop;
+}
+
 let azurerm_private_dns_resolver ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~virtual_network_id __resource_id =
   let __resource_type = "azurerm_private_dns_resolver" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      virtual_network_id;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       virtual_network_id;
+       timeouts;
+     }
+      : azurerm_private_dns_resolver)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_resolver __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_network_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_id";
+     }
+      : t)
+  in
+  __resource_attributes

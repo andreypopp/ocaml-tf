@@ -40,6 +40,27 @@ type cloudflare_waiting_room_event = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Waiting Room Event resource. *)
 
+type t = {
+  created_on : string prop;
+  custom_page_html : string prop;
+  description : string prop;
+  disable_session_renewal : bool prop;
+  event_end_time : string prop;
+  event_start_time : string prop;
+  id : string prop;
+  modified_on : string prop;
+  name : string prop;
+  new_users_per_minute : float prop;
+  prequeue_start_time : string prop;
+  queueing_method : string prop;
+  session_duration : float prop;
+  shuffle_at_event_start : bool prop;
+  suspended : bool prop;
+  total_active_users : float prop;
+  waiting_room_id : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_waiting_room_event ?custom_page_html ?description
     ?disable_session_renewal ?id ?new_users_per_minute
     ?prequeue_start_time ?queueing_method ?session_duration
@@ -48,25 +69,75 @@ let cloudflare_waiting_room_event ?custom_page_html ?description
     __resource_id =
   let __resource_type = "cloudflare_waiting_room_event" in
   let __resource =
-    {
-      custom_page_html;
-      description;
-      disable_session_renewal;
-      event_end_time;
-      event_start_time;
-      id;
-      name;
-      new_users_per_minute;
-      prequeue_start_time;
-      queueing_method;
-      session_duration;
-      shuffle_at_event_start;
-      suspended;
-      total_active_users;
-      waiting_room_id;
-      zone_id;
-    }
+    ({
+       custom_page_html;
+       description;
+       disable_session_renewal;
+       event_end_time;
+       event_start_time;
+       id;
+       name;
+       new_users_per_minute;
+       prequeue_start_time;
+       queueing_method;
+       session_duration;
+       shuffle_at_event_start;
+       suspended;
+       total_active_users;
+       waiting_room_id;
+       zone_id;
+     }
+      : cloudflare_waiting_room_event)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_waiting_room_event __resource);
-  ()
+  let __resource_attributes =
+    ({
+       created_on =
+         Prop.computed __resource_type __resource_id "created_on";
+       custom_page_html =
+         Prop.computed __resource_type __resource_id
+           "custom_page_html";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disable_session_renewal =
+         Prop.computed __resource_type __resource_id
+           "disable_session_renewal";
+       event_end_time =
+         Prop.computed __resource_type __resource_id "event_end_time";
+       event_start_time =
+         Prop.computed __resource_type __resource_id
+           "event_start_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       modified_on =
+         Prop.computed __resource_type __resource_id "modified_on";
+       name = Prop.computed __resource_type __resource_id "name";
+       new_users_per_minute =
+         Prop.computed __resource_type __resource_id
+           "new_users_per_minute";
+       prequeue_start_time =
+         Prop.computed __resource_type __resource_id
+           "prequeue_start_time";
+       queueing_method =
+         Prop.computed __resource_type __resource_id
+           "queueing_method";
+       session_duration =
+         Prop.computed __resource_type __resource_id
+           "session_duration";
+       shuffle_at_event_start =
+         Prop.computed __resource_type __resource_id
+           "shuffle_at_event_start";
+       suspended =
+         Prop.computed __resource_type __resource_id "suspended";
+       total_active_users =
+         Prop.computed __resource_type __resource_id
+           "total_active_users";
+       waiting_room_id =
+         Prop.computed __resource_type __resource_id
+           "waiting_room_id";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

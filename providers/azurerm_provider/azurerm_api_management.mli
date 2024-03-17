@@ -30,6 +30,34 @@ type azurerm_api_management__policy = {
 
 type azurerm_api_management
 
+type t = private {
+  client_certificate_enabled : bool prop;
+  developer_portal_url : string prop;
+  gateway_disabled : bool prop;
+  gateway_regional_url : string prop;
+  gateway_url : string prop;
+  id : string prop;
+  location : string prop;
+  management_api_url : string prop;
+  min_api_version : string prop;
+  name : string prop;
+  notification_sender_email : string prop;
+  policy : azurerm_api_management__policy list prop;
+  portal_url : string prop;
+  private_ip_addresses : string list prop;
+  public_ip_address_id : string prop;
+  public_ip_addresses : string list prop;
+  public_network_access_enabled : bool prop;
+  publisher_email : string prop;
+  publisher_name : string prop;
+  resource_group_name : string prop;
+  scm_url : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+  virtual_network_type : string prop;
+  zones : string list prop;
+}
+
 val azurerm_api_management :
   ?client_certificate_enabled:bool prop ->
   ?gateway_disabled:bool prop ->
@@ -64,4 +92,4 @@ val azurerm_api_management :
   virtual_network_configuration:
     azurerm_api_management__virtual_network_configuration list ->
   string ->
-  unit
+  t

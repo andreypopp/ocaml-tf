@@ -12,12 +12,29 @@ type aws_iam_security_token_service_preferences = {
 [@@deriving yojson_of]
 (** aws_iam_security_token_service_preferences *)
 
+type t = {
+  global_endpoint_token_version : string prop;
+  id : string prop;
+}
+
 let aws_iam_security_token_service_preferences ?id
     ~global_endpoint_token_version __resource_id =
   let __resource_type =
     "aws_iam_security_token_service_preferences"
   in
-  let __resource = { global_endpoint_token_version; id } in
+  let __resource =
+    ({ global_endpoint_token_version; id }
+      : aws_iam_security_token_service_preferences)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_security_token_service_preferences __resource);
-  ()
+  let __resource_attributes =
+    ({
+       global_endpoint_token_version =
+         Prop.computed __resource_type __resource_id
+           "global_endpoint_token_version";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

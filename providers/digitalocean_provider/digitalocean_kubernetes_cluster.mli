@@ -30,6 +30,30 @@ type digitalocean_kubernetes_cluster__kube_config = {
 
 type digitalocean_kubernetes_cluster
 
+type t = private {
+  auto_upgrade : bool prop;
+  cluster_subnet : string prop;
+  created_at : string prop;
+  destroy_all_associated_resources : bool prop;
+  endpoint : string prop;
+  ha : bool prop;
+  id : string prop;
+  ipv4_address : string prop;
+  kube_config :
+    digitalocean_kubernetes_cluster__kube_config list prop;
+  name : string prop;
+  region : string prop;
+  registry_integration : bool prop;
+  service_subnet : string prop;
+  status : string prop;
+  surge_upgrade : bool prop;
+  tags : string list prop;
+  updated_at : string prop;
+  urn : string prop;
+  version : string prop;
+  vpc_uuid : string prop;
+}
+
 val digitalocean_kubernetes_cluster :
   ?auto_upgrade:bool prop ->
   ?destroy_all_associated_resources:bool prop ->
@@ -47,4 +71,4 @@ val digitalocean_kubernetes_cluster :
     digitalocean_kubernetes_cluster__maintenance_policy list ->
   node_pool:digitalocean_kubernetes_cluster__node_pool list ->
   string ->
-  unit
+  t

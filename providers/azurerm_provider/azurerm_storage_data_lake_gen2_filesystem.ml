@@ -37,6 +37,15 @@ type azurerm_storage_data_lake_gen2_filesystem = {
 [@@deriving yojson_of]
 (** azurerm_storage_data_lake_gen2_filesystem *)
 
+type t = {
+  group : string prop;
+  id : string prop;
+  name : string prop;
+  owner : string prop;
+  properties : (string * string) list prop;
+  storage_account_id : string prop;
+}
+
 let azurerm_storage_data_lake_gen2_filesystem ?group ?id ?owner
     ?properties ?timeouts ~name ~storage_account_id ~ace
     __resource_id =
@@ -44,17 +53,32 @@ let azurerm_storage_data_lake_gen2_filesystem ?group ?id ?owner
     "azurerm_storage_data_lake_gen2_filesystem"
   in
   let __resource =
-    {
-      group;
-      id;
-      name;
-      owner;
-      properties;
-      storage_account_id;
-      ace;
-      timeouts;
-    }
+    ({
+       group;
+       id;
+       name;
+       owner;
+       properties;
+       storage_account_id;
+       ace;
+       timeouts;
+     }
+      : azurerm_storage_data_lake_gen2_filesystem)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_data_lake_gen2_filesystem __resource);
-  ()
+  let __resource_attributes =
+    ({
+       group = Prop.computed __resource_type __resource_id "group";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       owner = Prop.computed __resource_type __resource_id "owner";
+       properties =
+         Prop.computed __resource_type __resource_id "properties";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+     }
+      : t)
+  in
+  __resource_attributes

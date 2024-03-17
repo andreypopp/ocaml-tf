@@ -653,6 +653,31 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 [@@deriving yojson_of]
 (** google_gkeonprem_bare_metal_cluster *)
 
+type t = {
+  admin_cluster_membership : string prop;
+  annotations : (string * string) list prop;
+  bare_metal_version : string prop;
+  create_time : string prop;
+  delete_time : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  endpoint : string prop;
+  etag : string prop;
+  fleet : google_gkeonprem_bare_metal_cluster__fleet list prop;
+  id : string prop;
+  local_name : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  status : google_gkeonprem_bare_metal_cluster__status list prop;
+  uid : string prop;
+  update_time : string prop;
+  validation_check :
+    google_gkeonprem_bare_metal_cluster__validation_check list prop;
+}
+
 let google_gkeonprem_bare_metal_cluster ?annotations ?description ?id
     ?project ?timeouts ~admin_cluster_membership ~bare_metal_version
     ~location ~name ~binary_authorization ~cluster_operations
@@ -661,31 +686,76 @@ let google_gkeonprem_bare_metal_cluster ?annotations ?description ?id
     ~security_config ~storage ~upgrade_policy __resource_id =
   let __resource_type = "google_gkeonprem_bare_metal_cluster" in
   let __resource =
-    {
-      admin_cluster_membership;
-      annotations;
-      bare_metal_version;
-      description;
-      id;
-      location;
-      name;
-      project;
-      binary_authorization;
-      cluster_operations;
-      control_plane;
-      load_balancer;
-      maintenance_config;
-      network_config;
-      node_access_config;
-      node_config;
-      os_environment_config;
-      proxy;
-      security_config;
-      storage;
-      timeouts;
-      upgrade_policy;
-    }
+    ({
+       admin_cluster_membership;
+       annotations;
+       bare_metal_version;
+       description;
+       id;
+       location;
+       name;
+       project;
+       binary_authorization;
+       cluster_operations;
+       control_plane;
+       load_balancer;
+       maintenance_config;
+       network_config;
+       node_access_config;
+       node_config;
+       os_environment_config;
+       proxy;
+       security_config;
+       storage;
+       timeouts;
+       upgrade_policy;
+     }
+      : google_gkeonprem_bare_metal_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gkeonprem_bare_metal_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin_cluster_membership =
+         Prop.computed __resource_type __resource_id
+           "admin_cluster_membership";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       bare_metal_version =
+         Prop.computed __resource_type __resource_id
+           "bare_metal_version";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       fleet = Prop.computed __resource_type __resource_id "fleet";
+       id = Prop.computed __resource_type __resource_id "id";
+       local_name =
+         Prop.computed __resource_type __resource_id "local_name";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       state = Prop.computed __resource_type __resource_id "state";
+       status = Prop.computed __resource_type __resource_id "status";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       validation_check =
+         Prop.computed __resource_type __resource_id
+           "validation_check";
+     }
+      : t)
+  in
+  __resource_attributes

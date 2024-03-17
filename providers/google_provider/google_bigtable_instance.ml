@@ -66,23 +66,59 @@ type google_bigtable_instance = {
 [@@deriving yojson_of]
 (** google_bigtable_instance *)
 
+type t = {
+  deletion_protection : bool prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  instance_type : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_bigtable_instance ?deletion_protection ?display_name ?id
     ?instance_type ?labels ?project ?timeouts ~name ~cluster
     __resource_id =
   let __resource_type = "google_bigtable_instance" in
   let __resource =
-    {
-      deletion_protection;
-      display_name;
-      id;
-      instance_type;
-      labels;
-      name;
-      project;
-      cluster;
-      timeouts;
-    }
+    ({
+       deletion_protection;
+       display_name;
+       id;
+       instance_type;
+       labels;
+       name;
+       project;
+       cluster;
+       timeouts;
+     }
+      : google_bigtable_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigtable_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       deletion_protection =
+         Prop.computed __resource_type __resource_id
+           "deletion_protection";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -50,13 +50,21 @@ type aws_bedrock_model_invocation_logging_configuration = {
 [@@deriving yojson_of]
 (** aws_bedrock_model_invocation_logging_configuration *)
 
+type t = { id : string prop }
+
 let aws_bedrock_model_invocation_logging_configuration
     ~logging_config __resource_id =
   let __resource_type =
     "aws_bedrock_model_invocation_logging_configuration"
   in
-  let __resource = { logging_config } in
+  let __resource =
+    ({ logging_config }
+      : aws_bedrock_model_invocation_logging_configuration)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_bedrock_model_invocation_logging_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

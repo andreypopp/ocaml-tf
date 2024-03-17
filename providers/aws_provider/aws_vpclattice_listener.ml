@@ -59,24 +59,66 @@ type aws_vpclattice_listener = {
 [@@deriving yojson_of]
 (** aws_vpclattice_listener *)
 
+type t = {
+  arn : string prop;
+  created_at : string prop;
+  id : string prop;
+  last_updated_at : string prop;
+  listener_id : string prop;
+  name : string prop;
+  port : float prop;
+  protocol : string prop;
+  service_arn : string prop;
+  service_identifier : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_vpclattice_listener ?id ?port ?service_arn
     ?service_identifier ?tags ?tags_all ?timeouts ~name ~protocol
     ~default_action __resource_id =
   let __resource_type = "aws_vpclattice_listener" in
   let __resource =
-    {
-      id;
-      name;
-      port;
-      protocol;
-      service_arn;
-      service_identifier;
-      tags;
-      tags_all;
-      default_action;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       port;
+       protocol;
+       service_arn;
+       service_identifier;
+       tags;
+       tags_all;
+       default_action;
+       timeouts;
+     }
+      : aws_vpclattice_listener)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_listener __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_updated_at =
+         Prop.computed __resource_type __resource_id
+           "last_updated_at";
+       listener_id =
+         Prop.computed __resource_type __resource_id "listener_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       port = Prop.computed __resource_type __resource_id "port";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       service_arn =
+         Prop.computed __resource_type __resource_id "service_arn";
+       service_identifier =
+         Prop.computed __resource_type __resource_id
+           "service_identifier";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

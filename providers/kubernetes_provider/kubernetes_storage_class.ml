@@ -61,24 +61,56 @@ type kubernetes_storage_class = {
 [@@deriving yojson_of]
 (** kubernetes_storage_class *)
 
+type t = {
+  allow_volume_expansion : bool prop;
+  id : string prop;
+  mount_options : string list prop;
+  parameters : (string * string) list prop;
+  reclaim_policy : string prop;
+  storage_provisioner : string prop;
+  volume_binding_mode : string prop;
+}
+
 let kubernetes_storage_class ?allow_volume_expansion ?id
     ?mount_options ?parameters ?reclaim_policy ?volume_binding_mode
     ~storage_provisioner ~allowed_topologies ~metadata __resource_id
     =
   let __resource_type = "kubernetes_storage_class" in
   let __resource =
-    {
-      allow_volume_expansion;
-      id;
-      mount_options;
-      parameters;
-      reclaim_policy;
-      storage_provisioner;
-      volume_binding_mode;
-      allowed_topologies;
-      metadata;
-    }
+    ({
+       allow_volume_expansion;
+       id;
+       mount_options;
+       parameters;
+       reclaim_policy;
+       storage_provisioner;
+       volume_binding_mode;
+       allowed_topologies;
+       metadata;
+     }
+      : kubernetes_storage_class)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_storage_class __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allow_volume_expansion =
+         Prop.computed __resource_type __resource_id
+           "allow_volume_expansion";
+       id = Prop.computed __resource_type __resource_id "id";
+       mount_options =
+         Prop.computed __resource_type __resource_id "mount_options";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       reclaim_policy =
+         Prop.computed __resource_type __resource_id "reclaim_policy";
+       storage_provisioner =
+         Prop.computed __resource_type __resource_id
+           "storage_provisioner";
+       volume_binding_mode =
+         Prop.computed __resource_type __resource_id
+           "volume_binding_mode";
+     }
+      : t)
+  in
+  __resource_attributes

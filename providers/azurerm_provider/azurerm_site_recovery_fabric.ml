@@ -23,19 +23,43 @@ type azurerm_site_recovery_fabric = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_fabric *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_site_recovery_fabric ?id ?timeouts ~location ~name
     ~recovery_vault_name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_site_recovery_fabric" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      recovery_vault_name;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       recovery_vault_name;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_site_recovery_fabric)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_site_recovery_fabric __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       recovery_vault_name =
+         Prop.computed __resource_type __resource_id
+           "recovery_vault_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

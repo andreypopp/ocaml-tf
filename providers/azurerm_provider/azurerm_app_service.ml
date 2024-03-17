@@ -354,6 +354,29 @@ type azurerm_app_service = {
 [@@deriving yojson_of]
 (** azurerm_app_service *)
 
+type t = {
+  app_service_plan_id : string prop;
+  app_settings : (string * string) list prop;
+  client_affinity_enabled : bool prop;
+  client_cert_enabled : bool prop;
+  client_cert_mode : string prop;
+  custom_domain_verification_id : string prop;
+  default_site_hostname : string prop;
+  enabled : bool prop;
+  https_only : bool prop;
+  id : string prop;
+  key_vault_reference_identity_id : string prop;
+  location : string prop;
+  name : string prop;
+  outbound_ip_address_list : string list prop;
+  outbound_ip_addresses : string prop;
+  possible_outbound_ip_address_list : string list prop;
+  possible_outbound_ip_addresses : string prop;
+  resource_group_name : string prop;
+  site_credential : azurerm_app_service__site_credential list prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_app_service ?app_settings ?client_affinity_enabled
     ?client_cert_enabled ?client_cert_mode ?enabled ?https_only ?id
     ?key_vault_reference_identity_id ?tags ?timeouts
@@ -362,31 +385,87 @@ let azurerm_app_service ?app_settings ?client_affinity_enabled
     ~site_config ~source_control ~storage_account __resource_id =
   let __resource_type = "azurerm_app_service" in
   let __resource =
-    {
-      app_service_plan_id;
-      app_settings;
-      client_affinity_enabled;
-      client_cert_enabled;
-      client_cert_mode;
-      enabled;
-      https_only;
-      id;
-      key_vault_reference_identity_id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      auth_settings;
-      backup;
-      connection_string;
-      identity;
-      logs;
-      site_config;
-      source_control;
-      storage_account;
-      timeouts;
-    }
+    ({
+       app_service_plan_id;
+       app_settings;
+       client_affinity_enabled;
+       client_cert_enabled;
+       client_cert_mode;
+       enabled;
+       https_only;
+       id;
+       key_vault_reference_identity_id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       auth_settings;
+       backup;
+       connection_string;
+       identity;
+       logs;
+       site_config;
+       source_control;
+       storage_account;
+       timeouts;
+     }
+      : azurerm_app_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_service_plan_id =
+         Prop.computed __resource_type __resource_id
+           "app_service_plan_id";
+       app_settings =
+         Prop.computed __resource_type __resource_id "app_settings";
+       client_affinity_enabled =
+         Prop.computed __resource_type __resource_id
+           "client_affinity_enabled";
+       client_cert_enabled =
+         Prop.computed __resource_type __resource_id
+           "client_cert_enabled";
+       client_cert_mode =
+         Prop.computed __resource_type __resource_id
+           "client_cert_mode";
+       custom_domain_verification_id =
+         Prop.computed __resource_type __resource_id
+           "custom_domain_verification_id";
+       default_site_hostname =
+         Prop.computed __resource_type __resource_id
+           "default_site_hostname";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       https_only =
+         Prop.computed __resource_type __resource_id "https_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_reference_identity_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_reference_identity_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_ip_address_list =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_address_list";
+       outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_addresses";
+       possible_outbound_ip_address_list =
+         Prop.computed __resource_type __resource_id
+           "possible_outbound_ip_address_list";
+       possible_outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "possible_outbound_ip_addresses";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       site_credential =
+         Prop.computed __resource_type __resource_id
+           "site_credential";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

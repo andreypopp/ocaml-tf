@@ -27,12 +27,46 @@ type aws_gamelift_script = {
 [@@deriving yojson_of]
 (** aws_gamelift_script *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+  zip_file : string prop;
+}
+
 let aws_gamelift_script ?id ?tags ?tags_all ?version ?zip_file ~name
     ~storage_location __resource_id =
   let __resource_type = "aws_gamelift_script" in
   let __resource =
-    { id; name; tags; tags_all; version; zip_file; storage_location }
+    ({
+       id;
+       name;
+       tags;
+       tags_all;
+       version;
+       zip_file;
+       storage_location;
+     }
+      : aws_gamelift_script)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_gamelift_script __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+       zip_file =
+         Prop.computed __resource_type __resource_id "zip_file";
+     }
+      : t)
+  in
+  __resource_attributes

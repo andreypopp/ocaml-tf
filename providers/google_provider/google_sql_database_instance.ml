@@ -357,6 +357,32 @@ type google_sql_database_instance = {
 [@@deriving yojson_of]
 (** google_sql_database_instance *)
 
+type t = {
+  available_maintenance_versions : string list prop;
+  connection_name : string prop;
+  database_version : string prop;
+  deletion_protection : bool prop;
+  dns_name : string prop;
+  encryption_key_name : string prop;
+  first_ip_address : string prop;
+  id : string prop;
+  instance_type : string prop;
+  ip_address : google_sql_database_instance__ip_address list prop;
+  maintenance_version : string prop;
+  master_instance_name : string prop;
+  name : string prop;
+  private_ip_address : string prop;
+  project : string prop;
+  psc_service_attachment_link : string prop;
+  public_ip_address : string prop;
+  region : string prop;
+  root_password : string prop;
+  self_link : string prop;
+  server_ca_cert :
+    google_sql_database_instance__server_ca_cert list prop;
+  service_account_email_address : string prop;
+}
+
 let google_sql_database_instance ?deletion_protection
     ?encryption_key_name ?id ?instance_type ?maintenance_version
     ?master_instance_name ?name ?project ?region ?root_password
@@ -364,25 +390,84 @@ let google_sql_database_instance ?deletion_protection
     ~restore_backup_context ~settings __resource_id =
   let __resource_type = "google_sql_database_instance" in
   let __resource =
-    {
-      database_version;
-      deletion_protection;
-      encryption_key_name;
-      id;
-      instance_type;
-      maintenance_version;
-      master_instance_name;
-      name;
-      project;
-      region;
-      root_password;
-      clone;
-      replica_configuration;
-      restore_backup_context;
-      settings;
-      timeouts;
-    }
+    ({
+       database_version;
+       deletion_protection;
+       encryption_key_name;
+       id;
+       instance_type;
+       maintenance_version;
+       master_instance_name;
+       name;
+       project;
+       region;
+       root_password;
+       clone;
+       replica_configuration;
+       restore_backup_context;
+       settings;
+       timeouts;
+     }
+      : google_sql_database_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_database_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       available_maintenance_versions =
+         Prop.computed __resource_type __resource_id
+           "available_maintenance_versions";
+       connection_name =
+         Prop.computed __resource_type __resource_id
+           "connection_name";
+       database_version =
+         Prop.computed __resource_type __resource_id
+           "database_version";
+       deletion_protection =
+         Prop.computed __resource_type __resource_id
+           "deletion_protection";
+       dns_name =
+         Prop.computed __resource_type __resource_id "dns_name";
+       encryption_key_name =
+         Prop.computed __resource_type __resource_id
+           "encryption_key_name";
+       first_ip_address =
+         Prop.computed __resource_type __resource_id
+           "first_ip_address";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       maintenance_version =
+         Prop.computed __resource_type __resource_id
+           "maintenance_version";
+       master_instance_name =
+         Prop.computed __resource_type __resource_id
+           "master_instance_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_ip_address =
+         Prop.computed __resource_type __resource_id
+           "private_ip_address";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       psc_service_attachment_link =
+         Prop.computed __resource_type __resource_id
+           "psc_service_attachment_link";
+       public_ip_address =
+         Prop.computed __resource_type __resource_id
+           "public_ip_address";
+       region = Prop.computed __resource_type __resource_id "region";
+       root_password =
+         Prop.computed __resource_type __resource_id "root_password";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       server_ca_cert =
+         Prop.computed __resource_type __resource_id "server_ca_cert";
+       service_account_email_address =
+         Prop.computed __resource_type __resource_id
+           "service_account_email_address";
+     }
+      : t)
+  in
+  __resource_attributes

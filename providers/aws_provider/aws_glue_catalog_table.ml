@@ -155,6 +155,21 @@ type aws_glue_catalog_table = {
 [@@deriving yojson_of]
 (** aws_glue_catalog_table *)
 
+type t = {
+  arn : string prop;
+  catalog_id : string prop;
+  database_name : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  owner : string prop;
+  parameters : (string * string) list prop;
+  retention : float prop;
+  table_type : string prop;
+  view_expanded_text : string prop;
+  view_original_text : string prop;
+}
+
 let aws_glue_catalog_table ?catalog_id ?description ?id ?owner
     ?parameters ?retention ?table_type ?view_expanded_text
     ?view_original_text ~database_name ~name ~open_table_format_input
@@ -162,25 +177,53 @@ let aws_glue_catalog_table ?catalog_id ?description ?id ?owner
     ~target_table __resource_id =
   let __resource_type = "aws_glue_catalog_table" in
   let __resource =
-    {
-      catalog_id;
-      database_name;
-      description;
-      id;
-      name;
-      owner;
-      parameters;
-      retention;
-      table_type;
-      view_expanded_text;
-      view_original_text;
-      open_table_format_input;
-      partition_index;
-      partition_keys;
-      storage_descriptor;
-      target_table;
-    }
+    ({
+       catalog_id;
+       database_name;
+       description;
+       id;
+       name;
+       owner;
+       parameters;
+       retention;
+       table_type;
+       view_expanded_text;
+       view_original_text;
+       open_table_format_input;
+       partition_index;
+       partition_keys;
+       storage_descriptor;
+       target_table;
+     }
+      : aws_glue_catalog_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_catalog_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       catalog_id =
+         Prop.computed __resource_type __resource_id "catalog_id";
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       owner = Prop.computed __resource_type __resource_id "owner";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       retention =
+         Prop.computed __resource_type __resource_id "retention";
+       table_type =
+         Prop.computed __resource_type __resource_id "table_type";
+       view_expanded_text =
+         Prop.computed __resource_type __resource_id
+           "view_expanded_text";
+       view_original_text =
+         Prop.computed __resource_type __resource_id
+           "view_original_text";
+     }
+      : t)
+  in
+  __resource_attributes

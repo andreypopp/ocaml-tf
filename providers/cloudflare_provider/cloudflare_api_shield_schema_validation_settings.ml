@@ -18,6 +18,13 @@ type cloudflare_api_shield_schema_validation_settings = {
 (** Provides a resource to manage settings in API Shield Schema Validation 2.0.
  *)
 
+type t = {
+  id : string prop;
+  validation_default_mitigation_action : string prop;
+  validation_override_mitigation_action : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_api_shield_schema_validation_settings ?id
     ?validation_override_mitigation_action
     ~validation_default_mitigation_action ~zone_id __resource_id =
@@ -25,14 +32,29 @@ let cloudflare_api_shield_schema_validation_settings ?id
     "cloudflare_api_shield_schema_validation_settings"
   in
   let __resource =
-    {
-      id;
-      validation_default_mitigation_action;
-      validation_override_mitigation_action;
-      zone_id;
-    }
+    ({
+       id;
+       validation_default_mitigation_action;
+       validation_override_mitigation_action;
+       zone_id;
+     }
+      : cloudflare_api_shield_schema_validation_settings)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_api_shield_schema_validation_settings
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       validation_default_mitigation_action =
+         Prop.computed __resource_type __resource_id
+           "validation_default_mitigation_action";
+       validation_override_mitigation_action =
+         Prop.computed __resource_type __resource_id
+           "validation_override_mitigation_action";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -70,6 +70,19 @@ type aws_appmesh_virtual_gateway__spec__logging
 type aws_appmesh_virtual_gateway__spec
 type aws_appmesh_virtual_gateway
 
+type t = private {
+  arn : string prop;
+  created_date : string prop;
+  id : string prop;
+  last_updated_date : string prop;
+  mesh_name : string prop;
+  mesh_owner : string prop;
+  name : string prop;
+  resource_owner : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_appmesh_virtual_gateway :
   ?id:string prop ->
   ?mesh_owner:string prop ->
@@ -79,4 +92,4 @@ val aws_appmesh_virtual_gateway :
   name:string prop ->
   spec:aws_appmesh_virtual_gateway__spec list ->
   string ->
-  unit
+  t

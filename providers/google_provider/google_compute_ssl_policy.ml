@@ -53,22 +53,66 @@ for information on what cipher suites each profile provides. If
 [@@deriving yojson_of]
 (** google_compute_ssl_policy *)
 
+type t = {
+  creation_timestamp : string prop;
+  custom_features : string list prop;
+  description : string prop;
+  enabled_features : string list prop;
+  fingerprint : string prop;
+  id : string prop;
+  min_tls_version : string prop;
+  name : string prop;
+  profile : string prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 let google_compute_ssl_policy ?custom_features ?description ?id
     ?min_tls_version ?profile ?project ?timeouts ~name __resource_id
     =
   let __resource_type = "google_compute_ssl_policy" in
   let __resource =
-    {
-      custom_features;
-      description;
-      id;
-      min_tls_version;
-      name;
-      profile;
-      project;
-      timeouts;
-    }
+    ({
+       custom_features;
+       description;
+       id;
+       min_tls_version;
+       name;
+       profile;
+       project;
+       timeouts;
+     }
+      : google_compute_ssl_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_ssl_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       custom_features =
+         Prop.computed __resource_type __resource_id
+           "custom_features";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled_features =
+         Prop.computed __resource_type __resource_id
+           "enabled_features";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       min_tls_version =
+         Prop.computed __resource_type __resource_id
+           "min_tls_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       profile =
+         Prop.computed __resource_type __resource_id "profile";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

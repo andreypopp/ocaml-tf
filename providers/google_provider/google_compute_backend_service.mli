@@ -31,6 +31,32 @@ type google_compute_backend_service__security_settings
 type google_compute_backend_service__timeouts
 type google_compute_backend_service
 
+type t = private {
+  affinity_cookie_ttl_sec : float prop;
+  compression_mode : string prop;
+  connection_draining_timeout_sec : float prop;
+  creation_timestamp : string prop;
+  custom_request_headers : string list prop;
+  custom_response_headers : string list prop;
+  description : string prop;
+  edge_security_policy : string prop;
+  enable_cdn : bool prop;
+  fingerprint : string prop;
+  generated_id : float prop;
+  health_checks : string list prop;
+  id : string prop;
+  load_balancing_scheme : string prop;
+  locality_lb_policy : string prop;
+  name : string prop;
+  port_name : string prop;
+  project : string prop;
+  protocol : string prop;
+  security_policy : string prop;
+  self_link : string prop;
+  session_affinity : string prop;
+  timeout_sec : float prop;
+}
+
 val google_compute_backend_service :
   ?affinity_cookie_ttl_sec:float prop ->
   ?compression_mode:string prop ->
@@ -67,4 +93,4 @@ val google_compute_backend_service :
   security_settings:
     google_compute_backend_service__security_settings list ->
   string ->
-  unit
+  t

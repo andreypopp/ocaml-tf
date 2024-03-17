@@ -145,30 +145,98 @@ provided, all zones will be used. *)
 [@@deriving yojson_of]
 (** google_memcache_instance *)
 
+type t = {
+  authorized_network : string prop;
+  create_time : string prop;
+  discovery_endpoint : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  maintenance_schedule :
+    google_memcache_instance__maintenance_schedule list prop;
+  memcache_full_version : string prop;
+  memcache_nodes :
+    google_memcache_instance__memcache_nodes list prop;
+  memcache_version : string prop;
+  name : string prop;
+  node_count : float prop;
+  project : string prop;
+  region : string prop;
+  reserved_ip_range_id : string list prop;
+  terraform_labels : (string * string) list prop;
+  zones : string list prop;
+}
+
 let google_memcache_instance ?authorized_network ?display_name ?id
     ?labels ?memcache_version ?project ?region ?reserved_ip_range_id
     ?zones ?timeouts ~name ~node_count ~maintenance_policy
     ~memcache_parameters ~node_config __resource_id =
   let __resource_type = "google_memcache_instance" in
   let __resource =
-    {
-      authorized_network;
-      display_name;
-      id;
-      labels;
-      memcache_version;
-      name;
-      node_count;
-      project;
-      region;
-      reserved_ip_range_id;
-      zones;
-      maintenance_policy;
-      memcache_parameters;
-      node_config;
-      timeouts;
-    }
+    ({
+       authorized_network;
+       display_name;
+       id;
+       labels;
+       memcache_version;
+       name;
+       node_count;
+       project;
+       region;
+       reserved_ip_range_id;
+       zones;
+       maintenance_policy;
+       memcache_parameters;
+       node_config;
+       timeouts;
+     }
+      : google_memcache_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_memcache_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authorized_network =
+         Prop.computed __resource_type __resource_id
+           "authorized_network";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       discovery_endpoint =
+         Prop.computed __resource_type __resource_id
+           "discovery_endpoint";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       maintenance_schedule =
+         Prop.computed __resource_type __resource_id
+           "maintenance_schedule";
+       memcache_full_version =
+         Prop.computed __resource_type __resource_id
+           "memcache_full_version";
+       memcache_nodes =
+         Prop.computed __resource_type __resource_id "memcache_nodes";
+       memcache_version =
+         Prop.computed __resource_type __resource_id
+           "memcache_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_count =
+         Prop.computed __resource_type __resource_id "node_count";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       reserved_ip_range_id =
+         Prop.computed __resource_type __resource_id
+           "reserved_ip_range_id";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

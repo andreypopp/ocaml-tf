@@ -7,6 +7,14 @@ type azurerm_network_function_collector_policy__ipfx_ingestion
 type azurerm_network_function_collector_policy__timeouts
 type azurerm_network_function_collector_policy
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  traffic_collector_id : string prop;
+}
+
 val azurerm_network_function_collector_policy :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -19,4 +27,4 @@ val azurerm_network_function_collector_policy :
   ipfx_ingestion:
     azurerm_network_function_collector_policy__ipfx_ingestion list ->
   string ->
-  unit
+  t

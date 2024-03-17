@@ -79,20 +79,53 @@ https://gcr.io/project/image@sha256:123abc for a Docker image. *)
 [@@deriving yojson_of]
 (** google_container_analysis_occurrence *)
 
+type t = {
+  create_time : string prop;
+  id : string prop;
+  kind : string prop;
+  name : string prop;
+  note_name : string prop;
+  project : string prop;
+  remediation : string prop;
+  resource_uri : string prop;
+  update_time : string prop;
+}
+
 let google_container_analysis_occurrence ?id ?project ?remediation
     ?timeouts ~note_name ~resource_uri ~attestation __resource_id =
   let __resource_type = "google_container_analysis_occurrence" in
   let __resource =
-    {
-      id;
-      note_name;
-      project;
-      remediation;
-      resource_uri;
-      attestation;
-      timeouts;
-    }
+    ({
+       id;
+       note_name;
+       project;
+       remediation;
+       resource_uri;
+       attestation;
+       timeouts;
+     }
+      : google_container_analysis_occurrence)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_analysis_occurrence __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       name = Prop.computed __resource_type __resource_id "name";
+       note_name =
+         Prop.computed __resource_type __resource_id "note_name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       remediation =
+         Prop.computed __resource_type __resource_id "remediation";
+       resource_uri =
+         Prop.computed __resource_type __resource_id "resource_uri";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

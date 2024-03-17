@@ -19,6 +19,26 @@ type aws_bedrock_custom_model__validation_metrics = {
 
 type aws_bedrock_custom_model
 
+type t = private {
+  base_model_identifier : string prop;
+  custom_model_arn : string prop;
+  custom_model_kms_key_id : string prop;
+  custom_model_name : string prop;
+  customization_type : string prop;
+  hyperparameters : (string * string) list prop;
+  id : string prop;
+  job_arn : string prop;
+  job_name : string prop;
+  job_status : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  training_metrics :
+    aws_bedrock_custom_model__training_metrics list prop;
+  validation_metrics :
+    aws_bedrock_custom_model__validation_metrics list prop;
+}
+
 val aws_bedrock_custom_model :
   ?custom_model_kms_key_id:string prop ->
   ?customization_type:string prop ->
@@ -37,4 +57,4 @@ val aws_bedrock_custom_model :
     aws_bedrock_custom_model__validation_data_config list ->
   vpc_config:aws_bedrock_custom_model__vpc_config list ->
   string ->
-  unit
+  t

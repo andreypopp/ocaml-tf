@@ -24,12 +24,38 @@ type google_bigtable_table_iam_binding = {
 [@@deriving yojson_of]
 (** google_bigtable_table_iam_binding *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  instance : string prop;
+  members : string list prop;
+  project : string prop;
+  role : string prop;
+  table : string prop;
+}
+
 let google_bigtable_table_iam_binding ?id ?project ~instance ~members
     ~role ~table ~condition __resource_id =
   let __resource_type = "google_bigtable_table_iam_binding" in
   let __resource =
-    { id; instance; members; project; role; table; condition }
+    ({ id; instance; members; project; role; table; condition }
+      : google_bigtable_table_iam_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigtable_table_iam_binding __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance =
+         Prop.computed __resource_type __resource_id "instance";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+       table = Prop.computed __resource_type __resource_id "table";
+     }
+      : t)
+  in
+  __resource_attributes

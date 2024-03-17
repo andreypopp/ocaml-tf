@@ -14,10 +14,31 @@ type aws_iam_user_policy = {
 [@@deriving yojson_of]
 (** aws_iam_user_policy *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  policy : string prop;
+  user : string prop;
+}
+
 let aws_iam_user_policy ?id ?name ?name_prefix ~policy ~user
     __resource_id =
   let __resource_type = "aws_iam_user_policy" in
-  let __resource = { id; name; name_prefix; policy; user } in
+  let __resource =
+    ({ id; name; name_prefix; policy; user } : aws_iam_user_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_user_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       user = Prop.computed __resource_type __resource_id "user";
+     }
+      : t)
+  in
+  __resource_attributes

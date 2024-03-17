@@ -62,15 +62,37 @@ type aws_lightsail_container_service_deployment_version = {
 [@@deriving yojson_of]
 (** aws_lightsail_container_service_deployment_version *)
 
+type t = {
+  created_at : string prop;
+  id : string prop;
+  service_name : string prop;
+  state : string prop;
+  version : float prop;
+}
+
 let aws_lightsail_container_service_deployment_version ?id ?timeouts
     ~service_name ~container ~public_endpoint __resource_id =
   let __resource_type =
     "aws_lightsail_container_service_deployment_version"
   in
   let __resource =
-    { id; service_name; container; public_endpoint; timeouts }
+    ({ id; service_name; container; public_endpoint; timeouts }
+      : aws_lightsail_container_service_deployment_version)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_container_service_deployment_version
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       id = Prop.computed __resource_type __resource_id "id";
+       service_name =
+         Prop.computed __resource_type __resource_id "service_name";
+       state = Prop.computed __resource_type __resource_id "state";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

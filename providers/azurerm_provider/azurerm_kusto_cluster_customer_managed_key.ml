@@ -26,6 +26,15 @@ type azurerm_kusto_cluster_customer_managed_key = {
 [@@deriving yojson_of]
 (** azurerm_kusto_cluster_customer_managed_key *)
 
+type t = {
+  cluster_id : string prop;
+  id : string prop;
+  key_name : string prop;
+  key_vault_id : string prop;
+  key_version : string prop;
+  user_identity : string prop;
+}
+
 let azurerm_kusto_cluster_customer_managed_key ?id ?key_version
     ?user_identity ?timeouts ~cluster_id ~key_name ~key_vault_id
     __resource_id =
@@ -33,16 +42,33 @@ let azurerm_kusto_cluster_customer_managed_key ?id ?key_version
     "azurerm_kusto_cluster_customer_managed_key"
   in
   let __resource =
-    {
-      cluster_id;
-      id;
-      key_name;
-      key_vault_id;
-      key_version;
-      user_identity;
-      timeouts;
-    }
+    ({
+       cluster_id;
+       id;
+       key_name;
+       key_vault_id;
+       key_version;
+       user_identity;
+       timeouts;
+     }
+      : azurerm_kusto_cluster_customer_managed_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_cluster_customer_managed_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_name =
+         Prop.computed __resource_type __resource_id "key_name";
+       key_vault_id =
+         Prop.computed __resource_type __resource_id "key_vault_id";
+       key_version =
+         Prop.computed __resource_type __resource_id "key_version";
+       user_identity =
+         Prop.computed __resource_type __resource_id "user_identity";
+     }
+      : t)
+  in
+  __resource_attributes

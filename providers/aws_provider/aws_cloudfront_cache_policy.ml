@@ -82,21 +82,48 @@ type aws_cloudfront_cache_policy = {
 [@@deriving yojson_of]
 (** aws_cloudfront_cache_policy *)
 
+type t = {
+  comment : string prop;
+  default_ttl : float prop;
+  etag : string prop;
+  id : string prop;
+  max_ttl : float prop;
+  min_ttl : float prop;
+  name : string prop;
+}
+
 let aws_cloudfront_cache_policy ?comment ?default_ttl ?id ?max_ttl
     ?min_ttl ~name ~parameters_in_cache_key_and_forwarded_to_origin
     __resource_id =
   let __resource_type = "aws_cloudfront_cache_policy" in
   let __resource =
-    {
-      comment;
-      default_ttl;
-      id;
-      max_ttl;
-      min_ttl;
-      name;
-      parameters_in_cache_key_and_forwarded_to_origin;
-    }
+    ({
+       comment;
+       default_ttl;
+       id;
+       max_ttl;
+       min_ttl;
+       name;
+       parameters_in_cache_key_and_forwarded_to_origin;
+     }
+      : aws_cloudfront_cache_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_cache_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       comment =
+         Prop.computed __resource_type __resource_id "comment";
+       default_ttl =
+         Prop.computed __resource_type __resource_id "default_ttl";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       max_ttl =
+         Prop.computed __resource_type __resource_id "max_ttl";
+       min_ttl =
+         Prop.computed __resource_type __resource_id "min_ttl";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

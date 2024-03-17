@@ -13,6 +13,22 @@ type google_network_connectivity_spoke__linked_vpn_tunnels
 type google_network_connectivity_spoke__timeouts
 type google_network_connectivity_spoke
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  hub : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  unique_id : string prop;
+  update_time : string prop;
+}
+
 val google_network_connectivity_spoke :
   ?description:string prop ->
   ?id:string prop ->
@@ -33,4 +49,4 @@ val google_network_connectivity_spoke :
   linked_vpn_tunnels:
     google_network_connectivity_spoke__linked_vpn_tunnels list ->
   string ->
-  unit
+  t

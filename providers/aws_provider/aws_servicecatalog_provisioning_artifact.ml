@@ -34,27 +34,75 @@ type aws_servicecatalog_provisioning_artifact = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_provisioning_artifact *)
 
+type t = {
+  accept_language : string prop;
+  active : bool prop;
+  created_time : string prop;
+  description : string prop;
+  disable_template_validation : bool prop;
+  guidance : string prop;
+  id : string prop;
+  name : string prop;
+  product_id : string prop;
+  provisioning_artifact_id : string prop;
+  template_physical_id : string prop;
+  template_url : string prop;
+  type_ : string prop;
+}
+
 let aws_servicecatalog_provisioning_artifact ?accept_language ?active
     ?description ?disable_template_validation ?guidance ?id ?name
     ?template_physical_id ?template_url ?type_ ?timeouts ~product_id
     __resource_id =
   let __resource_type = "aws_servicecatalog_provisioning_artifact" in
   let __resource =
-    {
-      accept_language;
-      active;
-      description;
-      disable_template_validation;
-      guidance;
-      id;
-      name;
-      product_id;
-      template_physical_id;
-      template_url;
-      type_;
-      timeouts;
-    }
+    ({
+       accept_language;
+       active;
+       description;
+       disable_template_validation;
+       guidance;
+       id;
+       name;
+       product_id;
+       template_physical_id;
+       template_url;
+       type_;
+       timeouts;
+     }
+      : aws_servicecatalog_provisioning_artifact)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_provisioning_artifact __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accept_language =
+         Prop.computed __resource_type __resource_id
+           "accept_language";
+       active = Prop.computed __resource_type __resource_id "active";
+       created_time =
+         Prop.computed __resource_type __resource_id "created_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disable_template_validation =
+         Prop.computed __resource_type __resource_id
+           "disable_template_validation";
+       guidance =
+         Prop.computed __resource_type __resource_id "guidance";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       product_id =
+         Prop.computed __resource_type __resource_id "product_id";
+       provisioning_artifact_id =
+         Prop.computed __resource_type __resource_id
+           "provisioning_artifact_id";
+       template_physical_id =
+         Prop.computed __resource_type __resource_id
+           "template_physical_id";
+       template_url =
+         Prop.computed __resource_type __resource_id "template_url";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

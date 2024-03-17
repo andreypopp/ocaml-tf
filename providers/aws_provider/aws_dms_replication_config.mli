@@ -6,6 +6,22 @@ type aws_dms_replication_config__compute_config
 type aws_dms_replication_config__timeouts
 type aws_dms_replication_config
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  replication_config_identifier : string prop;
+  replication_settings : string prop;
+  replication_type : string prop;
+  resource_identifier : string prop;
+  source_endpoint_arn : string prop;
+  start_replication : bool prop;
+  supplemental_settings : string prop;
+  table_mappings : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_endpoint_arn : string prop;
+}
+
 val aws_dms_replication_config :
   ?id:string prop ->
   ?replication_settings:string prop ->
@@ -22,4 +38,4 @@ val aws_dms_replication_config :
   target_endpoint_arn:string prop ->
   compute_config:aws_dms_replication_config__compute_config list ->
   string ->
-  unit
+  t

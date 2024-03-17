@@ -10,6 +10,26 @@ type aws_gamelift_fleet__runtime_configuration
 type aws_gamelift_fleet__timeouts
 type aws_gamelift_fleet
 
+type t = private {
+  arn : string prop;
+  build_arn : string prop;
+  build_id : string prop;
+  description : string prop;
+  ec2_instance_type : string prop;
+  fleet_type : string prop;
+  id : string prop;
+  instance_role_arn : string prop;
+  log_paths : string list prop;
+  metric_groups : string list prop;
+  name : string prop;
+  new_game_session_protection_policy : string prop;
+  operating_system : string prop;
+  script_arn : string prop;
+  script_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_gamelift_fleet :
   ?build_id:string prop ->
   ?description:string prop ->
@@ -33,4 +53,4 @@ val aws_gamelift_fleet :
   runtime_configuration:
     aws_gamelift_fleet__runtime_configuration list ->
   string ->
-  unit
+  t

@@ -93,25 +93,49 @@ If it is not provided, the provider region is used. *)
 [@@deriving yojson_of]
 (** google_compute_packet_mirroring *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  priority : float prop;
+  project : string prop;
+  region : string prop;
+}
+
 let google_compute_packet_mirroring ?description ?id ?priority
     ?project ?region ?timeouts ~name ~collector_ilb ~filter
     ~mirrored_resources ~network __resource_id =
   let __resource_type = "google_compute_packet_mirroring" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      priority;
-      project;
-      region;
-      collector_ilb;
-      filter;
-      mirrored_resources;
-      network;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       priority;
+       project;
+       region;
+       collector_ilb;
+       filter;
+       mirrored_resources;
+       network;
+       timeouts;
+     }
+      : google_compute_packet_mirroring)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_packet_mirroring __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+     }
+      : t)
+  in
+  __resource_attributes

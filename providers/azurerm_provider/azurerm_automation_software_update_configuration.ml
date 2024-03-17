@@ -160,6 +160,19 @@ type azurerm_automation_software_update_configuration = {
 [@@deriving yojson_of]
 (** azurerm_automation_software_update_configuration *)
 
+type t = {
+  automation_account_id : string prop;
+  duration : string prop;
+  error_code : string prop;
+  error_meesage : string prop;
+  error_message : string prop;
+  id : string prop;
+  name : string prop;
+  non_azure_computer_names : string list prop;
+  operating_system : string prop;
+  virtual_machine_ids : string list prop;
+}
+
 let azurerm_automation_software_update_configuration ?duration ?id
     ?non_azure_computer_names ?operating_system ?virtual_machine_ids
     ?timeouts ~automation_account_id ~name ~linux ~post_task
@@ -168,24 +181,52 @@ let azurerm_automation_software_update_configuration ?duration ?id
     "azurerm_automation_software_update_configuration"
   in
   let __resource =
-    {
-      automation_account_id;
-      duration;
-      id;
-      name;
-      non_azure_computer_names;
-      operating_system;
-      virtual_machine_ids;
-      linux;
-      post_task;
-      pre_task;
-      schedule;
-      target;
-      timeouts;
-      windows;
-    }
+    ({
+       automation_account_id;
+       duration;
+       id;
+       name;
+       non_azure_computer_names;
+       operating_system;
+       virtual_machine_ids;
+       linux;
+       post_task;
+       pre_task;
+       schedule;
+       target;
+       timeouts;
+       windows;
+     }
+      : azurerm_automation_software_update_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_software_update_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automation_account_id =
+         Prop.computed __resource_type __resource_id
+           "automation_account_id";
+       duration =
+         Prop.computed __resource_type __resource_id "duration";
+       error_code =
+         Prop.computed __resource_type __resource_id "error_code";
+       error_meesage =
+         Prop.computed __resource_type __resource_id "error_meesage";
+       error_message =
+         Prop.computed __resource_type __resource_id "error_message";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       non_azure_computer_names =
+         Prop.computed __resource_type __resource_id
+           "non_azure_computer_names";
+       operating_system =
+         Prop.computed __resource_type __resource_id
+           "operating_system";
+       virtual_machine_ids =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_ids";
+     }
+      : t)
+  in
+  __resource_attributes

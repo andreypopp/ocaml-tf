@@ -84,6 +84,28 @@ type digitalocean_loadbalancer = {
 [@@deriving yojson_of]
 (** digitalocean_loadbalancer *)
 
+type t = {
+  algorithm : string prop;
+  disable_lets_encrypt_dns_records : bool prop;
+  droplet_ids : float list prop;
+  droplet_tag : string prop;
+  enable_backend_keepalive : bool prop;
+  enable_proxy_protocol : bool prop;
+  http_idle_timeout_seconds : float prop;
+  id : string prop;
+  ip : string prop;
+  name : string prop;
+  project_id : string prop;
+  redirect_http_to_https : bool prop;
+  region : string prop;
+  size : string prop;
+  size_unit : float prop;
+  status : string prop;
+  type_ : string prop;
+  urn : string prop;
+  vpc_uuid : string prop;
+}
+
 let digitalocean_loadbalancer ?algorithm
     ?disable_lets_encrypt_dns_records ?droplet_ids ?droplet_tag
     ?enable_backend_keepalive ?enable_proxy_protocol
@@ -93,29 +115,70 @@ let digitalocean_loadbalancer ?algorithm
     __resource_id =
   let __resource_type = "digitalocean_loadbalancer" in
   let __resource =
-    {
-      algorithm;
-      disable_lets_encrypt_dns_records;
-      droplet_ids;
-      droplet_tag;
-      enable_backend_keepalive;
-      enable_proxy_protocol;
-      http_idle_timeout_seconds;
-      id;
-      name;
-      project_id;
-      redirect_http_to_https;
-      region;
-      size;
-      size_unit;
-      type_;
-      vpc_uuid;
-      firewall;
-      forwarding_rule;
-      healthcheck;
-      sticky_sessions;
-    }
+    ({
+       algorithm;
+       disable_lets_encrypt_dns_records;
+       droplet_ids;
+       droplet_tag;
+       enable_backend_keepalive;
+       enable_proxy_protocol;
+       http_idle_timeout_seconds;
+       id;
+       name;
+       project_id;
+       redirect_http_to_https;
+       region;
+       size;
+       size_unit;
+       type_;
+       vpc_uuid;
+       firewall;
+       forwarding_rule;
+       healthcheck;
+       sticky_sessions;
+     }
+      : digitalocean_loadbalancer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_loadbalancer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       algorithm =
+         Prop.computed __resource_type __resource_id "algorithm";
+       disable_lets_encrypt_dns_records =
+         Prop.computed __resource_type __resource_id
+           "disable_lets_encrypt_dns_records";
+       droplet_ids =
+         Prop.computed __resource_type __resource_id "droplet_ids";
+       droplet_tag =
+         Prop.computed __resource_type __resource_id "droplet_tag";
+       enable_backend_keepalive =
+         Prop.computed __resource_type __resource_id
+           "enable_backend_keepalive";
+       enable_proxy_protocol =
+         Prop.computed __resource_type __resource_id
+           "enable_proxy_protocol";
+       http_idle_timeout_seconds =
+         Prop.computed __resource_type __resource_id
+           "http_idle_timeout_seconds";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip = Prop.computed __resource_type __resource_id "ip";
+       name = Prop.computed __resource_type __resource_id "name";
+       project_id =
+         Prop.computed __resource_type __resource_id "project_id";
+       redirect_http_to_https =
+         Prop.computed __resource_type __resource_id
+           "redirect_http_to_https";
+       region = Prop.computed __resource_type __resource_id "region";
+       size = Prop.computed __resource_type __resource_id "size";
+       size_unit =
+         Prop.computed __resource_type __resource_id "size_unit";
+       status = Prop.computed __resource_type __resource_id "status";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       urn = Prop.computed __resource_type __resource_id "urn";
+       vpc_uuid =
+         Prop.computed __resource_type __resource_id "vpc_uuid";
+     }
+      : t)
+  in
+  __resource_attributes

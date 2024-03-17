@@ -77,26 +77,79 @@ The type could be one of the following value: 'MEMORY_OPTIMIZED', 'ACCELERATOR_O
 [@@deriving yojson_of]
 (** google_compute_region_commitment *)
 
+type t = {
+  auto_renew : bool prop;
+  category : string prop;
+  commitment_id : float prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  end_timestamp : string prop;
+  id : string prop;
+  name : string prop;
+  plan : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+  start_timestamp : string prop;
+  status : string prop;
+  status_message : string prop;
+  type_ : string prop;
+}
+
 let google_compute_region_commitment ?auto_renew ?category
     ?description ?id ?project ?region ?type_ ?timeouts ~name ~plan
     ~license_resource ~resources __resource_id =
   let __resource_type = "google_compute_region_commitment" in
   let __resource =
-    {
-      auto_renew;
-      category;
-      description;
-      id;
-      name;
-      plan;
-      project;
-      region;
-      type_;
-      license_resource;
-      resources;
-      timeouts;
-    }
+    ({
+       auto_renew;
+       category;
+       description;
+       id;
+       name;
+       plan;
+       project;
+       region;
+       type_;
+       license_resource;
+       resources;
+       timeouts;
+     }
+      : google_compute_region_commitment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_commitment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_renew =
+         Prop.computed __resource_type __resource_id "auto_renew";
+       category =
+         Prop.computed __resource_type __resource_id "category";
+       commitment_id =
+         Prop.computed __resource_type __resource_id "commitment_id";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       end_timestamp =
+         Prop.computed __resource_type __resource_id "end_timestamp";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       plan = Prop.computed __resource_type __resource_id "plan";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       start_timestamp =
+         Prop.computed __resource_type __resource_id
+           "start_timestamp";
+       status = Prop.computed __resource_type __resource_id "status";
+       status_message =
+         Prop.computed __resource_type __resource_id "status_message";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

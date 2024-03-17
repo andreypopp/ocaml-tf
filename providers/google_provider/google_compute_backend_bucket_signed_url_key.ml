@@ -26,15 +26,37 @@ valid RFC 4648 Section 5 base64url encoded string. *)
 [@@deriving yojson_of]
 (** google_compute_backend_bucket_signed_url_key *)
 
+type t = {
+  backend_bucket : string prop;
+  id : string prop;
+  key_value : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_compute_backend_bucket_signed_url_key ?id ?project
     ?timeouts ~backend_bucket ~key_value ~name __resource_id =
   let __resource_type =
     "google_compute_backend_bucket_signed_url_key"
   in
   let __resource =
-    { backend_bucket; id; key_value; name; project; timeouts }
+    ({ backend_bucket; id; key_value; name; project; timeouts }
+      : google_compute_backend_bucket_signed_url_key)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_backend_bucket_signed_url_key
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       backend_bucket =
+         Prop.computed __resource_type __resource_id "backend_bucket";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_value =
+         Prop.computed __resource_type __resource_id "key_value";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

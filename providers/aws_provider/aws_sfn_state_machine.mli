@@ -7,6 +7,25 @@ type aws_sfn_state_machine__timeouts
 type aws_sfn_state_machine__tracing_configuration
 type aws_sfn_state_machine
 
+type t = private {
+  arn : string prop;
+  creation_date : string prop;
+  definition : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  publish : bool prop;
+  revision_id : string prop;
+  role_arn : string prop;
+  state_machine_version_arn : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  version_description : string prop;
+}
+
 val aws_sfn_state_machine :
   ?id:string prop ->
   ?name:string prop ->
@@ -23,4 +42,4 @@ val aws_sfn_state_machine :
   tracing_configuration:
     aws_sfn_state_machine__tracing_configuration list ->
   string ->
-  unit
+  t

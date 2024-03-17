@@ -38,20 +38,52 @@ type aws_lambda_function_url = {
 [@@deriving yojson_of]
 (** aws_lambda_function_url *)
 
+type t = {
+  authorization_type : string prop;
+  function_arn : string prop;
+  function_name : string prop;
+  function_url : string prop;
+  id : string prop;
+  invoke_mode : string prop;
+  qualifier : string prop;
+  url_id : string prop;
+}
+
 let aws_lambda_function_url ?id ?invoke_mode ?qualifier ?timeouts
     ~authorization_type ~function_name ~cors __resource_id =
   let __resource_type = "aws_lambda_function_url" in
   let __resource =
-    {
-      authorization_type;
-      function_name;
-      id;
-      invoke_mode;
-      qualifier;
-      cors;
-      timeouts;
-    }
+    ({
+       authorization_type;
+       function_name;
+       id;
+       invoke_mode;
+       qualifier;
+       cors;
+       timeouts;
+     }
+      : aws_lambda_function_url)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lambda_function_url __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authorization_type =
+         Prop.computed __resource_type __resource_id
+           "authorization_type";
+       function_arn =
+         Prop.computed __resource_type __resource_id "function_arn";
+       function_name =
+         Prop.computed __resource_type __resource_id "function_name";
+       function_url =
+         Prop.computed __resource_type __resource_id "function_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       invoke_mode =
+         Prop.computed __resource_type __resource_id "invoke_mode";
+       qualifier =
+         Prop.computed __resource_type __resource_id "qualifier";
+       url_id = Prop.computed __resource_type __resource_id "url_id";
+     }
+      : t)
+  in
+  __resource_attributes

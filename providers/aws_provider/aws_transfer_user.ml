@@ -47,26 +47,61 @@ type aws_transfer_user = {
 [@@deriving yojson_of]
 (** aws_transfer_user *)
 
+type t = {
+  arn : string prop;
+  home_directory : string prop;
+  home_directory_type : string prop;
+  id : string prop;
+  policy : string prop;
+  role : string prop;
+  server_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_name : string prop;
+}
+
 let aws_transfer_user ?home_directory ?home_directory_type ?id
     ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
     ~home_directory_mappings ~posix_profile __resource_id =
   let __resource_type = "aws_transfer_user" in
   let __resource =
-    {
-      home_directory;
-      home_directory_type;
-      id;
-      policy;
-      role;
-      server_id;
-      tags;
-      tags_all;
-      user_name;
-      home_directory_mappings;
-      posix_profile;
-      timeouts;
-    }
+    ({
+       home_directory;
+       home_directory_type;
+       id;
+       policy;
+       role;
+       server_id;
+       tags;
+       tags_all;
+       user_name;
+       home_directory_mappings;
+       posix_profile;
+       timeouts;
+     }
+      : aws_transfer_user)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_user __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       home_directory =
+         Prop.computed __resource_type __resource_id "home_directory";
+       home_directory_type =
+         Prop.computed __resource_type __resource_id
+           "home_directory_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       role = Prop.computed __resource_type __resource_id "role";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       user_name =
+         Prop.computed __resource_type __resource_id "user_name";
+     }
+      : t)
+  in
+  __resource_attributes

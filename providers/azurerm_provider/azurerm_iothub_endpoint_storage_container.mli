@@ -5,6 +5,22 @@ open! Tf.Prelude
 type azurerm_iothub_endpoint_storage_container__timeouts
 type azurerm_iothub_endpoint_storage_container
 
+type t = private {
+  authentication_type : string prop;
+  batch_frequency_in_seconds : float prop;
+  connection_string : string prop;
+  container_name : string prop;
+  encoding : string prop;
+  endpoint_uri : string prop;
+  file_name_format : string prop;
+  id : string prop;
+  identity_id : string prop;
+  iothub_id : string prop;
+  max_chunk_size_in_bytes : float prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_iothub_endpoint_storage_container :
   ?authentication_type:string prop ->
   ?batch_frequency_in_seconds:float prop ->
@@ -21,4 +37,4 @@ val azurerm_iothub_endpoint_storage_container :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

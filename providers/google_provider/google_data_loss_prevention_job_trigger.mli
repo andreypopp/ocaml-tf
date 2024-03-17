@@ -141,6 +141,19 @@ type google_data_loss_prevention_job_trigger__triggers__schedule
 type google_data_loss_prevention_job_trigger__triggers
 type google_data_loss_prevention_job_trigger
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  last_run_time : string prop;
+  name : string prop;
+  parent : string prop;
+  status : string prop;
+  trigger_id : string prop;
+  update_time : string prop;
+}
+
 val google_data_loss_prevention_job_trigger :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -153,4 +166,4 @@ val google_data_loss_prevention_job_trigger :
     google_data_loss_prevention_job_trigger__inspect_job list ->
   triggers:google_data_loss_prevention_job_trigger__triggers list ->
   string ->
-  unit
+  t

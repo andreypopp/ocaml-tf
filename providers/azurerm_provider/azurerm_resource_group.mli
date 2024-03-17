@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_resource_group__timeouts
 type azurerm_resource_group
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  managed_by : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_resource_group :
   ?id:string prop ->
   ?managed_by:string prop ->
@@ -13,4 +21,4 @@ val azurerm_resource_group :
   location:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

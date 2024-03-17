@@ -13,6 +13,12 @@ type aws_s3_bucket_analytics_configuration__storage_class_analysis__data_export
 type aws_s3_bucket_analytics_configuration__storage_class_analysis
 type aws_s3_bucket_analytics_configuration
 
+type t = private {
+  bucket : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val aws_s3_bucket_analytics_configuration :
   ?id:string prop ->
   bucket:string prop ->
@@ -22,4 +28,4 @@ val aws_s3_bucket_analytics_configuration :
     aws_s3_bucket_analytics_configuration__storage_class_analysis
     list ->
   string ->
-  unit
+  t

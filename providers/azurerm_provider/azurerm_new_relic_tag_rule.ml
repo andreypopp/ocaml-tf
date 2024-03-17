@@ -47,24 +47,53 @@ type azurerm_new_relic_tag_rule = {
 [@@deriving yojson_of]
 (** azurerm_new_relic_tag_rule *)
 
+type t = {
+  activity_log_enabled : bool prop;
+  azure_active_directory_log_enabled : bool prop;
+  id : string prop;
+  metric_enabled : bool prop;
+  monitor_id : string prop;
+  subscription_log_enabled : bool prop;
+}
+
 let azurerm_new_relic_tag_rule ?activity_log_enabled
     ?azure_active_directory_log_enabled ?id ?metric_enabled
     ?subscription_log_enabled ?timeouts ~monitor_id ~log_tag_filter
     ~metric_tag_filter __resource_id =
   let __resource_type = "azurerm_new_relic_tag_rule" in
   let __resource =
-    {
-      activity_log_enabled;
-      azure_active_directory_log_enabled;
-      id;
-      metric_enabled;
-      monitor_id;
-      subscription_log_enabled;
-      log_tag_filter;
-      metric_tag_filter;
-      timeouts;
-    }
+    ({
+       activity_log_enabled;
+       azure_active_directory_log_enabled;
+       id;
+       metric_enabled;
+       monitor_id;
+       subscription_log_enabled;
+       log_tag_filter;
+       metric_tag_filter;
+       timeouts;
+     }
+      : azurerm_new_relic_tag_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_new_relic_tag_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       activity_log_enabled =
+         Prop.computed __resource_type __resource_id
+           "activity_log_enabled";
+       azure_active_directory_log_enabled =
+         Prop.computed __resource_type __resource_id
+           "azure_active_directory_log_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       metric_enabled =
+         Prop.computed __resource_type __resource_id "metric_enabled";
+       monitor_id =
+         Prop.computed __resource_type __resource_id "monitor_id";
+       subscription_log_enabled =
+         Prop.computed __resource_type __resource_id
+           "subscription_log_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -23,10 +23,29 @@ type google_monitoring_dashboard = {
 [@@deriving yojson_of]
 (** google_monitoring_dashboard *)
 
+type t = {
+  dashboard_json : string prop;
+  id : string prop;
+  project : string prop;
+}
+
 let google_monitoring_dashboard ?id ?project ?timeouts
     ~dashboard_json __resource_id =
   let __resource_type = "google_monitoring_dashboard" in
-  let __resource = { dashboard_json; id; project; timeouts } in
+  let __resource =
+    ({ dashboard_json; id; project; timeouts }
+      : google_monitoring_dashboard)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_dashboard __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dashboard_json =
+         Prop.computed __resource_type __resource_id "dashboard_json";
+       id = Prop.computed __resource_type __resource_id "id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

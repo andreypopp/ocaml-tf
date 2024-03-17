@@ -6,6 +6,15 @@ type google_bigquery_bi_reservation__preferred_tables
 type google_bigquery_bi_reservation__timeouts
 type google_bigquery_bi_reservation
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  size : float prop;
+  update_time : string prop;
+}
+
 val google_bigquery_bi_reservation :
   ?id:string prop ->
   ?project:string prop ->
@@ -15,4 +24,4 @@ val google_bigquery_bi_reservation :
   preferred_tables:
     google_bigquery_bi_reservation__preferred_tables list ->
   string ->
-  unit
+  t

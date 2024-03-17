@@ -4,6 +4,16 @@ open! Tf.Prelude
 
 type aws_elasticache_user_group
 
+type t = private {
+  arn : string prop;
+  engine : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_group_id : string prop;
+  user_ids : string list prop;
+}
+
 val aws_elasticache_user_group :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -12,4 +22,4 @@ val aws_elasticache_user_group :
   engine:string prop ->
   user_group_id:string prop ->
   string ->
-  unit
+  t

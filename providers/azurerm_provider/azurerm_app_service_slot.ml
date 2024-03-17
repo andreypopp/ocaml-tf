@@ -321,6 +321,24 @@ type azurerm_app_service_slot = {
 [@@deriving yojson_of]
 (** azurerm_app_service_slot *)
 
+type t = {
+  app_service_name : string prop;
+  app_service_plan_id : string prop;
+  app_settings : (string * string) list prop;
+  client_affinity_enabled : bool prop;
+  default_site_hostname : string prop;
+  enabled : bool prop;
+  https_only : bool prop;
+  id : string prop;
+  key_vault_reference_identity_id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  site_credential :
+    azurerm_app_service_slot__site_credential list prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_app_service_slot ?app_settings ?client_affinity_enabled
     ?enabled ?https_only ?id ?key_vault_reference_identity_id ?tags
     ?timeouts ~app_service_name ~app_service_plan_id ~location ~name
@@ -328,28 +346,66 @@ let azurerm_app_service_slot ?app_settings ?client_affinity_enabled
     ~logs ~site_config ~storage_account __resource_id =
   let __resource_type = "azurerm_app_service_slot" in
   let __resource =
-    {
-      app_service_name;
-      app_service_plan_id;
-      app_settings;
-      client_affinity_enabled;
-      enabled;
-      https_only;
-      id;
-      key_vault_reference_identity_id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      auth_settings;
-      connection_string;
-      identity;
-      logs;
-      site_config;
-      storage_account;
-      timeouts;
-    }
+    ({
+       app_service_name;
+       app_service_plan_id;
+       app_settings;
+       client_affinity_enabled;
+       enabled;
+       https_only;
+       id;
+       key_vault_reference_identity_id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       auth_settings;
+       connection_string;
+       identity;
+       logs;
+       site_config;
+       storage_account;
+       timeouts;
+     }
+      : azurerm_app_service_slot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_slot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_service_name =
+         Prop.computed __resource_type __resource_id
+           "app_service_name";
+       app_service_plan_id =
+         Prop.computed __resource_type __resource_id
+           "app_service_plan_id";
+       app_settings =
+         Prop.computed __resource_type __resource_id "app_settings";
+       client_affinity_enabled =
+         Prop.computed __resource_type __resource_id
+           "client_affinity_enabled";
+       default_site_hostname =
+         Prop.computed __resource_type __resource_id
+           "default_site_hostname";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       https_only =
+         Prop.computed __resource_type __resource_id "https_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_reference_identity_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_reference_identity_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       site_credential =
+         Prop.computed __resource_type __resource_id
+           "site_credential";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

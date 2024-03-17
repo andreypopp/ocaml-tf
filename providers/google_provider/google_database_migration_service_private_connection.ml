@@ -52,6 +52,22 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_database_migration_service_private_connection *)
 
+type t = {
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  error :
+    google_database_migration_service_private_connection__error list
+    prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  private_connection_id : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_database_migration_service_private_connection
     ?display_name ?id ?labels ?project ?timeouts ~location
     ~private_connection_id ~vpc_peering_config __resource_id =
@@ -59,18 +75,44 @@ let google_database_migration_service_private_connection
     "google_database_migration_service_private_connection"
   in
   let __resource =
-    {
-      display_name;
-      id;
-      labels;
-      location;
-      private_connection_id;
-      project;
-      timeouts;
-      vpc_peering_config;
-    }
+    ({
+       display_name;
+       id;
+       labels;
+       location;
+       private_connection_id;
+       project;
+       timeouts;
+       vpc_peering_config;
+     }
+      : google_database_migration_service_private_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_database_migration_service_private_connection
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       error = Prop.computed __resource_type __resource_id "error";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_connection_id =
+         Prop.computed __resource_type __resource_id
+           "private_connection_id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

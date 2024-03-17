@@ -6,6 +6,16 @@ type azurerm_load_test__identity
 type azurerm_load_test__timeouts
 type azurerm_load_test
 
+type t = private {
+  data_plane_uri : string prop;
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_load_test :
   ?description:string prop ->
   ?id:string prop ->
@@ -16,4 +26,4 @@ val azurerm_load_test :
   resource_group_name:string prop ->
   identity:azurerm_load_test__identity list ->
   string ->
-  unit
+  t

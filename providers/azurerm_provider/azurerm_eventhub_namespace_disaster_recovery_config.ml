@@ -26,6 +26,14 @@ type azurerm_eventhub_namespace_disaster_recovery_config = {
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace_disaster_recovery_config *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  namespace_name : string prop;
+  partner_namespace_id : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_eventhub_namespace_disaster_recovery_config ?id ?timeouts
     ~name ~namespace_name ~partner_namespace_id ~resource_group_name
     __resource_id =
@@ -33,16 +41,32 @@ let azurerm_eventhub_namespace_disaster_recovery_config ?id ?timeouts
     "azurerm_eventhub_namespace_disaster_recovery_config"
   in
   let __resource =
-    {
-      id;
-      name;
-      namespace_name;
-      partner_namespace_id;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       namespace_name;
+       partner_namespace_id;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_eventhub_namespace_disaster_recovery_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_eventhub_namespace_disaster_recovery_config
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       namespace_name =
+         Prop.computed __resource_type __resource_id "namespace_name";
+       partner_namespace_id =
+         Prop.computed __resource_type __resource_id
+           "partner_namespace_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

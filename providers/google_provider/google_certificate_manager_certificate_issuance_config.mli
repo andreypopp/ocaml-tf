@@ -9,6 +9,22 @@ type google_certificate_manager_certificate_issuance_config__certificate_authori
 type google_certificate_manager_certificate_issuance_config__timeouts
 type google_certificate_manager_certificate_issuance_config
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  key_algorithm : string prop;
+  labels : (string * string) list prop;
+  lifetime : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  rotation_window_percentage : float prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_certificate_manager_certificate_issuance_config :
   ?description:string prop ->
   ?id:string prop ->
@@ -25,4 +41,4 @@ val google_certificate_manager_certificate_issuance_config :
     google_certificate_manager_certificate_issuance_config__certificate_authority_config
     list ->
   string ->
-  unit
+  t

@@ -423,25 +423,65 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_bigquery_job *)
 
+type t = {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  job_id : string prop;
+  job_timeout_ms : string prop;
+  job_type : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  project : string prop;
+  status : google_bigquery_job__status list prop;
+  terraform_labels : (string * string) list prop;
+  user_email : string prop;
+}
+
 let google_bigquery_job ?id ?job_timeout_ms ?labels ?location
     ?project ?timeouts ~job_id ~copy ~extract ~load ~query
     __resource_id =
   let __resource_type = "google_bigquery_job" in
   let __resource =
-    {
-      id;
-      job_id;
-      job_timeout_ms;
-      labels;
-      location;
-      project;
-      copy;
-      extract;
-      load;
-      query;
-      timeouts;
-    }
+    ({
+       id;
+       job_id;
+       job_timeout_ms;
+       labels;
+       location;
+       project;
+       copy;
+       extract;
+       load;
+       query;
+       timeouts;
+     }
+      : google_bigquery_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       job_id = Prop.computed __resource_type __resource_id "job_id";
+       job_timeout_ms =
+         Prop.computed __resource_type __resource_id "job_timeout_ms";
+       job_type =
+         Prop.computed __resource_type __resource_id "job_type";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       status = Prop.computed __resource_type __resource_id "status";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       user_email =
+         Prop.computed __resource_type __resource_id "user_email";
+     }
+      : t)
+  in
+  __resource_attributes

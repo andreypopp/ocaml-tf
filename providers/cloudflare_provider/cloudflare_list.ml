@@ -62,12 +62,33 @@ type cloudflare_list = {
 Rules Engine across all zones within the same account.
  *)
 
+type t = {
+  account_id : string prop;
+  description : string prop;
+  id : string prop;
+  kind : string prop;
+  name : string prop;
+}
+
 let cloudflare_list ?description ?id ~account_id ~kind ~name ~item
     __resource_id =
   let __resource_type = "cloudflare_list" in
   let __resource =
-    { account_id; description; id; kind; name; item }
+    ({ account_id; description; id; kind; name; item }
+      : cloudflare_list)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_list __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

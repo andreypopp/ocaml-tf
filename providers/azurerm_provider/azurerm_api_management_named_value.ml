@@ -37,24 +37,54 @@ type azurerm_api_management_named_value = {
 [@@deriving yojson_of]
 (** azurerm_api_management_named_value *)
 
+type t = {
+  api_management_name : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  secret : bool prop;
+  tags : string list prop;
+  value : string prop;
+}
+
 let azurerm_api_management_named_value ?id ?secret ?tags ?value
     ?timeouts ~api_management_name ~display_name ~name
     ~resource_group_name ~value_from_key_vault __resource_id =
   let __resource_type = "azurerm_api_management_named_value" in
   let __resource =
-    {
-      api_management_name;
-      display_name;
-      id;
-      name;
-      resource_group_name;
-      secret;
-      tags;
-      value;
-      timeouts;
-      value_from_key_vault;
-    }
+    ({
+       api_management_name;
+       display_name;
+       id;
+       name;
+       resource_group_name;
+       secret;
+       tags;
+       value;
+       timeouts;
+       value_from_key_vault;
+     }
+      : azurerm_api_management_named_value)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_named_value __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secret = Prop.computed __resource_type __resource_id "secret";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

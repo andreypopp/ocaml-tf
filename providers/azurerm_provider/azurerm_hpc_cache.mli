@@ -13,6 +13,22 @@ type azurerm_hpc_cache__identity
 type azurerm_hpc_cache__timeouts
 type azurerm_hpc_cache
 
+type t = private {
+  automatically_rotate_key_to_latest_enabled : bool prop;
+  cache_size_in_gb : float prop;
+  id : string prop;
+  key_vault_key_id : string prop;
+  location : string prop;
+  mount_addresses : string list prop;
+  mtu : float prop;
+  name : string prop;
+  ntp_server : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_hpc_cache :
   ?automatically_rotate_key_to_latest_enabled:bool prop ->
   ?id:string prop ->
@@ -35,4 +51,4 @@ val azurerm_hpc_cache :
   dns:azurerm_hpc_cache__dns list ->
   identity:azurerm_hpc_cache__identity list ->
   string ->
-  unit
+  t

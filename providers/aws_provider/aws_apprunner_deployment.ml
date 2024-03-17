@@ -18,9 +18,29 @@ type aws_apprunner_deployment = {
 [@@deriving yojson_of]
 (** aws_apprunner_deployment *)
 
+type t = {
+  id : string prop;
+  operation_id : string prop;
+  service_arn : string prop;
+  status : string prop;
+}
+
 let aws_apprunner_deployment ?timeouts ~service_arn __resource_id =
   let __resource_type = "aws_apprunner_deployment" in
-  let __resource = { service_arn; timeouts } in
+  let __resource =
+    ({ service_arn; timeouts } : aws_apprunner_deployment)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apprunner_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       operation_id =
+         Prop.computed __resource_type __resource_id "operation_id";
+       service_arn =
+         Prop.computed __resource_type __resource_id "service_arn";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

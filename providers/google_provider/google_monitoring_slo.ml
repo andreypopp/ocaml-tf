@@ -445,28 +445,65 @@ must begin with a letter. *)
 [@@deriving yojson_of]
 (** google_monitoring_slo *)
 
+type t = {
+  calendar_period : string prop;
+  display_name : string prop;
+  goal : float prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  rolling_period_days : float prop;
+  service : string prop;
+  slo_id : string prop;
+  user_labels : (string * string) list prop;
+}
+
 let google_monitoring_slo ?calendar_period ?display_name ?id ?project
     ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
     ~service ~basic_sli ~request_based_sli ~windows_based_sli
     __resource_id =
   let __resource_type = "google_monitoring_slo" in
   let __resource =
-    {
-      calendar_period;
-      display_name;
-      goal;
-      id;
-      project;
-      rolling_period_days;
-      service;
-      slo_id;
-      user_labels;
-      basic_sli;
-      request_based_sli;
-      timeouts;
-      windows_based_sli;
-    }
+    ({
+       calendar_period;
+       display_name;
+       goal;
+       id;
+       project;
+       rolling_period_days;
+       service;
+       slo_id;
+       user_labels;
+       basic_sli;
+       request_based_sli;
+       timeouts;
+       windows_based_sli;
+     }
+      : google_monitoring_slo)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_slo __resource);
-  ()
+  let __resource_attributes =
+    ({
+       calendar_period =
+         Prop.computed __resource_type __resource_id
+           "calendar_period";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       goal = Prop.computed __resource_type __resource_id "goal";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       rolling_period_days =
+         Prop.computed __resource_type __resource_id
+           "rolling_period_days";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+       slo_id = Prop.computed __resource_type __resource_id "slo_id";
+       user_labels =
+         Prop.computed __resource_type __resource_id "user_labels";
+     }
+      : t)
+  in
+  __resource_attributes

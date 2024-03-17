@@ -606,6 +606,32 @@ failed request. Default is 30 seconds. Valid range is [1, 86400]. *)
 [@@deriving yojson_of]
 (** google_compute_backend_service *)
 
+type t = {
+  affinity_cookie_ttl_sec : float prop;
+  compression_mode : string prop;
+  connection_draining_timeout_sec : float prop;
+  creation_timestamp : string prop;
+  custom_request_headers : string list prop;
+  custom_response_headers : string list prop;
+  description : string prop;
+  edge_security_policy : string prop;
+  enable_cdn : bool prop;
+  fingerprint : string prop;
+  generated_id : float prop;
+  health_checks : string list prop;
+  id : string prop;
+  load_balancing_scheme : string prop;
+  locality_lb_policy : string prop;
+  name : string prop;
+  port_name : string prop;
+  project : string prop;
+  protocol : string prop;
+  security_policy : string prop;
+  self_link : string prop;
+  session_affinity : string prop;
+  timeout_sec : float prop;
+}
+
 let google_compute_backend_service ?affinity_cookie_ttl_sec
     ?compression_mode ?connection_draining_timeout_sec
     ?custom_request_headers ?custom_response_headers ?description
@@ -617,38 +643,99 @@ let google_compute_backend_service ?affinity_cookie_ttl_sec
     ~outlier_detection ~security_settings __resource_id =
   let __resource_type = "google_compute_backend_service" in
   let __resource =
-    {
-      affinity_cookie_ttl_sec;
-      compression_mode;
-      connection_draining_timeout_sec;
-      custom_request_headers;
-      custom_response_headers;
-      description;
-      edge_security_policy;
-      enable_cdn;
-      health_checks;
-      id;
-      load_balancing_scheme;
-      locality_lb_policy;
-      name;
-      port_name;
-      project;
-      protocol;
-      security_policy;
-      session_affinity;
-      timeout_sec;
-      backend;
-      cdn_policy;
-      circuit_breakers;
-      consistent_hash;
-      iap;
-      locality_lb_policies;
-      log_config;
-      outlier_detection;
-      security_settings;
-      timeouts;
-    }
+    ({
+       affinity_cookie_ttl_sec;
+       compression_mode;
+       connection_draining_timeout_sec;
+       custom_request_headers;
+       custom_response_headers;
+       description;
+       edge_security_policy;
+       enable_cdn;
+       health_checks;
+       id;
+       load_balancing_scheme;
+       locality_lb_policy;
+       name;
+       port_name;
+       project;
+       protocol;
+       security_policy;
+       session_affinity;
+       timeout_sec;
+       backend;
+       cdn_policy;
+       circuit_breakers;
+       consistent_hash;
+       iap;
+       locality_lb_policies;
+       log_config;
+       outlier_detection;
+       security_settings;
+       timeouts;
+     }
+      : google_compute_backend_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_backend_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       affinity_cookie_ttl_sec =
+         Prop.computed __resource_type __resource_id
+           "affinity_cookie_ttl_sec";
+       compression_mode =
+         Prop.computed __resource_type __resource_id
+           "compression_mode";
+       connection_draining_timeout_sec =
+         Prop.computed __resource_type __resource_id
+           "connection_draining_timeout_sec";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       custom_request_headers =
+         Prop.computed __resource_type __resource_id
+           "custom_request_headers";
+       custom_response_headers =
+         Prop.computed __resource_type __resource_id
+           "custom_response_headers";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       edge_security_policy =
+         Prop.computed __resource_type __resource_id
+           "edge_security_policy";
+       enable_cdn =
+         Prop.computed __resource_type __resource_id "enable_cdn";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       generated_id =
+         Prop.computed __resource_type __resource_id "generated_id";
+       health_checks =
+         Prop.computed __resource_type __resource_id "health_checks";
+       id = Prop.computed __resource_type __resource_id "id";
+       load_balancing_scheme =
+         Prop.computed __resource_type __resource_id
+           "load_balancing_scheme";
+       locality_lb_policy =
+         Prop.computed __resource_type __resource_id
+           "locality_lb_policy";
+       name = Prop.computed __resource_type __resource_id "name";
+       port_name =
+         Prop.computed __resource_type __resource_id "port_name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       security_policy =
+         Prop.computed __resource_type __resource_id
+           "security_policy";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       session_affinity =
+         Prop.computed __resource_type __resource_id
+           "session_affinity";
+       timeout_sec =
+         Prop.computed __resource_type __resource_id "timeout_sec";
+     }
+      : t)
+  in
+  __resource_attributes

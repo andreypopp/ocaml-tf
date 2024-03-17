@@ -13,10 +13,27 @@ type cloudflare_workers_kv_namespace = {
 [@@deriving yojson_of]
 (** Provides the ability to manage Cloudflare Workers KV Namespace features. *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  title : string prop;
+}
+
 let cloudflare_workers_kv_namespace ?id ~account_id ~title
     __resource_id =
   let __resource_type = "cloudflare_workers_kv_namespace" in
-  let __resource = { account_id; id; title } in
+  let __resource =
+    ({ account_id; id; title } : cloudflare_workers_kv_namespace)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_workers_kv_namespace __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       title = Prop.computed __resource_type __resource_id "title";
+     }
+      : t)
+  in
+  __resource_attributes

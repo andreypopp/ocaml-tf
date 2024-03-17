@@ -55,6 +55,18 @@ type azurerm_monitor_data_collection_rule__stream_declaration
 type azurerm_monitor_data_collection_rule__timeouts
 type azurerm_monitor_data_collection_rule
 
+type t = private {
+  data_collection_endpoint_id : string prop;
+  description : string prop;
+  id : string prop;
+  immutable_id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_monitor_data_collection_rule :
   ?data_collection_endpoint_id:string prop ->
   ?description:string prop ->
@@ -74,4 +86,4 @@ val azurerm_monitor_data_collection_rule :
   stream_declaration:
     azurerm_monitor_data_collection_rule__stream_declaration list ->
   string ->
-  unit
+  t

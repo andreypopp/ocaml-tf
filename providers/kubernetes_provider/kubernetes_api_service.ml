@@ -59,9 +59,16 @@ type kubernetes_api_service = {
 [@@deriving yojson_of]
 (** kubernetes_api_service *)
 
+type t = { id : string prop }
+
 let kubernetes_api_service ?id ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_api_service" in
-  let __resource = { id; metadata; spec } in
+  let __resource =
+    ({ id; metadata; spec } : kubernetes_api_service)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_api_service __resource);
-  ()
+  let __resource_attributes =
+    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
+  in
+  __resource_attributes

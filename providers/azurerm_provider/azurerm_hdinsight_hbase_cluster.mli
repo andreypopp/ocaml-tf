@@ -36,6 +36,19 @@ type azurerm_hdinsight_hbase_cluster__storage_account_gen2
 type azurerm_hdinsight_hbase_cluster__timeouts
 type azurerm_hdinsight_hbase_cluster
 
+type t = private {
+  cluster_version : string prop;
+  https_endpoint : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  ssh_endpoint : string prop;
+  tags : (string * string) list prop;
+  tier : string prop;
+  tls_min_version : string prop;
+}
+
 val azurerm_hdinsight_hbase_cluster :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -65,4 +78,4 @@ val azurerm_hdinsight_hbase_cluster :
   storage_account_gen2:
     azurerm_hdinsight_hbase_cluster__storage_account_gen2 list ->
   string ->
-  unit
+  t

@@ -30,22 +30,52 @@ type google_apigee_flowhook = {
 [@@deriving yojson_of]
 (** google_apigee_flowhook *)
 
+type t = {
+  continue_on_error : bool prop;
+  description : string prop;
+  environment : string prop;
+  flow_hook_point : string prop;
+  id : string prop;
+  org_id : string prop;
+  sharedflow : string prop;
+}
+
 let google_apigee_flowhook ?continue_on_error ?description ?id
     ?timeouts ~environment ~flow_hook_point ~org_id ~sharedflow
     __resource_id =
   let __resource_type = "google_apigee_flowhook" in
   let __resource =
-    {
-      continue_on_error;
-      description;
-      environment;
-      flow_hook_point;
-      id;
-      org_id;
-      sharedflow;
-      timeouts;
-    }
+    ({
+       continue_on_error;
+       description;
+       environment;
+       flow_hook_point;
+       id;
+       org_id;
+       sharedflow;
+       timeouts;
+     }
+      : google_apigee_flowhook)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_flowhook __resource);
-  ()
+  let __resource_attributes =
+    ({
+       continue_on_error =
+         Prop.computed __resource_type __resource_id
+           "continue_on_error";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       environment =
+         Prop.computed __resource_type __resource_id "environment";
+       flow_hook_point =
+         Prop.computed __resource_type __resource_id
+           "flow_hook_point";
+       id = Prop.computed __resource_type __resource_id "id";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       sharedflow =
+         Prop.computed __resource_type __resource_id "sharedflow";
+     }
+      : t)
+  in
+  __resource_attributes

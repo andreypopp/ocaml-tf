@@ -39,23 +39,52 @@ type azurerm_spring_cloud_dev_tool_portal = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_dev_tool_portal *)
 
+type t = {
+  application_accelerator_enabled : bool prop;
+  application_live_view_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  spring_cloud_service_id : string prop;
+}
+
 let azurerm_spring_cloud_dev_tool_portal
     ?application_accelerator_enabled ?application_live_view_enabled
     ?id ?public_network_access_enabled ?timeouts ~name
     ~spring_cloud_service_id ~sso __resource_id =
   let __resource_type = "azurerm_spring_cloud_dev_tool_portal" in
   let __resource =
-    {
-      application_accelerator_enabled;
-      application_live_view_enabled;
-      id;
-      name;
-      public_network_access_enabled;
-      spring_cloud_service_id;
-      sso;
-      timeouts;
-    }
+    ({
+       application_accelerator_enabled;
+       application_live_view_enabled;
+       id;
+       name;
+       public_network_access_enabled;
+       spring_cloud_service_id;
+       sso;
+       timeouts;
+     }
+      : azurerm_spring_cloud_dev_tool_portal)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_dev_tool_portal __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_accelerator_enabled =
+         Prop.computed __resource_type __resource_id
+           "application_accelerator_enabled";
+       application_live_view_enabled =
+         Prop.computed __resource_type __resource_id
+           "application_live_view_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       spring_cloud_service_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_service_id";
+     }
+      : t)
+  in
+  __resource_attributes

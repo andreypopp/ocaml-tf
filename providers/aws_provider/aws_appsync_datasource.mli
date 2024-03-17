@@ -19,6 +19,16 @@ type aws_appsync_datasource__relational_database_config__http_endpoint_config
 type aws_appsync_datasource__relational_database_config
 type aws_appsync_datasource
 
+type t = private {
+  api_id : string prop;
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  service_role_arn : string prop;
+  type_ : string prop;
+}
+
 val aws_appsync_datasource :
   ?description:string prop ->
   ?id:string prop ->
@@ -38,4 +48,4 @@ val aws_appsync_datasource :
   relational_database_config:
     aws_appsync_datasource__relational_database_config list ->
   string ->
-  unit
+  t

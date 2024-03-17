@@ -627,28 +627,72 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_datastream_stream *)
 
+type t = {
+  customer_managed_encryption_key : string prop;
+  desired_state : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  stream_id : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_datastream_stream ?customer_managed_encryption_key
     ?desired_state ?id ?labels ?project ?timeouts ~display_name
     ~location ~stream_id ~backfill_all ~backfill_none
     ~destination_config ~source_config __resource_id =
   let __resource_type = "google_datastream_stream" in
   let __resource =
-    {
-      customer_managed_encryption_key;
-      desired_state;
-      display_name;
-      id;
-      labels;
-      location;
-      project;
-      stream_id;
-      backfill_all;
-      backfill_none;
-      destination_config;
-      source_config;
-      timeouts;
-    }
+    ({
+       customer_managed_encryption_key;
+       desired_state;
+       display_name;
+       id;
+       labels;
+       location;
+       project;
+       stream_id;
+       backfill_all;
+       backfill_none;
+       destination_config;
+       source_config;
+       timeouts;
+     }
+      : google_datastream_stream)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_datastream_stream __resource);
-  ()
+  let __resource_attributes =
+    ({
+       customer_managed_encryption_key =
+         Prop.computed __resource_type __resource_id
+           "customer_managed_encryption_key";
+       desired_state =
+         Prop.computed __resource_type __resource_id "desired_state";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       stream_id =
+         Prop.computed __resource_type __resource_id "stream_id";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

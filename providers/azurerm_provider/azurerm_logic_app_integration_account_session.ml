@@ -26,6 +26,14 @@ type azurerm_logic_app_integration_account_session = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_session *)
 
+type t = {
+  content : string prop;
+  id : string prop;
+  integration_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_logic_app_integration_account_session ?id ?timeouts
     ~content ~integration_account_name ~name ~resource_group_name
     __resource_id =
@@ -33,16 +41,32 @@ let azurerm_logic_app_integration_account_session ?id ?timeouts
     "azurerm_logic_app_integration_account_session"
   in
   let __resource =
-    {
-      content;
-      id;
-      integration_account_name;
-      name;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       content;
+       id;
+       integration_account_name;
+       name;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_logic_app_integration_account_session)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_integration_account_session
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       content =
+         Prop.computed __resource_type __resource_id "content";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_account_name =
+         Prop.computed __resource_type __resource_id
+           "integration_account_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

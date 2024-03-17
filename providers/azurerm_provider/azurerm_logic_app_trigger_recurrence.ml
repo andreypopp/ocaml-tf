@@ -38,23 +38,51 @@ type azurerm_logic_app_trigger_recurrence = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_trigger_recurrence *)
 
+type t = {
+  frequency : string prop;
+  id : string prop;
+  interval : float prop;
+  logic_app_id : string prop;
+  name : string prop;
+  start_time : string prop;
+  time_zone : string prop;
+}
+
 let azurerm_logic_app_trigger_recurrence ?id ?start_time ?time_zone
     ?timeouts ~frequency ~interval ~logic_app_id ~name ~schedule
     __resource_id =
   let __resource_type = "azurerm_logic_app_trigger_recurrence" in
   let __resource =
-    {
-      frequency;
-      id;
-      interval;
-      logic_app_id;
-      name;
-      start_time;
-      time_zone;
-      schedule;
-      timeouts;
-    }
+    ({
+       frequency;
+       id;
+       interval;
+       logic_app_id;
+       name;
+       start_time;
+       time_zone;
+       schedule;
+       timeouts;
+     }
+      : azurerm_logic_app_trigger_recurrence)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_trigger_recurrence __resource);
-  ()
+  let __resource_attributes =
+    ({
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       interval =
+         Prop.computed __resource_type __resource_id "interval";
+       logic_app_id =
+         Prop.computed __resource_type __resource_id "logic_app_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       start_time =
+         Prop.computed __resource_type __resource_id "start_time";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+     }
+      : t)
+  in
+  __resource_attributes

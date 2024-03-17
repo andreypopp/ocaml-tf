@@ -80,6 +80,22 @@ type google_bigquery_analytics_hub_listing = {
 [@@deriving yojson_of]
 (** google_bigquery_analytics_hub_listing *)
 
+type t = {
+  categories : string list prop;
+  data_exchange_id : string prop;
+  description : string prop;
+  display_name : string prop;
+  documentation : string prop;
+  icon : string prop;
+  id : string prop;
+  listing_id : string prop;
+  location : string prop;
+  name : string prop;
+  primary_contact : string prop;
+  project : string prop;
+  request_access : string prop;
+}
+
 let google_bigquery_analytics_hub_listing ?categories ?description
     ?documentation ?icon ?id ?primary_contact ?project
     ?request_access ?timeouts ~data_exchange_id ~display_name
@@ -87,26 +103,57 @@ let google_bigquery_analytics_hub_listing ?categories ?description
     ~restricted_export_config __resource_id =
   let __resource_type = "google_bigquery_analytics_hub_listing" in
   let __resource =
-    {
-      categories;
-      data_exchange_id;
-      description;
-      display_name;
-      documentation;
-      icon;
-      id;
-      listing_id;
-      location;
-      primary_contact;
-      project;
-      request_access;
-      bigquery_dataset;
-      data_provider;
-      publisher;
-      restricted_export_config;
-      timeouts;
-    }
+    ({
+       categories;
+       data_exchange_id;
+       description;
+       display_name;
+       documentation;
+       icon;
+       id;
+       listing_id;
+       location;
+       primary_contact;
+       project;
+       request_access;
+       bigquery_dataset;
+       data_provider;
+       publisher;
+       restricted_export_config;
+       timeouts;
+     }
+      : google_bigquery_analytics_hub_listing)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_analytics_hub_listing __resource);
-  ()
+  let __resource_attributes =
+    ({
+       categories =
+         Prop.computed __resource_type __resource_id "categories";
+       data_exchange_id =
+         Prop.computed __resource_type __resource_id
+           "data_exchange_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       documentation =
+         Prop.computed __resource_type __resource_id "documentation";
+       icon = Prop.computed __resource_type __resource_id "icon";
+       id = Prop.computed __resource_type __resource_id "id";
+       listing_id =
+         Prop.computed __resource_type __resource_id "listing_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       primary_contact =
+         Prop.computed __resource_type __resource_id
+           "primary_contact";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       request_access =
+         Prop.computed __resource_type __resource_id "request_access";
+     }
+      : t)
+  in
+  __resource_attributes

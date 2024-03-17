@@ -72,6 +72,37 @@ type azurerm_linux_web_app__site_credential = {
 
 type azurerm_linux_web_app
 
+type t = private {
+  app_settings : (string * string) list prop;
+  client_affinity_enabled : bool prop;
+  client_certificate_enabled : bool prop;
+  client_certificate_exclusion_paths : string prop;
+  client_certificate_mode : string prop;
+  custom_domain_verification_id : string prop;
+  default_hostname : string prop;
+  enabled : bool prop;
+  ftp_publish_basic_authentication_enabled : bool prop;
+  hosting_environment_id : string prop;
+  https_only : bool prop;
+  id : string prop;
+  key_vault_reference_identity_id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  outbound_ip_address_list : string list prop;
+  outbound_ip_addresses : string prop;
+  possible_outbound_ip_address_list : string list prop;
+  possible_outbound_ip_addresses : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  service_plan_id : string prop;
+  site_credential : azurerm_linux_web_app__site_credential list prop;
+  tags : (string * string) list prop;
+  virtual_network_subnet_id : string prop;
+  webdeploy_publish_basic_authentication_enabled : bool prop;
+  zip_deploy_file : string prop;
+}
+
 val azurerm_linux_web_app :
   ?app_settings:(string * string prop) list ->
   ?client_affinity_enabled:bool prop ->
@@ -103,4 +134,4 @@ val azurerm_linux_web_app :
   sticky_settings:azurerm_linux_web_app__sticky_settings list ->
   storage_account:azurerm_linux_web_app__storage_account list ->
   string ->
-  unit
+  t

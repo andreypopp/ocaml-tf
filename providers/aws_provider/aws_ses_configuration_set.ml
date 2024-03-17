@@ -31,20 +31,47 @@ type aws_ses_configuration_set = {
 [@@deriving yojson_of]
 (** aws_ses_configuration_set *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  last_fresh_start : string prop;
+  name : string prop;
+  reputation_metrics_enabled : bool prop;
+  sending_enabled : bool prop;
+}
+
 let aws_ses_configuration_set ?id ?reputation_metrics_enabled
     ?sending_enabled ~name ~delivery_options ~tracking_options
     __resource_id =
   let __resource_type = "aws_ses_configuration_set" in
   let __resource =
-    {
-      id;
-      name;
-      reputation_metrics_enabled;
-      sending_enabled;
-      delivery_options;
-      tracking_options;
-    }
+    ({
+       id;
+       name;
+       reputation_metrics_enabled;
+       sending_enabled;
+       delivery_options;
+       tracking_options;
+     }
+      : aws_ses_configuration_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_configuration_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_fresh_start =
+         Prop.computed __resource_type __resource_id
+           "last_fresh_start";
+       name = Prop.computed __resource_type __resource_id "name";
+       reputation_metrics_enabled =
+         Prop.computed __resource_type __resource_id
+           "reputation_metrics_enabled";
+       sending_enabled =
+         Prop.computed __resource_type __resource_id
+           "sending_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

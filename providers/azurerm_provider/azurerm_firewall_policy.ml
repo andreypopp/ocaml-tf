@@ -145,6 +145,23 @@ type azurerm_firewall_policy = {
 [@@deriving yojson_of]
 (** azurerm_firewall_policy *)
 
+type t = {
+  auto_learn_private_ranges_enabled : bool prop;
+  base_policy_id : string prop;
+  child_policies : string list prop;
+  firewalls : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_ip_ranges : string list prop;
+  resource_group_name : string prop;
+  rule_collection_groups : string list prop;
+  sku : string prop;
+  sql_redirect_allowed : bool prop;
+  tags : (string * string) list prop;
+  threat_intelligence_mode : string prop;
+}
+
 let azurerm_firewall_policy ?auto_learn_private_ranges_enabled
     ?base_policy_id ?id ?private_ip_ranges ?sku ?sql_redirect_allowed
     ?tags ?threat_intelligence_mode ?timeouts ~location ~name
@@ -153,28 +170,64 @@ let azurerm_firewall_policy ?auto_learn_private_ranges_enabled
     ~tls_certificate __resource_id =
   let __resource_type = "azurerm_firewall_policy" in
   let __resource =
-    {
-      auto_learn_private_ranges_enabled;
-      base_policy_id;
-      id;
-      location;
-      name;
-      private_ip_ranges;
-      resource_group_name;
-      sku;
-      sql_redirect_allowed;
-      tags;
-      threat_intelligence_mode;
-      dns;
-      explicit_proxy;
-      identity;
-      insights;
-      intrusion_detection;
-      threat_intelligence_allowlist;
-      timeouts;
-      tls_certificate;
-    }
+    ({
+       auto_learn_private_ranges_enabled;
+       base_policy_id;
+       id;
+       location;
+       name;
+       private_ip_ranges;
+       resource_group_name;
+       sku;
+       sql_redirect_allowed;
+       tags;
+       threat_intelligence_mode;
+       dns;
+       explicit_proxy;
+       identity;
+       insights;
+       intrusion_detection;
+       threat_intelligence_allowlist;
+       timeouts;
+       tls_certificate;
+     }
+      : azurerm_firewall_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_firewall_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_learn_private_ranges_enabled =
+         Prop.computed __resource_type __resource_id
+           "auto_learn_private_ranges_enabled";
+       base_policy_id =
+         Prop.computed __resource_type __resource_id "base_policy_id";
+       child_policies =
+         Prop.computed __resource_type __resource_id "child_policies";
+       firewalls =
+         Prop.computed __resource_type __resource_id "firewalls";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_ip_ranges =
+         Prop.computed __resource_type __resource_id
+           "private_ip_ranges";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       rule_collection_groups =
+         Prop.computed __resource_type __resource_id
+           "rule_collection_groups";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       sql_redirect_allowed =
+         Prop.computed __resource_type __resource_id
+           "sql_redirect_allowed";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       threat_intelligence_mode =
+         Prop.computed __resource_type __resource_id
+           "threat_intelligence_mode";
+     }
+      : t)
+  in
+  __resource_attributes

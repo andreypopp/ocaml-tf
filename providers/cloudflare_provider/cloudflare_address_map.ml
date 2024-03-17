@@ -38,20 +38,49 @@ type cloudflare_address_map = {
 they are proxied through Cloudflare.
  *)
 
+type t = {
+  account_id : string prop;
+  can_delete : bool prop;
+  can_modify_ips : bool prop;
+  default_sni : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+}
+
 let cloudflare_address_map ?default_sni ?description ?id ~account_id
     ~enabled ~ips ~memberships __resource_id =
   let __resource_type = "cloudflare_address_map" in
   let __resource =
-    {
-      account_id;
-      default_sni;
-      description;
-      enabled;
-      id;
-      ips;
-      memberships;
-    }
+    ({
+       account_id;
+       default_sni;
+       description;
+       enabled;
+       id;
+       ips;
+       memberships;
+     }
+      : cloudflare_address_map)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_address_map __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       can_delete =
+         Prop.computed __resource_type __resource_id "can_delete";
+       can_modify_ips =
+         Prop.computed __resource_type __resource_id "can_modify_ips";
+       default_sni =
+         Prop.computed __resource_type __resource_id "default_sni";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

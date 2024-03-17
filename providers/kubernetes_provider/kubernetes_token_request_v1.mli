@@ -6,10 +6,11 @@ type kubernetes_token_request_v1__metadata
 type kubernetes_token_request_v1__spec__bound_object_ref
 type kubernetes_token_request_v1__spec
 type kubernetes_token_request_v1
+type t = private { id : string prop; token : string prop }
 
 val kubernetes_token_request_v1 :
   ?id:string prop ->
   metadata:kubernetes_token_request_v1__metadata list ->
   spec:kubernetes_token_request_v1__spec list ->
   string ->
-  unit
+  t

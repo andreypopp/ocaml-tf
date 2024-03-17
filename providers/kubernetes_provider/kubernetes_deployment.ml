@@ -2487,12 +2487,24 @@ type kubernetes_deployment = {
 [@@deriving yojson_of]
 (** kubernetes_deployment *)
 
+type t = { id : string prop; wait_for_rollout : bool prop }
+
 let kubernetes_deployment ?id ?wait_for_rollout ?timeouts ~metadata
     ~spec __resource_id =
   let __resource_type = "kubernetes_deployment" in
   let __resource =
-    { id; wait_for_rollout; metadata; spec; timeouts }
+    ({ id; wait_for_rollout; metadata; spec; timeouts }
+      : kubernetes_deployment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       wait_for_rollout =
+         Prop.computed __resource_type __resource_id
+           "wait_for_rollout";
+     }
+      : t)
+  in
+  __resource_attributes

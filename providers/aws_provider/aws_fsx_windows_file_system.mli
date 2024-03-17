@@ -8,6 +8,35 @@ type aws_fsx_windows_file_system__self_managed_active_directory
 type aws_fsx_windows_file_system__timeouts
 type aws_fsx_windows_file_system
 
+type t = private {
+  active_directory_id : string prop;
+  aliases : string list prop;
+  arn : string prop;
+  automatic_backup_retention_days : float prop;
+  backup_id : string prop;
+  copy_tags_to_backups : bool prop;
+  daily_automatic_backup_start_time : string prop;
+  deployment_type : string prop;
+  dns_name : string prop;
+  id : string prop;
+  kms_key_id : string prop;
+  network_interface_ids : string list prop;
+  owner_id : string prop;
+  preferred_file_server_ip : string prop;
+  preferred_subnet_id : string prop;
+  remote_administration_endpoint : string prop;
+  security_group_ids : string list prop;
+  skip_final_backup : bool prop;
+  storage_capacity : float prop;
+  storage_type : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  throughput_capacity : float prop;
+  vpc_id : string prop;
+  weekly_maintenance_start_time : string prop;
+}
+
 val aws_fsx_windows_file_system :
   ?active_directory_id:string prop ->
   ?aliases:string prop list ->
@@ -36,4 +65,4 @@ val aws_fsx_windows_file_system :
   self_managed_active_directory:
     aws_fsx_windows_file_system__self_managed_active_directory list ->
   string ->
-  unit
+  t

@@ -13,10 +13,31 @@ type hcloud_network_route = {
 [@@deriving yojson_of]
 (** hcloud_network_route *)
 
+type t = {
+  destination : string prop;
+  gateway : string prop;
+  id : string prop;
+  network_id : float prop;
+}
+
 let hcloud_network_route ?id ~destination ~gateway ~network_id
     __resource_id =
   let __resource_type = "hcloud_network_route" in
-  let __resource = { destination; gateway; id; network_id } in
+  let __resource =
+    ({ destination; gateway; id; network_id } : hcloud_network_route)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_network_route __resource);
-  ()
+  let __resource_attributes =
+    ({
+       destination =
+         Prop.computed __resource_type __resource_id "destination";
+       gateway =
+         Prop.computed __resource_type __resource_id "gateway";
+       id = Prop.computed __resource_type __resource_id "id";
+       network_id =
+         Prop.computed __resource_type __resource_id "network_id";
+     }
+      : t)
+  in
+  __resource_attributes

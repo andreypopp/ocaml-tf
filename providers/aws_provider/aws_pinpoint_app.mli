@@ -7,6 +7,16 @@ type aws_pinpoint_app__limits
 type aws_pinpoint_app__quiet_time
 type aws_pinpoint_app
 
+type t = private {
+  application_id : string prop;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_pinpoint_app :
   ?id:string prop ->
   ?name:string prop ->
@@ -17,4 +27,4 @@ val aws_pinpoint_app :
   limits:aws_pinpoint_app__limits list ->
   quiet_time:aws_pinpoint_app__quiet_time list ->
   string ->
-  unit
+  t

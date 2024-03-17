@@ -6,6 +6,15 @@ type aws_waf_rule_group__activated_rule__action
 type aws_waf_rule_group__activated_rule
 type aws_waf_rule_group
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  metric_name : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_waf_rule_group :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -14,4 +23,4 @@ val aws_waf_rule_group :
   name:string prop ->
   activated_rule:aws_waf_rule_group__activated_rule list ->
   string ->
-  unit
+  t

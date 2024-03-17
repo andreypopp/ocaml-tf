@@ -46,6 +46,12 @@ type azurerm_frontdoor_custom_https_configuration = {
 [@@deriving yojson_of]
 (** azurerm_frontdoor_custom_https_configuration *)
 
+type t = {
+  custom_https_provisioning_enabled : bool prop;
+  frontend_endpoint_id : string prop;
+  id : string prop;
+}
+
 let azurerm_frontdoor_custom_https_configuration ?id ?timeouts
     ~custom_https_provisioning_enabled ~frontend_endpoint_id
     ~custom_https_configuration __resource_id =
@@ -53,15 +59,28 @@ let azurerm_frontdoor_custom_https_configuration ?id ?timeouts
     "azurerm_frontdoor_custom_https_configuration"
   in
   let __resource =
-    {
-      custom_https_provisioning_enabled;
-      frontend_endpoint_id;
-      id;
-      custom_https_configuration;
-      timeouts;
-    }
+    ({
+       custom_https_provisioning_enabled;
+       frontend_endpoint_id;
+       id;
+       custom_https_configuration;
+       timeouts;
+     }
+      : azurerm_frontdoor_custom_https_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_frontdoor_custom_https_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       custom_https_provisioning_enabled =
+         Prop.computed __resource_type __resource_id
+           "custom_https_provisioning_enabled";
+       frontend_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "frontend_endpoint_id";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

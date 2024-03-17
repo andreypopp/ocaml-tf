@@ -8,6 +8,18 @@ type aws_service_discovery_service__health_check_config
 type aws_service_discovery_service__health_check_custom_config
 type aws_service_discovery_service
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  force_destroy : bool prop;
+  id : string prop;
+  name : string prop;
+  namespace_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_service_discovery_service :
   ?description:string prop ->
   ?force_destroy:bool prop ->
@@ -23,4 +35,4 @@ val aws_service_discovery_service :
   health_check_custom_config:
     aws_service_discovery_service__health_check_custom_config list ->
   string ->
-  unit
+  t

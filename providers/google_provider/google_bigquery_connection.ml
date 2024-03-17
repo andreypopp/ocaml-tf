@@ -144,27 +144,58 @@ Azure allowed regions are azure-eastus2 *)
 [@@deriving yojson_of]
 (** google_bigquery_connection *)
 
+type t = {
+  connection_id : string prop;
+  description : string prop;
+  friendly_name : string prop;
+  has_credential : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_bigquery_connection ?connection_id ?description
     ?friendly_name ?id ?location ?project ?timeouts ~aws ~azure
     ~cloud_resource ~cloud_spanner ~cloud_sql ~spark __resource_id =
   let __resource_type = "google_bigquery_connection" in
   let __resource =
-    {
-      connection_id;
-      description;
-      friendly_name;
-      id;
-      location;
-      project;
-      aws;
-      azure;
-      cloud_resource;
-      cloud_spanner;
-      cloud_sql;
-      spark;
-      timeouts;
-    }
+    ({
+       connection_id;
+       description;
+       friendly_name;
+       id;
+       location;
+       project;
+       aws;
+       azure;
+       cloud_resource;
+       cloud_spanner;
+       cloud_sql;
+       spark;
+       timeouts;
+     }
+      : google_bigquery_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connection_id =
+         Prop.computed __resource_type __resource_id "connection_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       friendly_name =
+         Prop.computed __resource_type __resource_id "friendly_name";
+       has_credential =
+         Prop.computed __resource_type __resource_id "has_credential";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

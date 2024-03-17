@@ -12,10 +12,28 @@ type digitalocean_volume_attachment = {
 [@@deriving yojson_of]
 (** digitalocean_volume_attachment *)
 
+type t = {
+  droplet_id : float prop;
+  id : string prop;
+  volume_id : string prop;
+}
+
 let digitalocean_volume_attachment ?id ~droplet_id ~volume_id
     __resource_id =
   let __resource_type = "digitalocean_volume_attachment" in
-  let __resource = { droplet_id; id; volume_id } in
+  let __resource =
+    ({ droplet_id; id; volume_id } : digitalocean_volume_attachment)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_volume_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       droplet_id =
+         Prop.computed __resource_type __resource_id "droplet_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       volume_id =
+         Prop.computed __resource_type __resource_id "volume_id";
+     }
+      : t)
+  in
+  __resource_attributes

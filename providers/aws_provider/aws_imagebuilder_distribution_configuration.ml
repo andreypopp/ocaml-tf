@@ -123,14 +123,43 @@ type aws_imagebuilder_distribution_configuration = {
 [@@deriving yojson_of]
 (** aws_imagebuilder_distribution_configuration *)
 
+type t = {
+  arn : string prop;
+  date_created : string prop;
+  date_updated : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_imagebuilder_distribution_configuration ?description ?id
     ?tags ?tags_all ~name ~distribution __resource_id =
   let __resource_type =
     "aws_imagebuilder_distribution_configuration"
   in
   let __resource =
-    { description; id; name; tags; tags_all; distribution }
+    ({ description; id; name; tags; tags_all; distribution }
+      : aws_imagebuilder_distribution_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_imagebuilder_distribution_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       date_created =
+         Prop.computed __resource_type __resource_id "date_created";
+       date_updated =
+         Prop.computed __resource_type __resource_id "date_updated";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

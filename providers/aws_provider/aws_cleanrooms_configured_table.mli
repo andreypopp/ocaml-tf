@@ -6,6 +6,19 @@ type aws_cleanrooms_configured_table__table_reference
 type aws_cleanrooms_configured_table__timeouts
 type aws_cleanrooms_configured_table
 
+type t = private {
+  allowed_columns : string list prop;
+  analysis_method : string prop;
+  arn : string prop;
+  create_time : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  update_time : string prop;
+}
+
 val aws_cleanrooms_configured_table :
   ?description:string prop ->
   ?id:string prop ->
@@ -18,4 +31,4 @@ val aws_cleanrooms_configured_table :
   table_reference:
     aws_cleanrooms_configured_table__table_reference list ->
   string ->
-  unit
+  t

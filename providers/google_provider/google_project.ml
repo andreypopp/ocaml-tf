@@ -38,24 +38,68 @@ type google_project = {
 [@@deriving yojson_of]
 (** google_project *)
 
+type t = {
+  auto_create_network : bool prop;
+  billing_account : string prop;
+  effective_labels : (string * string) list prop;
+  folder_id : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  number : string prop;
+  org_id : string prop;
+  project_id : string prop;
+  skip_delete : bool prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_project ?auto_create_network ?billing_account ?folder_id
     ?id ?labels ?org_id ?skip_delete ?timeouts ~name ~project_id
     __resource_id =
   let __resource_type = "google_project" in
   let __resource =
-    {
-      auto_create_network;
-      billing_account;
-      folder_id;
-      id;
-      labels;
-      name;
-      org_id;
-      project_id;
-      skip_delete;
-      timeouts;
-    }
+    ({
+       auto_create_network;
+       billing_account;
+       folder_id;
+       id;
+       labels;
+       name;
+       org_id;
+       project_id;
+       skip_delete;
+       timeouts;
+     }
+      : google_project)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_create_network =
+         Prop.computed __resource_type __resource_id
+           "auto_create_network";
+       billing_account =
+         Prop.computed __resource_type __resource_id
+           "billing_account";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       folder_id =
+         Prop.computed __resource_type __resource_id "folder_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       number = Prop.computed __resource_type __resource_id "number";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       project_id =
+         Prop.computed __resource_type __resource_id "project_id";
+       skip_delete =
+         Prop.computed __resource_type __resource_id "skip_delete";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

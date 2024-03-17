@@ -34,22 +34,50 @@ type azurerm_data_share_dataset_blob_storage = {
 [@@deriving yojson_of]
 (** azurerm_data_share_dataset_blob_storage *)
 
+type t = {
+  container_name : string prop;
+  data_share_id : string prop;
+  display_name : string prop;
+  file_path : string prop;
+  folder_path : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let azurerm_data_share_dataset_blob_storage ?file_path ?folder_path
     ?id ?timeouts ~container_name ~data_share_id ~name
     ~storage_account __resource_id =
   let __resource_type = "azurerm_data_share_dataset_blob_storage" in
   let __resource =
-    {
-      container_name;
-      data_share_id;
-      file_path;
-      folder_path;
-      id;
-      name;
-      storage_account;
-      timeouts;
-    }
+    ({
+       container_name;
+       data_share_id;
+       file_path;
+       folder_path;
+       id;
+       name;
+       storage_account;
+       timeouts;
+     }
+      : azurerm_data_share_dataset_blob_storage)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_share_dataset_blob_storage __resource);
-  ()
+  let __resource_attributes =
+    ({
+       container_name =
+         Prop.computed __resource_type __resource_id "container_name";
+       data_share_id =
+         Prop.computed __resource_type __resource_id "data_share_id";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       file_path =
+         Prop.computed __resource_type __resource_id "file_path";
+       folder_path =
+         Prop.computed __resource_type __resource_id "folder_path";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

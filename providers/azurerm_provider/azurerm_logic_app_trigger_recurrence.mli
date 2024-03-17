@@ -6,6 +6,16 @@ type azurerm_logic_app_trigger_recurrence__schedule
 type azurerm_logic_app_trigger_recurrence__timeouts
 type azurerm_logic_app_trigger_recurrence
 
+type t = private {
+  frequency : string prop;
+  id : string prop;
+  interval : float prop;
+  logic_app_id : string prop;
+  name : string prop;
+  start_time : string prop;
+  time_zone : string prop;
+}
+
 val azurerm_logic_app_trigger_recurrence :
   ?id:string prop ->
   ?start_time:string prop ->
@@ -17,4 +27,4 @@ val azurerm_logic_app_trigger_recurrence :
   name:string prop ->
   schedule:azurerm_logic_app_trigger_recurrence__schedule list ->
   string ->
-  unit
+  t

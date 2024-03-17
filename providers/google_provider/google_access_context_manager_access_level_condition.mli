@@ -14,6 +14,16 @@ type google_access_context_manager_access_level_condition__vpc_network_sources
 
 type google_access_context_manager_access_level_condition
 
+type t = private {
+  access_level : string prop;
+  id : string prop;
+  ip_subnetworks : string list prop;
+  members : string list prop;
+  negate : bool prop;
+  regions : string list prop;
+  required_access_levels : string list prop;
+}
+
 val google_access_context_manager_access_level_condition :
   ?id:string prop ->
   ?ip_subnetworks:string prop list ->
@@ -31,4 +41,4 @@ val google_access_context_manager_access_level_condition :
     google_access_context_manager_access_level_condition__vpc_network_sources
     list ->
   string ->
-  unit
+  t

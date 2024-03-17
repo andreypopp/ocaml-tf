@@ -387,22 +387,59 @@ type aws_sagemaker_user_profile = {
 [@@deriving yojson_of]
 (** aws_sagemaker_user_profile *)
 
+type t = {
+  arn : string prop;
+  domain_id : string prop;
+  home_efs_file_system_uid : string prop;
+  id : string prop;
+  single_sign_on_user_identifier : string prop;
+  single_sign_on_user_value : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_profile_name : string prop;
+}
+
 let aws_sagemaker_user_profile ?id ?single_sign_on_user_identifier
     ?single_sign_on_user_value ?tags ?tags_all ~domain_id
     ~user_profile_name ~user_settings __resource_id =
   let __resource_type = "aws_sagemaker_user_profile" in
   let __resource =
-    {
-      domain_id;
-      id;
-      single_sign_on_user_identifier;
-      single_sign_on_user_value;
-      tags;
-      tags_all;
-      user_profile_name;
-      user_settings;
-    }
+    ({
+       domain_id;
+       id;
+       single_sign_on_user_identifier;
+       single_sign_on_user_value;
+       tags;
+       tags_all;
+       user_profile_name;
+       user_settings;
+     }
+      : aws_sagemaker_user_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_user_profile __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       domain_id =
+         Prop.computed __resource_type __resource_id "domain_id";
+       home_efs_file_system_uid =
+         Prop.computed __resource_type __resource_id
+           "home_efs_file_system_uid";
+       id = Prop.computed __resource_type __resource_id "id";
+       single_sign_on_user_identifier =
+         Prop.computed __resource_type __resource_id
+           "single_sign_on_user_identifier";
+       single_sign_on_user_value =
+         Prop.computed __resource_type __resource_id
+           "single_sign_on_user_value";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       user_profile_name =
+         Prop.computed __resource_type __resource_id
+           "user_profile_name";
+     }
+      : t)
+  in
+  __resource_attributes

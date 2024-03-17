@@ -246,6 +246,54 @@ type aws_instance = {
 [@@deriving yojson_of]
 (** aws_instance *)
 
+type t = {
+  ami : string prop;
+  arn : string prop;
+  associate_public_ip_address : bool prop;
+  availability_zone : string prop;
+  cpu_core_count : float prop;
+  cpu_threads_per_core : float prop;
+  disable_api_stop : bool prop;
+  disable_api_termination : bool prop;
+  ebs_optimized : bool prop;
+  get_password_data : bool prop;
+  hibernation : bool prop;
+  host_id : string prop;
+  host_resource_group_arn : string prop;
+  iam_instance_profile : string prop;
+  id : string prop;
+  instance_initiated_shutdown_behavior : string prop;
+  instance_lifecycle : string prop;
+  instance_state : string prop;
+  instance_type : string prop;
+  ipv6_address_count : float prop;
+  ipv6_addresses : string list prop;
+  key_name : string prop;
+  monitoring : bool prop;
+  outpost_arn : string prop;
+  password_data : string prop;
+  placement_group : string prop;
+  placement_partition_number : float prop;
+  primary_network_interface_id : string prop;
+  private_dns : string prop;
+  private_ip : string prop;
+  public_dns : string prop;
+  public_ip : string prop;
+  secondary_private_ips : string list prop;
+  security_groups : string list prop;
+  source_dest_check : bool prop;
+  spot_instance_request_id : string prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  tenancy : string prop;
+  user_data : string prop;
+  user_data_base64 : string prop;
+  user_data_replace_on_change : bool prop;
+  volume_tags : (string * string) list prop;
+  vpc_security_group_ids : string list prop;
+}
+
 let aws_instance ?ami ?associate_public_ip_address ?availability_zone
     ?cpu_core_count ?cpu_threads_per_core ?disable_api_stop
     ?disable_api_termination ?ebs_optimized ?get_password_data
@@ -264,58 +312,171 @@ let aws_instance ?ami ?associate_public_ip_address ?availability_zone
     ~private_dns_name_options ~root_block_device __resource_id =
   let __resource_type = "aws_instance" in
   let __resource =
-    {
-      ami;
-      associate_public_ip_address;
-      availability_zone;
-      cpu_core_count;
-      cpu_threads_per_core;
-      disable_api_stop;
-      disable_api_termination;
-      ebs_optimized;
-      get_password_data;
-      hibernation;
-      host_id;
-      host_resource_group_arn;
-      iam_instance_profile;
-      id;
-      instance_initiated_shutdown_behavior;
-      instance_type;
-      ipv6_address_count;
-      ipv6_addresses;
-      key_name;
-      monitoring;
-      placement_group;
-      placement_partition_number;
-      private_ip;
-      secondary_private_ips;
-      security_groups;
-      source_dest_check;
-      subnet_id;
-      tags;
-      tags_all;
-      tenancy;
-      user_data;
-      user_data_base64;
-      user_data_replace_on_change;
-      volume_tags;
-      vpc_security_group_ids;
-      capacity_reservation_specification;
-      cpu_options;
-      credit_specification;
-      ebs_block_device;
-      enclave_options;
-      ephemeral_block_device;
-      instance_market_options;
-      launch_template;
-      maintenance_options;
-      metadata_options;
-      network_interface;
-      private_dns_name_options;
-      root_block_device;
-      timeouts;
-    }
+    ({
+       ami;
+       associate_public_ip_address;
+       availability_zone;
+       cpu_core_count;
+       cpu_threads_per_core;
+       disable_api_stop;
+       disable_api_termination;
+       ebs_optimized;
+       get_password_data;
+       hibernation;
+       host_id;
+       host_resource_group_arn;
+       iam_instance_profile;
+       id;
+       instance_initiated_shutdown_behavior;
+       instance_type;
+       ipv6_address_count;
+       ipv6_addresses;
+       key_name;
+       monitoring;
+       placement_group;
+       placement_partition_number;
+       private_ip;
+       secondary_private_ips;
+       security_groups;
+       source_dest_check;
+       subnet_id;
+       tags;
+       tags_all;
+       tenancy;
+       user_data;
+       user_data_base64;
+       user_data_replace_on_change;
+       volume_tags;
+       vpc_security_group_ids;
+       capacity_reservation_specification;
+       cpu_options;
+       credit_specification;
+       ebs_block_device;
+       enclave_options;
+       ephemeral_block_device;
+       instance_market_options;
+       launch_template;
+       maintenance_options;
+       metadata_options;
+       network_interface;
+       private_dns_name_options;
+       root_block_device;
+       timeouts;
+     }
+      : aws_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       ami = Prop.computed __resource_type __resource_id "ami";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       associate_public_ip_address =
+         Prop.computed __resource_type __resource_id
+           "associate_public_ip_address";
+       availability_zone =
+         Prop.computed __resource_type __resource_id
+           "availability_zone";
+       cpu_core_count =
+         Prop.computed __resource_type __resource_id "cpu_core_count";
+       cpu_threads_per_core =
+         Prop.computed __resource_type __resource_id
+           "cpu_threads_per_core";
+       disable_api_stop =
+         Prop.computed __resource_type __resource_id
+           "disable_api_stop";
+       disable_api_termination =
+         Prop.computed __resource_type __resource_id
+           "disable_api_termination";
+       ebs_optimized =
+         Prop.computed __resource_type __resource_id "ebs_optimized";
+       get_password_data =
+         Prop.computed __resource_type __resource_id
+           "get_password_data";
+       hibernation =
+         Prop.computed __resource_type __resource_id "hibernation";
+       host_id =
+         Prop.computed __resource_type __resource_id "host_id";
+       host_resource_group_arn =
+         Prop.computed __resource_type __resource_id
+           "host_resource_group_arn";
+       iam_instance_profile =
+         Prop.computed __resource_type __resource_id
+           "iam_instance_profile";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_initiated_shutdown_behavior =
+         Prop.computed __resource_type __resource_id
+           "instance_initiated_shutdown_behavior";
+       instance_lifecycle =
+         Prop.computed __resource_type __resource_id
+           "instance_lifecycle";
+       instance_state =
+         Prop.computed __resource_type __resource_id "instance_state";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       ipv6_address_count =
+         Prop.computed __resource_type __resource_id
+           "ipv6_address_count";
+       ipv6_addresses =
+         Prop.computed __resource_type __resource_id "ipv6_addresses";
+       key_name =
+         Prop.computed __resource_type __resource_id "key_name";
+       monitoring =
+         Prop.computed __resource_type __resource_id "monitoring";
+       outpost_arn =
+         Prop.computed __resource_type __resource_id "outpost_arn";
+       password_data =
+         Prop.computed __resource_type __resource_id "password_data";
+       placement_group =
+         Prop.computed __resource_type __resource_id
+           "placement_group";
+       placement_partition_number =
+         Prop.computed __resource_type __resource_id
+           "placement_partition_number";
+       primary_network_interface_id =
+         Prop.computed __resource_type __resource_id
+           "primary_network_interface_id";
+       private_dns =
+         Prop.computed __resource_type __resource_id "private_dns";
+       private_ip =
+         Prop.computed __resource_type __resource_id "private_ip";
+       public_dns =
+         Prop.computed __resource_type __resource_id "public_dns";
+       public_ip =
+         Prop.computed __resource_type __resource_id "public_ip";
+       secondary_private_ips =
+         Prop.computed __resource_type __resource_id
+           "secondary_private_ips";
+       security_groups =
+         Prop.computed __resource_type __resource_id
+           "security_groups";
+       source_dest_check =
+         Prop.computed __resource_type __resource_id
+           "source_dest_check";
+       spot_instance_request_id =
+         Prop.computed __resource_type __resource_id
+           "spot_instance_request_id";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       tenancy =
+         Prop.computed __resource_type __resource_id "tenancy";
+       user_data =
+         Prop.computed __resource_type __resource_id "user_data";
+       user_data_base64 =
+         Prop.computed __resource_type __resource_id
+           "user_data_base64";
+       user_data_replace_on_change =
+         Prop.computed __resource_type __resource_id
+           "user_data_replace_on_change";
+       volume_tags =
+         Prop.computed __resource_type __resource_id "volume_tags";
+       vpc_security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "vpc_security_group_ids";
+     }
+      : t)
+  in
+  __resource_attributes

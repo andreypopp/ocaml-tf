@@ -98,23 +98,56 @@ type aws_msk_replicator = {
 [@@deriving yojson_of]
 (** aws_msk_replicator *)
 
+type t = {
+  arn : string prop;
+  current_version : string prop;
+  description : string prop;
+  id : string prop;
+  replicator_name : string prop;
+  service_execution_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_msk_replicator ?description ?id ?tags ?tags_all ?timeouts
     ~replicator_name ~service_execution_role_arn ~kafka_cluster
     ~replication_info_list __resource_id =
   let __resource_type = "aws_msk_replicator" in
   let __resource =
-    {
-      description;
-      id;
-      replicator_name;
-      service_execution_role_arn;
-      tags;
-      tags_all;
-      kafka_cluster;
-      replication_info_list;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       replicator_name;
+       service_execution_role_arn;
+       tags;
+       tags_all;
+       kafka_cluster;
+       replication_info_list;
+       timeouts;
+     }
+      : aws_msk_replicator)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_msk_replicator __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       current_version =
+         Prop.computed __resource_type __resource_id
+           "current_version";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       replicator_name =
+         Prop.computed __resource_type __resource_id
+           "replicator_name";
+       service_execution_role_arn =
+         Prop.computed __resource_type __resource_id
+           "service_execution_role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -58,6 +58,27 @@ type azurerm_network_interface = {
 [@@deriving yojson_of]
 (** azurerm_network_interface *)
 
+type t = {
+  applied_dns_servers : string list prop;
+  auxiliary_mode : string prop;
+  auxiliary_sku : string prop;
+  dns_servers : string list prop;
+  edge_zone : string prop;
+  enable_accelerated_networking : bool prop;
+  enable_ip_forwarding : bool prop;
+  id : string prop;
+  internal_dns_name_label : string prop;
+  internal_domain_name_suffix : string prop;
+  location : string prop;
+  mac_address : string prop;
+  name : string prop;
+  private_ip_address : string prop;
+  private_ip_addresses : string list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  virtual_machine_id : string prop;
+}
+
 let azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
     ?dns_servers ?edge_zone ?enable_accelerated_networking
     ?enable_ip_forwarding ?id ?internal_dns_name_label ?tags
@@ -65,23 +86,71 @@ let azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
     __resource_id =
   let __resource_type = "azurerm_network_interface" in
   let __resource =
-    {
-      auxiliary_mode;
-      auxiliary_sku;
-      dns_servers;
-      edge_zone;
-      enable_accelerated_networking;
-      enable_ip_forwarding;
-      id;
-      internal_dns_name_label;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      ip_configuration;
-      timeouts;
-    }
+    ({
+       auxiliary_mode;
+       auxiliary_sku;
+       dns_servers;
+       edge_zone;
+       enable_accelerated_networking;
+       enable_ip_forwarding;
+       id;
+       internal_dns_name_label;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       ip_configuration;
+       timeouts;
+     }
+      : azurerm_network_interface)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_interface __resource);
-  ()
+  let __resource_attributes =
+    ({
+       applied_dns_servers =
+         Prop.computed __resource_type __resource_id
+           "applied_dns_servers";
+       auxiliary_mode =
+         Prop.computed __resource_type __resource_id "auxiliary_mode";
+       auxiliary_sku =
+         Prop.computed __resource_type __resource_id "auxiliary_sku";
+       dns_servers =
+         Prop.computed __resource_type __resource_id "dns_servers";
+       edge_zone =
+         Prop.computed __resource_type __resource_id "edge_zone";
+       enable_accelerated_networking =
+         Prop.computed __resource_type __resource_id
+           "enable_accelerated_networking";
+       enable_ip_forwarding =
+         Prop.computed __resource_type __resource_id
+           "enable_ip_forwarding";
+       id = Prop.computed __resource_type __resource_id "id";
+       internal_dns_name_label =
+         Prop.computed __resource_type __resource_id
+           "internal_dns_name_label";
+       internal_domain_name_suffix =
+         Prop.computed __resource_type __resource_id
+           "internal_domain_name_suffix";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mac_address =
+         Prop.computed __resource_type __resource_id "mac_address";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_ip_address =
+         Prop.computed __resource_type __resource_id
+           "private_ip_address";
+       private_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "private_ip_addresses";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_machine_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_machine_id";
+     }
+      : t)
+  in
+  __resource_attributes

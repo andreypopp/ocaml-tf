@@ -29,12 +29,23 @@ type aws_sesv2_account_vdm_attributes = {
 [@@deriving yojson_of]
 (** aws_sesv2_account_vdm_attributes *)
 
+type t = { id : string prop; vdm_enabled : string prop }
+
 let aws_sesv2_account_vdm_attributes ?id ~vdm_enabled
     ~dashboard_attributes ~guardian_attributes __resource_id =
   let __resource_type = "aws_sesv2_account_vdm_attributes" in
   let __resource =
-    { id; vdm_enabled; dashboard_attributes; guardian_attributes }
+    ({ id; vdm_enabled; dashboard_attributes; guardian_attributes }
+      : aws_sesv2_account_vdm_attributes)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sesv2_account_vdm_attributes __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       vdm_enabled =
+         Prop.computed __resource_type __resource_id "vdm_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

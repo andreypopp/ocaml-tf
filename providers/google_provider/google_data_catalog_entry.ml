@@ -110,27 +110,82 @@ numbers, and underscores; are case insensitive; must be at least 1 character and
 [@@deriving yojson_of]
 (** google_data_catalog_entry *)
 
+type t = {
+  bigquery_date_sharded_spec :
+    google_data_catalog_entry__bigquery_date_sharded_spec list prop;
+  bigquery_table_spec :
+    google_data_catalog_entry__bigquery_table_spec list prop;
+  description : string prop;
+  display_name : string prop;
+  entry_group : string prop;
+  entry_id : string prop;
+  id : string prop;
+  integrated_system : string prop;
+  linked_resource : string prop;
+  name : string prop;
+  schema : string prop;
+  type_ : string prop;
+  user_specified_system : string prop;
+  user_specified_type : string prop;
+}
+
 let google_data_catalog_entry ?description ?display_name ?id
     ?linked_resource ?schema ?type_ ?user_specified_system
     ?user_specified_type ?timeouts ~entry_group ~entry_id
     ~gcs_fileset_spec __resource_id =
   let __resource_type = "google_data_catalog_entry" in
   let __resource =
-    {
-      description;
-      display_name;
-      entry_group;
-      entry_id;
-      id;
-      linked_resource;
-      schema;
-      type_;
-      user_specified_system;
-      user_specified_type;
-      gcs_fileset_spec;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       entry_group;
+       entry_id;
+       id;
+       linked_resource;
+       schema;
+       type_;
+       user_specified_system;
+       user_specified_type;
+       gcs_fileset_spec;
+       timeouts;
+     }
+      : google_data_catalog_entry)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_entry __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bigquery_date_sharded_spec =
+         Prop.computed __resource_type __resource_id
+           "bigquery_date_sharded_spec";
+       bigquery_table_spec =
+         Prop.computed __resource_type __resource_id
+           "bigquery_table_spec";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       entry_group =
+         Prop.computed __resource_type __resource_id "entry_group";
+       entry_id =
+         Prop.computed __resource_type __resource_id "entry_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       integrated_system =
+         Prop.computed __resource_type __resource_id
+           "integrated_system";
+       linked_resource =
+         Prop.computed __resource_type __resource_id
+           "linked_resource";
+       name = Prop.computed __resource_type __resource_id "name";
+       schema = Prop.computed __resource_type __resource_id "schema";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       user_specified_system =
+         Prop.computed __resource_type __resource_id
+           "user_specified_system";
+       user_specified_type =
+         Prop.computed __resource_type __resource_id
+           "user_specified_type";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -26,6 +26,14 @@ type azurerm_kubernetes_cluster_trusted_access_role_binding = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_trusted_access_role_binding *)
 
+type t = {
+  id : string prop;
+  kubernetes_cluster_id : string prop;
+  name : string prop;
+  roles : string list prop;
+  source_resource_id : string prop;
+}
+
 let azurerm_kubernetes_cluster_trusted_access_role_binding ?id
     ?timeouts ~kubernetes_cluster_id ~name ~roles ~source_resource_id
     __resource_id =
@@ -33,16 +41,31 @@ let azurerm_kubernetes_cluster_trusted_access_role_binding ?id
     "azurerm_kubernetes_cluster_trusted_access_role_binding"
   in
   let __resource =
-    {
-      id;
-      kubernetes_cluster_id;
-      name;
-      roles;
-      source_resource_id;
-      timeouts;
-    }
+    ({
+       id;
+       kubernetes_cluster_id;
+       name;
+       roles;
+       source_resource_id;
+       timeouts;
+     }
+      : azurerm_kubernetes_cluster_trusted_access_role_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_cluster_trusted_access_role_binding
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       kubernetes_cluster_id =
+         Prop.computed __resource_type __resource_id
+           "kubernetes_cluster_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       roles = Prop.computed __resource_type __resource_id "roles";
+       source_resource_id =
+         Prop.computed __resource_type __resource_id
+           "source_resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

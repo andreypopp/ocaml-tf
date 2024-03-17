@@ -14,6 +14,14 @@ type cloudflare_page_rule__actions__minify
 type cloudflare_page_rule__actions
 type cloudflare_page_rule
 
+type t = private {
+  id : string prop;
+  priority : float prop;
+  status : string prop;
+  target : string prop;
+  zone_id : string prop;
+}
+
 val cloudflare_page_rule :
   ?id:string prop ->
   ?priority:float prop ->
@@ -22,4 +30,4 @@ val cloudflare_page_rule :
   zone_id:string prop ->
   actions:cloudflare_page_rule__actions list ->
   string ->
-  unit
+  t

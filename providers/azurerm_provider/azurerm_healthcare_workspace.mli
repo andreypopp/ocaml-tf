@@ -11,6 +11,17 @@ type azurerm_healthcare_workspace__private_endpoint_connection = {
 
 type azurerm_healthcare_workspace
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_endpoint_connection :
+    azurerm_healthcare_workspace__private_endpoint_connection list
+    prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_healthcare_workspace :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -19,4 +30,4 @@ val azurerm_healthcare_workspace :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

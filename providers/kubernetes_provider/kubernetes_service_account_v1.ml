@@ -58,20 +58,39 @@ type kubernetes_service_account_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_service_account_v1 *)
 
+type t = {
+  automount_service_account_token : bool prop;
+  default_secret_name : string prop;
+  id : string prop;
+}
+
 let kubernetes_service_account_v1 ?automount_service_account_token
     ?id ?timeouts ~image_pull_secret ~metadata ~secret __resource_id
     =
   let __resource_type = "kubernetes_service_account_v1" in
   let __resource =
-    {
-      automount_service_account_token;
-      id;
-      image_pull_secret;
-      metadata;
-      secret;
-      timeouts;
-    }
+    ({
+       automount_service_account_token;
+       id;
+       image_pull_secret;
+       metadata;
+       secret;
+       timeouts;
+     }
+      : kubernetes_service_account_v1)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_service_account_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automount_service_account_token =
+         Prop.computed __resource_type __resource_id
+           "automount_service_account_token";
+       default_secret_name =
+         Prop.computed __resource_type __resource_id
+           "default_secret_name";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

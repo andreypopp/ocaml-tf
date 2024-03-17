@@ -108,23 +108,49 @@ type azurerm_mobile_network_service = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_service *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  service_precedence : float prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_mobile_network_service ?id ?tags ?timeouts ~location
     ~mobile_network_id ~name ~service_precedence ~pcc_rule
     ~service_qos_policy __resource_id =
   let __resource_type = "azurerm_mobile_network_service" in
   let __resource =
-    {
-      id;
-      location;
-      mobile_network_id;
-      name;
-      service_precedence;
-      tags;
-      pcc_rule;
-      service_qos_policy;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       mobile_network_id;
+       name;
+       service_precedence;
+       tags;
+       pcc_rule;
+       service_qos_policy;
+       timeouts;
+     }
+      : azurerm_mobile_network_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mobile_network_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mobile_network_id =
+         Prop.computed __resource_type __resource_id
+           "mobile_network_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       service_precedence =
+         Prop.computed __resource_type __resource_id
+           "service_precedence";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

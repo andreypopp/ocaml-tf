@@ -107,6 +107,26 @@ type azurerm_logic_app_workflow = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_workflow *)
 
+type t = {
+  access_endpoint : string prop;
+  connector_endpoint_ip_addresses : string list prop;
+  connector_outbound_ip_addresses : string list prop;
+  enabled : bool prop;
+  id : string prop;
+  integration_service_environment_id : string prop;
+  location : string prop;
+  logic_app_integration_account_id : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  workflow_endpoint_ip_addresses : string list prop;
+  workflow_outbound_ip_addresses : string list prop;
+  workflow_parameters : (string * string) list prop;
+  workflow_schema : string prop;
+  workflow_version : string prop;
+}
+
 let azurerm_logic_app_workflow ?enabled ?id
     ?integration_service_environment_id
     ?logic_app_integration_account_id ?parameters ?tags
@@ -115,24 +135,72 @@ let azurerm_logic_app_workflow ?enabled ?id
     __resource_id =
   let __resource_type = "azurerm_logic_app_workflow" in
   let __resource =
-    {
-      enabled;
-      id;
-      integration_service_environment_id;
-      location;
-      logic_app_integration_account_id;
-      name;
-      parameters;
-      resource_group_name;
-      tags;
-      workflow_parameters;
-      workflow_schema;
-      workflow_version;
-      access_control;
-      identity;
-      timeouts;
-    }
+    ({
+       enabled;
+       id;
+       integration_service_environment_id;
+       location;
+       logic_app_integration_account_id;
+       name;
+       parameters;
+       resource_group_name;
+       tags;
+       workflow_parameters;
+       workflow_schema;
+       workflow_version;
+       access_control;
+       identity;
+       timeouts;
+     }
+      : azurerm_logic_app_workflow)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_workflow __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_endpoint =
+         Prop.computed __resource_type __resource_id
+           "access_endpoint";
+       connector_endpoint_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "connector_endpoint_ip_addresses";
+       connector_outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "connector_outbound_ip_addresses";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_service_environment_id =
+         Prop.computed __resource_type __resource_id
+           "integration_service_environment_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       logic_app_integration_account_id =
+         Prop.computed __resource_type __resource_id
+           "logic_app_integration_account_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       workflow_endpoint_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "workflow_endpoint_ip_addresses";
+       workflow_outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "workflow_outbound_ip_addresses";
+       workflow_parameters =
+         Prop.computed __resource_type __resource_id
+           "workflow_parameters";
+       workflow_schema =
+         Prop.computed __resource_type __resource_id
+           "workflow_schema";
+       workflow_version =
+         Prop.computed __resource_type __resource_id
+           "workflow_version";
+     }
+      : t)
+  in
+  __resource_attributes

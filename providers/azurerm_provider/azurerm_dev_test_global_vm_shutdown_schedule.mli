@@ -7,6 +7,16 @@ type azurerm_dev_test_global_vm_shutdown_schedule__notification_settings
 type azurerm_dev_test_global_vm_shutdown_schedule__timeouts
 type azurerm_dev_test_global_vm_shutdown_schedule
 
+type t = private {
+  daily_recurrence_time : string prop;
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  tags : (string * string) list prop;
+  timezone : string prop;
+  virtual_machine_id : string prop;
+}
+
 val azurerm_dev_test_global_vm_shutdown_schedule :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -20,4 +30,4 @@ val azurerm_dev_test_global_vm_shutdown_schedule :
     azurerm_dev_test_global_vm_shutdown_schedule__notification_settings
     list ->
   string ->
-  unit
+  t

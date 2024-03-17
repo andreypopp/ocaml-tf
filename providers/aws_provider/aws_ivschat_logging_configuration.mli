@@ -11,6 +11,15 @@ type aws_ivschat_logging_configuration__destination_configuration
 type aws_ivschat_logging_configuration__timeouts
 type aws_ivschat_logging_configuration
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_ivschat_logging_configuration :
   ?id:string prop ->
   ?name:string prop ->
@@ -20,4 +29,4 @@ val aws_ivschat_logging_configuration :
   destination_configuration:
     aws_ivschat_logging_configuration__destination_configuration list ->
   string ->
-  unit
+  t

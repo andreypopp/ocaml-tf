@@ -36,22 +36,48 @@ type azurerm_lab_service_schedule = {
 [@@deriving yojson_of]
 (** azurerm_lab_service_schedule *)
 
+type t = {
+  id : string prop;
+  lab_id : string prop;
+  name : string prop;
+  notes : string prop;
+  start_time : string prop;
+  stop_time : string prop;
+  time_zone : string prop;
+}
+
 let azurerm_lab_service_schedule ?id ?notes ?start_time ?timeouts
     ~lab_id ~name ~stop_time ~time_zone ~recurrence __resource_id =
   let __resource_type = "azurerm_lab_service_schedule" in
   let __resource =
-    {
-      id;
-      lab_id;
-      name;
-      notes;
-      start_time;
-      stop_time;
-      time_zone;
-      recurrence;
-      timeouts;
-    }
+    ({
+       id;
+       lab_id;
+       name;
+       notes;
+       start_time;
+       stop_time;
+       time_zone;
+       recurrence;
+       timeouts;
+     }
+      : azurerm_lab_service_schedule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lab_service_schedule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       lab_id = Prop.computed __resource_type __resource_id "lab_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       notes = Prop.computed __resource_type __resource_id "notes";
+       start_time =
+         Prop.computed __resource_type __resource_id "start_time";
+       stop_time =
+         Prop.computed __resource_type __resource_id "stop_time";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -48,12 +48,37 @@ type aws_s3_bucket_acl = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_acl *)
 
+type t = {
+  acl : string prop;
+  bucket : string prop;
+  expected_bucket_owner : string prop;
+  id : string prop;
+}
+
 let aws_s3_bucket_acl ?acl ?expected_bucket_owner ?id ~bucket
     ~access_control_policy __resource_id =
   let __resource_type = "aws_s3_bucket_acl" in
   let __resource =
-    { acl; bucket; expected_bucket_owner; id; access_control_policy }
+    ({
+       acl;
+       bucket;
+       expected_bucket_owner;
+       id;
+       access_control_policy;
+     }
+      : aws_s3_bucket_acl)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_acl __resource);
-  ()
+  let __resource_attributes =
+    ({
+       acl = Prop.computed __resource_type __resource_id "acl";
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       expected_bucket_owner =
+         Prop.computed __resource_type __resource_id
+           "expected_bucket_owner";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

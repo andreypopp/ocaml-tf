@@ -40,23 +40,55 @@ type google_compute_instance_group = {
 [@@deriving yojson_of]
 (** google_compute_instance_group *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  instances : string list prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  self_link : string prop;
+  size : float prop;
+  zone : string prop;
+}
+
 let google_compute_instance_group ?description ?id ?instances
     ?network ?project ?zone ?timeouts ~name ~named_port __resource_id
     =
   let __resource_type = "google_compute_instance_group" in
   let __resource =
-    {
-      description;
-      id;
-      instances;
-      name;
-      network;
-      project;
-      zone;
-      named_port;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       instances;
+       name;
+       network;
+       project;
+       zone;
+       named_port;
+       timeouts;
+     }
+      : google_compute_instance_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_instance_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       instances =
+         Prop.computed __resource_type __resource_id "instances";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       size = Prop.computed __resource_type __resource_id "size";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

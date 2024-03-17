@@ -41,20 +41,46 @@ type aws_appconfig_extension = {
 [@@deriving yojson_of]
 (** aws_appconfig_extension *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : float prop;
+}
+
 let aws_appconfig_extension ?description ?id ?tags ?tags_all ~name
     ~action_point ~parameter __resource_id =
   let __resource_type = "aws_appconfig_extension" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      tags;
-      tags_all;
-      action_point;
-      parameter;
-    }
+    ({
+       description;
+       id;
+       name;
+       tags;
+       tags_all;
+       action_point;
+       parameter;
+     }
+      : aws_appconfig_extension)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_extension __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

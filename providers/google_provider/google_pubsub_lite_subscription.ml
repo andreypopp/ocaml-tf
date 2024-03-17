@@ -35,21 +35,43 @@ type google_pubsub_lite_subscription = {
 [@@deriving yojson_of]
 (** google_pubsub_lite_subscription *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  topic : string prop;
+  zone : string prop;
+}
+
 let google_pubsub_lite_subscription ?id ?project ?region ?zone
     ?timeouts ~name ~topic ~delivery_config __resource_id =
   let __resource_type = "google_pubsub_lite_subscription" in
   let __resource =
-    {
-      id;
-      name;
-      project;
-      region;
-      topic;
-      zone;
-      delivery_config;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       project;
+       region;
+       topic;
+       zone;
+       delivery_config;
+       timeouts;
+     }
+      : google_pubsub_lite_subscription)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_lite_subscription __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       topic = Prop.computed __resource_type __resource_id "topic";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

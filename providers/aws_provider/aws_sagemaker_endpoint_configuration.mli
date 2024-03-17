@@ -33,6 +33,16 @@ type aws_sagemaker_endpoint_configuration__shadow_production_variants__serverles
 type aws_sagemaker_endpoint_configuration__shadow_production_variants
 type aws_sagemaker_endpoint_configuration
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_sagemaker_endpoint_configuration :
   ?id:string prop ->
   ?kms_key_arn:string prop ->
@@ -50,4 +60,4 @@ val aws_sagemaker_endpoint_configuration :
     aws_sagemaker_endpoint_configuration__shadow_production_variants
     list ->
   string ->
-  unit
+  t

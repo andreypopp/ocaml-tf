@@ -18,10 +18,19 @@ type aws_securitylake_data_lake__configuration
 type aws_securitylake_data_lake__timeouts
 type aws_securitylake_data_lake
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  meta_store_manager_role_arn : string prop;
+  s3_bucket_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_securitylake_data_lake :
   ?tags:(string * string prop) list ->
   ?timeouts:aws_securitylake_data_lake__timeouts ->
   meta_store_manager_role_arn:string prop ->
   configuration:aws_securitylake_data_lake__configuration list ->
   string ->
-  unit
+  t

@@ -48,6 +48,16 @@ type google_composer_environment__storage_config
 type google_composer_environment__timeouts
 type google_composer_environment
 
+type t = private {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_composer_environment :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -58,4 +68,4 @@ val google_composer_environment :
   config:google_composer_environment__config list ->
   storage_config:google_composer_environment__storage_config list ->
   string ->
-  unit
+  t

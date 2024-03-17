@@ -15,6 +15,27 @@ type aws_finspace_kx_cluster__timeouts
 type aws_finspace_kx_cluster__vpc_configuration
 type aws_finspace_kx_cluster
 
+type t = private {
+  arn : string prop;
+  availability_zone_id : string prop;
+  az_mode : string prop;
+  command_line_arguments : (string * string) list prop;
+  created_timestamp : string prop;
+  description : string prop;
+  environment_id : string prop;
+  execution_role : string prop;
+  id : string prop;
+  initialization_script : string prop;
+  last_modified_timestamp : string prop;
+  name : string prop;
+  release_label : string prop;
+  status : string prop;
+  status_reason : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_finspace_kx_cluster :
   ?availability_zone_id:string prop ->
   ?command_line_arguments:(string * string prop) list ->
@@ -46,4 +67,4 @@ val aws_finspace_kx_cluster :
     aws_finspace_kx_cluster__tickerplant_log_configuration list ->
   vpc_configuration:aws_finspace_kx_cluster__vpc_configuration list ->
   string ->
-  unit
+  t

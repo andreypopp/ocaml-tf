@@ -4,9 +4,15 @@ open! Tf.Prelude
 
 type aws_ec2_availability_zone_group
 
+type t = private {
+  group_name : string prop;
+  id : string prop;
+  opt_in_status : string prop;
+}
+
 val aws_ec2_availability_zone_group :
   ?id:string prop ->
   group_name:string prop ->
   opt_in_status:string prop ->
   string ->
-  unit
+  t

@@ -239,6 +239,30 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_edgecontainer_cluster *)
 
+type t = {
+  cluster_ca_certificate : string prop;
+  control_plane_version : string prop;
+  create_time : string prop;
+  default_max_pods_per_node : float prop;
+  effective_labels : (string * string) list prop;
+  endpoint : string prop;
+  external_load_balancer_ipv4_address_pools : string list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  maintenance_events :
+    google_edgecontainer_cluster__maintenance_events list prop;
+  name : string prop;
+  node_version : string prop;
+  port : float prop;
+  project : string prop;
+  release_channel : string prop;
+  status : string prop;
+  target_version : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_edgecontainer_cluster ?default_max_pods_per_node
     ?external_load_balancer_ipv4_address_pools ?id ?labels ?project
     ?release_channel ?target_version ?timeouts ~location ~name
@@ -247,26 +271,75 @@ let google_edgecontainer_cluster ?default_max_pods_per_node
     __resource_id =
   let __resource_type = "google_edgecontainer_cluster" in
   let __resource =
-    {
-      default_max_pods_per_node;
-      external_load_balancer_ipv4_address_pools;
-      id;
-      labels;
-      location;
-      name;
-      project;
-      release_channel;
-      target_version;
-      authorization;
-      control_plane;
-      control_plane_encryption;
-      fleet;
-      maintenance_policy;
-      networking;
-      system_addons_config;
-      timeouts;
-    }
+    ({
+       default_max_pods_per_node;
+       external_load_balancer_ipv4_address_pools;
+       id;
+       labels;
+       location;
+       name;
+       project;
+       release_channel;
+       target_version;
+       authorization;
+       control_plane;
+       control_plane_encryption;
+       fleet;
+       maintenance_policy;
+       networking;
+       system_addons_config;
+       timeouts;
+     }
+      : google_edgecontainer_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_edgecontainer_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_ca_certificate =
+         Prop.computed __resource_type __resource_id
+           "cluster_ca_certificate";
+       control_plane_version =
+         Prop.computed __resource_type __resource_id
+           "control_plane_version";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       default_max_pods_per_node =
+         Prop.computed __resource_type __resource_id
+           "default_max_pods_per_node";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       external_load_balancer_ipv4_address_pools =
+         Prop.computed __resource_type __resource_id
+           "external_load_balancer_ipv4_address_pools";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       maintenance_events =
+         Prop.computed __resource_type __resource_id
+           "maintenance_events";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_version =
+         Prop.computed __resource_type __resource_id "node_version";
+       port = Prop.computed __resource_type __resource_id "port";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       release_channel =
+         Prop.computed __resource_type __resource_id
+           "release_channel";
+       status = Prop.computed __resource_type __resource_id "status";
+       target_version =
+         Prop.computed __resource_type __resource_id "target_version";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

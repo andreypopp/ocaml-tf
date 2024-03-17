@@ -65,6 +65,20 @@ type aws_appstream_stack = {
 [@@deriving yojson_of]
 (** aws_appstream_stack *)
 
+type t = {
+  arn : string prop;
+  created_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  embed_host_domains : string list prop;
+  feedback_url : string prop;
+  id : string prop;
+  name : string prop;
+  redirect_url : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_appstream_stack ?description ?display_name
     ?embed_host_domains ?feedback_url ?id ?redirect_url ?tags
     ?tags_all ~name ~access_endpoints ~application_settings
@@ -72,23 +86,48 @@ let aws_appstream_stack ?description ?display_name
     __resource_id =
   let __resource_type = "aws_appstream_stack" in
   let __resource =
-    {
-      description;
-      display_name;
-      embed_host_domains;
-      feedback_url;
-      id;
-      name;
-      redirect_url;
-      tags;
-      tags_all;
-      access_endpoints;
-      application_settings;
-      storage_connectors;
-      streaming_experience_settings;
-      user_settings;
-    }
+    ({
+       description;
+       display_name;
+       embed_host_domains;
+       feedback_url;
+       id;
+       name;
+       redirect_url;
+       tags;
+       tags_all;
+       access_endpoints;
+       application_settings;
+       storage_connectors;
+       streaming_experience_settings;
+       user_settings;
+     }
+      : aws_appstream_stack)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_stack __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_time =
+         Prop.computed __resource_type __resource_id "created_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       embed_host_domains =
+         Prop.computed __resource_type __resource_id
+           "embed_host_domains";
+       feedback_url =
+         Prop.computed __resource_type __resource_id "feedback_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       redirect_url =
+         Prop.computed __resource_type __resource_id "redirect_url";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -78,26 +78,64 @@ type aws_budgets_budget_action = {
 [@@deriving yojson_of]
 (** aws_budgets_budget_action *)
 
+type t = {
+  account_id : string prop;
+  action_id : string prop;
+  action_type : string prop;
+  approval_model : string prop;
+  arn : string prop;
+  budget_name : string prop;
+  execution_role_arn : string prop;
+  id : string prop;
+  notification_type : string prop;
+  status : string prop;
+}
+
 let aws_budgets_budget_action ?account_id ?id ?timeouts ~action_type
     ~approval_model ~budget_name ~execution_role_arn
     ~notification_type ~action_threshold ~definition ~subscriber
     __resource_id =
   let __resource_type = "aws_budgets_budget_action" in
   let __resource =
-    {
-      account_id;
-      action_type;
-      approval_model;
-      budget_name;
-      execution_role_arn;
-      id;
-      notification_type;
-      action_threshold;
-      definition;
-      subscriber;
-      timeouts;
-    }
+    ({
+       account_id;
+       action_type;
+       approval_model;
+       budget_name;
+       execution_role_arn;
+       id;
+       notification_type;
+       action_threshold;
+       definition;
+       subscriber;
+       timeouts;
+     }
+      : aws_budgets_budget_action)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_budgets_budget_action __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       action_id =
+         Prop.computed __resource_type __resource_id "action_id";
+       action_type =
+         Prop.computed __resource_type __resource_id "action_type";
+       approval_model =
+         Prop.computed __resource_type __resource_id "approval_model";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       budget_name =
+         Prop.computed __resource_type __resource_id "budget_name";
+       execution_role_arn =
+         Prop.computed __resource_type __resource_id
+           "execution_role_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       notification_type =
+         Prop.computed __resource_type __resource_id
+           "notification_type";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

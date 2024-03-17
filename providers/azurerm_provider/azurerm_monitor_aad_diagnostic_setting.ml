@@ -64,24 +64,52 @@ type azurerm_monitor_aad_diagnostic_setting = {
 [@@deriving yojson_of]
 (** azurerm_monitor_aad_diagnostic_setting *)
 
+type t = {
+  eventhub_authorization_rule_id : string prop;
+  eventhub_name : string prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  storage_account_id : string prop;
+}
+
 let azurerm_monitor_aad_diagnostic_setting
     ?eventhub_authorization_rule_id ?eventhub_name ?id
     ?log_analytics_workspace_id ?storage_account_id ?timeouts ~name
     ~enabled_log ~log __resource_id =
   let __resource_type = "azurerm_monitor_aad_diagnostic_setting" in
   let __resource =
-    {
-      eventhub_authorization_rule_id;
-      eventhub_name;
-      id;
-      log_analytics_workspace_id;
-      name;
-      storage_account_id;
-      enabled_log;
-      log;
-      timeouts;
-    }
+    ({
+       eventhub_authorization_rule_id;
+       eventhub_name;
+       id;
+       log_analytics_workspace_id;
+       name;
+       storage_account_id;
+       enabled_log;
+       log;
+       timeouts;
+     }
+      : azurerm_monitor_aad_diagnostic_setting)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_aad_diagnostic_setting __resource);
-  ()
+  let __resource_attributes =
+    ({
+       eventhub_authorization_rule_id =
+         Prop.computed __resource_type __resource_id
+           "eventhub_authorization_rule_id";
+       eventhub_name =
+         Prop.computed __resource_type __resource_id "eventhub_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+     }
+      : t)
+  in
+  __resource_attributes

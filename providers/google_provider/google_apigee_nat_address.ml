@@ -22,10 +22,32 @@ in the format 'organizations/{{org_name}}/instances/{{instance_name}}'. *)
 [@@deriving yojson_of]
 (** google_apigee_nat_address *)
 
+type t = {
+  id : string prop;
+  instance_id : string prop;
+  ip_address : string prop;
+  name : string prop;
+  state : string prop;
+}
+
 let google_apigee_nat_address ?id ?timeouts ~instance_id ~name
     __resource_id =
   let __resource_type = "google_apigee_nat_address" in
-  let __resource = { id; instance_id; name; timeouts } in
+  let __resource =
+    ({ id; instance_id; name; timeouts } : google_apigee_nat_address)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_nat_address __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_id =
+         Prop.computed __resource_type __resource_id "instance_id";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       name = Prop.computed __resource_type __resource_id "name";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

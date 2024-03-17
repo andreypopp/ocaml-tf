@@ -175,30 +175,92 @@ Please refer to the field `effective_annotations` for all of the annotations pre
 [@@deriving yojson_of]
 (** google_container_azure_cluster *)
 
+type t = {
+  annotations : (string * string) list prop;
+  azure_region : string prop;
+  client : string prop;
+  create_time : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  endpoint : string prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  resource_group_id : string prop;
+  state : string prop;
+  uid : string prop;
+  update_time : string prop;
+  workload_identity_config :
+    google_container_azure_cluster__workload_identity_config list
+    prop;
+}
+
 let google_container_azure_cluster ?annotations ?client ?description
     ?id ?project ?timeouts ~azure_region ~location ~name
     ~resource_group_id ~authorization ~azure_services_authentication
     ~control_plane ~fleet ~networking __resource_id =
   let __resource_type = "google_container_azure_cluster" in
   let __resource =
-    {
-      annotations;
-      azure_region;
-      client;
-      description;
-      id;
-      location;
-      name;
-      project;
-      resource_group_id;
-      authorization;
-      azure_services_authentication;
-      control_plane;
-      fleet;
-      networking;
-      timeouts;
-    }
+    ({
+       annotations;
+       azure_region;
+       client;
+       description;
+       id;
+       location;
+       name;
+       project;
+       resource_group_id;
+       authorization;
+       azure_services_authentication;
+       control_plane;
+       fleet;
+       networking;
+       timeouts;
+     }
+      : google_container_azure_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_azure_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       azure_region =
+         Prop.computed __resource_type __resource_id "azure_region";
+       client = Prop.computed __resource_type __resource_id "client";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       resource_group_id =
+         Prop.computed __resource_type __resource_id
+           "resource_group_id";
+       state = Prop.computed __resource_type __resource_id "state";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       workload_identity_config =
+         Prop.computed __resource_type __resource_id
+           "workload_identity_config";
+     }
+      : t)
+  in
+  __resource_attributes

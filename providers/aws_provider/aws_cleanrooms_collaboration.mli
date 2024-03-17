@@ -7,6 +7,20 @@ type aws_cleanrooms_collaboration__member
 type aws_cleanrooms_collaboration__timeouts
 type aws_cleanrooms_collaboration
 
+type t = private {
+  arn : string prop;
+  create_time : string prop;
+  creator_display_name : string prop;
+  creator_member_abilities : string list prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  query_log_status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  update_time : string prop;
+}
+
 val aws_cleanrooms_collaboration :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
@@ -20,4 +34,4 @@ val aws_cleanrooms_collaboration :
     aws_cleanrooms_collaboration__data_encryption_metadata list ->
   member:aws_cleanrooms_collaboration__member list ->
   string ->
-  unit
+  t

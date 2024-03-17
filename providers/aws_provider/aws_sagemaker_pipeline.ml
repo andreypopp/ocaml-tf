@@ -39,25 +39,61 @@ type aws_sagemaker_pipeline = {
 [@@deriving yojson_of]
 (** aws_sagemaker_pipeline *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  pipeline_definition : string prop;
+  pipeline_description : string prop;
+  pipeline_display_name : string prop;
+  pipeline_name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sagemaker_pipeline ?id ?pipeline_definition
     ?pipeline_description ?role_arn ?tags ?tags_all
     ~pipeline_display_name ~pipeline_name ~parallelism_configuration
     ~pipeline_definition_s3_location __resource_id =
   let __resource_type = "aws_sagemaker_pipeline" in
   let __resource =
-    {
-      id;
-      pipeline_definition;
-      pipeline_description;
-      pipeline_display_name;
-      pipeline_name;
-      role_arn;
-      tags;
-      tags_all;
-      parallelism_configuration;
-      pipeline_definition_s3_location;
-    }
+    ({
+       id;
+       pipeline_definition;
+       pipeline_description;
+       pipeline_display_name;
+       pipeline_name;
+       role_arn;
+       tags;
+       tags_all;
+       parallelism_configuration;
+       pipeline_definition_s3_location;
+     }
+      : aws_sagemaker_pipeline)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_pipeline __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       pipeline_definition =
+         Prop.computed __resource_type __resource_id
+           "pipeline_definition";
+       pipeline_description =
+         Prop.computed __resource_type __resource_id
+           "pipeline_description";
+       pipeline_display_name =
+         Prop.computed __resource_type __resource_id
+           "pipeline_display_name";
+       pipeline_name =
+         Prop.computed __resource_type __resource_id "pipeline_name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

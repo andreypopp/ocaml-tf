@@ -24,14 +24,39 @@ type google_healthcare_consent_store_iam_binding = {
 [@@deriving yojson_of]
 (** google_healthcare_consent_store_iam_binding *)
 
+type t = {
+  consent_store_id : string prop;
+  dataset : string prop;
+  etag : string prop;
+  id : string prop;
+  members : string list prop;
+  role : string prop;
+}
+
 let google_healthcare_consent_store_iam_binding ?id ~consent_store_id
     ~dataset ~members ~role ~condition __resource_id =
   let __resource_type =
     "google_healthcare_consent_store_iam_binding"
   in
   let __resource =
-    { consent_store_id; dataset; id; members; role; condition }
+    ({ consent_store_id; dataset; id; members; role; condition }
+      : google_healthcare_consent_store_iam_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_consent_store_iam_binding __resource);
-  ()
+  let __resource_attributes =
+    ({
+       consent_store_id =
+         Prop.computed __resource_type __resource_id
+           "consent_store_id";
+       dataset =
+         Prop.computed __resource_type __resource_id "dataset";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

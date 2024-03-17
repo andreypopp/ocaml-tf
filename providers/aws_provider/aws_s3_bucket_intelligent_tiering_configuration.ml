@@ -31,13 +31,32 @@ type aws_s3_bucket_intelligent_tiering_configuration = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_intelligent_tiering_configuration *)
 
+type t = {
+  bucket : string prop;
+  id : string prop;
+  name : string prop;
+  status : string prop;
+}
+
 let aws_s3_bucket_intelligent_tiering_configuration ?id ?status
     ~bucket ~name ~filter ~tiering __resource_id =
   let __resource_type =
     "aws_s3_bucket_intelligent_tiering_configuration"
   in
-  let __resource = { bucket; id; name; status; filter; tiering } in
+  let __resource =
+    ({ bucket; id; name; status; filter; tiering }
+      : aws_s3_bucket_intelligent_tiering_configuration)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_intelligent_tiering_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

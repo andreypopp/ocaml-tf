@@ -22,15 +22,33 @@ type aws_shield_drt_access_log_bucket_association = {
 [@@deriving yojson_of]
 (** aws_shield_drt_access_log_bucket_association *)
 
+type t = {
+  id : string prop;
+  log_bucket : string prop;
+  role_arn_association_id : string prop;
+}
+
 let aws_shield_drt_access_log_bucket_association ?timeouts
     ~log_bucket ~role_arn_association_id __resource_id =
   let __resource_type =
     "aws_shield_drt_access_log_bucket_association"
   in
   let __resource =
-    { log_bucket; role_arn_association_id; timeouts }
+    ({ log_bucket; role_arn_association_id; timeouts }
+      : aws_shield_drt_access_log_bucket_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_shield_drt_access_log_bucket_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       log_bucket =
+         Prop.computed __resource_type __resource_id "log_bucket";
+       role_arn_association_id =
+         Prop.computed __resource_type __resource_id
+           "role_arn_association_id";
+     }
+      : t)
+  in
+  __resource_attributes

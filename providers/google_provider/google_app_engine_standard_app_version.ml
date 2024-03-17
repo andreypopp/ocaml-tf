@@ -220,6 +220,24 @@ Substitute '<language>' with 'python', 'java', 'php', 'ruby', 'go' or 'nodejs'. 
 [@@deriving yojson_of]
 (** google_app_engine_standard_app_version *)
 
+type t = {
+  app_engine_apis : bool prop;
+  delete_service_on_destroy : bool prop;
+  env_variables : (string * string) list prop;
+  id : string prop;
+  inbound_services : string list prop;
+  instance_class : string prop;
+  name : string prop;
+  noop_on_destroy : bool prop;
+  project : string prop;
+  runtime : string prop;
+  runtime_api_version : string prop;
+  service : string prop;
+  service_account : string prop;
+  threadsafe : bool prop;
+  version_id : string prop;
+}
+
 let google_app_engine_standard_app_version ?app_engine_apis
     ?delete_service_on_destroy ?env_variables ?id ?inbound_services
     ?instance_class ?noop_on_destroy ?project ?runtime_api_version
@@ -229,32 +247,72 @@ let google_app_engine_standard_app_version ?app_engine_apis
     ~vpc_access_connector __resource_id =
   let __resource_type = "google_app_engine_standard_app_version" in
   let __resource =
-    {
-      app_engine_apis;
-      delete_service_on_destroy;
-      env_variables;
-      id;
-      inbound_services;
-      instance_class;
-      noop_on_destroy;
-      project;
-      runtime;
-      runtime_api_version;
-      service;
-      service_account;
-      threadsafe;
-      version_id;
-      automatic_scaling;
-      basic_scaling;
-      deployment;
-      entrypoint;
-      handlers;
-      libraries;
-      manual_scaling;
-      timeouts;
-      vpc_access_connector;
-    }
+    ({
+       app_engine_apis;
+       delete_service_on_destroy;
+       env_variables;
+       id;
+       inbound_services;
+       instance_class;
+       noop_on_destroy;
+       project;
+       runtime;
+       runtime_api_version;
+       service;
+       service_account;
+       threadsafe;
+       version_id;
+       automatic_scaling;
+       basic_scaling;
+       deployment;
+       entrypoint;
+       handlers;
+       libraries;
+       manual_scaling;
+       timeouts;
+       vpc_access_connector;
+     }
+      : google_app_engine_standard_app_version)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_standard_app_version __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_engine_apis =
+         Prop.computed __resource_type __resource_id
+           "app_engine_apis";
+       delete_service_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "delete_service_on_destroy";
+       env_variables =
+         Prop.computed __resource_type __resource_id "env_variables";
+       id = Prop.computed __resource_type __resource_id "id";
+       inbound_services =
+         Prop.computed __resource_type __resource_id
+           "inbound_services";
+       instance_class =
+         Prop.computed __resource_type __resource_id "instance_class";
+       name = Prop.computed __resource_type __resource_id "name";
+       noop_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "noop_on_destroy";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       runtime =
+         Prop.computed __resource_type __resource_id "runtime";
+       runtime_api_version =
+         Prop.computed __resource_type __resource_id
+           "runtime_api_version";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+       service_account =
+         Prop.computed __resource_type __resource_id
+           "service_account";
+       threadsafe =
+         Prop.computed __resource_type __resource_id "threadsafe";
+       version_id =
+         Prop.computed __resource_type __resource_id "version_id";
+     }
+      : t)
+  in
+  __resource_attributes

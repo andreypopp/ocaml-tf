@@ -16,6 +16,17 @@ type aws_appconfig_hosted_configuration_version = {
 [@@deriving yojson_of]
 (** aws_appconfig_hosted_configuration_version *)
 
+type t = {
+  application_id : string prop;
+  arn : string prop;
+  configuration_profile_id : string prop;
+  content : string prop;
+  content_type : string prop;
+  description : string prop;
+  id : string prop;
+  version_number : float prop;
+}
+
 let aws_appconfig_hosted_configuration_version ?description ?id
     ~application_id ~configuration_profile_id ~content ~content_type
     __resource_id =
@@ -23,15 +34,36 @@ let aws_appconfig_hosted_configuration_version ?description ?id
     "aws_appconfig_hosted_configuration_version"
   in
   let __resource =
-    {
-      application_id;
-      configuration_profile_id;
-      content;
-      content_type;
-      description;
-      id;
-    }
+    ({
+       application_id;
+       configuration_profile_id;
+       content;
+       content_type;
+       description;
+       id;
+     }
+      : aws_appconfig_hosted_configuration_version)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_hosted_configuration_version __resource);
-  ()
+  let __resource_attributes =
+    ({
+       application_id =
+         Prop.computed __resource_type __resource_id "application_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       configuration_profile_id =
+         Prop.computed __resource_type __resource_id
+           "configuration_profile_id";
+       content =
+         Prop.computed __resource_type __resource_id "content";
+       content_type =
+         Prop.computed __resource_type __resource_id "content_type";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       version_number =
+         Prop.computed __resource_type __resource_id "version_number";
+     }
+      : t)
+  in
+  __resource_attributes

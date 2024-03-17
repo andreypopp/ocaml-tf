@@ -88,30 +88,62 @@ type aws_ses_receipt_rule = {
 [@@deriving yojson_of]
 (** aws_ses_receipt_rule *)
 
+type t = {
+  after : string prop;
+  arn : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  recipients : string list prop;
+  rule_set_name : string prop;
+  scan_enabled : bool prop;
+  tls_policy : string prop;
+}
+
 let aws_ses_receipt_rule ?after ?enabled ?id ?recipients
     ?scan_enabled ?tls_policy ~name ~rule_set_name ~add_header_action
     ~bounce_action ~lambda_action ~s3_action ~sns_action ~stop_action
     ~workmail_action __resource_id =
   let __resource_type = "aws_ses_receipt_rule" in
   let __resource =
-    {
-      after;
-      enabled;
-      id;
-      name;
-      recipients;
-      rule_set_name;
-      scan_enabled;
-      tls_policy;
-      add_header_action;
-      bounce_action;
-      lambda_action;
-      s3_action;
-      sns_action;
-      stop_action;
-      workmail_action;
-    }
+    ({
+       after;
+       enabled;
+       id;
+       name;
+       recipients;
+       rule_set_name;
+       scan_enabled;
+       tls_policy;
+       add_header_action;
+       bounce_action;
+       lambda_action;
+       s3_action;
+       sns_action;
+       stop_action;
+       workmail_action;
+     }
+      : aws_ses_receipt_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_receipt_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       after = Prop.computed __resource_type __resource_id "after";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       recipients =
+         Prop.computed __resource_type __resource_id "recipients";
+       rule_set_name =
+         Prop.computed __resource_type __resource_id "rule_set_name";
+       scan_enabled =
+         Prop.computed __resource_type __resource_id "scan_enabled";
+       tls_policy =
+         Prop.computed __resource_type __resource_id "tls_policy";
+     }
+      : t)
+  in
+  __resource_attributes

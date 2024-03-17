@@ -5,6 +5,14 @@ open! Tf.Prelude
 type azurerm_static_web_app_custom_domain__timeouts
 type azurerm_static_web_app_custom_domain
 
+type t = private {
+  domain_name : string prop;
+  id : string prop;
+  static_web_app_id : string prop;
+  validation_token : string prop;
+  validation_type : string prop;
+}
+
 val azurerm_static_web_app_custom_domain :
   ?id:string prop ->
   ?timeouts:azurerm_static_web_app_custom_domain__timeouts ->
@@ -12,4 +20,4 @@ val azurerm_static_web_app_custom_domain :
   static_web_app_id:string prop ->
   validation_type:string prop ->
   string ->
-  unit
+  t

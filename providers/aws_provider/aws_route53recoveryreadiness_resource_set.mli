@@ -14,6 +14,15 @@ type aws_route53recoveryreadiness_resource_set__resources
 type aws_route53recoveryreadiness_resource_set__timeouts
 type aws_route53recoveryreadiness_resource_set
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  resource_set_name : string prop;
+  resource_set_type : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_route53recoveryreadiness_resource_set :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -23,4 +32,4 @@ val aws_route53recoveryreadiness_resource_set :
   resource_set_type:string prop ->
   resources:aws_route53recoveryreadiness_resource_set__resources list ->
   string ->
-  unit
+  t

@@ -23,6 +23,15 @@ type aws_emrcontainers_job_template__job_template_data
 type aws_emrcontainers_job_template__timeouts
 type aws_emrcontainers_job_template
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_emrcontainers_job_template :
   ?id:string prop ->
   ?kms_key_arn:string prop ->
@@ -33,4 +42,4 @@ val aws_emrcontainers_job_template :
   job_template_data:
     aws_emrcontainers_job_template__job_template_data list ->
   string ->
-  unit
+  t

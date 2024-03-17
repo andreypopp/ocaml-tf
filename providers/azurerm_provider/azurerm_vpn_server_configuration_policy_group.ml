@@ -36,6 +36,14 @@ type azurerm_vpn_server_configuration_policy_group = {
 [@@deriving yojson_of]
 (** azurerm_vpn_server_configuration_policy_group *)
 
+type t = {
+  id : string prop;
+  is_default : bool prop;
+  name : string prop;
+  priority : float prop;
+  vpn_server_configuration_id : string prop;
+}
+
 let azurerm_vpn_server_configuration_policy_group ?id ?is_default
     ?priority ?timeouts ~name ~vpn_server_configuration_id ~policy
     __resource_id =
@@ -43,17 +51,32 @@ let azurerm_vpn_server_configuration_policy_group ?id ?is_default
     "azurerm_vpn_server_configuration_policy_group"
   in
   let __resource =
-    {
-      id;
-      is_default;
-      name;
-      priority;
-      vpn_server_configuration_id;
-      policy;
-      timeouts;
-    }
+    ({
+       id;
+       is_default;
+       name;
+       priority;
+       vpn_server_configuration_id;
+       policy;
+       timeouts;
+     }
+      : azurerm_vpn_server_configuration_policy_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vpn_server_configuration_policy_group
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       is_default =
+         Prop.computed __resource_type __resource_id "is_default";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       vpn_server_configuration_id =
+         Prop.computed __resource_type __resource_id
+           "vpn_server_configuration_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -24,10 +24,30 @@ type google_folder_iam_audit_config = {
 [@@deriving yojson_of]
 (** google_folder_iam_audit_config *)
 
+type t = {
+  etag : string prop;
+  folder : string prop;
+  id : string prop;
+  service : string prop;
+}
+
 let google_folder_iam_audit_config ?id ~folder ~service
     ~audit_log_config __resource_id =
   let __resource_type = "google_folder_iam_audit_config" in
-  let __resource = { folder; id; service; audit_log_config } in
+  let __resource =
+    ({ folder; id; service; audit_log_config }
+      : google_folder_iam_audit_config)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_folder_iam_audit_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       folder = Prop.computed __resource_type __resource_id "folder";
+       id = Prop.computed __resource_type __resource_id "id";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+     }
+      : t)
+  in
+  __resource_attributes

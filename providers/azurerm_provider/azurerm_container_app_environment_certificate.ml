@@ -30,6 +30,20 @@ type azurerm_container_app_environment_certificate = {
 [@@deriving yojson_of]
 (** azurerm_container_app_environment_certificate *)
 
+type t = {
+  certificate_blob_base64 : string prop;
+  certificate_password : string prop;
+  container_app_environment_id : string prop;
+  expiration_date : string prop;
+  id : string prop;
+  issue_date : string prop;
+  issuer : string prop;
+  name : string prop;
+  subject_name : string prop;
+  tags : (string * string) list prop;
+  thumbprint : string prop;
+}
+
 let azurerm_container_app_environment_certificate ?id ?tags ?timeouts
     ~certificate_blob_base64 ~certificate_password
     ~container_app_environment_id ~name __resource_id =
@@ -37,17 +51,45 @@ let azurerm_container_app_environment_certificate ?id ?tags ?timeouts
     "azurerm_container_app_environment_certificate"
   in
   let __resource =
-    {
-      certificate_blob_base64;
-      certificate_password;
-      container_app_environment_id;
-      id;
-      name;
-      tags;
-      timeouts;
-    }
+    ({
+       certificate_blob_base64;
+       certificate_password;
+       container_app_environment_id;
+       id;
+       name;
+       tags;
+       timeouts;
+     }
+      : azurerm_container_app_environment_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_app_environment_certificate
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate_blob_base64 =
+         Prop.computed __resource_type __resource_id
+           "certificate_blob_base64";
+       certificate_password =
+         Prop.computed __resource_type __resource_id
+           "certificate_password";
+       container_app_environment_id =
+         Prop.computed __resource_type __resource_id
+           "container_app_environment_id";
+       expiration_date =
+         Prop.computed __resource_type __resource_id
+           "expiration_date";
+       id = Prop.computed __resource_type __resource_id "id";
+       issue_date =
+         Prop.computed __resource_type __resource_id "issue_date";
+       issuer = Prop.computed __resource_type __resource_id "issuer";
+       name = Prop.computed __resource_type __resource_id "name";
+       subject_name =
+         Prop.computed __resource_type __resource_id "subject_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       thumbprint =
+         Prop.computed __resource_type __resource_id "thumbprint";
+     }
+      : t)
+  in
+  __resource_attributes

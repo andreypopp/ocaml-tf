@@ -32,6 +32,16 @@ type azurerm_mssql_server_microsoft_support_auditing_policy = {
 [@@deriving yojson_of]
 (** azurerm_mssql_server_microsoft_support_auditing_policy *)
 
+type t = {
+  blob_storage_endpoint : string prop;
+  enabled : bool prop;
+  id : string prop;
+  log_monitoring_enabled : bool prop;
+  server_id : string prop;
+  storage_account_access_key : string prop;
+  storage_account_subscription_id : string prop;
+}
+
 let azurerm_mssql_server_microsoft_support_auditing_policy
     ?blob_storage_endpoint ?enabled ?id ?log_monitoring_enabled
     ?storage_account_access_key ?storage_account_subscription_id
@@ -40,18 +50,41 @@ let azurerm_mssql_server_microsoft_support_auditing_policy
     "azurerm_mssql_server_microsoft_support_auditing_policy"
   in
   let __resource =
-    {
-      blob_storage_endpoint;
-      enabled;
-      id;
-      log_monitoring_enabled;
-      server_id;
-      storage_account_access_key;
-      storage_account_subscription_id;
-      timeouts;
-    }
+    ({
+       blob_storage_endpoint;
+       enabled;
+       id;
+       log_monitoring_enabled;
+       server_id;
+       storage_account_access_key;
+       storage_account_subscription_id;
+       timeouts;
+     }
+      : azurerm_mssql_server_microsoft_support_auditing_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_server_microsoft_support_auditing_policy
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       blob_storage_endpoint =
+         Prop.computed __resource_type __resource_id
+           "blob_storage_endpoint";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_monitoring_enabled =
+         Prop.computed __resource_type __resource_id
+           "log_monitoring_enabled";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       storage_account_access_key =
+         Prop.computed __resource_type __resource_id
+           "storage_account_access_key";
+       storage_account_subscription_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_subscription_id";
+     }
+      : t)
+  in
+  __resource_attributes

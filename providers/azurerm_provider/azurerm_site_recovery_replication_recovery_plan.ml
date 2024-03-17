@@ -230,6 +230,14 @@ type azurerm_site_recovery_replication_recovery_plan = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  recovery_vault_id : string prop;
+  source_recovery_fabric_id : string prop;
+  target_recovery_fabric_id : string prop;
+}
+
 let azurerm_site_recovery_replication_recovery_plan ?id ?timeouts
     ~name ~recovery_vault_id ~source_recovery_fabric_id
     ~target_recovery_fabric_id ~azure_to_azure_settings
@@ -239,21 +247,38 @@ let azurerm_site_recovery_replication_recovery_plan ?id ?timeouts
     "azurerm_site_recovery_replication_recovery_plan"
   in
   let __resource =
-    {
-      id;
-      name;
-      recovery_vault_id;
-      source_recovery_fabric_id;
-      target_recovery_fabric_id;
-      azure_to_azure_settings;
-      boot_recovery_group;
-      failover_recovery_group;
-      recovery_group;
-      shutdown_recovery_group;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       recovery_vault_id;
+       source_recovery_fabric_id;
+       target_recovery_fabric_id;
+       azure_to_azure_settings;
+       boot_recovery_group;
+       failover_recovery_group;
+       recovery_group;
+       shutdown_recovery_group;
+       timeouts;
+     }
+      : azurerm_site_recovery_replication_recovery_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_site_recovery_replication_recovery_plan
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       recovery_vault_id =
+         Prop.computed __resource_type __resource_id
+           "recovery_vault_id";
+       source_recovery_fabric_id =
+         Prop.computed __resource_type __resource_id
+           "source_recovery_fabric_id";
+       target_recovery_fabric_id =
+         Prop.computed __resource_type __resource_id
+           "target_recovery_fabric_id";
+     }
+      : t)
+  in
+  __resource_attributes

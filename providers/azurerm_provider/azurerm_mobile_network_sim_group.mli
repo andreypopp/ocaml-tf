@@ -6,6 +6,15 @@ type azurerm_mobile_network_sim_group__identity
 type azurerm_mobile_network_sim_group__timeouts
 type azurerm_mobile_network_sim_group
 
+type t = private {
+  encryption_key_url : string prop;
+  id : string prop;
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_mobile_network_sim_group :
   ?encryption_key_url:string prop ->
   ?id:string prop ->
@@ -16,4 +25,4 @@ val azurerm_mobile_network_sim_group :
   name:string prop ->
   identity:azurerm_mobile_network_sim_group__identity list ->
   string ->
-  unit
+  t

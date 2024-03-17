@@ -20,6 +20,22 @@ type google_cloudfunctions2_function__service_config
 type google_cloudfunctions2_function__timeouts
 type google_cloudfunctions2_function
 
+type t = private {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  environment : string prop;
+  id : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+  url : string prop;
+}
+
 val google_cloudfunctions2_function :
   ?description:string prop ->
   ?id:string prop ->
@@ -33,4 +49,4 @@ val google_cloudfunctions2_function :
   event_trigger:google_cloudfunctions2_function__event_trigger list ->
   service_config:google_cloudfunctions2_function__service_config list ->
   string ->
-  unit
+  t

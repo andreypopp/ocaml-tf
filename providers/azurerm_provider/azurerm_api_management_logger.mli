@@ -7,6 +7,16 @@ type azurerm_api_management_logger__eventhub
 type azurerm_api_management_logger__timeouts
 type azurerm_api_management_logger
 
+type t = private {
+  api_management_name : string prop;
+  buffered : bool prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  resource_id : string prop;
+}
+
 val azurerm_api_management_logger :
   ?buffered:bool prop ->
   ?description:string prop ->
@@ -20,4 +30,4 @@ val azurerm_api_management_logger :
     azurerm_api_management_logger__application_insights list ->
   eventhub:azurerm_api_management_logger__eventhub list ->
   string ->
-  unit
+  t

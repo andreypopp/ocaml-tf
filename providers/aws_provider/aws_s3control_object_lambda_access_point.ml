@@ -53,10 +53,32 @@ type aws_s3control_object_lambda_access_point = {
 [@@deriving yojson_of]
 (** aws_s3control_object_lambda_access_point *)
 
+type t = {
+  account_id : string prop;
+  alias : string prop;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let aws_s3control_object_lambda_access_point ?account_id ?id ~name
     ~configuration __resource_id =
   let __resource_type = "aws_s3control_object_lambda_access_point" in
-  let __resource = { account_id; id; name; configuration } in
+  let __resource =
+    ({ account_id; id; name; configuration }
+      : aws_s3control_object_lambda_access_point)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_object_lambda_access_point __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       alias = Prop.computed __resource_type __resource_id "alias";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

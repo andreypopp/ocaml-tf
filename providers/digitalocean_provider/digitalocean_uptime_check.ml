@@ -19,10 +19,35 @@ type digitalocean_uptime_check = {
 [@@deriving yojson_of]
 (** digitalocean_uptime_check *)
 
+type t = {
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  regions : string list prop;
+  target : string prop;
+  type_ : string prop;
+}
+
 let digitalocean_uptime_check ?enabled ?regions ?type_ ~name ~target
     __resource_id =
   let __resource_type = "digitalocean_uptime_check" in
-  let __resource = { enabled; name; regions; target; type_ } in
+  let __resource =
+    ({ enabled; name; regions; target; type_ }
+      : digitalocean_uptime_check)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_uptime_check __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       regions =
+         Prop.computed __resource_type __resource_id "regions";
+       target = Prop.computed __resource_type __resource_id "target";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

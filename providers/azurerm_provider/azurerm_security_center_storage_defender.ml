@@ -32,6 +32,15 @@ type azurerm_security_center_storage_defender = {
 [@@deriving yojson_of]
 (** azurerm_security_center_storage_defender *)
 
+type t = {
+  id : string prop;
+  malware_scanning_on_upload_cap_gb_per_month : float prop;
+  malware_scanning_on_upload_enabled : bool prop;
+  override_subscription_settings_enabled : bool prop;
+  sensitive_data_discovery_enabled : bool prop;
+  storage_account_id : string prop;
+}
+
 let azurerm_security_center_storage_defender ?id
     ?malware_scanning_on_upload_cap_gb_per_month
     ?malware_scanning_on_upload_enabled
@@ -40,16 +49,38 @@ let azurerm_security_center_storage_defender ?id
     __resource_id =
   let __resource_type = "azurerm_security_center_storage_defender" in
   let __resource =
-    {
-      id;
-      malware_scanning_on_upload_cap_gb_per_month;
-      malware_scanning_on_upload_enabled;
-      override_subscription_settings_enabled;
-      sensitive_data_discovery_enabled;
-      storage_account_id;
-      timeouts;
-    }
+    ({
+       id;
+       malware_scanning_on_upload_cap_gb_per_month;
+       malware_scanning_on_upload_enabled;
+       override_subscription_settings_enabled;
+       sensitive_data_discovery_enabled;
+       storage_account_id;
+       timeouts;
+     }
+      : azurerm_security_center_storage_defender)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_storage_defender __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       malware_scanning_on_upload_cap_gb_per_month =
+         Prop.computed __resource_type __resource_id
+           "malware_scanning_on_upload_cap_gb_per_month";
+       malware_scanning_on_upload_enabled =
+         Prop.computed __resource_type __resource_id
+           "malware_scanning_on_upload_enabled";
+       override_subscription_settings_enabled =
+         Prop.computed __resource_type __resource_id
+           "override_subscription_settings_enabled";
+       sensitive_data_discovery_enabled =
+         Prop.computed __resource_type __resource_id
+           "sensitive_data_discovery_enabled";
+       storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "storage_account_id";
+     }
+      : t)
+  in
+  __resource_attributes

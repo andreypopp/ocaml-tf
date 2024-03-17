@@ -71,12 +71,35 @@ type aws_backup_plan = {
 [@@deriving yojson_of]
 (** aws_backup_plan *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+}
+
 let aws_backup_plan ?id ?tags ?tags_all ~name
     ~advanced_backup_setting ~rule __resource_id =
   let __resource_type = "aws_backup_plan" in
   let __resource =
-    { id; name; tags; tags_all; advanced_backup_setting; rule }
+    ({ id; name; tags; tags_all; advanced_backup_setting; rule }
+      : aws_backup_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_backup_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

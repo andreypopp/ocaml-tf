@@ -25,21 +25,52 @@ type cloudflare_turnstile_widget = {
 (** The [Turnstile Widget](https://developers.cloudflare.com/turnstile/) resource allows you to manage Cloudflare Turnstile Widgets.
  *)
 
+type t = {
+  account_id : string prop;
+  bot_fight_mode : bool prop;
+  domains : string list prop;
+  id : string prop;
+  mode : string prop;
+  name : string prop;
+  offlabel : bool prop;
+  region : string prop;
+  secret : string prop;
+}
+
 let cloudflare_turnstile_widget ?bot_fight_mode ?id ?offlabel ?region
     ~account_id ~domains ~mode ~name __resource_id =
   let __resource_type = "cloudflare_turnstile_widget" in
   let __resource =
-    {
-      account_id;
-      bot_fight_mode;
-      domains;
-      id;
-      mode;
-      name;
-      offlabel;
-      region;
-    }
+    ({
+       account_id;
+       bot_fight_mode;
+       domains;
+       id;
+       mode;
+       name;
+       offlabel;
+       region;
+     }
+      : cloudflare_turnstile_widget)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_turnstile_widget __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       bot_fight_mode =
+         Prop.computed __resource_type __resource_id "bot_fight_mode";
+       domains =
+         Prop.computed __resource_type __resource_id "domains";
+       id = Prop.computed __resource_type __resource_id "id";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       name = Prop.computed __resource_type __resource_id "name";
+       offlabel =
+         Prop.computed __resource_type __resource_id "offlabel";
+       region = Prop.computed __resource_type __resource_id "region";
+       secret = Prop.computed __resource_type __resource_id "secret";
+     }
+      : t)
+  in
+  __resource_attributes

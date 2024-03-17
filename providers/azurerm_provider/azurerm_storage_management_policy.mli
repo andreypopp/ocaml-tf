@@ -14,10 +14,15 @@ type azurerm_storage_management_policy__rule
 type azurerm_storage_management_policy__timeouts
 type azurerm_storage_management_policy
 
+type t = private {
+  id : string prop;
+  storage_account_id : string prop;
+}
+
 val azurerm_storage_management_policy :
   ?id:string prop ->
   ?timeouts:azurerm_storage_management_policy__timeouts ->
   storage_account_id:string prop ->
   rule:azurerm_storage_management_policy__rule list ->
   string ->
-  unit
+  t

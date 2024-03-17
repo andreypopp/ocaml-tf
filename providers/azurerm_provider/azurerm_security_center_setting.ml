@@ -22,10 +22,29 @@ type azurerm_security_center_setting = {
 [@@deriving yojson_of]
 (** azurerm_security_center_setting *)
 
+type t = {
+  enabled : bool prop;
+  id : string prop;
+  setting_name : string prop;
+}
+
 let azurerm_security_center_setting ?id ?timeouts ~enabled
     ~setting_name __resource_id =
   let __resource_type = "azurerm_security_center_setting" in
-  let __resource = { enabled; id; setting_name; timeouts } in
+  let __resource =
+    ({ enabled; id; setting_name; timeouts }
+      : azurerm_security_center_setting)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_setting __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       setting_name =
+         Prop.computed __resource_type __resource_id "setting_name";
+     }
+      : t)
+  in
+  __resource_attributes

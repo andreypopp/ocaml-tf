@@ -18,6 +18,12 @@ type aws_autoscalingplans_scaling_plan__scaling_instruction__target_tracking_con
 type aws_autoscalingplans_scaling_plan__scaling_instruction
 type aws_autoscalingplans_scaling_plan
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  scaling_plan_version : float prop;
+}
+
 val aws_autoscalingplans_scaling_plan :
   ?id:string prop ->
   name:string prop ->
@@ -26,4 +32,4 @@ val aws_autoscalingplans_scaling_plan :
   scaling_instruction:
     aws_autoscalingplans_scaling_plan__scaling_instruction list ->
   string ->
-  unit
+  t

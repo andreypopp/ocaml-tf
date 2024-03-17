@@ -27,21 +27,48 @@ type cloudflare_web_analytics_rule = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Web Analytics Rule resource. *)
 
+type t = {
+  account_id : string prop;
+  host : string prop;
+  id : string prop;
+  inclusive : bool prop;
+  is_paused : bool prop;
+  paths : string list prop;
+  ruleset_id : string prop;
+}
+
 let cloudflare_web_analytics_rule ?id ?timeouts ~account_id ~host
     ~inclusive ~is_paused ~paths ~ruleset_id __resource_id =
   let __resource_type = "cloudflare_web_analytics_rule" in
   let __resource =
-    {
-      account_id;
-      host;
-      id;
-      inclusive;
-      is_paused;
-      paths;
-      ruleset_id;
-      timeouts;
-    }
+    ({
+       account_id;
+       host;
+       id;
+       inclusive;
+       is_paused;
+       paths;
+       ruleset_id;
+       timeouts;
+     }
+      : cloudflare_web_analytics_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_web_analytics_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       inclusive =
+         Prop.computed __resource_type __resource_id "inclusive";
+       is_paused =
+         Prop.computed __resource_type __resource_id "is_paused";
+       paths = Prop.computed __resource_type __resource_id "paths";
+       ruleset_id =
+         Prop.computed __resource_type __resource_id "ruleset_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -59,6 +59,26 @@ type azurerm_dev_test_windows_virtual_machine = {
 [@@deriving yojson_of]
 (** azurerm_dev_test_windows_virtual_machine *)
 
+type t = {
+  allow_claim : bool prop;
+  disallow_public_ip_address : bool prop;
+  fqdn : string prop;
+  id : string prop;
+  lab_name : string prop;
+  lab_subnet_name : string prop;
+  lab_virtual_network_id : string prop;
+  location : string prop;
+  name : string prop;
+  notes : string prop;
+  password : string prop;
+  resource_group_name : string prop;
+  size : string prop;
+  storage_type : string prop;
+  tags : (string * string) list prop;
+  unique_identifier : string prop;
+  username : string prop;
+}
+
 let azurerm_dev_test_windows_virtual_machine ?allow_claim
     ?disallow_public_ip_address ?id ?notes ?tags ?timeouts ~lab_name
     ~lab_subnet_name ~lab_virtual_network_id ~location ~name
@@ -66,27 +86,66 @@ let azurerm_dev_test_windows_virtual_machine ?allow_claim
     ~gallery_image_reference ~inbound_nat_rule __resource_id =
   let __resource_type = "azurerm_dev_test_windows_virtual_machine" in
   let __resource =
-    {
-      allow_claim;
-      disallow_public_ip_address;
-      id;
-      lab_name;
-      lab_subnet_name;
-      lab_virtual_network_id;
-      location;
-      name;
-      notes;
-      password;
-      resource_group_name;
-      size;
-      storage_type;
-      tags;
-      username;
-      gallery_image_reference;
-      inbound_nat_rule;
-      timeouts;
-    }
+    ({
+       allow_claim;
+       disallow_public_ip_address;
+       id;
+       lab_name;
+       lab_subnet_name;
+       lab_virtual_network_id;
+       location;
+       name;
+       notes;
+       password;
+       resource_group_name;
+       size;
+       storage_type;
+       tags;
+       username;
+       gallery_image_reference;
+       inbound_nat_rule;
+       timeouts;
+     }
+      : azurerm_dev_test_windows_virtual_machine)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_test_windows_virtual_machine __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allow_claim =
+         Prop.computed __resource_type __resource_id "allow_claim";
+       disallow_public_ip_address =
+         Prop.computed __resource_type __resource_id
+           "disallow_public_ip_address";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       id = Prop.computed __resource_type __resource_id "id";
+       lab_name =
+         Prop.computed __resource_type __resource_id "lab_name";
+       lab_subnet_name =
+         Prop.computed __resource_type __resource_id
+           "lab_subnet_name";
+       lab_virtual_network_id =
+         Prop.computed __resource_type __resource_id
+           "lab_virtual_network_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       notes = Prop.computed __resource_type __resource_id "notes";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       size = Prop.computed __resource_type __resource_id "size";
+       storage_type =
+         Prop.computed __resource_type __resource_id "storage_type";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       unique_identifier =
+         Prop.computed __resource_type __resource_id
+           "unique_identifier";
+       username =
+         Prop.computed __resource_type __resource_id "username";
+     }
+      : t)
+  in
+  __resource_attributes

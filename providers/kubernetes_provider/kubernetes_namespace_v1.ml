@@ -39,12 +39,27 @@ type kubernetes_namespace_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_namespace_v1 *)
 
+type t = {
+  id : string prop;
+  wait_for_default_service_account : bool prop;
+}
+
 let kubernetes_namespace_v1 ?id ?wait_for_default_service_account
     ?timeouts ~metadata __resource_id =
   let __resource_type = "kubernetes_namespace_v1" in
   let __resource =
-    { id; wait_for_default_service_account; metadata; timeouts }
+    ({ id; wait_for_default_service_account; metadata; timeouts }
+      : kubernetes_namespace_v1)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_namespace_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       wait_for_default_service_account =
+         Prop.computed __resource_type __resource_id
+           "wait_for_default_service_account";
+     }
+      : t)
+  in
+  __resource_attributes

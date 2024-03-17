@@ -9,6 +9,20 @@ type google_compute_node_group__share_settings
 type google_compute_node_group__timeouts
 type google_compute_node_group
 
+type t = private {
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  initial_size : float prop;
+  maintenance_policy : string prop;
+  name : string prop;
+  node_template : string prop;
+  project : string prop;
+  self_link : string prop;
+  size : float prop;
+  zone : string prop;
+}
+
 val google_compute_node_group :
   ?description:string prop ->
   ?id:string prop ->
@@ -25,4 +39,4 @@ val google_compute_node_group :
     google_compute_node_group__maintenance_window list ->
   share_settings:google_compute_node_group__share_settings list ->
   string ->
-  unit
+  t

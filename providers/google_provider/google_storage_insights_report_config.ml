@@ -107,22 +107,44 @@ must be in the same location. *)
 [@@deriving yojson_of]
 (** google_storage_insights_report_config *)
 
+type t = {
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_storage_insights_report_config ?display_name ?id ?project
     ?timeouts ~location ~csv_options ~frequency_options
     ~object_metadata_report_options __resource_id =
   let __resource_type = "google_storage_insights_report_config" in
   let __resource =
-    {
-      display_name;
-      id;
-      location;
-      project;
-      csv_options;
-      frequency_options;
-      object_metadata_report_options;
-      timeouts;
-    }
+    ({
+       display_name;
+       id;
+       location;
+       project;
+       csv_options;
+       frequency_options;
+       object_metadata_report_options;
+       timeouts;
+     }
+      : google_storage_insights_report_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_insights_report_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

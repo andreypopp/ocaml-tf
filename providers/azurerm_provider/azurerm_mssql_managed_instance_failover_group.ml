@@ -45,6 +45,20 @@ type azurerm_mssql_managed_instance_failover_group = {
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_instance_failover_group *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  managed_instance_id : string prop;
+  name : string prop;
+  partner_managed_instance_id : string prop;
+  partner_region :
+    azurerm_mssql_managed_instance_failover_group__partner_region
+    list
+    prop;
+  readonly_endpoint_failover_policy_enabled : bool prop;
+  role : string prop;
+}
+
 let azurerm_mssql_managed_instance_failover_group ?id
     ?readonly_endpoint_failover_policy_enabled ?timeouts ~location
     ~managed_instance_id ~name ~partner_managed_instance_id
@@ -53,18 +67,40 @@ let azurerm_mssql_managed_instance_failover_group ?id
     "azurerm_mssql_managed_instance_failover_group"
   in
   let __resource =
-    {
-      id;
-      location;
-      managed_instance_id;
-      name;
-      partner_managed_instance_id;
-      readonly_endpoint_failover_policy_enabled;
-      read_write_endpoint_failover_policy;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       managed_instance_id;
+       name;
+       partner_managed_instance_id;
+       readonly_endpoint_failover_policy_enabled;
+       read_write_endpoint_failover_policy;
+       timeouts;
+     }
+      : azurerm_mssql_managed_instance_failover_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_managed_instance_failover_group
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       managed_instance_id =
+         Prop.computed __resource_type __resource_id
+           "managed_instance_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       partner_managed_instance_id =
+         Prop.computed __resource_type __resource_id
+           "partner_managed_instance_id";
+       partner_region =
+         Prop.computed __resource_type __resource_id "partner_region";
+       readonly_endpoint_failover_policy_enabled =
+         Prop.computed __resource_type __resource_id
+           "readonly_endpoint_failover_policy_enabled";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

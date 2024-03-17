@@ -10,6 +10,16 @@ type aws_iot_billing_group__metadata = {
 
 type aws_iot_billing_group
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  metadata : aws_iot_billing_group__metadata list prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : float prop;
+}
+
 val aws_iot_billing_group :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -17,4 +27,4 @@ val aws_iot_billing_group :
   name:string prop ->
   properties:aws_iot_billing_group__properties list ->
   string ->
-  unit
+  t

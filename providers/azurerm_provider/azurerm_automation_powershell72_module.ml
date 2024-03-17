@@ -39,12 +39,29 @@ type azurerm_automation_powershell72_module = {
 [@@deriving yojson_of]
 (** azurerm_automation_powershell72_module *)
 
+type t = {
+  automation_account_id : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let azurerm_automation_powershell72_module ?id ?timeouts
     ~automation_account_id ~name ~module_link __resource_id =
   let __resource_type = "azurerm_automation_powershell72_module" in
   let __resource =
-    { automation_account_id; id; name; module_link; timeouts }
+    ({ automation_account_id; id; name; module_link; timeouts }
+      : azurerm_automation_powershell72_module)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_powershell72_module __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automation_account_id =
+         Prop.computed __resource_type __resource_id
+           "automation_account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

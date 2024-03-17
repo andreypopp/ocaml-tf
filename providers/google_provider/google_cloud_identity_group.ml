@@ -77,22 +77,60 @@ groups or customers/{customer_id} for Google Groups. *)
 [@@deriving yojson_of]
 (** google_cloud_identity_group *)
 
+type t = {
+  additional_group_keys :
+    google_cloud_identity_group__additional_group_keys list prop;
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  initial_group_config : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  parent : string prop;
+  update_time : string prop;
+}
+
 let google_cloud_identity_group ?description ?display_name ?id
     ?initial_group_config ?timeouts ~labels ~parent ~group_key
     __resource_id =
   let __resource_type = "google_cloud_identity_group" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      initial_group_config;
-      labels;
-      parent;
-      group_key;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       initial_group_config;
+       labels;
+       parent;
+       group_key;
+       timeouts;
+     }
+      : google_cloud_identity_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_identity_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_group_keys =
+         Prop.computed __resource_type __resource_id
+           "additional_group_keys";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       initial_group_config =
+         Prop.computed __resource_type __resource_id
+           "initial_group_config";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

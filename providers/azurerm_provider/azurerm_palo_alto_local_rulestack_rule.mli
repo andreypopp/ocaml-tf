@@ -8,6 +8,26 @@ type azurerm_palo_alto_local_rulestack_rule__source
 type azurerm_palo_alto_local_rulestack_rule__timeouts
 type azurerm_palo_alto_local_rulestack_rule
 
+type t = private {
+  action : string prop;
+  applications : string list prop;
+  audit_comment : string prop;
+  decryption_rule_type : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  inspection_certificate_id : string prop;
+  logging_enabled : bool prop;
+  name : string prop;
+  negate_destination : bool prop;
+  negate_source : bool prop;
+  priority : float prop;
+  protocol : string prop;
+  protocol_ports : string list prop;
+  rulestack_id : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_palo_alto_local_rulestack_rule :
   ?audit_comment:string prop ->
   ?decryption_rule_type:string prop ->
@@ -32,4 +52,4 @@ val azurerm_palo_alto_local_rulestack_rule :
     azurerm_palo_alto_local_rulestack_rule__destination list ->
   source:azurerm_palo_alto_local_rulestack_rule__source list ->
   string ->
-  unit
+  t

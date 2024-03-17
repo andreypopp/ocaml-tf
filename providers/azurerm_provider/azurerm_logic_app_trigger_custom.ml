@@ -23,10 +23,30 @@ type azurerm_logic_app_trigger_custom = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_trigger_custom *)
 
+type t = {
+  body : string prop;
+  id : string prop;
+  logic_app_id : string prop;
+  name : string prop;
+}
+
 let azurerm_logic_app_trigger_custom ?id ?timeouts ~body
     ~logic_app_id ~name __resource_id =
   let __resource_type = "azurerm_logic_app_trigger_custom" in
-  let __resource = { body; id; logic_app_id; name; timeouts } in
+  let __resource =
+    ({ body; id; logic_app_id; name; timeouts }
+      : azurerm_logic_app_trigger_custom)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logic_app_trigger_custom __resource);
-  ()
+  let __resource_attributes =
+    ({
+       body = Prop.computed __resource_type __resource_id "body";
+       id = Prop.computed __resource_type __resource_id "id";
+       logic_app_id =
+         Prop.computed __resource_type __resource_id "logic_app_id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

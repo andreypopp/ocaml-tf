@@ -35,6 +35,19 @@ type azurerm_virtual_network_peering = {
 [@@deriving yojson_of]
 (** azurerm_virtual_network_peering *)
 
+type t = {
+  allow_forwarded_traffic : bool prop;
+  allow_gateway_transit : bool prop;
+  allow_virtual_network_access : bool prop;
+  id : string prop;
+  name : string prop;
+  remote_virtual_network_id : string prop;
+  resource_group_name : string prop;
+  triggers : (string * string) list prop;
+  use_remote_gateways : bool prop;
+  virtual_network_name : string prop;
+}
+
 let azurerm_virtual_network_peering ?allow_forwarded_traffic
     ?allow_gateway_transit ?allow_virtual_network_access ?id
     ?triggers ?use_remote_gateways ?timeouts ~name
@@ -42,20 +55,51 @@ let azurerm_virtual_network_peering ?allow_forwarded_traffic
     ~virtual_network_name __resource_id =
   let __resource_type = "azurerm_virtual_network_peering" in
   let __resource =
-    {
-      allow_forwarded_traffic;
-      allow_gateway_transit;
-      allow_virtual_network_access;
-      id;
-      name;
-      remote_virtual_network_id;
-      resource_group_name;
-      triggers;
-      use_remote_gateways;
-      virtual_network_name;
-      timeouts;
-    }
+    ({
+       allow_forwarded_traffic;
+       allow_gateway_transit;
+       allow_virtual_network_access;
+       id;
+       name;
+       remote_virtual_network_id;
+       resource_group_name;
+       triggers;
+       use_remote_gateways;
+       virtual_network_name;
+       timeouts;
+     }
+      : azurerm_virtual_network_peering)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_network_peering __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allow_forwarded_traffic =
+         Prop.computed __resource_type __resource_id
+           "allow_forwarded_traffic";
+       allow_gateway_transit =
+         Prop.computed __resource_type __resource_id
+           "allow_gateway_transit";
+       allow_virtual_network_access =
+         Prop.computed __resource_type __resource_id
+           "allow_virtual_network_access";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       remote_virtual_network_id =
+         Prop.computed __resource_type __resource_id
+           "remote_virtual_network_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       triggers =
+         Prop.computed __resource_type __resource_id "triggers";
+       use_remote_gateways =
+         Prop.computed __resource_type __resource_id
+           "use_remote_gateways";
+       virtual_network_name =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_name";
+     }
+      : t)
+  in
+  __resource_attributes

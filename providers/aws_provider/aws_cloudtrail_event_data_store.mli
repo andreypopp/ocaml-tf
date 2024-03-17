@@ -8,6 +8,19 @@ type aws_cloudtrail_event_data_store__advanced_event_selector
 type aws_cloudtrail_event_data_store__timeouts
 type aws_cloudtrail_event_data_store
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  kms_key_id : string prop;
+  multi_region_enabled : bool prop;
+  name : string prop;
+  organization_enabled : bool prop;
+  retention_period : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  termination_protection_enabled : bool prop;
+}
+
 val aws_cloudtrail_event_data_store :
   ?id:string prop ->
   ?kms_key_id:string prop ->
@@ -22,4 +35,4 @@ val aws_cloudtrail_event_data_store :
   advanced_event_selector:
     aws_cloudtrail_event_data_store__advanced_event_selector list ->
   string ->
-  unit
+  t

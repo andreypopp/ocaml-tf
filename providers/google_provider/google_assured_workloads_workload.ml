@@ -107,6 +107,35 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_assured_workloads_workload *)
 
+type t = {
+  billing_account : string prop;
+  compliance_regime : string prop;
+  compliance_status :
+    google_assured_workloads_workload__compliance_status list prop;
+  compliant_but_disallowed_services : string list prop;
+  create_time : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  ekm_provisioning_response :
+    google_assured_workloads_workload__ekm_provisioning_response list
+    prop;
+  enable_sovereign_controls : bool prop;
+  id : string prop;
+  kaj_enrollment_state : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  organization : string prop;
+  partner : string prop;
+  provisioned_resources_parent : string prop;
+  resources : google_assured_workloads_workload__resources list prop;
+  saa_enrollment_response :
+    google_assured_workloads_workload__saa_enrollment_response list
+    prop;
+  terraform_labels : (string * string) list prop;
+  violation_notifications_enabled : bool prop;
+}
+
 let google_assured_workloads_workload ?billing_account
     ?enable_sovereign_controls ?id ?labels ?partner
     ?provisioned_resources_parent ?violation_notifications_enabled
@@ -115,24 +144,81 @@ let google_assured_workloads_workload ?billing_account
     ~resource_settings __resource_id =
   let __resource_type = "google_assured_workloads_workload" in
   let __resource =
-    {
-      billing_account;
-      compliance_regime;
-      display_name;
-      enable_sovereign_controls;
-      id;
-      labels;
-      location;
-      organization;
-      partner;
-      provisioned_resources_parent;
-      violation_notifications_enabled;
-      kms_settings;
-      partner_permissions;
-      resource_settings;
-      timeouts;
-    }
+    ({
+       billing_account;
+       compliance_regime;
+       display_name;
+       enable_sovereign_controls;
+       id;
+       labels;
+       location;
+       organization;
+       partner;
+       provisioned_resources_parent;
+       violation_notifications_enabled;
+       kms_settings;
+       partner_permissions;
+       resource_settings;
+       timeouts;
+     }
+      : google_assured_workloads_workload)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_assured_workloads_workload __resource);
-  ()
+  let __resource_attributes =
+    ({
+       billing_account =
+         Prop.computed __resource_type __resource_id
+           "billing_account";
+       compliance_regime =
+         Prop.computed __resource_type __resource_id
+           "compliance_regime";
+       compliance_status =
+         Prop.computed __resource_type __resource_id
+           "compliance_status";
+       compliant_but_disallowed_services =
+         Prop.computed __resource_type __resource_id
+           "compliant_but_disallowed_services";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       ekm_provisioning_response =
+         Prop.computed __resource_type __resource_id
+           "ekm_provisioning_response";
+       enable_sovereign_controls =
+         Prop.computed __resource_type __resource_id
+           "enable_sovereign_controls";
+       id = Prop.computed __resource_type __resource_id "id";
+       kaj_enrollment_state =
+         Prop.computed __resource_type __resource_id
+           "kaj_enrollment_state";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       organization =
+         Prop.computed __resource_type __resource_id "organization";
+       partner =
+         Prop.computed __resource_type __resource_id "partner";
+       provisioned_resources_parent =
+         Prop.computed __resource_type __resource_id
+           "provisioned_resources_parent";
+       resources =
+         Prop.computed __resource_type __resource_id "resources";
+       saa_enrollment_response =
+         Prop.computed __resource_type __resource_id
+           "saa_enrollment_response";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       violation_notifications_enabled =
+         Prop.computed __resource_type __resource_id
+           "violation_notifications_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

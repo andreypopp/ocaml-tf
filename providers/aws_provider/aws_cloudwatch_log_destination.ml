@@ -16,12 +16,38 @@ type aws_cloudwatch_log_destination = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_destination *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_arn : string prop;
+}
+
 let aws_cloudwatch_log_destination ?id ?tags ?tags_all ~name
     ~role_arn ~target_arn __resource_id =
   let __resource_type = "aws_cloudwatch_log_destination" in
   let __resource =
-    { id; name; role_arn; tags; tags_all; target_arn }
+    ({ id; name; role_arn; tags; tags_all; target_arn }
+      : aws_cloudwatch_log_destination)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_log_destination __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       target_arn =
+         Prop.computed __resource_type __resource_id "target_arn";
+     }
+      : t)
+  in
+  __resource_attributes

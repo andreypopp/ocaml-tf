@@ -57,24 +57,56 @@ The path must be a URL or Cloud Storage path. Example: gs://path-to-file/file-na
 [@@deriving yojson_of]
 (** google_notebooks_environment *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  post_startup_script : string prop;
+  project : string prop;
+}
+
 let google_notebooks_environment ?description ?display_name ?id
     ?post_startup_script ?project ?timeouts ~location ~name
     ~container_image ~vm_image __resource_id =
   let __resource_type = "google_notebooks_environment" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      location;
-      name;
-      post_startup_script;
-      project;
-      container_image;
-      timeouts;
-      vm_image;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       location;
+       name;
+       post_startup_script;
+       project;
+       container_image;
+       timeouts;
+       vm_image;
+     }
+      : google_notebooks_environment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_notebooks_environment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       post_startup_script =
+         Prop.computed __resource_type __resource_id
+           "post_startup_script";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

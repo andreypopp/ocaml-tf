@@ -25,10 +25,23 @@ type aws_emr_managed_scaling_policy = {
 [@@deriving yojson_of]
 (** aws_emr_managed_scaling_policy *)
 
+type t = { cluster_id : string prop; id : string prop }
+
 let aws_emr_managed_scaling_policy ?id ~cluster_id ~compute_limits
     __resource_id =
   let __resource_type = "aws_emr_managed_scaling_policy" in
-  let __resource = { cluster_id; id; compute_limits } in
+  let __resource =
+    ({ cluster_id; id; compute_limits }
+      : aws_emr_managed_scaling_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_managed_scaling_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

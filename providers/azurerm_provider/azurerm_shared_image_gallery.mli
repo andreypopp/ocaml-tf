@@ -7,6 +7,16 @@ type azurerm_shared_image_gallery__sharing
 type azurerm_shared_image_gallery__timeouts
 type azurerm_shared_image_gallery
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  unique_name : string prop;
+}
+
 val azurerm_shared_image_gallery :
   ?description:string prop ->
   ?id:string prop ->
@@ -17,4 +27,4 @@ val azurerm_shared_image_gallery :
   resource_group_name:string prop ->
   sharing:azurerm_shared_image_gallery__sharing list ->
   string ->
-  unit
+  t

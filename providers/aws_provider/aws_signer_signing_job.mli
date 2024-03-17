@@ -24,6 +24,27 @@ type aws_signer_signing_job__signed_object = {
 
 type aws_signer_signing_job
 
+type t = private {
+  completed_at : string prop;
+  created_at : string prop;
+  id : string prop;
+  ignore_signing_job_failure : bool prop;
+  job_id : string prop;
+  job_invoker : string prop;
+  job_owner : string prop;
+  platform_display_name : string prop;
+  platform_id : string prop;
+  profile_name : string prop;
+  profile_version : string prop;
+  requested_by : string prop;
+  revocation_record :
+    aws_signer_signing_job__revocation_record list prop;
+  signature_expires_at : string prop;
+  signed_object : aws_signer_signing_job__signed_object list prop;
+  status : string prop;
+  status_reason : string prop;
+}
+
 val aws_signer_signing_job :
   ?id:string prop ->
   ?ignore_signing_job_failure:bool prop ->
@@ -31,4 +52,4 @@ val aws_signer_signing_job :
   destination:aws_signer_signing_job__destination list ->
   source:aws_signer_signing_job__source list ->
   string ->
-  unit
+  t

@@ -337,21 +337,49 @@ type google_composer_environment = {
 [@@deriving yojson_of]
 (** google_composer_environment *)
 
+type t = {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_composer_environment ?id ?labels ?project ?region
     ?timeouts ~name ~config ~storage_config __resource_id =
   let __resource_type = "google_composer_environment" in
   let __resource =
-    {
-      id;
-      labels;
-      name;
-      project;
-      region;
-      config;
-      storage_config;
-      timeouts;
-    }
+    ({
+       id;
+       labels;
+       name;
+       project;
+       region;
+       config;
+       storage_config;
+       timeouts;
+     }
+      : google_composer_environment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_composer_environment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -40,6 +40,42 @@ type azurerm_sentinel_alert_rule_anomaly_built_in__threshold_observation = {
 
 type azurerm_sentinel_alert_rule_anomaly_built_in
 
+type t = private {
+  anomaly_settings_version : float prop;
+  anomaly_version : string prop;
+  description : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  frequency : string prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  mode : string prop;
+  multi_select_observation :
+    azurerm_sentinel_alert_rule_anomaly_built_in__multi_select_observation
+    list
+    prop;
+  name : string prop;
+  prioritized_exclude_observation :
+    azurerm_sentinel_alert_rule_anomaly_built_in__prioritized_exclude_observation
+    list
+    prop;
+  required_data_connector :
+    azurerm_sentinel_alert_rule_anomaly_built_in__required_data_connector
+    list
+    prop;
+  settings_definition_id : string prop;
+  single_select_observation :
+    azurerm_sentinel_alert_rule_anomaly_built_in__single_select_observation
+    list
+    prop;
+  tactics : string list prop;
+  techniques : string list prop;
+  threshold_observation :
+    azurerm_sentinel_alert_rule_anomaly_built_in__threshold_observation
+    list
+    prop;
+}
+
 val azurerm_sentinel_alert_rule_anomaly_built_in :
   ?display_name:string prop ->
   ?id:string prop ->
@@ -49,4 +85,4 @@ val azurerm_sentinel_alert_rule_anomaly_built_in :
   log_analytics_workspace_id:string prop ->
   mode:string prop ->
   string ->
-  unit
+  t

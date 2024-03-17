@@ -44,6 +44,21 @@ type google_securityposture_posture__policy_sets
 type google_securityposture_posture__timeouts
 type google_securityposture_posture
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  parent : string prop;
+  posture_id : string prop;
+  reconciling : bool prop;
+  revision_id : string prop;
+  state : string prop;
+  update_time : string prop;
+}
+
 val google_securityposture_posture :
   ?description:string prop ->
   ?id:string prop ->
@@ -54,4 +69,4 @@ val google_securityposture_posture :
   state:string prop ->
   policy_sets:google_securityposture_posture__policy_sets list ->
   string ->
-  unit
+  t

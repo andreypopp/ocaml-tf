@@ -49,22 +49,59 @@ type azurerm_healthcare_dicom_service = {
 [@@deriving yojson_of]
 (** azurerm_healthcare_dicom_service *)
 
+type t = {
+  authentication :
+    azurerm_healthcare_dicom_service__authentication list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_endpoint :
+    azurerm_healthcare_dicom_service__private_endpoint list prop;
+  public_network_access_enabled : bool prop;
+  service_url : string prop;
+  tags : (string * string) list prop;
+  workspace_id : string prop;
+}
+
 let azurerm_healthcare_dicom_service ?id
     ?public_network_access_enabled ?tags ?timeouts ~location ~name
     ~workspace_id ~identity __resource_id =
   let __resource_type = "azurerm_healthcare_dicom_service" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      public_network_access_enabled;
-      tags;
-      workspace_id;
-      identity;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       public_network_access_enabled;
+       tags;
+       workspace_id;
+       identity;
+       timeouts;
+     }
+      : azurerm_healthcare_dicom_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_healthcare_dicom_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authentication =
+         Prop.computed __resource_type __resource_id "authentication";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_endpoint =
+         Prop.computed __resource_type __resource_id
+           "private_endpoint";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       service_url =
+         Prop.computed __resource_type __resource_id "service_url";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       workspace_id =
+         Prop.computed __resource_type __resource_id "workspace_id";
+     }
+      : t)
+  in
+  __resource_attributes

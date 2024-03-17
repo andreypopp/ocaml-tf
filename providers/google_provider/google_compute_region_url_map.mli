@@ -123,6 +123,19 @@ type google_compute_region_url_map__test
 type google_compute_region_url_map__timeouts
 type google_compute_region_url_map
 
+type t = private {
+  creation_timestamp : string prop;
+  default_service : string prop;
+  description : string prop;
+  fingerprint : string prop;
+  id : string prop;
+  map_id : float prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+}
+
 val google_compute_region_url_map :
   ?default_service:string prop ->
   ?description:string prop ->
@@ -139,4 +152,4 @@ val google_compute_region_url_map :
   path_matcher:google_compute_region_url_map__path_matcher list ->
   test:google_compute_region_url_map__test list ->
   string ->
-  unit
+  t

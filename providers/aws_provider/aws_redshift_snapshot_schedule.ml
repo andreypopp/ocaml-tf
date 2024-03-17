@@ -19,22 +19,56 @@ type aws_redshift_snapshot_schedule = {
 [@@deriving yojson_of]
 (** aws_redshift_snapshot_schedule *)
 
+type t = {
+  arn : string prop;
+  definitions : string list prop;
+  description : string prop;
+  force_destroy : bool prop;
+  id : string prop;
+  identifier : string prop;
+  identifier_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_redshift_snapshot_schedule ?description ?force_destroy ?id
     ?identifier ?identifier_prefix ?tags ?tags_all ~definitions
     __resource_id =
   let __resource_type = "aws_redshift_snapshot_schedule" in
   let __resource =
-    {
-      definitions;
-      description;
-      force_destroy;
-      id;
-      identifier;
-      identifier_prefix;
-      tags;
-      tags_all;
-    }
+    ({
+       definitions;
+       description;
+       force_destroy;
+       id;
+       identifier;
+       identifier_prefix;
+       tags;
+       tags_all;
+     }
+      : aws_redshift_snapshot_schedule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_snapshot_schedule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       definitions =
+         Prop.computed __resource_type __resource_id "definitions";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       identifier =
+         Prop.computed __resource_type __resource_id "identifier";
+       identifier_prefix =
+         Prop.computed __resource_type __resource_id
+           "identifier_prefix";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

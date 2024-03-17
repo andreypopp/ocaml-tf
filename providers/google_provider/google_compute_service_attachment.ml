@@ -79,6 +79,25 @@ this service attachment. *)
 [@@deriving yojson_of]
 (** google_compute_service_attachment *)
 
+type t = {
+  connected_endpoints :
+    google_compute_service_attachment__connected_endpoints list prop;
+  connection_preference : string prop;
+  consumer_reject_lists : string list prop;
+  description : string prop;
+  domain_names : string list prop;
+  enable_proxy_protocol : bool prop;
+  fingerprint : string prop;
+  id : string prop;
+  name : string prop;
+  nat_subnets : string list prop;
+  project : string prop;
+  reconcile_connections : bool prop;
+  region : string prop;
+  self_link : string prop;
+  target_service : string prop;
+}
+
 let google_compute_service_attachment ?consumer_reject_lists
     ?description ?domain_names ?id ?project ?reconcile_connections
     ?region ?timeouts ~connection_preference ~enable_proxy_protocol
@@ -86,23 +105,61 @@ let google_compute_service_attachment ?consumer_reject_lists
     __resource_id =
   let __resource_type = "google_compute_service_attachment" in
   let __resource =
-    {
-      connection_preference;
-      consumer_reject_lists;
-      description;
-      domain_names;
-      enable_proxy_protocol;
-      id;
-      name;
-      nat_subnets;
-      project;
-      reconcile_connections;
-      region;
-      target_service;
-      consumer_accept_lists;
-      timeouts;
-    }
+    ({
+       connection_preference;
+       consumer_reject_lists;
+       description;
+       domain_names;
+       enable_proxy_protocol;
+       id;
+       name;
+       nat_subnets;
+       project;
+       reconcile_connections;
+       region;
+       target_service;
+       consumer_accept_lists;
+       timeouts;
+     }
+      : google_compute_service_attachment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_service_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connected_endpoints =
+         Prop.computed __resource_type __resource_id
+           "connected_endpoints";
+       connection_preference =
+         Prop.computed __resource_type __resource_id
+           "connection_preference";
+       consumer_reject_lists =
+         Prop.computed __resource_type __resource_id
+           "consumer_reject_lists";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       domain_names =
+         Prop.computed __resource_type __resource_id "domain_names";
+       enable_proxy_protocol =
+         Prop.computed __resource_type __resource_id
+           "enable_proxy_protocol";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       nat_subnets =
+         Prop.computed __resource_type __resource_id "nat_subnets";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconcile_connections =
+         Prop.computed __resource_type __resource_id
+           "reconcile_connections";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       target_service =
+         Prop.computed __resource_type __resource_id "target_service";
+     }
+      : t)
+  in
+  __resource_attributes

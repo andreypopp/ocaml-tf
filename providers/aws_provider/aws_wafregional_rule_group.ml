@@ -31,12 +31,35 @@ type aws_wafregional_rule_group = {
 [@@deriving yojson_of]
 (** aws_wafregional_rule_group *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  metric_name : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_wafregional_rule_group ?id ?tags ?tags_all ~metric_name ~name
     ~activated_rule __resource_id =
   let __resource_type = "aws_wafregional_rule_group" in
   let __resource =
-    { id; metric_name; name; tags; tags_all; activated_rule }
+    ({ id; metric_name; name; tags; tags_all; activated_rule }
+      : aws_wafregional_rule_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_wafregional_rule_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       metric_name =
+         Prop.computed __resource_type __resource_id "metric_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

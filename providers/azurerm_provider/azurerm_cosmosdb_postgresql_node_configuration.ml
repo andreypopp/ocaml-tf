@@ -24,13 +24,33 @@ type azurerm_cosmosdb_postgresql_node_configuration = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_postgresql_node_configuration *)
 
+type t = {
+  cluster_id : string prop;
+  id : string prop;
+  name : string prop;
+  value : string prop;
+}
+
 let azurerm_cosmosdb_postgresql_node_configuration ?id ?timeouts
     ~cluster_id ~name ~value __resource_id =
   let __resource_type =
     "azurerm_cosmosdb_postgresql_node_configuration"
   in
-  let __resource = { cluster_id; id; name; value; timeouts } in
+  let __resource =
+    ({ cluster_id; id; name; value; timeouts }
+      : azurerm_cosmosdb_postgresql_node_configuration)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_postgresql_node_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

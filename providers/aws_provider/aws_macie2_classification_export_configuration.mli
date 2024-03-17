@@ -4,6 +4,7 @@ open! Tf.Prelude
 
 type aws_macie2_classification_export_configuration__s3_destination
 type aws_macie2_classification_export_configuration
+type t = private { id : string prop }
 
 val aws_macie2_classification_export_configuration :
   ?id:string prop ->
@@ -11,4 +12,4 @@ val aws_macie2_classification_export_configuration :
     aws_macie2_classification_export_configuration__s3_destination
     list ->
   string ->
-  unit
+  t

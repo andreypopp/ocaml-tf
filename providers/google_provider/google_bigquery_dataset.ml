@@ -210,6 +210,29 @@ LOGICAL is the default if this flag isn't specified. *)
 [@@deriving yojson_of]
 (** google_bigquery_dataset *)
 
+type t = {
+  creation_time : float prop;
+  dataset_id : string prop;
+  default_collation : string prop;
+  default_partition_expiration_ms : float prop;
+  default_table_expiration_ms : float prop;
+  delete_contents_on_destroy : bool prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  friendly_name : string prop;
+  id : string prop;
+  is_case_insensitive : bool prop;
+  labels : (string * string) list prop;
+  last_modified_time : float prop;
+  location : string prop;
+  max_time_travel_hours : string prop;
+  project : string prop;
+  self_link : string prop;
+  storage_billing_model : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_bigquery_dataset ?default_collation
     ?default_partition_expiration_ms ?default_table_expiration_ms
     ?delete_contents_on_destroy ?description ?friendly_name ?id
@@ -218,26 +241,79 @@ let google_bigquery_dataset ?default_collation
     ~default_encryption_configuration __resource_id =
   let __resource_type = "google_bigquery_dataset" in
   let __resource =
-    {
-      dataset_id;
-      default_collation;
-      default_partition_expiration_ms;
-      default_table_expiration_ms;
-      delete_contents_on_destroy;
-      description;
-      friendly_name;
-      id;
-      is_case_insensitive;
-      labels;
-      location;
-      max_time_travel_hours;
-      project;
-      storage_billing_model;
-      access;
-      default_encryption_configuration;
-      timeouts;
-    }
+    ({
+       dataset_id;
+       default_collation;
+       default_partition_expiration_ms;
+       default_table_expiration_ms;
+       delete_contents_on_destroy;
+       description;
+       friendly_name;
+       id;
+       is_case_insensitive;
+       labels;
+       location;
+       max_time_travel_hours;
+       project;
+       storage_billing_model;
+       access;
+       default_encryption_configuration;
+       timeouts;
+     }
+      : google_bigquery_dataset)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_dataset __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       dataset_id =
+         Prop.computed __resource_type __resource_id "dataset_id";
+       default_collation =
+         Prop.computed __resource_type __resource_id
+           "default_collation";
+       default_partition_expiration_ms =
+         Prop.computed __resource_type __resource_id
+           "default_partition_expiration_ms";
+       default_table_expiration_ms =
+         Prop.computed __resource_type __resource_id
+           "default_table_expiration_ms";
+       delete_contents_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "delete_contents_on_destroy";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       friendly_name =
+         Prop.computed __resource_type __resource_id "friendly_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_case_insensitive =
+         Prop.computed __resource_type __resource_id
+           "is_case_insensitive";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       last_modified_time =
+         Prop.computed __resource_type __resource_id
+           "last_modified_time";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       max_time_travel_hours =
+         Prop.computed __resource_type __resource_id
+           "max_time_travel_hours";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       storage_billing_model =
+         Prop.computed __resource_type __resource_id
+           "storage_billing_model";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

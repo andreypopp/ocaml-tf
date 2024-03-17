@@ -37,6 +37,21 @@ type azurerm_role_assignment = {
 [@@deriving yojson_of]
 (** azurerm_role_assignment *)
 
+type t = {
+  condition : string prop;
+  condition_version : string prop;
+  delegated_managed_identity_resource_id : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  principal_id : string prop;
+  principal_type : string prop;
+  role_definition_id : string prop;
+  role_definition_name : string prop;
+  scope : string prop;
+  skip_service_principal_aad_check : bool prop;
+}
+
 let azurerm_role_assignment ?condition ?condition_version
     ?delegated_managed_identity_resource_id ?description ?id ?name
     ?principal_type ?role_definition_id ?role_definition_name
@@ -44,22 +59,54 @@ let azurerm_role_assignment ?condition ?condition_version
     __resource_id =
   let __resource_type = "azurerm_role_assignment" in
   let __resource =
-    {
-      condition;
-      condition_version;
-      delegated_managed_identity_resource_id;
-      description;
-      id;
-      name;
-      principal_id;
-      principal_type;
-      role_definition_id;
-      role_definition_name;
-      scope;
-      skip_service_principal_aad_check;
-      timeouts;
-    }
+    ({
+       condition;
+       condition_version;
+       delegated_managed_identity_resource_id;
+       description;
+       id;
+       name;
+       principal_id;
+       principal_type;
+       role_definition_id;
+       role_definition_name;
+       scope;
+       skip_service_principal_aad_check;
+       timeouts;
+     }
+      : azurerm_role_assignment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_role_assignment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       condition =
+         Prop.computed __resource_type __resource_id "condition";
+       condition_version =
+         Prop.computed __resource_type __resource_id
+           "condition_version";
+       delegated_managed_identity_resource_id =
+         Prop.computed __resource_type __resource_id
+           "delegated_managed_identity_resource_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       principal_id =
+         Prop.computed __resource_type __resource_id "principal_id";
+       principal_type =
+         Prop.computed __resource_type __resource_id "principal_type";
+       role_definition_id =
+         Prop.computed __resource_type __resource_id
+           "role_definition_id";
+       role_definition_name =
+         Prop.computed __resource_type __resource_id
+           "role_definition_name";
+       scope = Prop.computed __resource_type __resource_id "scope";
+       skip_service_principal_aad_check =
+         Prop.computed __resource_type __resource_id
+           "skip_service_principal_aad_check";
+     }
+      : t)
+  in
+  __resource_attributes

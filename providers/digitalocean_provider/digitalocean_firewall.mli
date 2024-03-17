@@ -13,6 +13,16 @@ type digitalocean_firewall__pending_changes = {
 
 type digitalocean_firewall
 
+type t = private {
+  created_at : string prop;
+  droplet_ids : float list prop;
+  id : string prop;
+  name : string prop;
+  pending_changes : digitalocean_firewall__pending_changes list prop;
+  status : string prop;
+  tags : string list prop;
+}
+
 val digitalocean_firewall :
   ?droplet_ids:float prop list ->
   ?id:string prop ->
@@ -21,4 +31,4 @@ val digitalocean_firewall :
   inbound_rule:digitalocean_firewall__inbound_rule list ->
   outbound_rule:digitalocean_firewall__outbound_rule list ->
   string ->
-  unit
+  t

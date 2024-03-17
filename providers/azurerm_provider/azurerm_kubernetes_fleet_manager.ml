@@ -33,20 +33,42 @@ type azurerm_kubernetes_fleet_manager = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_manager *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_kubernetes_fleet_manager ?id ?tags ?timeouts ~location
     ~name ~resource_group_name ~hub_profile __resource_id =
   let __resource_type = "azurerm_kubernetes_fleet_manager" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      hub_profile;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       hub_profile;
+       timeouts;
+     }
+      : azurerm_kubernetes_fleet_manager)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_fleet_manager __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -102,9 +102,20 @@ type cloudflare_zone_settings_override__initial_settings = {
 
 type cloudflare_zone_settings_override
 
+type t = private {
+  id : string prop;
+  initial_settings :
+    cloudflare_zone_settings_override__initial_settings list prop;
+  initial_settings_read_at : string prop;
+  readonly_settings : string list prop;
+  zone_id : string prop;
+  zone_status : string prop;
+  zone_type : string prop;
+}
+
 val cloudflare_zone_settings_override :
   ?id:string prop ->
   zone_id:string prop ->
   settings:cloudflare_zone_settings_override__settings list ->
   string ->
-  unit
+  t

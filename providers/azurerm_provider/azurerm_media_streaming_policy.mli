@@ -41,6 +41,14 @@ type azurerm_media_streaming_policy__no_encryption_enabled_protocols
 type azurerm_media_streaming_policy__timeouts
 type azurerm_media_streaming_policy
 
+type t = private {
+  default_content_key_policy_name : string prop;
+  id : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_media_streaming_policy :
   ?default_content_key_policy_name:string prop ->
   ?id:string prop ->
@@ -58,4 +66,4 @@ val azurerm_media_streaming_policy :
     azurerm_media_streaming_policy__no_encryption_enabled_protocols
     list ->
   string ->
-  unit
+  t

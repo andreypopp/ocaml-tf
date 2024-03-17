@@ -84,21 +84,72 @@ type aws_securitylake_subscriber = {
 [@@deriving yojson_of]
 (** aws_securitylake_subscriber *)
 
+type t = {
+  access_type : string prop;
+  arn : string prop;
+  id : string prop;
+  resource_share_arn : string prop;
+  resource_share_name : string prop;
+  role_arn : string prop;
+  s3_bucket_arn : string prop;
+  subscriber_description : string prop;
+  subscriber_endpoint : string prop;
+  subscriber_name : string prop;
+  subscriber_status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_securitylake_subscriber ?access_type ?subscriber_description
     ?subscriber_name ?tags ?timeouts ~source ~subscriber_identity
     __resource_id =
   let __resource_type = "aws_securitylake_subscriber" in
   let __resource =
-    {
-      access_type;
-      subscriber_description;
-      subscriber_name;
-      tags;
-      source;
-      subscriber_identity;
-      timeouts;
-    }
+    ({
+       access_type;
+       subscriber_description;
+       subscriber_name;
+       tags;
+       source;
+       subscriber_identity;
+       timeouts;
+     }
+      : aws_securitylake_subscriber)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securitylake_subscriber __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_type =
+         Prop.computed __resource_type __resource_id "access_type";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_share_arn =
+         Prop.computed __resource_type __resource_id
+           "resource_share_arn";
+       resource_share_name =
+         Prop.computed __resource_type __resource_id
+           "resource_share_name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       s3_bucket_arn =
+         Prop.computed __resource_type __resource_id "s3_bucket_arn";
+       subscriber_description =
+         Prop.computed __resource_type __resource_id
+           "subscriber_description";
+       subscriber_endpoint =
+         Prop.computed __resource_type __resource_id
+           "subscriber_endpoint";
+       subscriber_name =
+         Prop.computed __resource_type __resource_id
+           "subscriber_name";
+       subscriber_status =
+         Prop.computed __resource_type __resource_id
+           "subscriber_status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

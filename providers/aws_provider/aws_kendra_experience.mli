@@ -15,6 +15,18 @@ type aws_kendra_experience__endpoints = {
 
 type aws_kendra_experience
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  endpoints : aws_kendra_experience__endpoints list prop;
+  experience_id : string prop;
+  id : string prop;
+  index_id : string prop;
+  name : string prop;
+  role_arn : string prop;
+  status : string prop;
+}
+
 val aws_kendra_experience :
   ?description:string prop ->
   ?id:string prop ->
@@ -24,4 +36,4 @@ val aws_kendra_experience :
   role_arn:string prop ->
   configuration:aws_kendra_experience__configuration list ->
   string ->
-  unit
+  t

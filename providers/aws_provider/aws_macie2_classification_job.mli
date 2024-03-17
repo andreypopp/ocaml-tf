@@ -59,6 +59,25 @@ type aws_macie2_classification_job__user_paused_details = {
 
 type aws_macie2_classification_job
 
+type t = private {
+  created_at : string prop;
+  custom_data_identifier_ids : string list prop;
+  description : string prop;
+  id : string prop;
+  initial_run : bool prop;
+  job_arn : string prop;
+  job_id : string prop;
+  job_status : string prop;
+  job_type : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  sampling_percentage : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_paused_details :
+    aws_macie2_classification_job__user_paused_details list prop;
+}
+
 val aws_macie2_classification_job :
   ?custom_data_identifier_ids:string prop list ->
   ?description:string prop ->
@@ -76,4 +95,4 @@ val aws_macie2_classification_job :
   schedule_frequency:
     aws_macie2_classification_job__schedule_frequency list ->
   string ->
-  unit
+  t

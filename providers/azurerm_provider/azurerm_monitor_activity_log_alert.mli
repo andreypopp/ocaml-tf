@@ -9,6 +9,16 @@ type azurerm_monitor_activity_log_alert__criteria
 type azurerm_monitor_activity_log_alert__timeouts
 type azurerm_monitor_activity_log_alert
 
+type t = private {
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_monitor_activity_log_alert :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -21,4 +31,4 @@ val azurerm_monitor_activity_log_alert :
   action:azurerm_monitor_activity_log_alert__action list ->
   criteria:azurerm_monitor_activity_log_alert__criteria list ->
   string ->
-  unit
+  t

@@ -23,12 +23,25 @@ type aws_shield_drt_access_role_arn_association = {
 [@@deriving yojson_of]
 (** aws_shield_drt_access_role_arn_association *)
 
+type t = { id : string prop; role_arn : string prop }
+
 let aws_shield_drt_access_role_arn_association ?timeouts ~role_arn
     __resource_id =
   let __resource_type =
     "aws_shield_drt_access_role_arn_association"
   in
-  let __resource = { role_arn; timeouts } in
+  let __resource =
+    ({ role_arn; timeouts }
+      : aws_shield_drt_access_role_arn_association)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_shield_drt_access_role_arn_association __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+     }
+      : t)
+  in
+  __resource_attributes

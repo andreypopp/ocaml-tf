@@ -43,27 +43,70 @@ type azurerm_analysis_services_server = {
 [@@deriving yojson_of]
 (** azurerm_analysis_services_server *)
 
+type t = {
+  admin_users : string list prop;
+  backup_blob_container_uri : string prop;
+  enable_power_bi_service : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  querypool_connection_mode : string prop;
+  resource_group_name : string prop;
+  server_full_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_analysis_services_server ?admin_users
     ?backup_blob_container_uri ?enable_power_bi_service ?id
     ?querypool_connection_mode ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku ~ipv4_firewall_rule __resource_id =
   let __resource_type = "azurerm_analysis_services_server" in
   let __resource =
-    {
-      admin_users;
-      backup_blob_container_uri;
-      enable_power_bi_service;
-      id;
-      location;
-      name;
-      querypool_connection_mode;
-      resource_group_name;
-      sku;
-      tags;
-      ipv4_firewall_rule;
-      timeouts;
-    }
+    ({
+       admin_users;
+       backup_blob_container_uri;
+       enable_power_bi_service;
+       id;
+       location;
+       name;
+       querypool_connection_mode;
+       resource_group_name;
+       sku;
+       tags;
+       ipv4_firewall_rule;
+       timeouts;
+     }
+      : azurerm_analysis_services_server)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_analysis_services_server __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin_users =
+         Prop.computed __resource_type __resource_id "admin_users";
+       backup_blob_container_uri =
+         Prop.computed __resource_type __resource_id
+           "backup_blob_container_uri";
+       enable_power_bi_service =
+         Prop.computed __resource_type __resource_id
+           "enable_power_bi_service";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       querypool_connection_mode =
+         Prop.computed __resource_type __resource_id
+           "querypool_connection_mode";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       server_full_name =
+         Prop.computed __resource_type __resource_id
+           "server_full_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -24,12 +24,37 @@ type google_data_fusion_instance_iam_binding = {
 [@@deriving yojson_of]
 (** google_data_fusion_instance_iam_binding *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  members : string list prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  role : string prop;
+}
+
 let google_data_fusion_instance_iam_binding ?id ?project ?region
     ~members ~name ~role ~condition __resource_id =
   let __resource_type = "google_data_fusion_instance_iam_binding" in
   let __resource =
-    { id; members; name; project; region; role; condition }
+    ({ id; members; name; project; region; role; condition }
+      : google_data_fusion_instance_iam_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_fusion_instance_iam_binding __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

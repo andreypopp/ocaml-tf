@@ -26,21 +26,48 @@ type azurerm_container_registry_token = {
 [@@deriving yojson_of]
 (** azurerm_container_registry_token *)
 
+type t = {
+  container_registry_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scope_map_id : string prop;
+}
+
 let azurerm_container_registry_token ?enabled ?id ?timeouts
     ~container_registry_name ~name ~resource_group_name ~scope_map_id
     __resource_id =
   let __resource_type = "azurerm_container_registry_token" in
   let __resource =
-    {
-      container_registry_name;
-      enabled;
-      id;
-      name;
-      resource_group_name;
-      scope_map_id;
-      timeouts;
-    }
+    ({
+       container_registry_name;
+       enabled;
+       id;
+       name;
+       resource_group_name;
+       scope_map_id;
+       timeouts;
+     }
+      : azurerm_container_registry_token)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_registry_token __resource);
-  ()
+  let __resource_attributes =
+    ({
+       container_registry_name =
+         Prop.computed __resource_type __resource_id
+           "container_registry_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scope_map_id =
+         Prop.computed __resource_type __resource_id "scope_map_id";
+     }
+      : t)
+  in
+  __resource_attributes

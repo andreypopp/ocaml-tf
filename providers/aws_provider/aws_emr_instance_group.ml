@@ -32,24 +32,66 @@ type aws_emr_instance_group = {
 [@@deriving yojson_of]
 (** aws_emr_instance_group *)
 
+type t = {
+  autoscaling_policy : string prop;
+  bid_price : string prop;
+  cluster_id : string prop;
+  configurations_json : string prop;
+  ebs_optimized : bool prop;
+  id : string prop;
+  instance_count : float prop;
+  instance_type : string prop;
+  name : string prop;
+  running_instance_count : float prop;
+  status : string prop;
+}
+
 let aws_emr_instance_group ?autoscaling_policy ?bid_price
     ?configurations_json ?ebs_optimized ?id ?instance_count ?name
     ~cluster_id ~instance_type ~ebs_config __resource_id =
   let __resource_type = "aws_emr_instance_group" in
   let __resource =
-    {
-      autoscaling_policy;
-      bid_price;
-      cluster_id;
-      configurations_json;
-      ebs_optimized;
-      id;
-      instance_count;
-      instance_type;
-      name;
-      ebs_config;
-    }
+    ({
+       autoscaling_policy;
+       bid_price;
+       cluster_id;
+       configurations_json;
+       ebs_optimized;
+       id;
+       instance_count;
+       instance_type;
+       name;
+       ebs_config;
+     }
+      : aws_emr_instance_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_instance_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       autoscaling_policy =
+         Prop.computed __resource_type __resource_id
+           "autoscaling_policy";
+       bid_price =
+         Prop.computed __resource_type __resource_id "bid_price";
+       cluster_id =
+         Prop.computed __resource_type __resource_id "cluster_id";
+       configurations_json =
+         Prop.computed __resource_type __resource_id
+           "configurations_json";
+       ebs_optimized =
+         Prop.computed __resource_type __resource_id "ebs_optimized";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_count =
+         Prop.computed __resource_type __resource_id "instance_count";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       name = Prop.computed __resource_type __resource_id "name";
+       running_instance_count =
+         Prop.computed __resource_type __resource_id
+           "running_instance_count";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

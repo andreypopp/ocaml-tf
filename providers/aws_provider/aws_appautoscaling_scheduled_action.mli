@@ -5,6 +5,19 @@ open! Tf.Prelude
 type aws_appautoscaling_scheduled_action__scalable_target_action
 type aws_appautoscaling_scheduled_action
 
+type t = private {
+  arn : string prop;
+  end_time : string prop;
+  id : string prop;
+  name : string prop;
+  resource_id : string prop;
+  scalable_dimension : string prop;
+  schedule : string prop;
+  service_namespace : string prop;
+  start_time : string prop;
+  timezone : string prop;
+}
+
 val aws_appautoscaling_scheduled_action :
   ?end_time:string prop ->
   ?id:string prop ->
@@ -18,4 +31,4 @@ val aws_appautoscaling_scheduled_action :
   scalable_target_action:
     aws_appautoscaling_scheduled_action__scalable_target_action list ->
   string ->
-  unit
+  t

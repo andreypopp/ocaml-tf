@@ -61,6 +61,27 @@ type aws_glue_job = {
 [@@deriving yojson_of]
 (** aws_glue_job *)
 
+type t = {
+  arn : string prop;
+  connections : string list prop;
+  default_arguments : (string * string) list prop;
+  description : string prop;
+  execution_class : string prop;
+  glue_version : string prop;
+  id : string prop;
+  max_capacity : float prop;
+  max_retries : float prop;
+  name : string prop;
+  non_overridable_arguments : (string * string) list prop;
+  number_of_workers : float prop;
+  role_arn : string prop;
+  security_configuration : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  timeout : float prop;
+  worker_type : string prop;
+}
+
 let aws_glue_job ?connections ?default_arguments ?description
     ?execution_class ?glue_version ?id ?max_capacity ?max_retries
     ?non_overridable_arguments ?number_of_workers
@@ -69,29 +90,72 @@ let aws_glue_job ?connections ?default_arguments ?description
     ~notification_property __resource_id =
   let __resource_type = "aws_glue_job" in
   let __resource =
-    {
-      connections;
-      default_arguments;
-      description;
-      execution_class;
-      glue_version;
-      id;
-      max_capacity;
-      max_retries;
-      name;
-      non_overridable_arguments;
-      number_of_workers;
-      role_arn;
-      security_configuration;
-      tags;
-      tags_all;
-      timeout;
-      worker_type;
-      command;
-      execution_property;
-      notification_property;
-    }
+    ({
+       connections;
+       default_arguments;
+       description;
+       execution_class;
+       glue_version;
+       id;
+       max_capacity;
+       max_retries;
+       name;
+       non_overridable_arguments;
+       number_of_workers;
+       role_arn;
+       security_configuration;
+       tags;
+       tags_all;
+       timeout;
+       worker_type;
+       command;
+       execution_property;
+       notification_property;
+     }
+      : aws_glue_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       connections =
+         Prop.computed __resource_type __resource_id "connections";
+       default_arguments =
+         Prop.computed __resource_type __resource_id
+           "default_arguments";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       execution_class =
+         Prop.computed __resource_type __resource_id
+           "execution_class";
+       glue_version =
+         Prop.computed __resource_type __resource_id "glue_version";
+       id = Prop.computed __resource_type __resource_id "id";
+       max_capacity =
+         Prop.computed __resource_type __resource_id "max_capacity";
+       max_retries =
+         Prop.computed __resource_type __resource_id "max_retries";
+       name = Prop.computed __resource_type __resource_id "name";
+       non_overridable_arguments =
+         Prop.computed __resource_type __resource_id
+           "non_overridable_arguments";
+       number_of_workers =
+         Prop.computed __resource_type __resource_id
+           "number_of_workers";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       security_configuration =
+         Prop.computed __resource_type __resource_id
+           "security_configuration";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+       worker_type =
+         Prop.computed __resource_type __resource_id "worker_type";
+     }
+      : t)
+  in
+  __resource_attributes

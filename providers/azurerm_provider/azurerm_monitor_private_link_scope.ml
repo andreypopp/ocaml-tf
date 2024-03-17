@@ -23,12 +23,31 @@ type azurerm_monitor_private_link_scope = {
 [@@deriving yojson_of]
 (** azurerm_monitor_private_link_scope *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_monitor_private_link_scope ?id ?tags ?timeouts ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_monitor_private_link_scope" in
   let __resource =
-    { id; name; resource_group_name; tags; timeouts }
+    ({ id; name; resource_group_name; tags; timeouts }
+      : azurerm_monitor_private_link_scope)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_private_link_scope __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

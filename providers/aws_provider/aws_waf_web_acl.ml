@@ -70,21 +70,44 @@ type aws_waf_web_acl = {
 [@@deriving yojson_of]
 (** aws_waf_web_acl *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  metric_name : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_waf_web_acl ?id ?tags ?tags_all ~metric_name ~name
     ~default_action ~logging_configuration ~rules __resource_id =
   let __resource_type = "aws_waf_web_acl" in
   let __resource =
-    {
-      id;
-      metric_name;
-      name;
-      tags;
-      tags_all;
-      default_action;
-      logging_configuration;
-      rules;
-    }
+    ({
+       id;
+       metric_name;
+       name;
+       tags;
+       tags_all;
+       default_action;
+       logging_configuration;
+       rules;
+     }
+      : aws_waf_web_acl)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_waf_web_acl __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       metric_name =
+         Prop.computed __resource_type __resource_id "metric_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

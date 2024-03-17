@@ -6,6 +6,16 @@ type azurerm_lab_service_schedule__recurrence
 type azurerm_lab_service_schedule__timeouts
 type azurerm_lab_service_schedule
 
+type t = private {
+  id : string prop;
+  lab_id : string prop;
+  name : string prop;
+  notes : string prop;
+  start_time : string prop;
+  stop_time : string prop;
+  time_zone : string prop;
+}
+
 val azurerm_lab_service_schedule :
   ?id:string prop ->
   ?notes:string prop ->
@@ -17,4 +27,4 @@ val azurerm_lab_service_schedule :
   time_zone:string prop ->
   recurrence:azurerm_lab_service_schedule__recurrence list ->
   string ->
-  unit
+  t

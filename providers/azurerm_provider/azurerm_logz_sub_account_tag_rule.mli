@@ -6,6 +6,14 @@ type azurerm_logz_sub_account_tag_rule__tag_filter
 type azurerm_logz_sub_account_tag_rule__timeouts
 type azurerm_logz_sub_account_tag_rule
 
+type t = private {
+  id : string prop;
+  logz_sub_account_id : string prop;
+  send_aad_logs : bool prop;
+  send_activity_logs : bool prop;
+  send_subscription_logs : bool prop;
+}
+
 val azurerm_logz_sub_account_tag_rule :
   ?id:string prop ->
   ?send_aad_logs:bool prop ->
@@ -15,4 +23,4 @@ val azurerm_logz_sub_account_tag_rule :
   logz_sub_account_id:string prop ->
   tag_filter:azurerm_logz_sub_account_tag_rule__tag_filter list ->
   string ->
-  unit
+  t

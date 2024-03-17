@@ -406,6 +406,31 @@ type aws_launch_template = {
 [@@deriving yojson_of]
 (** aws_launch_template *)
 
+type t = {
+  arn : string prop;
+  default_version : float prop;
+  description : string prop;
+  disable_api_stop : bool prop;
+  disable_api_termination : bool prop;
+  ebs_optimized : string prop;
+  id : string prop;
+  image_id : string prop;
+  instance_initiated_shutdown_behavior : string prop;
+  instance_type : string prop;
+  kernel_id : string prop;
+  key_name : string prop;
+  latest_version : float prop;
+  name : string prop;
+  name_prefix : string prop;
+  ram_disk_id : string prop;
+  security_group_names : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  update_default_version : bool prop;
+  user_data : string prop;
+  vpc_security_group_ids : string list prop;
+}
+
 let aws_launch_template ?default_version ?description
     ?disable_api_stop ?disable_api_termination ?ebs_optimized ?id
     ?image_id ?instance_initiated_shutdown_behavior ?instance_type
@@ -422,48 +447,101 @@ let aws_launch_template ?default_version ?description
     ~private_dns_name_options ~tag_specifications __resource_id =
   let __resource_type = "aws_launch_template" in
   let __resource =
-    {
-      default_version;
-      description;
-      disable_api_stop;
-      disable_api_termination;
-      ebs_optimized;
-      id;
-      image_id;
-      instance_initiated_shutdown_behavior;
-      instance_type;
-      kernel_id;
-      key_name;
-      name;
-      name_prefix;
-      ram_disk_id;
-      security_group_names;
-      tags;
-      tags_all;
-      update_default_version;
-      user_data;
-      vpc_security_group_ids;
-      block_device_mappings;
-      capacity_reservation_specification;
-      cpu_options;
-      credit_specification;
-      elastic_gpu_specifications;
-      elastic_inference_accelerator;
-      enclave_options;
-      hibernation_options;
-      iam_instance_profile;
-      instance_market_options;
-      instance_requirements;
-      license_specification;
-      maintenance_options;
-      metadata_options;
-      monitoring;
-      network_interfaces;
-      placement;
-      private_dns_name_options;
-      tag_specifications;
-    }
+    ({
+       default_version;
+       description;
+       disable_api_stop;
+       disable_api_termination;
+       ebs_optimized;
+       id;
+       image_id;
+       instance_initiated_shutdown_behavior;
+       instance_type;
+       kernel_id;
+       key_name;
+       name;
+       name_prefix;
+       ram_disk_id;
+       security_group_names;
+       tags;
+       tags_all;
+       update_default_version;
+       user_data;
+       vpc_security_group_ids;
+       block_device_mappings;
+       capacity_reservation_specification;
+       cpu_options;
+       credit_specification;
+       elastic_gpu_specifications;
+       elastic_inference_accelerator;
+       enclave_options;
+       hibernation_options;
+       iam_instance_profile;
+       instance_market_options;
+       instance_requirements;
+       license_specification;
+       maintenance_options;
+       metadata_options;
+       monitoring;
+       network_interfaces;
+       placement;
+       private_dns_name_options;
+       tag_specifications;
+     }
+      : aws_launch_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_launch_template __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       default_version =
+         Prop.computed __resource_type __resource_id
+           "default_version";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disable_api_stop =
+         Prop.computed __resource_type __resource_id
+           "disable_api_stop";
+       disable_api_termination =
+         Prop.computed __resource_type __resource_id
+           "disable_api_termination";
+       ebs_optimized =
+         Prop.computed __resource_type __resource_id "ebs_optimized";
+       id = Prop.computed __resource_type __resource_id "id";
+       image_id =
+         Prop.computed __resource_type __resource_id "image_id";
+       instance_initiated_shutdown_behavior =
+         Prop.computed __resource_type __resource_id
+           "instance_initiated_shutdown_behavior";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       kernel_id =
+         Prop.computed __resource_type __resource_id "kernel_id";
+       key_name =
+         Prop.computed __resource_type __resource_id "key_name";
+       latest_version =
+         Prop.computed __resource_type __resource_id "latest_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       ram_disk_id =
+         Prop.computed __resource_type __resource_id "ram_disk_id";
+       security_group_names =
+         Prop.computed __resource_type __resource_id
+           "security_group_names";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       update_default_version =
+         Prop.computed __resource_type __resource_id
+           "update_default_version";
+       user_data =
+         Prop.computed __resource_type __resource_id "user_data";
+       vpc_security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "vpc_security_group_ids";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -557,6 +557,22 @@ type azurerm_application_gateway = {
 [@@deriving yojson_of]
 (** azurerm_application_gateway *)
 
+type t = {
+  enable_http2 : bool prop;
+  fips_enabled : bool prop;
+  firewall_policy_id : string prop;
+  force_firewall_policy_association : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_endpoint_connection :
+    azurerm_application_gateway__private_endpoint_connection list
+    prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  zones : string list prop;
+}
+
 let azurerm_application_gateway ?enable_http2 ?fips_enabled
     ?firewall_policy_id ?force_firewall_policy_association ?id ?tags
     ?zones ?timeouts ~location ~name ~resource_group_name
@@ -571,44 +587,72 @@ let azurerm_application_gateway ?enable_http2 ?fips_enabled
     ~url_path_map ~waf_configuration __resource_id =
   let __resource_type = "azurerm_application_gateway" in
   let __resource =
-    {
-      enable_http2;
-      fips_enabled;
-      firewall_policy_id;
-      force_firewall_policy_association;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      zones;
-      authentication_certificate;
-      autoscale_configuration;
-      backend_address_pool;
-      backend_http_settings;
-      custom_error_configuration;
-      frontend_ip_configuration;
-      frontend_port;
-      gateway_ip_configuration;
-      global;
-      http_listener;
-      identity;
-      private_link_configuration;
-      probe;
-      redirect_configuration;
-      request_routing_rule;
-      rewrite_rule_set;
-      sku;
-      ssl_certificate;
-      ssl_policy;
-      ssl_profile;
-      timeouts;
-      trusted_client_certificate;
-      trusted_root_certificate;
-      url_path_map;
-      waf_configuration;
-    }
+    ({
+       enable_http2;
+       fips_enabled;
+       firewall_policy_id;
+       force_firewall_policy_association;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       zones;
+       authentication_certificate;
+       autoscale_configuration;
+       backend_address_pool;
+       backend_http_settings;
+       custom_error_configuration;
+       frontend_ip_configuration;
+       frontend_port;
+       gateway_ip_configuration;
+       global;
+       http_listener;
+       identity;
+       private_link_configuration;
+       probe;
+       redirect_configuration;
+       request_routing_rule;
+       rewrite_rule_set;
+       sku;
+       ssl_certificate;
+       ssl_policy;
+       ssl_profile;
+       timeouts;
+       trusted_client_certificate;
+       trusted_root_certificate;
+       url_path_map;
+       waf_configuration;
+     }
+      : azurerm_application_gateway)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_gateway __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enable_http2 =
+         Prop.computed __resource_type __resource_id "enable_http2";
+       fips_enabled =
+         Prop.computed __resource_type __resource_id "fips_enabled";
+       firewall_policy_id =
+         Prop.computed __resource_type __resource_id
+           "firewall_policy_id";
+       force_firewall_policy_association =
+         Prop.computed __resource_type __resource_id
+           "force_firewall_policy_association";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_endpoint_connection =
+         Prop.computed __resource_type __resource_id
+           "private_endpoint_connection";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

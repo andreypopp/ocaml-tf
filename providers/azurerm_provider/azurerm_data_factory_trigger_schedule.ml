@@ -64,31 +64,79 @@ type azurerm_data_factory_trigger_schedule = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_schedule *)
 
+type t = {
+  activated : bool prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  end_time : string prop;
+  frequency : string prop;
+  id : string prop;
+  interval : float prop;
+  name : string prop;
+  pipeline_name : string prop;
+  pipeline_parameters : (string * string) list prop;
+  start_time : string prop;
+  time_zone : string prop;
+}
+
 let azurerm_data_factory_trigger_schedule ?activated ?annotations
     ?description ?end_time ?frequency ?id ?interval ?pipeline_name
     ?pipeline_parameters ?start_time ?time_zone ?timeouts
     ~data_factory_id ~name ~pipeline ~schedule __resource_id =
   let __resource_type = "azurerm_data_factory_trigger_schedule" in
   let __resource =
-    {
-      activated;
-      annotations;
-      data_factory_id;
-      description;
-      end_time;
-      frequency;
-      id;
-      interval;
-      name;
-      pipeline_name;
-      pipeline_parameters;
-      start_time;
-      time_zone;
-      pipeline;
-      schedule;
-      timeouts;
-    }
+    ({
+       activated;
+       annotations;
+       data_factory_id;
+       description;
+       end_time;
+       frequency;
+       id;
+       interval;
+       name;
+       pipeline_name;
+       pipeline_parameters;
+       start_time;
+       time_zone;
+       pipeline;
+       schedule;
+       timeouts;
+     }
+      : azurerm_data_factory_trigger_schedule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_trigger_schedule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       activated =
+         Prop.computed __resource_type __resource_id "activated";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       end_time =
+         Prop.computed __resource_type __resource_id "end_time";
+       frequency =
+         Prop.computed __resource_type __resource_id "frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       interval =
+         Prop.computed __resource_type __resource_id "interval";
+       name = Prop.computed __resource_type __resource_id "name";
+       pipeline_name =
+         Prop.computed __resource_type __resource_id "pipeline_name";
+       pipeline_parameters =
+         Prop.computed __resource_type __resource_id
+           "pipeline_parameters";
+       start_time =
+         Prop.computed __resource_type __resource_id "start_time";
+       time_zone =
+         Prop.computed __resource_type __resource_id "time_zone";
+     }
+      : t)
+  in
+  __resource_attributes

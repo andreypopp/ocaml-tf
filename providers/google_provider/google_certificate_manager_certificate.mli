@@ -19,6 +19,18 @@ type google_certificate_manager_certificate__self_managed
 type google_certificate_manager_certificate__timeouts
 type google_certificate_manager_certificate
 
+type t = private {
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  scope : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_certificate_manager_certificate :
   ?description:string prop ->
   ?id:string prop ->
@@ -32,4 +44,4 @@ val google_certificate_manager_certificate :
   self_managed:
     google_certificate_manager_certificate__self_managed list ->
   string ->
-  unit
+  t

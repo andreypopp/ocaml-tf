@@ -6,6 +6,26 @@ type aws_api_gateway_stage__access_log_settings
 type aws_api_gateway_stage__canary_settings
 type aws_api_gateway_stage
 
+type t = private {
+  arn : string prop;
+  cache_cluster_enabled : bool prop;
+  cache_cluster_size : string prop;
+  client_certificate_id : string prop;
+  deployment_id : string prop;
+  description : string prop;
+  documentation_version : string prop;
+  execution_arn : string prop;
+  id : string prop;
+  invoke_url : string prop;
+  rest_api_id : string prop;
+  stage_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  variables : (string * string) list prop;
+  web_acl_arn : string prop;
+  xray_tracing_enabled : bool prop;
+}
+
 val aws_api_gateway_stage :
   ?cache_cluster_enabled:bool prop ->
   ?cache_cluster_size:string prop ->
@@ -23,4 +43,4 @@ val aws_api_gateway_stage :
   access_log_settings:aws_api_gateway_stage__access_log_settings list ->
   canary_settings:aws_api_gateway_stage__canary_settings list ->
   string ->
-  unit
+  t

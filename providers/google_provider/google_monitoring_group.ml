@@ -34,20 +34,47 @@ groups with no parent, parentName is the empty string, . *)
 [@@deriving yojson_of]
 (** google_monitoring_group *)
 
+type t = {
+  display_name : string prop;
+  filter : string prop;
+  id : string prop;
+  is_cluster : bool prop;
+  name : string prop;
+  parent_name : string prop;
+  project : string prop;
+}
+
 let google_monitoring_group ?id ?is_cluster ?parent_name ?project
     ?timeouts ~display_name ~filter __resource_id =
   let __resource_type = "google_monitoring_group" in
   let __resource =
-    {
-      display_name;
-      filter;
-      id;
-      is_cluster;
-      parent_name;
-      project;
-      timeouts;
-    }
+    ({
+       display_name;
+       filter;
+       id;
+       is_cluster;
+       parent_name;
+       project;
+       timeouts;
+     }
+      : google_monitoring_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       filter = Prop.computed __resource_type __resource_id "filter";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_cluster =
+         Prop.computed __resource_type __resource_id "is_cluster";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_name =
+         Prop.computed __resource_type __resource_id "parent_name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -7,6 +7,15 @@ type azurerm_mobile_network_slice__single_network_slice_selection_assistance_inf
 type azurerm_mobile_network_slice__timeouts
 type azurerm_mobile_network_slice
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_mobile_network_slice :
   ?description:string prop ->
   ?id:string prop ->
@@ -19,4 +28,4 @@ val azurerm_mobile_network_slice :
     azurerm_mobile_network_slice__single_network_slice_selection_assistance_information
     list ->
   string ->
-  unit
+  t

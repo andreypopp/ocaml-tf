@@ -56,25 +56,61 @@ type azurerm_express_route_connection = {
 [@@deriving yojson_of]
 (** azurerm_express_route_connection *)
 
+type t = {
+  authorization_key : string prop;
+  enable_internet_security : bool prop;
+  express_route_circuit_peering_id : string prop;
+  express_route_gateway_bypass_enabled : bool prop;
+  express_route_gateway_id : string prop;
+  id : string prop;
+  name : string prop;
+  routing_weight : float prop;
+}
+
 let azurerm_express_route_connection ?authorization_key
     ?enable_internet_security ?express_route_gateway_bypass_enabled
     ?id ?routing_weight ?timeouts ~express_route_circuit_peering_id
     ~express_route_gateway_id ~name ~routing __resource_id =
   let __resource_type = "azurerm_express_route_connection" in
   let __resource =
-    {
-      authorization_key;
-      enable_internet_security;
-      express_route_circuit_peering_id;
-      express_route_gateway_bypass_enabled;
-      express_route_gateway_id;
-      id;
-      name;
-      routing_weight;
-      routing;
-      timeouts;
-    }
+    ({
+       authorization_key;
+       enable_internet_security;
+       express_route_circuit_peering_id;
+       express_route_gateway_bypass_enabled;
+       express_route_gateway_id;
+       id;
+       name;
+       routing_weight;
+       routing;
+       timeouts;
+     }
+      : azurerm_express_route_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_express_route_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authorization_key =
+         Prop.computed __resource_type __resource_id
+           "authorization_key";
+       enable_internet_security =
+         Prop.computed __resource_type __resource_id
+           "enable_internet_security";
+       express_route_circuit_peering_id =
+         Prop.computed __resource_type __resource_id
+           "express_route_circuit_peering_id";
+       express_route_gateway_bypass_enabled =
+         Prop.computed __resource_type __resource_id
+           "express_route_gateway_bypass_enabled";
+       express_route_gateway_id =
+         Prop.computed __resource_type __resource_id
+           "express_route_gateway_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       routing_weight =
+         Prop.computed __resource_type __resource_id "routing_weight";
+     }
+      : t)
+  in
+  __resource_attributes

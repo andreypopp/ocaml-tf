@@ -25,6 +25,14 @@ type azurerm_api_management_identity_provider_twitter = {
 [@@deriving yojson_of]
 (** azurerm_api_management_identity_provider_twitter *)
 
+type t = {
+  api_key : string prop;
+  api_management_name : string prop;
+  api_secret_key : string prop;
+  id : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_api_management_identity_provider_twitter ?id ?timeouts
     ~api_key ~api_management_name ~api_secret_key
     ~resource_group_name __resource_id =
@@ -32,16 +40,33 @@ let azurerm_api_management_identity_provider_twitter ?id ?timeouts
     "azurerm_api_management_identity_provider_twitter"
   in
   let __resource =
-    {
-      api_key;
-      api_management_name;
-      api_secret_key;
-      id;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       api_key;
+       api_management_name;
+       api_secret_key;
+       id;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_api_management_identity_provider_twitter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_identity_provider_twitter
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_key =
+         Prop.computed __resource_type __resource_id "api_key";
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       api_secret_key =
+         Prop.computed __resource_type __resource_id "api_secret_key";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

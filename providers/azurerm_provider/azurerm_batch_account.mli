@@ -19,6 +19,24 @@ type azurerm_batch_account__encryption = {
 
 type azurerm_batch_account
 
+type t = private {
+  account_endpoint : string prop;
+  allowed_authentication_modes : string list prop;
+  encryption : azurerm_batch_account__encryption list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  pool_allocation_mode : string prop;
+  primary_access_key : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  storage_account_authentication_mode : string prop;
+  storage_account_id : string prop;
+  storage_account_node_identity : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_batch_account :
   ?allowed_authentication_modes:string prop list ->
   ?encryption:azurerm_batch_account__encryption list ->
@@ -37,4 +55,4 @@ val azurerm_batch_account :
   key_vault_reference:azurerm_batch_account__key_vault_reference list ->
   network_profile:azurerm_batch_account__network_profile list ->
   string ->
-  unit
+  t

@@ -36,6 +36,21 @@ type azurerm_api_management_api_diagnostic__frontend_response
 type azurerm_api_management_api_diagnostic__timeouts
 type azurerm_api_management_api_diagnostic
 
+type t = private {
+  always_log_errors : bool prop;
+  api_management_logger_id : string prop;
+  api_management_name : string prop;
+  api_name : string prop;
+  http_correlation_protocol : string prop;
+  id : string prop;
+  identifier : string prop;
+  log_client_ip : bool prop;
+  operation_name_format : string prop;
+  resource_group_name : string prop;
+  sampling_percentage : float prop;
+  verbosity : string prop;
+}
+
 val azurerm_api_management_api_diagnostic :
   ?always_log_errors:bool prop ->
   ?http_correlation_protocol:string prop ->
@@ -59,4 +74,4 @@ val azurerm_api_management_api_diagnostic :
   frontend_response:
     azurerm_api_management_api_diagnostic__frontend_response list ->
   string ->
-  unit
+  t

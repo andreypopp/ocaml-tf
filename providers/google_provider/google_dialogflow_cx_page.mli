@@ -117,6 +117,15 @@ type google_dialogflow_cx_page__transition_routes__trigger_fulfillment
 type google_dialogflow_cx_page__transition_routes
 type google_dialogflow_cx_page
 
+type t = private {
+  display_name : string prop;
+  id : string prop;
+  language_code : string prop;
+  name : string prop;
+  parent : string prop;
+  transition_route_groups : string list prop;
+}
+
 val google_dialogflow_cx_page :
   ?id:string prop ->
   ?language_code:string prop ->
@@ -130,4 +139,4 @@ val google_dialogflow_cx_page :
   form:google_dialogflow_cx_page__form list ->
   transition_routes:google_dialogflow_cx_page__transition_routes list ->
   string ->
-  unit
+  t

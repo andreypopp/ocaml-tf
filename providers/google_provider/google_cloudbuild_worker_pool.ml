@@ -53,23 +53,65 @@ Please refer to the field `effective_annotations` for all of the annotations pre
 [@@deriving yojson_of]
 (** google_cloudbuild_worker_pool *)
 
+type t = {
+  annotations : (string * string) list prop;
+  create_time : string prop;
+  delete_time : string prop;
+  display_name : string prop;
+  effective_annotations : (string * string) list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_cloudbuild_worker_pool ?annotations ?display_name ?id
     ?project ?timeouts ~location ~name ~network_config ~worker_config
     __resource_id =
   let __resource_type = "google_cloudbuild_worker_pool" in
   let __resource =
-    {
-      annotations;
-      display_name;
-      id;
-      location;
-      name;
-      project;
-      network_config;
-      timeouts;
-      worker_config;
-    }
+    ({
+       annotations;
+       display_name;
+       id;
+       location;
+       name;
+       project;
+       network_config;
+       timeouts;
+       worker_config;
+     }
+      : google_cloudbuild_worker_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudbuild_worker_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

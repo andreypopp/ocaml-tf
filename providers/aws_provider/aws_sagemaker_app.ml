@@ -34,23 +34,57 @@ type aws_sagemaker_app = {
 [@@deriving yojson_of]
 (** aws_sagemaker_app *)
 
+type t = {
+  app_name : string prop;
+  app_type : string prop;
+  arn : string prop;
+  domain_id : string prop;
+  id : string prop;
+  space_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_profile_name : string prop;
+}
+
 let aws_sagemaker_app ?id ?space_name ?tags ?tags_all
     ?user_profile_name ~app_name ~app_type ~domain_id ~resource_spec
     __resource_id =
   let __resource_type = "aws_sagemaker_app" in
   let __resource =
-    {
-      app_name;
-      app_type;
-      domain_id;
-      id;
-      space_name;
-      tags;
-      tags_all;
-      user_profile_name;
-      resource_spec;
-    }
+    ({
+       app_name;
+       app_type;
+       domain_id;
+       id;
+       space_name;
+       tags;
+       tags_all;
+       user_profile_name;
+       resource_spec;
+     }
+      : aws_sagemaker_app)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_app __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_name =
+         Prop.computed __resource_type __resource_id "app_name";
+       app_type =
+         Prop.computed __resource_type __resource_id "app_type";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       domain_id =
+         Prop.computed __resource_type __resource_id "domain_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       space_name =
+         Prop.computed __resource_type __resource_id "space_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       user_profile_name =
+         Prop.computed __resource_type __resource_id
+           "user_profile_name";
+     }
+      : t)
+  in
+  __resource_attributes

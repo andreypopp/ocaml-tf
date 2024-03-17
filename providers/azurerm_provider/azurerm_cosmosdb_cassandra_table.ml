@@ -65,23 +65,50 @@ type azurerm_cosmosdb_cassandra_table = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_table *)
 
+type t = {
+  analytical_storage_ttl : float prop;
+  cassandra_keyspace_id : string prop;
+  default_ttl : float prop;
+  id : string prop;
+  name : string prop;
+  throughput : float prop;
+}
+
 let azurerm_cosmosdb_cassandra_table ?analytical_storage_ttl
     ?default_ttl ?id ?throughput ?timeouts ~cassandra_keyspace_id
     ~name ~autoscale_settings ~schema __resource_id =
   let __resource_type = "azurerm_cosmosdb_cassandra_table" in
   let __resource =
-    {
-      analytical_storage_ttl;
-      cassandra_keyspace_id;
-      default_ttl;
-      id;
-      name;
-      throughput;
-      autoscale_settings;
-      schema;
-      timeouts;
-    }
+    ({
+       analytical_storage_ttl;
+       cassandra_keyspace_id;
+       default_ttl;
+       id;
+       name;
+       throughput;
+       autoscale_settings;
+       schema;
+       timeouts;
+     }
+      : azurerm_cosmosdb_cassandra_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_cassandra_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       analytical_storage_ttl =
+         Prop.computed __resource_type __resource_id
+           "analytical_storage_ttl";
+       cassandra_keyspace_id =
+         Prop.computed __resource_type __resource_id
+           "cassandra_keyspace_id";
+       default_ttl =
+         Prop.computed __resource_type __resource_id "default_ttl";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       throughput =
+         Prop.computed __resource_type __resource_id "throughput";
+     }
+      : t)
+  in
+  __resource_attributes

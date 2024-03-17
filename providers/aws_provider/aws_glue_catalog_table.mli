@@ -18,6 +18,21 @@ type aws_glue_catalog_table__storage_descriptor
 type aws_glue_catalog_table__target_table
 type aws_glue_catalog_table
 
+type t = private {
+  arn : string prop;
+  catalog_id : string prop;
+  database_name : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  owner : string prop;
+  parameters : (string * string) list prop;
+  retention : float prop;
+  table_type : string prop;
+  view_expanded_text : string prop;
+  view_original_text : string prop;
+}
+
 val aws_glue_catalog_table :
   ?catalog_id:string prop ->
   ?description:string prop ->
@@ -37,4 +52,4 @@ val aws_glue_catalog_table :
   storage_descriptor:aws_glue_catalog_table__storage_descriptor list ->
   target_table:aws_glue_catalog_table__target_table list ->
   string ->
-  unit
+  t

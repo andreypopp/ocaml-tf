@@ -91,6 +91,20 @@ type azurerm_resource_group_policy_assignment = {
 [@@deriving yojson_of]
 (** azurerm_resource_group_policy_assignment *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  enforce : bool prop;
+  id : string prop;
+  location : string prop;
+  metadata : string prop;
+  name : string prop;
+  not_scopes : string list prop;
+  parameters : string prop;
+  policy_definition_id : string prop;
+  resource_group_id : string prop;
+}
+
 let azurerm_resource_group_policy_assignment ?description
     ?display_name ?enforce ?id ?location ?metadata ?not_scopes
     ?parameters ?timeouts ~name ~policy_definition_id
@@ -98,25 +112,53 @@ let azurerm_resource_group_policy_assignment ?description
     ~resource_selectors __resource_id =
   let __resource_type = "azurerm_resource_group_policy_assignment" in
   let __resource =
-    {
-      description;
-      display_name;
-      enforce;
-      id;
-      location;
-      metadata;
-      name;
-      not_scopes;
-      parameters;
-      policy_definition_id;
-      resource_group_id;
-      identity;
-      non_compliance_message;
-      overrides;
-      resource_selectors;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       enforce;
+       id;
+       location;
+       metadata;
+       name;
+       not_scopes;
+       parameters;
+       policy_definition_id;
+       resource_group_id;
+       identity;
+       non_compliance_message;
+       overrides;
+       resource_selectors;
+       timeouts;
+     }
+      : azurerm_resource_group_policy_assignment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_resource_group_policy_assignment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enforce =
+         Prop.computed __resource_type __resource_id "enforce";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       not_scopes =
+         Prop.computed __resource_type __resource_id "not_scopes";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       policy_definition_id =
+         Prop.computed __resource_type __resource_id
+           "policy_definition_id";
+       resource_group_id =
+         Prop.computed __resource_type __resource_id
+           "resource_group_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -730,6 +730,25 @@ Format: projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT_ID_OR_EMAIL} *)
 [@@deriving yojson_of]
 (** google_cloudbuild_trigger *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  disabled : bool prop;
+  filename : string prop;
+  filter : string prop;
+  id : string prop;
+  ignored_files : string list prop;
+  include_build_logs : string prop;
+  included_files : string list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  service_account : string prop;
+  substitutions : (string * string) list prop;
+  tags : string list prop;
+  trigger_id : string prop;
+}
+
 let google_cloudbuild_trigger ?description ?disabled ?filename
     ?filter ?id ?ignored_files ?include_build_logs ?included_files
     ?location ?name ?project ?service_account ?substitutions ?tags
@@ -739,34 +758,70 @@ let google_cloudbuild_trigger ?description ?disabled ?filename
     ~webhook_config __resource_id =
   let __resource_type = "google_cloudbuild_trigger" in
   let __resource =
-    {
-      description;
-      disabled;
-      filename;
-      filter;
-      id;
-      ignored_files;
-      include_build_logs;
-      included_files;
-      location;
-      name;
-      project;
-      service_account;
-      substitutions;
-      tags;
-      approval_config;
-      bitbucket_server_trigger_config;
-      build;
-      git_file_source;
-      github;
-      pubsub_config;
-      repository_event_config;
-      source_to_build;
-      timeouts;
-      trigger_template;
-      webhook_config;
-    }
+    ({
+       description;
+       disabled;
+       filename;
+       filter;
+       id;
+       ignored_files;
+       include_build_logs;
+       included_files;
+       location;
+       name;
+       project;
+       service_account;
+       substitutions;
+       tags;
+       approval_config;
+       bitbucket_server_trigger_config;
+       build;
+       git_file_source;
+       github;
+       pubsub_config;
+       repository_event_config;
+       source_to_build;
+       timeouts;
+       trigger_template;
+       webhook_config;
+     }
+      : google_cloudbuild_trigger)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloudbuild_trigger __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       filename =
+         Prop.computed __resource_type __resource_id "filename";
+       filter = Prop.computed __resource_type __resource_id "filter";
+       id = Prop.computed __resource_type __resource_id "id";
+       ignored_files =
+         Prop.computed __resource_type __resource_id "ignored_files";
+       include_build_logs =
+         Prop.computed __resource_type __resource_id
+           "include_build_logs";
+       included_files =
+         Prop.computed __resource_type __resource_id "included_files";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       service_account =
+         Prop.computed __resource_type __resource_id
+           "service_account";
+       substitutions =
+         Prop.computed __resource_type __resource_id "substitutions";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       trigger_id =
+         Prop.computed __resource_type __resource_id "trigger_id";
+     }
+      : t)
+  in
+  __resource_attributes

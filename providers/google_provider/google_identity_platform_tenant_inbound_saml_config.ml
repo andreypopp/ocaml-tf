@@ -77,6 +77,15 @@ alphanumeric character, and have at least 2 characters. *)
 [@@deriving yojson_of]
 (** google_identity_platform_tenant_inbound_saml_config *)
 
+type t = {
+  display_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  tenant : string prop;
+}
+
 let google_identity_platform_tenant_inbound_saml_config ?enabled ?id
     ?project ?timeouts ~display_name ~name ~tenant ~idp_config
     ~sp_config __resource_id =
@@ -84,19 +93,34 @@ let google_identity_platform_tenant_inbound_saml_config ?enabled ?id
     "google_identity_platform_tenant_inbound_saml_config"
   in
   let __resource =
-    {
-      display_name;
-      enabled;
-      id;
-      name;
-      project;
-      tenant;
-      idp_config;
-      sp_config;
-      timeouts;
-    }
+    ({
+       display_name;
+       enabled;
+       id;
+       name;
+       project;
+       tenant;
+       idp_config;
+       sp_config;
+       timeouts;
+     }
+      : google_identity_platform_tenant_inbound_saml_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_tenant_inbound_saml_config
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       tenant = Prop.computed __resource_type __resource_id "tenant";
+     }
+      : t)
+  in
+  __resource_attributes

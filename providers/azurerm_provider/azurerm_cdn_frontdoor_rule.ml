@@ -356,22 +356,49 @@ type azurerm_cdn_frontdoor_rule = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_rule *)
 
+type t = {
+  behavior_on_match : string prop;
+  cdn_frontdoor_rule_set_id : string prop;
+  cdn_frontdoor_rule_set_name : string prop;
+  id : string prop;
+  name : string prop;
+  order : float prop;
+}
+
 let azurerm_cdn_frontdoor_rule ?behavior_on_match ?id ?timeouts
     ~cdn_frontdoor_rule_set_id ~name ~order ~actions ~conditions
     __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_rule" in
   let __resource =
-    {
-      behavior_on_match;
-      cdn_frontdoor_rule_set_id;
-      id;
-      name;
-      order;
-      actions;
-      conditions;
-      timeouts;
-    }
+    ({
+       behavior_on_match;
+       cdn_frontdoor_rule_set_id;
+       id;
+       name;
+       order;
+       actions;
+       conditions;
+       timeouts;
+     }
+      : azurerm_cdn_frontdoor_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       behavior_on_match =
+         Prop.computed __resource_type __resource_id
+           "behavior_on_match";
+       cdn_frontdoor_rule_set_id =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_rule_set_id";
+       cdn_frontdoor_rule_set_name =
+         Prop.computed __resource_type __resource_id
+           "cdn_frontdoor_rule_set_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       order = Prop.computed __resource_type __resource_id "order";
+     }
+      : t)
+  in
+  __resource_attributes

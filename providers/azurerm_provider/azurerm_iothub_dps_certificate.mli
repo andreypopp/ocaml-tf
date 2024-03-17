@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_iothub_dps_certificate__timeouts
 type azurerm_iothub_dps_certificate
 
+type t = private {
+  certificate_content : string prop;
+  id : string prop;
+  iot_dps_name : string prop;
+  is_verified : bool prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 val azurerm_iothub_dps_certificate :
   ?id:string prop ->
   ?is_verified:bool prop ->
@@ -14,4 +23,4 @@ val azurerm_iothub_dps_certificate :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

@@ -130,6 +130,23 @@ the schema as returned by the API. *)
 [@@deriving yojson_of]
 (** google_bigquery_routine *)
 
+type t = {
+  creation_time : float prop;
+  dataset_id : string prop;
+  definition_body : string prop;
+  description : string prop;
+  determinism_level : string prop;
+  id : string prop;
+  imported_libraries : string list prop;
+  language : string prop;
+  last_modified_time : float prop;
+  project : string prop;
+  return_table_type : string prop;
+  return_type : string prop;
+  routine_id : string prop;
+  routine_type : string prop;
+}
+
 let google_bigquery_routine ?description ?determinism_level ?id
     ?imported_libraries ?language ?project ?return_table_type
     ?return_type ?timeouts ~dataset_id ~definition_body ~routine_id
@@ -137,25 +154,63 @@ let google_bigquery_routine ?description ?determinism_level ?id
     __resource_id =
   let __resource_type = "google_bigquery_routine" in
   let __resource =
-    {
-      dataset_id;
-      definition_body;
-      description;
-      determinism_level;
-      id;
-      imported_libraries;
-      language;
-      project;
-      return_table_type;
-      return_type;
-      routine_id;
-      routine_type;
-      arguments;
-      remote_function_options;
-      spark_options;
-      timeouts;
-    }
+    ({
+       dataset_id;
+       definition_body;
+       description;
+       determinism_level;
+       id;
+       imported_libraries;
+       language;
+       project;
+       return_table_type;
+       return_type;
+       routine_id;
+       routine_type;
+       arguments;
+       remote_function_options;
+       spark_options;
+       timeouts;
+     }
+      : google_bigquery_routine)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_routine __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_time =
+         Prop.computed __resource_type __resource_id "creation_time";
+       dataset_id =
+         Prop.computed __resource_type __resource_id "dataset_id";
+       definition_body =
+         Prop.computed __resource_type __resource_id
+           "definition_body";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       determinism_level =
+         Prop.computed __resource_type __resource_id
+           "determinism_level";
+       id = Prop.computed __resource_type __resource_id "id";
+       imported_libraries =
+         Prop.computed __resource_type __resource_id
+           "imported_libraries";
+       language =
+         Prop.computed __resource_type __resource_id "language";
+       last_modified_time =
+         Prop.computed __resource_type __resource_id
+           "last_modified_time";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       return_table_type =
+         Prop.computed __resource_type __resource_id
+           "return_table_type";
+       return_type =
+         Prop.computed __resource_type __resource_id "return_type";
+       routine_id =
+         Prop.computed __resource_type __resource_id "routine_id";
+       routine_type =
+         Prop.computed __resource_type __resource_id "routine_type";
+     }
+      : t)
+  in
+  __resource_attributes

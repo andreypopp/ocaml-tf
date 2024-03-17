@@ -32,21 +32,52 @@ value should be 4-32 characters, and may contain the characters [a-z0-9-]. The p
 [@@deriving yojson_of]
 (** google_iam_workload_identity_pool *)
 
+type t = {
+  description : string prop;
+  disabled : bool prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  workload_identity_pool_id : string prop;
+}
+
 let google_iam_workload_identity_pool ?description ?disabled
     ?display_name ?id ?project ?timeouts ~workload_identity_pool_id
     __resource_id =
   let __resource_type = "google_iam_workload_identity_pool" in
   let __resource =
-    {
-      description;
-      disabled;
-      display_name;
-      id;
-      project;
-      workload_identity_pool_id;
-      timeouts;
-    }
+    ({
+       description;
+       disabled;
+       display_name;
+       id;
+       project;
+       workload_identity_pool_id;
+       timeouts;
+     }
+      : google_iam_workload_identity_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iam_workload_identity_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       workload_identity_pool_id =
+         Prop.computed __resource_type __resource_id
+           "workload_identity_pool_id";
+     }
+      : t)
+  in
+  __resource_attributes

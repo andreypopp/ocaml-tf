@@ -27,23 +27,54 @@ type azurerm_iothub_route = {
 [@@deriving yojson_of]
 (** azurerm_iothub_route *)
 
+type t = {
+  condition : string prop;
+  enabled : bool prop;
+  endpoint_names : string list prop;
+  id : string prop;
+  iothub_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  source : string prop;
+}
+
 let azurerm_iothub_route ?condition ?id ?timeouts ~enabled
     ~endpoint_names ~iothub_name ~name ~resource_group_name ~source
     __resource_id =
   let __resource_type = "azurerm_iothub_route" in
   let __resource =
-    {
-      condition;
-      enabled;
-      endpoint_names;
-      id;
-      iothub_name;
-      name;
-      resource_group_name;
-      source;
-      timeouts;
-    }
+    ({
+       condition;
+       enabled;
+       endpoint_names;
+       id;
+       iothub_name;
+       name;
+       resource_group_name;
+       source;
+       timeouts;
+     }
+      : azurerm_iothub_route)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_route __resource);
-  ()
+  let __resource_attributes =
+    ({
+       condition =
+         Prop.computed __resource_type __resource_id "condition";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       endpoint_names =
+         Prop.computed __resource_type __resource_id "endpoint_names";
+       id = Prop.computed __resource_type __resource_id "id";
+       iothub_name =
+         Prop.computed __resource_type __resource_id "iothub_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       source = Prop.computed __resource_type __resource_id "source";
+     }
+      : t)
+  in
+  __resource_attributes

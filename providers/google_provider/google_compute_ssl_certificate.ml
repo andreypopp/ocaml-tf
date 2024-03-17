@@ -40,22 +40,63 @@ These are in the same namespace as the managed SSL certificates. *)
 [@@deriving yojson_of]
 (** google_compute_ssl_certificate *)
 
+type t = {
+  certificate : string prop;
+  certificate_id : float prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  expire_time : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  private_key : string prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 let google_compute_ssl_certificate ?description ?id ?name
     ?name_prefix ?project ?timeouts ~certificate ~private_key
     __resource_id =
   let __resource_type = "google_compute_ssl_certificate" in
   let __resource =
-    {
-      certificate;
-      description;
-      id;
-      name;
-      name_prefix;
-      private_key;
-      project;
-      timeouts;
-    }
+    ({
+       certificate;
+       description;
+       id;
+       name;
+       name_prefix;
+       private_key;
+       project;
+       timeouts;
+     }
+      : google_compute_ssl_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_ssl_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificate =
+         Prop.computed __resource_type __resource_id "certificate";
+       certificate_id =
+         Prop.computed __resource_type __resource_id "certificate_id";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       expire_time =
+         Prop.computed __resource_type __resource_id "expire_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       private_key =
+         Prop.computed __resource_type __resource_id "private_key";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

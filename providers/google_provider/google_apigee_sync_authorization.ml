@@ -28,10 +28,30 @@ The service accounts must have **Apigee Synchronizer Manager** role. See also [C
 [@@deriving yojson_of]
 (** google_apigee_sync_authorization *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  identities : string list prop;
+  name : string prop;
+}
+
 let google_apigee_sync_authorization ?id ?timeouts ~identities ~name
     __resource_id =
   let __resource_type = "google_apigee_sync_authorization" in
-  let __resource = { id; identities; name; timeouts } in
+  let __resource =
+    ({ id; identities; name; timeouts }
+      : google_apigee_sync_authorization)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_sync_authorization __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       identities =
+         Prop.computed __resource_type __resource_id "identities";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

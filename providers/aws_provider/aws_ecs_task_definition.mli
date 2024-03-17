@@ -20,6 +20,27 @@ type aws_ecs_task_definition__volume__fsx_windows_file_server_volume_configurati
 type aws_ecs_task_definition__volume
 type aws_ecs_task_definition
 
+type t = private {
+  arn : string prop;
+  arn_without_revision : string prop;
+  container_definitions : string prop;
+  cpu : string prop;
+  execution_role_arn : string prop;
+  family : string prop;
+  id : string prop;
+  ipc_mode : string prop;
+  memory : string prop;
+  network_mode : string prop;
+  pid_mode : string prop;
+  requires_compatibilities : string list prop;
+  revision : float prop;
+  skip_destroy : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  task_role_arn : string prop;
+  track_latest : bool prop;
+}
+
 val aws_ecs_task_definition :
   ?cpu:string prop ->
   ?execution_role_arn:string prop ->
@@ -46,4 +67,4 @@ val aws_ecs_task_definition :
   runtime_platform:aws_ecs_task_definition__runtime_platform list ->
   volume:aws_ecs_task_definition__volume list ->
   string ->
-  unit
+  t

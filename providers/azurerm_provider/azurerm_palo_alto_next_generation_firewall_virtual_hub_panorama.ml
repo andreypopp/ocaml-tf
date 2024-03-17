@@ -106,6 +106,19 @@ type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama = {
 [@@deriving yojson_of]
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  panorama :
+    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama__panorama
+    list
+    prop;
+  panorama_base64_config : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
     ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
     ~resource_group_name ~destination_nat ~dns_settings
@@ -114,20 +127,39 @@ let azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
     "azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama"
   in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      panorama_base64_config;
-      resource_group_name;
-      tags;
-      destination_nat;
-      dns_settings;
-      network_profile;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       panorama_base64_config;
+       resource_group_name;
+       tags;
+       destination_nat;
+       dns_settings;
+       network_profile;
+       timeouts;
+     }
+      : azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       panorama =
+         Prop.computed __resource_type __resource_id "panorama";
+       panorama_base64_config =
+         Prop.computed __resource_type __resource_id
+           "panorama_base64_config";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -106,6 +106,16 @@ type azurerm_vpn_server_configuration = {
 [@@deriving yojson_of]
 (** azurerm_vpn_server_configuration *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  vpn_authentication_types : string list prop;
+  vpn_protocols : string list prop;
+}
+
 let azurerm_vpn_server_configuration ?id ?tags ?vpn_protocols
     ?timeouts ~location ~name ~resource_group_name
     ~vpn_authentication_types ~azure_active_directory_authentication
@@ -113,22 +123,41 @@ let azurerm_vpn_server_configuration ?id ?tags ?vpn_protocols
     ~ipsec_policy ~radius __resource_id =
   let __resource_type = "azurerm_vpn_server_configuration" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      vpn_authentication_types;
-      vpn_protocols;
-      azure_active_directory_authentication;
-      client_revoked_certificate;
-      client_root_certificate;
-      ipsec_policy;
-      radius;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       vpn_authentication_types;
+       vpn_protocols;
+       azure_active_directory_authentication;
+       client_revoked_certificate;
+       client_root_certificate;
+       ipsec_policy;
+       radius;
+       timeouts;
+     }
+      : azurerm_vpn_server_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vpn_server_configuration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       vpn_authentication_types =
+         Prop.computed __resource_type __resource_id
+           "vpn_authentication_types";
+       vpn_protocols =
+         Prop.computed __resource_type __resource_id "vpn_protocols";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -113,6 +113,17 @@ type aws_appflow_connector_profile__connector_profile_config__connector_profile_
 type aws_appflow_connector_profile__connector_profile_config
 type aws_appflow_connector_profile
 
+type t = private {
+  arn : string prop;
+  connection_mode : string prop;
+  connector_label : string prop;
+  connector_type : string prop;
+  credentials_arn : string prop;
+  id : string prop;
+  kms_arn : string prop;
+  name : string prop;
+}
+
 val aws_appflow_connector_profile :
   ?connector_label:string prop ->
   ?id:string prop ->
@@ -123,4 +134,4 @@ val aws_appflow_connector_profile :
   connector_profile_config:
     aws_appflow_connector_profile__connector_profile_config list ->
   string ->
-  unit
+  t

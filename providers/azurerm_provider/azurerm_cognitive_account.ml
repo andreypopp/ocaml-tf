@@ -102,6 +102,32 @@ type azurerm_cognitive_account = {
 [@@deriving yojson_of]
 (** azurerm_cognitive_account *)
 
+type t = {
+  custom_question_answering_search_service_id : string prop;
+  custom_question_answering_search_service_key : string prop;
+  custom_subdomain_name : string prop;
+  dynamic_throttling_enabled : bool prop;
+  endpoint : string prop;
+  fqdns : string list prop;
+  id : string prop;
+  kind : string prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  metrics_advisor_aad_client_id : string prop;
+  metrics_advisor_aad_tenant_id : string prop;
+  metrics_advisor_super_user_name : string prop;
+  metrics_advisor_website_name : string prop;
+  name : string prop;
+  outbound_network_access_restricted : bool prop;
+  primary_access_key : string prop;
+  public_network_access_enabled : bool prop;
+  qna_runtime_endpoint : string prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_cognitive_account
     ?custom_question_answering_search_service_id
     ?custom_question_answering_search_service_key
@@ -115,34 +141,96 @@ let azurerm_cognitive_account
     __resource_id =
   let __resource_type = "azurerm_cognitive_account" in
   let __resource =
-    {
-      custom_question_answering_search_service_id;
-      custom_question_answering_search_service_key;
-      custom_subdomain_name;
-      dynamic_throttling_enabled;
-      fqdns;
-      id;
-      kind;
-      local_auth_enabled;
-      location;
-      metrics_advisor_aad_client_id;
-      metrics_advisor_aad_tenant_id;
-      metrics_advisor_super_user_name;
-      metrics_advisor_website_name;
-      name;
-      outbound_network_access_restricted;
-      public_network_access_enabled;
-      qna_runtime_endpoint;
-      resource_group_name;
-      sku_name;
-      tags;
-      customer_managed_key;
-      identity;
-      network_acls;
-      storage;
-      timeouts;
-    }
+    ({
+       custom_question_answering_search_service_id;
+       custom_question_answering_search_service_key;
+       custom_subdomain_name;
+       dynamic_throttling_enabled;
+       fqdns;
+       id;
+       kind;
+       local_auth_enabled;
+       location;
+       metrics_advisor_aad_client_id;
+       metrics_advisor_aad_tenant_id;
+       metrics_advisor_super_user_name;
+       metrics_advisor_website_name;
+       name;
+       outbound_network_access_restricted;
+       public_network_access_enabled;
+       qna_runtime_endpoint;
+       resource_group_name;
+       sku_name;
+       tags;
+       customer_managed_key;
+       identity;
+       network_acls;
+       storage;
+       timeouts;
+     }
+      : azurerm_cognitive_account)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cognitive_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       custom_question_answering_search_service_id =
+         Prop.computed __resource_type __resource_id
+           "custom_question_answering_search_service_id";
+       custom_question_answering_search_service_key =
+         Prop.computed __resource_type __resource_id
+           "custom_question_answering_search_service_key";
+       custom_subdomain_name =
+         Prop.computed __resource_type __resource_id
+           "custom_subdomain_name";
+       dynamic_throttling_enabled =
+         Prop.computed __resource_type __resource_id
+           "dynamic_throttling_enabled";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       fqdns = Prop.computed __resource_type __resource_id "fqdns";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       local_auth_enabled =
+         Prop.computed __resource_type __resource_id
+           "local_auth_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       metrics_advisor_aad_client_id =
+         Prop.computed __resource_type __resource_id
+           "metrics_advisor_aad_client_id";
+       metrics_advisor_aad_tenant_id =
+         Prop.computed __resource_type __resource_id
+           "metrics_advisor_aad_tenant_id";
+       metrics_advisor_super_user_name =
+         Prop.computed __resource_type __resource_id
+           "metrics_advisor_super_user_name";
+       metrics_advisor_website_name =
+         Prop.computed __resource_type __resource_id
+           "metrics_advisor_website_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_network_access_restricted =
+         Prop.computed __resource_type __resource_id
+           "outbound_network_access_restricted";
+       primary_access_key =
+         Prop.computed __resource_type __resource_id
+           "primary_access_key";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       qna_runtime_endpoint =
+         Prop.computed __resource_type __resource_id
+           "qna_runtime_endpoint";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secondary_access_key =
+         Prop.computed __resource_type __resource_id
+           "secondary_access_key";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

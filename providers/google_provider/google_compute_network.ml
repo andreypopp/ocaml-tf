@@ -65,6 +65,23 @@ subnetworks of this network, across regions. Possible values: [REGIONAL, GLOBAL]
 [@@deriving yojson_of]
 (** google_compute_network *)
 
+type t = {
+  auto_create_subnetworks : bool prop;
+  delete_default_routes_on_create : bool prop;
+  description : string prop;
+  enable_ula_internal_ipv6 : bool prop;
+  gateway_ipv4 : string prop;
+  id : string prop;
+  internal_ipv6_range : string prop;
+  mtu : float prop;
+  name : string prop;
+  network_firewall_policy_enforcement_order : string prop;
+  numeric_id : string prop;
+  project : string prop;
+  routing_mode : string prop;
+  self_link : string prop;
+}
+
 let google_compute_network ?auto_create_subnetworks
     ?delete_default_routes_on_create ?description
     ?enable_ula_internal_ipv6 ?id ?internal_ipv6_range ?mtu
@@ -72,21 +89,57 @@ let google_compute_network ?auto_create_subnetworks
     ?timeouts ~name __resource_id =
   let __resource_type = "google_compute_network" in
   let __resource =
-    {
-      auto_create_subnetworks;
-      delete_default_routes_on_create;
-      description;
-      enable_ula_internal_ipv6;
-      id;
-      internal_ipv6_range;
-      mtu;
-      name;
-      network_firewall_policy_enforcement_order;
-      project;
-      routing_mode;
-      timeouts;
-    }
+    ({
+       auto_create_subnetworks;
+       delete_default_routes_on_create;
+       description;
+       enable_ula_internal_ipv6;
+       id;
+       internal_ipv6_range;
+       mtu;
+       name;
+       network_firewall_policy_enforcement_order;
+       project;
+       routing_mode;
+       timeouts;
+     }
+      : google_compute_network)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_create_subnetworks =
+         Prop.computed __resource_type __resource_id
+           "auto_create_subnetworks";
+       delete_default_routes_on_create =
+         Prop.computed __resource_type __resource_id
+           "delete_default_routes_on_create";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enable_ula_internal_ipv6 =
+         Prop.computed __resource_type __resource_id
+           "enable_ula_internal_ipv6";
+       gateway_ipv4 =
+         Prop.computed __resource_type __resource_id "gateway_ipv4";
+       id = Prop.computed __resource_type __resource_id "id";
+       internal_ipv6_range =
+         Prop.computed __resource_type __resource_id
+           "internal_ipv6_range";
+       mtu = Prop.computed __resource_type __resource_id "mtu";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_firewall_policy_enforcement_order =
+         Prop.computed __resource_type __resource_id
+           "network_firewall_policy_enforcement_order";
+       numeric_id =
+         Prop.computed __resource_type __resource_id "numeric_id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       routing_mode =
+         Prop.computed __resource_type __resource_id "routing_mode";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -14,6 +14,15 @@ type google_identity_platform_tenant_inbound_saml_config__sp_config
 type google_identity_platform_tenant_inbound_saml_config__timeouts
 type google_identity_platform_tenant_inbound_saml_config
 
+type t = private {
+  display_name : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  tenant : string prop;
+}
+
 val google_identity_platform_tenant_inbound_saml_config :
   ?enabled:bool prop ->
   ?id:string prop ->
@@ -30,4 +39,4 @@ val google_identity_platform_tenant_inbound_saml_config :
     google_identity_platform_tenant_inbound_saml_config__sp_config
     list ->
   string ->
-  unit
+  t

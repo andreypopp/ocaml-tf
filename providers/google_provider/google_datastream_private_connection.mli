@@ -12,6 +12,20 @@ type google_datastream_private_connection__error = {
 
 type google_datastream_private_connection
 
+type t = private {
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  error : google_datastream_private_connection__error list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  private_connection_id : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_datastream_private_connection :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -23,4 +37,4 @@ val google_datastream_private_connection :
   vpc_peering_config:
     google_datastream_private_connection__vpc_peering_config list ->
   string ->
-  unit
+  t

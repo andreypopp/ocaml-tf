@@ -34,23 +34,54 @@ encryption will be enforced. *)
 [@@deriving yojson_of]
 (** google_document_ai_warehouse_location *)
 
+type t = {
+  access_control_mode : string prop;
+  database_type : string prop;
+  document_creator_default_role : string prop;
+  id : string prop;
+  kms_key : string prop;
+  location : string prop;
+  project_number : string prop;
+}
+
 let google_document_ai_warehouse_location
     ?document_creator_default_role ?id ?kms_key ?timeouts
     ~access_control_mode ~database_type ~location ~project_number
     __resource_id =
   let __resource_type = "google_document_ai_warehouse_location" in
   let __resource =
-    {
-      access_control_mode;
-      database_type;
-      document_creator_default_role;
-      id;
-      kms_key;
-      location;
-      project_number;
-      timeouts;
-    }
+    ({
+       access_control_mode;
+       database_type;
+       document_creator_default_role;
+       id;
+       kms_key;
+       location;
+       project_number;
+       timeouts;
+     }
+      : google_document_ai_warehouse_location)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_document_ai_warehouse_location __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_control_mode =
+         Prop.computed __resource_type __resource_id
+           "access_control_mode";
+       database_type =
+         Prop.computed __resource_type __resource_id "database_type";
+       document_creator_default_role =
+         Prop.computed __resource_type __resource_id
+           "document_creator_default_role";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key =
+         Prop.computed __resource_type __resource_id "kms_key";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       project_number =
+         Prop.computed __resource_type __resource_id "project_number";
+     }
+      : t)
+  in
+  __resource_attributes

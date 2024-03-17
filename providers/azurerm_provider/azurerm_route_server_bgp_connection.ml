@@ -23,12 +23,35 @@ type azurerm_route_server_bgp_connection = {
 [@@deriving yojson_of]
 (** azurerm_route_server_bgp_connection *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  peer_asn : float prop;
+  peer_ip : string prop;
+  route_server_id : string prop;
+}
+
 let azurerm_route_server_bgp_connection ?id ?timeouts ~name ~peer_asn
     ~peer_ip ~route_server_id __resource_id =
   let __resource_type = "azurerm_route_server_bgp_connection" in
   let __resource =
-    { id; name; peer_asn; peer_ip; route_server_id; timeouts }
+    ({ id; name; peer_asn; peer_ip; route_server_id; timeouts }
+      : azurerm_route_server_bgp_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_route_server_bgp_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       peer_asn =
+         Prop.computed __resource_type __resource_id "peer_asn";
+       peer_ip =
+         Prop.computed __resource_type __resource_id "peer_ip";
+       route_server_id =
+         Prop.computed __resource_type __resource_id
+           "route_server_id";
+     }
+      : t)
+  in
+  __resource_attributes

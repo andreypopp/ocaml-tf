@@ -80,29 +80,69 @@ type aws_glue_trigger = {
 [@@deriving yojson_of]
 (** aws_glue_trigger *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  schedule : string prop;
+  start_on_creation : bool prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  workflow_name : string prop;
+}
+
 let aws_glue_trigger ?description ?enabled ?id ?schedule
     ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts ~name
     ~type_ ~actions ~event_batching_condition ~predicate
     __resource_id =
   let __resource_type = "aws_glue_trigger" in
   let __resource =
-    {
-      description;
-      enabled;
-      id;
-      name;
-      schedule;
-      start_on_creation;
-      tags;
-      tags_all;
-      type_;
-      workflow_name;
-      actions;
-      event_batching_condition;
-      predicate;
-      timeouts;
-    }
+    ({
+       description;
+       enabled;
+       id;
+       name;
+       schedule;
+       start_on_creation;
+       tags;
+       tags_all;
+       type_;
+       workflow_name;
+       actions;
+       event_batching_condition;
+       predicate;
+       timeouts;
+     }
+      : aws_glue_trigger)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_trigger __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       schedule =
+         Prop.computed __resource_type __resource_id "schedule";
+       start_on_creation =
+         Prop.computed __resource_type __resource_id
+           "start_on_creation";
+       state = Prop.computed __resource_type __resource_id "state";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       workflow_name =
+         Prop.computed __resource_type __resource_id "workflow_name";
+     }
+      : t)
+  in
+  __resource_attributes

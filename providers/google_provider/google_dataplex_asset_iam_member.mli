@@ -5,6 +5,18 @@ open! Tf.Prelude
 type google_dataplex_asset_iam_member__condition
 type google_dataplex_asset_iam_member
 
+type t = private {
+  asset : string prop;
+  dataplex_zone : string prop;
+  etag : string prop;
+  id : string prop;
+  lake : string prop;
+  location : string prop;
+  member : string prop;
+  project : string prop;
+  role : string prop;
+}
+
 val google_dataplex_asset_iam_member :
   ?id:string prop ->
   ?location:string prop ->
@@ -16,4 +28,4 @@ val google_dataplex_asset_iam_member :
   role:string prop ->
   condition:google_dataplex_asset_iam_member__condition list ->
   string ->
-  unit
+  t

@@ -19,12 +19,38 @@ type cloudflare_worker_domain = {
 [@@deriving yojson_of]
 (** Creates a Worker Custom Domain. *)
 
+type t = {
+  account_id : string prop;
+  environment : string prop;
+  hostname : string prop;
+  id : string prop;
+  service : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_worker_domain ?environment ?id ~account_id ~hostname
     ~service ~zone_id __resource_id =
   let __resource_type = "cloudflare_worker_domain" in
   let __resource =
-    { account_id; environment; hostname; id; service; zone_id }
+    ({ account_id; environment; hostname; id; service; zone_id }
+      : cloudflare_worker_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_worker_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       environment =
+         Prop.computed __resource_type __resource_id "environment";
+       hostname =
+         Prop.computed __resource_type __resource_id "hostname";
+       id = Prop.computed __resource_type __resource_id "id";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

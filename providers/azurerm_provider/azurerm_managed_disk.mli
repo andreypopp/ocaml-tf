@@ -8,6 +8,44 @@ type azurerm_managed_disk__encryption_settings
 type azurerm_managed_disk__timeouts
 type azurerm_managed_disk
 
+type t = private {
+  create_option : string prop;
+  disk_access_id : string prop;
+  disk_encryption_set_id : string prop;
+  disk_iops_read_only : float prop;
+  disk_iops_read_write : float prop;
+  disk_mbps_read_only : float prop;
+  disk_mbps_read_write : float prop;
+  disk_size_gb : float prop;
+  edge_zone : string prop;
+  gallery_image_reference_id : string prop;
+  hyper_v_generation : string prop;
+  id : string prop;
+  image_reference_id : string prop;
+  location : string prop;
+  logical_sector_size : float prop;
+  max_shares : float prop;
+  name : string prop;
+  network_access_policy : string prop;
+  on_demand_bursting_enabled : bool prop;
+  optimized_frequent_attach_enabled : bool prop;
+  os_type : string prop;
+  performance_plus_enabled : bool prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  secure_vm_disk_encryption_set_id : string prop;
+  security_type : string prop;
+  source_resource_id : string prop;
+  source_uri : string prop;
+  storage_account_id : string prop;
+  storage_account_type : string prop;
+  tags : (string * string) list prop;
+  tier : string prop;
+  trusted_launch_enabled : bool prop;
+  upload_size_bytes : float prop;
+  zone : string prop;
+}
+
 val azurerm_managed_disk :
   ?disk_access_id:string prop ->
   ?disk_encryption_set_id:string prop ->
@@ -47,4 +85,4 @@ val azurerm_managed_disk :
   storage_account_type:string prop ->
   encryption_settings:azurerm_managed_disk__encryption_settings list ->
   string ->
-  unit
+  t

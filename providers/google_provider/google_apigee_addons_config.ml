@@ -80,10 +80,22 @@ type google_apigee_addons_config = {
 [@@deriving yojson_of]
 (** google_apigee_addons_config *)
 
+type t = { id : string prop; org : string prop }
+
 let google_apigee_addons_config ?id ?timeouts ~org ~addons_config
     __resource_id =
   let __resource_type = "google_apigee_addons_config" in
-  let __resource = { id; org; addons_config; timeouts } in
+  let __resource =
+    ({ id; org; addons_config; timeouts }
+      : google_apigee_addons_config)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_addons_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       org = Prop.computed __resource_type __resource_id "org";
+     }
+      : t)
+  in
+  __resource_attributes

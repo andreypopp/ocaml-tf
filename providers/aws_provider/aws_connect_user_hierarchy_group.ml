@@ -72,12 +72,50 @@ type aws_connect_user_hierarchy_group = {
 [@@deriving yojson_of]
 (** aws_connect_user_hierarchy_group *)
 
+type t = {
+  arn : string prop;
+  hierarchy_group_id : string prop;
+  hierarchy_path :
+    aws_connect_user_hierarchy_group__hierarchy_path list prop;
+  id : string prop;
+  instance_id : string prop;
+  level_id : string prop;
+  name : string prop;
+  parent_group_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_connect_user_hierarchy_group ?id ?parent_group_id ?tags
     ?tags_all ~instance_id ~name __resource_id =
   let __resource_type = "aws_connect_user_hierarchy_group" in
   let __resource =
-    { id; instance_id; name; parent_group_id; tags; tags_all }
+    ({ id; instance_id; name; parent_group_id; tags; tags_all }
+      : aws_connect_user_hierarchy_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_user_hierarchy_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       hierarchy_group_id =
+         Prop.computed __resource_type __resource_id
+           "hierarchy_group_id";
+       hierarchy_path =
+         Prop.computed __resource_type __resource_id "hierarchy_path";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_id =
+         Prop.computed __resource_type __resource_id "instance_id";
+       level_id =
+         Prop.computed __resource_type __resource_id "level_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_group_id =
+         Prop.computed __resource_type __resource_id
+           "parent_group_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

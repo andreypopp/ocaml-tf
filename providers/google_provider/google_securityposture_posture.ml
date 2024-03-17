@@ -309,21 +309,61 @@ with other field updates. Possible values: [DEPRECATED, DRAFT, ACTIVE] *)
 [@@deriving yojson_of]
 (** google_securityposture_posture *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  parent : string prop;
+  posture_id : string prop;
+  reconciling : bool prop;
+  revision_id : string prop;
+  state : string prop;
+  update_time : string prop;
+}
+
 let google_securityposture_posture ?description ?id ?timeouts
     ~location ~parent ~posture_id ~state ~policy_sets __resource_id =
   let __resource_type = "google_securityposture_posture" in
   let __resource =
-    {
-      description;
-      id;
-      location;
-      parent;
-      posture_id;
-      state;
-      policy_sets;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       location;
+       parent;
+       posture_id;
+       state;
+       policy_sets;
+       timeouts;
+     }
+      : google_securityposture_posture)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_securityposture_posture __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       posture_id =
+         Prop.computed __resource_type __resource_id "posture_id";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       revision_id =
+         Prop.computed __resource_type __resource_id "revision_id";
+       state = Prop.computed __resource_type __resource_id "state";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

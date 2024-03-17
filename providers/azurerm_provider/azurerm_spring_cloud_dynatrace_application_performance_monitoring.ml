@@ -34,6 +34,19 @@ type azurerm_spring_cloud_dynatrace_application_performance_monitoring = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_dynatrace_application_performance_monitoring *)
 
+type t = {
+  api_token : string prop;
+  api_url : string prop;
+  connection_point : string prop;
+  environment_id : string prop;
+  globally_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  spring_cloud_service_id : string prop;
+  tenant : string prop;
+  tenant_token : string prop;
+}
+
 let azurerm_spring_cloud_dynatrace_application_performance_monitoring
     ?api_token ?api_url ?environment_id ?globally_enabled ?id
     ?timeouts ~connection_point ~name ~spring_cloud_service_id
@@ -42,21 +55,47 @@ let azurerm_spring_cloud_dynatrace_application_performance_monitoring
     "azurerm_spring_cloud_dynatrace_application_performance_monitoring"
   in
   let __resource =
-    {
-      api_token;
-      api_url;
-      connection_point;
-      environment_id;
-      globally_enabled;
-      id;
-      name;
-      spring_cloud_service_id;
-      tenant;
-      tenant_token;
-      timeouts;
-    }
+    ({
+       api_token;
+       api_url;
+       connection_point;
+       environment_id;
+       globally_enabled;
+       id;
+       name;
+       spring_cloud_service_id;
+       tenant;
+       tenant_token;
+       timeouts;
+     }
+      : azurerm_spring_cloud_dynatrace_application_performance_monitoring)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_dynatrace_application_performance_monitoring
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_token =
+         Prop.computed __resource_type __resource_id "api_token";
+       api_url =
+         Prop.computed __resource_type __resource_id "api_url";
+       connection_point =
+         Prop.computed __resource_type __resource_id
+           "connection_point";
+       environment_id =
+         Prop.computed __resource_type __resource_id "environment_id";
+       globally_enabled =
+         Prop.computed __resource_type __resource_id
+           "globally_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       spring_cloud_service_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_service_id";
+       tenant = Prop.computed __resource_type __resource_id "tenant";
+       tenant_token =
+         Prop.computed __resource_type __resource_id "tenant_token";
+     }
+      : t)
+  in
+  __resource_attributes

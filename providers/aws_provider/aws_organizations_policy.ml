@@ -18,21 +18,52 @@ type aws_organizations_policy = {
 [@@deriving yojson_of]
 (** aws_organizations_policy *)
 
+type t = {
+  arn : string prop;
+  content : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  skip_destroy : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_organizations_policy ?description ?id ?skip_destroy ?tags
     ?tags_all ?type_ ~content ~name __resource_id =
   let __resource_type = "aws_organizations_policy" in
   let __resource =
-    {
-      content;
-      description;
-      id;
-      name;
-      skip_destroy;
-      tags;
-      tags_all;
-      type_;
-    }
+    ({
+       content;
+       description;
+       id;
+       name;
+       skip_destroy;
+       tags;
+       tags_all;
+       type_;
+     }
+      : aws_organizations_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_organizations_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       content =
+         Prop.computed __resource_type __resource_id "content";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       skip_destroy =
+         Prop.computed __resource_type __resource_id "skip_destroy";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -9,6 +9,26 @@ type aws_cloudtrail__event_selector
 type aws_cloudtrail__insight_selector
 type aws_cloudtrail
 
+type t = private {
+  arn : string prop;
+  cloud_watch_logs_group_arn : string prop;
+  cloud_watch_logs_role_arn : string prop;
+  enable_log_file_validation : bool prop;
+  enable_logging : bool prop;
+  home_region : string prop;
+  id : string prop;
+  include_global_service_events : bool prop;
+  is_multi_region_trail : bool prop;
+  is_organization_trail : bool prop;
+  kms_key_id : string prop;
+  name : string prop;
+  s3_bucket_name : string prop;
+  s3_key_prefix : string prop;
+  sns_topic_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_cloudtrail :
   ?cloud_watch_logs_group_arn:string prop ->
   ?cloud_watch_logs_role_arn:string prop ->
@@ -30,4 +50,4 @@ val aws_cloudtrail :
   event_selector:aws_cloudtrail__event_selector list ->
   insight_selector:aws_cloudtrail__insight_selector list ->
   string ->
-  unit
+  t

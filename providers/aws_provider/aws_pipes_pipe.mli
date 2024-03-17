@@ -94,6 +94,21 @@ type aws_pipes_pipe__target_parameters
 type aws_pipes_pipe__timeouts
 type aws_pipes_pipe
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  desired_state : string prop;
+  enrichment : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  role_arn : string prop;
+  source : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target : string prop;
+}
+
 val aws_pipes_pipe :
   ?description:string prop ->
   ?desired_state:string prop ->
@@ -111,4 +126,4 @@ val aws_pipes_pipe :
   source_parameters:aws_pipes_pipe__source_parameters list ->
   target_parameters:aws_pipes_pipe__target_parameters list ->
   string ->
-  unit
+  t

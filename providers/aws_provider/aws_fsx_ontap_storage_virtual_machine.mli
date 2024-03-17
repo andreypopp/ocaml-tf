@@ -43,6 +43,21 @@ type aws_fsx_ontap_storage_virtual_machine__endpoints = {
 
 type aws_fsx_ontap_storage_virtual_machine
 
+type t = private {
+  arn : string prop;
+  endpoints :
+    aws_fsx_ontap_storage_virtual_machine__endpoints list prop;
+  file_system_id : string prop;
+  id : string prop;
+  name : string prop;
+  root_volume_security_style : string prop;
+  subtype : string prop;
+  svm_admin_password : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  uuid : string prop;
+}
+
 val aws_fsx_ontap_storage_virtual_machine :
   ?id:string prop ->
   ?root_volume_security_style:string prop ->
@@ -56,4 +71,4 @@ val aws_fsx_ontap_storage_virtual_machine :
     aws_fsx_ontap_storage_virtual_machine__active_directory_configuration
     list ->
   string ->
-  unit
+  t

@@ -86,6 +86,35 @@ type aws_fsx_windows_file_system = {
 [@@deriving yojson_of]
 (** aws_fsx_windows_file_system *)
 
+type t = {
+  active_directory_id : string prop;
+  aliases : string list prop;
+  arn : string prop;
+  automatic_backup_retention_days : float prop;
+  backup_id : string prop;
+  copy_tags_to_backups : bool prop;
+  daily_automatic_backup_start_time : string prop;
+  deployment_type : string prop;
+  dns_name : string prop;
+  id : string prop;
+  kms_key_id : string prop;
+  network_interface_ids : string list prop;
+  owner_id : string prop;
+  preferred_file_server_ip : string prop;
+  preferred_subnet_id : string prop;
+  remote_administration_endpoint : string prop;
+  security_group_ids : string list prop;
+  skip_final_backup : bool prop;
+  storage_capacity : float prop;
+  storage_type : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  throughput_capacity : float prop;
+  vpc_id : string prop;
+  weekly_maintenance_start_time : string prop;
+}
+
 let aws_fsx_windows_file_system ?active_directory_id ?aliases
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
     ?daily_automatic_backup_start_time ?deployment_type ?id
@@ -97,32 +126,100 @@ let aws_fsx_windows_file_system ?active_directory_id ?aliases
     __resource_id =
   let __resource_type = "aws_fsx_windows_file_system" in
   let __resource =
-    {
-      active_directory_id;
-      aliases;
-      automatic_backup_retention_days;
-      backup_id;
-      copy_tags_to_backups;
-      daily_automatic_backup_start_time;
-      deployment_type;
-      id;
-      kms_key_id;
-      preferred_subnet_id;
-      security_group_ids;
-      skip_final_backup;
-      storage_capacity;
-      storage_type;
-      subnet_ids;
-      tags;
-      tags_all;
-      throughput_capacity;
-      weekly_maintenance_start_time;
-      audit_log_configuration;
-      disk_iops_configuration;
-      self_managed_active_directory;
-      timeouts;
-    }
+    ({
+       active_directory_id;
+       aliases;
+       automatic_backup_retention_days;
+       backup_id;
+       copy_tags_to_backups;
+       daily_automatic_backup_start_time;
+       deployment_type;
+       id;
+       kms_key_id;
+       preferred_subnet_id;
+       security_group_ids;
+       skip_final_backup;
+       storage_capacity;
+       storage_type;
+       subnet_ids;
+       tags;
+       tags_all;
+       throughput_capacity;
+       weekly_maintenance_start_time;
+       audit_log_configuration;
+       disk_iops_configuration;
+       self_managed_active_directory;
+       timeouts;
+     }
+      : aws_fsx_windows_file_system)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_fsx_windows_file_system __resource);
-  ()
+  let __resource_attributes =
+    ({
+       active_directory_id =
+         Prop.computed __resource_type __resource_id
+           "active_directory_id";
+       aliases =
+         Prop.computed __resource_type __resource_id "aliases";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       automatic_backup_retention_days =
+         Prop.computed __resource_type __resource_id
+           "automatic_backup_retention_days";
+       backup_id =
+         Prop.computed __resource_type __resource_id "backup_id";
+       copy_tags_to_backups =
+         Prop.computed __resource_type __resource_id
+           "copy_tags_to_backups";
+       daily_automatic_backup_start_time =
+         Prop.computed __resource_type __resource_id
+           "daily_automatic_backup_start_time";
+       deployment_type =
+         Prop.computed __resource_type __resource_id
+           "deployment_type";
+       dns_name =
+         Prop.computed __resource_type __resource_id "dns_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       network_interface_ids =
+         Prop.computed __resource_type __resource_id
+           "network_interface_ids";
+       owner_id =
+         Prop.computed __resource_type __resource_id "owner_id";
+       preferred_file_server_ip =
+         Prop.computed __resource_type __resource_id
+           "preferred_file_server_ip";
+       preferred_subnet_id =
+         Prop.computed __resource_type __resource_id
+           "preferred_subnet_id";
+       remote_administration_endpoint =
+         Prop.computed __resource_type __resource_id
+           "remote_administration_endpoint";
+       security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "security_group_ids";
+       skip_final_backup =
+         Prop.computed __resource_type __resource_id
+           "skip_final_backup";
+       storage_capacity =
+         Prop.computed __resource_type __resource_id
+           "storage_capacity";
+       storage_type =
+         Prop.computed __resource_type __resource_id "storage_type";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       throughput_capacity =
+         Prop.computed __resource_type __resource_id
+           "throughput_capacity";
+       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+       weekly_maintenance_start_time =
+         Prop.computed __resource_type __resource_id
+           "weekly_maintenance_start_time";
+     }
+      : t)
+  in
+  __resource_attributes

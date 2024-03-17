@@ -23,12 +23,33 @@ type azurerm_api_management_policy = {
 [@@deriving yojson_of]
 (** azurerm_api_management_policy *)
 
+type t = {
+  api_management_id : string prop;
+  id : string prop;
+  xml_content : string prop;
+  xml_link : string prop;
+}
+
 let azurerm_api_management_policy ?id ?xml_content ?xml_link
     ?timeouts ~api_management_id __resource_id =
   let __resource_type = "azurerm_api_management_policy" in
   let __resource =
-    { api_management_id; id; xml_content; xml_link; timeouts }
+    ({ api_management_id; id; xml_content; xml_link; timeouts }
+      : azurerm_api_management_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_id =
+         Prop.computed __resource_type __resource_id
+           "api_management_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       xml_content =
+         Prop.computed __resource_type __resource_id "xml_content";
+       xml_link =
+         Prop.computed __resource_type __resource_id "xml_link";
+     }
+      : t)
+  in
+  __resource_attributes

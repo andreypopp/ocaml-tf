@@ -29,6 +29,19 @@ type azurerm_palo_alto_next_generation_firewall_virtual_network_panorama__panora
 
 type azurerm_palo_alto_next_generation_firewall_virtual_network_panorama
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  panorama :
+    azurerm_palo_alto_next_generation_firewall_virtual_network_panorama__panorama
+    list
+    prop;
+  panorama_base64_config : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_palo_alto_next_generation_firewall_virtual_network_panorama :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -48,4 +61,4 @@ val azurerm_palo_alto_next_generation_firewall_virtual_network_panorama :
     azurerm_palo_alto_next_generation_firewall_virtual_network_panorama__network_profile
     list ->
   string ->
-  unit
+  t

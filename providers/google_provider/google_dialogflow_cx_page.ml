@@ -823,26 +823,51 @@ Format:projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Fl
 [@@deriving yojson_of]
 (** google_dialogflow_cx_page *)
 
+type t = {
+  display_name : string prop;
+  id : string prop;
+  language_code : string prop;
+  name : string prop;
+  parent : string prop;
+  transition_route_groups : string list prop;
+}
+
 let google_dialogflow_cx_page ?id ?language_code ?parent
     ?transition_route_groups ?timeouts ~display_name
     ~advanced_settings ~entry_fulfillment ~event_handlers ~form
     ~transition_routes __resource_id =
   let __resource_type = "google_dialogflow_cx_page" in
   let __resource =
-    {
-      display_name;
-      id;
-      language_code;
-      parent;
-      transition_route_groups;
-      advanced_settings;
-      entry_fulfillment;
-      event_handlers;
-      form;
-      timeouts;
-      transition_routes;
-    }
+    ({
+       display_name;
+       id;
+       language_code;
+       parent;
+       transition_route_groups;
+       advanced_settings;
+       entry_fulfillment;
+       event_handlers;
+       form;
+       timeouts;
+       transition_routes;
+     }
+      : google_dialogflow_cx_page)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_page __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       language_code =
+         Prop.computed __resource_type __resource_id "language_code";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       transition_route_groups =
+         Prop.computed __resource_type __resource_id
+           "transition_route_groups";
+     }
+      : t)
+  in
+  __resource_attributes

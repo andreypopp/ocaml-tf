@@ -63,20 +63,40 @@ type aws_ecs_cluster = {
 [@@deriving yojson_of]
 (** aws_ecs_cluster *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ecs_cluster ?id ?tags ?tags_all ~name ~configuration
     ~service_connect_defaults ~setting __resource_id =
   let __resource_type = "aws_ecs_cluster" in
   let __resource =
-    {
-      id;
-      name;
-      tags;
-      tags_all;
-      configuration;
-      service_connect_defaults;
-      setting;
-    }
+    ({
+       id;
+       name;
+       tags;
+       tags_all;
+       configuration;
+       service_connect_defaults;
+       setting;
+     }
+      : aws_ecs_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -737,6 +737,38 @@ type azurerm_linux_web_app_slot = {
 [@@deriving yojson_of]
 (** azurerm_linux_web_app_slot *)
 
+type t = {
+  app_metadata : (string * string) list prop;
+  app_service_id : string prop;
+  app_settings : (string * string) list prop;
+  client_affinity_enabled : bool prop;
+  client_certificate_enabled : bool prop;
+  client_certificate_exclusion_paths : string prop;
+  client_certificate_mode : string prop;
+  custom_domain_verification_id : string prop;
+  default_hostname : string prop;
+  enabled : bool prop;
+  ftp_publish_basic_authentication_enabled : bool prop;
+  hosting_environment_id : string prop;
+  https_only : bool prop;
+  id : string prop;
+  key_vault_reference_identity_id : string prop;
+  kind : string prop;
+  name : string prop;
+  outbound_ip_address_list : string list prop;
+  outbound_ip_addresses : string prop;
+  possible_outbound_ip_address_list : string list prop;
+  possible_outbound_ip_addresses : string prop;
+  public_network_access_enabled : bool prop;
+  service_plan_id : string prop;
+  site_credential :
+    azurerm_linux_web_app_slot__site_credential list prop;
+  tags : (string * string) list prop;
+  virtual_network_subnet_id : string prop;
+  webdeploy_publish_basic_authentication_enabled : bool prop;
+  zip_deploy_file : string prop;
+}
+
 let azurerm_linux_web_app_slot ?app_settings ?client_affinity_enabled
     ?client_certificate_enabled ?client_certificate_exclusion_paths
     ?client_certificate_mode ?enabled
@@ -749,36 +781,113 @@ let azurerm_linux_web_app_slot ?app_settings ?client_affinity_enabled
     ~storage_account __resource_id =
   let __resource_type = "azurerm_linux_web_app_slot" in
   let __resource =
-    {
-      app_service_id;
-      app_settings;
-      client_affinity_enabled;
-      client_certificate_enabled;
-      client_certificate_exclusion_paths;
-      client_certificate_mode;
-      enabled;
-      ftp_publish_basic_authentication_enabled;
-      https_only;
-      id;
-      key_vault_reference_identity_id;
-      name;
-      public_network_access_enabled;
-      service_plan_id;
-      tags;
-      virtual_network_subnet_id;
-      webdeploy_publish_basic_authentication_enabled;
-      zip_deploy_file;
-      auth_settings;
-      auth_settings_v2;
-      backup;
-      connection_string;
-      identity;
-      logs;
-      site_config;
-      storage_account;
-      timeouts;
-    }
+    ({
+       app_service_id;
+       app_settings;
+       client_affinity_enabled;
+       client_certificate_enabled;
+       client_certificate_exclusion_paths;
+       client_certificate_mode;
+       enabled;
+       ftp_publish_basic_authentication_enabled;
+       https_only;
+       id;
+       key_vault_reference_identity_id;
+       name;
+       public_network_access_enabled;
+       service_plan_id;
+       tags;
+       virtual_network_subnet_id;
+       webdeploy_publish_basic_authentication_enabled;
+       zip_deploy_file;
+       auth_settings;
+       auth_settings_v2;
+       backup;
+       connection_string;
+       identity;
+       logs;
+       site_config;
+       storage_account;
+       timeouts;
+     }
+      : azurerm_linux_web_app_slot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_linux_web_app_slot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_metadata =
+         Prop.computed __resource_type __resource_id "app_metadata";
+       app_service_id =
+         Prop.computed __resource_type __resource_id "app_service_id";
+       app_settings =
+         Prop.computed __resource_type __resource_id "app_settings";
+       client_affinity_enabled =
+         Prop.computed __resource_type __resource_id
+           "client_affinity_enabled";
+       client_certificate_enabled =
+         Prop.computed __resource_type __resource_id
+           "client_certificate_enabled";
+       client_certificate_exclusion_paths =
+         Prop.computed __resource_type __resource_id
+           "client_certificate_exclusion_paths";
+       client_certificate_mode =
+         Prop.computed __resource_type __resource_id
+           "client_certificate_mode";
+       custom_domain_verification_id =
+         Prop.computed __resource_type __resource_id
+           "custom_domain_verification_id";
+       default_hostname =
+         Prop.computed __resource_type __resource_id
+           "default_hostname";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       ftp_publish_basic_authentication_enabled =
+         Prop.computed __resource_type __resource_id
+           "ftp_publish_basic_authentication_enabled";
+       hosting_environment_id =
+         Prop.computed __resource_type __resource_id
+           "hosting_environment_id";
+       https_only =
+         Prop.computed __resource_type __resource_id "https_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_reference_identity_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_reference_identity_id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_ip_address_list =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_address_list";
+       outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_addresses";
+       possible_outbound_ip_address_list =
+         Prop.computed __resource_type __resource_id
+           "possible_outbound_ip_address_list";
+       possible_outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "possible_outbound_ip_addresses";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       service_plan_id =
+         Prop.computed __resource_type __resource_id
+           "service_plan_id";
+       site_credential =
+         Prop.computed __resource_type __resource_id
+           "site_credential";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_network_subnet_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_subnet_id";
+       webdeploy_publish_basic_authentication_enabled =
+         Prop.computed __resource_type __resource_id
+           "webdeploy_publish_basic_authentication_enabled";
+       zip_deploy_file =
+         Prop.computed __resource_type __resource_id
+           "zip_deploy_file";
+     }
+      : t)
+  in
+  __resource_attributes

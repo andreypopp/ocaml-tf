@@ -19,23 +19,66 @@ type aws_transfer_agreement = {
 [@@deriving yojson_of]
 (** aws_transfer_agreement *)
 
+type t = {
+  access_role : string prop;
+  agreement_id : string prop;
+  arn : string prop;
+  base_directory : string prop;
+  description : string prop;
+  id : string prop;
+  local_profile_id : string prop;
+  partner_profile_id : string prop;
+  server_id : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_transfer_agreement ?description ?id ?tags ?tags_all
     ~access_role ~base_directory ~local_profile_id
     ~partner_profile_id ~server_id __resource_id =
   let __resource_type = "aws_transfer_agreement" in
   let __resource =
-    {
-      access_role;
-      base_directory;
-      description;
-      id;
-      local_profile_id;
-      partner_profile_id;
-      server_id;
-      tags;
-      tags_all;
-    }
+    ({
+       access_role;
+       base_directory;
+       description;
+       id;
+       local_profile_id;
+       partner_profile_id;
+       server_id;
+       tags;
+       tags_all;
+     }
+      : aws_transfer_agreement)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_agreement __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_role =
+         Prop.computed __resource_type __resource_id "access_role";
+       agreement_id =
+         Prop.computed __resource_type __resource_id "agreement_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       base_directory =
+         Prop.computed __resource_type __resource_id "base_directory";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       local_profile_id =
+         Prop.computed __resource_type __resource_id
+           "local_profile_id";
+       partner_profile_id =
+         Prop.computed __resource_type __resource_id
+           "partner_profile_id";
+       server_id =
+         Prop.computed __resource_type __resource_id "server_id";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

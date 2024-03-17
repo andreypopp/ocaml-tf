@@ -4,6 +4,27 @@ open! Tf.Prelude
 
 type aws_cognito_user
 
+type t = private {
+  attributes : (string * string) list prop;
+  client_metadata : (string * string) list prop;
+  creation_date : string prop;
+  desired_delivery_mediums : string list prop;
+  enabled : bool prop;
+  force_alias_creation : bool prop;
+  id : string prop;
+  last_modified_date : string prop;
+  message_action : string prop;
+  mfa_setting_list : string list prop;
+  password : string prop;
+  preferred_mfa_setting : string prop;
+  status : string prop;
+  sub : string prop;
+  temporary_password : string prop;
+  user_pool_id : string prop;
+  username : string prop;
+  validation_data : (string * string) list prop;
+}
+
 val aws_cognito_user :
   ?attributes:(string * string prop) list ->
   ?client_metadata:(string * string prop) list ->
@@ -18,4 +39,4 @@ val aws_cognito_user :
   user_pool_id:string prop ->
   username:string prop ->
   string ->
-  unit
+  t

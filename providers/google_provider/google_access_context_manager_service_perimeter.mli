@@ -60,6 +60,18 @@ type google_access_context_manager_service_perimeter__status
 type google_access_context_manager_service_perimeter__timeouts
 type google_access_context_manager_service_perimeter
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  perimeter_type : string prop;
+  title : string prop;
+  update_time : string prop;
+  use_explicit_dry_run_spec : bool prop;
+}
+
 val google_access_context_manager_service_perimeter :
   ?description:string prop ->
   ?id:string prop ->
@@ -72,4 +84,4 @@ val google_access_context_manager_service_perimeter :
   spec:google_access_context_manager_service_perimeter__spec list ->
   status:google_access_context_manager_service_perimeter__status list ->
   string ->
-  unit
+  t

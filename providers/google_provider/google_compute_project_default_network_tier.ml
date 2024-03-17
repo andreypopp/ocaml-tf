@@ -22,12 +22,31 @@ type google_compute_project_default_network_tier = {
 [@@deriving yojson_of]
 (** google_compute_project_default_network_tier *)
 
+type t = {
+  id : string prop;
+  network_tier : string prop;
+  project : string prop;
+}
+
 let google_compute_project_default_network_tier ?id ?project
     ?timeouts ~network_tier __resource_id =
   let __resource_type =
     "google_compute_project_default_network_tier"
   in
-  let __resource = { id; network_tier; project; timeouts } in
+  let __resource =
+    ({ id; network_tier; project; timeouts }
+      : google_compute_project_default_network_tier)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_project_default_network_tier __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       network_tier =
+         Prop.computed __resource_type __resource_id "network_tier";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

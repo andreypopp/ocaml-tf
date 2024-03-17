@@ -13,6 +13,13 @@ type google_billing_budget__threshold_rules
 type google_billing_budget__timeouts
 type google_billing_budget
 
+type t = private {
+  billing_account : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val google_billing_budget :
   ?display_name:string prop ->
   ?id:string prop ->
@@ -23,4 +30,4 @@ val google_billing_budget :
   budget_filter:google_billing_budget__budget_filter list ->
   threshold_rules:google_billing_budget__threshold_rules list ->
   string ->
-  unit
+  t

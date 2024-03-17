@@ -18,6 +18,15 @@ type azurerm_mobile_network_service__service_qos_policy
 type azurerm_mobile_network_service__timeouts
 type azurerm_mobile_network_service
 
+type t = private {
+  id : string prop;
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  service_precedence : float prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_mobile_network_service :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -30,4 +39,4 @@ val azurerm_mobile_network_service :
   service_qos_policy:
     azurerm_mobile_network_service__service_qos_policy list ->
   string ->
-  unit
+  t

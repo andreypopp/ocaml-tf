@@ -30,10 +30,30 @@ type cloudflare_waiting_room_rules = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Waiting Room Rules resource. *)
 
+type t = {
+  id : string prop;
+  waiting_room_id : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_waiting_room_rules ?id ~waiting_room_id ~zone_id
     ~rules __resource_id =
   let __resource_type = "cloudflare_waiting_room_rules" in
-  let __resource = { id; waiting_room_id; zone_id; rules } in
+  let __resource =
+    ({ id; waiting_room_id; zone_id; rules }
+      : cloudflare_waiting_room_rules)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_waiting_room_rules __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       waiting_room_id =
+         Prop.computed __resource_type __resource_id
+           "waiting_room_id";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

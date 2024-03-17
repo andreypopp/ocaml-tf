@@ -106,24 +106,57 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_healthcare_hl7_v2_store *)
 
+type t = {
+  dataset : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  reject_duplicate_message : bool prop;
+  self_link : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_healthcare_hl7_v2_store ?id ?labels
     ?reject_duplicate_message ?timeouts ~dataset ~name
     ~notification_config ~notification_configs ~parser_config
     __resource_id =
   let __resource_type = "google_healthcare_hl7_v2_store" in
   let __resource =
-    {
-      dataset;
-      id;
-      labels;
-      name;
-      reject_duplicate_message;
-      notification_config;
-      notification_configs;
-      parser_config;
-      timeouts;
-    }
+    ({
+       dataset;
+       id;
+       labels;
+       name;
+       reject_duplicate_message;
+       notification_config;
+       notification_configs;
+       parser_config;
+       timeouts;
+     }
+      : google_healthcare_hl7_v2_store)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_hl7_v2_store __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dataset =
+         Prop.computed __resource_type __resource_id "dataset";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       reject_duplicate_message =
+         Prop.computed __resource_type __resource_id
+           "reject_duplicate_message";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

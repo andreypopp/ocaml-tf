@@ -6,6 +6,15 @@ type aws_directory_service_region__timeouts
 type aws_directory_service_region__vpc_settings
 type aws_directory_service_region
 
+type t = private {
+  desired_number_of_domain_controllers : float prop;
+  directory_id : string prop;
+  id : string prop;
+  region_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_directory_service_region :
   ?desired_number_of_domain_controllers:float prop ->
   ?id:string prop ->
@@ -16,4 +25,4 @@ val aws_directory_service_region :
   region_name:string prop ->
   vpc_settings:aws_directory_service_region__vpc_settings list ->
   string ->
-  unit
+  t

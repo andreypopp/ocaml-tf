@@ -88,6 +88,25 @@ type aws_sagemaker_domain__domain_settings
 type aws_sagemaker_domain__retention_policy
 type aws_sagemaker_domain
 
+type t = private {
+  app_network_access_type : string prop;
+  app_security_group_management : string prop;
+  arn : string prop;
+  auth_mode : string prop;
+  domain_name : string prop;
+  home_efs_file_system_id : string prop;
+  id : string prop;
+  kms_key_id : string prop;
+  security_group_id_for_domain_boundary : string prop;
+  single_sign_on_application_arn : string prop;
+  single_sign_on_managed_application_instance_id : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url : string prop;
+  vpc_id : string prop;
+}
+
 val aws_sagemaker_domain :
   ?app_network_access_type:string prop ->
   ?app_security_group_management:string prop ->
@@ -106,4 +125,4 @@ val aws_sagemaker_domain :
   domain_settings:aws_sagemaker_domain__domain_settings list ->
   retention_policy:aws_sagemaker_domain__retention_policy list ->
   string ->
-  unit
+  t

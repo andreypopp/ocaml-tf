@@ -60,6 +60,28 @@ type google_compute_region_instance_group_manager__status = {
 
 type google_compute_region_instance_group_manager
 
+type t = private {
+  base_instance_name : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  distribution_policy_target_shape : string prop;
+  distribution_policy_zones : string list prop;
+  fingerprint : string prop;
+  id : string prop;
+  instance_group : string prop;
+  list_managed_instances_results : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  self_link : string prop;
+  status :
+    google_compute_region_instance_group_manager__status list prop;
+  target_pools : string list prop;
+  target_size : float prop;
+  wait_for_instances : bool prop;
+  wait_for_instances_status : string prop;
+}
+
 val google_compute_region_instance_group_manager :
   ?description:string prop ->
   ?distribution_policy_target_shape:string prop ->
@@ -98,4 +120,4 @@ val google_compute_region_instance_group_manager :
     google_compute_region_instance_group_manager__update_policy list ->
   version:google_compute_region_instance_group_manager__version list ->
   string ->
-  unit
+  t

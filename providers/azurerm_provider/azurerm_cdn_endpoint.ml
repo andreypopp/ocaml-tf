@@ -389,6 +389,25 @@ type azurerm_cdn_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_cdn_endpoint *)
 
+type t = {
+  content_types_to_compress : string list prop;
+  fqdn : string prop;
+  id : string prop;
+  is_compression_enabled : bool prop;
+  is_http_allowed : bool prop;
+  is_https_allowed : bool prop;
+  location : string prop;
+  name : string prop;
+  optimization_type : string prop;
+  origin_host_header : string prop;
+  origin_path : string prop;
+  probe_path : string prop;
+  profile_name : string prop;
+  querystring_caching_behaviour : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_cdn_endpoint ?content_types_to_compress ?id
     ?is_compression_enabled ?is_http_allowed ?is_https_allowed
     ?optimization_type ?origin_host_header ?origin_path ?probe_path
@@ -397,29 +416,71 @@ let azurerm_cdn_endpoint ?content_types_to_compress ?id
     ~global_delivery_rule ~origin __resource_id =
   let __resource_type = "azurerm_cdn_endpoint" in
   let __resource =
-    {
-      content_types_to_compress;
-      id;
-      is_compression_enabled;
-      is_http_allowed;
-      is_https_allowed;
-      location;
-      name;
-      optimization_type;
-      origin_host_header;
-      origin_path;
-      probe_path;
-      profile_name;
-      querystring_caching_behaviour;
-      resource_group_name;
-      tags;
-      delivery_rule;
-      geo_filter;
-      global_delivery_rule;
-      origin;
-      timeouts;
-    }
+    ({
+       content_types_to_compress;
+       id;
+       is_compression_enabled;
+       is_http_allowed;
+       is_https_allowed;
+       location;
+       name;
+       optimization_type;
+       origin_host_header;
+       origin_path;
+       probe_path;
+       profile_name;
+       querystring_caching_behaviour;
+       resource_group_name;
+       tags;
+       delivery_rule;
+       geo_filter;
+       global_delivery_rule;
+       origin;
+       timeouts;
+     }
+      : azurerm_cdn_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       content_types_to_compress =
+         Prop.computed __resource_type __resource_id
+           "content_types_to_compress";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_compression_enabled =
+         Prop.computed __resource_type __resource_id
+           "is_compression_enabled";
+       is_http_allowed =
+         Prop.computed __resource_type __resource_id
+           "is_http_allowed";
+       is_https_allowed =
+         Prop.computed __resource_type __resource_id
+           "is_https_allowed";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       optimization_type =
+         Prop.computed __resource_type __resource_id
+           "optimization_type";
+       origin_host_header =
+         Prop.computed __resource_type __resource_id
+           "origin_host_header";
+       origin_path =
+         Prop.computed __resource_type __resource_id "origin_path";
+       probe_path =
+         Prop.computed __resource_type __resource_id "probe_path";
+       profile_name =
+         Prop.computed __resource_type __resource_id "profile_name";
+       querystring_caching_behaviour =
+         Prop.computed __resource_type __resource_id
+           "querystring_caching_behaviour";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

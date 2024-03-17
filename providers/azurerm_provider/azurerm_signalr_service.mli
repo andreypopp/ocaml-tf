@@ -10,6 +10,32 @@ type azurerm_signalr_service__timeouts
 type azurerm_signalr_service__upstream_endpoint
 type azurerm_signalr_service
 
+type t = private {
+  aad_auth_enabled : bool prop;
+  connectivity_logs_enabled : bool prop;
+  hostname : string prop;
+  http_request_logs_enabled : bool prop;
+  id : string prop;
+  ip_address : string prop;
+  live_trace_enabled : bool prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  messaging_logs_enabled : bool prop;
+  name : string prop;
+  primary_access_key : string prop;
+  primary_connection_string : string prop;
+  public_network_access_enabled : bool prop;
+  public_port : float prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  secondary_connection_string : string prop;
+  server_port : float prop;
+  serverless_connection_timeout_in_seconds : float prop;
+  service_mode : string prop;
+  tags : (string * string) list prop;
+  tls_client_cert_enabled : bool prop;
+}
+
 val azurerm_signalr_service :
   ?aad_auth_enabled:bool prop ->
   ?connectivity_logs_enabled:bool prop ->
@@ -33,4 +59,4 @@ val azurerm_signalr_service :
   sku:azurerm_signalr_service__sku list ->
   upstream_endpoint:azurerm_signalr_service__upstream_endpoint list ->
   string ->
-  unit
+  t

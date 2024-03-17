@@ -29,6 +29,16 @@ type azurerm_automation_connection_certificate = {
 [@@deriving yojson_of]
 (** azurerm_automation_connection_certificate *)
 
+type t = {
+  automation_account_name : string prop;
+  automation_certificate_name : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  subscription_id : string prop;
+}
+
 let azurerm_automation_connection_certificate ?description ?id
     ?timeouts ~automation_account_name ~automation_certificate_name
     ~name ~resource_group_name ~subscription_id __resource_id =
@@ -36,17 +46,39 @@ let azurerm_automation_connection_certificate ?description ?id
     "azurerm_automation_connection_certificate"
   in
   let __resource =
-    {
-      automation_account_name;
-      automation_certificate_name;
-      description;
-      id;
-      name;
-      resource_group_name;
-      subscription_id;
-      timeouts;
-    }
+    ({
+       automation_account_name;
+       automation_certificate_name;
+       description;
+       id;
+       name;
+       resource_group_name;
+       subscription_id;
+       timeouts;
+     }
+      : azurerm_automation_connection_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_connection_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automation_account_name =
+         Prop.computed __resource_type __resource_id
+           "automation_account_name";
+       automation_certificate_name =
+         Prop.computed __resource_type __resource_id
+           "automation_certificate_name";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       subscription_id =
+         Prop.computed __resource_type __resource_id
+           "subscription_id";
+     }
+      : t)
+  in
+  __resource_attributes

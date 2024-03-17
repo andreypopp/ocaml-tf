@@ -24,13 +24,35 @@ type azurerm_virtual_desktop_host_pool_registration_info = {
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_host_pool_registration_info *)
 
+type t = {
+  expiration_date : string prop;
+  hostpool_id : string prop;
+  id : string prop;
+  token : string prop;
+}
+
 let azurerm_virtual_desktop_host_pool_registration_info ?id ?timeouts
     ~expiration_date ~hostpool_id __resource_id =
   let __resource_type =
     "azurerm_virtual_desktop_host_pool_registration_info"
   in
-  let __resource = { expiration_date; hostpool_id; id; timeouts } in
+  let __resource =
+    ({ expiration_date; hostpool_id; id; timeouts }
+      : azurerm_virtual_desktop_host_pool_registration_info)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_desktop_host_pool_registration_info
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       expiration_date =
+         Prop.computed __resource_type __resource_id
+           "expiration_date";
+       hostpool_id =
+         Prop.computed __resource_type __resource_id "hostpool_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       token = Prop.computed __resource_type __resource_id "token";
+     }
+      : t)
+  in
+  __resource_attributes

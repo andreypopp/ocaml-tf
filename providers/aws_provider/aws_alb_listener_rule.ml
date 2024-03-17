@@ -168,12 +168,44 @@ type aws_alb_listener_rule = {
 [@@deriving yojson_of]
 (** aws_alb_listener_rule *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  listener_arn : string prop;
+  priority : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_alb_listener_rule ?id ?priority ?tags ?tags_all ~listener_arn
     ~action ~condition __resource_id =
   let __resource_type = "aws_alb_listener_rule" in
   let __resource =
-    { id; listener_arn; priority; tags; tags_all; action; condition }
+    ({
+       id;
+       listener_arn;
+       priority;
+       tags;
+       tags_all;
+       action;
+       condition;
+     }
+      : aws_alb_listener_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_alb_listener_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       listener_arn =
+         Prop.computed __resource_type __resource_id "listener_arn";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

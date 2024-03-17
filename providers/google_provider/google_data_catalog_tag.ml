@@ -55,12 +55,36 @@ This field cannot be modified after creation. *)
 [@@deriving yojson_of]
 (** google_data_catalog_tag *)
 
+type t = {
+  column : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  template : string prop;
+  template_displayname : string prop;
+}
+
 let google_data_catalog_tag ?column ?id ?parent ?timeouts ~template
     ~fields __resource_id =
   let __resource_type = "google_data_catalog_tag" in
   let __resource =
-    { column; id; parent; template; fields; timeouts }
+    ({ column; id; parent; template; fields; timeouts }
+      : google_data_catalog_tag)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_tag __resource);
-  ()
+  let __resource_attributes =
+    ({
+       column = Prop.computed __resource_type __resource_id "column";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       template =
+         Prop.computed __resource_type __resource_id "template";
+       template_displayname =
+         Prop.computed __resource_type __resource_id
+           "template_displayname";
+     }
+      : t)
+  in
+  __resource_attributes

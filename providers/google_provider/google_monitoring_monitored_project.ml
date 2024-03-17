@@ -22,10 +22,31 @@ type google_monitoring_monitored_project = {
 [@@deriving yojson_of]
 (** google_monitoring_monitored_project *)
 
+type t = {
+  create_time : string prop;
+  id : string prop;
+  metrics_scope : string prop;
+  name : string prop;
+}
+
 let google_monitoring_monitored_project ?id ?timeouts ~metrics_scope
     ~name __resource_id =
   let __resource_type = "google_monitoring_monitored_project" in
-  let __resource = { id; metrics_scope; name; timeouts } in
+  let __resource =
+    ({ id; metrics_scope; name; timeouts }
+      : google_monitoring_monitored_project)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_monitored_project __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       metrics_scope =
+         Prop.computed __resource_type __resource_id "metrics_scope";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

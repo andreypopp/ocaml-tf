@@ -15,6 +15,17 @@ type google_bigquery_connection__spark
 type google_bigquery_connection__timeouts
 type google_bigquery_connection
 
+type t = private {
+  connection_id : string prop;
+  description : string prop;
+  friendly_name : string prop;
+  has_credential : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_bigquery_connection :
   ?connection_id:string prop ->
   ?description:string prop ->
@@ -30,4 +41,4 @@ val google_bigquery_connection :
   cloud_sql:google_bigquery_connection__cloud_sql list ->
   spark:google_bigquery_connection__spark list ->
   string ->
-  unit
+  t

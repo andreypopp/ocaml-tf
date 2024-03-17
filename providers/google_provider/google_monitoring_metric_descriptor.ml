@@ -75,26 +75,65 @@ More info can be found in the API documentation
 [@@deriving yojson_of]
 (** google_monitoring_metric_descriptor *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  launch_stage : string prop;
+  metric_kind : string prop;
+  monitored_resource_types : string list prop;
+  name : string prop;
+  project : string prop;
+  type_ : string prop;
+  unit : string prop;
+  value_type : string prop;
+}
+
 let google_monitoring_metric_descriptor ?id ?launch_stage ?project
     ?unit ?timeouts ~description ~display_name ~metric_kind ~type_
     ~value_type ~labels ~metadata __resource_id =
   let __resource_type = "google_monitoring_metric_descriptor" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      launch_stage;
-      metric_kind;
-      project;
-      type_;
-      unit;
-      value_type;
-      labels;
-      metadata;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       launch_stage;
+       metric_kind;
+       project;
+       type_;
+       unit;
+       value_type;
+       labels;
+       metadata;
+       timeouts;
+     }
+      : google_monitoring_metric_descriptor)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_metric_descriptor __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       launch_stage =
+         Prop.computed __resource_type __resource_id "launch_stage";
+       metric_kind =
+         Prop.computed __resource_type __resource_id "metric_kind";
+       monitored_resource_types =
+         Prop.computed __resource_type __resource_id
+           "monitored_resource_types";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       unit = Prop.computed __resource_type __resource_id "unit";
+       value_type =
+         Prop.computed __resource_type __resource_id "value_type";
+     }
+      : t)
+  in
+  __resource_attributes

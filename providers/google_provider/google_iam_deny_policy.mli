@@ -8,6 +8,14 @@ type google_iam_deny_policy__rules
 type google_iam_deny_policy__timeouts
 type google_iam_deny_policy
 
+type t = private {
+  display_name : string prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+}
+
 val google_iam_deny_policy :
   ?display_name:string prop ->
   ?id:string prop ->
@@ -16,4 +24,4 @@ val google_iam_deny_policy :
   parent:string prop ->
   rules:google_iam_deny_policy__rules list ->
   string ->
-  unit
+  t

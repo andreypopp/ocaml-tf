@@ -52,6 +52,21 @@ type azurerm_mssql_elasticpool = {
 [@@deriving yojson_of]
 (** azurerm_mssql_elasticpool *)
 
+type t = {
+  enclave_type : string prop;
+  id : string prop;
+  license_type : string prop;
+  location : string prop;
+  maintenance_configuration_name : string prop;
+  max_size_bytes : float prop;
+  max_size_gb : float prop;
+  name : string prop;
+  resource_group_name : string prop;
+  server_name : string prop;
+  tags : (string * string) list prop;
+  zone_redundant : bool prop;
+}
+
 let azurerm_mssql_elasticpool ?enclave_type ?id ?license_type
     ?maintenance_configuration_name ?max_size_bytes ?max_size_gb
     ?tags ?zone_redundant ?timeouts ~location ~name
@@ -59,24 +74,53 @@ let azurerm_mssql_elasticpool ?enclave_type ?id ?license_type
     __resource_id =
   let __resource_type = "azurerm_mssql_elasticpool" in
   let __resource =
-    {
-      enclave_type;
-      id;
-      license_type;
-      location;
-      maintenance_configuration_name;
-      max_size_bytes;
-      max_size_gb;
-      name;
-      resource_group_name;
-      server_name;
-      tags;
-      zone_redundant;
-      per_database_settings;
-      sku;
-      timeouts;
-    }
+    ({
+       enclave_type;
+       id;
+       license_type;
+       location;
+       maintenance_configuration_name;
+       max_size_bytes;
+       max_size_gb;
+       name;
+       resource_group_name;
+       server_name;
+       tags;
+       zone_redundant;
+       per_database_settings;
+       sku;
+       timeouts;
+     }
+      : azurerm_mssql_elasticpool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_elasticpool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enclave_type =
+         Prop.computed __resource_type __resource_id "enclave_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       license_type =
+         Prop.computed __resource_type __resource_id "license_type";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       maintenance_configuration_name =
+         Prop.computed __resource_type __resource_id
+           "maintenance_configuration_name";
+       max_size_bytes =
+         Prop.computed __resource_type __resource_id "max_size_bytes";
+       max_size_gb =
+         Prop.computed __resource_type __resource_id "max_size_gb";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       server_name =
+         Prop.computed __resource_type __resource_id "server_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zone_redundant =
+         Prop.computed __resource_type __resource_id "zone_redundant";
+     }
+      : t)
+  in
+  __resource_attributes

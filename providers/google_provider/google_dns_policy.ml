@@ -65,23 +65,49 @@ Defaults to no logging if not set. *)
 [@@deriving yojson_of]
 (** google_dns_policy *)
 
+type t = {
+  description : string prop;
+  enable_inbound_forwarding : bool prop;
+  enable_logging : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_dns_policy ?description ?enable_inbound_forwarding
     ?enable_logging ?id ?project ?timeouts ~name
     ~alternative_name_server_config ~networks __resource_id =
   let __resource_type = "google_dns_policy" in
   let __resource =
-    {
-      description;
-      enable_inbound_forwarding;
-      enable_logging;
-      id;
-      name;
-      project;
-      alternative_name_server_config;
-      networks;
-      timeouts;
-    }
+    ({
+       description;
+       enable_inbound_forwarding;
+       enable_logging;
+       id;
+       name;
+       project;
+       alternative_name_server_config;
+       networks;
+       timeouts;
+     }
+      : google_dns_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enable_inbound_forwarding =
+         Prop.computed __resource_type __resource_id
+           "enable_inbound_forwarding";
+       enable_logging =
+         Prop.computed __resource_type __resource_id "enable_logging";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

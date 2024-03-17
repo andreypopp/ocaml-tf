@@ -8,6 +8,22 @@ type google_filestore_instance__networks
 type google_filestore_instance__timeouts
 type google_filestore_instance
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  tier : string prop;
+  zone : string prop;
+}
+
 val google_filestore_instance :
   ?description:string prop ->
   ?id:string prop ->
@@ -22,4 +38,4 @@ val google_filestore_instance :
   file_shares:google_filestore_instance__file_shares list ->
   networks:google_filestore_instance__networks list ->
   string ->
-  unit
+  t

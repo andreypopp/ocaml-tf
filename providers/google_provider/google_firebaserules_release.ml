@@ -24,10 +24,40 @@ type google_firebaserules_release = {
 [@@deriving yojson_of]
 (** google_firebaserules_release *)
 
+type t = {
+  create_time : string prop;
+  disabled : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  ruleset_name : string prop;
+  update_time : string prop;
+}
+
 let google_firebaserules_release ?id ?project ?timeouts ~name
     ~ruleset_name __resource_id =
   let __resource_type = "google_firebaserules_release" in
-  let __resource = { id; name; project; ruleset_name; timeouts } in
+  let __resource =
+    ({ id; name; project; ruleset_name; timeouts }
+      : google_firebaserules_release)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebaserules_release __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       ruleset_name =
+         Prop.computed __resource_type __resource_id "ruleset_name";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

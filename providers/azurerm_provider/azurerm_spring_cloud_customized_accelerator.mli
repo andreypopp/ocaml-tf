@@ -10,6 +10,17 @@ type azurerm_spring_cloud_customized_accelerator__git_repository
 type azurerm_spring_cloud_customized_accelerator__timeouts
 type azurerm_spring_cloud_customized_accelerator
 
+type t = private {
+  accelerator_tags : string list prop;
+  accelerator_type : string prop;
+  description : string prop;
+  display_name : string prop;
+  icon_url : string prop;
+  id : string prop;
+  name : string prop;
+  spring_cloud_accelerator_id : string prop;
+}
+
 val azurerm_spring_cloud_customized_accelerator :
   ?accelerator_tags:string prop list ->
   ?accelerator_type:string prop ->
@@ -23,4 +34,4 @@ val azurerm_spring_cloud_customized_accelerator :
   git_repository:
     azurerm_spring_cloud_customized_accelerator__git_repository list ->
   string ->
-  unit
+  t

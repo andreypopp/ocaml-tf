@@ -257,6 +257,24 @@ repo1 *)
 [@@deriving yojson_of]
 (** google_artifact_registry_repository *)
 
+type t = {
+  cleanup_policy_dry_run : bool prop;
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  format : string prop;
+  id : string prop;
+  kms_key_name : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  mode : string prop;
+  name : string prop;
+  project : string prop;
+  repository_id : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_artifact_registry_repository ?cleanup_policy_dry_run
     ?description ?id ?kms_key_name ?labels ?location ?mode ?project
     ?timeouts ~format ~repository_id ~cleanup_policies ~docker_config
@@ -264,25 +282,59 @@ let google_artifact_registry_repository ?cleanup_policy_dry_run
     ~virtual_repository_config __resource_id =
   let __resource_type = "google_artifact_registry_repository" in
   let __resource =
-    {
-      cleanup_policy_dry_run;
-      description;
-      format;
-      id;
-      kms_key_name;
-      labels;
-      location;
-      mode;
-      project;
-      repository_id;
-      cleanup_policies;
-      docker_config;
-      maven_config;
-      remote_repository_config;
-      timeouts;
-      virtual_repository_config;
-    }
+    ({
+       cleanup_policy_dry_run;
+       description;
+       format;
+       id;
+       kms_key_name;
+       labels;
+       location;
+       mode;
+       project;
+       repository_id;
+       cleanup_policies;
+       docker_config;
+       maven_config;
+       remote_repository_config;
+       timeouts;
+       virtual_repository_config;
+     }
+      : google_artifact_registry_repository)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_artifact_registry_repository __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cleanup_policy_dry_run =
+         Prop.computed __resource_type __resource_id
+           "cleanup_policy_dry_run";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       format = Prop.computed __resource_type __resource_id "format";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_name =
+         Prop.computed __resource_type __resource_id "kms_key_name";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       repository_id =
+         Prop.computed __resource_type __resource_id "repository_id";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

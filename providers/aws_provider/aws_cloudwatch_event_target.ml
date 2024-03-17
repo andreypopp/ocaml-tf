@@ -189,6 +189,17 @@ type aws_cloudwatch_event_target = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_target *)
 
+type t = {
+  arn : string prop;
+  event_bus_name : string prop;
+  id : string prop;
+  input : string prop;
+  input_path : string prop;
+  role_arn : string prop;
+  rule : string prop;
+  target_id : string prop;
+}
+
 let aws_cloudwatch_event_target ?event_bus_name ?id ?input
     ?input_path ?role_arn ?target_id ~arn ~rule ~batch_target
     ~dead_letter_config ~ecs_target ~http_target ~input_transformer
@@ -197,28 +208,46 @@ let aws_cloudwatch_event_target ?event_bus_name ?id ?input
     __resource_id =
   let __resource_type = "aws_cloudwatch_event_target" in
   let __resource =
-    {
-      arn;
-      event_bus_name;
-      id;
-      input;
-      input_path;
-      role_arn;
-      rule;
-      target_id;
-      batch_target;
-      dead_letter_config;
-      ecs_target;
-      http_target;
-      input_transformer;
-      kinesis_target;
-      redshift_target;
-      retry_policy;
-      run_command_targets;
-      sagemaker_pipeline_target;
-      sqs_target;
-    }
+    ({
+       arn;
+       event_bus_name;
+       id;
+       input;
+       input_path;
+       role_arn;
+       rule;
+       target_id;
+       batch_target;
+       dead_letter_config;
+       ecs_target;
+       http_target;
+       input_transformer;
+       kinesis_target;
+       redshift_target;
+       retry_policy;
+       run_command_targets;
+       sagemaker_pipeline_target;
+       sqs_target;
+     }
+      : aws_cloudwatch_event_target)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_target __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       event_bus_name =
+         Prop.computed __resource_type __resource_id "event_bus_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       input = Prop.computed __resource_type __resource_id "input";
+       input_path =
+         Prop.computed __resource_type __resource_id "input_path";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       rule = Prop.computed __resource_type __resource_id "rule";
+       target_id =
+         Prop.computed __resource_type __resource_id "target_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -23,6 +23,26 @@ type google_vertex_ai_index__index_stats = {
 
 type google_vertex_ai_index
 
+type t = private {
+  create_time : string prop;
+  deployed_indexes :
+    google_vertex_ai_index__deployed_indexes list prop;
+  description : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  index_stats : google_vertex_ai_index__index_stats list prop;
+  index_update_method : string prop;
+  labels : (string * string) list prop;
+  metadata_schema_uri : string prop;
+  name : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 val google_vertex_ai_index :
   ?description:string prop ->
   ?id:string prop ->
@@ -34,4 +54,4 @@ val google_vertex_ai_index :
   display_name:string prop ->
   metadata:google_vertex_ai_index__metadata list ->
   string ->
-  unit
+  t

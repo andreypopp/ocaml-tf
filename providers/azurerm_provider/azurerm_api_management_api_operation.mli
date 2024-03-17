@@ -33,6 +33,18 @@ type azurerm_api_management_api_operation__template_parameter
 type azurerm_api_management_api_operation__timeouts
 type azurerm_api_management_api_operation
 
+type t = private {
+  api_management_name : string prop;
+  api_name : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  method_ : string prop;
+  operation_id : string prop;
+  resource_group_name : string prop;
+  url_template : string prop;
+}
+
 val azurerm_api_management_api_operation :
   ?description:string prop ->
   ?id:string prop ->
@@ -49,4 +61,4 @@ val azurerm_api_management_api_operation :
   template_parameter:
     azurerm_api_management_api_operation__template_parameter list ->
   string ->
-  unit
+  t

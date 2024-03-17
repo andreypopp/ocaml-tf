@@ -111,25 +111,82 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_endpoint *)
 
+type t = {
+  create_time : string prop;
+  deployed_models :
+    google_vertex_ai_endpoint__deployed_models list prop;
+  description : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  model_deployment_monitoring_job : string prop;
+  name : string prop;
+  network : string prop;
+  project : string prop;
+  region : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_vertex_ai_endpoint ?description ?id ?labels ?network
     ?project ?region ?timeouts ~display_name ~location ~name
     ~encryption_spec __resource_id =
   let __resource_type = "google_vertex_ai_endpoint" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      labels;
-      location;
-      name;
-      network;
-      project;
-      region;
-      encryption_spec;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       labels;
+       location;
+       name;
+       network;
+       project;
+       region;
+       encryption_spec;
+       timeouts;
+     }
+      : google_vertex_ai_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       deployed_models =
+         Prop.computed __resource_type __resource_id
+           "deployed_models";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       model_deployment_monitoring_job =
+         Prop.computed __resource_type __resource_id
+           "model_deployment_monitoring_job";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

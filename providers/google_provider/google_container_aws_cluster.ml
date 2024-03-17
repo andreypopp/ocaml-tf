@@ -200,28 +200,83 @@ Please refer to the field `effective_annotations` for all of the annotations pre
 [@@deriving yojson_of]
 (** google_container_aws_cluster *)
 
+type t = {
+  annotations : (string * string) list prop;
+  aws_region : string prop;
+  create_time : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  endpoint : string prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  uid : string prop;
+  update_time : string prop;
+  workload_identity_config :
+    google_container_aws_cluster__workload_identity_config list prop;
+}
+
 let google_container_aws_cluster ?annotations ?description ?id
     ?project ?timeouts ~aws_region ~location ~name ~authorization
     ~binary_authorization ~control_plane ~fleet ~networking
     __resource_id =
   let __resource_type = "google_container_aws_cluster" in
   let __resource =
-    {
-      annotations;
-      aws_region;
-      description;
-      id;
-      location;
-      name;
-      project;
-      authorization;
-      binary_authorization;
-      control_plane;
-      fleet;
-      networking;
-      timeouts;
-    }
+    ({
+       annotations;
+       aws_region;
+       description;
+       id;
+       location;
+       name;
+       project;
+       authorization;
+       binary_authorization;
+       control_plane;
+       fleet;
+       networking;
+       timeouts;
+     }
+      : google_container_aws_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_aws_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       aws_region =
+         Prop.computed __resource_type __resource_id "aws_region";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       state = Prop.computed __resource_type __resource_id "state";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       workload_identity_config =
+         Prop.computed __resource_type __resource_id
+           "workload_identity_config";
+     }
+      : t)
+  in
+  __resource_attributes

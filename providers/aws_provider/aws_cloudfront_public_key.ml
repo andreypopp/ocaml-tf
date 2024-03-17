@@ -14,10 +14,40 @@ type aws_cloudfront_public_key = {
 [@@deriving yojson_of]
 (** aws_cloudfront_public_key *)
 
+type t = {
+  caller_reference : string prop;
+  comment : string prop;
+  encoded_key : string prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+}
+
 let aws_cloudfront_public_key ?comment ?id ?name ?name_prefix
     ~encoded_key __resource_id =
   let __resource_type = "aws_cloudfront_public_key" in
-  let __resource = { comment; encoded_key; id; name; name_prefix } in
+  let __resource =
+    ({ comment; encoded_key; id; name; name_prefix }
+      : aws_cloudfront_public_key)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_public_key __resource);
-  ()
+  let __resource_attributes =
+    ({
+       caller_reference =
+         Prop.computed __resource_type __resource_id
+           "caller_reference";
+       comment =
+         Prop.computed __resource_type __resource_id "comment";
+       encoded_key =
+         Prop.computed __resource_type __resource_id "encoded_key";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -16,6 +16,21 @@ type aws_cloudhsm_v2_cluster__cluster_certificates = {
 
 type aws_cloudhsm_v2_cluster
 
+type t = private {
+  cluster_certificates :
+    aws_cloudhsm_v2_cluster__cluster_certificates list prop;
+  cluster_id : string prop;
+  cluster_state : string prop;
+  hsm_type : string prop;
+  id : string prop;
+  security_group_id : string prop;
+  source_backup_identifier : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 val aws_cloudhsm_v2_cluster :
   ?id:string prop ->
   ?source_backup_identifier:string prop ->
@@ -25,4 +40,4 @@ val aws_cloudhsm_v2_cluster :
   hsm_type:string prop ->
   subnet_ids:string prop list ->
   string ->
-  unit
+  t

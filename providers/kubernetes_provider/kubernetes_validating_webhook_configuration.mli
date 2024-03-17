@@ -19,10 +19,11 @@ type kubernetes_validating_webhook_configuration__webhook__object_selector
 type kubernetes_validating_webhook_configuration__webhook__rule
 type kubernetes_validating_webhook_configuration__webhook
 type kubernetes_validating_webhook_configuration
+type t = private { id : string prop }
 
 val kubernetes_validating_webhook_configuration :
   ?id:string prop ->
   metadata:kubernetes_validating_webhook_configuration__metadata list ->
   webhook:kubernetes_validating_webhook_configuration__webhook list ->
   string ->
-  unit
+  t

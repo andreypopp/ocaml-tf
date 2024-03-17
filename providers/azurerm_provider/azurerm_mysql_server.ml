@@ -79,6 +79,30 @@ type azurerm_mysql_server = {
 [@@deriving yojson_of]
 (** azurerm_mysql_server *)
 
+type t = {
+  administrator_login : string prop;
+  administrator_login_password : string prop;
+  auto_grow_enabled : bool prop;
+  backup_retention_days : float prop;
+  create_mode : string prop;
+  creation_source_server_id : string prop;
+  fqdn : string prop;
+  geo_redundant_backup_enabled : bool prop;
+  id : string prop;
+  infrastructure_encryption_enabled : bool prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  restore_point_in_time : string prop;
+  sku_name : string prop;
+  ssl_enforcement_enabled : bool prop;
+  ssl_minimal_tls_version_enforced : string prop;
+  storage_mb : float prop;
+  tags : (string * string) list prop;
+  version : string prop;
+}
+
 let azurerm_mysql_server ?administrator_login
     ?administrator_login_password ?auto_grow_enabled
     ?backup_retention_days ?create_mode ?creation_source_server_id
@@ -90,32 +114,88 @@ let azurerm_mysql_server ?administrator_login
     ~threat_detection_policy __resource_id =
   let __resource_type = "azurerm_mysql_server" in
   let __resource =
-    {
-      administrator_login;
-      administrator_login_password;
-      auto_grow_enabled;
-      backup_retention_days;
-      create_mode;
-      creation_source_server_id;
-      geo_redundant_backup_enabled;
-      id;
-      infrastructure_encryption_enabled;
-      location;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      restore_point_in_time;
-      sku_name;
-      ssl_enforcement_enabled;
-      ssl_minimal_tls_version_enforced;
-      storage_mb;
-      tags;
-      version;
-      identity;
-      threat_detection_policy;
-      timeouts;
-    }
+    ({
+       administrator_login;
+       administrator_login_password;
+       auto_grow_enabled;
+       backup_retention_days;
+       create_mode;
+       creation_source_server_id;
+       geo_redundant_backup_enabled;
+       id;
+       infrastructure_encryption_enabled;
+       location;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       restore_point_in_time;
+       sku_name;
+       ssl_enforcement_enabled;
+       ssl_minimal_tls_version_enforced;
+       storage_mb;
+       tags;
+       version;
+       identity;
+       threat_detection_policy;
+       timeouts;
+     }
+      : azurerm_mysql_server)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mysql_server __resource);
-  ()
+  let __resource_attributes =
+    ({
+       administrator_login =
+         Prop.computed __resource_type __resource_id
+           "administrator_login";
+       administrator_login_password =
+         Prop.computed __resource_type __resource_id
+           "administrator_login_password";
+       auto_grow_enabled =
+         Prop.computed __resource_type __resource_id
+           "auto_grow_enabled";
+       backup_retention_days =
+         Prop.computed __resource_type __resource_id
+           "backup_retention_days";
+       create_mode =
+         Prop.computed __resource_type __resource_id "create_mode";
+       creation_source_server_id =
+         Prop.computed __resource_type __resource_id
+           "creation_source_server_id";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       geo_redundant_backup_enabled =
+         Prop.computed __resource_type __resource_id
+           "geo_redundant_backup_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       infrastructure_encryption_enabled =
+         Prop.computed __resource_type __resource_id
+           "infrastructure_encryption_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       restore_point_in_time =
+         Prop.computed __resource_type __resource_id
+           "restore_point_in_time";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       ssl_enforcement_enabled =
+         Prop.computed __resource_type __resource_id
+           "ssl_enforcement_enabled";
+       ssl_minimal_tls_version_enforced =
+         Prop.computed __resource_type __resource_id
+           "ssl_minimal_tls_version_enforced";
+       storage_mb =
+         Prop.computed __resource_type __resource_id "storage_mb";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

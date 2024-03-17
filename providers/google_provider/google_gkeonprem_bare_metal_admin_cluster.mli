@@ -93,6 +93,32 @@ type google_gkeonprem_bare_metal_admin_cluster__validation_check = {
 
 type google_gkeonprem_bare_metal_admin_cluster
 
+type t = private {
+  annotations : (string * string) list prop;
+  bare_metal_version : string prop;
+  create_time : string prop;
+  delete_time : string prop;
+  description : string prop;
+  effective_annotations : (string * string) list prop;
+  endpoint : string prop;
+  etag : string prop;
+  fleet : google_gkeonprem_bare_metal_admin_cluster__fleet list prop;
+  id : string prop;
+  local_name : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  status :
+    google_gkeonprem_bare_metal_admin_cluster__status list prop;
+  uid : string prop;
+  update_time : string prop;
+  validation_check :
+    google_gkeonprem_bare_metal_admin_cluster__validation_check list
+    prop;
+}
+
 val google_gkeonprem_bare_metal_admin_cluster :
   ?annotations:(string * string prop) list ->
   ?bare_metal_version:string prop ->
@@ -124,4 +150,4 @@ val google_gkeonprem_bare_metal_admin_cluster :
     google_gkeonprem_bare_metal_admin_cluster__security_config list ->
   storage:google_gkeonprem_bare_metal_admin_cluster__storage list ->
   string ->
-  unit
+  t

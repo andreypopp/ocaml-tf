@@ -43,6 +43,13 @@ type aws_globalaccelerator_custom_routing_endpoint_group = {
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_endpoint_group *)
 
+type t = {
+  arn : string prop;
+  endpoint_group_region : string prop;
+  id : string prop;
+  listener_arn : string prop;
+}
+
 let aws_globalaccelerator_custom_routing_endpoint_group
     ?endpoint_group_region ?id ?timeouts ~listener_arn
     ~destination_configuration ~endpoint_configuration __resource_id
@@ -51,16 +58,29 @@ let aws_globalaccelerator_custom_routing_endpoint_group
     "aws_globalaccelerator_custom_routing_endpoint_group"
   in
   let __resource =
-    {
-      endpoint_group_region;
-      id;
-      listener_arn;
-      destination_configuration;
-      endpoint_configuration;
-      timeouts;
-    }
+    ({
+       endpoint_group_region;
+       id;
+       listener_arn;
+       destination_configuration;
+       endpoint_configuration;
+       timeouts;
+     }
+      : aws_globalaccelerator_custom_routing_endpoint_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_globalaccelerator_custom_routing_endpoint_group
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       endpoint_group_region =
+         Prop.computed __resource_type __resource_id
+           "endpoint_group_region";
+       id = Prop.computed __resource_type __resource_id "id";
+       listener_arn =
+         Prop.computed __resource_type __resource_id "listener_arn";
+     }
+      : t)
+  in
+  __resource_attributes

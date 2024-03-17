@@ -28,6 +28,20 @@ type google_apigee_keystores_aliases_pkcs12__certs_info = {
 
 type google_apigee_keystores_aliases_pkcs12
 
+type t = private {
+  alias : string prop;
+  certs_info :
+    google_apigee_keystores_aliases_pkcs12__certs_info list prop;
+  environment : string prop;
+  file : string prop;
+  filehash : string prop;
+  id : string prop;
+  keystore : string prop;
+  org_id : string prop;
+  password : string prop;
+  type_ : string prop;
+}
+
 val google_apigee_keystores_aliases_pkcs12 :
   ?id:string prop ->
   ?password:string prop ->
@@ -39,4 +53,4 @@ val google_apigee_keystores_aliases_pkcs12 :
   keystore:string prop ->
   org_id:string prop ->
   string ->
-  unit
+  t

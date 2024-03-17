@@ -23,10 +23,31 @@ type aws_servicecatalog_tag_option = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_tag_option *)
 
+type t = {
+  active : bool prop;
+  id : string prop;
+  key : string prop;
+  owner : string prop;
+  value : string prop;
+}
+
 let aws_servicecatalog_tag_option ?active ?id ?timeouts ~key ~value
     __resource_id =
   let __resource_type = "aws_servicecatalog_tag_option" in
-  let __resource = { active; id; key; value; timeouts } in
+  let __resource =
+    ({ active; id; key; value; timeouts }
+      : aws_servicecatalog_tag_option)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_tag_option __resource);
-  ()
+  let __resource_attributes =
+    ({
+       active = Prop.computed __resource_type __resource_id "active";
+       id = Prop.computed __resource_type __resource_id "id";
+       key = Prop.computed __resource_type __resource_id "key";
+       owner = Prop.computed __resource_type __resource_id "owner";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

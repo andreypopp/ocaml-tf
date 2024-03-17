@@ -105,19 +105,38 @@ displayed in chooser dialogs. *)
 [@@deriving yojson_of]
 (** google_binary_authorization_attestor *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_binary_authorization_attestor ?description ?id ?project
     ?timeouts ~name ~attestation_authority_note __resource_id =
   let __resource_type = "google_binary_authorization_attestor" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      project;
-      attestation_authority_note;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       project;
+       attestation_authority_note;
+       timeouts;
+     }
+      : google_binary_authorization_attestor)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_binary_authorization_attestor __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

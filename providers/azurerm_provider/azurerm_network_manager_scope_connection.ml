@@ -26,21 +26,52 @@ type azurerm_network_manager_scope_connection = {
 [@@deriving yojson_of]
 (** azurerm_network_manager_scope_connection *)
 
+type t = {
+  connection_state : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  network_manager_id : string prop;
+  target_scope_id : string prop;
+  tenant_id : string prop;
+}
+
 let azurerm_network_manager_scope_connection ?description ?id
     ?timeouts ~name ~network_manager_id ~target_scope_id ~tenant_id
     __resource_id =
   let __resource_type = "azurerm_network_manager_scope_connection" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      network_manager_id;
-      target_scope_id;
-      tenant_id;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       network_manager_id;
+       target_scope_id;
+       tenant_id;
+       timeouts;
+     }
+      : azurerm_network_manager_scope_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_scope_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connection_state =
+         Prop.computed __resource_type __resource_id
+           "connection_state";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_manager_id =
+         Prop.computed __resource_type __resource_id
+           "network_manager_id";
+       target_scope_id =
+         Prop.computed __resource_type __resource_id
+           "target_scope_id";
+       tenant_id =
+         Prop.computed __resource_type __resource_id "tenant_id";
+     }
+      : t)
+  in
+  __resource_attributes

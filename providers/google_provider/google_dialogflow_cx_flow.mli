@@ -52,6 +52,17 @@ type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment
 type google_dialogflow_cx_flow__transition_routes
 type google_dialogflow_cx_flow
 
+type t = private {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  is_default_start_flow : bool prop;
+  language_code : string prop;
+  name : string prop;
+  parent : string prop;
+  transition_route_groups : string list prop;
+}
+
 val google_dialogflow_cx_flow :
   ?description:string prop ->
   ?id:string prop ->
@@ -66,4 +77,4 @@ val google_dialogflow_cx_flow :
   nlu_settings:google_dialogflow_cx_flow__nlu_settings list ->
   transition_routes:google_dialogflow_cx_flow__transition_routes list ->
   string ->
-  unit
+  t

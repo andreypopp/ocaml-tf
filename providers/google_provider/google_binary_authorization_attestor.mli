@@ -10,6 +10,13 @@ type google_binary_authorization_attestor__attestation_authority_note
 type google_binary_authorization_attestor__timeouts
 type google_binary_authorization_attestor
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_binary_authorization_attestor :
   ?description:string prop ->
   ?id:string prop ->
@@ -20,4 +27,4 @@ val google_binary_authorization_attestor :
     google_binary_authorization_attestor__attestation_authority_note
     list ->
   string ->
-  unit
+  t

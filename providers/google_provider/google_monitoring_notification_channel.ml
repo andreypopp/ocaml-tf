@@ -63,25 +63,64 @@ the sensitive_labels block, but cannot be configured in both places. *)
 [@@deriving yojson_of]
 (** google_monitoring_notification_channel *)
 
+type t = {
+  description : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  force_delete : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  type_ : string prop;
+  user_labels : (string * string) list prop;
+  verification_status : string prop;
+}
+
 let google_monitoring_notification_channel ?description ?display_name
     ?enabled ?force_delete ?id ?labels ?project ?user_labels
     ?timeouts ~type_ ~sensitive_labels __resource_id =
   let __resource_type = "google_monitoring_notification_channel" in
   let __resource =
-    {
-      description;
-      display_name;
-      enabled;
-      force_delete;
-      id;
-      labels;
-      project;
-      type_;
-      user_labels;
-      sensitive_labels;
-      timeouts;
-    }
+    ({
+       description;
+       display_name;
+       enabled;
+       force_delete;
+       id;
+       labels;
+       project;
+       type_;
+       user_labels;
+       sensitive_labels;
+       timeouts;
+     }
+      : google_monitoring_notification_channel)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_notification_channel __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       force_delete =
+         Prop.computed __resource_type __resource_id "force_delete";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       user_labels =
+         Prop.computed __resource_type __resource_id "user_labels";
+       verification_status =
+         Prop.computed __resource_type __resource_id
+           "verification_status";
+     }
+      : t)
+  in
+  __resource_attributes

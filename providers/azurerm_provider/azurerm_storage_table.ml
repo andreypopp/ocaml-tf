@@ -38,12 +38,29 @@ type azurerm_storage_table = {
 [@@deriving yojson_of]
 (** azurerm_storage_table *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  storage_account_name : string prop;
+}
+
 let azurerm_storage_table ?id ?timeouts ~name ~storage_account_name
     ~acl __resource_id =
   let __resource_type = "azurerm_storage_table" in
   let __resource =
-    { id; name; storage_account_name; acl; timeouts }
+    ({ id; name; storage_account_name; acl; timeouts }
+      : azurerm_storage_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       storage_account_name =
+         Prop.computed __resource_type __resource_id
+           "storage_account_name";
+     }
+      : t)
+  in
+  __resource_attributes

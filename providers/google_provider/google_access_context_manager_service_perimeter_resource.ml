@@ -26,13 +26,32 @@ Format: projects/{project_number} *)
 [@@deriving yojson_of]
 (** google_access_context_manager_service_perimeter_resource *)
 
+type t = {
+  id : string prop;
+  perimeter_name : string prop;
+  resource : string prop;
+}
+
 let google_access_context_manager_service_perimeter_resource ?id
     ?timeouts ~perimeter_name ~resource __resource_id =
   let __resource_type =
     "google_access_context_manager_service_perimeter_resource"
   in
-  let __resource = { id; perimeter_name; resource; timeouts } in
+  let __resource =
+    ({ id; perimeter_name; resource; timeouts }
+      : google_access_context_manager_service_perimeter_resource)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_service_perimeter_resource
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       perimeter_name =
+         Prop.computed __resource_type __resource_id "perimeter_name";
+       resource =
+         Prop.computed __resource_type __resource_id "resource";
+     }
+      : t)
+  in
+  __resource_attributes

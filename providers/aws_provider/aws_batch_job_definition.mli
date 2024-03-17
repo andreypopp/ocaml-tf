@@ -28,6 +28,23 @@ type aws_batch_job_definition__retry_strategy
 type aws_batch_job_definition__timeout
 type aws_batch_job_definition
 
+type t = private {
+  arn : string prop;
+  arn_prefix : string prop;
+  container_properties : string prop;
+  id : string prop;
+  name : string prop;
+  node_properties : string prop;
+  parameters : (string * string) list prop;
+  platform_capabilities : string list prop;
+  propagate_tags : bool prop;
+  revision : float prop;
+  scheduling_priority : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_batch_job_definition :
   ?container_properties:string prop ->
   ?id:string prop ->
@@ -44,4 +61,4 @@ val aws_batch_job_definition :
   retry_strategy:aws_batch_job_definition__retry_strategy list ->
   timeout:aws_batch_job_definition__timeout list ->
   string ->
-  unit
+  t

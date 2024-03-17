@@ -27,22 +27,51 @@ type aws_appintegrations_data_integration = {
 [@@deriving yojson_of]
 (** aws_appintegrations_data_integration *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  kms_key : string prop;
+  name : string prop;
+  source_uri : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_appintegrations_data_integration ?description ?id ?tags
     ?tags_all ~kms_key ~name ~source_uri ~schedule_config
     __resource_id =
   let __resource_type = "aws_appintegrations_data_integration" in
   let __resource =
-    {
-      description;
-      id;
-      kms_key;
-      name;
-      source_uri;
-      tags;
-      tags_all;
-      schedule_config;
-    }
+    ({
+       description;
+       id;
+       kms_key;
+       name;
+       source_uri;
+       tags;
+       tags_all;
+       schedule_config;
+     }
+      : aws_appintegrations_data_integration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appintegrations_data_integration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key =
+         Prop.computed __resource_type __resource_id "kms_key";
+       name = Prop.computed __resource_type __resource_id "name";
+       source_uri =
+         Prop.computed __resource_type __resource_id "source_uri";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

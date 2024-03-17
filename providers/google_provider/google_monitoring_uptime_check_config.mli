@@ -22,6 +22,19 @@ type google_monitoring_uptime_check_config__tcp_check
 type google_monitoring_uptime_check_config__timeouts
 type google_monitoring_uptime_check_config
 
+type t = private {
+  checker_type : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  period : string prop;
+  project : string prop;
+  selected_regions : string list prop;
+  timeout : string prop;
+  uptime_check_id : string prop;
+  user_labels : (string * string) list prop;
+}
+
 val google_monitoring_uptime_check_config :
   ?checker_type:string prop ->
   ?id:string prop ->
@@ -43,4 +56,4 @@ val google_monitoring_uptime_check_config :
     google_monitoring_uptime_check_config__synthetic_monitor list ->
   tcp_check:google_monitoring_uptime_check_config__tcp_check list ->
   string ->
-  unit
+  t

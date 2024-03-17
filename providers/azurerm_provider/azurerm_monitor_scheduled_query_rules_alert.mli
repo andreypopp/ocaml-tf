@@ -10,6 +10,25 @@ type azurerm_monitor_scheduled_query_rules_alert__trigger__metric_trigger
 type azurerm_monitor_scheduled_query_rules_alert__trigger
 type azurerm_monitor_scheduled_query_rules_alert
 
+type t = private {
+  authorized_resource_ids : string list prop;
+  auto_mitigation_enabled : bool prop;
+  data_source_id : string prop;
+  description : string prop;
+  enabled : bool prop;
+  frequency : float prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  query : string prop;
+  query_type : string prop;
+  resource_group_name : string prop;
+  severity : float prop;
+  tags : (string * string) list prop;
+  throttling : float prop;
+  time_window : float prop;
+}
+
 val azurerm_monitor_scheduled_query_rules_alert :
   ?authorized_resource_ids:string prop list ->
   ?auto_mitigation_enabled:bool prop ->
@@ -31,4 +50,4 @@ val azurerm_monitor_scheduled_query_rules_alert :
   action:azurerm_monitor_scheduled_query_rules_alert__action list ->
   trigger:azurerm_monitor_scheduled_query_rules_alert__trigger list ->
   string ->
-  unit
+  t

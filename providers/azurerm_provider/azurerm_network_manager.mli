@@ -13,6 +13,18 @@ type azurerm_network_manager__cross_tenant_scopes = {
 
 type azurerm_network_manager
 
+type t = private {
+  cross_tenant_scopes :
+    azurerm_network_manager__cross_tenant_scopes list prop;
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scope_accesses : string list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_network_manager :
   ?description:string prop ->
   ?id:string prop ->
@@ -24,4 +36,4 @@ val azurerm_network_manager :
   scope_accesses:string prop list ->
   scope:azurerm_network_manager__scope list ->
   string ->
-  unit
+  t

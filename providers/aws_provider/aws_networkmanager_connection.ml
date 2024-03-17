@@ -29,24 +29,63 @@ type aws_networkmanager_connection = {
 [@@deriving yojson_of]
 (** aws_networkmanager_connection *)
 
+type t = {
+  arn : string prop;
+  connected_device_id : string prop;
+  connected_link_id : string prop;
+  description : string prop;
+  device_id : string prop;
+  global_network_id : string prop;
+  id : string prop;
+  link_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_networkmanager_connection ?connected_link_id ?description ?id
     ?link_id ?tags ?tags_all ?timeouts ~connected_device_id
     ~device_id ~global_network_id __resource_id =
   let __resource_type = "aws_networkmanager_connection" in
   let __resource =
-    {
-      connected_device_id;
-      connected_link_id;
-      description;
-      device_id;
-      global_network_id;
-      id;
-      link_id;
-      tags;
-      tags_all;
-      timeouts;
-    }
+    ({
+       connected_device_id;
+       connected_link_id;
+       description;
+       device_id;
+       global_network_id;
+       id;
+       link_id;
+       tags;
+       tags_all;
+       timeouts;
+     }
+      : aws_networkmanager_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       connected_device_id =
+         Prop.computed __resource_type __resource_id
+           "connected_device_id";
+       connected_link_id =
+         Prop.computed __resource_type __resource_id
+           "connected_link_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       device_id =
+         Prop.computed __resource_type __resource_id "device_id";
+       global_network_id =
+         Prop.computed __resource_type __resource_id
+           "global_network_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       link_id =
+         Prop.computed __resource_type __resource_id "link_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

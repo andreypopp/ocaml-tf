@@ -45,21 +45,41 @@ type azurerm_cdn_endpoint_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_cdn_endpoint_custom_domain *)
 
+type t = {
+  cdn_endpoint_id : string prop;
+  host_name : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let azurerm_cdn_endpoint_custom_domain ?id ?timeouts ~cdn_endpoint_id
     ~host_name ~name ~cdn_managed_https ~user_managed_https
     __resource_id =
   let __resource_type = "azurerm_cdn_endpoint_custom_domain" in
   let __resource =
-    {
-      cdn_endpoint_id;
-      host_name;
-      id;
-      name;
-      cdn_managed_https;
-      timeouts;
-      user_managed_https;
-    }
+    ({
+       cdn_endpoint_id;
+       host_name;
+       id;
+       name;
+       cdn_managed_https;
+       timeouts;
+       user_managed_https;
+     }
+      : azurerm_cdn_endpoint_custom_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_endpoint_custom_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cdn_endpoint_id =
+         Prop.computed __resource_type __resource_id
+           "cdn_endpoint_id";
+       host_name =
+         Prop.computed __resource_type __resource_id "host_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

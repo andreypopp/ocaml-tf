@@ -146,12 +146,37 @@ type aws_cloudwatch_event_connection = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection *)
 
+type t = {
+  arn : string prop;
+  authorization_type : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  secret_arn : string prop;
+}
+
 let aws_cloudwatch_event_connection ?description ?id
     ~authorization_type ~name ~auth_parameters __resource_id =
   let __resource_type = "aws_cloudwatch_event_connection" in
   let __resource =
-    { authorization_type; description; id; name; auth_parameters }
+    ({ authorization_type; description; id; name; auth_parameters }
+      : aws_cloudwatch_event_connection)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_connection __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       authorization_type =
+         Prop.computed __resource_type __resource_id
+           "authorization_type";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       secret_arn =
+         Prop.computed __resource_type __resource_id "secret_arn";
+     }
+      : t)
+  in
+  __resource_attributes

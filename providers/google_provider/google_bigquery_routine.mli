@@ -8,6 +8,23 @@ type google_bigquery_routine__spark_options
 type google_bigquery_routine__timeouts
 type google_bigquery_routine
 
+type t = private {
+  creation_time : float prop;
+  dataset_id : string prop;
+  definition_body : string prop;
+  description : string prop;
+  determinism_level : string prop;
+  id : string prop;
+  imported_libraries : string list prop;
+  language : string prop;
+  last_modified_time : float prop;
+  project : string prop;
+  return_table_type : string prop;
+  return_type : string prop;
+  routine_id : string prop;
+  routine_type : string prop;
+}
+
 val google_bigquery_routine :
   ?description:string prop ->
   ?determinism_level:string prop ->
@@ -27,4 +44,4 @@ val google_bigquery_routine :
     google_bigquery_routine__remote_function_options list ->
   spark_options:google_bigquery_routine__spark_options list ->
   string ->
-  unit
+  t

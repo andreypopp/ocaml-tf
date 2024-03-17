@@ -7,6 +7,22 @@ type google_vmwareengine_external_access_rule__source_ip_ranges
 type google_vmwareengine_external_access_rule__timeouts
 type google_vmwareengine_external_access_rule
 
+type t = private {
+  action : string prop;
+  create_time : string prop;
+  description : string prop;
+  destination_ports : string list prop;
+  id : string prop;
+  ip_protocol : string prop;
+  name : string prop;
+  parent : string prop;
+  priority : float prop;
+  source_ports : string list prop;
+  state : string prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_vmwareengine_external_access_rule :
   ?description:string prop ->
   ?id:string prop ->
@@ -24,4 +40,4 @@ val google_vmwareengine_external_access_rule :
   source_ip_ranges:
     google_vmwareengine_external_access_rule__source_ip_ranges list ->
   string ->
-  unit
+  t

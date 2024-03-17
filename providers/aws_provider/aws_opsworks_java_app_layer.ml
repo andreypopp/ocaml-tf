@@ -146,6 +146,37 @@ type aws_opsworks_java_app_layer = {
 [@@deriving yojson_of]
 (** aws_opsworks_java_app_layer *)
 
+type t = {
+  app_server : string prop;
+  app_server_version : string prop;
+  arn : string prop;
+  auto_assign_elastic_ips : bool prop;
+  auto_assign_public_ips : bool prop;
+  auto_healing : bool prop;
+  custom_configure_recipes : string list prop;
+  custom_deploy_recipes : string list prop;
+  custom_instance_profile_arn : string prop;
+  custom_json : string prop;
+  custom_security_group_ids : string list prop;
+  custom_setup_recipes : string list prop;
+  custom_shutdown_recipes : string list prop;
+  custom_undeploy_recipes : string list prop;
+  drain_elb_on_shutdown : bool prop;
+  elastic_load_balancer : string prop;
+  id : string prop;
+  install_updates_on_boot : bool prop;
+  instance_shutdown_timeout : float prop;
+  jvm_options : string prop;
+  jvm_type : string prop;
+  jvm_version : string prop;
+  name : string prop;
+  stack_id : string prop;
+  system_packages : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  use_ebs_optimized_instances : bool prop;
+}
+
 let aws_opsworks_java_app_layer ?app_server ?app_server_version
     ?auto_assign_elastic_ips ?auto_assign_public_ips ?auto_healing
     ?custom_configure_recipes ?custom_deploy_recipes
@@ -159,39 +190,113 @@ let aws_opsworks_java_app_layer ?app_server ?app_server_version
     ~ebs_volume ~load_based_auto_scaling __resource_id =
   let __resource_type = "aws_opsworks_java_app_layer" in
   let __resource =
-    {
-      app_server;
-      app_server_version;
-      auto_assign_elastic_ips;
-      auto_assign_public_ips;
-      auto_healing;
-      custom_configure_recipes;
-      custom_deploy_recipes;
-      custom_instance_profile_arn;
-      custom_json;
-      custom_security_group_ids;
-      custom_setup_recipes;
-      custom_shutdown_recipes;
-      custom_undeploy_recipes;
-      drain_elb_on_shutdown;
-      elastic_load_balancer;
-      id;
-      install_updates_on_boot;
-      instance_shutdown_timeout;
-      jvm_options;
-      jvm_type;
-      jvm_version;
-      name;
-      stack_id;
-      system_packages;
-      tags;
-      tags_all;
-      use_ebs_optimized_instances;
-      cloudwatch_configuration;
-      ebs_volume;
-      load_based_auto_scaling;
-    }
+    ({
+       app_server;
+       app_server_version;
+       auto_assign_elastic_ips;
+       auto_assign_public_ips;
+       auto_healing;
+       custom_configure_recipes;
+       custom_deploy_recipes;
+       custom_instance_profile_arn;
+       custom_json;
+       custom_security_group_ids;
+       custom_setup_recipes;
+       custom_shutdown_recipes;
+       custom_undeploy_recipes;
+       drain_elb_on_shutdown;
+       elastic_load_balancer;
+       id;
+       install_updates_on_boot;
+       instance_shutdown_timeout;
+       jvm_options;
+       jvm_type;
+       jvm_version;
+       name;
+       stack_id;
+       system_packages;
+       tags;
+       tags_all;
+       use_ebs_optimized_instances;
+       cloudwatch_configuration;
+       ebs_volume;
+       load_based_auto_scaling;
+     }
+      : aws_opsworks_java_app_layer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opsworks_java_app_layer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_server =
+         Prop.computed __resource_type __resource_id "app_server";
+       app_server_version =
+         Prop.computed __resource_type __resource_id
+           "app_server_version";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auto_assign_elastic_ips =
+         Prop.computed __resource_type __resource_id
+           "auto_assign_elastic_ips";
+       auto_assign_public_ips =
+         Prop.computed __resource_type __resource_id
+           "auto_assign_public_ips";
+       auto_healing =
+         Prop.computed __resource_type __resource_id "auto_healing";
+       custom_configure_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_configure_recipes";
+       custom_deploy_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_deploy_recipes";
+       custom_instance_profile_arn =
+         Prop.computed __resource_type __resource_id
+           "custom_instance_profile_arn";
+       custom_json =
+         Prop.computed __resource_type __resource_id "custom_json";
+       custom_security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "custom_security_group_ids";
+       custom_setup_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_setup_recipes";
+       custom_shutdown_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_shutdown_recipes";
+       custom_undeploy_recipes =
+         Prop.computed __resource_type __resource_id
+           "custom_undeploy_recipes";
+       drain_elb_on_shutdown =
+         Prop.computed __resource_type __resource_id
+           "drain_elb_on_shutdown";
+       elastic_load_balancer =
+         Prop.computed __resource_type __resource_id
+           "elastic_load_balancer";
+       id = Prop.computed __resource_type __resource_id "id";
+       install_updates_on_boot =
+         Prop.computed __resource_type __resource_id
+           "install_updates_on_boot";
+       instance_shutdown_timeout =
+         Prop.computed __resource_type __resource_id
+           "instance_shutdown_timeout";
+       jvm_options =
+         Prop.computed __resource_type __resource_id "jvm_options";
+       jvm_type =
+         Prop.computed __resource_type __resource_id "jvm_type";
+       jvm_version =
+         Prop.computed __resource_type __resource_id "jvm_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       stack_id =
+         Prop.computed __resource_type __resource_id "stack_id";
+       system_packages =
+         Prop.computed __resource_type __resource_id
+           "system_packages";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       use_ebs_optimized_instances =
+         Prop.computed __resource_type __resource_id
+           "use_ebs_optimized_instances";
+     }
+      : t)
+  in
+  __resource_attributes

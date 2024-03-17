@@ -23,12 +23,34 @@ type google_data_catalog_policy_tag_iam_member = {
 [@@deriving yojson_of]
 (** google_data_catalog_policy_tag_iam_member *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  policy_tag : string prop;
+  role : string prop;
+}
+
 let google_data_catalog_policy_tag_iam_member ?id ~member ~policy_tag
     ~role ~condition __resource_id =
   let __resource_type =
     "google_data_catalog_policy_tag_iam_member"
   in
-  let __resource = { id; member; policy_tag; role; condition } in
+  let __resource =
+    ({ id; member; policy_tag; role; condition }
+      : google_data_catalog_policy_tag_iam_member)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_policy_tag_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       policy_tag =
+         Prop.computed __resource_type __resource_id "policy_tag";
+       role = Prop.computed __resource_type __resource_id "role";
+     }
+      : t)
+  in
+  __resource_attributes

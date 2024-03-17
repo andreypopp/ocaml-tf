@@ -84,6 +84,23 @@ type azurerm_iot_security_solution = {
 [@@deriving yojson_of]
 (** azurerm_iot_security_solution *)
 
+type t = {
+  disabled_data_sources : string list prop;
+  display_name : string prop;
+  enabled : bool prop;
+  events_to_export : string list prop;
+  id : string prop;
+  iothub_ids : string list prop;
+  location : string prop;
+  log_analytics_workspace_id : string prop;
+  log_unmasked_ips_enabled : bool prop;
+  name : string prop;
+  query_for_resources : string prop;
+  query_subscription_ids : string list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_iot_security_solution ?disabled_data_sources ?enabled
     ?events_to_export ?id ?log_analytics_workspace_id
     ?log_unmasked_ips_enabled ?query_for_resources
@@ -92,26 +109,64 @@ let azurerm_iot_security_solution ?disabled_data_sources ?enabled
     ~recommendations_enabled __resource_id =
   let __resource_type = "azurerm_iot_security_solution" in
   let __resource =
-    {
-      disabled_data_sources;
-      display_name;
-      enabled;
-      events_to_export;
-      id;
-      iothub_ids;
-      location;
-      log_analytics_workspace_id;
-      log_unmasked_ips_enabled;
-      name;
-      query_for_resources;
-      query_subscription_ids;
-      resource_group_name;
-      tags;
-      additional_workspace;
-      recommendations_enabled;
-      timeouts;
-    }
+    ({
+       disabled_data_sources;
+       display_name;
+       enabled;
+       events_to_export;
+       id;
+       iothub_ids;
+       location;
+       log_analytics_workspace_id;
+       log_unmasked_ips_enabled;
+       name;
+       query_for_resources;
+       query_subscription_ids;
+       resource_group_name;
+       tags;
+       additional_workspace;
+       recommendations_enabled;
+       timeouts;
+     }
+      : azurerm_iot_security_solution)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iot_security_solution __resource);
-  ()
+  let __resource_attributes =
+    ({
+       disabled_data_sources =
+         Prop.computed __resource_type __resource_id
+           "disabled_data_sources";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       events_to_export =
+         Prop.computed __resource_type __resource_id
+           "events_to_export";
+       id = Prop.computed __resource_type __resource_id "id";
+       iothub_ids =
+         Prop.computed __resource_type __resource_id "iothub_ids";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       log_unmasked_ips_enabled =
+         Prop.computed __resource_type __resource_id
+           "log_unmasked_ips_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       query_for_resources =
+         Prop.computed __resource_type __resource_id
+           "query_for_resources";
+       query_subscription_ids =
+         Prop.computed __resource_type __resource_id
+           "query_subscription_ids";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

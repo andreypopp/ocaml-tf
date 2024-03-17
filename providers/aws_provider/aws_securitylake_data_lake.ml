@@ -79,12 +79,37 @@ type aws_securitylake_data_lake = {
 [@@deriving yojson_of]
 (** aws_securitylake_data_lake *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  meta_store_manager_role_arn : string prop;
+  s3_bucket_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_securitylake_data_lake ?tags ?timeouts
     ~meta_store_manager_role_arn ~configuration __resource_id =
   let __resource_type = "aws_securitylake_data_lake" in
   let __resource =
-    { meta_store_manager_role_arn; tags; configuration; timeouts }
+    ({ meta_store_manager_role_arn; tags; configuration; timeouts }
+      : aws_securitylake_data_lake)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securitylake_data_lake __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       meta_store_manager_role_arn =
+         Prop.computed __resource_type __resource_id
+           "meta_store_manager_role_arn";
+       s3_bucket_arn =
+         Prop.computed __resource_type __resource_id "s3_bucket_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

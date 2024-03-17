@@ -38,23 +38,54 @@ type azurerm_spring_cloud_java_deployment = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_java_deployment *)
 
+type t = {
+  environment_variables : (string * string) list prop;
+  id : string prop;
+  instance_count : float prop;
+  jvm_options : string prop;
+  name : string prop;
+  runtime_version : string prop;
+  spring_cloud_app_id : string prop;
+}
+
 let azurerm_spring_cloud_java_deployment ?environment_variables ?id
     ?instance_count ?jvm_options ?runtime_version ?timeouts ~name
     ~spring_cloud_app_id ~quota __resource_id =
   let __resource_type = "azurerm_spring_cloud_java_deployment" in
   let __resource =
-    {
-      environment_variables;
-      id;
-      instance_count;
-      jvm_options;
-      name;
-      runtime_version;
-      spring_cloud_app_id;
-      quota;
-      timeouts;
-    }
+    ({
+       environment_variables;
+       id;
+       instance_count;
+       jvm_options;
+       name;
+       runtime_version;
+       spring_cloud_app_id;
+       quota;
+       timeouts;
+     }
+      : azurerm_spring_cloud_java_deployment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_java_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       environment_variables =
+         Prop.computed __resource_type __resource_id
+           "environment_variables";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_count =
+         Prop.computed __resource_type __resource_id "instance_count";
+       jvm_options =
+         Prop.computed __resource_type __resource_id "jvm_options";
+       name = Prop.computed __resource_type __resource_id "name";
+       runtime_version =
+         Prop.computed __resource_type __resource_id
+           "runtime_version";
+       spring_cloud_app_id =
+         Prop.computed __resource_type __resource_id
+           "spring_cloud_app_id";
+     }
+      : t)
+  in
+  __resource_attributes

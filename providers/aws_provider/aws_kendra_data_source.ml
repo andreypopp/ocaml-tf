@@ -282,28 +282,79 @@ type aws_kendra_data_source = {
 [@@deriving yojson_of]
 (** aws_kendra_data_source *)
 
+type t = {
+  arn : string prop;
+  created_at : string prop;
+  data_source_id : string prop;
+  description : string prop;
+  error_message : string prop;
+  id : string prop;
+  index_id : string prop;
+  language_code : string prop;
+  name : string prop;
+  role_arn : string prop;
+  schedule : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  updated_at : string prop;
+}
+
 let aws_kendra_data_source ?description ?id ?language_code ?role_arn
     ?schedule ?tags ?tags_all ?timeouts ~index_id ~name ~type_
     ~configuration ~custom_document_enrichment_configuration
     __resource_id =
   let __resource_type = "aws_kendra_data_source" in
   let __resource =
-    {
-      description;
-      id;
-      index_id;
-      language_code;
-      name;
-      role_arn;
-      schedule;
-      tags;
-      tags_all;
-      type_;
-      configuration;
-      custom_document_enrichment_configuration;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       index_id;
+       language_code;
+       name;
+       role_arn;
+       schedule;
+       tags;
+       tags_all;
+       type_;
+       configuration;
+       custom_document_enrichment_configuration;
+       timeouts;
+     }
+      : aws_kendra_data_source)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kendra_data_source __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_at =
+         Prop.computed __resource_type __resource_id "created_at";
+       data_source_id =
+         Prop.computed __resource_type __resource_id "data_source_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       error_message =
+         Prop.computed __resource_type __resource_id "error_message";
+       id = Prop.computed __resource_type __resource_id "id";
+       index_id =
+         Prop.computed __resource_type __resource_id "index_id";
+       language_code =
+         Prop.computed __resource_type __resource_id "language_code";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       schedule =
+         Prop.computed __resource_type __resource_id "schedule";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       updated_at =
+         Prop.computed __resource_type __resource_id "updated_at";
+     }
+      : t)
+  in
+  __resource_attributes

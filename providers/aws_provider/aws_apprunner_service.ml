@@ -184,6 +184,18 @@ type aws_apprunner_service = {
 [@@deriving yojson_of]
 (** aws_apprunner_service *)
 
+type t = {
+  arn : string prop;
+  auto_scaling_configuration_arn : string prop;
+  id : string prop;
+  service_id : string prop;
+  service_name : string prop;
+  service_url : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_apprunner_service ?auto_scaling_configuration_arn ?id ?tags
     ?tags_all ~service_name ~encryption_configuration
     ~health_check_configuration ~instance_configuration
@@ -191,20 +203,41 @@ let aws_apprunner_service ?auto_scaling_configuration_arn ?id ?tags
     ~source_configuration __resource_id =
   let __resource_type = "aws_apprunner_service" in
   let __resource =
-    {
-      auto_scaling_configuration_arn;
-      id;
-      service_name;
-      tags;
-      tags_all;
-      encryption_configuration;
-      health_check_configuration;
-      instance_configuration;
-      network_configuration;
-      observability_configuration;
-      source_configuration;
-    }
+    ({
+       auto_scaling_configuration_arn;
+       id;
+       service_name;
+       tags;
+       tags_all;
+       encryption_configuration;
+       health_check_configuration;
+       instance_configuration;
+       network_configuration;
+       observability_configuration;
+       source_configuration;
+     }
+      : aws_apprunner_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apprunner_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auto_scaling_configuration_arn =
+         Prop.computed __resource_type __resource_id
+           "auto_scaling_configuration_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       service_id =
+         Prop.computed __resource_type __resource_id "service_id";
+       service_name =
+         Prop.computed __resource_type __resource_id "service_name";
+       service_url =
+         Prop.computed __resource_type __resource_id "service_url";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

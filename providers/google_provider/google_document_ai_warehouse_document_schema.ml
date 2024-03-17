@@ -212,6 +212,15 @@ type google_document_ai_warehouse_document_schema = {
 [@@deriving yojson_of]
 (** google_document_ai_warehouse_document_schema *)
 
+type t = {
+  display_name : string prop;
+  document_is_folder : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project_number : string prop;
+}
+
 let google_document_ai_warehouse_document_schema ?document_is_folder
     ?id ?timeouts ~display_name ~location ~project_number
     ~property_definitions __resource_id =
@@ -219,17 +228,34 @@ let google_document_ai_warehouse_document_schema ?document_is_folder
     "google_document_ai_warehouse_document_schema"
   in
   let __resource =
-    {
-      display_name;
-      document_is_folder;
-      id;
-      location;
-      project_number;
-      property_definitions;
-      timeouts;
-    }
+    ({
+       display_name;
+       document_is_folder;
+       id;
+       location;
+       project_number;
+       property_definitions;
+       timeouts;
+     }
+      : google_document_ai_warehouse_document_schema)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_document_ai_warehouse_document_schema
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       document_is_folder =
+         Prop.computed __resource_type __resource_id
+           "document_is_folder";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project_number =
+         Prop.computed __resource_type __resource_id "project_number";
+     }
+      : t)
+  in
+  __resource_attributes

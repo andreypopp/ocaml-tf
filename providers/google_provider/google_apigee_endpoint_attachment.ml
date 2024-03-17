@@ -27,20 +27,52 @@ in the format 'organizations/{{org_name}}'. *)
 [@@deriving yojson_of]
 (** google_apigee_endpoint_attachment *)
 
+type t = {
+  connection_state : string prop;
+  endpoint_attachment_id : string prop;
+  host : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  org_id : string prop;
+  service_attachment : string prop;
+}
+
 let google_apigee_endpoint_attachment ?id ?timeouts
     ~endpoint_attachment_id ~location ~org_id ~service_attachment
     __resource_id =
   let __resource_type = "google_apigee_endpoint_attachment" in
   let __resource =
-    {
-      endpoint_attachment_id;
-      id;
-      location;
-      org_id;
-      service_attachment;
-      timeouts;
-    }
+    ({
+       endpoint_attachment_id;
+       id;
+       location;
+       org_id;
+       service_attachment;
+       timeouts;
+     }
+      : google_apigee_endpoint_attachment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_endpoint_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connection_state =
+         Prop.computed __resource_type __resource_id
+           "connection_state";
+       endpoint_attachment_id =
+         Prop.computed __resource_type __resource_id
+           "endpoint_attachment_id";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       service_attachment =
+         Prop.computed __resource_type __resource_id
+           "service_attachment";
+     }
+      : t)
+  in
+  __resource_attributes

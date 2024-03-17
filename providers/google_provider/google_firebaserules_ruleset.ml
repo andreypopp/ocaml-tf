@@ -43,10 +43,34 @@ type google_firebaserules_ruleset = {
 [@@deriving yojson_of]
 (** google_firebaserules_ruleset *)
 
+type t = {
+  create_time : string prop;
+  id : string prop;
+  metadata : google_firebaserules_ruleset__metadata list prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_firebaserules_ruleset ?id ?project ?timeouts ~source
     __resource_id =
   let __resource_type = "google_firebaserules_ruleset" in
-  let __resource = { id; project; source; timeouts } in
+  let __resource =
+    ({ id; project; source; timeouts }
+      : google_firebaserules_ruleset)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebaserules_ruleset __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

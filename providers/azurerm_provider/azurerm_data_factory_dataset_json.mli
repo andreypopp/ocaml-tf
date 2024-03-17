@@ -8,6 +8,19 @@ type azurerm_data_factory_dataset_json__schema_column
 type azurerm_data_factory_dataset_json__timeouts
 type azurerm_data_factory_dataset_json
 
+type t = private {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  encoding : string prop;
+  folder : string prop;
+  id : string prop;
+  linked_service_name : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+}
+
 val azurerm_data_factory_dataset_json :
   ?additional_properties:(string * string prop) list ->
   ?annotations:string prop list ->
@@ -27,4 +40,4 @@ val azurerm_data_factory_dataset_json :
     azurerm_data_factory_dataset_json__http_server_location list ->
   schema_column:azurerm_data_factory_dataset_json__schema_column list ->
   string ->
-  unit
+  t

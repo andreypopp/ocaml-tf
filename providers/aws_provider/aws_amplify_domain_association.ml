@@ -26,20 +26,50 @@ type aws_amplify_domain_association = {
 [@@deriving yojson_of]
 (** aws_amplify_domain_association *)
 
+type t = {
+  app_id : string prop;
+  arn : string prop;
+  certificate_verification_dns_record : string prop;
+  domain_name : string prop;
+  enable_auto_sub_domain : bool prop;
+  id : string prop;
+  wait_for_verification : bool prop;
+}
+
 let aws_amplify_domain_association ?enable_auto_sub_domain ?id
     ?wait_for_verification ~app_id ~domain_name ~sub_domain
     __resource_id =
   let __resource_type = "aws_amplify_domain_association" in
   let __resource =
-    {
-      app_id;
-      domain_name;
-      enable_auto_sub_domain;
-      id;
-      wait_for_verification;
-      sub_domain;
-    }
+    ({
+       app_id;
+       domain_name;
+       enable_auto_sub_domain;
+       id;
+       wait_for_verification;
+       sub_domain;
+     }
+      : aws_amplify_domain_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_amplify_domain_association __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_id = Prop.computed __resource_type __resource_id "app_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       certificate_verification_dns_record =
+         Prop.computed __resource_type __resource_id
+           "certificate_verification_dns_record";
+       domain_name =
+         Prop.computed __resource_type __resource_id "domain_name";
+       enable_auto_sub_domain =
+         Prop.computed __resource_type __resource_id
+           "enable_auto_sub_domain";
+       id = Prop.computed __resource_type __resource_id "id";
+       wait_for_verification =
+         Prop.computed __resource_type __resource_id
+           "wait_for_verification";
+     }
+      : t)
+  in
+  __resource_attributes

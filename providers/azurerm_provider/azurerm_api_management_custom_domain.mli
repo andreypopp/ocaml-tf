@@ -10,6 +10,11 @@ type azurerm_api_management_custom_domain__scm
 type azurerm_api_management_custom_domain__timeouts
 type azurerm_api_management_custom_domain
 
+type t = private {
+  api_management_id : string prop;
+  id : string prop;
+}
+
 val azurerm_api_management_custom_domain :
   ?id:string prop ->
   ?timeouts:azurerm_api_management_custom_domain__timeouts ->
@@ -21,4 +26,4 @@ val azurerm_api_management_custom_domain :
   portal:azurerm_api_management_custom_domain__portal list ->
   scm:azurerm_api_management_custom_domain__scm list ->
   string ->
-  unit
+  t

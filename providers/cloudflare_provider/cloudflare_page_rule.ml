@@ -166,12 +166,33 @@ type cloudflare_page_rule = {
 [@@deriving yojson_of]
 (** cloudflare_page_rule *)
 
+type t = {
+  id : string prop;
+  priority : float prop;
+  status : string prop;
+  target : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_page_rule ?id ?priority ?status ~target ~zone_id
     ~actions __resource_id =
   let __resource_type = "cloudflare_page_rule" in
   let __resource =
-    { id; priority; status; target; zone_id; actions }
+    ({ id; priority; status; target; zone_id; actions }
+      : cloudflare_page_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_page_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       status = Prop.computed __resource_type __resource_id "status";
+       target = Prop.computed __resource_type __resource_id "target";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

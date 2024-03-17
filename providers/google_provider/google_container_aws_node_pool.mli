@@ -19,6 +19,24 @@ type google_container_aws_node_pool__update_settings__surge_settings
 type google_container_aws_node_pool__update_settings
 type google_container_aws_node_pool
 
+type t = private {
+  annotations : (string * string) list prop;
+  cluster : string prop;
+  create_time : string prop;
+  effective_annotations : (string * string) list prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  subnet_id : string prop;
+  uid : string prop;
+  update_time : string prop;
+  version : string prop;
+}
+
 val google_container_aws_node_pool :
   ?annotations:(string * string prop) list ->
   ?id:string prop ->
@@ -37,4 +55,4 @@ val google_container_aws_node_pool :
   update_settings:
     google_container_aws_node_pool__update_settings list ->
   string ->
-  unit
+  t

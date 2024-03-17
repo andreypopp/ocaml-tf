@@ -55,6 +55,27 @@ type aws_apigatewayv2_integration = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_integration *)
 
+type t = {
+  api_id : string prop;
+  connection_id : string prop;
+  connection_type : string prop;
+  content_handling_strategy : string prop;
+  credentials_arn : string prop;
+  description : string prop;
+  id : string prop;
+  integration_method : string prop;
+  integration_response_selection_expression : string prop;
+  integration_subtype : string prop;
+  integration_type : string prop;
+  integration_uri : string prop;
+  passthrough_behavior : string prop;
+  payload_format_version : string prop;
+  request_parameters : (string * string) list prop;
+  request_templates : (string * string) list prop;
+  template_selection_expression : string prop;
+  timeout_milliseconds : float prop;
+}
+
 let aws_apigatewayv2_integration ?connection_id ?connection_type
     ?content_handling_strategy ?credentials_arn ?description ?id
     ?integration_method ?integration_subtype ?integration_uri
@@ -64,28 +85,82 @@ let aws_apigatewayv2_integration ?connection_id ?connection_type
     ~response_parameters ~tls_config __resource_id =
   let __resource_type = "aws_apigatewayv2_integration" in
   let __resource =
-    {
-      api_id;
-      connection_id;
-      connection_type;
-      content_handling_strategy;
-      credentials_arn;
-      description;
-      id;
-      integration_method;
-      integration_subtype;
-      integration_type;
-      integration_uri;
-      passthrough_behavior;
-      payload_format_version;
-      request_parameters;
-      request_templates;
-      template_selection_expression;
-      timeout_milliseconds;
-      response_parameters;
-      tls_config;
-    }
+    ({
+       api_id;
+       connection_id;
+       connection_type;
+       content_handling_strategy;
+       credentials_arn;
+       description;
+       id;
+       integration_method;
+       integration_subtype;
+       integration_type;
+       integration_uri;
+       passthrough_behavior;
+       payload_format_version;
+       request_parameters;
+       request_templates;
+       template_selection_expression;
+       timeout_milliseconds;
+       response_parameters;
+       tls_config;
+     }
+      : aws_apigatewayv2_integration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_integration __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_id = Prop.computed __resource_type __resource_id "api_id";
+       connection_id =
+         Prop.computed __resource_type __resource_id "connection_id";
+       connection_type =
+         Prop.computed __resource_type __resource_id
+           "connection_type";
+       content_handling_strategy =
+         Prop.computed __resource_type __resource_id
+           "content_handling_strategy";
+       credentials_arn =
+         Prop.computed __resource_type __resource_id
+           "credentials_arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_method =
+         Prop.computed __resource_type __resource_id
+           "integration_method";
+       integration_response_selection_expression =
+         Prop.computed __resource_type __resource_id
+           "integration_response_selection_expression";
+       integration_subtype =
+         Prop.computed __resource_type __resource_id
+           "integration_subtype";
+       integration_type =
+         Prop.computed __resource_type __resource_id
+           "integration_type";
+       integration_uri =
+         Prop.computed __resource_type __resource_id
+           "integration_uri";
+       passthrough_behavior =
+         Prop.computed __resource_type __resource_id
+           "passthrough_behavior";
+       payload_format_version =
+         Prop.computed __resource_type __resource_id
+           "payload_format_version";
+       request_parameters =
+         Prop.computed __resource_type __resource_id
+           "request_parameters";
+       request_templates =
+         Prop.computed __resource_type __resource_id
+           "request_templates";
+       template_selection_expression =
+         Prop.computed __resource_type __resource_id
+           "template_selection_expression";
+       timeout_milliseconds =
+         Prop.computed __resource_type __resource_id
+           "timeout_milliseconds";
+     }
+      : t)
+  in
+  __resource_attributes

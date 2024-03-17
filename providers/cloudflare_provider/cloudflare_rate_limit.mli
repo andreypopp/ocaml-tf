@@ -10,6 +10,16 @@ type cloudflare_rate_limit__match__response
 type cloudflare_rate_limit__match
 type cloudflare_rate_limit
 
+type t = private {
+  bypass_url_patterns : string list prop;
+  description : string prop;
+  disabled : bool prop;
+  id : string prop;
+  period : float prop;
+  threshold : float prop;
+  zone_id : string prop;
+}
+
 val cloudflare_rate_limit :
   ?bypass_url_patterns:string prop list ->
   ?description:string prop ->
@@ -22,4 +32,4 @@ val cloudflare_rate_limit :
   correlate:cloudflare_rate_limit__correlate list ->
   match_:cloudflare_rate_limit__match list ->
   string ->
-  unit
+  t

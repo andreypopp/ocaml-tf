@@ -9,6 +9,17 @@ type azurerm_security_center_automation__source
 type azurerm_security_center_automation__timeouts
 type azurerm_security_center_automation
 
+type t = private {
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_security_center_automation :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -22,4 +33,4 @@ val azurerm_security_center_automation :
   action:azurerm_security_center_automation__action list ->
   source:azurerm_security_center_automation__source list ->
   string ->
-  unit
+  t

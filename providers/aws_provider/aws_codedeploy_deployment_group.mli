@@ -34,6 +34,21 @@ type aws_codedeploy_deployment_group__on_premises_instance_tag_filter
 type aws_codedeploy_deployment_group__trigger_configuration
 type aws_codedeploy_deployment_group
 
+type t = private {
+  app_name : string prop;
+  arn : string prop;
+  autoscaling_groups : string list prop;
+  compute_platform : string prop;
+  deployment_config_name : string prop;
+  deployment_group_id : string prop;
+  deployment_group_name : string prop;
+  id : string prop;
+  outdated_instances_strategy : string prop;
+  service_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_codedeploy_deployment_group :
   ?autoscaling_groups:string prop list ->
   ?deployment_config_name:string prop ->
@@ -64,4 +79,4 @@ val aws_codedeploy_deployment_group :
   trigger_configuration:
     aws_codedeploy_deployment_group__trigger_configuration list ->
   string ->
-  unit
+  t

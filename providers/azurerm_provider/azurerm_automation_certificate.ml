@@ -27,22 +27,54 @@ type azurerm_automation_certificate = {
 [@@deriving yojson_of]
 (** azurerm_automation_certificate *)
 
+type t = {
+  automation_account_name : string prop;
+  base64 : string prop;
+  description : string prop;
+  exportable : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  thumbprint : string prop;
+}
+
 let azurerm_automation_certificate ?description ?exportable ?id
     ?timeouts ~automation_account_name ~base64 ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_automation_certificate" in
   let __resource =
-    {
-      automation_account_name;
-      base64;
-      description;
-      exportable;
-      id;
-      name;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       automation_account_name;
+       base64;
+       description;
+       exportable;
+       id;
+       name;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_automation_certificate)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_certificate __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automation_account_name =
+         Prop.computed __resource_type __resource_id
+           "automation_account_name";
+       base64 = Prop.computed __resource_type __resource_id "base64";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       exportable =
+         Prop.computed __resource_type __resource_id "exportable";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       thumbprint =
+         Prop.computed __resource_type __resource_id "thumbprint";
+     }
+      : t)
+  in
+  __resource_attributes

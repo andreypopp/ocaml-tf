@@ -48,20 +48,45 @@ types can contain references to other entity types (with or without aliases).
 [@@deriving yojson_of]
 (** google_dialogflow_entity_type *)
 
+type t = {
+  display_name : string prop;
+  enable_fuzzy_extraction : bool prop;
+  id : string prop;
+  kind : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
     ?project ?timeouts ~display_name ~kind ~entities __resource_id =
   let __resource_type = "google_dialogflow_entity_type" in
   let __resource =
-    {
-      display_name;
-      enable_fuzzy_extraction;
-      id;
-      kind;
-      project;
-      entities;
-      timeouts;
-    }
+    ({
+       display_name;
+       enable_fuzzy_extraction;
+       id;
+       kind;
+       project;
+       entities;
+       timeouts;
+     }
+      : google_dialogflow_entity_type)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_entity_type __resource);
-  ()
+  let __resource_attributes =
+    ({
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enable_fuzzy_extraction =
+         Prop.computed __resource_type __resource_id
+           "enable_fuzzy_extraction";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

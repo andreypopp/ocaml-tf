@@ -9,6 +9,18 @@ type azurerm_data_factory_dataset_binary__sftp_server_location
 type azurerm_data_factory_dataset_binary__timeouts
 type azurerm_data_factory_dataset_binary
 
+type t = private {
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  folder : string prop;
+  id : string prop;
+  linked_service_name : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+}
+
 val azurerm_data_factory_dataset_binary :
   ?additional_properties:(string * string prop) list ->
   ?annotations:string prop list ->
@@ -29,4 +41,4 @@ val azurerm_data_factory_dataset_binary :
   sftp_server_location:
     azurerm_data_factory_dataset_binary__sftp_server_location list ->
   string ->
-  unit
+  t

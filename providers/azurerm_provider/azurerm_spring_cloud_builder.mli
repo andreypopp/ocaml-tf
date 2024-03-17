@@ -7,6 +7,12 @@ type azurerm_spring_cloud_builder__stack
 type azurerm_spring_cloud_builder__timeouts
 type azurerm_spring_cloud_builder
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  spring_cloud_service_id : string prop;
+}
+
 val azurerm_spring_cloud_builder :
   ?id:string prop ->
   ?timeouts:azurerm_spring_cloud_builder__timeouts ->
@@ -16,4 +22,4 @@ val azurerm_spring_cloud_builder :
     azurerm_spring_cloud_builder__build_pack_group list ->
   stack:azurerm_spring_cloud_builder__stack list ->
   string ->
-  unit
+  t

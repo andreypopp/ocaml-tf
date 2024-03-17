@@ -17,6 +17,17 @@ type google_gke_hub_fleet__state = {
 
 type google_gke_hub_fleet
 
+type t = private {
+  create_time : string prop;
+  delete_time : string prop;
+  display_name : string prop;
+  id : string prop;
+  project : string prop;
+  state : google_gke_hub_fleet__state list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_gke_hub_fleet :
   ?display_name:string prop ->
   ?id:string prop ->
@@ -25,4 +36,4 @@ val google_gke_hub_fleet :
   default_cluster_config:
     google_gke_hub_fleet__default_cluster_config list ->
   string ->
-  unit
+  t

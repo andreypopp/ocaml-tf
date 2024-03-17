@@ -7,6 +7,19 @@ type azurerm_logz_monitor__timeouts
 type azurerm_logz_monitor__user
 type azurerm_logz_monitor
 
+type t = private {
+  company_name : string prop;
+  enabled : bool prop;
+  enterprise_app_id : string prop;
+  id : string prop;
+  location : string prop;
+  logz_organization_id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  single_sign_on_url : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_logz_monitor :
   ?company_name:string prop ->
   ?enabled:bool prop ->
@@ -20,4 +33,4 @@ val azurerm_logz_monitor :
   plan:azurerm_logz_monitor__plan list ->
   user:azurerm_logz_monitor__user list ->
   string ->
-  unit
+  t

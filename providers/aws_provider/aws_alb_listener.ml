@@ -142,27 +142,64 @@ type aws_alb_listener = {
 [@@deriving yojson_of]
 (** aws_alb_listener *)
 
+type t = {
+  alpn_policy : string prop;
+  arn : string prop;
+  certificate_arn : string prop;
+  id : string prop;
+  load_balancer_arn : string prop;
+  port : float prop;
+  protocol : string prop;
+  ssl_policy : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_alb_listener ?alpn_policy ?certificate_arn ?id ?port
     ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
     ~load_balancer_arn ~default_action ~mutual_authentication
     __resource_id =
   let __resource_type = "aws_alb_listener" in
   let __resource =
-    {
-      alpn_policy;
-      certificate_arn;
-      id;
-      load_balancer_arn;
-      port;
-      protocol;
-      ssl_policy;
-      tags;
-      tags_all;
-      default_action;
-      mutual_authentication;
-      timeouts;
-    }
+    ({
+       alpn_policy;
+       certificate_arn;
+       id;
+       load_balancer_arn;
+       port;
+       protocol;
+       ssl_policy;
+       tags;
+       tags_all;
+       default_action;
+       mutual_authentication;
+       timeouts;
+     }
+      : aws_alb_listener)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_alb_listener __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alpn_policy =
+         Prop.computed __resource_type __resource_id "alpn_policy";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       certificate_arn =
+         Prop.computed __resource_type __resource_id
+           "certificate_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       load_balancer_arn =
+         Prop.computed __resource_type __resource_id
+           "load_balancer_arn";
+       port = Prop.computed __resource_type __resource_id "port";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       ssl_policy =
+         Prop.computed __resource_type __resource_id "ssl_policy";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

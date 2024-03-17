@@ -84,6 +84,30 @@ type aws_synthetics_canary = {
 [@@deriving yojson_of]
 (** aws_synthetics_canary *)
 
+type t = {
+  arn : string prop;
+  artifact_s3_location : string prop;
+  delete_lambda : bool prop;
+  engine_arn : string prop;
+  execution_role_arn : string prop;
+  failure_retention_period : float prop;
+  handler : string prop;
+  id : string prop;
+  name : string prop;
+  runtime_version : string prop;
+  s3_bucket : string prop;
+  s3_key : string prop;
+  s3_version : string prop;
+  source_location_arn : string prop;
+  start_canary : bool prop;
+  status : string prop;
+  success_retention_period : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  timeline : aws_synthetics_canary__timeline list prop;
+  zip_file : string prop;
+}
+
 let aws_synthetics_canary ?delete_lambda ?failure_retention_period
     ?id ?s3_bucket ?s3_key ?s3_version ?start_canary
     ?success_retention_period ?tags ?tags_all ?zip_file
@@ -92,29 +116,77 @@ let aws_synthetics_canary ?delete_lambda ?failure_retention_period
     ~vpc_config __resource_id =
   let __resource_type = "aws_synthetics_canary" in
   let __resource =
-    {
-      artifact_s3_location;
-      delete_lambda;
-      execution_role_arn;
-      failure_retention_period;
-      handler;
-      id;
-      name;
-      runtime_version;
-      s3_bucket;
-      s3_key;
-      s3_version;
-      start_canary;
-      success_retention_period;
-      tags;
-      tags_all;
-      zip_file;
-      artifact_config;
-      run_config;
-      schedule;
-      vpc_config;
-    }
+    ({
+       artifact_s3_location;
+       delete_lambda;
+       execution_role_arn;
+       failure_retention_period;
+       handler;
+       id;
+       name;
+       runtime_version;
+       s3_bucket;
+       s3_key;
+       s3_version;
+       start_canary;
+       success_retention_period;
+       tags;
+       tags_all;
+       zip_file;
+       artifact_config;
+       run_config;
+       schedule;
+       vpc_config;
+     }
+      : aws_synthetics_canary)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_synthetics_canary __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       artifact_s3_location =
+         Prop.computed __resource_type __resource_id
+           "artifact_s3_location";
+       delete_lambda =
+         Prop.computed __resource_type __resource_id "delete_lambda";
+       engine_arn =
+         Prop.computed __resource_type __resource_id "engine_arn";
+       execution_role_arn =
+         Prop.computed __resource_type __resource_id
+           "execution_role_arn";
+       failure_retention_period =
+         Prop.computed __resource_type __resource_id
+           "failure_retention_period";
+       handler =
+         Prop.computed __resource_type __resource_id "handler";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       runtime_version =
+         Prop.computed __resource_type __resource_id
+           "runtime_version";
+       s3_bucket =
+         Prop.computed __resource_type __resource_id "s3_bucket";
+       s3_key = Prop.computed __resource_type __resource_id "s3_key";
+       s3_version =
+         Prop.computed __resource_type __resource_id "s3_version";
+       source_location_arn =
+         Prop.computed __resource_type __resource_id
+           "source_location_arn";
+       start_canary =
+         Prop.computed __resource_type __resource_id "start_canary";
+       status = Prop.computed __resource_type __resource_id "status";
+       success_retention_period =
+         Prop.computed __resource_type __resource_id
+           "success_retention_period";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       timeline =
+         Prop.computed __resource_type __resource_id "timeline";
+       zip_file =
+         Prop.computed __resource_type __resource_id "zip_file";
+     }
+      : t)
+  in
+  __resource_attributes

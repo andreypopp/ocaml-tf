@@ -74,22 +74,47 @@ type google_project_organization_policy = {
 [@@deriving yojson_of]
 (** google_project_organization_policy *)
 
+type t = {
+  constraint_ : string prop;
+  etag : string prop;
+  id : string prop;
+  project : string prop;
+  update_time : string prop;
+  version : float prop;
+}
+
 let google_project_organization_policy ?id ?version ?timeouts
     ~constraint_ ~project ~boolean_policy ~list_policy
     ~restore_policy __resource_id =
   let __resource_type = "google_project_organization_policy" in
   let __resource =
-    {
-      constraint_;
-      id;
-      project;
-      version;
-      boolean_policy;
-      list_policy;
-      restore_policy;
-      timeouts;
-    }
+    ({
+       constraint_;
+       id;
+       project;
+       version;
+       boolean_policy;
+       list_policy;
+       restore_policy;
+       timeouts;
+     }
+      : google_project_organization_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project_organization_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       constraint_ =
+         Prop.computed __resource_type __resource_id "constraint";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -30,24 +30,58 @@ type azurerm_log_analytics_saved_search = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_saved_search *)
 
+type t = {
+  category : string prop;
+  display_name : string prop;
+  function_alias : string prop;
+  function_parameters : string list prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  query : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_log_analytics_saved_search ?function_alias
     ?function_parameters ?id ?tags ?timeouts ~category ~display_name
     ~log_analytics_workspace_id ~name ~query __resource_id =
   let __resource_type = "azurerm_log_analytics_saved_search" in
   let __resource =
-    {
-      category;
-      display_name;
-      function_alias;
-      function_parameters;
-      id;
-      log_analytics_workspace_id;
-      name;
-      query;
-      tags;
-      timeouts;
-    }
+    ({
+       category;
+       display_name;
+       function_alias;
+       function_parameters;
+       id;
+       log_analytics_workspace_id;
+       name;
+       query;
+       tags;
+       timeouts;
+     }
+      : azurerm_log_analytics_saved_search)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_log_analytics_saved_search __resource);
-  ()
+  let __resource_attributes =
+    ({
+       category =
+         Prop.computed __resource_type __resource_id "category";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       function_alias =
+         Prop.computed __resource_type __resource_id "function_alias";
+       function_parameters =
+         Prop.computed __resource_type __resource_id
+           "function_parameters";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_analytics_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "log_analytics_workspace_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       query = Prop.computed __resource_type __resource_id "query";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

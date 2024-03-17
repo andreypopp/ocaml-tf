@@ -74,27 +74,73 @@ type google_compute_firewall_policy_rule = {
 [@@deriving yojson_of]
 (** google_compute_firewall_policy_rule *)
 
+type t = {
+  action : string prop;
+  description : string prop;
+  direction : string prop;
+  disabled : bool prop;
+  enable_logging : bool prop;
+  firewall_policy : string prop;
+  id : string prop;
+  kind : string prop;
+  priority : float prop;
+  rule_tuple_count : float prop;
+  target_resources : string list prop;
+  target_service_accounts : string list prop;
+}
+
 let google_compute_firewall_policy_rule ?description ?disabled
     ?enable_logging ?id ?target_resources ?target_service_accounts
     ?timeouts ~action ~direction ~firewall_policy ~priority ~match_
     __resource_id =
   let __resource_type = "google_compute_firewall_policy_rule" in
   let __resource =
-    {
-      action;
-      description;
-      direction;
-      disabled;
-      enable_logging;
-      firewall_policy;
-      id;
-      priority;
-      target_resources;
-      target_service_accounts;
-      match_;
-      timeouts;
-    }
+    ({
+       action;
+       description;
+       direction;
+       disabled;
+       enable_logging;
+       firewall_policy;
+       id;
+       priority;
+       target_resources;
+       target_service_accounts;
+       match_;
+       timeouts;
+     }
+      : google_compute_firewall_policy_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_firewall_policy_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       direction =
+         Prop.computed __resource_type __resource_id "direction";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       enable_logging =
+         Prop.computed __resource_type __resource_id "enable_logging";
+       firewall_policy =
+         Prop.computed __resource_type __resource_id
+           "firewall_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       rule_tuple_count =
+         Prop.computed __resource_type __resource_id
+           "rule_tuple_count";
+       target_resources =
+         Prop.computed __resource_type __resource_id
+           "target_resources";
+       target_service_accounts =
+         Prop.computed __resource_type __resource_id
+           "target_service_accounts";
+     }
+      : t)
+  in
+  __resource_attributes

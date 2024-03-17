@@ -69,21 +69,50 @@ type digitalocean_spaces_bucket = {
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket *)
 
+type t = {
+  acl : string prop;
+  bucket_domain_name : string prop;
+  endpoint : string prop;
+  force_destroy : bool prop;
+  id : string prop;
+  name : string prop;
+  region : string prop;
+  urn : string prop;
+}
+
 let digitalocean_spaces_bucket ?acl ?force_destroy ?id ?region ~name
     ~cors_rule ~lifecycle_rule ~versioning __resource_id =
   let __resource_type = "digitalocean_spaces_bucket" in
   let __resource =
-    {
-      acl;
-      force_destroy;
-      id;
-      name;
-      region;
-      cors_rule;
-      lifecycle_rule;
-      versioning;
-    }
+    ({
+       acl;
+       force_destroy;
+       id;
+       name;
+       region;
+       cors_rule;
+       lifecycle_rule;
+       versioning;
+     }
+      : digitalocean_spaces_bucket)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_spaces_bucket __resource);
-  ()
+  let __resource_attributes =
+    ({
+       acl = Prop.computed __resource_type __resource_id "acl";
+       bucket_domain_name =
+         Prop.computed __resource_type __resource_id
+           "bucket_domain_name";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       region = Prop.computed __resource_type __resource_id "region";
+       urn = Prop.computed __resource_type __resource_id "urn";
+     }
+      : t)
+  in
+  __resource_attributes

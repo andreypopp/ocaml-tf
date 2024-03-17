@@ -36,6 +36,21 @@ type azurerm_custom_ip_prefix = {
 [@@deriving yojson_of]
 (** azurerm_custom_ip_prefix *)
 
+type t = {
+  cidr : string prop;
+  commissioning_enabled : bool prop;
+  id : string prop;
+  internet_advertising_disabled : bool prop;
+  location : string prop;
+  name : string prop;
+  parent_custom_ip_prefix_id : string prop;
+  resource_group_name : string prop;
+  roa_validity_end_date : string prop;
+  tags : (string * string) list prop;
+  wan_validation_signed_message : string prop;
+  zones : string list prop;
+}
+
 let azurerm_custom_ip_prefix ?commissioning_enabled ?id
     ?internet_advertising_disabled ?parent_custom_ip_prefix_id
     ?roa_validity_end_date ?tags ?wan_validation_signed_message
@@ -43,22 +58,53 @@ let azurerm_custom_ip_prefix ?commissioning_enabled ?id
     __resource_id =
   let __resource_type = "azurerm_custom_ip_prefix" in
   let __resource =
-    {
-      cidr;
-      commissioning_enabled;
-      id;
-      internet_advertising_disabled;
-      location;
-      name;
-      parent_custom_ip_prefix_id;
-      resource_group_name;
-      roa_validity_end_date;
-      tags;
-      wan_validation_signed_message;
-      zones;
-      timeouts;
-    }
+    ({
+       cidr;
+       commissioning_enabled;
+       id;
+       internet_advertising_disabled;
+       location;
+       name;
+       parent_custom_ip_prefix_id;
+       resource_group_name;
+       roa_validity_end_date;
+       tags;
+       wan_validation_signed_message;
+       zones;
+       timeouts;
+     }
+      : azurerm_custom_ip_prefix)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_custom_ip_prefix __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cidr = Prop.computed __resource_type __resource_id "cidr";
+       commissioning_enabled =
+         Prop.computed __resource_type __resource_id
+           "commissioning_enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       internet_advertising_disabled =
+         Prop.computed __resource_type __resource_id
+           "internet_advertising_disabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_custom_ip_prefix_id =
+         Prop.computed __resource_type __resource_id
+           "parent_custom_ip_prefix_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       roa_validity_end_date =
+         Prop.computed __resource_type __resource_id
+           "roa_validity_end_date";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       wan_validation_signed_message =
+         Prop.computed __resource_type __resource_id
+           "wan_validation_signed_message";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -151,6 +151,26 @@ instances on the specified network. *)
 [@@deriving yojson_of]
 (** google_compute_firewall *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  destination_ranges : string list prop;
+  direction : string prop;
+  disabled : bool prop;
+  enable_logging : bool prop;
+  id : string prop;
+  name : string prop;
+  network : string prop;
+  priority : float prop;
+  project : string prop;
+  self_link : string prop;
+  source_ranges : string list prop;
+  source_service_accounts : string list prop;
+  source_tags : string list prop;
+  target_service_accounts : string list prop;
+  target_tags : string list prop;
+}
+
 let google_compute_firewall ?description ?destination_ranges
     ?direction ?disabled ?enable_logging ?id ?priority ?project
     ?source_ranges ?source_service_accounts ?source_tags
@@ -158,28 +178,70 @@ let google_compute_firewall ?description ?destination_ranges
     ~allow ~deny ~log_config __resource_id =
   let __resource_type = "google_compute_firewall" in
   let __resource =
-    {
-      description;
-      destination_ranges;
-      direction;
-      disabled;
-      enable_logging;
-      id;
-      name;
-      network;
-      priority;
-      project;
-      source_ranges;
-      source_service_accounts;
-      source_tags;
-      target_service_accounts;
-      target_tags;
-      allow;
-      deny;
-      log_config;
-      timeouts;
-    }
+    ({
+       description;
+       destination_ranges;
+       direction;
+       disabled;
+       enable_logging;
+       id;
+       name;
+       network;
+       priority;
+       project;
+       source_ranges;
+       source_service_accounts;
+       source_tags;
+       target_service_accounts;
+       target_tags;
+       allow;
+       deny;
+       log_config;
+       timeouts;
+     }
+      : google_compute_firewall)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_firewall __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       destination_ranges =
+         Prop.computed __resource_type __resource_id
+           "destination_ranges";
+       direction =
+         Prop.computed __resource_type __resource_id "direction";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       enable_logging =
+         Prop.computed __resource_type __resource_id "enable_logging";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       source_ranges =
+         Prop.computed __resource_type __resource_id "source_ranges";
+       source_service_accounts =
+         Prop.computed __resource_type __resource_id
+           "source_service_accounts";
+       source_tags =
+         Prop.computed __resource_type __resource_id "source_tags";
+       target_service_accounts =
+         Prop.computed __resource_type __resource_id
+           "target_service_accounts";
+       target_tags =
+         Prop.computed __resource_type __resource_id "target_tags";
+     }
+      : t)
+  in
+  __resource_attributes

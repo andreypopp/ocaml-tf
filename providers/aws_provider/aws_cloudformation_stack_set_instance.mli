@@ -15,6 +15,22 @@ type aws_cloudformation_stack_set_instance__stack_instance_summaries = {
 
 type aws_cloudformation_stack_set_instance
 
+type t = private {
+  account_id : string prop;
+  call_as : string prop;
+  id : string prop;
+  organizational_unit_id : string prop;
+  parameter_overrides : (string * string) list prop;
+  region : string prop;
+  retain_stack : bool prop;
+  stack_id : string prop;
+  stack_instance_summaries :
+    aws_cloudformation_stack_set_instance__stack_instance_summaries
+    list
+    prop;
+  stack_set_name : string prop;
+}
+
 val aws_cloudformation_stack_set_instance :
   ?account_id:string prop ->
   ?call_as:string prop ->
@@ -29,4 +45,4 @@ val aws_cloudformation_stack_set_instance :
   operation_preferences:
     aws_cloudformation_stack_set_instance__operation_preferences list ->
   string ->
-  unit
+  t

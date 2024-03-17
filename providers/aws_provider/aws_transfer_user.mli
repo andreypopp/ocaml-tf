@@ -7,6 +7,19 @@ type aws_transfer_user__posix_profile
 type aws_transfer_user__timeouts
 type aws_transfer_user
 
+type t = private {
+  arn : string prop;
+  home_directory : string prop;
+  home_directory_type : string prop;
+  id : string prop;
+  policy : string prop;
+  role : string prop;
+  server_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_name : string prop;
+}
+
 val aws_transfer_user :
   ?home_directory:string prop ->
   ?home_directory_type:string prop ->
@@ -22,4 +35,4 @@ val aws_transfer_user :
     aws_transfer_user__home_directory_mappings list ->
   posix_profile:aws_transfer_user__posix_profile list ->
   string ->
-  unit
+  t

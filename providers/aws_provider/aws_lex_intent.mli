@@ -22,6 +22,20 @@ type aws_lex_intent__slot
 type aws_lex_intent__timeouts
 type aws_lex_intent
 
+type t = private {
+  arn : string prop;
+  checksum : string prop;
+  create_version : bool prop;
+  created_date : string prop;
+  description : string prop;
+  id : string prop;
+  last_updated_date : string prop;
+  name : string prop;
+  parent_intent_signature : string prop;
+  sample_utterances : string list prop;
+  version : string prop;
+}
+
 val aws_lex_intent :
   ?create_version:bool prop ->
   ?description:string prop ->
@@ -38,4 +52,4 @@ val aws_lex_intent :
   rejection_statement:aws_lex_intent__rejection_statement list ->
   slot:aws_lex_intent__slot list ->
   string ->
-  unit
+  t

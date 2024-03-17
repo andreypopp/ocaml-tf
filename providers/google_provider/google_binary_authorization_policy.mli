@@ -8,6 +8,13 @@ type google_binary_authorization_policy__default_admission_rule
 type google_binary_authorization_policy__timeouts
 type google_binary_authorization_policy
 
+type t = private {
+  description : string prop;
+  global_policy_evaluation_mode : string prop;
+  id : string prop;
+  project : string prop;
+}
+
 val google_binary_authorization_policy :
   ?description:string prop ->
   ?global_policy_evaluation_mode:string prop ->
@@ -22,4 +29,4 @@ val google_binary_authorization_policy :
   default_admission_rule:
     google_binary_authorization_policy__default_admission_rule list ->
   string ->
-  unit
+  t

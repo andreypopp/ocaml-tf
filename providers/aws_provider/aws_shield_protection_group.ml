@@ -18,22 +18,58 @@ type aws_shield_protection_group = {
 [@@deriving yojson_of]
 (** aws_shield_protection_group *)
 
+type t = {
+  aggregation : string prop;
+  id : string prop;
+  members : string list prop;
+  pattern : string prop;
+  protection_group_arn : string prop;
+  protection_group_id : string prop;
+  resource_type : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_shield_protection_group ?id ?members ?resource_type ?tags
     ?tags_all ~aggregation ~pattern ~protection_group_id
     __resource_id =
   let __resource_type = "aws_shield_protection_group" in
   let __resource =
-    {
-      aggregation;
-      id;
-      members;
-      pattern;
-      protection_group_id;
-      resource_type;
-      tags;
-      tags_all;
-    }
+    ({
+       aggregation;
+       id;
+       members;
+       pattern;
+       protection_group_id;
+       resource_type;
+       tags;
+       tags_all;
+     }
+      : aws_shield_protection_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_shield_protection_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       aggregation =
+         Prop.computed __resource_type __resource_id "aggregation";
+       id = Prop.computed __resource_type __resource_id "id";
+       members =
+         Prop.computed __resource_type __resource_id "members";
+       pattern =
+         Prop.computed __resource_type __resource_id "pattern";
+       protection_group_arn =
+         Prop.computed __resource_type __resource_id
+           "protection_group_arn";
+       protection_group_id =
+         Prop.computed __resource_type __resource_id
+           "protection_group_id";
+       resource_type =
+         Prop.computed __resource_type __resource_id "resource_type";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

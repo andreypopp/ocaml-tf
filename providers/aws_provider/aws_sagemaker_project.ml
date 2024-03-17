@@ -37,20 +37,48 @@ type aws_sagemaker_project = {
 [@@deriving yojson_of]
 (** aws_sagemaker_project *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  project_description : string prop;
+  project_id : string prop;
+  project_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_sagemaker_project ?id ?project_description ?tags ?tags_all
     ~project_name ~service_catalog_provisioning_details __resource_id
     =
   let __resource_type = "aws_sagemaker_project" in
   let __resource =
-    {
-      id;
-      project_description;
-      project_name;
-      tags;
-      tags_all;
-      service_catalog_provisioning_details;
-    }
+    ({
+       id;
+       project_description;
+       project_name;
+       tags;
+       tags_all;
+       service_catalog_provisioning_details;
+     }
+      : aws_sagemaker_project)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_project __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       project_description =
+         Prop.computed __resource_type __resource_id
+           "project_description";
+       project_id =
+         Prop.computed __resource_type __resource_id "project_id";
+       project_name =
+         Prop.computed __resource_type __resource_id "project_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

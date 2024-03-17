@@ -82,24 +82,61 @@ to true or if other fields are updated while preview is true. *)
 [@@deriving yojson_of]
 (** google_deployment_manager_deployment *)
 
+type t = {
+  create_policy : string prop;
+  delete_policy : string prop;
+  deployment_id : string prop;
+  description : string prop;
+  id : string prop;
+  manifest : string prop;
+  name : string prop;
+  preview : bool prop;
+  project : string prop;
+  self_link : string prop;
+}
+
 let google_deployment_manager_deployment ?create_policy
     ?delete_policy ?description ?id ?preview ?project ?timeouts ~name
     ~labels ~target __resource_id =
   let __resource_type = "google_deployment_manager_deployment" in
   let __resource =
-    {
-      create_policy;
-      delete_policy;
-      description;
-      id;
-      name;
-      preview;
-      project;
-      labels;
-      target;
-      timeouts;
-    }
+    ({
+       create_policy;
+       delete_policy;
+       description;
+       id;
+       name;
+       preview;
+       project;
+       labels;
+       target;
+       timeouts;
+     }
+      : google_deployment_manager_deployment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_deployment_manager_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_policy =
+         Prop.computed __resource_type __resource_id "create_policy";
+       delete_policy =
+         Prop.computed __resource_type __resource_id "delete_policy";
+       deployment_id =
+         Prop.computed __resource_type __resource_id "deployment_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       manifest =
+         Prop.computed __resource_type __resource_id "manifest";
+       name = Prop.computed __resource_type __resource_id "name";
+       preview =
+         Prop.computed __resource_type __resource_id "preview";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

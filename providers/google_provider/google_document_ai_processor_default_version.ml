@@ -24,13 +24,32 @@ Apply 'lifecycle.ignore_changes' to the 'version' field to suppress this diff. *
 [@@deriving yojson_of]
 (** google_document_ai_processor_default_version *)
 
+type t = {
+  id : string prop;
+  processor : string prop;
+  version : string prop;
+}
+
 let google_document_ai_processor_default_version ?id ?timeouts
     ~processor ~version __resource_id =
   let __resource_type =
     "google_document_ai_processor_default_version"
   in
-  let __resource = { id; processor; version; timeouts } in
+  let __resource =
+    ({ id; processor; version; timeouts }
+      : google_document_ai_processor_default_version)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_document_ai_processor_default_version
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       processor =
+         Prop.computed __resource_type __resource_id "processor";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -6,6 +6,13 @@ type azurerm_app_service_slot_virtual_network_swift_connection__timeouts
 
 type azurerm_app_service_slot_virtual_network_swift_connection
 
+type t = private {
+  app_service_id : string prop;
+  id : string prop;
+  slot_name : string prop;
+  subnet_id : string prop;
+}
+
 val azurerm_app_service_slot_virtual_network_swift_connection :
   ?id:string prop ->
   ?timeouts:
@@ -14,4 +21,4 @@ val azurerm_app_service_slot_virtual_network_swift_connection :
   slot_name:string prop ->
   subnet_id:string prop ->
   string ->
-  unit
+  t

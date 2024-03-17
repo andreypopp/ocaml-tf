@@ -28,6 +28,22 @@ type google_gke_backup_restore_plan__restore_config
 type google_gke_backup_restore_plan__timeouts
 type google_gke_backup_restore_plan
 
+type t = private {
+  backup_plan : string prop;
+  cluster : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  state_reason : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+}
+
 val google_gke_backup_restore_plan :
   ?description:string prop ->
   ?id:string prop ->
@@ -40,4 +56,4 @@ val google_gke_backup_restore_plan :
   name:string prop ->
   restore_config:google_gke_backup_restore_plan__restore_config list ->
   string ->
-  unit
+  t

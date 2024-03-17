@@ -5,6 +5,14 @@ open! Tf.Prelude
 type aws_networkmanager_customer_gateway_association__timeouts
 type aws_networkmanager_customer_gateway_association
 
+type t = private {
+  customer_gateway_arn : string prop;
+  device_id : string prop;
+  global_network_id : string prop;
+  id : string prop;
+  link_id : string prop;
+}
+
 val aws_networkmanager_customer_gateway_association :
   ?id:string prop ->
   ?link_id:string prop ->
@@ -13,4 +21,4 @@ val aws_networkmanager_customer_gateway_association :
   device_id:string prop ->
   global_network_id:string prop ->
   string ->
-  unit
+  t

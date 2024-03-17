@@ -6,6 +6,19 @@ type google_logging_project_bucket_config__cmek_settings
 type google_logging_project_bucket_config__index_configs
 type google_logging_project_bucket_config
 
+type t = private {
+  bucket_id : string prop;
+  description : string prop;
+  enable_analytics : bool prop;
+  id : string prop;
+  lifecycle_state : string prop;
+  location : string prop;
+  locked : bool prop;
+  name : string prop;
+  project : string prop;
+  retention_days : float prop;
+}
+
 val google_logging_project_bucket_config :
   ?description:string prop ->
   ?enable_analytics:bool prop ->
@@ -20,4 +33,4 @@ val google_logging_project_bucket_config :
   index_configs:
     google_logging_project_bucket_config__index_configs list ->
   string ->
-  unit
+  t

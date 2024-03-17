@@ -16,6 +16,17 @@ type google_compute_autoscaler__autoscaling_policy
 type google_compute_autoscaler__timeouts
 type google_compute_autoscaler
 
+type t = private {
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  target : string prop;
+  zone : string prop;
+}
+
 val google_compute_autoscaler :
   ?description:string prop ->
   ?id:string prop ->
@@ -27,4 +38,4 @@ val google_compute_autoscaler :
   autoscaling_policy:
     google_compute_autoscaler__autoscaling_policy list ->
   string ->
-  unit
+  t

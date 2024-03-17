@@ -78,6 +78,22 @@ type azurerm_nginx_deployment = {
 [@@deriving yojson_of]
 (** azurerm_nginx_deployment *)
 
+type t = {
+  automatic_upgrade_channel : string prop;
+  capacity : float prop;
+  diagnose_support_enabled : bool prop;
+  email : string prop;
+  id : string prop;
+  ip_address : string prop;
+  location : string prop;
+  managed_resource_group : string prop;
+  name : string prop;
+  nginx_version : string prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_nginx_deployment ?automatic_upgrade_channel ?capacity
     ?diagnose_support_enabled ?email ?id ?managed_resource_group
     ?tags ?timeouts ~location ~name ~resource_group_name ~sku
@@ -85,26 +101,57 @@ let azurerm_nginx_deployment ?automatic_upgrade_channel ?capacity
     ~logging_storage_account ~network_interface __resource_id =
   let __resource_type = "azurerm_nginx_deployment" in
   let __resource =
-    {
-      automatic_upgrade_channel;
-      capacity;
-      diagnose_support_enabled;
-      email;
-      id;
-      location;
-      managed_resource_group;
-      name;
-      resource_group_name;
-      sku;
-      tags;
-      frontend_private;
-      frontend_public;
-      identity;
-      logging_storage_account;
-      network_interface;
-      timeouts;
-    }
+    ({
+       automatic_upgrade_channel;
+       capacity;
+       diagnose_support_enabled;
+       email;
+       id;
+       location;
+       managed_resource_group;
+       name;
+       resource_group_name;
+       sku;
+       tags;
+       frontend_private;
+       frontend_public;
+       identity;
+       logging_storage_account;
+       network_interface;
+       timeouts;
+     }
+      : azurerm_nginx_deployment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_nginx_deployment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automatic_upgrade_channel =
+         Prop.computed __resource_type __resource_id
+           "automatic_upgrade_channel";
+       capacity =
+         Prop.computed __resource_type __resource_id "capacity";
+       diagnose_support_enabled =
+         Prop.computed __resource_type __resource_id
+           "diagnose_support_enabled";
+       email = Prop.computed __resource_type __resource_id "email";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       managed_resource_group =
+         Prop.computed __resource_type __resource_id
+           "managed_resource_group";
+       name = Prop.computed __resource_type __resource_id "name";
+       nginx_version =
+         Prop.computed __resource_type __resource_id "nginx_version";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

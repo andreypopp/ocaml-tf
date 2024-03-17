@@ -59,6 +59,19 @@ type aws_networkfirewall_rule_group__rule_group__stateful_rule_options
 type aws_networkfirewall_rule_group__rule_group
 type aws_networkfirewall_rule_group
 
+type t = private {
+  arn : string prop;
+  capacity : float prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  rules : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  update_token : string prop;
+}
+
 val aws_networkfirewall_rule_group :
   ?description:string prop ->
   ?id:string prop ->
@@ -72,4 +85,4 @@ val aws_networkfirewall_rule_group :
     aws_networkfirewall_rule_group__encryption_configuration list ->
   rule_group:aws_networkfirewall_rule_group__rule_group list ->
   string ->
-  unit
+  t

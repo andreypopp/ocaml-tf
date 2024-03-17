@@ -4,6 +4,15 @@ open! Tf.Prelude
 
 type google_artifact_registry_repository_iam_policy
 
+type t = private {
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  policy_data : string prop;
+  project : string prop;
+  repository : string prop;
+}
+
 val google_artifact_registry_repository_iam_policy :
   ?id:string prop ->
   ?location:string prop ->
@@ -11,4 +20,4 @@ val google_artifact_registry_repository_iam_policy :
   policy_data:string prop ->
   repository:string prop ->
   string ->
-  unit
+  t

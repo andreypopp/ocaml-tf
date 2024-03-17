@@ -23,24 +23,76 @@ type aws_organizations_account = {
 [@@deriving yojson_of]
 (** aws_organizations_account *)
 
+type t = {
+  arn : string prop;
+  close_on_deletion : bool prop;
+  create_govcloud : bool prop;
+  email : string prop;
+  govcloud_id : string prop;
+  iam_user_access_to_billing : string prop;
+  id : string prop;
+  joined_method : string prop;
+  joined_timestamp : string prop;
+  name : string prop;
+  parent_id : string prop;
+  role_name : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_organizations_account ?close_on_deletion ?create_govcloud
     ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags
     ?tags_all ~email ~name __resource_id =
   let __resource_type = "aws_organizations_account" in
   let __resource =
-    {
-      close_on_deletion;
-      create_govcloud;
-      email;
-      iam_user_access_to_billing;
-      id;
-      name;
-      parent_id;
-      role_name;
-      tags;
-      tags_all;
-    }
+    ({
+       close_on_deletion;
+       create_govcloud;
+       email;
+       iam_user_access_to_billing;
+       id;
+       name;
+       parent_id;
+       role_name;
+       tags;
+       tags_all;
+     }
+      : aws_organizations_account)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_organizations_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       close_on_deletion =
+         Prop.computed __resource_type __resource_id
+           "close_on_deletion";
+       create_govcloud =
+         Prop.computed __resource_type __resource_id
+           "create_govcloud";
+       email = Prop.computed __resource_type __resource_id "email";
+       govcloud_id =
+         Prop.computed __resource_type __resource_id "govcloud_id";
+       iam_user_access_to_billing =
+         Prop.computed __resource_type __resource_id
+           "iam_user_access_to_billing";
+       id = Prop.computed __resource_type __resource_id "id";
+       joined_method =
+         Prop.computed __resource_type __resource_id "joined_method";
+       joined_timestamp =
+         Prop.computed __resource_type __resource_id
+           "joined_timestamp";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_id =
+         Prop.computed __resource_type __resource_id "parent_id";
+       role_name =
+         Prop.computed __resource_type __resource_id "role_name";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

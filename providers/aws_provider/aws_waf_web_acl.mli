@@ -13,6 +13,15 @@ type aws_waf_web_acl__rules__override_action
 type aws_waf_web_acl__rules
 type aws_waf_web_acl
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  metric_name : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_waf_web_acl :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -23,4 +32,4 @@ val aws_waf_web_acl :
   logging_configuration:aws_waf_web_acl__logging_configuration list ->
   rules:aws_waf_web_acl__rules list ->
   string ->
-  unit
+  t

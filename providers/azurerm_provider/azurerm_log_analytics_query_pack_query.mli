@@ -5,6 +5,20 @@ open! Tf.Prelude
 type azurerm_log_analytics_query_pack_query__timeouts
 type azurerm_log_analytics_query_pack_query
 
+type t = private {
+  additional_settings_json : string prop;
+  body : string prop;
+  categories : string list prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  query_pack_id : string prop;
+  resource_types : string list prop;
+  solutions : string list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_log_analytics_query_pack_query :
   ?additional_settings_json:string prop ->
   ?categories:string prop list ->
@@ -19,4 +33,4 @@ val azurerm_log_analytics_query_pack_query :
   display_name:string prop ->
   query_pack_id:string prop ->
   string ->
-  unit
+  t

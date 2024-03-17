@@ -143,6 +143,18 @@ type aws_lexv2models_slot__value_elicitation_setting__wait_and_continue_specific
 type aws_lexv2models_slot__value_elicitation_setting
 type aws_lexv2models_slot
 
+type t = private {
+  bot_id : string prop;
+  bot_version : string prop;
+  description : string prop;
+  id : string prop;
+  intent_id : string prop;
+  locale_id : string prop;
+  name : string prop;
+  slot_id : string prop;
+  slot_type_id : string prop;
+}
+
 val aws_lexv2models_slot :
   ?description:string prop ->
   ?slot_type_id:string prop ->
@@ -158,4 +170,4 @@ val aws_lexv2models_slot :
   value_elicitation_setting:
     aws_lexv2models_slot__value_elicitation_setting list ->
   string ->
-  unit
+  t

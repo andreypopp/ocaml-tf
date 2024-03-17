@@ -18,10 +18,11 @@ type kubernetes_pod_security_policy__spec__supplemental_groups__range
 type kubernetes_pod_security_policy__spec__supplemental_groups
 type kubernetes_pod_security_policy__spec
 type kubernetes_pod_security_policy
+type t = private { id : string prop }
 
 val kubernetes_pod_security_policy :
   ?id:string prop ->
   metadata:kubernetes_pod_security_policy__metadata list ->
   spec:kubernetes_pod_security_policy__spec list ->
   string ->
-  unit
+  t

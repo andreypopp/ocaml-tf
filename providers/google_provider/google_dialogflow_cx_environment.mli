@@ -6,6 +6,15 @@ type google_dialogflow_cx_environment__timeouts
 type google_dialogflow_cx_environment__version_configs
 type google_dialogflow_cx_environment
 
+type t = private {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  update_time : string prop;
+}
+
 val google_dialogflow_cx_environment :
   ?description:string prop ->
   ?id:string prop ->
@@ -15,4 +24,4 @@ val google_dialogflow_cx_environment :
   version_configs:
     google_dialogflow_cx_environment__version_configs list ->
   string ->
-  unit
+  t

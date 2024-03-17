@@ -48,6 +48,19 @@ type azurerm_stream_analytics_stream_input_eventhub_v2 = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_stream_input_eventhub_v2 *)
 
+type t = {
+  authentication_mode : string prop;
+  eventhub_consumer_group_name : string prop;
+  eventhub_name : string prop;
+  id : string prop;
+  name : string prop;
+  partition_key : string prop;
+  servicebus_namespace : string prop;
+  shared_access_policy_key : string prop;
+  shared_access_policy_name : string prop;
+  stream_analytics_job_id : string prop;
+}
+
 let azurerm_stream_analytics_stream_input_eventhub_v2
     ?authentication_mode ?eventhub_consumer_group_name ?id
     ?partition_key ?shared_access_policy_key
@@ -58,22 +71,52 @@ let azurerm_stream_analytics_stream_input_eventhub_v2
     "azurerm_stream_analytics_stream_input_eventhub_v2"
   in
   let __resource =
-    {
-      authentication_mode;
-      eventhub_consumer_group_name;
-      eventhub_name;
-      id;
-      name;
-      partition_key;
-      servicebus_namespace;
-      shared_access_policy_key;
-      shared_access_policy_name;
-      stream_analytics_job_id;
-      serialization;
-      timeouts;
-    }
+    ({
+       authentication_mode;
+       eventhub_consumer_group_name;
+       eventhub_name;
+       id;
+       name;
+       partition_key;
+       servicebus_namespace;
+       shared_access_policy_key;
+       shared_access_policy_name;
+       stream_analytics_job_id;
+       serialization;
+       timeouts;
+     }
+      : azurerm_stream_analytics_stream_input_eventhub_v2)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_stream_input_eventhub_v2
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       authentication_mode =
+         Prop.computed __resource_type __resource_id
+           "authentication_mode";
+       eventhub_consumer_group_name =
+         Prop.computed __resource_type __resource_id
+           "eventhub_consumer_group_name";
+       eventhub_name =
+         Prop.computed __resource_type __resource_id "eventhub_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       partition_key =
+         Prop.computed __resource_type __resource_id "partition_key";
+       servicebus_namespace =
+         Prop.computed __resource_type __resource_id
+           "servicebus_namespace";
+       shared_access_policy_key =
+         Prop.computed __resource_type __resource_id
+           "shared_access_policy_key";
+       shared_access_policy_name =
+         Prop.computed __resource_type __resource_id
+           "shared_access_policy_name";
+       stream_analytics_job_id =
+         Prop.computed __resource_type __resource_id
+           "stream_analytics_job_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,21 @@ open! Tf.Prelude
 type azurerm_api_management_subscription__timeouts
 type azurerm_api_management_subscription
 
+type t = private {
+  allow_tracing : bool prop;
+  api_id : string prop;
+  api_management_name : string prop;
+  display_name : string prop;
+  id : string prop;
+  primary_key : string prop;
+  product_id : string prop;
+  resource_group_name : string prop;
+  secondary_key : string prop;
+  state : string prop;
+  subscription_id : string prop;
+  user_id : string prop;
+}
+
 val azurerm_api_management_subscription :
   ?allow_tracing:bool prop ->
   ?api_id:string prop ->
@@ -20,4 +35,4 @@ val azurerm_api_management_subscription :
   display_name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

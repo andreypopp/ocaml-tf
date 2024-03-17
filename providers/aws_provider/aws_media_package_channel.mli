@@ -16,6 +16,16 @@ type aws_media_package_channel__hls_ingest = {
 
 type aws_media_package_channel
 
+type t = private {
+  arn : string prop;
+  channel_id : string prop;
+  description : string prop;
+  hls_ingest : aws_media_package_channel__hls_ingest list prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_media_package_channel :
   ?description:string prop ->
   ?id:string prop ->
@@ -23,4 +33,4 @@ val aws_media_package_channel :
   ?tags_all:(string * string prop) list ->
   channel_id:string prop ->
   string ->
-  unit
+  t

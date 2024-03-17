@@ -6,6 +6,13 @@ type aws_s3_bucket_intelligent_tiering_configuration__filter
 type aws_s3_bucket_intelligent_tiering_configuration__tiering
 type aws_s3_bucket_intelligent_tiering_configuration
 
+type t = private {
+  bucket : string prop;
+  id : string prop;
+  name : string prop;
+  status : string prop;
+}
+
 val aws_s3_bucket_intelligent_tiering_configuration :
   ?id:string prop ->
   ?status:string prop ->
@@ -15,4 +22,4 @@ val aws_s3_bucket_intelligent_tiering_configuration :
   tiering:
     aws_s3_bucket_intelligent_tiering_configuration__tiering list ->
   string ->
-  unit
+  t

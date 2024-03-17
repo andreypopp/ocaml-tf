@@ -51,23 +51,49 @@ type aws_api_gateway_usage_plan = {
 [@@deriving yojson_of]
 (** aws_api_gateway_usage_plan *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  product_code : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_api_gateway_usage_plan ?description ?id ?product_code ?tags
     ?tags_all ~name ~api_stages ~quota_settings ~throttle_settings
     __resource_id =
   let __resource_type = "aws_api_gateway_usage_plan" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      product_code;
-      tags;
-      tags_all;
-      api_stages;
-      quota_settings;
-      throttle_settings;
-    }
+    ({
+       description;
+       id;
+       name;
+       product_code;
+       tags;
+       tags_all;
+       api_stages;
+       quota_settings;
+       throttle_settings;
+     }
+      : aws_api_gateway_usage_plan)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_usage_plan __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       product_code =
+         Prop.computed __resource_type __resource_id "product_code";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

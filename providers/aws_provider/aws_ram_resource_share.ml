@@ -26,20 +26,48 @@ type aws_ram_resource_share = {
 [@@deriving yojson_of]
 (** aws_ram_resource_share *)
 
+type t = {
+  allow_external_principals : bool prop;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  permission_arns : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_ram_resource_share ?allow_external_principals ?id
     ?permission_arns ?tags ?tags_all ?timeouts ~name __resource_id =
   let __resource_type = "aws_ram_resource_share" in
   let __resource =
-    {
-      allow_external_principals;
-      id;
-      name;
-      permission_arns;
-      tags;
-      tags_all;
-      timeouts;
-    }
+    ({
+       allow_external_principals;
+       id;
+       name;
+       permission_arns;
+       tags;
+       tags_all;
+       timeouts;
+     }
+      : aws_ram_resource_share)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ram_resource_share __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allow_external_principals =
+         Prop.computed __resource_type __resource_id
+           "allow_external_principals";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       permission_arns =
+         Prop.computed __resource_type __resource_id
+           "permission_arns";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

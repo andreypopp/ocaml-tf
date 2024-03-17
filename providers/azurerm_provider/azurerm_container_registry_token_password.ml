@@ -41,6 +41,11 @@ type azurerm_container_registry_token_password = {
 [@@deriving yojson_of]
 (** azurerm_container_registry_token_password *)
 
+type t = {
+  container_registry_token_id : string prop;
+  id : string prop;
+}
+
 let azurerm_container_registry_token_password ?id ?timeouts
     ~container_registry_token_id ~password1 ~password2 __resource_id
     =
@@ -48,14 +53,24 @@ let azurerm_container_registry_token_password ?id ?timeouts
     "azurerm_container_registry_token_password"
   in
   let __resource =
-    {
-      container_registry_token_id;
-      id;
-      password1;
-      password2;
-      timeouts;
-    }
+    ({
+       container_registry_token_id;
+       id;
+       password1;
+       password2;
+       timeouts;
+     }
+      : azurerm_container_registry_token_password)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_registry_token_password __resource);
-  ()
+  let __resource_attributes =
+    ({
+       container_registry_token_id =
+         Prop.computed __resource_type __resource_id
+           "container_registry_token_id";
+       id = Prop.computed __resource_type __resource_id "id";
+     }
+      : t)
+  in
+  __resource_attributes

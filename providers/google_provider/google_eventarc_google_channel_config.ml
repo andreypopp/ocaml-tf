@@ -26,12 +26,38 @@ type google_eventarc_google_channel_config = {
 [@@deriving yojson_of]
 (** google_eventarc_google_channel_config *)
 
+type t = {
+  crypto_key_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 let google_eventarc_google_channel_config ?crypto_key_name ?id
     ?project ?timeouts ~location ~name __resource_id =
   let __resource_type = "google_eventarc_google_channel_config" in
   let __resource =
-    { crypto_key_name; id; location; name; project; timeouts }
+    ({ crypto_key_name; id; location; name; project; timeouts }
+      : google_eventarc_google_channel_config)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_eventarc_google_channel_config __resource);
-  ()
+  let __resource_attributes =
+    ({
+       crypto_key_name =
+         Prop.computed __resource_type __resource_id
+           "crypto_key_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

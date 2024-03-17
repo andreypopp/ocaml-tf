@@ -28,12 +28,39 @@ Format: folders/{{folder_id}} or projects/{{project_id}} *)
 [@@deriving yojson_of]
 (** google_access_context_manager_access_policy *)
 
+type t = {
+  create_time : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  scopes : string list prop;
+  title : string prop;
+  update_time : string prop;
+}
+
 let google_access_context_manager_access_policy ?id ?scopes ?timeouts
     ~parent ~title __resource_id =
   let __resource_type =
     "google_access_context_manager_access_policy"
   in
-  let __resource = { id; parent; scopes; title; timeouts } in
+  let __resource =
+    ({ id; parent; scopes; title; timeouts }
+      : google_access_context_manager_access_policy)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_access_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       scopes = Prop.computed __resource_type __resource_id "scopes";
+       title = Prop.computed __resource_type __resource_id "title";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

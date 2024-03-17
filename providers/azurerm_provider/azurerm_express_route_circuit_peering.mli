@@ -8,6 +8,24 @@ type azurerm_express_route_circuit_peering__microsoft_peering_config
 type azurerm_express_route_circuit_peering__timeouts
 type azurerm_express_route_circuit_peering
 
+type t = private {
+  azure_asn : float prop;
+  express_route_circuit_name : string prop;
+  gateway_manager_etag : string prop;
+  id : string prop;
+  ipv4_enabled : bool prop;
+  peer_asn : float prop;
+  peering_type : string prop;
+  primary_azure_port : string prop;
+  primary_peer_address_prefix : string prop;
+  resource_group_name : string prop;
+  route_filter_id : string prop;
+  secondary_azure_port : string prop;
+  secondary_peer_address_prefix : string prop;
+  shared_key : string prop;
+  vlan_id : float prop;
+}
+
 val azurerm_express_route_circuit_peering :
   ?id:string prop ->
   ?ipv4_enabled:bool prop ->
@@ -26,4 +44,4 @@ val azurerm_express_route_circuit_peering :
     azurerm_express_route_circuit_peering__microsoft_peering_config
     list ->
   string ->
-  unit
+  t

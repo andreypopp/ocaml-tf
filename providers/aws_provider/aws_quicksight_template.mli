@@ -17222,11 +17222,27 @@ type aws_quicksight_template__timeouts
 
 type aws_quicksight_template
 
+type t = private {
+  arn: string prop;
+  aws_account_id: string prop;
+  created_time: string prop;
+  id: string prop;
+  last_updated_time: string prop;
+  name: string prop;
+  source_entity_arn: string prop;
+  status: string prop;
+  tags: (string * string) list prop;
+  tags_all: (string * string) list prop;
+  template_id: string prop;
+  version_description: string prop;
+  version_number: float prop;
+}
+
 val aws_quicksight_template :
     ?aws_account_id:string prop ->
     ?id:string prop ->
-    ?tags:(string * string prop) list ->
-    ?tags_all:(string * string prop) list ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
     ?timeouts:aws_quicksight_template__timeouts ->
     name:string prop ->
     template_id:string prop ->
@@ -17235,5 +17251,5 @@ val aws_quicksight_template :
     permissions:aws_quicksight_template__permissions list ->
     source_entity:aws_quicksight_template__source_entity list ->
     string ->
-    unit
+    t
 

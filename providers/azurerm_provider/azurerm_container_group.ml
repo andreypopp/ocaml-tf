@@ -290,6 +290,29 @@ type azurerm_container_group = {
 [@@deriving yojson_of]
 (** azurerm_container_group *)
 
+type t = {
+  dns_name_label : string prop;
+  dns_name_label_reuse_policy : string prop;
+  exposed_port : azurerm_container_group__exposed_port list prop;
+  fqdn : string prop;
+  id : string prop;
+  ip_address : string prop;
+  ip_address_type : string prop;
+  key_vault_key_id : string prop;
+  key_vault_user_assigned_identity_id : string prop;
+  location : string prop;
+  name : string prop;
+  network_profile_id : string prop;
+  os_type : string prop;
+  priority : string prop;
+  resource_group_name : string prop;
+  restart_policy : string prop;
+  sku : string prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  zones : string list prop;
+}
+
 let azurerm_container_group ?dns_name_label
     ?dns_name_label_reuse_policy ?exposed_port ?id ?ip_address_type
     ?key_vault_key_id ?key_vault_user_assigned_identity_id
@@ -300,34 +323,80 @@ let azurerm_container_group ?dns_name_label
     __resource_id =
   let __resource_type = "azurerm_container_group" in
   let __resource =
-    {
-      dns_name_label;
-      dns_name_label_reuse_policy;
-      exposed_port;
-      id;
-      ip_address_type;
-      key_vault_key_id;
-      key_vault_user_assigned_identity_id;
-      location;
-      name;
-      network_profile_id;
-      os_type;
-      priority;
-      resource_group_name;
-      restart_policy;
-      sku;
-      subnet_ids;
-      tags;
-      zones;
-      container;
-      diagnostics;
-      dns_config;
-      identity;
-      image_registry_credential;
-      init_container;
-      timeouts;
-    }
+    ({
+       dns_name_label;
+       dns_name_label_reuse_policy;
+       exposed_port;
+       id;
+       ip_address_type;
+       key_vault_key_id;
+       key_vault_user_assigned_identity_id;
+       location;
+       name;
+       network_profile_id;
+       os_type;
+       priority;
+       resource_group_name;
+       restart_policy;
+       sku;
+       subnet_ids;
+       tags;
+       zones;
+       container;
+       diagnostics;
+       dns_config;
+       identity;
+       image_registry_credential;
+       init_container;
+       timeouts;
+     }
+      : azurerm_container_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dns_name_label =
+         Prop.computed __resource_type __resource_id "dns_name_label";
+       dns_name_label_reuse_policy =
+         Prop.computed __resource_type __resource_id
+           "dns_name_label_reuse_policy";
+       exposed_port =
+         Prop.computed __resource_type __resource_id "exposed_port";
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       ip_address_type =
+         Prop.computed __resource_type __resource_id
+           "ip_address_type";
+       key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_key_id";
+       key_vault_user_assigned_identity_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_user_assigned_identity_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_profile_id =
+         Prop.computed __resource_type __resource_id
+           "network_profile_id";
+       os_type =
+         Prop.computed __resource_type __resource_id "os_type";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       restart_policy =
+         Prop.computed __resource_type __resource_id "restart_policy";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

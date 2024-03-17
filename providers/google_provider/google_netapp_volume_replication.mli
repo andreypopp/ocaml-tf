@@ -21,6 +21,33 @@ type google_netapp_volume_replication__transfer_stats = {
 
 type google_netapp_volume_replication
 
+type t = private {
+  create_time : string prop;
+  delete_destination_volume : bool prop;
+  description : string prop;
+  destination_volume : string prop;
+  effective_labels : (string * string) list prop;
+  force_stopping : bool prop;
+  healthy : bool prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  mirror_state : string prop;
+  name : string prop;
+  project : string prop;
+  replication_enabled : bool prop;
+  replication_schedule : string prop;
+  role : string prop;
+  source_volume : string prop;
+  state : string prop;
+  state_details : string prop;
+  terraform_labels : (string * string) list prop;
+  transfer_stats :
+    google_netapp_volume_replication__transfer_stats list prop;
+  volume_name : string prop;
+  wait_for_mirror : bool prop;
+}
+
 val google_netapp_volume_replication :
   ?delete_destination_volume:bool prop ->
   ?description:string prop ->
@@ -39,4 +66,4 @@ val google_netapp_volume_replication :
     google_netapp_volume_replication__destination_volume_parameters
     list ->
   string ->
-  unit
+  t

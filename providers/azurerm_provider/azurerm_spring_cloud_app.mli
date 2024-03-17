@@ -9,6 +9,20 @@ type azurerm_spring_cloud_app__persistent_disk
 type azurerm_spring_cloud_app__timeouts
 type azurerm_spring_cloud_app
 
+type t = private {
+  addon_json : string prop;
+  fqdn : string prop;
+  https_only : bool prop;
+  id : string prop;
+  is_public : bool prop;
+  name : string prop;
+  public_endpoint_enabled : bool prop;
+  resource_group_name : string prop;
+  service_name : string prop;
+  tls_enabled : bool prop;
+  url : string prop;
+}
+
 val azurerm_spring_cloud_app :
   ?addon_json:string prop ->
   ?https_only:bool prop ->
@@ -26,4 +40,4 @@ val azurerm_spring_cloud_app :
   ingress_settings:azurerm_spring_cloud_app__ingress_settings list ->
   persistent_disk:azurerm_spring_cloud_app__persistent_disk list ->
   string ->
-  unit
+  t

@@ -36,6 +36,15 @@ type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__timeouts
 
 type aws_chimesdkmediapipelines_media_insights_pipeline_configuration
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  resource_access_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_chimesdkmediapipelines_media_insights_pipeline_configuration :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
@@ -50,4 +59,4 @@ val aws_chimesdkmediapipelines_media_insights_pipeline_configuration :
     aws_chimesdkmediapipelines_media_insights_pipeline_configuration__real_time_alert_configuration
     list ->
   string ->
-  unit
+  t

@@ -19,10 +19,33 @@ type cloudflare_api_shield_operation = {
 (** Provides a resource to manage an operation in API Shield Endpoint Management.
  *)
 
+type t = {
+  endpoint : string prop;
+  host : string prop;
+  id : string prop;
+  method_ : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_api_shield_operation ?id ~endpoint ~host ~method_
     ~zone_id __resource_id =
   let __resource_type = "cloudflare_api_shield_operation" in
-  let __resource = { endpoint; host; id; method_; zone_id } in
+  let __resource =
+    ({ endpoint; host; id; method_; zone_id }
+      : cloudflare_api_shield_operation)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_api_shield_operation __resource);
-  ()
+  let __resource_attributes =
+    ({
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       host = Prop.computed __resource_type __resource_id "host";
+       id = Prop.computed __resource_type __resource_id "id";
+       method_ = Prop.computed __resource_type __resource_id "method";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

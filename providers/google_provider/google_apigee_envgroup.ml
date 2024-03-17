@@ -26,10 +26,30 @@ in the format 'organizations/{{org_name}}'. *)
 [@@deriving yojson_of]
 (** google_apigee_envgroup *)
 
+type t = {
+  hostnames : string list prop;
+  id : string prop;
+  name : string prop;
+  org_id : string prop;
+}
+
 let google_apigee_envgroup ?hostnames ?id ?timeouts ~name ~org_id
     __resource_id =
   let __resource_type = "google_apigee_envgroup" in
-  let __resource = { hostnames; id; name; org_id; timeouts } in
+  let __resource =
+    ({ hostnames; id; name; org_id; timeouts }
+      : google_apigee_envgroup)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_envgroup __resource);
-  ()
+  let __resource_attributes =
+    ({
+       hostnames =
+         Prop.computed __resource_type __resource_id "hostnames";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+     }
+      : t)
+  in
+  __resource_attributes

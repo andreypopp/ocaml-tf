@@ -10,6 +10,14 @@ type aws_ecs_cluster__service_connect_defaults
 type aws_ecs_cluster__setting
 type aws_ecs_cluster
 
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_ecs_cluster :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -20,4 +28,4 @@ val aws_ecs_cluster :
     aws_ecs_cluster__service_connect_defaults list ->
   setting:aws_ecs_cluster__setting list ->
   string ->
-  unit
+  t

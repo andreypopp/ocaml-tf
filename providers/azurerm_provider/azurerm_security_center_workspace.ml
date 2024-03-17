@@ -22,10 +22,28 @@ type azurerm_security_center_workspace = {
 [@@deriving yojson_of]
 (** azurerm_security_center_workspace *)
 
+type t = {
+  id : string prop;
+  scope : string prop;
+  workspace_id : string prop;
+}
+
 let azurerm_security_center_workspace ?id ?timeouts ~scope
     ~workspace_id __resource_id =
   let __resource_type = "azurerm_security_center_workspace" in
-  let __resource = { id; scope; workspace_id; timeouts } in
+  let __resource =
+    ({ id; scope; workspace_id; timeouts }
+      : azurerm_security_center_workspace)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_workspace __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       scope = Prop.computed __resource_type __resource_id "scope";
+       workspace_id =
+         Prop.computed __resource_type __resource_id "workspace_id";
+     }
+      : t)
+  in
+  __resource_attributes

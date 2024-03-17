@@ -48,25 +48,65 @@ type azurerm_logz_monitor = {
 [@@deriving yojson_of]
 (** azurerm_logz_monitor *)
 
+type t = {
+  company_name : string prop;
+  enabled : bool prop;
+  enterprise_app_id : string prop;
+  id : string prop;
+  location : string prop;
+  logz_organization_id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  single_sign_on_url : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_logz_monitor ?company_name ?enabled ?enterprise_app_id
     ?id ?tags ?timeouts ~location ~name ~resource_group_name ~plan
     ~user __resource_id =
   let __resource_type = "azurerm_logz_monitor" in
   let __resource =
-    {
-      company_name;
-      enabled;
-      enterprise_app_id;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      plan;
-      timeouts;
-      user;
-    }
+    ({
+       company_name;
+       enabled;
+       enterprise_app_id;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       plan;
+       timeouts;
+       user;
+     }
+      : azurerm_logz_monitor)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_logz_monitor __resource);
-  ()
+  let __resource_attributes =
+    ({
+       company_name =
+         Prop.computed __resource_type __resource_id "company_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       enterprise_app_id =
+         Prop.computed __resource_type __resource_id
+           "enterprise_app_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       logz_organization_id =
+         Prop.computed __resource_type __resource_id
+           "logz_organization_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       single_sign_on_url =
+         Prop.computed __resource_type __resource_id
+           "single_sign_on_url";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

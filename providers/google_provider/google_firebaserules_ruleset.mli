@@ -12,10 +12,18 @@ type google_firebaserules_ruleset__metadata = {
 
 type google_firebaserules_ruleset
 
+type t = private {
+  create_time : string prop;
+  id : string prop;
+  metadata : google_firebaserules_ruleset__metadata list prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_firebaserules_ruleset :
   ?id:string prop ->
   ?project:string prop ->
   ?timeouts:google_firebaserules_ruleset__timeouts ->
   source:google_firebaserules_ruleset__source list ->
   string ->
-  unit
+  t

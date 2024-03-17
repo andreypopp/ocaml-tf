@@ -5,6 +5,18 @@ open! Tf.Prelude
 type azurerm_stream_analytics_output_synapse__timeouts
 type azurerm_stream_analytics_output_synapse
 
+type t = private {
+  database : string prop;
+  id : string prop;
+  name : string prop;
+  password : string prop;
+  resource_group_name : string prop;
+  server : string prop;
+  stream_analytics_job_name : string prop;
+  table : string prop;
+  user : string prop;
+}
+
 val azurerm_stream_analytics_output_synapse :
   ?id:string prop ->
   ?timeouts:azurerm_stream_analytics_output_synapse__timeouts ->
@@ -17,4 +29,4 @@ val azurerm_stream_analytics_output_synapse :
   table:string prop ->
   user:string prop ->
   string ->
-  unit
+  t

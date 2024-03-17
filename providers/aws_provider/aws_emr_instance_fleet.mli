@@ -12,6 +12,16 @@ type aws_emr_instance_fleet__launch_specifications__spot_specification
 type aws_emr_instance_fleet__launch_specifications
 type aws_emr_instance_fleet
 
+type t = private {
+  cluster_id : string prop;
+  id : string prop;
+  name : string prop;
+  provisioned_on_demand_capacity : float prop;
+  provisioned_spot_capacity : float prop;
+  target_on_demand_capacity : float prop;
+  target_spot_capacity : float prop;
+}
+
 val aws_emr_instance_fleet :
   ?id:string prop ->
   ?name:string prop ->
@@ -23,4 +33,4 @@ val aws_emr_instance_fleet :
   launch_specifications:
     aws_emr_instance_fleet__launch_specifications list ->
   string ->
-  unit
+  t

@@ -66,6 +66,20 @@ type aws_appmesh_gateway_route__spec__http_route
 type aws_appmesh_gateway_route__spec
 type aws_appmesh_gateway_route
 
+type t = private {
+  arn : string prop;
+  created_date : string prop;
+  id : string prop;
+  last_updated_date : string prop;
+  mesh_name : string prop;
+  mesh_owner : string prop;
+  name : string prop;
+  resource_owner : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  virtual_gateway_name : string prop;
+}
+
 val aws_appmesh_gateway_route :
   ?id:string prop ->
   ?mesh_owner:string prop ->
@@ -76,4 +90,4 @@ val aws_appmesh_gateway_route :
   virtual_gateway_name:string prop ->
   spec:aws_appmesh_gateway_route__spec list ->
   string ->
-  unit
+  t

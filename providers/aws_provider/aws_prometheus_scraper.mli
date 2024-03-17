@@ -9,6 +9,16 @@ type aws_prometheus_scraper__source
 type aws_prometheus_scraper__timeouts
 type aws_prometheus_scraper
 
+type t = private {
+  alias : string prop;
+  arn : string prop;
+  id : string prop;
+  role_arn : string prop;
+  scrape_configuration : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_prometheus_scraper :
   ?alias:string prop ->
   ?tags:(string * string prop) list ->
@@ -17,4 +27,4 @@ val aws_prometheus_scraper :
   destination:aws_prometheus_scraper__destination list ->
   source:aws_prometheus_scraper__source list ->
   string ->
-  unit
+  t

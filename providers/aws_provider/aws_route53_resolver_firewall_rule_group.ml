@@ -14,10 +14,38 @@ type aws_route53_resolver_firewall_rule_group = {
 [@@deriving yojson_of]
 (** aws_route53_resolver_firewall_rule_group *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  owner_id : string prop;
+  share_status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_route53_resolver_firewall_rule_group ?id ?tags ?tags_all
     ~name __resource_id =
   let __resource_type = "aws_route53_resolver_firewall_rule_group" in
-  let __resource = { id; name; tags; tags_all } in
+  let __resource =
+    ({ id; name; tags; tags_all }
+      : aws_route53_resolver_firewall_rule_group)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_firewall_rule_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       owner_id =
+         Prop.computed __resource_type __resource_id "owner_id";
+       share_status =
+         Prop.computed __resource_type __resource_id "share_status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -70,6 +70,22 @@ type azurerm_firewall = {
 [@@deriving yojson_of]
 (** azurerm_firewall *)
 
+type t = {
+  dns_proxy_enabled : bool prop;
+  dns_servers : string list prop;
+  firewall_policy_id : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_ip_ranges : string list prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  sku_tier : string prop;
+  tags : (string * string) list prop;
+  threat_intel_mode : string prop;
+  zones : string list prop;
+}
+
 let azurerm_firewall ?dns_proxy_enabled ?dns_servers
     ?firewall_policy_id ?id ?private_ip_ranges ?tags
     ?threat_intel_mode ?zones ?timeouts ~location ~name
@@ -77,26 +93,59 @@ let azurerm_firewall ?dns_proxy_enabled ?dns_servers
     ~management_ip_configuration ~virtual_hub __resource_id =
   let __resource_type = "azurerm_firewall" in
   let __resource =
-    {
-      dns_proxy_enabled;
-      dns_servers;
-      firewall_policy_id;
-      id;
-      location;
-      name;
-      private_ip_ranges;
-      resource_group_name;
-      sku_name;
-      sku_tier;
-      tags;
-      threat_intel_mode;
-      zones;
-      ip_configuration;
-      management_ip_configuration;
-      timeouts;
-      virtual_hub;
-    }
+    ({
+       dns_proxy_enabled;
+       dns_servers;
+       firewall_policy_id;
+       id;
+       location;
+       name;
+       private_ip_ranges;
+       resource_group_name;
+       sku_name;
+       sku_tier;
+       tags;
+       threat_intel_mode;
+       zones;
+       ip_configuration;
+       management_ip_configuration;
+       timeouts;
+       virtual_hub;
+     }
+      : azurerm_firewall)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_firewall __resource);
-  ()
+  let __resource_attributes =
+    ({
+       dns_proxy_enabled =
+         Prop.computed __resource_type __resource_id
+           "dns_proxy_enabled";
+       dns_servers =
+         Prop.computed __resource_type __resource_id "dns_servers";
+       firewall_policy_id =
+         Prop.computed __resource_type __resource_id
+           "firewall_policy_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_ip_ranges =
+         Prop.computed __resource_type __resource_id
+           "private_ip_ranges";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       sku_tier =
+         Prop.computed __resource_type __resource_id "sku_tier";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       threat_intel_mode =
+         Prop.computed __resource_type __resource_id
+           "threat_intel_mode";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

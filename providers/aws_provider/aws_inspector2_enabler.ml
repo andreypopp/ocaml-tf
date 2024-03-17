@@ -21,10 +21,29 @@ type aws_inspector2_enabler = {
 [@@deriving yojson_of]
 (** aws_inspector2_enabler *)
 
+type t = {
+  account_ids : string list prop;
+  id : string prop;
+  resource_types : string list prop;
+}
+
 let aws_inspector2_enabler ?id ?timeouts ~account_ids ~resource_types
     __resource_id =
   let __resource_type = "aws_inspector2_enabler" in
-  let __resource = { account_ids; id; resource_types; timeouts } in
+  let __resource =
+    ({ account_ids; id; resource_types; timeouts }
+      : aws_inspector2_enabler)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_inspector2_enabler __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_ids =
+         Prop.computed __resource_type __resource_id "account_ids";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_types =
+         Prop.computed __resource_type __resource_id "resource_types";
+     }
+      : t)
+  in
+  __resource_attributes

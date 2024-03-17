@@ -15,10 +15,16 @@ type cloudflare_tunnel_config__config__warp_routing
 type cloudflare_tunnel_config__config
 type cloudflare_tunnel_config
 
+type t = private {
+  account_id : string prop;
+  id : string prop;
+  tunnel_id : string prop;
+}
+
 val cloudflare_tunnel_config :
   ?id:string prop ->
   account_id:string prop ->
   tunnel_id:string prop ->
   config:cloudflare_tunnel_config__config list ->
   string ->
-  unit
+  t

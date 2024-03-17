@@ -61,27 +61,72 @@ type azurerm_iothub_dps = {
 [@@deriving yojson_of]
 (** azurerm_iothub_dps *)
 
+type t = {
+  allocation_policy : string prop;
+  data_residency_enabled : bool prop;
+  device_provisioning_host_name : string prop;
+  id : string prop;
+  id_scope : string prop;
+  location : string prop;
+  name : string prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  service_operations_host_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_iothub_dps ?allocation_policy ?data_residency_enabled ?id
     ?public_network_access_enabled ?tags ?timeouts ~location ~name
     ~resource_group_name ~ip_filter_rule ~linked_hub ~sku
     __resource_id =
   let __resource_type = "azurerm_iothub_dps" in
   let __resource =
-    {
-      allocation_policy;
-      data_residency_enabled;
-      id;
-      location;
-      name;
-      public_network_access_enabled;
-      resource_group_name;
-      tags;
-      ip_filter_rule;
-      linked_hub;
-      sku;
-      timeouts;
-    }
+    ({
+       allocation_policy;
+       data_residency_enabled;
+       id;
+       location;
+       name;
+       public_network_access_enabled;
+       resource_group_name;
+       tags;
+       ip_filter_rule;
+       linked_hub;
+       sku;
+       timeouts;
+     }
+      : azurerm_iothub_dps)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iothub_dps __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allocation_policy =
+         Prop.computed __resource_type __resource_id
+           "allocation_policy";
+       data_residency_enabled =
+         Prop.computed __resource_type __resource_id
+           "data_residency_enabled";
+       device_provisioning_host_name =
+         Prop.computed __resource_type __resource_id
+           "device_provisioning_host_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       id_scope =
+         Prop.computed __resource_type __resource_id "id_scope";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       service_operations_host_name =
+         Prop.computed __resource_type __resource_id
+           "service_operations_host_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -12,6 +12,17 @@ type aws_athena_workgroup__configuration__result_configuration
 type aws_athena_workgroup__configuration
 type aws_athena_workgroup
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  force_destroy : bool prop;
+  id : string prop;
+  name : string prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_athena_workgroup :
   ?description:string prop ->
   ?force_destroy:bool prop ->
@@ -22,4 +33,4 @@ val aws_athena_workgroup :
   name:string prop ->
   configuration:aws_athena_workgroup__configuration list ->
   string ->
-  unit
+  t

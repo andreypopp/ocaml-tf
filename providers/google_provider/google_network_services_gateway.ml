@@ -68,6 +68,30 @@ Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY. *)
 [@@deriving yojson_of]
 (** google_network_services_gateway *)
 
+type t = {
+  addresses : string list prop;
+  certificate_urls : string list prop;
+  create_time : string prop;
+  delete_swg_autogen_router_on_destroy : bool prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  gateway_security_policy : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  network : string prop;
+  ports : float list prop;
+  project : string prop;
+  scope : string prop;
+  self_link : string prop;
+  server_tls_policy : string prop;
+  subnetwork : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+  update_time : string prop;
+}
+
 let google_network_services_gateway ?addresses ?certificate_urls
     ?delete_swg_autogen_router_on_destroy ?description
     ?gateway_security_policy ?id ?labels ?location ?network ?project
@@ -75,26 +99,74 @@ let google_network_services_gateway ?addresses ?certificate_urls
     ~type_ __resource_id =
   let __resource_type = "google_network_services_gateway" in
   let __resource =
-    {
-      addresses;
-      certificate_urls;
-      delete_swg_autogen_router_on_destroy;
-      description;
-      gateway_security_policy;
-      id;
-      labels;
-      location;
-      name;
-      network;
-      ports;
-      project;
-      scope;
-      server_tls_policy;
-      subnetwork;
-      type_;
-      timeouts;
-    }
+    ({
+       addresses;
+       certificate_urls;
+       delete_swg_autogen_router_on_destroy;
+       description;
+       gateway_security_policy;
+       id;
+       labels;
+       location;
+       name;
+       network;
+       ports;
+       project;
+       scope;
+       server_tls_policy;
+       subnetwork;
+       type_;
+       timeouts;
+     }
+      : google_network_services_gateway)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_network_services_gateway __resource);
-  ()
+  let __resource_attributes =
+    ({
+       addresses =
+         Prop.computed __resource_type __resource_id "addresses";
+       certificate_urls =
+         Prop.computed __resource_type __resource_id
+           "certificate_urls";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       delete_swg_autogen_router_on_destroy =
+         Prop.computed __resource_type __resource_id
+           "delete_swg_autogen_router_on_destroy";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       gateway_security_policy =
+         Prop.computed __resource_type __resource_id
+           "gateway_security_policy";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       network =
+         Prop.computed __resource_type __resource_id "network";
+       ports = Prop.computed __resource_type __resource_id "ports";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       scope = Prop.computed __resource_type __resource_id "scope";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       server_tls_policy =
+         Prop.computed __resource_type __resource_id
+           "server_tls_policy";
+       subnetwork =
+         Prop.computed __resource_type __resource_id "subnetwork";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

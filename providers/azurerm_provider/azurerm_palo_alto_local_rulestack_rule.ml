@@ -74,6 +74,26 @@ type azurerm_palo_alto_local_rulestack_rule = {
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack_rule *)
 
+type t = {
+  action : string prop;
+  applications : string list prop;
+  audit_comment : string prop;
+  decryption_rule_type : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  inspection_certificate_id : string prop;
+  logging_enabled : bool prop;
+  name : string prop;
+  negate_destination : bool prop;
+  negate_source : bool prop;
+  priority : float prop;
+  protocol : string prop;
+  protocol_ports : string list prop;
+  rulestack_id : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_palo_alto_local_rulestack_rule ?audit_comment
     ?decryption_rule_type ?description ?enabled ?id
     ?inspection_certificate_id ?logging_enabled ?negate_destination
@@ -82,30 +102,70 @@ let azurerm_palo_alto_local_rulestack_rule ?audit_comment
     ~destination ~source __resource_id =
   let __resource_type = "azurerm_palo_alto_local_rulestack_rule" in
   let __resource =
-    {
-      action;
-      applications;
-      audit_comment;
-      decryption_rule_type;
-      description;
-      enabled;
-      id;
-      inspection_certificate_id;
-      logging_enabled;
-      name;
-      negate_destination;
-      negate_source;
-      priority;
-      protocol;
-      protocol_ports;
-      rulestack_id;
-      tags;
-      category;
-      destination;
-      source;
-      timeouts;
-    }
+    ({
+       action;
+       applications;
+       audit_comment;
+       decryption_rule_type;
+       description;
+       enabled;
+       id;
+       inspection_certificate_id;
+       logging_enabled;
+       name;
+       negate_destination;
+       negate_source;
+       priority;
+       protocol;
+       protocol_ports;
+       rulestack_id;
+       tags;
+       category;
+       destination;
+       source;
+       timeouts;
+     }
+      : azurerm_palo_alto_local_rulestack_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_palo_alto_local_rulestack_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       action = Prop.computed __resource_type __resource_id "action";
+       applications =
+         Prop.computed __resource_type __resource_id "applications";
+       audit_comment =
+         Prop.computed __resource_type __resource_id "audit_comment";
+       decryption_rule_type =
+         Prop.computed __resource_type __resource_id
+           "decryption_rule_type";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       inspection_certificate_id =
+         Prop.computed __resource_type __resource_id
+           "inspection_certificate_id";
+       logging_enabled =
+         Prop.computed __resource_type __resource_id
+           "logging_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       negate_destination =
+         Prop.computed __resource_type __resource_id
+           "negate_destination";
+       negate_source =
+         Prop.computed __resource_type __resource_id "negate_source";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       protocol_ports =
+         Prop.computed __resource_type __resource_id "protocol_ports";
+       rulestack_id =
+         Prop.computed __resource_type __resource_id "rulestack_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

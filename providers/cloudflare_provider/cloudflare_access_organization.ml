@@ -59,6 +59,21 @@ type cloudflare_access_organization = {
 (** A Zero Trust organization defines the user login experience.
  *)
 
+type t = {
+  account_id : string prop;
+  allow_authenticate_via_warp : bool prop;
+  auth_domain : string prop;
+  auto_redirect_to_identity : bool prop;
+  id : string prop;
+  is_ui_read_only : bool prop;
+  name : string prop;
+  session_duration : string prop;
+  ui_read_only_toggle_reason : string prop;
+  user_seat_expiration_inactive_time : string prop;
+  warp_auth_session_duration : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_access_organization ?account_id
     ?allow_authenticate_via_warp ?auto_redirect_to_identity ?id
     ?is_ui_read_only ?name ?session_duration
@@ -67,23 +82,58 @@ let cloudflare_access_organization ?account_id
     ~login_design __resource_id =
   let __resource_type = "cloudflare_access_organization" in
   let __resource =
-    {
-      account_id;
-      allow_authenticate_via_warp;
-      auth_domain;
-      auto_redirect_to_identity;
-      id;
-      is_ui_read_only;
-      name;
-      session_duration;
-      ui_read_only_toggle_reason;
-      user_seat_expiration_inactive_time;
-      warp_auth_session_duration;
-      zone_id;
-      custom_pages;
-      login_design;
-    }
+    ({
+       account_id;
+       allow_authenticate_via_warp;
+       auth_domain;
+       auto_redirect_to_identity;
+       id;
+       is_ui_read_only;
+       name;
+       session_duration;
+       ui_read_only_toggle_reason;
+       user_seat_expiration_inactive_time;
+       warp_auth_session_duration;
+       zone_id;
+       custom_pages;
+       login_design;
+     }
+      : cloudflare_access_organization)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_organization __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       allow_authenticate_via_warp =
+         Prop.computed __resource_type __resource_id
+           "allow_authenticate_via_warp";
+       auth_domain =
+         Prop.computed __resource_type __resource_id "auth_domain";
+       auto_redirect_to_identity =
+         Prop.computed __resource_type __resource_id
+           "auto_redirect_to_identity";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_ui_read_only =
+         Prop.computed __resource_type __resource_id
+           "is_ui_read_only";
+       name = Prop.computed __resource_type __resource_id "name";
+       session_duration =
+         Prop.computed __resource_type __resource_id
+           "session_duration";
+       ui_read_only_toggle_reason =
+         Prop.computed __resource_type __resource_id
+           "ui_read_only_toggle_reason";
+       user_seat_expiration_inactive_time =
+         Prop.computed __resource_type __resource_id
+           "user_seat_expiration_inactive_time";
+       warp_auth_session_duration =
+         Prop.computed __resource_type __resource_id
+           "warp_auth_session_duration";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

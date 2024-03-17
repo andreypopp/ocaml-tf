@@ -25,20 +25,45 @@ type azurerm_mobile_network_data_network = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_data_network *)
 
+type t = {
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_mobile_network_data_network ?description ?id ?tags
     ?timeouts ~location ~mobile_network_id ~name __resource_id =
   let __resource_type = "azurerm_mobile_network_data_network" in
   let __resource =
-    {
-      description;
-      id;
-      location;
-      mobile_network_id;
-      name;
-      tags;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       location;
+       mobile_network_id;
+       name;
+       tags;
+       timeouts;
+     }
+      : azurerm_mobile_network_data_network)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mobile_network_data_network __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mobile_network_id =
+         Prop.computed __resource_type __resource_id
+           "mobile_network_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

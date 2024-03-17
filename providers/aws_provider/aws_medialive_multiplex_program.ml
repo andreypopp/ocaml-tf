@@ -54,12 +54,29 @@ type aws_medialive_multiplex_program = {
 [@@deriving yojson_of]
 (** aws_medialive_multiplex_program *)
 
+type t = {
+  id : string prop;
+  multiplex_id : string prop;
+  program_name : string prop;
+}
+
 let aws_medialive_multiplex_program ~multiplex_id ~program_name
     ~multiplex_program_settings __resource_id =
   let __resource_type = "aws_medialive_multiplex_program" in
   let __resource =
-    { multiplex_id; program_name; multiplex_program_settings }
+    ({ multiplex_id; program_name; multiplex_program_settings }
+      : aws_medialive_multiplex_program)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_medialive_multiplex_program __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       multiplex_id =
+         Prop.computed __resource_type __resource_id "multiplex_id";
+       program_name =
+         Prop.computed __resource_type __resource_id "program_name";
+     }
+      : t)
+  in
+  __resource_attributes

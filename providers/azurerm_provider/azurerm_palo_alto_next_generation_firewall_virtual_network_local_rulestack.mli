@@ -18,6 +18,14 @@ type azurerm_palo_alto_next_generation_firewall_virtual_network_local_rulestack_
 
 type azurerm_palo_alto_next_generation_firewall_virtual_network_local_rulestack
 
+type t = private {
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  rulestack_id : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_palo_alto_next_generation_firewall_virtual_network_local_rulestack :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -36,4 +44,4 @@ val azurerm_palo_alto_next_generation_firewall_virtual_network_local_rulestack :
     azurerm_palo_alto_next_generation_firewall_virtual_network_local_rulestack__network_profile
     list ->
   string ->
-  unit
+  t

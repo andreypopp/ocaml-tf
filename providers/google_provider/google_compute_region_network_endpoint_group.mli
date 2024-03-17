@@ -8,6 +8,19 @@ type google_compute_region_network_endpoint_group__cloud_run
 type google_compute_region_network_endpoint_group__timeouts
 type google_compute_region_network_endpoint_group
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  network : string prop;
+  network_endpoint_type : string prop;
+  project : string prop;
+  psc_target_service : string prop;
+  region : string prop;
+  self_link : string prop;
+  subnetwork : string prop;
+}
+
 val google_compute_region_network_endpoint_group :
   ?description:string prop ->
   ?id:string prop ->
@@ -26,4 +39,4 @@ val google_compute_region_network_endpoint_group :
   cloud_run:
     google_compute_region_network_endpoint_group__cloud_run list ->
   string ->
-  unit
+  t

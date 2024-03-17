@@ -62,25 +62,54 @@ type aws_codepipeline_custom_action_type = {
 [@@deriving yojson_of]
 (** aws_codepipeline_custom_action_type *)
 
+type t = {
+  arn : string prop;
+  category : string prop;
+  id : string prop;
+  owner : string prop;
+  provider_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : string prop;
+}
+
 let aws_codepipeline_custom_action_type ?id ?tags ?tags_all ~category
     ~provider_name ~version ~configuration_property
     ~input_artifact_details ~output_artifact_details ~settings
     __resource_id =
   let __resource_type = "aws_codepipeline_custom_action_type" in
   let __resource =
-    {
-      category;
-      id;
-      provider_name;
-      tags;
-      tags_all;
-      version;
-      configuration_property;
-      input_artifact_details;
-      output_artifact_details;
-      settings;
-    }
+    ({
+       category;
+       id;
+       provider_name;
+       tags;
+       tags_all;
+       version;
+       configuration_property;
+       input_artifact_details;
+       output_artifact_details;
+       settings;
+     }
+      : aws_codepipeline_custom_action_type)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codepipeline_custom_action_type __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       category =
+         Prop.computed __resource_type __resource_id "category";
+       id = Prop.computed __resource_type __resource_id "id";
+       owner = Prop.computed __resource_type __resource_id "owner";
+       provider_name =
+         Prop.computed __resource_type __resource_id "provider_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       version =
+         Prop.computed __resource_type __resource_id "version";
+     }
+      : t)
+  in
+  __resource_attributes

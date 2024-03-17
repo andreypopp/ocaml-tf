@@ -24,6 +24,15 @@ type google_data_loss_prevention_stored_info_type__regex
 type google_data_loss_prevention_stored_info_type__timeouts
 type google_data_loss_prevention_stored_info_type
 
+type t = private {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  stored_info_type_id : string prop;
+}
+
 val google_data_loss_prevention_stored_info_type :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -38,4 +47,4 @@ val google_data_loss_prevention_stored_info_type :
     list ->
   regex:google_data_loss_prevention_stored_info_type__regex list ->
   string ->
-  unit
+  t

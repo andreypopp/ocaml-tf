@@ -8,10 +8,11 @@ type kubernetes_endpoints__subset__not_ready_address
 type kubernetes_endpoints__subset__port
 type kubernetes_endpoints__subset
 type kubernetes_endpoints
+type t = private { id : string prop }
 
 val kubernetes_endpoints :
   ?id:string prop ->
   metadata:kubernetes_endpoints__metadata list ->
   subset:kubernetes_endpoints__subset list ->
   string ->
-  unit
+  t

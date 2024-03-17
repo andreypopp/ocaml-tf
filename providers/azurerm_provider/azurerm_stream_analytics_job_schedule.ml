@@ -24,12 +24,43 @@ type azurerm_stream_analytics_job_schedule = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_job_schedule *)
 
+type t = {
+  id : string prop;
+  last_output_time : string prop;
+  start_mode : string prop;
+  start_time : string prop;
+  stream_analytics_job_id : string prop;
+}
+
 let azurerm_stream_analytics_job_schedule ?id ?start_time ?timeouts
     ~start_mode ~stream_analytics_job_id __resource_id =
   let __resource_type = "azurerm_stream_analytics_job_schedule" in
   let __resource =
-    { id; start_mode; start_time; stream_analytics_job_id; timeouts }
+    ({
+       id;
+       start_mode;
+       start_time;
+       stream_analytics_job_id;
+       timeouts;
+     }
+      : azurerm_stream_analytics_job_schedule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_job_schedule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       last_output_time =
+         Prop.computed __resource_type __resource_id
+           "last_output_time";
+       start_mode =
+         Prop.computed __resource_type __resource_id "start_mode";
+       start_time =
+         Prop.computed __resource_type __resource_id "start_time";
+       stream_analytics_job_id =
+         Prop.computed __resource_type __resource_id
+           "stream_analytics_job_id";
+     }
+      : t)
+  in
+  __resource_attributes

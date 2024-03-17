@@ -53,22 +53,50 @@ type hcloud_load_balancer_service = {
 [@@deriving yojson_of]
 (** hcloud_load_balancer_service *)
 
+type t = {
+  destination_port : float prop;
+  id : string prop;
+  listen_port : float prop;
+  load_balancer_id : string prop;
+  protocol : string prop;
+  proxyprotocol : bool prop;
+}
+
 let hcloud_load_balancer_service ?destination_port ?id ?listen_port
     ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http
     __resource_id =
   let __resource_type = "hcloud_load_balancer_service" in
   let __resource =
-    {
-      destination_port;
-      id;
-      listen_port;
-      load_balancer_id;
-      protocol;
-      proxyprotocol;
-      health_check;
-      http;
-    }
+    ({
+       destination_port;
+       id;
+       listen_port;
+       load_balancer_id;
+       protocol;
+       proxyprotocol;
+       health_check;
+       http;
+     }
+      : hcloud_load_balancer_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_load_balancer_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       destination_port =
+         Prop.computed __resource_type __resource_id
+           "destination_port";
+       id = Prop.computed __resource_type __resource_id "id";
+       listen_port =
+         Prop.computed __resource_type __resource_id "listen_port";
+       load_balancer_id =
+         Prop.computed __resource_type __resource_id
+           "load_balancer_id";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       proxyprotocol =
+         Prop.computed __resource_type __resource_id "proxyprotocol";
+     }
+      : t)
+  in
+  __resource_attributes

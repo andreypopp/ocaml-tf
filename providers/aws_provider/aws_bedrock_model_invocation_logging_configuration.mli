@@ -11,9 +11,10 @@ type aws_bedrock_model_invocation_logging_configuration__logging_config__s3_conf
 type aws_bedrock_model_invocation_logging_configuration__logging_config
 
 type aws_bedrock_model_invocation_logging_configuration
+type t = private { id : string prop }
 
 val aws_bedrock_model_invocation_logging_configuration :
   logging_config:
     aws_bedrock_model_invocation_logging_configuration__logging_config ->
   string ->
-  unit
+  t

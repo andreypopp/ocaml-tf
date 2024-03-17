@@ -10,6 +10,20 @@ type aws_budgets_budget__notification
 type aws_budgets_budget__planned_limit
 type aws_budgets_budget
 
+type t = private {
+  account_id : string prop;
+  arn : string prop;
+  budget_type : string prop;
+  id : string prop;
+  limit_amount : string prop;
+  limit_unit : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  time_period_end : string prop;
+  time_period_start : string prop;
+  time_unit : string prop;
+}
+
 val aws_budgets_budget :
   ?account_id:string prop ->
   ?id:string prop ->
@@ -27,4 +41,4 @@ val aws_budgets_budget :
   notification:aws_budgets_budget__notification list ->
   planned_limit:aws_budgets_budget__planned_limit list ->
   string ->
-  unit
+  t

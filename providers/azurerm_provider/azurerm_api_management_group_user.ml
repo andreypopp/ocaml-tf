@@ -23,20 +23,45 @@ type azurerm_api_management_group_user = {
 [@@deriving yojson_of]
 (** azurerm_api_management_group_user *)
 
+type t = {
+  api_management_name : string prop;
+  group_name : string prop;
+  id : string prop;
+  resource_group_name : string prop;
+  user_id : string prop;
+}
+
 let azurerm_api_management_group_user ?id ?timeouts
     ~api_management_name ~group_name ~resource_group_name ~user_id
     __resource_id =
   let __resource_type = "azurerm_api_management_group_user" in
   let __resource =
-    {
-      api_management_name;
-      group_name;
-      id;
-      resource_group_name;
-      user_id;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       group_name;
+       id;
+       resource_group_name;
+       user_id;
+       timeouts;
+     }
+      : azurerm_api_management_group_user)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_group_user __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       group_name =
+         Prop.computed __resource_type __resource_id "group_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       user_id =
+         Prop.computed __resource_type __resource_id "user_id";
+     }
+      : t)
+  in
+  __resource_attributes

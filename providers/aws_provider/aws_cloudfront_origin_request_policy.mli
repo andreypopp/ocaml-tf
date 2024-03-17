@@ -12,6 +12,13 @@ type aws_cloudfront_origin_request_policy__query_strings_config__query_strings
 type aws_cloudfront_origin_request_policy__query_strings_config
 type aws_cloudfront_origin_request_policy
 
+type t = private {
+  comment : string prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val aws_cloudfront_origin_request_policy :
   ?comment:string prop ->
   ?id:string prop ->
@@ -23,4 +30,4 @@ val aws_cloudfront_origin_request_policy :
   query_strings_config:
     aws_cloudfront_origin_request_policy__query_strings_config list ->
   string ->
-  unit
+  t

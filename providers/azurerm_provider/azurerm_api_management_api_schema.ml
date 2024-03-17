@@ -28,24 +28,60 @@ type azurerm_api_management_api_schema = {
 [@@deriving yojson_of]
 (** azurerm_api_management_api_schema *)
 
+type t = {
+  api_management_name : string prop;
+  api_name : string prop;
+  components : string prop;
+  content_type : string prop;
+  definitions : string prop;
+  id : string prop;
+  resource_group_name : string prop;
+  schema_id : string prop;
+  value : string prop;
+}
+
 let azurerm_api_management_api_schema ?components ?definitions ?id
     ?value ?timeouts ~api_management_name ~api_name ~content_type
     ~resource_group_name ~schema_id __resource_id =
   let __resource_type = "azurerm_api_management_api_schema" in
   let __resource =
-    {
-      api_management_name;
-      api_name;
-      components;
-      content_type;
-      definitions;
-      id;
-      resource_group_name;
-      schema_id;
-      value;
-      timeouts;
-    }
+    ({
+       api_management_name;
+       api_name;
+       components;
+       content_type;
+       definitions;
+       id;
+       resource_group_name;
+       schema_id;
+       value;
+       timeouts;
+     }
+      : azurerm_api_management_api_schema)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_api_schema __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_management_name =
+         Prop.computed __resource_type __resource_id
+           "api_management_name";
+       api_name =
+         Prop.computed __resource_type __resource_id "api_name";
+       components =
+         Prop.computed __resource_type __resource_id "components";
+       content_type =
+         Prop.computed __resource_type __resource_id "content_type";
+       definitions =
+         Prop.computed __resource_type __resource_id "definitions";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       schema_id =
+         Prop.computed __resource_type __resource_id "schema_id";
+       value = Prop.computed __resource_type __resource_id "value";
+     }
+      : t)
+  in
+  __resource_attributes

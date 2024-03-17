@@ -401,6 +401,46 @@ type azurerm_linux_virtual_machine_scale_set = {
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine_scale_set *)
 
+type t = {
+  admin_password : string prop;
+  admin_username : string prop;
+  capacity_reservation_group_id : string prop;
+  computer_name_prefix : string prop;
+  custom_data : string prop;
+  disable_password_authentication : bool prop;
+  do_not_run_extensions_on_overprovisioned_machines : bool prop;
+  edge_zone : string prop;
+  encryption_at_host_enabled : bool prop;
+  eviction_policy : string prop;
+  extension_operations_enabled : bool prop;
+  extensions_time_budget : string prop;
+  health_probe_id : string prop;
+  host_group_id : string prop;
+  id : string prop;
+  instances : float prop;
+  location : string prop;
+  max_bid_price : float prop;
+  name : string prop;
+  overprovision : bool prop;
+  platform_fault_domain_count : float prop;
+  priority : string prop;
+  provision_vm_agent : bool prop;
+  proximity_placement_group_id : string prop;
+  resource_group_name : string prop;
+  scale_in_policy : string prop;
+  secure_boot_enabled : bool prop;
+  single_placement_group : bool prop;
+  sku : string prop;
+  source_image_id : string prop;
+  tags : (string * string) list prop;
+  unique_id : string prop;
+  upgrade_mode : string prop;
+  user_data : string prop;
+  vtpm_enabled : bool prop;
+  zone_balance : bool prop;
+  zones : string list prop;
+}
+
 let azurerm_linux_virtual_machine_scale_set ?admin_password
     ?capacity_reservation_group_id ?computer_name_prefix ?custom_data
     ?disable_password_authentication
@@ -422,66 +462,158 @@ let azurerm_linux_virtual_machine_scale_set ?admin_password
     __resource_id =
   let __resource_type = "azurerm_linux_virtual_machine_scale_set" in
   let __resource =
-    {
-      admin_password;
-      admin_username;
-      capacity_reservation_group_id;
-      computer_name_prefix;
-      custom_data;
-      disable_password_authentication;
-      do_not_run_extensions_on_overprovisioned_machines;
-      edge_zone;
-      encryption_at_host_enabled;
-      eviction_policy;
-      extension_operations_enabled;
-      extensions_time_budget;
-      health_probe_id;
-      host_group_id;
-      id;
-      instances;
-      location;
-      max_bid_price;
-      name;
-      overprovision;
-      platform_fault_domain_count;
-      priority;
-      provision_vm_agent;
-      proximity_placement_group_id;
-      resource_group_name;
-      scale_in_policy;
-      secure_boot_enabled;
-      single_placement_group;
-      sku;
-      source_image_id;
-      tags;
-      upgrade_mode;
-      user_data;
-      vtpm_enabled;
-      zone_balance;
-      zones;
-      additional_capabilities;
-      admin_ssh_key;
-      automatic_instance_repair;
-      automatic_os_upgrade_policy;
-      boot_diagnostics;
-      data_disk;
-      extension;
-      gallery_application;
-      gallery_applications;
-      identity;
-      network_interface;
-      os_disk;
-      plan;
-      rolling_upgrade_policy;
-      scale_in;
-      secret;
-      source_image_reference;
-      spot_restore;
-      terminate_notification;
-      termination_notification;
-      timeouts;
-    }
+    ({
+       admin_password;
+       admin_username;
+       capacity_reservation_group_id;
+       computer_name_prefix;
+       custom_data;
+       disable_password_authentication;
+       do_not_run_extensions_on_overprovisioned_machines;
+       edge_zone;
+       encryption_at_host_enabled;
+       eviction_policy;
+       extension_operations_enabled;
+       extensions_time_budget;
+       health_probe_id;
+       host_group_id;
+       id;
+       instances;
+       location;
+       max_bid_price;
+       name;
+       overprovision;
+       platform_fault_domain_count;
+       priority;
+       provision_vm_agent;
+       proximity_placement_group_id;
+       resource_group_name;
+       scale_in_policy;
+       secure_boot_enabled;
+       single_placement_group;
+       sku;
+       source_image_id;
+       tags;
+       upgrade_mode;
+       user_data;
+       vtpm_enabled;
+       zone_balance;
+       zones;
+       additional_capabilities;
+       admin_ssh_key;
+       automatic_instance_repair;
+       automatic_os_upgrade_policy;
+       boot_diagnostics;
+       data_disk;
+       extension;
+       gallery_application;
+       gallery_applications;
+       identity;
+       network_interface;
+       os_disk;
+       plan;
+       rolling_upgrade_policy;
+       scale_in;
+       secret;
+       source_image_reference;
+       spot_restore;
+       terminate_notification;
+       termination_notification;
+       timeouts;
+     }
+      : azurerm_linux_virtual_machine_scale_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_linux_virtual_machine_scale_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin_password =
+         Prop.computed __resource_type __resource_id "admin_password";
+       admin_username =
+         Prop.computed __resource_type __resource_id "admin_username";
+       capacity_reservation_group_id =
+         Prop.computed __resource_type __resource_id
+           "capacity_reservation_group_id";
+       computer_name_prefix =
+         Prop.computed __resource_type __resource_id
+           "computer_name_prefix";
+       custom_data =
+         Prop.computed __resource_type __resource_id "custom_data";
+       disable_password_authentication =
+         Prop.computed __resource_type __resource_id
+           "disable_password_authentication";
+       do_not_run_extensions_on_overprovisioned_machines =
+         Prop.computed __resource_type __resource_id
+           "do_not_run_extensions_on_overprovisioned_machines";
+       edge_zone =
+         Prop.computed __resource_type __resource_id "edge_zone";
+       encryption_at_host_enabled =
+         Prop.computed __resource_type __resource_id
+           "encryption_at_host_enabled";
+       eviction_policy =
+         Prop.computed __resource_type __resource_id
+           "eviction_policy";
+       extension_operations_enabled =
+         Prop.computed __resource_type __resource_id
+           "extension_operations_enabled";
+       extensions_time_budget =
+         Prop.computed __resource_type __resource_id
+           "extensions_time_budget";
+       health_probe_id =
+         Prop.computed __resource_type __resource_id
+           "health_probe_id";
+       host_group_id =
+         Prop.computed __resource_type __resource_id "host_group_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       instances =
+         Prop.computed __resource_type __resource_id "instances";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       max_bid_price =
+         Prop.computed __resource_type __resource_id "max_bid_price";
+       name = Prop.computed __resource_type __resource_id "name";
+       overprovision =
+         Prop.computed __resource_type __resource_id "overprovision";
+       platform_fault_domain_count =
+         Prop.computed __resource_type __resource_id
+           "platform_fault_domain_count";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       provision_vm_agent =
+         Prop.computed __resource_type __resource_id
+           "provision_vm_agent";
+       proximity_placement_group_id =
+         Prop.computed __resource_type __resource_id
+           "proximity_placement_group_id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scale_in_policy =
+         Prop.computed __resource_type __resource_id
+           "scale_in_policy";
+       secure_boot_enabled =
+         Prop.computed __resource_type __resource_id
+           "secure_boot_enabled";
+       single_placement_group =
+         Prop.computed __resource_type __resource_id
+           "single_placement_group";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       source_image_id =
+         Prop.computed __resource_type __resource_id
+           "source_image_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       unique_id =
+         Prop.computed __resource_type __resource_id "unique_id";
+       upgrade_mode =
+         Prop.computed __resource_type __resource_id "upgrade_mode";
+       user_data =
+         Prop.computed __resource_type __resource_id "user_data";
+       vtpm_enabled =
+         Prop.computed __resource_type __resource_id "vtpm_enabled";
+       zone_balance =
+         Prop.computed __resource_type __resource_id "zone_balance";
+       zones = Prop.computed __resource_type __resource_id "zones";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -10,6 +10,24 @@ type google_gke_hub_membership_binding__state = {
 
 type google_gke_hub_membership_binding
 
+type t = private {
+  create_time : string prop;
+  delete_time : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  membership_binding_id : string prop;
+  membership_id : string prop;
+  name : string prop;
+  project : string prop;
+  scope : string prop;
+  state : google_gke_hub_membership_binding__state list prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 val google_gke_hub_membership_binding :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -20,4 +38,4 @@ val google_gke_hub_membership_binding :
   membership_id:string prop ->
   scope:string prop ->
   string ->
-  unit
+  t

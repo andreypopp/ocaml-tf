@@ -871,23 +871,58 @@ The maximum length is 100 characters. Can be empty to allow the system to genera
 [@@deriving yojson_of]
 (** google_data_loss_prevention_job_trigger *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  last_run_time : string prop;
+  name : string prop;
+  parent : string prop;
+  status : string prop;
+  trigger_id : string prop;
+  update_time : string prop;
+}
+
 let google_data_loss_prevention_job_trigger ?description
     ?display_name ?id ?status ?trigger_id ?timeouts ~parent
     ~inspect_job ~triggers __resource_id =
   let __resource_type = "google_data_loss_prevention_job_trigger" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      parent;
-      status;
-      trigger_id;
-      inspect_job;
-      timeouts;
-      triggers;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       parent;
+       status;
+       trigger_id;
+       inspect_job;
+       timeouts;
+       triggers;
+     }
+      : google_data_loss_prevention_job_trigger)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_loss_prevention_job_trigger __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_run_time =
+         Prop.computed __resource_type __resource_id "last_run_time";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       status = Prop.computed __resource_type __resource_id "status";
+       trigger_id =
+         Prop.computed __resource_type __resource_id "trigger_id";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

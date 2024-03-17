@@ -34,6 +34,17 @@ type azurerm_mssql_database_extended_auditing_policy = {
 [@@deriving yojson_of]
 (** azurerm_mssql_database_extended_auditing_policy *)
 
+type t = {
+  database_id : string prop;
+  enabled : bool prop;
+  id : string prop;
+  log_monitoring_enabled : bool prop;
+  retention_in_days : float prop;
+  storage_account_access_key : string prop;
+  storage_account_access_key_is_secondary : bool prop;
+  storage_endpoint : string prop;
+}
+
 let azurerm_mssql_database_extended_auditing_policy ?enabled ?id
     ?log_monitoring_enabled ?retention_in_days
     ?storage_account_access_key
@@ -43,19 +54,45 @@ let azurerm_mssql_database_extended_auditing_policy ?enabled ?id
     "azurerm_mssql_database_extended_auditing_policy"
   in
   let __resource =
-    {
-      database_id;
-      enabled;
-      id;
-      log_monitoring_enabled;
-      retention_in_days;
-      storage_account_access_key;
-      storage_account_access_key_is_secondary;
-      storage_endpoint;
-      timeouts;
-    }
+    ({
+       database_id;
+       enabled;
+       id;
+       log_monitoring_enabled;
+       retention_in_days;
+       storage_account_access_key;
+       storage_account_access_key_is_secondary;
+       storage_endpoint;
+       timeouts;
+     }
+      : azurerm_mssql_database_extended_auditing_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_database_extended_auditing_policy
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       database_id =
+         Prop.computed __resource_type __resource_id "database_id";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_monitoring_enabled =
+         Prop.computed __resource_type __resource_id
+           "log_monitoring_enabled";
+       retention_in_days =
+         Prop.computed __resource_type __resource_id
+           "retention_in_days";
+       storage_account_access_key =
+         Prop.computed __resource_type __resource_id
+           "storage_account_access_key";
+       storage_account_access_key_is_secondary =
+         Prop.computed __resource_type __resource_id
+           "storage_account_access_key_is_secondary";
+       storage_endpoint =
+         Prop.computed __resource_type __resource_id
+           "storage_endpoint";
+     }
+      : t)
+  in
+  __resource_attributes

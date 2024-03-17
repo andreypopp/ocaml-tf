@@ -139,6 +139,27 @@ type aws_finspace_kx_cluster = {
 [@@deriving yojson_of]
 (** aws_finspace_kx_cluster *)
 
+type t = {
+  arn : string prop;
+  availability_zone_id : string prop;
+  az_mode : string prop;
+  command_line_arguments : (string * string) list prop;
+  created_timestamp : string prop;
+  description : string prop;
+  environment_id : string prop;
+  execution_role : string prop;
+  id : string prop;
+  initialization_script : string prop;
+  last_modified_timestamp : string prop;
+  name : string prop;
+  release_label : string prop;
+  status : string prop;
+  status_reason : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_finspace_kx_cluster ?availability_zone_id
     ?command_line_arguments ?description ?execution_role ?id
     ?initialization_script ?tags ?tags_all ?timeouts ~az_mode
@@ -149,32 +170,73 @@ let aws_finspace_kx_cluster ?availability_zone_id
     ~tickerplant_log_configuration ~vpc_configuration __resource_id =
   let __resource_type = "aws_finspace_kx_cluster" in
   let __resource =
-    {
-      availability_zone_id;
-      az_mode;
-      command_line_arguments;
-      description;
-      environment_id;
-      execution_role;
-      id;
-      initialization_script;
-      name;
-      release_label;
-      tags;
-      tags_all;
-      type_;
-      auto_scaling_configuration;
-      cache_storage_configurations;
-      capacity_configuration;
-      code;
-      database;
-      savedown_storage_configuration;
-      scaling_group_configuration;
-      tickerplant_log_configuration;
-      timeouts;
-      vpc_configuration;
-    }
+    ({
+       availability_zone_id;
+       az_mode;
+       command_line_arguments;
+       description;
+       environment_id;
+       execution_role;
+       id;
+       initialization_script;
+       name;
+       release_label;
+       tags;
+       tags_all;
+       type_;
+       auto_scaling_configuration;
+       cache_storage_configurations;
+       capacity_configuration;
+       code;
+       database;
+       savedown_storage_configuration;
+       scaling_group_configuration;
+       tickerplant_log_configuration;
+       timeouts;
+       vpc_configuration;
+     }
+      : aws_finspace_kx_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_finspace_kx_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       availability_zone_id =
+         Prop.computed __resource_type __resource_id
+           "availability_zone_id";
+       az_mode =
+         Prop.computed __resource_type __resource_id "az_mode";
+       command_line_arguments =
+         Prop.computed __resource_type __resource_id
+           "command_line_arguments";
+       created_timestamp =
+         Prop.computed __resource_type __resource_id
+           "created_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       environment_id =
+         Prop.computed __resource_type __resource_id "environment_id";
+       execution_role =
+         Prop.computed __resource_type __resource_id "execution_role";
+       id = Prop.computed __resource_type __resource_id "id";
+       initialization_script =
+         Prop.computed __resource_type __resource_id
+           "initialization_script";
+       last_modified_timestamp =
+         Prop.computed __resource_type __resource_id
+           "last_modified_timestamp";
+       name = Prop.computed __resource_type __resource_id "name";
+       release_label =
+         Prop.computed __resource_type __resource_id "release_label";
+       status = Prop.computed __resource_type __resource_id "status";
+       status_reason =
+         Prop.computed __resource_type __resource_id "status_reason";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

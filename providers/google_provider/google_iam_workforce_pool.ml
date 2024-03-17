@@ -62,24 +62,61 @@ The prefix 'gcp-' is reserved for use by Google, and may not be specified. *)
 [@@deriving yojson_of]
 (** google_iam_workforce_pool *)
 
+type t = {
+  description : string prop;
+  disabled : bool prop;
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  parent : string prop;
+  session_duration : string prop;
+  state : string prop;
+  workforce_pool_id : string prop;
+}
+
 let google_iam_workforce_pool ?description ?disabled ?display_name
     ?id ?session_duration ?timeouts ~location ~parent
     ~workforce_pool_id ~access_restrictions __resource_id =
   let __resource_type = "google_iam_workforce_pool" in
   let __resource =
-    {
-      description;
-      disabled;
-      display_name;
-      id;
-      location;
-      parent;
-      session_duration;
-      workforce_pool_id;
-      access_restrictions;
-      timeouts;
-    }
+    ({
+       description;
+       disabled;
+       display_name;
+       id;
+       location;
+       parent;
+       session_duration;
+       workforce_pool_id;
+       access_restrictions;
+       timeouts;
+     }
+      : google_iam_workforce_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iam_workforce_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disabled =
+         Prop.computed __resource_type __resource_id "disabled";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       session_duration =
+         Prop.computed __resource_type __resource_id
+           "session_duration";
+       state = Prop.computed __resource_type __resource_id "state";
+       workforce_pool_id =
+         Prop.computed __resource_type __resource_id
+           "workforce_pool_id";
+     }
+      : t)
+  in
+  __resource_attributes

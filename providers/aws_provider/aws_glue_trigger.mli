@@ -10,6 +10,21 @@ type aws_glue_trigger__predicate
 type aws_glue_trigger__timeouts
 type aws_glue_trigger
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  schedule : string prop;
+  start_on_creation : bool prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  workflow_name : string prop;
+}
+
 val aws_glue_trigger :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -27,4 +42,4 @@ val aws_glue_trigger :
     aws_glue_trigger__event_batching_condition list ->
   predicate:aws_glue_trigger__predicate list ->
   string ->
-  unit
+  t

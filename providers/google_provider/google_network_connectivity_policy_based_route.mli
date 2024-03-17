@@ -17,6 +17,26 @@ type google_network_connectivity_policy_based_route__warnings = {
 
 type google_network_connectivity_policy_based_route
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  kind : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  network : string prop;
+  next_hop_ilb_ip : string prop;
+  next_hop_other_routes : string prop;
+  priority : float prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+  warnings :
+    google_network_connectivity_policy_based_route__warnings list
+    prop;
+}
+
 val google_network_connectivity_policy_based_route :
   ?description:string prop ->
   ?id:string prop ->
@@ -36,4 +56,4 @@ val google_network_connectivity_policy_based_route :
     google_network_connectivity_policy_based_route__virtual_machine
     list ->
   string ->
-  unit
+  t

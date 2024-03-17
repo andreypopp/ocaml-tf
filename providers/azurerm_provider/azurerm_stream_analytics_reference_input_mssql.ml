@@ -36,6 +36,22 @@ type azurerm_stream_analytics_reference_input_mssql = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_reference_input_mssql *)
 
+type t = {
+  database : string prop;
+  delta_snapshot_query : string prop;
+  full_snapshot_query : string prop;
+  id : string prop;
+  name : string prop;
+  password : string prop;
+  refresh_interval_duration : string prop;
+  refresh_type : string prop;
+  resource_group_name : string prop;
+  server : string prop;
+  stream_analytics_job_name : string prop;
+  table : string prop;
+  username : string prop;
+}
+
 let azurerm_stream_analytics_reference_input_mssql
     ?delta_snapshot_query ?id ?refresh_interval_duration ?table
     ?timeouts ~database ~full_snapshot_query ~name ~password
@@ -45,24 +61,57 @@ let azurerm_stream_analytics_reference_input_mssql
     "azurerm_stream_analytics_reference_input_mssql"
   in
   let __resource =
-    {
-      database;
-      delta_snapshot_query;
-      full_snapshot_query;
-      id;
-      name;
-      password;
-      refresh_interval_duration;
-      refresh_type;
-      resource_group_name;
-      server;
-      stream_analytics_job_name;
-      table;
-      username;
-      timeouts;
-    }
+    ({
+       database;
+       delta_snapshot_query;
+       full_snapshot_query;
+       id;
+       name;
+       password;
+       refresh_interval_duration;
+       refresh_type;
+       resource_group_name;
+       server;
+       stream_analytics_job_name;
+       table;
+       username;
+       timeouts;
+     }
+      : azurerm_stream_analytics_reference_input_mssql)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_stream_analytics_reference_input_mssql
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       database =
+         Prop.computed __resource_type __resource_id "database";
+       delta_snapshot_query =
+         Prop.computed __resource_type __resource_id
+           "delta_snapshot_query";
+       full_snapshot_query =
+         Prop.computed __resource_type __resource_id
+           "full_snapshot_query";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       refresh_interval_duration =
+         Prop.computed __resource_type __resource_id
+           "refresh_interval_duration";
+       refresh_type =
+         Prop.computed __resource_type __resource_id "refresh_type";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       server = Prop.computed __resource_type __resource_id "server";
+       stream_analytics_job_name =
+         Prop.computed __resource_type __resource_id
+           "stream_analytics_job_name";
+       table = Prop.computed __resource_type __resource_id "table";
+       username =
+         Prop.computed __resource_type __resource_id "username";
+     }
+      : t)
+  in
+  __resource_attributes

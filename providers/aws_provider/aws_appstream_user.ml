@@ -17,21 +17,57 @@ type aws_appstream_user = {
 [@@deriving yojson_of]
 (** aws_appstream_user *)
 
+type t = {
+  arn : string prop;
+  authentication_type : string prop;
+  created_time : string prop;
+  enabled : bool prop;
+  first_name : string prop;
+  id : string prop;
+  last_name : string prop;
+  send_email_notification : bool prop;
+  user_name : string prop;
+}
+
 let aws_appstream_user ?enabled ?first_name ?id ?last_name
     ?send_email_notification ~authentication_type ~user_name
     __resource_id =
   let __resource_type = "aws_appstream_user" in
   let __resource =
-    {
-      authentication_type;
-      enabled;
-      first_name;
-      id;
-      last_name;
-      send_email_notification;
-      user_name;
-    }
+    ({
+       authentication_type;
+       enabled;
+       first_name;
+       id;
+       last_name;
+       send_email_notification;
+       user_name;
+     }
+      : aws_appstream_user)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appstream_user __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       authentication_type =
+         Prop.computed __resource_type __resource_id
+           "authentication_type";
+       created_time =
+         Prop.computed __resource_type __resource_id "created_time";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       first_name =
+         Prop.computed __resource_type __resource_id "first_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_name =
+         Prop.computed __resource_type __resource_id "last_name";
+       send_email_notification =
+         Prop.computed __resource_type __resource_id
+           "send_email_notification";
+       user_name =
+         Prop.computed __resource_type __resource_id "user_name";
+     }
+      : t)
+  in
+  __resource_attributes

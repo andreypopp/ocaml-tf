@@ -56,25 +56,56 @@ type aws_service_discovery_service = {
 [@@deriving yojson_of]
 (** aws_service_discovery_service *)
 
+type t = {
+  arn : string prop;
+  description : string prop;
+  force_destroy : bool prop;
+  id : string prop;
+  name : string prop;
+  namespace_id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_service_discovery_service ?description ?force_destroy ?id
     ?namespace_id ?tags ?tags_all ?type_ ~name ~dns_config
     ~health_check_config ~health_check_custom_config __resource_id =
   let __resource_type = "aws_service_discovery_service" in
   let __resource =
-    {
-      description;
-      force_destroy;
-      id;
-      name;
-      namespace_id;
-      tags;
-      tags_all;
-      type_;
-      dns_config;
-      health_check_config;
-      health_check_custom_config;
-    }
+    ({
+       description;
+       force_destroy;
+       id;
+       name;
+       namespace_id;
+       tags;
+       tags_all;
+       type_;
+       dns_config;
+       health_check_config;
+       health_check_custom_config;
+     }
+      : aws_service_discovery_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_service_discovery_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       namespace_id =
+         Prop.computed __resource_type __resource_id "namespace_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

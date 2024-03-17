@@ -349,6 +349,37 @@ type aws_emr_cluster = {
 [@@deriving yojson_of]
 (** aws_emr_cluster *)
 
+type t = {
+  additional_info : string prop;
+  applications : string list prop;
+  arn : string prop;
+  autoscaling_role : string prop;
+  cluster_state : string prop;
+  configurations : string prop;
+  configurations_json : string prop;
+  custom_ami_id : string prop;
+  ebs_root_volume_size : float prop;
+  id : string prop;
+  keep_job_flow_alive_when_no_steps : bool prop;
+  list_steps_states : string list prop;
+  log_encryption_kms_key_id : string prop;
+  log_uri : string prop;
+  master_public_dns : string prop;
+  name : string prop;
+  placement_group_config :
+    aws_emr_cluster__placement_group_config list prop;
+  release_label : string prop;
+  scale_down_behavior : string prop;
+  security_configuration : string prop;
+  service_role : string prop;
+  step : aws_emr_cluster__step list prop;
+  step_concurrency_level : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  termination_protection : bool prop;
+  visible_to_all_users : bool prop;
+}
+
 let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
     ?configurations ?configurations_json ?custom_ami_id
     ?ebs_root_volume_size ?id ?keep_job_flow_alive_when_no_steps
@@ -362,41 +393,110 @@ let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
     ~master_instance_group __resource_id =
   let __resource_type = "aws_emr_cluster" in
   let __resource =
-    {
-      additional_info;
-      applications;
-      autoscaling_role;
-      configurations;
-      configurations_json;
-      custom_ami_id;
-      ebs_root_volume_size;
-      id;
-      keep_job_flow_alive_when_no_steps;
-      list_steps_states;
-      log_encryption_kms_key_id;
-      log_uri;
-      name;
-      placement_group_config;
-      release_label;
-      scale_down_behavior;
-      security_configuration;
-      service_role;
-      step;
-      step_concurrency_level;
-      tags;
-      tags_all;
-      termination_protection;
-      visible_to_all_users;
-      auto_termination_policy;
-      bootstrap_action;
-      core_instance_fleet;
-      core_instance_group;
-      ec2_attributes;
-      kerberos_attributes;
-      master_instance_fleet;
-      master_instance_group;
-    }
+    ({
+       additional_info;
+       applications;
+       autoscaling_role;
+       configurations;
+       configurations_json;
+       custom_ami_id;
+       ebs_root_volume_size;
+       id;
+       keep_job_flow_alive_when_no_steps;
+       list_steps_states;
+       log_encryption_kms_key_id;
+       log_uri;
+       name;
+       placement_group_config;
+       release_label;
+       scale_down_behavior;
+       security_configuration;
+       service_role;
+       step;
+       step_concurrency_level;
+       tags;
+       tags_all;
+       termination_protection;
+       visible_to_all_users;
+       auto_termination_policy;
+       bootstrap_action;
+       core_instance_fleet;
+       core_instance_group;
+       ec2_attributes;
+       kerberos_attributes;
+       master_instance_fleet;
+       master_instance_group;
+     }
+      : aws_emr_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       additional_info =
+         Prop.computed __resource_type __resource_id
+           "additional_info";
+       applications =
+         Prop.computed __resource_type __resource_id "applications";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       autoscaling_role =
+         Prop.computed __resource_type __resource_id
+           "autoscaling_role";
+       cluster_state =
+         Prop.computed __resource_type __resource_id "cluster_state";
+       configurations =
+         Prop.computed __resource_type __resource_id "configurations";
+       configurations_json =
+         Prop.computed __resource_type __resource_id
+           "configurations_json";
+       custom_ami_id =
+         Prop.computed __resource_type __resource_id "custom_ami_id";
+       ebs_root_volume_size =
+         Prop.computed __resource_type __resource_id
+           "ebs_root_volume_size";
+       id = Prop.computed __resource_type __resource_id "id";
+       keep_job_flow_alive_when_no_steps =
+         Prop.computed __resource_type __resource_id
+           "keep_job_flow_alive_when_no_steps";
+       list_steps_states =
+         Prop.computed __resource_type __resource_id
+           "list_steps_states";
+       log_encryption_kms_key_id =
+         Prop.computed __resource_type __resource_id
+           "log_encryption_kms_key_id";
+       log_uri =
+         Prop.computed __resource_type __resource_id "log_uri";
+       master_public_dns =
+         Prop.computed __resource_type __resource_id
+           "master_public_dns";
+       name = Prop.computed __resource_type __resource_id "name";
+       placement_group_config =
+         Prop.computed __resource_type __resource_id
+           "placement_group_config";
+       release_label =
+         Prop.computed __resource_type __resource_id "release_label";
+       scale_down_behavior =
+         Prop.computed __resource_type __resource_id
+           "scale_down_behavior";
+       security_configuration =
+         Prop.computed __resource_type __resource_id
+           "security_configuration";
+       service_role =
+         Prop.computed __resource_type __resource_id "service_role";
+       step = Prop.computed __resource_type __resource_id "step";
+       step_concurrency_level =
+         Prop.computed __resource_type __resource_id
+           "step_concurrency_level";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       termination_protection =
+         Prop.computed __resource_type __resource_id
+           "termination_protection";
+       visible_to_all_users =
+         Prop.computed __resource_type __resource_id
+           "visible_to_all_users";
+     }
+      : t)
+  in
+  __resource_attributes

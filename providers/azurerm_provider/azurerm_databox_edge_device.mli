@@ -21,6 +21,17 @@ type azurerm_databox_edge_device__device_properties = {
 
 type azurerm_databox_edge_device
 
+type t = private {
+  device_properties :
+    azurerm_databox_edge_device__device_properties list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_databox_edge_device :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -30,4 +41,4 @@ val azurerm_databox_edge_device :
   resource_group_name:string prop ->
   sku_name:string prop ->
   string ->
-  unit
+  t

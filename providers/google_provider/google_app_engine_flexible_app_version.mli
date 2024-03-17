@@ -35,6 +35,28 @@ type google_app_engine_flexible_app_version__timeouts
 type google_app_engine_flexible_app_version__vpc_access_connector
 type google_app_engine_flexible_app_version
 
+type t = private {
+  beta_settings : (string * string) list prop;
+  default_expiration : string prop;
+  delete_service_on_destroy : bool prop;
+  env_variables : (string * string) list prop;
+  id : string prop;
+  inbound_services : string list prop;
+  instance_class : string prop;
+  name : string prop;
+  nobuild_files_regex : string prop;
+  noop_on_destroy : bool prop;
+  project : string prop;
+  runtime : string prop;
+  runtime_api_version : string prop;
+  runtime_channel : string prop;
+  runtime_main_executable_path : string prop;
+  service : string prop;
+  service_account : string prop;
+  serving_status : string prop;
+  version_id : string prop;
+}
+
 val google_app_engine_flexible_app_version :
   ?beta_settings:(string * string prop) list ->
   ?default_expiration:string prop ->
@@ -75,4 +97,4 @@ val google_app_engine_flexible_app_version :
   vpc_access_connector:
     google_app_engine_flexible_app_version__vpc_access_connector list ->
   string ->
-  unit
+  t

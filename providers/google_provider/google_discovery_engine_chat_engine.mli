@@ -14,6 +14,23 @@ type google_discovery_engine_chat_engine__chat_engine_metadata = {
 
 type google_discovery_engine_chat_engine
 
+type t = private {
+  chat_engine_metadata :
+    google_discovery_engine_chat_engine__chat_engine_metadata list
+    prop;
+  collection_id : string prop;
+  create_time : string prop;
+  data_store_ids : string list prop;
+  display_name : string prop;
+  engine_id : string prop;
+  id : string prop;
+  industry_vertical : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 val google_discovery_engine_chat_engine :
   ?id:string prop ->
   ?industry_vertical:string prop ->
@@ -29,4 +46,4 @@ val google_discovery_engine_chat_engine :
   common_config:
     google_discovery_engine_chat_engine__common_config list ->
   string ->
-  unit
+  t

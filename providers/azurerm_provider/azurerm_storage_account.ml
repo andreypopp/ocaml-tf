@@ -324,6 +324,107 @@ type azurerm_storage_account = {
 [@@deriving yojson_of]
 (** azurerm_storage_account *)
 
+type t = {
+  access_tier : string prop;
+  account_kind : string prop;
+  account_replication_type : string prop;
+  account_tier : string prop;
+  allow_nested_items_to_be_public : bool prop;
+  allowed_copy_scope : string prop;
+  cross_tenant_replication_enabled : bool prop;
+  default_to_oauth_authentication : bool prop;
+  edge_zone : string prop;
+  enable_https_traffic_only : bool prop;
+  id : string prop;
+  infrastructure_encryption_enabled : bool prop;
+  is_hns_enabled : bool prop;
+  large_file_share_enabled : bool prop;
+  local_user_enabled : bool prop;
+  location : string prop;
+  min_tls_version : string prop;
+  name : string prop;
+  nfsv3_enabled : bool prop;
+  primary_access_key : string prop;
+  primary_blob_connection_string : string prop;
+  primary_blob_endpoint : string prop;
+  primary_blob_host : string prop;
+  primary_blob_internet_endpoint : string prop;
+  primary_blob_internet_host : string prop;
+  primary_blob_microsoft_endpoint : string prop;
+  primary_blob_microsoft_host : string prop;
+  primary_connection_string : string prop;
+  primary_dfs_endpoint : string prop;
+  primary_dfs_host : string prop;
+  primary_dfs_internet_endpoint : string prop;
+  primary_dfs_internet_host : string prop;
+  primary_dfs_microsoft_endpoint : string prop;
+  primary_dfs_microsoft_host : string prop;
+  primary_file_endpoint : string prop;
+  primary_file_host : string prop;
+  primary_file_internet_endpoint : string prop;
+  primary_file_internet_host : string prop;
+  primary_file_microsoft_endpoint : string prop;
+  primary_file_microsoft_host : string prop;
+  primary_location : string prop;
+  primary_queue_endpoint : string prop;
+  primary_queue_host : string prop;
+  primary_queue_microsoft_endpoint : string prop;
+  primary_queue_microsoft_host : string prop;
+  primary_table_endpoint : string prop;
+  primary_table_host : string prop;
+  primary_table_microsoft_endpoint : string prop;
+  primary_table_microsoft_host : string prop;
+  primary_web_endpoint : string prop;
+  primary_web_host : string prop;
+  primary_web_internet_endpoint : string prop;
+  primary_web_internet_host : string prop;
+  primary_web_microsoft_endpoint : string prop;
+  primary_web_microsoft_host : string prop;
+  public_network_access_enabled : bool prop;
+  queue_encryption_key_type : string prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  secondary_blob_connection_string : string prop;
+  secondary_blob_endpoint : string prop;
+  secondary_blob_host : string prop;
+  secondary_blob_internet_endpoint : string prop;
+  secondary_blob_internet_host : string prop;
+  secondary_blob_microsoft_endpoint : string prop;
+  secondary_blob_microsoft_host : string prop;
+  secondary_connection_string : string prop;
+  secondary_dfs_endpoint : string prop;
+  secondary_dfs_host : string prop;
+  secondary_dfs_internet_endpoint : string prop;
+  secondary_dfs_internet_host : string prop;
+  secondary_dfs_microsoft_endpoint : string prop;
+  secondary_dfs_microsoft_host : string prop;
+  secondary_file_endpoint : string prop;
+  secondary_file_host : string prop;
+  secondary_file_internet_endpoint : string prop;
+  secondary_file_internet_host : string prop;
+  secondary_file_microsoft_endpoint : string prop;
+  secondary_file_microsoft_host : string prop;
+  secondary_location : string prop;
+  secondary_queue_endpoint : string prop;
+  secondary_queue_host : string prop;
+  secondary_queue_microsoft_endpoint : string prop;
+  secondary_queue_microsoft_host : string prop;
+  secondary_table_endpoint : string prop;
+  secondary_table_host : string prop;
+  secondary_table_microsoft_endpoint : string prop;
+  secondary_table_microsoft_host : string prop;
+  secondary_web_endpoint : string prop;
+  secondary_web_host : string prop;
+  secondary_web_internet_endpoint : string prop;
+  secondary_web_internet_host : string prop;
+  secondary_web_microsoft_endpoint : string prop;
+  secondary_web_microsoft_host : string prop;
+  sftp_enabled : bool prop;
+  shared_access_key_enabled : bool prop;
+  table_encryption_key_type : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_storage_account ?access_tier ?account_kind
     ?allow_nested_items_to_be_public ?allowed_copy_scope
     ?cross_tenant_replication_enabled
@@ -340,48 +441,334 @@ let azurerm_storage_account ?access_tier ?account_kind
     ~sas_policy ~share_properties ~static_website __resource_id =
   let __resource_type = "azurerm_storage_account" in
   let __resource =
-    {
-      access_tier;
-      account_kind;
-      account_replication_type;
-      account_tier;
-      allow_nested_items_to_be_public;
-      allowed_copy_scope;
-      cross_tenant_replication_enabled;
-      default_to_oauth_authentication;
-      edge_zone;
-      enable_https_traffic_only;
-      id;
-      infrastructure_encryption_enabled;
-      is_hns_enabled;
-      large_file_share_enabled;
-      local_user_enabled;
-      location;
-      min_tls_version;
-      name;
-      nfsv3_enabled;
-      public_network_access_enabled;
-      queue_encryption_key_type;
-      resource_group_name;
-      sftp_enabled;
-      shared_access_key_enabled;
-      table_encryption_key_type;
-      tags;
-      azure_files_authentication;
-      blob_properties;
-      custom_domain;
-      customer_managed_key;
-      identity;
-      immutability_policy;
-      network_rules;
-      queue_properties;
-      routing;
-      sas_policy;
-      share_properties;
-      static_website;
-      timeouts;
-    }
+    ({
+       access_tier;
+       account_kind;
+       account_replication_type;
+       account_tier;
+       allow_nested_items_to_be_public;
+       allowed_copy_scope;
+       cross_tenant_replication_enabled;
+       default_to_oauth_authentication;
+       edge_zone;
+       enable_https_traffic_only;
+       id;
+       infrastructure_encryption_enabled;
+       is_hns_enabled;
+       large_file_share_enabled;
+       local_user_enabled;
+       location;
+       min_tls_version;
+       name;
+       nfsv3_enabled;
+       public_network_access_enabled;
+       queue_encryption_key_type;
+       resource_group_name;
+       sftp_enabled;
+       shared_access_key_enabled;
+       table_encryption_key_type;
+       tags;
+       azure_files_authentication;
+       blob_properties;
+       custom_domain;
+       customer_managed_key;
+       identity;
+       immutability_policy;
+       network_rules;
+       queue_properties;
+       routing;
+       sas_policy;
+       share_properties;
+       static_website;
+       timeouts;
+     }
+      : azurerm_storage_account)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_tier =
+         Prop.computed __resource_type __resource_id "access_tier";
+       account_kind =
+         Prop.computed __resource_type __resource_id "account_kind";
+       account_replication_type =
+         Prop.computed __resource_type __resource_id
+           "account_replication_type";
+       account_tier =
+         Prop.computed __resource_type __resource_id "account_tier";
+       allow_nested_items_to_be_public =
+         Prop.computed __resource_type __resource_id
+           "allow_nested_items_to_be_public";
+       allowed_copy_scope =
+         Prop.computed __resource_type __resource_id
+           "allowed_copy_scope";
+       cross_tenant_replication_enabled =
+         Prop.computed __resource_type __resource_id
+           "cross_tenant_replication_enabled";
+       default_to_oauth_authentication =
+         Prop.computed __resource_type __resource_id
+           "default_to_oauth_authentication";
+       edge_zone =
+         Prop.computed __resource_type __resource_id "edge_zone";
+       enable_https_traffic_only =
+         Prop.computed __resource_type __resource_id
+           "enable_https_traffic_only";
+       id = Prop.computed __resource_type __resource_id "id";
+       infrastructure_encryption_enabled =
+         Prop.computed __resource_type __resource_id
+           "infrastructure_encryption_enabled";
+       is_hns_enabled =
+         Prop.computed __resource_type __resource_id "is_hns_enabled";
+       large_file_share_enabled =
+         Prop.computed __resource_type __resource_id
+           "large_file_share_enabled";
+       local_user_enabled =
+         Prop.computed __resource_type __resource_id
+           "local_user_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       min_tls_version =
+         Prop.computed __resource_type __resource_id
+           "min_tls_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       nfsv3_enabled =
+         Prop.computed __resource_type __resource_id "nfsv3_enabled";
+       primary_access_key =
+         Prop.computed __resource_type __resource_id
+           "primary_access_key";
+       primary_blob_connection_string =
+         Prop.computed __resource_type __resource_id
+           "primary_blob_connection_string";
+       primary_blob_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_blob_endpoint";
+       primary_blob_host =
+         Prop.computed __resource_type __resource_id
+           "primary_blob_host";
+       primary_blob_internet_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_blob_internet_endpoint";
+       primary_blob_internet_host =
+         Prop.computed __resource_type __resource_id
+           "primary_blob_internet_host";
+       primary_blob_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_blob_microsoft_endpoint";
+       primary_blob_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "primary_blob_microsoft_host";
+       primary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "primary_connection_string";
+       primary_dfs_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_dfs_endpoint";
+       primary_dfs_host =
+         Prop.computed __resource_type __resource_id
+           "primary_dfs_host";
+       primary_dfs_internet_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_dfs_internet_endpoint";
+       primary_dfs_internet_host =
+         Prop.computed __resource_type __resource_id
+           "primary_dfs_internet_host";
+       primary_dfs_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_dfs_microsoft_endpoint";
+       primary_dfs_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "primary_dfs_microsoft_host";
+       primary_file_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_file_endpoint";
+       primary_file_host =
+         Prop.computed __resource_type __resource_id
+           "primary_file_host";
+       primary_file_internet_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_file_internet_endpoint";
+       primary_file_internet_host =
+         Prop.computed __resource_type __resource_id
+           "primary_file_internet_host";
+       primary_file_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_file_microsoft_endpoint";
+       primary_file_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "primary_file_microsoft_host";
+       primary_location =
+         Prop.computed __resource_type __resource_id
+           "primary_location";
+       primary_queue_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_queue_endpoint";
+       primary_queue_host =
+         Prop.computed __resource_type __resource_id
+           "primary_queue_host";
+       primary_queue_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_queue_microsoft_endpoint";
+       primary_queue_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "primary_queue_microsoft_host";
+       primary_table_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_table_endpoint";
+       primary_table_host =
+         Prop.computed __resource_type __resource_id
+           "primary_table_host";
+       primary_table_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_table_microsoft_endpoint";
+       primary_table_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "primary_table_microsoft_host";
+       primary_web_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_web_endpoint";
+       primary_web_host =
+         Prop.computed __resource_type __resource_id
+           "primary_web_host";
+       primary_web_internet_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_web_internet_endpoint";
+       primary_web_internet_host =
+         Prop.computed __resource_type __resource_id
+           "primary_web_internet_host";
+       primary_web_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "primary_web_microsoft_endpoint";
+       primary_web_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "primary_web_microsoft_host";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       queue_encryption_key_type =
+         Prop.computed __resource_type __resource_id
+           "queue_encryption_key_type";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       secondary_access_key =
+         Prop.computed __resource_type __resource_id
+           "secondary_access_key";
+       secondary_blob_connection_string =
+         Prop.computed __resource_type __resource_id
+           "secondary_blob_connection_string";
+       secondary_blob_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_blob_endpoint";
+       secondary_blob_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_blob_host";
+       secondary_blob_internet_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_blob_internet_endpoint";
+       secondary_blob_internet_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_blob_internet_host";
+       secondary_blob_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_blob_microsoft_endpoint";
+       secondary_blob_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_blob_microsoft_host";
+       secondary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "secondary_connection_string";
+       secondary_dfs_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_dfs_endpoint";
+       secondary_dfs_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_dfs_host";
+       secondary_dfs_internet_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_dfs_internet_endpoint";
+       secondary_dfs_internet_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_dfs_internet_host";
+       secondary_dfs_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_dfs_microsoft_endpoint";
+       secondary_dfs_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_dfs_microsoft_host";
+       secondary_file_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_file_endpoint";
+       secondary_file_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_file_host";
+       secondary_file_internet_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_file_internet_endpoint";
+       secondary_file_internet_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_file_internet_host";
+       secondary_file_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_file_microsoft_endpoint";
+       secondary_file_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_file_microsoft_host";
+       secondary_location =
+         Prop.computed __resource_type __resource_id
+           "secondary_location";
+       secondary_queue_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_queue_endpoint";
+       secondary_queue_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_queue_host";
+       secondary_queue_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_queue_microsoft_endpoint";
+       secondary_queue_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_queue_microsoft_host";
+       secondary_table_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_table_endpoint";
+       secondary_table_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_table_host";
+       secondary_table_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_table_microsoft_endpoint";
+       secondary_table_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_table_microsoft_host";
+       secondary_web_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_web_endpoint";
+       secondary_web_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_web_host";
+       secondary_web_internet_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_web_internet_endpoint";
+       secondary_web_internet_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_web_internet_host";
+       secondary_web_microsoft_endpoint =
+         Prop.computed __resource_type __resource_id
+           "secondary_web_microsoft_endpoint";
+       secondary_web_microsoft_host =
+         Prop.computed __resource_type __resource_id
+           "secondary_web_microsoft_host";
+       sftp_enabled =
+         Prop.computed __resource_type __resource_id "sftp_enabled";
+       shared_access_key_enabled =
+         Prop.computed __resource_type __resource_id
+           "shared_access_key_enabled";
+       table_encryption_key_type =
+         Prop.computed __resource_type __resource_id
+           "table_encryption_key_type";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

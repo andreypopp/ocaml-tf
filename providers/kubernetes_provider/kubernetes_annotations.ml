@@ -31,22 +31,50 @@ type kubernetes_annotations = {
 [@@deriving yojson_of]
 (** kubernetes_annotations *)
 
+type t = {
+  annotations : (string * string) list prop;
+  api_version : string prop;
+  field_manager : string prop;
+  force : bool prop;
+  id : string prop;
+  kind : string prop;
+  template_annotations : (string * string) list prop;
+}
+
 let kubernetes_annotations ?annotations ?field_manager ?force ?id
     ?template_annotations ~api_version ~kind ~metadata __resource_id
     =
   let __resource_type = "kubernetes_annotations" in
   let __resource =
-    {
-      annotations;
-      api_version;
-      field_manager;
-      force;
-      id;
-      kind;
-      template_annotations;
-      metadata;
-    }
+    ({
+       annotations;
+       api_version;
+       field_manager;
+       force;
+       id;
+       kind;
+       template_annotations;
+       metadata;
+     }
+      : kubernetes_annotations)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_annotations __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       api_version =
+         Prop.computed __resource_type __resource_id "api_version";
+       field_manager =
+         Prop.computed __resource_type __resource_id "field_manager";
+       force = Prop.computed __resource_type __resource_id "force";
+       id = Prop.computed __resource_type __resource_id "id";
+       kind = Prop.computed __resource_type __resource_id "kind";
+       template_annotations =
+         Prop.computed __resource_type __resource_id
+           "template_annotations";
+     }
+      : t)
+  in
+  __resource_attributes

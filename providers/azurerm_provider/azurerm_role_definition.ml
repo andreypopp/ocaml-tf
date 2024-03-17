@@ -40,22 +40,52 @@ type azurerm_role_definition = {
 [@@deriving yojson_of]
 (** azurerm_role_definition *)
 
+type t = {
+  assignable_scopes : string list prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  role_definition_id : string prop;
+  role_definition_resource_id : string prop;
+  scope : string prop;
+}
+
 let azurerm_role_definition ?assignable_scopes ?description ?id
     ?role_definition_id ?timeouts ~name ~scope ~permissions
     __resource_id =
   let __resource_type = "azurerm_role_definition" in
   let __resource =
-    {
-      assignable_scopes;
-      description;
-      id;
-      name;
-      role_definition_id;
-      scope;
-      permissions;
-      timeouts;
-    }
+    ({
+       assignable_scopes;
+       description;
+       id;
+       name;
+       role_definition_id;
+       scope;
+       permissions;
+       timeouts;
+     }
+      : azurerm_role_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_role_definition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       assignable_scopes =
+         Prop.computed __resource_type __resource_id
+           "assignable_scopes";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_definition_id =
+         Prop.computed __resource_type __resource_id
+           "role_definition_id";
+       role_definition_resource_id =
+         Prop.computed __resource_type __resource_id
+           "role_definition_resource_id";
+       scope = Prop.computed __resource_type __resource_id "scope";
+     }
+      : t)
+  in
+  __resource_attributes

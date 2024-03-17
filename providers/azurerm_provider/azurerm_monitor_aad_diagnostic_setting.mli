@@ -10,6 +10,15 @@ type azurerm_monitor_aad_diagnostic_setting__log
 type azurerm_monitor_aad_diagnostic_setting__timeouts
 type azurerm_monitor_aad_diagnostic_setting
 
+type t = private {
+  eventhub_authorization_rule_id : string prop;
+  eventhub_name : string prop;
+  id : string prop;
+  log_analytics_workspace_id : string prop;
+  name : string prop;
+  storage_account_id : string prop;
+}
+
 val azurerm_monitor_aad_diagnostic_setting :
   ?eventhub_authorization_rule_id:string prop ->
   ?eventhub_name:string prop ->
@@ -22,4 +31,4 @@ val azurerm_monitor_aad_diagnostic_setting :
     azurerm_monitor_aad_diagnostic_setting__enabled_log list ->
   log:azurerm_monitor_aad_diagnostic_setting__log list ->
   string ->
-  unit
+  t

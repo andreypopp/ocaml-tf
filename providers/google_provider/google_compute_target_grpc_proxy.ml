@@ -45,20 +45,60 @@ it is connecting to *)
 [@@deriving yojson_of]
 (** google_compute_target_grpc_proxy *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  fingerprint : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  self_link_with_id : string prop;
+  url_map : string prop;
+  validate_for_proxyless : bool prop;
+}
+
 let google_compute_target_grpc_proxy ?description ?id ?project
     ?url_map ?validate_for_proxyless ?timeouts ~name __resource_id =
   let __resource_type = "google_compute_target_grpc_proxy" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      project;
-      url_map;
-      validate_for_proxyless;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       project;
+       url_map;
+       validate_for_proxyless;
+       timeouts;
+     }
+      : google_compute_target_grpc_proxy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_grpc_proxy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       fingerprint =
+         Prop.computed __resource_type __resource_id "fingerprint";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       self_link_with_id =
+         Prop.computed __resource_type __resource_id
+           "self_link_with_id";
+       url_map =
+         Prop.computed __resource_type __resource_id "url_map";
+       validate_for_proxyless =
+         Prop.computed __resource_type __resource_id
+           "validate_for_proxyless";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -13,10 +13,32 @@ type aws_lightsail_disk_attachment = {
 [@@deriving yojson_of]
 (** aws_lightsail_disk_attachment *)
 
+type t = {
+  disk_name : string prop;
+  disk_path : string prop;
+  id : string prop;
+  instance_name : string prop;
+}
+
 let aws_lightsail_disk_attachment ?id ~disk_name ~disk_path
     ~instance_name __resource_id =
   let __resource_type = "aws_lightsail_disk_attachment" in
-  let __resource = { disk_name; disk_path; id; instance_name } in
+  let __resource =
+    ({ disk_name; disk_path; id; instance_name }
+      : aws_lightsail_disk_attachment)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_disk_attachment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       disk_name =
+         Prop.computed __resource_type __resource_id "disk_name";
+       disk_path =
+         Prop.computed __resource_type __resource_id "disk_path";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_name =
+         Prop.computed __resource_type __resource_id "instance_name";
+     }
+      : t)
+  in
+  __resource_attributes

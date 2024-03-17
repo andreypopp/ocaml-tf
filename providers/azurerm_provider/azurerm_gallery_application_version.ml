@@ -65,29 +65,69 @@ type azurerm_gallery_application_version = {
 [@@deriving yojson_of]
 (** azurerm_gallery_application_version *)
 
+type t = {
+  config_file : string prop;
+  enable_health_check : bool prop;
+  end_of_life_date : string prop;
+  exclude_from_latest : bool prop;
+  gallery_application_id : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  package_file : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_gallery_application_version ?config_file
     ?enable_health_check ?end_of_life_date ?exclude_from_latest ?id
     ?package_file ?tags ?timeouts ~gallery_application_id ~location
     ~name ~manage_action ~source ~target_region __resource_id =
   let __resource_type = "azurerm_gallery_application_version" in
   let __resource =
-    {
-      config_file;
-      enable_health_check;
-      end_of_life_date;
-      exclude_from_latest;
-      gallery_application_id;
-      id;
-      location;
-      name;
-      package_file;
-      tags;
-      manage_action;
-      source;
-      target_region;
-      timeouts;
-    }
+    ({
+       config_file;
+       enable_health_check;
+       end_of_life_date;
+       exclude_from_latest;
+       gallery_application_id;
+       id;
+       location;
+       name;
+       package_file;
+       tags;
+       manage_action;
+       source;
+       target_region;
+       timeouts;
+     }
+      : azurerm_gallery_application_version)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_gallery_application_version __resource);
-  ()
+  let __resource_attributes =
+    ({
+       config_file =
+         Prop.computed __resource_type __resource_id "config_file";
+       enable_health_check =
+         Prop.computed __resource_type __resource_id
+           "enable_health_check";
+       end_of_life_date =
+         Prop.computed __resource_type __resource_id
+           "end_of_life_date";
+       exclude_from_latest =
+         Prop.computed __resource_type __resource_id
+           "exclude_from_latest";
+       gallery_application_id =
+         Prop.computed __resource_type __resource_id
+           "gallery_application_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       package_file =
+         Prop.computed __resource_type __resource_id "package_file";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

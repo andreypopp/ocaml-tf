@@ -87,25 +87,72 @@ type aws_evidently_launch = {
 [@@deriving yojson_of]
 (** aws_evidently_launch *)
 
+type t = {
+  arn : string prop;
+  created_time : string prop;
+  description : string prop;
+  execution : aws_evidently_launch__execution list prop;
+  id : string prop;
+  last_updated_time : string prop;
+  name : string prop;
+  project : string prop;
+  randomization_salt : string prop;
+  status : string prop;
+  status_reason : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_evidently_launch ?description ?id ?randomization_salt ?tags
     ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
     ~scheduled_splits_config __resource_id =
   let __resource_type = "aws_evidently_launch" in
   let __resource =
-    {
-      description;
-      id;
-      name;
-      project;
-      randomization_salt;
-      tags;
-      tags_all;
-      groups;
-      metric_monitors;
-      scheduled_splits_config;
-      timeouts;
-    }
+    ({
+       description;
+       id;
+       name;
+       project;
+       randomization_salt;
+       tags;
+       tags_all;
+       groups;
+       metric_monitors;
+       scheduled_splits_config;
+       timeouts;
+     }
+      : aws_evidently_launch)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_evidently_launch __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       created_time =
+         Prop.computed __resource_type __resource_id "created_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       execution =
+         Prop.computed __resource_type __resource_id "execution";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_updated_time =
+         Prop.computed __resource_type __resource_id
+           "last_updated_time";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       randomization_salt =
+         Prop.computed __resource_type __resource_id
+           "randomization_salt";
+       status = Prop.computed __resource_type __resource_id "status";
+       status_reason =
+         Prop.computed __resource_type __resource_id "status_reason";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

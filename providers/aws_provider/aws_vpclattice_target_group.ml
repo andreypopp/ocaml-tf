@@ -69,12 +69,36 @@ type aws_vpclattice_target_group = {
 [@@deriving yojson_of]
 (** aws_vpclattice_target_group *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_vpclattice_target_group ?id ?tags ?tags_all ?timeouts ~name
     ~type_ ~config __resource_id =
   let __resource_type = "aws_vpclattice_target_group" in
   let __resource =
-    { id; name; tags; tags_all; type_; config; timeouts }
+    ({ id; name; tags; tags_all; type_; config; timeouts }
+      : aws_vpclattice_target_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_target_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

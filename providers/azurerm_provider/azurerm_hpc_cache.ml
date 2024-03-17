@@ -121,6 +121,22 @@ type azurerm_hpc_cache = {
 [@@deriving yojson_of]
 (** azurerm_hpc_cache *)
 
+type t = {
+  automatically_rotate_key_to_latest_enabled : bool prop;
+  cache_size_in_gb : float prop;
+  id : string prop;
+  key_vault_key_id : string prop;
+  location : string prop;
+  mount_addresses : string list prop;
+  mtu : float prop;
+  name : string prop;
+  ntp_server : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled ?id
     ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
     ~cache_size_in_gb ~location ~name ~resource_group_name ~sku_name
@@ -129,28 +145,61 @@ let azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled ?id
     =
   let __resource_type = "azurerm_hpc_cache" in
   let __resource =
-    {
-      automatically_rotate_key_to_latest_enabled;
-      cache_size_in_gb;
-      id;
-      key_vault_key_id;
-      location;
-      mtu;
-      name;
-      ntp_server;
-      resource_group_name;
-      sku_name;
-      subnet_id;
-      tags;
-      default_access_policy;
-      directory_active_directory;
-      directory_flat_file;
-      directory_ldap;
-      dns;
-      identity;
-      timeouts;
-    }
+    ({
+       automatically_rotate_key_to_latest_enabled;
+       cache_size_in_gb;
+       id;
+       key_vault_key_id;
+       location;
+       mtu;
+       name;
+       ntp_server;
+       resource_group_name;
+       sku_name;
+       subnet_id;
+       tags;
+       default_access_policy;
+       directory_active_directory;
+       directory_flat_file;
+       directory_ldap;
+       dns;
+       identity;
+       timeouts;
+     }
+      : azurerm_hpc_cache)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_hpc_cache __resource);
-  ()
+  let __resource_attributes =
+    ({
+       automatically_rotate_key_to_latest_enabled =
+         Prop.computed __resource_type __resource_id
+           "automatically_rotate_key_to_latest_enabled";
+       cache_size_in_gb =
+         Prop.computed __resource_type __resource_id
+           "cache_size_in_gb";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_key_id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mount_addresses =
+         Prop.computed __resource_type __resource_id
+           "mount_addresses";
+       mtu = Prop.computed __resource_type __resource_id "mtu";
+       name = Prop.computed __resource_type __resource_id "name";
+       ntp_server =
+         Prop.computed __resource_type __resource_id "ntp_server";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku_name =
+         Prop.computed __resource_type __resource_id "sku_name";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

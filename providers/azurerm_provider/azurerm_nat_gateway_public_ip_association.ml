@@ -22,14 +22,32 @@ type azurerm_nat_gateway_public_ip_association = {
 [@@deriving yojson_of]
 (** azurerm_nat_gateway_public_ip_association *)
 
+type t = {
+  id : string prop;
+  nat_gateway_id : string prop;
+  public_ip_address_id : string prop;
+}
+
 let azurerm_nat_gateway_public_ip_association ?id ?timeouts
     ~nat_gateway_id ~public_ip_address_id __resource_id =
   let __resource_type =
     "azurerm_nat_gateway_public_ip_association"
   in
   let __resource =
-    { id; nat_gateway_id; public_ip_address_id; timeouts }
+    ({ id; nat_gateway_id; public_ip_address_id; timeouts }
+      : azurerm_nat_gateway_public_ip_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_nat_gateway_public_ip_association __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       nat_gateway_id =
+         Prop.computed __resource_type __resource_id "nat_gateway_id";
+       public_ip_address_id =
+         Prop.computed __resource_type __resource_id
+           "public_ip_address_id";
+     }
+      : t)
+  in
+  __resource_attributes

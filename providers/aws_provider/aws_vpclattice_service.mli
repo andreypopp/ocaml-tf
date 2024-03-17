@@ -11,6 +11,19 @@ type aws_vpclattice_service__dns_entry = {
 
 type aws_vpclattice_service
 
+type t = private {
+  arn : string prop;
+  auth_type : string prop;
+  certificate_arn : string prop;
+  custom_domain_name : string prop;
+  dns_entry : aws_vpclattice_service__dns_entry list prop;
+  id : string prop;
+  name : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_vpclattice_service :
   ?auth_type:string prop ->
   ?certificate_arn:string prop ->
@@ -21,4 +34,4 @@ val aws_vpclattice_service :
   ?timeouts:aws_vpclattice_service__timeouts ->
   name:string prop ->
   string ->
-  unit
+  t

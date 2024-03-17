@@ -27,6 +27,12 @@ type aws_cognito_risk_configuration__compromised_credentials_risk_configuration
 type aws_cognito_risk_configuration__risk_exception_configuration
 type aws_cognito_risk_configuration
 
+type t = private {
+  client_id : string prop;
+  id : string prop;
+  user_pool_id : string prop;
+}
+
 val aws_cognito_risk_configuration :
   ?client_id:string prop ->
   ?id:string prop ->
@@ -40,4 +46,4 @@ val aws_cognito_risk_configuration :
   risk_exception_configuration:
     aws_cognito_risk_configuration__risk_exception_configuration list ->
   string ->
-  unit
+  t

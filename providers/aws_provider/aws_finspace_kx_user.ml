@@ -25,12 +25,38 @@ type aws_finspace_kx_user = {
 [@@deriving yojson_of]
 (** aws_finspace_kx_user *)
 
+type t = {
+  arn : string prop;
+  environment_id : string prop;
+  iam_role : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_finspace_kx_user ?id ?tags ?tags_all ?timeouts
     ~environment_id ~iam_role ~name __resource_id =
   let __resource_type = "aws_finspace_kx_user" in
   let __resource =
-    { environment_id; iam_role; id; name; tags; tags_all; timeouts }
+    ({ environment_id; iam_role; id; name; tags; tags_all; timeouts }
+      : aws_finspace_kx_user)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_finspace_kx_user __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       environment_id =
+         Prop.computed __resource_type __resource_id "environment_id";
+       iam_role =
+         Prop.computed __resource_type __resource_id "iam_role";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

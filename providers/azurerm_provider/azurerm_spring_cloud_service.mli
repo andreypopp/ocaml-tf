@@ -29,6 +29,26 @@ type azurerm_spring_cloud_service__required_network_traffic_rules = {
 
 type azurerm_spring_cloud_service
 
+type t = private {
+  build_agent_pool_size : string prop;
+  id : string prop;
+  location : string prop;
+  log_stream_public_endpoint_enabled : bool prop;
+  managed_environment_id : string prop;
+  name : string prop;
+  outbound_public_ip_addresses : string list prop;
+  required_network_traffic_rules :
+    azurerm_spring_cloud_service__required_network_traffic_rules list
+    prop;
+  resource_group_name : string prop;
+  service_registry_enabled : bool prop;
+  service_registry_id : string prop;
+  sku_name : string prop;
+  sku_tier : string prop;
+  tags : (string * string) list prop;
+  zone_redundant : bool prop;
+}
+
 val azurerm_spring_cloud_service :
   ?build_agent_pool_size:string prop ->
   ?id:string prop ->
@@ -53,4 +73,4 @@ val azurerm_spring_cloud_service :
   network:azurerm_spring_cloud_service__network list ->
   trace:azurerm_spring_cloud_service__trace list ->
   string ->
-  unit
+  t

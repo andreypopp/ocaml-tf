@@ -4,6 +4,15 @@ open! Tf.Prelude
 
 type aws_lightsail_domain_entry
 
+type t = private {
+  domain_name : string prop;
+  id : string prop;
+  is_alias : bool prop;
+  name : string prop;
+  target : string prop;
+  type_ : string prop;
+}
+
 val aws_lightsail_domain_entry :
   ?id:string prop ->
   ?is_alias:bool prop ->
@@ -12,4 +21,4 @@ val aws_lightsail_domain_entry :
   target:string prop ->
   type_:string prop ->
   string ->
-  unit
+  t

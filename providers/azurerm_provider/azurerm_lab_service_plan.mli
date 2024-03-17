@@ -8,6 +8,17 @@ type azurerm_lab_service_plan__support
 type azurerm_lab_service_plan__timeouts
 type azurerm_lab_service_plan
 
+type t = private {
+  allowed_regions : string list prop;
+  default_network_subnet_id : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  shared_gallery_id : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_lab_service_plan :
   ?default_network_subnet_id:string prop ->
   ?id:string prop ->
@@ -24,4 +35,4 @@ val azurerm_lab_service_plan :
     azurerm_lab_service_plan__default_connection list ->
   support:azurerm_lab_service_plan__support list ->
   string ->
-  unit
+  t

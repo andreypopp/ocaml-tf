@@ -274,6 +274,24 @@ type aws_ec2_fleet = {
 [@@deriving yojson_of]
 (** aws_ec2_fleet *)
 
+type t = {
+  arn : string prop;
+  context : string prop;
+  excess_capacity_termination_policy : string prop;
+  fleet_state : string prop;
+  fulfilled_capacity : float prop;
+  fulfilled_on_demand_capacity : float prop;
+  id : string prop;
+  replace_unhealthy_instances : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  terminate_instances : bool prop;
+  terminate_instances_with_expiration : bool prop;
+  type_ : string prop;
+  valid_from : string prop;
+  valid_until : string prop;
+}
+
 let aws_ec2_fleet ?context ?excess_capacity_termination_policy
     ?fleet_state ?fulfilled_capacity ?fulfilled_on_demand_capacity
     ?id ?replace_unhealthy_instances ?tags ?tags_all
@@ -283,29 +301,67 @@ let aws_ec2_fleet ?context ?excess_capacity_termination_policy
     ~target_capacity_specification __resource_id =
   let __resource_type = "aws_ec2_fleet" in
   let __resource =
-    {
-      context;
-      excess_capacity_termination_policy;
-      fleet_state;
-      fulfilled_capacity;
-      fulfilled_on_demand_capacity;
-      id;
-      replace_unhealthy_instances;
-      tags;
-      tags_all;
-      terminate_instances;
-      terminate_instances_with_expiration;
-      type_;
-      valid_from;
-      valid_until;
-      fleet_instance_set;
-      launch_template_config;
-      on_demand_options;
-      spot_options;
-      target_capacity_specification;
-      timeouts;
-    }
+    ({
+       context;
+       excess_capacity_termination_policy;
+       fleet_state;
+       fulfilled_capacity;
+       fulfilled_on_demand_capacity;
+       id;
+       replace_unhealthy_instances;
+       tags;
+       tags_all;
+       terminate_instances;
+       terminate_instances_with_expiration;
+       type_;
+       valid_from;
+       valid_until;
+       fleet_instance_set;
+       launch_template_config;
+       on_demand_options;
+       spot_options;
+       target_capacity_specification;
+       timeouts;
+     }
+      : aws_ec2_fleet)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_fleet __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       context =
+         Prop.computed __resource_type __resource_id "context";
+       excess_capacity_termination_policy =
+         Prop.computed __resource_type __resource_id
+           "excess_capacity_termination_policy";
+       fleet_state =
+         Prop.computed __resource_type __resource_id "fleet_state";
+       fulfilled_capacity =
+         Prop.computed __resource_type __resource_id
+           "fulfilled_capacity";
+       fulfilled_on_demand_capacity =
+         Prop.computed __resource_type __resource_id
+           "fulfilled_on_demand_capacity";
+       id = Prop.computed __resource_type __resource_id "id";
+       replace_unhealthy_instances =
+         Prop.computed __resource_type __resource_id
+           "replace_unhealthy_instances";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       terminate_instances =
+         Prop.computed __resource_type __resource_id
+           "terminate_instances";
+       terminate_instances_with_expiration =
+         Prop.computed __resource_type __resource_id
+           "terminate_instances_with_expiration";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       valid_from =
+         Prop.computed __resource_type __resource_id "valid_from";
+       valid_until =
+         Prop.computed __resource_type __resource_id "valid_until";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -40,26 +40,78 @@ type azurerm_app_service_environment = {
 [@@deriving yojson_of]
 (** azurerm_app_service_environment *)
 
+type t = {
+  allowed_user_ip_cidrs : string list prop;
+  front_end_scale_factor : float prop;
+  id : string prop;
+  internal_ip_address : string prop;
+  internal_load_balancing_mode : string prop;
+  location : string prop;
+  name : string prop;
+  outbound_ip_addresses : string list prop;
+  pricing_tier : string prop;
+  resource_group_name : string prop;
+  service_ip_address : string prop;
+  subnet_id : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_app_service_environment ?allowed_user_ip_cidrs
     ?front_end_scale_factor ?id ?internal_load_balancing_mode
     ?pricing_tier ?tags ?timeouts ~name ~resource_group_name
     ~subnet_id ~cluster_setting __resource_id =
   let __resource_type = "azurerm_app_service_environment" in
   let __resource =
-    {
-      allowed_user_ip_cidrs;
-      front_end_scale_factor;
-      id;
-      internal_load_balancing_mode;
-      name;
-      pricing_tier;
-      resource_group_name;
-      subnet_id;
-      tags;
-      cluster_setting;
-      timeouts;
-    }
+    ({
+       allowed_user_ip_cidrs;
+       front_end_scale_factor;
+       id;
+       internal_load_balancing_mode;
+       name;
+       pricing_tier;
+       resource_group_name;
+       subnet_id;
+       tags;
+       cluster_setting;
+       timeouts;
+     }
+      : azurerm_app_service_environment)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_environment __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allowed_user_ip_cidrs =
+         Prop.computed __resource_type __resource_id
+           "allowed_user_ip_cidrs";
+       front_end_scale_factor =
+         Prop.computed __resource_type __resource_id
+           "front_end_scale_factor";
+       id = Prop.computed __resource_type __resource_id "id";
+       internal_ip_address =
+         Prop.computed __resource_type __resource_id
+           "internal_ip_address";
+       internal_load_balancing_mode =
+         Prop.computed __resource_type __resource_id
+           "internal_load_balancing_mode";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       outbound_ip_addresses =
+         Prop.computed __resource_type __resource_id
+           "outbound_ip_addresses";
+       pricing_tier =
+         Prop.computed __resource_type __resource_id "pricing_tier";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       service_ip_address =
+         Prop.computed __resource_type __resource_id
+           "service_ip_address";
+       subnet_id =
+         Prop.computed __resource_type __resource_id "subnet_id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

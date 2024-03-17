@@ -51,27 +51,70 @@ type aws_appsync_function = {
 [@@deriving yojson_of]
 (** aws_appsync_function *)
 
+type t = {
+  api_id : string prop;
+  arn : string prop;
+  code : string prop;
+  data_source : string prop;
+  description : string prop;
+  function_id : string prop;
+  function_version : string prop;
+  id : string prop;
+  max_batch_size : float prop;
+  name : string prop;
+  request_mapping_template : string prop;
+  response_mapping_template : string prop;
+}
+
 let aws_appsync_function ?code ?description ?function_version ?id
     ?max_batch_size ?request_mapping_template
     ?response_mapping_template ~api_id ~data_source ~name ~runtime
     ~sync_config __resource_id =
   let __resource_type = "aws_appsync_function" in
   let __resource =
-    {
-      api_id;
-      code;
-      data_source;
-      description;
-      function_version;
-      id;
-      max_batch_size;
-      name;
-      request_mapping_template;
-      response_mapping_template;
-      runtime;
-      sync_config;
-    }
+    ({
+       api_id;
+       code;
+       data_source;
+       description;
+       function_version;
+       id;
+       max_batch_size;
+       name;
+       request_mapping_template;
+       response_mapping_template;
+       runtime;
+       sync_config;
+     }
+      : aws_appsync_function)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appsync_function __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_id = Prop.computed __resource_type __resource_id "api_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       code = Prop.computed __resource_type __resource_id "code";
+       data_source =
+         Prop.computed __resource_type __resource_id "data_source";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       function_id =
+         Prop.computed __resource_type __resource_id "function_id";
+       function_version =
+         Prop.computed __resource_type __resource_id
+           "function_version";
+       id = Prop.computed __resource_type __resource_id "id";
+       max_batch_size =
+         Prop.computed __resource_type __resource_id "max_batch_size";
+       name = Prop.computed __resource_type __resource_id "name";
+       request_mapping_template =
+         Prop.computed __resource_type __resource_id
+           "request_mapping_template";
+       response_mapping_template =
+         Prop.computed __resource_type __resource_id
+           "response_mapping_template";
+     }
+      : t)
+  in
+  __resource_attributes

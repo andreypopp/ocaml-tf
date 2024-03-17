@@ -5,6 +5,17 @@ open! Tf.Prelude
 type aws_appintegrations_data_integration__schedule_config
 type aws_appintegrations_data_integration
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  kms_key : string prop;
+  name : string prop;
+  source_uri : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_appintegrations_data_integration :
   ?description:string prop ->
   ?id:string prop ->
@@ -16,4 +27,4 @@ val aws_appintegrations_data_integration :
   schedule_config:
     aws_appintegrations_data_integration__schedule_config list ->
   string ->
-  unit
+  t

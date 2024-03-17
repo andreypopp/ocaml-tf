@@ -32,22 +32,49 @@ This can only be specified when network_endpoint_type of the NEG is INTERNET_IP_
 [@@deriving yojson_of]
 (** google_compute_region_network_endpoint *)
 
+type t = {
+  fqdn : string prop;
+  id : string prop;
+  ip_address : string prop;
+  port : float prop;
+  project : string prop;
+  region : string prop;
+  region_network_endpoint_group : string prop;
+}
+
 let google_compute_region_network_endpoint ?fqdn ?id ?ip_address
     ?project ?region ?timeouts ~port ~region_network_endpoint_group
     __resource_id =
   let __resource_type = "google_compute_region_network_endpoint" in
   let __resource =
-    {
-      fqdn;
-      id;
-      ip_address;
-      port;
-      project;
-      region;
-      region_network_endpoint_group;
-      timeouts;
-    }
+    ({
+       fqdn;
+       id;
+       ip_address;
+       port;
+       project;
+       region;
+       region_network_endpoint_group;
+       timeouts;
+     }
+      : google_compute_region_network_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_network_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       fqdn = Prop.computed __resource_type __resource_id "fqdn";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       port = Prop.computed __resource_type __resource_id "port";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       region_network_endpoint_group =
+         Prop.computed __resource_type __resource_id
+           "region_network_endpoint_group";
+     }
+      : t)
+  in
+  __resource_attributes

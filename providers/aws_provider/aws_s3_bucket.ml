@@ -275,6 +275,27 @@ type aws_s3_bucket = {
 [@@deriving yojson_of]
 (** aws_s3_bucket *)
 
+type t = {
+  acceleration_status : string prop;
+  acl : string prop;
+  arn : string prop;
+  bucket : string prop;
+  bucket_domain_name : string prop;
+  bucket_prefix : string prop;
+  bucket_regional_domain_name : string prop;
+  force_destroy : bool prop;
+  hosted_zone_id : string prop;
+  id : string prop;
+  object_lock_enabled : bool prop;
+  policy : string prop;
+  region : string prop;
+  request_payer : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  website_domain : string prop;
+  website_endpoint : string prop;
+}
+
 let aws_s3_bucket ?acceleration_status ?acl ?bucket ?bucket_prefix
     ?force_destroy ?id ?object_lock_enabled ?policy ?request_payer
     ?tags ?tags_all ?timeouts ~cors_rule ~grant ~lifecycle_rule
@@ -283,30 +304,70 @@ let aws_s3_bucket ?acceleration_status ?acl ?bucket ?bucket_prefix
     __resource_id =
   let __resource_type = "aws_s3_bucket" in
   let __resource =
-    {
-      acceleration_status;
-      acl;
-      bucket;
-      bucket_prefix;
-      force_destroy;
-      id;
-      object_lock_enabled;
-      policy;
-      request_payer;
-      tags;
-      tags_all;
-      cors_rule;
-      grant;
-      lifecycle_rule;
-      logging;
-      object_lock_configuration;
-      replication_configuration;
-      server_side_encryption_configuration;
-      timeouts;
-      versioning;
-      website;
-    }
+    ({
+       acceleration_status;
+       acl;
+       bucket;
+       bucket_prefix;
+       force_destroy;
+       id;
+       object_lock_enabled;
+       policy;
+       request_payer;
+       tags;
+       tags_all;
+       cors_rule;
+       grant;
+       lifecycle_rule;
+       logging;
+       object_lock_configuration;
+       replication_configuration;
+       server_side_encryption_configuration;
+       timeouts;
+       versioning;
+       website;
+     }
+      : aws_s3_bucket)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket __resource);
-  ()
+  let __resource_attributes =
+    ({
+       acceleration_status =
+         Prop.computed __resource_type __resource_id
+           "acceleration_status";
+       acl = Prop.computed __resource_type __resource_id "acl";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       bucket_domain_name =
+         Prop.computed __resource_type __resource_id
+           "bucket_domain_name";
+       bucket_prefix =
+         Prop.computed __resource_type __resource_id "bucket_prefix";
+       bucket_regional_domain_name =
+         Prop.computed __resource_type __resource_id
+           "bucket_regional_domain_name";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       hosted_zone_id =
+         Prop.computed __resource_type __resource_id "hosted_zone_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       object_lock_enabled =
+         Prop.computed __resource_type __resource_id
+           "object_lock_enabled";
+       policy = Prop.computed __resource_type __resource_id "policy";
+       region = Prop.computed __resource_type __resource_id "region";
+       request_payer =
+         Prop.computed __resource_type __resource_id "request_payer";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       website_domain =
+         Prop.computed __resource_type __resource_id "website_domain";
+       website_endpoint =
+         Prop.computed __resource_type __resource_id
+           "website_endpoint";
+     }
+      : t)
+  in
+  __resource_attributes

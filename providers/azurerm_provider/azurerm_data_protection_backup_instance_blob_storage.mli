@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_data_protection_backup_instance_blob_storage__timeouts
 type azurerm_data_protection_backup_instance_blob_storage
 
+type t = private {
+  backup_policy_id : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  storage_account_id : string prop;
+  vault_id : string prop;
+}
+
 val azurerm_data_protection_backup_instance_blob_storage :
   ?id:string prop ->
   ?timeouts:
@@ -15,4 +24,4 @@ val azurerm_data_protection_backup_instance_blob_storage :
   storage_account_id:string prop ->
   vault_id:string prop ->
   string ->
-  unit
+  t

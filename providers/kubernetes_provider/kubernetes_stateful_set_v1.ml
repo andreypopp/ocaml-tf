@@ -2600,12 +2600,24 @@ type kubernetes_stateful_set_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_stateful_set_v1 *)
 
+type t = { id : string prop; wait_for_rollout : bool prop }
+
 let kubernetes_stateful_set_v1 ?id ?wait_for_rollout ?timeouts
     ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_stateful_set_v1" in
   let __resource =
-    { id; wait_for_rollout; metadata; spec; timeouts }
+    ({ id; wait_for_rollout; metadata; spec; timeouts }
+      : kubernetes_stateful_set_v1)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_stateful_set_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       wait_for_rollout =
+         Prop.computed __resource_type __resource_id
+           "wait_for_rollout";
+     }
+      : t)
+  in
+  __resource_attributes

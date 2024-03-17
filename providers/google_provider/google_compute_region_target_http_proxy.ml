@@ -36,12 +36,46 @@ to the BackendService. *)
 [@@deriving yojson_of]
 (** google_compute_region_target_http_proxy *)
 
+type t = {
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  proxy_id : float prop;
+  region : string prop;
+  self_link : string prop;
+  url_map : string prop;
+}
+
 let google_compute_region_target_http_proxy ?description ?id ?project
     ?region ?timeouts ~name ~url_map __resource_id =
   let __resource_type = "google_compute_region_target_http_proxy" in
   let __resource =
-    { description; id; name; project; region; url_map; timeouts }
+    ({ description; id; name; project; region; url_map; timeouts }
+      : google_compute_region_target_http_proxy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_region_target_http_proxy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       proxy_id =
+         Prop.computed __resource_type __resource_id "proxy_id";
+       region = Prop.computed __resource_type __resource_id "region";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       url_map =
+         Prop.computed __resource_type __resource_id "url_map";
+     }
+      : t)
+  in
+  __resource_attributes

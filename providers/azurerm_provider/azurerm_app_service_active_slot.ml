@@ -23,18 +23,41 @@ type azurerm_app_service_active_slot = {
 [@@deriving yojson_of]
 (** azurerm_app_service_active_slot *)
 
+type t = {
+  app_service_name : string prop;
+  app_service_slot_name : string prop;
+  id : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_app_service_active_slot ?id ?timeouts ~app_service_name
     ~app_service_slot_name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_app_service_active_slot" in
   let __resource =
-    {
-      app_service_name;
-      app_service_slot_name;
-      id;
-      resource_group_name;
-      timeouts;
-    }
+    ({
+       app_service_name;
+       app_service_slot_name;
+       id;
+       resource_group_name;
+       timeouts;
+     }
+      : azurerm_app_service_active_slot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_active_slot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_service_name =
+         Prop.computed __resource_type __resource_id
+           "app_service_name";
+       app_service_slot_name =
+         Prop.computed __resource_type __resource_id
+           "app_service_slot_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

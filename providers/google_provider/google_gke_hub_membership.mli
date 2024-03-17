@@ -8,6 +8,17 @@ type google_gke_hub_membership__endpoint
 type google_gke_hub_membership__timeouts
 type google_gke_hub_membership
 
+type t = private {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  membership_id : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 val google_gke_hub_membership :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
@@ -18,4 +29,4 @@ val google_gke_hub_membership :
   authority:google_gke_hub_membership__authority list ->
   endpoint:google_gke_hub_membership__endpoint list ->
   string ->
-  unit
+  t

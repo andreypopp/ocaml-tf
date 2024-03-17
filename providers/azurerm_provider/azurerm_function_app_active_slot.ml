@@ -24,12 +24,34 @@ type azurerm_function_app_active_slot = {
 [@@deriving yojson_of]
 (** azurerm_function_app_active_slot *)
 
+type t = {
+  id : string prop;
+  last_successful_swap : string prop;
+  overwrite_network_config : bool prop;
+  slot_id : string prop;
+}
+
 let azurerm_function_app_active_slot ?id ?overwrite_network_config
     ?timeouts ~slot_id __resource_id =
   let __resource_type = "azurerm_function_app_active_slot" in
   let __resource =
-    { id; overwrite_network_config; slot_id; timeouts }
+    ({ id; overwrite_network_config; slot_id; timeouts }
+      : azurerm_function_app_active_slot)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_function_app_active_slot __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       last_successful_swap =
+         Prop.computed __resource_type __resource_id
+           "last_successful_swap";
+       overwrite_network_config =
+         Prop.computed __resource_type __resource_id
+           "overwrite_network_config";
+       slot_id =
+         Prop.computed __resource_type __resource_id "slot_id";
+     }
+      : t)
+  in
+  __resource_attributes

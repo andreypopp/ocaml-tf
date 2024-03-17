@@ -93,24 +93,51 @@ type azurerm_monitor_activity_log_alert = {
 [@@deriving yojson_of]
 (** azurerm_monitor_activity_log_alert *)
 
+type t = {
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_monitor_activity_log_alert ?description ?enabled ?id
     ?tags ?timeouts ~name ~resource_group_name ~scopes ~action
     ~criteria __resource_id =
   let __resource_type = "azurerm_monitor_activity_log_alert" in
   let __resource =
-    {
-      description;
-      enabled;
-      id;
-      name;
-      resource_group_name;
-      scopes;
-      tags;
-      action;
-      criteria;
-      timeouts;
-    }
+    ({
+       description;
+       enabled;
+       id;
+       name;
+       resource_group_name;
+       scopes;
+       tags;
+       action;
+       criteria;
+       timeouts;
+     }
+      : azurerm_monitor_activity_log_alert)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_activity_log_alert __resource);
-  ()
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scopes = Prop.computed __resource_type __resource_id "scopes";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

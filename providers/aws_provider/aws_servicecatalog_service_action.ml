@@ -35,12 +35,32 @@ type aws_servicecatalog_service_action = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_service_action *)
 
+type t = {
+  accept_language : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let aws_servicecatalog_service_action ?accept_language ?description
     ?id ?timeouts ~name ~definition __resource_id =
   let __resource_type = "aws_servicecatalog_service_action" in
   let __resource =
-    { accept_language; description; id; name; definition; timeouts }
+    ({ accept_language; description; id; name; definition; timeouts }
+      : aws_servicecatalog_service_action)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_service_action __resource);
-  ()
+  let __resource_attributes =
+    ({
+       accept_language =
+         Prop.computed __resource_type __resource_id
+           "accept_language";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

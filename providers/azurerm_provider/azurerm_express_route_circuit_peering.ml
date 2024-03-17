@@ -77,6 +77,24 @@ type azurerm_express_route_circuit_peering = {
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit_peering *)
 
+type t = {
+  azure_asn : float prop;
+  express_route_circuit_name : string prop;
+  gateway_manager_etag : string prop;
+  id : string prop;
+  ipv4_enabled : bool prop;
+  peer_asn : float prop;
+  peering_type : string prop;
+  primary_azure_port : string prop;
+  primary_peer_address_prefix : string prop;
+  resource_group_name : string prop;
+  route_filter_id : string prop;
+  secondary_azure_port : string prop;
+  secondary_peer_address_prefix : string prop;
+  shared_key : string prop;
+  vlan_id : float prop;
+}
+
 let azurerm_express_route_circuit_peering ?id ?ipv4_enabled ?peer_asn
     ?primary_peer_address_prefix ?route_filter_id
     ?secondary_peer_address_prefix ?shared_key ?timeouts
@@ -84,23 +102,66 @@ let azurerm_express_route_circuit_peering ?id ?ipv4_enabled ?peer_asn
     ~vlan_id ~ipv6 ~microsoft_peering_config __resource_id =
   let __resource_type = "azurerm_express_route_circuit_peering" in
   let __resource =
-    {
-      express_route_circuit_name;
-      id;
-      ipv4_enabled;
-      peer_asn;
-      peering_type;
-      primary_peer_address_prefix;
-      resource_group_name;
-      route_filter_id;
-      secondary_peer_address_prefix;
-      shared_key;
-      vlan_id;
-      ipv6;
-      microsoft_peering_config;
-      timeouts;
-    }
+    ({
+       express_route_circuit_name;
+       id;
+       ipv4_enabled;
+       peer_asn;
+       peering_type;
+       primary_peer_address_prefix;
+       resource_group_name;
+       route_filter_id;
+       secondary_peer_address_prefix;
+       shared_key;
+       vlan_id;
+       ipv6;
+       microsoft_peering_config;
+       timeouts;
+     }
+      : azurerm_express_route_circuit_peering)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_express_route_circuit_peering __resource);
-  ()
+  let __resource_attributes =
+    ({
+       azure_asn =
+         Prop.computed __resource_type __resource_id "azure_asn";
+       express_route_circuit_name =
+         Prop.computed __resource_type __resource_id
+           "express_route_circuit_name";
+       gateway_manager_etag =
+         Prop.computed __resource_type __resource_id
+           "gateway_manager_etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       ipv4_enabled =
+         Prop.computed __resource_type __resource_id "ipv4_enabled";
+       peer_asn =
+         Prop.computed __resource_type __resource_id "peer_asn";
+       peering_type =
+         Prop.computed __resource_type __resource_id "peering_type";
+       primary_azure_port =
+         Prop.computed __resource_type __resource_id
+           "primary_azure_port";
+       primary_peer_address_prefix =
+         Prop.computed __resource_type __resource_id
+           "primary_peer_address_prefix";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       route_filter_id =
+         Prop.computed __resource_type __resource_id
+           "route_filter_id";
+       secondary_azure_port =
+         Prop.computed __resource_type __resource_id
+           "secondary_azure_port";
+       secondary_peer_address_prefix =
+         Prop.computed __resource_type __resource_id
+           "secondary_peer_address_prefix";
+       shared_key =
+         Prop.computed __resource_type __resource_id "shared_key";
+       vlan_id =
+         Prop.computed __resource_type __resource_id "vlan_id";
+     }
+      : t)
+  in
+  __resource_attributes

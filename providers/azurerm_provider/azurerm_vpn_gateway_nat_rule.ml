@@ -51,27 +51,63 @@ type azurerm_vpn_gateway_nat_rule = {
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway_nat_rule *)
 
+type t = {
+  external_address_space_mappings : string list prop;
+  id : string prop;
+  internal_address_space_mappings : string list prop;
+  ip_configuration_id : string prop;
+  mode : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  type_ : string prop;
+  vpn_gateway_id : string prop;
+}
+
 let azurerm_vpn_gateway_nat_rule ?external_address_space_mappings ?id
     ?internal_address_space_mappings ?ip_configuration_id ?mode
     ?type_ ?timeouts ~name ~resource_group_name ~vpn_gateway_id
     ~external_mapping ~internal_mapping __resource_id =
   let __resource_type = "azurerm_vpn_gateway_nat_rule" in
   let __resource =
-    {
-      external_address_space_mappings;
-      id;
-      internal_address_space_mappings;
-      ip_configuration_id;
-      mode;
-      name;
-      resource_group_name;
-      type_;
-      vpn_gateway_id;
-      external_mapping;
-      internal_mapping;
-      timeouts;
-    }
+    ({
+       external_address_space_mappings;
+       id;
+       internal_address_space_mappings;
+       ip_configuration_id;
+       mode;
+       name;
+       resource_group_name;
+       type_;
+       vpn_gateway_id;
+       external_mapping;
+       internal_mapping;
+       timeouts;
+     }
+      : azurerm_vpn_gateway_nat_rule)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_vpn_gateway_nat_rule __resource);
-  ()
+  let __resource_attributes =
+    ({
+       external_address_space_mappings =
+         Prop.computed __resource_type __resource_id
+           "external_address_space_mappings";
+       id = Prop.computed __resource_type __resource_id "id";
+       internal_address_space_mappings =
+         Prop.computed __resource_type __resource_id
+           "internal_address_space_mappings";
+       ip_configuration_id =
+         Prop.computed __resource_type __resource_id
+           "ip_configuration_id";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       vpn_gateway_id =
+         Prop.computed __resource_type __resource_id "vpn_gateway_id";
+     }
+      : t)
+  in
+  __resource_attributes

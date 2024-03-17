@@ -112,28 +112,60 @@ type aws_datasync_task = {
 [@@deriving yojson_of]
 (** aws_datasync_task *)
 
+type t = {
+  arn : string prop;
+  cloudwatch_log_group_arn : string prop;
+  destination_location_arn : string prop;
+  id : string prop;
+  name : string prop;
+  source_location_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_datasync_task ?cloudwatch_log_group_arn ?id ?name ?tags
     ?tags_all ?timeouts ~destination_location_arn
     ~source_location_arn ~excludes ~includes ~options ~schedule
     ~task_report_config __resource_id =
   let __resource_type = "aws_datasync_task" in
   let __resource =
-    {
-      cloudwatch_log_group_arn;
-      destination_location_arn;
-      id;
-      name;
-      source_location_arn;
-      tags;
-      tags_all;
-      excludes;
-      includes;
-      options;
-      schedule;
-      task_report_config;
-      timeouts;
-    }
+    ({
+       cloudwatch_log_group_arn;
+       destination_location_arn;
+       id;
+       name;
+       source_location_arn;
+       tags;
+       tags_all;
+       excludes;
+       includes;
+       options;
+       schedule;
+       task_report_config;
+       timeouts;
+     }
+      : aws_datasync_task)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_datasync_task __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       cloudwatch_log_group_arn =
+         Prop.computed __resource_type __resource_id
+           "cloudwatch_log_group_arn";
+       destination_location_arn =
+         Prop.computed __resource_type __resource_id
+           "destination_location_arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       source_location_arn =
+         Prop.computed __resource_type __resource_id
+           "source_location_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

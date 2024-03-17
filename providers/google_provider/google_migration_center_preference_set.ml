@@ -157,22 +157,57 @@ type google_migration_center_preference_set = {
 [@@deriving yojson_of]
 (** google_migration_center_preference_set *)
 
+type t = {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  preference_set_id : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
 let google_migration_center_preference_set ?description ?display_name
     ?id ?project ?timeouts ~location ~preference_set_id
     ~virtual_machine_preferences __resource_id =
   let __resource_type = "google_migration_center_preference_set" in
   let __resource =
-    {
-      description;
-      display_name;
-      id;
-      location;
-      preference_set_id;
-      project;
-      timeouts;
-      virtual_machine_preferences;
-    }
+    ({
+       description;
+       display_name;
+       id;
+       location;
+       preference_set_id;
+       project;
+       timeouts;
+       virtual_machine_preferences;
+     }
+      : google_migration_center_preference_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_migration_center_preference_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       preference_set_id =
+         Prop.computed __resource_type __resource_id
+           "preference_set_id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

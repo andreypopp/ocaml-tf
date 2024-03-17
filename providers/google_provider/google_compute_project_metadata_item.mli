@@ -5,6 +5,13 @@ open! Tf.Prelude
 type google_compute_project_metadata_item__timeouts
 type google_compute_project_metadata_item
 
+type t = private {
+  id : string prop;
+  key : string prop;
+  project : string prop;
+  value : string prop;
+}
+
 val google_compute_project_metadata_item :
   ?id:string prop ->
   ?project:string prop ->
@@ -12,4 +19,4 @@ val google_compute_project_metadata_item :
   key:string prop ->
   value:string prop ->
   string ->
-  unit
+  t

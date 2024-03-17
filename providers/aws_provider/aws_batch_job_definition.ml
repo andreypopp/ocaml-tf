@@ -180,29 +180,79 @@ type aws_batch_job_definition = {
 [@@deriving yojson_of]
 (** aws_batch_job_definition *)
 
+type t = {
+  arn : string prop;
+  arn_prefix : string prop;
+  container_properties : string prop;
+  id : string prop;
+  name : string prop;
+  node_properties : string prop;
+  parameters : (string * string) list prop;
+  platform_capabilities : string list prop;
+  propagate_tags : bool prop;
+  revision : float prop;
+  scheduling_priority : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_batch_job_definition ?container_properties ?id
     ?node_properties ?parameters ?platform_capabilities
     ?propagate_tags ?scheduling_priority ?tags ?tags_all ~name ~type_
     ~eks_properties ~retry_strategy ~timeout __resource_id =
   let __resource_type = "aws_batch_job_definition" in
   let __resource =
-    {
-      container_properties;
-      id;
-      name;
-      node_properties;
-      parameters;
-      platform_capabilities;
-      propagate_tags;
-      scheduling_priority;
-      tags;
-      tags_all;
-      type_;
-      eks_properties;
-      retry_strategy;
-      timeout;
-    }
+    ({
+       container_properties;
+       id;
+       name;
+       node_properties;
+       parameters;
+       platform_capabilities;
+       propagate_tags;
+       scheduling_priority;
+       tags;
+       tags_all;
+       type_;
+       eks_properties;
+       retry_strategy;
+       timeout;
+     }
+      : aws_batch_job_definition)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_batch_job_definition __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       arn_prefix =
+         Prop.computed __resource_type __resource_id "arn_prefix";
+       container_properties =
+         Prop.computed __resource_type __resource_id
+           "container_properties";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       node_properties =
+         Prop.computed __resource_type __resource_id
+           "node_properties";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+       platform_capabilities =
+         Prop.computed __resource_type __resource_id
+           "platform_capabilities";
+       propagate_tags =
+         Prop.computed __resource_type __resource_id "propagate_tags";
+       revision =
+         Prop.computed __resource_type __resource_id "revision";
+       scheduling_priority =
+         Prop.computed __resource_type __resource_id
+           "scheduling_priority";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

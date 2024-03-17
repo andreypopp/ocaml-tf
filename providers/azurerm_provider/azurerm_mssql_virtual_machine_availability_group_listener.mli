@@ -12,6 +12,14 @@ type azurerm_mssql_virtual_machine_availability_group_listener__timeouts
 
 type azurerm_mssql_virtual_machine_availability_group_listener
 
+type t = private {
+  availability_group_name : string prop;
+  id : string prop;
+  name : string prop;
+  port : float prop;
+  sql_virtual_machine_group_id : string prop;
+}
+
 val azurerm_mssql_virtual_machine_availability_group_listener :
   ?availability_group_name:string prop ->
   ?id:string prop ->
@@ -30,4 +38,4 @@ val azurerm_mssql_virtual_machine_availability_group_listener :
     azurerm_mssql_virtual_machine_availability_group_listener__replica
     list ->
   string ->
-  unit
+  t

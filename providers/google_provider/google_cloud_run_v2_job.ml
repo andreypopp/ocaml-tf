@@ -289,26 +289,119 @@ For example, if ALPHA is provided as input, but only BETA and GA-level features 
 [@@deriving yojson_of]
 (** google_cloud_run_v2_job *)
 
+type t = {
+  annotations : (string * string) list prop;
+  client : string prop;
+  client_version : string prop;
+  conditions : google_cloud_run_v2_job__conditions list prop;
+  create_time : string prop;
+  creator : string prop;
+  delete_time : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  etag : string prop;
+  execution_count : float prop;
+  expire_time : string prop;
+  generation : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  last_modifier : string prop;
+  latest_created_execution :
+    google_cloud_run_v2_job__latest_created_execution list prop;
+  launch_stage : string prop;
+  location : string prop;
+  name : string prop;
+  observed_generation : string prop;
+  project : string prop;
+  reconciling : bool prop;
+  terminal_condition :
+    google_cloud_run_v2_job__terminal_condition list prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_cloud_run_v2_job ?annotations ?client ?client_version ?id
     ?labels ?launch_stage ?project ?timeouts ~location ~name
     ~binary_authorization ~template __resource_id =
   let __resource_type = "google_cloud_run_v2_job" in
   let __resource =
-    {
-      annotations;
-      client;
-      client_version;
-      id;
-      labels;
-      launch_stage;
-      location;
-      name;
-      project;
-      binary_authorization;
-      template;
-      timeouts;
-    }
+    ({
+       annotations;
+       client;
+       client_version;
+       id;
+       labels;
+       launch_stage;
+       location;
+       name;
+       project;
+       binary_authorization;
+       template;
+       timeouts;
+     }
+      : google_cloud_run_v2_job)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_run_v2_job __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       client = Prop.computed __resource_type __resource_id "client";
+       client_version =
+         Prop.computed __resource_type __resource_id "client_version";
+       conditions =
+         Prop.computed __resource_type __resource_id "conditions";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       creator =
+         Prop.computed __resource_type __resource_id "creator";
+       delete_time =
+         Prop.computed __resource_type __resource_id "delete_time";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       execution_count =
+         Prop.computed __resource_type __resource_id
+           "execution_count";
+       expire_time =
+         Prop.computed __resource_type __resource_id "expire_time";
+       generation =
+         Prop.computed __resource_type __resource_id "generation";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       last_modifier =
+         Prop.computed __resource_type __resource_id "last_modifier";
+       latest_created_execution =
+         Prop.computed __resource_type __resource_id
+           "latest_created_execution";
+       launch_stage =
+         Prop.computed __resource_type __resource_id "launch_stage";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       observed_generation =
+         Prop.computed __resource_type __resource_id
+           "observed_generation";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       terminal_condition =
+         Prop.computed __resource_type __resource_id
+           "terminal_condition";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

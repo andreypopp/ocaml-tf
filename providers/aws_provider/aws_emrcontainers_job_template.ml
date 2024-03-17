@@ -126,20 +126,43 @@ type aws_emrcontainers_job_template = {
 [@@deriving yojson_of]
 (** aws_emrcontainers_job_template *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  kms_key_arn : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_emrcontainers_job_template ?id ?kms_key_arn ?tags ?tags_all
     ?timeouts ~name ~job_template_data __resource_id =
   let __resource_type = "aws_emrcontainers_job_template" in
   let __resource =
-    {
-      id;
-      kms_key_arn;
-      name;
-      tags;
-      tags_all;
-      job_template_data;
-      timeouts;
-    }
+    ({
+       id;
+       kms_key_arn;
+       name;
+       tags;
+       tags_all;
+       job_template_data;
+       timeouts;
+     }
+      : aws_emrcontainers_job_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emrcontainers_job_template __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_arn =
+         Prop.computed __resource_type __resource_id "kms_key_arn";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -150,25 +150,54 @@ type aws_codepipeline = {
 [@@deriving yojson_of]
 (** aws_codepipeline *)
 
+type t = {
+  arn : string prop;
+  execution_mode : string prop;
+  id : string prop;
+  name : string prop;
+  pipeline_type : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
     ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
     ~variable __resource_id =
   let __resource_type = "aws_codepipeline" in
   let __resource =
-    {
-      execution_mode;
-      id;
-      name;
-      pipeline_type;
-      role_arn;
-      tags;
-      tags_all;
-      artifact_store;
-      stage;
-      trigger;
-      variable;
-    }
+    ({
+       execution_mode;
+       id;
+       name;
+       pipeline_type;
+       role_arn;
+       tags;
+       tags_all;
+       artifact_store;
+       stage;
+       trigger;
+       variable;
+     }
+      : aws_codepipeline)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codepipeline __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       execution_mode =
+         Prop.computed __resource_type __resource_id "execution_mode";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       pipeline_type =
+         Prop.computed __resource_type __resource_id "pipeline_type";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

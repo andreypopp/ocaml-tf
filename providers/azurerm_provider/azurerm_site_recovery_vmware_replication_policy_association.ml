@@ -24,15 +24,35 @@ type azurerm_site_recovery_vmware_replication_policy_association = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_vmware_replication_policy_association *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  policy_id : string prop;
+  recovery_vault_id : string prop;
+}
+
 let azurerm_site_recovery_vmware_replication_policy_association ?id
     ?timeouts ~name ~policy_id ~recovery_vault_id __resource_id =
   let __resource_type =
     "azurerm_site_recovery_vmware_replication_policy_association"
   in
   let __resource =
-    { id; name; policy_id; recovery_vault_id; timeouts }
+    ({ id; name; policy_id; recovery_vault_id; timeouts }
+      : azurerm_site_recovery_vmware_replication_policy_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_site_recovery_vmware_replication_policy_association
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       policy_id =
+         Prop.computed __resource_type __resource_id "policy_id";
+       recovery_vault_id =
+         Prop.computed __resource_type __resource_id
+           "recovery_vault_id";
+     }
+      : t)
+  in
+  __resource_attributes

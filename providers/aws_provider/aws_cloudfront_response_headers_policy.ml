@@ -181,24 +181,42 @@ type aws_cloudfront_response_headers_policy = {
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy *)
 
+type t = {
+  comment : string prop;
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 let aws_cloudfront_response_headers_policy ?comment ?etag ?id ~name
     ~cors_config ~custom_headers_config ~remove_headers_config
     ~security_headers_config ~server_timing_headers_config
     __resource_id =
   let __resource_type = "aws_cloudfront_response_headers_policy" in
   let __resource =
-    {
-      comment;
-      etag;
-      id;
-      name;
-      cors_config;
-      custom_headers_config;
-      remove_headers_config;
-      security_headers_config;
-      server_timing_headers_config;
-    }
+    ({
+       comment;
+       etag;
+       id;
+       name;
+       cors_config;
+       custom_headers_config;
+       remove_headers_config;
+       security_headers_config;
+       server_timing_headers_config;
+     }
+      : aws_cloudfront_response_headers_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_response_headers_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       comment =
+         Prop.computed __resource_type __resource_id "comment";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

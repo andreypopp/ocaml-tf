@@ -10,6 +10,25 @@ type aws_lightsail_container_service__public_domain_names
 type aws_lightsail_container_service__timeouts
 type aws_lightsail_container_service
 
+type t = private {
+  arn : string prop;
+  availability_zone : string prop;
+  created_at : string prop;
+  id : string prop;
+  is_disabled : bool prop;
+  name : string prop;
+  power : string prop;
+  power_id : string prop;
+  principal_arn : string prop;
+  private_domain_name : string prop;
+  resource_type : string prop;
+  scale : float prop;
+  state : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url : string prop;
+}
+
 val aws_lightsail_container_service :
   ?id:string prop ->
   ?is_disabled:bool prop ->
@@ -24,4 +43,4 @@ val aws_lightsail_container_service :
   public_domain_names:
     aws_lightsail_container_service__public_domain_names list ->
   string ->
-  unit
+  t

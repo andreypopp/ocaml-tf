@@ -8,6 +8,19 @@ type azurerm_gallery_application_version__target_region
 type azurerm_gallery_application_version__timeouts
 type azurerm_gallery_application_version
 
+type t = private {
+  config_file : string prop;
+  enable_health_check : bool prop;
+  end_of_life_date : string prop;
+  exclude_from_latest : bool prop;
+  gallery_application_id : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  package_file : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_gallery_application_version :
   ?config_file:string prop ->
   ?enable_health_check:bool prop ->
@@ -26,4 +39,4 @@ val azurerm_gallery_application_version :
   target_region:
     azurerm_gallery_application_version__target_region list ->
   string ->
-  unit
+  t

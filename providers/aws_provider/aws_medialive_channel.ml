@@ -2048,6 +2048,19 @@ type aws_medialive_channel = {
 [@@deriving yojson_of]
 (** aws_medialive_channel *)
 
+type t = {
+  arn : string prop;
+  channel_class : string prop;
+  channel_id : string prop;
+  id : string prop;
+  log_level : string prop;
+  name : string prop;
+  role_arn : string prop;
+  start_channel : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_medialive_channel ?id ?log_level ?role_arn ?start_channel
     ?tags ?tags_all ?timeouts ~channel_class ~name
     ~cdi_input_specification ~destinations ~encoder_settings
@@ -2055,25 +2068,47 @@ let aws_medialive_channel ?id ?log_level ?role_arn ?start_channel
     __resource_id =
   let __resource_type = "aws_medialive_channel" in
   let __resource =
-    {
-      channel_class;
-      id;
-      log_level;
-      name;
-      role_arn;
-      start_channel;
-      tags;
-      tags_all;
-      cdi_input_specification;
-      destinations;
-      encoder_settings;
-      input_attachments;
-      input_specification;
-      maintenance;
-      timeouts;
-      vpc;
-    }
+    ({
+       channel_class;
+       id;
+       log_level;
+       name;
+       role_arn;
+       start_channel;
+       tags;
+       tags_all;
+       cdi_input_specification;
+       destinations;
+       encoder_settings;
+       input_attachments;
+       input_specification;
+       maintenance;
+       timeouts;
+       vpc;
+     }
+      : aws_medialive_channel)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_medialive_channel __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       channel_class =
+         Prop.computed __resource_type __resource_id "channel_class";
+       channel_id =
+         Prop.computed __resource_type __resource_id "channel_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       log_level =
+         Prop.computed __resource_type __resource_id "log_level";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       start_channel =
+         Prop.computed __resource_type __resource_id "start_channel";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

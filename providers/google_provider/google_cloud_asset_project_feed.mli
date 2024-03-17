@@ -10,6 +10,17 @@ type google_cloud_asset_project_feed__feed_output_config
 type google_cloud_asset_project_feed__timeouts
 type google_cloud_asset_project_feed
 
+type t = private {
+  asset_names : string list prop;
+  asset_types : string list prop;
+  billing_project : string prop;
+  content_type : string prop;
+  feed_id : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 val google_cloud_asset_project_feed :
   ?asset_names:string prop list ->
   ?asset_types:string prop list ->
@@ -23,4 +34,4 @@ val google_cloud_asset_project_feed :
   feed_output_config:
     google_cloud_asset_project_feed__feed_output_config list ->
   string ->
-  unit
+  t

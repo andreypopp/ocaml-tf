@@ -32,12 +32,28 @@ type azurerm_virtual_hub_routing_intent = {
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_routing_intent *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  virtual_hub_id : string prop;
+}
+
 let azurerm_virtual_hub_routing_intent ?id ?timeouts ~name
     ~virtual_hub_id ~routing_policy __resource_id =
   let __resource_type = "azurerm_virtual_hub_routing_intent" in
   let __resource =
-    { id; name; virtual_hub_id; routing_policy; timeouts }
+    ({ id; name; virtual_hub_id; routing_policy; timeouts }
+      : azurerm_virtual_hub_routing_intent)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_hub_routing_intent __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       virtual_hub_id =
+         Prop.computed __resource_type __resource_id "virtual_hub_id";
+     }
+      : t)
+  in
+  __resource_attributes

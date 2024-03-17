@@ -82,22 +82,65 @@ type cloudflare_custom_hostname = {
 (** Provides a Cloudflare custom hostname (also known as SSL for SaaS) resource.
  *)
 
+type t = {
+  custom_metadata : (string * string) list prop;
+  custom_origin_server : string prop;
+  custom_origin_sni : string prop;
+  hostname : string prop;
+  id : string prop;
+  ownership_verification : (string * string) list prop;
+  ownership_verification_http : (string * string) list prop;
+  status : string prop;
+  wait_for_ssl_pending_validation : bool prop;
+  zone_id : string prop;
+}
+
 let cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
     ?custom_origin_sni ?id ?wait_for_ssl_pending_validation ~hostname
     ~zone_id ~ssl __resource_id =
   let __resource_type = "cloudflare_custom_hostname" in
   let __resource =
-    {
-      custom_metadata;
-      custom_origin_server;
-      custom_origin_sni;
-      hostname;
-      id;
-      wait_for_ssl_pending_validation;
-      zone_id;
-      ssl;
-    }
+    ({
+       custom_metadata;
+       custom_origin_server;
+       custom_origin_sni;
+       hostname;
+       id;
+       wait_for_ssl_pending_validation;
+       zone_id;
+       ssl;
+     }
+      : cloudflare_custom_hostname)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_custom_hostname __resource);
-  ()
+  let __resource_attributes =
+    ({
+       custom_metadata =
+         Prop.computed __resource_type __resource_id
+           "custom_metadata";
+       custom_origin_server =
+         Prop.computed __resource_type __resource_id
+           "custom_origin_server";
+       custom_origin_sni =
+         Prop.computed __resource_type __resource_id
+           "custom_origin_sni";
+       hostname =
+         Prop.computed __resource_type __resource_id "hostname";
+       id = Prop.computed __resource_type __resource_id "id";
+       ownership_verification =
+         Prop.computed __resource_type __resource_id
+           "ownership_verification";
+       ownership_verification_http =
+         Prop.computed __resource_type __resource_id
+           "ownership_verification_http";
+       status = Prop.computed __resource_type __resource_id "status";
+       wait_for_ssl_pending_validation =
+         Prop.computed __resource_type __resource_id
+           "wait_for_ssl_pending_validation";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

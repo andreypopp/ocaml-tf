@@ -43,23 +43,48 @@ type azurerm_notification_hub = {
 [@@deriving yojson_of]
 (** azurerm_notification_hub *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  namespace_name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_notification_hub ?id ?tags ?timeouts ~location ~name
     ~namespace_name ~resource_group_name ~apns_credential
     ~gcm_credential __resource_id =
   let __resource_type = "azurerm_notification_hub" in
   let __resource =
-    {
-      id;
-      location;
-      name;
-      namespace_name;
-      resource_group_name;
-      tags;
-      apns_credential;
-      gcm_credential;
-      timeouts;
-    }
+    ({
+       id;
+       location;
+       name;
+       namespace_name;
+       resource_group_name;
+       tags;
+       apns_credential;
+       gcm_credential;
+       timeouts;
+     }
+      : azurerm_notification_hub)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_notification_hub __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       namespace_name =
+         Prop.computed __resource_type __resource_id "namespace_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -6,6 +6,16 @@ type azurerm_sql_managed_instance_active_directory_administrator__timeouts
 
 type azurerm_sql_managed_instance_active_directory_administrator
 
+type t = private {
+  azuread_authentication_only : bool prop;
+  id : string prop;
+  login : string prop;
+  managed_instance_name : string prop;
+  object_id : string prop;
+  resource_group_name : string prop;
+  tenant_id : string prop;
+}
+
 val azurerm_sql_managed_instance_active_directory_administrator :
   ?azuread_authentication_only:bool prop ->
   ?id:string prop ->
@@ -17,4 +27,4 @@ val azurerm_sql_managed_instance_active_directory_administrator :
   resource_group_name:string prop ->
   tenant_id:string prop ->
   string ->
-  unit
+  t

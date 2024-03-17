@@ -21,6 +21,22 @@ type aws_securitylake_subscriber__subscriber_identity
 type aws_securitylake_subscriber__timeouts
 type aws_securitylake_subscriber
 
+type t = private {
+  access_type : string prop;
+  arn : string prop;
+  id : string prop;
+  resource_share_arn : string prop;
+  resource_share_name : string prop;
+  role_arn : string prop;
+  s3_bucket_arn : string prop;
+  subscriber_description : string prop;
+  subscriber_endpoint : string prop;
+  subscriber_name : string prop;
+  subscriber_status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_securitylake_subscriber :
   ?access_type:string prop ->
   ?subscriber_description:string prop ->
@@ -31,4 +47,4 @@ val aws_securitylake_subscriber :
   subscriber_identity:
     aws_securitylake_subscriber__subscriber_identity list ->
   string ->
-  unit
+  t

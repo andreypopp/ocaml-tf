@@ -43,6 +43,32 @@ type google_privateca_certificate_authority__access_urls = {
 
 type google_privateca_certificate_authority
 
+type t = private {
+  access_urls :
+    google_privateca_certificate_authority__access_urls list prop;
+  certificate_authority_id : string prop;
+  create_time : string prop;
+  deletion_protection : bool prop;
+  desired_state : string prop;
+  effective_labels : (string * string) list prop;
+  gcs_bucket : string prop;
+  id : string prop;
+  ignore_active_certificates_on_deletion : bool prop;
+  labels : (string * string) list prop;
+  lifetime : string prop;
+  location : string prop;
+  name : string prop;
+  pem_ca_certificate : string prop;
+  pem_ca_certificates : string list prop;
+  pool : string prop;
+  project : string prop;
+  skip_grace_period : bool prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  type_ : string prop;
+  update_time : string prop;
+}
+
 val google_privateca_certificate_authority :
   ?deletion_protection:bool prop ->
   ?desired_state:string prop ->
@@ -64,4 +90,4 @@ val google_privateca_certificate_authority :
   subordinate_config:
     google_privateca_certificate_authority__subordinate_config list ->
   string ->
-  unit
+  t

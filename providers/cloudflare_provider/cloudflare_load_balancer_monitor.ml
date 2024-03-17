@@ -54,6 +54,28 @@ to actively check the availability of those servers over HTTP(S) or
 TCP.
  *)
 
+type t = {
+  account_id : string prop;
+  allow_insecure : bool prop;
+  consecutive_down : float prop;
+  consecutive_up : float prop;
+  created_on : string prop;
+  description : string prop;
+  expected_body : string prop;
+  expected_codes : string prop;
+  follow_redirects : bool prop;
+  id : string prop;
+  interval : float prop;
+  method_ : string prop;
+  modified_on : string prop;
+  path : string prop;
+  port : float prop;
+  probe_zone : string prop;
+  retries : float prop;
+  timeout : float prop;
+  type_ : string prop;
+}
+
 let cloudflare_load_balancer_monitor ?allow_insecure
     ?consecutive_down ?consecutive_up ?description ?expected_body
     ?expected_codes ?follow_redirects ?id ?interval ?method_ ?path
@@ -61,27 +83,68 @@ let cloudflare_load_balancer_monitor ?allow_insecure
     __resource_id =
   let __resource_type = "cloudflare_load_balancer_monitor" in
   let __resource =
-    {
-      account_id;
-      allow_insecure;
-      consecutive_down;
-      consecutive_up;
-      description;
-      expected_body;
-      expected_codes;
-      follow_redirects;
-      id;
-      interval;
-      method_;
-      path;
-      port;
-      probe_zone;
-      retries;
-      timeout;
-      type_;
-      header;
-    }
+    ({
+       account_id;
+       allow_insecure;
+       consecutive_down;
+       consecutive_up;
+       description;
+       expected_body;
+       expected_codes;
+       follow_redirects;
+       id;
+       interval;
+       method_;
+       path;
+       port;
+       probe_zone;
+       retries;
+       timeout;
+       type_;
+       header;
+     }
+      : cloudflare_load_balancer_monitor)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_load_balancer_monitor __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       allow_insecure =
+         Prop.computed __resource_type __resource_id "allow_insecure";
+       consecutive_down =
+         Prop.computed __resource_type __resource_id
+           "consecutive_down";
+       consecutive_up =
+         Prop.computed __resource_type __resource_id "consecutive_up";
+       created_on =
+         Prop.computed __resource_type __resource_id "created_on";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       expected_body =
+         Prop.computed __resource_type __resource_id "expected_body";
+       expected_codes =
+         Prop.computed __resource_type __resource_id "expected_codes";
+       follow_redirects =
+         Prop.computed __resource_type __resource_id
+           "follow_redirects";
+       id = Prop.computed __resource_type __resource_id "id";
+       interval =
+         Prop.computed __resource_type __resource_id "interval";
+       method_ = Prop.computed __resource_type __resource_id "method";
+       modified_on =
+         Prop.computed __resource_type __resource_id "modified_on";
+       path = Prop.computed __resource_type __resource_id "path";
+       port = Prop.computed __resource_type __resource_id "port";
+       probe_zone =
+         Prop.computed __resource_type __resource_id "probe_zone";
+       retries =
+         Prop.computed __resource_type __resource_id "retries";
+       timeout =
+         Prop.computed __resource_type __resource_id "timeout";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

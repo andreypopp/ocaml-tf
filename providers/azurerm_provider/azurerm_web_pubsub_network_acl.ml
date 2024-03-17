@@ -46,19 +46,36 @@ type azurerm_web_pubsub_network_acl = {
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_network_acl *)
 
+type t = {
+  default_action : string prop;
+  id : string prop;
+  web_pubsub_id : string prop;
+}
+
 let azurerm_web_pubsub_network_acl ?default_action ?id ?timeouts
     ~web_pubsub_id ~private_endpoint ~public_network __resource_id =
   let __resource_type = "azurerm_web_pubsub_network_acl" in
   let __resource =
-    {
-      default_action;
-      id;
-      web_pubsub_id;
-      private_endpoint;
-      public_network;
-      timeouts;
-    }
+    ({
+       default_action;
+       id;
+       web_pubsub_id;
+       private_endpoint;
+       public_network;
+       timeouts;
+     }
+      : azurerm_web_pubsub_network_acl)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_web_pubsub_network_acl __resource);
-  ()
+  let __resource_attributes =
+    ({
+       default_action =
+         Prop.computed __resource_type __resource_id "default_action";
+       id = Prop.computed __resource_type __resource_id "id";
+       web_pubsub_id =
+         Prop.computed __resource_type __resource_id "web_pubsub_id";
+     }
+      : t)
+  in
+  __resource_attributes

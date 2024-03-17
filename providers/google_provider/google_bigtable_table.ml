@@ -37,23 +37,53 @@ type google_bigtable_table = {
 [@@deriving yojson_of]
 (** google_bigtable_table *)
 
+type t = {
+  change_stream_retention : string prop;
+  deletion_protection : string prop;
+  id : string prop;
+  instance_name : string prop;
+  name : string prop;
+  project : string prop;
+  split_keys : string list prop;
+}
+
 let google_bigtable_table ?change_stream_retention
     ?deletion_protection ?id ?project ?split_keys ?timeouts
     ~instance_name ~name ~column_family __resource_id =
   let __resource_type = "google_bigtable_table" in
   let __resource =
-    {
-      change_stream_retention;
-      deletion_protection;
-      id;
-      instance_name;
-      name;
-      project;
-      split_keys;
-      column_family;
-      timeouts;
-    }
+    ({
+       change_stream_retention;
+       deletion_protection;
+       id;
+       instance_name;
+       name;
+       project;
+       split_keys;
+       column_family;
+       timeouts;
+     }
+      : google_bigtable_table)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigtable_table __resource);
-  ()
+  let __resource_attributes =
+    ({
+       change_stream_retention =
+         Prop.computed __resource_type __resource_id
+           "change_stream_retention";
+       deletion_protection =
+         Prop.computed __resource_type __resource_id
+           "deletion_protection";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_name =
+         Prop.computed __resource_type __resource_id "instance_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       split_keys =
+         Prop.computed __resource_type __resource_id "split_keys";
+     }
+      : t)
+  in
+  __resource_attributes

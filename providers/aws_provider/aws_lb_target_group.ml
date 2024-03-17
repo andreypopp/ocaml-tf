@@ -84,6 +84,32 @@ type aws_lb_target_group = {
 [@@deriving yojson_of]
 (** aws_lb_target_group *)
 
+type t = {
+  arn : string prop;
+  arn_suffix : string prop;
+  connection_termination : bool prop;
+  deregistration_delay : string prop;
+  id : string prop;
+  ip_address_type : string prop;
+  lambda_multi_value_headers_enabled : bool prop;
+  load_balancer_arns : string list prop;
+  load_balancing_algorithm_type : string prop;
+  load_balancing_anomaly_mitigation : string prop;
+  load_balancing_cross_zone_enabled : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  port : float prop;
+  preserve_client_ip : string prop;
+  protocol : string prop;
+  protocol_version : string prop;
+  proxy_protocol_v2 : bool prop;
+  slow_start : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_type : string prop;
+  vpc_id : string prop;
+}
+
 let aws_lb_target_group ?connection_termination ?deregistration_delay
     ?id ?ip_address_type ?lambda_multi_value_headers_enabled
     ?load_balancing_algorithm_type ?load_balancing_anomaly_mitigation
@@ -94,33 +120,90 @@ let aws_lb_target_group ?connection_termination ?deregistration_delay
     ~target_health_state __resource_id =
   let __resource_type = "aws_lb_target_group" in
   let __resource =
-    {
-      connection_termination;
-      deregistration_delay;
-      id;
-      ip_address_type;
-      lambda_multi_value_headers_enabled;
-      load_balancing_algorithm_type;
-      load_balancing_anomaly_mitigation;
-      load_balancing_cross_zone_enabled;
-      name;
-      name_prefix;
-      port;
-      preserve_client_ip;
-      protocol;
-      protocol_version;
-      proxy_protocol_v2;
-      slow_start;
-      tags;
-      tags_all;
-      target_type;
-      vpc_id;
-      health_check;
-      stickiness;
-      target_failover;
-      target_health_state;
-    }
+    ({
+       connection_termination;
+       deregistration_delay;
+       id;
+       ip_address_type;
+       lambda_multi_value_headers_enabled;
+       load_balancing_algorithm_type;
+       load_balancing_anomaly_mitigation;
+       load_balancing_cross_zone_enabled;
+       name;
+       name_prefix;
+       port;
+       preserve_client_ip;
+       protocol;
+       protocol_version;
+       proxy_protocol_v2;
+       slow_start;
+       tags;
+       tags_all;
+       target_type;
+       vpc_id;
+       health_check;
+       stickiness;
+       target_failover;
+       target_health_state;
+     }
+      : aws_lb_target_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lb_target_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       arn_suffix =
+         Prop.computed __resource_type __resource_id "arn_suffix";
+       connection_termination =
+         Prop.computed __resource_type __resource_id
+           "connection_termination";
+       deregistration_delay =
+         Prop.computed __resource_type __resource_id
+           "deregistration_delay";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_address_type =
+         Prop.computed __resource_type __resource_id
+           "ip_address_type";
+       lambda_multi_value_headers_enabled =
+         Prop.computed __resource_type __resource_id
+           "lambda_multi_value_headers_enabled";
+       load_balancer_arns =
+         Prop.computed __resource_type __resource_id
+           "load_balancer_arns";
+       load_balancing_algorithm_type =
+         Prop.computed __resource_type __resource_id
+           "load_balancing_algorithm_type";
+       load_balancing_anomaly_mitigation =
+         Prop.computed __resource_type __resource_id
+           "load_balancing_anomaly_mitigation";
+       load_balancing_cross_zone_enabled =
+         Prop.computed __resource_type __resource_id
+           "load_balancing_cross_zone_enabled";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       port = Prop.computed __resource_type __resource_id "port";
+       preserve_client_ip =
+         Prop.computed __resource_type __resource_id
+           "preserve_client_ip";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       protocol_version =
+         Prop.computed __resource_type __resource_id
+           "protocol_version";
+       proxy_protocol_v2 =
+         Prop.computed __resource_type __resource_id
+           "proxy_protocol_v2";
+       slow_start =
+         Prop.computed __resource_type __resource_id "slow_start";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       target_type =
+         Prop.computed __resource_type __resource_id "target_type";
+       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -60,21 +60,53 @@ The default value is 'global'. *)
 [@@deriving yojson_of]
 (** google_gke_hub_membership *)
 
+type t = {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  membership_id : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_gke_hub_membership ?id ?labels ?location ?project
     ?timeouts ~membership_id ~authority ~endpoint __resource_id =
   let __resource_type = "google_gke_hub_membership" in
   let __resource =
-    {
-      id;
-      labels;
-      location;
-      membership_id;
-      project;
-      authority;
-      endpoint;
-      timeouts;
-    }
+    ({
+       id;
+       labels;
+       location;
+       membership_id;
+       project;
+       authority;
+       endpoint;
+       timeouts;
+     }
+      : google_gke_hub_membership)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_membership __resource);
-  ()
+  let __resource_attributes =
+    ({
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       membership_id =
+         Prop.computed __resource_type __resource_id "membership_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

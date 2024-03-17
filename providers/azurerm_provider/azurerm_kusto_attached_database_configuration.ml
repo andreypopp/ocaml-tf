@@ -48,6 +48,18 @@ type azurerm_kusto_attached_database_configuration = {
 [@@deriving yojson_of]
 (** azurerm_kusto_attached_database_configuration *)
 
+type t = {
+  attached_database_names : string list prop;
+  cluster_name : string prop;
+  cluster_resource_id : string prop;
+  database_name : string prop;
+  default_principal_modification_kind : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+}
+
 let azurerm_kusto_attached_database_configuration
     ?default_principal_modification_kind ?id ?timeouts ~cluster_name
     ~cluster_resource_id ~database_name ~location ~name
@@ -56,20 +68,46 @@ let azurerm_kusto_attached_database_configuration
     "azurerm_kusto_attached_database_configuration"
   in
   let __resource =
-    {
-      cluster_name;
-      cluster_resource_id;
-      database_name;
-      default_principal_modification_kind;
-      id;
-      location;
-      name;
-      resource_group_name;
-      sharing;
-      timeouts;
-    }
+    ({
+       cluster_name;
+       cluster_resource_id;
+       database_name;
+       default_principal_modification_kind;
+       id;
+       location;
+       name;
+       resource_group_name;
+       sharing;
+       timeouts;
+     }
+      : azurerm_kusto_attached_database_configuration)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_attached_database_configuration
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       attached_database_names =
+         Prop.computed __resource_type __resource_id
+           "attached_database_names";
+       cluster_name =
+         Prop.computed __resource_type __resource_id "cluster_name";
+       cluster_resource_id =
+         Prop.computed __resource_type __resource_id
+           "cluster_resource_id";
+       database_name =
+         Prop.computed __resource_type __resource_id "database_name";
+       default_principal_modification_kind =
+         Prop.computed __resource_type __resource_id
+           "default_principal_modification_kind";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+     }
+      : t)
+  in
+  __resource_attributes

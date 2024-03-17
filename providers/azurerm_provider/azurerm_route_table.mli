@@ -14,6 +14,17 @@ type azurerm_route_table__route = {
 
 type azurerm_route_table
 
+type t = private {
+  disable_bgp_route_propagation : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  route : azurerm_route_table__route list prop;
+  subnets : string list prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_route_table :
   ?disable_bgp_route_propagation:bool prop ->
   ?id:string prop ->
@@ -24,4 +35,4 @@ val azurerm_route_table :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

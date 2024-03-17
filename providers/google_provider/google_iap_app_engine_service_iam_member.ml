@@ -25,12 +25,37 @@ type google_iap_app_engine_service_iam_member = {
 [@@deriving yojson_of]
 (** google_iap_app_engine_service_iam_member *)
 
+type t = {
+  app_id : string prop;
+  etag : string prop;
+  id : string prop;
+  member : string prop;
+  project : string prop;
+  role : string prop;
+  service : string prop;
+}
+
 let google_iap_app_engine_service_iam_member ?id ?project ~app_id
     ~member ~role ~service ~condition __resource_id =
   let __resource_type = "google_iap_app_engine_service_iam_member" in
   let __resource =
-    { app_id; id; member; project; role; service; condition }
+    ({ app_id; id; member; project; role; service; condition }
+      : google_iap_app_engine_service_iam_member)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_app_engine_service_iam_member __resource);
-  ()
+  let __resource_attributes =
+    ({
+       app_id = Prop.computed __resource_type __resource_id "app_id";
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       member = Prop.computed __resource_type __resource_id "member";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       role = Prop.computed __resource_type __resource_id "role";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+     }
+      : t)
+  in
+  __resource_attributes

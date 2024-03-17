@@ -32,23 +32,63 @@ type aws_kms_grant = {
 [@@deriving yojson_of]
 (** aws_kms_grant *)
 
+type t = {
+  grant_creation_tokens : string list prop;
+  grant_id : string prop;
+  grant_token : string prop;
+  grantee_principal : string prop;
+  id : string prop;
+  key_id : string prop;
+  name : string prop;
+  operations : string list prop;
+  retire_on_delete : bool prop;
+  retiring_principal : string prop;
+}
+
 let aws_kms_grant ?grant_creation_tokens ?id ?name ?retire_on_delete
     ?retiring_principal ~grantee_principal ~key_id ~operations
     ~constraints __resource_id =
   let __resource_type = "aws_kms_grant" in
   let __resource =
-    {
-      grant_creation_tokens;
-      grantee_principal;
-      id;
-      key_id;
-      name;
-      operations;
-      retire_on_delete;
-      retiring_principal;
-      constraints;
-    }
+    ({
+       grant_creation_tokens;
+       grantee_principal;
+       id;
+       key_id;
+       name;
+       operations;
+       retire_on_delete;
+       retiring_principal;
+       constraints;
+     }
+      : aws_kms_grant)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kms_grant __resource);
-  ()
+  let __resource_attributes =
+    ({
+       grant_creation_tokens =
+         Prop.computed __resource_type __resource_id
+           "grant_creation_tokens";
+       grant_id =
+         Prop.computed __resource_type __resource_id "grant_id";
+       grant_token =
+         Prop.computed __resource_type __resource_id "grant_token";
+       grantee_principal =
+         Prop.computed __resource_type __resource_id
+           "grantee_principal";
+       id = Prop.computed __resource_type __resource_id "id";
+       key_id = Prop.computed __resource_type __resource_id "key_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       operations =
+         Prop.computed __resource_type __resource_id "operations";
+       retire_on_delete =
+         Prop.computed __resource_type __resource_id
+           "retire_on_delete";
+       retiring_principal =
+         Prop.computed __resource_type __resource_id
+           "retiring_principal";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -67,6 +67,35 @@ Use when Active Directory domain controllers in multiple regions are configured.
 [@@deriving yojson_of]
 (** google_netapp_active_directory *)
 
+type t = {
+  aes_encryption : bool prop;
+  backup_operators : string list prop;
+  create_time : string prop;
+  description : string prop;
+  dns : string prop;
+  domain : string prop;
+  effective_labels : (string * string) list prop;
+  encrypt_dc_connections : bool prop;
+  id : string prop;
+  kdc_hostname : string prop;
+  kdc_ip : string prop;
+  labels : (string * string) list prop;
+  ldap_signing : bool prop;
+  location : string prop;
+  name : string prop;
+  net_bios_prefix : string prop;
+  nfs_users_with_ldap : bool prop;
+  organizational_unit : string prop;
+  password : string prop;
+  project : string prop;
+  security_operators : string list prop;
+  site : string prop;
+  state : string prop;
+  state_details : string prop;
+  terraform_labels : (string * string) list prop;
+  username : string prop;
+}
+
 let google_netapp_active_directory ?aes_encryption ?backup_operators
     ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
     ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
@@ -75,31 +104,89 @@ let google_netapp_active_directory ?aes_encryption ?backup_operators
     __resource_id =
   let __resource_type = "google_netapp_active_directory" in
   let __resource =
-    {
-      aes_encryption;
-      backup_operators;
-      description;
-      dns;
-      domain;
-      encrypt_dc_connections;
-      id;
-      kdc_hostname;
-      kdc_ip;
-      labels;
-      ldap_signing;
-      location;
-      name;
-      net_bios_prefix;
-      nfs_users_with_ldap;
-      organizational_unit;
-      password;
-      project;
-      security_operators;
-      site;
-      username;
-      timeouts;
-    }
+    ({
+       aes_encryption;
+       backup_operators;
+       description;
+       dns;
+       domain;
+       encrypt_dc_connections;
+       id;
+       kdc_hostname;
+       kdc_ip;
+       labels;
+       ldap_signing;
+       location;
+       name;
+       net_bios_prefix;
+       nfs_users_with_ldap;
+       organizational_unit;
+       password;
+       project;
+       security_operators;
+       site;
+       username;
+       timeouts;
+     }
+      : google_netapp_active_directory)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_active_directory __resource);
-  ()
+  let __resource_attributes =
+    ({
+       aes_encryption =
+         Prop.computed __resource_type __resource_id "aes_encryption";
+       backup_operators =
+         Prop.computed __resource_type __resource_id
+           "backup_operators";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       dns = Prop.computed __resource_type __resource_id "dns";
+       domain = Prop.computed __resource_type __resource_id "domain";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       encrypt_dc_connections =
+         Prop.computed __resource_type __resource_id
+           "encrypt_dc_connections";
+       id = Prop.computed __resource_type __resource_id "id";
+       kdc_hostname =
+         Prop.computed __resource_type __resource_id "kdc_hostname";
+       kdc_ip = Prop.computed __resource_type __resource_id "kdc_ip";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       ldap_signing =
+         Prop.computed __resource_type __resource_id "ldap_signing";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       net_bios_prefix =
+         Prop.computed __resource_type __resource_id
+           "net_bios_prefix";
+       nfs_users_with_ldap =
+         Prop.computed __resource_type __resource_id
+           "nfs_users_with_ldap";
+       organizational_unit =
+         Prop.computed __resource_type __resource_id
+           "organizational_unit";
+       password =
+         Prop.computed __resource_type __resource_id "password";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       security_operators =
+         Prop.computed __resource_type __resource_id
+           "security_operators";
+       site = Prop.computed __resource_type __resource_id "site";
+       state = Prop.computed __resource_type __resource_id "state";
+       state_details =
+         Prop.computed __resource_type __resource_id "state_details";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       username =
+         Prop.computed __resource_type __resource_id "username";
+     }
+      : t)
+  in
+  __resource_attributes

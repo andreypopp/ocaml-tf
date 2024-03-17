@@ -120,6 +120,21 @@ type azurerm_media_live_event = {
 [@@deriving yojson_of]
 (** azurerm_media_live_event *)
 
+type t = {
+  auto_start_enabled : bool prop;
+  description : string prop;
+  hostname_prefix : string prop;
+  id : string prop;
+  location : string prop;
+  media_services_account_name : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  stream_options : string list prop;
+  tags : (string * string) list prop;
+  transcription_languages : string list prop;
+  use_static_hostname : bool prop;
+}
+
 let azurerm_media_live_event ?auto_start_enabled ?description
     ?hostname_prefix ?id ?stream_options ?tags
     ?transcription_languages ?use_static_hostname ?timeouts ~location
@@ -128,26 +143,59 @@ let azurerm_media_live_event ?auto_start_enabled ?description
     =
   let __resource_type = "azurerm_media_live_event" in
   let __resource =
-    {
-      auto_start_enabled;
-      description;
-      hostname_prefix;
-      id;
-      location;
-      media_services_account_name;
-      name;
-      resource_group_name;
-      stream_options;
-      tags;
-      transcription_languages;
-      use_static_hostname;
-      cross_site_access_policy;
-      encoding;
-      input;
-      preview;
-      timeouts;
-    }
+    ({
+       auto_start_enabled;
+       description;
+       hostname_prefix;
+       id;
+       location;
+       media_services_account_name;
+       name;
+       resource_group_name;
+       stream_options;
+       tags;
+       transcription_languages;
+       use_static_hostname;
+       cross_site_access_policy;
+       encoding;
+       input;
+       preview;
+       timeouts;
+     }
+      : azurerm_media_live_event)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_media_live_event __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_start_enabled =
+         Prop.computed __resource_type __resource_id
+           "auto_start_enabled";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       hostname_prefix =
+         Prop.computed __resource_type __resource_id
+           "hostname_prefix";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       media_services_account_name =
+         Prop.computed __resource_type __resource_id
+           "media_services_account_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       stream_options =
+         Prop.computed __resource_type __resource_id "stream_options";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       transcription_languages =
+         Prop.computed __resource_type __resource_id
+           "transcription_languages";
+       use_static_hostname =
+         Prop.computed __resource_type __resource_id
+           "use_static_hostname";
+     }
+      : t)
+  in
+  __resource_attributes

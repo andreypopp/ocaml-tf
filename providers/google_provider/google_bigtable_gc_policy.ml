@@ -50,25 +50,56 @@ type google_bigtable_gc_policy = {
 [@@deriving yojson_of]
 (** google_bigtable_gc_policy *)
 
+type t = {
+  column_family : string prop;
+  deletion_policy : string prop;
+  gc_rules : string prop;
+  id : string prop;
+  instance_name : string prop;
+  mode : string prop;
+  project : string prop;
+  table : string prop;
+}
+
 let google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id ?mode
     ?project ?timeouts ~column_family ~instance_name ~table ~max_age
     ~max_version __resource_id =
   let __resource_type = "google_bigtable_gc_policy" in
   let __resource =
-    {
-      column_family;
-      deletion_policy;
-      gc_rules;
-      id;
-      instance_name;
-      mode;
-      project;
-      table;
-      max_age;
-      max_version;
-      timeouts;
-    }
+    ({
+       column_family;
+       deletion_policy;
+       gc_rules;
+       id;
+       instance_name;
+       mode;
+       project;
+       table;
+       max_age;
+       max_version;
+       timeouts;
+     }
+      : google_bigtable_gc_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigtable_gc_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       column_family =
+         Prop.computed __resource_type __resource_id "column_family";
+       deletion_policy =
+         Prop.computed __resource_type __resource_id
+           "deletion_policy";
+       gc_rules =
+         Prop.computed __resource_type __resource_id "gc_rules";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_name =
+         Prop.computed __resource_type __resource_id "instance_name";
+       mode = Prop.computed __resource_type __resource_id "mode";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       table = Prop.computed __resource_type __resource_id "table";
+     }
+      : t)
+  in
+  __resource_attributes

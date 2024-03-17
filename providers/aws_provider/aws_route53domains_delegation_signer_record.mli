@@ -6,6 +6,12 @@ type aws_route53domains_delegation_signer_record__signing_attributes
 type aws_route53domains_delegation_signer_record__timeouts
 type aws_route53domains_delegation_signer_record
 
+type t = private {
+  dnssec_key_id : string prop;
+  domain_name : string prop;
+  id : string prop;
+}
+
 val aws_route53domains_delegation_signer_record :
   ?timeouts:aws_route53domains_delegation_signer_record__timeouts ->
   domain_name:string prop ->
@@ -13,4 +19,4 @@ val aws_route53domains_delegation_signer_record :
     aws_route53domains_delegation_signer_record__signing_attributes
     list ->
   string ->
-  unit
+  t

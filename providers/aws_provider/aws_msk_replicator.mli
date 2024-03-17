@@ -13,6 +13,17 @@ type aws_msk_replicator__replication_info_list
 type aws_msk_replicator__timeouts
 type aws_msk_replicator
 
+type t = private {
+  arn : string prop;
+  current_version : string prop;
+  description : string prop;
+  id : string prop;
+  replicator_name : string prop;
+  service_execution_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_msk_replicator :
   ?description:string prop ->
   ?id:string prop ->
@@ -25,4 +36,4 @@ val aws_msk_replicator :
   replication_info_list:
     aws_msk_replicator__replication_info_list list ->
   string ->
-  unit
+  t

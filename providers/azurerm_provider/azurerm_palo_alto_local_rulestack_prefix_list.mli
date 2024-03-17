@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_palo_alto_local_rulestack_prefix_list__timeouts
 type azurerm_palo_alto_local_rulestack_prefix_list
 
+type t = private {
+  audit_comment : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  prefix_list : string list prop;
+  rulestack_id : string prop;
+}
+
 val azurerm_palo_alto_local_rulestack_prefix_list :
   ?audit_comment:string prop ->
   ?description:string prop ->
@@ -14,4 +23,4 @@ val azurerm_palo_alto_local_rulestack_prefix_list :
   prefix_list:string prop list ->
   rulestack_id:string prop ->
   string ->
-  unit
+  t

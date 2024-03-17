@@ -13,6 +13,17 @@ type aws_ssmincidents_response_plan__integration__pagerduty
 type aws_ssmincidents_response_plan__integration
 type aws_ssmincidents_response_plan
 
+type t = private {
+  arn : string prop;
+  chat_channel : string list prop;
+  display_name : string prop;
+  engagements : string list prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_ssmincidents_response_plan :
   ?chat_channel:string prop list ->
   ?display_name:string prop ->
@@ -26,4 +37,4 @@ val aws_ssmincidents_response_plan :
     aws_ssmincidents_response_plan__incident_template list ->
   integration:aws_ssmincidents_response_plan__integration list ->
   string ->
-  unit
+  t

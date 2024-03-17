@@ -77,6 +77,26 @@ type aws_ec2_client_vpn_endpoint = {
 [@@deriving yojson_of]
 (** aws_ec2_client_vpn_endpoint *)
 
+type t = {
+  arn : string prop;
+  client_cidr_block : string prop;
+  description : string prop;
+  dns_name : string prop;
+  dns_servers : string list prop;
+  id : string prop;
+  security_group_ids : string list prop;
+  self_service_portal : string prop;
+  self_service_portal_url : string prop;
+  server_certificate_arn : string prop;
+  session_timeout_hours : float prop;
+  split_tunnel : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  transport_protocol : string prop;
+  vpc_id : string prop;
+  vpn_port : float prop;
+}
+
 let aws_ec2_client_vpn_endpoint ?description ?dns_servers ?id
     ?security_group_ids ?self_service_portal ?session_timeout_hours
     ?split_tunnel ?tags ?tags_all ?transport_protocol ?vpc_id
@@ -86,27 +106,70 @@ let aws_ec2_client_vpn_endpoint ?description ?dns_servers ?id
     __resource_id =
   let __resource_type = "aws_ec2_client_vpn_endpoint" in
   let __resource =
-    {
-      client_cidr_block;
-      description;
-      dns_servers;
-      id;
-      security_group_ids;
-      self_service_portal;
-      server_certificate_arn;
-      session_timeout_hours;
-      split_tunnel;
-      tags;
-      tags_all;
-      transport_protocol;
-      vpc_id;
-      vpn_port;
-      authentication_options;
-      client_connect_options;
-      client_login_banner_options;
-      connection_log_options;
-    }
+    ({
+       client_cidr_block;
+       description;
+       dns_servers;
+       id;
+       security_group_ids;
+       self_service_portal;
+       server_certificate_arn;
+       session_timeout_hours;
+       split_tunnel;
+       tags;
+       tags_all;
+       transport_protocol;
+       vpc_id;
+       vpn_port;
+       authentication_options;
+       client_connect_options;
+       client_login_banner_options;
+       connection_log_options;
+     }
+      : aws_ec2_client_vpn_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_client_vpn_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       client_cidr_block =
+         Prop.computed __resource_type __resource_id
+           "client_cidr_block";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       dns_name =
+         Prop.computed __resource_type __resource_id "dns_name";
+       dns_servers =
+         Prop.computed __resource_type __resource_id "dns_servers";
+       id = Prop.computed __resource_type __resource_id "id";
+       security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "security_group_ids";
+       self_service_portal =
+         Prop.computed __resource_type __resource_id
+           "self_service_portal";
+       self_service_portal_url =
+         Prop.computed __resource_type __resource_id
+           "self_service_portal_url";
+       server_certificate_arn =
+         Prop.computed __resource_type __resource_id
+           "server_certificate_arn";
+       session_timeout_hours =
+         Prop.computed __resource_type __resource_id
+           "session_timeout_hours";
+       split_tunnel =
+         Prop.computed __resource_type __resource_id "split_tunnel";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       transport_protocol =
+         Prop.computed __resource_type __resource_id
+           "transport_protocol";
+       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+       vpn_port =
+         Prop.computed __resource_type __resource_id "vpn_port";
+     }
+      : t)
+  in
+  __resource_attributes

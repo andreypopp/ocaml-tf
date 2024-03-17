@@ -34,10 +34,25 @@ type aws_organizations_organization__roots = {
 
 type aws_organizations_organization
 
+type t = private {
+  accounts : aws_organizations_organization__accounts list prop;
+  arn : string prop;
+  aws_service_access_principals : string list prop;
+  enabled_policy_types : string list prop;
+  feature_set : string prop;
+  id : string prop;
+  master_account_arn : string prop;
+  master_account_email : string prop;
+  master_account_id : string prop;
+  non_master_accounts :
+    aws_organizations_organization__non_master_accounts list prop;
+  roots : aws_organizations_organization__roots list prop;
+}
+
 val aws_organizations_organization :
   ?aws_service_access_principals:string prop list ->
   ?enabled_policy_types:string prop list ->
   ?feature_set:string prop ->
   ?id:string prop ->
   string ->
-  unit
+  t

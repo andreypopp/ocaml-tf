@@ -13,14 +13,35 @@ type aws_directory_service_conditional_forwarder = {
 [@@deriving yojson_of]
 (** aws_directory_service_conditional_forwarder *)
 
+type t = {
+  directory_id : string prop;
+  dns_ips : string list prop;
+  id : string prop;
+  remote_domain_name : string prop;
+}
+
 let aws_directory_service_conditional_forwarder ?id ~directory_id
     ~dns_ips ~remote_domain_name __resource_id =
   let __resource_type =
     "aws_directory_service_conditional_forwarder"
   in
   let __resource =
-    { directory_id; dns_ips; id; remote_domain_name }
+    ({ directory_id; dns_ips; id; remote_domain_name }
+      : aws_directory_service_conditional_forwarder)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_directory_service_conditional_forwarder __resource);
-  ()
+  let __resource_attributes =
+    ({
+       directory_id =
+         Prop.computed __resource_type __resource_id "directory_id";
+       dns_ips =
+         Prop.computed __resource_type __resource_id "dns_ips";
+       id = Prop.computed __resource_type __resource_id "id";
+       remote_domain_name =
+         Prop.computed __resource_type __resource_id
+           "remote_domain_name";
+     }
+      : t)
+  in
+  __resource_attributes

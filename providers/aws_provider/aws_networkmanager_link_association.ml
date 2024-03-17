@@ -21,12 +21,33 @@ type aws_networkmanager_link_association = {
 [@@deriving yojson_of]
 (** aws_networkmanager_link_association *)
 
+type t = {
+  device_id : string prop;
+  global_network_id : string prop;
+  id : string prop;
+  link_id : string prop;
+}
+
 let aws_networkmanager_link_association ?id ?timeouts ~device_id
     ~global_network_id ~link_id __resource_id =
   let __resource_type = "aws_networkmanager_link_association" in
   let __resource =
-    { device_id; global_network_id; id; link_id; timeouts }
+    ({ device_id; global_network_id; id; link_id; timeouts }
+      : aws_networkmanager_link_association)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_link_association __resource);
-  ()
+  let __resource_attributes =
+    ({
+       device_id =
+         Prop.computed __resource_type __resource_id "device_id";
+       global_network_id =
+         Prop.computed __resource_type __resource_id
+           "global_network_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       link_id =
+         Prop.computed __resource_type __resource_id "link_id";
+     }
+      : t)
+  in
+  __resource_attributes

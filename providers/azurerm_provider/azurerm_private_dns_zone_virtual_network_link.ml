@@ -28,6 +28,16 @@ type azurerm_private_dns_zone_virtual_network_link = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_zone_virtual_network_link *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  private_dns_zone_name : string prop;
+  registration_enabled : bool prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  virtual_network_id : string prop;
+}
+
 let azurerm_private_dns_zone_virtual_network_link ?id
     ?registration_enabled ?tags ?timeouts ~name
     ~private_dns_zone_name ~resource_group_name ~virtual_network_id
@@ -36,18 +46,39 @@ let azurerm_private_dns_zone_virtual_network_link ?id
     "azurerm_private_dns_zone_virtual_network_link"
   in
   let __resource =
-    {
-      id;
-      name;
-      private_dns_zone_name;
-      registration_enabled;
-      resource_group_name;
-      tags;
-      virtual_network_id;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       private_dns_zone_name;
+       registration_enabled;
+       resource_group_name;
+       tags;
+       virtual_network_id;
+       timeouts;
+     }
+      : azurerm_private_dns_zone_virtual_network_link)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_private_dns_zone_virtual_network_link
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       private_dns_zone_name =
+         Prop.computed __resource_type __resource_id
+           "private_dns_zone_name";
+       registration_enabled =
+         Prop.computed __resource_type __resource_id
+           "registration_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       virtual_network_id =
+         Prop.computed __resource_type __resource_id
+           "virtual_network_id";
+     }
+      : t)
+  in
+  __resource_attributes

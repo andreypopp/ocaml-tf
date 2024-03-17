@@ -256,6 +256,29 @@ type aws_cognito_user_pool = {
 [@@deriving yojson_of]
 (** aws_cognito_user_pool *)
 
+type t = {
+  alias_attributes : string list prop;
+  arn : string prop;
+  auto_verified_attributes : string list prop;
+  creation_date : string prop;
+  custom_domain : string prop;
+  deletion_protection : string prop;
+  domain : string prop;
+  email_verification_message : string prop;
+  email_verification_subject : string prop;
+  endpoint : string prop;
+  estimated_number_of_users : float prop;
+  id : string prop;
+  last_modified_date : string prop;
+  mfa_configuration : string prop;
+  name : string prop;
+  sms_authentication_message : string prop;
+  sms_verification_message : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  username_attributes : string list prop;
+}
+
 let aws_cognito_user_pool ?alias_attributes ?auto_verified_attributes
     ?deletion_protection ?email_verification_message
     ?email_verification_subject ?id ?mfa_configuration
@@ -269,35 +292,87 @@ let aws_cognito_user_pool ?alias_attributes ?auto_verified_attributes
     __resource_id =
   let __resource_type = "aws_cognito_user_pool" in
   let __resource =
-    {
-      alias_attributes;
-      auto_verified_attributes;
-      deletion_protection;
-      email_verification_message;
-      email_verification_subject;
-      id;
-      mfa_configuration;
-      name;
-      sms_authentication_message;
-      sms_verification_message;
-      tags;
-      tags_all;
-      username_attributes;
-      account_recovery_setting;
-      admin_create_user_config;
-      device_configuration;
-      email_configuration;
-      lambda_config;
-      password_policy;
-      schema;
-      sms_configuration;
-      software_token_mfa_configuration;
-      user_attribute_update_settings;
-      user_pool_add_ons;
-      username_configuration;
-      verification_message_template;
-    }
+    ({
+       alias_attributes;
+       auto_verified_attributes;
+       deletion_protection;
+       email_verification_message;
+       email_verification_subject;
+       id;
+       mfa_configuration;
+       name;
+       sms_authentication_message;
+       sms_verification_message;
+       tags;
+       tags_all;
+       username_attributes;
+       account_recovery_setting;
+       admin_create_user_config;
+       device_configuration;
+       email_configuration;
+       lambda_config;
+       password_policy;
+       schema;
+       sms_configuration;
+       software_token_mfa_configuration;
+       user_attribute_update_settings;
+       user_pool_add_ons;
+       username_configuration;
+       verification_message_template;
+     }
+      : aws_cognito_user_pool)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cognito_user_pool __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alias_attributes =
+         Prop.computed __resource_type __resource_id
+           "alias_attributes";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auto_verified_attributes =
+         Prop.computed __resource_type __resource_id
+           "auto_verified_attributes";
+       creation_date =
+         Prop.computed __resource_type __resource_id "creation_date";
+       custom_domain =
+         Prop.computed __resource_type __resource_id "custom_domain";
+       deletion_protection =
+         Prop.computed __resource_type __resource_id
+           "deletion_protection";
+       domain = Prop.computed __resource_type __resource_id "domain";
+       email_verification_message =
+         Prop.computed __resource_type __resource_id
+           "email_verification_message";
+       email_verification_subject =
+         Prop.computed __resource_type __resource_id
+           "email_verification_subject";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       estimated_number_of_users =
+         Prop.computed __resource_type __resource_id
+           "estimated_number_of_users";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_modified_date =
+         Prop.computed __resource_type __resource_id
+           "last_modified_date";
+       mfa_configuration =
+         Prop.computed __resource_type __resource_id
+           "mfa_configuration";
+       name = Prop.computed __resource_type __resource_id "name";
+       sms_authentication_message =
+         Prop.computed __resource_type __resource_id
+           "sms_authentication_message";
+       sms_verification_message =
+         Prop.computed __resource_type __resource_id
+           "sms_verification_message";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       username_attributes =
+         Prop.computed __resource_type __resource_id
+           "username_attributes";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -32,12 +32,46 @@ type google_apigee_sharedflow = {
 [@@deriving yojson_of]
 (** google_apigee_sharedflow *)
 
+type t = {
+  config_bundle : string prop;
+  detect_md5hash : string prop;
+  id : string prop;
+  latest_revision_id : string prop;
+  md5hash : string prop;
+  meta_data : google_apigee_sharedflow__meta_data list prop;
+  name : string prop;
+  org_id : string prop;
+  revision : string list prop;
+}
+
 let google_apigee_sharedflow ?detect_md5hash ?id ?timeouts
     ~config_bundle ~name ~org_id __resource_id =
   let __resource_type = "google_apigee_sharedflow" in
   let __resource =
-    { config_bundle; detect_md5hash; id; name; org_id; timeouts }
+    ({ config_bundle; detect_md5hash; id; name; org_id; timeouts }
+      : google_apigee_sharedflow)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_sharedflow __resource);
-  ()
+  let __resource_attributes =
+    ({
+       config_bundle =
+         Prop.computed __resource_type __resource_id "config_bundle";
+       detect_md5hash =
+         Prop.computed __resource_type __resource_id "detect_md5hash";
+       id = Prop.computed __resource_type __resource_id "id";
+       latest_revision_id =
+         Prop.computed __resource_type __resource_id
+           "latest_revision_id";
+       md5hash =
+         Prop.computed __resource_type __resource_id "md5hash";
+       meta_data =
+         Prop.computed __resource_type __resource_id "meta_data";
+       name = Prop.computed __resource_type __resource_id "name";
+       org_id = Prop.computed __resource_type __resource_id "org_id";
+       revision =
+         Prop.computed __resource_type __resource_id "revision";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -27,22 +27,50 @@ type azurerm_proximity_placement_group = {
 [@@deriving yojson_of]
 (** azurerm_proximity_placement_group *)
 
+type t = {
+  allowed_vm_sizes : string list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  zone : string prop;
+}
+
 let azurerm_proximity_placement_group ?allowed_vm_sizes ?id ?tags
     ?zone ?timeouts ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_proximity_placement_group" in
   let __resource =
-    {
-      allowed_vm_sizes;
-      id;
-      location;
-      name;
-      resource_group_name;
-      tags;
-      zone;
-      timeouts;
-    }
+    ({
+       allowed_vm_sizes;
+       id;
+       location;
+       name;
+       resource_group_name;
+       tags;
+       zone;
+       timeouts;
+     }
+      : azurerm_proximity_placement_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_proximity_placement_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allowed_vm_sizes =
+         Prop.computed __resource_type __resource_id
+           "allowed_vm_sizes";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zone = Prop.computed __resource_type __resource_id "zone";
+     }
+      : t)
+  in
+  __resource_attributes

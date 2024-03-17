@@ -29,10 +29,39 @@ type aws_media_package_channel = {
 [@@deriving yojson_of]
 (** aws_media_package_channel *)
 
+type t = {
+  arn : string prop;
+  channel_id : string prop;
+  description : string prop;
+  hls_ingest : aws_media_package_channel__hls_ingest list prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 let aws_media_package_channel ?description ?id ?tags ?tags_all
     ~channel_id __resource_id =
   let __resource_type = "aws_media_package_channel" in
-  let __resource = { channel_id; description; id; tags; tags_all } in
+  let __resource =
+    ({ channel_id; description; id; tags; tags_all }
+      : aws_media_package_channel)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_media_package_channel __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       channel_id =
+         Prop.computed __resource_type __resource_id "channel_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       hls_ingest =
+         Prop.computed __resource_type __resource_id "hls_ingest";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+     }
+      : t)
+  in
+  __resource_attributes

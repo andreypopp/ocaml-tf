@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_synapse_role_assignment__timeouts
 type azurerm_synapse_role_assignment
 
+type t = private {
+  id : string prop;
+  principal_id : string prop;
+  principal_type : string prop;
+  role_name : string prop;
+  synapse_spark_pool_id : string prop;
+  synapse_workspace_id : string prop;
+}
+
 val azurerm_synapse_role_assignment :
   ?id:string prop ->
   ?principal_type:string prop ->
@@ -14,4 +23,4 @@ val azurerm_synapse_role_assignment :
   principal_id:string prop ->
   role_name:string prop ->
   string ->
-  unit
+  t

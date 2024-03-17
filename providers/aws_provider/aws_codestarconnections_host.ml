@@ -34,20 +34,44 @@ type aws_codestarconnections_host = {
 [@@deriving yojson_of]
 (** aws_codestarconnections_host *)
 
+type t = {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  provider_endpoint : string prop;
+  provider_type : string prop;
+  status : string prop;
+}
+
 let aws_codestarconnections_host ?id ?timeouts ~name
     ~provider_endpoint ~provider_type ~vpc_configuration
     __resource_id =
   let __resource_type = "aws_codestarconnections_host" in
   let __resource =
-    {
-      id;
-      name;
-      provider_endpoint;
-      provider_type;
-      timeouts;
-      vpc_configuration;
-    }
+    ({
+       id;
+       name;
+       provider_endpoint;
+       provider_type;
+       timeouts;
+       vpc_configuration;
+     }
+      : aws_codestarconnections_host)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codestarconnections_host __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       provider_endpoint =
+         Prop.computed __resource_type __resource_id
+           "provider_endpoint";
+       provider_type =
+         Prop.computed __resource_type __resource_id "provider_type";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

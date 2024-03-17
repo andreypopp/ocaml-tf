@@ -18,6 +18,18 @@ type azurerm_container_registry_task__timeouts
 type azurerm_container_registry_task__timer_trigger
 type azurerm_container_registry_task
 
+type t = private {
+  agent_pool_name : string prop;
+  container_registry_id : string prop;
+  enabled : bool prop;
+  id : string prop;
+  is_system_task : bool prop;
+  log_template : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  timeout_in_seconds : float prop;
+}
+
 val azurerm_container_registry_task :
   ?agent_pool_name:string prop ->
   ?enabled:bool prop ->
@@ -42,4 +54,4 @@ val azurerm_container_registry_task :
   source_trigger:azurerm_container_registry_task__source_trigger list ->
   timer_trigger:azurerm_container_registry_task__timer_trigger list ->
   string ->
-  unit
+  t

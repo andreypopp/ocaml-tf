@@ -38,10 +38,31 @@ type kubernetes_config_map_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_config_map_v1 *)
 
+type t = {
+  binary_data : (string * string) list prop;
+  data : (string * string) list prop;
+  id : string prop;
+  immutable : bool prop;
+}
+
 let kubernetes_config_map_v1 ?binary_data ?data ?id ?immutable
     ~metadata __resource_id =
   let __resource_type = "kubernetes_config_map_v1" in
-  let __resource = { binary_data; data; id; immutable; metadata } in
+  let __resource =
+    ({ binary_data; data; id; immutable; metadata }
+      : kubernetes_config_map_v1)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_config_map_v1 __resource);
-  ()
+  let __resource_attributes =
+    ({
+       binary_data =
+         Prop.computed __resource_type __resource_id "binary_data";
+       data = Prop.computed __resource_type __resource_id "data";
+       id = Prop.computed __resource_type __resource_id "id";
+       immutable =
+         Prop.computed __resource_type __resource_id "immutable";
+     }
+      : t)
+  in
+  __resource_attributes

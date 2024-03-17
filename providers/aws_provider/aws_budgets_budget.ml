@@ -94,30 +94,71 @@ type aws_budgets_budget = {
 [@@deriving yojson_of]
 (** aws_budgets_budget *)
 
+type t = {
+  account_id : string prop;
+  arn : string prop;
+  budget_type : string prop;
+  id : string prop;
+  limit_amount : string prop;
+  limit_unit : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  time_period_end : string prop;
+  time_period_start : string prop;
+  time_unit : string prop;
+}
+
 let aws_budgets_budget ?account_id ?id ?limit_amount ?limit_unit
     ?name ?name_prefix ?time_period_end ?time_period_start
     ~budget_type ~time_unit ~auto_adjust_data ~cost_filter
     ~cost_types ~notification ~planned_limit __resource_id =
   let __resource_type = "aws_budgets_budget" in
   let __resource =
-    {
-      account_id;
-      budget_type;
-      id;
-      limit_amount;
-      limit_unit;
-      name;
-      name_prefix;
-      time_period_end;
-      time_period_start;
-      time_unit;
-      auto_adjust_data;
-      cost_filter;
-      cost_types;
-      notification;
-      planned_limit;
-    }
+    ({
+       account_id;
+       budget_type;
+       id;
+       limit_amount;
+       limit_unit;
+       name;
+       name_prefix;
+       time_period_end;
+       time_period_start;
+       time_unit;
+       auto_adjust_data;
+       cost_filter;
+       cost_types;
+       notification;
+       planned_limit;
+     }
+      : aws_budgets_budget)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_budgets_budget __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       budget_type =
+         Prop.computed __resource_type __resource_id "budget_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       limit_amount =
+         Prop.computed __resource_type __resource_id "limit_amount";
+       limit_unit =
+         Prop.computed __resource_type __resource_id "limit_unit";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       time_period_end =
+         Prop.computed __resource_type __resource_id
+           "time_period_end";
+       time_period_start =
+         Prop.computed __resource_type __resource_id
+           "time_period_start";
+       time_unit =
+         Prop.computed __resource_type __resource_id "time_unit";
+     }
+      : t)
+  in
+  __resource_attributes

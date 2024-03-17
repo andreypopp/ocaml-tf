@@ -85,27 +85,79 @@ type cloudflare_record = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare record resource. *)
 
+type t = {
+  allow_overwrite : bool prop;
+  comment : string prop;
+  created_on : string prop;
+  hostname : string prop;
+  id : string prop;
+  metadata : (string * string) list prop;
+  modified_on : string prop;
+  name : string prop;
+  priority : float prop;
+  proxiable : bool prop;
+  proxied : bool prop;
+  tags : string list prop;
+  ttl : float prop;
+  type_ : string prop;
+  value : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_record ?allow_overwrite ?comment ?id ?priority
     ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id ~data
     __resource_id =
   let __resource_type = "cloudflare_record" in
   let __resource =
-    {
-      allow_overwrite;
-      comment;
-      id;
-      name;
-      priority;
-      proxied;
-      tags;
-      ttl;
-      type_;
-      value;
-      zone_id;
-      data;
-      timeouts;
-    }
+    ({
+       allow_overwrite;
+       comment;
+       id;
+       name;
+       priority;
+       proxied;
+       tags;
+       ttl;
+       type_;
+       value;
+       zone_id;
+       data;
+       timeouts;
+     }
+      : cloudflare_record)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_record __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allow_overwrite =
+         Prop.computed __resource_type __resource_id
+           "allow_overwrite";
+       comment =
+         Prop.computed __resource_type __resource_id "comment";
+       created_on =
+         Prop.computed __resource_type __resource_id "created_on";
+       hostname =
+         Prop.computed __resource_type __resource_id "hostname";
+       id = Prop.computed __resource_type __resource_id "id";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       modified_on =
+         Prop.computed __resource_type __resource_id "modified_on";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       proxiable =
+         Prop.computed __resource_type __resource_id "proxiable";
+       proxied =
+         Prop.computed __resource_type __resource_id "proxied";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       ttl = Prop.computed __resource_type __resource_id "ttl";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       value = Prop.computed __resource_type __resource_id "value";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

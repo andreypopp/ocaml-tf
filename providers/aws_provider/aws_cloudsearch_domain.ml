@@ -60,21 +60,50 @@ type aws_cloudsearch_domain = {
 [@@deriving yojson_of]
 (** aws_cloudsearch_domain *)
 
+type t = {
+  arn : string prop;
+  document_service_endpoint : string prop;
+  domain_id : string prop;
+  id : string prop;
+  multi_az : bool prop;
+  name : string prop;
+  search_service_endpoint : string prop;
+}
+
 let aws_cloudsearch_domain ?id ?multi_az ?timeouts ~name
     ~endpoint_options ~index_field ~scaling_parameters __resource_id
     =
   let __resource_type = "aws_cloudsearch_domain" in
   let __resource =
-    {
-      id;
-      multi_az;
-      name;
-      endpoint_options;
-      index_field;
-      scaling_parameters;
-      timeouts;
-    }
+    ({
+       id;
+       multi_az;
+       name;
+       endpoint_options;
+       index_field;
+       scaling_parameters;
+       timeouts;
+     }
+      : aws_cloudsearch_domain)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudsearch_domain __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       document_service_endpoint =
+         Prop.computed __resource_type __resource_id
+           "document_service_endpoint";
+       domain_id =
+         Prop.computed __resource_type __resource_id "domain_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       multi_az =
+         Prop.computed __resource_type __resource_id "multi_az";
+       name = Prop.computed __resource_type __resource_id "name";
+       search_service_endpoint =
+         Prop.computed __resource_type __resource_id
+           "search_service_endpoint";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -31,6 +31,20 @@ type google_vmwareengine_private_cloud__vcenter = {
 
 type google_vmwareengine_private_cloud
 
+type t = private {
+  description : string prop;
+  hcx : google_vmwareengine_private_cloud__hcx list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  nsx : google_vmwareengine_private_cloud__nsx list prop;
+  project : string prop;
+  state : string prop;
+  type_ : string prop;
+  uid : string prop;
+  vcenter : google_vmwareengine_private_cloud__vcenter list prop;
+}
+
 val google_vmwareengine_private_cloud :
   ?description:string prop ->
   ?id:string prop ->
@@ -44,4 +58,4 @@ val google_vmwareengine_private_cloud :
   network_config:
     google_vmwareengine_private_cloud__network_config list ->
   string ->
-  unit
+  t

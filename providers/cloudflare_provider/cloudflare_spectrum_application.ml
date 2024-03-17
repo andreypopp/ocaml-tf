@@ -71,29 +71,67 @@ of Cloudflare's DDoS, TLS, and IP Firewall to your other TCP-based
 services.
  *)
 
+type t = {
+  argo_smart_routing : bool prop;
+  id : string prop;
+  ip_firewall : bool prop;
+  origin_direct : string list prop;
+  origin_port : float prop;
+  protocol : string prop;
+  proxy_protocol : string prop;
+  tls : string prop;
+  traffic_type : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_spectrum_application ?argo_smart_routing ?id
     ?ip_firewall ?origin_direct ?origin_port ?proxy_protocol ?tls
     ?traffic_type ~protocol ~zone_id ~dns ~edge_ips ~origin_dns
     ~origin_port_range __resource_id =
   let __resource_type = "cloudflare_spectrum_application" in
   let __resource =
-    {
-      argo_smart_routing;
-      id;
-      ip_firewall;
-      origin_direct;
-      origin_port;
-      protocol;
-      proxy_protocol;
-      tls;
-      traffic_type;
-      zone_id;
-      dns;
-      edge_ips;
-      origin_dns;
-      origin_port_range;
-    }
+    ({
+       argo_smart_routing;
+       id;
+       ip_firewall;
+       origin_direct;
+       origin_port;
+       protocol;
+       proxy_protocol;
+       tls;
+       traffic_type;
+       zone_id;
+       dns;
+       edge_ips;
+       origin_dns;
+       origin_port_range;
+     }
+      : cloudflare_spectrum_application)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_spectrum_application __resource);
-  ()
+  let __resource_attributes =
+    ({
+       argo_smart_routing =
+         Prop.computed __resource_type __resource_id
+           "argo_smart_routing";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_firewall =
+         Prop.computed __resource_type __resource_id "ip_firewall";
+       origin_direct =
+         Prop.computed __resource_type __resource_id "origin_direct";
+       origin_port =
+         Prop.computed __resource_type __resource_id "origin_port";
+       protocol =
+         Prop.computed __resource_type __resource_id "protocol";
+       proxy_protocol =
+         Prop.computed __resource_type __resource_id "proxy_protocol";
+       tls = Prop.computed __resource_type __resource_id "tls";
+       traffic_type =
+         Prop.computed __resource_type __resource_id "traffic_type";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

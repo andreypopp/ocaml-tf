@@ -35,6 +35,20 @@ type google_bigquery_analytics_hub_data_exchange = {
 [@@deriving yojson_of]
 (** google_bigquery_analytics_hub_data_exchange *)
 
+type t = {
+  data_exchange_id : string prop;
+  description : string prop;
+  display_name : string prop;
+  documentation : string prop;
+  icon : string prop;
+  id : string prop;
+  listing_count : float prop;
+  location : string prop;
+  name : string prop;
+  primary_contact : string prop;
+  project : string prop;
+}
+
 let google_bigquery_analytics_hub_data_exchange ?description
     ?documentation ?icon ?id ?primary_contact ?project ?timeouts
     ~data_exchange_id ~display_name ~location __resource_id =
@@ -42,19 +56,46 @@ let google_bigquery_analytics_hub_data_exchange ?description
     "google_bigquery_analytics_hub_data_exchange"
   in
   let __resource =
-    {
-      data_exchange_id;
-      description;
-      display_name;
-      documentation;
-      icon;
-      id;
-      location;
-      primary_contact;
-      project;
-      timeouts;
-    }
+    ({
+       data_exchange_id;
+       description;
+       display_name;
+       documentation;
+       icon;
+       id;
+       location;
+       primary_contact;
+       project;
+       timeouts;
+     }
+      : google_bigquery_analytics_hub_data_exchange)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_analytics_hub_data_exchange __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data_exchange_id =
+         Prop.computed __resource_type __resource_id
+           "data_exchange_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       documentation =
+         Prop.computed __resource_type __resource_id "documentation";
+       icon = Prop.computed __resource_type __resource_id "icon";
+       id = Prop.computed __resource_type __resource_id "id";
+       listing_count =
+         Prop.computed __resource_type __resource_id "listing_count";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       primary_contact =
+         Prop.computed __resource_type __resource_id
+           "primary_contact";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

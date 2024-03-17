@@ -84,6 +84,17 @@ type azurerm_mobile_network_sim_policy = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_sim_policy *)
 
+type t = {
+  default_slice_id : string prop;
+  id : string prop;
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  rat_frequency_selection_priority_index : float prop;
+  registration_timer_in_seconds : float prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_mobile_network_sim_policy ?id
     ?rat_frequency_selection_priority_index
     ?registration_timer_in_seconds ?tags ?timeouts ~default_slice_id
@@ -91,20 +102,43 @@ let azurerm_mobile_network_sim_policy ?id
     ~user_equipment_aggregate_maximum_bit_rate __resource_id =
   let __resource_type = "azurerm_mobile_network_sim_policy" in
   let __resource =
-    {
-      default_slice_id;
-      id;
-      location;
-      mobile_network_id;
-      name;
-      rat_frequency_selection_priority_index;
-      registration_timer_in_seconds;
-      tags;
-      slice;
-      timeouts;
-      user_equipment_aggregate_maximum_bit_rate;
-    }
+    ({
+       default_slice_id;
+       id;
+       location;
+       mobile_network_id;
+       name;
+       rat_frequency_selection_priority_index;
+       registration_timer_in_seconds;
+       tags;
+       slice;
+       timeouts;
+       user_equipment_aggregate_maximum_bit_rate;
+     }
+      : azurerm_mobile_network_sim_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mobile_network_sim_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       default_slice_id =
+         Prop.computed __resource_type __resource_id
+           "default_slice_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mobile_network_id =
+         Prop.computed __resource_type __resource_id
+           "mobile_network_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       rat_frequency_selection_priority_index =
+         Prop.computed __resource_type __resource_id
+           "rat_frequency_selection_priority_index";
+       registration_timer_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "registration_timer_in_seconds";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -31,12 +31,43 @@ type cloudflare_device_dex_test = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Device Dex Test resource. Device Dex Tests allow for building location-aware device settings policies. *)
 
+type t = {
+  account_id : string prop;
+  created : string prop;
+  description : string prop;
+  enabled : bool prop;
+  id : string prop;
+  interval : string prop;
+  name : string prop;
+  updated : string prop;
+}
+
 let cloudflare_device_dex_test ?id ~account_id ~description ~enabled
     ~interval ~name ~data __resource_id =
   let __resource_type = "cloudflare_device_dex_test" in
   let __resource =
-    { account_id; description; enabled; id; interval; name; data }
+    ({ account_id; description; enabled; id; interval; name; data }
+      : cloudflare_device_dex_test)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_dex_test __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       created =
+         Prop.computed __resource_type __resource_id "created";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       interval =
+         Prop.computed __resource_type __resource_id "interval";
+       name = Prop.computed __resource_type __resource_id "name";
+       updated =
+         Prop.computed __resource_type __resource_id "updated";
+     }
+      : t)
+  in
+  __resource_attributes

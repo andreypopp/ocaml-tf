@@ -16,6 +16,22 @@ type aws_glue_crawler__s3_target
 type aws_glue_crawler__schema_change_policy
 type aws_glue_crawler
 
+type t = private {
+  arn : string prop;
+  classifiers : string list prop;
+  configuration : string prop;
+  database_name : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  role : string prop;
+  schedule : string prop;
+  security_configuration : string prop;
+  table_prefix : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
 val aws_glue_crawler :
   ?classifiers:string prop list ->
   ?configuration:string prop ->
@@ -43,4 +59,4 @@ val aws_glue_crawler :
   s3_target:aws_glue_crawler__s3_target list ->
   schema_change_policy:aws_glue_crawler__schema_change_policy list ->
   string ->
-  unit
+  t

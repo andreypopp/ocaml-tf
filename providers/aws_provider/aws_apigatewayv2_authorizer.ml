@@ -34,6 +34,19 @@ type aws_apigatewayv2_authorizer = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_authorizer *)
 
+type t = {
+  api_id : string prop;
+  authorizer_credentials_arn : string prop;
+  authorizer_payload_format_version : string prop;
+  authorizer_result_ttl_in_seconds : float prop;
+  authorizer_type : string prop;
+  authorizer_uri : string prop;
+  enable_simple_responses : bool prop;
+  id : string prop;
+  identity_sources : string list prop;
+  name : string prop;
+}
+
 let aws_apigatewayv2_authorizer ?authorizer_credentials_arn
     ?authorizer_payload_format_version
     ?authorizer_result_ttl_in_seconds ?authorizer_uri
@@ -41,20 +54,49 @@ let aws_apigatewayv2_authorizer ?authorizer_credentials_arn
     ~authorizer_type ~name ~jwt_configuration __resource_id =
   let __resource_type = "aws_apigatewayv2_authorizer" in
   let __resource =
-    {
-      api_id;
-      authorizer_credentials_arn;
-      authorizer_payload_format_version;
-      authorizer_result_ttl_in_seconds;
-      authorizer_type;
-      authorizer_uri;
-      enable_simple_responses;
-      id;
-      identity_sources;
-      name;
-      jwt_configuration;
-    }
+    ({
+       api_id;
+       authorizer_credentials_arn;
+       authorizer_payload_format_version;
+       authorizer_result_ttl_in_seconds;
+       authorizer_type;
+       authorizer_uri;
+       enable_simple_responses;
+       id;
+       identity_sources;
+       name;
+       jwt_configuration;
+     }
+      : aws_apigatewayv2_authorizer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_apigatewayv2_authorizer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       api_id = Prop.computed __resource_type __resource_id "api_id";
+       authorizer_credentials_arn =
+         Prop.computed __resource_type __resource_id
+           "authorizer_credentials_arn";
+       authorizer_payload_format_version =
+         Prop.computed __resource_type __resource_id
+           "authorizer_payload_format_version";
+       authorizer_result_ttl_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "authorizer_result_ttl_in_seconds";
+       authorizer_type =
+         Prop.computed __resource_type __resource_id
+           "authorizer_type";
+       authorizer_uri =
+         Prop.computed __resource_type __resource_id "authorizer_uri";
+       enable_simple_responses =
+         Prop.computed __resource_type __resource_id
+           "enable_simple_responses";
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_sources =
+         Prop.computed __resource_type __resource_id
+           "identity_sources";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -166,6 +166,16 @@ type azurerm_monitor_action_group = {
 [@@deriving yojson_of]
 (** azurerm_monitor_action_group *)
 
+type t = {
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  short_name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_monitor_action_group ?enabled ?id ?location ?tags
     ?timeouts ~name ~resource_group_name ~short_name
     ~arm_role_receiver ~automation_runbook_receiver
@@ -174,28 +184,46 @@ let azurerm_monitor_action_group ?enabled ?id ?location ?tags
     ~sms_receiver ~voice_receiver ~webhook_receiver __resource_id =
   let __resource_type = "azurerm_monitor_action_group" in
   let __resource =
-    {
-      enabled;
-      id;
-      location;
-      name;
-      resource_group_name;
-      short_name;
-      tags;
-      arm_role_receiver;
-      automation_runbook_receiver;
-      azure_app_push_receiver;
-      azure_function_receiver;
-      email_receiver;
-      event_hub_receiver;
-      itsm_receiver;
-      logic_app_receiver;
-      sms_receiver;
-      timeouts;
-      voice_receiver;
-      webhook_receiver;
-    }
+    ({
+       enabled;
+       id;
+       location;
+       name;
+       resource_group_name;
+       short_name;
+       tags;
+       arm_role_receiver;
+       automation_runbook_receiver;
+       azure_app_push_receiver;
+       azure_function_receiver;
+       email_receiver;
+       event_hub_receiver;
+       itsm_receiver;
+       logic_app_receiver;
+       sms_receiver;
+       timeouts;
+       voice_receiver;
+       webhook_receiver;
+     }
+      : azurerm_monitor_action_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_action_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       short_name =
+         Prop.computed __resource_type __resource_id "short_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

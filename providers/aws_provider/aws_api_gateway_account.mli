@@ -9,8 +9,14 @@ type aws_api_gateway_account__throttle_settings = {
 
 type aws_api_gateway_account
 
+type t = private {
+  api_key_version : string prop;
+  cloudwatch_role_arn : string prop;
+  features : string list prop;
+  id : string prop;
+  throttle_settings :
+    aws_api_gateway_account__throttle_settings list prop;
+}
+
 val aws_api_gateway_account :
-  ?cloudwatch_role_arn:string prop ->
-  ?id:string prop ->
-  string ->
-  unit
+  ?cloudwatch_role_arn:string prop -> ?id:string prop -> string -> t

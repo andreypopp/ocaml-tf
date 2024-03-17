@@ -28,6 +28,17 @@ type aws_mskconnect_connector__timeouts
 type aws_mskconnect_connector__worker_configuration
 type aws_mskconnect_connector
 
+type t = private {
+  arn : string prop;
+  connector_configuration : (string * string) list prop;
+  description : string prop;
+  id : string prop;
+  kafkaconnect_version : string prop;
+  name : string prop;
+  service_execution_role_arn : string prop;
+  version : string prop;
+}
+
 val aws_mskconnect_connector :
   ?description:string prop ->
   ?id:string prop ->
@@ -49,4 +60,4 @@ val aws_mskconnect_connector :
   worker_configuration:
     aws_mskconnect_connector__worker_configuration list ->
   string ->
-  unit
+  t

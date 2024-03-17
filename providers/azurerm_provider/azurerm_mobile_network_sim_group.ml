@@ -34,22 +34,48 @@ type azurerm_mobile_network_sim_group = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_sim_group *)
 
+type t = {
+  encryption_key_url : string prop;
+  id : string prop;
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
 let azurerm_mobile_network_sim_group ?encryption_key_url ?id ?tags
     ?timeouts ~location ~mobile_network_id ~name ~identity
     __resource_id =
   let __resource_type = "azurerm_mobile_network_sim_group" in
   let __resource =
-    {
-      encryption_key_url;
-      id;
-      location;
-      mobile_network_id;
-      name;
-      tags;
-      identity;
-      timeouts;
-    }
+    ({
+       encryption_key_url;
+       id;
+       location;
+       mobile_network_id;
+       name;
+       tags;
+       identity;
+       timeouts;
+     }
+      : azurerm_mobile_network_sim_group)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mobile_network_sim_group __resource);
-  ()
+  let __resource_attributes =
+    ({
+       encryption_key_url =
+         Prop.computed __resource_type __resource_id
+           "encryption_key_url";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mobile_network_id =
+         Prop.computed __resource_type __resource_id
+           "mobile_network_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+     }
+      : t)
+  in
+  __resource_attributes

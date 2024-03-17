@@ -56,19 +56,29 @@ type aws_glue_classifier = {
 [@@deriving yojson_of]
 (** aws_glue_classifier *)
 
+type t = { id : string prop; name : string prop }
+
 let aws_glue_classifier ?id ~name ~csv_classifier ~grok_classifier
     ~json_classifier ~xml_classifier __resource_id =
   let __resource_type = "aws_glue_classifier" in
   let __resource =
-    {
-      id;
-      name;
-      csv_classifier;
-      grok_classifier;
-      json_classifier;
-      xml_classifier;
-    }
+    ({
+       id;
+       name;
+       csv_classifier;
+       grok_classifier;
+       json_classifier;
+       xml_classifier;
+     }
+      : aws_glue_classifier)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_classifier __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

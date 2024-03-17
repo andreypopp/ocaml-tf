@@ -4,10 +4,17 @@ open! Tf.Prelude
 
 type aws_transfer_ssh_key
 
+type t = private {
+  body : string prop;
+  id : string prop;
+  server_id : string prop;
+  user_name : string prop;
+}
+
 val aws_transfer_ssh_key :
   ?id:string prop ->
   body:string prop ->
   server_id:string prop ->
   user_name:string prop ->
   string ->
-  unit
+  t

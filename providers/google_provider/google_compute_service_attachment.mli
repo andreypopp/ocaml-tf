@@ -12,6 +12,25 @@ type google_compute_service_attachment__connected_endpoints = {
 
 type google_compute_service_attachment
 
+type t = private {
+  connected_endpoints :
+    google_compute_service_attachment__connected_endpoints list prop;
+  connection_preference : string prop;
+  consumer_reject_lists : string list prop;
+  description : string prop;
+  domain_names : string list prop;
+  enable_proxy_protocol : bool prop;
+  fingerprint : string prop;
+  id : string prop;
+  name : string prop;
+  nat_subnets : string list prop;
+  project : string prop;
+  reconcile_connections : bool prop;
+  region : string prop;
+  self_link : string prop;
+  target_service : string prop;
+}
+
 val google_compute_service_attachment :
   ?consumer_reject_lists:string prop list ->
   ?description:string prop ->
@@ -29,4 +48,4 @@ val google_compute_service_attachment :
   consumer_accept_lists:
     google_compute_service_attachment__consumer_accept_lists list ->
   string ->
-  unit
+  t

@@ -34,23 +34,51 @@ type aws_athena_database = {
 [@@deriving yojson_of]
 (** aws_athena_database *)
 
+type t = {
+  bucket : string prop;
+  comment : string prop;
+  expected_bucket_owner : string prop;
+  force_destroy : bool prop;
+  id : string prop;
+  name : string prop;
+  properties : (string * string) list prop;
+}
+
 let aws_athena_database ?bucket ?comment ?expected_bucket_owner
     ?force_destroy ?id ?properties ~name ~acl_configuration
     ~encryption_configuration __resource_id =
   let __resource_type = "aws_athena_database" in
   let __resource =
-    {
-      bucket;
-      comment;
-      expected_bucket_owner;
-      force_destroy;
-      id;
-      name;
-      properties;
-      acl_configuration;
-      encryption_configuration;
-    }
+    ({
+       bucket;
+       comment;
+       expected_bucket_owner;
+       force_destroy;
+       id;
+       name;
+       properties;
+       acl_configuration;
+       encryption_configuration;
+     }
+      : aws_athena_database)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_athena_database __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bucket = Prop.computed __resource_type __resource_id "bucket";
+       comment =
+         Prop.computed __resource_type __resource_id "comment";
+       expected_bucket_owner =
+         Prop.computed __resource_type __resource_id
+           "expected_bucket_owner";
+       force_destroy =
+         Prop.computed __resource_type __resource_id "force_destroy";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       properties =
+         Prop.computed __resource_type __resource_id "properties";
+     }
+      : t)
+  in
+  __resource_attributes

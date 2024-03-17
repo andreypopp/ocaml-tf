@@ -33,10 +33,33 @@ type cloudflare_email_routing_catch_all = {
 (** Provides a resource for managing Email Routing Addresses catch all behaviour.
  *)
 
+type t = {
+  enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  tag : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_email_routing_catch_all ?enabled ?id ~name ~zone_id
     ~action ~matcher __resource_id =
   let __resource_type = "cloudflare_email_routing_catch_all" in
-  let __resource = { enabled; id; name; zone_id; action; matcher } in
+  let __resource =
+    ({ enabled; id; name; zone_id; action; matcher }
+      : cloudflare_email_routing_catch_all)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_email_routing_catch_all __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       tag = Prop.computed __resource_type __resource_id "tag";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

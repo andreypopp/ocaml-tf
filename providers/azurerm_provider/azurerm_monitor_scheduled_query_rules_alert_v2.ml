@@ -95,6 +95,30 @@ type azurerm_monitor_scheduled_query_rules_alert_v2 = {
 [@@deriving yojson_of]
 (** azurerm_monitor_scheduled_query_rules_alert_v2 *)
 
+type t = {
+  auto_mitigation_enabled : bool prop;
+  created_with_api_version : string prop;
+  description : string prop;
+  display_name : string prop;
+  enabled : bool prop;
+  evaluation_frequency : string prop;
+  id : string prop;
+  is_a_legacy_log_analytics_rule : bool prop;
+  is_workspace_alerts_storage_configured : bool prop;
+  location : string prop;
+  mute_actions_after_alert_duration : string prop;
+  name : string prop;
+  query_time_range_override : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  severity : float prop;
+  skip_query_validation : bool prop;
+  tags : (string * string) list prop;
+  target_resource_types : string list prop;
+  window_duration : string prop;
+  workspace_alerts_storage_enabled : bool prop;
+}
+
 let azurerm_monitor_scheduled_query_rules_alert_v2
     ?auto_mitigation_enabled ?description ?display_name ?enabled
     ?evaluation_frequency ?id ?mute_actions_after_alert_duration
@@ -106,31 +130,87 @@ let azurerm_monitor_scheduled_query_rules_alert_v2
     "azurerm_monitor_scheduled_query_rules_alert_v2"
   in
   let __resource =
-    {
-      auto_mitigation_enabled;
-      description;
-      display_name;
-      enabled;
-      evaluation_frequency;
-      id;
-      location;
-      mute_actions_after_alert_duration;
-      name;
-      query_time_range_override;
-      resource_group_name;
-      scopes;
-      severity;
-      skip_query_validation;
-      tags;
-      target_resource_types;
-      window_duration;
-      workspace_alerts_storage_enabled;
-      action;
-      criteria;
-      timeouts;
-    }
+    ({
+       auto_mitigation_enabled;
+       description;
+       display_name;
+       enabled;
+       evaluation_frequency;
+       id;
+       location;
+       mute_actions_after_alert_duration;
+       name;
+       query_time_range_override;
+       resource_group_name;
+       scopes;
+       severity;
+       skip_query_validation;
+       tags;
+       target_resource_types;
+       window_duration;
+       workspace_alerts_storage_enabled;
+       action;
+       criteria;
+       timeouts;
+     }
+      : azurerm_monitor_scheduled_query_rules_alert_v2)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       auto_mitigation_enabled =
+         Prop.computed __resource_type __resource_id
+           "auto_mitigation_enabled";
+       created_with_api_version =
+         Prop.computed __resource_type __resource_id
+           "created_with_api_version";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enabled =
+         Prop.computed __resource_type __resource_id "enabled";
+       evaluation_frequency =
+         Prop.computed __resource_type __resource_id
+           "evaluation_frequency";
+       id = Prop.computed __resource_type __resource_id "id";
+       is_a_legacy_log_analytics_rule =
+         Prop.computed __resource_type __resource_id
+           "is_a_legacy_log_analytics_rule";
+       is_workspace_alerts_storage_configured =
+         Prop.computed __resource_type __resource_id
+           "is_workspace_alerts_storage_configured";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       mute_actions_after_alert_duration =
+         Prop.computed __resource_type __resource_id
+           "mute_actions_after_alert_duration";
+       name = Prop.computed __resource_type __resource_id "name";
+       query_time_range_override =
+         Prop.computed __resource_type __resource_id
+           "query_time_range_override";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       scopes = Prop.computed __resource_type __resource_id "scopes";
+       severity =
+         Prop.computed __resource_type __resource_id "severity";
+       skip_query_validation =
+         Prop.computed __resource_type __resource_id
+           "skip_query_validation";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       target_resource_types =
+         Prop.computed __resource_type __resource_id
+           "target_resource_types";
+       window_duration =
+         Prop.computed __resource_type __resource_id
+           "window_duration";
+       workspace_alerts_storage_enabled =
+         Prop.computed __resource_type __resource_id
+           "workspace_alerts_storage_enabled";
+     }
+      : t)
+  in
+  __resource_attributes

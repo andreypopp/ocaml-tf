@@ -6,6 +6,17 @@ type google_logging_billing_account_bucket_config__cmek_settings
 type google_logging_billing_account_bucket_config__index_configs
 type google_logging_billing_account_bucket_config
 
+type t = private {
+  billing_account : string prop;
+  bucket_id : string prop;
+  description : string prop;
+  id : string prop;
+  lifecycle_state : string prop;
+  location : string prop;
+  name : string prop;
+  retention_days : float prop;
+}
+
 val google_logging_billing_account_bucket_config :
   ?description:string prop ->
   ?id:string prop ->
@@ -18,4 +29,4 @@ val google_logging_billing_account_bucket_config :
   index_configs:
     google_logging_billing_account_bucket_config__index_configs list ->
   string ->
-  unit
+  t

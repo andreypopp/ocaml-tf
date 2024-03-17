@@ -40,10 +40,32 @@ The repo name may contain slashes. eg, 'name/with/slash' *)
 [@@deriving yojson_of]
 (** google_sourcerepo_repository *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  size : float prop;
+  url : string prop;
+}
+
 let google_sourcerepo_repository ?id ?project ?timeouts ~name
     ~pubsub_configs __resource_id =
   let __resource_type = "google_sourcerepo_repository" in
-  let __resource = { id; name; project; pubsub_configs; timeouts } in
+  let __resource =
+    ({ id; name; project; pubsub_configs; timeouts }
+      : google_sourcerepo_repository)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sourcerepo_repository __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       size = Prop.computed __resource_type __resource_id "size";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

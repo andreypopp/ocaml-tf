@@ -19,6 +19,24 @@ type google_app_engine_standard_app_version__timeouts
 type google_app_engine_standard_app_version__vpc_access_connector
 type google_app_engine_standard_app_version
 
+type t = private {
+  app_engine_apis : bool prop;
+  delete_service_on_destroy : bool prop;
+  env_variables : (string * string) list prop;
+  id : string prop;
+  inbound_services : string list prop;
+  instance_class : string prop;
+  name : string prop;
+  noop_on_destroy : bool prop;
+  project : string prop;
+  runtime : string prop;
+  runtime_api_version : string prop;
+  service : string prop;
+  service_account : string prop;
+  threadsafe : bool prop;
+  version_id : string prop;
+}
+
 val google_app_engine_standard_app_version :
   ?app_engine_apis:bool prop ->
   ?delete_service_on_destroy:bool prop ->
@@ -48,4 +66,4 @@ val google_app_engine_standard_app_version :
   vpc_access_connector:
     google_app_engine_standard_app_version__vpc_access_connector list ->
   string ->
-  unit
+  t

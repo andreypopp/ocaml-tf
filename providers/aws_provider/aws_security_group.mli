@@ -30,6 +30,21 @@ type aws_security_group__ingress = {
 
 type aws_security_group
 
+type t = private {
+  arn : string prop;
+  description : string prop;
+  egress : aws_security_group__egress list prop;
+  id : string prop;
+  ingress : aws_security_group__ingress list prop;
+  name : string prop;
+  name_prefix : string prop;
+  owner_id : string prop;
+  revoke_rules_on_delete : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_id : string prop;
+}
+
 val aws_security_group :
   ?description:string prop ->
   ?egress:aws_security_group__egress list ->
@@ -43,4 +58,4 @@ val aws_security_group :
   ?vpc_id:string prop ->
   ?timeouts:aws_security_group__timeouts ->
   string ->
-  unit
+  t

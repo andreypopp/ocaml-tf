@@ -36,22 +36,50 @@ type aws_lexv2models_bot_locale = {
 [@@deriving yojson_of]
 (** aws_lexv2models_bot_locale *)
 
+type t = {
+  bot_id : string prop;
+  bot_version : string prop;
+  description : string prop;
+  id : string prop;
+  locale_id : string prop;
+  n_lu_intent_confidence_threshold : float prop;
+  name : string prop;
+}
+
 let aws_lexv2models_bot_locale ?description ?name ?timeouts ~bot_id
     ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
     ~voice_settings __resource_id =
   let __resource_type = "aws_lexv2models_bot_locale" in
   let __resource =
-    {
-      bot_id;
-      bot_version;
-      description;
-      locale_id;
-      n_lu_intent_confidence_threshold;
-      name;
-      timeouts;
-      voice_settings;
-    }
+    ({
+       bot_id;
+       bot_version;
+       description;
+       locale_id;
+       n_lu_intent_confidence_threshold;
+       name;
+       timeouts;
+       voice_settings;
+     }
+      : aws_lexv2models_bot_locale)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_bot_locale __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bot_id = Prop.computed __resource_type __resource_id "bot_id";
+       bot_version =
+         Prop.computed __resource_type __resource_id "bot_version";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       locale_id =
+         Prop.computed __resource_type __resource_id "locale_id";
+       n_lu_intent_confidence_threshold =
+         Prop.computed __resource_type __resource_id
+           "n_lu_intent_confidence_threshold";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes

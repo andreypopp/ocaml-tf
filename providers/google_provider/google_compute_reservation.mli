@@ -15,6 +15,19 @@ type google_compute_reservation__specific_reservation
 type google_compute_reservation__timeouts
 type google_compute_reservation
 
+type t = private {
+  commitment : string prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  specific_reservation_required : bool prop;
+  status : string prop;
+  zone : string prop;
+}
+
 val google_compute_reservation :
   ?description:string prop ->
   ?id:string prop ->
@@ -27,4 +40,4 @@ val google_compute_reservation :
   specific_reservation:
     google_compute_reservation__specific_reservation list ->
   string ->
-  unit
+  t

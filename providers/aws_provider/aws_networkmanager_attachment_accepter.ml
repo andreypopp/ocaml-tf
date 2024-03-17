@@ -19,12 +19,57 @@ type aws_networkmanager_attachment_accepter = {
 [@@deriving yojson_of]
 (** aws_networkmanager_attachment_accepter *)
 
+type t = {
+  attachment_id : string prop;
+  attachment_policy_rule_number : float prop;
+  attachment_type : string prop;
+  core_network_arn : string prop;
+  core_network_id : string prop;
+  edge_location : string prop;
+  id : string prop;
+  owner_account_id : string prop;
+  resource_arn : string prop;
+  segment_name : string prop;
+  state : string prop;
+}
+
 let aws_networkmanager_attachment_accepter ?id ?timeouts
     ~attachment_id ~attachment_type __resource_id =
   let __resource_type = "aws_networkmanager_attachment_accepter" in
   let __resource =
-    { attachment_id; attachment_type; id; timeouts }
+    ({ attachment_id; attachment_type; id; timeouts }
+      : aws_networkmanager_attachment_accepter)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkmanager_attachment_accepter __resource);
-  ()
+  let __resource_attributes =
+    ({
+       attachment_id =
+         Prop.computed __resource_type __resource_id "attachment_id";
+       attachment_policy_rule_number =
+         Prop.computed __resource_type __resource_id
+           "attachment_policy_rule_number";
+       attachment_type =
+         Prop.computed __resource_type __resource_id
+           "attachment_type";
+       core_network_arn =
+         Prop.computed __resource_type __resource_id
+           "core_network_arn";
+       core_network_id =
+         Prop.computed __resource_type __resource_id
+           "core_network_id";
+       edge_location =
+         Prop.computed __resource_type __resource_id "edge_location";
+       id = Prop.computed __resource_type __resource_id "id";
+       owner_account_id =
+         Prop.computed __resource_type __resource_id
+           "owner_account_id";
+       resource_arn =
+         Prop.computed __resource_type __resource_id "resource_arn";
+       segment_name =
+         Prop.computed __resource_type __resource_id "segment_name";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

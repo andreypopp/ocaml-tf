@@ -91,6 +91,21 @@ type azurerm_data_factory_linked_service_azure_databricks = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_databricks *)
 
+type t = {
+  access_token : string prop;
+  adb_domain : string prop;
+  additional_properties : (string * string) list prop;
+  annotations : string list prop;
+  data_factory_id : string prop;
+  description : string prop;
+  existing_cluster_id : string prop;
+  id : string prop;
+  integration_runtime_name : string prop;
+  msi_work_space_resource_id : string prop;
+  name : string prop;
+  parameters : (string * string) list prop;
+}
+
 let azurerm_data_factory_linked_service_azure_databricks
     ?access_token ?additional_properties ?annotations ?description
     ?existing_cluster_id ?id ?integration_runtime_name
@@ -101,26 +116,59 @@ let azurerm_data_factory_linked_service_azure_databricks
     "azurerm_data_factory_linked_service_azure_databricks"
   in
   let __resource =
-    {
-      access_token;
-      adb_domain;
-      additional_properties;
-      annotations;
-      data_factory_id;
-      description;
-      existing_cluster_id;
-      id;
-      integration_runtime_name;
-      msi_work_space_resource_id;
-      name;
-      parameters;
-      instance_pool;
-      key_vault_password;
-      new_cluster_config;
-      timeouts;
-    }
+    ({
+       access_token;
+       adb_domain;
+       additional_properties;
+       annotations;
+       data_factory_id;
+       description;
+       existing_cluster_id;
+       id;
+       integration_runtime_name;
+       msi_work_space_resource_id;
+       name;
+       parameters;
+       instance_pool;
+       key_vault_password;
+       new_cluster_config;
+       timeouts;
+     }
+      : azurerm_data_factory_linked_service_azure_databricks)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_factory_linked_service_azure_databricks
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_token =
+         Prop.computed __resource_type __resource_id "access_token";
+       adb_domain =
+         Prop.computed __resource_type __resource_id "adb_domain";
+       additional_properties =
+         Prop.computed __resource_type __resource_id
+           "additional_properties";
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       data_factory_id =
+         Prop.computed __resource_type __resource_id
+           "data_factory_id";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       existing_cluster_id =
+         Prop.computed __resource_type __resource_id
+           "existing_cluster_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       integration_runtime_name =
+         Prop.computed __resource_type __resource_id
+           "integration_runtime_name";
+       msi_work_space_resource_id =
+         Prop.computed __resource_type __resource_id
+           "msi_work_space_resource_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parameters =
+         Prop.computed __resource_type __resource_id "parameters";
+     }
+      : t)
+  in
+  __resource_attributes

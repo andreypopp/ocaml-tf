@@ -8,6 +8,17 @@ type aws_redshift_scheduled_action__target_action__resume_cluster
 type aws_redshift_scheduled_action__target_action
 type aws_redshift_scheduled_action
 
+type t = private {
+  description : string prop;
+  enable : bool prop;
+  end_time : string prop;
+  iam_role : string prop;
+  id : string prop;
+  name : string prop;
+  schedule : string prop;
+  start_time : string prop;
+}
+
 val aws_redshift_scheduled_action :
   ?description:string prop ->
   ?enable:bool prop ->
@@ -19,4 +30,4 @@ val aws_redshift_scheduled_action :
   schedule:string prop ->
   target_action:aws_redshift_scheduled_action__target_action list ->
   string ->
-  unit
+  t

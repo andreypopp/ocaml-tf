@@ -82,6 +82,26 @@ type azurerm_servicebus_namespace = {
 [@@deriving yojson_of]
 (** azurerm_servicebus_namespace *)
 
+type t = {
+  capacity : float prop;
+  default_primary_connection_string : string prop;
+  default_primary_key : string prop;
+  default_secondary_connection_string : string prop;
+  default_secondary_key : string prop;
+  endpoint : string prop;
+  id : string prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  minimum_tls_version : string prop;
+  name : string prop;
+  premium_messaging_partitions : float prop;
+  public_network_access_enabled : bool prop;
+  resource_group_name : string prop;
+  sku : string prop;
+  tags : (string * string) list prop;
+  zone_redundant : bool prop;
+}
+
 let azurerm_servicebus_namespace ?capacity ?id ?local_auth_enabled
     ?minimum_tls_version ?premium_messaging_partitions
     ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
@@ -89,25 +109,70 @@ let azurerm_servicebus_namespace ?capacity ?id ?local_auth_enabled
     ~identity ~network_rule_set __resource_id =
   let __resource_type = "azurerm_servicebus_namespace" in
   let __resource =
-    {
-      capacity;
-      id;
-      local_auth_enabled;
-      location;
-      minimum_tls_version;
-      name;
-      premium_messaging_partitions;
-      public_network_access_enabled;
-      resource_group_name;
-      sku;
-      tags;
-      zone_redundant;
-      customer_managed_key;
-      identity;
-      network_rule_set;
-      timeouts;
-    }
+    ({
+       capacity;
+       id;
+       local_auth_enabled;
+       location;
+       minimum_tls_version;
+       name;
+       premium_messaging_partitions;
+       public_network_access_enabled;
+       resource_group_name;
+       sku;
+       tags;
+       zone_redundant;
+       customer_managed_key;
+       identity;
+       network_rule_set;
+       timeouts;
+     }
+      : azurerm_servicebus_namespace)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_servicebus_namespace __resource);
-  ()
+  let __resource_attributes =
+    ({
+       capacity =
+         Prop.computed __resource_type __resource_id "capacity";
+       default_primary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "default_primary_connection_string";
+       default_primary_key =
+         Prop.computed __resource_type __resource_id
+           "default_primary_key";
+       default_secondary_connection_string =
+         Prop.computed __resource_type __resource_id
+           "default_secondary_connection_string";
+       default_secondary_key =
+         Prop.computed __resource_type __resource_id
+           "default_secondary_key";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       id = Prop.computed __resource_type __resource_id "id";
+       local_auth_enabled =
+         Prop.computed __resource_type __resource_id
+           "local_auth_enabled";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       minimum_tls_version =
+         Prop.computed __resource_type __resource_id
+           "minimum_tls_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       premium_messaging_partitions =
+         Prop.computed __resource_type __resource_id
+           "premium_messaging_partitions";
+       public_network_access_enabled =
+         Prop.computed __resource_type __resource_id
+           "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       sku = Prop.computed __resource_type __resource_id "sku";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       zone_redundant =
+         Prop.computed __resource_type __resource_id "zone_redundant";
+     }
+      : t)
+  in
+  __resource_attributes

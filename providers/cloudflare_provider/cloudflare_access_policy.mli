@@ -29,6 +29,21 @@ type cloudflare_access_policy__require__saml
 type cloudflare_access_policy__require
 type cloudflare_access_policy
 
+type t = private {
+  account_id : string prop;
+  application_id : string prop;
+  approval_required : bool prop;
+  decision : string prop;
+  id : string prop;
+  isolation_required : bool prop;
+  name : string prop;
+  precedence : float prop;
+  purpose_justification_prompt : string prop;
+  purpose_justification_required : bool prop;
+  session_duration : string prop;
+  zone_id : string prop;
+}
+
 val cloudflare_access_policy :
   ?account_id:string prop ->
   ?approval_required:bool prop ->
@@ -47,4 +62,4 @@ val cloudflare_access_policy :
   include_:cloudflare_access_policy__include list ->
   require:cloudflare_access_policy__require list ->
   string ->
-  unit
+  t

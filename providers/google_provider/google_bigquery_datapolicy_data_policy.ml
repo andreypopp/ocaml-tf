@@ -37,22 +37,51 @@ type google_bigquery_datapolicy_data_policy = {
 [@@deriving yojson_of]
 (** google_bigquery_datapolicy_data_policy *)
 
+type t = {
+  data_policy_id : string prop;
+  data_policy_type : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  policy_tag : string prop;
+  project : string prop;
+}
+
 let google_bigquery_datapolicy_data_policy ?id ?project ?timeouts
     ~data_policy_id ~data_policy_type ~location ~policy_tag
     ~data_masking_policy __resource_id =
   let __resource_type = "google_bigquery_datapolicy_data_policy" in
   let __resource =
-    {
-      data_policy_id;
-      data_policy_type;
-      id;
-      location;
-      policy_tag;
-      project;
-      data_masking_policy;
-      timeouts;
-    }
+    ({
+       data_policy_id;
+       data_policy_type;
+       id;
+       location;
+       policy_tag;
+       project;
+       data_masking_policy;
+       timeouts;
+     }
+      : google_bigquery_datapolicy_data_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_datapolicy_data_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       data_policy_id =
+         Prop.computed __resource_type __resource_id "data_policy_id";
+       data_policy_type =
+         Prop.computed __resource_type __resource_id
+           "data_policy_type";
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       policy_tag =
+         Prop.computed __resource_type __resource_id "policy_tag";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

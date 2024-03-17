@@ -16,12 +16,37 @@ type aws_ssmcontacts_contact = {
 [@@deriving yojson_of]
 (** aws_ssmcontacts_contact *)
 
+type t = {
+  alias : string prop;
+  arn : string prop;
+  display_name : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_ssmcontacts_contact ?display_name ?id ?tags ?tags_all ~alias
     ~type_ __resource_id =
   let __resource_type = "aws_ssmcontacts_contact" in
   let __resource =
-    { alias; display_name; id; tags; tags_all; type_ }
+    ({ alias; display_name; id; tags; tags_all; type_ }
+      : aws_ssmcontacts_contact)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmcontacts_contact __resource);
-  ()
+  let __resource_attributes =
+    ({
+       alias = Prop.computed __resource_type __resource_id "alias";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

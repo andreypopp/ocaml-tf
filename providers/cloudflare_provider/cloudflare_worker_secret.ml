@@ -18,12 +18,34 @@ type cloudflare_worker_secret = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Worker secret resource. *)
 
+type t = {
+  account_id : string prop;
+  id : string prop;
+  name : string prop;
+  script_name : string prop;
+  secret_text : string prop;
+}
+
 let cloudflare_worker_secret ?id ~account_id ~name ~script_name
     ~secret_text __resource_id =
   let __resource_type = "cloudflare_worker_secret" in
   let __resource =
-    { account_id; id; name; script_name; secret_text }
+    ({ account_id; id; name; script_name; secret_text }
+      : cloudflare_worker_secret)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_worker_secret __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       script_name =
+         Prop.computed __resource_type __resource_id "script_name";
+       secret_text =
+         Prop.computed __resource_type __resource_id "secret_text";
+     }
+      : t)
+  in
+  __resource_attributes

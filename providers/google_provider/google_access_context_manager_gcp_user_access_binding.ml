@@ -27,6 +27,14 @@ type google_access_context_manager_gcp_user_access_binding = {
 [@@deriving yojson_of]
 (** google_access_context_manager_gcp_user_access_binding *)
 
+type t = {
+  access_levels : string list prop;
+  group_key : string prop;
+  id : string prop;
+  name : string prop;
+  organization_id : string prop;
+}
+
 let google_access_context_manager_gcp_user_access_binding ?id
     ?timeouts ~access_levels ~group_key ~organization_id
     __resource_id =
@@ -34,9 +42,24 @@ let google_access_context_manager_gcp_user_access_binding ?id
     "google_access_context_manager_gcp_user_access_binding"
   in
   let __resource =
-    { access_levels; group_key; id; organization_id; timeouts }
+    ({ access_levels; group_key; id; organization_id; timeouts }
+      : google_access_context_manager_gcp_user_access_binding)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_gcp_user_access_binding
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       access_levels =
+         Prop.computed __resource_type __resource_id "access_levels";
+       group_key =
+         Prop.computed __resource_type __resource_id "group_key";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       organization_id =
+         Prop.computed __resource_type __resource_id
+           "organization_id";
+     }
+      : t)
+  in
+  __resource_attributes

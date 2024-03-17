@@ -47,6 +47,23 @@ names must be unique globally and match pattern
 [@@deriving yojson_of]
 (** google_certificate_manager_certificate_map_entry *)
 
+type t = {
+  certificates : string list prop;
+  create_time : string prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  hostname : string prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  map : string prop;
+  matcher : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
 let google_certificate_manager_certificate_map_entry ?description
     ?hostname ?id ?labels ?matcher ?project ?timeouts ~certificates
     ~map ~name __resource_id =
@@ -54,20 +71,51 @@ let google_certificate_manager_certificate_map_entry ?description
     "google_certificate_manager_certificate_map_entry"
   in
   let __resource =
-    {
-      certificates;
-      description;
-      hostname;
-      id;
-      labels;
-      map;
-      matcher;
-      name;
-      project;
-      timeouts;
-    }
+    ({
+       certificates;
+       description;
+       hostname;
+       id;
+       labels;
+       map;
+       matcher;
+       name;
+       project;
+       timeouts;
+     }
+      : google_certificate_manager_certificate_map_entry)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_certificate_map_entry
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       certificates =
+         Prop.computed __resource_type __resource_id "certificates";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       hostname =
+         Prop.computed __resource_type __resource_id "hostname";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       map = Prop.computed __resource_type __resource_id "map";
+       matcher =
+         Prop.computed __resource_type __resource_id "matcher";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -34,6 +34,24 @@ type aws_docdbelastic_cluster = {
 [@@deriving yojson_of]
 (** aws_docdbelastic_cluster *)
 
+type t = {
+  admin_user_name : string prop;
+  admin_user_password : string prop;
+  arn : string prop;
+  auth_type : string prop;
+  endpoint : string prop;
+  id : string prop;
+  kms_key_id : string prop;
+  name : string prop;
+  preferred_maintenance_window : string prop;
+  shard_capacity : float prop;
+  shard_count : float prop;
+  subnet_ids : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  vpc_security_group_ids : string list prop;
+}
+
 let aws_docdbelastic_cluster ?kms_key_id
     ?preferred_maintenance_window ?subnet_ids ?tags
     ?vpc_security_group_ids ?timeouts ~admin_user_name
@@ -41,21 +59,57 @@ let aws_docdbelastic_cluster ?kms_key_id
     ~shard_count __resource_id =
   let __resource_type = "aws_docdbelastic_cluster" in
   let __resource =
-    {
-      admin_user_name;
-      admin_user_password;
-      auth_type;
-      kms_key_id;
-      name;
-      preferred_maintenance_window;
-      shard_capacity;
-      shard_count;
-      subnet_ids;
-      tags;
-      vpc_security_group_ids;
-      timeouts;
-    }
+    ({
+       admin_user_name;
+       admin_user_password;
+       auth_type;
+       kms_key_id;
+       name;
+       preferred_maintenance_window;
+       shard_capacity;
+       shard_count;
+       subnet_ids;
+       tags;
+       vpc_security_group_ids;
+       timeouts;
+     }
+      : aws_docdbelastic_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_docdbelastic_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       admin_user_name =
+         Prop.computed __resource_type __resource_id
+           "admin_user_name";
+       admin_user_password =
+         Prop.computed __resource_type __resource_id
+           "admin_user_password";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       auth_type =
+         Prop.computed __resource_type __resource_id "auth_type";
+       endpoint =
+         Prop.computed __resource_type __resource_id "endpoint";
+       id = Prop.computed __resource_type __resource_id "id";
+       kms_key_id =
+         Prop.computed __resource_type __resource_id "kms_key_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       preferred_maintenance_window =
+         Prop.computed __resource_type __resource_id
+           "preferred_maintenance_window";
+       shard_capacity =
+         Prop.computed __resource_type __resource_id "shard_capacity";
+       shard_count =
+         Prop.computed __resource_type __resource_id "shard_count";
+       subnet_ids =
+         Prop.computed __resource_type __resource_id "subnet_ids";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       vpc_security_group_ids =
+         Prop.computed __resource_type __resource_id
+           "vpc_security_group_ids";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -401,6 +401,17 @@ type google_data_loss_prevention_deidentify_template__deidentify_config
 type google_data_loss_prevention_deidentify_template__timeouts
 type google_data_loss_prevention_deidentify_template
 
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  template_id : string prop;
+  update_time : string prop;
+}
+
 val google_data_loss_prevention_deidentify_template :
   ?description:string prop ->
   ?display_name:string prop ->
@@ -412,4 +423,4 @@ val google_data_loss_prevention_deidentify_template :
     google_data_loss_prevention_deidentify_template__deidentify_config
     list ->
   string ->
-  unit
+  t

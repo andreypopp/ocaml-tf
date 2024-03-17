@@ -119,12 +119,33 @@ type google_cloud_run_domain_mapping = {
 [@@deriving yojson_of]
 (** google_cloud_run_domain_mapping *)
 
+type t = {
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  status : google_cloud_run_domain_mapping__status list prop;
+}
+
 let google_cloud_run_domain_mapping ?id ?project ?timeouts ~location
     ~name ~metadata ~spec __resource_id =
   let __resource_type = "google_cloud_run_domain_mapping" in
   let __resource =
-    { id; location; name; project; metadata; spec; timeouts }
+    ({ id; location; name; project; metadata; spec; timeouts }
+      : google_cloud_run_domain_mapping)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_run_domain_mapping __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

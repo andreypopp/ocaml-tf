@@ -55,21 +55,60 @@ resources of that resource. A maximum of 50 email addresses are allowed. *)
 [@@deriving yojson_of]
 (** google_project_access_approval_settings *)
 
+type t = {
+  active_key_version : string prop;
+  ancestor_has_active_key_version : bool prop;
+  enrolled_ancestor : bool prop;
+  id : string prop;
+  invalid_key_version : bool prop;
+  name : string prop;
+  notification_emails : string list prop;
+  project : string prop;
+  project_id : string prop;
+}
+
 let google_project_access_approval_settings ?active_key_version ?id
     ?notification_emails ?project ?timeouts ~project_id
     ~enrolled_services __resource_id =
   let __resource_type = "google_project_access_approval_settings" in
   let __resource =
-    {
-      active_key_version;
-      id;
-      notification_emails;
-      project;
-      project_id;
-      enrolled_services;
-      timeouts;
-    }
+    ({
+       active_key_version;
+       id;
+       notification_emails;
+       project;
+       project_id;
+       enrolled_services;
+       timeouts;
+     }
+      : google_project_access_approval_settings)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project_access_approval_settings __resource);
-  ()
+  let __resource_attributes =
+    ({
+       active_key_version =
+         Prop.computed __resource_type __resource_id
+           "active_key_version";
+       ancestor_has_active_key_version =
+         Prop.computed __resource_type __resource_id
+           "ancestor_has_active_key_version";
+       enrolled_ancestor =
+         Prop.computed __resource_type __resource_id
+           "enrolled_ancestor";
+       id = Prop.computed __resource_type __resource_id "id";
+       invalid_key_version =
+         Prop.computed __resource_type __resource_id
+           "invalid_key_version";
+       name = Prop.computed __resource_type __resource_id "name";
+       notification_emails =
+         Prop.computed __resource_type __resource_id
+           "notification_emails";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       project_id =
+         Prop.computed __resource_type __resource_id "project_id";
+     }
+      : t)
+  in
+  __resource_attributes

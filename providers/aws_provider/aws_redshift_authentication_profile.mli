@@ -4,9 +4,15 @@ open! Tf.Prelude
 
 type aws_redshift_authentication_profile
 
+type t = private {
+  authentication_profile_content : string prop;
+  authentication_profile_name : string prop;
+  id : string prop;
+}
+
 val aws_redshift_authentication_profile :
   ?id:string prop ->
   authentication_profile_content:string prop ->
   authentication_profile_name:string prop ->
   string ->
-  unit
+  t

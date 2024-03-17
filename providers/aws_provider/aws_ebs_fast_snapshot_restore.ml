@@ -21,10 +21,32 @@ type aws_ebs_fast_snapshot_restore = {
 [@@deriving yojson_of]
 (** aws_ebs_fast_snapshot_restore *)
 
+type t = {
+  availability_zone : string prop;
+  id : string prop;
+  snapshot_id : string prop;
+  state : string prop;
+}
+
 let aws_ebs_fast_snapshot_restore ?timeouts ~availability_zone
     ~snapshot_id __resource_id =
   let __resource_type = "aws_ebs_fast_snapshot_restore" in
-  let __resource = { availability_zone; snapshot_id; timeouts } in
+  let __resource =
+    ({ availability_zone; snapshot_id; timeouts }
+      : aws_ebs_fast_snapshot_restore)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ebs_fast_snapshot_restore __resource);
-  ()
+  let __resource_attributes =
+    ({
+       availability_zone =
+         Prop.computed __resource_type __resource_id
+           "availability_zone";
+       id = Prop.computed __resource_type __resource_id "id";
+       snapshot_id =
+         Prop.computed __resource_type __resource_id "snapshot_id";
+       state = Prop.computed __resource_type __resource_id "state";
+     }
+      : t)
+  in
+  __resource_attributes

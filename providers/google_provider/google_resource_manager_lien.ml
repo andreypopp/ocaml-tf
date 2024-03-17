@@ -36,12 +36,37 @@ e.g. ['resourcemanager.projects.delete'] *)
 [@@deriving yojson_of]
 (** google_resource_manager_lien *)
 
+type t = {
+  create_time : string prop;
+  id : string prop;
+  name : string prop;
+  origin : string prop;
+  parent : string prop;
+  reason : string prop;
+  restrictions : string list prop;
+}
+
 let google_resource_manager_lien ?id ?timeouts ~origin ~parent
     ~reason ~restrictions __resource_id =
   let __resource_type = "google_resource_manager_lien" in
   let __resource =
-    { id; origin; parent; reason; restrictions; timeouts }
+    ({ id; origin; parent; reason; restrictions; timeouts }
+      : google_resource_manager_lien)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_resource_manager_lien __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       origin = Prop.computed __resource_type __resource_id "origin";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       reason = Prop.computed __resource_type __resource_id "reason";
+       restrictions =
+         Prop.computed __resource_type __resource_id "restrictions";
+     }
+      : t)
+  in
+  __resource_attributes

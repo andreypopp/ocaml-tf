@@ -30,12 +30,35 @@ type aws_accessanalyzer_analyzer = {
 [@@deriving yojson_of]
 (** aws_accessanalyzer_analyzer *)
 
+type t = {
+  analyzer_name : string prop;
+  arn : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 let aws_accessanalyzer_analyzer ?id ?tags ?tags_all ?type_
     ~analyzer_name ~configuration __resource_id =
   let __resource_type = "aws_accessanalyzer_analyzer" in
   let __resource =
-    { analyzer_name; id; tags; tags_all; type_; configuration }
+    ({ analyzer_name; id; tags; tags_all; type_; configuration }
+      : aws_accessanalyzer_analyzer)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_accessanalyzer_analyzer __resource);
-  ()
+  let __resource_attributes =
+    ({
+       analyzer_name =
+         Prop.computed __resource_type __resource_id "analyzer_name";
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

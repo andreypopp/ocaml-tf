@@ -41,6 +41,18 @@ type azurerm_application_insights_workbook_template = {
 [@@deriving yojson_of]
 (** azurerm_application_insights_workbook_template *)
 
+type t = {
+  author : string prop;
+  id : string prop;
+  localized : string prop;
+  location : string prop;
+  name : string prop;
+  priority : float prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  template_data : string prop;
+}
+
 let azurerm_application_insights_workbook_template ?author ?id
     ?localized ?priority ?tags ?timeouts ~location ~name
     ~resource_group_name ~template_data ~galleries __resource_id =
@@ -48,21 +60,42 @@ let azurerm_application_insights_workbook_template ?author ?id
     "azurerm_application_insights_workbook_template"
   in
   let __resource =
-    {
-      author;
-      id;
-      localized;
-      location;
-      name;
-      priority;
-      resource_group_name;
-      tags;
-      template_data;
-      galleries;
-      timeouts;
-    }
+    ({
+       author;
+       id;
+       localized;
+       location;
+       name;
+       priority;
+       resource_group_name;
+       tags;
+       template_data;
+       galleries;
+       timeouts;
+     }
+      : azurerm_application_insights_workbook_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_insights_workbook_template
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       author = Prop.computed __resource_type __resource_id "author";
+       id = Prop.computed __resource_type __resource_id "id";
+       localized =
+         Prop.computed __resource_type __resource_id "localized";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       priority =
+         Prop.computed __resource_type __resource_id "priority";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       template_data =
+         Prop.computed __resource_type __resource_id "template_data";
+     }
+      : t)
+  in
+  __resource_attributes

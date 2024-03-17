@@ -104,6 +104,29 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_alloydb_instance *)
 
+type t = {
+  annotations : (string * string) list prop;
+  availability_type : string prop;
+  cluster : string prop;
+  create_time : string prop;
+  database_flags : (string * string) list prop;
+  display_name : string prop;
+  effective_annotations : (string * string) list prop;
+  effective_labels : (string * string) list prop;
+  gce_zone : string prop;
+  id : string prop;
+  instance_id : string prop;
+  instance_type : string prop;
+  ip_address : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  reconciling : bool prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+  uid : string prop;
+  update_time : string prop;
+}
+
 let google_alloydb_instance ?annotations ?availability_type
     ?database_flags ?display_name ?gce_zone ?id ?labels ?timeouts
     ~cluster ~instance_id ~instance_type ~client_connection_config
@@ -111,24 +134,69 @@ let google_alloydb_instance ?annotations ?availability_type
     __resource_id =
   let __resource_type = "google_alloydb_instance" in
   let __resource =
-    {
-      annotations;
-      availability_type;
-      cluster;
-      database_flags;
-      display_name;
-      gce_zone;
-      id;
-      instance_id;
-      instance_type;
-      labels;
-      client_connection_config;
-      machine_config;
-      query_insights_config;
-      read_pool_config;
-      timeouts;
-    }
+    ({
+       annotations;
+       availability_type;
+       cluster;
+       database_flags;
+       display_name;
+       gce_zone;
+       id;
+       instance_id;
+       instance_type;
+       labels;
+       client_connection_config;
+       machine_config;
+       query_insights_config;
+       read_pool_config;
+       timeouts;
+     }
+      : google_alloydb_instance)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_alloydb_instance __resource);
-  ()
+  let __resource_attributes =
+    ({
+       annotations =
+         Prop.computed __resource_type __resource_id "annotations";
+       availability_type =
+         Prop.computed __resource_type __resource_id
+           "availability_type";
+       cluster =
+         Prop.computed __resource_type __resource_id "cluster";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       database_flags =
+         Prop.computed __resource_type __resource_id "database_flags";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_annotations =
+         Prop.computed __resource_type __resource_id
+           "effective_annotations";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       gce_zone =
+         Prop.computed __resource_type __resource_id "gce_zone";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_id =
+         Prop.computed __resource_type __resource_id "instance_id";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       ip_address =
+         Prop.computed __resource_type __resource_id "ip_address";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       reconciling =
+         Prop.computed __resource_type __resource_id "reconciling";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

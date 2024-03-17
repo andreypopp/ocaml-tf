@@ -13,6 +13,22 @@ type azurerm_monitor_metric_alert__dynamic_criteria
 type azurerm_monitor_metric_alert__timeouts
 type azurerm_monitor_metric_alert
 
+type t = private {
+  auto_mitigate : bool prop;
+  description : string prop;
+  enabled : bool prop;
+  frequency : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string list prop;
+  severity : float prop;
+  tags : (string * string) list prop;
+  target_resource_location : string prop;
+  target_resource_type : string prop;
+  window_size : string prop;
+}
+
 val azurerm_monitor_metric_alert :
   ?auto_mitigate:bool prop ->
   ?description:string prop ->
@@ -36,4 +52,4 @@ val azurerm_monitor_metric_alert :
   dynamic_criteria:
     azurerm_monitor_metric_alert__dynamic_criteria list ->
   string ->
-  unit
+  t

@@ -5,6 +5,21 @@ open! Tf.Prelude
 type aws_db_proxy_endpoint__timeouts
 type aws_db_proxy_endpoint
 
+type t = private {
+  arn : string prop;
+  db_proxy_endpoint_name : string prop;
+  db_proxy_name : string prop;
+  endpoint : string prop;
+  id : string prop;
+  is_default : bool prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_role : string prop;
+  vpc_id : string prop;
+  vpc_security_group_ids : string list prop;
+  vpc_subnet_ids : string list prop;
+}
+
 val aws_db_proxy_endpoint :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
@@ -16,4 +31,4 @@ val aws_db_proxy_endpoint :
   db_proxy_name:string prop ->
   vpc_subnet_ids:string prop list ->
   string ->
-  unit
+  t

@@ -123,12 +123,29 @@ type google_org_policy_policy = {
 [@@deriving yojson_of]
 (** google_org_policy_policy *)
 
+type t = {
+  etag : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+}
+
 let google_org_policy_policy ?id ?timeouts ~name ~parent
     ~dry_run_spec ~spec __resource_id =
   let __resource_type = "google_org_policy_policy" in
   let __resource =
-    { id; name; parent; dry_run_spec; spec; timeouts }
+    ({ id; name; parent; dry_run_spec; spec; timeouts }
+      : google_org_policy_policy)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_org_policy_policy __resource);
-  ()
+  let __resource_attributes =
+    ({
+       etag = Prop.computed __resource_type __resource_id "etag";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+     }
+      : t)
+  in
+  __resource_attributes

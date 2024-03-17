@@ -21,12 +21,54 @@ type cloudflare_access_service_token = {
 when an application is behind Cloudflare Access.
  *)
 
+type t = {
+  account_id : string prop;
+  client_id : string prop;
+  client_secret : string prop;
+  duration : string prop;
+  expires_at : string prop;
+  id : string prop;
+  min_days_for_renewal : float prop;
+  name : string prop;
+  zone_id : string prop;
+}
+
 let cloudflare_access_service_token ?account_id ?duration ?id
     ?min_days_for_renewal ?zone_id ~name __resource_id =
   let __resource_type = "cloudflare_access_service_token" in
   let __resource =
-    { account_id; duration; id; min_days_for_renewal; name; zone_id }
+    ({
+       account_id;
+       duration;
+       id;
+       min_days_for_renewal;
+       name;
+       zone_id;
+     }
+      : cloudflare_access_service_token)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_service_token __resource);
-  ()
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       client_id =
+         Prop.computed __resource_type __resource_id "client_id";
+       client_secret =
+         Prop.computed __resource_type __resource_id "client_secret";
+       duration =
+         Prop.computed __resource_type __resource_id "duration";
+       expires_at =
+         Prop.computed __resource_type __resource_id "expires_at";
+       id = Prop.computed __resource_type __resource_id "id";
+       min_days_for_renewal =
+         Prop.computed __resource_type __resource_id
+           "min_days_for_renewal";
+       name = Prop.computed __resource_type __resource_id "name";
+       zone_id =
+         Prop.computed __resource_type __resource_id "zone_id";
+     }
+      : t)
+  in
+  __resource_attributes

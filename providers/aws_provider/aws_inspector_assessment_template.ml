@@ -26,22 +26,52 @@ type aws_inspector_assessment_template = {
 [@@deriving yojson_of]
 (** aws_inspector_assessment_template *)
 
+type t = {
+  arn : string prop;
+  duration : float prop;
+  id : string prop;
+  name : string prop;
+  rules_package_arns : string list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target_arn : string prop;
+}
+
 let aws_inspector_assessment_template ?id ?tags ?tags_all ~duration
     ~name ~rules_package_arns ~target_arn ~event_subscription
     __resource_id =
   let __resource_type = "aws_inspector_assessment_template" in
   let __resource =
-    {
-      duration;
-      id;
-      name;
-      rules_package_arns;
-      tags;
-      tags_all;
-      target_arn;
-      event_subscription;
-    }
+    ({
+       duration;
+       id;
+       name;
+       rules_package_arns;
+       tags;
+       tags_all;
+       target_arn;
+       event_subscription;
+     }
+      : aws_inspector_assessment_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_inspector_assessment_template __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       duration =
+         Prop.computed __resource_type __resource_id "duration";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       rules_package_arns =
+         Prop.computed __resource_type __resource_id
+           "rules_package_arns";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       target_arn =
+         Prop.computed __resource_type __resource_id "target_arn";
+     }
+      : t)
+  in
+  __resource_attributes

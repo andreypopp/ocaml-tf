@@ -9,6 +9,30 @@ type azurerm_kusto_cluster__timeouts
 type azurerm_kusto_cluster__virtual_network_configuration
 type azurerm_kusto_cluster
 
+type t = private {
+  allowed_fqdns : string list prop;
+  allowed_ip_ranges : string list prop;
+  auto_stop_enabled : bool prop;
+  data_ingestion_uri : string prop;
+  disk_encryption_enabled : bool prop;
+  double_encryption_enabled : bool prop;
+  engine : string prop;
+  id : string prop;
+  language_extensions : string list prop;
+  location : string prop;
+  name : string prop;
+  outbound_network_access_restricted : bool prop;
+  public_ip_type : string prop;
+  public_network_access_enabled : bool prop;
+  purge_enabled : bool prop;
+  resource_group_name : string prop;
+  streaming_ingestion_enabled : bool prop;
+  tags : (string * string) list prop;
+  trusted_external_tenants : string list prop;
+  uri : string prop;
+  zones : string list prop;
+}
+
 val azurerm_kusto_cluster :
   ?allowed_fqdns:string prop list ->
   ?allowed_ip_ranges:string prop list ->
@@ -37,4 +61,4 @@ val azurerm_kusto_cluster :
   virtual_network_configuration:
     azurerm_kusto_cluster__virtual_network_configuration list ->
   string ->
-  unit
+  t

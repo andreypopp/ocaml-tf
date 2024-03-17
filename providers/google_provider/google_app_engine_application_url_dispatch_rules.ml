@@ -38,13 +38,26 @@ type google_app_engine_application_url_dispatch_rules = {
 [@@deriving yojson_of]
 (** google_app_engine_application_url_dispatch_rules *)
 
+type t = { id : string prop; project : string prop }
+
 let google_app_engine_application_url_dispatch_rules ?id ?project
     ?timeouts ~dispatch_rules __resource_id =
   let __resource_type =
     "google_app_engine_application_url_dispatch_rules"
   in
-  let __resource = { id; project; dispatch_rules; timeouts } in
+  let __resource =
+    ({ id; project; dispatch_rules; timeouts }
+      : google_app_engine_application_url_dispatch_rules)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_application_url_dispatch_rules
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -40,12 +40,34 @@ For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)
 [@@deriving yojson_of]
 (** google_vmwareengine_cluster *)
 
+type t = {
+  id : string prop;
+  management : bool prop;
+  name : string prop;
+  parent : string prop;
+  state : string prop;
+  uid : string prop;
+}
+
 let google_vmwareengine_cluster ?id ?timeouts ~name ~parent
     ~node_type_configs __resource_id =
   let __resource_type = "google_vmwareengine_cluster" in
   let __resource =
-    { id; name; parent; node_type_configs; timeouts }
+    ({ id; name; parent; node_type_configs; timeouts }
+      : google_vmwareengine_cluster)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_cluster __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       management =
+         Prop.computed __resource_type __resource_id "management";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       state = Prop.computed __resource_type __resource_id "state";
+       uid = Prop.computed __resource_type __resource_id "uid";
+     }
+      : t)
+  in
+  __resource_attributes

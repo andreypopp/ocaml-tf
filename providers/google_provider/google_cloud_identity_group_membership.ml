@@ -71,12 +71,35 @@ type google_cloud_identity_group_membership = {
 [@@deriving yojson_of]
 (** google_cloud_identity_group_membership *)
 
+type t = {
+  create_time : string prop;
+  group : string prop;
+  id : string prop;
+  name : string prop;
+  type_ : string prop;
+  update_time : string prop;
+}
+
 let google_cloud_identity_group_membership ?id ?timeouts ~group
     ~preferred_member_key ~roles __resource_id =
   let __resource_type = "google_cloud_identity_group_membership" in
   let __resource =
-    { group; id; preferred_member_key; roles; timeouts }
+    ({ group; id; preferred_member_key; roles; timeouts }
+      : google_cloud_identity_group_membership)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_identity_group_membership __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       group = Prop.computed __resource_type __resource_id "group";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

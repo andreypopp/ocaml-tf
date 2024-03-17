@@ -222,6 +222,29 @@ type aws_ecs_service = {
 [@@deriving yojson_of]
 (** aws_ecs_service *)
 
+type t = {
+  cluster : string prop;
+  deployment_maximum_percent : float prop;
+  deployment_minimum_healthy_percent : float prop;
+  desired_count : float prop;
+  enable_ecs_managed_tags : bool prop;
+  enable_execute_command : bool prop;
+  force_new_deployment : bool prop;
+  health_check_grace_period_seconds : float prop;
+  iam_role : string prop;
+  id : string prop;
+  launch_type : string prop;
+  name : string prop;
+  platform_version : string prop;
+  propagate_tags : string prop;
+  scheduling_strategy : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  task_definition : string prop;
+  triggers : (string * string) list prop;
+  wait_for_steady_state : bool prop;
+}
+
 let aws_ecs_service ?cluster ?deployment_maximum_percent
     ?deployment_minimum_healthy_percent ?desired_count
     ?enable_ecs_managed_tags ?enable_execute_command
@@ -236,40 +259,93 @@ let aws_ecs_service ?cluster ?deployment_maximum_percent
     =
   let __resource_type = "aws_ecs_service" in
   let __resource =
-    {
-      cluster;
-      deployment_maximum_percent;
-      deployment_minimum_healthy_percent;
-      desired_count;
-      enable_ecs_managed_tags;
-      enable_execute_command;
-      force_new_deployment;
-      health_check_grace_period_seconds;
-      iam_role;
-      id;
-      launch_type;
-      name;
-      platform_version;
-      propagate_tags;
-      scheduling_strategy;
-      tags;
-      tags_all;
-      task_definition;
-      triggers;
-      wait_for_steady_state;
-      alarms;
-      capacity_provider_strategy;
-      deployment_circuit_breaker;
-      deployment_controller;
-      load_balancer;
-      network_configuration;
-      ordered_placement_strategy;
-      placement_constraints;
-      service_connect_configuration;
-      service_registries;
-      timeouts;
-    }
+    ({
+       cluster;
+       deployment_maximum_percent;
+       deployment_minimum_healthy_percent;
+       desired_count;
+       enable_ecs_managed_tags;
+       enable_execute_command;
+       force_new_deployment;
+       health_check_grace_period_seconds;
+       iam_role;
+       id;
+       launch_type;
+       name;
+       platform_version;
+       propagate_tags;
+       scheduling_strategy;
+       tags;
+       tags_all;
+       task_definition;
+       triggers;
+       wait_for_steady_state;
+       alarms;
+       capacity_provider_strategy;
+       deployment_circuit_breaker;
+       deployment_controller;
+       load_balancer;
+       network_configuration;
+       ordered_placement_strategy;
+       placement_constraints;
+       service_connect_configuration;
+       service_registries;
+       timeouts;
+     }
+      : aws_ecs_service)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_service __resource);
-  ()
+  let __resource_attributes =
+    ({
+       cluster =
+         Prop.computed __resource_type __resource_id "cluster";
+       deployment_maximum_percent =
+         Prop.computed __resource_type __resource_id
+           "deployment_maximum_percent";
+       deployment_minimum_healthy_percent =
+         Prop.computed __resource_type __resource_id
+           "deployment_minimum_healthy_percent";
+       desired_count =
+         Prop.computed __resource_type __resource_id "desired_count";
+       enable_ecs_managed_tags =
+         Prop.computed __resource_type __resource_id
+           "enable_ecs_managed_tags";
+       enable_execute_command =
+         Prop.computed __resource_type __resource_id
+           "enable_execute_command";
+       force_new_deployment =
+         Prop.computed __resource_type __resource_id
+           "force_new_deployment";
+       health_check_grace_period_seconds =
+         Prop.computed __resource_type __resource_id
+           "health_check_grace_period_seconds";
+       iam_role =
+         Prop.computed __resource_type __resource_id "iam_role";
+       id = Prop.computed __resource_type __resource_id "id";
+       launch_type =
+         Prop.computed __resource_type __resource_id "launch_type";
+       name = Prop.computed __resource_type __resource_id "name";
+       platform_version =
+         Prop.computed __resource_type __resource_id
+           "platform_version";
+       propagate_tags =
+         Prop.computed __resource_type __resource_id "propagate_tags";
+       scheduling_strategy =
+         Prop.computed __resource_type __resource_id
+           "scheduling_strategy";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       task_definition =
+         Prop.computed __resource_type __resource_id
+           "task_definition";
+       triggers =
+         Prop.computed __resource_type __resource_id "triggers";
+       wait_for_steady_state =
+         Prop.computed __resource_type __resource_id
+           "wait_for_steady_state";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -30,21 +30,51 @@ are not able to manage its users. *)
 [@@deriving yojson_of]
 (** google_identity_platform_tenant *)
 
+type t = {
+  allow_password_signup : bool prop;
+  disable_auth : bool prop;
+  display_name : string prop;
+  enable_email_link_signin : bool prop;
+  id : string prop;
+  name : string prop;
+  project : string prop;
+}
+
 let google_identity_platform_tenant ?allow_password_signup
     ?disable_auth ?enable_email_link_signin ?id ?project ?timeouts
     ~display_name __resource_id =
   let __resource_type = "google_identity_platform_tenant" in
   let __resource =
-    {
-      allow_password_signup;
-      disable_auth;
-      display_name;
-      enable_email_link_signin;
-      id;
-      project;
-      timeouts;
-    }
+    ({
+       allow_password_signup;
+       disable_auth;
+       display_name;
+       enable_email_link_signin;
+       id;
+       project;
+       timeouts;
+     }
+      : google_identity_platform_tenant)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_tenant __resource);
-  ()
+  let __resource_attributes =
+    ({
+       allow_password_signup =
+         Prop.computed __resource_type __resource_id
+           "allow_password_signup";
+       disable_auth =
+         Prop.computed __resource_type __resource_id "disable_auth";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enable_email_link_signin =
+         Prop.computed __resource_type __resource_id
+           "enable_email_link_signin";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+     }
+      : t)
+  in
+  __resource_attributes

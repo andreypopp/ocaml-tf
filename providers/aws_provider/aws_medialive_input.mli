@@ -10,6 +10,21 @@ type aws_medialive_input__timeouts
 type aws_medialive_input__vpc
 type aws_medialive_input
 
+type t = private {
+  arn : string prop;
+  attached_channels : string list prop;
+  id : string prop;
+  input_class : string prop;
+  input_partner_ids : string list prop;
+  input_security_groups : string list prop;
+  input_source_type : string prop;
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
 val aws_medialive_input :
   ?id:string prop ->
   ?input_security_groups:string prop list ->
@@ -25,4 +40,4 @@ val aws_medialive_input :
   sources:aws_medialive_input__sources list ->
   vpc:aws_medialive_input__vpc list ->
   string ->
-  unit
+  t

@@ -18,10 +18,30 @@ type cloudflare_account = {
 working with Cloudflare zones, teams and users.
  *)
 
+type t = {
+  enforce_twofactor : bool prop;
+  id : string prop;
+  name : string prop;
+  type_ : string prop;
+}
+
 let cloudflare_account ?enforce_twofactor ?id ?type_ ~name
     __resource_id =
   let __resource_type = "cloudflare_account" in
-  let __resource = { enforce_twofactor; id; name; type_ } in
+  let __resource =
+    ({ enforce_twofactor; id; name; type_ } : cloudflare_account)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_account __resource);
-  ()
+  let __resource_attributes =
+    ({
+       enforce_twofactor =
+         Prop.computed __resource_type __resource_id
+           "enforce_twofactor";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

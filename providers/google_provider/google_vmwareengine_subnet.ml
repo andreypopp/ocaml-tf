@@ -34,10 +34,60 @@ For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)
 [@@deriving yojson_of]
 (** google_vmwareengine_subnet *)
 
+type t = {
+  create_time : string prop;
+  dhcp_address_ranges :
+    google_vmwareengine_subnet__dhcp_address_ranges list prop;
+  gateway_id : string prop;
+  gateway_ip : string prop;
+  id : string prop;
+  ip_cidr_range : string prop;
+  name : string prop;
+  parent : string prop;
+  standard_config : bool prop;
+  state : string prop;
+  type_ : string prop;
+  uid : string prop;
+  update_time : string prop;
+  vlan_id : float prop;
+}
+
 let google_vmwareengine_subnet ?id ?timeouts ~ip_cidr_range ~name
     ~parent __resource_id =
   let __resource_type = "google_vmwareengine_subnet" in
-  let __resource = { id; ip_cidr_range; name; parent; timeouts } in
+  let __resource =
+    ({ id; ip_cidr_range; name; parent; timeouts }
+      : google_vmwareengine_subnet)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_subnet __resource);
-  ()
+  let __resource_attributes =
+    ({
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       dhcp_address_ranges =
+         Prop.computed __resource_type __resource_id
+           "dhcp_address_ranges";
+       gateway_id =
+         Prop.computed __resource_type __resource_id "gateway_id";
+       gateway_ip =
+         Prop.computed __resource_type __resource_id "gateway_ip";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_cidr_range =
+         Prop.computed __resource_type __resource_id "ip_cidr_range";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent = Prop.computed __resource_type __resource_id "parent";
+       standard_config =
+         Prop.computed __resource_type __resource_id
+           "standard_config";
+       state = Prop.computed __resource_type __resource_id "state";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       uid = Prop.computed __resource_type __resource_id "uid";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+       vlan_id =
+         Prop.computed __resource_type __resource_id "vlan_id";
+     }
+      : t)
+  in
+  __resource_attributes

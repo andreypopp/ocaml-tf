@@ -24,20 +24,45 @@ type azurerm_synapse_managed_private_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_synapse_managed_private_endpoint *)
 
+type t = {
+  id : string prop;
+  name : string prop;
+  subresource_name : string prop;
+  synapse_workspace_id : string prop;
+  target_resource_id : string prop;
+}
+
 let azurerm_synapse_managed_private_endpoint ?id ?timeouts ~name
     ~subresource_name ~synapse_workspace_id ~target_resource_id
     __resource_id =
   let __resource_type = "azurerm_synapse_managed_private_endpoint" in
   let __resource =
-    {
-      id;
-      name;
-      subresource_name;
-      synapse_workspace_id;
-      target_resource_id;
-      timeouts;
-    }
+    ({
+       id;
+       name;
+       subresource_name;
+       synapse_workspace_id;
+       target_resource_id;
+       timeouts;
+     }
+      : azurerm_synapse_managed_private_endpoint)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_managed_private_endpoint __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       subresource_name =
+         Prop.computed __resource_type __resource_id
+           "subresource_name";
+       synapse_workspace_id =
+         Prop.computed __resource_type __resource_id
+           "synapse_workspace_id";
+       target_resource_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_id";
+     }
+      : t)
+  in
+  __resource_attributes

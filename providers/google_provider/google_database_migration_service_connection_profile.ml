@@ -344,6 +344,24 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_database_migration_service_connection_profile *)
 
+type t = {
+  connection_profile_id : string prop;
+  create_time : string prop;
+  dbprovider : string prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  error :
+    google_database_migration_service_connection_profile__error list
+    prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  state : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_database_migration_service_connection_profile
     ?display_name ?id ?labels ?location ?project ?timeouts
     ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
@@ -352,22 +370,52 @@ let google_database_migration_service_connection_profile
     "google_database_migration_service_connection_profile"
   in
   let __resource =
-    {
-      connection_profile_id;
-      display_name;
-      id;
-      labels;
-      location;
-      project;
-      alloydb;
-      cloudsql;
-      mysql;
-      oracle;
-      postgresql;
-      timeouts;
-    }
+    ({
+       connection_profile_id;
+       display_name;
+       id;
+       labels;
+       location;
+       project;
+       alloydb;
+       cloudsql;
+       mysql;
+       oracle;
+       postgresql;
+       timeouts;
+     }
+      : google_database_migration_service_connection_profile)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_database_migration_service_connection_profile
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       connection_profile_id =
+         Prop.computed __resource_type __resource_id
+           "connection_profile_id";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       dbprovider =
+         Prop.computed __resource_type __resource_id "dbprovider";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       error = Prop.computed __resource_type __resource_id "error";
+       id = Prop.computed __resource_type __resource_id "id";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       location =
+         Prop.computed __resource_type __resource_id "location";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       state = Prop.computed __resource_type __resource_id "state";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

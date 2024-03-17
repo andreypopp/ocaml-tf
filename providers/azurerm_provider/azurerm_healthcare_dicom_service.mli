@@ -17,6 +17,20 @@ type azurerm_healthcare_dicom_service__private_endpoint = {
 
 type azurerm_healthcare_dicom_service
 
+type t = private {
+  authentication :
+    azurerm_healthcare_dicom_service__authentication list prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_endpoint :
+    azurerm_healthcare_dicom_service__private_endpoint list prop;
+  public_network_access_enabled : bool prop;
+  service_url : string prop;
+  tags : (string * string) list prop;
+  workspace_id : string prop;
+}
+
 val azurerm_healthcare_dicom_service :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
@@ -27,4 +41,4 @@ val azurerm_healthcare_dicom_service :
   workspace_id:string prop ->
   identity:azurerm_healthcare_dicom_service__identity list ->
   string ->
-  unit
+  t

@@ -4,6 +4,15 @@ open! Tf.Prelude
 
 type google_logging_folder_exclusion
 
+type t = private {
+  description : string prop;
+  disabled : bool prop;
+  filter : string prop;
+  folder : string prop;
+  id : string prop;
+  name : string prop;
+}
+
 val google_logging_folder_exclusion :
   ?description:string prop ->
   ?disabled:bool prop ->
@@ -12,4 +21,4 @@ val google_logging_folder_exclusion :
   folder:string prop ->
   name:string prop ->
   string ->
-  unit
+  t

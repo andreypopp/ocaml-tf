@@ -30,23 +30,55 @@ type azurerm_kusto_script = {
 [@@deriving yojson_of]
 (** azurerm_kusto_script *)
 
+type t = {
+  continue_on_errors_enabled : bool prop;
+  database_id : string prop;
+  force_an_update_when_value_changed : string prop;
+  id : string prop;
+  name : string prop;
+  sas_token : string prop;
+  script_content : string prop;
+  url : string prop;
+}
+
 let azurerm_kusto_script ?continue_on_errors_enabled
     ?force_an_update_when_value_changed ?id ?sas_token
     ?script_content ?url ?timeouts ~database_id ~name __resource_id =
   let __resource_type = "azurerm_kusto_script" in
   let __resource =
-    {
-      continue_on_errors_enabled;
-      database_id;
-      force_an_update_when_value_changed;
-      id;
-      name;
-      sas_token;
-      script_content;
-      url;
-      timeouts;
-    }
+    ({
+       continue_on_errors_enabled;
+       database_id;
+       force_an_update_when_value_changed;
+       id;
+       name;
+       sas_token;
+       script_content;
+       url;
+       timeouts;
+     }
+      : azurerm_kusto_script)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kusto_script __resource);
-  ()
+  let __resource_attributes =
+    ({
+       continue_on_errors_enabled =
+         Prop.computed __resource_type __resource_id
+           "continue_on_errors_enabled";
+       database_id =
+         Prop.computed __resource_type __resource_id "database_id";
+       force_an_update_when_value_changed =
+         Prop.computed __resource_type __resource_id
+           "force_an_update_when_value_changed";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       sas_token =
+         Prop.computed __resource_type __resource_id "sas_token";
+       script_content =
+         Prop.computed __resource_type __resource_id "script_content";
+       url = Prop.computed __resource_type __resource_id "url";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -31,6 +31,18 @@ For the inherited module, its config value is inherited from the ancestor module
 [@@deriving yojson_of]
 (** google_scc_event_threat_detection_custom_module *)
 
+type t = {
+  config : string prop;
+  display_name : string prop;
+  enablement_state : string prop;
+  id : string prop;
+  last_editor : string prop;
+  name : string prop;
+  organization : string prop;
+  type_ : string prop;
+  update_time : string prop;
+}
+
 let google_scc_event_threat_detection_custom_module ?display_name ?id
     ?timeouts ~config ~enablement_state ~organization ~type_
     __resource_id =
@@ -38,17 +50,38 @@ let google_scc_event_threat_detection_custom_module ?display_name ?id
     "google_scc_event_threat_detection_custom_module"
   in
   let __resource =
-    {
-      config;
-      display_name;
-      enablement_state;
-      id;
-      organization;
-      type_;
-      timeouts;
-    }
+    ({
+       config;
+       display_name;
+       enablement_state;
+       id;
+       organization;
+       type_;
+       timeouts;
+     }
+      : google_scc_event_threat_detection_custom_module)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_event_threat_detection_custom_module
        __resource);
-  ()
+  let __resource_attributes =
+    ({
+       config = Prop.computed __resource_type __resource_id "config";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       enablement_state =
+         Prop.computed __resource_type __resource_id
+           "enablement_state";
+       id = Prop.computed __resource_type __resource_id "id";
+       last_editor =
+         Prop.computed __resource_type __resource_id "last_editor";
+       name = Prop.computed __resource_type __resource_id "name";
+       organization =
+         Prop.computed __resource_type __resource_id "organization";
+       type_ = Prop.computed __resource_type __resource_id "type";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

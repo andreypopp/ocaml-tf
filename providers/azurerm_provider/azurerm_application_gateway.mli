@@ -62,6 +62,22 @@ type azurerm_application_gateway__private_endpoint_connection = {
 
 type azurerm_application_gateway
 
+type t = private {
+  enable_http2 : bool prop;
+  fips_enabled : bool prop;
+  firewall_policy_id : string prop;
+  force_firewall_policy_association : bool prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  private_endpoint_connection :
+    azurerm_application_gateway__private_endpoint_connection list
+    prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  zones : string list prop;
+}
+
 val azurerm_application_gateway :
   ?enable_http2:bool prop ->
   ?fips_enabled:bool prop ->
@@ -112,4 +128,4 @@ val azurerm_application_gateway :
   waf_configuration:
     azurerm_application_gateway__waf_configuration list ->
   string ->
-  unit
+  t

@@ -6,6 +6,15 @@ type azurerm_iot_time_series_insights_reference_data_set__key_property
 type azurerm_iot_time_series_insights_reference_data_set__timeouts
 type azurerm_iot_time_series_insights_reference_data_set
 
+type t = private {
+  data_string_comparison_behavior : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  time_series_insights_environment_id : string prop;
+}
+
 val azurerm_iot_time_series_insights_reference_data_set :
   ?data_string_comparison_behavior:string prop ->
   ?id:string prop ->
@@ -19,4 +28,4 @@ val azurerm_iot_time_series_insights_reference_data_set :
     azurerm_iot_time_series_insights_reference_data_set__key_property
     list ->
   string ->
-  unit
+  t

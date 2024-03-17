@@ -7,6 +7,23 @@ type azurerm_iot_security_solution__recommendations_enabled
 type azurerm_iot_security_solution__timeouts
 type azurerm_iot_security_solution
 
+type t = private {
+  disabled_data_sources : string list prop;
+  display_name : string prop;
+  enabled : bool prop;
+  events_to_export : string list prop;
+  id : string prop;
+  iothub_ids : string list prop;
+  location : string prop;
+  log_analytics_workspace_id : string prop;
+  log_unmasked_ips_enabled : bool prop;
+  name : string prop;
+  query_for_resources : string prop;
+  query_subscription_ids : string list prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_iot_security_solution :
   ?disabled_data_sources:string prop list ->
   ?enabled:bool prop ->
@@ -28,4 +45,4 @@ val azurerm_iot_security_solution :
   recommendations_enabled:
     azurerm_iot_security_solution__recommendations_enabled list ->
   string ->
-  unit
+  t

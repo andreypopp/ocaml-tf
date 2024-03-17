@@ -350,6 +350,31 @@ type google_compute_instance_template = {
 [@@deriving yojson_of]
 (** google_compute_instance_template *)
 
+type t = {
+  can_ip_forward : bool prop;
+  description : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  instance_description : string prop;
+  labels : (string * string) list prop;
+  machine_type : string prop;
+  metadata : (string * string) list prop;
+  metadata_fingerprint : string prop;
+  metadata_startup_script : string prop;
+  min_cpu_platform : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  project : string prop;
+  region : string prop;
+  resource_manager_tags : (string * string) list prop;
+  resource_policies : string list prop;
+  self_link : string prop;
+  self_link_unique : string prop;
+  tags : string list prop;
+  tags_fingerprint : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_compute_instance_template ?can_ip_forward ?description ?id
     ?instance_description ?labels ?metadata ?metadata_startup_script
     ?min_cpu_platform ?name ?name_prefix ?project ?region
@@ -361,36 +386,91 @@ let google_compute_instance_template ?can_ip_forward ?description ?id
     ~shielded_instance_config __resource_id =
   let __resource_type = "google_compute_instance_template" in
   let __resource =
-    {
-      can_ip_forward;
-      description;
-      id;
-      instance_description;
-      labels;
-      machine_type;
-      metadata;
-      metadata_startup_script;
-      min_cpu_platform;
-      name;
-      name_prefix;
-      project;
-      region;
-      resource_manager_tags;
-      resource_policies;
-      tags;
-      advanced_machine_features;
-      confidential_instance_config;
-      disk;
-      guest_accelerator;
-      network_interface;
-      network_performance_config;
-      reservation_affinity;
-      scheduling;
-      service_account;
-      shielded_instance_config;
-      timeouts;
-    }
+    ({
+       can_ip_forward;
+       description;
+       id;
+       instance_description;
+       labels;
+       machine_type;
+       metadata;
+       metadata_startup_script;
+       min_cpu_platform;
+       name;
+       name_prefix;
+       project;
+       region;
+       resource_manager_tags;
+       resource_policies;
+       tags;
+       advanced_machine_features;
+       confidential_instance_config;
+       disk;
+       guest_accelerator;
+       network_interface;
+       network_performance_config;
+       reservation_affinity;
+       scheduling;
+       service_account;
+       shielded_instance_config;
+       timeouts;
+     }
+      : google_compute_instance_template)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_instance_template __resource);
-  ()
+  let __resource_attributes =
+    ({
+       can_ip_forward =
+         Prop.computed __resource_type __resource_id "can_ip_forward";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_description =
+         Prop.computed __resource_type __resource_id
+           "instance_description";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       machine_type =
+         Prop.computed __resource_type __resource_id "machine_type";
+       metadata =
+         Prop.computed __resource_type __resource_id "metadata";
+       metadata_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "metadata_fingerprint";
+       metadata_startup_script =
+         Prop.computed __resource_type __resource_id
+           "metadata_startup_script";
+       min_cpu_platform =
+         Prop.computed __resource_type __resource_id
+           "min_cpu_platform";
+       name = Prop.computed __resource_type __resource_id "name";
+       name_prefix =
+         Prop.computed __resource_type __resource_id "name_prefix";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       region = Prop.computed __resource_type __resource_id "region";
+       resource_manager_tags =
+         Prop.computed __resource_type __resource_id
+           "resource_manager_tags";
+       resource_policies =
+         Prop.computed __resource_type __resource_id
+           "resource_policies";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       self_link_unique =
+         Prop.computed __resource_type __resource_id
+           "self_link_unique";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "tags_fingerprint";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

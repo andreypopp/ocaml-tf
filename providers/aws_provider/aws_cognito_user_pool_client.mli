@@ -6,6 +6,31 @@ type aws_cognito_user_pool_client__analytics_configuration
 type aws_cognito_user_pool_client__token_validity_units
 type aws_cognito_user_pool_client
 
+type t = private {
+  access_token_validity : float prop;
+  allowed_oauth_flows : string list prop;
+  allowed_oauth_flows_user_pool_client : bool prop;
+  allowed_oauth_scopes : string list prop;
+  auth_session_validity : float prop;
+  callback_urls : string list prop;
+  client_secret : string prop;
+  default_redirect_uri : string prop;
+  enable_propagate_additional_user_context_data : bool prop;
+  enable_token_revocation : bool prop;
+  explicit_auth_flows : string list prop;
+  generate_secret : bool prop;
+  id : string prop;
+  id_token_validity : float prop;
+  logout_urls : string list prop;
+  name : string prop;
+  prevent_user_existence_errors : string prop;
+  read_attributes : string list prop;
+  refresh_token_validity : float prop;
+  supported_identity_providers : string list prop;
+  user_pool_id : string prop;
+  write_attributes : string list prop;
+}
+
 val aws_cognito_user_pool_client :
   ?access_token_validity:float prop ->
   ?allowed_oauth_flows:string prop list ->
@@ -32,4 +57,4 @@ val aws_cognito_user_pool_client :
   token_validity_units:
     aws_cognito_user_pool_client__token_validity_units list ->
   string ->
-  unit
+  t

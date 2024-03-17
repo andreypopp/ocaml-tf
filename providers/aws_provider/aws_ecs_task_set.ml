@@ -80,6 +80,25 @@ type aws_ecs_task_set = {
 [@@deriving yojson_of]
 (** aws_ecs_task_set *)
 
+type t = {
+  arn : string prop;
+  cluster : string prop;
+  external_id : string prop;
+  force_delete : bool prop;
+  id : string prop;
+  launch_type : string prop;
+  platform_version : string prop;
+  service : string prop;
+  stability_status : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  task_definition : string prop;
+  task_set_id : string prop;
+  wait_until_stable : bool prop;
+  wait_until_stable_timeout : string prop;
+}
+
 let aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
     ?platform_version ?tags ?tags_all ?wait_until_stable
     ?wait_until_stable_timeout ~cluster ~service ~task_definition
@@ -87,26 +106,65 @@ let aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
     ~scale ~service_registries __resource_id =
   let __resource_type = "aws_ecs_task_set" in
   let __resource =
-    {
-      cluster;
-      external_id;
-      force_delete;
-      id;
-      launch_type;
-      platform_version;
-      service;
-      tags;
-      tags_all;
-      task_definition;
-      wait_until_stable;
-      wait_until_stable_timeout;
-      capacity_provider_strategy;
-      load_balancer;
-      network_configuration;
-      scale;
-      service_registries;
-    }
+    ({
+       cluster;
+       external_id;
+       force_delete;
+       id;
+       launch_type;
+       platform_version;
+       service;
+       tags;
+       tags_all;
+       task_definition;
+       wait_until_stable;
+       wait_until_stable_timeout;
+       capacity_provider_strategy;
+       load_balancer;
+       network_configuration;
+       scale;
+       service_registries;
+     }
+      : aws_ecs_task_set)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_task_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       cluster =
+         Prop.computed __resource_type __resource_id "cluster";
+       external_id =
+         Prop.computed __resource_type __resource_id "external_id";
+       force_delete =
+         Prop.computed __resource_type __resource_id "force_delete";
+       id = Prop.computed __resource_type __resource_id "id";
+       launch_type =
+         Prop.computed __resource_type __resource_id "launch_type";
+       platform_version =
+         Prop.computed __resource_type __resource_id
+           "platform_version";
+       service =
+         Prop.computed __resource_type __resource_id "service";
+       stability_status =
+         Prop.computed __resource_type __resource_id
+           "stability_status";
+       status = Prop.computed __resource_type __resource_id "status";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       task_definition =
+         Prop.computed __resource_type __resource_id
+           "task_definition";
+       task_set_id =
+         Prop.computed __resource_type __resource_id "task_set_id";
+       wait_until_stable =
+         Prop.computed __resource_type __resource_id
+           "wait_until_stable";
+       wait_until_stable_timeout =
+         Prop.computed __resource_type __resource_id
+           "wait_until_stable_timeout";
+     }
+      : t)
+  in
+  __resource_attributes

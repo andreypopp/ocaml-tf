@@ -117,6 +117,27 @@ Reference link: https://cloud.google.com/compute/docs/reference/rest/v1/images *
 [@@deriving yojson_of]
 (** google_compute_image *)
 
+type t = {
+  archive_size_bytes : float prop;
+  creation_timestamp : string prop;
+  description : string prop;
+  disk_size_gb : float prop;
+  effective_labels : (string * string) list prop;
+  family : string prop;
+  id : string prop;
+  label_fingerprint : string prop;
+  labels : (string * string) list prop;
+  licenses : string list prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+  source_disk : string prop;
+  source_image : string prop;
+  source_snapshot : string prop;
+  storage_locations : string list prop;
+  terraform_labels : (string * string) list prop;
+}
+
 let google_compute_image ?description ?disk_size_gb ?family ?id
     ?labels ?licenses ?project ?source_disk ?source_image
     ?source_snapshot ?storage_locations ?timeouts ~name
@@ -124,25 +145,70 @@ let google_compute_image ?description ?disk_size_gb ?family ?id
     =
   let __resource_type = "google_compute_image" in
   let __resource =
-    {
-      description;
-      disk_size_gb;
-      family;
-      id;
-      labels;
-      licenses;
-      name;
-      project;
-      source_disk;
-      source_image;
-      source_snapshot;
-      storage_locations;
-      guest_os_features;
-      image_encryption_key;
-      raw_disk;
-      timeouts;
-    }
+    ({
+       description;
+       disk_size_gb;
+       family;
+       id;
+       labels;
+       licenses;
+       name;
+       project;
+       source_disk;
+       source_image;
+       source_snapshot;
+       storage_locations;
+       guest_os_features;
+       image_encryption_key;
+       raw_disk;
+       timeouts;
+     }
+      : google_compute_image)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_image __resource);
-  ()
+  let __resource_attributes =
+    ({
+       archive_size_bytes =
+         Prop.computed __resource_type __resource_id
+           "archive_size_bytes";
+       creation_timestamp =
+         Prop.computed __resource_type __resource_id
+           "creation_timestamp";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disk_size_gb =
+         Prop.computed __resource_type __resource_id "disk_size_gb";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       family = Prop.computed __resource_type __resource_id "family";
+       id = Prop.computed __resource_type __resource_id "id";
+       label_fingerprint =
+         Prop.computed __resource_type __resource_id
+           "label_fingerprint";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       licenses =
+         Prop.computed __resource_type __resource_id "licenses";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+       source_disk =
+         Prop.computed __resource_type __resource_id "source_disk";
+       source_image =
+         Prop.computed __resource_type __resource_id "source_image";
+       source_snapshot =
+         Prop.computed __resource_type __resource_id
+           "source_snapshot";
+       storage_locations =
+         Prop.computed __resource_type __resource_id
+           "storage_locations";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -5,6 +5,24 @@ open! Tf.Prelude
 type azurerm_application_insights_web_test__timeouts
 type azurerm_application_insights_web_test
 
+type t = private {
+  application_insights_id : string prop;
+  configuration : string prop;
+  description : string prop;
+  enabled : bool prop;
+  frequency : float prop;
+  geo_locations : string list prop;
+  id : string prop;
+  kind : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  retry_enabled : bool prop;
+  synthetic_monitor_id : string prop;
+  tags : (string * string) list prop;
+  timeout : float prop;
+}
+
 val azurerm_application_insights_web_test :
   ?description:string prop ->
   ?enabled:bool prop ->
@@ -22,4 +40,4 @@ val azurerm_application_insights_web_test :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

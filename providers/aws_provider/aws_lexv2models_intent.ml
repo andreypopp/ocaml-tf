@@ -8766,6 +8766,19 @@ type aws_lexv2models_intent = {
 [@@deriving yojson_of]
 (** aws_lexv2models_intent *)
 
+type t = {
+  bot_id : string prop;
+  bot_version : string prop;
+  creation_date_time : string prop;
+  description : string prop;
+  id : string prop;
+  intent_id : string prop;
+  last_updated_date_time : string prop;
+  locale_id : string prop;
+  name : string prop;
+  parent_intent_signature : string prop;
+}
+
 let aws_lexv2models_intent ?description ?parent_intent_signature
     ?timeouts ~bot_id ~bot_version ~locale_id ~name ~closing_setting
     ~confirmation_setting ~dialog_code_hook ~fulfillment_code_hook
@@ -8773,26 +8786,52 @@ let aws_lexv2models_intent ?description ?parent_intent_signature
     ~output_context ~sample_utterance ~slot_priority __resource_id =
   let __resource_type = "aws_lexv2models_intent" in
   let __resource =
-    {
-      bot_id;
-      bot_version;
-      description;
-      locale_id;
-      name;
-      parent_intent_signature;
-      closing_setting;
-      confirmation_setting;
-      dialog_code_hook;
-      fulfillment_code_hook;
-      initial_response_setting;
-      input_context;
-      kendra_configuration;
-      output_context;
-      sample_utterance;
-      slot_priority;
-      timeouts;
-    }
+    ({
+       bot_id;
+       bot_version;
+       description;
+       locale_id;
+       name;
+       parent_intent_signature;
+       closing_setting;
+       confirmation_setting;
+       dialog_code_hook;
+       fulfillment_code_hook;
+       initial_response_setting;
+       input_context;
+       kendra_configuration;
+       output_context;
+       sample_utterance;
+       slot_priority;
+       timeouts;
+     }
+      : aws_lexv2models_intent)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_intent __resource);
-  ()
+  let __resource_attributes =
+    ({
+       bot_id = Prop.computed __resource_type __resource_id "bot_id";
+       bot_version =
+         Prop.computed __resource_type __resource_id "bot_version";
+       creation_date_time =
+         Prop.computed __resource_type __resource_id
+           "creation_date_time";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       id = Prop.computed __resource_type __resource_id "id";
+       intent_id =
+         Prop.computed __resource_type __resource_id "intent_id";
+       last_updated_date_time =
+         Prop.computed __resource_type __resource_id
+           "last_updated_date_time";
+       locale_id =
+         Prop.computed __resource_type __resource_id "locale_id";
+       name = Prop.computed __resource_type __resource_id "name";
+       parent_intent_signature =
+         Prop.computed __resource_type __resource_id
+           "parent_intent_signature";
+     }
+      : t)
+  in
+  __resource_attributes

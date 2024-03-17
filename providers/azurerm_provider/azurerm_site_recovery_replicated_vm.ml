@@ -138,6 +138,36 @@ type azurerm_site_recovery_replicated_vm = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replicated_vm *)
 
+type t = {
+  id : string prop;
+  managed_disk :
+    azurerm_site_recovery_replicated_vm__managed_disk list prop;
+  multi_vm_group_name : string prop;
+  name : string prop;
+  network_interface :
+    azurerm_site_recovery_replicated_vm__network_interface list prop;
+  recovery_replication_policy_id : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+  source_recovery_fabric_name : string prop;
+  source_recovery_protection_container_name : string prop;
+  source_vm_id : string prop;
+  target_availability_set_id : string prop;
+  target_boot_diagnostic_storage_account_id : string prop;
+  target_capacity_reservation_group_id : string prop;
+  target_edge_zone : string prop;
+  target_network_id : string prop;
+  target_proximity_placement_group_id : string prop;
+  target_recovery_fabric_id : string prop;
+  target_recovery_protection_container_id : string prop;
+  target_resource_group_id : string prop;
+  target_virtual_machine_scale_set_id : string prop;
+  target_zone : string prop;
+  test_network_id : string prop;
+  unmanaged_disk :
+    azurerm_site_recovery_replicated_vm__unmanaged_disk list prop;
+}
+
 let azurerm_site_recovery_replicated_vm ?id ?managed_disk
     ?multi_vm_group_name ?network_interface
     ?target_availability_set_id
@@ -154,34 +184,104 @@ let azurerm_site_recovery_replicated_vm ?id ?managed_disk
     ~target_resource_group_id __resource_id =
   let __resource_type = "azurerm_site_recovery_replicated_vm" in
   let __resource =
-    {
-      id;
-      managed_disk;
-      multi_vm_group_name;
-      name;
-      network_interface;
-      recovery_replication_policy_id;
-      recovery_vault_name;
-      resource_group_name;
-      source_recovery_fabric_name;
-      source_recovery_protection_container_name;
-      source_vm_id;
-      target_availability_set_id;
-      target_boot_diagnostic_storage_account_id;
-      target_capacity_reservation_group_id;
-      target_edge_zone;
-      target_network_id;
-      target_proximity_placement_group_id;
-      target_recovery_fabric_id;
-      target_recovery_protection_container_id;
-      target_resource_group_id;
-      target_virtual_machine_scale_set_id;
-      target_zone;
-      test_network_id;
-      unmanaged_disk;
-      timeouts;
-    }
+    ({
+       id;
+       managed_disk;
+       multi_vm_group_name;
+       name;
+       network_interface;
+       recovery_replication_policy_id;
+       recovery_vault_name;
+       resource_group_name;
+       source_recovery_fabric_name;
+       source_recovery_protection_container_name;
+       source_vm_id;
+       target_availability_set_id;
+       target_boot_diagnostic_storage_account_id;
+       target_capacity_reservation_group_id;
+       target_edge_zone;
+       target_network_id;
+       target_proximity_placement_group_id;
+       target_recovery_fabric_id;
+       target_recovery_protection_container_id;
+       target_resource_group_id;
+       target_virtual_machine_scale_set_id;
+       target_zone;
+       test_network_id;
+       unmanaged_disk;
+       timeouts;
+     }
+      : azurerm_site_recovery_replicated_vm)
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_site_recovery_replicated_vm __resource);
-  ()
+  let __resource_attributes =
+    ({
+       id = Prop.computed __resource_type __resource_id "id";
+       managed_disk =
+         Prop.computed __resource_type __resource_id "managed_disk";
+       multi_vm_group_name =
+         Prop.computed __resource_type __resource_id
+           "multi_vm_group_name";
+       name = Prop.computed __resource_type __resource_id "name";
+       network_interface =
+         Prop.computed __resource_type __resource_id
+           "network_interface";
+       recovery_replication_policy_id =
+         Prop.computed __resource_type __resource_id
+           "recovery_replication_policy_id";
+       recovery_vault_name =
+         Prop.computed __resource_type __resource_id
+           "recovery_vault_name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       source_recovery_fabric_name =
+         Prop.computed __resource_type __resource_id
+           "source_recovery_fabric_name";
+       source_recovery_protection_container_name =
+         Prop.computed __resource_type __resource_id
+           "source_recovery_protection_container_name";
+       source_vm_id =
+         Prop.computed __resource_type __resource_id "source_vm_id";
+       target_availability_set_id =
+         Prop.computed __resource_type __resource_id
+           "target_availability_set_id";
+       target_boot_diagnostic_storage_account_id =
+         Prop.computed __resource_type __resource_id
+           "target_boot_diagnostic_storage_account_id";
+       target_capacity_reservation_group_id =
+         Prop.computed __resource_type __resource_id
+           "target_capacity_reservation_group_id";
+       target_edge_zone =
+         Prop.computed __resource_type __resource_id
+           "target_edge_zone";
+       target_network_id =
+         Prop.computed __resource_type __resource_id
+           "target_network_id";
+       target_proximity_placement_group_id =
+         Prop.computed __resource_type __resource_id
+           "target_proximity_placement_group_id";
+       target_recovery_fabric_id =
+         Prop.computed __resource_type __resource_id
+           "target_recovery_fabric_id";
+       target_recovery_protection_container_id =
+         Prop.computed __resource_type __resource_id
+           "target_recovery_protection_container_id";
+       target_resource_group_id =
+         Prop.computed __resource_type __resource_id
+           "target_resource_group_id";
+       target_virtual_machine_scale_set_id =
+         Prop.computed __resource_type __resource_id
+           "target_virtual_machine_scale_set_id";
+       target_zone =
+         Prop.computed __resource_type __resource_id "target_zone";
+       test_network_id =
+         Prop.computed __resource_type __resource_id
+           "test_network_id";
+       unmanaged_disk =
+         Prop.computed __resource_type __resource_id "unmanaged_disk";
+     }
+      : t)
+  in
+  __resource_attributes

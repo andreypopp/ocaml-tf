@@ -7,6 +7,7 @@ type aws_glue_classifier__grok_classifier
 type aws_glue_classifier__json_classifier
 type aws_glue_classifier__xml_classifier
 type aws_glue_classifier
+type t = private { id : string prop; name : string prop }
 
 val aws_glue_classifier :
   ?id:string prop ->
@@ -16,4 +17,4 @@ val aws_glue_classifier :
   json_classifier:aws_glue_classifier__json_classifier list ->
   xml_classifier:aws_glue_classifier__xml_classifier list ->
   string ->
-  unit
+  t

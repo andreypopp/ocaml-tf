@@ -10,6 +10,32 @@ type azurerm_cognitive_account__storage
 type azurerm_cognitive_account__timeouts
 type azurerm_cognitive_account
 
+type t = private {
+  custom_question_answering_search_service_id : string prop;
+  custom_question_answering_search_service_key : string prop;
+  custom_subdomain_name : string prop;
+  dynamic_throttling_enabled : bool prop;
+  endpoint : string prop;
+  fqdns : string list prop;
+  id : string prop;
+  kind : string prop;
+  local_auth_enabled : bool prop;
+  location : string prop;
+  metrics_advisor_aad_client_id : string prop;
+  metrics_advisor_aad_tenant_id : string prop;
+  metrics_advisor_super_user_name : string prop;
+  metrics_advisor_website_name : string prop;
+  name : string prop;
+  outbound_network_access_restricted : bool prop;
+  primary_access_key : string prop;
+  public_network_access_enabled : bool prop;
+  qna_runtime_endpoint : string prop;
+  resource_group_name : string prop;
+  secondary_access_key : string prop;
+  sku_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_cognitive_account :
   ?custom_question_answering_search_service_id:string prop ->
   ?custom_question_answering_search_service_key:string prop ->
@@ -38,4 +64,4 @@ val azurerm_cognitive_account :
   network_acls:azurerm_cognitive_account__network_acls list ->
   storage:azurerm_cognitive_account__storage list ->
   string ->
-  unit
+  t

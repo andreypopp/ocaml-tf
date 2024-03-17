@@ -5,6 +5,15 @@ open! Tf.Prelude
 type azurerm_storage_mover__timeouts
 type azurerm_storage_mover
 
+type t = private {
+  description : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+}
+
 val azurerm_storage_mover :
   ?description:string prop ->
   ?id:string prop ->
@@ -14,4 +23,4 @@ val azurerm_storage_mover :
   name:string prop ->
   resource_group_name:string prop ->
   string ->
-  unit
+  t

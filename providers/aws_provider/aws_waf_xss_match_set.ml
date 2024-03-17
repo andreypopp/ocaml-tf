@@ -27,9 +27,21 @@ type aws_waf_xss_match_set = {
 [@@deriving yojson_of]
 (** aws_waf_xss_match_set *)
 
+type t = { arn : string prop; id : string prop; name : string prop }
+
 let aws_waf_xss_match_set ?id ~name ~xss_match_tuples __resource_id =
   let __resource_type = "aws_waf_xss_match_set" in
-  let __resource = { id; name; xss_match_tuples } in
+  let __resource =
+    ({ id; name; xss_match_tuples } : aws_waf_xss_match_set)
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_waf_xss_match_set __resource);
-  ()
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+     }
+      : t)
+  in
+  __resource_attributes
