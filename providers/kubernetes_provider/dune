@@ -1,0 +1,13 @@
+(library
+ (name kubernetes_provider)
+ (public_name tf.kubernetes_provider)
+ (modes native)
+ (flags
+  :standard
+  -open
+  ContainersLabels
+  -open
+  Ppx_yojson_conv_lib.Yojson_conv.Primitives)
+ (preprocess
+  (pps ppx_yojson_conv))
+ (libraries tf yojson))

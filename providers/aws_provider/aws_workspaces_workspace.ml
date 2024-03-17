@@ -1,0 +1,67 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open Tf.Prelude
+
+type aws_workspaces_workspace__timeouts = {
+  create : string option; [@option]  (** create *)
+  delete : string option; [@option]  (** delete *)
+  update : string option; [@option]  (** update *)
+}
+[@@deriving yojson_of]
+(** aws_workspaces_workspace__timeouts *)
+
+type aws_workspaces_workspace__workspace_properties = {
+  compute_type_name : string option; [@option]
+      (** compute_type_name *)
+  root_volume_size_gib : float option; [@option]
+      (** root_volume_size_gib *)
+  running_mode : string option; [@option]  (** running_mode *)
+  running_mode_auto_stop_timeout_in_minutes : float option; [@option]
+      (** running_mode_auto_stop_timeout_in_minutes *)
+  user_volume_size_gib : float option; [@option]
+      (** user_volume_size_gib *)
+}
+[@@deriving yojson_of]
+(** aws_workspaces_workspace__workspace_properties *)
+
+type aws_workspaces_workspace = {
+  bundle_id : string;  (** bundle_id *)
+  directory_id : string;  (** directory_id *)
+  root_volume_encryption_enabled : bool option; [@option]
+      (** root_volume_encryption_enabled *)
+  tags : (string * string) list option; [@option]  (** tags *)
+  user_name : string;  (** user_name *)
+  user_volume_encryption_enabled : bool option; [@option]
+      (** user_volume_encryption_enabled *)
+  volume_encryption_key : string option; [@option]
+      (** volume_encryption_key *)
+  timeouts : aws_workspaces_workspace__timeouts option;
+  workspace_properties :
+    aws_workspaces_workspace__workspace_properties list;
+}
+[@@deriving yojson_of]
+(** aws_workspaces_workspace *)
+
+let aws_workspaces_workspace ?root_volume_encryption_enabled ?tags
+    ?user_volume_encryption_enabled ?volume_encryption_key ?timeouts
+    ~bundle_id ~directory_id ~user_name ~workspace_properties
+    __resource_id =
+  let __resource_type = "aws_workspaces_workspace" in
+  let __resource =
+    {
+      bundle_id;
+      directory_id;
+      root_volume_encryption_enabled;
+      tags;
+      user_name;
+      user_volume_encryption_enabled;
+      volume_encryption_key;
+      timeouts;
+      workspace_properties;
+    }
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_aws_workspaces_workspace __resource);
+  ()

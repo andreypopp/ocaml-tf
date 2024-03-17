@@ -1,0 +1,6 @@
+.envrc
+.terraform
+_bin
+_build
+_opam
+example

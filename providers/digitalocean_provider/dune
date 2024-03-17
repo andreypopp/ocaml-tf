@@ -1,0 +1,12 @@
+(library
+ (name digitalocean_provider)
+ (public_name tf.digitalocean_provider)
+ (flags
+  :standard
+  -open
+  ContainersLabels
+  -open
+  Ppx_yojson_conv_lib.Yojson_conv.Primitives)
+ (preprocess
+  (pps ppx_yojson_conv))
+ (libraries tf yojson))

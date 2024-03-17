@@ -1,0 +1,60 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open Tf.Prelude
+
+type azurerm_arc_kubernetes_cluster_extension__identity = {
+  principal_id : string;  (** principal_id *)
+  tenant_id : string;  (** tenant_id *)
+  type_ : string; [@key "type"]  (** type *)
+}
+[@@deriving yojson_of]
+(** azurerm_arc_kubernetes_cluster_extension__identity *)
+
+type azurerm_arc_kubernetes_cluster_extension__timeouts = {
+  create : string option; [@option]  (** create *)
+  delete : string option; [@option]  (** delete *)
+  read : string option; [@option]  (** read *)
+  update : string option; [@option]  (** update *)
+}
+[@@deriving yojson_of]
+(** azurerm_arc_kubernetes_cluster_extension__timeouts *)
+
+type azurerm_arc_kubernetes_cluster_extension = {
+  cluster_id : string;  (** cluster_id *)
+  configuration_protected_settings : (string * string) list option;
+      [@option]
+      (** configuration_protected_settings *)
+  configuration_settings : (string * string) list option; [@option]
+      (** configuration_settings *)
+  extension_type : string;  (** extension_type *)
+  name : string;  (** name *)
+  version : string option; [@option]  (** version *)
+  identity : azurerm_arc_kubernetes_cluster_extension__identity list;
+  timeouts :
+    azurerm_arc_kubernetes_cluster_extension__timeouts option;
+}
+[@@deriving yojson_of]
+(** azurerm_arc_kubernetes_cluster_extension *)
+
+let azurerm_arc_kubernetes_cluster_extension
+    ?configuration_protected_settings ?configuration_settings
+    ?version ?timeouts ~cluster_id ~extension_type ~name ~identity
+    __resource_id =
+  let __resource_type = "azurerm_arc_kubernetes_cluster_extension" in
+  let __resource =
+    {
+      cluster_id;
+      configuration_protected_settings;
+      configuration_settings;
+      extension_type;
+      name;
+      version;
+      identity;
+      timeouts;
+    }
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_azurerm_arc_kubernetes_cluster_extension __resource);
+  ()
