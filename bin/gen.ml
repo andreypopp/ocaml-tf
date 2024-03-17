@@ -467,8 +467,6 @@ let get_resource name provider =
 let gen_provider_cmd =
   let f filename provider_name output =
     sys "mkdir -p %S" output;
-    sys "rm -f %s/*.ml %s/*.ml.tmp" output output;
-    sys "rm -f %s/*.mli %s/*.mli.tmp" output output;
     let data = In_channel.(with_open_bin filename input_all) in
     let json = Yojson.Safe.from_string data in
     let root = root_of_yojson json in
