@@ -1,0 +1,101 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_gke_hub_feature__fleet_default_member_config__configmanagement__config_sync__git
+
+type google_gke_hub_feature__fleet_default_member_config__configmanagement__config_sync__oci
+
+type google_gke_hub_feature__fleet_default_member_config__configmanagement__config_sync
+
+type google_gke_hub_feature__fleet_default_member_config__configmanagement
+
+type google_gke_hub_feature__fleet_default_member_config__mesh
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__pod_toleration
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__monitoring
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__bundles
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__template_library
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config
+
+type google_gke_hub_feature__fleet_default_member_config__policycontroller
+
+type google_gke_hub_feature__fleet_default_member_config
+
+type google_gke_hub_feature__spec__clusterupgrade__gke_upgrade_overrides__post_conditions
+
+type google_gke_hub_feature__spec__clusterupgrade__gke_upgrade_overrides__upgrade
+
+type google_gke_hub_feature__spec__clusterupgrade__gke_upgrade_overrides
+
+type google_gke_hub_feature__spec__clusterupgrade__post_conditions
+type google_gke_hub_feature__spec__clusterupgrade
+
+type google_gke_hub_feature__spec__fleetobservability__logging_config__default_config
+
+type google_gke_hub_feature__spec__fleetobservability__logging_config__fleet_scope_logs_config
+
+type google_gke_hub_feature__spec__fleetobservability__logging_config
+type google_gke_hub_feature__spec__fleetobservability
+type google_gke_hub_feature__spec__multiclusteringress
+type google_gke_hub_feature__spec
+type google_gke_hub_feature__timeouts
+
+type google_gke_hub_feature__resource_state = {
+  has_resources : bool prop;  (** has_resources *)
+  state : string prop;  (** state *)
+}
+
+type google_gke_hub_feature__state__state = {
+  code : string prop;  (** code *)
+  description : string prop;  (** description *)
+  update_time : string prop;  (** update_time *)
+}
+
+type google_gke_hub_feature__state = {
+  state : google_gke_hub_feature__state__state list;  (** state *)
+}
+
+type google_gke_hub_feature
+
+type t = private {
+  create_time : string prop;
+  delete_time : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  resource_state : google_gke_hub_feature__resource_state list prop;
+  state : google_gke_hub_feature__state list prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+}
+
+val google_gke_hub_feature :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?timeouts:google_gke_hub_feature__timeouts ->
+  location:string prop ->
+  fleet_default_member_config:
+    google_gke_hub_feature__fleet_default_member_config list ->
+  spec:google_gke_hub_feature__spec list ->
+  string ->
+  t

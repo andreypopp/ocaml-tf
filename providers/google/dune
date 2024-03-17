@@ -1,0 +1,21 @@
+(library
+ (name tf_google)
+ (public_name tf.google)
+ (modes native)
+ (modules
+  :standard
+  \
+  ; TODO: need to look into that
+  google_workbench_instance
+  google_workbench_instance_iam_binding
+  google_workbench_instance_iam_member
+  google_workbench_instance_iam_policy)
+ (flags
+  :standard
+  -open
+  ContainersLabels
+  -open
+  Ppx_yojson_conv_lib.Yojson_conv.Primitives)
+ (preprocess
+  (pps ppx_yojson_conv))
+ (libraries tf yojson))

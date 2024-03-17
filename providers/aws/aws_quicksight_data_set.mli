@@ -1,0 +1,113 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_quicksight_data_set__column_groups__geo_spatial_column_group
+type aws_quicksight_data_set__column_groups
+type aws_quicksight_data_set__column_level_permission_rules
+type aws_quicksight_data_set__data_set_usage_configuration
+type aws_quicksight_data_set__field_folders
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__cast_column_type_operation
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__create_columns_operation__columns
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__create_columns_operation
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__filter_operation
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__project_operation
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__rename_column_operation
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation__tags__column_description
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation__tags
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation
+
+type aws_quicksight_data_set__logical_table_map__data_transforms__untag_column_operation
+
+type aws_quicksight_data_set__logical_table_map__data_transforms
+
+type aws_quicksight_data_set__logical_table_map__source__join_instruction__left_join_key_properties
+
+type aws_quicksight_data_set__logical_table_map__source__join_instruction__right_join_key_properties
+
+type aws_quicksight_data_set__logical_table_map__source__join_instruction
+
+type aws_quicksight_data_set__logical_table_map__source
+type aws_quicksight_data_set__logical_table_map
+type aws_quicksight_data_set__permissions
+type aws_quicksight_data_set__physical_table_map__custom_sql__columns
+type aws_quicksight_data_set__physical_table_map__custom_sql
+
+type aws_quicksight_data_set__physical_table_map__relational_table__input_columns
+
+type aws_quicksight_data_set__physical_table_map__relational_table
+
+type aws_quicksight_data_set__physical_table_map__s3_source__input_columns
+
+type aws_quicksight_data_set__physical_table_map__s3_source__upload_settings
+
+type aws_quicksight_data_set__physical_table_map__s3_source
+type aws_quicksight_data_set__physical_table_map
+
+type aws_quicksight_data_set__refresh_properties__refresh_configuration__incremental_refresh__lookback_window
+
+type aws_quicksight_data_set__refresh_properties__refresh_configuration__incremental_refresh
+
+type aws_quicksight_data_set__refresh_properties__refresh_configuration
+
+type aws_quicksight_data_set__refresh_properties
+type aws_quicksight_data_set__row_level_permission_data_set
+
+type aws_quicksight_data_set__row_level_permission_tag_configuration__tag_rules
+
+type aws_quicksight_data_set__row_level_permission_tag_configuration
+
+type aws_quicksight_data_set__output_columns = {
+  description : string prop;  (** description *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
+}
+
+type aws_quicksight_data_set
+
+type t = private {
+  arn : string prop;
+  aws_account_id : string prop;
+  data_set_id : string prop;
+  id : string prop;
+  import_mode : string prop;
+  name : string prop;
+  output_columns : aws_quicksight_data_set__output_columns list prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
+val aws_quicksight_data_set :
+  ?aws_account_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  data_set_id:string prop ->
+  import_mode:string prop ->
+  name:string prop ->
+  column_groups:aws_quicksight_data_set__column_groups list ->
+  column_level_permission_rules:
+    aws_quicksight_data_set__column_level_permission_rules list ->
+  data_set_usage_configuration:
+    aws_quicksight_data_set__data_set_usage_configuration list ->
+  field_folders:aws_quicksight_data_set__field_folders list ->
+  logical_table_map:aws_quicksight_data_set__logical_table_map list ->
+  permissions:aws_quicksight_data_set__permissions list ->
+  physical_table_map:aws_quicksight_data_set__physical_table_map list ->
+  refresh_properties:aws_quicksight_data_set__refresh_properties list ->
+  row_level_permission_data_set:
+    aws_quicksight_data_set__row_level_permission_data_set list ->
+  row_level_permission_tag_configuration:
+    aws_quicksight_data_set__row_level_permission_tag_configuration
+    list ->
+  string ->
+  t

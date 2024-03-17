@@ -1,0 +1,129 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__bool_equals
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__is_not_null
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__is_null_or_undefined
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__number_greater_than
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__number_greater_than_or_equals
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__number_in
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__number_in_range
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__number_less_than
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__number_less_than_or_equals
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__number_not_in
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__number_not_in_range
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__string_begins_with
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__string_contains
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__string_ends_with
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__string_in
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__string_not_begins_with
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__string_not_contains
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__string_not_ends_with
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter__string_not_in
+
+type azurerm_eventgrid_system_topic_event_subscription__advanced_filter
+
+type azurerm_eventgrid_system_topic_event_subscription__azure_function_endpoint
+
+type azurerm_eventgrid_system_topic_event_subscription__dead_letter_identity
+
+type azurerm_eventgrid_system_topic_event_subscription__delivery_identity
+
+type azurerm_eventgrid_system_topic_event_subscription__delivery_property
+
+type azurerm_eventgrid_system_topic_event_subscription__retry_policy
+
+type azurerm_eventgrid_system_topic_event_subscription__storage_blob_dead_letter_destination
+
+type azurerm_eventgrid_system_topic_event_subscription__storage_queue_endpoint
+
+type azurerm_eventgrid_system_topic_event_subscription__subject_filter
+type azurerm_eventgrid_system_topic_event_subscription__timeouts
+
+type azurerm_eventgrid_system_topic_event_subscription__webhook_endpoint
+
+type azurerm_eventgrid_system_topic_event_subscription
+
+type t = private {
+  advanced_filtering_on_arrays_enabled : bool prop;
+  event_delivery_schema : string prop;
+  eventhub_endpoint_id : string prop;
+  expiration_time_utc : string prop;
+  hybrid_connection_endpoint_id : string prop;
+  id : string prop;
+  included_event_types : string list prop;
+  labels : string list prop;
+  name : string prop;
+  resource_group_name : string prop;
+  service_bus_queue_endpoint_id : string prop;
+  service_bus_topic_endpoint_id : string prop;
+  system_topic : string prop;
+}
+
+val azurerm_eventgrid_system_topic_event_subscription :
+  ?advanced_filtering_on_arrays_enabled:bool prop ->
+  ?event_delivery_schema:string prop ->
+  ?eventhub_endpoint_id:string prop ->
+  ?expiration_time_utc:string prop ->
+  ?hybrid_connection_endpoint_id:string prop ->
+  ?id:string prop ->
+  ?included_event_types:string prop list ->
+  ?labels:string prop list ->
+  ?service_bus_queue_endpoint_id:string prop ->
+  ?service_bus_topic_endpoint_id:string prop ->
+  ?timeouts:
+    azurerm_eventgrid_system_topic_event_subscription__timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  system_topic:string prop ->
+  advanced_filter:
+    azurerm_eventgrid_system_topic_event_subscription__advanced_filter
+    list ->
+  azure_function_endpoint:
+    azurerm_eventgrid_system_topic_event_subscription__azure_function_endpoint
+    list ->
+  dead_letter_identity:
+    azurerm_eventgrid_system_topic_event_subscription__dead_letter_identity
+    list ->
+  delivery_identity:
+    azurerm_eventgrid_system_topic_event_subscription__delivery_identity
+    list ->
+  delivery_property:
+    azurerm_eventgrid_system_topic_event_subscription__delivery_property
+    list ->
+  retry_policy:
+    azurerm_eventgrid_system_topic_event_subscription__retry_policy
+    list ->
+  storage_blob_dead_letter_destination:
+    azurerm_eventgrid_system_topic_event_subscription__storage_blob_dead_letter_destination
+    list ->
+  storage_queue_endpoint:
+    azurerm_eventgrid_system_topic_event_subscription__storage_queue_endpoint
+    list ->
+  subject_filter:
+    azurerm_eventgrid_system_topic_event_subscription__subject_filter
+    list ->
+  webhook_endpoint:
+    azurerm_eventgrid_system_topic_event_subscription__webhook_endpoint
+    list ->
+  string ->
+  t

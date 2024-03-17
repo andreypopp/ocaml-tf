@@ -1,0 +1,63 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_privateca_ca_pool__issuance_policy__allowed_issuance_modes
+
+type google_privateca_ca_pool__issuance_policy__allowed_key_types__elliptic_curve
+
+type google_privateca_ca_pool__issuance_policy__allowed_key_types__rsa
+type google_privateca_ca_pool__issuance_policy__allowed_key_types
+
+type google_privateca_ca_pool__issuance_policy__baseline_values__additional_extensions__object_id
+
+type google_privateca_ca_pool__issuance_policy__baseline_values__additional_extensions
+
+type google_privateca_ca_pool__issuance_policy__baseline_values__ca_options
+
+type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__base_key_usage
+
+type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__extended_key_usage
+
+type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
+
+type google_privateca_ca_pool__issuance_policy__baseline_values__key_usage
+
+type google_privateca_ca_pool__issuance_policy__baseline_values__name_constraints
+
+type google_privateca_ca_pool__issuance_policy__baseline_values__policy_ids
+
+type google_privateca_ca_pool__issuance_policy__baseline_values
+
+type google_privateca_ca_pool__issuance_policy__identity_constraints__cel_expression
+
+type google_privateca_ca_pool__issuance_policy__identity_constraints
+type google_privateca_ca_pool__issuance_policy
+type google_privateca_ca_pool__publishing_options
+type google_privateca_ca_pool__timeouts
+type google_privateca_ca_pool
+
+type t = private {
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  tier : string prop;
+}
+
+val google_privateca_ca_pool :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:google_privateca_ca_pool__timeouts ->
+  location:string prop ->
+  name:string prop ->
+  tier:string prop ->
+  issuance_policy:google_privateca_ca_pool__issuance_policy list ->
+  publishing_options:
+    google_privateca_ca_pool__publishing_options list ->
+  string ->
+  t

@@ -1,0 +1,28 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type cloudflare_zone_dnssec
+
+type t = private {
+  algorithm : string prop;
+  digest : string prop;
+  digest_algorithm : string prop;
+  digest_type : string prop;
+  ds : string prop;
+  flags : float prop;
+  id : string prop;
+  key_tag : float prop;
+  key_type : string prop;
+  modified_on : string prop;
+  public_key : string prop;
+  status : string prop;
+  zone_id : string prop;
+}
+
+val cloudflare_zone_dnssec :
+  ?id:string prop ->
+  ?modified_on:string prop ->
+  zone_id:string prop ->
+  string ->
+  t

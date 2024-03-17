@@ -1,0 +1,19 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_lakeformation_data_cells_filter__table_data__column_wildcard
+
+type aws_lakeformation_data_cells_filter__table_data__row_filter__all_rows_wildcard
+
+type aws_lakeformation_data_cells_filter__table_data__row_filter
+type aws_lakeformation_data_cells_filter__table_data
+type aws_lakeformation_data_cells_filter__timeouts
+type aws_lakeformation_data_cells_filter
+type t = private { id : string prop }
+
+val aws_lakeformation_data_cells_filter :
+  ?timeouts:aws_lakeformation_data_cells_filter__timeouts ->
+  table_data:aws_lakeformation_data_cells_filter__table_data list ->
+  string ->
+  t

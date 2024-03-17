@@ -1,0 +1,100 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open! Tf.Prelude
+
+type azurerm_hpc_cache_nfs_target__namespace_junction = {
+  access_policy_name : string prop option; [@option]
+      (** access_policy_name *)
+  namespace_path : string prop;  (** namespace_path *)
+  nfs_export : string prop;  (** nfs_export *)
+  target_path : string prop option; [@option]  (** target_path *)
+}
+[@@deriving yojson_of]
+(** azurerm_hpc_cache_nfs_target__namespace_junction *)
+
+type azurerm_hpc_cache_nfs_target__timeouts = {
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
+}
+[@@deriving yojson_of]
+(** azurerm_hpc_cache_nfs_target__timeouts *)
+
+type azurerm_hpc_cache_nfs_target = {
+  cache_name : string prop;  (** cache_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  target_host_name : string prop;  (** target_host_name *)
+  usage_model : string prop;  (** usage_model *)
+  verification_timer_in_seconds : float prop option; [@option]
+      (** verification_timer_in_seconds *)
+  write_back_timer_in_seconds : float prop option; [@option]
+      (** write_back_timer_in_seconds *)
+  namespace_junction :
+    azurerm_hpc_cache_nfs_target__namespace_junction list;
+  timeouts : azurerm_hpc_cache_nfs_target__timeouts option;
+}
+[@@deriving yojson_of]
+(** azurerm_hpc_cache_nfs_target *)
+
+type t = {
+  cache_name : string prop;
+  id : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  target_host_name : string prop;
+  usage_model : string prop;
+  verification_timer_in_seconds : float prop;
+  write_back_timer_in_seconds : float prop;
+}
+
+let azurerm_hpc_cache_nfs_target ?id ?verification_timer_in_seconds
+    ?write_back_timer_in_seconds ?timeouts ~cache_name ~name
+    ~resource_group_name ~target_host_name ~usage_model
+    ~namespace_junction __resource_id =
+  let __resource_type = "azurerm_hpc_cache_nfs_target" in
+  let __resource =
+    ({
+       cache_name;
+       id;
+       name;
+       resource_group_name;
+       target_host_name;
+       usage_model;
+       verification_timer_in_seconds;
+       write_back_timer_in_seconds;
+       namespace_junction;
+       timeouts;
+     }
+      : azurerm_hpc_cache_nfs_target)
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_azurerm_hpc_cache_nfs_target __resource);
+  let __resource_attributes =
+    ({
+       cache_name =
+         Prop.computed __resource_type __resource_id "cache_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       resource_group_name =
+         Prop.computed __resource_type __resource_id
+           "resource_group_name";
+       target_host_name =
+         Prop.computed __resource_type __resource_id
+           "target_host_name";
+       usage_model =
+         Prop.computed __resource_type __resource_id "usage_model";
+       verification_timer_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "verification_timer_in_seconds";
+       write_back_timer_in_seconds =
+         Prop.computed __resource_type __resource_id
+           "write_back_timer_in_seconds";
+     }
+      : t)
+  in
+  __resource_attributes

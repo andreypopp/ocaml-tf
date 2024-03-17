@@ -1,0 +1,30 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_stream_analytics_output_cosmosdb__timeouts
+type azurerm_stream_analytics_output_cosmosdb
+
+type t = private {
+  container_name : string prop;
+  cosmosdb_account_key : string prop;
+  cosmosdb_sql_database_id : string prop;
+  document_id : string prop;
+  id : string prop;
+  name : string prop;
+  partition_key : string prop;
+  stream_analytics_job_id : string prop;
+}
+
+val azurerm_stream_analytics_output_cosmosdb :
+  ?document_id:string prop ->
+  ?id:string prop ->
+  ?partition_key:string prop ->
+  ?timeouts:azurerm_stream_analytics_output_cosmosdb__timeouts ->
+  container_name:string prop ->
+  cosmosdb_account_key:string prop ->
+  cosmosdb_sql_database_id:string prop ->
+  name:string prop ->
+  stream_analytics_job_id:string prop ->
+  string ->
+  t

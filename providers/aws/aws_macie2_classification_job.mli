@@ -1,0 +1,98 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__simple_criterion
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__tag_criterion
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and__simple_criterion
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and__tag_criterion
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes
+
+type aws_macie2_classification_job__s3_job_definition__bucket_criteria
+
+type aws_macie2_classification_job__s3_job_definition__bucket_definitions
+
+type aws_macie2_classification_job__s3_job_definition__scoping__excludes__and__simple_scope_term
+
+type aws_macie2_classification_job__s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values
+
+type aws_macie2_classification_job__s3_job_definition__scoping__excludes__and__tag_scope_term
+
+type aws_macie2_classification_job__s3_job_definition__scoping__excludes__and
+
+type aws_macie2_classification_job__s3_job_definition__scoping__excludes
+
+type aws_macie2_classification_job__s3_job_definition__scoping__includes__and__simple_scope_term
+
+type aws_macie2_classification_job__s3_job_definition__scoping__includes__and__tag_scope_term__tag_values
+
+type aws_macie2_classification_job__s3_job_definition__scoping__includes__and__tag_scope_term
+
+type aws_macie2_classification_job__s3_job_definition__scoping__includes__and
+
+type aws_macie2_classification_job__s3_job_definition__scoping__includes
+
+type aws_macie2_classification_job__s3_job_definition__scoping
+type aws_macie2_classification_job__s3_job_definition
+type aws_macie2_classification_job__schedule_frequency
+
+type aws_macie2_classification_job__user_paused_details = {
+  job_expires_at : string prop;  (** job_expires_at *)
+  job_imminent_expiration_health_event_arn : string prop;
+      (** job_imminent_expiration_health_event_arn *)
+  job_paused_at : string prop;  (** job_paused_at *)
+}
+
+type aws_macie2_classification_job
+
+type t = private {
+  created_at : string prop;
+  custom_data_identifier_ids : string list prop;
+  description : string prop;
+  id : string prop;
+  initial_run : bool prop;
+  job_arn : string prop;
+  job_id : string prop;
+  job_status : string prop;
+  job_type : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  sampling_percentage : float prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_paused_details :
+    aws_macie2_classification_job__user_paused_details list prop;
+}
+
+val aws_macie2_classification_job :
+  ?custom_data_identifier_ids:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?initial_run:bool prop ->
+  ?job_status:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?sampling_percentage:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  job_type:string prop ->
+  s3_job_definition:
+    aws_macie2_classification_job__s3_job_definition list ->
+  schedule_frequency:
+    aws_macie2_classification_job__schedule_frequency list ->
+  string ->
+  t

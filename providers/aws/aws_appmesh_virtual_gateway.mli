@@ -1,0 +1,95 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__certificate__file
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__certificate__sds
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__certificate
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__subject_alternative_names
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust__acm
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust__file
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust__sds
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy
+
+type aws_appmesh_virtual_gateway__spec__backend_defaults
+
+type aws_appmesh_virtual_gateway__spec__listener__connection_pool__grpc
+
+type aws_appmesh_virtual_gateway__spec__listener__connection_pool__http
+
+type aws_appmesh_virtual_gateway__spec__listener__connection_pool__http2
+
+type aws_appmesh_virtual_gateway__spec__listener__connection_pool
+type aws_appmesh_virtual_gateway__spec__listener__health_check
+type aws_appmesh_virtual_gateway__spec__listener__port_mapping
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__certificate__acm
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__certificate__file
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__certificate__sds
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__certificate
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__validation__subject_alternative_names__match
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__validation__subject_alternative_names
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__validation__trust__file
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__validation__trust__sds
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__validation__trust
+
+type aws_appmesh_virtual_gateway__spec__listener__tls__validation
+type aws_appmesh_virtual_gateway__spec__listener__tls
+type aws_appmesh_virtual_gateway__spec__listener
+
+type aws_appmesh_virtual_gateway__spec__logging__access_log__file__format__json
+
+type aws_appmesh_virtual_gateway__spec__logging__access_log__file__format
+
+type aws_appmesh_virtual_gateway__spec__logging__access_log__file
+type aws_appmesh_virtual_gateway__spec__logging__access_log
+type aws_appmesh_virtual_gateway__spec__logging
+type aws_appmesh_virtual_gateway__spec
+type aws_appmesh_virtual_gateway
+
+type t = private {
+  arn : string prop;
+  created_date : string prop;
+  id : string prop;
+  last_updated_date : string prop;
+  mesh_name : string prop;
+  mesh_owner : string prop;
+  name : string prop;
+  resource_owner : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
+val aws_appmesh_virtual_gateway :
+  ?id:string prop ->
+  ?mesh_owner:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  mesh_name:string prop ->
+  name:string prop ->
+  spec:aws_appmesh_virtual_gateway__spec list ->
+  string ->
+  t

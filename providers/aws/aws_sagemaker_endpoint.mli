@@ -1,0 +1,42 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_sagemaker_endpoint__deployment_config__auto_rollback_configuration__alarms
+
+type aws_sagemaker_endpoint__deployment_config__auto_rollback_configuration
+
+type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size
+
+type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size
+
+type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration
+
+type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy
+
+type aws_sagemaker_endpoint__deployment_config__rolling_update_policy__maximum_batch_size
+
+type aws_sagemaker_endpoint__deployment_config__rolling_update_policy__rollback_maximum_batch_size
+
+type aws_sagemaker_endpoint__deployment_config__rolling_update_policy
+type aws_sagemaker_endpoint__deployment_config
+type aws_sagemaker_endpoint
+
+type t = private {
+  arn : string prop;
+  endpoint_config_name : string prop;
+  id : string prop;
+  name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
+val aws_sagemaker_endpoint :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  endpoint_config_name:string prop ->
+  deployment_config:aws_sagemaker_endpoint__deployment_config list ->
+  string ->
+  t

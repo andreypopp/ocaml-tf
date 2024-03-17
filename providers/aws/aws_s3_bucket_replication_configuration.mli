@@ -1,0 +1,50 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_s3_bucket_replication_configuration__rule__delete_marker_replication
+
+type aws_s3_bucket_replication_configuration__rule__destination__access_control_translation
+
+type aws_s3_bucket_replication_configuration__rule__destination__encryption_configuration
+
+type aws_s3_bucket_replication_configuration__rule__destination__metrics__event_threshold
+
+type aws_s3_bucket_replication_configuration__rule__destination__metrics
+
+type aws_s3_bucket_replication_configuration__rule__destination__replication_time__time
+
+type aws_s3_bucket_replication_configuration__rule__destination__replication_time
+
+type aws_s3_bucket_replication_configuration__rule__destination
+
+type aws_s3_bucket_replication_configuration__rule__existing_object_replication
+
+type aws_s3_bucket_replication_configuration__rule__filter__and
+type aws_s3_bucket_replication_configuration__rule__filter__tag
+type aws_s3_bucket_replication_configuration__rule__filter
+
+type aws_s3_bucket_replication_configuration__rule__source_selection_criteria__replica_modifications
+
+type aws_s3_bucket_replication_configuration__rule__source_selection_criteria__sse_kms_encrypted_objects
+
+type aws_s3_bucket_replication_configuration__rule__source_selection_criteria
+
+type aws_s3_bucket_replication_configuration__rule
+type aws_s3_bucket_replication_configuration
+
+type t = private {
+  bucket : string prop;
+  id : string prop;
+  role : string prop;
+  token : string prop;
+}
+
+val aws_s3_bucket_replication_configuration :
+  ?id:string prop ->
+  ?token:string prop ->
+  bucket:string prop ->
+  role:string prop ->
+  rule:aws_s3_bucket_replication_configuration__rule list ->
+  string ->
+  t

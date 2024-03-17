@@ -1,0 +1,124 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open! Tf.Prelude
+
+type google_bigtable_instance__cluster__autoscaling_config = {
+  cpu_target : float prop;
+      (** The target CPU utilization for autoscaling. Value must be between 10 and 80. *)
+  max_nodes : float prop;
+      (** The maximum number of nodes for autoscaling. *)
+  min_nodes : float prop;
+      (** The minimum number of nodes for autoscaling. *)
+  storage_target : float prop option; [@option]
+      (** The target storage utilization for autoscaling, in GB, for each node in a cluster. This number is limited between 2560 (2.5TiB) and 5120 (5TiB) for a SSD cluster and between 8192 (8TiB) and 16384 (16 TiB) for an HDD cluster. If not set, whatever is already set for the cluster will not change, or if the cluster is just being created, it will use the default value of 2560 for SSD clusters and 8192 for HDD clusters. *)
+}
+[@@deriving yojson_of]
+(** A list of Autoscaling configurations. Only one element is used and allowed. *)
+
+type google_bigtable_instance__cluster = {
+  cluster_id : string prop;
+      (** The ID of the Cloud Bigtable cluster. Must be 6-30 characters and must only contain hyphens, lowercase letters and numbers. *)
+  kms_key_name : string prop option; [@option]
+      (** Describes the Cloud KMS encryption key that will be used to protect the destination Bigtable cluster. The requirements for this key are: 1) The Cloud Bigtable service account associated with the project that contains this cluster must be granted the cloudkms.cryptoKeyEncrypterDecrypter role on the CMEK key. 2) Only regional keys can be used and the region of the CMEK key must match the region of the cluster. 3) All clusters within an instance must use the same CMEK key. Values are of the form projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key} *)
+  num_nodes : float prop option; [@option]
+      (** The number of nodes in the cluster. If no value is set, Cloud Bigtable automatically allocates nodes based on your data footprint and optimized for 50% storage utilization. *)
+  state : string prop;  (** The state of the cluster *)
+  storage_type : string prop option; [@option]
+      (** The storage type to use. One of SSD or HDD. Defaults to SSD. *)
+  zone : string prop option; [@option]
+      (** The zone to create the Cloud Bigtable cluster in. Each cluster must have a different zone in the same region. Zones that support Bigtable instances are noted on the Cloud Bigtable locations page. *)
+  autoscaling_config :
+    google_bigtable_instance__cluster__autoscaling_config list;
+}
+[@@deriving yojson_of]
+(** A block of cluster configuration options. This can be specified at least once. *)
+
+type google_bigtable_instance__timeouts = {
+  create : string prop option; [@option]  (** create *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
+}
+[@@deriving yojson_of]
+(** google_bigtable_instance__timeouts *)
+
+type google_bigtable_instance = {
+  deletion_protection : bool prop option; [@option]
+      (** Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a terraform destroy or terraform apply that would delete the instance will fail. *)
+  display_name : string prop option; [@option]
+      (** The human-readable display name of the Bigtable instance. Defaults to the instance name. *)
+  id : string prop option; [@option]  (** id *)
+  instance_type : string prop option; [@option]
+      (** The instance type to create. One of DEVELOPMENT or PRODUCTION. Defaults to PRODUCTION. *)
+  labels : (string * string prop) list option; [@option]
+      (** A mapping of labels to assign to the resource.
+				
+				**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
+				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  name : string prop;
+      (** The name (also called Instance Id in the Cloud Console) of the Cloud Bigtable instance. Must be 6-33 characters and must only contain hyphens, lowercase letters and numbers. *)
+  project : string prop option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
+  cluster : google_bigtable_instance__cluster list;
+  timeouts : google_bigtable_instance__timeouts option;
+}
+[@@deriving yojson_of]
+(** google_bigtable_instance *)
+
+type t = {
+  deletion_protection : bool prop;
+  display_name : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  instance_type : string prop;
+  labels : (string * string) list prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+}
+
+let google_bigtable_instance ?deletion_protection ?display_name ?id
+    ?instance_type ?labels ?project ?timeouts ~name ~cluster
+    __resource_id =
+  let __resource_type = "google_bigtable_instance" in
+  let __resource =
+    ({
+       deletion_protection;
+       display_name;
+       id;
+       instance_type;
+       labels;
+       name;
+       project;
+       cluster;
+       timeouts;
+     }
+      : google_bigtable_instance)
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_google_bigtable_instance __resource);
+  let __resource_attributes =
+    ({
+       deletion_protection =
+         Prop.computed __resource_type __resource_id
+           "deletion_protection";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       effective_labels =
+         Prop.computed __resource_type __resource_id
+           "effective_labels";
+       id = Prop.computed __resource_type __resource_id "id";
+       instance_type =
+         Prop.computed __resource_type __resource_id "instance_type";
+       labels = Prop.computed __resource_type __resource_id "labels";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       terraform_labels =
+         Prop.computed __resource_type __resource_id
+           "terraform_labels";
+     }
+      : t)
+  in
+  __resource_attributes

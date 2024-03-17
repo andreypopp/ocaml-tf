@@ -1,0 +1,64 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_api_management_api_operation__request__header__example
+type azurerm_api_management_api_operation__request__header
+
+type azurerm_api_management_api_operation__request__query_parameter__example
+
+type azurerm_api_management_api_operation__request__query_parameter
+
+type azurerm_api_management_api_operation__request__representation__example
+
+type azurerm_api_management_api_operation__request__representation__form_parameter__example
+
+type azurerm_api_management_api_operation__request__representation__form_parameter
+
+type azurerm_api_management_api_operation__request__representation
+type azurerm_api_management_api_operation__request
+type azurerm_api_management_api_operation__response__header__example
+type azurerm_api_management_api_operation__response__header
+
+type azurerm_api_management_api_operation__response__representation__example
+
+type azurerm_api_management_api_operation__response__representation__form_parameter__example
+
+type azurerm_api_management_api_operation__response__representation__form_parameter
+
+type azurerm_api_management_api_operation__response__representation
+type azurerm_api_management_api_operation__response
+type azurerm_api_management_api_operation__template_parameter__example
+type azurerm_api_management_api_operation__template_parameter
+type azurerm_api_management_api_operation__timeouts
+type azurerm_api_management_api_operation
+
+type t = private {
+  api_management_name : string prop;
+  api_name : string prop;
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  method_ : string prop;
+  operation_id : string prop;
+  resource_group_name : string prop;
+  url_template : string prop;
+}
+
+val azurerm_api_management_api_operation :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:azurerm_api_management_api_operation__timeouts ->
+  api_management_name:string prop ->
+  api_name:string prop ->
+  display_name:string prop ->
+  method_:string prop ->
+  operation_id:string prop ->
+  resource_group_name:string prop ->
+  url_template:string prop ->
+  request:azurerm_api_management_api_operation__request list ->
+  response:azurerm_api_management_api_operation__response list ->
+  template_parameter:
+    azurerm_api_management_api_operation__template_parameter list ->
+  string ->
+  t

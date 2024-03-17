@@ -1,0 +1,138 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_dataproc_workflow_template__jobs__hadoop_job__logging_config
+
+type google_dataproc_workflow_template__jobs__hadoop_job
+type google_dataproc_workflow_template__jobs__hive_job__query_list
+type google_dataproc_workflow_template__jobs__hive_job
+type google_dataproc_workflow_template__jobs__pig_job__logging_config
+type google_dataproc_workflow_template__jobs__pig_job__query_list
+type google_dataproc_workflow_template__jobs__pig_job
+
+type google_dataproc_workflow_template__jobs__presto_job__logging_config
+
+type google_dataproc_workflow_template__jobs__presto_job__query_list
+type google_dataproc_workflow_template__jobs__presto_job
+
+type google_dataproc_workflow_template__jobs__pyspark_job__logging_config
+
+type google_dataproc_workflow_template__jobs__pyspark_job
+type google_dataproc_workflow_template__jobs__scheduling
+
+type google_dataproc_workflow_template__jobs__spark_job__logging_config
+
+type google_dataproc_workflow_template__jobs__spark_job
+
+type google_dataproc_workflow_template__jobs__spark_r_job__logging_config
+
+type google_dataproc_workflow_template__jobs__spark_r_job
+
+type google_dataproc_workflow_template__jobs__spark_sql_job__logging_config
+
+type google_dataproc_workflow_template__jobs__spark_sql_job__query_list
+
+type google_dataproc_workflow_template__jobs__spark_sql_job
+type google_dataproc_workflow_template__jobs
+type google_dataproc_workflow_template__parameters__validation__regex
+type google_dataproc_workflow_template__parameters__validation__values
+type google_dataproc_workflow_template__parameters__validation
+type google_dataproc_workflow_template__parameters
+type google_dataproc_workflow_template__placement__cluster_selector
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__autoscaling_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__encryption_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__endpoint_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__gce_cluster_config__node_group_affinity
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__gce_cluster_config__reservation_affinity
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__gce_cluster_config__shielded_instance_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__gce_cluster_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__initialization_actions
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__lifecycle_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__master_config__accelerators
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__master_config__disk_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__master_config__managed_group_config = {
+  instance_group_manager_name : string prop;
+      (** instance_group_manager_name *)
+  instance_template_name : string prop;  (** instance_template_name *)
+}
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__master_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__secondary_worker_config__accelerators
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__secondary_worker_config__disk_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__secondary_worker_config__managed_group_config = {
+  instance_group_manager_name : string prop;
+      (** instance_group_manager_name *)
+  instance_template_name : string prop;  (** instance_template_name *)
+}
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__secondary_worker_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__security_config__kerberos_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__security_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__software_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__worker_config__accelerators
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__worker_config__disk_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__worker_config__managed_group_config = {
+  instance_group_manager_name : string prop;
+      (** instance_group_manager_name *)
+  instance_template_name : string prop;  (** instance_template_name *)
+}
+
+type google_dataproc_workflow_template__placement__managed_cluster__config__worker_config
+
+type google_dataproc_workflow_template__placement__managed_cluster__config
+
+type google_dataproc_workflow_template__placement__managed_cluster
+type google_dataproc_workflow_template__placement
+type google_dataproc_workflow_template__timeouts
+type google_dataproc_workflow_template
+
+type t = private {
+  create_time : string prop;
+  dag_timeout : string prop;
+  effective_labels : (string * string) list prop;
+  id : string prop;
+  labels : (string * string) list prop;
+  location : string prop;
+  name : string prop;
+  project : string prop;
+  terraform_labels : (string * string) list prop;
+  update_time : string prop;
+  version : float prop;
+}
+
+val google_dataproc_workflow_template :
+  ?dag_timeout:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?version:float prop ->
+  ?timeouts:google_dataproc_workflow_template__timeouts ->
+  location:string prop ->
+  name:string prop ->
+  jobs:google_dataproc_workflow_template__jobs list ->
+  parameters:google_dataproc_workflow_template__parameters list ->
+  placement:google_dataproc_workflow_template__placement list ->
+  string ->
+  t

@@ -1,0 +1,23 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_virtual_hub_routing_intent__routing_policy
+type azurerm_virtual_hub_routing_intent__timeouts
+type azurerm_virtual_hub_routing_intent
+
+type t = private {
+  id : string prop;
+  name : string prop;
+  virtual_hub_id : string prop;
+}
+
+val azurerm_virtual_hub_routing_intent :
+  ?id:string prop ->
+  ?timeouts:azurerm_virtual_hub_routing_intent__timeouts ->
+  name:string prop ->
+  virtual_hub_id:string prop ->
+  routing_policy:
+    azurerm_virtual_hub_routing_intent__routing_policy list ->
+  string ->
+  t

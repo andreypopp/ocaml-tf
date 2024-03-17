@@ -1,0 +1,64 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_sagemaker_space__ownership_settings
+
+type aws_sagemaker_space__space_settings__code_editor_app_settings__default_resource_spec
+
+type aws_sagemaker_space__space_settings__code_editor_app_settings
+
+type aws_sagemaker_space__space_settings__custom_file_system__efs_file_system
+
+type aws_sagemaker_space__space_settings__custom_file_system
+
+type aws_sagemaker_space__space_settings__jupyter_lab_app_settings__code_repository
+
+type aws_sagemaker_space__space_settings__jupyter_lab_app_settings__default_resource_spec
+
+type aws_sagemaker_space__space_settings__jupyter_lab_app_settings
+
+type aws_sagemaker_space__space_settings__jupyter_server_app_settings__code_repository
+
+type aws_sagemaker_space__space_settings__jupyter_server_app_settings__default_resource_spec
+
+type aws_sagemaker_space__space_settings__jupyter_server_app_settings
+
+type aws_sagemaker_space__space_settings__kernel_gateway_app_settings__custom_image
+
+type aws_sagemaker_space__space_settings__kernel_gateway_app_settings__default_resource_spec
+
+type aws_sagemaker_space__space_settings__kernel_gateway_app_settings
+
+type aws_sagemaker_space__space_settings__space_storage_settings__ebs_storage_settings
+
+type aws_sagemaker_space__space_settings__space_storage_settings
+type aws_sagemaker_space__space_settings
+type aws_sagemaker_space__space_sharing_settings
+type aws_sagemaker_space
+
+type t = private {
+  arn : string prop;
+  domain_id : string prop;
+  home_efs_file_system_uid : string prop;
+  id : string prop;
+  space_display_name : string prop;
+  space_name : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  url : string prop;
+}
+
+val aws_sagemaker_space :
+  ?id:string prop ->
+  ?space_display_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  domain_id:string prop ->
+  space_name:string prop ->
+  ownership_settings:aws_sagemaker_space__ownership_settings list ->
+  space_settings:aws_sagemaker_space__space_settings list ->
+  space_sharing_settings:
+    aws_sagemaker_space__space_sharing_settings list ->
+  string ->
+  t

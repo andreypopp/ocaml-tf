@@ -1,0 +1,31 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_msk_serverless_cluster__client_authentication__sasl__iam
+type aws_msk_serverless_cluster__client_authentication__sasl
+type aws_msk_serverless_cluster__client_authentication
+type aws_msk_serverless_cluster__timeouts
+type aws_msk_serverless_cluster__vpc_config
+type aws_msk_serverless_cluster
+
+type t = private {
+  arn : string prop;
+  cluster_name : string prop;
+  cluster_uuid : string prop;
+  id : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
+val aws_msk_serverless_cluster :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:aws_msk_serverless_cluster__timeouts ->
+  cluster_name:string prop ->
+  client_authentication:
+    aws_msk_serverless_cluster__client_authentication list ->
+  vpc_config:aws_msk_serverless_cluster__vpc_config list ->
+  string ->
+  t

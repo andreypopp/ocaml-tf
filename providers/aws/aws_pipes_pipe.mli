@@ -1,0 +1,129 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_pipes_pipe__enrichment_parameters__http_parameters
+type aws_pipes_pipe__enrichment_parameters
+
+type aws_pipes_pipe__source_parameters__activemq_broker_parameters__credentials
+
+type aws_pipes_pipe__source_parameters__activemq_broker_parameters
+
+type aws_pipes_pipe__source_parameters__dynamodb_stream_parameters__dead_letter_config
+
+type aws_pipes_pipe__source_parameters__dynamodb_stream_parameters
+type aws_pipes_pipe__source_parameters__filter_criteria__filter
+type aws_pipes_pipe__source_parameters__filter_criteria
+
+type aws_pipes_pipe__source_parameters__kinesis_stream_parameters__dead_letter_config
+
+type aws_pipes_pipe__source_parameters__kinesis_stream_parameters
+
+type aws_pipes_pipe__source_parameters__managed_streaming_kafka_parameters__credentials
+
+type aws_pipes_pipe__source_parameters__managed_streaming_kafka_parameters
+
+type aws_pipes_pipe__source_parameters__rabbitmq_broker_parameters__credentials
+
+type aws_pipes_pipe__source_parameters__rabbitmq_broker_parameters
+
+type aws_pipes_pipe__source_parameters__self_managed_kafka_parameters__credentials
+
+type aws_pipes_pipe__source_parameters__self_managed_kafka_parameters__vpc
+
+type aws_pipes_pipe__source_parameters__self_managed_kafka_parameters
+type aws_pipes_pipe__source_parameters__sqs_queue_parameters
+type aws_pipes_pipe__source_parameters
+
+type aws_pipes_pipe__target_parameters__batch_job_parameters__array_properties
+
+type aws_pipes_pipe__target_parameters__batch_job_parameters__container_overrides__environment
+
+type aws_pipes_pipe__target_parameters__batch_job_parameters__container_overrides__resource_requirement
+
+type aws_pipes_pipe__target_parameters__batch_job_parameters__container_overrides
+
+type aws_pipes_pipe__target_parameters__batch_job_parameters__depends_on
+
+type aws_pipes_pipe__target_parameters__batch_job_parameters__retry_strategy
+
+type aws_pipes_pipe__target_parameters__batch_job_parameters
+type aws_pipes_pipe__target_parameters__cloudwatch_logs_parameters
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__capacity_provider_strategy
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__network_configuration__aws_vpc_configuration
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__network_configuration
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__overrides__container_override__environment
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__overrides__container_override__environment_file
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__overrides__container_override__resource_requirement
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__overrides__container_override
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__overrides__ephemeral_storage
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__overrides__inference_accelerator_override
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__overrides
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__placement_constraint
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters__placement_strategy
+
+type aws_pipes_pipe__target_parameters__ecs_task_parameters
+
+type aws_pipes_pipe__target_parameters__eventbridge_event_bus_parameters
+
+type aws_pipes_pipe__target_parameters__http_parameters
+type aws_pipes_pipe__target_parameters__kinesis_stream_parameters
+type aws_pipes_pipe__target_parameters__lambda_function_parameters
+type aws_pipes_pipe__target_parameters__redshift_data_parameters
+
+type aws_pipes_pipe__target_parameters__sagemaker_pipeline_parameters__pipeline_parameter
+
+type aws_pipes_pipe__target_parameters__sagemaker_pipeline_parameters
+type aws_pipes_pipe__target_parameters__sqs_queue_parameters
+
+type aws_pipes_pipe__target_parameters__step_function_state_machine_parameters
+
+type aws_pipes_pipe__target_parameters
+type aws_pipes_pipe__timeouts
+type aws_pipes_pipe
+
+type t = private {
+  arn : string prop;
+  description : string prop;
+  desired_state : string prop;
+  enrichment : string prop;
+  id : string prop;
+  name : string prop;
+  name_prefix : string prop;
+  role_arn : string prop;
+  source : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  target : string prop;
+}
+
+val aws_pipes_pipe :
+  ?description:string prop ->
+  ?desired_state:string prop ->
+  ?enrichment:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:aws_pipes_pipe__timeouts ->
+  role_arn:string prop ->
+  source:string prop ->
+  target:string prop ->
+  enrichment_parameters:aws_pipes_pipe__enrichment_parameters list ->
+  source_parameters:aws_pipes_pipe__source_parameters list ->
+  target_parameters:aws_pipes_pipe__target_parameters list ->
+  string ->
+  t

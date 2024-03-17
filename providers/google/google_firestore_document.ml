@@ -1,0 +1,82 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open! Tf.Prelude
+
+type google_firestore_document__timeouts = {
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
+}
+[@@deriving yojson_of]
+(** google_firestore_document__timeouts *)
+
+type google_firestore_document = {
+  collection : string prop;
+      (** The collection ID, relative to database. For example: chatrooms or chatrooms/my-document/private-messages. *)
+  database : string prop option; [@option]
+      (** The Firestore database id. Defaults to '(default)'. *)
+  document_id : string prop;
+      (** The client-assigned document ID to use for this document during creation. *)
+  fields : string prop;
+      (** The document's [fields](https://cloud.google.com/firestore/docs/reference/rest/v1/projects.databases.documents) formated as a json string. *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  timeouts : google_firestore_document__timeouts option;
+}
+[@@deriving yojson_of]
+(** google_firestore_document *)
+
+type t = {
+  collection : string prop;
+  create_time : string prop;
+  database : string prop;
+  document_id : string prop;
+  fields : string prop;
+  id : string prop;
+  name : string prop;
+  path : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
+let google_firestore_document ?database ?id ?project ?timeouts
+    ~collection ~document_id ~fields __resource_id =
+  let __resource_type = "google_firestore_document" in
+  let __resource =
+    ({
+       collection;
+       database;
+       document_id;
+       fields;
+       id;
+       project;
+       timeouts;
+     }
+      : google_firestore_document)
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_google_firestore_document __resource);
+  let __resource_attributes =
+    ({
+       collection =
+         Prop.computed __resource_type __resource_id "collection";
+       create_time =
+         Prop.computed __resource_type __resource_id "create_time";
+       database =
+         Prop.computed __resource_type __resource_id "database";
+       document_id =
+         Prop.computed __resource_type __resource_id "document_id";
+       fields = Prop.computed __resource_type __resource_id "fields";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       path = Prop.computed __resource_type __resource_id "path";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       update_time =
+         Prop.computed __resource_type __resource_id "update_time";
+     }
+      : t)
+  in
+  __resource_attributes

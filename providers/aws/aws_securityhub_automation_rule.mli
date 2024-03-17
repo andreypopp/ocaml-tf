@@ -1,0 +1,96 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_securityhub_automation_rule__actions__finding_fields_update__note
+
+type aws_securityhub_automation_rule__actions__finding_fields_update__related_findings
+
+type aws_securityhub_automation_rule__actions__finding_fields_update__severity
+
+type aws_securityhub_automation_rule__actions__finding_fields_update__workflow
+
+type aws_securityhub_automation_rule__actions__finding_fields_update
+type aws_securityhub_automation_rule__actions
+type aws_securityhub_automation_rule__criteria__aws_account_id
+type aws_securityhub_automation_rule__criteria__aws_account_name
+type aws_securityhub_automation_rule__criteria__company_name
+
+type aws_securityhub_automation_rule__criteria__compliance_associated_standards_id
+
+type aws_securityhub_automation_rule__criteria__compliance_security_control_id
+
+type aws_securityhub_automation_rule__criteria__compliance_status
+type aws_securityhub_automation_rule__criteria__confidence
+type aws_securityhub_automation_rule__criteria__created_at__date_range
+type aws_securityhub_automation_rule__criteria__created_at
+type aws_securityhub_automation_rule__criteria__criticality
+type aws_securityhub_automation_rule__criteria__description
+
+type aws_securityhub_automation_rule__criteria__first_observed_at__date_range
+
+type aws_securityhub_automation_rule__criteria__first_observed_at
+type aws_securityhub_automation_rule__criteria__generator_id
+type aws_securityhub_automation_rule__criteria__id
+
+type aws_securityhub_automation_rule__criteria__last_observed_at__date_range
+
+type aws_securityhub_automation_rule__criteria__last_observed_at
+type aws_securityhub_automation_rule__criteria__note_text
+
+type aws_securityhub_automation_rule__criteria__note_updated_at__date_range
+
+type aws_securityhub_automation_rule__criteria__note_updated_at
+type aws_securityhub_automation_rule__criteria__note_updated_by
+type aws_securityhub_automation_rule__criteria__product_arn
+type aws_securityhub_automation_rule__criteria__product_name
+type aws_securityhub_automation_rule__criteria__record_state
+type aws_securityhub_automation_rule__criteria__related_findings_id
+
+type aws_securityhub_automation_rule__criteria__related_findings_product_arn
+
+type aws_securityhub_automation_rule__criteria__resource_application_arn
+
+type aws_securityhub_automation_rule__criteria__resource_application_name
+
+type aws_securityhub_automation_rule__criteria__resource_details_other
+type aws_securityhub_automation_rule__criteria__resource_id
+type aws_securityhub_automation_rule__criteria__resource_partition
+type aws_securityhub_automation_rule__criteria__resource_region
+type aws_securityhub_automation_rule__criteria__resource_tags
+type aws_securityhub_automation_rule__criteria__resource_type
+type aws_securityhub_automation_rule__criteria__severity_label
+type aws_securityhub_automation_rule__criteria__source_url
+type aws_securityhub_automation_rule__criteria__title
+type aws_securityhub_automation_rule__criteria__type
+type aws_securityhub_automation_rule__criteria__updated_at__date_range
+type aws_securityhub_automation_rule__criteria__updated_at
+type aws_securityhub_automation_rule__criteria__user_defined_fields
+type aws_securityhub_automation_rule__criteria__verification_state
+type aws_securityhub_automation_rule__criteria__workflow_status
+type aws_securityhub_automation_rule__criteria
+type aws_securityhub_automation_rule
+
+type t = private {
+  arn : string prop;
+  description : string prop;
+  id : string prop;
+  is_terminal : bool prop;
+  rule_name : string prop;
+  rule_order : float prop;
+  rule_status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
+val aws_securityhub_automation_rule :
+  ?is_terminal:bool prop ->
+  ?rule_status:string prop ->
+  ?tags:(string * string prop) list ->
+  description:string prop ->
+  rule_name:string prop ->
+  rule_order:float prop ->
+  actions:aws_securityhub_automation_rule__actions list ->
+  criteria:aws_securityhub_automation_rule__criteria list ->
+  string ->
+  t

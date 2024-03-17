@@ -1,0 +1,47 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type cloudflare_access_group__exclude__auth_context
+type cloudflare_access_group__exclude__azure
+type cloudflare_access_group__exclude__external_evaluation
+type cloudflare_access_group__exclude__github
+type cloudflare_access_group__exclude__gsuite
+type cloudflare_access_group__exclude__okta
+type cloudflare_access_group__exclude__saml
+type cloudflare_access_group__exclude
+type cloudflare_access_group__include__auth_context
+type cloudflare_access_group__include__azure
+type cloudflare_access_group__include__external_evaluation
+type cloudflare_access_group__include__github
+type cloudflare_access_group__include__gsuite
+type cloudflare_access_group__include__okta
+type cloudflare_access_group__include__saml
+type cloudflare_access_group__include
+type cloudflare_access_group__require__auth_context
+type cloudflare_access_group__require__azure
+type cloudflare_access_group__require__external_evaluation
+type cloudflare_access_group__require__github
+type cloudflare_access_group__require__gsuite
+type cloudflare_access_group__require__okta
+type cloudflare_access_group__require__saml
+type cloudflare_access_group__require
+type cloudflare_access_group
+
+type t = private {
+  account_id : string prop;
+  id : string prop;
+  name : string prop;
+  zone_id : string prop;
+}
+
+val cloudflare_access_group :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?zone_id:string prop ->
+  name:string prop ->
+  exclude:cloudflare_access_group__exclude list ->
+  include_:cloudflare_access_group__include list ->
+  require:cloudflare_access_group__require list ->
+  string ->
+  t

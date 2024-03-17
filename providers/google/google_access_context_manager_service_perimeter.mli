@@ -1,0 +1,87 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_access_context_manager_service_perimeter__spec__egress_policies__egress_from__sources
+
+type google_access_context_manager_service_perimeter__spec__egress_policies__egress_from
+
+type google_access_context_manager_service_perimeter__spec__egress_policies__egress_to__operations__method_selectors
+
+type google_access_context_manager_service_perimeter__spec__egress_policies__egress_to__operations
+
+type google_access_context_manager_service_perimeter__spec__egress_policies__egress_to
+
+type google_access_context_manager_service_perimeter__spec__egress_policies
+
+type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_from__sources
+
+type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_from
+
+type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_to__operations__method_selectors
+
+type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_to__operations
+
+type google_access_context_manager_service_perimeter__spec__ingress_policies__ingress_to
+
+type google_access_context_manager_service_perimeter__spec__ingress_policies
+
+type google_access_context_manager_service_perimeter__spec__vpc_accessible_services
+
+type google_access_context_manager_service_perimeter__spec
+
+type google_access_context_manager_service_perimeter__status__egress_policies__egress_from__sources
+
+type google_access_context_manager_service_perimeter__status__egress_policies__egress_from
+
+type google_access_context_manager_service_perimeter__status__egress_policies__egress_to__operations__method_selectors
+
+type google_access_context_manager_service_perimeter__status__egress_policies__egress_to__operations
+
+type google_access_context_manager_service_perimeter__status__egress_policies__egress_to
+
+type google_access_context_manager_service_perimeter__status__egress_policies
+
+type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_from__sources
+
+type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_from
+
+type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_to__operations__method_selectors
+
+type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_to__operations
+
+type google_access_context_manager_service_perimeter__status__ingress_policies__ingress_to
+
+type google_access_context_manager_service_perimeter__status__ingress_policies
+
+type google_access_context_manager_service_perimeter__status__vpc_accessible_services
+
+type google_access_context_manager_service_perimeter__status
+type google_access_context_manager_service_perimeter__timeouts
+type google_access_context_manager_service_perimeter
+
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  parent : string prop;
+  perimeter_type : string prop;
+  title : string prop;
+  update_time : string prop;
+  use_explicit_dry_run_spec : bool prop;
+}
+
+val google_access_context_manager_service_perimeter :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?perimeter_type:string prop ->
+  ?use_explicit_dry_run_spec:bool prop ->
+  ?timeouts:google_access_context_manager_service_perimeter__timeouts ->
+  name:string prop ->
+  parent:string prop ->
+  title:string prop ->
+  spec:google_access_context_manager_service_perimeter__spec list ->
+  status:google_access_context_manager_service_perimeter__status list ->
+  string ->
+  t

@@ -1,0 +1,69 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open! Tf.Prelude
+
+type azurerm_cognitive_account_customer_managed_key__timeouts = {
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
+}
+[@@deriving yojson_of]
+(** azurerm_cognitive_account_customer_managed_key__timeouts *)
+
+type azurerm_cognitive_account_customer_managed_key = {
+  cognitive_account_id : string prop;  (** cognitive_account_id *)
+  id : string prop option; [@option]  (** id *)
+  identity_client_id : string prop option; [@option]
+      (** identity_client_id *)
+  key_vault_key_id : string prop;  (** key_vault_key_id *)
+  timeouts :
+    azurerm_cognitive_account_customer_managed_key__timeouts option;
+}
+[@@deriving yojson_of]
+(** azurerm_cognitive_account_customer_managed_key *)
+
+type t = {
+  cognitive_account_id : string prop;
+  id : string prop;
+  identity_client_id : string prop;
+  key_vault_key_id : string prop;
+}
+
+let azurerm_cognitive_account_customer_managed_key ?id
+    ?identity_client_id ?timeouts ~cognitive_account_id
+    ~key_vault_key_id __resource_id =
+  let __resource_type =
+    "azurerm_cognitive_account_customer_managed_key"
+  in
+  let __resource =
+    ({
+       cognitive_account_id;
+       id;
+       identity_client_id;
+       key_vault_key_id;
+       timeouts;
+     }
+      : azurerm_cognitive_account_customer_managed_key)
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_azurerm_cognitive_account_customer_managed_key
+       __resource);
+  let __resource_attributes =
+    ({
+       cognitive_account_id =
+         Prop.computed __resource_type __resource_id
+           "cognitive_account_id";
+       id = Prop.computed __resource_type __resource_id "id";
+       identity_client_id =
+         Prop.computed __resource_type __resource_id
+           "identity_client_id";
+       key_vault_key_id =
+         Prop.computed __resource_type __resource_id
+           "key_vault_key_id";
+     }
+      : t)
+  in
+  __resource_attributes

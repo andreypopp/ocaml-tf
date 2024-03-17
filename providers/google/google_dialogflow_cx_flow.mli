@@ -1,0 +1,80 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_dialogflow_cx_flow__advanced_settings__audio_export_gcs_destination
+
+type google_dialogflow_cx_flow__advanced_settings__dtmf_settings
+type google_dialogflow_cx_flow__advanced_settings
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__conditional_cases
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__conversation_success
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__live_agent_handoff
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__output_audio_text
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__play_audio
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__telephony_transfer_call
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__text
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__set_parameter_actions
+
+type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment
+type google_dialogflow_cx_flow__event_handlers
+type google_dialogflow_cx_flow__nlu_settings
+type google_dialogflow_cx_flow__timeouts
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__conditional_cases
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__conversation_success
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__live_agent_handoff
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__output_audio_text
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__play_audio
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__telephony_transfer_call
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__text
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__set_parameter_actions
+
+type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment
+type google_dialogflow_cx_flow__transition_routes
+type google_dialogflow_cx_flow
+
+type t = private {
+  description : string prop;
+  display_name : string prop;
+  id : string prop;
+  is_default_start_flow : bool prop;
+  language_code : string prop;
+  name : string prop;
+  parent : string prop;
+  transition_route_groups : string list prop;
+}
+
+val google_dialogflow_cx_flow :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?is_default_start_flow:bool prop ->
+  ?language_code:string prop ->
+  ?parent:string prop ->
+  ?transition_route_groups:string prop list ->
+  ?timeouts:google_dialogflow_cx_flow__timeouts ->
+  display_name:string prop ->
+  advanced_settings:google_dialogflow_cx_flow__advanced_settings list ->
+  event_handlers:google_dialogflow_cx_flow__event_handlers list ->
+  nlu_settings:google_dialogflow_cx_flow__nlu_settings list ->
+  transition_routes:google_dialogflow_cx_flow__transition_routes list ->
+  string ->
+  t

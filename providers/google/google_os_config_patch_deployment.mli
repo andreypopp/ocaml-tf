@@ -1,0 +1,77 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_os_config_patch_deployment__instance_filter__group_labels
+type google_os_config_patch_deployment__instance_filter
+type google_os_config_patch_deployment__one_time_schedule
+type google_os_config_patch_deployment__patch_config__apt
+type google_os_config_patch_deployment__patch_config__goo
+
+type google_os_config_patch_deployment__patch_config__post_step__linux_exec_step_config__gcs_object
+
+type google_os_config_patch_deployment__patch_config__post_step__linux_exec_step_config
+
+type google_os_config_patch_deployment__patch_config__post_step__windows_exec_step_config__gcs_object
+
+type google_os_config_patch_deployment__patch_config__post_step__windows_exec_step_config
+
+type google_os_config_patch_deployment__patch_config__post_step
+
+type google_os_config_patch_deployment__patch_config__pre_step__linux_exec_step_config__gcs_object
+
+type google_os_config_patch_deployment__patch_config__pre_step__linux_exec_step_config
+
+type google_os_config_patch_deployment__patch_config__pre_step__windows_exec_step_config__gcs_object
+
+type google_os_config_patch_deployment__patch_config__pre_step__windows_exec_step_config
+
+type google_os_config_patch_deployment__patch_config__pre_step
+type google_os_config_patch_deployment__patch_config__windows_update
+type google_os_config_patch_deployment__patch_config__yum
+type google_os_config_patch_deployment__patch_config__zypper
+type google_os_config_patch_deployment__patch_config
+
+type google_os_config_patch_deployment__recurring_schedule__monthly__week_day_of_month
+
+type google_os_config_patch_deployment__recurring_schedule__monthly
+
+type google_os_config_patch_deployment__recurring_schedule__time_of_day
+
+type google_os_config_patch_deployment__recurring_schedule__time_zone
+type google_os_config_patch_deployment__recurring_schedule__weekly
+type google_os_config_patch_deployment__recurring_schedule
+type google_os_config_patch_deployment__rollout__disruption_budget
+type google_os_config_patch_deployment__rollout
+type google_os_config_patch_deployment__timeouts
+type google_os_config_patch_deployment
+
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  duration : string prop;
+  id : string prop;
+  last_execute_time : string prop;
+  name : string prop;
+  patch_deployment_id : string prop;
+  project : string prop;
+  update_time : string prop;
+}
+
+val google_os_config_patch_deployment :
+  ?description:string prop ->
+  ?duration:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:google_os_config_patch_deployment__timeouts ->
+  patch_deployment_id:string prop ->
+  instance_filter:
+    google_os_config_patch_deployment__instance_filter list ->
+  one_time_schedule:
+    google_os_config_patch_deployment__one_time_schedule list ->
+  patch_config:google_os_config_patch_deployment__patch_config list ->
+  recurring_schedule:
+    google_os_config_patch_deployment__recurring_schedule list ->
+  rollout:google_os_config_patch_deployment__rollout list ->
+  string ->
+  t

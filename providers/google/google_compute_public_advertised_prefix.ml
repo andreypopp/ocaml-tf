@@ -1,0 +1,81 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open! Tf.Prelude
+
+type google_compute_public_advertised_prefix__timeouts = {
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+}
+[@@deriving yojson_of]
+(** google_compute_public_advertised_prefix__timeouts *)
+
+type google_compute_public_advertised_prefix = {
+  description : string prop option; [@option]
+      (** An optional description of this resource. *)
+  dns_verification_ip : string prop;
+      (** The IPv4 address to be used for reverse DNS verification. *)
+  id : string prop option; [@option]  (** id *)
+  ip_cidr_range : string prop;
+      (** The IPv4 address range, in CIDR format, represented by this public advertised prefix. *)
+  name : string prop;
+      (** Name of the resource. The name must be 1-63 characters long, and
+comply with RFC1035. Specifically, the name must be 1-63 characters
+long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?'
+which means the first character must be a lowercase letter, and all
+following characters must be a dash, lowercase letter, or digit,
+except the last character, which cannot be a dash. *)
+  project : string prop option; [@option]  (** project *)
+  timeouts : google_compute_public_advertised_prefix__timeouts option;
+}
+[@@deriving yojson_of]
+(** google_compute_public_advertised_prefix *)
+
+type t = {
+  description : string prop;
+  dns_verification_ip : string prop;
+  id : string prop;
+  ip_cidr_range : string prop;
+  name : string prop;
+  project : string prop;
+  self_link : string prop;
+}
+
+let google_compute_public_advertised_prefix ?description ?id ?project
+    ?timeouts ~dns_verification_ip ~ip_cidr_range ~name __resource_id
+    =
+  let __resource_type = "google_compute_public_advertised_prefix" in
+  let __resource =
+    ({
+       description;
+       dns_verification_ip;
+       id;
+       ip_cidr_range;
+       name;
+       project;
+       timeouts;
+     }
+      : google_compute_public_advertised_prefix)
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_google_compute_public_advertised_prefix __resource);
+  let __resource_attributes =
+    ({
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       dns_verification_ip =
+         Prop.computed __resource_type __resource_id
+           "dns_verification_ip";
+       id = Prop.computed __resource_type __resource_id "id";
+       ip_cidr_range =
+         Prop.computed __resource_type __resource_id "ip_cidr_range";
+       name = Prop.computed __resource_type __resource_id "name";
+       project =
+         Prop.computed __resource_type __resource_id "project";
+       self_link =
+         Prop.computed __resource_type __resource_id "self_link";
+     }
+      : t)
+  in
+  __resource_attributes

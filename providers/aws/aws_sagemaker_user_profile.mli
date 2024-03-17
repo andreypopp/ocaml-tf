@@ -1,0 +1,92 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_sagemaker_user_profile__user_settings__canvas_app_settings__direct_deploy_settings
+
+type aws_sagemaker_user_profile__user_settings__canvas_app_settings__identity_provider_oauth_settings
+
+type aws_sagemaker_user_profile__user_settings__canvas_app_settings__kendra_settings
+
+type aws_sagemaker_user_profile__user_settings__canvas_app_settings__model_register_settings
+
+type aws_sagemaker_user_profile__user_settings__canvas_app_settings__time_series_forecasting_settings
+
+type aws_sagemaker_user_profile__user_settings__canvas_app_settings__workspace_settings
+
+type aws_sagemaker_user_profile__user_settings__canvas_app_settings
+
+type aws_sagemaker_user_profile__user_settings__code_editor_app_settings__default_resource_spec
+
+type aws_sagemaker_user_profile__user_settings__code_editor_app_settings
+
+type aws_sagemaker_user_profile__user_settings__custom_file_system_config__efs_file_system_config
+
+type aws_sagemaker_user_profile__user_settings__custom_file_system_config
+
+type aws_sagemaker_user_profile__user_settings__custom_posix_user_config
+
+type aws_sagemaker_user_profile__user_settings__jupyter_lab_app_settings__code_repository
+
+type aws_sagemaker_user_profile__user_settings__jupyter_lab_app_settings__custom_image
+
+type aws_sagemaker_user_profile__user_settings__jupyter_lab_app_settings__default_resource_spec
+
+type aws_sagemaker_user_profile__user_settings__jupyter_lab_app_settings
+
+type aws_sagemaker_user_profile__user_settings__jupyter_server_app_settings__code_repository
+
+type aws_sagemaker_user_profile__user_settings__jupyter_server_app_settings__default_resource_spec
+
+type aws_sagemaker_user_profile__user_settings__jupyter_server_app_settings
+
+type aws_sagemaker_user_profile__user_settings__kernel_gateway_app_settings__custom_image
+
+type aws_sagemaker_user_profile__user_settings__kernel_gateway_app_settings__default_resource_spec
+
+type aws_sagemaker_user_profile__user_settings__kernel_gateway_app_settings
+
+type aws_sagemaker_user_profile__user_settings__r_session_app_settings__custom_image
+
+type aws_sagemaker_user_profile__user_settings__r_session_app_settings__default_resource_spec
+
+type aws_sagemaker_user_profile__user_settings__r_session_app_settings
+
+type aws_sagemaker_user_profile__user_settings__r_studio_server_pro_app_settings
+
+type aws_sagemaker_user_profile__user_settings__sharing_settings
+
+type aws_sagemaker_user_profile__user_settings__space_storage_settings__default_ebs_storage_settings
+
+type aws_sagemaker_user_profile__user_settings__space_storage_settings
+
+type aws_sagemaker_user_profile__user_settings__tensor_board_app_settings__default_resource_spec
+
+type aws_sagemaker_user_profile__user_settings__tensor_board_app_settings
+
+type aws_sagemaker_user_profile__user_settings
+type aws_sagemaker_user_profile
+
+type t = private {
+  arn : string prop;
+  domain_id : string prop;
+  home_efs_file_system_uid : string prop;
+  id : string prop;
+  single_sign_on_user_identifier : string prop;
+  single_sign_on_user_value : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  user_profile_name : string prop;
+}
+
+val aws_sagemaker_user_profile :
+  ?id:string prop ->
+  ?single_sign_on_user_identifier:string prop ->
+  ?single_sign_on_user_value:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  domain_id:string prop ->
+  user_profile_name:string prop ->
+  user_settings:aws_sagemaker_user_profile__user_settings list ->
+  string ->
+  t

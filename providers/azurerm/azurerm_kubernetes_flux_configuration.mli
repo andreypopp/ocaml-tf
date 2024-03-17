@@ -1,0 +1,41 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_kubernetes_flux_configuration__blob_storage__managed_identity
+
+type azurerm_kubernetes_flux_configuration__blob_storage__service_principal
+
+type azurerm_kubernetes_flux_configuration__blob_storage
+type azurerm_kubernetes_flux_configuration__bucket
+type azurerm_kubernetes_flux_configuration__git_repository
+type azurerm_kubernetes_flux_configuration__kustomizations
+type azurerm_kubernetes_flux_configuration__timeouts
+type azurerm_kubernetes_flux_configuration
+
+type t = private {
+  cluster_id : string prop;
+  continuous_reconciliation_enabled : bool prop;
+  id : string prop;
+  name : string prop;
+  namespace : string prop;
+  scope : string prop;
+}
+
+val azurerm_kubernetes_flux_configuration :
+  ?continuous_reconciliation_enabled:bool prop ->
+  ?id:string prop ->
+  ?scope:string prop ->
+  ?timeouts:azurerm_kubernetes_flux_configuration__timeouts ->
+  cluster_id:string prop ->
+  name:string prop ->
+  namespace:string prop ->
+  blob_storage:
+    azurerm_kubernetes_flux_configuration__blob_storage list ->
+  bucket:azurerm_kubernetes_flux_configuration__bucket list ->
+  git_repository:
+    azurerm_kubernetes_flux_configuration__git_repository list ->
+  kustomizations:
+    azurerm_kubernetes_flux_configuration__kustomizations list ->
+  string ->
+  t

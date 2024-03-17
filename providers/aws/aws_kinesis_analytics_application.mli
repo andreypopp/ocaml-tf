@@ -1,0 +1,80 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_kinesis_analytics_application__cloudwatch_logging_options
+type aws_kinesis_analytics_application__inputs__kinesis_firehose
+type aws_kinesis_analytics_application__inputs__kinesis_stream
+type aws_kinesis_analytics_application__inputs__parallelism
+
+type aws_kinesis_analytics_application__inputs__processing_configuration__lambda
+
+type aws_kinesis_analytics_application__inputs__processing_configuration
+
+type aws_kinesis_analytics_application__inputs__schema__record_columns
+
+type aws_kinesis_analytics_application__inputs__schema__record_format__mapping_parameters__csv
+
+type aws_kinesis_analytics_application__inputs__schema__record_format__mapping_parameters__json
+
+type aws_kinesis_analytics_application__inputs__schema__record_format__mapping_parameters
+
+type aws_kinesis_analytics_application__inputs__schema__record_format
+type aws_kinesis_analytics_application__inputs__schema
+
+type aws_kinesis_analytics_application__inputs__starting_position_configuration
+
+type aws_kinesis_analytics_application__inputs
+type aws_kinesis_analytics_application__outputs__kinesis_firehose
+type aws_kinesis_analytics_application__outputs__kinesis_stream
+type aws_kinesis_analytics_application__outputs__lambda
+type aws_kinesis_analytics_application__outputs__schema
+type aws_kinesis_analytics_application__outputs
+type aws_kinesis_analytics_application__reference_data_sources__s3
+
+type aws_kinesis_analytics_application__reference_data_sources__schema__record_columns
+
+type aws_kinesis_analytics_application__reference_data_sources__schema__record_format__mapping_parameters__csv
+
+type aws_kinesis_analytics_application__reference_data_sources__schema__record_format__mapping_parameters__json
+
+type aws_kinesis_analytics_application__reference_data_sources__schema__record_format__mapping_parameters
+
+type aws_kinesis_analytics_application__reference_data_sources__schema__record_format
+
+type aws_kinesis_analytics_application__reference_data_sources__schema
+type aws_kinesis_analytics_application__reference_data_sources
+type aws_kinesis_analytics_application
+
+type t = private {
+  arn : string prop;
+  code : string prop;
+  create_timestamp : string prop;
+  description : string prop;
+  id : string prop;
+  last_update_timestamp : string prop;
+  name : string prop;
+  start_application : bool prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  version : float prop;
+}
+
+val aws_kinesis_analytics_application :
+  ?code:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?start_application:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  cloudwatch_logging_options:
+    aws_kinesis_analytics_application__cloudwatch_logging_options
+    list ->
+  inputs:aws_kinesis_analytics_application__inputs list ->
+  outputs:aws_kinesis_analytics_application__outputs list ->
+  reference_data_sources:
+    aws_kinesis_analytics_application__reference_data_sources list ->
+  string ->
+  t

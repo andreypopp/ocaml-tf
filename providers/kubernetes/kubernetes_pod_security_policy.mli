@@ -1,0 +1,28 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type kubernetes_pod_security_policy__metadata
+type kubernetes_pod_security_policy__spec__allowed_flex_volumes
+type kubernetes_pod_security_policy__spec__allowed_host_paths
+type kubernetes_pod_security_policy__spec__fs_group__range
+type kubernetes_pod_security_policy__spec__fs_group
+type kubernetes_pod_security_policy__spec__host_ports
+type kubernetes_pod_security_policy__spec__run_as_group__range
+type kubernetes_pod_security_policy__spec__run_as_group
+type kubernetes_pod_security_policy__spec__run_as_user__range
+type kubernetes_pod_security_policy__spec__run_as_user
+type kubernetes_pod_security_policy__spec__se_linux__se_linux_options
+type kubernetes_pod_security_policy__spec__se_linux
+type kubernetes_pod_security_policy__spec__supplemental_groups__range
+type kubernetes_pod_security_policy__spec__supplemental_groups
+type kubernetes_pod_security_policy__spec
+type kubernetes_pod_security_policy
+type t = private { id : string prop }
+
+val kubernetes_pod_security_policy :
+  ?id:string prop ->
+  metadata:kubernetes_pod_security_policy__metadata list ->
+  spec:kubernetes_pod_security_policy__spec list ->
+  string ->
+  t

@@ -1,0 +1,95 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_sql_database_instance__clone
+type google_sql_database_instance__replica_configuration
+type google_sql_database_instance__restore_backup_context
+type google_sql_database_instance__settings__active_directory_config
+type google_sql_database_instance__settings__advanced_machine_features
+
+type google_sql_database_instance__settings__backup_configuration__backup_retention_settings
+
+type google_sql_database_instance__settings__backup_configuration
+type google_sql_database_instance__settings__data_cache_config
+type google_sql_database_instance__settings__database_flags
+type google_sql_database_instance__settings__deny_maintenance_period
+type google_sql_database_instance__settings__insights_config
+
+type google_sql_database_instance__settings__ip_configuration__authorized_networks
+
+type google_sql_database_instance__settings__ip_configuration__psc_config
+
+type google_sql_database_instance__settings__ip_configuration
+type google_sql_database_instance__settings__location_preference
+type google_sql_database_instance__settings__maintenance_window
+
+type google_sql_database_instance__settings__password_validation_policy
+
+type google_sql_database_instance__settings__sql_server_audit_config
+type google_sql_database_instance__settings
+type google_sql_database_instance__timeouts
+
+type google_sql_database_instance__ip_address = {
+  ip_address : string prop;  (** ip_address *)
+  time_to_retire : string prop;  (** time_to_retire *)
+  type_ : string prop; [@key "type"]  (** type *)
+}
+
+type google_sql_database_instance__server_ca_cert = {
+  cert : string prop;  (** cert *)
+  common_name : string prop;  (** common_name *)
+  create_time : string prop;  (** create_time *)
+  expiration_time : string prop;  (** expiration_time *)
+  sha1_fingerprint : string prop;  (** sha1_fingerprint *)
+}
+
+type google_sql_database_instance
+
+type t = private {
+  available_maintenance_versions : string list prop;
+  connection_name : string prop;
+  database_version : string prop;
+  deletion_protection : bool prop;
+  dns_name : string prop;
+  encryption_key_name : string prop;
+  first_ip_address : string prop;
+  id : string prop;
+  instance_type : string prop;
+  ip_address : google_sql_database_instance__ip_address list prop;
+  maintenance_version : string prop;
+  master_instance_name : string prop;
+  name : string prop;
+  private_ip_address : string prop;
+  project : string prop;
+  psc_service_attachment_link : string prop;
+  public_ip_address : string prop;
+  region : string prop;
+  root_password : string prop;
+  self_link : string prop;
+  server_ca_cert :
+    google_sql_database_instance__server_ca_cert list prop;
+  service_account_email_address : string prop;
+}
+
+val google_sql_database_instance :
+  ?deletion_protection:bool prop ->
+  ?encryption_key_name:string prop ->
+  ?id:string prop ->
+  ?instance_type:string prop ->
+  ?maintenance_version:string prop ->
+  ?master_instance_name:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?root_password:string prop ->
+  ?timeouts:google_sql_database_instance__timeouts ->
+  database_version:string prop ->
+  clone:google_sql_database_instance__clone list ->
+  replica_configuration:
+    google_sql_database_instance__replica_configuration list ->
+  restore_backup_context:
+    google_sql_database_instance__restore_backup_context list ->
+  settings:google_sql_database_instance__settings list ->
+  string ->
+  t

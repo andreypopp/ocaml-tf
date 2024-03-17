@@ -1,0 +1,93 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_appmesh_gateway_route__spec__grpc_route__action__target__virtual_service
+
+type aws_appmesh_gateway_route__spec__grpc_route__action__target
+type aws_appmesh_gateway_route__spec__grpc_route__action
+type aws_appmesh_gateway_route__spec__grpc_route__match
+type aws_appmesh_gateway_route__spec__grpc_route
+
+type aws_appmesh_gateway_route__spec__http2_route__action__rewrite__hostname
+
+type aws_appmesh_gateway_route__spec__http2_route__action__rewrite__path
+
+type aws_appmesh_gateway_route__spec__http2_route__action__rewrite__prefix
+
+type aws_appmesh_gateway_route__spec__http2_route__action__rewrite
+
+type aws_appmesh_gateway_route__spec__http2_route__action__target__virtual_service
+
+type aws_appmesh_gateway_route__spec__http2_route__action__target
+type aws_appmesh_gateway_route__spec__http2_route__action
+
+type aws_appmesh_gateway_route__spec__http2_route__match__header__match__range
+
+type aws_appmesh_gateway_route__spec__http2_route__match__header__match
+
+type aws_appmesh_gateway_route__spec__http2_route__match__header
+type aws_appmesh_gateway_route__spec__http2_route__match__hostname
+type aws_appmesh_gateway_route__spec__http2_route__match__path
+
+type aws_appmesh_gateway_route__spec__http2_route__match__query_parameter__match
+
+type aws_appmesh_gateway_route__spec__http2_route__match__query_parameter
+
+type aws_appmesh_gateway_route__spec__http2_route__match
+type aws_appmesh_gateway_route__spec__http2_route
+
+type aws_appmesh_gateway_route__spec__http_route__action__rewrite__hostname
+
+type aws_appmesh_gateway_route__spec__http_route__action__rewrite__path
+
+type aws_appmesh_gateway_route__spec__http_route__action__rewrite__prefix
+
+type aws_appmesh_gateway_route__spec__http_route__action__rewrite
+
+type aws_appmesh_gateway_route__spec__http_route__action__target__virtual_service
+
+type aws_appmesh_gateway_route__spec__http_route__action__target
+type aws_appmesh_gateway_route__spec__http_route__action
+
+type aws_appmesh_gateway_route__spec__http_route__match__header__match__range
+
+type aws_appmesh_gateway_route__spec__http_route__match__header__match
+type aws_appmesh_gateway_route__spec__http_route__match__header
+type aws_appmesh_gateway_route__spec__http_route__match__hostname
+type aws_appmesh_gateway_route__spec__http_route__match__path
+
+type aws_appmesh_gateway_route__spec__http_route__match__query_parameter__match
+
+type aws_appmesh_gateway_route__spec__http_route__match__query_parameter
+
+type aws_appmesh_gateway_route__spec__http_route__match
+type aws_appmesh_gateway_route__spec__http_route
+type aws_appmesh_gateway_route__spec
+type aws_appmesh_gateway_route
+
+type t = private {
+  arn : string prop;
+  created_date : string prop;
+  id : string prop;
+  last_updated_date : string prop;
+  mesh_name : string prop;
+  mesh_owner : string prop;
+  name : string prop;
+  resource_owner : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  virtual_gateway_name : string prop;
+}
+
+val aws_appmesh_gateway_route :
+  ?id:string prop ->
+  ?mesh_owner:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  mesh_name:string prop ->
+  name:string prop ->
+  virtual_gateway_name:string prop ->
+  spec:aws_appmesh_gateway_route__spec list ->
+  string ->
+  t

@@ -1,0 +1,24 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_efs_replication_configuration__destination
+type aws_efs_replication_configuration__timeouts
+type aws_efs_replication_configuration
+
+type t = private {
+  creation_time : string prop;
+  id : string prop;
+  original_source_file_system_arn : string prop;
+  source_file_system_arn : string prop;
+  source_file_system_id : string prop;
+  source_file_system_region : string prop;
+}
+
+val aws_efs_replication_configuration :
+  ?id:string prop ->
+  ?timeouts:aws_efs_replication_configuration__timeouts ->
+  source_file_system_id:string prop ->
+  destination:aws_efs_replication_configuration__destination list ->
+  string ->
+  t

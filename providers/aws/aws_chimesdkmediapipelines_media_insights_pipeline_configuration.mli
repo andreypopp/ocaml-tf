@@ -1,0 +1,62 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__amazon_transcribe_call_analytics_processor_configuration__post_call_analytics_settings
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__amazon_transcribe_call_analytics_processor_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__amazon_transcribe_processor_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__kinesis_data_stream_sink_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__lambda_function_sink_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__s3_recording_sink_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__sns_topic_sink_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__sqs_queue_sink_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements__voice_analytics_processor_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__real_time_alert_configuration__rules__issue_detection_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__real_time_alert_configuration__rules__keyword_match_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__real_time_alert_configuration__rules__sentiment_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__real_time_alert_configuration__rules
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__real_time_alert_configuration
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__timeouts
+
+type aws_chimesdkmediapipelines_media_insights_pipeline_configuration
+
+type t = private {
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+  resource_access_role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+}
+
+val aws_chimesdkmediapipelines_media_insights_pipeline_configuration :
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:
+    aws_chimesdkmediapipelines_media_insights_pipeline_configuration__timeouts ->
+  name:string prop ->
+  resource_access_role_arn:string prop ->
+  elements:
+    aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements
+    list ->
+  real_time_alert_configuration:
+    aws_chimesdkmediapipelines_media_insights_pipeline_configuration__real_time_alert_configuration
+    list ->
+  string ->
+  t

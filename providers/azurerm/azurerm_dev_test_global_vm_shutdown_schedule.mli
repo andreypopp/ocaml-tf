@@ -1,0 +1,33 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type azurerm_dev_test_global_vm_shutdown_schedule__notification_settings
+
+type azurerm_dev_test_global_vm_shutdown_schedule__timeouts
+type azurerm_dev_test_global_vm_shutdown_schedule
+
+type t = private {
+  daily_recurrence_time : string prop;
+  enabled : bool prop;
+  id : string prop;
+  location : string prop;
+  tags : (string * string) list prop;
+  timezone : string prop;
+  virtual_machine_id : string prop;
+}
+
+val azurerm_dev_test_global_vm_shutdown_schedule :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:azurerm_dev_test_global_vm_shutdown_schedule__timeouts ->
+  daily_recurrence_time:string prop ->
+  location:string prop ->
+  timezone:string prop ->
+  virtual_machine_id:string prop ->
+  notification_settings:
+    azurerm_dev_test_global_vm_shutdown_schedule__notification_settings
+    list ->
+  string ->
+  t

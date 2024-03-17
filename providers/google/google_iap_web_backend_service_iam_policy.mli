@@ -1,0 +1,21 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_iap_web_backend_service_iam_policy
+
+type t = private {
+  etag : string prop;
+  id : string prop;
+  policy_data : string prop;
+  project : string prop;
+  web_backend_service : string prop;
+}
+
+val google_iap_web_backend_service_iam_policy :
+  ?id:string prop ->
+  ?project:string prop ->
+  policy_data:string prop ->
+  web_backend_service:string prop ->
+  string ->
+  t

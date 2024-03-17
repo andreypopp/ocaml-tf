@@ -1,0 +1,151 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open! Tf.Prelude
+
+type google_apigee_organization__properties__property = {
+  name : string prop option; [@option]  (** Name of the property. *)
+  value : string prop option; [@option]  (** Value of the property. *)
+}
+[@@deriving yojson_of]
+(** List of all properties in the object. *)
+
+type google_apigee_organization__properties = {
+  property : google_apigee_organization__properties__property list;
+}
+[@@deriving yojson_of]
+(** Properties defined in the Apigee organization profile. *)
+
+type google_apigee_organization__timeouts = {
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
+}
+[@@deriving yojson_of]
+(** google_apigee_organization__timeouts *)
+
+type google_apigee_organization = {
+  analytics_region : string prop option; [@option]
+      (** Primary GCP region for analytics data storage. For valid values, see [Create an Apigee organization](https://cloud.google.com/apigee/docs/api-platform/get-started/create-org). *)
+  authorized_network : string prop option; [@option]
+      (** Compute Engine network used for Service Networking to be peered with Apigee runtime instances.
+See [Getting started with the Service Networking API](https://cloud.google.com/service-infrastructure/docs/service-networking/getting-started).
+Valid only when 'RuntimeType' is set to CLOUD. The value can be updated only when there are no runtime instances. For example: default. *)
+  billing_type : string prop option; [@option]
+      (** Billing type of the Apigee organization. See [Apigee pricing](https://cloud.google.com/apigee/pricing). *)
+  description : string prop option; [@option]
+      (** Description of the Apigee organization. *)
+  disable_vpc_peering : bool prop option; [@option]
+      (** Flag that specifies whether the VPC Peering through Private Google Access should be
+disabled between the consumer network and Apigee. Required if an 'authorizedNetwork'
+on the consumer project is not provided, in which case the flag should be set to 'true'.
+Valid only when 'RuntimeType' is set to CLOUD. The value must be set before the creation
+of any Apigee runtime instance and can be updated only when there are no runtime instances. *)
+  display_name : string prop option; [@option]
+      (** The display name of the Apigee organization. *)
+  id : string prop option; [@option]  (** id *)
+  project_id : string prop;
+      (** The project ID associated with the Apigee organization. *)
+  retention : string prop option; [@option]
+      (** Optional. This setting is applicable only for organizations that are soft-deleted (i.e., BillingType
+is not EVALUATION). It controls how long Organization data will be retained after the initial delete
+operation completes. During this period, the Organization may be restored to its last known state.
+After this period, the Organization will no longer be able to be restored. Default value: DELETION_RETENTION_UNSPECIFIED Possible values: [DELETION_RETENTION_UNSPECIFIED, MINIMUM] *)
+  runtime_database_encryption_key_name : string prop option;
+      [@option]
+      (** Cloud KMS key name used for encrypting the data that is stored and replicated across runtime instances.
+Update is not allowed after the organization is created.
+If not specified, a Google-Managed encryption key will be used.
+Valid only when 'RuntimeType' is CLOUD. For example: 'projects/foo/locations/us/keyRings/bar/cryptoKeys/baz'. *)
+  runtime_type : string prop option; [@option]
+      (** Runtime type of the Apigee organization based on the Apigee subscription purchased. Default value: CLOUD Possible values: [CLOUD, HYBRID] *)
+  properties : google_apigee_organization__properties list;
+  timeouts : google_apigee_organization__timeouts option;
+}
+[@@deriving yojson_of]
+(** google_apigee_organization *)
+
+type t = {
+  analytics_region : string prop;
+  apigee_project_id : string prop;
+  authorized_network : string prop;
+  billing_type : string prop;
+  ca_certificate : string prop;
+  description : string prop;
+  disable_vpc_peering : bool prop;
+  display_name : string prop;
+  id : string prop;
+  name : string prop;
+  project_id : string prop;
+  retention : string prop;
+  runtime_database_encryption_key_name : string prop;
+  runtime_type : string prop;
+  subscription_type : string prop;
+}
+
+let google_apigee_organization ?analytics_region ?authorized_network
+    ?billing_type ?description ?disable_vpc_peering ?display_name ?id
+    ?retention ?runtime_database_encryption_key_name ?runtime_type
+    ?timeouts ~project_id ~properties __resource_id =
+  let __resource_type = "google_apigee_organization" in
+  let __resource =
+    ({
+       analytics_region;
+       authorized_network;
+       billing_type;
+       description;
+       disable_vpc_peering;
+       display_name;
+       id;
+       project_id;
+       retention;
+       runtime_database_encryption_key_name;
+       runtime_type;
+       properties;
+       timeouts;
+     }
+      : google_apigee_organization)
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_google_apigee_organization __resource);
+  let __resource_attributes =
+    ({
+       analytics_region =
+         Prop.computed __resource_type __resource_id
+           "analytics_region";
+       apigee_project_id =
+         Prop.computed __resource_type __resource_id
+           "apigee_project_id";
+       authorized_network =
+         Prop.computed __resource_type __resource_id
+           "authorized_network";
+       billing_type =
+         Prop.computed __resource_type __resource_id "billing_type";
+       ca_certificate =
+         Prop.computed __resource_type __resource_id "ca_certificate";
+       description =
+         Prop.computed __resource_type __resource_id "description";
+       disable_vpc_peering =
+         Prop.computed __resource_type __resource_id
+           "disable_vpc_peering";
+       display_name =
+         Prop.computed __resource_type __resource_id "display_name";
+       id = Prop.computed __resource_type __resource_id "id";
+       name = Prop.computed __resource_type __resource_id "name";
+       project_id =
+         Prop.computed __resource_type __resource_id "project_id";
+       retention =
+         Prop.computed __resource_type __resource_id "retention";
+       runtime_database_encryption_key_name =
+         Prop.computed __resource_type __resource_id
+           "runtime_database_encryption_key_name";
+       runtime_type =
+         Prop.computed __resource_type __resource_id "runtime_type";
+       subscription_type =
+         Prop.computed __resource_type __resource_id
+           "subscription_type";
+     }
+      : t)
+  in
+  __resource_attributes

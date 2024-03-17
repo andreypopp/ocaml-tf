@@ -1,0 +1,52 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open! Tf.Prelude
+
+type cloudflare_account_member = {
+  account_id : string prop;
+      (** Account ID to create the account member in. *)
+  email_address : string prop;
+      (** The email address of the user who you wish to manage. Following creation, this field becomes read only via the API and cannot be updated. *)
+  id : string prop option; [@option]  (** id *)
+  role_ids : string prop list;
+      (** List of account role IDs that you want to assign to a member. *)
+  status : string prop option; [@option]
+      (** A member's status in the account. Available values: `accepted`, `pending`. *)
+}
+[@@deriving yojson_of]
+(** Provides a resource which manages Cloudflare account members.
+ *)
+
+type t = {
+  account_id : string prop;
+  email_address : string prop;
+  id : string prop;
+  role_ids : string list prop;
+  status : string prop;
+}
+
+let cloudflare_account_member ?id ?status ~account_id ~email_address
+    ~role_ids __resource_id =
+  let __resource_type = "cloudflare_account_member" in
+  let __resource =
+    ({ account_id; email_address; id; role_ids; status }
+      : cloudflare_account_member)
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_cloudflare_account_member __resource);
+  let __resource_attributes =
+    ({
+       account_id =
+         Prop.computed __resource_type __resource_id "account_id";
+       email_address =
+         Prop.computed __resource_type __resource_id "email_address";
+       id = Prop.computed __resource_type __resource_id "id";
+       role_ids =
+         Prop.computed __resource_type __resource_id "role_ids";
+       status = Prop.computed __resource_type __resource_id "status";
+     }
+      : t)
+  in
+  __resource_attributes

@@ -1,0 +1,137 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+[@@@ocaml.warning "-33-27-26"]
+
+open! Tf.Prelude
+
+type aws_medialive_input__destinations = {
+  stream_name : string prop;  (** stream_name *)
+}
+[@@deriving yojson_of]
+(** aws_medialive_input__destinations *)
+
+type aws_medialive_input__input_devices = {
+  id : string prop;  (** id *)
+}
+[@@deriving yojson_of]
+(** aws_medialive_input__input_devices *)
+
+type aws_medialive_input__media_connect_flows = {
+  flow_arn : string prop;  (** flow_arn *)
+}
+[@@deriving yojson_of]
+(** aws_medialive_input__media_connect_flows *)
+
+type aws_medialive_input__sources = {
+  password_param : string prop;  (** password_param *)
+  url : string prop;  (** url *)
+  username : string prop;  (** username *)
+}
+[@@deriving yojson_of]
+(** aws_medialive_input__sources *)
+
+type aws_medialive_input__timeouts = {
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
+}
+[@@deriving yojson_of]
+(** aws_medialive_input__timeouts *)
+
+type aws_medialive_input__vpc = {
+  security_group_ids : string prop list option; [@option]
+      (** security_group_ids *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+}
+[@@deriving yojson_of]
+(** aws_medialive_input__vpc *)
+
+type aws_medialive_input = {
+  id : string prop option; [@option]  (** id *)
+  input_security_groups : string prop list option; [@option]
+      (** input_security_groups *)
+  name : string prop;  (** name *)
+  role_arn : string prop option; [@option]  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
+  type_ : string prop; [@key "type"]  (** type *)
+  destinations : aws_medialive_input__destinations list;
+  input_devices : aws_medialive_input__input_devices list;
+  media_connect_flows :
+    aws_medialive_input__media_connect_flows list;
+  sources : aws_medialive_input__sources list;
+  timeouts : aws_medialive_input__timeouts option;
+  vpc : aws_medialive_input__vpc list;
+}
+[@@deriving yojson_of]
+(** aws_medialive_input *)
+
+type t = {
+  arn : string prop;
+  attached_channels : string list prop;
+  id : string prop;
+  input_class : string prop;
+  input_partner_ids : string list prop;
+  input_security_groups : string list prop;
+  input_source_type : string prop;
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+}
+
+let aws_medialive_input ?id ?input_security_groups ?role_arn ?tags
+    ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
+    ~media_connect_flows ~sources ~vpc __resource_id =
+  let __resource_type = "aws_medialive_input" in
+  let __resource =
+    ({
+       id;
+       input_security_groups;
+       name;
+       role_arn;
+       tags;
+       tags_all;
+       type_;
+       destinations;
+       input_devices;
+       media_connect_flows;
+       sources;
+       timeouts;
+       vpc;
+     }
+      : aws_medialive_input)
+  in
+  Resource.add ~type_:__resource_type ~id:__resource_id
+    (yojson_of_aws_medialive_input __resource);
+  let __resource_attributes =
+    ({
+       arn = Prop.computed __resource_type __resource_id "arn";
+       attached_channels =
+         Prop.computed __resource_type __resource_id
+           "attached_channels";
+       id = Prop.computed __resource_type __resource_id "id";
+       input_class =
+         Prop.computed __resource_type __resource_id "input_class";
+       input_partner_ids =
+         Prop.computed __resource_type __resource_id
+           "input_partner_ids";
+       input_security_groups =
+         Prop.computed __resource_type __resource_id
+           "input_security_groups";
+       input_source_type =
+         Prop.computed __resource_type __resource_id
+           "input_source_type";
+       name = Prop.computed __resource_type __resource_id "name";
+       role_arn =
+         Prop.computed __resource_type __resource_id "role_arn";
+       tags = Prop.computed __resource_type __resource_id "tags";
+       tags_all =
+         Prop.computed __resource_type __resource_id "tags_all";
+       type_ = Prop.computed __resource_type __resource_id "type";
+     }
+      : t)
+  in
+  __resource_attributes

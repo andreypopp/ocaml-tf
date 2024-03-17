@@ -1,0 +1,88 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_kendra_data_source__configuration__s3_configuration__access_control_list_configuration
+
+type aws_kendra_data_source__configuration__s3_configuration__documents_metadata_configuration
+
+type aws_kendra_data_source__configuration__s3_configuration
+
+type aws_kendra_data_source__configuration__web_crawler_configuration__authentication_configuration__basic_authentication
+
+type aws_kendra_data_source__configuration__web_crawler_configuration__authentication_configuration
+
+type aws_kendra_data_source__configuration__web_crawler_configuration__proxy_configuration
+
+type aws_kendra_data_source__configuration__web_crawler_configuration__urls__seed_url_configuration
+
+type aws_kendra_data_source__configuration__web_crawler_configuration__urls__site_maps_configuration
+
+type aws_kendra_data_source__configuration__web_crawler_configuration__urls
+
+type aws_kendra_data_source__configuration__web_crawler_configuration
+type aws_kendra_data_source__configuration
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__inline_configurations__condition__condition_on_value
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__inline_configurations__condition
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__inline_configurations__target__target_document_attribute_value
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__inline_configurations__target
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__inline_configurations
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition__condition_on_value
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__post_extraction_hook_configuration
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition__condition_on_value
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition
+
+type aws_kendra_data_source__custom_document_enrichment_configuration__pre_extraction_hook_configuration
+
+type aws_kendra_data_source__custom_document_enrichment_configuration
+type aws_kendra_data_source__timeouts
+type aws_kendra_data_source
+
+type t = private {
+  arn : string prop;
+  created_at : string prop;
+  data_source_id : string prop;
+  description : string prop;
+  error_message : string prop;
+  id : string prop;
+  index_id : string prop;
+  language_code : string prop;
+  name : string prop;
+  role_arn : string prop;
+  schedule : string prop;
+  status : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  updated_at : string prop;
+}
+
+val aws_kendra_data_source :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?language_code:string prop ->
+  ?role_arn:string prop ->
+  ?schedule:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:aws_kendra_data_source__timeouts ->
+  index_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  configuration:aws_kendra_data_source__configuration list ->
+  custom_document_enrichment_configuration:
+    aws_kendra_data_source__custom_document_enrichment_configuration
+    list ->
+  string ->
+  t

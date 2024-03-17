@@ -1,0 +1,53 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_storage_transfer_job__event_stream
+type google_storage_transfer_job__notification_config
+type google_storage_transfer_job__schedule__schedule_end_date
+type google_storage_transfer_job__schedule__schedule_start_date
+type google_storage_transfer_job__schedule__start_time_of_day
+type google_storage_transfer_job__schedule
+
+type google_storage_transfer_job__transfer_spec__aws_s3_data_source__aws_access_key
+
+type google_storage_transfer_job__transfer_spec__aws_s3_data_source
+
+type google_storage_transfer_job__transfer_spec__azure_blob_storage_data_source__azure_credentials
+
+type google_storage_transfer_job__transfer_spec__azure_blob_storage_data_source
+
+type google_storage_transfer_job__transfer_spec__gcs_data_sink
+type google_storage_transfer_job__transfer_spec__gcs_data_source
+type google_storage_transfer_job__transfer_spec__http_data_source
+type google_storage_transfer_job__transfer_spec__object_conditions
+type google_storage_transfer_job__transfer_spec__posix_data_sink
+type google_storage_transfer_job__transfer_spec__posix_data_source
+type google_storage_transfer_job__transfer_spec__transfer_options
+type google_storage_transfer_job__transfer_spec
+type google_storage_transfer_job
+
+type t = private {
+  creation_time : string prop;
+  deletion_time : string prop;
+  description : string prop;
+  id : string prop;
+  last_modification_time : string prop;
+  name : string prop;
+  project : string prop;
+  status : string prop;
+}
+
+val google_storage_transfer_job :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?status:string prop ->
+  description:string prop ->
+  event_stream:google_storage_transfer_job__event_stream list ->
+  notification_config:
+    google_storage_transfer_job__notification_config list ->
+  schedule:google_storage_transfer_job__schedule list ->
+  transfer_spec:google_storage_transfer_job__transfer_spec list ->
+  string ->
+  t

@@ -1,0 +1,88 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type aws_networkfirewall_rule_group__encryption_configuration
+
+type aws_networkfirewall_rule_group__rule_group__reference_sets__ip_set_references__ip_set_reference
+
+type aws_networkfirewall_rule_group__rule_group__reference_sets__ip_set_references
+
+type aws_networkfirewall_rule_group__rule_group__reference_sets
+
+type aws_networkfirewall_rule_group__rule_group__rule_variables__ip_sets__ip_set
+
+type aws_networkfirewall_rule_group__rule_group__rule_variables__ip_sets
+
+type aws_networkfirewall_rule_group__rule_group__rule_variables__port_sets__port_set
+
+type aws_networkfirewall_rule_group__rule_group__rule_variables__port_sets
+
+type aws_networkfirewall_rule_group__rule_group__rule_variables
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__rules_source_list
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule__header
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule__rule_option
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition__publish_metric_action__dimension
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition__publish_metric_action
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__destination
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__destination_port
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__source
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__source_port
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__tcp_flag
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule
+
+type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions
+
+type aws_networkfirewall_rule_group__rule_group__rules_source
+type aws_networkfirewall_rule_group__rule_group__stateful_rule_options
+type aws_networkfirewall_rule_group__rule_group
+type aws_networkfirewall_rule_group
+
+type t = private {
+  arn : string prop;
+  capacity : float prop;
+  description : string prop;
+  id : string prop;
+  name : string prop;
+  rules : string prop;
+  tags : (string * string) list prop;
+  tags_all : (string * string) list prop;
+  type_ : string prop;
+  update_token : string prop;
+}
+
+val aws_networkfirewall_rule_group :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?rules:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  capacity:float prop ->
+  name:string prop ->
+  type_:string prop ->
+  encryption_configuration:
+    aws_networkfirewall_rule_group__encryption_configuration list ->
+  rule_group:aws_networkfirewall_rule_group__rule_group list ->
+  string ->
+  t

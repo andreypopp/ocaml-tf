@@ -1,0 +1,72 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf.Prelude
+
+type google_securityposture_posture__policy_sets__policies__compliance_standards
+
+type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
+
+type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
+
+type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint__policy_rules
+
+type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint
+
+type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
+
+type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
+
+type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
+
+type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
+
+type google_securityposture_posture__policy_sets__policies__constraint__org_policy_constraint_custom
+
+type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
+
+type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
+
+type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
+
+type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
+
+type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
+
+type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module__config
+
+type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_custom_module
+
+type google_securityposture_posture__policy_sets__policies__constraint__security_health_analytics_module
+
+type google_securityposture_posture__policy_sets__policies__constraint
+type google_securityposture_posture__policy_sets__policies
+type google_securityposture_posture__policy_sets
+type google_securityposture_posture__timeouts
+type google_securityposture_posture
+
+type t = private {
+  create_time : string prop;
+  description : string prop;
+  etag : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  parent : string prop;
+  posture_id : string prop;
+  reconciling : bool prop;
+  revision_id : string prop;
+  state : string prop;
+  update_time : string prop;
+}
+
+val google_securityposture_posture :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:google_securityposture_posture__timeouts ->
+  location:string prop ->
+  parent:string prop ->
+  posture_id:string prop ->
+  state:string prop ->
+  policy_sets:google_securityposture_posture__policy_sets list ->
+  string ->
+  t
