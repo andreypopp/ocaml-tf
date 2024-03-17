@@ -204,6 +204,8 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
   cluster_id : string;  (** The ID of the alloydb cluster. *)
   cluster_type : string option; [@option]
       (** The type of cluster. If not set, defaults to PRIMARY. Default value: PRIMARY Possible values: [PRIMARY, SECONDARY] *)
+  database_version : string option; [@option]
+      (** The database engine major version. This is an optional field and it's populated at the Cluster creation time. This field cannot be changed after cluster creation. *)
   deletion_policy : string option; [@option]
       (** Policy to determine if the cluster should be deleted forcefully.
 Deleting a cluster forcefully, deletes the cluster and all its associated instances within the cluster.
@@ -212,6 +214,7 @@ Deleting a Secondary cluster with a secondary instance REQUIRES setting deletion
       (** User-settable and human-readable display name for the Cluster. *)
   etag : string option; [@option]
       (** For Resource freshness validation (https://google.aip.dev/154) *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-defined labels for the alloydb cluster.
 
@@ -219,6 +222,11 @@ Deleting a Secondary cluster with a secondary instance REQUIRES setting deletion
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;
       (** The location where the alloydb cluster should reside. *)
+  network : string option; [@option]
+      (** The relative resource name of the VPC network on which the instance can be accessed. It is specified in the following form:
+
+projects/{projectNumber}/global/networks/{network_id}. *)
+  project : string option; [@option]  (** project *)
   automated_backup_policy :
     google_alloydb_cluster__automated_backup_policy list;
   continuous_backup_config :
@@ -237,23 +245,27 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_alloydb_cluster *)
 
 let google_alloydb_cluster ?annotations ?cluster_type
-    ?deletion_policy ?display_name ?etag ?labels ?timeouts
-    ~cluster_id ~location ~automated_backup_policy
-    ~continuous_backup_config ~encryption_config ~initial_user
-    ~network_config ~restore_backup_source
-    ~restore_continuous_backup_source ~secondary_config __resource_id
-    =
+    ?database_version ?deletion_policy ?display_name ?etag ?id
+    ?labels ?network ?project ?timeouts ~cluster_id ~location
+    ~automated_backup_policy ~continuous_backup_config
+    ~encryption_config ~initial_user ~network_config
+    ~restore_backup_source ~restore_continuous_backup_source
+    ~secondary_config __resource_id =
   let __resource_type = "google_alloydb_cluster" in
   let __resource =
     {
       annotations;
       cluster_id;
       cluster_type;
+      database_version;
       deletion_policy;
       display_name;
       etag;
+      id;
       labels;
       location;
+      network;
+      project;
       automated_backup_policy;
       continuous_backup_config;
       encryption_config;

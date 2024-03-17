@@ -57,6 +57,7 @@ type azurerm_chaos_studio_experiment__timeouts = {
 (** azurerm_chaos_studio_experiment__timeouts *)
 
 type azurerm_chaos_studio_experiment = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -68,11 +69,12 @@ type azurerm_chaos_studio_experiment = {
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_experiment *)
 
-let azurerm_chaos_studio_experiment ?timeouts ~location ~name
+let azurerm_chaos_studio_experiment ?id ?timeouts ~location ~name
     ~resource_group_name ~identity ~selectors ~steps __resource_id =
   let __resource_type = "azurerm_chaos_studio_experiment" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

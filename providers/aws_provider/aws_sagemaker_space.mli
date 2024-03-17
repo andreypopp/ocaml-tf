@@ -38,8 +38,10 @@ type aws_sagemaker_space__space_sharing_settings
 type aws_sagemaker_space
 
 val aws_sagemaker_space :
+  ?id:string ->
   ?space_display_name:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   domain_id:string ->
   space_name:string ->
   ownership_settings:aws_sagemaker_space__ownership_settings list ->

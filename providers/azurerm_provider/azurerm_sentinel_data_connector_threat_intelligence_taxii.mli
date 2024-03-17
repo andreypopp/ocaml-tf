@@ -7,9 +7,11 @@ type azurerm_sentinel_data_connector_threat_intelligence_taxii__timeouts
 type azurerm_sentinel_data_connector_threat_intelligence_taxii
 
 val azurerm_sentinel_data_connector_threat_intelligence_taxii :
+  ?id:string ->
   ?lookback_date:string ->
   ?password:string ->
   ?polling_frequency:string ->
+  ?tenant_id:string ->
   ?user_name:string ->
   ?timeouts:
     azurerm_sentinel_data_connector_threat_intelligence_taxii__timeouts ->

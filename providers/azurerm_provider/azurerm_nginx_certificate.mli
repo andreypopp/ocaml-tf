@@ -6,6 +6,7 @@ type azurerm_nginx_certificate__timeouts
 type azurerm_nginx_certificate
 
 val azurerm_nginx_certificate :
+  ?id:string ->
   ?timeouts:azurerm_nginx_certificate__timeouts ->
   certificate_virtual_path:string ->
   key_vault_secret_id:string ->

@@ -31,6 +31,7 @@ type google_certificate_manager_certificate_map__gclb_targets = {
 type google_certificate_manager_certificate_map = {
   description : string option; [@option]
       (** A human-readable description of the resource. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Set of labels associated with a Certificate Map resource.
 
@@ -40,18 +41,21 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   name : string;
       (** A user-defined name of the Certificate Map. Certificate Map names must be unique
 globally and match the pattern 'projects/*/locations/*/certificateMaps/*'. *)
+  project : string option; [@option]  (** project *)
   timeouts :
     google_certificate_manager_certificate_map__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_certificate_map *)
 
-let google_certificate_manager_certificate_map ?description ?labels
-    ?timeouts ~name __resource_id =
+let google_certificate_manager_certificate_map ?description ?id
+    ?labels ?project ?timeouts ~name __resource_id =
   let __resource_type =
     "google_certificate_manager_certificate_map"
   in
-  let __resource = { description; labels; name; timeouts } in
+  let __resource =
+    { description; id; labels; name; project; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_certificate_map __resource);
   ()

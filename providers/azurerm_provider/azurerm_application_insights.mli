@@ -6,8 +6,11 @@ type azurerm_application_insights__timeouts
 type azurerm_application_insights
 
 val azurerm_application_insights :
+  ?daily_data_cap_in_gb:float ->
+  ?daily_data_cap_notifications_disabled:bool ->
   ?disable_ip_masking:bool ->
   ?force_customer_storage_for_profiler:bool ->
+  ?id:string ->
   ?internet_ingestion_enabled:bool ->
   ?internet_query_enabled:bool ->
   ?local_authentication_disabled:bool ->

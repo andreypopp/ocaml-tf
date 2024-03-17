@@ -29,6 +29,7 @@ type azurerm_virtual_machine_scale_set_extension = {
       (** failure_suppression_enabled *)
   force_update_tag : string option; [@option]
       (** force_update_tag *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   protected_settings : string option; [@option]
       (** protected_settings *)
@@ -51,7 +52,7 @@ type azurerm_virtual_machine_scale_set_extension = {
 
 let azurerm_virtual_machine_scale_set_extension
     ?auto_upgrade_minor_version ?automatic_upgrade_enabled
-    ?failure_suppression_enabled ?force_update_tag
+    ?failure_suppression_enabled ?force_update_tag ?id
     ?protected_settings ?provision_after_extensions ?settings
     ?timeouts ~name ~publisher ~type_ ~type_handler_version
     ~virtual_machine_scale_set_id ~protected_settings_from_key_vault
@@ -65,6 +66,7 @@ let azurerm_virtual_machine_scale_set_extension
       automatic_upgrade_enabled;
       failure_suppression_enabled;
       force_update_tag;
+      id;
       name;
       protected_settings;
       provision_after_extensions;

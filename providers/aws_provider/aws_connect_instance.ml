@@ -21,6 +21,7 @@ type aws_connect_instance = {
   directory_id : string option; [@option]  (** directory_id *)
   early_media_enabled : bool option; [@option]
       (** early_media_enabled *)
+  id : string option; [@option]  (** id *)
   identity_management_type : string;  (** identity_management_type *)
   inbound_calls_enabled : bool;  (** inbound_calls_enabled *)
   instance_alias : string option; [@option]  (** instance_alias *)
@@ -34,7 +35,7 @@ type aws_connect_instance = {
 
 let aws_connect_instance ?auto_resolve_best_voices_enabled
     ?contact_flow_logs_enabled ?contact_lens_enabled ?directory_id
-    ?early_media_enabled ?instance_alias
+    ?early_media_enabled ?id ?instance_alias
     ?multi_party_conference_enabled ?timeouts
     ~identity_management_type ~inbound_calls_enabled
     ~outbound_calls_enabled __resource_id =
@@ -46,6 +47,7 @@ let aws_connect_instance ?auto_resolve_best_voices_enabled
       contact_lens_enabled;
       directory_id;
       early_media_enabled;
+      id;
       identity_management_type;
       inbound_calls_enabled;
       instance_alias;

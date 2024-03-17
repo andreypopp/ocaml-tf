@@ -161,10 +161,14 @@ type aws_ce_anomaly_subscription__threshold_expression = {
 (** aws_ce_anomaly_subscription__threshold_expression *)
 
 type aws_ce_anomaly_subscription = {
+  account_id : string option; [@option]  (** account_id *)
   frequency : string;  (** frequency *)
+  id : string option; [@option]  (** id *)
   monitor_arn_list : string list;  (** monitor_arn_list *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   subscriber : aws_ce_anomaly_subscription__subscriber list;
   threshold_expression :
     aws_ce_anomaly_subscription__threshold_expression list;
@@ -172,15 +176,19 @@ type aws_ce_anomaly_subscription = {
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription *)
 
-let aws_ce_anomaly_subscription ?tags ~frequency ~monitor_arn_list
-    ~name ~subscriber ~threshold_expression __resource_id =
+let aws_ce_anomaly_subscription ?account_id ?id ?tags ?tags_all
+    ~frequency ~monitor_arn_list ~name ~subscriber
+    ~threshold_expression __resource_id =
   let __resource_type = "aws_ce_anomaly_subscription" in
   let __resource =
     {
+      account_id;
       frequency;
+      id;
       monitor_arn_list;
       name;
       tags;
+      tags_all;
       subscriber;
       threshold_expression;
     }

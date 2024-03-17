@@ -23,6 +23,10 @@ type azurerm_app_service_certificate_order__certificates = {
 
 type azurerm_app_service_certificate_order = {
   auto_renew : bool option; [@option]  (** auto_renew *)
+  csr : string option; [@option]  (** csr *)
+  distinguished_name : string option; [@option]
+      (** distinguished_name *)
+  id : string option; [@option]  (** id *)
   key_size : float option; [@option]  (** key_size *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -36,13 +40,17 @@ type azurerm_app_service_certificate_order = {
 [@@deriving yojson_of]
 (** azurerm_app_service_certificate_order *)
 
-let azurerm_app_service_certificate_order ?auto_renew ?key_size
-    ?product_type ?tags ?validity_in_years ?timeouts ~location ~name
-    ~resource_group_name __resource_id =
+let azurerm_app_service_certificate_order ?auto_renew ?csr
+    ?distinguished_name ?id ?key_size ?product_type ?tags
+    ?validity_in_years ?timeouts ~location ~name ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_app_service_certificate_order" in
   let __resource =
     {
       auto_renew;
+      csr;
+      distinguished_name;
+      id;
       key_size;
       location;
       name;

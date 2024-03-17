@@ -24,10 +24,13 @@ type aws_elasticache_user__timeouts = {
 type aws_elasticache_user = {
   access_string : string;  (** access_string *)
   engine : string;  (** engine *)
+  id : string option; [@option]  (** id *)
   no_password_required : bool option; [@option]
       (** no_password_required *)
   passwords : string list option; [@option]  (** passwords *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   user_id : string;  (** user_id *)
   user_name : string;  (** user_name *)
   authentication_mode :
@@ -37,17 +40,19 @@ type aws_elasticache_user = {
 [@@deriving yojson_of]
 (** aws_elasticache_user *)
 
-let aws_elasticache_user ?no_password_required ?passwords ?tags
-    ?timeouts ~access_string ~engine ~user_id ~user_name
+let aws_elasticache_user ?id ?no_password_required ?passwords ?tags
+    ?tags_all ?timeouts ~access_string ~engine ~user_id ~user_name
     ~authentication_mode __resource_id =
   let __resource_type = "aws_elasticache_user" in
   let __resource =
     {
       access_string;
       engine;
+      id;
       no_password_required;
       passwords;
       tags;
+      tags_all;
       user_id;
       user_name;
       authentication_mode;

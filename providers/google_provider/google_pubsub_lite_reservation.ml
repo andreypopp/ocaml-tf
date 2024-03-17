@@ -13,7 +13,9 @@ type google_pubsub_lite_reservation__timeouts = {
 (** google_pubsub_lite_reservation__timeouts *)
 
 type google_pubsub_lite_reservation = {
+  id : string option; [@option]  (** id *)
   name : string;  (** Name of the reservation. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region of the pubsub lite reservation. *)
   throughput_capacity : float;
@@ -25,10 +27,12 @@ messages. *)
 [@@deriving yojson_of]
 (** google_pubsub_lite_reservation *)
 
-let google_pubsub_lite_reservation ?region ?timeouts ~name
-    ~throughput_capacity __resource_id =
+let google_pubsub_lite_reservation ?id ?project ?region ?timeouts
+    ~name ~throughput_capacity __resource_id =
   let __resource_type = "google_pubsub_lite_reservation" in
-  let __resource = { name; region; throughput_capacity; timeouts } in
+  let __resource =
+    { id; name; project; region; throughput_capacity; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_lite_reservation __resource);
   ()

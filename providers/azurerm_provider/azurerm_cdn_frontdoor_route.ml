@@ -43,6 +43,7 @@ type azurerm_cdn_frontdoor_route = {
       (** forwarding_protocol *)
   https_redirect_enabled : bool option; [@option]
       (** https_redirect_enabled *)
+  id : string option; [@option]  (** id *)
   link_to_default_domain : bool option; [@option]
       (** link_to_default_domain *)
   name : string;  (** name *)
@@ -56,7 +57,7 @@ type azurerm_cdn_frontdoor_route = {
 
 let azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
     ?cdn_frontdoor_origin_path ?cdn_frontdoor_rule_set_ids ?enabled
-    ?forwarding_protocol ?https_redirect_enabled
+    ?forwarding_protocol ?https_redirect_enabled ?id
     ?link_to_default_domain ?timeouts ~cdn_frontdoor_endpoint_id
     ~cdn_frontdoor_origin_group_id ~cdn_frontdoor_origin_ids ~name
     ~patterns_to_match ~supported_protocols ~cache __resource_id =
@@ -72,6 +73,7 @@ let azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
       enabled;
       forwarding_protocol;
       https_redirect_enabled;
+      id;
       link_to_default_domain;
       name;
       patterns_to_match;

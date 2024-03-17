@@ -10,6 +10,8 @@ val google_service_account :
   ?description:string ->
   ?disabled:bool ->
   ?display_name:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_service_account__timeouts ->
   account_id:string ->
   string ->

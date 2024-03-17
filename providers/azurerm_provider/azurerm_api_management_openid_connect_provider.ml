@@ -19,6 +19,7 @@ type azurerm_api_management_openid_connect_provider = {
   client_secret : string;  (** client_secret *)
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   metadata_endpoint : string;  (** metadata_endpoint *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -28,7 +29,7 @@ type azurerm_api_management_openid_connect_provider = {
 [@@deriving yojson_of]
 (** azurerm_api_management_openid_connect_provider *)
 
-let azurerm_api_management_openid_connect_provider ?description
+let azurerm_api_management_openid_connect_provider ?description ?id
     ?timeouts ~api_management_name ~client_id ~client_secret
     ~display_name ~metadata_endpoint ~name ~resource_group_name
     __resource_id =
@@ -42,6 +43,7 @@ let azurerm_api_management_openid_connect_provider ?description
       client_secret;
       description;
       display_name;
+      id;
       metadata_endpoint;
       name;
       resource_group_name;

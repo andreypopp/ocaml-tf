@@ -7,6 +7,7 @@ type azurerm_automation_hybrid_runbook_worker_group
 
 val azurerm_automation_hybrid_runbook_worker_group :
   ?credential_name:string ->
+  ?id:string ->
   ?timeouts:azurerm_automation_hybrid_runbook_worker_group__timeouts ->
   automation_account_name:string ->
   name:string ->

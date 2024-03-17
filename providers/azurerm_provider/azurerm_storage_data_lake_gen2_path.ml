@@ -24,6 +24,9 @@ type azurerm_storage_data_lake_gen2_path__timeouts = {
 
 type azurerm_storage_data_lake_gen2_path = {
   filesystem_name : string;  (** filesystem_name *)
+  group : string option; [@option]  (** group *)
+  id : string option; [@option]  (** id *)
+  owner : string option; [@option]  (** owner *)
   path : string;  (** path *)
   resource : string;  (** resource *)
   storage_account_id : string;  (** storage_account_id *)
@@ -33,12 +36,16 @@ type azurerm_storage_data_lake_gen2_path = {
 [@@deriving yojson_of]
 (** azurerm_storage_data_lake_gen2_path *)
 
-let azurerm_storage_data_lake_gen2_path ?timeouts ~filesystem_name
-    ~path ~resource ~storage_account_id ~ace __resource_id =
+let azurerm_storage_data_lake_gen2_path ?group ?id ?owner ?timeouts
+    ~filesystem_name ~path ~resource ~storage_account_id ~ace
+    __resource_id =
   let __resource_type = "azurerm_storage_data_lake_gen2_path" in
   let __resource =
     {
       filesystem_name;
+      group;
+      id;
+      owner;
       path;
       resource;
       storage_account_id;

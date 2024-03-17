@@ -18,12 +18,15 @@ type azurerm_iot_time_series_insights_event_source_eventhub = {
   environment_id : string;  (** environment_id *)
   event_source_resource_id : string;  (** event_source_resource_id *)
   eventhub_name : string;  (** eventhub_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   namespace_name : string;  (** namespace_name *)
   shared_access_key : string;  (** shared_access_key *)
   shared_access_key_name : string;  (** shared_access_key_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  timestamp_property_name : string option; [@option]
+      (** timestamp_property_name *)
   timeouts :
     azurerm_iot_time_series_insights_event_source_eventhub__timeouts
     option;
@@ -31,11 +34,11 @@ type azurerm_iot_time_series_insights_event_source_eventhub = {
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_event_source_eventhub *)
 
-let azurerm_iot_time_series_insights_event_source_eventhub ?tags
-    ?timeouts ~consumer_group_name ~environment_id
-    ~event_source_resource_id ~eventhub_name ~location ~name
-    ~namespace_name ~shared_access_key ~shared_access_key_name
-    __resource_id =
+let azurerm_iot_time_series_insights_event_source_eventhub ?id ?tags
+    ?timestamp_property_name ?timeouts ~consumer_group_name
+    ~environment_id ~event_source_resource_id ~eventhub_name
+    ~location ~name ~namespace_name ~shared_access_key
+    ~shared_access_key_name __resource_id =
   let __resource_type =
     "azurerm_iot_time_series_insights_event_source_eventhub"
   in
@@ -45,12 +48,14 @@ let azurerm_iot_time_series_insights_event_source_eventhub ?tags
       environment_id;
       event_source_resource_id;
       eventhub_name;
+      id;
       location;
       name;
       namespace_name;
       shared_access_key;
       shared_access_key_name;
       tags;
+      timestamp_property_name;
       timeouts;
     }
   in

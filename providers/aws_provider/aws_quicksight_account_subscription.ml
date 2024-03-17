@@ -17,11 +17,13 @@ type aws_quicksight_account_subscription = {
   admin_group: string list option; [@option] (** admin_group *)
   authentication_method: string;  (** authentication_method *)
   author_group: string list option; [@option] (** author_group *)
+  aws_account_id: string option; [@option] (** aws_account_id *)
   contact_number: string option; [@option] (** contact_number *)
   directory_id: string option; [@option] (** directory_id *)
   edition: string;  (** edition *)
   email_address: string option; [@option] (** email_address *)
   first_name: string option; [@option] (** first_name *)
+  id: string option; [@option] (** id *)
   last_name: string option; [@option] (** last_name *)
   notification_email: string;  (** notification_email *)
   reader_group: string list option; [@option] (** reader_group *)
@@ -30,7 +32,7 @@ type aws_quicksight_account_subscription = {
 } [@@deriving yojson_of]
 (** aws_quicksight_account_subscription *)
 
-let aws_quicksight_account_subscription ?active_directory_name ?admin_group ?author_group ?contact_number ?directory_id ?email_address ?first_name ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email  __resource_id =
+let aws_quicksight_account_subscription ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email  __resource_id =
   let __resource_type = "aws_quicksight_account_subscription" in
   let __resource = {
     account_name;
@@ -38,11 +40,13 @@ let aws_quicksight_account_subscription ?active_directory_name ?admin_group ?aut
     admin_group;
     authentication_method;
     author_group;
+    aws_account_id;
     contact_number;
     directory_id;
     edition;
     email_address;
     first_name;
+    id;
     last_name;
     notification_email;
     reader_group;

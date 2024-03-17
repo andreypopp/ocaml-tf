@@ -28,11 +28,17 @@ type digitalocean_database_cluster__timeouts = {
 type digitalocean_database_cluster = {
   engine : string;  (** engine *)
   eviction_policy : string option; [@option]  (** eviction_policy *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   node_count : float;  (** node_count *)
+  private_network_uuid : string option; [@option]
+      (** private_network_uuid *)
+  project_id : string option; [@option]  (** project_id *)
   region : string;  (** region *)
   size : string;  (** size *)
   sql_mode : string option; [@option]  (** sql_mode *)
+  storage_size_mib : string option; [@option]
+      (** storage_size_mib *)
   tags : string list option; [@option]  (** tags *)
   version : string option; [@option]  (** version *)
   backup_restore :
@@ -44,19 +50,24 @@ type digitalocean_database_cluster = {
 [@@deriving yojson_of]
 (** digitalocean_database_cluster *)
 
-let digitalocean_database_cluster ?eviction_policy ?sql_mode ?tags
-    ?version ?timeouts ~engine ~name ~node_count ~region ~size
+let digitalocean_database_cluster ?eviction_policy ?id
+    ?private_network_uuid ?project_id ?sql_mode ?storage_size_mib
+    ?tags ?version ?timeouts ~engine ~name ~node_count ~region ~size
     ~backup_restore ~maintenance_window __resource_id =
   let __resource_type = "digitalocean_database_cluster" in
   let __resource =
     {
       engine;
       eviction_policy;
+      id;
       name;
       node_count;
+      private_network_uuid;
+      project_id;
       region;
       size;
       sql_mode;
+      storage_size_mib;
       tags;
       version;
       backup_restore;

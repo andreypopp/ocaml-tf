@@ -10,7 +10,11 @@ type google_compute_snapshot
 val google_compute_snapshot :
   ?chain_name:string ->
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
+  ?storage_locations:string list ->
+  ?zone:string ->
   ?timeouts:google_compute_snapshot__timeouts ->
   name:string ->
   source_disk:string ->

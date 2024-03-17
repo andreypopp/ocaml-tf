@@ -6,6 +6,7 @@ type cloudflare_firewall_rule
 
 val cloudflare_firewall_rule :
   ?description:string ->
+  ?id:string ->
   ?paused:bool ->
   ?priority:float ->
   ?products:string list ->

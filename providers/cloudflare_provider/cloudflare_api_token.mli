@@ -9,6 +9,7 @@ type cloudflare_api_token
 
 val cloudflare_api_token :
   ?expires_on:string ->
+  ?id:string ->
   ?not_before:string ->
   name:string ->
   condition:cloudflare_api_token__condition list ->

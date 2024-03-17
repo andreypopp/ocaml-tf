@@ -23,6 +23,7 @@ type azurerm_lb_backend_address_pool__tunnel_interface = {
 (** azurerm_lb_backend_address_pool__tunnel_interface *)
 
 type azurerm_lb_backend_address_pool = {
+  id : string option; [@option]  (** id *)
   loadbalancer_id : string;  (** loadbalancer_id *)
   name : string;  (** name *)
   virtual_network_id : string option; [@option]
@@ -34,11 +35,12 @@ type azurerm_lb_backend_address_pool = {
 [@@deriving yojson_of]
 (** azurerm_lb_backend_address_pool *)
 
-let azurerm_lb_backend_address_pool ?virtual_network_id ?timeouts
+let azurerm_lb_backend_address_pool ?id ?virtual_network_id ?timeouts
     ~loadbalancer_id ~name ~tunnel_interface __resource_id =
   let __resource_type = "azurerm_lb_backend_address_pool" in
   let __resource =
     {
+      id;
       loadbalancer_id;
       name;
       virtual_network_id;

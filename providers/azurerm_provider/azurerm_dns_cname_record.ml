@@ -14,6 +14,7 @@ type azurerm_dns_cname_record__timeouts = {
 (** azurerm_dns_cname_record__timeouts *)
 
 type azurerm_dns_cname_record = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   record : string option; [@option]  (** record *)
   resource_group_name : string;  (** resource_group_name *)
@@ -27,12 +28,13 @@ type azurerm_dns_cname_record = {
 [@@deriving yojson_of]
 (** azurerm_dns_cname_record *)
 
-let azurerm_dns_cname_record ?record ?tags ?target_resource_id
+let azurerm_dns_cname_record ?id ?record ?tags ?target_resource_id
     ?timeouts ~name ~resource_group_name ~ttl ~zone_name
     __resource_id =
   let __resource_type = "azurerm_dns_cname_record" in
   let __resource =
     {
+      id;
       name;
       record;
       resource_group_name;

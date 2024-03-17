@@ -9,6 +9,7 @@ type aws_transfer_access
 val aws_transfer_access :
   ?home_directory:string ->
   ?home_directory_type:string ->
+  ?id:string ->
   ?policy:string ->
   ?role:string ->
   external_id:string ->

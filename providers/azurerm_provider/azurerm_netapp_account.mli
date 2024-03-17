@@ -8,6 +8,7 @@ type azurerm_netapp_account__timeouts
 type azurerm_netapp_account
 
 val azurerm_netapp_account :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_netapp_account__timeouts ->
   location:string ->

@@ -6,6 +6,7 @@ type azurerm_eventhub_cluster__timeouts
 type azurerm_eventhub_cluster
 
 val azurerm_eventhub_cluster :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_eventhub_cluster__timeouts ->
   location:string ->

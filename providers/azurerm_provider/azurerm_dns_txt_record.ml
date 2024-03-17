@@ -20,6 +20,7 @@ type azurerm_dns_txt_record__timeouts = {
 (** azurerm_dns_txt_record__timeouts *)
 
 type azurerm_dns_txt_record = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -31,11 +32,12 @@ type azurerm_dns_txt_record = {
 [@@deriving yojson_of]
 (** azurerm_dns_txt_record *)
 
-let azurerm_dns_txt_record ?tags ?timeouts ~name ~resource_group_name
-    ~ttl ~zone_name ~record __resource_id =
+let azurerm_dns_txt_record ?id ?tags ?timeouts ~name
+    ~resource_group_name ~ttl ~zone_name ~record __resource_id =
   let __resource_type = "azurerm_dns_txt_record" in
   let __resource =
     {
+      id;
       name;
       resource_group_name;
       tags;

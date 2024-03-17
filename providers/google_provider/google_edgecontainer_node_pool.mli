@@ -8,7 +8,10 @@ type google_edgecontainer_node_pool__timeouts
 type google_edgecontainer_node_pool
 
 val google_edgecontainer_node_pool :
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?machine_filter:string ->
+  ?project:string ->
   ?timeouts:google_edgecontainer_node_pool__timeouts ->
   cluster:string ->
   location:string ->

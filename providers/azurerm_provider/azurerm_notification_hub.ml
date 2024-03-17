@@ -30,6 +30,7 @@ type azurerm_notification_hub__timeouts = {
 (** azurerm_notification_hub__timeouts *)
 
 type azurerm_notification_hub = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   namespace_name : string;  (** namespace_name *)
@@ -42,12 +43,13 @@ type azurerm_notification_hub = {
 [@@deriving yojson_of]
 (** azurerm_notification_hub *)
 
-let azurerm_notification_hub ?tags ?timeouts ~location ~name
+let azurerm_notification_hub ?id ?tags ?timeouts ~location ~name
     ~namespace_name ~resource_group_name ~apns_credential
     ~gcm_credential __resource_id =
   let __resource_type = "azurerm_notification_hub" in
   let __resource =
     {
+      id;
       location;
       name;
       namespace_name;

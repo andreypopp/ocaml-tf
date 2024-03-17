@@ -9,8 +9,10 @@ val google_project :
   ?auto_create_network:bool ->
   ?billing_account:string ->
   ?folder_id:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?org_id:string ->
+  ?skip_delete:bool ->
   ?timeouts:google_project__timeouts ->
   name:string ->
   project_id:string ->

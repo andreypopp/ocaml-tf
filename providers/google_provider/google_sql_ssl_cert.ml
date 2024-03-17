@@ -14,17 +14,22 @@ type google_sql_ssl_cert__timeouts = {
 type google_sql_ssl_cert = {
   common_name : string;
       (** The common name to be used in the certificate to identify the client. Constrained to [a-zA-Z.-_ ]+. Changing this forces a new resource to be created. *)
+  id : string option; [@option]  (** id *)
   instance : string;
       (** The name of the Cloud SQL instance. Changing this forces a new resource to be created. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   timeouts : google_sql_ssl_cert__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_sql_ssl_cert *)
 
-let google_sql_ssl_cert ?timeouts ~common_name ~instance
+let google_sql_ssl_cert ?id ?project ?timeouts ~common_name ~instance
     __resource_id =
   let __resource_type = "google_sql_ssl_cert" in
-  let __resource = { common_name; instance; timeouts } in
+  let __resource =
+    { common_name; id; instance; project; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sql_ssl_cert __resource);
   ()

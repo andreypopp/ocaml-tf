@@ -7,7 +7,9 @@ type google_filestore_backup
 
 val google_filestore_backup :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_filestore_backup__timeouts ->
   location:string ->
   name:string ->

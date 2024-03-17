@@ -7,6 +7,7 @@ type azurerm_orbital_spacecraft__timeouts
 type azurerm_orbital_spacecraft
 
 val azurerm_orbital_spacecraft :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_orbital_spacecraft__timeouts ->
   location:string ->

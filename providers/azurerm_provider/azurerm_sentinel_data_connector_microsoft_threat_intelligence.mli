@@ -8,7 +8,9 @@ type azurerm_sentinel_data_connector_microsoft_threat_intelligence
 
 val azurerm_sentinel_data_connector_microsoft_threat_intelligence :
   ?bing_safety_phishing_url_lookback_date:string ->
+  ?id:string ->
   ?microsoft_emerging_threat_feed_lookback_date:string ->
+  ?tenant_id:string ->
   ?timeouts:
     azurerm_sentinel_data_connector_microsoft_threat_intelligence__timeouts ->
   log_analytics_workspace_id:string ->

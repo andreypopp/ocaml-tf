@@ -21,6 +21,7 @@ type kubernetes_mutating_webhook_configuration__webhook
 type kubernetes_mutating_webhook_configuration
 
 val kubernetes_mutating_webhook_configuration :
+  ?id:string ->
   metadata:kubernetes_mutating_webhook_configuration__metadata list ->
   webhook:kubernetes_mutating_webhook_configuration__webhook list ->
   string ->

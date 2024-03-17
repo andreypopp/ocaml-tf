@@ -8,6 +8,8 @@ type kubernetes_secret
 
 val kubernetes_secret :
   ?binary_data:(string * string) list ->
+  ?data:(string * string) list ->
+  ?id:string ->
   ?immutable:bool ->
   ?type_:string ->
   ?wait_for_service_account_token:bool ->

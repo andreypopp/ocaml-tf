@@ -24,24 +24,30 @@ type azurerm_route_table__route = {
 type azurerm_route_table = {
   disable_bgp_route_propagation : bool option; [@option]
       (** disable_bgp_route_propagation *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
+  route : azurerm_route_table__route list option; [@option]
+      (** route *)
   tags : (string * string) list option; [@option]  (** tags *)
   timeouts : azurerm_route_table__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_route_table *)
 
-let azurerm_route_table ?disable_bgp_route_propagation ?tags
-    ?timeouts ~location ~name ~resource_group_name __resource_id =
+let azurerm_route_table ?disable_bgp_route_propagation ?id ?route
+    ?tags ?timeouts ~location ~name ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_route_table" in
   let __resource =
     {
       disable_bgp_route_propagation;
+      id;
       location;
       name;
       resource_group_name;
+      route;
       tags;
       timeouts;
     }

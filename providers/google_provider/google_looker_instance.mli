@@ -18,9 +18,12 @@ type google_looker_instance
 
 val google_looker_instance :
   ?consumer_network:string ->
+  ?id:string ->
   ?platform_edition:string ->
   ?private_ip_enabled:bool ->
+  ?project:string ->
   ?public_ip_enabled:bool ->
+  ?region:string ->
   ?reserved_range:string ->
   ?timeouts:google_looker_instance__timeouts ->
   name:string ->

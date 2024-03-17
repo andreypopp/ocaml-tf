@@ -8,9 +8,11 @@ type google_pubsub_topic__timeouts
 type google_pubsub_topic
 
 val google_pubsub_topic :
+  ?id:string ->
   ?kms_key_name:string ->
   ?labels:(string * string) list ->
   ?message_retention_duration:string ->
+  ?project:string ->
   ?timeouts:google_pubsub_topic__timeouts ->
   name:string ->
   message_storage_policy:

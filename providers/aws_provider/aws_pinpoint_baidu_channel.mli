@@ -6,6 +6,7 @@ type aws_pinpoint_baidu_channel
 
 val aws_pinpoint_baidu_channel :
   ?enabled:bool ->
+  ?id:string ->
   api_key:string ->
   application_id:string ->
   secret_key:string ->

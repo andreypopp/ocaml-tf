@@ -7,7 +7,9 @@ type aws_datasync_location_nfs__on_prem_config
 type aws_datasync_location_nfs
 
 val aws_datasync_location_nfs :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   server_hostname:string ->
   subdirectory:string ->
   mount_options:aws_datasync_location_nfs__mount_options list ->

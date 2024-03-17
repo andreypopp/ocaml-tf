@@ -15,6 +15,7 @@ type azurerm_notification_hub_namespace__timeouts = {
 
 type azurerm_notification_hub_namespace = {
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   namespace_type : string;  (** namespace_type *)
@@ -26,13 +27,14 @@ type azurerm_notification_hub_namespace = {
 [@@deriving yojson_of]
 (** azurerm_notification_hub_namespace *)
 
-let azurerm_notification_hub_namespace ?enabled ?tags ?timeouts
+let azurerm_notification_hub_namespace ?enabled ?id ?tags ?timeouts
     ~location ~name ~namespace_type ~resource_group_name ~sku_name
     __resource_id =
   let __resource_type = "azurerm_notification_hub_namespace" in
   let __resource =
     {
       enabled;
+      id;
       location;
       name;
       namespace_type;

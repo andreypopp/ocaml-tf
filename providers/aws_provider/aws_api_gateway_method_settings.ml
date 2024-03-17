@@ -28,6 +28,7 @@ type aws_api_gateway_method_settings__settings = {
 (** aws_api_gateway_method_settings__settings *)
 
 type aws_api_gateway_method_settings = {
+  id : string option; [@option]  (** id *)
   method_path : string;  (** method_path *)
   rest_api_id : string;  (** rest_api_id *)
   stage_name : string;  (** stage_name *)
@@ -36,11 +37,11 @@ type aws_api_gateway_method_settings = {
 [@@deriving yojson_of]
 (** aws_api_gateway_method_settings *)
 
-let aws_api_gateway_method_settings ~method_path ~rest_api_id
+let aws_api_gateway_method_settings ?id ~method_path ~rest_api_id
     ~stage_name ~settings __resource_id =
   let __resource_type = "aws_api_gateway_method_settings" in
   let __resource =
-    { method_path; rest_api_id; stage_name; settings }
+    { id; method_path; rest_api_id; stage_name; settings }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_method_settings __resource);

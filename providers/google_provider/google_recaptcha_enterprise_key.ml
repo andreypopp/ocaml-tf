@@ -66,11 +66,14 @@ type google_recaptcha_enterprise_key__web_settings = {
 type google_recaptcha_enterprise_key = {
   display_name : string;
       (** Human-readable display name of this key. Modifiable by user. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** See [Creating and managing labels](https://cloud.google.com/recaptcha-enterprise/docs/labels).
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field `effective_labels` for all of the labels present on the resource. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   android_settings :
     google_recaptcha_enterprise_key__android_settings list;
   ios_settings : google_recaptcha_enterprise_key__ios_settings list;
@@ -83,14 +86,16 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_recaptcha_enterprise_key *)
 
-let google_recaptcha_enterprise_key ?labels ?timeouts ~display_name
-    ~android_settings ~ios_settings ~testing_options ~waf_settings
-    ~web_settings __resource_id =
+let google_recaptcha_enterprise_key ?id ?labels ?project ?timeouts
+    ~display_name ~android_settings ~ios_settings ~testing_options
+    ~waf_settings ~web_settings __resource_id =
   let __resource_type = "google_recaptcha_enterprise_key" in
   let __resource =
     {
       display_name;
+      id;
       labels;
+      project;
       android_settings;
       ios_settings;
       testing_options;

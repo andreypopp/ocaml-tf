@@ -68,7 +68,6 @@ type google_dataproc_workflow_template__placement__managed_cluster__config__mast
       (** instance_group_manager_name *)
   instance_template_name : string;  (** instance_template_name *)
 }
-[@@deriving yojson_of]
 
 type google_dataproc_workflow_template__placement__managed_cluster__config__master_config
 
@@ -81,7 +80,6 @@ type google_dataproc_workflow_template__placement__managed_cluster__config__seco
       (** instance_group_manager_name *)
   instance_template_name : string;  (** instance_template_name *)
 }
-[@@deriving yojson_of]
 
 type google_dataproc_workflow_template__placement__managed_cluster__config__secondary_worker_config
 
@@ -100,7 +98,6 @@ type google_dataproc_workflow_template__placement__managed_cluster__config__work
       (** instance_group_manager_name *)
   instance_template_name : string;  (** instance_template_name *)
 }
-[@@deriving yojson_of]
 
 type google_dataproc_workflow_template__placement__managed_cluster__config__worker_config
 
@@ -113,7 +110,10 @@ type google_dataproc_workflow_template
 
 val google_dataproc_workflow_template :
   ?dag_timeout:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
+  ?version:float ->
   ?timeouts:google_dataproc_workflow_template__timeouts ->
   location:string ->
   name:string ->

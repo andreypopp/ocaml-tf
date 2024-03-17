@@ -38,11 +38,13 @@ type google_vmwareengine_network_policy = {
       (** IP address range in CIDR notation used to create internet access and external IP access.
 An RFC 1918 CIDR block, with a /26 prefix, is required. The range cannot overlap with any
 prefixes either in the consumer VPC network or in use by the private clouds attached to that VPC network. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The resource name of the location (region) to create the new network policy in.
 Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
 For example: projects/my-project/locations/us-central1 *)
   name : string;  (** The ID of the Network Policy. *)
+  project : string option; [@option]  (** project *)
   vmware_engine_network : string;
       (** The relative resource name of the VMware Engine network. Specify the name in the following form:
 projects/{project}/locations/{location}/vmwareEngineNetworks/{vmwareEngineNetworkId} where {project}
@@ -55,16 +57,19 @@ can either be a project number or a project ID. *)
 [@@deriving yojson_of]
 (** google_vmwareengine_network_policy *)
 
-let google_vmwareengine_network_policy ?description ?timeouts
-    ~edge_services_cidr ~location ~name ~vmware_engine_network
-    ~external_ip ~internet_access __resource_id =
+let google_vmwareengine_network_policy ?description ?id ?project
+    ?timeouts ~edge_services_cidr ~location ~name
+    ~vmware_engine_network ~external_ip ~internet_access
+    __resource_id =
   let __resource_type = "google_vmwareengine_network_policy" in
   let __resource =
     {
       description;
       edge_services_cidr;
+      id;
       location;
       name;
+      project;
       vmware_engine_network;
       external_ip;
       internet_access;

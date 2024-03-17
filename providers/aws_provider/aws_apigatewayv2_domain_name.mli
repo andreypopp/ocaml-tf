@@ -8,7 +8,9 @@ type aws_apigatewayv2_domain_name__timeouts
 type aws_apigatewayv2_domain_name
 
 val aws_apigatewayv2_domain_name :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_apigatewayv2_domain_name__timeouts ->
   domain_name:string ->
   domain_name_configuration:

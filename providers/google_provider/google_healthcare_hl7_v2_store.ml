@@ -72,6 +72,7 @@ type google_healthcare_hl7_v2_store = {
   dataset : string;
       (** Identifies the dataset addressed by this request. Must be in the format
 'projects/{project}/locations/{location}/datasets/{dataset}' *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-supplied key-value pairs used to organize HL7v2 stores.
 
@@ -105,13 +106,15 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_healthcare_hl7_v2_store *)
 
-let google_healthcare_hl7_v2_store ?labels ?reject_duplicate_message
-    ?timeouts ~dataset ~name ~notification_config
-    ~notification_configs ~parser_config __resource_id =
+let google_healthcare_hl7_v2_store ?id ?labels
+    ?reject_duplicate_message ?timeouts ~dataset ~name
+    ~notification_config ~notification_configs ~parser_config
+    __resource_id =
   let __resource_type = "google_healthcare_hl7_v2_store" in
   let __resource =
     {
       dataset;
+      id;
       labels;
       name;
       reject_duplicate_message;

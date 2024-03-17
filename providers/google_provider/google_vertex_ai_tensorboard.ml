@@ -25,12 +25,16 @@ type google_vertex_ai_tensorboard = {
       (** Description of this Tensorboard. *)
   display_name : string;
       (** User provided name of this Tensorboard. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The labels with user-defined metadata to organize your Tensorboards.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The region of the tensorboard. eg us-central1 *)
   encryption_spec :
     google_vertex_ai_tensorboard__encryption_spec list;
   timeouts : google_vertex_ai_tensorboard__timeouts option;
@@ -38,11 +42,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_tensorboard *)
 
-let google_vertex_ai_tensorboard ?description ?labels ?timeouts
-    ~display_name ~encryption_spec __resource_id =
+let google_vertex_ai_tensorboard ?description ?id ?labels ?project
+    ?region ?timeouts ~display_name ~encryption_spec __resource_id =
   let __resource_type = "google_vertex_ai_tensorboard" in
   let __resource =
-    { description; display_name; labels; encryption_spec; timeouts }
+    {
+      description;
+      display_name;
+      id;
+      labels;
+      project;
+      region;
+      encryption_spec;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_tensorboard __resource);

@@ -13,18 +13,17 @@ type aws_securitylake_custom_log_source__attributes = {
   database_arn : string;  (** database_arn *)
   table_arn : string;  (** table_arn *)
 }
-[@@deriving yojson_of]
 
 type aws_securitylake_custom_log_source__provider_details = {
   location : string;  (** location *)
   role_arn : string;  (** role_arn *)
 }
-[@@deriving yojson_of]
 
 type aws_securitylake_custom_log_source
 
 val aws_securitylake_custom_log_source :
   ?event_classes:string list ->
+  ?source_version:string ->
   source_name:string ->
   configuration:
     aws_securitylake_custom_log_source__configuration list ->

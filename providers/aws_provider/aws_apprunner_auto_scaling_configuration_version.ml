@@ -7,27 +7,31 @@ open! Tf.Prelude
 type aws_apprunner_auto_scaling_configuration_version = {
   auto_scaling_configuration_name : string;
       (** auto_scaling_configuration_name *)
+  id : string option; [@option]  (** id *)
   max_concurrency : float option; [@option]  (** max_concurrency *)
   max_size : float option; [@option]  (** max_size *)
   min_size : float option; [@option]  (** min_size *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_auto_scaling_configuration_version *)
 
-let aws_apprunner_auto_scaling_configuration_version ?max_concurrency
-    ?max_size ?min_size ?tags ~auto_scaling_configuration_name
-    __resource_id =
+let aws_apprunner_auto_scaling_configuration_version ?id
+    ?max_concurrency ?max_size ?min_size ?tags ?tags_all
+    ~auto_scaling_configuration_name __resource_id =
   let __resource_type =
     "aws_apprunner_auto_scaling_configuration_version"
   in
   let __resource =
     {
       auto_scaling_configuration_name;
+      id;
       max_concurrency;
       max_size;
       min_size;
       tags;
+      tags_all;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

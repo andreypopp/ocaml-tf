@@ -6,6 +6,7 @@ type aws_ec2_image_block_public_access__timeouts
 type aws_ec2_image_block_public_access
 
 val aws_ec2_image_block_public_access :
+  ?id:string ->
   ?timeouts:aws_ec2_image_block_public_access__timeouts ->
   state:string ->
   string ->

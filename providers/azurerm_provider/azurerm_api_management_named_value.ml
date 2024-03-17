@@ -24,6 +24,7 @@ type azurerm_api_management_named_value__value_from_key_vault = {
 type azurerm_api_management_named_value = {
   api_management_name : string;  (** api_management_name *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   secret : bool option; [@option]  (** secret *)
@@ -36,14 +37,15 @@ type azurerm_api_management_named_value = {
 [@@deriving yojson_of]
 (** azurerm_api_management_named_value *)
 
-let azurerm_api_management_named_value ?secret ?tags ?value ?timeouts
-    ~api_management_name ~display_name ~name ~resource_group_name
-    ~value_from_key_vault __resource_id =
+let azurerm_api_management_named_value ?id ?secret ?tags ?value
+    ?timeouts ~api_management_name ~display_name ~name
+    ~resource_group_name ~value_from_key_vault __resource_id =
   let __resource_type = "azurerm_api_management_named_value" in
   let __resource =
     {
       api_management_name;
       display_name;
+      id;
       name;
       resource_group_name;
       secret;

@@ -8,6 +8,7 @@ type cloudflare_email_routing_rule
 
 val cloudflare_email_routing_rule :
   ?enabled:bool ->
+  ?priority:float ->
   name:string ->
   zone_id:string ->
   action:cloudflare_email_routing_rule__action list ->

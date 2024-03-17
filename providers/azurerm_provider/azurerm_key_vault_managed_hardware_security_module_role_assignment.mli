@@ -7,6 +7,7 @@ type azurerm_key_vault_managed_hardware_security_module_role_assignment__timeout
 type azurerm_key_vault_managed_hardware_security_module_role_assignment
 
 val azurerm_key_vault_managed_hardware_security_module_role_assignment :
+  ?id:string ->
   ?timeouts:
     azurerm_key_vault_managed_hardware_security_module_role_assignment__timeouts ->
   name:string ->

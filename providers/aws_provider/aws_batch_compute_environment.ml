@@ -67,8 +67,16 @@ type aws_batch_compute_environment__update_policy = {
 (** aws_batch_compute_environment__update_policy *)
 
 type aws_batch_compute_environment = {
+  compute_environment_name : string option; [@option]
+      (** compute_environment_name *)
+  compute_environment_name_prefix : string option; [@option]
+      (** compute_environment_name_prefix *)
+  id : string option; [@option]  (** id *)
+  service_role : string option; [@option]  (** service_role *)
   state : string option; [@option]  (** state *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   compute_resources :
     aws_batch_compute_environment__compute_resources list;
@@ -79,14 +87,20 @@ type aws_batch_compute_environment = {
 [@@deriving yojson_of]
 (** aws_batch_compute_environment *)
 
-let aws_batch_compute_environment ?state ?tags ~type_
-    ~compute_resources ~eks_configuration ~update_policy
-    __resource_id =
+let aws_batch_compute_environment ?compute_environment_name
+    ?compute_environment_name_prefix ?id ?service_role ?state ?tags
+    ?tags_all ~type_ ~compute_resources ~eks_configuration
+    ~update_policy __resource_id =
   let __resource_type = "aws_batch_compute_environment" in
   let __resource =
     {
+      compute_environment_name;
+      compute_environment_name_prefix;
+      id;
+      service_role;
       state;
       tags;
+      tags_all;
       type_;
       compute_resources;
       eks_configuration;

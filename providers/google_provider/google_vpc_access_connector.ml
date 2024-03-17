@@ -22,33 +22,49 @@ type google_vpc_access_connector__timeouts = {
 (** google_vpc_access_connector__timeouts *)
 
 type google_vpc_access_connector = {
+  id : string option; [@option]  (** id *)
   ip_cidr_range : string option; [@option]
       (** The range of internal addresses that follows RFC 4632 notation. Example: '10.132.0.0/28'. *)
   machine_type : string option; [@option]
       (** Machine type of VM Instance underlying connector. Default is e2-micro *)
+  max_instances : float option; [@option]
+      (** Maximum value of instances in autoscaling group underlying the connector. *)
   max_throughput : float option; [@option]
       (** Maximum throughput of the connector in Mbps, must be greater than 'min_throughput'. Default is 300. *)
+  min_instances : float option; [@option]
+      (** Minimum value of instances in autoscaling group underlying the connector. *)
   min_throughput : float option; [@option]
       (** Minimum throughput of the connector in Mbps. Default and min is 200. *)
   name : string;
       (** The name of the resource (Max 25 characters). *)
+  network : string option; [@option]
+      (** Name or self_link of the VPC network. Required if 'ip_cidr_range' is set. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** Region where the VPC Access connector resides. If it is not provided, the provider region is used. *)
   subnet : google_vpc_access_connector__subnet list;
   timeouts : google_vpc_access_connector__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vpc_access_connector *)
 
-let google_vpc_access_connector ?ip_cidr_range ?machine_type
-    ?max_throughput ?min_throughput ?timeouts ~name ~subnet
-    __resource_id =
+let google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
+    ?max_instances ?max_throughput ?min_instances ?min_throughput
+    ?network ?project ?region ?timeouts ~name ~subnet __resource_id =
   let __resource_type = "google_vpc_access_connector" in
   let __resource =
     {
+      id;
       ip_cidr_range;
       machine_type;
+      max_instances;
       max_throughput;
+      min_instances;
       min_throughput;
       name;
+      network;
+      project;
+      region;
       subnet;
       timeouts;
     }

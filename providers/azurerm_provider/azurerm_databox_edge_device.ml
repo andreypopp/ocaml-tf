@@ -29,6 +29,7 @@ type azurerm_databox_edge_device__device_properties = {
 [@@deriving yojson_of]
 
 type azurerm_databox_edge_device = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -39,11 +40,19 @@ type azurerm_databox_edge_device = {
 [@@deriving yojson_of]
 (** azurerm_databox_edge_device *)
 
-let azurerm_databox_edge_device ?tags ?timeouts ~location ~name
+let azurerm_databox_edge_device ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_databox_edge_device" in
   let __resource =
-    { location; name; resource_group_name; sku_name; tags; timeouts }
+    {
+      id;
+      location;
+      name;
+      resource_group_name;
+      sku_name;
+      tags;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_databox_edge_device __resource);

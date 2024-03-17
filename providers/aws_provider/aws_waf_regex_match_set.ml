@@ -21,15 +21,17 @@ type aws_waf_regex_match_set__regex_match_tuple = {
 (** aws_waf_regex_match_set__regex_match_tuple *)
 
 type aws_waf_regex_match_set = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   regex_match_tuple : aws_waf_regex_match_set__regex_match_tuple list;
 }
 [@@deriving yojson_of]
 (** aws_waf_regex_match_set *)
 
-let aws_waf_regex_match_set ~name ~regex_match_tuple __resource_id =
+let aws_waf_regex_match_set ?id ~name ~regex_match_tuple
+    __resource_id =
   let __resource_type = "aws_waf_regex_match_set" in
-  let __resource = { name; regex_match_tuple } in
+  let __resource = { id; name; regex_match_tuple } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_waf_regex_match_set __resource);
   ()

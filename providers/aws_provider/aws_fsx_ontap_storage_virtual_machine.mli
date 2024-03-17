@@ -12,25 +12,21 @@ type aws_fsx_ontap_storage_virtual_machine__endpoints__smb = {
   dns_name : string;  (** dns_name *)
   ip_addresses : string list;  (** ip_addresses *)
 }
-[@@deriving yojson_of]
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__nfs = {
   dns_name : string;  (** dns_name *)
   ip_addresses : string list;  (** ip_addresses *)
 }
-[@@deriving yojson_of]
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__management = {
   dns_name : string;  (** dns_name *)
   ip_addresses : string list;  (** ip_addresses *)
 }
-[@@deriving yojson_of]
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__iscsi = {
   dns_name : string;  (** dns_name *)
   ip_addresses : string list;  (** ip_addresses *)
 }
-[@@deriving yojson_of]
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints = {
   iscsi :
@@ -44,14 +40,15 @@ type aws_fsx_ontap_storage_virtual_machine__endpoints = {
   smb : aws_fsx_ontap_storage_virtual_machine__endpoints__smb list;
       (** smb *)
 }
-[@@deriving yojson_of]
 
 type aws_fsx_ontap_storage_virtual_machine
 
 val aws_fsx_ontap_storage_virtual_machine :
+  ?id:string ->
   ?root_volume_security_style:string ->
   ?svm_admin_password:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_fsx_ontap_storage_virtual_machine__timeouts ->
   file_system_id:string ->
   name:string ->

@@ -41,8 +41,13 @@ type aws_ec2_fleet
 val aws_ec2_fleet :
   ?context:string ->
   ?excess_capacity_termination_policy:string ->
+  ?fleet_state:string ->
+  ?fulfilled_capacity:float ->
+  ?fulfilled_on_demand_capacity:float ->
+  ?id:string ->
   ?replace_unhealthy_instances:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?terminate_instances:bool ->
   ?terminate_instances_with_expiration:bool ->
   ?type_:string ->

@@ -14,6 +14,7 @@ type google_storage_bucket_iam_binding__condition = {
 
 type google_storage_bucket_iam_binding = {
   bucket : string;  (** bucket *)
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   role : string;  (** role *)
   condition : google_storage_bucket_iam_binding__condition list;
@@ -21,10 +22,10 @@ type google_storage_bucket_iam_binding = {
 [@@deriving yojson_of]
 (** google_storage_bucket_iam_binding *)
 
-let google_storage_bucket_iam_binding ~bucket ~members ~role
+let google_storage_bucket_iam_binding ?id ~bucket ~members ~role
     ~condition __resource_id =
   let __resource_type = "google_storage_bucket_iam_binding" in
-  let __resource = { bucket; members; role; condition } in
+  let __resource = { bucket; id; members; role; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_bucket_iam_binding __resource);
   ()

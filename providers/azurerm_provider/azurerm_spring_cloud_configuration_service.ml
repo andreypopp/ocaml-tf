@@ -35,6 +35,7 @@ type azurerm_spring_cloud_configuration_service__timeouts = {
 
 type azurerm_spring_cloud_configuration_service = {
   generation : string option; [@option]  (** generation *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   refresh_interval_in_seconds : float option; [@option]
       (** refresh_interval_in_seconds *)
@@ -47,7 +48,7 @@ type azurerm_spring_cloud_configuration_service = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_configuration_service *)
 
-let azurerm_spring_cloud_configuration_service ?generation
+let azurerm_spring_cloud_configuration_service ?generation ?id
     ?refresh_interval_in_seconds ?timeouts ~name
     ~spring_cloud_service_id ~repository __resource_id =
   let __resource_type =
@@ -56,6 +57,7 @@ let azurerm_spring_cloud_configuration_service ?generation
   let __resource =
     {
       generation;
+      id;
       name;
       refresh_interval_in_seconds;
       spring_cloud_service_id;

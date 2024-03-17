@@ -30,9 +30,19 @@ type aws_efs_file_system__size_in_bytes = {
 [@@deriving yojson_of]
 
 type aws_efs_file_system = {
+  availability_zone_name : string option; [@option]
+      (** availability_zone_name *)
+  creation_token : string option; [@option]  (** creation_token *)
+  encrypted : bool option; [@option]  (** encrypted *)
+  id : string option; [@option]  (** id *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
+  performance_mode : string option; [@option]
+      (** performance_mode *)
   provisioned_throughput_in_mibps : float option; [@option]
       (** provisioned_throughput_in_mibps *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   throughput_mode : string option; [@option]  (** throughput_mode *)
   lifecycle_policy : aws_efs_file_system__lifecycle_policy list;
   protection : aws_efs_file_system__protection list;
@@ -40,13 +50,22 @@ type aws_efs_file_system = {
 [@@deriving yojson_of]
 (** aws_efs_file_system *)
 
-let aws_efs_file_system ?provisioned_throughput_in_mibps ?tags
-    ?throughput_mode ~lifecycle_policy ~protection __resource_id =
+let aws_efs_file_system ?availability_zone_name ?creation_token
+    ?encrypted ?id ?kms_key_id ?performance_mode
+    ?provisioned_throughput_in_mibps ?tags ?tags_all ?throughput_mode
+    ~lifecycle_policy ~protection __resource_id =
   let __resource_type = "aws_efs_file_system" in
   let __resource =
     {
+      availability_zone_name;
+      creation_token;
+      encrypted;
+      id;
+      kms_key_id;
+      performance_mode;
       provisioned_throughput_in_mibps;
       tags;
+      tags_all;
       throughput_mode;
       lifecycle_policy;
       protection;

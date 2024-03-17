@@ -17,6 +17,7 @@ type azurerm_sentinel_data_connector_threat_intelligence_taxii = {
   api_root_url : string;  (** api_root_url *)
   collection_id : string;  (** collection_id *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   lookback_date : string option; [@option]  (** lookback_date *)
@@ -24,6 +25,7 @@ type azurerm_sentinel_data_connector_threat_intelligence_taxii = {
   password : string option; [@option]  (** password *)
   polling_frequency : string option; [@option]
       (** polling_frequency *)
+  tenant_id : string option; [@option]  (** tenant_id *)
   user_name : string option; [@option]  (** user_name *)
   timeouts :
     azurerm_sentinel_data_connector_threat_intelligence_taxii__timeouts
@@ -32,9 +34,9 @@ type azurerm_sentinel_data_connector_threat_intelligence_taxii = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_threat_intelligence_taxii *)
 
-let azurerm_sentinel_data_connector_threat_intelligence_taxii
-    ?lookback_date ?password ?polling_frequency ?user_name ?timeouts
-    ~api_root_url ~collection_id ~display_name
+let azurerm_sentinel_data_connector_threat_intelligence_taxii ?id
+    ?lookback_date ?password ?polling_frequency ?tenant_id ?user_name
+    ?timeouts ~api_root_url ~collection_id ~display_name
     ~log_analytics_workspace_id ~name __resource_id =
   let __resource_type =
     "azurerm_sentinel_data_connector_threat_intelligence_taxii"
@@ -44,11 +46,13 @@ let azurerm_sentinel_data_connector_threat_intelligence_taxii
       api_root_url;
       collection_id;
       display_name;
+      id;
       log_analytics_workspace_id;
       lookback_date;
       name;
       password;
       polling_frequency;
+      tenant_id;
       user_name;
       timeouts;
     }

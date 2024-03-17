@@ -43,6 +43,7 @@ type kubernetes_storage_class__metadata = {
 type kubernetes_storage_class = {
   allow_volume_expansion : bool option; [@option]
       (** Indicates whether the storage class allow volume expand *)
+  id : string option; [@option]  (** id *)
   mount_options : string list option; [@option]
       (** Persistent Volumes that are dynamically created by a storage class will have the mount options specified *)
   parameters : (string * string) list option; [@option]
@@ -60,14 +61,15 @@ type kubernetes_storage_class = {
 [@@deriving yojson_of]
 (** kubernetes_storage_class *)
 
-let kubernetes_storage_class ?allow_volume_expansion ?mount_options
-    ?parameters ?reclaim_policy ?volume_binding_mode
+let kubernetes_storage_class ?allow_volume_expansion ?id
+    ?mount_options ?parameters ?reclaim_policy ?volume_binding_mode
     ~storage_provisioner ~allowed_topologies ~metadata __resource_id
     =
   let __resource_type = "kubernetes_storage_class" in
   let __resource =
     {
       allow_volume_expansion;
+      id;
       mount_options;
       parameters;
       reclaim_policy;

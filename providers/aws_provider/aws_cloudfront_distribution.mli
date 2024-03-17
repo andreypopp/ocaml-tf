@@ -40,40 +40,39 @@ type aws_cloudfront_distribution__trusted_key_groups__items = {
   key_group_id : string;  (** key_group_id *)
   key_pair_ids : string list;  (** key_pair_ids *)
 }
-[@@deriving yojson_of]
 
 type aws_cloudfront_distribution__trusted_key_groups = {
   enabled : bool;  (** enabled *)
   items : aws_cloudfront_distribution__trusted_key_groups__items list;
       (** items *)
 }
-[@@deriving yojson_of]
 
 type aws_cloudfront_distribution__trusted_signers__items = {
   aws_account_number : string;  (** aws_account_number *)
   key_pair_ids : string list;  (** key_pair_ids *)
 }
-[@@deriving yojson_of]
 
 type aws_cloudfront_distribution__trusted_signers = {
   enabled : bool;  (** enabled *)
   items : aws_cloudfront_distribution__trusted_signers__items list;
       (** items *)
 }
-[@@deriving yojson_of]
 
 type aws_cloudfront_distribution
 
 val aws_cloudfront_distribution :
   ?aliases:string list ->
   ?comment:string ->
+  ?continuous_deployment_policy_id:string ->
   ?default_root_object:string ->
   ?http_version:string ->
+  ?id:string ->
   ?is_ipv6_enabled:bool ->
   ?price_class:string ->
   ?retain_on_delete:bool ->
   ?staging:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?wait_for_deployment:bool ->
   ?web_acl_id:string ->
   enabled:bool ->

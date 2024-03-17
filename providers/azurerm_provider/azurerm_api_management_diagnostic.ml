@@ -158,12 +158,21 @@ type azurerm_api_management_diagnostic__timeouts = {
 (** azurerm_api_management_diagnostic__timeouts *)
 
 type azurerm_api_management_diagnostic = {
+  always_log_errors : bool option; [@option]
+      (** always_log_errors *)
   api_management_logger_id : string;  (** api_management_logger_id *)
   api_management_name : string;  (** api_management_name *)
+  http_correlation_protocol : string option; [@option]
+      (** http_correlation_protocol *)
+  id : string option; [@option]  (** id *)
   identifier : string;  (** identifier *)
+  log_client_ip : bool option; [@option]  (** log_client_ip *)
   operation_name_format : string option; [@option]
       (** operation_name_format *)
   resource_group_name : string;  (** resource_group_name *)
+  sampling_percentage : float option; [@option]
+      (** sampling_percentage *)
+  verbosity : string option; [@option]  (** verbosity *)
   backend_request :
     azurerm_api_management_diagnostic__backend_request list;
   backend_response :
@@ -177,19 +186,26 @@ type azurerm_api_management_diagnostic = {
 [@@deriving yojson_of]
 (** azurerm_api_management_diagnostic *)
 
-let azurerm_api_management_diagnostic ?operation_name_format
-    ?timeouts ~api_management_logger_id ~api_management_name
-    ~identifier ~resource_group_name ~backend_request
-    ~backend_response ~frontend_request ~frontend_response
-    __resource_id =
+let azurerm_api_management_diagnostic ?always_log_errors
+    ?http_correlation_protocol ?id ?log_client_ip
+    ?operation_name_format ?sampling_percentage ?verbosity ?timeouts
+    ~api_management_logger_id ~api_management_name ~identifier
+    ~resource_group_name ~backend_request ~backend_response
+    ~frontend_request ~frontend_response __resource_id =
   let __resource_type = "azurerm_api_management_diagnostic" in
   let __resource =
     {
+      always_log_errors;
       api_management_logger_id;
       api_management_name;
+      http_correlation_protocol;
+      id;
       identifier;
+      log_client_ip;
       operation_name_format;
       resource_group_name;
+      sampling_percentage;
+      verbosity;
       backend_request;
       backend_response;
       frontend_request;

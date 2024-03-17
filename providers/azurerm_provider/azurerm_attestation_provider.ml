@@ -21,6 +21,7 @@ type azurerm_attestation_provider__timeouts = {
 (** azurerm_attestation_provider__timeouts *)
 
 type azurerm_attestation_provider = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   open_enclave_policy_base64 : string option; [@option]
@@ -41,13 +42,14 @@ type azurerm_attestation_provider = {
 [@@deriving yojson_of]
 (** azurerm_attestation_provider *)
 
-let azurerm_attestation_provider ?open_enclave_policy_base64
+let azurerm_attestation_provider ?id ?open_enclave_policy_base64
     ?policy_signing_certificate_data ?sev_snp_policy_base64
     ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ?timeouts
     ~location ~name ~resource_group_name ~policy __resource_id =
   let __resource_type = "azurerm_attestation_provider" in
   let __resource =
     {
+      id;
       location;
       name;
       open_enclave_policy_base64;

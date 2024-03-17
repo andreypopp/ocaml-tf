@@ -11,7 +11,10 @@ type aws_imagebuilder_image_recipe
 
 val aws_imagebuilder_image_recipe :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?user_data_base64:string ->
   ?working_directory:string ->
   name:string ->
   parent_image:string ->

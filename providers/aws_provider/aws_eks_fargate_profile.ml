@@ -21,26 +21,31 @@ type aws_eks_fargate_profile__timeouts = {
 type aws_eks_fargate_profile = {
   cluster_name : string;  (** cluster_name *)
   fargate_profile_name : string;  (** fargate_profile_name *)
+  id : string option; [@option]  (** id *)
   pod_execution_role_arn : string;  (** pod_execution_role_arn *)
   subnet_ids : string list option; [@option]  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   selector : aws_eks_fargate_profile__selector list;
   timeouts : aws_eks_fargate_profile__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_eks_fargate_profile *)
 
-let aws_eks_fargate_profile ?subnet_ids ?tags ?timeouts ~cluster_name
-    ~fargate_profile_name ~pod_execution_role_arn ~selector
-    __resource_id =
+let aws_eks_fargate_profile ?id ?subnet_ids ?tags ?tags_all ?timeouts
+    ~cluster_name ~fargate_profile_name ~pod_execution_role_arn
+    ~selector __resource_id =
   let __resource_type = "aws_eks_fargate_profile" in
   let __resource =
     {
       cluster_name;
       fargate_profile_name;
+      id;
       pod_execution_role_arn;
       subnet_ids;
       tags;
+      tags_all;
       selector;
       timeouts;
     }

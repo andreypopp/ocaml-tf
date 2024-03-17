@@ -6,6 +6,7 @@ type azurerm_monitor_workspace__timeouts
 type azurerm_monitor_workspace
 
 val azurerm_monitor_workspace :
+  ?id:string ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_monitor_workspace__timeouts ->

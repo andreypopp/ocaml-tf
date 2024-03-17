@@ -13,7 +13,9 @@ type google_secret_manager_secret_iam_binding__condition = {
 (** google_secret_manager_secret_iam_binding__condition *)
 
 type google_secret_manager_secret_iam_binding = {
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
+  project : string option; [@option]  (** project *)
   role : string;  (** role *)
   secret_id : string;  (** secret_id *)
   condition :
@@ -22,10 +24,12 @@ type google_secret_manager_secret_iam_binding = {
 [@@deriving yojson_of]
 (** google_secret_manager_secret_iam_binding *)
 
-let google_secret_manager_secret_iam_binding ~members ~role
-    ~secret_id ~condition __resource_id =
+let google_secret_manager_secret_iam_binding ?id ?project ~members
+    ~role ~secret_id ~condition __resource_id =
   let __resource_type = "google_secret_manager_secret_iam_binding" in
-  let __resource = { members; role; secret_id; condition } in
+  let __resource =
+    { id; members; project; role; secret_id; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_secret_manager_secret_iam_binding __resource);
   ()

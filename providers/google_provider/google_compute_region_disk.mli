@@ -11,7 +11,13 @@ type google_compute_region_disk
 
 val google_compute_region_disk :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?licenses:string list ->
+  ?physical_block_size_bytes:float ->
+  ?project:string ->
+  ?region:string ->
+  ?size:float ->
   ?snapshot:string ->
   ?source_disk:string ->
   ?type_:string ->

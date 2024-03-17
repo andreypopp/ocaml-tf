@@ -6,6 +6,7 @@ type aws_kms_custom_key_store__timeouts
 type aws_kms_custom_key_store
 
 val aws_kms_custom_key_store :
+  ?id:string ->
   ?timeouts:aws_kms_custom_key_store__timeouts ->
   cloud_hsm_cluster_id:string ->
   custom_key_store_name:string ->

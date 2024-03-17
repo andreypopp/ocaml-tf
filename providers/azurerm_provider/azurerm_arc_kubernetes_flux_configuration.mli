@@ -13,6 +13,7 @@ type azurerm_arc_kubernetes_flux_configuration
 
 val azurerm_arc_kubernetes_flux_configuration :
   ?continuous_reconciliation_enabled:bool ->
+  ?id:string ->
   ?scope:string ->
   ?timeouts:azurerm_arc_kubernetes_flux_configuration__timeouts ->
   cluster_id:string ->

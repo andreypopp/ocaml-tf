@@ -33,6 +33,7 @@ type azurerm_mssql_virtual_machine_group__wsfc_domain_profile = {
 (** azurerm_mssql_virtual_machine_group__wsfc_domain_profile *)
 
 type azurerm_mssql_virtual_machine_group = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -46,12 +47,13 @@ type azurerm_mssql_virtual_machine_group = {
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_machine_group *)
 
-let azurerm_mssql_virtual_machine_group ?tags ?timeouts ~location
+let azurerm_mssql_virtual_machine_group ?id ?tags ?timeouts ~location
     ~name ~resource_group_name ~sql_image_offer ~sql_image_sku
     ~wsfc_domain_profile __resource_id =
   let __resource_type = "azurerm_mssql_virtual_machine_group" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

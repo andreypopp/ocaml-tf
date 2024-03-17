@@ -19,6 +19,7 @@ type azurerm_data_factory_linked_service_azure_search = {
   annotations : string list option; [@option]  (** annotations *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -33,7 +34,7 @@ type azurerm_data_factory_linked_service_azure_search = {
 (** azurerm_data_factory_linked_service_azure_search *)
 
 let azurerm_data_factory_linked_service_azure_search
-    ?additional_properties ?annotations ?description
+    ?additional_properties ?annotations ?description ?id
     ?integration_runtime_name ?parameters ?timeouts ~data_factory_id
     ~name ~search_service_key ~url __resource_id =
   let __resource_type =
@@ -45,6 +46,7 @@ let azurerm_data_factory_linked_service_azure_search
       annotations;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

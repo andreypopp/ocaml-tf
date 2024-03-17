@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_sagemaker_studio_lifecycle_config = {
+  id : string option; [@option]  (** id *)
   studio_lifecycle_config_app_type : string;
       (** studio_lifecycle_config_app_type *)
   studio_lifecycle_config_content : string;
@@ -12,21 +13,24 @@ type aws_sagemaker_studio_lifecycle_config = {
   studio_lifecycle_config_name : string;
       (** studio_lifecycle_config_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_studio_lifecycle_config *)
 
-let aws_sagemaker_studio_lifecycle_config ?tags
+let aws_sagemaker_studio_lifecycle_config ?id ?tags ?tags_all
     ~studio_lifecycle_config_app_type
     ~studio_lifecycle_config_content ~studio_lifecycle_config_name
     __resource_id =
   let __resource_type = "aws_sagemaker_studio_lifecycle_config" in
   let __resource =
     {
+      id;
       studio_lifecycle_config_app_type;
       studio_lifecycle_config_content;
       studio_lifecycle_config_name;
       tags;
+      tags_all;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

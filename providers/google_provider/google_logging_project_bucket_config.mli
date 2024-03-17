@@ -7,7 +7,9 @@ type google_logging_project_bucket_config__index_configs
 type google_logging_project_bucket_config
 
 val google_logging_project_bucket_config :
+  ?description:string ->
   ?enable_analytics:bool ->
+  ?id:string ->
   ?locked:bool ->
   ?retention_days:float ->
   bucket_id:string ->

@@ -8,14 +8,19 @@ type aws_grafana_workspace__vpc_configuration
 type aws_grafana_workspace
 
 val aws_grafana_workspace :
+  ?configuration:string ->
   ?data_sources:string list ->
   ?description:string ->
+  ?grafana_version:string ->
+  ?id:string ->
+  ?name:string ->
   ?notification_destinations:string list ->
   ?organization_role_name:string ->
   ?organizational_units:string list ->
   ?role_arn:string ->
   ?stack_set_name:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_grafana_workspace__timeouts ->
   account_access_type:string ->
   authentication_providers:string list ->

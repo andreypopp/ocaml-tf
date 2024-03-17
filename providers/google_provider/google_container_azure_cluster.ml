@@ -156,8 +156,11 @@ Please refer to the field `effective_annotations` for all of the annotations pre
       (** Name of the AzureClient. The `AzureClient` resource must reside on the same GCP project and region as the `AzureCluster`. `AzureClient` names are formatted as `projects/<project-number>/locations/<region>/azureClients/<client-id>`. See Resource Names (https:cloud.google.com/apis/design/resource_names) for more details on Google Cloud resource names. *)
   description : string option; [@option]
       (** Optional. A human readable description of this cluster. Cannot be longer than 255 UTF-8 encoded bytes. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource *)
   name : string;  (** The name of this resource. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   resource_group_id : string;
       (** The ARM ID of the resource group where the cluster resources are deployed. For example: `/subscriptions/*/resourceGroups/*` *)
   authorization : google_container_azure_cluster__authorization list;
@@ -173,9 +176,9 @@ Please refer to the field `effective_annotations` for all of the annotations pre
 (** google_container_azure_cluster *)
 
 let google_container_azure_cluster ?annotations ?client ?description
-    ?timeouts ~azure_region ~location ~name ~resource_group_id
-    ~authorization ~azure_services_authentication ~control_plane
-    ~fleet ~networking __resource_id =
+    ?id ?project ?timeouts ~azure_region ~location ~name
+    ~resource_group_id ~authorization ~azure_services_authentication
+    ~control_plane ~fleet ~networking __resource_id =
   let __resource_type = "google_container_azure_cluster" in
   let __resource =
     {
@@ -183,8 +186,10 @@ let google_container_azure_cluster ?annotations ?client ?description
       azure_region;
       client;
       description;
+      id;
       location;
       name;
+      project;
       resource_group_id;
       authorization;
       azure_services_authentication;

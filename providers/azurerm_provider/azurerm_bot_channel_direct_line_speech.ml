@@ -25,6 +25,7 @@ type azurerm_bot_channel_direct_line_speech = {
       (** custom_speech_model_id *)
   custom_voice_deployment_id : string option; [@option]
       (** custom_voice_deployment_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts : azurerm_bot_channel_direct_line_speech__timeouts option;
@@ -33,7 +34,7 @@ type azurerm_bot_channel_direct_line_speech = {
 (** azurerm_bot_channel_direct_line_speech *)
 
 let azurerm_bot_channel_direct_line_speech ?cognitive_account_id
-    ?custom_speech_model_id ?custom_voice_deployment_id ?timeouts
+    ?custom_speech_model_id ?custom_voice_deployment_id ?id ?timeouts
     ~bot_name ~cognitive_service_access_key
     ~cognitive_service_location ~location ~resource_group_name
     __resource_id =
@@ -46,6 +47,7 @@ let azurerm_bot_channel_direct_line_speech ?cognitive_account_id
       cognitive_service_location;
       custom_speech_model_id;
       custom_voice_deployment_id;
+      id;
       location;
       resource_group_name;
       timeouts;

@@ -9,6 +9,7 @@ type aws_appsync_api_cache = {
   api_id : string;  (** api_id *)
   at_rest_encryption_enabled : bool option; [@option]
       (** at_rest_encryption_enabled *)
+  id : string option; [@option]  (** id *)
   transit_encryption_enabled : bool option; [@option]
       (** transit_encryption_enabled *)
   ttl : float;  (** ttl *)
@@ -17,7 +18,7 @@ type aws_appsync_api_cache = {
 [@@deriving yojson_of]
 (** aws_appsync_api_cache *)
 
-let aws_appsync_api_cache ?at_rest_encryption_enabled
+let aws_appsync_api_cache ?at_rest_encryption_enabled ?id
     ?transit_encryption_enabled ~api_caching_behavior ~api_id ~ttl
     ~type_ __resource_id =
   let __resource_type = "aws_appsync_api_cache" in
@@ -26,6 +27,7 @@ let aws_appsync_api_cache ?at_rest_encryption_enabled
       api_caching_behavior;
       api_id;
       at_rest_encryption_enabled;
+      id;
       transit_encryption_enabled;
       ttl;
       type_;

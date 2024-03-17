@@ -292,6 +292,7 @@ type google_securityposture_posture__timeouts = {
 type google_securityposture_posture = {
   description : string option; [@option]
       (** Description of the posture. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** Location of the resource, eg: global. *)
   parent : string;
       (** The parent of the resource, an organization. Format should be 'organizations/{organization_id}'. *)
@@ -306,12 +307,13 @@ with other field updates. Possible values: [DEPRECATED, DRAFT, ACTIVE] *)
 [@@deriving yojson_of]
 (** google_securityposture_posture *)
 
-let google_securityposture_posture ?description ?timeouts ~location
-    ~parent ~posture_id ~state ~policy_sets __resource_id =
+let google_securityposture_posture ?description ?id ?timeouts
+    ~location ~parent ~posture_id ~state ~policy_sets __resource_id =
   let __resource_type = "google_securityposture_posture" in
   let __resource =
     {
       description;
+      id;
       location;
       parent;
       posture_id;

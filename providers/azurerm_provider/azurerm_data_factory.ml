@@ -60,6 +60,7 @@ type azurerm_data_factory = {
       (** customer_managed_key_id *)
   customer_managed_key_identity_id : string option; [@option]
       (** customer_managed_key_identity_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   managed_virtual_network_enabled : bool option; [@option]
       (** managed_virtual_network_enabled *)
@@ -80,7 +81,7 @@ type azurerm_data_factory = {
 (** azurerm_data_factory *)
 
 let azurerm_data_factory ?customer_managed_key_id
-    ?customer_managed_key_identity_id
+    ?customer_managed_key_identity_id ?id
     ?managed_virtual_network_enabled ?public_network_enabled
     ?purview_id ?tags ?timeouts ~location ~name ~resource_group_name
     ~github_configuration ~global_parameter ~identity
@@ -90,6 +91,7 @@ let azurerm_data_factory ?customer_managed_key_id
     {
       customer_managed_key_id;
       customer_managed_key_identity_id;
+      id;
       location;
       managed_virtual_network_enabled;
       name;

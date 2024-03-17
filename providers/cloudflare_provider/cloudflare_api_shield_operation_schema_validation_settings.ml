@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type cloudflare_api_shield_operation_schema_validation_settings = {
+  id : string option; [@option]  (** id *)
   mitigation_action : string option; [@option]
       (** The mitigation action to apply to this operation. *)
   operation_id : string;
@@ -16,12 +17,14 @@ type cloudflare_api_shield_operation_schema_validation_settings = {
 (** Provides a resource to manage operation-level settings in API Shield Schema Validation 2.0.
  *)
 
-let cloudflare_api_shield_operation_schema_validation_settings
+let cloudflare_api_shield_operation_schema_validation_settings ?id
     ?mitigation_action ~operation_id ~zone_id __resource_id =
   let __resource_type =
     "cloudflare_api_shield_operation_schema_validation_settings"
   in
-  let __resource = { mitigation_action; operation_id; zone_id } in
+  let __resource =
+    { id; mitigation_action; operation_id; zone_id }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_api_shield_operation_schema_validation_settings
        __resource);

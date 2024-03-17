@@ -33,6 +33,7 @@ type azurerm_data_factory_trigger_blob_event = {
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
   events : string list;  (** events *)
+  id : string option; [@option]  (** id *)
   ignore_empty_blobs : bool option; [@option]
       (** ignore_empty_blobs *)
   name : string;  (** name *)
@@ -45,9 +46,9 @@ type azurerm_data_factory_trigger_blob_event = {
 
 let azurerm_data_factory_trigger_blob_event ?activated
     ?additional_properties ?annotations ?blob_path_begins_with
-    ?blob_path_ends_with ?description ?ignore_empty_blobs ?timeouts
-    ~data_factory_id ~events ~name ~storage_account_id ~pipeline
-    __resource_id =
+    ?blob_path_ends_with ?description ?id ?ignore_empty_blobs
+    ?timeouts ~data_factory_id ~events ~name ~storage_account_id
+    ~pipeline __resource_id =
   let __resource_type = "azurerm_data_factory_trigger_blob_event" in
   let __resource =
     {
@@ -59,6 +60,7 @@ let azurerm_data_factory_trigger_blob_event ?activated
       data_factory_id;
       description;
       events;
+      id;
       ignore_empty_blobs;
       name;
       storage_account_id;

@@ -20,6 +20,9 @@ type aws_securityhub_organization_configuration__timeouts = {
 
 type aws_securityhub_organization_configuration = {
   auto_enable : bool;  (** auto_enable *)
+  auto_enable_standards : string option; [@option]
+      (** auto_enable_standards *)
+  id : string option; [@option]  (** id *)
   organization_configuration :
     aws_securityhub_organization_configuration__organization_configuration
     list;
@@ -29,13 +32,20 @@ type aws_securityhub_organization_configuration = {
 [@@deriving yojson_of]
 (** aws_securityhub_organization_configuration *)
 
-let aws_securityhub_organization_configuration ?timeouts ~auto_enable
-    ~organization_configuration __resource_id =
+let aws_securityhub_organization_configuration ?auto_enable_standards
+    ?id ?timeouts ~auto_enable ~organization_configuration
+    __resource_id =
   let __resource_type =
     "aws_securityhub_organization_configuration"
   in
   let __resource =
-    { auto_enable; organization_configuration; timeouts }
+    {
+      auto_enable;
+      auto_enable_standards;
+      id;
+      organization_configuration;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_organization_configuration __resource);

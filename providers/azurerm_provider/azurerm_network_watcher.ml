@@ -14,6 +14,7 @@ type azurerm_network_watcher__timeouts = {
 (** azurerm_network_watcher__timeouts *)
 
 type azurerm_network_watcher = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -23,11 +24,11 @@ type azurerm_network_watcher = {
 [@@deriving yojson_of]
 (** azurerm_network_watcher *)
 
-let azurerm_network_watcher ?tags ?timeouts ~location ~name
+let azurerm_network_watcher ?id ?tags ?timeouts ~location ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_network_watcher" in
   let __resource =
-    { location; name; resource_group_name; tags; timeouts }
+    { id; location; name; resource_group_name; tags; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_watcher __resource);

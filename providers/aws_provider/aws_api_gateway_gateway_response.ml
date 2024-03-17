@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_api_gateway_gateway_response = {
+  id : string option; [@option]  (** id *)
   response_parameters : (string * string) list option; [@option]
       (** response_parameters *)
   response_templates : (string * string) list option; [@option]
@@ -16,12 +17,13 @@ type aws_api_gateway_gateway_response = {
 [@@deriving yojson_of]
 (** aws_api_gateway_gateway_response *)
 
-let aws_api_gateway_gateway_response ?response_parameters
+let aws_api_gateway_gateway_response ?id ?response_parameters
     ?response_templates ?status_code ~response_type ~rest_api_id
     __resource_id =
   let __resource_type = "aws_api_gateway_gateway_response" in
   let __resource =
     {
+      id;
       response_parameters;
       response_templates;
       response_type;

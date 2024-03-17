@@ -8,6 +8,7 @@ type aws_route53recoverycontrolconfig_safety_rule
 val aws_route53recoverycontrolconfig_safety_rule :
   ?asserted_controls:string list ->
   ?gating_controls:string list ->
+  ?id:string ->
   ?target_controls:string list ->
   control_panel_arn:string ->
   name:string ->

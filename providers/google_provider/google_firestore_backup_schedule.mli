@@ -9,6 +9,8 @@ type google_firestore_backup_schedule
 
 val google_firestore_backup_schedule :
   ?database:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_firestore_backup_schedule__timeouts ->
   retention:string ->
   daily_recurrence:

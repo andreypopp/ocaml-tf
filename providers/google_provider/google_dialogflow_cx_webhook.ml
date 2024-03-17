@@ -52,6 +52,7 @@ type google_dialogflow_cx_webhook = {
       (** Indicates if automatic spell correction is enabled in detect intent requests. *)
   enable_stackdriver_logging : bool option; [@option]
       (** Determines whether this agent should log conversation queries. *)
+  id : string option; [@option]  (** id *)
   parent : string option; [@option]
       (** The agent to create a webhook for.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
@@ -69,9 +70,9 @@ Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
 (** google_dialogflow_cx_webhook *)
 
 let google_dialogflow_cx_webhook ?disabled ?enable_spell_correction
-    ?enable_stackdriver_logging ?parent ?security_settings ?timeout
-    ?timeouts ~display_name ~generic_web_service ~service_directory
-    __resource_id =
+    ?enable_stackdriver_logging ?id ?parent ?security_settings
+    ?timeout ?timeouts ~display_name ~generic_web_service
+    ~service_directory __resource_id =
   let __resource_type = "google_dialogflow_cx_webhook" in
   let __resource =
     {
@@ -79,6 +80,7 @@ let google_dialogflow_cx_webhook ?disabled ?enable_spell_correction
       display_name;
       enable_spell_correction;
       enable_stackdriver_logging;
+      id;
       parent;
       security_settings;
       timeout;

@@ -22,6 +22,8 @@ type aws_chimesdkvoice_voice_profile_domain = {
   description : string option; [@option]  (** description *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   server_side_encryption_configuration :
     aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration
     list;
@@ -31,7 +33,7 @@ type aws_chimesdkvoice_voice_profile_domain = {
 (** aws_chimesdkvoice_voice_profile_domain *)
 
 let aws_chimesdkvoice_voice_profile_domain ?description ?tags
-    ?timeouts ~name ~server_side_encryption_configuration
+    ?tags_all ?timeouts ~name ~server_side_encryption_configuration
     __resource_id =
   let __resource_type = "aws_chimesdkvoice_voice_profile_domain" in
   let __resource =
@@ -39,6 +41,7 @@ let aws_chimesdkvoice_voice_profile_domain ?description ?tags
       description;
       name;
       tags;
+      tags_all;
       server_side_encryption_configuration;
       timeouts;
     }

@@ -10,6 +10,10 @@ val google_compute_target_pool :
   ?description:string ->
   ?failover_ratio:float ->
   ?health_checks:string list ->
+  ?id:string ->
+  ?instances:string list ->
+  ?project:string ->
+  ?region:string ->
   ?session_affinity:string ->
   ?timeouts:google_compute_target_pool__timeouts ->
   name:string ->

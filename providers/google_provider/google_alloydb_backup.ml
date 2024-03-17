@@ -46,6 +46,7 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
       (** User-provided description of the backup. *)
   display_name : string option; [@option]
       (** User-settable and human-readable display name for the Backup. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-defined labels for the alloydb backup. An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }.
 
@@ -54,15 +55,18 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;
       (** The location where the alloydb backup should reside. *)
+  project : string option; [@option]  (** project *)
+  type_ : string option; [@option] [@key "type"]
+      (** The backup type, which suggests the trigger for the backup. Possible values: [TYPE_UNSPECIFIED, ON_DEMAND, AUTOMATED, CONTINUOUS] *)
   encryption_config : google_alloydb_backup__encryption_config list;
   timeouts : google_alloydb_backup__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_alloydb_backup *)
 
-let google_alloydb_backup ?annotations ?description ?display_name
-    ?labels ?timeouts ~backup_id ~cluster_name ~location
-    ~encryption_config __resource_id =
+let google_alloydb_backup ?annotations ?description ?display_name ?id
+    ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
+    ~location ~encryption_config __resource_id =
   let __resource_type = "google_alloydb_backup" in
   let __resource =
     {
@@ -71,8 +75,11 @@ let google_alloydb_backup ?annotations ?description ?display_name
       cluster_name;
       description;
       display_name;
+      id;
       labels;
       location;
+      project;
+      type_;
       encryption_config;
       timeouts;
     }

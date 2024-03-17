@@ -50,6 +50,7 @@ type azurerm_dashboard_grafana = {
       (** deterministic_outbound_ip_enabled *)
   grafana_major_version : string option; [@option]
       (** grafana_major_version *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -71,7 +72,7 @@ type azurerm_dashboard_grafana = {
 
 let azurerm_dashboard_grafana ?api_key_enabled
     ?auto_generated_domain_name_label_scope
-    ?deterministic_outbound_ip_enabled ?grafana_major_version
+    ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
     ?public_network_access_enabled ?sku ?tags
     ?zone_redundancy_enabled ?timeouts ~location ~name
     ~resource_group_name ~azure_monitor_workspace_integrations
@@ -83,6 +84,7 @@ let azurerm_dashboard_grafana ?api_key_enabled
       auto_generated_domain_name_label_scope;
       deterministic_outbound_ip_enabled;
       grafana_major_version;
+      id;
       location;
       name;
       public_network_access_enabled;

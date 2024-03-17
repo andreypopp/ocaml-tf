@@ -47,6 +47,7 @@ type aws_opensearch_outbound_connection = {
       (** accept_connection *)
   connection_alias : string;  (** connection_alias *)
   connection_mode : string option; [@option]  (** connection_mode *)
+  id : string option; [@option]  (** id *)
   connection_properties :
     aws_opensearch_outbound_connection__connection_properties list;
   local_domain_info :
@@ -59,7 +60,7 @@ type aws_opensearch_outbound_connection = {
 (** aws_opensearch_outbound_connection *)
 
 let aws_opensearch_outbound_connection ?accept_connection
-    ?connection_mode ?timeouts ~connection_alias
+    ?connection_mode ?id ?timeouts ~connection_alias
     ~connection_properties ~local_domain_info ~remote_domain_info
     __resource_id =
   let __resource_type = "aws_opensearch_outbound_connection" in
@@ -68,6 +69,7 @@ let aws_opensearch_outbound_connection ?accept_connection
       accept_connection;
       connection_alias;
       connection_mode;
+      id;
       connection_properties;
       local_domain_info;
       remote_domain_info;

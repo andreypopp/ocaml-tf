@@ -12,6 +12,7 @@ val azurerm_network_security_rule :
   ?destination_application_security_group_ids:string list ->
   ?destination_port_range:string ->
   ?destination_port_ranges:string list ->
+  ?id:string ->
   ?source_address_prefix:string ->
   ?source_address_prefixes:string list ->
   ?source_application_security_group_ids:string list ->

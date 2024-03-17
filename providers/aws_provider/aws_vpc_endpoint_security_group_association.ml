@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_vpc_endpoint_security_group_association = {
+  id : string option; [@option]  (** id *)
   replace_default_association : bool option; [@option]
       (** replace_default_association *)
   security_group_id : string;  (** security_group_id *)
@@ -13,7 +14,7 @@ type aws_vpc_endpoint_security_group_association = {
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_security_group_association *)
 
-let aws_vpc_endpoint_security_group_association
+let aws_vpc_endpoint_security_group_association ?id
     ?replace_default_association ~security_group_id ~vpc_endpoint_id
     __resource_id =
   let __resource_type =
@@ -21,6 +22,7 @@ let aws_vpc_endpoint_security_group_association
   in
   let __resource =
     {
+      id;
       replace_default_association;
       security_group_id;
       vpc_endpoint_id;

@@ -43,6 +43,7 @@ type aws_glue_security_configuration__encryption_configuration = {
 (** aws_glue_security_configuration__encryption_configuration *)
 
 type aws_glue_security_configuration = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   encryption_configuration :
     aws_glue_security_configuration__encryption_configuration list;
@@ -50,10 +51,10 @@ type aws_glue_security_configuration = {
 [@@deriving yojson_of]
 (** aws_glue_security_configuration *)
 
-let aws_glue_security_configuration ~name ~encryption_configuration
-    __resource_id =
+let aws_glue_security_configuration ?id ~name
+    ~encryption_configuration __resource_id =
   let __resource_type = "aws_glue_security_configuration" in
-  let __resource = { name; encryption_configuration } in
+  let __resource = { id; name; encryption_configuration } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_security_configuration __resource);
   ()

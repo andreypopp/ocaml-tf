@@ -6,6 +6,7 @@ type azurerm_signalr_service_custom_domain__timeouts
 type azurerm_signalr_service_custom_domain
 
 val azurerm_signalr_service_custom_domain :
+  ?id:string ->
   ?timeouts:azurerm_signalr_service_custom_domain__timeouts ->
   domain_name:string ->
   name:string ->

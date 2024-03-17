@@ -6,6 +6,7 @@ type azurerm_active_directory_domain_service_trust__timeouts
 type azurerm_active_directory_domain_service_trust
 
 val azurerm_active_directory_domain_service_trust :
+  ?id:string ->
   ?timeouts:azurerm_active_directory_domain_service_trust__timeouts ->
   domain_service_id:string ->
   name:string ->

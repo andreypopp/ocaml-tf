@@ -13,6 +13,7 @@ type azurerm_mariadb_configuration__timeouts = {
 (** azurerm_mariadb_configuration__timeouts *)
 
 type azurerm_mariadb_configuration = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   server_name : string;  (** server_name *)
@@ -22,11 +23,11 @@ type azurerm_mariadb_configuration = {
 [@@deriving yojson_of]
 (** azurerm_mariadb_configuration *)
 
-let azurerm_mariadb_configuration ?timeouts ~name
+let azurerm_mariadb_configuration ?id ?timeouts ~name
     ~resource_group_name ~server_name ~value __resource_id =
   let __resource_type = "azurerm_mariadb_configuration" in
   let __resource =
-    { name; resource_group_name; server_name; value; timeouts }
+    { id; name; resource_group_name; server_name; value; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mariadb_configuration __resource);

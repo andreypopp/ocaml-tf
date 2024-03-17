@@ -12,6 +12,7 @@ type aws_ec2_transit_gateway_multicast_domain_association__timeouts = {
 (** aws_ec2_transit_gateway_multicast_domain_association__timeouts *)
 
 type aws_ec2_transit_gateway_multicast_domain_association = {
+  id : string option; [@option]  (** id *)
   subnet_id : string;  (** subnet_id *)
   transit_gateway_attachment_id : string;
       (** transit_gateway_attachment_id *)
@@ -24,14 +25,15 @@ type aws_ec2_transit_gateway_multicast_domain_association = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_multicast_domain_association *)
 
-let aws_ec2_transit_gateway_multicast_domain_association ?timeouts
-    ~subnet_id ~transit_gateway_attachment_id
+let aws_ec2_transit_gateway_multicast_domain_association ?id
+    ?timeouts ~subnet_id ~transit_gateway_attachment_id
     ~transit_gateway_multicast_domain_id __resource_id =
   let __resource_type =
     "aws_ec2_transit_gateway_multicast_domain_association"
   in
   let __resource =
     {
+      id;
       subnet_id;
       transit_gateway_attachment_id;
       transit_gateway_multicast_domain_id;

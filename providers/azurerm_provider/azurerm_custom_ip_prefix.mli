@@ -7,6 +7,7 @@ type azurerm_custom_ip_prefix
 
 val azurerm_custom_ip_prefix :
   ?commissioning_enabled:bool ->
+  ?id:string ->
   ?internet_advertising_disabled:bool ->
   ?parent_custom_ip_prefix_id:string ->
   ?roa_validity_end_date:string ->

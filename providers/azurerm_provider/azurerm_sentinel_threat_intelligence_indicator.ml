@@ -57,6 +57,8 @@ type azurerm_sentinel_threat_intelligence_indicator = {
   created_by : string option; [@option]  (** created_by *)
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  extension : string option; [@option]  (** extension *)
+  id : string option; [@option]  (** id *)
   language : string option; [@option]  (** language *)
   object_marking_refs : string list option; [@option]
       (** object_marking_refs *)
@@ -87,11 +89,12 @@ type azurerm_sentinel_threat_intelligence_indicator = {
 (** azurerm_sentinel_threat_intelligence_indicator *)
 
 let azurerm_sentinel_threat_intelligence_indicator ?confidence
-    ?created_by ?description ?language ?object_marking_refs
-    ?pattern_version ?revoked ?tags ?threat_types ?validate_until_utc
-    ?timeouts ~display_name ~pattern ~pattern_type ~source
-    ~validate_from_utc ~workspace_id ~external_reference
-    ~granular_marking ~kill_chain_phase __resource_id =
+    ?created_by ?description ?extension ?id ?language
+    ?object_marking_refs ?pattern_version ?revoked ?tags
+    ?threat_types ?validate_until_utc ?timeouts ~display_name
+    ~pattern ~pattern_type ~source ~validate_from_utc ~workspace_id
+    ~external_reference ~granular_marking ~kill_chain_phase
+    __resource_id =
   let __resource_type =
     "azurerm_sentinel_threat_intelligence_indicator"
   in
@@ -101,6 +104,8 @@ let azurerm_sentinel_threat_intelligence_indicator ?confidence
       created_by;
       description;
       display_name;
+      extension;
+      id;
       language;
       object_marking_refs;
       pattern;

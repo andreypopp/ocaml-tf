@@ -19,6 +19,7 @@ type azurerm_automation_watcher = {
   etag : string option; [@option]  (** etag *)
   execution_frequency_in_seconds : float;
       (** execution_frequency_in_seconds *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   script_name : string;  (** script_name *)
@@ -31,8 +32,8 @@ type azurerm_automation_watcher = {
 [@@deriving yojson_of]
 (** azurerm_automation_watcher *)
 
-let azurerm_automation_watcher ?description ?etag ?script_parameters
-    ?tags ?timeouts ~automation_account_id
+let azurerm_automation_watcher ?description ?etag ?id
+    ?script_parameters ?tags ?timeouts ~automation_account_id
     ~execution_frequency_in_seconds ~location ~name ~script_name
     ~script_run_on __resource_id =
   let __resource_type = "azurerm_automation_watcher" in
@@ -42,6 +43,7 @@ let azurerm_automation_watcher ?description ?etag ?script_parameters
       description;
       etag;
       execution_frequency_in_seconds;
+      id;
       location;
       name;
       script_name;

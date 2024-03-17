@@ -45,10 +45,14 @@ type aws_medialive_input__vpc = {
 (** aws_medialive_input__vpc *)
 
 type aws_medialive_input = {
+  id : string option; [@option]  (** id *)
   input_security_groups : string list option; [@option]
       (** input_security_groups *)
   name : string;  (** name *)
+  role_arn : string option; [@option]  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   destinations : aws_medialive_input__destinations list;
   input_devices : aws_medialive_input__input_devices list;
@@ -61,15 +65,18 @@ type aws_medialive_input = {
 [@@deriving yojson_of]
 (** aws_medialive_input *)
 
-let aws_medialive_input ?input_security_groups ?tags ?timeouts ~name
-    ~type_ ~destinations ~input_devices ~media_connect_flows ~sources
-    ~vpc __resource_id =
+let aws_medialive_input ?id ?input_security_groups ?role_arn ?tags
+    ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
+    ~media_connect_flows ~sources ~vpc __resource_id =
   let __resource_type = "aws_medialive_input" in
   let __resource =
     {
+      id;
       input_security_groups;
       name;
+      role_arn;
       tags;
+      tags_all;
       type_;
       destinations;
       input_devices;

@@ -60,6 +60,7 @@ type cloudflare_record = {
       (** Allow creation of this record in Terraform to overwrite an existing record, if any. This does not affect the ability to update the record in Terraform and does not prevent other resources within Terraform or manual changes outside Terraform from overwriting this record. **This configuration is not recommended for most environments**. Defaults to `false`. *)
   comment : string option; [@option]
       (** Comments or notes about the DNS record. This field has no effect on DNS responses. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The name of the record. **Modifying this attribute will force creation of a new resource.** *)
   priority : float option; [@option]
@@ -68,8 +69,11 @@ type cloudflare_record = {
       (** Whether the record gets Cloudflare's origin protection. *)
   tags : string list option; [@option]
       (** Custom tags for the DNS record. *)
+  ttl : float option; [@option]  (** The TTL of the record. *)
   type_ : string; [@key "type"]
       (** The type of the record. Available values: `A`, `AAAA`, `CAA`, `CNAME`, `TXT`, `SRV`, `LOC`, `MX`, `NS`, `SPF`, `CERT`, `DNSKEY`, `DS`, `NAPTR`, `SMIMEA`, `SSHFP`, `TLSA`, `URI`, `PTR`, `HTTPS`, `SVCB`. **Modifying this attribute will force creation of a new resource.** *)
+  value : string option; [@option]
+      (** The value of the record. Conflicts with `data`. *)
   zone_id : string;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   data : cloudflare_record__data list;
@@ -78,18 +82,22 @@ type cloudflare_record = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare record resource. *)
 
-let cloudflare_record ?allow_overwrite ?comment ?priority ?proxied
-    ?tags ?timeouts ~name ~type_ ~zone_id ~data __resource_id =
+let cloudflare_record ?allow_overwrite ?comment ?id ?priority
+    ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id ~data
+    __resource_id =
   let __resource_type = "cloudflare_record" in
   let __resource =
     {
       allow_overwrite;
       comment;
+      id;
       name;
       priority;
       proxied;
       tags;
+      ttl;
       type_;
+      value;
       zone_id;
       data;
       timeouts;

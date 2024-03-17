@@ -20,6 +20,7 @@ type aws_s3control_access_grant__grantee = {
 type aws_s3control_access_grant = {
   access_grants_location_id : string;
       (** access_grants_location_id *)
+  account_id : string option; [@option]  (** account_id *)
   permission : string;  (** permission *)
   s3_prefix_type : string option; [@option]  (** s3_prefix_type *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -31,13 +32,14 @@ type aws_s3control_access_grant = {
 [@@deriving yojson_of]
 (** aws_s3control_access_grant *)
 
-let aws_s3control_access_grant ?s3_prefix_type ?tags
+let aws_s3control_access_grant ?account_id ?s3_prefix_type ?tags
     ~access_grants_location_id ~permission
     ~access_grants_location_configuration ~grantee __resource_id =
   let __resource_type = "aws_s3control_access_grant" in
   let __resource =
     {
       access_grants_location_id;
+      account_id;
       permission;
       s3_prefix_type;
       tags;

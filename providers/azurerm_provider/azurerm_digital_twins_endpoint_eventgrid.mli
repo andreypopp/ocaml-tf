@@ -7,6 +7,7 @@ type azurerm_digital_twins_endpoint_eventgrid
 
 val azurerm_digital_twins_endpoint_eventgrid :
   ?dead_letter_storage_secret:string ->
+  ?id:string ->
   ?timeouts:azurerm_digital_twins_endpoint_eventgrid__timeouts ->
   digital_twins_id:string ->
   eventgrid_topic_endpoint:string ->

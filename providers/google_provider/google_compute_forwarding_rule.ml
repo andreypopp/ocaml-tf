@@ -60,6 +60,68 @@ must be omitted for all other load balancer types. *)
   description : string option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
+  id : string option; [@option]  (** id *)
+  ip_address : string option; [@option]
+      (** IP address for which this forwarding rule accepts traffic. When a client
+sends traffic to this IP address, the forwarding rule directs the traffic
+to the referenced 'target' or 'backendService'.
+
+While creating a forwarding rule, specifying an 'IPAddress' is
+required under the following circumstances:
+
+* When the 'target' is set to 'targetGrpcProxy' and
+'validateForProxyless' is set to 'true', the
+'IPAddress' should be set to '0.0.0.0'.
+* When the 'target' is a Private Service Connect Google APIs
+bundle, you must specify an 'IPAddress'.
+
+
+Otherwise, you can optionally specify an IP address that references an
+existing static (reserved) IP address resource. When omitted, Google Cloud
+assigns an ephemeral IP address.
+
+Use one of the following formats to specify an IP address while creating a
+forwarding rule:
+
+* IP address number, as in '100.1.2.3'
+* IPv6 address range, as in '2600:1234::/96'
+* Full resource URL, as in
+'https://www.googleapis.com/compute/v1/projects/project_id/regions/region/addresses/address-name'
+* Partial URL or by name, as in:
+  * 'projects/project_id/regions/region/addresses/address-name'
+  * 'regions/region/addresses/address-name'
+  * 'global/addresses/address-name'
+  * 'address-name'
+
+
+The forwarding rule's 'target' or 'backendService',
+and in most cases, also the 'loadBalancingScheme', determine the
+type of IP address that you can use. For detailed information, see
+[IP address
+specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts#ip_address_specifications).
+
+When reading an 'IPAddress', the API always returns the IP
+address number. *)
+  ip_protocol : string option; [@option]
+      (** The IP protocol to which this rule applies.
+
+For protocol forwarding, valid
+options are 'TCP', 'UDP', 'ESP',
+'AH', 'SCTP', 'ICMP' and
+'L3_DEFAULT'.
+
+The valid IP protocols are different for different load balancing products
+as described in [Load balancing
+features](https://cloud.google.com/load-balancing/docs/features#protocols_from_the_load_balancer_to_the_backends).
+
+A Forwarding Rule with protocol L3_DEFAULT can attach with target instance or
+backend service with UNSPECIFIED protocol.
+A forwarding rule with L3_DEFAULT IPProtocal cannot be attached to a backend service with TCP or UDP. Possible values: [TCP, UDP, ESP, AH, SCTP, ICMP, L3_DEFAULT] *)
+  ip_version : string option; [@option]
+      (** The IP address version that will be used by this forwarding rule.
+Valid options are IPV4 and IPV6.
+
+If not set, the IPv4 address will be used by default. Possible values: [IPV4, IPV6] *)
   is_mirroring_collector : bool option; [@option]
       (** Indicates whether or not this load balancer can be used as a collector for
 packet mirroring. To prevent mirroring loops, instances behind this
@@ -93,8 +155,56 @@ cannot be a dash.
 For Private Service Connect forwarding rules that forward traffic to Google
 APIs, the forwarding rule name must be a 1-20 characters string with
 lowercase letters and numbers and must start with a letter. *)
+  network : string option; [@option]
+      (** This field is not used for external load balancing.
+
+For Internal TCP/UDP Load Balancing, this field identifies the network that
+the load balanced IP should belong to for this Forwarding Rule.
+If the subnetwork is specified, the network of the subnetwork will be used.
+If neither subnetwork nor this field is specified, the default network will
+be used.
+
+For Private Service Connect forwarding rules that forward traffic to Google
+APIs, a network must be provided. *)
+  network_tier : string option; [@option]
+      (** This signifies the networking tier used for configuring
+this load balancer and can only take the following values:
+'PREMIUM', 'STANDARD'.
+
+For regional ForwardingRule, the valid values are 'PREMIUM' and
+'STANDARD'. For GlobalForwardingRule, the valid value is
+'PREMIUM'.
+
+If this field is not specified, it is assumed to be 'PREMIUM'.
+If 'IPAddress' is specified, this value must be equal to the
+networkTier of the Address. Possible values: [PREMIUM, STANDARD] *)
   no_automate_dns_zone : bool option; [@option]
       (** This is used in PSC consumer ForwardingRule to control whether it should try to auto-generate a DNS zone or not. Non-PSC forwarding rules do not use this field. *)
+  port_range : string option; [@option]
+      (** The 'ports', 'portRange', and 'allPorts' fields are mutually exclusive.
+Only packets addressed to ports in the specified range will be forwarded
+to the backends configured with this forwarding rule.
+
+The 'portRange' field has the following limitations:
+* It requires that the forwarding rule 'IPProtocol' be TCP, UDP, or SCTP,
+and
+* It's applicable only to the following products: external passthrough
+Network Load Balancers, internal and external proxy Network Load
+Balancers, internal and external Application Load Balancers, external
+protocol forwarding, and Classic VPN.
+* Some products have restrictions on what ports can be used. See
+[port specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts#port_specifications)
+for details.
+
+For external forwarding rules, two or more forwarding rules cannot use the
+same '[IPAddress, IPProtocol]' pair, and cannot have overlapping
+'portRange's.
+
+For internal forwarding rules within the same VPC network, two or more
+forwarding rules cannot use the same '[IPAddress, IPProtocol]' pair, and
+cannot have overlapping 'portRange's.
+
+@pattern: \d+(?:-\d+)? *)
   ports : string list option; [@option]
       (** The 'ports', 'portRange', and 'allPorts' fields are mutually exclusive.
 Only packets addressed to ports in the specified range will be forwarded
@@ -118,8 +228,13 @@ forwarding rules cannot use the same '[IPAddress, IPProtocol]' pair if
 they share at least one port number.
 
 @pattern: \d+(?:-\d+)? *)
+  project : string option; [@option]  (** project *)
   recreate_closed_psc : bool option; [@option]
       (** This is used in PSC consumer ForwardingRule to make terraform recreate the ForwardingRule when the status is closed *)
+  region : string option; [@option]
+      (** A reference to the region where the regional forwarding rule resides.
+
+This field is not applicable to global forwarding rules. *)
   service_label : string option; [@option]
       (** An optional prefix to the service name for this Forwarding Rule.
 If specified, will be the first label of the fully qualified service
@@ -135,6 +250,14 @@ character, which cannot be a dash.
 This field is only used for INTERNAL load balancing. *)
   source_ip_ranges : string list option; [@option]
       (** If not empty, this Forwarding Rule will only forward the traffic when the source IP address matches one of the IP addresses or CIDR ranges set here. Note that a Forwarding Rule can only have up to 64 source IP ranges, and this field can only be used with a regional Forwarding Rule whose scheme is EXTERNAL. Each sourceIpRange entry should be either an IP address (for example, 1.2.3.4) or a CIDR range (for example, 1.2.3.0/24). *)
+  subnetwork : string option; [@option]
+      (** This field identifies the subnetwork that the load balanced IP should
+belong to for this Forwarding Rule, used in internal load balancing and
+network load balancing with IPv6.
+
+If the network specified is in auto subnet mode, this field is optional.
+However, a subnetwork must be specified if the network is in custom subnet
+mode or when creating external forwarding rule with IPv6. *)
   target : string option; [@option]
       (** The URL of the target resource to receive the matched traffic.  For
 regional forwarding rules, this target must be in the same region as the
@@ -158,10 +281,12 @@ For Private Service Connect forwarding rules that forward traffic to managed ser
 (** google_compute_forwarding_rule *)
 
 let google_compute_forwarding_rule ?all_ports ?allow_global_access
-    ?allow_psc_global_access ?backend_service ?description
-    ?is_mirroring_collector ?labels ?load_balancing_scheme
-    ?no_automate_dns_zone ?ports ?recreate_closed_psc ?service_label
-    ?source_ip_ranges ?target ?timeouts ~name
+    ?allow_psc_global_access ?backend_service ?description ?id
+    ?ip_address ?ip_protocol ?ip_version ?is_mirroring_collector
+    ?labels ?load_balancing_scheme ?network ?network_tier
+    ?no_automate_dns_zone ?port_range ?ports ?project
+    ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
+    ?subnetwork ?target ?timeouts ~name
     ~service_directory_registrations __resource_id =
   let __resource_type = "google_compute_forwarding_rule" in
   let __resource =
@@ -171,15 +296,25 @@ let google_compute_forwarding_rule ?all_ports ?allow_global_access
       allow_psc_global_access;
       backend_service;
       description;
+      id;
+      ip_address;
+      ip_protocol;
+      ip_version;
       is_mirroring_collector;
       labels;
       load_balancing_scheme;
       name;
+      network;
+      network_tier;
       no_automate_dns_zone;
+      port_range;
       ports;
+      project;
       recreate_closed_psc;
+      region;
       service_label;
       source_ip_ranges;
+      subnetwork;
       target;
       service_directory_registrations;
       timeouts;

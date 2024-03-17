@@ -7,9 +7,11 @@ type aws_elasticache_user__timeouts
 type aws_elasticache_user
 
 val aws_elasticache_user :
+  ?id:string ->
   ?no_password_required:bool ->
   ?passwords:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_elasticache_user__timeouts ->
   access_string:string ->
   engine:string ->

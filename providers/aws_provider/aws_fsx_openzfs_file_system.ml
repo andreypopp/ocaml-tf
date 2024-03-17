@@ -68,9 +68,17 @@ type aws_fsx_openzfs_file_system = {
       (** copy_tags_to_backups *)
   copy_tags_to_volumes : bool option; [@option]
       (** copy_tags_to_volumes *)
+  daily_automatic_backup_start_time : string option; [@option]
+      (** daily_automatic_backup_start_time *)
   deployment_type : string;  (** deployment_type *)
+  endpoint_ip_address_range : string option; [@option]
+      (** endpoint_ip_address_range *)
+  id : string option; [@option]  (** id *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
   preferred_subnet_id : string option; [@option]
       (** preferred_subnet_id *)
+  route_table_ids : string list option; [@option]
+      (** route_table_ids *)
   security_group_ids : string list option; [@option]
       (** security_group_ids *)
   skip_final_backup : bool option; [@option]
@@ -79,7 +87,11 @@ type aws_fsx_openzfs_file_system = {
   storage_type : string option; [@option]  (** storage_type *)
   subnet_ids : string list;  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   throughput_capacity : float;  (** throughput_capacity *)
+  weekly_maintenance_start_time : string option; [@option]
+      (** weekly_maintenance_start_time *)
   disk_iops_configuration :
     aws_fsx_openzfs_file_system__disk_iops_configuration list;
   root_volume_configuration :
@@ -91,10 +103,13 @@ type aws_fsx_openzfs_file_system = {
 
 let aws_fsx_openzfs_file_system ?automatic_backup_retention_days
     ?backup_id ?copy_tags_to_backups ?copy_tags_to_volumes
-    ?preferred_subnet_id ?security_group_ids ?skip_final_backup
-    ?storage_capacity ?storage_type ?tags ?timeouts ~deployment_type
-    ~subnet_ids ~throughput_capacity ~disk_iops_configuration
-    ~root_volume_configuration __resource_id =
+    ?daily_automatic_backup_start_time ?endpoint_ip_address_range ?id
+    ?kms_key_id ?preferred_subnet_id ?route_table_ids
+    ?security_group_ids ?skip_final_backup ?storage_capacity
+    ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
+    ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity
+    ~disk_iops_configuration ~root_volume_configuration __resource_id
+    =
   let __resource_type = "aws_fsx_openzfs_file_system" in
   let __resource =
     {
@@ -102,15 +117,22 @@ let aws_fsx_openzfs_file_system ?automatic_backup_retention_days
       backup_id;
       copy_tags_to_backups;
       copy_tags_to_volumes;
+      daily_automatic_backup_start_time;
       deployment_type;
+      endpoint_ip_address_range;
+      id;
+      kms_key_id;
       preferred_subnet_id;
+      route_table_ids;
       security_group_ids;
       skip_final_backup;
       storage_capacity;
       storage_type;
       subnet_ids;
       tags;
+      tags_all;
       throughput_capacity;
+      weekly_maintenance_start_time;
       disk_iops_configuration;
       root_volume_configuration;
       timeouts;

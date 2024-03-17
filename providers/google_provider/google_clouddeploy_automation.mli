@@ -13,7 +13,9 @@ type google_clouddeploy_automation
 val google_clouddeploy_automation :
   ?annotations:(string * string) list ->
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?suspended:bool ->
   ?timeouts:google_clouddeploy_automation__timeouts ->
   delivery_pipeline:string ->

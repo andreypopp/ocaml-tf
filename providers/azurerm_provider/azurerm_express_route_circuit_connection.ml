@@ -19,6 +19,7 @@ type azurerm_express_route_circuit_connection = {
       (** address_prefix_ipv6 *)
   authorization_key : string option; [@option]
       (** authorization_key *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   peer_peering_id : string;  (** peer_peering_id *)
   peering_id : string;  (** peering_id *)
@@ -29,7 +30,7 @@ type azurerm_express_route_circuit_connection = {
 (** azurerm_express_route_circuit_connection *)
 
 let azurerm_express_route_circuit_connection ?address_prefix_ipv6
-    ?authorization_key ?timeouts ~address_prefix_ipv4 ~name
+    ?authorization_key ?id ?timeouts ~address_prefix_ipv4 ~name
     ~peer_peering_id ~peering_id __resource_id =
   let __resource_type = "azurerm_express_route_circuit_connection" in
   let __resource =
@@ -37,6 +38,7 @@ let azurerm_express_route_circuit_connection ?address_prefix_ipv6
       address_prefix_ipv4;
       address_prefix_ipv6;
       authorization_key;
+      id;
       name;
       peer_peering_id;
       peering_id;

@@ -10,6 +10,7 @@ type azurerm_media_services_account_filter
 
 val azurerm_media_services_account_filter :
   ?first_quality_bitrate:float ->
+  ?id:string ->
   ?timeouts:azurerm_media_services_account_filter__timeouts ->
   media_services_account_name:string ->
   name:string ->

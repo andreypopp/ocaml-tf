@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type hcloud_network_subnet = {
+  id : string option; [@option]  (** id *)
   ip_range : string;  (** ip_range *)
   network_id : float;  (** network_id *)
   network_zone : string;  (** network_zone *)
@@ -14,11 +15,11 @@ type hcloud_network_subnet = {
 [@@deriving yojson_of]
 (** hcloud_network_subnet *)
 
-let hcloud_network_subnet ?vswitch_id ~ip_range ~network_id
+let hcloud_network_subnet ?id ?vswitch_id ~ip_range ~network_id
     ~network_zone ~type_ __resource_id =
   let __resource_type = "hcloud_network_subnet" in
   let __resource =
-    { ip_range; network_id; network_zone; type_; vswitch_id }
+    { id; ip_range; network_id; network_zone; type_; vswitch_id }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_network_subnet __resource);

@@ -76,7 +76,13 @@ type azurerm_automation_runbook__job_schedule = {
 
 type azurerm_automation_runbook = {
   automation_account_name : string;  (** automation_account_name *)
+  content : string option; [@option]  (** content *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
+  job_schedule :
+    azurerm_automation_runbook__job_schedule list option;
+      [@option]
+      (** job_schedule *)
   location : string;  (** location *)
   log_activity_trace_level : float option; [@option]
       (** log_activity_trace_level *)
@@ -94,15 +100,19 @@ type azurerm_automation_runbook = {
 [@@deriving yojson_of]
 (** azurerm_automation_runbook *)
 
-let azurerm_automation_runbook ?description ?log_activity_trace_level
-    ?tags ?timeouts ~automation_account_name ~location ~log_progress
-    ~log_verbose ~name ~resource_group_name ~runbook_type ~draft
+let azurerm_automation_runbook ?content ?description ?id
+    ?job_schedule ?log_activity_trace_level ?tags ?timeouts
+    ~automation_account_name ~location ~log_progress ~log_verbose
+    ~name ~resource_group_name ~runbook_type ~draft
     ~publish_content_link __resource_id =
   let __resource_type = "azurerm_automation_runbook" in
   let __resource =
     {
       automation_account_name;
+      content;
       description;
+      id;
+      job_schedule;
       location;
       log_activity_trace_level;
       log_progress;

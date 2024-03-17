@@ -9,6 +9,8 @@ type azurerm_express_route_port__timeouts
 type azurerm_express_route_port
 
 val azurerm_express_route_port :
+  ?billing_type:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_express_route_port__timeouts ->
   bandwidth_in_gbps:float ->

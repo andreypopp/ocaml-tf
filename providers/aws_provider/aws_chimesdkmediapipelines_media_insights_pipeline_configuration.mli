@@ -38,6 +38,7 @@ type aws_chimesdkmediapipelines_media_insights_pipeline_configuration
 
 val aws_chimesdkmediapipelines_media_insights_pipeline_configuration :
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:
     aws_chimesdkmediapipelines_media_insights_pipeline_configuration__timeouts ->
   name:string ->

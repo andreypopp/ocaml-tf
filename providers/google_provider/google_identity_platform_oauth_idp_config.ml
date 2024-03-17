@@ -20,9 +20,11 @@ type google_identity_platform_oauth_idp_config = {
       (** Human friendly display name. *)
   enabled : bool option; [@option]
       (** If this config allows users to sign in with the provider. *)
+  id : string option; [@option]  (** id *)
   issuer : string;  (** For OIDC Idps, the issuer identifier. *)
   name : string;
       (** The name of the OauthIdpConfig. Must start with 'oidc.'. *)
+  project : string option; [@option]  (** project *)
   timeouts :
     google_identity_platform_oauth_idp_config__timeouts option;
 }
@@ -30,8 +32,8 @@ type google_identity_platform_oauth_idp_config = {
 (** google_identity_platform_oauth_idp_config *)
 
 let google_identity_platform_oauth_idp_config ?client_secret
-    ?display_name ?enabled ?timeouts ~client_id ~issuer ~name
-    __resource_id =
+    ?display_name ?enabled ?id ?project ?timeouts ~client_id ~issuer
+    ~name __resource_id =
   let __resource_type =
     "google_identity_platform_oauth_idp_config"
   in
@@ -41,8 +43,10 @@ let google_identity_platform_oauth_idp_config ?client_secret
       client_secret;
       display_name;
       enabled;
+      id;
       issuer;
       name;
+      project;
       timeouts;
     }
   in

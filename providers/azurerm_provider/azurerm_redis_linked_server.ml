@@ -13,6 +13,7 @@ type azurerm_redis_linked_server__timeouts = {
 (** azurerm_redis_linked_server__timeouts *)
 
 type azurerm_redis_linked_server = {
+  id : string option; [@option]  (** id *)
   linked_redis_cache_id : string;  (** linked_redis_cache_id *)
   linked_redis_cache_location : string;
       (** linked_redis_cache_location *)
@@ -24,12 +25,13 @@ type azurerm_redis_linked_server = {
 [@@deriving yojson_of]
 (** azurerm_redis_linked_server *)
 
-let azurerm_redis_linked_server ?timeouts ~linked_redis_cache_id
+let azurerm_redis_linked_server ?id ?timeouts ~linked_redis_cache_id
     ~linked_redis_cache_location ~resource_group_name ~server_role
     ~target_redis_cache_name __resource_id =
   let __resource_type = "azurerm_redis_linked_server" in
   let __resource =
     {
+      id;
       linked_redis_cache_id;
       linked_redis_cache_location;
       resource_group_name;

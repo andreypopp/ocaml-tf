@@ -12,7 +12,6 @@ type azurerm_logic_app_standard__site_config__ip_restriction__headers = {
   x_forwarded_for : string list;  (** x_forwarded_for *)
   x_forwarded_host : string list;  (** x_forwarded_host *)
 }
-[@@deriving yojson_of]
 
 type azurerm_logic_app_standard__site_config__ip_restriction = {
   action : string;  (** action *)
@@ -27,7 +26,6 @@ type azurerm_logic_app_standard__site_config__ip_restriction = {
   virtual_network_subnet_id : string;
       (** virtual_network_subnet_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_logic_app_standard__site_config__scm_ip_restriction__headers = {
   x_azure_fdid : string list;  (** x_azure_fdid *)
@@ -35,7 +33,6 @@ type azurerm_logic_app_standard__site_config__scm_ip_restriction__headers = {
   x_forwarded_for : string list;  (** x_forwarded_for *)
   x_forwarded_host : string list;  (** x_forwarded_host *)
 }
-[@@deriving yojson_of]
 
 type azurerm_logic_app_standard__site_config__scm_ip_restriction = {
   action : string;  (** action *)
@@ -50,7 +47,6 @@ type azurerm_logic_app_standard__site_config__scm_ip_restriction = {
   virtual_network_subnet_id : string;
       (** virtual_network_subnet_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_logic_app_standard__site_config
 type azurerm_logic_app_standard__timeouts
@@ -59,15 +55,18 @@ type azurerm_logic_app_standard__site_credential = {
   password : string;  (** password *)
   username : string;  (** username *)
 }
-[@@deriving yojson_of]
 
 type azurerm_logic_app_standard
 
 val azurerm_logic_app_standard :
+  ?app_settings:(string * string) list ->
   ?bundle_version:string ->
+  ?client_affinity_enabled:bool ->
   ?client_certificate_mode:string ->
   ?enabled:bool ->
   ?https_only:bool ->
+  ?id:string ->
+  ?storage_account_share_name:string ->
   ?tags:(string * string) list ->
   ?use_extension_bundle:bool ->
   ?version:string ->

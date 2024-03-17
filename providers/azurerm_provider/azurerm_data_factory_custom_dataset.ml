@@ -28,6 +28,7 @@ type azurerm_data_factory_custom_dataset = {
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
   folder : string option; [@option]  (** folder *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
       (** parameters *)
@@ -42,7 +43,7 @@ type azurerm_data_factory_custom_dataset = {
 (** azurerm_data_factory_custom_dataset *)
 
 let azurerm_data_factory_custom_dataset ?additional_properties
-    ?annotations ?description ?folder ?parameters ?schema_json
+    ?annotations ?description ?folder ?id ?parameters ?schema_json
     ?timeouts ~data_factory_id ~name ~type_ ~type_properties_json
     ~linked_service __resource_id =
   let __resource_type = "azurerm_data_factory_custom_dataset" in
@@ -53,6 +54,7 @@ let azurerm_data_factory_custom_dataset ?additional_properties
       data_factory_id;
       description;
       folder;
+      id;
       name;
       parameters;
       schema_json;

@@ -14,6 +14,7 @@ type azurerm_signalr_service_custom_certificate__timeouts = {
 
 type azurerm_signalr_service_custom_certificate = {
   custom_certificate_id : string;  (** custom_certificate_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   signalr_service_id : string;  (** signalr_service_id *)
   timeouts :
@@ -22,13 +23,13 @@ type azurerm_signalr_service_custom_certificate = {
 [@@deriving yojson_of]
 (** azurerm_signalr_service_custom_certificate *)
 
-let azurerm_signalr_service_custom_certificate ?timeouts
+let azurerm_signalr_service_custom_certificate ?id ?timeouts
     ~custom_certificate_id ~name ~signalr_service_id __resource_id =
   let __resource_type =
     "azurerm_signalr_service_custom_certificate"
   in
   let __resource =
-    { custom_certificate_id; name; signalr_service_id; timeouts }
+    { custom_certificate_id; id; name; signalr_service_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_signalr_service_custom_certificate __resource);

@@ -23,9 +23,11 @@ type azurerm_fluid_relay_server__timeouts = {
 (** azurerm_fluid_relay_server__timeouts *)
 
 type azurerm_fluid_relay_server = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
+  storage_sku : string option; [@option]  (** storage_sku *)
   tags : (string * string) list option; [@option]  (** tags *)
   identity : azurerm_fluid_relay_server__identity list;
   timeouts : azurerm_fluid_relay_server__timeouts option;
@@ -33,11 +35,20 @@ type azurerm_fluid_relay_server = {
 [@@deriving yojson_of]
 (** azurerm_fluid_relay_server *)
 
-let azurerm_fluid_relay_server ?tags ?timeouts ~location ~name
-    ~resource_group_name ~identity __resource_id =
+let azurerm_fluid_relay_server ?id ?storage_sku ?tags ?timeouts
+    ~location ~name ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_fluid_relay_server" in
   let __resource =
-    { location; name; resource_group_name; tags; identity; timeouts }
+    {
+      id;
+      location;
+      name;
+      resource_group_name;
+      storage_sku;
+      tags;
+      identity;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_fluid_relay_server __resource);

@@ -13,6 +13,7 @@ type aws_main_route_table_association__timeouts = {
 (** aws_main_route_table_association__timeouts *)
 
 type aws_main_route_table_association = {
+  id : string option; [@option]  (** id *)
   route_table_id : string;  (** route_table_id *)
   vpc_id : string;  (** vpc_id *)
   timeouts : aws_main_route_table_association__timeouts option;
@@ -20,10 +21,10 @@ type aws_main_route_table_association = {
 [@@deriving yojson_of]
 (** aws_main_route_table_association *)
 
-let aws_main_route_table_association ?timeouts ~route_table_id
+let aws_main_route_table_association ?id ?timeouts ~route_table_id
     ~vpc_id __resource_id =
   let __resource_type = "aws_main_route_table_association" in
-  let __resource = { route_table_id; vpc_id; timeouts } in
+  let __resource = { id; route_table_id; vpc_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_main_route_table_association __resource);
   ()

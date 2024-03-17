@@ -79,6 +79,7 @@ type azurerm_data_factory_dataset_delimited_text = {
   first_row_as_header : bool option; [@option]
       (** first_row_as_header *)
   folder : string option; [@option]  (** folder *)
+  id : string option; [@option]  (** id *)
   linked_service_name : string;  (** linked_service_name *)
   name : string;  (** name *)
   null_value : string option; [@option]  (** null_value *)
@@ -106,7 +107,7 @@ type azurerm_data_factory_dataset_delimited_text = {
 let azurerm_data_factory_dataset_delimited_text
     ?additional_properties ?annotations ?column_delimiter
     ?compression_codec ?compression_level ?description ?encoding
-    ?escape_character ?first_row_as_header ?folder ?null_value
+    ?escape_character ?first_row_as_header ?folder ?id ?null_value
     ?parameters ?quote_character ?row_delimiter ?timeouts
     ~data_factory_id ~linked_service_name ~name
     ~azure_blob_fs_location ~azure_blob_storage_location
@@ -127,6 +128,7 @@ let azurerm_data_factory_dataset_delimited_text
       escape_character;
       first_row_as_header;
       folder;
+      id;
       linked_service_name;
       name;
       null_value;

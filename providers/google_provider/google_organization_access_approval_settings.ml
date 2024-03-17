@@ -39,6 +39,11 @@ type google_organization_access_approval_settings = {
   active_key_version : string option; [@option]
       (** The asymmetric crypto key version to use for signing approval requests.
 Empty active_key_version indicates that a Google-managed key should be used for signing. *)
+  id : string option; [@option]  (** id *)
+  notification_emails : string list option; [@option]
+      (** A list of email addresses to which notifications relating to approval requests should be sent.
+Notifications relating to a resource will be sent to all emails in the settings of ancestor
+resources of that resource. A maximum of 50 email addresses are allowed. *)
   organization_id : string;
       (** ID of the organization of the access approval settings. *)
   enrolled_services :
@@ -51,13 +56,16 @@ Empty active_key_version indicates that a Google-managed key should be used for 
 (** google_organization_access_approval_settings *)
 
 let google_organization_access_approval_settings ?active_key_version
-    ?timeouts ~organization_id ~enrolled_services __resource_id =
+    ?id ?notification_emails ?timeouts ~organization_id
+    ~enrolled_services __resource_id =
   let __resource_type =
     "google_organization_access_approval_settings"
   in
   let __resource =
     {
       active_key_version;
+      id;
+      notification_emails;
       organization_id;
       enrolled_services;
       timeouts;

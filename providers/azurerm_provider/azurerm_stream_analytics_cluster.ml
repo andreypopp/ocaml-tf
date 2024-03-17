@@ -14,6 +14,7 @@ type azurerm_stream_analytics_cluster__timeouts = {
 (** azurerm_stream_analytics_cluster__timeouts *)
 
 type azurerm_stream_analytics_cluster = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,11 +25,12 @@ type azurerm_stream_analytics_cluster = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_cluster *)
 
-let azurerm_stream_analytics_cluster ?tags ?timeouts ~location ~name
-    ~resource_group_name ~streaming_capacity __resource_id =
+let azurerm_stream_analytics_cluster ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~streaming_capacity __resource_id =
   let __resource_type = "azurerm_stream_analytics_cluster" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

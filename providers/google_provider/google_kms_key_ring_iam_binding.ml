@@ -13,6 +13,7 @@ type google_kms_key_ring_iam_binding__condition = {
 (** google_kms_key_ring_iam_binding__condition *)
 
 type google_kms_key_ring_iam_binding = {
+  id : string option; [@option]  (** id *)
   key_ring_id : string;  (** key_ring_id *)
   members : string list;  (** members *)
   role : string;  (** role *)
@@ -21,10 +22,10 @@ type google_kms_key_ring_iam_binding = {
 [@@deriving yojson_of]
 (** google_kms_key_ring_iam_binding *)
 
-let google_kms_key_ring_iam_binding ~key_ring_id ~members ~role
+let google_kms_key_ring_iam_binding ?id ~key_ring_id ~members ~role
     ~condition __resource_id =
   let __resource_type = "google_kms_key_ring_iam_binding" in
-  let __resource = { key_ring_id; members; role; condition } in
+  let __resource = { id; key_ring_id; members; role; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_key_ring_iam_binding __resource);
   ()

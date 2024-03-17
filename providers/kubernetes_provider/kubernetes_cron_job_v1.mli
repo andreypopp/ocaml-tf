@@ -400,6 +400,7 @@ type kubernetes_cron_job_v1__timeouts
 type kubernetes_cron_job_v1
 
 val kubernetes_cron_job_v1 :
+  ?id:string ->
   ?timeouts:kubernetes_cron_job_v1__timeouts ->
   metadata:kubernetes_cron_job_v1__metadata list ->
   spec:kubernetes_cron_job_v1__spec list ->

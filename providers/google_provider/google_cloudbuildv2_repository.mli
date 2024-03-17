@@ -7,6 +7,9 @@ type google_cloudbuildv2_repository
 
 val google_cloudbuildv2_repository :
   ?annotations:(string * string) list ->
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
   ?timeouts:google_cloudbuildv2_repository__timeouts ->
   name:string ->
   parent_connection:string ->

@@ -7,6 +7,7 @@ type google_vmwareengine_cluster__timeouts
 type google_vmwareengine_cluster
 
 val google_vmwareengine_cluster :
+  ?id:string ->
   ?timeouts:google_vmwareengine_cluster__timeouts ->
   name:string ->
   parent:string ->

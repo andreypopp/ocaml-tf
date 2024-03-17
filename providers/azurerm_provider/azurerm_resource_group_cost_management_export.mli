@@ -11,6 +11,7 @@ type azurerm_resource_group_cost_management_export
 
 val azurerm_resource_group_cost_management_export :
   ?active:bool ->
+  ?id:string ->
   ?timeouts:azurerm_resource_group_cost_management_export__timeouts ->
   name:string ->
   recurrence_period_end_date:string ->

@@ -17,6 +17,7 @@ type azurerm_container_registry_scope_map = {
   actions : string list;  (** actions *)
   container_registry_name : string;  (** container_registry_name *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts : azurerm_container_registry_scope_map__timeouts option;
@@ -24,7 +25,7 @@ type azurerm_container_registry_scope_map = {
 [@@deriving yojson_of]
 (** azurerm_container_registry_scope_map *)
 
-let azurerm_container_registry_scope_map ?description ?timeouts
+let azurerm_container_registry_scope_map ?description ?id ?timeouts
     ~actions ~container_registry_name ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_container_registry_scope_map" in
@@ -33,6 +34,7 @@ let azurerm_container_registry_scope_map ?description ?timeouts
       actions;
       container_registry_name;
       description;
+      id;
       name;
       resource_group_name;
       timeouts;

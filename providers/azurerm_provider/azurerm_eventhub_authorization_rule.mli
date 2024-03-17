@@ -6,6 +6,7 @@ type azurerm_eventhub_authorization_rule__timeouts
 type azurerm_eventhub_authorization_rule
 
 val azurerm_eventhub_authorization_rule :
+  ?id:string ->
   ?listen:bool ->
   ?manage:bool ->
   ?send:bool ->

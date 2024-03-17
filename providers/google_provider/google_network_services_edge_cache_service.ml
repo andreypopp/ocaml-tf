@@ -536,12 +536,15 @@ type google_network_services_edge_cache_service = {
 HTTP/2 (h2) is enabled by default and recommended for performance. HTTP/2 improves connection re-use and reduces connection setup overhead by sending multiple streams over the same connection.
 
 Some legacy HTTP clients may have issues with HTTP/2 connections due to broken HTTP/2 implementations. Setting this to true will prevent HTTP/2 from being advertised and negotiated. *)
+  disable_quic : bool option; [@option]
+      (** HTTP/3 (IETF QUIC) and Google QUIC are enabled by default. *)
   edge_security_policy : string option; [@option]
       (** Resource URL that points at the Cloud Armor edge security policy that is applied on each request against the EdgeCacheService. *)
   edge_ssl_certificates : string list option; [@option]
       (** URLs to sslCertificate resources that are used to authenticate connections between users and the EdgeCacheService.
 
 Note that only global certificates with a scope of EDGE_CACHE can be attached to an EdgeCacheService. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Set of label tags associated with the EdgeCache resource.
 
@@ -551,6 +554,12 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Name of the resource; provided by the client when the resource is created.
 The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which means the first character must be a letter,
 and all following characters must be a dash, underscore, letter or digit. *)
+  project : string option; [@option]  (** project *)
+  require_tls : bool option; [@option]
+      (** Require TLS (HTTPS) for all clients connecting to this service.
+
+Clients who connect over HTTP (port 80) will receive a HTTP 301 to the same URL over HTTPS (port 443).
+You must have at least one (1) edgeSslCertificate specified to enable this. *)
   ssl_policy : string option; [@option]
       (** URL of the SslPolicy resource that will be associated with the EdgeCacheService.
 
@@ -565,9 +574,9 @@ If not set, the EdgeCacheService has no SSL policy configured, and will default 
 (** google_network_services_edge_cache_service *)
 
 let google_network_services_edge_cache_service ?description
-    ?disable_http2 ?edge_security_policy ?edge_ssl_certificates
-    ?labels ?ssl_policy ?timeouts ~name ~log_config ~routing
-    __resource_id =
+    ?disable_http2 ?disable_quic ?edge_security_policy
+    ?edge_ssl_certificates ?id ?labels ?project ?require_tls
+    ?ssl_policy ?timeouts ~name ~log_config ~routing __resource_id =
   let __resource_type =
     "google_network_services_edge_cache_service"
   in
@@ -575,10 +584,14 @@ let google_network_services_edge_cache_service ?description
     {
       description;
       disable_http2;
+      disable_quic;
       edge_security_policy;
       edge_ssl_certificates;
+      id;
       labels;
       name;
+      project;
+      require_tls;
       ssl_policy;
       log_config;
       routing;

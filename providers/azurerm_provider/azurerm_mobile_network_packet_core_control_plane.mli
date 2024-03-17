@@ -16,6 +16,7 @@ val azurerm_mobile_network_packet_core_control_plane :
   ?control_plane_access_ipv4_subnet:string ->
   ?control_plane_access_name:string ->
   ?core_network_technology:string ->
+  ?id:string ->
   ?interoperability_settings_json:string ->
   ?software_version:string ->
   ?tags:(string * string) list ->

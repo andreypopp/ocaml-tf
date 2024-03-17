@@ -24,6 +24,7 @@ type azurerm_lb_backend_address_pool_address = {
   backend_address_ip_configuration_id : string option; [@option]
       (** For global load balancer, user needs to specify the `backend_address_ip_configuration_id` of the added regional load balancers *)
   backend_address_pool_id : string;  (** backend_address_pool_id *)
+  id : string option; [@option]  (** id *)
   ip_address : string option; [@option]  (** ip_address *)
   name : string;  (** name *)
   virtual_network_id : string option; [@option]
@@ -34,7 +35,7 @@ type azurerm_lb_backend_address_pool_address = {
 (** azurerm_lb_backend_address_pool_address *)
 
 let azurerm_lb_backend_address_pool_address
-    ?backend_address_ip_configuration_id ?ip_address
+    ?backend_address_ip_configuration_id ?id ?ip_address
     ?virtual_network_id ?timeouts ~backend_address_pool_id ~name
     __resource_id =
   let __resource_type = "azurerm_lb_backend_address_pool_address" in
@@ -42,6 +43,7 @@ let azurerm_lb_backend_address_pool_address
     {
       backend_address_ip_configuration_id;
       backend_address_pool_id;
+      id;
       ip_address;
       name;
       virtual_network_id;

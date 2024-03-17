@@ -9,23 +9,28 @@ type aws_transfer_certificate = {
   certificate_chain : string option; [@option]
       (** certificate_chain *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   private_key : string option; [@option]  (** private_key *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   usage : string;  (** usage *)
 }
 [@@deriving yojson_of]
 (** aws_transfer_certificate *)
 
-let aws_transfer_certificate ?certificate_chain ?description
-    ?private_key ?tags ~certificate ~usage __resource_id =
+let aws_transfer_certificate ?certificate_chain ?description ?id
+    ?private_key ?tags ?tags_all ~certificate ~usage __resource_id =
   let __resource_type = "aws_transfer_certificate" in
   let __resource =
     {
       certificate;
       certificate_chain;
       description;
+      id;
       private_key;
       tags;
+      tags_all;
       usage;
     }
   in

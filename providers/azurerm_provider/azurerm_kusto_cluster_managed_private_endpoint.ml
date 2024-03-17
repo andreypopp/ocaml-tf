@@ -16,6 +16,7 @@ type azurerm_kusto_cluster_managed_private_endpoint__timeouts = {
 type azurerm_kusto_cluster_managed_private_endpoint = {
   cluster_name : string;  (** cluster_name *)
   group_id : string;  (** group_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   private_link_resource_id : string;  (** private_link_resource_id *)
   private_link_resource_region : string option; [@option]
@@ -28,7 +29,7 @@ type azurerm_kusto_cluster_managed_private_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_kusto_cluster_managed_private_endpoint *)
 
-let azurerm_kusto_cluster_managed_private_endpoint
+let azurerm_kusto_cluster_managed_private_endpoint ?id
     ?private_link_resource_region ?request_message ?timeouts
     ~cluster_name ~group_id ~name ~private_link_resource_id
     ~resource_group_name __resource_id =
@@ -39,6 +40,7 @@ let azurerm_kusto_cluster_managed_private_endpoint
     {
       cluster_name;
       group_id;
+      id;
       name;
       private_link_resource_id;
       private_link_resource_region;

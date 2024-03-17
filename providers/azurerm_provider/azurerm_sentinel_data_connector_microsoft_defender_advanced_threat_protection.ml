@@ -13,9 +13,11 @@ type azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protecti
 (** azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protection__timeouts *)
 
 type azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protection = {
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
+  tenant_id : string option; [@option]  (** tenant_id *)
   timeouts :
     azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protection__timeouts
     option;
@@ -24,11 +26,14 @@ type azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protecti
 (** azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protection *)
 
 let azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protection
-    ?timeouts ~log_analytics_workspace_id ~name __resource_id =
+    ?id ?tenant_id ?timeouts ~log_analytics_workspace_id ~name
+    __resource_id =
   let __resource_type =
     "azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protection"
   in
-  let __resource = { log_analytics_workspace_id; name; timeouts } in
+  let __resource =
+    { id; log_analytics_workspace_id; name; tenant_id; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_data_connector_microsoft_defender_advanced_threat_protection
        __resource);

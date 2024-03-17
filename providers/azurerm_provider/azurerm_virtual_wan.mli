@@ -8,6 +8,7 @@ type azurerm_virtual_wan
 val azurerm_virtual_wan :
   ?allow_branch_to_branch_traffic:bool ->
   ?disable_vpn_encryption:bool ->
+  ?id:string ->
   ?office365_local_breakout_category:string ->
   ?tags:(string * string) list ->
   ?type_:string ->

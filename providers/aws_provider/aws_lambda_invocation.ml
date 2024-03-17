@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_lambda_invocation = {
   function_name : string;  (** function_name *)
+  id : string option; [@option]  (** id *)
   input : string;  (** input *)
   lifecycle_scope : string option; [@option]  (** lifecycle_scope *)
   qualifier : string option; [@option]  (** qualifier *)
@@ -15,12 +16,13 @@ type aws_lambda_invocation = {
 [@@deriving yojson_of]
 (** aws_lambda_invocation *)
 
-let aws_lambda_invocation ?lifecycle_scope ?qualifier ?terraform_key
-    ?triggers ~function_name ~input __resource_id =
+let aws_lambda_invocation ?id ?lifecycle_scope ?qualifier
+    ?terraform_key ?triggers ~function_name ~input __resource_id =
   let __resource_type = "aws_lambda_invocation" in
   let __resource =
     {
       function_name;
+      id;
       input;
       lifecycle_scope;
       qualifier;

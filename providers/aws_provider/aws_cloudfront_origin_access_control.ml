@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_cloudfront_origin_access_control = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   origin_access_control_origin_type : string;
       (** origin_access_control_origin_type *)
@@ -15,13 +16,14 @@ type aws_cloudfront_origin_access_control = {
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_access_control *)
 
-let aws_cloudfront_origin_access_control ?description ~name
+let aws_cloudfront_origin_access_control ?description ?id ~name
     ~origin_access_control_origin_type ~signing_behavior
     ~signing_protocol __resource_id =
   let __resource_type = "aws_cloudfront_origin_access_control" in
   let __resource =
     {
       description;
+      id;
       name;
       origin_access_control_origin_type;
       signing_behavior;

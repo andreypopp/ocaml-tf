@@ -66,6 +66,7 @@ type cloudflare_rate_limit = {
       (** A note that you can use to describe the reason for a rate limit. This value is sanitized and all tags are removed. *)
   disabled : bool option; [@option]
       (** Whether this ratelimit is currently disabled. Defaults to `false`. *)
+  id : string option; [@option]  (** id *)
   period : float;
       (** The time in seconds to count matching traffic. If the count exceeds threshold within this period the action will be performed. *)
   threshold : float;
@@ -83,7 +84,7 @@ specific types of requests/responses.
  *)
 
 let cloudflare_rate_limit ?bypass_url_patterns ?description ?disabled
-    ~period ~threshold ~zone_id ~action ~correlate ~match_
+    ?id ~period ~threshold ~zone_id ~action ~correlate ~match_
     __resource_id =
   let __resource_type = "cloudflare_rate_limit" in
   let __resource =
@@ -91,6 +92,7 @@ let cloudflare_rate_limit ?bypass_url_patterns ?description ?disabled
       bypass_url_patterns;
       description;
       disabled;
+      id;
       period;
       threshold;
       zone_id;

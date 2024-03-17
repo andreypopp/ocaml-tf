@@ -26,6 +26,7 @@ type google_certificate_manager_dns_authorization = {
       (** A domain which is being authorized. A DnsAuthorization resource covers a
 single domain and its wildcard, e.g. authorization for example.com can
 be used to issue certificates for example.com and *.example.com. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Set of label tags associated with the DNS Authorization resource.
 
@@ -37,19 +38,40 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Name of the resource; provided by the client when the resource is created.
 The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which means the first character must be a letter,
 and all following characters must be a dash, underscore, letter or digit. *)
+  project : string option; [@option]  (** project *)
+  type_ : string option; [@option] [@key "type"]
+      (** type of DNS authorization. If unset during the resource creation, FIXED_RECORD will
+be used for global resources, and PER_PROJECT_RECORD will be used for other locations.
+
+FIXED_RECORD DNS authorization uses DNS-01 validation method
+
+PER_PROJECT_RECORD DNS authorization allows for independent management
+of Google-managed certificates with DNS authorization across multiple
+projects. Possible values: [FIXED_RECORD, PER_PROJECT_RECORD] *)
   timeouts :
     google_certificate_manager_dns_authorization__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_dns_authorization *)
 
-let google_certificate_manager_dns_authorization ?description ?labels
-    ?location ?timeouts ~domain ~name __resource_id =
+let google_certificate_manager_dns_authorization ?description ?id
+    ?labels ?location ?project ?type_ ?timeouts ~domain ~name
+    __resource_id =
   let __resource_type =
     "google_certificate_manager_dns_authorization"
   in
   let __resource =
-    { description; domain; labels; location; name; timeouts }
+    {
+      description;
+      domain;
+      id;
+      labels;
+      location;
+      name;
+      project;
+      type_;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_dns_authorization

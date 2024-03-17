@@ -14,6 +14,7 @@ type aws_cloudfront_origin_request_policy
 
 val aws_cloudfront_origin_request_policy :
   ?comment:string ->
+  ?id:string ->
   name:string ->
   cookies_config:
     aws_cloudfront_origin_request_policy__cookies_config list ->

@@ -117,8 +117,13 @@ type aws_ssm_maintenance_window_task__task_invocation_parameters = {
 type aws_ssm_maintenance_window_task = {
   cutoff_behavior : string option; [@option]  (** cutoff_behavior *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
+  max_concurrency : string option; [@option]  (** max_concurrency *)
+  max_errors : string option; [@option]  (** max_errors *)
   name : string option; [@option]  (** name *)
   priority : float option; [@option]  (** priority *)
+  service_role_arn : string option; [@option]
+      (** service_role_arn *)
   task_arn : string;  (** task_arn *)
   task_type : string;  (** task_type *)
   window_id : string;  (** window_id *)
@@ -129,16 +134,21 @@ type aws_ssm_maintenance_window_task = {
 [@@deriving yojson_of]
 (** aws_ssm_maintenance_window_task *)
 
-let aws_ssm_maintenance_window_task ?cutoff_behavior ?description
-    ?name ?priority ~task_arn ~task_type ~window_id ~targets
+let aws_ssm_maintenance_window_task ?cutoff_behavior ?description ?id
+    ?max_concurrency ?max_errors ?name ?priority ?service_role_arn
+    ~task_arn ~task_type ~window_id ~targets
     ~task_invocation_parameters __resource_id =
   let __resource_type = "aws_ssm_maintenance_window_task" in
   let __resource =
     {
       cutoff_behavior;
       description;
+      id;
+      max_concurrency;
+      max_errors;
       name;
       priority;
+      service_role_arn;
       task_arn;
       task_type;
       window_id;

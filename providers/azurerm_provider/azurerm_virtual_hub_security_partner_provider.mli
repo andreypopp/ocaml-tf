@@ -6,6 +6,7 @@ type azurerm_virtual_hub_security_partner_provider__timeouts
 type azurerm_virtual_hub_security_partner_provider
 
 val azurerm_virtual_hub_security_partner_provider :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?virtual_hub_id:string ->
   ?timeouts:azurerm_virtual_hub_security_partner_provider__timeouts ->

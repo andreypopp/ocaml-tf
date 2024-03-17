@@ -8,6 +8,7 @@ type azurerm_arc_machine_extension
 val azurerm_arc_machine_extension :
   ?automatic_upgrade_enabled:bool ->
   ?force_update_tag:string ->
+  ?id:string ->
   ?protected_settings:string ->
   ?settings:string ->
   ?tags:(string * string) list ->

@@ -8,6 +8,7 @@ type azurerm_automation_variable_bool
 val azurerm_automation_variable_bool :
   ?description:string ->
   ?encrypted:bool ->
+  ?id:string ->
   ?value:bool ->
   ?timeouts:azurerm_automation_variable_bool__timeouts ->
   automation_account_name:string ->

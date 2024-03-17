@@ -20,6 +20,7 @@ type google_project = {
       (** The alphanumeric ID of the billing account this project belongs to. The user or service account performing this operation with Terraform must have Billing Account Administrator privileges (roles/billing.admin) in the organization. See Google Cloud Billing API Access Control for more details. *)
   folder_id : string option; [@option]
       (** The numeric ID of the folder this project should be created under. Only one of org_id or folder_id may be specified. If the folder_id is specified, then the project is created under the specified folder. Changing this forces the project to be migrated to the newly specified folder. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A set of key/value label pairs to assign to the project.
 				
@@ -30,23 +31,28 @@ type google_project = {
       (** The numeric ID of the organization this project belongs to. Changing this forces a new project to be created.  Only one of org_id or folder_id may be specified. If the org_id is specified then the project is created at the top level. Changing this forces the project to be migrated to the newly specified organization. *)
   project_id : string;
       (** The project ID. Changing this forces a new project to be created. *)
+  skip_delete : bool option; [@option]
+      (** If true, the Terraform resource can be deleted without deleting the Project via the Google API. *)
   timeouts : google_project__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_project *)
 
 let google_project ?auto_create_network ?billing_account ?folder_id
-    ?labels ?org_id ?timeouts ~name ~project_id __resource_id =
+    ?id ?labels ?org_id ?skip_delete ?timeouts ~name ~project_id
+    __resource_id =
   let __resource_type = "google_project" in
   let __resource =
     {
       auto_create_network;
       billing_account;
       folder_id;
+      id;
       labels;
       name;
       org_id;
       project_id;
+      skip_delete;
       timeouts;
     }
   in

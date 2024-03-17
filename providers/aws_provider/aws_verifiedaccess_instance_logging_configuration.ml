@@ -45,6 +45,7 @@ type aws_verifiedaccess_instance_logging_configuration__access_logs = {
 (** aws_verifiedaccess_instance_logging_configuration__access_logs *)
 
 type aws_verifiedaccess_instance_logging_configuration = {
+  id : string option; [@option]  (** id *)
   verifiedaccess_instance_id : string;
       (** verifiedaccess_instance_id *)
   access_logs :
@@ -54,12 +55,12 @@ type aws_verifiedaccess_instance_logging_configuration = {
 [@@deriving yojson_of]
 (** aws_verifiedaccess_instance_logging_configuration *)
 
-let aws_verifiedaccess_instance_logging_configuration
+let aws_verifiedaccess_instance_logging_configuration ?id
     ~verifiedaccess_instance_id ~access_logs __resource_id =
   let __resource_type =
     "aws_verifiedaccess_instance_logging_configuration"
   in
-  let __resource = { verifiedaccess_instance_id; access_logs } in
+  let __resource = { id; verifiedaccess_instance_id; access_logs } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_verifiedaccess_instance_logging_configuration
        __resource);

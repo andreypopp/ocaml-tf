@@ -9,6 +9,7 @@ type azurerm_app_service_environment
 val azurerm_app_service_environment :
   ?allowed_user_ip_cidrs:string list ->
   ?front_end_scale_factor:float ->
+  ?id:string ->
   ?internal_load_balancing_mode:string ->
   ?pricing_tier:string ->
   ?tags:(string * string) list ->

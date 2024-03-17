@@ -11,6 +11,8 @@ type google_folder_organization_policy__timeouts
 type google_folder_organization_policy
 
 val google_folder_organization_policy :
+  ?id:string ->
+  ?version:float ->
   ?timeouts:google_folder_organization_policy__timeouts ->
   constraint_:string ->
   folder:string ->

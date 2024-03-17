@@ -16,16 +16,20 @@ type aws_iot_billing_group__metadata = {
 [@@deriving yojson_of]
 
 type aws_iot_billing_group = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   properties : aws_iot_billing_group__properties list;
 }
 [@@deriving yojson_of]
 (** aws_iot_billing_group *)
 
-let aws_iot_billing_group ?tags ~name ~properties __resource_id =
+let aws_iot_billing_group ?id ?tags ?tags_all ~name ~properties
+    __resource_id =
   let __resource_type = "aws_iot_billing_group" in
-  let __resource = { name; tags; properties } in
+  let __resource = { id; name; tags; tags_all; properties } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_billing_group __resource);
   ()

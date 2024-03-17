@@ -34,6 +34,7 @@ type azurerm_storage_account__timeouts
 type azurerm_storage_account
 
 val azurerm_storage_account :
+  ?access_tier:string ->
   ?account_kind:string ->
   ?allow_nested_items_to_be_public:bool ->
   ?allowed_copy_scope:string ->
@@ -41,8 +42,10 @@ val azurerm_storage_account :
   ?default_to_oauth_authentication:bool ->
   ?edge_zone:string ->
   ?enable_https_traffic_only:bool ->
+  ?id:string ->
   ?infrastructure_encryption_enabled:bool ->
   ?is_hns_enabled:bool ->
+  ?large_file_share_enabled:bool ->
   ?local_user_enabled:bool ->
   ?min_tls_version:string ->
   ?nfsv3_enabled:bool ->

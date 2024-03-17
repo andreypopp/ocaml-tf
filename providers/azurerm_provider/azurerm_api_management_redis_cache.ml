@@ -18,6 +18,7 @@ type azurerm_api_management_redis_cache = {
   cache_location : string option; [@option]  (** cache_location *)
   connection_string : string;  (** connection_string *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   redis_cache_id : string option; [@option]  (** redis_cache_id *)
   timeouts : azurerm_api_management_redis_cache__timeouts option;
@@ -26,8 +27,8 @@ type azurerm_api_management_redis_cache = {
 (** azurerm_api_management_redis_cache *)
 
 let azurerm_api_management_redis_cache ?cache_location ?description
-    ?redis_cache_id ?timeouts ~api_management_id ~connection_string
-    ~name __resource_id =
+    ?id ?redis_cache_id ?timeouts ~api_management_id
+    ~connection_string ~name __resource_id =
   let __resource_type = "azurerm_api_management_redis_cache" in
   let __resource =
     {
@@ -35,6 +36,7 @@ let azurerm_api_management_redis_cache ?cache_location ?description
       cache_location;
       connection_string;
       description;
+      id;
       name;
       redis_cache_id;
       timeouts;

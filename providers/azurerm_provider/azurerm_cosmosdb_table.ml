@@ -21,8 +21,10 @@ type azurerm_cosmosdb_table__timeouts = {
 
 type azurerm_cosmosdb_table = {
   account_name : string;  (** account_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
+  throughput : float option; [@option]  (** throughput *)
   autoscale_settings :
     azurerm_cosmosdb_table__autoscale_settings list;
   timeouts : azurerm_cosmosdb_table__timeouts option;
@@ -30,14 +32,16 @@ type azurerm_cosmosdb_table = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_table *)
 
-let azurerm_cosmosdb_table ?timeouts ~account_name ~name
-    ~resource_group_name ~autoscale_settings __resource_id =
+let azurerm_cosmosdb_table ?id ?throughput ?timeouts ~account_name
+    ~name ~resource_group_name ~autoscale_settings __resource_id =
   let __resource_type = "azurerm_cosmosdb_table" in
   let __resource =
     {
       account_name;
+      id;
       name;
       resource_group_name;
+      throughput;
       autoscale_settings;
       timeouts;
     }

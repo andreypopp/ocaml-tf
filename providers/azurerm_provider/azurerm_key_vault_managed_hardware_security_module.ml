@@ -22,6 +22,7 @@ type azurerm_key_vault_managed_hardware_security_module__timeouts = {
 
 type azurerm_key_vault_managed_hardware_security_module = {
   admin_object_ids : string list;  (** admin_object_ids *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -49,7 +50,7 @@ type azurerm_key_vault_managed_hardware_security_module = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_hardware_security_module *)
 
-let azurerm_key_vault_managed_hardware_security_module
+let azurerm_key_vault_managed_hardware_security_module ?id
     ?public_network_access_enabled ?purge_protection_enabled
     ?security_domain_key_vault_certificate_ids
     ?security_domain_quorum ?soft_delete_retention_days ?tags
@@ -61,6 +62,7 @@ let azurerm_key_vault_managed_hardware_security_module
   let __resource =
     {
       admin_object_ids;
+      id;
       location;
       name;
       public_network_access_enabled;

@@ -241,8 +241,11 @@ type google_bigquery_table = {
       (** Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a terraform destroy or terraform apply that would delete the instance will fail. *)
   description : string option; [@option]
       (** The field description. *)
+  expiration_time : float option; [@option]
+      (** The time when this table expires, in milliseconds since the epoch. If not present, the table will persist indefinitely. Expired tables will be deleted and their storage reclaimed. *)
   friendly_name : string option; [@option]
       (** A descriptive name for the table. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A mapping of labels to assign to the resource.
 
@@ -250,8 +253,12 @@ type google_bigquery_table = {
 				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   max_staleness : string option; [@option]
       (** The maximum staleness of data that could be returned when the table (or stale MV) is queried. Staleness encoded as a string encoding of [SQL IntervalValue type](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#interval_type). *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. *)
   require_partition_filter : bool option; [@option]
       (** If set to true, queries over this table require a partition filter that can be used for partition elimination to be specified. *)
+  schema : string option; [@option]
+      (** A JSON schema for the table. *)
   table_id : string;
       (** A unique ID for the resource. Changing this forces a new resource to be created. *)
   encryption_configuration :
@@ -271,11 +278,12 @@ type google_bigquery_table = {
 (** google_bigquery_table *)
 
 let google_bigquery_table ?clustering ?deletion_protection
-    ?description ?friendly_name ?labels ?max_staleness
-    ?require_partition_filter ~dataset_id ~table_id
-    ~encryption_configuration ~external_data_configuration
-    ~materialized_view ~range_partitioning ~table_constraints
-    ~table_replication_info ~time_partitioning ~view __resource_id =
+    ?description ?expiration_time ?friendly_name ?id ?labels
+    ?max_staleness ?project ?require_partition_filter ?schema
+    ~dataset_id ~table_id ~encryption_configuration
+    ~external_data_configuration ~materialized_view
+    ~range_partitioning ~table_constraints ~table_replication_info
+    ~time_partitioning ~view __resource_id =
   let __resource_type = "google_bigquery_table" in
   let __resource =
     {
@@ -283,10 +291,14 @@ let google_bigquery_table ?clustering ?deletion_protection
       dataset_id;
       deletion_protection;
       description;
+      expiration_time;
       friendly_name;
+      id;
       labels;
       max_staleness;
+      project;
       require_partition_filter;
+      schema;
       table_id;
       encryption_configuration;
       external_data_configuration;

@@ -8,10 +8,13 @@ type azurerm_stream_analytics_job__timeouts
 type azurerm_stream_analytics_job
 
 val azurerm_stream_analytics_job :
+  ?compatibility_level:string ->
   ?content_storage_policy:string ->
+  ?data_locale:string ->
   ?events_late_arrival_max_delay_in_seconds:float ->
   ?events_out_of_order_max_delay_in_seconds:float ->
   ?events_out_of_order_policy:string ->
+  ?id:string ->
   ?output_error_policy:string ->
   ?sku_name:string ->
   ?stream_analytics_cluster_id:string ->

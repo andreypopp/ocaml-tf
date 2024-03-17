@@ -35,6 +35,7 @@ type azurerm_cosmosdb_cassandra_cluster = {
       (** external_seed_node_ip_addresses *)
   hours_between_backups : float option; [@option]
       (** hours_between_backups *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   repair_enabled : bool option; [@option]  (** repair_enabled *)
@@ -49,7 +50,7 @@ type azurerm_cosmosdb_cassandra_cluster = {
 
 let azurerm_cosmosdb_cassandra_cluster ?authentication_method
     ?client_certificate_pems ?external_gossip_certificate_pems
-    ?external_seed_node_ip_addresses ?hours_between_backups
+    ?external_seed_node_ip_addresses ?hours_between_backups ?id
     ?repair_enabled ?tags ?version ?timeouts ~default_admin_password
     ~delegated_management_subnet_id ~location ~name
     ~resource_group_name ~identity __resource_id =
@@ -63,6 +64,7 @@ let azurerm_cosmosdb_cassandra_cluster ?authentication_method
       external_gossip_certificate_pems;
       external_seed_node_ip_addresses;
       hours_between_backups;
+      id;
       location;
       name;
       repair_enabled;

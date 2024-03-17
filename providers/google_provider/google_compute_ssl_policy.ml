@@ -26,6 +26,7 @@ for which ciphers are available to use. **Note**: this argument
 *must not* be present when using any other profile. *)
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   min_tls_version : string option; [@option]
       (** The minimum version of SSL protocol that can be used by the clients
 to establish a connection with the load balancer. Default value: TLS_1_0 Possible values: [TLS_1_0, TLS_1_1, TLS_1_2] *)
@@ -46,21 +47,25 @@ the set of SSL features to enable must be specified in the
 See the [official documentation](https://cloud.google.com/compute/docs/load-balancing/ssl-policies#profilefeaturesupport)
 for information on what cipher suites each profile provides. If
 'CUSTOM' is used, the 'custom_features' attribute **must be set**. Default value: COMPATIBLE Possible values: [COMPATIBLE, MODERN, RESTRICTED, CUSTOM] *)
+  project : string option; [@option]  (** project *)
   timeouts : google_compute_ssl_policy__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_ssl_policy *)
 
-let google_compute_ssl_policy ?custom_features ?description
-    ?min_tls_version ?profile ?timeouts ~name __resource_id =
+let google_compute_ssl_policy ?custom_features ?description ?id
+    ?min_tls_version ?profile ?project ?timeouts ~name __resource_id
+    =
   let __resource_type = "google_compute_ssl_policy" in
   let __resource =
     {
       custom_features;
       description;
+      id;
       min_tls_version;
       name;
       profile;
+      project;
       timeouts;
     }
   in

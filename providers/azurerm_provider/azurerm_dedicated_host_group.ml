@@ -16,6 +16,7 @@ type azurerm_dedicated_host_group__timeouts = {
 type azurerm_dedicated_host_group = {
   automatic_placement_enabled : bool option; [@option]
       (** automatic_placement_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   platform_fault_domain_count : float;
@@ -28,13 +29,14 @@ type azurerm_dedicated_host_group = {
 [@@deriving yojson_of]
 (** azurerm_dedicated_host_group *)
 
-let azurerm_dedicated_host_group ?automatic_placement_enabled ?tags
-    ?zone ?timeouts ~location ~name ~platform_fault_domain_count
-    ~resource_group_name __resource_id =
+let azurerm_dedicated_host_group ?automatic_placement_enabled ?id
+    ?tags ?zone ?timeouts ~location ~name
+    ~platform_fault_domain_count ~resource_group_name __resource_id =
   let __resource_type = "azurerm_dedicated_host_group" in
   let __resource =
     {
       automatic_placement_enabled;
+      id;
       location;
       name;
       platform_fault_domain_count;

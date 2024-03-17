@@ -64,6 +64,7 @@ type google_data_fusion_instance = {
       (** Option to enable Stackdriver Logging. *)
   enable_stackdriver_monitoring : bool option; [@option]
       (** Option to enable Stackdriver Monitoring. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The resource labels for instance to use to annotate any related underlying resources,
 such as Compute Engine VMs.
@@ -73,10 +74,15 @@ such as Compute Engine VMs.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;
       (** The ID of the instance or a fully qualified identifier for the instance. *)
+  options : (string * string) list option; [@option]
+      (** Map of additional options used to configure the behavior of Data Fusion instance. *)
   private_instance : bool option; [@option]
       (** Specifies whether the Data Fusion instance should be private. If set to
 true, all Data Fusion nodes will have private IP addresses and will not be
 able to access the public internet. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The region of the Data Fusion instance. *)
   type_ : string; [@key "type"]
       (** Represents the type of Data Fusion instance. Each type is configured with
 the default settings for processing and memory.
@@ -88,6 +94,10 @@ available, such as support for streaming pipelines, higher number of concurrent 
 - DEVELOPER: Developer Data Fusion instance. In Developer type, the user will have all features available but
 with restrictive capabilities. This is to help enterprises design and develop their data ingestion and integration
 pipelines at low cost. Possible values: [BASIC, ENTERPRISE, DEVELOPER] *)
+  version : string option; [@option]
+      (** Current version of the Data Fusion. *)
+  zone : string option; [@option]
+      (** Name of the zone in which the Data Fusion instance will be created. Only DEVELOPER instances use this field. *)
   accelerators : google_data_fusion_instance__accelerators list;
   crypto_key_config :
     google_data_fusion_instance__crypto_key_config list;
@@ -101,10 +111,10 @@ pipelines at low cost. Possible values: [BASIC, ENTERPRISE, DEVELOPER] *)
 
 let google_data_fusion_instance ?dataproc_service_account
     ?description ?display_name ?enable_rbac
-    ?enable_stackdriver_logging ?enable_stackdriver_monitoring
-    ?labels ?private_instance ?timeouts ~name ~type_ ~accelerators
-    ~crypto_key_config ~event_publish_config ~network_config
-    __resource_id =
+    ?enable_stackdriver_logging ?enable_stackdriver_monitoring ?id
+    ?labels ?options ?private_instance ?project ?region ?version
+    ?zone ?timeouts ~name ~type_ ~accelerators ~crypto_key_config
+    ~event_publish_config ~network_config __resource_id =
   let __resource_type = "google_data_fusion_instance" in
   let __resource =
     {
@@ -114,10 +124,16 @@ let google_data_fusion_instance ?dataproc_service_account
       enable_rbac;
       enable_stackdriver_logging;
       enable_stackdriver_monitoring;
+      id;
       labels;
       name;
+      options;
       private_instance;
+      project;
+      region;
       type_;
+      version;
+      zone;
       accelerators;
       crypto_key_config;
       event_publish_config;

@@ -18,6 +18,7 @@ type azurerm_log_analytics_saved_search = {
   function_alias : string option; [@option]  (** function_alias *)
   function_parameters : string list option; [@option]
       (** function_parameters *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -29,7 +30,7 @@ type azurerm_log_analytics_saved_search = {
 (** azurerm_log_analytics_saved_search *)
 
 let azurerm_log_analytics_saved_search ?function_alias
-    ?function_parameters ?tags ?timeouts ~category ~display_name
+    ?function_parameters ?id ?tags ?timeouts ~category ~display_name
     ~log_analytics_workspace_id ~name ~query __resource_id =
   let __resource_type = "azurerm_log_analytics_saved_search" in
   let __resource =
@@ -38,6 +39,7 @@ let azurerm_log_analytics_saved_search ?function_alias
       display_name;
       function_alias;
       function_parameters;
+      id;
       log_analytics_workspace_id;
       name;
       query;

@@ -20,7 +20,10 @@ type azurerm_virtual_desktop_application = {
   command_line_arguments : string option; [@option]
       (** command_line_arguments *)
   description : string option; [@option]  (** description *)
+  friendly_name : string option; [@option]  (** friendly_name *)
   icon_index : float option; [@option]  (** icon_index *)
+  icon_path : string option; [@option]  (** icon_path *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   path : string;  (** path *)
   show_in_portal : bool option; [@option]  (** show_in_portal *)
@@ -30,9 +33,9 @@ type azurerm_virtual_desktop_application = {
 (** azurerm_virtual_desktop_application *)
 
 let azurerm_virtual_desktop_application ?command_line_arguments
-    ?description ?icon_index ?show_in_portal ?timeouts
-    ~application_group_id ~command_line_argument_policy ~name ~path
-    __resource_id =
+    ?description ?friendly_name ?icon_index ?icon_path ?id
+    ?show_in_portal ?timeouts ~application_group_id
+    ~command_line_argument_policy ~name ~path __resource_id =
   let __resource_type = "azurerm_virtual_desktop_application" in
   let __resource =
     {
@@ -40,7 +43,10 @@ let azurerm_virtual_desktop_application ?command_line_arguments
       command_line_argument_policy;
       command_line_arguments;
       description;
+      friendly_name;
       icon_index;
+      icon_path;
+      id;
       name;
       path;
       show_in_portal;

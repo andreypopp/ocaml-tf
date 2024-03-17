@@ -6,6 +6,7 @@ type azurerm_vmware_netapp_volume_attachment__timeouts
 type azurerm_vmware_netapp_volume_attachment
 
 val azurerm_vmware_netapp_volume_attachment :
+  ?id:string ->
   ?timeouts:azurerm_vmware_netapp_volume_attachment__timeouts ->
   name:string ->
   netapp_volume_id:string ->

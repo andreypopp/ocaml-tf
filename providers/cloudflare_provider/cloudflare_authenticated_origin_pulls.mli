@@ -7,6 +7,7 @@ type cloudflare_authenticated_origin_pulls
 val cloudflare_authenticated_origin_pulls :
   ?authenticated_origin_pulls_certificate:string ->
   ?hostname:string ->
+  ?id:string ->
   enabled:bool ->
   zone_id:string ->
   string ->

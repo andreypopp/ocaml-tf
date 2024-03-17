@@ -14,10 +14,15 @@ type azurerm_aadb2c_directory__timeouts = {
 (** azurerm_aadb2c_directory__timeouts *)
 
 type azurerm_aadb2c_directory = {
+  country_code : string option; [@option]
+      (** Country code of the B2C tenant. See https://aka.ms/B2CDataResidency for valid country codes. *)
   data_residency_location : string;
       (** Location in which the B2C tenant is hosted and data resides. See https://aka.ms/B2CDataResidency for more information. *)
+  display_name : string option; [@option]
+      (** The initial display name of the B2C tenant. *)
   domain_name : string;
       (** Domain name of the B2C tenant, including onmicrosoft.com suffix. *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   sku_name : string;
       (** Billing SKU for the B2C tenant. See https://aka.ms/b2cBilling for more information. *)
@@ -27,13 +32,17 @@ type azurerm_aadb2c_directory = {
 [@@deriving yojson_of]
 (** azurerm_aadb2c_directory *)
 
-let azurerm_aadb2c_directory ?tags ?timeouts ~data_residency_location
-    ~domain_name ~resource_group_name ~sku_name __resource_id =
+let azurerm_aadb2c_directory ?country_code ?display_name ?id ?tags
+    ?timeouts ~data_residency_location ~domain_name
+    ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_aadb2c_directory" in
   let __resource =
     {
+      country_code;
       data_residency_location;
+      display_name;
       domain_name;
+      id;
       resource_group_name;
       sku_name;
       tags;

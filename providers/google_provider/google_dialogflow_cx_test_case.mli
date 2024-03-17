@@ -28,31 +28,26 @@ type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtu
   display_name : string;  (** display_name *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__text_responses = {
   text : string list;  (** text *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__status = {
   code : float;  (** code *)
   details : string;  (** details *)
   message : string;  (** message *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__differences = {
   description : string;  (** description *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__current_page = {
   display_name : string;  (** display_name *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output = {
   current_page :
@@ -77,23 +72,19 @@ type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtu
     list;
       (** triggered_intent *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input__text = {
   text : string;  (** text *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input__event = {
   event : string;  (** event *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input__dtmf = {
   digits : string;  (** digits *)
   finish_digit : string;  (** finish_digit *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input = {
   dtmf :
@@ -110,7 +101,6 @@ type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_
     list;
       (** text *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input = {
   enable_sentiment_analysis : bool;  (** enable_sentiment_analysis *)
@@ -121,7 +111,6 @@ type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_
       (** input *)
   is_webhook_enabled : bool;  (** is_webhook_enabled *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns = {
   user_input :
@@ -133,7 +122,6 @@ type google_dialogflow_cx_test_case__last_test_result__conversation_turns = {
     list;
       (** virtual_agent_output *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case__last_test_result = {
   conversation_turns :
@@ -145,11 +133,11 @@ type google_dialogflow_cx_test_case__last_test_result = {
   test_result : string;  (** test_result *)
   test_time : string;  (** test_time *)
 }
-[@@deriving yojson_of]
 
 type google_dialogflow_cx_test_case
 
 val google_dialogflow_cx_test_case :
+  ?id:string ->
   ?notes:string ->
   ?parent:string ->
   ?tags:string list ->

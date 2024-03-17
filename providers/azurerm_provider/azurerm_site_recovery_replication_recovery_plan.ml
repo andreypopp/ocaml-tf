@@ -186,6 +186,7 @@ type azurerm_site_recovery_replication_recovery_plan__timeouts = {
 (** azurerm_site_recovery_replication_recovery_plan__timeouts *)
 
 type azurerm_site_recovery_replication_recovery_plan = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   recovery_vault_id : string;  (** recovery_vault_id *)
   source_recovery_fabric_id : string;
@@ -213,8 +214,8 @@ type azurerm_site_recovery_replication_recovery_plan = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan *)
 
-let azurerm_site_recovery_replication_recovery_plan ?timeouts ~name
-    ~recovery_vault_id ~source_recovery_fabric_id
+let azurerm_site_recovery_replication_recovery_plan ?id ?timeouts
+    ~name ~recovery_vault_id ~source_recovery_fabric_id
     ~target_recovery_fabric_id ~azure_to_azure_settings
     ~boot_recovery_group ~failover_recovery_group ~recovery_group
     ~shutdown_recovery_group __resource_id =
@@ -223,6 +224,7 @@ let azurerm_site_recovery_replication_recovery_plan ?timeouts ~name
   in
   let __resource =
     {
+      id;
       name;
       recovery_vault_id;
       source_recovery_fabric_id;

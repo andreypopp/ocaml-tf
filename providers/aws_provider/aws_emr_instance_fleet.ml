@@ -68,6 +68,7 @@ type aws_emr_instance_fleet__launch_specifications = {
 
 type aws_emr_instance_fleet = {
   cluster_id : string;  (** cluster_id *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   target_on_demand_capacity : float option; [@option]
       (** target_on_demand_capacity *)
@@ -81,13 +82,14 @@ type aws_emr_instance_fleet = {
 [@@deriving yojson_of]
 (** aws_emr_instance_fleet *)
 
-let aws_emr_instance_fleet ?name ?target_on_demand_capacity
+let aws_emr_instance_fleet ?id ?name ?target_on_demand_capacity
     ?target_spot_capacity ~cluster_id ~instance_type_configs
     ~launch_specifications __resource_id =
   let __resource_type = "aws_emr_instance_fleet" in
   let __resource =
     {
       cluster_id;
+      id;
       name;
       target_on_demand_capacity;
       target_spot_capacity;

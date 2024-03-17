@@ -24,6 +24,7 @@ type aws_datasync_location_hdfs = {
   authentication_type : string option; [@option]
       (** authentication_type *)
   block_size : float option; [@option]  (** block_size *)
+  id : string option; [@option]  (** id *)
   kerberos_keytab : string option; [@option]  (** kerberos_keytab *)
   kerberos_krb5_conf : string option; [@option]
       (** kerberos_krb5_conf *)
@@ -36,6 +37,8 @@ type aws_datasync_location_hdfs = {
   simple_user : string option; [@option]  (** simple_user *)
   subdirectory : string option; [@option]  (** subdirectory *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   name_node : aws_datasync_location_hdfs__name_node list;
   qop_configuration :
     aws_datasync_location_hdfs__qop_configuration list;
@@ -43,17 +46,18 @@ type aws_datasync_location_hdfs = {
 [@@deriving yojson_of]
 (** aws_datasync_location_hdfs *)
 
-let aws_datasync_location_hdfs ?authentication_type ?block_size
+let aws_datasync_location_hdfs ?authentication_type ?block_size ?id
     ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
     ?kms_key_provider_uri ?replication_factor ?simple_user
-    ?subdirectory ?tags ~agent_arns ~name_node ~qop_configuration
-    __resource_id =
+    ?subdirectory ?tags ?tags_all ~agent_arns ~name_node
+    ~qop_configuration __resource_id =
   let __resource_type = "aws_datasync_location_hdfs" in
   let __resource =
     {
       agent_arns;
       authentication_type;
       block_size;
+      id;
       kerberos_keytab;
       kerberos_krb5_conf;
       kerberos_principal;
@@ -62,6 +66,7 @@ let aws_datasync_location_hdfs ?authentication_type ?block_size
       simple_user;
       subdirectory;
       tags;
+      tags_all;
       name_node;
       qop_configuration;
     }

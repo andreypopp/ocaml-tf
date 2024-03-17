@@ -7,6 +7,7 @@ type azurerm_maintenance_assignment_virtual_machine_scale_set__timeouts
 type azurerm_maintenance_assignment_virtual_machine_scale_set
 
 val azurerm_maintenance_assignment_virtual_machine_scale_set :
+  ?id:string ->
   ?timeouts:
     azurerm_maintenance_assignment_virtual_machine_scale_set__timeouts ->
   location:string ->

@@ -15,6 +15,7 @@ type azurerm_mssql_server_extended_auditing_policy__timeouts = {
 
 type azurerm_mssql_server_extended_auditing_policy = {
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_monitoring_enabled : bool option; [@option]
       (** log_monitoring_enabled *)
   retention_in_days : float option; [@option]
@@ -34,7 +35,7 @@ type azurerm_mssql_server_extended_auditing_policy = {
 [@@deriving yojson_of]
 (** azurerm_mssql_server_extended_auditing_policy *)
 
-let azurerm_mssql_server_extended_auditing_policy ?enabled
+let azurerm_mssql_server_extended_auditing_policy ?enabled ?id
     ?log_monitoring_enabled ?retention_in_days
     ?storage_account_access_key
     ?storage_account_access_key_is_secondary
@@ -46,6 +47,7 @@ let azurerm_mssql_server_extended_auditing_policy ?enabled
   let __resource =
     {
       enabled;
+      id;
       log_monitoring_enabled;
       retention_in_days;
       server_id;

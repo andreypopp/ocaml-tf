@@ -54,6 +54,7 @@ type azurerm_sentinel_metadata = {
   first_publish_date : string option; [@option]
       (** first_publish_date *)
   icon_id : string option; [@option]  (** icon_id *)
+  id : string option; [@option]  (** id *)
   kind : string;  (** kind *)
   last_publish_date : string option; [@option]
       (** last_publish_date *)
@@ -80,7 +81,7 @@ type azurerm_sentinel_metadata = {
 (** azurerm_sentinel_metadata *)
 
 let azurerm_sentinel_metadata ?content_schema_version ?custom_version
-    ?dependency ?first_publish_date ?icon_id ?last_publish_date
+    ?dependency ?first_publish_date ?icon_id ?id ?last_publish_date
     ?preview_images ?preview_images_dark ?providers
     ?threat_analysis_tactics ?threat_analysis_techniques ?version
     ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
@@ -94,6 +95,7 @@ let azurerm_sentinel_metadata ?content_schema_version ?custom_version
       dependency;
       first_publish_date;
       icon_id;
+      id;
       kind;
       last_publish_date;
       name;

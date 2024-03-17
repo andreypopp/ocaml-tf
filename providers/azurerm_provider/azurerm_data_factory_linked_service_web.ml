@@ -20,6 +20,7 @@ type azurerm_data_factory_linked_service_web = {
   authentication_type : string;  (** authentication_type *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -34,8 +35,8 @@ type azurerm_data_factory_linked_service_web = {
 (** azurerm_data_factory_linked_service_web *)
 
 let azurerm_data_factory_linked_service_web ?additional_properties
-    ?annotations ?description ?integration_runtime_name ?parameters
-    ?password ?username ?timeouts ~authentication_type
+    ?annotations ?description ?id ?integration_runtime_name
+    ?parameters ?password ?username ?timeouts ~authentication_type
     ~data_factory_id ~name ~url __resource_id =
   let __resource_type = "azurerm_data_factory_linked_service_web" in
   let __resource =
@@ -45,6 +46,7 @@ let azurerm_data_factory_linked_service_web ?additional_properties
       authentication_type;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

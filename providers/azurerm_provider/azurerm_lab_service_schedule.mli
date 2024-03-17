@@ -7,6 +7,7 @@ type azurerm_lab_service_schedule__timeouts
 type azurerm_lab_service_schedule
 
 val azurerm_lab_service_schedule :
+  ?id:string ->
   ?notes:string ->
   ?start_time:string ->
   ?timeouts:azurerm_lab_service_schedule__timeouts ->

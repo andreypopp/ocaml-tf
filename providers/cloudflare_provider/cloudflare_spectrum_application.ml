@@ -39,12 +39,23 @@ type cloudflare_spectrum_application__origin_port_range = {
 (** Origin port range to proxy traffice to. When using a range, the protocol field must also specify a range, e.g. `tcp/22-23`. Conflicts with `origin_port`. *)
 
 type cloudflare_spectrum_application = {
+  argo_smart_routing : bool option; [@option]
+      (** Enables Argo Smart Routing. *)
+  id : string option; [@option]  (** id *)
+  ip_firewall : bool option; [@option]
+      (** Enables the IP Firewall for this application. *)
   origin_direct : string list option; [@option]
       (** A list of destination addresses to the origin. e.g. `tcp://192.0.2.1:22`. *)
   origin_port : float option; [@option]
       (** Origin port to proxy traffice to. Conflicts with `origin_port_range`. *)
   protocol : string;
       (** The port configuration at Cloudflare's edge. e.g. `tcp/22`. *)
+  proxy_protocol : string option; [@option]
+      (** Enables a proxy protocol to the origin. Available values: `off`, `v1`, `v2`, `simple`. *)
+  tls : string option; [@option]
+      (** TLS configuration option for Cloudflare to connect to your origin. Available values: `off`, `flexible`, `full`, `strict`. *)
+  traffic_type : string option; [@option]
+      (** Sets application type. Available values: `direct`, `http`, `https`. *)
   zone_id : string;
       (** The zone identifier to target for the resource. *)
   dns : cloudflare_spectrum_application__dns list;
@@ -59,15 +70,22 @@ of Cloudflare's DDoS, TLS, and IP Firewall to your other TCP-based
 services.
  *)
 
-let cloudflare_spectrum_application ?origin_direct ?origin_port
-    ~protocol ~zone_id ~dns ~edge_ips ~origin_dns ~origin_port_range
-    __resource_id =
+let cloudflare_spectrum_application ?argo_smart_routing ?id
+    ?ip_firewall ?origin_direct ?origin_port ?proxy_protocol ?tls
+    ?traffic_type ~protocol ~zone_id ~dns ~edge_ips ~origin_dns
+    ~origin_port_range __resource_id =
   let __resource_type = "cloudflare_spectrum_application" in
   let __resource =
     {
+      argo_smart_routing;
+      id;
+      ip_firewall;
       origin_direct;
       origin_port;
       protocol;
+      proxy_protocol;
+      tls;
+      traffic_type;
       zone_id;
       dns;
       edge_ips;

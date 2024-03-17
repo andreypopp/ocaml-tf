@@ -438,6 +438,9 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 For more information, see https://cloud.google.com/run/docs/configuring/custom-audiences. *)
   description : string option; [@option]
       (** User-provided description of the Service. This field currently has a 512-character limit. *)
+  id : string option; [@option]  (** id *)
+  ingress : string option; [@option]
+      (** Provides the ingress settings for this Service. On output, returns the currently observed ingress settings, or INGRESS_TRAFFIC_UNSPECIFIED if no revision is active. Possible values: [INGRESS_TRAFFIC_ALL, INGRESS_TRAFFIC_INTERNAL_ONLY, INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER] *)
   labels : (string * string) list option; [@option]
       (** Unstructured key value map that can be used to organize and categorize objects. User-provided labels are shared with Google's billing system, so they can be used to filter, or break down billing charges by team, component,
 environment, state, etc. For more information, visit https://cloud.google.com/resource-manager/docs/creating-managing-labels or https://cloud.google.com/run/docs/configuring/labels.
@@ -447,8 +450,14 @@ All system labels in v1 now have a corresponding field in v2 Service.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  launch_stage : string option; [@option]
+      (** The launch stage as defined by [Google Cloud Platform Launch Stages](https://cloud.google.com/products#product-launch-stages). Cloud Run supports ALPHA, BETA, and GA.
+If no value is specified, GA is assumed. Set the launch stage to a preview stage on input to allow use of preview features in that stage. On read (or output), describes whether the resource uses preview features.
+
+For example, if ALPHA is provided as input, but only BETA and GA-level features are used, this field will be BETA on output. Possible values: [UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS, ALPHA, BETA, GA, DEPRECATED] *)
   location : string;  (** The location of the cloud run service *)
   name : string;  (** Name of the Service. *)
+  project : string option; [@option]  (** project *)
   binary_authorization :
     google_cloud_run_v2_service__binary_authorization list;
   template : google_cloud_run_v2_service__template list;
@@ -459,8 +468,9 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_cloud_run_v2_service *)
 
 let google_cloud_run_v2_service ?annotations ?client ?client_version
-    ?custom_audiences ?description ?labels ?timeouts ~location ~name
-    ~binary_authorization ~template ~traffic __resource_id =
+    ?custom_audiences ?description ?id ?ingress ?labels ?launch_stage
+    ?project ?timeouts ~location ~name ~binary_authorization
+    ~template ~traffic __resource_id =
   let __resource_type = "google_cloud_run_v2_service" in
   let __resource =
     {
@@ -469,9 +479,13 @@ let google_cloud_run_v2_service ?annotations ?client ?client_version
       client_version;
       custom_audiences;
       description;
+      id;
+      ingress;
       labels;
+      launch_stage;
       location;
       name;
+      project;
       binary_authorization;
       template;
       timeouts;

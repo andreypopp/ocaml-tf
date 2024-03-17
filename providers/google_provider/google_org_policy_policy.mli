@@ -14,6 +14,7 @@ type google_org_policy_policy__timeouts
 type google_org_policy_policy
 
 val google_org_policy_policy :
+  ?id:string ->
   ?timeouts:google_org_policy_policy__timeouts ->
   name:string ->
   parent:string ->

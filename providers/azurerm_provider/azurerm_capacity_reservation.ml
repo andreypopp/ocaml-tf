@@ -23,6 +23,7 @@ type azurerm_capacity_reservation__timeouts = {
 type azurerm_capacity_reservation = {
   capacity_reservation_group_id : string;
       (** capacity_reservation_group_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
   zone : string option; [@option]  (** zone *)
@@ -32,12 +33,13 @@ type azurerm_capacity_reservation = {
 [@@deriving yojson_of]
 (** azurerm_capacity_reservation *)
 
-let azurerm_capacity_reservation ?tags ?zone ?timeouts
+let azurerm_capacity_reservation ?id ?tags ?zone ?timeouts
     ~capacity_reservation_group_id ~name ~sku __resource_id =
   let __resource_type = "azurerm_capacity_reservation" in
   let __resource =
     {
       capacity_reservation_group_id;
+      id;
       name;
       tags;
       zone;

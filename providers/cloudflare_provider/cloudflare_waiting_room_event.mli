@@ -8,6 +8,7 @@ val cloudflare_waiting_room_event :
   ?custom_page_html:string ->
   ?description:string ->
   ?disable_session_renewal:bool ->
+  ?id:string ->
   ?new_users_per_minute:float ->
   ?prequeue_start_time:string ->
   ?queueing_method:string ->

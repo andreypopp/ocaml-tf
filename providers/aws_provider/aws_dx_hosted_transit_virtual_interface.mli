@@ -6,6 +6,10 @@ type aws_dx_hosted_transit_virtual_interface__timeouts
 type aws_dx_hosted_transit_virtual_interface
 
 val aws_dx_hosted_transit_virtual_interface :
+  ?amazon_address:string ->
+  ?bgp_auth_key:string ->
+  ?customer_address:string ->
+  ?id:string ->
   ?mtu:float ->
   ?timeouts:aws_dx_hosted_transit_virtual_interface__timeouts ->
   address_family:string ->

@@ -19,6 +19,8 @@ type aws_vpc_ipam_pool_cidr__timeouts = {
 (** aws_vpc_ipam_pool_cidr__timeouts *)
 
 type aws_vpc_ipam_pool_cidr = {
+  cidr : string option; [@option]  (** cidr *)
+  id : string option; [@option]  (** id *)
   ipam_pool_id : string;  (** ipam_pool_id *)
   netmask_length : float option; [@option]  (** netmask_length *)
   cidr_authorization_context :
@@ -28,11 +30,13 @@ type aws_vpc_ipam_pool_cidr = {
 [@@deriving yojson_of]
 (** aws_vpc_ipam_pool_cidr *)
 
-let aws_vpc_ipam_pool_cidr ?netmask_length ?timeouts ~ipam_pool_id
-    ~cidr_authorization_context __resource_id =
+let aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length ?timeouts
+    ~ipam_pool_id ~cidr_authorization_context __resource_id =
   let __resource_type = "aws_vpc_ipam_pool_cidr" in
   let __resource =
     {
+      cidr;
+      id;
       ipam_pool_id;
       netmask_length;
       cidr_authorization_context;

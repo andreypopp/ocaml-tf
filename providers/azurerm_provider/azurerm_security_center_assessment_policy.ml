@@ -14,8 +14,10 @@ type azurerm_security_center_assessment_policy__timeouts = {
 (** azurerm_security_center_assessment_policy__timeouts *)
 
 type azurerm_security_center_assessment_policy = {
+  categories : string list option; [@option]  (** categories *)
   description : string;  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   implementation_effort : string option; [@option]
       (** implementation_effort *)
   remediation_description : string option; [@option]
@@ -29,16 +31,19 @@ type azurerm_security_center_assessment_policy = {
 [@@deriving yojson_of]
 (** azurerm_security_center_assessment_policy *)
 
-let azurerm_security_center_assessment_policy ?implementation_effort
-    ?remediation_description ?severity ?threats ?user_impact
-    ?timeouts ~description ~display_name __resource_id =
+let azurerm_security_center_assessment_policy ?categories ?id
+    ?implementation_effort ?remediation_description ?severity
+    ?threats ?user_impact ?timeouts ~description ~display_name
+    __resource_id =
   let __resource_type =
     "azurerm_security_center_assessment_policy"
   in
   let __resource =
     {
+      categories;
       description;
       display_name;
+      id;
       implementation_effort;
       remediation_description;
       severity;

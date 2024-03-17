@@ -215,10 +215,15 @@ type aws_dms_endpoint__timeouts = {
 (** aws_dms_endpoint__timeouts *)
 
 type aws_dms_endpoint = {
+  certificate_arn : string option; [@option]  (** certificate_arn *)
   database_name : string option; [@option]  (** database_name *)
   endpoint_id : string;  (** endpoint_id *)
   endpoint_type : string;  (** endpoint_type *)
   engine_name : string;  (** engine_name *)
+  extra_connection_attributes : string option; [@option]
+      (** extra_connection_attributes *)
+  id : string option; [@option]  (** id *)
+  kms_key_arn : string option; [@option]  (** kms_key_arn *)
   password : string option; [@option]  (** password *)
   pause_replication_tasks : bool option; [@option]
       (** pause_replication_tasks *)
@@ -230,7 +235,10 @@ type aws_dms_endpoint = {
   server_name : string option; [@option]  (** server_name *)
   service_access_role : string option; [@option]
       (** service_access_role *)
+  ssl_mode : string option; [@option]  (** ssl_mode *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   username : string option; [@option]  (** username *)
   elasticsearch_settings :
     aws_dms_endpoint__elasticsearch_settings list;
@@ -246,20 +254,25 @@ type aws_dms_endpoint = {
 [@@deriving yojson_of]
 (** aws_dms_endpoint *)
 
-let aws_dms_endpoint ?database_name ?password
+let aws_dms_endpoint ?certificate_arn ?database_name
+    ?extra_connection_attributes ?id ?kms_key_arn ?password
     ?pause_replication_tasks ?port ?secrets_manager_access_role_arn
-    ?secrets_manager_arn ?server_name ?service_access_role ?tags
-    ?username ?timeouts ~endpoint_id ~endpoint_type ~engine_name
-    ~elasticsearch_settings ~kafka_settings ~kinesis_settings
-    ~mongodb_settings ~postgres_settings ~redis_settings
-    ~redshift_settings ~s3_settings __resource_id =
+    ?secrets_manager_arn ?server_name ?service_access_role ?ssl_mode
+    ?tags ?tags_all ?username ?timeouts ~endpoint_id ~endpoint_type
+    ~engine_name ~elasticsearch_settings ~kafka_settings
+    ~kinesis_settings ~mongodb_settings ~postgres_settings
+    ~redis_settings ~redshift_settings ~s3_settings __resource_id =
   let __resource_type = "aws_dms_endpoint" in
   let __resource =
     {
+      certificate_arn;
       database_name;
       endpoint_id;
       endpoint_type;
       engine_name;
+      extra_connection_attributes;
+      id;
+      kms_key_arn;
       password;
       pause_replication_tasks;
       port;
@@ -267,7 +280,9 @@ let aws_dms_endpoint ?database_name ?password
       secrets_manager_arn;
       server_name;
       service_access_role;
+      ssl_mode;
       tags;
+      tags_all;
       username;
       elasticsearch_settings;
       kafka_settings;

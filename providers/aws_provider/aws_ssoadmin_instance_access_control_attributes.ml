@@ -20,6 +20,7 @@ type aws_ssoadmin_instance_access_control_attributes__attribute = {
 (** aws_ssoadmin_instance_access_control_attributes__attribute *)
 
 type aws_ssoadmin_instance_access_control_attributes = {
+  id : string option; [@option]  (** id *)
   instance_arn : string;  (** instance_arn *)
   attribute :
     aws_ssoadmin_instance_access_control_attributes__attribute list;
@@ -27,12 +28,12 @@ type aws_ssoadmin_instance_access_control_attributes = {
 [@@deriving yojson_of]
 (** aws_ssoadmin_instance_access_control_attributes *)
 
-let aws_ssoadmin_instance_access_control_attributes ~instance_arn
+let aws_ssoadmin_instance_access_control_attributes ?id ~instance_arn
     ~attribute __resource_id =
   let __resource_type =
     "aws_ssoadmin_instance_access_control_attributes"
   in
-  let __resource = { instance_arn; attribute } in
+  let __resource = { id; instance_arn; attribute } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssoadmin_instance_access_control_attributes
        __resource);

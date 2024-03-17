@@ -8,6 +8,7 @@ type cloudflare_dlp_profile
 
 val cloudflare_dlp_profile :
   ?description:string ->
+  ?id:string ->
   account_id:string ->
   allowed_match_count:float ->
   name:string ->

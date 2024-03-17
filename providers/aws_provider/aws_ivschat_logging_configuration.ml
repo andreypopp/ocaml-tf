@@ -45,8 +45,11 @@ type aws_ivschat_logging_configuration__timeouts = {
 (** aws_ivschat_logging_configuration__timeouts *)
 
 type aws_ivschat_logging_configuration = {
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   destination_configuration :
     aws_ivschat_logging_configuration__destination_configuration list;
   timeouts : aws_ivschat_logging_configuration__timeouts option;
@@ -54,11 +57,11 @@ type aws_ivschat_logging_configuration = {
 [@@deriving yojson_of]
 (** aws_ivschat_logging_configuration *)
 
-let aws_ivschat_logging_configuration ?name ?tags ?timeouts
-    ~destination_configuration __resource_id =
+let aws_ivschat_logging_configuration ?id ?name ?tags ?tags_all
+    ?timeouts ~destination_configuration __resource_id =
   let __resource_type = "aws_ivschat_logging_configuration" in
   let __resource =
-    { name; tags; destination_configuration; timeouts }
+    { id; name; tags; tags_all; destination_configuration; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ivschat_logging_configuration __resource);

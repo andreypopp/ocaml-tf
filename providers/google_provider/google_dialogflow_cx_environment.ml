@@ -24,6 +24,7 @@ type google_dialogflow_cx_environment = {
       (** The human-readable description of the environment. The maximum length is 500 characters. If exceeded, the request is rejected. *)
   display_name : string;
       (** The human-readable name of the environment (unique in an agent). Limit of 64 characters. *)
+  id : string option; [@option]  (** id *)
   parent : string option; [@option]
       (** The Agent to create an Environment for.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
@@ -34,11 +35,18 @@ Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
 [@@deriving yojson_of]
 (** google_dialogflow_cx_environment *)
 
-let google_dialogflow_cx_environment ?description ?parent ?timeouts
-    ~display_name ~version_configs __resource_id =
+let google_dialogflow_cx_environment ?description ?id ?parent
+    ?timeouts ~display_name ~version_configs __resource_id =
   let __resource_type = "google_dialogflow_cx_environment" in
   let __resource =
-    { description; display_name; parent; timeouts; version_configs }
+    {
+      description;
+      display_name;
+      id;
+      parent;
+      timeouts;
+      version_configs;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_environment __resource);

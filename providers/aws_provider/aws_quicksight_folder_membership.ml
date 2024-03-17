@@ -5,15 +5,17 @@
 open! Tf.Prelude
 
 type aws_quicksight_folder_membership = {
+  aws_account_id: string option; [@option] (** aws_account_id *)
   folder_id: string;  (** folder_id *)
   member_id: string;  (** member_id *)
   member_type: string;  (** member_type *)
 } [@@deriving yojson_of]
 (** aws_quicksight_folder_membership *)
 
-let aws_quicksight_folder_membership   ~folder_id ~member_id ~member_type  __resource_id =
+let aws_quicksight_folder_membership ?aws_account_id  ~folder_id ~member_id ~member_type  __resource_id =
   let __resource_type = "aws_quicksight_folder_membership" in
   let __resource = {
+    aws_account_id;
     folder_id;
     member_id;
     member_type;

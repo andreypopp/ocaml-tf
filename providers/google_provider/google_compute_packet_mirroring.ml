@@ -72,7 +72,16 @@ type google_compute_packet_mirroring__timeouts = {
 type google_compute_packet_mirroring = {
   description : string option; [@option]
       (** A human-readable description of the rule. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the packet mirroring rule *)
+  priority : float option; [@option]
+      (** Since only one rule can be active at a time, priority is
+used to break ties in the case of two rules that apply to
+the same instances. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The Region in which the created address should reside.
+If it is not provided, the provider region is used. *)
   collector_ilb :
     google_compute_packet_mirroring__collector_ilb list;
   filter : google_compute_packet_mirroring__filter list;
@@ -84,14 +93,18 @@ type google_compute_packet_mirroring = {
 [@@deriving yojson_of]
 (** google_compute_packet_mirroring *)
 
-let google_compute_packet_mirroring ?description ?timeouts ~name
-    ~collector_ilb ~filter ~mirrored_resources ~network __resource_id
-    =
+let google_compute_packet_mirroring ?description ?id ?priority
+    ?project ?region ?timeouts ~name ~collector_ilb ~filter
+    ~mirrored_resources ~network __resource_id =
   let __resource_type = "google_compute_packet_mirroring" in
   let __resource =
     {
       description;
+      id;
       name;
+      priority;
+      project;
+      region;
       collector_ilb;
       filter;
       mirrored_resources;

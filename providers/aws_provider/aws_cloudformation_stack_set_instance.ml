@@ -43,9 +43,12 @@ type aws_cloudformation_stack_set_instance__stack_instance_summaries = {
 [@@deriving yojson_of]
 
 type aws_cloudformation_stack_set_instance = {
+  account_id : string option; [@option]  (** account_id *)
   call_as : string option; [@option]  (** call_as *)
+  id : string option; [@option]  (** id *)
   parameter_overrides : (string * string) list option; [@option]
       (** parameter_overrides *)
+  region : string option; [@option]  (** region *)
   retain_stack : bool option; [@option]  (** retain_stack *)
   stack_set_name : string;  (** stack_set_name *)
   deployment_targets :
@@ -57,14 +60,18 @@ type aws_cloudformation_stack_set_instance = {
 [@@deriving yojson_of]
 (** aws_cloudformation_stack_set_instance *)
 
-let aws_cloudformation_stack_set_instance ?call_as
-    ?parameter_overrides ?retain_stack ?timeouts ~stack_set_name
-    ~deployment_targets ~operation_preferences __resource_id =
+let aws_cloudformation_stack_set_instance ?account_id ?call_as ?id
+    ?parameter_overrides ?region ?retain_stack ?timeouts
+    ~stack_set_name ~deployment_targets ~operation_preferences
+    __resource_id =
   let __resource_type = "aws_cloudformation_stack_set_instance" in
   let __resource =
     {
+      account_id;
       call_as;
+      id;
       parameter_overrides;
+      region;
       retain_stack;
       stack_set_name;
       deployment_targets;

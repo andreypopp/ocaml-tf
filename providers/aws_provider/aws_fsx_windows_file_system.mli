@@ -14,11 +14,18 @@ val aws_fsx_windows_file_system :
   ?automatic_backup_retention_days:float ->
   ?backup_id:string ->
   ?copy_tags_to_backups:bool ->
+  ?daily_automatic_backup_start_time:string ->
   ?deployment_type:string ->
+  ?id:string ->
+  ?kms_key_id:string ->
+  ?preferred_subnet_id:string ->
   ?security_group_ids:string list ->
   ?skip_final_backup:bool ->
+  ?storage_capacity:float ->
   ?storage_type:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?weekly_maintenance_start_time:string ->
   ?timeouts:aws_fsx_windows_file_system__timeouts ->
   subnet_ids:string list ->
   throughput_capacity:float ->

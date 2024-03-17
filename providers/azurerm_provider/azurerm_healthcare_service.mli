@@ -11,6 +11,7 @@ val azurerm_healthcare_service :
   ?access_policy_object_ids:string list ->
   ?cosmosdb_key_vault_key_versionless_id:string ->
   ?cosmosdb_throughput:float ->
+  ?id:string ->
   ?kind:string ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->

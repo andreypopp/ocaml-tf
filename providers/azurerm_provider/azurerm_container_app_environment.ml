@@ -26,6 +26,9 @@ type azurerm_container_app_environment = {
   dapr_application_insights_connection_string : string option;
       [@option]
       (** Application Insights connection string used by Dapr to export Service to Service communication telemetry. *)
+  id : string option; [@option]  (** id *)
+  infrastructure_resource_group_name : string option; [@option]
+      (** Name of the platform-managed resource group created for the Managed Environment to host infrastructure resources. **Note:** Only valid if a `workload_profile` is specified. If `infrastructure_subnet_id` is specified, this resource group will be created in the same subscription as `infrastructure_subnet_id`. *)
   infrastructure_subnet_id : string option; [@option]
       (** The existing Subnet to use for the Container Apps Control Plane. **NOTE:** The Subnet must have a `/21` or larger address space. *)
   internal_load_balancer_enabled : bool option; [@option]
@@ -47,15 +50,17 @@ type azurerm_container_app_environment = {
 (** azurerm_container_app_environment *)
 
 let azurerm_container_app_environment
-    ?dapr_application_insights_connection_string
-    ?infrastructure_subnet_id ?internal_load_balancer_enabled
-    ?log_analytics_workspace_id ?tags ?zone_redundancy_enabled
-    ?timeouts ~location ~name ~resource_group_name ~workload_profile
-    __resource_id =
+    ?dapr_application_insights_connection_string ?id
+    ?infrastructure_resource_group_name ?infrastructure_subnet_id
+    ?internal_load_balancer_enabled ?log_analytics_workspace_id ?tags
+    ?zone_redundancy_enabled ?timeouts ~location ~name
+    ~resource_group_name ~workload_profile __resource_id =
   let __resource_type = "azurerm_container_app_environment" in
   let __resource =
     {
       dapr_application_insights_connection_string;
+      id;
+      infrastructure_resource_group_name;
       infrastructure_subnet_id;
       internal_load_balancer_enabled;
       location;

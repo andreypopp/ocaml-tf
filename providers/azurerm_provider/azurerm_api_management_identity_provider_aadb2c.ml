@@ -19,6 +19,7 @@ type azurerm_api_management_identity_provider_aadb2c = {
   authority : string;  (** authority *)
   client_id : string;  (** client_id *)
   client_secret : string;  (** client_secret *)
+  id : string option; [@option]  (** id *)
   password_reset_policy : string option; [@option]
       (** password_reset_policy *)
   profile_editing_policy : string option; [@option]
@@ -33,7 +34,7 @@ type azurerm_api_management_identity_provider_aadb2c = {
 [@@deriving yojson_of]
 (** azurerm_api_management_identity_provider_aadb2c *)
 
-let azurerm_api_management_identity_provider_aadb2c
+let azurerm_api_management_identity_provider_aadb2c ?id
     ?password_reset_policy ?profile_editing_policy ?timeouts
     ~allowed_tenant ~api_management_name ~authority ~client_id
     ~client_secret ~resource_group_name ~signin_policy ~signin_tenant
@@ -48,6 +49,7 @@ let azurerm_api_management_identity_provider_aadb2c
       authority;
       client_id;
       client_secret;
+      id;
       password_reset_policy;
       profile_editing_policy;
       resource_group_name;

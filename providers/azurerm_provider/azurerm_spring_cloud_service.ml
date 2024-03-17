@@ -142,6 +142,7 @@ type azurerm_spring_cloud_service__required_network_traffic_rules = {
 type azurerm_spring_cloud_service = {
   build_agent_pool_size : string option; [@option]
       (** build_agent_pool_size *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   log_stream_public_endpoint_enabled : bool option; [@option]
       (** log_stream_public_endpoint_enabled *)
@@ -152,6 +153,7 @@ type azurerm_spring_cloud_service = {
   service_registry_enabled : bool option; [@option]
       (** service_registry_enabled *)
   sku_name : string option; [@option]  (** sku_name *)
+  sku_tier : string option; [@option]  (** sku_tier *)
   tags : (string * string) list option; [@option]  (** tags *)
   zone_redundant : bool option; [@option]  (** zone_redundant *)
   config_server_git_setting :
@@ -168,10 +170,10 @@ type azurerm_spring_cloud_service = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_service *)
 
-let azurerm_spring_cloud_service ?build_agent_pool_size
+let azurerm_spring_cloud_service ?build_agent_pool_size ?id
     ?log_stream_public_endpoint_enabled ?managed_environment_id
-    ?service_registry_enabled ?sku_name ?tags ?zone_redundant
-    ?timeouts ~location ~name ~resource_group_name
+    ?service_registry_enabled ?sku_name ?sku_tier ?tags
+    ?zone_redundant ?timeouts ~location ~name ~resource_group_name
     ~config_server_git_setting ~container_registry
     ~default_build_service ~marketplace ~network ~trace __resource_id
     =
@@ -179,6 +181,7 @@ let azurerm_spring_cloud_service ?build_agent_pool_size
   let __resource =
     {
       build_agent_pool_size;
+      id;
       location;
       log_stream_public_endpoint_enabled;
       managed_environment_id;
@@ -186,6 +189,7 @@ let azurerm_spring_cloud_service ?build_agent_pool_size
       resource_group_name;
       service_registry_enabled;
       sku_name;
+      sku_tier;
       tags;
       zone_redundant;
       config_server_git_setting;

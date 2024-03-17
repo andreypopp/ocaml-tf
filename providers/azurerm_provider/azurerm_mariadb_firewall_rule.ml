@@ -15,6 +15,7 @@ type azurerm_mariadb_firewall_rule__timeouts = {
 
 type azurerm_mariadb_firewall_rule = {
   end_ip_address : string;  (** end_ip_address *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   server_name : string;  (** server_name *)
@@ -24,13 +25,14 @@ type azurerm_mariadb_firewall_rule = {
 [@@deriving yojson_of]
 (** azurerm_mariadb_firewall_rule *)
 
-let azurerm_mariadb_firewall_rule ?timeouts ~end_ip_address ~name
+let azurerm_mariadb_firewall_rule ?id ?timeouts ~end_ip_address ~name
     ~resource_group_name ~server_name ~start_ip_address __resource_id
     =
   let __resource_type = "azurerm_mariadb_firewall_rule" in
   let __resource =
     {
       end_ip_address;
+      id;
       name;
       resource_group_name;
       server_name;

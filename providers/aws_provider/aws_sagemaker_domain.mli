@@ -91,8 +91,10 @@ type aws_sagemaker_domain
 val aws_sagemaker_domain :
   ?app_network_access_type:string ->
   ?app_security_group_management:string ->
+  ?id:string ->
   ?kms_key_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   auth_mode:string ->
   domain_name:string ->
   subnet_ids:string list ->

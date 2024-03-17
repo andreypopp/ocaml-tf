@@ -9,6 +9,7 @@ val cloudflare_static_route :
   ?colo_names:string list ->
   ?colo_regions:string list ->
   ?description:string ->
+  ?id:string ->
   ?weight:float ->
   nexthop:string ->
   prefix:string ->

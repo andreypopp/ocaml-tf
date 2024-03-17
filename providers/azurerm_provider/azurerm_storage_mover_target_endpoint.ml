@@ -15,6 +15,7 @@ type azurerm_storage_mover_target_endpoint__timeouts = {
 
 type azurerm_storage_mover_target_endpoint = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   storage_account_id : string;  (** storage_account_id *)
   storage_container_name : string;  (** storage_container_name *)
@@ -24,13 +25,14 @@ type azurerm_storage_mover_target_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_storage_mover_target_endpoint *)
 
-let azurerm_storage_mover_target_endpoint ?description ?timeouts
+let azurerm_storage_mover_target_endpoint ?description ?id ?timeouts
     ~name ~storage_account_id ~storage_container_name
     ~storage_mover_id __resource_id =
   let __resource_type = "azurerm_storage_mover_target_endpoint" in
   let __resource =
     {
       description;
+      id;
       name;
       storage_account_id;
       storage_container_name;

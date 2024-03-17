@@ -25,11 +25,13 @@ type azurerm_cosmosdb_cassandra_datacenter = {
       (** delegated_management_subnet_id *)
   disk_count : float option; [@option]  (** disk_count *)
   disk_sku : string option; [@option]  (** disk_sku *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   managed_disk_customer_key_uri : string option; [@option]
       (** managed_disk_customer_key_uri *)
   name : string;  (** name *)
   node_count : float option; [@option]  (** node_count *)
+  sku_name : string option; [@option]  (** sku_name *)
   timeouts : azurerm_cosmosdb_cassandra_datacenter__timeouts option;
 }
 [@@deriving yojson_of]
@@ -37,9 +39,9 @@ type azurerm_cosmosdb_cassandra_datacenter = {
 
 let azurerm_cosmosdb_cassandra_datacenter ?availability_zones_enabled
     ?backup_storage_customer_key_uri ?base64_encoded_yaml_fragment
-    ?disk_count ?disk_sku ?managed_disk_customer_key_uri ?node_count
-    ?timeouts ~cassandra_cluster_id ~delegated_management_subnet_id
-    ~location ~name __resource_id =
+    ?disk_count ?disk_sku ?id ?managed_disk_customer_key_uri
+    ?node_count ?sku_name ?timeouts ~cassandra_cluster_id
+    ~delegated_management_subnet_id ~location ~name __resource_id =
   let __resource_type = "azurerm_cosmosdb_cassandra_datacenter" in
   let __resource =
     {
@@ -50,10 +52,12 @@ let azurerm_cosmosdb_cassandra_datacenter ?availability_zones_enabled
       delegated_management_subnet_id;
       disk_count;
       disk_sku;
+      id;
       location;
       managed_disk_customer_key_uri;
       name;
       node_count;
+      sku_name;
       timeouts;
     }
   in

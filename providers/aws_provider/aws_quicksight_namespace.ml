@@ -11,15 +11,19 @@ type aws_quicksight_namespace__timeouts = {
 (** aws_quicksight_namespace__timeouts *)
 
 type aws_quicksight_namespace = {
+  aws_account_id: string option; [@option] (** aws_account_id *)
+  identity_store: string option; [@option] (** identity_store *)
   namespace: string;  (** namespace *)
   tags: (string * string) list option; [@option] (** tags *)
   timeouts: aws_quicksight_namespace__timeouts option;
 } [@@deriving yojson_of]
 (** aws_quicksight_namespace *)
 
-let aws_quicksight_namespace ?tags ?timeouts ~namespace  __resource_id =
+let aws_quicksight_namespace ?aws_account_id ?identity_store ?tags ?timeouts ~namespace  __resource_id =
   let __resource_type = "aws_quicksight_namespace" in
   let __resource = {
+    aws_account_id;
+    identity_store;
     namespace;
     tags;
     timeouts;

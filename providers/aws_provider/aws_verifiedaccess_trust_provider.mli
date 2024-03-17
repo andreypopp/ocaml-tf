@@ -10,7 +10,9 @@ type aws_verifiedaccess_trust_provider
 val aws_verifiedaccess_trust_provider :
   ?description:string ->
   ?device_trust_provider_type:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?user_trust_provider_type:string ->
   ?timeouts:aws_verifiedaccess_trust_provider__timeouts ->
   policy_reference_name:string ->

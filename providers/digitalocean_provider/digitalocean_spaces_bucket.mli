@@ -14,6 +14,7 @@ type digitalocean_spaces_bucket
 val digitalocean_spaces_bucket :
   ?acl:string ->
   ?force_destroy:bool ->
+  ?id:string ->
   ?region:string ->
   name:string ->
   cors_rule:digitalocean_spaces_bucket__cors_rule list ->

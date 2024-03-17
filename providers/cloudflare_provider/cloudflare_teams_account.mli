@@ -20,6 +20,7 @@ type cloudflare_teams_account
 
 val cloudflare_teams_account :
   ?activity_log_enabled:bool ->
+  ?id:string ->
   ?non_identity_browser_isolation_enabled:bool ->
   ?protocol_detection_enabled:bool ->
   ?tls_decrypt_enabled:bool ->

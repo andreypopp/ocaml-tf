@@ -77,6 +77,7 @@ type azurerm_netapp_volume_group_sap_hana = {
   account_name : string;  (** account_name *)
   application_identifier : string;  (** application_identifier *)
   group_description : string;  (** group_description *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -86,7 +87,7 @@ type azurerm_netapp_volume_group_sap_hana = {
 [@@deriving yojson_of]
 (** azurerm_netapp_volume_group_sap_hana *)
 
-let azurerm_netapp_volume_group_sap_hana ?timeouts ~account_name
+let azurerm_netapp_volume_group_sap_hana ?id ?timeouts ~account_name
     ~application_identifier ~group_description ~location ~name
     ~resource_group_name ~volume __resource_id =
   let __resource_type = "azurerm_netapp_volume_group_sap_hana" in
@@ -95,6 +96,7 @@ let azurerm_netapp_volume_group_sap_hana ?timeouts ~account_name
       account_name;
       application_identifier;
       group_description;
+      id;
       location;
       name;
       resource_group_name;

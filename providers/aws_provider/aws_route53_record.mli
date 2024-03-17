@@ -13,7 +13,9 @@ type aws_route53_record__weighted_routing_policy
 type aws_route53_record
 
 val aws_route53_record :
+  ?allow_overwrite:bool ->
   ?health_check_id:string ->
+  ?id:string ->
   ?multivalue_answer_routing_policy:bool ->
   ?records:string list ->
   ?set_identifier:string ->

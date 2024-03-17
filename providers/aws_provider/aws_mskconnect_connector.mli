@@ -30,6 +30,7 @@ type aws_mskconnect_connector
 
 val aws_mskconnect_connector :
   ?description:string ->
+  ?id:string ->
   ?timeouts:aws_mskconnect_connector__timeouts ->
   connector_configuration:(string * string) list ->
   kafkaconnect_version:string ->

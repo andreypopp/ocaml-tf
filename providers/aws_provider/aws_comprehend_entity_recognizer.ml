@@ -82,11 +82,17 @@ type aws_comprehend_entity_recognizer__vpc_config = {
 
 type aws_comprehend_entity_recognizer = {
   data_access_role_arn : string;  (** data_access_role_arn *)
+  id : string option; [@option]  (** id *)
   language_code : string;  (** language_code *)
   model_kms_key_id : string option; [@option]
       (** model_kms_key_id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  version_name : string option; [@option]  (** version_name *)
+  version_name_prefix : string option; [@option]
+      (** version_name_prefix *)
   volume_kms_key_id : string option; [@option]
       (** volume_kms_key_id *)
   input_data_config :
@@ -97,17 +103,22 @@ type aws_comprehend_entity_recognizer = {
 [@@deriving yojson_of]
 (** aws_comprehend_entity_recognizer *)
 
-let aws_comprehend_entity_recognizer ?model_kms_key_id ?tags
-    ?volume_kms_key_id ?timeouts ~data_access_role_arn ~language_code
-    ~name ~input_data_config ~vpc_config __resource_id =
+let aws_comprehend_entity_recognizer ?id ?model_kms_key_id ?tags
+    ?tags_all ?version_name ?version_name_prefix ?volume_kms_key_id
+    ?timeouts ~data_access_role_arn ~language_code ~name
+    ~input_data_config ~vpc_config __resource_id =
   let __resource_type = "aws_comprehend_entity_recognizer" in
   let __resource =
     {
       data_access_role_arn;
+      id;
       language_code;
       model_kms_key_id;
       name;
       tags;
+      tags_all;
+      version_name;
+      version_name_prefix;
       volume_kms_key_id;
       input_data_config;
       timeouts;

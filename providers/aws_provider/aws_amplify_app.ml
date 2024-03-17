@@ -49,6 +49,8 @@ type aws_amplify_app = {
       (** auto_branch_creation_patterns *)
   basic_auth_credentials : string option; [@option]
       (** basic_auth_credentials *)
+  build_spec : string option; [@option]  (** build_spec *)
+  custom_headers : string option; [@option]  (** custom_headers *)
   description : string option; [@option]  (** description *)
   enable_auto_branch_creation : bool option; [@option]
       (** enable_auto_branch_creation *)
@@ -62,11 +64,14 @@ type aws_amplify_app = {
       (** environment_variables *)
   iam_service_role_arn : string option; [@option]
       (** iam_service_role_arn *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   oauth_token : string option; [@option]  (** oauth_token *)
   platform : string option; [@option]  (** platform *)
   repository : string option; [@option]  (** repository *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   auto_branch_creation_config :
     aws_amplify_app__auto_branch_creation_config list;
   custom_rule : aws_amplify_app__custom_rule list;
@@ -75,17 +80,20 @@ type aws_amplify_app = {
 (** aws_amplify_app *)
 
 let aws_amplify_app ?access_token ?auto_branch_creation_patterns
-    ?basic_auth_credentials ?description ?enable_auto_branch_creation
-    ?enable_basic_auth ?enable_branch_auto_build
-    ?enable_branch_auto_deletion ?environment_variables
-    ?iam_service_role_arn ?oauth_token ?platform ?repository ?tags
-    ~name ~auto_branch_creation_config ~custom_rule __resource_id =
+    ?basic_auth_credentials ?build_spec ?custom_headers ?description
+    ?enable_auto_branch_creation ?enable_basic_auth
+    ?enable_branch_auto_build ?enable_branch_auto_deletion
+    ?environment_variables ?iam_service_role_arn ?id ?oauth_token
+    ?platform ?repository ?tags ?tags_all ~name
+    ~auto_branch_creation_config ~custom_rule __resource_id =
   let __resource_type = "aws_amplify_app" in
   let __resource =
     {
       access_token;
       auto_branch_creation_patterns;
       basic_auth_credentials;
+      build_spec;
+      custom_headers;
       description;
       enable_auto_branch_creation;
       enable_basic_auth;
@@ -93,11 +101,13 @@ let aws_amplify_app ?access_token ?auto_branch_creation_patterns
       enable_branch_auto_deletion;
       environment_variables;
       iam_service_role_arn;
+      id;
       name;
       oauth_token;
       platform;
       repository;
       tags;
+      tags_all;
       auto_branch_creation_config;
       custom_rule;
     }

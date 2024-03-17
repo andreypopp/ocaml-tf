@@ -6,6 +6,9 @@ type google_firebase_app_check_app_attest_config__timeouts
 type google_firebase_app_check_app_attest_config
 
 val google_firebase_app_check_app_attest_config :
+  ?id:string ->
+  ?project:string ->
+  ?token_ttl:string ->
   ?timeouts:google_firebase_app_check_app_attest_config__timeouts ->
   app_id:string ->
   string ->

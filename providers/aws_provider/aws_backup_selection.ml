@@ -54,7 +54,9 @@ type aws_backup_selection__selection_tag = {
 
 type aws_backup_selection = {
   iam_role_arn : string;  (** iam_role_arn *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  not_resources : string list option; [@option]  (** not_resources *)
   plan_id : string;  (** plan_id *)
   resources : string list option; [@option]  (** resources *)
   condition : aws_backup_selection__condition list;
@@ -63,13 +65,15 @@ type aws_backup_selection = {
 [@@deriving yojson_of]
 (** aws_backup_selection *)
 
-let aws_backup_selection ?resources ~iam_role_arn ~name ~plan_id
-    ~condition ~selection_tag __resource_id =
+let aws_backup_selection ?id ?not_resources ?resources ~iam_role_arn
+    ~name ~plan_id ~condition ~selection_tag __resource_id =
   let __resource_type = "aws_backup_selection" in
   let __resource =
     {
       iam_role_arn;
+      id;
       name;
+      not_resources;
       plan_id;
       resources;
       condition;

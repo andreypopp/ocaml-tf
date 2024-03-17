@@ -34,6 +34,8 @@ type google_firestore_index = {
   collection : string;  (** The collection being indexed. *)
   database : string option; [@option]
       (** The Firestore database id. Defaults to '(default)'. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   query_scope : string option; [@option]
       (** The scope at which a query is run. Default value: COLLECTION Possible values: [COLLECTION, COLLECTION_GROUP, COLLECTION_RECURSIVE] *)
   fields : google_firestore_index__fields list;
@@ -42,14 +44,16 @@ type google_firestore_index = {
 [@@deriving yojson_of]
 (** google_firestore_index *)
 
-let google_firestore_index ?api_scope ?database ?query_scope
-    ?timeouts ~collection ~fields __resource_id =
+let google_firestore_index ?api_scope ?database ?id ?project
+    ?query_scope ?timeouts ~collection ~fields __resource_id =
   let __resource_type = "google_firestore_index" in
   let __resource =
     {
       api_scope;
       collection;
       database;
+      id;
+      project;
       query_scope;
       fields;
       timeouts;

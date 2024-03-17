@@ -11,8 +11,10 @@ val azurerm_cosmosdb_cassandra_datacenter :
   ?base64_encoded_yaml_fragment:string ->
   ?disk_count:float ->
   ?disk_sku:string ->
+  ?id:string ->
   ?managed_disk_customer_key_uri:string ->
   ?node_count:float ->
+  ?sku_name:string ->
   ?timeouts:azurerm_cosmosdb_cassandra_datacenter__timeouts ->
   cassandra_cluster_id:string ->
   delegated_management_subnet_id:string ->

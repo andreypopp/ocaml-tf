@@ -53,6 +53,7 @@ type cloudflare_ruleset
 
 val cloudflare_ruleset :
   ?account_id:string ->
+  ?description:string ->
   ?zone_id:string ->
   kind:string ->
   name:string ->

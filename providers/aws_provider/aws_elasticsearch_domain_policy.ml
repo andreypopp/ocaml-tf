@@ -14,15 +14,16 @@ type aws_elasticsearch_domain_policy__timeouts = {
 type aws_elasticsearch_domain_policy = {
   access_policies : string;  (** access_policies *)
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
   timeouts : aws_elasticsearch_domain_policy__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_elasticsearch_domain_policy *)
 
-let aws_elasticsearch_domain_policy ?timeouts ~access_policies
+let aws_elasticsearch_domain_policy ?id ?timeouts ~access_policies
     ~domain_name __resource_id =
   let __resource_type = "aws_elasticsearch_domain_policy" in
-  let __resource = { access_policies; domain_name; timeouts } in
+  let __resource = { access_policies; domain_name; id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticsearch_domain_policy __resource);
   ()

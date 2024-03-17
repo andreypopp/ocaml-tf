@@ -40,18 +40,23 @@ type aws_backup_framework__timeouts = {
 
 type aws_backup_framework = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   control : aws_backup_framework__control list;
   timeouts : aws_backup_framework__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_backup_framework *)
 
-let aws_backup_framework ?description ?tags ?timeouts ~name ~control
-    __resource_id =
+let aws_backup_framework ?description ?id ?tags ?tags_all ?timeouts
+    ~name ~control __resource_id =
   let __resource_type = "aws_backup_framework" in
-  let __resource = { description; name; tags; control; timeouts } in
+  let __resource =
+    { description; id; name; tags; tags_all; control; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_backup_framework __resource);
   ()

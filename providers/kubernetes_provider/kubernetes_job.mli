@@ -351,6 +351,7 @@ type kubernetes_job__timeouts
 type kubernetes_job
 
 val kubernetes_job :
+  ?id:string ->
   ?wait_for_completion:bool ->
   ?timeouts:kubernetes_job__timeouts ->
   metadata:kubernetes_job__metadata list ->

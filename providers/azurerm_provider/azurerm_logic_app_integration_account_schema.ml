@@ -16,6 +16,7 @@ type azurerm_logic_app_integration_account_schema__timeouts = {
 type azurerm_logic_app_integration_account_schema = {
   content : string;  (** content *)
   file_name : string option; [@option]  (** file_name *)
+  id : string option; [@option]  (** id *)
   integration_account_name : string;  (** integration_account_name *)
   metadata : string option; [@option]  (** metadata *)
   name : string;  (** name *)
@@ -26,8 +27,8 @@ type azurerm_logic_app_integration_account_schema = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_schema *)
 
-let azurerm_logic_app_integration_account_schema ?file_name ?metadata
-    ?timeouts ~content ~integration_account_name ~name
+let azurerm_logic_app_integration_account_schema ?file_name ?id
+    ?metadata ?timeouts ~content ~integration_account_name ~name
     ~resource_group_name __resource_id =
   let __resource_type =
     "azurerm_logic_app_integration_account_schema"
@@ -36,6 +37,7 @@ let azurerm_logic_app_integration_account_schema ?file_name ?metadata
     {
       content;
       file_name;
+      id;
       integration_account_name;
       metadata;
       name;

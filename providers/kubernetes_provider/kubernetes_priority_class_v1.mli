@@ -8,6 +8,7 @@ type kubernetes_priority_class_v1
 val kubernetes_priority_class_v1 :
   ?description:string ->
   ?global_default:bool ->
+  ?id:string ->
   ?preemption_policy:string ->
   value:float ->
   metadata:kubernetes_priority_class_v1__metadata list ->

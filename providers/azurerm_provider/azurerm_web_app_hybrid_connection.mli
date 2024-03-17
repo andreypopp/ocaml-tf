@@ -6,6 +6,7 @@ type azurerm_web_app_hybrid_connection__timeouts
 type azurerm_web_app_hybrid_connection
 
 val azurerm_web_app_hybrid_connection :
+  ?id:string ->
   ?send_key_name:string ->
   ?timeouts:azurerm_web_app_hybrid_connection__timeouts ->
   hostname:string ->

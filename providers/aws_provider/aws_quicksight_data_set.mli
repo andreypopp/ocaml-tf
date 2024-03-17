@@ -80,11 +80,14 @@ type aws_quicksight_data_set__output_columns = {
   description: string;  (** description *)
   name: string;  (** name *)
   type_: string; [@key "type"] (** type *)
-} [@@deriving yojson_of]
+}
 type aws_quicksight_data_set
 
 val aws_quicksight_data_set :
+    ?aws_account_id:string ->
+    ?id:string ->
     ?tags:(string * string) list ->
+    ?tags_all:(string * string) list ->
     data_set_id:string ->
     import_mode:string ->
     name:string ->

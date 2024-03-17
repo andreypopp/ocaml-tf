@@ -43,16 +43,38 @@ type aws_redshift_cluster = {
       (** allow_version_upgrade *)
   apply_immediately : bool option; [@option]
       (** apply_immediately *)
+  aqua_configuration_status : string option; [@option]
+      (** aqua_configuration_status *)
   automated_snapshot_retention_period : float option; [@option]
       (** automated_snapshot_retention_period *)
+  availability_zone : string option; [@option]
+      (** availability_zone *)
   availability_zone_relocation_enabled : bool option; [@option]
       (** availability_zone_relocation_enabled *)
   cluster_identifier : string;  (** cluster_identifier *)
+  cluster_parameter_group_name : string option; [@option]
+      (** cluster_parameter_group_name *)
+  cluster_public_key : string option; [@option]
+      (** cluster_public_key *)
+  cluster_revision_number : string option; [@option]
+      (** cluster_revision_number *)
+  cluster_subnet_group_name : string option; [@option]
+      (** cluster_subnet_group_name *)
+  cluster_type : string option; [@option]  (** cluster_type *)
   cluster_version : string option; [@option]  (** cluster_version *)
+  database_name : string option; [@option]  (** database_name *)
+  default_iam_role_arn : string option; [@option]
+      (** default_iam_role_arn *)
   elastic_ip : string option; [@option]  (** elastic_ip *)
   encrypted : bool option; [@option]  (** encrypted *)
+  endpoint : string option; [@option]  (** endpoint *)
+  enhanced_vpc_routing : bool option; [@option]
+      (** enhanced_vpc_routing *)
   final_snapshot_identifier : string option; [@option]
       (** final_snapshot_identifier *)
+  iam_roles : string list option; [@option]  (** iam_roles *)
+  id : string option; [@option]  (** id *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
   maintenance_track_name : string option; [@option]
       (** maintenance_track_name *)
   manage_master_password : bool option; [@option]
@@ -60,12 +82,16 @@ type aws_redshift_cluster = {
   manual_snapshot_retention_period : float option; [@option]
       (** manual_snapshot_retention_period *)
   master_password : string option; [@option]  (** master_password *)
+  master_password_secret_kms_key_id : string option; [@option]
+      (** master_password_secret_kms_key_id *)
   master_username : string option; [@option]  (** master_username *)
   multi_az : bool option; [@option]  (** multi_az *)
   node_type : string;  (** node_type *)
   number_of_nodes : float option; [@option]  (** number_of_nodes *)
   owner_account : string option; [@option]  (** owner_account *)
   port : float option; [@option]  (** port *)
+  preferred_maintenance_window : string option; [@option]
+      (** preferred_maintenance_window *)
   publicly_accessible : bool option; [@option]
       (** publicly_accessible *)
   skip_final_snapshot : bool option; [@option]
@@ -76,6 +102,10 @@ type aws_redshift_cluster = {
   snapshot_identifier : string option; [@option]
       (** snapshot_identifier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  vpc_security_group_ids : string list option; [@option]
+      (** vpc_security_group_ids *)
   logging : aws_redshift_cluster__logging list;
   snapshot_copy : aws_redshift_cluster__snapshot_copy list;
   timeouts : aws_redshift_cluster__timeouts option;
@@ -84,44 +114,68 @@ type aws_redshift_cluster = {
 (** aws_redshift_cluster *)
 
 let aws_redshift_cluster ?allow_version_upgrade ?apply_immediately
-    ?automated_snapshot_retention_period
-    ?availability_zone_relocation_enabled ?cluster_version
-    ?elastic_ip ?encrypted ?final_snapshot_identifier
+    ?aqua_configuration_status ?automated_snapshot_retention_period
+    ?availability_zone ?availability_zone_relocation_enabled
+    ?cluster_parameter_group_name ?cluster_public_key
+    ?cluster_revision_number ?cluster_subnet_group_name ?cluster_type
+    ?cluster_version ?database_name ?default_iam_role_arn ?elastic_ip
+    ?encrypted ?endpoint ?enhanced_vpc_routing
+    ?final_snapshot_identifier ?iam_roles ?id ?kms_key_id
     ?maintenance_track_name ?manage_master_password
     ?manual_snapshot_retention_period ?master_password
-    ?master_username ?multi_az ?number_of_nodes ?owner_account ?port
-    ?publicly_accessible ?skip_final_snapshot ?snapshot_arn
-    ?snapshot_cluster_identifier ?snapshot_identifier ?tags ?timeouts
-    ~cluster_identifier ~node_type ~logging ~snapshot_copy
+    ?master_password_secret_kms_key_id ?master_username ?multi_az
+    ?number_of_nodes ?owner_account ?port
+    ?preferred_maintenance_window ?publicly_accessible
+    ?skip_final_snapshot ?snapshot_arn ?snapshot_cluster_identifier
+    ?snapshot_identifier ?tags ?tags_all ?vpc_security_group_ids
+    ?timeouts ~cluster_identifier ~node_type ~logging ~snapshot_copy
     __resource_id =
   let __resource_type = "aws_redshift_cluster" in
   let __resource =
     {
       allow_version_upgrade;
       apply_immediately;
+      aqua_configuration_status;
       automated_snapshot_retention_period;
+      availability_zone;
       availability_zone_relocation_enabled;
       cluster_identifier;
+      cluster_parameter_group_name;
+      cluster_public_key;
+      cluster_revision_number;
+      cluster_subnet_group_name;
+      cluster_type;
       cluster_version;
+      database_name;
+      default_iam_role_arn;
       elastic_ip;
       encrypted;
+      endpoint;
+      enhanced_vpc_routing;
       final_snapshot_identifier;
+      iam_roles;
+      id;
+      kms_key_id;
       maintenance_track_name;
       manage_master_password;
       manual_snapshot_retention_period;
       master_password;
+      master_password_secret_kms_key_id;
       master_username;
       multi_az;
       node_type;
       number_of_nodes;
       owner_account;
       port;
+      preferred_maintenance_window;
       publicly_accessible;
       skip_final_snapshot;
       snapshot_arn;
       snapshot_cluster_identifier;
       snapshot_identifier;
       tags;
+      tags_all;
+      vpc_security_group_ids;
       logging;
       snapshot_copy;
       timeouts;

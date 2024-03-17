@@ -9,6 +9,7 @@ type azurerm_data_protection_backup_policy_disk__timeouts
 type azurerm_data_protection_backup_policy_disk
 
 val azurerm_data_protection_backup_policy_disk :
+  ?id:string ->
   ?time_zone:string ->
   ?timeouts:azurerm_data_protection_backup_policy_disk__timeouts ->
   backup_repeating_time_intervals:string list ->

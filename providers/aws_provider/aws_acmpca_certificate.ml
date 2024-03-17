@@ -17,6 +17,7 @@ type aws_acmpca_certificate = {
       (** certificate_authority_arn *)
   certificate_signing_request : string;
       (** certificate_signing_request *)
+  id : string option; [@option]  (** id *)
   signing_algorithm : string;  (** signing_algorithm *)
   template_arn : string option; [@option]  (** template_arn *)
   validity : aws_acmpca_certificate__validity list;
@@ -24,7 +25,7 @@ type aws_acmpca_certificate = {
 [@@deriving yojson_of]
 (** aws_acmpca_certificate *)
 
-let aws_acmpca_certificate ?api_passthrough ?template_arn
+let aws_acmpca_certificate ?api_passthrough ?id ?template_arn
     ~certificate_authority_arn ~certificate_signing_request
     ~signing_algorithm ~validity __resource_id =
   let __resource_type = "aws_acmpca_certificate" in
@@ -33,6 +34,7 @@ let aws_acmpca_certificate ?api_passthrough ?template_arn
       api_passthrough;
       certificate_authority_arn;
       certificate_signing_request;
+      id;
       signing_algorithm;
       template_arn;
       validity;

@@ -155,6 +155,7 @@ type azurerm_mssql_virtual_machine__wsfc_domain_credential = {
 (** azurerm_mssql_virtual_machine__wsfc_domain_credential *)
 
 type azurerm_mssql_virtual_machine = {
+  id : string option; [@option]  (** id *)
   r_services_enabled : bool option; [@option]
       (** r_services_enabled *)
   sql_connectivity_port : float option; [@option]
@@ -186,7 +187,7 @@ type azurerm_mssql_virtual_machine = {
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_machine *)
 
-let azurerm_mssql_virtual_machine ?r_services_enabled
+let azurerm_mssql_virtual_machine ?id ?r_services_enabled
     ?sql_connectivity_port ?sql_connectivity_type
     ?sql_connectivity_update_password
     ?sql_connectivity_update_username ?sql_license_type
@@ -197,6 +198,7 @@ let azurerm_mssql_virtual_machine ?r_services_enabled
   let __resource_type = "azurerm_mssql_virtual_machine" in
   let __resource =
     {
+      id;
       r_services_enabled;
       sql_connectivity_port;
       sql_connectivity_type;

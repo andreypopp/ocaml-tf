@@ -139,17 +139,24 @@ type azurerm_logic_app_standard__site_credential = {
 
 type azurerm_logic_app_standard = {
   app_service_plan_id : string;  (** app_service_plan_id *)
+  app_settings : (string * string) list option; [@option]
+      (** app_settings *)
   bundle_version : string option; [@option]  (** bundle_version *)
+  client_affinity_enabled : bool option; [@option]
+      (** client_affinity_enabled *)
   client_certificate_mode : string option; [@option]
       (** client_certificate_mode *)
   enabled : bool option; [@option]  (** enabled *)
   https_only : bool option; [@option]  (** https_only *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   storage_account_access_key : string;
       (** storage_account_access_key *)
   storage_account_name : string;  (** storage_account_name *)
+  storage_account_share_name : string option; [@option]
+      (** storage_account_share_name *)
   tags : (string * string) list option; [@option]  (** tags *)
   use_extension_bundle : bool option; [@option]
       (** use_extension_bundle *)
@@ -165,8 +172,9 @@ type azurerm_logic_app_standard = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_standard *)
 
-let azurerm_logic_app_standard ?bundle_version
-    ?client_certificate_mode ?enabled ?https_only ?tags
+let azurerm_logic_app_standard ?app_settings ?bundle_version
+    ?client_affinity_enabled ?client_certificate_mode ?enabled
+    ?https_only ?id ?storage_account_share_name ?tags
     ?use_extension_bundle ?version ?virtual_network_subnet_id
     ?timeouts ~app_service_plan_id ~location ~name
     ~resource_group_name ~storage_account_access_key
@@ -176,15 +184,19 @@ let azurerm_logic_app_standard ?bundle_version
   let __resource =
     {
       app_service_plan_id;
+      app_settings;
       bundle_version;
+      client_affinity_enabled;
       client_certificate_mode;
       enabled;
       https_only;
+      id;
       location;
       name;
       resource_group_name;
       storage_account_access_key;
       storage_account_name;
+      storage_account_share_name;
       tags;
       use_extension_bundle;
       version;

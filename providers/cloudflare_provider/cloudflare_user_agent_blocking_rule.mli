@@ -6,6 +6,7 @@ type cloudflare_user_agent_blocking_rule__configuration
 type cloudflare_user_agent_blocking_rule
 
 val cloudflare_user_agent_blocking_rule :
+  ?id:string ->
   description:string ->
   mode:string ->
   paused:bool ->

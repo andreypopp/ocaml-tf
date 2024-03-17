@@ -175,6 +175,7 @@ type azurerm_data_factory_data_flow = {
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
   folder : string option; [@option]  (** folder *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   script : string option; [@option]  (** script *)
   script_lines : string list option; [@option]  (** script_lines *)
@@ -188,7 +189,7 @@ type azurerm_data_factory_data_flow = {
 (** azurerm_data_factory_data_flow *)
 
 let azurerm_data_factory_data_flow ?annotations ?description ?folder
-    ?script ?script_lines ?timeouts ~data_factory_id ~name ~sink
+    ?id ?script ?script_lines ?timeouts ~data_factory_id ~name ~sink
     ~source ~transformation __resource_id =
   let __resource_type = "azurerm_data_factory_data_flow" in
   let __resource =
@@ -197,6 +198,7 @@ let azurerm_data_factory_data_flow ?annotations ?description ?folder
       data_factory_id;
       description;
       folder;
+      id;
       name;
       script;
       script_lines;

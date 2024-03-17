@@ -83,12 +83,14 @@ type azurerm_vpn_server_configuration__timeouts = {
 (** azurerm_vpn_server_configuration__timeouts *)
 
 type azurerm_vpn_server_configuration = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
   vpn_authentication_types : string list;
       (** vpn_authentication_types *)
+  vpn_protocols : string list option; [@option]  (** vpn_protocols *)
   azure_active_directory_authentication :
     azurerm_vpn_server_configuration__azure_active_directory_authentication
     list;
@@ -103,19 +105,21 @@ type azurerm_vpn_server_configuration = {
 [@@deriving yojson_of]
 (** azurerm_vpn_server_configuration *)
 
-let azurerm_vpn_server_configuration ?tags ?timeouts ~location ~name
-    ~resource_group_name ~vpn_authentication_types
-    ~azure_active_directory_authentication
+let azurerm_vpn_server_configuration ?id ?tags ?vpn_protocols
+    ?timeouts ~location ~name ~resource_group_name
+    ~vpn_authentication_types ~azure_active_directory_authentication
     ~client_revoked_certificate ~client_root_certificate
     ~ipsec_policy ~radius __resource_id =
   let __resource_type = "azurerm_vpn_server_configuration" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;
       tags;
       vpn_authentication_types;
+      vpn_protocols;
       azure_active_directory_authentication;
       client_revoked_certificate;
       client_root_certificate;

@@ -127,10 +127,13 @@ type azurerm_network_connection_monitor__timeouts = {
 (** azurerm_network_connection_monitor__timeouts *)
 
 type azurerm_network_connection_monitor = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   network_watcher_id : string;  (** network_watcher_id *)
   notes : string option; [@option]  (** notes *)
+  output_workspace_resource_ids : string list option; [@option]
+      (** output_workspace_resource_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
   endpoint : azurerm_network_connection_monitor__endpoint list;
   test_configuration :
@@ -141,16 +144,19 @@ type azurerm_network_connection_monitor = {
 [@@deriving yojson_of]
 (** azurerm_network_connection_monitor *)
 
-let azurerm_network_connection_monitor ?notes ?tags ?timeouts
-    ~location ~name ~network_watcher_id ~endpoint ~test_configuration
-    ~test_group __resource_id =
+let azurerm_network_connection_monitor ?id ?notes
+    ?output_workspace_resource_ids ?tags ?timeouts ~location ~name
+    ~network_watcher_id ~endpoint ~test_configuration ~test_group
+    __resource_id =
   let __resource_type = "azurerm_network_connection_monitor" in
   let __resource =
     {
+      id;
       location;
       name;
       network_watcher_id;
       notes;
+      output_workspace_resource_ids;
       tags;
       endpoint;
       test_configuration;

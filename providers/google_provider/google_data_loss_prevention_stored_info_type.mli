@@ -27,6 +27,8 @@ type google_data_loss_prevention_stored_info_type
 val google_data_loss_prevention_stored_info_type :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
+  ?stored_info_type_id:string ->
   ?timeouts:google_data_loss_prevention_stored_info_type__timeouts ->
   parent:string ->
   dictionary:

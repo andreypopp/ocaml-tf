@@ -11,11 +11,11 @@ type aws_identitystore_user__external_ids = {
   id : string;  (** id *)
   issuer : string;  (** issuer *)
 }
-[@@deriving yojson_of]
 
 type aws_identitystore_user
 
 val aws_identitystore_user :
+  ?id:string ->
   ?locale:string ->
   ?nickname:string ->
   ?preferred_language:string ->

@@ -11,16 +11,19 @@ type aws_organizations_account = {
   email : string;  (** email *)
   iam_user_access_to_billing : string option; [@option]
       (** iam_user_access_to_billing *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  parent_id : string option; [@option]  (** parent_id *)
   role_name : string option; [@option]  (** role_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_organizations_account *)
 
 let aws_organizations_account ?close_on_deletion ?create_govcloud
-    ?iam_user_access_to_billing ?role_name ?tags ~email ~name
-    __resource_id =
+    ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags
+    ?tags_all ~email ~name __resource_id =
   let __resource_type = "aws_organizations_account" in
   let __resource =
     {
@@ -28,9 +31,12 @@ let aws_organizations_account ?close_on_deletion ?create_govcloud
       create_govcloud;
       email;
       iam_user_access_to_billing;
+      id;
       name;
+      parent_id;
       role_name;
       tags;
+      tags_all;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

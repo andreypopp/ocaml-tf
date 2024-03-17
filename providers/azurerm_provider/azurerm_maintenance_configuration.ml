@@ -57,6 +57,7 @@ type azurerm_maintenance_configuration__window = {
 (** azurerm_maintenance_configuration__window *)
 
 type azurerm_maintenance_configuration = {
+  id : string option; [@option]  (** id *)
   in_guest_user_patch_mode : string option; [@option]
       (** in_guest_user_patch_mode *)
   location : string;  (** location *)
@@ -75,13 +76,14 @@ type azurerm_maintenance_configuration = {
 [@@deriving yojson_of]
 (** azurerm_maintenance_configuration *)
 
-let azurerm_maintenance_configuration ?in_guest_user_patch_mode
+let azurerm_maintenance_configuration ?id ?in_guest_user_patch_mode
     ?properties ?tags ?visibility ?timeouts ~location ~name
     ~resource_group_name ~scope ~install_patches ~window
     __resource_id =
   let __resource_type = "azurerm_maintenance_configuration" in
   let __resource =
     {
+      id;
       in_guest_user_patch_mode;
       location;
       name;

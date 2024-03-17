@@ -24,10 +24,14 @@ type azurerm_virtual_network_gateway__vpn_client_configuration
 type azurerm_virtual_network_gateway
 
 val azurerm_virtual_network_gateway :
+  ?active_active:bool ->
   ?bgp_route_translation_for_nat_enabled:bool ->
   ?default_local_network_gateway_id:string ->
   ?dns_forwarding_enabled:bool ->
   ?edge_zone:string ->
+  ?enable_bgp:bool ->
+  ?generation:string ->
+  ?id:string ->
   ?ip_sec_replay_protection_enabled:bool ->
   ?private_ip_address_enabled:bool ->
   ?remote_vnet_traffic_enabled:bool ->

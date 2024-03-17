@@ -7,7 +7,9 @@ type google_integration_connectors_endpoint_attachment
 
 val google_integration_connectors_endpoint_attachment :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:
     google_integration_connectors_endpoint_attachment__timeouts ->
   location:string ->

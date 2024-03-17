@@ -18,18 +18,23 @@ type azurerm_api_management_subscription = {
   api_id : string option; [@option]  (** api_id *)
   api_management_name : string;  (** api_management_name *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
+  primary_key : string option; [@option]  (** primary_key *)
   product_id : string option; [@option]  (** product_id *)
   resource_group_name : string;  (** resource_group_name *)
+  secondary_key : string option; [@option]  (** secondary_key *)
   state : string option; [@option]  (** state *)
+  subscription_id : string option; [@option]  (** subscription_id *)
   user_id : string option; [@option]  (** user_id *)
   timeouts : azurerm_api_management_subscription__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_subscription *)
 
-let azurerm_api_management_subscription ?allow_tracing ?api_id
-    ?product_id ?state ?user_id ?timeouts ~api_management_name
-    ~display_name ~resource_group_name __resource_id =
+let azurerm_api_management_subscription ?allow_tracing ?api_id ?id
+    ?primary_key ?product_id ?secondary_key ?state ?subscription_id
+    ?user_id ?timeouts ~api_management_name ~display_name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_api_management_subscription" in
   let __resource =
     {
@@ -37,9 +42,13 @@ let azurerm_api_management_subscription ?allow_tracing ?api_id
       api_id;
       api_management_name;
       display_name;
+      id;
+      primary_key;
       product_id;
       resource_group_name;
+      secondary_key;
       state;
+      subscription_id;
       user_id;
       timeouts;
     }

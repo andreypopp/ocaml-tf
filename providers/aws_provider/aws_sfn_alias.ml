@@ -22,6 +22,7 @@ type aws_sfn_alias__timeouts = {
 
 type aws_sfn_alias = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   routing_configuration : aws_sfn_alias__routing_configuration list;
   timeouts : aws_sfn_alias__timeouts option;
@@ -29,11 +30,11 @@ type aws_sfn_alias = {
 [@@deriving yojson_of]
 (** aws_sfn_alias *)
 
-let aws_sfn_alias ?description ?timeouts ~name ~routing_configuration
-    __resource_id =
+let aws_sfn_alias ?description ?id ?timeouts ~name
+    ~routing_configuration __resource_id =
   let __resource_type = "aws_sfn_alias" in
   let __resource =
-    { description; name; routing_configuration; timeouts }
+    { description; id; name; routing_configuration; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sfn_alias __resource);

@@ -6,6 +6,8 @@ open! Tf.Prelude
 
 type digitalocean_volume = {
   description : string option; [@option]  (** description *)
+  filesystem_type : string option; [@option]  (** filesystem_type *)
+  id : string option; [@option]  (** id *)
   initial_filesystem_label : string option; [@option]
       (** initial_filesystem_label *)
   initial_filesystem_type : string option; [@option]
@@ -19,13 +21,15 @@ type digitalocean_volume = {
 [@@deriving yojson_of]
 (** digitalocean_volume *)
 
-let digitalocean_volume ?description ?initial_filesystem_label
-    ?initial_filesystem_type ?snapshot_id ?tags ~name ~region ~size
-    __resource_id =
+let digitalocean_volume ?description ?filesystem_type ?id
+    ?initial_filesystem_label ?initial_filesystem_type ?snapshot_id
+    ?tags ~name ~region ~size __resource_id =
   let __resource_type = "digitalocean_volume" in
   let __resource =
     {
       description;
+      filesystem_type;
+      id;
       initial_filesystem_label;
       initial_filesystem_type;
       name;

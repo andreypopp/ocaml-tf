@@ -80,6 +80,7 @@ type kubernetes_env = {
       (** Set the name of the field manager for the specified environment variables. *)
   force : bool option; [@option]
       (** Force overwriting environments that were created or edited outside of Terraform. *)
+  id : string option; [@option]  (** id *)
   init_container : string option; [@option]
       (** Name of the initContainer for which we are updating the environment variables. *)
   kind : string;  (** Resource Kind *)
@@ -89,8 +90,8 @@ type kubernetes_env = {
 [@@deriving yojson_of]
 (** kubernetes_env *)
 
-let kubernetes_env ?container ?field_manager ?force ?init_container
-    ~api_version ~kind ~env ~metadata __resource_id =
+let kubernetes_env ?container ?field_manager ?force ?id
+    ?init_container ~api_version ~kind ~env ~metadata __resource_id =
   let __resource_type = "kubernetes_env" in
   let __resource =
     {
@@ -98,6 +99,7 @@ let kubernetes_env ?container ?field_manager ?force ?init_container
       container;
       field_manager;
       force;
+      id;
       init_container;
       kind;
       env;

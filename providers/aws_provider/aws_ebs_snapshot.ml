@@ -13,10 +13,14 @@ type aws_ebs_snapshot__timeouts = {
 
 type aws_ebs_snapshot = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   outpost_arn : string option; [@option]  (** outpost_arn *)
   permanent_restore : bool option; [@option]
       (** permanent_restore *)
+  storage_tier : string option; [@option]  (** storage_tier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   temporary_restore_days : float option; [@option]
       (** temporary_restore_days *)
   volume_id : string;  (** volume_id *)
@@ -25,16 +29,19 @@ type aws_ebs_snapshot = {
 [@@deriving yojson_of]
 (** aws_ebs_snapshot *)
 
-let aws_ebs_snapshot ?description ?outpost_arn ?permanent_restore
-    ?tags ?temporary_restore_days ?timeouts ~volume_id __resource_id
-    =
+let aws_ebs_snapshot ?description ?id ?outpost_arn ?permanent_restore
+    ?storage_tier ?tags ?tags_all ?temporary_restore_days ?timeouts
+    ~volume_id __resource_id =
   let __resource_type = "aws_ebs_snapshot" in
   let __resource =
     {
       description;
+      id;
       outpost_arn;
       permanent_restore;
+      storage_tier;
       tags;
+      tags_all;
       temporary_restore_days;
       volume_id;
       timeouts;

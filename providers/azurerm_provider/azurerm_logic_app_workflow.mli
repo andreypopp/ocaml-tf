@@ -18,6 +18,7 @@ type azurerm_logic_app_workflow
 
 val azurerm_logic_app_workflow :
   ?enabled:bool ->
+  ?id:string ->
   ?integration_service_environment_id:string ->
   ?logic_app_integration_account_id:string ->
   ?parameters:(string * string) list ->

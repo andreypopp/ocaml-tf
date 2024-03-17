@@ -16,14 +16,15 @@ type aws_evidently_launch__execution = {
   ended_time : string;  (** ended_time *)
   started_time : string;  (** started_time *)
 }
-[@@deriving yojson_of]
 
 type aws_evidently_launch
 
 val aws_evidently_launch :
   ?description:string ->
+  ?id:string ->
   ?randomization_salt:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_evidently_launch__timeouts ->
   name:string ->
   project:string ->

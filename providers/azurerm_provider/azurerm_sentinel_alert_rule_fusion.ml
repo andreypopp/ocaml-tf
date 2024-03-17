@@ -33,6 +33,7 @@ type azurerm_sentinel_alert_rule_fusion__timeouts = {
 type azurerm_sentinel_alert_rule_fusion = {
   alert_rule_template_guid : string;  (** alert_rule_template_guid *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -42,7 +43,7 @@ type azurerm_sentinel_alert_rule_fusion = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_fusion *)
 
-let azurerm_sentinel_alert_rule_fusion ?enabled ?timeouts
+let azurerm_sentinel_alert_rule_fusion ?enabled ?id ?timeouts
     ~alert_rule_template_guid ~log_analytics_workspace_id ~name
     ~source __resource_id =
   let __resource_type = "azurerm_sentinel_alert_rule_fusion" in
@@ -50,6 +51,7 @@ let azurerm_sentinel_alert_rule_fusion ?enabled ?timeouts
     {
       alert_rule_template_guid;
       enabled;
+      id;
       log_analytics_workspace_id;
       name;
       source;

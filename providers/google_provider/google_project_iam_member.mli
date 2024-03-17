@@ -6,6 +6,7 @@ type google_project_iam_member__condition
 type google_project_iam_member
 
 val google_project_iam_member :
+  ?id:string ->
   member:string ->
   project:string ->
   role:string ->

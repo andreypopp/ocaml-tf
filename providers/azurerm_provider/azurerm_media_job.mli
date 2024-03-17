@@ -9,6 +9,7 @@ type azurerm_media_job
 
 val azurerm_media_job :
   ?description:string ->
+  ?id:string ->
   ?priority:string ->
   ?timeouts:azurerm_media_job__timeouts ->
   media_services_account_name:string ->

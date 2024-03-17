@@ -13,6 +13,7 @@ type aws_s3_bucket_logging
 
 val aws_s3_bucket_logging :
   ?expected_bucket_owner:string ->
+  ?id:string ->
   bucket:string ->
   target_bucket:string ->
   target_prefix:string ->

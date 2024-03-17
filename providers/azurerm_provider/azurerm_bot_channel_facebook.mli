@@ -7,6 +7,7 @@ type azurerm_bot_channel_facebook__timeouts
 type azurerm_bot_channel_facebook
 
 val azurerm_bot_channel_facebook :
+  ?id:string ->
   ?timeouts:azurerm_bot_channel_facebook__timeouts ->
   bot_name:string ->
   facebook_application_id:string ->

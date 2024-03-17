@@ -6,6 +6,7 @@ type azurerm_nat_gateway__timeouts
 type azurerm_nat_gateway
 
 val azurerm_nat_gateway :
+  ?id:string ->
   ?idle_timeout_in_minutes:float ->
   ?sku_name:string ->
   ?tags:(string * string) list ->

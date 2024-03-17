@@ -20,6 +20,7 @@ type azurerm_synapse_sql_pool_security_alert_policy = {
       (** email_account_admins_enabled *)
   email_addresses : string list option; [@option]
       (** email_addresses *)
+  id : string option; [@option]  (** id *)
   policy_state : string;  (** policy_state *)
   retention_days : float option; [@option]  (** retention_days *)
   sql_pool_id : string;  (** sql_pool_id *)
@@ -34,9 +35,9 @@ type azurerm_synapse_sql_pool_security_alert_policy = {
 (** azurerm_synapse_sql_pool_security_alert_policy *)
 
 let azurerm_synapse_sql_pool_security_alert_policy ?disabled_alerts
-    ?email_account_admins_enabled ?email_addresses ?retention_days
-    ?storage_account_access_key ?storage_endpoint ?timeouts
-    ~policy_state ~sql_pool_id __resource_id =
+    ?email_account_admins_enabled ?email_addresses ?id
+    ?retention_days ?storage_account_access_key ?storage_endpoint
+    ?timeouts ~policy_state ~sql_pool_id __resource_id =
   let __resource_type =
     "azurerm_synapse_sql_pool_security_alert_policy"
   in
@@ -45,6 +46,7 @@ let azurerm_synapse_sql_pool_security_alert_policy ?disabled_alerts
       disabled_alerts;
       email_account_admins_enabled;
       email_addresses;
+      id;
       policy_state;
       retention_days;
       sql_pool_id;

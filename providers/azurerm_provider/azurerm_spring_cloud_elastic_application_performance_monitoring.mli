@@ -8,6 +8,7 @@ type azurerm_spring_cloud_elastic_application_performance_monitoring
 
 val azurerm_spring_cloud_elastic_application_performance_monitoring :
   ?globally_enabled:bool ->
+  ?id:string ->
   ?timeouts:
     azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts ->
   application_packages:string list ->

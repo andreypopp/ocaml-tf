@@ -7,6 +7,7 @@ type azurerm_iothub_route
 
 val azurerm_iothub_route :
   ?condition:string ->
+  ?id:string ->
   ?timeouts:azurerm_iothub_route__timeouts ->
   enabled:bool ->
   endpoint_names:string list ->

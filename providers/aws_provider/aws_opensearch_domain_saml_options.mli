@@ -8,6 +8,7 @@ type aws_opensearch_domain_saml_options__timeouts
 type aws_opensearch_domain_saml_options
 
 val aws_opensearch_domain_saml_options :
+  ?id:string ->
   ?timeouts:aws_opensearch_domain_saml_options__timeouts ->
   domain_name:string ->
   saml_options:aws_opensearch_domain_saml_options__saml_options list ->

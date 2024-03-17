@@ -112,6 +112,7 @@ type aws_opsworks_haproxy_layer = {
   healthcheck_method : string option; [@option]
       (** healthcheck_method *)
   healthcheck_url : string option; [@option]  (** healthcheck_url *)
+  id : string option; [@option]  (** id *)
   install_updates_on_boot : bool option; [@option]
       (** install_updates_on_boot *)
   instance_shutdown_timeout : float option; [@option]
@@ -125,6 +126,8 @@ type aws_opsworks_haproxy_layer = {
   system_packages : string list option; [@option]
       (** system_packages *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   use_ebs_optimized_instances : bool option; [@option]
       (** use_ebs_optimized_instances *)
   cloudwatch_configuration :
@@ -142,11 +145,12 @@ let aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
     ?custom_security_group_ids ?custom_setup_recipes
     ?custom_shutdown_recipes ?custom_undeploy_recipes
     ?drain_elb_on_shutdown ?elastic_load_balancer ?healthcheck_method
-    ?healthcheck_url ?install_updates_on_boot
+    ?healthcheck_url ?id ?install_updates_on_boot
     ?instance_shutdown_timeout ?name ?stats_enabled ?stats_url
-    ?stats_user ?system_packages ?tags ?use_ebs_optimized_instances
-    ~stack_id ~stats_password ~cloudwatch_configuration ~ebs_volume
-    ~load_based_auto_scaling __resource_id =
+    ?stats_user ?system_packages ?tags ?tags_all
+    ?use_ebs_optimized_instances ~stack_id ~stats_password
+    ~cloudwatch_configuration ~ebs_volume ~load_based_auto_scaling
+    __resource_id =
   let __resource_type = "aws_opsworks_haproxy_layer" in
   let __resource =
     {
@@ -165,6 +169,7 @@ let aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
       elastic_load_balancer;
       healthcheck_method;
       healthcheck_url;
+      id;
       install_updates_on_boot;
       instance_shutdown_timeout;
       name;
@@ -175,6 +180,7 @@ let aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
       stats_user;
       system_packages;
       tags;
+      tags_all;
       use_ebs_optimized_instances;
       cloudwatch_configuration;
       ebs_volume;

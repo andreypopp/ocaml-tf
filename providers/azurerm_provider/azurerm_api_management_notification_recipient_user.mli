@@ -6,6 +6,7 @@ type azurerm_api_management_notification_recipient_user__timeouts
 type azurerm_api_management_notification_recipient_user
 
 val azurerm_api_management_notification_recipient_user :
+  ?id:string ->
   ?timeouts:
     azurerm_api_management_notification_recipient_user__timeouts ->
   api_management_id:string ->

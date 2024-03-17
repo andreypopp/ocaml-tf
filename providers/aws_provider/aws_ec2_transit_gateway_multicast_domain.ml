@@ -14,10 +14,13 @@ type aws_ec2_transit_gateway_multicast_domain__timeouts = {
 type aws_ec2_transit_gateway_multicast_domain = {
   auto_accept_shared_associations : string option; [@option]
       (** auto_accept_shared_associations *)
+  id : string option; [@option]  (** id *)
   igmpv2_support : string option; [@option]  (** igmpv2_support *)
   static_sources_support : string option; [@option]
       (** static_sources_support *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   transit_gateway_id : string;  (** transit_gateway_id *)
   timeouts :
     aws_ec2_transit_gateway_multicast_domain__timeouts option;
@@ -26,16 +29,18 @@ type aws_ec2_transit_gateway_multicast_domain = {
 (** aws_ec2_transit_gateway_multicast_domain *)
 
 let aws_ec2_transit_gateway_multicast_domain
-    ?auto_accept_shared_associations ?igmpv2_support
-    ?static_sources_support ?tags ?timeouts ~transit_gateway_id
-    __resource_id =
+    ?auto_accept_shared_associations ?id ?igmpv2_support
+    ?static_sources_support ?tags ?tags_all ?timeouts
+    ~transit_gateway_id __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_multicast_domain" in
   let __resource =
     {
       auto_accept_shared_associations;
+      id;
       igmpv2_support;
       static_sources_support;
       tags;
+      tags_all;
       transit_gateway_id;
       timeouts;
     }

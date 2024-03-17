@@ -10,9 +10,11 @@ type aws_verifiedaccess_endpoint
 
 val aws_verifiedaccess_endpoint :
   ?description:string ->
+  ?id:string ->
   ?policy_document:string ->
   ?security_group_ids:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_verifiedaccess_endpoint__timeouts ->
   application_domain:string ->
   attachment_type:string ->

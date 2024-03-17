@@ -28,6 +28,7 @@ type azurerm_data_factory_dataset_postgresql = {
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
   folder : string option; [@option]  (** folder *)
+  id : string option; [@option]  (** id *)
   linked_service_name : string;  (** linked_service_name *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
@@ -41,7 +42,7 @@ type azurerm_data_factory_dataset_postgresql = {
 (** azurerm_data_factory_dataset_postgresql *)
 
 let azurerm_data_factory_dataset_postgresql ?additional_properties
-    ?annotations ?description ?folder ?parameters ?table_name
+    ?annotations ?description ?folder ?id ?parameters ?table_name
     ?timeouts ~data_factory_id ~linked_service_name ~name
     ~schema_column __resource_id =
   let __resource_type = "azurerm_data_factory_dataset_postgresql" in
@@ -52,6 +53,7 @@ let azurerm_data_factory_dataset_postgresql ?additional_properties
       data_factory_id;
       description;
       folder;
+      id;
       linked_service_name;
       name;
       parameters;

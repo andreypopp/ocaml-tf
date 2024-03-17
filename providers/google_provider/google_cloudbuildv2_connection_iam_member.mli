@@ -6,6 +6,9 @@ type google_cloudbuildv2_connection_iam_member__condition
 type google_cloudbuildv2_connection_iam_member
 
 val google_cloudbuildv2_connection_iam_member :
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
   member:string ->
   name:string ->
   role:string ->

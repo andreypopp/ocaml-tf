@@ -19,6 +19,7 @@ type azurerm_iothub_file_upload = {
   connection_string : string;  (** connection_string *)
   container_name : string;  (** container_name *)
   default_ttl : string option; [@option]  (** default_ttl *)
+  id : string option; [@option]  (** id *)
   identity_id : string option; [@option]  (** identity_id *)
   iothub_id : string;  (** iothub_id *)
   lock_duration : string option; [@option]  (** lock_duration *)
@@ -32,7 +33,7 @@ type azurerm_iothub_file_upload = {
 [@@deriving yojson_of]
 (** azurerm_iothub_file_upload *)
 
-let azurerm_iothub_file_upload ?authentication_type ?default_ttl
+let azurerm_iothub_file_upload ?authentication_type ?default_ttl ?id
     ?identity_id ?lock_duration ?max_delivery_count
     ?notifications_enabled ?sas_ttl ?timeouts ~connection_string
     ~container_name ~iothub_id __resource_id =
@@ -43,6 +44,7 @@ let azurerm_iothub_file_upload ?authentication_type ?default_ttl
       connection_string;
       container_name;
       default_ttl;
+      id;
       identity_id;
       iothub_id;
       lock_duration;

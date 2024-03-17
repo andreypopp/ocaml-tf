@@ -50,6 +50,7 @@ type azurerm_monitor_aad_diagnostic_setting = {
   eventhub_authorization_rule_id : string option; [@option]
       (** eventhub_authorization_rule_id *)
   eventhub_name : string option; [@option]  (** eventhub_name *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string option; [@option]
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -64,7 +65,7 @@ type azurerm_monitor_aad_diagnostic_setting = {
 (** azurerm_monitor_aad_diagnostic_setting *)
 
 let azurerm_monitor_aad_diagnostic_setting
-    ?eventhub_authorization_rule_id ?eventhub_name
+    ?eventhub_authorization_rule_id ?eventhub_name ?id
     ?log_analytics_workspace_id ?storage_account_id ?timeouts ~name
     ~enabled_log ~log __resource_id =
   let __resource_type = "azurerm_monitor_aad_diagnostic_setting" in
@@ -72,6 +73,7 @@ let azurerm_monitor_aad_diagnostic_setting
     {
       eventhub_authorization_rule_id;
       eventhub_name;
+      id;
       log_analytics_workspace_id;
       name;
       storage_account_id;

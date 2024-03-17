@@ -7,6 +7,7 @@ type azurerm_communication_service
 
 val azurerm_communication_service :
   ?data_location:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_communication_service__timeouts ->
   name:string ->

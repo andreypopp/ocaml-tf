@@ -14,7 +14,11 @@ val azurerm_data_factory_trigger_schedule :
   ?description:string ->
   ?end_time:string ->
   ?frequency:string ->
+  ?id:string ->
   ?interval:float ->
+  ?pipeline_name:string ->
+  ?pipeline_parameters:(string * string) list ->
+  ?start_time:string ->
   ?time_zone:string ->
   ?timeouts:azurerm_data_factory_trigger_schedule__timeouts ->
   data_factory_id:string ->

@@ -666,6 +666,7 @@ Either a filename or build template must be provided. Set this only when using t
 When using Pub/Sub, Webhook or Manual set the file name using git_file_source instead. *)
   filter : string option; [@option]
       (** A Common Expression Language string. Used only with Pub/Sub and Webhook. *)
+  id : string option; [@option]  (** id *)
   ignored_files : string list option; [@option]
       (** ignoredFiles and includedFiles are file glob matches using https://golang.org/pkg/path/filepath/#Match
 extended with support for '**'.
@@ -695,6 +696,9 @@ a build. *)
   location : string option; [@option]
       (** The [Cloud Build location](https://cloud.google.com/build/docs/locations) for the trigger.
 If not specified, global is used. *)
+  name : string option; [@option]
+      (** Name of the trigger. Must be unique within the project. *)
+  project : string option; [@option]  (** project *)
   service_account : string option; [@option]
       (** The service account used for all user-controlled operations including
 triggers.patch, triggers.run, builds.create, and builds.cancel.
@@ -726,12 +730,12 @@ Format: projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT_ID_OR_EMAIL} *)
 (** google_cloudbuild_trigger *)
 
 let google_cloudbuild_trigger ?description ?disabled ?filename
-    ?filter ?ignored_files ?include_build_logs ?included_files
-    ?location ?service_account ?substitutions ?tags ?timeouts
-    ~approval_config ~bitbucket_server_trigger_config ~build
-    ~git_file_source ~github ~pubsub_config ~repository_event_config
-    ~source_to_build ~trigger_template ~webhook_config __resource_id
-    =
+    ?filter ?id ?ignored_files ?include_build_logs ?included_files
+    ?location ?name ?project ?service_account ?substitutions ?tags
+    ?timeouts ~approval_config ~bitbucket_server_trigger_config
+    ~build ~git_file_source ~github ~pubsub_config
+    ~repository_event_config ~source_to_build ~trigger_template
+    ~webhook_config __resource_id =
   let __resource_type = "google_cloudbuild_trigger" in
   let __resource =
     {
@@ -739,10 +743,13 @@ let google_cloudbuild_trigger ?description ?disabled ?filename
       disabled;
       filename;
       filter;
+      id;
       ignored_files;
       include_build_logs;
       included_files;
       location;
+      name;
+      project;
       service_account;
       substitutions;
       tags;

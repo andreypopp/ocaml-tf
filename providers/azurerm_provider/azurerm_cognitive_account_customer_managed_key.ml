@@ -15,6 +15,7 @@ type azurerm_cognitive_account_customer_managed_key__timeouts = {
 
 type azurerm_cognitive_account_customer_managed_key = {
   cognitive_account_id : string;  (** cognitive_account_id *)
+  id : string option; [@option]  (** id *)
   identity_client_id : string option; [@option]
       (** identity_client_id *)
   key_vault_key_id : string;  (** key_vault_key_id *)
@@ -24,7 +25,7 @@ type azurerm_cognitive_account_customer_managed_key = {
 [@@deriving yojson_of]
 (** azurerm_cognitive_account_customer_managed_key *)
 
-let azurerm_cognitive_account_customer_managed_key
+let azurerm_cognitive_account_customer_managed_key ?id
     ?identity_client_id ?timeouts ~cognitive_account_id
     ~key_vault_key_id __resource_id =
   let __resource_type =
@@ -33,6 +34,7 @@ let azurerm_cognitive_account_customer_managed_key
   let __resource =
     {
       cognitive_account_id;
+      id;
       identity_client_id;
       key_vault_key_id;
       timeouts;

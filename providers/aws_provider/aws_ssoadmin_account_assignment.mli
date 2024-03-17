@@ -6,6 +6,7 @@ type aws_ssoadmin_account_assignment__timeouts
 type aws_ssoadmin_account_assignment
 
 val aws_ssoadmin_account_assignment :
+  ?id:string ->
   ?target_type:string ->
   ?timeouts:aws_ssoadmin_account_assignment__timeouts ->
   instance_arn:string ->

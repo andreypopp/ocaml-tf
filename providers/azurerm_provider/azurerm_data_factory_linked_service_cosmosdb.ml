@@ -25,6 +25,7 @@ type azurerm_data_factory_linked_service_cosmosdb = {
   data_factory_id : string;  (** data_factory_id *)
   database : string option; [@option]  (** database *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -38,7 +39,7 @@ type azurerm_data_factory_linked_service_cosmosdb = {
 
 let azurerm_data_factory_linked_service_cosmosdb ?account_endpoint
     ?account_key ?additional_properties ?annotations
-    ?connection_string ?database ?description
+    ?connection_string ?database ?description ?id
     ?integration_runtime_name ?parameters ?timeouts ~data_factory_id
     ~name __resource_id =
   let __resource_type =
@@ -54,6 +55,7 @@ let azurerm_data_factory_linked_service_cosmosdb ?account_endpoint
       data_factory_id;
       database;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

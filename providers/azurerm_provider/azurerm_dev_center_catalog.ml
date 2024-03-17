@@ -33,6 +33,7 @@ type azurerm_dev_center_catalog__timeouts = {
 
 type azurerm_dev_center_catalog = {
   dev_center_id : string;  (** dev_center_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   catalog_adogit : azurerm_dev_center_catalog__catalog_adogit list;
@@ -42,13 +43,14 @@ type azurerm_dev_center_catalog = {
 [@@deriving yojson_of]
 (** azurerm_dev_center_catalog *)
 
-let azurerm_dev_center_catalog ?timeouts ~dev_center_id ~name
+let azurerm_dev_center_catalog ?id ?timeouts ~dev_center_id ~name
     ~resource_group_name ~catalog_adogit ~catalog_github
     __resource_id =
   let __resource_type = "azurerm_dev_center_catalog" in
   let __resource =
     {
       dev_center_id;
+      id;
       name;
       resource_group_name;
       catalog_adogit;

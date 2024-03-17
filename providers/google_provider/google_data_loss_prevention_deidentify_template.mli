@@ -404,6 +404,8 @@ type google_data_loss_prevention_deidentify_template
 val google_data_loss_prevention_deidentify_template :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
+  ?template_id:string ->
   ?timeouts:google_data_loss_prevention_deidentify_template__timeouts ->
   parent:string ->
   deidentify_config:

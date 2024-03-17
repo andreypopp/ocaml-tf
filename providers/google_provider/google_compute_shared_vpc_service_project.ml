@@ -17,6 +17,7 @@ type google_compute_shared_vpc_service_project = {
 				to be abandoned rather than deleted. Possible values are: ABANDON. *)
   host_project : string;
       (** The ID of a host project to associate. *)
+  id : string option; [@option]  (** id *)
   service_project : string;
       (** The ID of the project that will serve as a Shared VPC service project. *)
   timeouts :
@@ -25,13 +26,13 @@ type google_compute_shared_vpc_service_project = {
 [@@deriving yojson_of]
 (** google_compute_shared_vpc_service_project *)
 
-let google_compute_shared_vpc_service_project ?deletion_policy
+let google_compute_shared_vpc_service_project ?deletion_policy ?id
     ?timeouts ~host_project ~service_project __resource_id =
   let __resource_type =
     "google_compute_shared_vpc_service_project"
   in
   let __resource =
-    { deletion_policy; host_project; service_project; timeouts }
+    { deletion_policy; host_project; id; service_project; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_shared_vpc_service_project __resource);

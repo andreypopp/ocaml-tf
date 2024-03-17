@@ -16,6 +16,7 @@ type google_vertex_ai_featurestore_entitytype
 
 val google_vertex_ai_featurestore_entitytype :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?name:string ->
   ?timeouts:google_vertex_ai_featurestore_entitytype__timeouts ->

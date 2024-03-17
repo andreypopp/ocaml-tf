@@ -6,6 +6,7 @@ type aws_resourcegroups_resource__timeouts
 type aws_resourcegroups_resource
 
 val aws_resourcegroups_resource :
+  ?id:string ->
   ?timeouts:aws_resourcegroups_resource__timeouts ->
   group_arn:string ->
   resource_arn:string ->

@@ -9,6 +9,7 @@ val azurerm_databricks_virtual_network_peering :
   ?allow_forwarded_traffic:bool ->
   ?allow_gateway_transit:bool ->
   ?allow_virtual_network_access:bool ->
+  ?id:string ->
   ?use_remote_gateways:bool ->
   ?timeouts:azurerm_databricks_virtual_network_peering__timeouts ->
   name:string ->

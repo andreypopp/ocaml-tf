@@ -10,6 +10,7 @@ val azurerm_storage_share_file :
   ?content_encoding:string ->
   ?content_md5:string ->
   ?content_type:string ->
+  ?id:string ->
   ?metadata:(string * string) list ->
   ?path:string ->
   ?source:string ->

@@ -7,6 +7,7 @@ type aws_resourceexplorer2_view__included_property
 type aws_resourceexplorer2_view
 
 val aws_resourceexplorer2_view :
+  ?default_view:bool ->
   ?tags:(string * string) list ->
   name:string ->
   filters:aws_resourceexplorer2_view__filters list ->

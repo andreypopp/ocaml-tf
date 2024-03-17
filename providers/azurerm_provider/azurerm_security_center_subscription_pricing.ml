@@ -23,6 +23,7 @@ type azurerm_security_center_subscription_pricing__timeouts = {
 (** azurerm_security_center_subscription_pricing__timeouts *)
 
 type azurerm_security_center_subscription_pricing = {
+  id : string option; [@option]  (** id *)
   resource_type : string option; [@option]  (** resource_type *)
   subplan : string option; [@option]  (** subplan *)
   tier : string;  (** tier *)
@@ -34,13 +35,13 @@ type azurerm_security_center_subscription_pricing = {
 [@@deriving yojson_of]
 (** azurerm_security_center_subscription_pricing *)
 
-let azurerm_security_center_subscription_pricing ?resource_type
+let azurerm_security_center_subscription_pricing ?id ?resource_type
     ?subplan ?timeouts ~tier ~extension __resource_id =
   let __resource_type =
     "azurerm_security_center_subscription_pricing"
   in
   let __resource =
-    { resource_type; subplan; tier; extension; timeouts }
+    { id; resource_type; subplan; tier; extension; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_subscription_pricing

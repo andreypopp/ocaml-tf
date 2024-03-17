@@ -26,13 +26,14 @@ type google_dataproc_job__status = {
   state_start_time : string;  (** state_start_time *)
   substate : string;  (** substate *)
 }
-[@@deriving yojson_of]
 
 type google_dataproc_job
 
 val google_dataproc_job :
   ?force_delete:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?region:string ->
   ?timeouts:google_dataproc_job__timeouts ->
   hadoop_config:google_dataproc_job__hadoop_config list ->

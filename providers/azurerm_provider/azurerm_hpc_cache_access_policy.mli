@@ -7,6 +7,7 @@ type azurerm_hpc_cache_access_policy__timeouts
 type azurerm_hpc_cache_access_policy
 
 val azurerm_hpc_cache_access_policy :
+  ?id:string ->
   ?timeouts:azurerm_hpc_cache_access_policy__timeouts ->
   hpc_cache_id:string ->
   name:string ->

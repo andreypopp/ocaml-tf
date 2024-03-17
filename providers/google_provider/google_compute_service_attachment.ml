@@ -51,6 +51,7 @@ supported is 1. *)
       (** If true, enable the proxy protocol which is for supplying client TCP/IP
 address data in TCP connections that traverse proxies on their way to
 destination servers. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. The name must be 1-63 characters long, and
 comply with RFC1035. Specifically, the name must be 1-63 characters
@@ -60,6 +61,14 @@ following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
   nat_subnets : string list;
       (** An array of subnets that is provided for NAT in this service attachment. *)
+  project : string option; [@option]  (** project *)
+  reconcile_connections : bool option; [@option]
+      (** This flag determines whether a consumer accept/reject list change can reconcile the statuses of existing ACCEPTED or REJECTED PSC endpoints.
+
+If false, connection policy update will only affect existing PENDING PSC endpoints. Existing ACCEPTED/REJECTED endpoints will remain untouched regardless how the connection policy is modified .
+If true, update will affect both PENDING and ACCEPTED/REJECTED PSC endpoints. For example, an ACCEPTED PSC endpoint will be moved to REJECTED if its project is added to the reject list. *)
+  region : string option; [@option]
+      (** URL of the region where the resource resides. *)
   target_service : string;
       (** The URL of a forwarding rule that represents the service identified by
 this service attachment. *)
@@ -71,9 +80,10 @@ this service attachment. *)
 (** google_compute_service_attachment *)
 
 let google_compute_service_attachment ?consumer_reject_lists
-    ?description ?domain_names ?timeouts ~connection_preference
-    ~enable_proxy_protocol ~name ~nat_subnets ~target_service
-    ~consumer_accept_lists __resource_id =
+    ?description ?domain_names ?id ?project ?reconcile_connections
+    ?region ?timeouts ~connection_preference ~enable_proxy_protocol
+    ~name ~nat_subnets ~target_service ~consumer_accept_lists
+    __resource_id =
   let __resource_type = "google_compute_service_attachment" in
   let __resource =
     {
@@ -82,8 +92,12 @@ let google_compute_service_attachment ?consumer_reject_lists
       description;
       domain_names;
       enable_proxy_protocol;
+      id;
       name;
       nat_subnets;
+      project;
+      reconcile_connections;
+      region;
       target_service;
       consumer_accept_lists;
       timeouts;

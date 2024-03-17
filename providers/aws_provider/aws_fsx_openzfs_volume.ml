@@ -49,10 +49,18 @@ type aws_fsx_openzfs_volume = {
       (** data_compression_type *)
   delete_volume_options : string list option; [@option]
       (** delete_volume_options *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   parent_volume_id : string;  (** parent_volume_id *)
+  read_only : bool option; [@option]  (** read_only *)
   record_size_kib : float option; [@option]  (** record_size_kib *)
+  storage_capacity_quota_gib : float option; [@option]
+      (** storage_capacity_quota_gib *)
+  storage_capacity_reservation_gib : float option; [@option]
+      (** storage_capacity_reservation_gib *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   volume_type : string option; [@option]  (** volume_type *)
   nfs_exports : aws_fsx_openzfs_volume__nfs_exports list;
   origin_snapshot : aws_fsx_openzfs_volume__origin_snapshot list;
@@ -64,19 +72,26 @@ type aws_fsx_openzfs_volume = {
 (** aws_fsx_openzfs_volume *)
 
 let aws_fsx_openzfs_volume ?copy_tags_to_snapshots
-    ?data_compression_type ?delete_volume_options ?record_size_kib
-    ?tags ?volume_type ?timeouts ~name ~parent_volume_id ~nfs_exports
-    ~origin_snapshot ~user_and_group_quotas __resource_id =
+    ?data_compression_type ?delete_volume_options ?id ?read_only
+    ?record_size_kib ?storage_capacity_quota_gib
+    ?storage_capacity_reservation_gib ?tags ?tags_all ?volume_type
+    ?timeouts ~name ~parent_volume_id ~nfs_exports ~origin_snapshot
+    ~user_and_group_quotas __resource_id =
   let __resource_type = "aws_fsx_openzfs_volume" in
   let __resource =
     {
       copy_tags_to_snapshots;
       data_compression_type;
       delete_volume_options;
+      id;
       name;
       parent_volume_id;
+      read_only;
       record_size_kib;
+      storage_capacity_quota_gib;
+      storage_capacity_reservation_gib;
       tags;
+      tags_all;
       volume_type;
       nfs_exports;
       origin_snapshot;

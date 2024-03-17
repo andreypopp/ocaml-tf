@@ -27,6 +27,7 @@ type cloudflare_address_map = {
   description : string option; [@option]
       (** Description of the address map. *)
   enabled : bool;  (** Whether the Address Map is enabled or not. *)
+  id : string option; [@option]  (** id *)
   ips : cloudflare_address_map__ips list;
   memberships : cloudflare_address_map__memberships list;
 }
@@ -35,7 +36,7 @@ type cloudflare_address_map = {
 they are proxied through Cloudflare.
  *)
 
-let cloudflare_address_map ?default_sni ?description ~account_id
+let cloudflare_address_map ?default_sni ?description ?id ~account_id
     ~enabled ~ips ~memberships __resource_id =
   let __resource_type = "cloudflare_address_map" in
   let __resource =
@@ -44,6 +45,7 @@ let cloudflare_address_map ?default_sni ?description ~account_id
       default_sni;
       description;
       enabled;
+      id;
       ips;
       memberships;
     }

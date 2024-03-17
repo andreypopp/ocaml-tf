@@ -46,23 +46,34 @@ type aws_autoscaling_group__warm_pool
 type aws_autoscaling_group
 
 val aws_autoscaling_group :
+  ?availability_zones:string list ->
   ?capacity_rebalance:bool ->
   ?context:string ->
+  ?default_cooldown:float ->
   ?default_instance_warmup:float ->
+  ?desired_capacity:float ->
   ?desired_capacity_type:string ->
   ?enabled_metrics:string list ->
   ?force_delete:bool ->
   ?force_delete_warm_pool:bool ->
   ?health_check_grace_period:float ->
+  ?health_check_type:string ->
+  ?id:string ->
   ?ignore_failed_scaling_activities:bool ->
   ?launch_configuration:string ->
+  ?load_balancers:string list ->
   ?max_instance_lifetime:float ->
   ?metrics_granularity:string ->
   ?min_elb_capacity:float ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?placement_group:string ->
   ?protect_from_scale_in:bool ->
+  ?service_linked_role_arn:string ->
   ?suspended_processes:string list ->
+  ?target_group_arns:string list ->
   ?termination_policies:string list ->
+  ?vpc_zone_identifier:string list ->
   ?wait_for_capacity_timeout:string ->
   ?wait_for_elb_capacity:float ->
   ?timeouts:aws_autoscaling_group__timeouts ->

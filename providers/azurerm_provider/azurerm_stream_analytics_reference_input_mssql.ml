@@ -18,6 +18,7 @@ type azurerm_stream_analytics_reference_input_mssql = {
   delta_snapshot_query : string option; [@option]
       (** delta_snapshot_query *)
   full_snapshot_query : string;  (** full_snapshot_query *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   password : string;  (** password *)
   refresh_interval_duration : string option; [@option]
@@ -36,10 +37,10 @@ type azurerm_stream_analytics_reference_input_mssql = {
 (** azurerm_stream_analytics_reference_input_mssql *)
 
 let azurerm_stream_analytics_reference_input_mssql
-    ?delta_snapshot_query ?refresh_interval_duration ?table ?timeouts
-    ~database ~full_snapshot_query ~name ~password ~refresh_type
-    ~resource_group_name ~server ~stream_analytics_job_name ~username
-    __resource_id =
+    ?delta_snapshot_query ?id ?refresh_interval_duration ?table
+    ?timeouts ~database ~full_snapshot_query ~name ~password
+    ~refresh_type ~resource_group_name ~server
+    ~stream_analytics_job_name ~username __resource_id =
   let __resource_type =
     "azurerm_stream_analytics_reference_input_mssql"
   in
@@ -48,6 +49,7 @@ let azurerm_stream_analytics_reference_input_mssql
       database;
       delta_snapshot_query;
       full_snapshot_query;
+      id;
       name;
       password;
       refresh_interval_duration;

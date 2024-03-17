@@ -38,7 +38,10 @@ type aws_msk_cluster
 
 val aws_msk_cluster :
   ?enhanced_monitoring:string ->
+  ?id:string ->
+  ?storage_mode:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_msk_cluster__timeouts ->
   cluster_name:string ->
   kafka_version:string ->

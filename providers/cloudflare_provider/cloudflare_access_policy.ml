@@ -287,12 +287,15 @@ type cloudflare_access_policy__require = {
 (** A series of access conditions, see [Access Groups](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/access_group#conditions). *)
 
 type cloudflare_access_policy = {
+  account_id : string option; [@option]
+      (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
   application_id : string;
       (** The ID of the application the policy is associated with. *)
   approval_required : bool option; [@option]
       (** approval_required *)
   decision : string;
       (** Defines the action Access will take if the policy matches the user. Available values: `allow`, `deny`, `non_identity`, `bypass`. *)
+  id : string option; [@option]  (** id *)
   isolation_required : bool option; [@option]
       (** Require this application to be served in an isolated browser for users matching this policy. *)
   name : string;  (** Friendly name of the Access Policy. *)
@@ -304,6 +307,8 @@ type cloudflare_access_policy = {
       (** Whether to prompt the user for a justification for accessing the resource. *)
   session_duration : string option; [@option]
       (** How often a user will be forced to re-authorise. Must be in the format `48h` or `2h45m`. *)
+  zone_id : string option; [@option]
+      (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
   approval_group : cloudflare_access_policy__approval_group list;
   exclude : cloudflare_access_policy__exclude list;
   include_ : cloudflare_access_policy__include list;
@@ -315,22 +320,26 @@ used in conjunction with Access Applications to restrict access to
 a particular resource.
  *)
 
-let cloudflare_access_policy ?approval_required ?isolation_required
-    ?purpose_justification_prompt ?purpose_justification_required
-    ?session_duration ~application_id ~decision ~name ~precedence
-    ~approval_group ~exclude ~include_ ~require __resource_id =
+let cloudflare_access_policy ?account_id ?approval_required ?id
+    ?isolation_required ?purpose_justification_prompt
+    ?purpose_justification_required ?session_duration ?zone_id
+    ~application_id ~decision ~name ~precedence ~approval_group
+    ~exclude ~include_ ~require __resource_id =
   let __resource_type = "cloudflare_access_policy" in
   let __resource =
     {
+      account_id;
       application_id;
       approval_required;
       decision;
+      id;
       isolation_required;
       name;
       precedence;
       purpose_justification_prompt;
       purpose_justification_required;
       session_duration;
+      zone_id;
       approval_group;
       exclude;
       include_;

@@ -25,6 +25,7 @@ type azurerm_private_dns_resolver_forwarding_rule = {
       (** dns_forwarding_ruleset_id *)
   domain_name : string;  (** domain_name *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   metadata : (string * string) list option; [@option]
       (** metadata *)
   name : string;  (** name *)
@@ -37,8 +38,8 @@ type azurerm_private_dns_resolver_forwarding_rule = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_forwarding_rule *)
 
-let azurerm_private_dns_resolver_forwarding_rule ?enabled ?metadata
-    ?timeouts ~dns_forwarding_ruleset_id ~domain_name ~name
+let azurerm_private_dns_resolver_forwarding_rule ?enabled ?id
+    ?metadata ?timeouts ~dns_forwarding_ruleset_id ~domain_name ~name
     ~target_dns_servers __resource_id =
   let __resource_type =
     "azurerm_private_dns_resolver_forwarding_rule"
@@ -48,6 +49,7 @@ let azurerm_private_dns_resolver_forwarding_rule ?enabled ?metadata
       dns_forwarding_ruleset_id;
       domain_name;
       enabled;
+      id;
       metadata;
       name;
       target_dns_servers;

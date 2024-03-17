@@ -30,12 +30,14 @@ type aws_batch_job_definition
 
 val aws_batch_job_definition :
   ?container_properties:string ->
+  ?id:string ->
   ?node_properties:string ->
   ?parameters:(string * string) list ->
   ?platform_capabilities:string list ->
   ?propagate_tags:bool ->
   ?scheduling_priority:float ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   type_:string ->
   eks_properties:aws_batch_job_definition__eks_properties list ->

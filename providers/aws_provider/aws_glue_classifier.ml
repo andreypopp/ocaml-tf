@@ -44,6 +44,7 @@ type aws_glue_classifier__xml_classifier = {
 (** aws_glue_classifier__xml_classifier *)
 
 type aws_glue_classifier = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   csv_classifier : aws_glue_classifier__csv_classifier list;
   grok_classifier : aws_glue_classifier__grok_classifier list;
@@ -53,11 +54,12 @@ type aws_glue_classifier = {
 [@@deriving yojson_of]
 (** aws_glue_classifier *)
 
-let aws_glue_classifier ~name ~csv_classifier ~grok_classifier
+let aws_glue_classifier ?id ~name ~csv_classifier ~grok_classifier
     ~json_classifier ~xml_classifier __resource_id =
   let __resource_type = "aws_glue_classifier" in
   let __resource =
     {
+      id;
       name;
       csv_classifier;
       grok_classifier;

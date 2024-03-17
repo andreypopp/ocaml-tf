@@ -17,6 +17,7 @@ type azurerm_kusto_database = {
   cluster_name : string;  (** cluster_name *)
   hot_cache_period : string option; [@option]
       (** hot_cache_period *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -27,7 +28,7 @@ type azurerm_kusto_database = {
 [@@deriving yojson_of]
 (** azurerm_kusto_database *)
 
-let azurerm_kusto_database ?hot_cache_period ?soft_delete_period
+let azurerm_kusto_database ?hot_cache_period ?id ?soft_delete_period
     ?timeouts ~cluster_name ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_kusto_database" in
@@ -35,6 +36,7 @@ let azurerm_kusto_database ?hot_cache_period ?soft_delete_period
     {
       cluster_name;
       hot_cache_period;
+      id;
       location;
       name;
       resource_group_name;

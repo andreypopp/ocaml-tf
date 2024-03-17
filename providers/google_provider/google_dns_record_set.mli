@@ -28,6 +28,8 @@ type google_dns_record_set__routing_policy
 type google_dns_record_set
 
 val google_dns_record_set :
+  ?id:string ->
+  ?project:string ->
   ?rrdatas:string list ->
   ?ttl:float ->
   managed_zone:string ->

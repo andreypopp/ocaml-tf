@@ -17,9 +17,13 @@ val aws_fms_policy :
   ?delete_all_policy_resources:bool ->
   ?delete_unused_fm_managed_resources:bool ->
   ?description:string ->
+  ?id:string ->
   ?remediation_enabled:bool ->
   ?resource_tags:(string * string) list ->
+  ?resource_type:string ->
+  ?resource_type_list:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   exclude_resource_tags:bool ->
   name:string ->
   exclude_map:aws_fms_policy__exclude_map list ->

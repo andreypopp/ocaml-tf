@@ -44,6 +44,7 @@ type azurerm_healthcare_service = {
       (** cosmosdb_key_vault_key_versionless_id *)
   cosmosdb_throughput : float option; [@option]
       (** cosmosdb_throughput *)
+  id : string option; [@option]  (** id *)
   kind : string option; [@option]  (** kind *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -61,9 +62,9 @@ type azurerm_healthcare_service = {
 (** azurerm_healthcare_service *)
 
 let azurerm_healthcare_service ?access_policy_object_ids
-    ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?kind
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~authentication_configuration
+    ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
+    ?kind ?public_network_access_enabled ?tags ?timeouts ~location
+    ~name ~resource_group_name ~authentication_configuration
     ~cors_configuration __resource_id =
   let __resource_type = "azurerm_healthcare_service" in
   let __resource =
@@ -71,6 +72,7 @@ let azurerm_healthcare_service ?access_policy_object_ids
       access_policy_object_ids;
       cosmosdb_key_vault_key_versionless_id;
       cosmosdb_throughput;
+      id;
       kind;
       location;
       name;

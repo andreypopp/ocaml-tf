@@ -17,6 +17,7 @@ type azurerm_iothub_route = {
   condition : string option; [@option]  (** condition *)
   enabled : bool;  (** enabled *)
   endpoint_names : string list;  (** endpoint_names *)
+  id : string option; [@option]  (** id *)
   iothub_name : string;  (** iothub_name *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -26,7 +27,7 @@ type azurerm_iothub_route = {
 [@@deriving yojson_of]
 (** azurerm_iothub_route *)
 
-let azurerm_iothub_route ?condition ?timeouts ~enabled
+let azurerm_iothub_route ?condition ?id ?timeouts ~enabled
     ~endpoint_names ~iothub_name ~name ~resource_group_name ~source
     __resource_id =
   let __resource_type = "azurerm_iothub_route" in
@@ -35,6 +36,7 @@ let azurerm_iothub_route ?condition ?timeouts ~enabled
       condition;
       enabled;
       endpoint_names;
+      id;
       iothub_name;
       name;
       resource_group_name;

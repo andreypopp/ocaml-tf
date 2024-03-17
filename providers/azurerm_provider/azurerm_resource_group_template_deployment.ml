@@ -16,9 +16,14 @@ type azurerm_resource_group_template_deployment__timeouts = {
 type azurerm_resource_group_template_deployment = {
   debug_level : string option; [@option]  (** debug_level *)
   deployment_mode : string;  (** deployment_mode *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  parameters_content : string option; [@option]
+      (** parameters_content *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  template_content : string option; [@option]
+      (** template_content *)
   template_spec_version_id : string option; [@option]
       (** template_spec_version_id *)
   timeouts :
@@ -27,7 +32,8 @@ type azurerm_resource_group_template_deployment = {
 [@@deriving yojson_of]
 (** azurerm_resource_group_template_deployment *)
 
-let azurerm_resource_group_template_deployment ?debug_level ?tags
+let azurerm_resource_group_template_deployment ?debug_level ?id
+    ?parameters_content ?tags ?template_content
     ?template_spec_version_id ?timeouts ~deployment_mode ~name
     ~resource_group_name __resource_id =
   let __resource_type =
@@ -37,9 +43,12 @@ let azurerm_resource_group_template_deployment ?debug_level ?tags
     {
       debug_level;
       deployment_mode;
+      id;
       name;
+      parameters_content;
       resource_group_name;
       tags;
+      template_content;
       template_spec_version_id;
       timeouts;
     }

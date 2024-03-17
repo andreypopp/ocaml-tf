@@ -11,6 +11,7 @@ type aws_lambda_layer_version = {
       (** compatible_runtimes *)
   description : string option; [@option]  (** description *)
   filename : string option; [@option]  (** filename *)
+  id : string option; [@option]  (** id *)
   layer_name : string;  (** layer_name *)
   license_info : string option; [@option]  (** license_info *)
   s3_bucket : string option; [@option]  (** s3_bucket *)
@@ -18,14 +19,15 @@ type aws_lambda_layer_version = {
   s3_object_version : string option; [@option]
       (** s3_object_version *)
   skip_destroy : bool option; [@option]  (** skip_destroy *)
+  source_code_hash : string option; [@option]  (** source_code_hash *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_layer_version *)
 
 let aws_lambda_layer_version ?compatible_architectures
-    ?compatible_runtimes ?description ?filename ?license_info
-    ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy ~layer_name
-    __resource_id =
+    ?compatible_runtimes ?description ?filename ?id ?license_info
+    ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
+    ?source_code_hash ~layer_name __resource_id =
   let __resource_type = "aws_lambda_layer_version" in
   let __resource =
     {
@@ -33,12 +35,14 @@ let aws_lambda_layer_version ?compatible_architectures
       compatible_runtimes;
       description;
       filename;
+      id;
       layer_name;
       license_info;
       s3_bucket;
       s3_key;
       s3_object_version;
       skip_destroy;
+      source_code_hash;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

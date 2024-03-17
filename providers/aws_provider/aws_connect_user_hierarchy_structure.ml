@@ -65,6 +65,7 @@ type aws_connect_user_hierarchy_structure__hierarchy_structure = {
 (** aws_connect_user_hierarchy_structure__hierarchy_structure *)
 
 type aws_connect_user_hierarchy_structure = {
+  id : string option; [@option]  (** id *)
   instance_id : string;  (** instance_id *)
   hierarchy_structure :
     aws_connect_user_hierarchy_structure__hierarchy_structure list;
@@ -72,10 +73,10 @@ type aws_connect_user_hierarchy_structure = {
 [@@deriving yojson_of]
 (** aws_connect_user_hierarchy_structure *)
 
-let aws_connect_user_hierarchy_structure ~instance_id
+let aws_connect_user_hierarchy_structure ?id ~instance_id
     ~hierarchy_structure __resource_id =
   let __resource_type = "aws_connect_user_hierarchy_structure" in
-  let __resource = { instance_id; hierarchy_structure } in
+  let __resource = { id; instance_id; hierarchy_structure } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_user_hierarchy_structure __resource);
   ()

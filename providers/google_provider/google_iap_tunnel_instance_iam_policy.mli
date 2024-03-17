@@ -5,4 +5,10 @@ open! Tf.Prelude
 type google_iap_tunnel_instance_iam_policy
 
 val google_iap_tunnel_instance_iam_policy :
-  instance:string -> policy_data:string -> string -> unit
+  ?id:string ->
+  ?project:string ->
+  ?zone:string ->
+  instance:string ->
+  policy_data:string ->
+  string ->
+  unit

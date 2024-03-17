@@ -126,6 +126,7 @@ type azurerm_automanage_configuration = {
       (** defender_for_cloud_enabled *)
   guest_configuration_enabled : bool option; [@option]
       (** guest_configuration_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   log_analytics_enabled : bool option; [@option]
       (** log_analytics_enabled *)
@@ -145,7 +146,7 @@ type azurerm_automanage_configuration = {
 
 let azurerm_automanage_configuration ?automation_account_enabled
     ?boot_diagnostics_enabled ?defender_for_cloud_enabled
-    ?guest_configuration_enabled ?log_analytics_enabled
+    ?guest_configuration_enabled ?id ?log_analytics_enabled
     ?status_change_alert_enabled ?tags ?timeouts ~location ~name
     ~resource_group_name ~antimalware ~azure_security_baseline
     ~backup __resource_id =
@@ -156,6 +157,7 @@ let azurerm_automanage_configuration ?automation_account_enabled
       boot_diagnostics_enabled;
       defender_for_cloud_enabled;
       guest_configuration_enabled;
+      id;
       location;
       log_analytics_enabled;
       name;

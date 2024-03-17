@@ -11,13 +11,14 @@ type google_secure_source_manager_instance__host_config = {
   git_ssh : string;  (** git_ssh *)
   html : string;  (** html *)
 }
-[@@deriving yojson_of]
 
 type google_secure_source_manager_instance
 
 val google_secure_source_manager_instance :
+  ?id:string ->
   ?kms_key:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_secure_source_manager_instance__timeouts ->
   instance_id:string ->
   location:string ->

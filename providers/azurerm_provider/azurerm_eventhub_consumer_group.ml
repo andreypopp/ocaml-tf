@@ -15,6 +15,7 @@ type azurerm_eventhub_consumer_group__timeouts = {
 
 type azurerm_eventhub_consumer_group = {
   eventhub_name : string;  (** eventhub_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   namespace_name : string;  (** namespace_name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,13 +25,14 @@ type azurerm_eventhub_consumer_group = {
 [@@deriving yojson_of]
 (** azurerm_eventhub_consumer_group *)
 
-let azurerm_eventhub_consumer_group ?user_metadata ?timeouts
+let azurerm_eventhub_consumer_group ?id ?user_metadata ?timeouts
     ~eventhub_name ~name ~namespace_name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_eventhub_consumer_group" in
   let __resource =
     {
       eventhub_name;
+      id;
       name;
       namespace_name;
       resource_group_name;

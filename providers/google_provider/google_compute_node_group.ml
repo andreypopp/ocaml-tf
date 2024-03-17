@@ -60,6 +60,7 @@ type google_compute_node_group__timeouts = {
 type google_compute_node_group = {
   description : string option; [@option]
       (** An optional textual description of the resource. *)
+  id : string option; [@option]  (** id *)
   initial_size : float option; [@option]
       (** The initial number of nodes in the node group. One of 'initial_size' or 'autoscaling_policy' must be configured on resource creation. *)
   maintenance_policy : string option; [@option]
@@ -67,6 +68,9 @@ type google_compute_node_group = {
   name : string option; [@option]  (** Name of the resource. *)
   node_template : string;
       (** The URL of the node template to which this node group belongs. *)
+  project : string option; [@option]  (** project *)
+  zone : string option; [@option]
+      (** Zone where this node group is located *)
   autoscaling_policy :
     google_compute_node_group__autoscaling_policy list;
   maintenance_window :
@@ -77,18 +81,21 @@ type google_compute_node_group = {
 [@@deriving yojson_of]
 (** google_compute_node_group *)
 
-let google_compute_node_group ?description ?initial_size
-    ?maintenance_policy ?name ?timeouts ~node_template
+let google_compute_node_group ?description ?id ?initial_size
+    ?maintenance_policy ?name ?project ?zone ?timeouts ~node_template
     ~autoscaling_policy ~maintenance_window ~share_settings
     __resource_id =
   let __resource_type = "google_compute_node_group" in
   let __resource =
     {
       description;
+      id;
       initial_size;
       maintenance_policy;
       name;
       node_template;
+      project;
+      zone;
       autoscaling_policy;
       maintenance_window;
       share_settings;

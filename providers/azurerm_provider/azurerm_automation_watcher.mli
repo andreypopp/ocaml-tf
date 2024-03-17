@@ -8,6 +8,7 @@ type azurerm_automation_watcher
 val azurerm_automation_watcher :
   ?description:string ->
   ?etag:string ->
+  ?id:string ->
   ?script_parameters:(string * string) list ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_automation_watcher__timeouts ->

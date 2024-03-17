@@ -10,8 +10,13 @@ type azurerm_redis_cache
 
 val azurerm_redis_cache :
   ?enable_non_ssl_port:bool ->
+  ?id:string ->
   ?minimum_tls_version:string ->
+  ?private_static_ip_address:string ->
   ?public_network_access_enabled:bool ->
+  ?redis_version:string ->
+  ?replicas_per_master:float ->
+  ?replicas_per_primary:float ->
   ?shard_count:float ->
   ?subnet_id:string ->
   ?tags:(string * string) list ->

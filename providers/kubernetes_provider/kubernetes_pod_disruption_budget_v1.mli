@@ -11,6 +11,7 @@ type kubernetes_pod_disruption_budget_v1__spec
 type kubernetes_pod_disruption_budget_v1
 
 val kubernetes_pod_disruption_budget_v1 :
+  ?id:string ->
   metadata:kubernetes_pod_disruption_budget_v1__metadata list ->
   spec:kubernetes_pod_disruption_budget_v1__spec list ->
   string ->

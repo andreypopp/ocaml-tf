@@ -18,6 +18,7 @@ type azurerm_automation_connection_service_principal = {
   automation_account_name : string;  (** automation_account_name *)
   certificate_thumbprint : string;  (** certificate_thumbprint *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   subscription_id : string;  (** subscription_id *)
@@ -28,7 +29,7 @@ type azurerm_automation_connection_service_principal = {
 [@@deriving yojson_of]
 (** azurerm_automation_connection_service_principal *)
 
-let azurerm_automation_connection_service_principal ?description
+let azurerm_automation_connection_service_principal ?description ?id
     ?timeouts ~application_id ~automation_account_name
     ~certificate_thumbprint ~name ~resource_group_name
     ~subscription_id ~tenant_id __resource_id =
@@ -41,6 +42,7 @@ let azurerm_automation_connection_service_principal ?description
       automation_account_name;
       certificate_thumbprint;
       description;
+      id;
       name;
       resource_group_name;
       subscription_id;

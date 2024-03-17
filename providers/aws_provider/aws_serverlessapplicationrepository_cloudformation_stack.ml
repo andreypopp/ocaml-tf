@@ -15,8 +15,15 @@ type aws_serverlessapplicationrepository_cloudformation_stack__timeouts = {
 type aws_serverlessapplicationrepository_cloudformation_stack = {
   application_id : string;  (** application_id *)
   capabilities : string list;  (** capabilities *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  parameters : (string * string) list option; [@option]
+      (** parameters *)
+  semantic_version : string option; [@option]
+      (** semantic_version *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts :
     aws_serverlessapplicationrepository_cloudformation_stack__timeouts
     option;
@@ -24,13 +31,24 @@ type aws_serverlessapplicationrepository_cloudformation_stack = {
 [@@deriving yojson_of]
 (** aws_serverlessapplicationrepository_cloudformation_stack *)
 
-let aws_serverlessapplicationrepository_cloudformation_stack ?tags
-    ?timeouts ~application_id ~capabilities ~name __resource_id =
+let aws_serverlessapplicationrepository_cloudformation_stack ?id
+    ?parameters ?semantic_version ?tags ?tags_all ?timeouts
+    ~application_id ~capabilities ~name __resource_id =
   let __resource_type =
     "aws_serverlessapplicationrepository_cloudformation_stack"
   in
   let __resource =
-    { application_id; capabilities; name; tags; timeouts }
+    {
+      application_id;
+      capabilities;
+      id;
+      name;
+      parameters;
+      semantic_version;
+      tags;
+      tags_all;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_serverlessapplicationrepository_cloudformation_stack

@@ -48,6 +48,7 @@ type azurerm_eventgrid_topic__inbound_ip_rule = {
 [@@deriving yojson_of]
 
 type azurerm_eventgrid_topic = {
+  id : string option; [@option]  (** id *)
   inbound_ip_rule :
     azurerm_eventgrid_topic__inbound_ip_rule list option;
       [@option]
@@ -71,7 +72,7 @@ type azurerm_eventgrid_topic = {
 [@@deriving yojson_of]
 (** azurerm_eventgrid_topic *)
 
-let azurerm_eventgrid_topic ?inbound_ip_rule ?input_schema
+let azurerm_eventgrid_topic ?id ?inbound_ip_rule ?input_schema
     ?local_auth_enabled ?public_network_access_enabled ?tags
     ?timeouts ~location ~name ~resource_group_name ~identity
     ~input_mapping_default_values ~input_mapping_fields __resource_id
@@ -79,6 +80,7 @@ let azurerm_eventgrid_topic ?inbound_ip_rule ?input_schema
   let __resource_type = "azurerm_eventgrid_topic" in
   let __resource =
     {
+      id;
       inbound_ip_rule;
       input_schema;
       local_auth_enabled;

@@ -14,6 +14,7 @@ type azurerm_virtual_hub_bgp_connection__timeouts = {
 (** azurerm_virtual_hub_bgp_connection__timeouts *)
 
 type azurerm_virtual_hub_bgp_connection = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   peer_asn : float;  (** peer_asn *)
   peer_ip : string;  (** peer_ip *)
@@ -25,12 +26,13 @@ type azurerm_virtual_hub_bgp_connection = {
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_bgp_connection *)
 
-let azurerm_virtual_hub_bgp_connection ?virtual_network_connection_id
-    ?timeouts ~name ~peer_asn ~peer_ip ~virtual_hub_id __resource_id
-    =
+let azurerm_virtual_hub_bgp_connection ?id
+    ?virtual_network_connection_id ?timeouts ~name ~peer_asn ~peer_ip
+    ~virtual_hub_id __resource_id =
   let __resource_type = "azurerm_virtual_hub_bgp_connection" in
   let __resource =
     {
+      id;
       name;
       peer_asn;
       peer_ip;

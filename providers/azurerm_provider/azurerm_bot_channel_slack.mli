@@ -6,6 +6,7 @@ type azurerm_bot_channel_slack__timeouts
 type azurerm_bot_channel_slack
 
 val azurerm_bot_channel_slack :
+  ?id:string ->
   ?landing_page_url:string ->
   ?signing_secret:string ->
   ?timeouts:azurerm_bot_channel_slack__timeouts ->

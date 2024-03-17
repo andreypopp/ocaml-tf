@@ -12,6 +12,9 @@ type azurerm_cosmosdb_cassandra_table
 
 val azurerm_cosmosdb_cassandra_table :
   ?analytical_storage_ttl:float ->
+  ?default_ttl:float ->
+  ?id:string ->
+  ?throughput:float ->
   ?timeouts:azurerm_cosmosdb_cassandra_table__timeouts ->
   cassandra_keyspace_id:string ->
   name:string ->

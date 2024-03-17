@@ -25,6 +25,7 @@ val azurerm_automanage_configuration :
   ?boot_diagnostics_enabled:bool ->
   ?defender_for_cloud_enabled:bool ->
   ?guest_configuration_enabled:bool ->
+  ?id:string ->
   ?log_analytics_enabled:bool ->
   ?status_change_alert_enabled:bool ->
   ?tags:(string * string) list ->

@@ -30,6 +30,7 @@ type azurerm_data_factory_trigger_custom_event = {
   description : string option; [@option]  (** description *)
   eventgrid_topic_id : string;  (** eventgrid_topic_id *)
   events : string list;  (** events *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   subject_begins_with : string option; [@option]
       (** subject_begins_with *)
@@ -44,7 +45,7 @@ type azurerm_data_factory_trigger_custom_event = {
 (** azurerm_data_factory_trigger_custom_event *)
 
 let azurerm_data_factory_trigger_custom_event ?activated
-    ?additional_properties ?annotations ?description
+    ?additional_properties ?annotations ?description ?id
     ?subject_begins_with ?subject_ends_with ?timeouts
     ~data_factory_id ~eventgrid_topic_id ~events ~name ~pipeline
     __resource_id =
@@ -60,6 +61,7 @@ let azurerm_data_factory_trigger_custom_event ?activated
       description;
       eventgrid_topic_id;
       events;
+      id;
       name;
       subject_begins_with;
       subject_ends_with;

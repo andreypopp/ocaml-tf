@@ -17,6 +17,7 @@ type google_apigee_env_references = {
   env_id : string;
       (** The Apigee environment group associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Required. The resource id of this reference. Values must match the regular expression [\w\s-.]+. *)
   refers : string;
@@ -28,11 +29,19 @@ in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
 [@@deriving yojson_of]
 (** google_apigee_env_references *)
 
-let google_apigee_env_references ?description ?timeouts ~env_id ~name
-    ~refers ~resource_type __resource_id =
+let google_apigee_env_references ?description ?id ?timeouts ~env_id
+    ~name ~refers ~resource_type __resource_id =
   let __resource_type = "google_apigee_env_references" in
   let __resource =
-    { description; env_id; name; refers; resource_type; timeouts }
+    {
+      description;
+      env_id;
+      id;
+      name;
+      refers;
+      resource_type;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_env_references __resource);

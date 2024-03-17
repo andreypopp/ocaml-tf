@@ -19,10 +19,20 @@ val aws_alb :
   ?enable_tls_version_and_cipher_suite_headers:bool ->
   ?enable_waf_fail_open:bool ->
   ?enable_xff_client_port:bool ->
+  ?enforce_security_group_inbound_rules_on_private_link_traffic:
+    string ->
+  ?id:string ->
   ?idle_timeout:float ->
+  ?internal:bool ->
+  ?ip_address_type:string ->
   ?load_balancer_type:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?preserve_host_header:bool ->
+  ?security_groups:string list ->
+  ?subnets:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?xff_header_processing_mode:string ->
   ?timeouts:aws_alb__timeouts ->
   access_logs:aws_alb__access_logs list ->

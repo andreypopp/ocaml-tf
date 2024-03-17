@@ -8,6 +8,7 @@ type azurerm_stream_analytics_output_function
 val azurerm_stream_analytics_output_function :
   ?batch_max_count:float ->
   ?batch_max_in_bytes:float ->
+  ?id:string ->
   ?timeouts:azurerm_stream_analytics_output_function__timeouts ->
   api_key:string ->
   function_app:string ->

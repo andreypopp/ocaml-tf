@@ -16,6 +16,7 @@ type google_vertex_ai_feature_group_feature = {
   description : string option; [@option]
       (** The description of the FeatureGroup. *)
   feature_group : string;  (** The name of the Feature Group. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The labels with user-defined metadata to organize your FeatureGroup.
 
@@ -23,18 +24,32 @@ type google_vertex_ai_feature_group_feature = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;
       (** The resource name of the Feature Group Feature. *)
+  project : string option; [@option]  (** project *)
   region : string;
       (** The region for the resource. It should be the same as the feature group's region. *)
+  version_column_name : string option; [@option]
+      (** The name of the BigQuery Table/View column hosting data for this version. If no value is provided, will use featureId. *)
   timeouts : google_vertex_ai_feature_group_feature__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_feature_group_feature *)
 
-let google_vertex_ai_feature_group_feature ?description ?labels
-    ?timeouts ~feature_group ~name ~region __resource_id =
+let google_vertex_ai_feature_group_feature ?description ?id ?labels
+    ?project ?version_column_name ?timeouts ~feature_group ~name
+    ~region __resource_id =
   let __resource_type = "google_vertex_ai_feature_group_feature" in
   let __resource =
-    { description; feature_group; labels; name; region; timeouts }
+    {
+      description;
+      feature_group;
+      id;
+      labels;
+      name;
+      project;
+      region;
+      version_column_name;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_feature_group_feature __resource);

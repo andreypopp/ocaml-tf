@@ -16,6 +16,7 @@ val azurerm_data_factory_dataset_parquet :
   ?compression_level:string ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?timeouts:azurerm_data_factory_dataset_parquet__timeouts ->
   data_factory_id:string ->

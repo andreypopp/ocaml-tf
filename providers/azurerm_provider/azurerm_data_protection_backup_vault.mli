@@ -7,6 +7,7 @@ type azurerm_data_protection_backup_vault__timeouts
 type azurerm_data_protection_backup_vault
 
 val azurerm_data_protection_backup_vault :
+  ?id:string ->
   ?retention_duration_in_days:float ->
   ?soft_delete:string ->
   ?tags:(string * string) list ->

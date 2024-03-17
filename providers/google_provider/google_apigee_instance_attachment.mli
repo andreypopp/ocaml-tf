@@ -6,6 +6,7 @@ type google_apigee_instance_attachment__timeouts
 type google_apigee_instance_attachment
 
 val google_apigee_instance_attachment :
+  ?id:string ->
   ?timeouts:google_apigee_instance_attachment__timeouts ->
   environment:string ->
   instance_id:string ->

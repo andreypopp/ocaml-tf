@@ -18,13 +18,14 @@ type azurerm_cdn_frontdoor_custom_domain_association = {
       (** cdn_frontdoor_custom_domain_id *)
   cdn_frontdoor_route_ids : string list;
       (** cdn_frontdoor_route_ids *)
+  id : string option; [@option]  (** id *)
   timeouts :
     azurerm_cdn_frontdoor_custom_domain_association__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_custom_domain_association *)
 
-let azurerm_cdn_frontdoor_custom_domain_association ?timeouts
+let azurerm_cdn_frontdoor_custom_domain_association ?id ?timeouts
     ~cdn_frontdoor_custom_domain_id ~cdn_frontdoor_route_ids
     __resource_id =
   let __resource_type =
@@ -34,6 +35,7 @@ let azurerm_cdn_frontdoor_custom_domain_association ?timeouts
     {
       cdn_frontdoor_custom_domain_id;
       cdn_frontdoor_route_ids;
+      id;
       timeouts;
     }
   in

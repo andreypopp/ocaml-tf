@@ -2457,6 +2457,7 @@ type kubernetes_daemonset__timeouts = {
 (** kubernetes_daemonset__timeouts *)
 
 type kubernetes_daemonset = {
+  id : string option; [@option]  (** id *)
   wait_for_rollout : bool option; [@option]
       (** Wait for the rollout of the deployment to complete. Defaults to true. *)
   metadata : kubernetes_daemonset__metadata list;
@@ -2466,10 +2467,12 @@ type kubernetes_daemonset = {
 [@@deriving yojson_of]
 (** kubernetes_daemonset *)
 
-let kubernetes_daemonset ?wait_for_rollout ?timeouts ~metadata ~spec
-    __resource_id =
+let kubernetes_daemonset ?id ?wait_for_rollout ?timeouts ~metadata
+    ~spec __resource_id =
   let __resource_type = "kubernetes_daemonset" in
-  let __resource = { wait_for_rollout; metadata; spec; timeouts } in
+  let __resource =
+    { id; wait_for_rollout; metadata; spec; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_daemonset __resource);
   ()

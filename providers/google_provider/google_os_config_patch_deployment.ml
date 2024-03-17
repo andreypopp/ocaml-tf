@@ -364,6 +364,7 @@ type google_os_config_patch_deployment = {
   duration : string option; [@option]
       (** Duration of the patch. After the duration ends, the patch times out.
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s *)
+  id : string option; [@option]  (** id *)
   patch_deployment_id : string;
       (** A name for the patch deployment in the project. When creating a name the following rules apply:
 * Must contain only lowercase letters, numbers, and hyphens.
@@ -371,6 +372,7 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
 * Must be between 1-63 characters.
 * Must end with a number or a letter.
 * Must be unique within the project. *)
+  project : string option; [@option]  (** project *)
   instance_filter :
     google_os_config_patch_deployment__instance_filter list;
   one_time_schedule :
@@ -385,8 +387,8 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
 [@@deriving yojson_of]
 (** google_os_config_patch_deployment *)
 
-let google_os_config_patch_deployment ?description ?duration
-    ?timeouts ~patch_deployment_id ~instance_filter
+let google_os_config_patch_deployment ?description ?duration ?id
+    ?project ?timeouts ~patch_deployment_id ~instance_filter
     ~one_time_schedule ~patch_config ~recurring_schedule ~rollout
     __resource_id =
   let __resource_type = "google_os_config_patch_deployment" in
@@ -394,7 +396,9 @@ let google_os_config_patch_deployment ?description ?duration
     {
       description;
       duration;
+      id;
       patch_deployment_id;
+      project;
       instance_filter;
       one_time_schedule;
       patch_config;

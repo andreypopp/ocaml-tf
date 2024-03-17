@@ -6,6 +6,7 @@ type google_tags_tag_value_iam_member__condition
 type google_tags_tag_value_iam_member
 
 val google_tags_tag_value_iam_member :
+  ?id:string ->
   member:string ->
   role:string ->
   tag_value:string ->

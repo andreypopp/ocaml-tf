@@ -25,6 +25,7 @@ type google_biglake_database__timeouts = {
 
 type google_biglake_database = {
   catalog : string;  (** The parent catalog. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the database. *)
   type_ : string; [@key "type"]  (** The database type. *)
   hive_options : google_biglake_database__hive_options list;
@@ -33,11 +34,11 @@ type google_biglake_database = {
 [@@deriving yojson_of]
 (** google_biglake_database *)
 
-let google_biglake_database ?timeouts ~catalog ~name ~type_
+let google_biglake_database ?id ?timeouts ~catalog ~name ~type_
     ~hive_options __resource_id =
   let __resource_type = "google_biglake_database" in
   let __resource =
-    { catalog; name; type_; hive_options; timeouts }
+    { catalog; id; name; type_; hive_options; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_biglake_database __resource);

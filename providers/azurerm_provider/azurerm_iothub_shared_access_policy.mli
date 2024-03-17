@@ -7,6 +7,7 @@ type azurerm_iothub_shared_access_policy
 
 val azurerm_iothub_shared_access_policy :
   ?device_connect:bool ->
+  ?id:string ->
   ?registry_read:bool ->
   ?registry_write:bool ->
   ?service_connect:bool ->

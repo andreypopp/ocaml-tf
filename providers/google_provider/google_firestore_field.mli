@@ -10,6 +10,8 @@ type google_firestore_field
 
 val google_firestore_field :
   ?database:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_firestore_field__timeouts ->
   collection:string ->
   field:string ->

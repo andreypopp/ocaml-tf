@@ -17,6 +17,7 @@ type azurerm_automation_variable_datetime = {
   automation_account_name : string;  (** automation_account_name *)
   description : string option; [@option]  (** description *)
   encrypted : bool option; [@option]  (** encrypted *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   value : string option; [@option]  (** value *)
@@ -25,7 +26,7 @@ type azurerm_automation_variable_datetime = {
 [@@deriving yojson_of]
 (** azurerm_automation_variable_datetime *)
 
-let azurerm_automation_variable_datetime ?description ?encrypted
+let azurerm_automation_variable_datetime ?description ?encrypted ?id
     ?value ?timeouts ~automation_account_name ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_automation_variable_datetime" in
@@ -34,6 +35,7 @@ let azurerm_automation_variable_datetime ?description ?encrypted
       automation_account_name;
       description;
       encrypted;
+      id;
       name;
       resource_group_name;
       value;

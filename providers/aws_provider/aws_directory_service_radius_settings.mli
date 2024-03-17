@@ -6,6 +6,7 @@ type aws_directory_service_radius_settings__timeouts
 type aws_directory_service_radius_settings
 
 val aws_directory_service_radius_settings :
+  ?id:string ->
   ?use_same_username:bool ->
   ?timeouts:aws_directory_service_radius_settings__timeouts ->
   authentication_protocol:string ->

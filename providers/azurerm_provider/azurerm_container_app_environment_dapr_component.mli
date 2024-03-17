@@ -8,6 +8,7 @@ type azurerm_container_app_environment_dapr_component__timeouts
 type azurerm_container_app_environment_dapr_component
 
 val azurerm_container_app_environment_dapr_component :
+  ?id:string ->
   ?ignore_errors:bool ->
   ?init_timeout:string ->
   ?scopes:string list ->

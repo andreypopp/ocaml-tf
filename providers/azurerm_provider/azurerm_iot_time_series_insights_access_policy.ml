@@ -15,6 +15,7 @@ type azurerm_iot_time_series_insights_access_policy__timeouts = {
 
 type azurerm_iot_time_series_insights_access_policy = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   principal_object_id : string;  (** principal_object_id *)
   roles : string list;  (** roles *)
@@ -26,7 +27,7 @@ type azurerm_iot_time_series_insights_access_policy = {
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_access_policy *)
 
-let azurerm_iot_time_series_insights_access_policy ?description
+let azurerm_iot_time_series_insights_access_policy ?description ?id
     ?timeouts ~name ~principal_object_id ~roles
     ~time_series_insights_environment_id __resource_id =
   let __resource_type =
@@ -35,6 +36,7 @@ let azurerm_iot_time_series_insights_access_policy ?description
   let __resource =
     {
       description;
+      id;
       name;
       principal_object_id;
       roles;

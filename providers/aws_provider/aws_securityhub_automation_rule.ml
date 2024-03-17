@@ -479,8 +479,10 @@ type aws_securityhub_automation_rule__criteria = {
 
 type aws_securityhub_automation_rule = {
   description : string;  (** description *)
+  is_terminal : bool option; [@option]  (** is_terminal *)
   rule_name : string;  (** rule_name *)
   rule_order : float;  (** rule_order *)
+  rule_status : string option; [@option]  (** rule_status *)
   tags : (string * string) list option; [@option]  (** tags *)
   actions : aws_securityhub_automation_rule__actions list;
   criteria : aws_securityhub_automation_rule__criteria list;
@@ -488,11 +490,21 @@ type aws_securityhub_automation_rule = {
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule *)
 
-let aws_securityhub_automation_rule ?tags ~description ~rule_name
-    ~rule_order ~actions ~criteria __resource_id =
+let aws_securityhub_automation_rule ?is_terminal ?rule_status ?tags
+    ~description ~rule_name ~rule_order ~actions ~criteria
+    __resource_id =
   let __resource_type = "aws_securityhub_automation_rule" in
   let __resource =
-    { description; rule_name; rule_order; tags; actions; criteria }
+    {
+      description;
+      is_terminal;
+      rule_name;
+      rule_order;
+      rule_status;
+      tags;
+      actions;
+      criteria;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_automation_rule __resource);

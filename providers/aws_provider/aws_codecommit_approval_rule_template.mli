@@ -6,6 +6,7 @@ type aws_codecommit_approval_rule_template
 
 val aws_codecommit_approval_rule_template :
   ?description:string ->
+  ?id:string ->
   content:string ->
   name:string ->
   string ->

@@ -12,6 +12,8 @@ type aws_db_instance_automated_backups_replication__timeouts = {
 (** aws_db_instance_automated_backups_replication__timeouts *)
 
 type aws_db_instance_automated_backups_replication = {
+  id : string option; [@option]  (** id *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
   pre_signed_url : string option; [@option]  (** pre_signed_url *)
   retention_period : float option; [@option]  (** retention_period *)
   source_db_instance_arn : string;  (** source_db_instance_arn *)
@@ -21,14 +23,16 @@ type aws_db_instance_automated_backups_replication = {
 [@@deriving yojson_of]
 (** aws_db_instance_automated_backups_replication *)
 
-let aws_db_instance_automated_backups_replication ?pre_signed_url
-    ?retention_period ?timeouts ~source_db_instance_arn __resource_id
-    =
+let aws_db_instance_automated_backups_replication ?id ?kms_key_id
+    ?pre_signed_url ?retention_period ?timeouts
+    ~source_db_instance_arn __resource_id =
   let __resource_type =
     "aws_db_instance_automated_backups_replication"
   in
   let __resource =
     {
+      id;
+      kms_key_id;
       pre_signed_url;
       retention_period;
       source_db_instance_arn;

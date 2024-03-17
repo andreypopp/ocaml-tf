@@ -260,6 +260,9 @@ type azurerm_hdinsight_spark_cluster__timeouts = {
 
 type azurerm_hdinsight_spark_cluster = {
   cluster_version : string;  (** cluster_version *)
+  encryption_in_transit_enabled : bool option; [@option]
+      (** encryption_in_transit_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -289,15 +292,18 @@ type azurerm_hdinsight_spark_cluster = {
 [@@deriving yojson_of]
 (** azurerm_hdinsight_spark_cluster *)
 
-let azurerm_hdinsight_spark_cluster ?tags ?tls_min_version ?timeouts
-    ~cluster_version ~location ~name ~resource_group_name ~tier
-    ~component_version ~compute_isolation ~disk_encryption ~extension
-    ~gateway ~metastores ~monitor ~network ~roles ~security_profile
+let azurerm_hdinsight_spark_cluster ?encryption_in_transit_enabled
+    ?id ?tags ?tls_min_version ?timeouts ~cluster_version ~location
+    ~name ~resource_group_name ~tier ~component_version
+    ~compute_isolation ~disk_encryption ~extension ~gateway
+    ~metastores ~monitor ~network ~roles ~security_profile
     ~storage_account ~storage_account_gen2 __resource_id =
   let __resource_type = "azurerm_hdinsight_spark_cluster" in
   let __resource =
     {
       cluster_version;
+      encryption_in_transit_enabled;
+      id;
       location;
       name;
       resource_group_name;

@@ -45,6 +45,7 @@ type aws_lightsail_container_service_deployment_version__timeouts = {
 (** aws_lightsail_container_service_deployment_version__timeouts *)
 
 type aws_lightsail_container_service_deployment_version = {
+  id : string option; [@option]  (** id *)
   service_name : string;  (** service_name *)
   container :
     aws_lightsail_container_service_deployment_version__container
@@ -59,13 +60,13 @@ type aws_lightsail_container_service_deployment_version = {
 [@@deriving yojson_of]
 (** aws_lightsail_container_service_deployment_version *)
 
-let aws_lightsail_container_service_deployment_version ?timeouts
+let aws_lightsail_container_service_deployment_version ?id ?timeouts
     ~service_name ~container ~public_endpoint __resource_id =
   let __resource_type =
     "aws_lightsail_container_service_deployment_version"
   in
   let __resource =
-    { service_name; container; public_endpoint; timeouts }
+    { id; service_name; container; public_endpoint; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_container_service_deployment_version

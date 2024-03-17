@@ -37,11 +37,14 @@ type aws_ami_from_instance = {
   deprecation_time : string option; [@option]
       (** deprecation_time *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   snapshot_without_reboot : bool option; [@option]
       (** snapshot_without_reboot *)
   source_instance_id : string;  (** source_instance_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   ebs_block_device : aws_ami_from_instance__ebs_block_device list;
   ephemeral_block_device :
     aws_ami_from_instance__ephemeral_block_device list;
@@ -50,8 +53,8 @@ type aws_ami_from_instance = {
 [@@deriving yojson_of]
 (** aws_ami_from_instance *)
 
-let aws_ami_from_instance ?deprecation_time ?description
-    ?snapshot_without_reboot ?tags ?timeouts ~name
+let aws_ami_from_instance ?deprecation_time ?description ?id
+    ?snapshot_without_reboot ?tags ?tags_all ?timeouts ~name
     ~source_instance_id ~ebs_block_device ~ephemeral_block_device
     __resource_id =
   let __resource_type = "aws_ami_from_instance" in
@@ -59,10 +62,12 @@ let aws_ami_from_instance ?deprecation_time ?description
     {
       deprecation_time;
       description;
+      id;
       name;
       snapshot_without_reboot;
       source_instance_id;
       tags;
+      tags_all;
       ebs_block_device;
       ephemeral_block_device;
       timeouts;

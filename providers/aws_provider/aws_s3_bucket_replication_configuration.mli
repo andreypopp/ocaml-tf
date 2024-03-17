@@ -34,6 +34,7 @@ type aws_s3_bucket_replication_configuration__rule
 type aws_s3_bucket_replication_configuration
 
 val aws_s3_bucket_replication_configuration :
+  ?id:string ->
   ?token:string ->
   bucket:string ->
   role:string ->

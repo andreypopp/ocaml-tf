@@ -15,24 +15,32 @@ type aws_db_proxy_endpoint__timeouts = {
 type aws_db_proxy_endpoint = {
   db_proxy_endpoint_name : string;  (** db_proxy_endpoint_name *)
   db_proxy_name : string;  (** db_proxy_name *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target_role : string option; [@option]  (** target_role *)
+  vpc_security_group_ids : string list option; [@option]
+      (** vpc_security_group_ids *)
   vpc_subnet_ids : string list;  (** vpc_subnet_ids *)
   timeouts : aws_db_proxy_endpoint__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_db_proxy_endpoint *)
 
-let aws_db_proxy_endpoint ?tags ?target_role ?timeouts
-    ~db_proxy_endpoint_name ~db_proxy_name ~vpc_subnet_ids
-    __resource_id =
+let aws_db_proxy_endpoint ?id ?tags ?tags_all ?target_role
+    ?vpc_security_group_ids ?timeouts ~db_proxy_endpoint_name
+    ~db_proxy_name ~vpc_subnet_ids __resource_id =
   let __resource_type = "aws_db_proxy_endpoint" in
   let __resource =
     {
       db_proxy_endpoint_name;
       db_proxy_name;
+      id;
       tags;
+      tags_all;
       target_role;
+      vpc_security_group_ids;
       vpc_subnet_ids;
       timeouts;
     }

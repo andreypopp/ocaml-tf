@@ -111,20 +111,25 @@ type aws_imagebuilder_distribution_configuration__distribution = {
 
 type aws_imagebuilder_distribution_configuration = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   distribution :
     aws_imagebuilder_distribution_configuration__distribution list;
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_distribution_configuration *)
 
-let aws_imagebuilder_distribution_configuration ?description ?tags
-    ~name ~distribution __resource_id =
+let aws_imagebuilder_distribution_configuration ?description ?id
+    ?tags ?tags_all ~name ~distribution __resource_id =
   let __resource_type =
     "aws_imagebuilder_distribution_configuration"
   in
-  let __resource = { description; name; tags; distribution } in
+  let __resource =
+    { description; id; name; tags; tags_all; distribution }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_imagebuilder_distribution_configuration __resource);
   ()

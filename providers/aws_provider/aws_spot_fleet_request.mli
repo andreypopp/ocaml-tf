@@ -45,15 +45,19 @@ val aws_spot_fleet_request :
   ?context:string ->
   ?excess_capacity_termination_policy:string ->
   ?fleet_type:string ->
+  ?id:string ->
   ?instance_interruption_behaviour:string ->
   ?instance_pools_to_use_count:float ->
+  ?load_balancers:string list ->
   ?on_demand_allocation_strategy:string ->
   ?on_demand_max_total_price:string ->
   ?on_demand_target_capacity:float ->
   ?replace_unhealthy_instances:bool ->
   ?spot_price:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?target_capacity_unit_type:string ->
+  ?target_group_arns:string list ->
   ?terminate_instances_on_delete:string ->
   ?terminate_instances_with_expiration:bool ->
   ?valid_from:string ->

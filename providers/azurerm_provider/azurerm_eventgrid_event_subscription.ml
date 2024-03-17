@@ -296,8 +296,15 @@ type azurerm_eventgrid_event_subscription = {
       (** advanced_filtering_on_arrays_enabled *)
   event_delivery_schema : string option; [@option]
       (** event_delivery_schema *)
+  eventhub_endpoint_id : string option; [@option]
+      (** eventhub_endpoint_id *)
   expiration_time_utc : string option; [@option]
       (** expiration_time_utc *)
+  hybrid_connection_endpoint_id : string option; [@option]
+      (** hybrid_connection_endpoint_id *)
+  id : string option; [@option]  (** id *)
+  included_event_types : string list option; [@option]
+      (** included_event_types *)
   labels : string list option; [@option]  (** labels *)
   name : string;  (** name *)
   scope : string;  (** scope *)
@@ -334,18 +341,24 @@ type azurerm_eventgrid_event_subscription = {
 
 let azurerm_eventgrid_event_subscription
     ?advanced_filtering_on_arrays_enabled ?event_delivery_schema
-    ?expiration_time_utc ?labels ?service_bus_queue_endpoint_id
-    ?service_bus_topic_endpoint_id ?timeouts ~name ~scope
-    ~advanced_filter ~azure_function_endpoint ~dead_letter_identity
-    ~delivery_identity ~delivery_property ~retry_policy
-    ~storage_blob_dead_letter_destination ~storage_queue_endpoint
-    ~subject_filter ~webhook_endpoint __resource_id =
+    ?eventhub_endpoint_id ?expiration_time_utc
+    ?hybrid_connection_endpoint_id ?id ?included_event_types ?labels
+    ?service_bus_queue_endpoint_id ?service_bus_topic_endpoint_id
+    ?timeouts ~name ~scope ~advanced_filter ~azure_function_endpoint
+    ~dead_letter_identity ~delivery_identity ~delivery_property
+    ~retry_policy ~storage_blob_dead_letter_destination
+    ~storage_queue_endpoint ~subject_filter ~webhook_endpoint
+    __resource_id =
   let __resource_type = "azurerm_eventgrid_event_subscription" in
   let __resource =
     {
       advanced_filtering_on_arrays_enabled;
       event_delivery_schema;
+      eventhub_endpoint_id;
       expiration_time_utc;
+      hybrid_connection_endpoint_id;
+      id;
+      included_event_types;
       labels;
       name;
       scope;

@@ -14,6 +14,9 @@ type google_container_azure_node_pool
 
 val google_container_azure_node_pool :
   ?annotations:(string * string) list ->
+  ?azure_availability_zone:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_container_azure_node_pool__timeouts ->
   cluster:string ->
   location:string ->

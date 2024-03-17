@@ -43,20 +43,33 @@ type aws_fsx_ontap_file_system__endpoints = {
 type aws_fsx_ontap_file_system = {
   automatic_backup_retention_days : float option; [@option]
       (** automatic_backup_retention_days *)
+  daily_automatic_backup_start_time : string option; [@option]
+      (** daily_automatic_backup_start_time *)
   deployment_type : string;  (** deployment_type *)
+  endpoint_ip_address_range : string option; [@option]
+      (** endpoint_ip_address_range *)
   fsx_admin_password : string option; [@option]
       (** fsx_admin_password *)
+  ha_pairs : float option; [@option]  (** ha_pairs *)
+  id : string option; [@option]  (** id *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
   preferred_subnet_id : string;  (** preferred_subnet_id *)
+  route_table_ids : string list option; [@option]
+      (** route_table_ids *)
   security_group_ids : string list option; [@option]
       (** security_group_ids *)
   storage_capacity : float option; [@option]  (** storage_capacity *)
   storage_type : string option; [@option]  (** storage_type *)
   subnet_ids : string list;  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   throughput_capacity : float option; [@option]
       (** throughput_capacity *)
   throughput_capacity_per_ha_pair : float option; [@option]
       (** throughput_capacity_per_ha_pair *)
+  weekly_maintenance_start_time : string option; [@option]
+      (** weekly_maintenance_start_time *)
   disk_iops_configuration :
     aws_fsx_ontap_file_system__disk_iops_configuration list;
   timeouts : aws_fsx_ontap_file_system__timeouts option;
@@ -65,25 +78,35 @@ type aws_fsx_ontap_file_system = {
 (** aws_fsx_ontap_file_system *)
 
 let aws_fsx_ontap_file_system ?automatic_backup_retention_days
-    ?fsx_admin_password ?security_group_ids ?storage_capacity
-    ?storage_type ?tags ?throughput_capacity
-    ?throughput_capacity_per_ha_pair ?timeouts ~deployment_type
+    ?daily_automatic_backup_start_time ?endpoint_ip_address_range
+    ?fsx_admin_password ?ha_pairs ?id ?kms_key_id ?route_table_ids
+    ?security_group_ids ?storage_capacity ?storage_type ?tags
+    ?tags_all ?throughput_capacity ?throughput_capacity_per_ha_pair
+    ?weekly_maintenance_start_time ?timeouts ~deployment_type
     ~preferred_subnet_id ~subnet_ids ~disk_iops_configuration
     __resource_id =
   let __resource_type = "aws_fsx_ontap_file_system" in
   let __resource =
     {
       automatic_backup_retention_days;
+      daily_automatic_backup_start_time;
       deployment_type;
+      endpoint_ip_address_range;
       fsx_admin_password;
+      ha_pairs;
+      id;
+      kms_key_id;
       preferred_subnet_id;
+      route_table_ids;
       security_group_ids;
       storage_capacity;
       storage_type;
       subnet_ids;
       tags;
+      tags_all;
       throughput_capacity;
       throughput_capacity_per_ha_pair;
+      weekly_maintenance_start_time;
       disk_iops_configuration;
       timeouts;
     }

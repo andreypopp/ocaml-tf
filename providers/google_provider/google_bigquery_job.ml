@@ -400,6 +400,7 @@ type google_bigquery_job__status = {
 [@@deriving yojson_of]
 
 type google_bigquery_job = {
+  id : string option; [@option]  (** id *)
   job_id : string;
       (** The ID of the job. The ID must contain only letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-). The maximum length is 1,024 characters. *)
   job_timeout_ms : string option; [@option]
@@ -412,6 +413,7 @@ type google_bigquery_job = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string option; [@option]
       (** The geographic location of the job. The default value is US. *)
+  project : string option; [@option]  (** project *)
   copy : google_bigquery_job__copy list;
   extract : google_bigquery_job__extract list;
   load : google_bigquery_job__load list;
@@ -421,15 +423,18 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_bigquery_job *)
 
-let google_bigquery_job ?job_timeout_ms ?labels ?location ?timeouts
-    ~job_id ~copy ~extract ~load ~query __resource_id =
+let google_bigquery_job ?id ?job_timeout_ms ?labels ?location
+    ?project ?timeouts ~job_id ~copy ~extract ~load ~query
+    __resource_id =
   let __resource_type = "google_bigquery_job" in
   let __resource =
     {
+      id;
       job_id;
       job_timeout_ms;
       labels;
       location;
+      project;
       copy;
       extract;
       load;

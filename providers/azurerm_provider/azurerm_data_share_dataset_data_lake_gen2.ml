@@ -16,6 +16,7 @@ type azurerm_data_share_dataset_data_lake_gen2 = {
   file_path : string option; [@option]  (** file_path *)
   file_system_name : string;  (** file_system_name *)
   folder_path : string option; [@option]  (** folder_path *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   share_id : string;  (** share_id *)
   storage_account_id : string;  (** storage_account_id *)
@@ -26,8 +27,8 @@ type azurerm_data_share_dataset_data_lake_gen2 = {
 (** azurerm_data_share_dataset_data_lake_gen2 *)
 
 let azurerm_data_share_dataset_data_lake_gen2 ?file_path ?folder_path
-    ?timeouts ~file_system_name ~name ~share_id ~storage_account_id
-    __resource_id =
+    ?id ?timeouts ~file_system_name ~name ~share_id
+    ~storage_account_id __resource_id =
   let __resource_type =
     "azurerm_data_share_dataset_data_lake_gen2"
   in
@@ -36,6 +37,7 @@ let azurerm_data_share_dataset_data_lake_gen2 ?file_path ?folder_path
       file_path;
       file_system_name;
       folder_path;
+      id;
       name;
       share_id;
       storage_account_id;

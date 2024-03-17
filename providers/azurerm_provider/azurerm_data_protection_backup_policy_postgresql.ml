@@ -42,6 +42,7 @@ type azurerm_data_protection_backup_policy_postgresql = {
       (** backup_repeating_time_intervals *)
   default_retention_duration : string;
       (** default_retention_duration *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   time_zone : string option; [@option]  (** time_zone *)
@@ -55,7 +56,7 @@ type azurerm_data_protection_backup_policy_postgresql = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_postgresql *)
 
-let azurerm_data_protection_backup_policy_postgresql ?time_zone
+let azurerm_data_protection_backup_policy_postgresql ?id ?time_zone
     ?timeouts ~backup_repeating_time_intervals
     ~default_retention_duration ~name ~resource_group_name
     ~vault_name ~retention_rule __resource_id =
@@ -66,6 +67,7 @@ let azurerm_data_protection_backup_policy_postgresql ?time_zone
     {
       backup_repeating_time_intervals;
       default_retention_duration;
+      id;
       name;
       resource_group_name;
       time_zone;

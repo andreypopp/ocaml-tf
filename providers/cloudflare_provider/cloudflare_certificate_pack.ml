@@ -29,6 +29,7 @@ type cloudflare_certificate_pack = {
       (** Whether or not to include Cloudflare branding. This will add `sni.cloudflaressl.com` as the Common Name if set to `true`. **Modifying this attribute will force creation of a new resource.** *)
   hosts : string list;
       (** List of hostnames to provision the certificate pack for. The zone name must be included as a host. Note: If using Let's Encrypt, you cannot use individual subdomains and only a wildcard for subdomain is available. **Modifying this attribute will force creation of a new resource.** *)
+  id : string option; [@option]  (** id *)
   type_ : string; [@key "type"]
       (** Certificate pack configuration type. Available values: `advanced`. **Modifying this attribute will force creation of a new resource.** *)
   validation_method : string;
@@ -49,7 +50,7 @@ type cloudflare_certificate_pack = {
 provision managed TLS certificates.
  *)
 
-let cloudflare_certificate_pack ?cloudflare_branding
+let cloudflare_certificate_pack ?cloudflare_branding ?id
     ?wait_for_active_status ~certificate_authority ~hosts ~type_
     ~validation_method ~validity_days ~zone_id ~validation_errors
     ~validation_records __resource_id =
@@ -59,6 +60,7 @@ let cloudflare_certificate_pack ?cloudflare_branding
       certificate_authority;
       cloudflare_branding;
       hosts;
+      id;
       type_;
       validation_method;
       validity_days;

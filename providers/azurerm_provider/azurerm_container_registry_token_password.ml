@@ -30,6 +30,7 @@ type azurerm_container_registry_token_password__timeouts = {
 type azurerm_container_registry_token_password = {
   container_registry_token_id : string;
       (** container_registry_token_id *)
+  id : string option; [@option]  (** id *)
   password1 :
     azurerm_container_registry_token_password__password1 list;
   password2 :
@@ -40,14 +41,20 @@ type azurerm_container_registry_token_password = {
 [@@deriving yojson_of]
 (** azurerm_container_registry_token_password *)
 
-let azurerm_container_registry_token_password ?timeouts
+let azurerm_container_registry_token_password ?id ?timeouts
     ~container_registry_token_id ~password1 ~password2 __resource_id
     =
   let __resource_type =
     "azurerm_container_registry_token_password"
   in
   let __resource =
-    { container_registry_token_id; password1; password2; timeouts }
+    {
+      container_registry_token_id;
+      id;
+      password1;
+      password2;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_registry_token_password __resource);

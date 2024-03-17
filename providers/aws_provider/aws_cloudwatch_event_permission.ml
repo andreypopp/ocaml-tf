@@ -15,6 +15,7 @@ type aws_cloudwatch_event_permission__condition = {
 type aws_cloudwatch_event_permission = {
   action : string option; [@option]  (** action *)
   event_bus_name : string option; [@option]  (** event_bus_name *)
+  id : string option; [@option]  (** id *)
   principal : string;  (** principal *)
   statement_id : string;  (** statement_id *)
   condition : aws_cloudwatch_event_permission__condition list;
@@ -22,11 +23,18 @@ type aws_cloudwatch_event_permission = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_permission *)
 
-let aws_cloudwatch_event_permission ?action ?event_bus_name
+let aws_cloudwatch_event_permission ?action ?event_bus_name ?id
     ~principal ~statement_id ~condition __resource_id =
   let __resource_type = "aws_cloudwatch_event_permission" in
   let __resource =
-    { action; event_bus_name; principal; statement_id; condition }
+    {
+      action;
+      event_bus_name;
+      id;
+      principal;
+      statement_id;
+      condition;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_permission __resource);

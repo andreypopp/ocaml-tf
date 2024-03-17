@@ -14,6 +14,7 @@ val azurerm_signalr_service :
   ?aad_auth_enabled:bool ->
   ?connectivity_logs_enabled:bool ->
   ?http_request_logs_enabled:bool ->
+  ?id:string ->
   ?live_trace_enabled:bool ->
   ?local_auth_enabled:bool ->
   ?messaging_logs_enabled:bool ->

@@ -6,6 +6,7 @@ type azurerm_availability_set__timeouts
 type azurerm_availability_set
 
 val azurerm_availability_set :
+  ?id:string ->
   ?managed:bool ->
   ?platform_fault_domain_count:float ->
   ?platform_update_domain_count:float ->

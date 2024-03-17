@@ -17,6 +17,7 @@ val azurerm_shared_image :
   ?end_of_life_date:string ->
   ?eula:string ->
   ?hyper_v_generation:string ->
+  ?id:string ->
   ?max_recommended_memory_in_gb:float ->
   ?max_recommended_vcpu_count:float ->
   ?min_recommended_memory_in_gb:float ->

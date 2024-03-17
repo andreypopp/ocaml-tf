@@ -9,6 +9,7 @@ val azurerm_data_factory_linked_service_web :
   ?additional_properties:(string * string) list ->
   ?annotations:string list ->
   ?description:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?parameters:(string * string) list ->
   ?password:string ->

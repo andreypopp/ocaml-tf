@@ -8,7 +8,6 @@ type aws_redshiftserverless_endpoint_access__vpc_endpoint__network_interface = {
   private_ip_address : string;  (** private_ip_address *)
   subnet_id : string;  (** subnet_id *)
 }
-[@@deriving yojson_of]
 
 type aws_redshiftserverless_endpoint_access__vpc_endpoint = {
   network_interface :
@@ -18,12 +17,13 @@ type aws_redshiftserverless_endpoint_access__vpc_endpoint = {
   vpc_endpoint_id : string;  (** vpc_endpoint_id *)
   vpc_id : string;  (** vpc_id *)
 }
-[@@deriving yojson_of]
 
 type aws_redshiftserverless_endpoint_access
 
 val aws_redshiftserverless_endpoint_access :
+  ?id:string ->
   ?owner_account:string ->
+  ?vpc_security_group_ids:string list ->
   endpoint_name:string ->
   subnet_ids:string list ->
   workgroup_name:string ->

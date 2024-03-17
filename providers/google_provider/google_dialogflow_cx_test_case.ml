@@ -259,6 +259,7 @@ type google_dialogflow_cx_test_case__last_test_result = {
 type google_dialogflow_cx_test_case = {
   display_name : string;
       (** The human-readable name of the test case, unique within the agent. Limit of 200 characters. *)
+  id : string option; [@option]  (** id *)
   notes : string option; [@option]
       (** Additional freeform notes about the test case. Limit of 400 characters. *)
   parent : string option; [@option]
@@ -275,13 +276,14 @@ Each tag should start with # and has a limit of 30 characters *)
 [@@deriving yojson_of]
 (** google_dialogflow_cx_test_case *)
 
-let google_dialogflow_cx_test_case ?notes ?parent ?tags ?timeouts
+let google_dialogflow_cx_test_case ?id ?notes ?parent ?tags ?timeouts
     ~display_name ~test_case_conversation_turns ~test_config
     __resource_id =
   let __resource_type = "google_dialogflow_cx_test_case" in
   let __resource =
     {
       display_name;
+      id;
       notes;
       parent;
       tags;

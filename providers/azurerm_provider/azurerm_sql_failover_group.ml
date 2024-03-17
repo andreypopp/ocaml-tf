@@ -36,6 +36,7 @@ type azurerm_sql_failover_group__timeouts = {
 
 type azurerm_sql_failover_group = {
   databases : string list option; [@option]  (** databases *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   server_name : string;  (** server_name *)
@@ -52,7 +53,7 @@ type azurerm_sql_failover_group = {
 [@@deriving yojson_of]
 (** azurerm_sql_failover_group *)
 
-let azurerm_sql_failover_group ?databases ?tags ?timeouts ~name
+let azurerm_sql_failover_group ?databases ?id ?tags ?timeouts ~name
     ~resource_group_name ~server_name ~partner_servers
     ~read_write_endpoint_failover_policy
     ~readonly_endpoint_failover_policy __resource_id =
@@ -60,6 +61,7 @@ let azurerm_sql_failover_group ?databases ?tags ?timeouts ~name
   let __resource =
     {
       databases;
+      id;
       name;
       resource_group_name;
       server_name;

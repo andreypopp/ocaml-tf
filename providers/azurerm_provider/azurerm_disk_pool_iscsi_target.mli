@@ -6,6 +6,7 @@ type azurerm_disk_pool_iscsi_target__timeouts
 type azurerm_disk_pool_iscsi_target
 
 val azurerm_disk_pool_iscsi_target :
+  ?id:string ->
   ?target_iqn:string ->
   ?timeouts:azurerm_disk_pool_iscsi_target__timeouts ->
   acl_mode:string ->

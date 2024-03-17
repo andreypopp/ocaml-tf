@@ -28,16 +28,18 @@ type azurerm_container_group__exposed_port = {
   port : float;  (** port *)
   protocol : string;  (** protocol *)
 }
-[@@deriving yojson_of]
 
 type azurerm_container_group
 
 val azurerm_container_group :
   ?dns_name_label:string ->
   ?dns_name_label_reuse_policy:string ->
+  ?exposed_port:azurerm_container_group__exposed_port list ->
+  ?id:string ->
   ?ip_address_type:string ->
   ?key_vault_key_id:string ->
   ?key_vault_user_assigned_identity_id:string ->
+  ?network_profile_id:string ->
   ?priority:string ->
   ?restart_policy:string ->
   ?sku:string ->

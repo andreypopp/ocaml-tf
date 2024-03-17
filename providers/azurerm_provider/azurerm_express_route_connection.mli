@@ -11,6 +11,7 @@ val azurerm_express_route_connection :
   ?authorization_key:string ->
   ?enable_internet_security:bool ->
   ?express_route_gateway_bypass_enabled:bool ->
+  ?id:string ->
   ?routing_weight:float ->
   ?timeouts:azurerm_express_route_connection__timeouts ->
   express_route_circuit_peering_id:string ->

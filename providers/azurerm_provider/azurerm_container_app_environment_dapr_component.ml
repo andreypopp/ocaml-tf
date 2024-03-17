@@ -35,6 +35,7 @@ type azurerm_container_app_environment_dapr_component = {
       (** The Dapr Component Type. For example `state.azure.blobstorage`. *)
   container_app_environment_id : string;
       (** The Container App Managed Environment ID to configure this Dapr component on. *)
+  id : string option; [@option]  (** id *)
   ignore_errors : bool option; [@option]
       (** Should the Dapr sidecar to continue initialisation if the component fails to load. Defaults to `false` *)
   init_timeout : string option; [@option]
@@ -53,8 +54,8 @@ type azurerm_container_app_environment_dapr_component = {
 [@@deriving yojson_of]
 (** azurerm_container_app_environment_dapr_component *)
 
-let azurerm_container_app_environment_dapr_component ?ignore_errors
-    ?init_timeout ?scopes ?timeouts ~component_type
+let azurerm_container_app_environment_dapr_component ?id
+    ?ignore_errors ?init_timeout ?scopes ?timeouts ~component_type
     ~container_app_environment_id ~name ~version ~metadata ~secret
     __resource_id =
   let __resource_type =
@@ -64,6 +65,7 @@ let azurerm_container_app_environment_dapr_component ?ignore_errors
     {
       component_type;
       container_app_environment_id;
+      id;
       ignore_errors;
       init_timeout;
       name;

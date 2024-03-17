@@ -7,6 +7,7 @@ type azurerm_logic_app_integration_account_certificate__timeouts
 type azurerm_logic_app_integration_account_certificate
 
 val azurerm_logic_app_integration_account_certificate :
+  ?id:string ->
   ?metadata:string ->
   ?public_certificate:string ->
   ?timeouts:

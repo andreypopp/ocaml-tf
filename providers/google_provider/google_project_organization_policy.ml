@@ -60,7 +60,10 @@ type google_project_organization_policy__timeouts = {
 type google_project_organization_policy = {
   constraint_ : string; [@key "constraint"]
       (** The name of the Constraint the Policy is configuring, for example, serviceuser.services. *)
+  id : string option; [@option]  (** id *)
   project : string;  (** The project ID. *)
+  version : float option; [@option]
+      (** Version of the Policy. Default version is 0. *)
   boolean_policy :
     google_project_organization_policy__boolean_policy list;
   list_policy : google_project_organization_policy__list_policy list;
@@ -71,14 +74,16 @@ type google_project_organization_policy = {
 [@@deriving yojson_of]
 (** google_project_organization_policy *)
 
-let google_project_organization_policy ?timeouts ~constraint_
-    ~project ~boolean_policy ~list_policy ~restore_policy
-    __resource_id =
+let google_project_organization_policy ?id ?version ?timeouts
+    ~constraint_ ~project ~boolean_policy ~list_policy
+    ~restore_policy __resource_id =
   let __resource_type = "google_project_organization_policy" in
   let __resource =
     {
       constraint_;
+      id;
       project;
+      version;
       boolean_policy;
       list_policy;
       restore_policy;

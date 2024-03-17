@@ -10,6 +10,7 @@ type azurerm_sql_failover_group
 
 val azurerm_sql_failover_group :
   ?databases:string list ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_sql_failover_group__timeouts ->
   name:string ->

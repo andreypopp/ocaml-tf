@@ -69,15 +69,21 @@ type azurerm_synapse_workspace__sql_aad_admin = {
 [@@deriving yojson_of]
 
 type azurerm_synapse_workspace = {
+  aad_admin : azurerm_synapse_workspace__aad_admin list option;
+      [@option]
+      (** aad_admin *)
   azuread_authentication_only : bool option; [@option]
       (** azuread_authentication_only *)
   compute_subnet_id : string option; [@option]
       (** compute_subnet_id *)
   data_exfiltration_protection_enabled : bool option; [@option]
       (** data_exfiltration_protection_enabled *)
+  id : string option; [@option]  (** id *)
   linking_allowed_for_aad_tenant_ids : string list option; [@option]
       (** linking_allowed_for_aad_tenant_ids *)
   location : string;  (** location *)
+  managed_resource_group_name : string option; [@option]
+      (** managed_resource_group_name *)
   managed_virtual_network_enabled : bool option; [@option]
       (** managed_virtual_network_enabled *)
   name : string;  (** name *)
@@ -85,6 +91,10 @@ type azurerm_synapse_workspace = {
       (** public_network_access_enabled *)
   purview_id : string option; [@option]  (** purview_id *)
   resource_group_name : string;  (** resource_group_name *)
+  sql_aad_admin :
+    azurerm_synapse_workspace__sql_aad_admin list option;
+      [@option]
+      (** sql_aad_admin *)
   sql_administrator_login : string option; [@option]
       (** sql_administrator_login *)
   sql_administrator_login_password : string option; [@option]
@@ -105,11 +115,11 @@ type azurerm_synapse_workspace = {
 [@@deriving yojson_of]
 (** azurerm_synapse_workspace *)
 
-let azurerm_synapse_workspace ?azuread_authentication_only
-    ?compute_subnet_id ?data_exfiltration_protection_enabled
-    ?linking_allowed_for_aad_tenant_ids
+let azurerm_synapse_workspace ?aad_admin ?azuread_authentication_only
+    ?compute_subnet_id ?data_exfiltration_protection_enabled ?id
+    ?linking_allowed_for_aad_tenant_ids ?managed_resource_group_name
     ?managed_virtual_network_enabled ?public_network_access_enabled
-    ?purview_id ?sql_administrator_login
+    ?purview_id ?sql_aad_admin ?sql_administrator_login
     ?sql_administrator_login_password ?sql_identity_control_enabled
     ?tags ?timeouts ~location ~name ~resource_group_name
     ~storage_data_lake_gen2_filesystem_id ~azure_devops_repo
@@ -117,16 +127,20 @@ let azurerm_synapse_workspace ?azuread_authentication_only
   let __resource_type = "azurerm_synapse_workspace" in
   let __resource =
     {
+      aad_admin;
       azuread_authentication_only;
       compute_subnet_id;
       data_exfiltration_protection_enabled;
+      id;
       linking_allowed_for_aad_tenant_ids;
       location;
+      managed_resource_group_name;
       managed_virtual_network_enabled;
       name;
       public_network_access_enabled;
       purview_id;
       resource_group_name;
+      sql_aad_admin;
       sql_administrator_login;
       sql_administrator_login_password;
       sql_identity_control_enabled;

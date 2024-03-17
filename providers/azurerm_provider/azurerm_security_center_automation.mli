@@ -12,6 +12,7 @@ type azurerm_security_center_automation
 val azurerm_security_center_automation :
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_security_center_automation__timeouts ->
   location:string ->

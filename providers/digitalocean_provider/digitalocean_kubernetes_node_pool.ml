@@ -32,6 +32,7 @@ type digitalocean_kubernetes_node_pool__nodes = {
 type digitalocean_kubernetes_node_pool = {
   auto_scale : bool option; [@option]  (** auto_scale *)
   cluster_id : string;  (** cluster_id *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]  (** labels *)
   max_nodes : float option; [@option]  (** max_nodes *)
   min_nodes : float option; [@option]  (** min_nodes *)
@@ -45,14 +46,15 @@ type digitalocean_kubernetes_node_pool = {
 [@@deriving yojson_of]
 (** digitalocean_kubernetes_node_pool *)
 
-let digitalocean_kubernetes_node_pool ?auto_scale ?labels ?max_nodes
-    ?min_nodes ?node_count ?tags ?timeouts ~cluster_id ~name ~size
-    ~taint __resource_id =
+let digitalocean_kubernetes_node_pool ?auto_scale ?id ?labels
+    ?max_nodes ?min_nodes ?node_count ?tags ?timeouts ~cluster_id
+    ~name ~size ~taint __resource_id =
   let __resource_type = "digitalocean_kubernetes_node_pool" in
   let __resource =
     {
       auto_scale;
       cluster_id;
+      id;
       labels;
       max_nodes;
       min_nodes;

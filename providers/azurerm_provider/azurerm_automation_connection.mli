@@ -7,6 +7,7 @@ type azurerm_automation_connection
 
 val azurerm_automation_connection :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_automation_connection__timeouts ->
   automation_account_name:string ->
   name:string ->

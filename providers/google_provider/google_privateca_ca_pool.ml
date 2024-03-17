@@ -296,6 +296,7 @@ type google_privateca_ca_pool__timeouts = {
 (** google_privateca_ca_pool__timeouts *)
 
 type google_privateca_ca_pool = {
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels with user-defined metadata.
 
@@ -309,6 +310,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Location of the CaPool. A full list of valid locations can be found by
 running 'gcloud privateca locations list'. *)
   name : string;  (** The name for this CaPool. *)
+  project : string option; [@option]  (** project *)
   tier : string;
       (** The Tier of this CaPool. Possible values: [ENTERPRISE, DEVOPS] *)
   issuance_policy : google_privateca_ca_pool__issuance_policy list;
@@ -319,14 +321,16 @@ running 'gcloud privateca locations list'. *)
 [@@deriving yojson_of]
 (** google_privateca_ca_pool *)
 
-let google_privateca_ca_pool ?labels ?timeouts ~location ~name ~tier
-    ~issuance_policy ~publishing_options __resource_id =
+let google_privateca_ca_pool ?id ?labels ?project ?timeouts ~location
+    ~name ~tier ~issuance_policy ~publishing_options __resource_id =
   let __resource_type = "google_privateca_ca_pool" in
   let __resource =
     {
+      id;
       labels;
       location;
       name;
+      project;
       tier;
       issuance_policy;
       publishing_options;

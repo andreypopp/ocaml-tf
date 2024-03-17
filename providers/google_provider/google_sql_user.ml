@@ -44,6 +44,9 @@ type google_sql_user = {
       (** The deletion policy for the user. Setting ABANDON allows the resource
 				to be abandoned rather than deleted. This is useful for Postgres, where users cannot be deleted from the API if they
 				have been granted SQL roles. Possible values are: ABANDON. *)
+  host : string option; [@option]
+      (** The host the user can connect from. This is only supported for MySQL instances. Don't set this field for PostgreSQL instances. Can be an IP address. Changing this forces a new resource to be created. *)
+  id : string option; [@option]  (** id *)
   instance : string;
       (** The name of the Cloud SQL instance. Changing this forces a new resource to be created. *)
   name : string;
@@ -51,6 +54,8 @@ type google_sql_user = {
   password : string option; [@option]
       (** The password for the user. Can be updated. For Postgres instances this is a Required field, unless type is set to
                 either CLOUD_IAM_USER or CLOUD_IAM_SERVICE_ACCOUNT. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   type_ : string option; [@option] [@key "type"]
       (** The user type. It determines the method to authenticate the user during login.
                 The default is the database's built-in user type. Flags include BUILT_IN, CLOUD_IAM_USER, CLOUD_IAM_GROUP or CLOUD_IAM_SERVICE_ACCOUNT. *)
@@ -60,15 +65,18 @@ type google_sql_user = {
 [@@deriving yojson_of]
 (** google_sql_user *)
 
-let google_sql_user ?deletion_policy ?password ?type_ ?timeouts
-    ~instance ~name ~password_policy __resource_id =
+let google_sql_user ?deletion_policy ?host ?id ?password ?project
+    ?type_ ?timeouts ~instance ~name ~password_policy __resource_id =
   let __resource_type = "google_sql_user" in
   let __resource =
     {
       deletion_policy;
+      host;
+      id;
       instance;
       name;
       password;
+      project;
       type_;
       password_policy;
       timeouts;

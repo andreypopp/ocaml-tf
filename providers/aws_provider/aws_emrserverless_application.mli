@@ -17,7 +17,9 @@ type aws_emrserverless_application
 
 val aws_emrserverless_application :
   ?architecture:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   release_label:string ->
   type_:string ->

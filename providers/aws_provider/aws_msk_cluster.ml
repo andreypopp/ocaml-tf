@@ -205,9 +205,13 @@ type aws_msk_cluster = {
   cluster_name : string;  (** cluster_name *)
   enhanced_monitoring : string option; [@option]
       (** enhanced_monitoring *)
+  id : string option; [@option]  (** id *)
   kafka_version : string;  (** kafka_version *)
   number_of_broker_nodes : float;  (** number_of_broker_nodes *)
+  storage_mode : string option; [@option]  (** storage_mode *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   broker_node_group_info :
     aws_msk_cluster__broker_node_group_info list;
   client_authentication :
@@ -221,19 +225,22 @@ type aws_msk_cluster = {
 [@@deriving yojson_of]
 (** aws_msk_cluster *)
 
-let aws_msk_cluster ?enhanced_monitoring ?tags ?timeouts
-    ~cluster_name ~kafka_version ~number_of_broker_nodes
-    ~broker_node_group_info ~client_authentication
-    ~configuration_info ~encryption_info ~logging_info
-    ~open_monitoring __resource_id =
+let aws_msk_cluster ?enhanced_monitoring ?id ?storage_mode ?tags
+    ?tags_all ?timeouts ~cluster_name ~kafka_version
+    ~number_of_broker_nodes ~broker_node_group_info
+    ~client_authentication ~configuration_info ~encryption_info
+    ~logging_info ~open_monitoring __resource_id =
   let __resource_type = "aws_msk_cluster" in
   let __resource =
     {
       cluster_name;
       enhanced_monitoring;
+      id;
       kafka_version;
       number_of_broker_nodes;
+      storage_mode;
       tags;
+      tags_all;
       broker_node_group_info;
       client_authentication;
       configuration_info;

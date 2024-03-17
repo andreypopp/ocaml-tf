@@ -9,7 +9,9 @@ type azurerm_policy_set_definition
 
 val azurerm_policy_set_definition :
   ?description:string ->
+  ?id:string ->
   ?management_group_id:string ->
+  ?metadata:string ->
   ?parameters:string ->
   ?timeouts:azurerm_policy_set_definition__timeouts ->
   display_name:string ->

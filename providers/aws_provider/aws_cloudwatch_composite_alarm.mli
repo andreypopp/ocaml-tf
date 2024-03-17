@@ -9,9 +9,11 @@ val aws_cloudwatch_composite_alarm :
   ?actions_enabled:bool ->
   ?alarm_actions:string list ->
   ?alarm_description:string ->
+  ?id:string ->
   ?insufficient_data_actions:string list ->
   ?ok_actions:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   alarm_name:string ->
   alarm_rule:string ->
   actions_suppressor:

@@ -9,6 +9,7 @@ type aws_emr_studio = {
   default_s3_location : string;  (** default_s3_location *)
   description : string option; [@option]  (** description *)
   engine_security_group_id : string;  (** engine_security_group_id *)
+  id : string option; [@option]  (** id *)
   idp_auth_url : string option; [@option]  (** idp_auth_url *)
   idp_relay_state_parameter_name : string option; [@option]
       (** idp_relay_state_parameter_name *)
@@ -16,6 +17,8 @@ type aws_emr_studio = {
   service_role : string;  (** service_role *)
   subnet_ids : string list;  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   user_role : string option; [@option]  (** user_role *)
   vpc_id : string;  (** vpc_id *)
   workspace_security_group_id : string;
@@ -24,9 +27,9 @@ type aws_emr_studio = {
 [@@deriving yojson_of]
 (** aws_emr_studio *)
 
-let aws_emr_studio ?description ?idp_auth_url
-    ?idp_relay_state_parameter_name ?tags ?user_role ~auth_mode
-    ~default_s3_location ~engine_security_group_id ~name
+let aws_emr_studio ?description ?id ?idp_auth_url
+    ?idp_relay_state_parameter_name ?tags ?tags_all ?user_role
+    ~auth_mode ~default_s3_location ~engine_security_group_id ~name
     ~service_role ~subnet_ids ~vpc_id ~workspace_security_group_id
     __resource_id =
   let __resource_type = "aws_emr_studio" in
@@ -36,12 +39,14 @@ let aws_emr_studio ?description ?idp_auth_url
       default_s3_location;
       description;
       engine_security_group_id;
+      id;
       idp_auth_url;
       idp_relay_state_parameter_name;
       name;
       service_role;
       subnet_ids;
       tags;
+      tags_all;
       user_role;
       vpc_id;
       workspace_security_group_id;

@@ -12,6 +12,8 @@ type aws_s3_bucket_website_configuration
 
 val aws_s3_bucket_website_configuration :
   ?expected_bucket_owner:string ->
+  ?id:string ->
+  ?routing_rules:string ->
   bucket:string ->
   error_document:
     aws_s3_bucket_website_configuration__error_document list ->

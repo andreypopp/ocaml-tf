@@ -29,6 +29,7 @@ type aws_ecs_service__timeouts
 type aws_ecs_service
 
 val aws_ecs_service :
+  ?cluster:string ->
   ?deployment_maximum_percent:float ->
   ?deployment_minimum_healthy_percent:float ->
   ?desired_count:float ->
@@ -36,10 +37,16 @@ val aws_ecs_service :
   ?enable_execute_command:bool ->
   ?force_new_deployment:bool ->
   ?health_check_grace_period_seconds:float ->
+  ?iam_role:string ->
+  ?id:string ->
+  ?launch_type:string ->
+  ?platform_version:string ->
   ?propagate_tags:string ->
   ?scheduling_strategy:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?task_definition:string ->
+  ?triggers:(string * string) list ->
   ?wait_for_steady_state:bool ->
   ?timeouts:aws_ecs_service__timeouts ->
   name:string ->

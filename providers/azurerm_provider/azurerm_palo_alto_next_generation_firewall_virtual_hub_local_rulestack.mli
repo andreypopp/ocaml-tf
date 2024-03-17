@@ -17,6 +17,7 @@ type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__tim
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
 
 val azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__timeouts ->

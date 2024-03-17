@@ -14180,7 +14180,11 @@ type aws_wafv2_rule_group
 
 val aws_wafv2_rule_group :
     ?description:string ->
+    ?id:string ->
+    ?name:string ->
+    ?name_prefix:string ->
     ?tags:(string * string) list ->
+    ?tags_all:(string * string) list ->
     capacity:float ->
     scope:string ->
     custom_response_body:aws_wafv2_rule_group__custom_response_body list ->

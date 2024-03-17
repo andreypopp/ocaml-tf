@@ -48,6 +48,7 @@ type azurerm_cdn_frontdoor_security_policy__timeouts = {
 
 type azurerm_cdn_frontdoor_security_policy = {
   cdn_frontdoor_profile_id : string;  (** cdn_frontdoor_profile_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   security_policies :
     azurerm_cdn_frontdoor_security_policy__security_policies list;
@@ -56,12 +57,18 @@ type azurerm_cdn_frontdoor_security_policy = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_security_policy *)
 
-let azurerm_cdn_frontdoor_security_policy ?timeouts
+let azurerm_cdn_frontdoor_security_policy ?id ?timeouts
     ~cdn_frontdoor_profile_id ~name ~security_policies __resource_id
     =
   let __resource_type = "azurerm_cdn_frontdoor_security_policy" in
   let __resource =
-    { cdn_frontdoor_profile_id; name; security_policies; timeouts }
+    {
+      cdn_frontdoor_profile_id;
+      id;
+      name;
+      security_policies;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_security_policy __resource);

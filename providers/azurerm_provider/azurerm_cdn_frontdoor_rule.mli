@@ -37,6 +37,7 @@ type azurerm_cdn_frontdoor_rule
 
 val azurerm_cdn_frontdoor_rule :
   ?behavior_on_match:string ->
+  ?id:string ->
   ?timeouts:azurerm_cdn_frontdoor_rule__timeouts ->
   cdn_frontdoor_rule_set_id:string ->
   name:string ->

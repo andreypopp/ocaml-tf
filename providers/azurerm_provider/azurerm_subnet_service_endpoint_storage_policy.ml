@@ -23,6 +23,7 @@ type azurerm_subnet_service_endpoint_storage_policy__timeouts = {
 (** azurerm_subnet_service_endpoint_storage_policy__timeouts *)
 
 type azurerm_subnet_service_endpoint_storage_policy = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -35,13 +36,15 @@ type azurerm_subnet_service_endpoint_storage_policy = {
 [@@deriving yojson_of]
 (** azurerm_subnet_service_endpoint_storage_policy *)
 
-let azurerm_subnet_service_endpoint_storage_policy ?tags ?timeouts
-    ~location ~name ~resource_group_name ~definition __resource_id =
+let azurerm_subnet_service_endpoint_storage_policy ?id ?tags
+    ?timeouts ~location ~name ~resource_group_name ~definition
+    __resource_id =
   let __resource_type =
     "azurerm_subnet_service_endpoint_storage_policy"
   in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

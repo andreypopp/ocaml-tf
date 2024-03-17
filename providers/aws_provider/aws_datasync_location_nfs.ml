@@ -17,23 +17,28 @@ type aws_datasync_location_nfs__on_prem_config = {
 (** aws_datasync_location_nfs__on_prem_config *)
 
 type aws_datasync_location_nfs = {
+  id : string option; [@option]  (** id *)
   server_hostname : string;  (** server_hostname *)
   subdirectory : string;  (** subdirectory *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   mount_options : aws_datasync_location_nfs__mount_options list;
   on_prem_config : aws_datasync_location_nfs__on_prem_config list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_nfs *)
 
-let aws_datasync_location_nfs ?tags ~server_hostname ~subdirectory
-    ~mount_options ~on_prem_config __resource_id =
+let aws_datasync_location_nfs ?id ?tags ?tags_all ~server_hostname
+    ~subdirectory ~mount_options ~on_prem_config __resource_id =
   let __resource_type = "aws_datasync_location_nfs" in
   let __resource =
     {
+      id;
       server_hostname;
       subdirectory;
       tags;
+      tags_all;
       mount_options;
       on_prem_config;
     }

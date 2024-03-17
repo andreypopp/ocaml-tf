@@ -20,6 +20,7 @@ type cloudflare_waiting_room_rules__rules = {
 (** List of rules to apply to the ruleset. *)
 
 type cloudflare_waiting_room_rules = {
+  id : string option; [@option]  (** id *)
   waiting_room_id : string;
       (** The Waiting Room ID the rules should apply to. **Modifying this attribute will force creation of a new resource.** *)
   zone_id : string;
@@ -29,10 +30,10 @@ type cloudflare_waiting_room_rules = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Waiting Room Rules resource. *)
 
-let cloudflare_waiting_room_rules ~waiting_room_id ~zone_id ~rules
-    __resource_id =
+let cloudflare_waiting_room_rules ?id ~waiting_room_id ~zone_id
+    ~rules __resource_id =
   let __resource_type = "cloudflare_waiting_room_rules" in
-  let __resource = { waiting_room_id; zone_id; rules } in
+  let __resource = { id; waiting_room_id; zone_id; rules } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_waiting_room_rules __resource);
   ()

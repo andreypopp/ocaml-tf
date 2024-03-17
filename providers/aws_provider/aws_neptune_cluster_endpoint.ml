@@ -11,16 +11,18 @@ type aws_neptune_cluster_endpoint = {
   endpoint_type : string;  (** endpoint_type *)
   excluded_members : string list option; [@option]
       (** excluded_members *)
+  id : string option; [@option]  (** id *)
   static_members : string list option; [@option]
       (** static_members *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_neptune_cluster_endpoint *)
 
-let aws_neptune_cluster_endpoint ?excluded_members ?static_members
-    ?tags ~cluster_endpoint_identifier ~cluster_identifier
-    ~endpoint_type __resource_id =
+let aws_neptune_cluster_endpoint ?excluded_members ?id
+    ?static_members ?tags ?tags_all ~cluster_endpoint_identifier
+    ~cluster_identifier ~endpoint_type __resource_id =
   let __resource_type = "aws_neptune_cluster_endpoint" in
   let __resource =
     {
@@ -28,8 +30,10 @@ let aws_neptune_cluster_endpoint ?excluded_members ?static_members
       cluster_identifier;
       endpoint_type;
       excluded_members;
+      id;
       static_members;
       tags;
+      tags_all;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

@@ -10,6 +10,12 @@ val azurerm_role_assignment :
   ?condition_version:string ->
   ?delegated_managed_identity_resource_id:string ->
   ?description:string ->
+  ?id:string ->
+  ?name:string ->
+  ?principal_type:string ->
+  ?role_definition_id:string ->
+  ?role_definition_name:string ->
+  ?skip_service_principal_aad_check:bool ->
   ?timeouts:azurerm_role_assignment__timeouts ->
   principal_id:string ->
   scope:string ->

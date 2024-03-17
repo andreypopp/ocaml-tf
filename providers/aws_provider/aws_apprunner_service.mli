@@ -30,7 +30,10 @@ type aws_apprunner_service__source_configuration
 type aws_apprunner_service
 
 val aws_apprunner_service :
+  ?auto_scaling_configuration_arn:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   service_name:string ->
   encryption_configuration:
     aws_apprunner_service__encryption_configuration list ->

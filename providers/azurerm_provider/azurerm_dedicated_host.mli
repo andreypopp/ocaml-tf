@@ -7,6 +7,7 @@ type azurerm_dedicated_host
 
 val azurerm_dedicated_host :
   ?auto_replace_on_failure:bool ->
+  ?id:string ->
   ?license_type:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dedicated_host__timeouts ->

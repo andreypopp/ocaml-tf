@@ -265,7 +265,10 @@ type aws_transfer_workflow__steps = {
 
 type aws_transfer_workflow = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   on_exception_steps :
     aws_transfer_workflow__on_exception_steps list;
   steps : aws_transfer_workflow__steps list;
@@ -273,11 +276,11 @@ type aws_transfer_workflow = {
 [@@deriving yojson_of]
 (** aws_transfer_workflow *)
 
-let aws_transfer_workflow ?description ?tags ~on_exception_steps
-    ~steps __resource_id =
+let aws_transfer_workflow ?description ?id ?tags ?tags_all
+    ~on_exception_steps ~steps __resource_id =
   let __resource_type = "aws_transfer_workflow" in
   let __resource =
-    { description; tags; on_exception_steps; steps }
+    { description; id; tags; tags_all; on_exception_steps; steps }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_workflow __resource);

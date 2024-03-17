@@ -24,6 +24,11 @@ type google_monitoring_custom_service__timeouts = {
 type google_monitoring_custom_service = {
   display_name : string option; [@option]
       (** Name used for UI elements listing this Service. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
+  service_id : string option; [@option]
+      (** An optional service ID to use. If not given, the server will generate a
+service ID. *)
   user_labels : (string * string) list option; [@option]
       (** Labels which have been used to annotate the service. Label keys must start
 with a letter. Label keys and values may contain lowercase letters,
@@ -37,11 +42,19 @@ the empty string may be supplied for the label value. *)
 [@@deriving yojson_of]
 (** google_monitoring_custom_service *)
 
-let google_monitoring_custom_service ?display_name ?user_labels
-    ?timeouts ~telemetry __resource_id =
+let google_monitoring_custom_service ?display_name ?id ?project
+    ?service_id ?user_labels ?timeouts ~telemetry __resource_id =
   let __resource_type = "google_monitoring_custom_service" in
   let __resource =
-    { display_name; user_labels; telemetry; timeouts }
+    {
+      display_name;
+      id;
+      project;
+      service_id;
+      user_labels;
+      telemetry;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_custom_service __resource);

@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_api_gateway_method_response
 
 val aws_api_gateway_method_response :
+  ?id:string ->
   ?response_models:(string * string) list ->
   ?response_parameters:(string * bool) list ->
   http_method:string ->

@@ -15,6 +15,7 @@ type azurerm_logic_app_integration_account_batch_configuration__timeouts
 type azurerm_logic_app_integration_account_batch_configuration
 
 val azurerm_logic_app_integration_account_batch_configuration :
+  ?id:string ->
   ?metadata:(string * string) list ->
   ?timeouts:
     azurerm_logic_app_integration_account_batch_configuration__timeouts ->

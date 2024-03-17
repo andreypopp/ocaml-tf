@@ -21,6 +21,7 @@ type azurerm_digital_twins_endpoint_eventhub = {
       (** eventhub_primary_connection_string *)
   eventhub_secondary_connection_string : string;
       (** eventhub_secondary_connection_string *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   timeouts : azurerm_digital_twins_endpoint_eventhub__timeouts option;
 }
@@ -28,7 +29,7 @@ type azurerm_digital_twins_endpoint_eventhub = {
 (** azurerm_digital_twins_endpoint_eventhub *)
 
 let azurerm_digital_twins_endpoint_eventhub
-    ?dead_letter_storage_secret ?timeouts ~digital_twins_id
+    ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
     ~eventhub_primary_connection_string
     ~eventhub_secondary_connection_string ~name __resource_id =
   let __resource_type = "azurerm_digital_twins_endpoint_eventhub" in
@@ -38,6 +39,7 @@ let azurerm_digital_twins_endpoint_eventhub
       digital_twins_id;
       eventhub_primary_connection_string;
       eventhub_secondary_connection_string;
+      id;
       name;
       timeouts;
     }

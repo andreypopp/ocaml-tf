@@ -7,6 +7,7 @@ type azurerm_system_center_virtual_machine_manager_availability_set__timeouts
 type azurerm_system_center_virtual_machine_manager_availability_set
 
 val azurerm_system_center_virtual_machine_manager_availability_set :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_system_center_virtual_machine_manager_availability_set__timeouts ->

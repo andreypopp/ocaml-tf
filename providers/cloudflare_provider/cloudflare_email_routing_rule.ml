@@ -28,6 +28,8 @@ type cloudflare_email_routing_rule = {
   enabled : bool option; [@option]
       (** Whether the email routing rule is enabled. *)
   name : string;  (** Routing rule name. *)
+  priority : float option; [@option]
+      (** The priority of the email routing rule. *)
   zone_id : string;
       (** The zone identifier to target for the resource. *)
   action : cloudflare_email_routing_rule__action list;
@@ -37,10 +39,12 @@ type cloudflare_email_routing_rule = {
 (** The [Email Routing Rule](https://developers.cloudflare.com/email-routing/setup/email-routing-addresses/#email-rule-actions) resource allows you to create and manage email routing rules for a zone.
  *)
 
-let cloudflare_email_routing_rule ?enabled ~name ~zone_id ~action
-    ~matcher __resource_id =
+let cloudflare_email_routing_rule ?enabled ?priority ~name ~zone_id
+    ~action ~matcher __resource_id =
   let __resource_type = "cloudflare_email_routing_rule" in
-  let __resource = { enabled; name; zone_id; action; matcher } in
+  let __resource =
+    { enabled; name; priority; zone_id; action; matcher }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_email_routing_rule __resource);
   ()

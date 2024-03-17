@@ -10,17 +10,18 @@ type aws_acmpca_certificate_authority_certificate = {
       (** certificate_authority_arn *)
   certificate_chain : string option; [@option]
       (** certificate_chain *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_acmpca_certificate_authority_certificate *)
 
 let aws_acmpca_certificate_authority_certificate ?certificate_chain
-    ~certificate ~certificate_authority_arn __resource_id =
+    ?id ~certificate ~certificate_authority_arn __resource_id =
   let __resource_type =
     "aws_acmpca_certificate_authority_certificate"
   in
   let __resource =
-    { certificate; certificate_authority_arn; certificate_chain }
+    { certificate; certificate_authority_arn; certificate_chain; id }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_acmpca_certificate_authority_certificate

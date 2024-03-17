@@ -13,6 +13,7 @@ type azurerm_netapp_volume_group_sap_hana__volume
 type azurerm_netapp_volume_group_sap_hana
 
 val azurerm_netapp_volume_group_sap_hana :
+  ?id:string ->
   ?timeouts:azurerm_netapp_volume_group_sap_hana__timeouts ->
   account_name:string ->
   application_identifier:string ->

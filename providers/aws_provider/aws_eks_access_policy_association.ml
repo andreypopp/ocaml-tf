@@ -20,6 +20,7 @@ type aws_eks_access_policy_association__timeouts = {
 
 type aws_eks_access_policy_association = {
   cluster_name : string;  (** cluster_name *)
+  id : string option; [@option]  (** id *)
   policy_arn : string;  (** policy_arn *)
   principal_arn : string;  (** principal_arn *)
   access_scope :
@@ -29,12 +30,13 @@ type aws_eks_access_policy_association = {
 [@@deriving yojson_of]
 (** aws_eks_access_policy_association *)
 
-let aws_eks_access_policy_association ?timeouts ~cluster_name
+let aws_eks_access_policy_association ?id ?timeouts ~cluster_name
     ~policy_arn ~principal_arn ~access_scope __resource_id =
   let __resource_type = "aws_eks_access_policy_association" in
   let __resource =
     {
       cluster_name;
+      id;
       policy_arn;
       principal_arn;
       access_scope;

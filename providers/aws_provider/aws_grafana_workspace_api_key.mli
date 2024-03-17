@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_grafana_workspace_api_key
 
 val aws_grafana_workspace_api_key :
+  ?id:string ->
   key_name:string ->
   key_role:string ->
   seconds_to_live:float ->

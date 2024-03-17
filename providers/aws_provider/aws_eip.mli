@@ -9,7 +9,15 @@ val aws_eip :
   ?address:string ->
   ?associate_with_private_ip:string ->
   ?customer_owned_ipv4_pool:string ->
+  ?domain:string ->
+  ?id:string ->
+  ?instance:string ->
+  ?network_border_group:string ->
+  ?network_interface:string ->
+  ?public_ipv4_pool:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?vpc:bool ->
   ?timeouts:aws_eip__timeouts ->
   string ->
   unit

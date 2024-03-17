@@ -6,6 +6,7 @@ type azurerm_synapse_private_link_hub__timeouts
 type azurerm_synapse_private_link_hub
 
 val azurerm_synapse_private_link_hub :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_synapse_private_link_hub__timeouts ->
   location:string ->

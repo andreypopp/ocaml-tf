@@ -25,8 +25,12 @@ type aws_elasticsearch_domain__vpc_options
 type aws_elasticsearch_domain
 
 val aws_elasticsearch_domain :
+  ?access_policies:string ->
+  ?advanced_options:(string * string) list ->
   ?elasticsearch_version:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_elasticsearch_domain__timeouts ->
   domain_name:string ->
   advanced_security_options:

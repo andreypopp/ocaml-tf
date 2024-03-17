@@ -8,7 +8,9 @@ val aws_appconfig_deployment_strategy :
   ?description:string ->
   ?final_bake_time_in_minutes:float ->
   ?growth_type:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   deployment_duration_in_minutes:float ->
   growth_factor:float ->
   name:string ->

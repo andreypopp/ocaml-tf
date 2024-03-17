@@ -16,6 +16,7 @@ type cloudflare_logpush_job = {
       (** Use filters to select the events to include and/or remove from your logs. For more information, refer to [Filters](https://developers.cloudflare.com/logs/reference/logpush-api-configuration/filters/). *)
   frequency : string option; [@option]
       (** A higher frequency will result in logs being pushed on faster with smaller files. `low` frequency will push logs less often with larger files. Available values: `high`, `low`. Defaults to `high`. *)
+  id : string option; [@option]  (** id *)
   kind : string option; [@option]
       (** The kind of logpush job to create. Available values: `edge`, `instant-logs`, ``. *)
   logpull_options : string option; [@option]
@@ -47,7 +48,7 @@ the `ownership_challenge_filename` value from the`cloudflare_logpush_ownership_c
  *)
 
 let cloudflare_logpush_job ?account_id ?enabled ?filter ?frequency
-    ?kind ?logpull_options ?max_upload_bytes
+    ?id ?kind ?logpull_options ?max_upload_bytes
     ?max_upload_interval_seconds ?max_upload_records ?name
     ?ownership_challenge ?zone_id ~dataset ~destination_conf
     __resource_id =
@@ -60,6 +61,7 @@ let cloudflare_logpush_job ?account_id ?enabled ?filter ?frequency
       enabled;
       filter;
       frequency;
+      id;
       kind;
       logpull_options;
       max_upload_bytes;

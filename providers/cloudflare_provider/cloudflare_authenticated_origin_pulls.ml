@@ -11,6 +11,7 @@ type cloudflare_authenticated_origin_pulls = {
       (** Whether to enable Authenticated Origin Pulls on the given zone or hostname. *)
   hostname : string option; [@option]
       (** Specify a hostname to enable Per-Hostname Authenticated Origin Pulls on, using the provided certificate. *)
+  id : string option; [@option]  (** id *)
   zone_id : string;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
@@ -20,7 +21,7 @@ resource is required to use Per-Zone or Per-Hostname Authenticated
 Origin Pulls. *)
 
 let cloudflare_authenticated_origin_pulls
-    ?authenticated_origin_pulls_certificate ?hostname ~enabled
+    ?authenticated_origin_pulls_certificate ?hostname ?id ~enabled
     ~zone_id __resource_id =
   let __resource_type = "cloudflare_authenticated_origin_pulls" in
   let __resource =
@@ -28,6 +29,7 @@ let cloudflare_authenticated_origin_pulls
       authenticated_origin_pulls_certificate;
       enabled;
       hostname;
+      id;
       zone_id;
     }
   in

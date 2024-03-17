@@ -13,6 +13,7 @@ type google_data_catalog_policy_tag_iam_member__condition = {
 (** google_data_catalog_policy_tag_iam_member__condition *)
 
 type google_data_catalog_policy_tag_iam_member = {
+  id : string option; [@option]  (** id *)
   member : string;  (** member *)
   policy_tag : string;  (** policy_tag *)
   role : string;  (** role *)
@@ -22,12 +23,12 @@ type google_data_catalog_policy_tag_iam_member = {
 [@@deriving yojson_of]
 (** google_data_catalog_policy_tag_iam_member *)
 
-let google_data_catalog_policy_tag_iam_member ~member ~policy_tag
+let google_data_catalog_policy_tag_iam_member ?id ~member ~policy_tag
     ~role ~condition __resource_id =
   let __resource_type =
     "google_data_catalog_policy_tag_iam_member"
   in
-  let __resource = { member; policy_tag; role; condition } in
+  let __resource = { id; member; policy_tag; role; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_policy_tag_iam_member __resource);
   ()

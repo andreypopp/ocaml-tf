@@ -240,8 +240,20 @@ type aws_s3_bucket__website = {
 (** aws_s3_bucket__website *)
 
 type aws_s3_bucket = {
+  acceleration_status : string option; [@option]
+      (** acceleration_status *)
+  acl : string option; [@option]  (** acl *)
+  bucket : string option; [@option]  (** bucket *)
+  bucket_prefix : string option; [@option]  (** bucket_prefix *)
   force_destroy : bool option; [@option]  (** force_destroy *)
+  id : string option; [@option]  (** id *)
+  object_lock_enabled : bool option; [@option]
+      (** object_lock_enabled *)
+  policy : string option; [@option]  (** policy *)
+  request_payer : string option; [@option]  (** request_payer *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   cors_rule : aws_s3_bucket__cors_rule list;
   grant : aws_s3_bucket__grant list;
   lifecycle_rule : aws_s3_bucket__lifecycle_rule list;
@@ -259,15 +271,26 @@ type aws_s3_bucket = {
 [@@deriving yojson_of]
 (** aws_s3_bucket *)
 
-let aws_s3_bucket ?force_destroy ?tags ?timeouts ~cors_rule ~grant
-    ~lifecycle_rule ~logging ~object_lock_configuration
-    ~replication_configuration ~server_side_encryption_configuration
-    ~versioning ~website __resource_id =
+let aws_s3_bucket ?acceleration_status ?acl ?bucket ?bucket_prefix
+    ?force_destroy ?id ?object_lock_enabled ?policy ?request_payer
+    ?tags ?tags_all ?timeouts ~cors_rule ~grant ~lifecycle_rule
+    ~logging ~object_lock_configuration ~replication_configuration
+    ~server_side_encryption_configuration ~versioning ~website
+    __resource_id =
   let __resource_type = "aws_s3_bucket" in
   let __resource =
     {
+      acceleration_status;
+      acl;
+      bucket;
+      bucket_prefix;
       force_destroy;
+      id;
+      object_lock_enabled;
+      policy;
+      request_payer;
       tags;
+      tags_all;
       cors_rule;
       grant;
       lifecycle_rule;

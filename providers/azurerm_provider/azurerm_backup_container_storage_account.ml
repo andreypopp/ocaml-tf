@@ -13,6 +13,7 @@ type azurerm_backup_container_storage_account__timeouts = {
 (** azurerm_backup_container_storage_account__timeouts *)
 
 type azurerm_backup_container_storage_account = {
+  id : string option; [@option]  (** id *)
   recovery_vault_name : string;  (** recovery_vault_name *)
   resource_group_name : string;  (** resource_group_name *)
   storage_account_id : string;  (** storage_account_id *)
@@ -22,12 +23,13 @@ type azurerm_backup_container_storage_account = {
 [@@deriving yojson_of]
 (** azurerm_backup_container_storage_account *)
 
-let azurerm_backup_container_storage_account ?timeouts
+let azurerm_backup_container_storage_account ?id ?timeouts
     ~recovery_vault_name ~resource_group_name ~storage_account_id
     __resource_id =
   let __resource_type = "azurerm_backup_container_storage_account" in
   let __resource =
     {
+      id;
       recovery_vault_name;
       resource_group_name;
       storage_account_id;

@@ -12,13 +12,14 @@ type aws_cloudhsm_v2_cluster__cluster_certificates = {
   manufacturer_hardware_certificate : string;
       (** manufacturer_hardware_certificate *)
 }
-[@@deriving yojson_of]
 
 type aws_cloudhsm_v2_cluster
 
 val aws_cloudhsm_v2_cluster :
+  ?id:string ->
   ?source_backup_identifier:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_cloudhsm_v2_cluster__timeouts ->
   hsm_type:string ->
   subnet_ids:string list ->

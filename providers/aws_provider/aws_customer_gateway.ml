@@ -8,23 +8,28 @@ type aws_customer_gateway = {
   bgp_asn : string;  (** bgp_asn *)
   certificate_arn : string option; [@option]  (** certificate_arn *)
   device_name : string option; [@option]  (** device_name *)
+  id : string option; [@option]  (** id *)
   ip_address : string option; [@option]  (** ip_address *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_customer_gateway *)
 
-let aws_customer_gateway ?certificate_arn ?device_name ?ip_address
-    ?tags ~bgp_asn ~type_ __resource_id =
+let aws_customer_gateway ?certificate_arn ?device_name ?id
+    ?ip_address ?tags ?tags_all ~bgp_asn ~type_ __resource_id =
   let __resource_type = "aws_customer_gateway" in
   let __resource =
     {
       bgp_asn;
       certificate_arn;
       device_name;
+      id;
       ip_address;
       tags;
+      tags_all;
       type_;
     }
   in

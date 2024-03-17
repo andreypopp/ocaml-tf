@@ -110,7 +110,10 @@ type aws_appflow_flow
 
 val aws_appflow_flow :
   ?description:string ->
+  ?id:string ->
+  ?kms_arn:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   destination_flow_config:
     aws_appflow_flow__destination_flow_config list ->

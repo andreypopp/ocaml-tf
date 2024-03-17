@@ -8,6 +8,7 @@ type azurerm_kusto_attached_database_configuration
 
 val azurerm_kusto_attached_database_configuration :
   ?default_principal_modification_kind:string ->
+  ?id:string ->
   ?timeouts:azurerm_kusto_attached_database_configuration__timeouts ->
   cluster_name:string ->
   cluster_resource_id:string ->

@@ -18,7 +18,9 @@ type aws_fis_experiment_template__timeouts
 type aws_fis_experiment_template
 
 val aws_fis_experiment_template :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_fis_experiment_template__timeouts ->
   description:string ->
   role_arn:string ->

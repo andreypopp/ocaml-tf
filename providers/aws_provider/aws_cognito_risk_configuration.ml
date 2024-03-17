@@ -117,6 +117,7 @@ type aws_cognito_risk_configuration__risk_exception_configuration = {
 
 type aws_cognito_risk_configuration = {
   client_id : string option; [@option]  (** client_id *)
+  id : string option; [@option]  (** id *)
   user_pool_id : string;  (** user_pool_id *)
   account_takeover_risk_configuration :
     aws_cognito_risk_configuration__account_takeover_risk_configuration
@@ -130,7 +131,7 @@ type aws_cognito_risk_configuration = {
 [@@deriving yojson_of]
 (** aws_cognito_risk_configuration *)
 
-let aws_cognito_risk_configuration ?client_id ~user_pool_id
+let aws_cognito_risk_configuration ?client_id ?id ~user_pool_id
     ~account_takeover_risk_configuration
     ~compromised_credentials_risk_configuration
     ~risk_exception_configuration __resource_id =
@@ -138,6 +139,7 @@ let aws_cognito_risk_configuration ?client_id ~user_pool_id
   let __resource =
     {
       client_id;
+      id;
       user_pool_id;
       account_takeover_risk_configuration;
       compromised_credentials_risk_configuration;

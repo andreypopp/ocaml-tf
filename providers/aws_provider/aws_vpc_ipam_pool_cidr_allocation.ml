@@ -5,20 +5,30 @@
 open! Tf.Prelude
 
 type aws_vpc_ipam_pool_cidr_allocation = {
+  cidr : string option; [@option]  (** cidr *)
   description : string option; [@option]  (** description *)
   disallowed_cidrs : string list option; [@option]
       (** disallowed_cidrs *)
+  id : string option; [@option]  (** id *)
   ipam_pool_id : string;  (** ipam_pool_id *)
   netmask_length : float option; [@option]  (** netmask_length *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_ipam_pool_cidr_allocation *)
 
-let aws_vpc_ipam_pool_cidr_allocation ?description ?disallowed_cidrs
-    ?netmask_length ~ipam_pool_id __resource_id =
+let aws_vpc_ipam_pool_cidr_allocation ?cidr ?description
+    ?disallowed_cidrs ?id ?netmask_length ~ipam_pool_id __resource_id
+    =
   let __resource_type = "aws_vpc_ipam_pool_cidr_allocation" in
   let __resource =
-    { description; disallowed_cidrs; ipam_pool_id; netmask_length }
+    {
+      cidr;
+      description;
+      disallowed_cidrs;
+      id;
+      ipam_pool_id;
+      netmask_length;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipam_pool_cidr_allocation __resource);

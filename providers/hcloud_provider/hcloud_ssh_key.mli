@@ -5,6 +5,7 @@ open! Tf.Prelude
 type hcloud_ssh_key
 
 val hcloud_ssh_key :
+  ?id:string ->
   ?labels:(string * string) list ->
   name:string ->
   public_key:string ->

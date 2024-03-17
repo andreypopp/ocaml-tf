@@ -61,6 +61,7 @@ type aws_sesv2_configuration_set_event_destination__event_destination = {
 type aws_sesv2_configuration_set_event_destination = {
   configuration_set_name : string;  (** configuration_set_name *)
   event_destination_name : string;  (** event_destination_name *)
+  id : string option; [@option]  (** id *)
   event_destination :
     aws_sesv2_configuration_set_event_destination__event_destination
     list;
@@ -68,7 +69,7 @@ type aws_sesv2_configuration_set_event_destination = {
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set_event_destination *)
 
-let aws_sesv2_configuration_set_event_destination
+let aws_sesv2_configuration_set_event_destination ?id
     ~configuration_set_name ~event_destination_name
     ~event_destination __resource_id =
   let __resource_type =
@@ -78,6 +79,7 @@ let aws_sesv2_configuration_set_event_destination
     {
       configuration_set_name;
       event_destination_name;
+      id;
       event_destination;
     }
   in

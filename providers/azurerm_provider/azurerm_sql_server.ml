@@ -43,6 +43,7 @@ type azurerm_sql_server = {
       (** administrator_login_password *)
   connection_policy : string option; [@option]
       (** connection_policy *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -56,7 +57,7 @@ type azurerm_sql_server = {
 [@@deriving yojson_of]
 (** azurerm_sql_server *)
 
-let azurerm_sql_server ?connection_policy ?tags ?timeouts
+let azurerm_sql_server ?connection_policy ?id ?tags ?timeouts
     ~administrator_login ~administrator_login_password ~location
     ~name ~resource_group_name ~version ~identity
     ~threat_detection_policy __resource_id =
@@ -66,6 +67,7 @@ let azurerm_sql_server ?connection_policy ?tags ?timeouts
       administrator_login;
       administrator_login_password;
       connection_policy;
+      id;
       location;
       name;
       resource_group_name;

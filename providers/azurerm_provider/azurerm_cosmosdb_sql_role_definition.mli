@@ -7,6 +7,8 @@ type azurerm_cosmosdb_sql_role_definition__timeouts
 type azurerm_cosmosdb_sql_role_definition
 
 val azurerm_cosmosdb_sql_role_definition :
+  ?id:string ->
+  ?role_definition_id:string ->
   ?type_:string ->
   ?timeouts:azurerm_cosmosdb_sql_role_definition__timeouts ->
   account_name:string ->

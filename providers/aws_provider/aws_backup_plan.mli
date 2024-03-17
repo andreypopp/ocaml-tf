@@ -10,7 +10,9 @@ type aws_backup_plan__rule
 type aws_backup_plan
 
 val aws_backup_plan :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   advanced_backup_setting:
     aws_backup_plan__advanced_backup_setting list ->

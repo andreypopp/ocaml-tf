@@ -52,11 +52,21 @@ type aws_elasticache_serverless_cache__reader_endpoint = {
 [@@deriving yojson_of]
 
 type aws_elasticache_serverless_cache = {
+  daily_snapshot_time : string option; [@option]
+      (** daily_snapshot_time *)
+  description : string option; [@option]  (** description *)
   engine : string;  (** engine *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
+  major_engine_version : string option; [@option]
+      (** major_engine_version *)
   name : string;  (** name *)
+  security_group_ids : string list option; [@option]
+      (** security_group_ids *)
   snapshot_arns_to_restore : string list option; [@option]
       (** snapshot_arns_to_restore *)
+  snapshot_retention_limit : float option; [@option]
+      (** snapshot_retention_limit *)
+  subnet_ids : string list option; [@option]  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
   user_group_id : string option; [@option]  (** user_group_id *)
   cache_usage_limits :
@@ -66,16 +76,24 @@ type aws_elasticache_serverless_cache = {
 [@@deriving yojson_of]
 (** aws_elasticache_serverless_cache *)
 
-let aws_elasticache_serverless_cache ?kms_key_id
-    ?snapshot_arns_to_restore ?tags ?user_group_id ?timeouts ~engine
-    ~name ~cache_usage_limits __resource_id =
+let aws_elasticache_serverless_cache ?daily_snapshot_time
+    ?description ?kms_key_id ?major_engine_version
+    ?security_group_ids ?snapshot_arns_to_restore
+    ?snapshot_retention_limit ?subnet_ids ?tags ?user_group_id
+    ?timeouts ~engine ~name ~cache_usage_limits __resource_id =
   let __resource_type = "aws_elasticache_serverless_cache" in
   let __resource =
     {
+      daily_snapshot_time;
+      description;
       engine;
       kms_key_id;
+      major_engine_version;
       name;
+      security_group_ids;
       snapshot_arns_to_restore;
+      snapshot_retention_limit;
+      subnet_ids;
       tags;
       user_group_id;
       cache_usage_limits;

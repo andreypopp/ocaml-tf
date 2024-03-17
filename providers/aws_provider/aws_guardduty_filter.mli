@@ -8,7 +8,9 @@ type aws_guardduty_filter
 
 val aws_guardduty_filter :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   action:string ->
   detector_id:string ->
   name:string ->

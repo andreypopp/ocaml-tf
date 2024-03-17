@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type cloudflare_api_shield_schema_validation_settings = {
+  id : string option; [@option]  (** id *)
   validation_default_mitigation_action : string;
       (** The default mitigation action used when there is no mitigation action defined on the operation. *)
   validation_override_mitigation_action : string option; [@option]
@@ -16,7 +17,7 @@ type cloudflare_api_shield_schema_validation_settings = {
 (** Provides a resource to manage settings in API Shield Schema Validation 2.0.
  *)
 
-let cloudflare_api_shield_schema_validation_settings
+let cloudflare_api_shield_schema_validation_settings ?id
     ?validation_override_mitigation_action
     ~validation_default_mitigation_action ~zone_id __resource_id =
   let __resource_type =
@@ -24,6 +25,7 @@ let cloudflare_api_shield_schema_validation_settings
   in
   let __resource =
     {
+      id;
       validation_default_mitigation_action;
       validation_override_mitigation_action;
       zone_id;

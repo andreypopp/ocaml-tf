@@ -18,7 +18,9 @@ type aws_keyspaces_table
 
 val aws_keyspaces_table :
   ?default_time_to_live:float ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_keyspaces_table__timeouts ->
   keyspace_name:string ->
   table_name:string ->

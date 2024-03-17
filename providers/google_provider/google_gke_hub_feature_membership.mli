@@ -44,7 +44,9 @@ type google_gke_hub_feature_membership__timeouts
 type google_gke_hub_feature_membership
 
 val google_gke_hub_feature_membership :
+  ?id:string ->
   ?membership_location:string ->
+  ?project:string ->
   ?timeouts:google_gke_hub_feature_membership__timeouts ->
   feature:string ->
   location:string ->

@@ -5,18 +5,23 @@
 open! Tf.Prelude
 
 type google_dataproc_metastore_service_iam_policy = {
+  id : string option; [@option]  (** id *)
+  location : string option; [@option]  (** location *)
   policy_data : string;  (** policy_data *)
+  project : string option; [@option]  (** project *)
   service_id : string;  (** service_id *)
 }
 [@@deriving yojson_of]
 (** google_dataproc_metastore_service_iam_policy *)
 
-let google_dataproc_metastore_service_iam_policy ~policy_data
-    ~service_id __resource_id =
+let google_dataproc_metastore_service_iam_policy ?id ?location
+    ?project ~policy_data ~service_id __resource_id =
   let __resource_type =
     "google_dataproc_metastore_service_iam_policy"
   in
-  let __resource = { policy_data; service_id } in
+  let __resource =
+    { id; location; policy_data; project; service_id }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataproc_metastore_service_iam_policy
        __resource);

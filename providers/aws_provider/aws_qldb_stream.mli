@@ -8,7 +8,9 @@ type aws_qldb_stream
 
 val aws_qldb_stream :
   ?exclusive_end_time:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_qldb_stream__timeouts ->
   inclusive_start_time:string ->
   ledger_name:string ->

@@ -8,6 +8,7 @@ type azurerm_servicebus_subscription_rule
 
 val azurerm_servicebus_subscription_rule :
   ?action:string ->
+  ?id:string ->
   ?sql_filter:string ->
   ?timeouts:azurerm_servicebus_subscription_rule__timeouts ->
   filter_type:string ->

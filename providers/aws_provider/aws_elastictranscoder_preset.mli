@@ -11,6 +11,9 @@ type aws_elastictranscoder_preset
 
 val aws_elastictranscoder_preset :
   ?description:string ->
+  ?id:string ->
+  ?name:string ->
+  ?type_:string ->
   ?video_codec_options:(string * string) list ->
   container:string ->
   audio:aws_elastictranscoder_preset__audio list ->

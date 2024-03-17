@@ -11,6 +11,7 @@ val azurerm_palo_alto_local_rulestack :
   ?description:string ->
   ?dns_subscription:string ->
   ?file_blocking_profile:string ->
+  ?id:string ->
   ?url_filtering_profile:string ->
   ?vulnerability_profile:string ->
   ?timeouts:azurerm_palo_alto_local_rulestack__timeouts ->

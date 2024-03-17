@@ -12,7 +12,6 @@ type aws_eks_node_group__update_config
 type aws_eks_node_group__resources__autoscaling_groups = {
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_eks_node_group__resources = {
   autoscaling_groups :
@@ -21,14 +20,23 @@ type aws_eks_node_group__resources = {
   remote_access_security_group_id : string;
       (** remote_access_security_group_id *)
 }
-[@@deriving yojson_of]
 
 type aws_eks_node_group
 
 val aws_eks_node_group :
+  ?ami_type:string ->
+  ?capacity_type:string ->
+  ?disk_size:float ->
   ?force_update_version:bool ->
+  ?id:string ->
+  ?instance_types:string list ->
   ?labels:(string * string) list ->
+  ?node_group_name:string ->
+  ?node_group_name_prefix:string ->
+  ?release_version:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?version:string ->
   ?timeouts:aws_eks_node_group__timeouts ->
   cluster_name:string ->
   node_role_arn:string ->

@@ -28,10 +28,15 @@ type aws_ssm_association = {
       (** automation_target_parameter_name *)
   compliance_severity : string option; [@option]
       (** compliance_severity *)
+  document_version : string option; [@option]
+      (** document_version *)
+  id : string option; [@option]  (** id *)
   instance_id : string option; [@option]  (** instance_id *)
   max_concurrency : string option; [@option]  (** max_concurrency *)
   max_errors : string option; [@option]  (** max_errors *)
   name : string;  (** name *)
+  parameters : (string * string) list option; [@option]
+      (** parameters *)
   schedule_expression : string option; [@option]
       (** schedule_expression *)
   sync_compliance : string option; [@option]  (** sync_compliance *)
@@ -45,10 +50,10 @@ type aws_ssm_association = {
 
 let aws_ssm_association ?apply_only_at_cron_interval
     ?association_name ?automation_target_parameter_name
-    ?compliance_severity ?instance_id ?max_concurrency ?max_errors
-    ?schedule_expression ?sync_compliance
-    ?wait_for_success_timeout_seconds ~name ~output_location ~targets
-    __resource_id =
+    ?compliance_severity ?document_version ?id ?instance_id
+    ?max_concurrency ?max_errors ?parameters ?schedule_expression
+    ?sync_compliance ?wait_for_success_timeout_seconds ~name
+    ~output_location ~targets __resource_id =
   let __resource_type = "aws_ssm_association" in
   let __resource =
     {
@@ -56,10 +61,13 @@ let aws_ssm_association ?apply_only_at_cron_interval
       association_name;
       automation_target_parameter_name;
       compliance_severity;
+      document_version;
+      id;
       instance_id;
       max_concurrency;
       max_errors;
       name;
+      parameters;
       schedule_expression;
       sync_compliance;
       wait_for_success_timeout_seconds;

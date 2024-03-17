@@ -6,15 +6,17 @@ open! Tf.Prelude
 
 type aws_cloudfront_key_group = {
   comment : string option; [@option]  (** comment *)
+  id : string option; [@option]  (** id *)
   items : string list;  (** items *)
   name : string;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_key_group *)
 
-let aws_cloudfront_key_group ?comment ~items ~name __resource_id =
+let aws_cloudfront_key_group ?comment ?id ~items ~name __resource_id
+    =
   let __resource_type = "aws_cloudfront_key_group" in
-  let __resource = { comment; items; name } in
+  let __resource = { comment; id; items; name } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_key_group __resource);
   ()

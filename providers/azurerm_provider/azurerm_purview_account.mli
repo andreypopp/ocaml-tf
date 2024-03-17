@@ -10,11 +10,12 @@ type azurerm_purview_account__managed_resources = {
   resource_group_id : string;  (** resource_group_id *)
   storage_account_id : string;  (** storage_account_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_purview_account
 
 val azurerm_purview_account :
+  ?id:string ->
+  ?managed_resource_group_name:string ->
   ?public_network_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_purview_account__timeouts ->

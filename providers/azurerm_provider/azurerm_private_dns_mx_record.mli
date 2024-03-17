@@ -7,6 +7,7 @@ type azurerm_private_dns_mx_record__timeouts
 type azurerm_private_dns_mx_record
 
 val azurerm_private_dns_mx_record :
+  ?id:string ->
   ?name:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_private_dns_mx_record__timeouts ->

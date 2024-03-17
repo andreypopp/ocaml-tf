@@ -59,6 +59,7 @@ type azurerm_virtual_desktop_scaling_plan = {
   description : string option; [@option]  (** description *)
   exclusion_tag : string option; [@option]  (** exclusion_tag *)
   friendly_name : string option; [@option]  (** friendly_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -72,7 +73,7 @@ type azurerm_virtual_desktop_scaling_plan = {
 (** azurerm_virtual_desktop_scaling_plan *)
 
 let azurerm_virtual_desktop_scaling_plan ?description ?exclusion_tag
-    ?friendly_name ?tags ?timeouts ~location ~name
+    ?friendly_name ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~time_zone ~host_pool ~schedule
     __resource_id =
   let __resource_type = "azurerm_virtual_desktop_scaling_plan" in
@@ -81,6 +82,7 @@ let azurerm_virtual_desktop_scaling_plan ?description ?exclusion_tag
       description;
       exclusion_tag;
       friendly_name;
+      id;
       location;
       name;
       resource_group_name;

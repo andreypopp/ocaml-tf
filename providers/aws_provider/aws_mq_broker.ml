@@ -83,20 +83,29 @@ type aws_mq_broker__instances = {
 type aws_mq_broker = {
   apply_immediately : bool option; [@option]
       (** apply_immediately *)
+  authentication_strategy : string option; [@option]
+      (** authentication_strategy *)
   auto_minor_version_upgrade : bool option; [@option]
       (** auto_minor_version_upgrade *)
   broker_name : string;  (** broker_name *)
+  data_replication_mode : string option; [@option]
+      (** data_replication_mode *)
   data_replication_primary_broker_arn : string option; [@option]
       (** data_replication_primary_broker_arn *)
   deployment_mode : string option; [@option]  (** deployment_mode *)
   engine_type : string;  (** engine_type *)
   engine_version : string;  (** engine_version *)
   host_instance_type : string;  (** host_instance_type *)
+  id : string option; [@option]  (** id *)
   publicly_accessible : bool option; [@option]
       (** publicly_accessible *)
   security_groups : string list option; [@option]
       (** security_groups *)
+  storage_type : string option; [@option]  (** storage_type *)
+  subnet_ids : string list option; [@option]  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   configuration : aws_mq_broker__configuration list;
   encryption_options : aws_mq_broker__encryption_options list;
   ldap_server_metadata : aws_mq_broker__ldap_server_metadata list;
@@ -109,26 +118,34 @@ type aws_mq_broker = {
 [@@deriving yojson_of]
 (** aws_mq_broker *)
 
-let aws_mq_broker ?apply_immediately ?auto_minor_version_upgrade
-    ?data_replication_primary_broker_arn ?deployment_mode
-    ?publicly_accessible ?security_groups ?tags ?timeouts
-    ~broker_name ~engine_type ~engine_version ~host_instance_type
-    ~configuration ~encryption_options ~ldap_server_metadata ~logs
+let aws_mq_broker ?apply_immediately ?authentication_strategy
+    ?auto_minor_version_upgrade ?data_replication_mode
+    ?data_replication_primary_broker_arn ?deployment_mode ?id
+    ?publicly_accessible ?security_groups ?storage_type ?subnet_ids
+    ?tags ?tags_all ?timeouts ~broker_name ~engine_type
+    ~engine_version ~host_instance_type ~configuration
+    ~encryption_options ~ldap_server_metadata ~logs
     ~maintenance_window_start_time ~user __resource_id =
   let __resource_type = "aws_mq_broker" in
   let __resource =
     {
       apply_immediately;
+      authentication_strategy;
       auto_minor_version_upgrade;
       broker_name;
+      data_replication_mode;
       data_replication_primary_broker_arn;
       deployment_mode;
       engine_type;
       engine_version;
       host_instance_type;
+      id;
       publicly_accessible;
       security_groups;
+      storage_type;
+      subnet_ids;
       tags;
+      tags_all;
       configuration;
       encryption_options;
       ldap_server_metadata;

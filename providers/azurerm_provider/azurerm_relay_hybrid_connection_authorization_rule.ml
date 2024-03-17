@@ -15,6 +15,7 @@ type azurerm_relay_hybrid_connection_authorization_rule__timeouts = {
 
 type azurerm_relay_hybrid_connection_authorization_rule = {
   hybrid_connection_name : string;  (** hybrid_connection_name *)
+  id : string option; [@option]  (** id *)
   listen : bool option; [@option]  (** listen *)
   manage : bool option; [@option]  (** manage *)
   name : string;  (** name *)
@@ -28,7 +29,7 @@ type azurerm_relay_hybrid_connection_authorization_rule = {
 [@@deriving yojson_of]
 (** azurerm_relay_hybrid_connection_authorization_rule *)
 
-let azurerm_relay_hybrid_connection_authorization_rule ?listen
+let azurerm_relay_hybrid_connection_authorization_rule ?id ?listen
     ?manage ?send ?timeouts ~hybrid_connection_name ~name
     ~namespace_name ~resource_group_name __resource_id =
   let __resource_type =
@@ -37,6 +38,7 @@ let azurerm_relay_hybrid_connection_authorization_rule ?listen
   let __resource =
     {
       hybrid_connection_name;
+      id;
       listen;
       manage;
       name;

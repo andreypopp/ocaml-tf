@@ -34,6 +34,7 @@ type azurerm_mssql_managed_database__timeouts = {
 (** azurerm_mssql_managed_database__timeouts *)
 
 type azurerm_mssql_managed_database = {
+  id : string option; [@option]  (** id *)
   managed_instance_id : string;  (** managed_instance_id *)
   name : string;  (** name *)
   short_term_retention_days : float option; [@option]
@@ -47,12 +48,13 @@ type azurerm_mssql_managed_database = {
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_database *)
 
-let azurerm_mssql_managed_database ?short_term_retention_days
+let azurerm_mssql_managed_database ?id ?short_term_retention_days
     ?timeouts ~managed_instance_id ~name ~long_term_retention_policy
     ~point_in_time_restore __resource_id =
   let __resource_type = "azurerm_mssql_managed_database" in
   let __resource =
     {
+      id;
       managed_instance_id;
       name;
       short_term_retention_days;

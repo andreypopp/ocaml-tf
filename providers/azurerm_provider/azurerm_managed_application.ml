@@ -26,11 +26,16 @@ type azurerm_managed_application__timeouts = {
 type azurerm_managed_application = {
   application_definition_id : string option; [@option]
       (** application_definition_id *)
+  id : string option; [@option]  (** id *)
   kind : string;  (** kind *)
   location : string;  (** location *)
   managed_resource_group_name : string;
       (** managed_resource_group_name *)
   name : string;  (** name *)
+  parameter_values : string option; [@option]
+      (** parameter_values *)
+  parameters : (string * string) list option; [@option]
+      (** parameters *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
   plan : azurerm_managed_application__plan list;
@@ -39,17 +44,21 @@ type azurerm_managed_application = {
 [@@deriving yojson_of]
 (** azurerm_managed_application *)
 
-let azurerm_managed_application ?application_definition_id ?tags
-    ?timeouts ~kind ~location ~managed_resource_group_name ~name
-    ~resource_group_name ~plan __resource_id =
+let azurerm_managed_application ?application_definition_id ?id
+    ?parameter_values ?parameters ?tags ?timeouts ~kind ~location
+    ~managed_resource_group_name ~name ~resource_group_name ~plan
+    __resource_id =
   let __resource_type = "azurerm_managed_application" in
   let __resource =
     {
       application_definition_id;
+      id;
       kind;
       location;
       managed_resource_group_name;
       name;
+      parameter_values;
+      parameters;
       resource_group_name;
       tags;
       plan;

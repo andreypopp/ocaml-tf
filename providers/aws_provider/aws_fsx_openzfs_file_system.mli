@@ -19,12 +19,19 @@ val aws_fsx_openzfs_file_system :
   ?backup_id:string ->
   ?copy_tags_to_backups:bool ->
   ?copy_tags_to_volumes:bool ->
+  ?daily_automatic_backup_start_time:string ->
+  ?endpoint_ip_address_range:string ->
+  ?id:string ->
+  ?kms_key_id:string ->
   ?preferred_subnet_id:string ->
+  ?route_table_ids:string list ->
   ?security_group_ids:string list ->
   ?skip_final_backup:bool ->
   ?storage_capacity:float ->
   ?storage_type:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?weekly_maintenance_start_time:string ->
   ?timeouts:aws_fsx_openzfs_file_system__timeouts ->
   deployment_type:string ->
   subnet_ids:string list ->

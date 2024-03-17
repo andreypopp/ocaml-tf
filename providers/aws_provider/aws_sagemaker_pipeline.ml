@@ -20,6 +20,7 @@ type aws_sagemaker_pipeline__pipeline_definition_s3_location = {
 (** aws_sagemaker_pipeline__pipeline_definition_s3_location *)
 
 type aws_sagemaker_pipeline = {
+  id : string option; [@option]  (** id *)
   pipeline_definition : string option; [@option]
       (** pipeline_definition *)
   pipeline_description : string option; [@option]
@@ -28,6 +29,8 @@ type aws_sagemaker_pipeline = {
   pipeline_name : string;  (** pipeline_name *)
   role_arn : string option; [@option]  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   parallelism_configuration :
     aws_sagemaker_pipeline__parallelism_configuration list;
   pipeline_definition_s3_location :
@@ -36,19 +39,21 @@ type aws_sagemaker_pipeline = {
 [@@deriving yojson_of]
 (** aws_sagemaker_pipeline *)
 
-let aws_sagemaker_pipeline ?pipeline_definition ?pipeline_description
-    ?role_arn ?tags ~pipeline_display_name ~pipeline_name
-    ~parallelism_configuration ~pipeline_definition_s3_location
-    __resource_id =
+let aws_sagemaker_pipeline ?id ?pipeline_definition
+    ?pipeline_description ?role_arn ?tags ?tags_all
+    ~pipeline_display_name ~pipeline_name ~parallelism_configuration
+    ~pipeline_definition_s3_location __resource_id =
   let __resource_type = "aws_sagemaker_pipeline" in
   let __resource =
     {
+      id;
       pipeline_definition;
       pipeline_description;
       pipeline_display_name;
       pipeline_name;
       role_arn;
       tags;
+      tags_all;
       parallelism_configuration;
       pipeline_definition_s3_location;
     }

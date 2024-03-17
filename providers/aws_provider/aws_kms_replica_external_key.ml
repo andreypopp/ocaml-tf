@@ -10,27 +10,37 @@ type aws_kms_replica_external_key = {
   deletion_window_in_days : float option; [@option]
       (** deletion_window_in_days *)
   description : string option; [@option]  (** description *)
+  enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   key_material_base64 : string option; [@option]
       (** key_material_base64 *)
+  policy : string option; [@option]  (** policy *)
   primary_key_arn : string;  (** primary_key_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   valid_to : string option; [@option]  (** valid_to *)
 }
 [@@deriving yojson_of]
 (** aws_kms_replica_external_key *)
 
 let aws_kms_replica_external_key ?bypass_policy_lockout_safety_check
-    ?deletion_window_in_days ?description ?key_material_base64 ?tags
-    ?valid_to ~primary_key_arn __resource_id =
+    ?deletion_window_in_days ?description ?enabled ?id
+    ?key_material_base64 ?policy ?tags ?tags_all ?valid_to
+    ~primary_key_arn __resource_id =
   let __resource_type = "aws_kms_replica_external_key" in
   let __resource =
     {
       bypass_policy_lockout_safety_check;
       deletion_window_in_days;
       description;
+      enabled;
+      id;
       key_material_base64;
+      policy;
       primary_key_arn;
       tags;
+      tags_all;
       valid_to;
     }
   in

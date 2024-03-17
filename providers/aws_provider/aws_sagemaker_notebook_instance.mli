@@ -11,11 +11,15 @@ val aws_sagemaker_notebook_instance :
   ?additional_code_repositories:string list ->
   ?default_code_repository:string ->
   ?direct_internet_access:string ->
+  ?id:string ->
   ?kms_key_id:string ->
   ?lifecycle_config_name:string ->
+  ?platform_identifier:string ->
   ?root_access:string ->
+  ?security_groups:string list ->
   ?subnet_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?volume_size:float ->
   instance_type:string ->
   name:string ->

@@ -60,6 +60,8 @@ type aws_bedrock_custom_model = {
   custom_model_kms_key_id : string option; [@option]
       (** custom_model_kms_key_id *)
   custom_model_name : string;  (** custom_model_name *)
+  customization_type : string option; [@option]
+      (** customization_type *)
   hyperparameters : (string * string) list;  (** hyperparameters *)
   job_name : string;  (** job_name *)
   role_arn : string;  (** role_arn *)
@@ -76,16 +78,18 @@ type aws_bedrock_custom_model = {
 [@@deriving yojson_of]
 (** aws_bedrock_custom_model *)
 
-let aws_bedrock_custom_model ?custom_model_kms_key_id ?tags ?timeouts
-    ~base_model_identifier ~custom_model_name ~hyperparameters
-    ~job_name ~role_arn ~output_data_config ~training_data_config
-    ~validation_data_config ~vpc_config __resource_id =
+let aws_bedrock_custom_model ?custom_model_kms_key_id
+    ?customization_type ?tags ?timeouts ~base_model_identifier
+    ~custom_model_name ~hyperparameters ~job_name ~role_arn
+    ~output_data_config ~training_data_config ~validation_data_config
+    ~vpc_config __resource_id =
   let __resource_type = "aws_bedrock_custom_model" in
   let __resource =
     {
       base_model_identifier;
       custom_model_kms_key_id;
       custom_model_name;
+      customization_type;
       hyperparameters;
       job_name;
       role_arn;

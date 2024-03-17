@@ -94,9 +94,13 @@ type aws_eks_cluster__identity = {
 type aws_eks_cluster = {
   enabled_cluster_log_types : string list option; [@option]
       (** enabled_cluster_log_types *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  version : string option; [@option]  (** version *)
   access_config : aws_eks_cluster__access_config list;
   encryption_config : aws_eks_cluster__encryption_config list;
   kubernetes_network_config :
@@ -108,17 +112,20 @@ type aws_eks_cluster = {
 [@@deriving yojson_of]
 (** aws_eks_cluster *)
 
-let aws_eks_cluster ?enabled_cluster_log_types ?tags ?timeouts ~name
-    ~role_arn ~access_config ~encryption_config
-    ~kubernetes_network_config ~outpost_config ~vpc_config
-    __resource_id =
+let aws_eks_cluster ?enabled_cluster_log_types ?id ?tags ?tags_all
+    ?version ?timeouts ~name ~role_arn ~access_config
+    ~encryption_config ~kubernetes_network_config ~outpost_config
+    ~vpc_config __resource_id =
   let __resource_type = "aws_eks_cluster" in
   let __resource =
     {
       enabled_cluster_log_types;
+      id;
       name;
       role_arn;
       tags;
+      tags_all;
+      version;
       access_config;
       encryption_config;
       kubernetes_network_config;

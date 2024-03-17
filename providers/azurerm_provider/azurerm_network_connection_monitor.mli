@@ -22,7 +22,9 @@ type azurerm_network_connection_monitor__timeouts
 type azurerm_network_connection_monitor
 
 val azurerm_network_connection_monitor :
+  ?id:string ->
   ?notes:string ->
+  ?output_workspace_resource_ids:string list ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_network_connection_monitor__timeouts ->
   location:string ->

@@ -250,6 +250,7 @@ type azurerm_hdinsight_hbase_cluster__timeouts = {
 
 type azurerm_hdinsight_hbase_cluster = {
   cluster_version : string;  (** cluster_version *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -279,15 +280,17 @@ type azurerm_hdinsight_hbase_cluster = {
 [@@deriving yojson_of]
 (** azurerm_hdinsight_hbase_cluster *)
 
-let azurerm_hdinsight_hbase_cluster ?tags ?tls_min_version ?timeouts
-    ~cluster_version ~location ~name ~resource_group_name ~tier
-    ~component_version ~compute_isolation ~disk_encryption ~extension
-    ~gateway ~metastores ~monitor ~network ~roles ~security_profile
-    ~storage_account ~storage_account_gen2 __resource_id =
+let azurerm_hdinsight_hbase_cluster ?id ?tags ?tls_min_version
+    ?timeouts ~cluster_version ~location ~name ~resource_group_name
+    ~tier ~component_version ~compute_isolation ~disk_encryption
+    ~extension ~gateway ~metastores ~monitor ~network ~roles
+    ~security_profile ~storage_account ~storage_account_gen2
+    __resource_id =
   let __resource_type = "azurerm_hdinsight_hbase_cluster" in
   let __resource =
     {
       cluster_version;
+      id;
       location;
       name;
       resource_group_name;

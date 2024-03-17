@@ -25,6 +25,7 @@ type azurerm_mobile_network_sim__timeouts = {
 type azurerm_mobile_network_sim = {
   authentication_key : string;  (** authentication_key *)
   device_type : string option; [@option]  (** device_type *)
+  id : string option; [@option]  (** id *)
   integrated_circuit_card_identifier : string;
       (** integrated_circuit_card_identifier *)
   international_mobile_subscriber_identity : string;
@@ -41,8 +42,8 @@ type azurerm_mobile_network_sim = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_sim *)
 
-let azurerm_mobile_network_sim ?device_type ?sim_policy_id ?timeouts
-    ~authentication_key ~integrated_circuit_card_identifier
+let azurerm_mobile_network_sim ?device_type ?id ?sim_policy_id
+    ?timeouts ~authentication_key ~integrated_circuit_card_identifier
     ~international_mobile_subscriber_identity
     ~mobile_network_sim_group_id ~name ~operator_key_code
     ~static_ip_configuration __resource_id =
@@ -51,6 +52,7 @@ let azurerm_mobile_network_sim ?device_type ?sim_policy_id ?timeouts
     {
       authentication_key;
       device_type;
+      id;
       integrated_circuit_card_identifier;
       international_mobile_subscriber_identity;
       mobile_network_sim_group_id;

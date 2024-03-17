@@ -14,6 +14,7 @@ type google_billing_account_iam_binding__condition = {
 
 type google_billing_account_iam_binding = {
   billing_account_id : string;  (** billing_account_id *)
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   role : string;  (** role *)
   condition : google_billing_account_iam_binding__condition list;
@@ -21,11 +22,11 @@ type google_billing_account_iam_binding = {
 [@@deriving yojson_of]
 (** google_billing_account_iam_binding *)
 
-let google_billing_account_iam_binding ~billing_account_id ~members
-    ~role ~condition __resource_id =
+let google_billing_account_iam_binding ?id ~billing_account_id
+    ~members ~role ~condition __resource_id =
   let __resource_type = "google_billing_account_iam_binding" in
   let __resource =
-    { billing_account_id; members; role; condition }
+    { billing_account_id; id; members; role; condition }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_billing_account_iam_binding __resource);

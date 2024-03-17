@@ -8,6 +8,7 @@ type kubernetes_labels
 val kubernetes_labels :
   ?field_manager:string ->
   ?force:bool ->
+  ?id:string ->
   api_version:string ->
   kind:string ->
   labels:(string * string) list ->

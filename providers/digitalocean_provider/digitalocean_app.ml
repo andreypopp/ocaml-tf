@@ -865,15 +865,17 @@ type digitalocean_app__timeouts = {
 (** digitalocean_app__timeouts *)
 
 type digitalocean_app = {
+  id : string option; [@option]  (** id *)
+  project_id : string option; [@option]  (** project_id *)
   spec : digitalocean_app__spec list;
   timeouts : digitalocean_app__timeouts option;
 }
 [@@deriving yojson_of]
 (** digitalocean_app *)
 
-let digitalocean_app ?timeouts ~spec __resource_id =
+let digitalocean_app ?id ?project_id ?timeouts ~spec __resource_id =
   let __resource_type = "digitalocean_app" in
-  let __resource = { spec; timeouts } in
+  let __resource = { id; project_id; spec; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_app __resource);
   ()

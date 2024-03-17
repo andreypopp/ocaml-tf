@@ -14,6 +14,8 @@ val google_iam_workload_identity_pool_provider :
   ?description:string ->
   ?disabled:bool ->
   ?display_name:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_iam_workload_identity_pool_provider__timeouts ->
   workload_identity_pool_id:string ->
   workload_identity_pool_provider_id:string ->

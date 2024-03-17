@@ -40,6 +40,7 @@ type azurerm_storage_blob_inventory_policy__timeouts = {
 (** azurerm_storage_blob_inventory_policy__timeouts *)
 
 type azurerm_storage_blob_inventory_policy = {
+  id : string option; [@option]  (** id *)
   storage_account_id : string;  (** storage_account_id *)
   rules : azurerm_storage_blob_inventory_policy__rules list;
   timeouts : azurerm_storage_blob_inventory_policy__timeouts option;
@@ -47,10 +48,10 @@ type azurerm_storage_blob_inventory_policy = {
 [@@deriving yojson_of]
 (** azurerm_storage_blob_inventory_policy *)
 
-let azurerm_storage_blob_inventory_policy ?timeouts
+let azurerm_storage_blob_inventory_policy ?id ?timeouts
     ~storage_account_id ~rules __resource_id =
   let __resource_type = "azurerm_storage_blob_inventory_policy" in
-  let __resource = { storage_account_id; rules; timeouts } in
+  let __resource = { id; storage_account_id; rules; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_blob_inventory_policy __resource);
   ()

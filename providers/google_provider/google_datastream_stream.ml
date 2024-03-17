@@ -607,6 +607,7 @@ will be encrypted using an internal Stream-specific encryption key provisioned t
   desired_state : string option; [@option]
       (** Desired state of the Stream. Set this field to 'RUNNING' to start the stream, and 'PAUSED' to pause the stream. *)
   display_name : string;  (** Display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels.
 
@@ -614,6 +615,7 @@ will be encrypted using an internal Stream-specific encryption key provisioned t
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;
       (** The name of the location this stream is located in. *)
+  project : string option; [@option]  (** project *)
   stream_id : string;  (** The stream identifier. *)
   backfill_all : google_datastream_stream__backfill_all list;
   backfill_none : google_datastream_stream__backfill_none list;
@@ -626,17 +628,19 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_datastream_stream *)
 
 let google_datastream_stream ?customer_managed_encryption_key
-    ?desired_state ?labels ?timeouts ~display_name ~location
-    ~stream_id ~backfill_all ~backfill_none ~destination_config
-    ~source_config __resource_id =
+    ?desired_state ?id ?labels ?project ?timeouts ~display_name
+    ~location ~stream_id ~backfill_all ~backfill_none
+    ~destination_config ~source_config __resource_id =
   let __resource_type = "google_datastream_stream" in
   let __resource =
     {
       customer_managed_encryption_key;
       desired_state;
       display_name;
+      id;
       labels;
       location;
+      project;
       stream_id;
       backfill_all;
       backfill_none;

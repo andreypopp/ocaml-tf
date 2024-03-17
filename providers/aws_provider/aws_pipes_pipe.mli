@@ -98,7 +98,11 @@ val aws_pipes_pipe :
   ?description:string ->
   ?desired_state:string ->
   ?enrichment:string ->
+  ?id:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_pipes_pipe__timeouts ->
   role_arn:string ->
   source:string ->

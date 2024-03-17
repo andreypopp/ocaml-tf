@@ -6,6 +6,7 @@ type azurerm_application_security_group__timeouts
 type azurerm_application_security_group
 
 val azurerm_application_security_group :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_application_security_group__timeouts ->
   location:string ->

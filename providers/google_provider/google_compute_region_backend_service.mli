@@ -34,9 +34,16 @@ val google_compute_region_backend_service :
   ?description:string ->
   ?enable_cdn:bool ->
   ?health_checks:string list ->
+  ?id:string ->
   ?load_balancing_scheme:string ->
   ?locality_lb_policy:string ->
   ?network:string ->
+  ?port_name:string ->
+  ?project:string ->
+  ?protocol:string ->
+  ?region:string ->
+  ?session_affinity:string ->
+  ?timeout_sec:float ->
   ?timeouts:google_compute_region_backend_service__timeouts ->
   name:string ->
   backend:google_compute_region_backend_service__backend list ->

@@ -6,6 +6,7 @@ type azurerm_mssql_virtual_network_rule__timeouts
 type azurerm_mssql_virtual_network_rule
 
 val azurerm_mssql_virtual_network_rule :
+  ?id:string ->
   ?ignore_missing_vnet_service_endpoint:bool ->
   ?timeouts:azurerm_mssql_virtual_network_rule__timeouts ->
   name:string ->

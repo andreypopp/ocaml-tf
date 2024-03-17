@@ -82,6 +82,7 @@ type kubernetes_endpoint_slice_v1__port = {
 type kubernetes_endpoint_slice_v1 = {
   address_type : string;
       (** address_type specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. *)
+  id : string option; [@option]  (** id *)
   endpoint : kubernetes_endpoint_slice_v1__endpoint list;
   metadata : kubernetes_endpoint_slice_v1__metadata list;
   port : kubernetes_endpoint_slice_v1__port list;
@@ -89,10 +90,10 @@ type kubernetes_endpoint_slice_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_endpoint_slice_v1 *)
 
-let kubernetes_endpoint_slice_v1 ~address_type ~endpoint ~metadata
-    ~port __resource_id =
+let kubernetes_endpoint_slice_v1 ?id ~address_type ~endpoint
+    ~metadata ~port __resource_id =
   let __resource_type = "kubernetes_endpoint_slice_v1" in
-  let __resource = { address_type; endpoint; metadata; port } in
+  let __resource = { address_type; id; endpoint; metadata; port } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_endpoint_slice_v1 __resource);
   ()

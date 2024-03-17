@@ -22,6 +22,7 @@ val azurerm_data_factory_dataset_delimited_text :
   ?escape_character:string ->
   ?first_row_as_header:bool ->
   ?folder:string ->
+  ?id:string ->
   ?null_value:string ->
   ?parameters:(string * string) list ->
   ?quote_character:string ->

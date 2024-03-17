@@ -24,18 +24,21 @@ type aws_batch_scheduling_policy__fair_share_policy = {
 (** aws_batch_scheduling_policy__fair_share_policy *)
 
 type aws_batch_scheduling_policy = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   fair_share_policy :
     aws_batch_scheduling_policy__fair_share_policy list;
 }
 [@@deriving yojson_of]
 (** aws_batch_scheduling_policy *)
 
-let aws_batch_scheduling_policy ?tags ~name ~fair_share_policy
-    __resource_id =
+let aws_batch_scheduling_policy ?id ?tags ?tags_all ~name
+    ~fair_share_policy __resource_id =
   let __resource_type = "aws_batch_scheduling_policy" in
-  let __resource = { name; tags; fair_share_policy } in
+  let __resource = { id; name; tags; tags_all; fair_share_policy } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_batch_scheduling_policy __resource);
   ()

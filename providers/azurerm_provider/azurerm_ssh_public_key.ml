@@ -14,6 +14,7 @@ type azurerm_ssh_public_key__timeouts = {
 (** azurerm_ssh_public_key__timeouts *)
 
 type azurerm_ssh_public_key = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_key : string;  (** public_key *)
@@ -24,11 +25,12 @@ type azurerm_ssh_public_key = {
 [@@deriving yojson_of]
 (** azurerm_ssh_public_key *)
 
-let azurerm_ssh_public_key ?tags ?timeouts ~location ~name
+let azurerm_ssh_public_key ?id ?tags ?timeouts ~location ~name
     ~public_key ~resource_group_name __resource_id =
   let __resource_type = "azurerm_ssh_public_key" in
   let __resource =
     {
+      id;
       location;
       name;
       public_key;

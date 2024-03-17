@@ -23,6 +23,7 @@ type azurerm_digital_twins_instance__timeouts = {
 (** azurerm_digital_twins_instance__timeouts *)
 
 type azurerm_digital_twins_instance = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -33,11 +34,19 @@ type azurerm_digital_twins_instance = {
 [@@deriving yojson_of]
 (** azurerm_digital_twins_instance *)
 
-let azurerm_digital_twins_instance ?tags ?timeouts ~location ~name
-    ~resource_group_name ~identity __resource_id =
+let azurerm_digital_twins_instance ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_digital_twins_instance" in
   let __resource =
-    { location; name; resource_group_name; tags; identity; timeouts }
+    {
+      id;
+      location;
+      name;
+      resource_group_name;
+      tags;
+      identity;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_digital_twins_instance __resource);

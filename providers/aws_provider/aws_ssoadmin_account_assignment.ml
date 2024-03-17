@@ -12,6 +12,7 @@ type aws_ssoadmin_account_assignment__timeouts = {
 (** aws_ssoadmin_account_assignment__timeouts *)
 
 type aws_ssoadmin_account_assignment = {
+  id : string option; [@option]  (** id *)
   instance_arn : string;  (** instance_arn *)
   permission_set_arn : string;  (** permission_set_arn *)
   principal_id : string;  (** principal_id *)
@@ -23,12 +24,13 @@ type aws_ssoadmin_account_assignment = {
 [@@deriving yojson_of]
 (** aws_ssoadmin_account_assignment *)
 
-let aws_ssoadmin_account_assignment ?target_type ?timeouts
+let aws_ssoadmin_account_assignment ?id ?target_type ?timeouts
     ~instance_arn ~permission_set_arn ~principal_id ~principal_type
     ~target_id __resource_id =
   let __resource_type = "aws_ssoadmin_account_assignment" in
   let __resource =
     {
+      id;
       instance_arn;
       permission_set_arn;
       principal_id;

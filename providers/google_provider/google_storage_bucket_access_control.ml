@@ -30,6 +30,7 @@ Examples:
   group-example@googlegroups.com.
   To refer to all members of the Google Apps for Business domain
   example.com, the entity would be domain-example.com. *)
+  id : string option; [@option]  (** id *)
   role : string option; [@option]
       (** The access permission for the entity. Possible values: [OWNER, READER, WRITER] *)
   timeouts : google_storage_bucket_access_control__timeouts option;
@@ -37,10 +38,10 @@ Examples:
 [@@deriving yojson_of]
 (** google_storage_bucket_access_control *)
 
-let google_storage_bucket_access_control ?role ?timeouts ~bucket
+let google_storage_bucket_access_control ?id ?role ?timeouts ~bucket
     ~entity __resource_id =
   let __resource_type = "google_storage_bucket_access_control" in
-  let __resource = { bucket; entity; role; timeouts } in
+  let __resource = { bucket; entity; id; role; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_bucket_access_control __resource);
   ()

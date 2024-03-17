@@ -14,6 +14,13 @@ val google_compute_router_peer :
   ?advertised_route_priority:float ->
   ?enable:bool ->
   ?enable_ipv6:bool ->
+  ?id:string ->
+  ?ip_address:string ->
+  ?ipv6_nexthop_address:string ->
+  ?peer_ip_address:string ->
+  ?peer_ipv6_nexthop_address:string ->
+  ?project:string ->
+  ?region:string ->
   ?router_appliance_instance:string ->
   ?timeouts:google_compute_router_peer__timeouts ->
   interface:string ->

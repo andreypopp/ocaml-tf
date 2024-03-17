@@ -39,9 +39,12 @@ type aws_cloudwatch_metric_alarm = {
       (** datapoints_to_alarm *)
   dimensions : (string * string) list option; [@option]
       (** dimensions *)
+  evaluate_low_sample_count_percentiles : string option; [@option]
+      (** evaluate_low_sample_count_percentiles *)
   evaluation_periods : float;  (** evaluation_periods *)
   extended_statistic : string option; [@option]
       (** extended_statistic *)
+  id : string option; [@option]  (** id *)
   insufficient_data_actions : string list option; [@option]
       (** insufficient_data_actions *)
   metric_name : string option; [@option]  (** metric_name *)
@@ -50,6 +53,8 @@ type aws_cloudwatch_metric_alarm = {
   period : float option; [@option]  (** period *)
   statistic : string option; [@option]  (** statistic *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   threshold : float option; [@option]  (** threshold *)
   threshold_metric_id : string option; [@option]
       (** threshold_metric_id *)
@@ -63,8 +68,9 @@ type aws_cloudwatch_metric_alarm = {
 
 let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
     ?alarm_description ?datapoints_to_alarm ?dimensions
-    ?extended_statistic ?insufficient_data_actions ?metric_name
-    ?namespace ?ok_actions ?period ?statistic ?tags ?threshold
+    ?evaluate_low_sample_count_percentiles ?extended_statistic ?id
+    ?insufficient_data_actions ?metric_name ?namespace ?ok_actions
+    ?period ?statistic ?tags ?tags_all ?threshold
     ?threshold_metric_id ?treat_missing_data ?unit ~alarm_name
     ~comparison_operator ~evaluation_periods ~metric_query
     __resource_id =
@@ -78,8 +84,10 @@ let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
       comparison_operator;
       datapoints_to_alarm;
       dimensions;
+      evaluate_low_sample_count_percentiles;
       evaluation_periods;
       extended_statistic;
+      id;
       insufficient_data_actions;
       metric_name;
       namespace;
@@ -87,6 +95,7 @@ let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
       period;
       statistic;
       tags;
+      tags_all;
       threshold;
       threshold_metric_id;
       treat_missing_data;

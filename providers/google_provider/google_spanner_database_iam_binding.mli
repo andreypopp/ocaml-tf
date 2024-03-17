@@ -6,6 +6,8 @@ type google_spanner_database_iam_binding__condition
 type google_spanner_database_iam_binding
 
 val google_spanner_database_iam_binding :
+  ?id:string ->
+  ?project:string ->
   database:string ->
   instance:string ->
   members:string list ->

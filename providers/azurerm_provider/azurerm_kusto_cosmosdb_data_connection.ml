@@ -14,6 +14,7 @@ type azurerm_kusto_cosmosdb_data_connection__timeouts = {
 
 type azurerm_kusto_cosmosdb_data_connection = {
   cosmosdb_container_id : string;  (** cosmosdb_container_id *)
+  id : string option; [@option]  (** id *)
   kusto_database_id : string;  (** kusto_database_id *)
   location : string;  (** location *)
   managed_identity_id : string;  (** managed_identity_id *)
@@ -28,7 +29,7 @@ type azurerm_kusto_cosmosdb_data_connection = {
 [@@deriving yojson_of]
 (** azurerm_kusto_cosmosdb_data_connection *)
 
-let azurerm_kusto_cosmosdb_data_connection ?mapping_rule_name
+let azurerm_kusto_cosmosdb_data_connection ?id ?mapping_rule_name
     ?retrieval_start_date ?timeouts ~cosmosdb_container_id
     ~kusto_database_id ~location ~managed_identity_id ~name
     ~table_name __resource_id =
@@ -36,6 +37,7 @@ let azurerm_kusto_cosmosdb_data_connection ?mapping_rule_name
   let __resource =
     {
       cosmosdb_container_id;
+      id;
       kusto_database_id;
       location;
       managed_identity_id;

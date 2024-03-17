@@ -92,9 +92,12 @@ type aws_datasync_task = {
   cloudwatch_log_group_arn : string option; [@option]
       (** cloudwatch_log_group_arn *)
   destination_location_arn : string;  (** destination_location_arn *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   source_location_arn : string;  (** source_location_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   excludes : aws_datasync_task__excludes list;
   includes : aws_datasync_task__includes list;
   options : aws_datasync_task__options list;
@@ -105,17 +108,20 @@ type aws_datasync_task = {
 [@@deriving yojson_of]
 (** aws_datasync_task *)
 
-let aws_datasync_task ?cloudwatch_log_group_arn ?name ?tags ?timeouts
-    ~destination_location_arn ~source_location_arn ~excludes
-    ~includes ~options ~schedule ~task_report_config __resource_id =
+let aws_datasync_task ?cloudwatch_log_group_arn ?id ?name ?tags
+    ?tags_all ?timeouts ~destination_location_arn
+    ~source_location_arn ~excludes ~includes ~options ~schedule
+    ~task_report_config __resource_id =
   let __resource_type = "aws_datasync_task" in
   let __resource =
     {
       cloudwatch_log_group_arn;
       destination_location_arn;
+      id;
       name;
       source_location_arn;
       tags;
+      tags_all;
       excludes;
       includes;
       options;

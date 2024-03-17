@@ -9,7 +9,9 @@ val azurerm_sentinel_alert_rule_ms_security_incident :
   ?alert_rule_template_guid:string ->
   ?description:string ->
   ?display_name_exclude_filter:string list ->
+  ?display_name_filter:string list ->
   ?enabled:bool ->
+  ?id:string ->
   ?timeouts:
     azurerm_sentinel_alert_rule_ms_security_incident__timeouts ->
   display_name:string ->

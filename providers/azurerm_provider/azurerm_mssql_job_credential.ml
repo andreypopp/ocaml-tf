@@ -14,6 +14,7 @@ type azurerm_mssql_job_credential__timeouts = {
 (** azurerm_mssql_job_credential__timeouts *)
 
 type azurerm_mssql_job_credential = {
+  id : string option; [@option]  (** id *)
   job_agent_id : string;  (** job_agent_id *)
   name : string;  (** name *)
   password : string;  (** password *)
@@ -23,11 +24,11 @@ type azurerm_mssql_job_credential = {
 [@@deriving yojson_of]
 (** azurerm_mssql_job_credential *)
 
-let azurerm_mssql_job_credential ?timeouts ~job_agent_id ~name
+let azurerm_mssql_job_credential ?id ?timeouts ~job_agent_id ~name
     ~password ~username __resource_id =
   let __resource_type = "azurerm_mssql_job_credential" in
   let __resource =
-    { job_agent_id; name; password; username; timeouts }
+    { id; job_agent_id; name; password; username; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_job_credential __resource);

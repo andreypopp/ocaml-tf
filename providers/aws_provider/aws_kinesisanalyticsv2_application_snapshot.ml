@@ -13,6 +13,7 @@ type aws_kinesisanalyticsv2_application_snapshot__timeouts = {
 
 type aws_kinesisanalyticsv2_application_snapshot = {
   application_name : string;  (** application_name *)
+  id : string option; [@option]  (** id *)
   snapshot_name : string;  (** snapshot_name *)
   timeouts :
     aws_kinesisanalyticsv2_application_snapshot__timeouts option;
@@ -20,12 +21,14 @@ type aws_kinesisanalyticsv2_application_snapshot = {
 [@@deriving yojson_of]
 (** aws_kinesisanalyticsv2_application_snapshot *)
 
-let aws_kinesisanalyticsv2_application_snapshot ?timeouts
+let aws_kinesisanalyticsv2_application_snapshot ?id ?timeouts
     ~application_name ~snapshot_name __resource_id =
   let __resource_type =
     "aws_kinesisanalyticsv2_application_snapshot"
   in
-  let __resource = { application_name; snapshot_name; timeouts } in
+  let __resource =
+    { application_name; id; snapshot_name; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_kinesisanalyticsv2_application_snapshot __resource);
   ()

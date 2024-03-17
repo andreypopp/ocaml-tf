@@ -16,6 +16,7 @@ type azurerm_log_analytics_storage_insights__timeouts = {
 type azurerm_log_analytics_storage_insights = {
   blob_container_names : string list option; [@option]
       (** blob_container_names *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   storage_account_id : string;  (** storage_account_id *)
@@ -27,7 +28,7 @@ type azurerm_log_analytics_storage_insights = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_storage_insights *)
 
-let azurerm_log_analytics_storage_insights ?blob_container_names
+let azurerm_log_analytics_storage_insights ?blob_container_names ?id
     ?table_names ?timeouts ~name ~resource_group_name
     ~storage_account_id ~storage_account_key ~workspace_id
     __resource_id =
@@ -35,6 +36,7 @@ let azurerm_log_analytics_storage_insights ?blob_container_names
   let __resource =
     {
       blob_container_names;
+      id;
       name;
       resource_group_name;
       storage_account_id;

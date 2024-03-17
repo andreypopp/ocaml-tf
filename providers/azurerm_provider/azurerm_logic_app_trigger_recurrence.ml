@@ -25,27 +25,31 @@ type azurerm_logic_app_trigger_recurrence__timeouts = {
 
 type azurerm_logic_app_trigger_recurrence = {
   frequency : string;  (** frequency *)
+  id : string option; [@option]  (** id *)
   interval : float;  (** interval *)
   logic_app_id : string;  (** logic_app_id *)
   name : string;  (** name *)
   start_time : string option; [@option]  (** start_time *)
+  time_zone : string option; [@option]  (** time_zone *)
   schedule : azurerm_logic_app_trigger_recurrence__schedule list;
   timeouts : azurerm_logic_app_trigger_recurrence__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_trigger_recurrence *)
 
-let azurerm_logic_app_trigger_recurrence ?start_time ?timeouts
-    ~frequency ~interval ~logic_app_id ~name ~schedule __resource_id
-    =
+let azurerm_logic_app_trigger_recurrence ?id ?start_time ?time_zone
+    ?timeouts ~frequency ~interval ~logic_app_id ~name ~schedule
+    __resource_id =
   let __resource_type = "azurerm_logic_app_trigger_recurrence" in
   let __resource =
     {
       frequency;
+      id;
       interval;
       logic_app_id;
       name;
       start_time;
+      time_zone;
       schedule;
       timeouts;
     }

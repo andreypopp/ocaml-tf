@@ -37,12 +37,16 @@ type azurerm_virtual_network__subnet = {
 type azurerm_virtual_network = {
   address_space : string list;  (** address_space *)
   bgp_community : string option; [@option]  (** bgp_community *)
+  dns_servers : string list option; [@option]  (** dns_servers *)
   edge_zone : string option; [@option]  (** edge_zone *)
   flow_timeout_in_minutes : float option; [@option]
       (** flow_timeout_in_minutes *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
+  subnet : azurerm_virtual_network__subnet list option; [@option]
+      (** subnet *)
   tags : (string * string) list option; [@option]  (** tags *)
   ddos_protection_plan :
     azurerm_virtual_network__ddos_protection_plan list;
@@ -52,20 +56,23 @@ type azurerm_virtual_network = {
 [@@deriving yojson_of]
 (** azurerm_virtual_network *)
 
-let azurerm_virtual_network ?bgp_community ?edge_zone
-    ?flow_timeout_in_minutes ?tags ?timeouts ~address_space ~location
-    ~name ~resource_group_name ~ddos_protection_plan ~encryption
-    __resource_id =
+let azurerm_virtual_network ?bgp_community ?dns_servers ?edge_zone
+    ?flow_timeout_in_minutes ?id ?subnet ?tags ?timeouts
+    ~address_space ~location ~name ~resource_group_name
+    ~ddos_protection_plan ~encryption __resource_id =
   let __resource_type = "azurerm_virtual_network" in
   let __resource =
     {
       address_space;
       bgp_community;
+      dns_servers;
       edge_zone;
       flow_timeout_in_minutes;
+      id;
       location;
       name;
       resource_group_name;
+      subnet;
       tags;
       ddos_protection_plan;
       encryption;

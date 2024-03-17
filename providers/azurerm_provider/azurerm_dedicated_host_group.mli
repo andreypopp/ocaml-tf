@@ -7,6 +7,7 @@ type azurerm_dedicated_host_group
 
 val azurerm_dedicated_host_group :
   ?automatic_placement_enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?zone:string ->
   ?timeouts:azurerm_dedicated_host_group__timeouts ->

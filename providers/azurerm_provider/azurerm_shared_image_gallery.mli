@@ -9,6 +9,7 @@ type azurerm_shared_image_gallery
 
 val azurerm_shared_image_gallery :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_shared_image_gallery__timeouts ->
   location:string ->

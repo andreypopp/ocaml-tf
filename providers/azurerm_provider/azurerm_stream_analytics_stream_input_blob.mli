@@ -7,6 +7,7 @@ type azurerm_stream_analytics_stream_input_blob__timeouts
 type azurerm_stream_analytics_stream_input_blob
 
 val azurerm_stream_analytics_stream_input_blob :
+  ?id:string ->
   ?timeouts:azurerm_stream_analytics_stream_input_blob__timeouts ->
   date_format:string ->
   name:string ->

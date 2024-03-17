@@ -12,6 +12,7 @@ type azurerm_vpn_gateway_connection__vpn_link
 type azurerm_vpn_gateway_connection
 
 val azurerm_vpn_gateway_connection :
+  ?id:string ->
   ?internet_security_enabled:bool ->
   ?timeouts:azurerm_vpn_gateway_connection__timeouts ->
   name:string ->

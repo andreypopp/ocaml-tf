@@ -12,7 +12,9 @@ val aws_cloudwatch_metric_alarm :
   ?alarm_description:string ->
   ?datapoints_to_alarm:float ->
   ?dimensions:(string * string) list ->
+  ?evaluate_low_sample_count_percentiles:string ->
   ?extended_statistic:string ->
+  ?id:string ->
   ?insufficient_data_actions:string list ->
   ?metric_name:string ->
   ?namespace:string ->
@@ -20,6 +22,7 @@ val aws_cloudwatch_metric_alarm :
   ?period:float ->
   ?statistic:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?threshold:float ->
   ?threshold_metric_id:string ->
   ?treat_missing_data:string ->

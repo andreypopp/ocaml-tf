@@ -22,6 +22,7 @@ type azurerm_monitor_log_profile__timeouts = {
 
 type azurerm_monitor_log_profile = {
   categories : string list;  (** categories *)
+  id : string option; [@option]  (** id *)
   locations : string list;  (** locations *)
   name : string;  (** name *)
   servicebus_rule_id : string option; [@option]
@@ -35,13 +36,14 @@ type azurerm_monitor_log_profile = {
 [@@deriving yojson_of]
 (** azurerm_monitor_log_profile *)
 
-let azurerm_monitor_log_profile ?servicebus_rule_id
+let azurerm_monitor_log_profile ?id ?servicebus_rule_id
     ?storage_account_id ?timeouts ~categories ~locations ~name
     ~retention_policy __resource_id =
   let __resource_type = "azurerm_monitor_log_profile" in
   let __resource =
     {
       categories;
+      id;
       locations;
       name;
       servicebus_rule_id;

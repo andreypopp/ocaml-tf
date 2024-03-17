@@ -29,10 +29,17 @@ type aws_globalaccelerator_endpoint_group__timeouts = {
 (** aws_globalaccelerator_endpoint_group__timeouts *)
 
 type aws_globalaccelerator_endpoint_group = {
+  endpoint_group_region : string option; [@option]
+      (** endpoint_group_region *)
   health_check_interval_seconds : float option; [@option]
       (** health_check_interval_seconds *)
+  health_check_path : string option; [@option]
+      (** health_check_path *)
+  health_check_port : float option; [@option]
+      (** health_check_port *)
   health_check_protocol : string option; [@option]
       (** health_check_protocol *)
+  id : string option; [@option]  (** id *)
   listener_arn : string;  (** listener_arn *)
   threshold_count : float option; [@option]  (** threshold_count *)
   traffic_dial_percentage : float option; [@option]
@@ -46,15 +53,20 @@ type aws_globalaccelerator_endpoint_group = {
 [@@deriving yojson_of]
 (** aws_globalaccelerator_endpoint_group *)
 
-let aws_globalaccelerator_endpoint_group
-    ?health_check_interval_seconds ?health_check_protocol
-    ?threshold_count ?traffic_dial_percentage ?timeouts ~listener_arn
+let aws_globalaccelerator_endpoint_group ?endpoint_group_region
+    ?health_check_interval_seconds ?health_check_path
+    ?health_check_port ?health_check_protocol ?id ?threshold_count
+    ?traffic_dial_percentage ?timeouts ~listener_arn
     ~endpoint_configuration ~port_override __resource_id =
   let __resource_type = "aws_globalaccelerator_endpoint_group" in
   let __resource =
     {
+      endpoint_group_region;
       health_check_interval_seconds;
+      health_check_path;
+      health_check_port;
       health_check_protocol;
+      id;
       listener_arn;
       threshold_count;
       traffic_dial_percentage;

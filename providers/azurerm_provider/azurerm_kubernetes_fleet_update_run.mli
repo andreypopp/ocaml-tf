@@ -14,6 +14,7 @@ type azurerm_kubernetes_fleet_update_run
 
 val azurerm_kubernetes_fleet_update_run :
   ?fleet_update_strategy_id:string ->
+  ?id:string ->
   ?timeouts:azurerm_kubernetes_fleet_update_run__timeouts ->
   kubernetes_fleet_manager_id:string ->
   name:string ->

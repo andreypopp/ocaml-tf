@@ -16,6 +16,7 @@ type aws_config_conformance_pack = {
       (** delivery_s3_bucket *)
   delivery_s3_key_prefix : string option; [@option]
       (** delivery_s3_key_prefix *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   template_body : string option; [@option]  (** template_body *)
   template_s3_uri : string option; [@option]  (** template_s3_uri *)
@@ -25,13 +26,14 @@ type aws_config_conformance_pack = {
 (** aws_config_conformance_pack *)
 
 let aws_config_conformance_pack ?delivery_s3_bucket
-    ?delivery_s3_key_prefix ?template_body ?template_s3_uri ~name
+    ?delivery_s3_key_prefix ?id ?template_body ?template_s3_uri ~name
     ~input_parameter __resource_id =
   let __resource_type = "aws_config_conformance_pack" in
   let __resource =
     {
       delivery_s3_bucket;
       delivery_s3_key_prefix;
+      id;
       name;
       template_body;
       template_s3_uri;

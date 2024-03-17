@@ -15,23 +15,21 @@ type kubernetes_ingress__status__load_balancer__ingress = {
   hostname : string;  (** hostname *)
   ip : string;  (** ip *)
 }
-[@@deriving yojson_of]
 
 type kubernetes_ingress__status__load_balancer = {
   ingress : kubernetes_ingress__status__load_balancer__ingress list;
       (** ingress *)
 }
-[@@deriving yojson_of]
 
 type kubernetes_ingress__status = {
   load_balancer : kubernetes_ingress__status__load_balancer list;
       (** load_balancer *)
 }
-[@@deriving yojson_of]
 
 type kubernetes_ingress
 
 val kubernetes_ingress :
+  ?id:string ->
   ?wait_for_load_balancer:bool ->
   metadata:kubernetes_ingress__metadata list ->
   spec:kubernetes_ingress__spec list ->

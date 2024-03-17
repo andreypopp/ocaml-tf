@@ -26,15 +26,17 @@ type aws_quicksight_refresh_schedule__schedule = {
 (** aws_quicksight_refresh_schedule__schedule *)
 
 type aws_quicksight_refresh_schedule = {
+  aws_account_id: string option; [@option] (** aws_account_id *)
   data_set_id: string;  (** data_set_id *)
   schedule_id: string;  (** schedule_id *)
   schedule: aws_quicksight_refresh_schedule__schedule list;
 } [@@deriving yojson_of]
 (** aws_quicksight_refresh_schedule *)
 
-let aws_quicksight_refresh_schedule   ~data_set_id ~schedule_id ~schedule __resource_id =
+let aws_quicksight_refresh_schedule ?aws_account_id  ~data_set_id ~schedule_id ~schedule __resource_id =
   let __resource_type = "aws_quicksight_refresh_schedule" in
   let __resource = {
+    aws_account_id;
     data_set_id;
     schedule_id;
     schedule;

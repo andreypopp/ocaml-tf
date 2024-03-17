@@ -16,6 +16,7 @@ type azurerm_container_registry_token__timeouts = {
 type azurerm_container_registry_token = {
   container_registry_name : string;  (** container_registry_name *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   scope_map_id : string;  (** scope_map_id *)
@@ -24,7 +25,7 @@ type azurerm_container_registry_token = {
 [@@deriving yojson_of]
 (** azurerm_container_registry_token *)
 
-let azurerm_container_registry_token ?enabled ?timeouts
+let azurerm_container_registry_token ?enabled ?id ?timeouts
     ~container_registry_name ~name ~resource_group_name ~scope_map_id
     __resource_id =
   let __resource_type = "azurerm_container_registry_token" in
@@ -32,6 +33,7 @@ let azurerm_container_registry_token ?enabled ?timeouts
     {
       container_registry_name;
       enabled;
+      id;
       name;
       resource_group_name;
       scope_map_id;

@@ -14,6 +14,7 @@ type google_kms_crypto_key_iam_member__condition = {
 
 type google_kms_crypto_key_iam_member = {
   crypto_key_id : string;  (** crypto_key_id *)
+  id : string option; [@option]  (** id *)
   member : string;  (** member *)
   role : string;  (** role *)
   condition : google_kms_crypto_key_iam_member__condition list;
@@ -21,10 +22,10 @@ type google_kms_crypto_key_iam_member = {
 [@@deriving yojson_of]
 (** google_kms_crypto_key_iam_member *)
 
-let google_kms_crypto_key_iam_member ~crypto_key_id ~member ~role
+let google_kms_crypto_key_iam_member ?id ~crypto_key_id ~member ~role
     ~condition __resource_id =
   let __resource_type = "google_kms_crypto_key_iam_member" in
-  let __resource = { crypto_key_id; member; role; condition } in
+  let __resource = { crypto_key_id; id; member; role; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_crypto_key_iam_member __resource);
   ()

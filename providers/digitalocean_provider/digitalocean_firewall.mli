@@ -10,12 +10,12 @@ type digitalocean_firewall__pending_changes = {
   removing : bool;  (** removing *)
   status : string;  (** status *)
 }
-[@@deriving yojson_of]
 
 type digitalocean_firewall
 
 val digitalocean_firewall :
   ?droplet_ids:float list ->
+  ?id:string ->
   ?tags:string list ->
   name:string ->
   inbound_rule:digitalocean_firewall__inbound_rule list ->

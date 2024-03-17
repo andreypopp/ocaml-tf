@@ -18,6 +18,7 @@ type cloudflare_fallback_domain__domains = {
 type cloudflare_fallback_domain = {
   account_id : string;
       (** The account identifier to target for the resource. *)
+  id : string option; [@option]  (** id *)
   policy_id : string option; [@option]
       (** The settings policy for which to configure this fallback domain policy. *)
   domains : cloudflare_fallback_domain__domains list;
@@ -29,10 +30,10 @@ requests will be passed back to other DNS servers configured on
 existing network interfaces on the device.
  *)
 
-let cloudflare_fallback_domain ?policy_id ~account_id ~domains
+let cloudflare_fallback_domain ?id ?policy_id ~account_id ~domains
     __resource_id =
   let __resource_type = "cloudflare_fallback_domain" in
-  let __resource = { account_id; policy_id; domains } in
+  let __resource = { account_id; id; policy_id; domains } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_fallback_domain __resource);
   ()

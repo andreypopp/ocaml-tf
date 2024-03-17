@@ -6,6 +6,7 @@ type azurerm_automation_dsc_nodeconfiguration__timeouts
 type azurerm_automation_dsc_nodeconfiguration
 
 val azurerm_automation_dsc_nodeconfiguration :
+  ?id:string ->
   ?timeouts:azurerm_automation_dsc_nodeconfiguration__timeouts ->
   automation_account_name:string ->
   content_embedded:string ->

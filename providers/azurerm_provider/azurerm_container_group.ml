@@ -245,6 +245,10 @@ type azurerm_container_group = {
   dns_name_label : string option; [@option]  (** dns_name_label *)
   dns_name_label_reuse_policy : string option; [@option]
       (** dns_name_label_reuse_policy *)
+  exposed_port : azurerm_container_group__exposed_port list option;
+      [@option]
+      (** exposed_port *)
+  id : string option; [@option]  (** id *)
   ip_address_type : string option; [@option]  (** ip_address_type *)
   key_vault_key_id : string option; [@option]
       (** key_vault_key_id *)
@@ -252,6 +256,8 @@ type azurerm_container_group = {
       (** key_vault_user_assigned_identity_id *)
   location : string;  (** location *)
   name : string;  (** name *)
+  network_profile_id : string option; [@option]
+      (** network_profile_id *)
   os_type : string;  (** os_type *)
   priority : string option; [@option]  (** priority *)
   resource_group_name : string;  (** resource_group_name *)
@@ -273,9 +279,10 @@ type azurerm_container_group = {
 (** azurerm_container_group *)
 
 let azurerm_container_group ?dns_name_label
-    ?dns_name_label_reuse_policy ?ip_address_type ?key_vault_key_id
-    ?key_vault_user_assigned_identity_id ?priority ?restart_policy
-    ?sku ?subnet_ids ?tags ?zones ?timeouts ~location ~name ~os_type
+    ?dns_name_label_reuse_policy ?exposed_port ?id ?ip_address_type
+    ?key_vault_key_id ?key_vault_user_assigned_identity_id
+    ?network_profile_id ?priority ?restart_policy ?sku ?subnet_ids
+    ?tags ?zones ?timeouts ~location ~name ~os_type
     ~resource_group_name ~container ~diagnostics ~dns_config
     ~identity ~image_registry_credential ~init_container
     __resource_id =
@@ -284,11 +291,14 @@ let azurerm_container_group ?dns_name_label
     {
       dns_name_label;
       dns_name_label_reuse_policy;
+      exposed_port;
+      id;
       ip_address_type;
       key_vault_key_id;
       key_vault_user_assigned_identity_id;
       location;
       name;
+      network_profile_id;
       os_type;
       priority;
       resource_group_name;

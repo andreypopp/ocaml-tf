@@ -16,6 +16,7 @@ type azurerm_iothub_dps_shared_access_policy__timeouts = {
 type azurerm_iothub_dps_shared_access_policy = {
   enrollment_read : bool option; [@option]  (** enrollment_read *)
   enrollment_write : bool option; [@option]  (** enrollment_write *)
+  id : string option; [@option]  (** id *)
   iothub_dps_name : string;  (** iothub_dps_name *)
   name : string;  (** name *)
   registration_read : bool option; [@option]
@@ -30,7 +31,7 @@ type azurerm_iothub_dps_shared_access_policy = {
 (** azurerm_iothub_dps_shared_access_policy *)
 
 let azurerm_iothub_dps_shared_access_policy ?enrollment_read
-    ?enrollment_write ?registration_read ?registration_write
+    ?enrollment_write ?id ?registration_read ?registration_write
     ?service_config ?timeouts ~iothub_dps_name ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_iothub_dps_shared_access_policy" in
@@ -38,6 +39,7 @@ let azurerm_iothub_dps_shared_access_policy ?enrollment_read
     {
       enrollment_read;
       enrollment_write;
+      id;
       iothub_dps_name;
       name;
       registration_read;

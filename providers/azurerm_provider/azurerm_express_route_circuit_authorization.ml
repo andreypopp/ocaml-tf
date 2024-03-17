@@ -15,6 +15,7 @@ type azurerm_express_route_circuit_authorization__timeouts = {
 type azurerm_express_route_circuit_authorization = {
   express_route_circuit_name : string;
       (** express_route_circuit_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts :
@@ -23,7 +24,7 @@ type azurerm_express_route_circuit_authorization = {
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit_authorization *)
 
-let azurerm_express_route_circuit_authorization ?timeouts
+let azurerm_express_route_circuit_authorization ?id ?timeouts
     ~express_route_circuit_name ~name ~resource_group_name
     __resource_id =
   let __resource_type =
@@ -32,6 +33,7 @@ let azurerm_express_route_circuit_authorization ?timeouts
   let __resource =
     {
       express_route_circuit_name;
+      id;
       name;
       resource_group_name;
       timeouts;

@@ -40,6 +40,7 @@ type google_gke_hub_membership__timeouts = {
 (** google_gke_hub_membership__timeouts *)
 
 type google_gke_hub_membership = {
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels to apply to this membership.
 
@@ -51,6 +52,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 The default value is 'global'. *)
   membership_id : string;
       (** The client-provided identifier of the membership. *)
+  project : string option; [@option]  (** project *)
   authority : google_gke_hub_membership__authority list;
   endpoint : google_gke_hub_membership__endpoint list;
   timeouts : google_gke_hub_membership__timeouts option;
@@ -58,14 +60,16 @@ The default value is 'global'. *)
 [@@deriving yojson_of]
 (** google_gke_hub_membership *)
 
-let google_gke_hub_membership ?labels ?location ?timeouts
-    ~membership_id ~authority ~endpoint __resource_id =
+let google_gke_hub_membership ?id ?labels ?location ?project
+    ?timeouts ~membership_id ~authority ~endpoint __resource_id =
   let __resource_type = "google_gke_hub_membership" in
   let __resource =
     {
+      id;
       labels;
       location;
       membership_id;
+      project;
       authority;
       endpoint;
       timeouts;

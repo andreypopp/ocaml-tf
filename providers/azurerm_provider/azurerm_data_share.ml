@@ -24,6 +24,7 @@ type azurerm_data_share__timeouts = {
 type azurerm_data_share = {
   account_id : string;  (** account_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   kind : string;  (** kind *)
   name : string;  (** name *)
   terms : string option; [@option]  (** terms *)
@@ -33,13 +34,14 @@ type azurerm_data_share = {
 [@@deriving yojson_of]
 (** azurerm_data_share *)
 
-let azurerm_data_share ?description ?terms ?timeouts ~account_id
+let azurerm_data_share ?description ?id ?terms ?timeouts ~account_id
     ~kind ~name ~snapshot_schedule __resource_id =
   let __resource_type = "azurerm_data_share" in
   let __resource =
     {
       account_id;
       description;
+      id;
       kind;
       name;
       terms;

@@ -8,16 +8,31 @@ type aws_redshift_snapshot_schedule = {
   definitions : string list;  (** definitions *)
   description : string option; [@option]  (** description *)
   force_destroy : bool option; [@option]  (** force_destroy *)
+  id : string option; [@option]  (** id *)
+  identifier : string option; [@option]  (** identifier *)
+  identifier_prefix : string option; [@option]
+      (** identifier_prefix *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_snapshot_schedule *)
 
-let aws_redshift_snapshot_schedule ?description ?force_destroy ?tags
-    ~definitions __resource_id =
+let aws_redshift_snapshot_schedule ?description ?force_destroy ?id
+    ?identifier ?identifier_prefix ?tags ?tags_all ~definitions
+    __resource_id =
   let __resource_type = "aws_redshift_snapshot_schedule" in
   let __resource =
-    { definitions; description; force_destroy; tags }
+    {
+      definitions;
+      description;
+      force_destroy;
+      id;
+      identifier;
+      identifier_prefix;
+      tags;
+      tags_all;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_redshift_snapshot_schedule __resource);

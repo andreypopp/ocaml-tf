@@ -7,6 +7,7 @@ type google_logging_organization_exclusion
 val google_logging_organization_exclusion :
   ?description:string ->
   ?disabled:bool ->
+  ?id:string ->
   filter:string ->
   name:string ->
   org_id:string ->

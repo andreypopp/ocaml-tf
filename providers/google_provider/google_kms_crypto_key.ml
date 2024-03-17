@@ -29,6 +29,12 @@ type google_kms_crypto_key__primary = {
 [@@deriving yojson_of]
 
 type google_kms_crypto_key = {
+  destroy_scheduled_duration : string option; [@option]
+      (** The period of time that versions of this key spend in the DESTROY_SCHEDULED state before transitioning to DESTROYED.
+If not specified at creation time, the default duration is 24 hours. *)
+  id : string option; [@option]  (** id *)
+  import_only : bool option; [@option]
+      (** Whether this key may contain imported versions only. *)
   key_ring : string;
       (** The KeyRing that this key belongs to.
 Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}''. *)
@@ -58,12 +64,16 @@ You must use the 'google_kms_key_ring_import_job' resource to import the CryptoK
 [@@deriving yojson_of]
 (** google_kms_crypto_key *)
 
-let google_kms_crypto_key ?labels ?purpose ?rotation_period
+let google_kms_crypto_key ?destroy_scheduled_duration ?id
+    ?import_only ?labels ?purpose ?rotation_period
     ?skip_initial_version_creation ?timeouts ~key_ring ~name
     ~version_template __resource_id =
   let __resource_type = "google_kms_crypto_key" in
   let __resource =
     {
+      destroy_scheduled_duration;
+      id;
+      import_only;
       key_ring;
       labels;
       name;

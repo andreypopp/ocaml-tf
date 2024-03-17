@@ -35,9 +35,11 @@ type aws_storagegateway_nfs_file_share = {
   client_list : string list;  (** client_list *)
   default_storage_class : string option; [@option]
       (** default_storage_class *)
+  file_share_name : string option; [@option]  (** file_share_name *)
   gateway_arn : string;  (** gateway_arn *)
   guess_mime_type_enabled : bool option; [@option]
       (** guess_mime_type_enabled *)
+  id : string option; [@option]  (** id *)
   kms_encrypted : bool option; [@option]  (** kms_encrypted *)
   kms_key_arn : string option; [@option]  (** kms_key_arn *)
   location_arn : string;  (** location_arn *)
@@ -49,6 +51,8 @@ type aws_storagegateway_nfs_file_share = {
   role_arn : string;  (** role_arn *)
   squash : string option; [@option]  (** squash *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_endpoint_dns_name : string option; [@option]
       (** vpc_endpoint_dns_name *)
   cache_attributes :
@@ -61,10 +65,11 @@ type aws_storagegateway_nfs_file_share = {
 (** aws_storagegateway_nfs_file_share *)
 
 let aws_storagegateway_nfs_file_share ?audit_destination_arn
-    ?bucket_region ?default_storage_class ?guess_mime_type_enabled
-    ?kms_encrypted ?kms_key_arn ?notification_policy ?object_acl
-    ?read_only ?requester_pays ?squash ?tags ?vpc_endpoint_dns_name
-    ?timeouts ~client_list ~gateway_arn ~location_arn ~role_arn
+    ?bucket_region ?default_storage_class ?file_share_name
+    ?guess_mime_type_enabled ?id ?kms_encrypted ?kms_key_arn
+    ?notification_policy ?object_acl ?read_only ?requester_pays
+    ?squash ?tags ?tags_all ?vpc_endpoint_dns_name ?timeouts
+    ~client_list ~gateway_arn ~location_arn ~role_arn
     ~cache_attributes ~nfs_file_share_defaults __resource_id =
   let __resource_type = "aws_storagegateway_nfs_file_share" in
   let __resource =
@@ -73,8 +78,10 @@ let aws_storagegateway_nfs_file_share ?audit_destination_arn
       bucket_region;
       client_list;
       default_storage_class;
+      file_share_name;
       gateway_arn;
       guess_mime_type_enabled;
+      id;
       kms_encrypted;
       kms_key_arn;
       location_arn;
@@ -85,6 +92,7 @@ let aws_storagegateway_nfs_file_share ?audit_destination_arn
       role_arn;
       squash;
       tags;
+      tags_all;
       vpc_endpoint_dns_name;
       cache_attributes;
       nfs_file_share_defaults;

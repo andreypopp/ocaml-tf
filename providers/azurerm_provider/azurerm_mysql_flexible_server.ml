@@ -61,6 +61,8 @@ type azurerm_mysql_flexible_server__timeouts = {
 (** azurerm_mysql_flexible_server__timeouts *)
 
 type azurerm_mysql_flexible_server = {
+  administrator_login : string option; [@option]
+      (** administrator_login *)
   administrator_password : string option; [@option]
       (** administrator_password *)
   backup_retention_days : float option; [@option]
@@ -70,16 +72,21 @@ type azurerm_mysql_flexible_server = {
       (** delegated_subnet_id *)
   geo_redundant_backup_enabled : bool option; [@option]
       (** geo_redundant_backup_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   point_in_time_restore_time_in_utc : string option; [@option]
       (** point_in_time_restore_time_in_utc *)
   private_dns_zone_id : string option; [@option]
       (** private_dns_zone_id *)
+  replication_role : string option; [@option]
+      (** replication_role *)
   resource_group_name : string;  (** resource_group_name *)
+  sku_name : string option; [@option]  (** sku_name *)
   source_server_id : string option; [@option]
       (** source_server_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  version : string option; [@option]  (** version *)
   zone : string option; [@option]  (** zone *)
   customer_managed_key :
     azurerm_mysql_flexible_server__customer_managed_key list;
@@ -94,28 +101,34 @@ type azurerm_mysql_flexible_server = {
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server *)
 
-let azurerm_mysql_flexible_server ?administrator_password
-    ?backup_retention_days ?create_mode ?delegated_subnet_id
-    ?geo_redundant_backup_enabled ?point_in_time_restore_time_in_utc
-    ?private_dns_zone_id ?source_server_id ?tags ?zone ?timeouts
-    ~location ~name ~resource_group_name ~customer_managed_key
-    ~high_availability ~identity ~maintenance_window ~storage
-    __resource_id =
+let azurerm_mysql_flexible_server ?administrator_login
+    ?administrator_password ?backup_retention_days ?create_mode
+    ?delegated_subnet_id ?geo_redundant_backup_enabled ?id
+    ?point_in_time_restore_time_in_utc ?private_dns_zone_id
+    ?replication_role ?sku_name ?source_server_id ?tags ?version
+    ?zone ?timeouts ~location ~name ~resource_group_name
+    ~customer_managed_key ~high_availability ~identity
+    ~maintenance_window ~storage __resource_id =
   let __resource_type = "azurerm_mysql_flexible_server" in
   let __resource =
     {
+      administrator_login;
       administrator_password;
       backup_retention_days;
       create_mode;
       delegated_subnet_id;
       geo_redundant_backup_enabled;
+      id;
       location;
       name;
       point_in_time_restore_time_in_utc;
       private_dns_zone_id;
+      replication_role;
       resource_group_name;
+      sku_name;
       source_server_id;
       tags;
+      version;
       zone;
       customer_managed_key;
       high_availability;

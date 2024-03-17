@@ -27,14 +27,12 @@ type google_bigquery_job__status__errors = {
   message : string;  (** message *)
   reason : string;  (** reason *)
 }
-[@@deriving yojson_of]
 
 type google_bigquery_job__status__error_result = {
   location : string;  (** location *)
   message : string;  (** message *)
   reason : string;  (** reason *)
 }
-[@@deriving yojson_of]
 
 type google_bigquery_job__status = {
   error_result : google_bigquery_job__status__error_result list;
@@ -42,14 +40,15 @@ type google_bigquery_job__status = {
   errors : google_bigquery_job__status__errors list;  (** errors *)
   state : string;  (** state *)
 }
-[@@deriving yojson_of]
 
 type google_bigquery_job
 
 val google_bigquery_job :
+  ?id:string ->
   ?job_timeout_ms:string ->
   ?labels:(string * string) list ->
   ?location:string ->
+  ?project:string ->
   ?timeouts:google_bigquery_job__timeouts ->
   job_id:string ->
   copy:google_bigquery_job__copy list ->

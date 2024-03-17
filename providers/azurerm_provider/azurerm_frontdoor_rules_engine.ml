@@ -65,6 +65,7 @@ type azurerm_frontdoor_rules_engine__timeouts = {
 type azurerm_frontdoor_rules_engine = {
   enabled : bool option; [@option]  (** enabled *)
   frontdoor_name : string;  (** frontdoor_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   rule : azurerm_frontdoor_rules_engine__rule list;
@@ -73,13 +74,14 @@ type azurerm_frontdoor_rules_engine = {
 [@@deriving yojson_of]
 (** azurerm_frontdoor_rules_engine *)
 
-let azurerm_frontdoor_rules_engine ?enabled ?timeouts ~frontdoor_name
-    ~name ~resource_group_name ~rule __resource_id =
+let azurerm_frontdoor_rules_engine ?enabled ?id ?timeouts
+    ~frontdoor_name ~name ~resource_group_name ~rule __resource_id =
   let __resource_type = "azurerm_frontdoor_rules_engine" in
   let __resource =
     {
       enabled;
       frontdoor_name;
+      id;
       name;
       resource_group_name;
       rule;

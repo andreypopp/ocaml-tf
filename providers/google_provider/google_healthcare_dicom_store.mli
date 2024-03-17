@@ -7,6 +7,7 @@ type google_healthcare_dicom_store__timeouts
 type google_healthcare_dicom_store
 
 val google_healthcare_dicom_store :
+  ?id:string ->
   ?labels:(string * string) list ->
   ?timeouts:google_healthcare_dicom_store__timeouts ->
   dataset:string ->

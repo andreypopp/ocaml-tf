@@ -17,6 +17,7 @@ type aws_guardduty_member = {
   disable_email_notification : bool option; [@option]
       (** disable_email_notification *)
   email : string;  (** email *)
+  id : string option; [@option]  (** id *)
   invitation_message : string option; [@option]
       (** invitation_message *)
   invite : bool option; [@option]  (** invite *)
@@ -25,7 +26,7 @@ type aws_guardduty_member = {
 [@@deriving yojson_of]
 (** aws_guardduty_member *)
 
-let aws_guardduty_member ?disable_email_notification
+let aws_guardduty_member ?disable_email_notification ?id
     ?invitation_message ?invite ?timeouts ~account_id ~detector_id
     ~email __resource_id =
   let __resource_type = "aws_guardduty_member" in
@@ -35,6 +36,7 @@ let aws_guardduty_member ?disable_email_notification
       detector_id;
       disable_email_notification;
       email;
+      id;
       invitation_message;
       invite;
       timeouts;

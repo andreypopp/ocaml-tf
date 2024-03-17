@@ -375,10 +375,14 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
       (** A human readable description of this VMware User Cluster. *)
   enable_control_plane_v2 : bool option; [@option]
       (** Enable control plane V2. Default to false. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the resource. *)
   name : string;  (** The VMware cluster name. *)
   on_prem_version : string;
       (** The Anthos clusters on the VMware version for your user cluster. *)
+  project : string option; [@option]  (** project *)
+  vm_tracking_enabled : bool option; [@option]
+      (** Enable VM tracking. *)
   anti_affinity_groups :
     google_gkeonprem_vmware_cluster__anti_affinity_groups list;
   authorization :
@@ -402,11 +406,12 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 (** google_gkeonprem_vmware_cluster *)
 
 let google_gkeonprem_vmware_cluster ?annotations ?description
-    ?enable_control_plane_v2 ?timeouts ~admin_cluster_membership
-    ~location ~name ~on_prem_version ~anti_affinity_groups
-    ~authorization ~auto_repair_config ~control_plane_node
-    ~dataplane_v2 ~load_balancer ~network_config ~storage
-    ~upgrade_policy ~vcenter __resource_id =
+    ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
+    ?timeouts ~admin_cluster_membership ~location ~name
+    ~on_prem_version ~anti_affinity_groups ~authorization
+    ~auto_repair_config ~control_plane_node ~dataplane_v2
+    ~load_balancer ~network_config ~storage ~upgrade_policy ~vcenter
+    __resource_id =
   let __resource_type = "google_gkeonprem_vmware_cluster" in
   let __resource =
     {
@@ -414,9 +419,12 @@ let google_gkeonprem_vmware_cluster ?annotations ?description
       annotations;
       description;
       enable_control_plane_v2;
+      id;
       location;
       name;
       on_prem_version;
+      project;
+      vm_tracking_enabled;
       anti_affinity_groups;
       authorization;
       auto_repair_config;

@@ -11,6 +11,7 @@ val aws_lexv2models_bot :
   ?description:string ->
   ?tags:(string * string) list ->
   ?test_bot_alias_tags:(string * string) list ->
+  ?type_:string ->
   ?timeouts:aws_lexv2models_bot__timeouts ->
   idle_session_ttl_in_seconds:float ->
   name:string ->

@@ -12,14 +12,16 @@ type azurerm_virtual_network__subnet = {
   name : string;  (** name *)
   security_group : string;  (** security_group *)
 }
-[@@deriving yojson_of]
 
 type azurerm_virtual_network
 
 val azurerm_virtual_network :
   ?bgp_community:string ->
+  ?dns_servers:string list ->
   ?edge_zone:string ->
   ?flow_timeout_in_minutes:float ->
+  ?id:string ->
+  ?subnet:azurerm_virtual_network__subnet list ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_virtual_network__timeouts ->
   address_space:string list ->

@@ -924,16 +924,17 @@ type aws_securityhub_insight__filters = {
 
 type aws_securityhub_insight = {
   group_by_attribute : string;  (** group_by_attribute *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   filters : aws_securityhub_insight__filters list;
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight *)
 
-let aws_securityhub_insight ~group_by_attribute ~name ~filters
+let aws_securityhub_insight ?id ~group_by_attribute ~name ~filters
     __resource_id =
   let __resource_type = "aws_securityhub_insight" in
-  let __resource = { group_by_attribute; name; filters } in
+  let __resource = { group_by_attribute; id; name; filters } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_insight __resource);
   ()

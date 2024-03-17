@@ -16,6 +16,7 @@ type cloudflare_zone_lockdown__configurations = {
 type cloudflare_zone_lockdown = {
   description : string option; [@option]
       (** A description about the lockdown entry. Typically used as a reminder or explanation for the lockdown. *)
+  id : string option; [@option]  (** id *)
   paused : bool option; [@option]
       (** Boolean of whether this zone lockdown is currently paused. Defaults to `false`. *)
   priority : float option; [@option]  (** priority *)
@@ -33,11 +34,19 @@ from an IP address that matches a safelist of one or more IP
 addresses and/or IP ranges.
  *)
 
-let cloudflare_zone_lockdown ?description ?paused ?priority ~urls
+let cloudflare_zone_lockdown ?description ?id ?paused ?priority ~urls
     ~zone_id ~configurations __resource_id =
   let __resource_type = "cloudflare_zone_lockdown" in
   let __resource =
-    { description; paused; priority; urls; zone_id; configurations }
+    {
+      description;
+      id;
+      paused;
+      priority;
+      urls;
+      zone_id;
+      configurations;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_lockdown __resource);

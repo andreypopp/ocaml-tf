@@ -7,6 +7,8 @@ type aws_servicecatalog_constraint
 
 val aws_servicecatalog_constraint :
   ?accept_language:string ->
+  ?description:string ->
+  ?id:string ->
   ?timeouts:aws_servicecatalog_constraint__timeouts ->
   parameters:string ->
   portfolio_id:string ->

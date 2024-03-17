@@ -17,8 +17,11 @@ type google_compute_region_per_instance_config__timeouts
 type google_compute_region_per_instance_config
 
 val google_compute_region_per_instance_config :
+  ?id:string ->
   ?minimal_action:string ->
   ?most_disruptive_allowed_action:string ->
+  ?project:string ->
+  ?region:string ->
   ?remove_instance_on_destroy:bool ->
   ?remove_instance_state_on_destroy:bool ->
   ?timeouts:google_compute_region_per_instance_config__timeouts ->

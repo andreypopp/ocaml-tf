@@ -20,6 +20,7 @@ The policy needs to be in the same location as the storage pool. *)
       (** Capacity of the storage pool (in GiB). *)
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   kms_config : string option; [@option]
       (** Specifies the CMEK policy to be used for volume encryption. Format: 'projects/{{project}}/locations/{{location}}/kmsConfigs/{{name}}'.
 The policy needs to be in the same location as the storage pool. *)
@@ -38,6 +39,7 @@ using security identifiers for NFSv4.1 or principal names for kerberized NFSv4.1
       (** The resource name of the storage pool. Needs to be unique per location. *)
   network : string;
       (** VPC network name with format: 'projects/{{project}}/global/networks/{{network}}' *)
+  project : string option; [@option]  (** project *)
   service_level : string;
       (** Service level of the storage pool. Possible values: [PREMIUM, EXTREME, STANDARD] *)
   timeouts : google_netapp_storage_pool__timeouts option;
@@ -45,21 +47,24 @@ using security identifiers for NFSv4.1 or principal names for kerberized NFSv4.1
 [@@deriving yojson_of]
 (** google_netapp_storage_pool *)
 
-let google_netapp_storage_pool ?active_directory ?description
-    ?kms_config ?labels ?ldap_enabled ?timeouts ~capacity_gib
-    ~location ~name ~network ~service_level __resource_id =
+let google_netapp_storage_pool ?active_directory ?description ?id
+    ?kms_config ?labels ?ldap_enabled ?project ?timeouts
+    ~capacity_gib ~location ~name ~network ~service_level
+    __resource_id =
   let __resource_type = "google_netapp_storage_pool" in
   let __resource =
     {
       active_directory;
       capacity_gib;
       description;
+      id;
       kms_config;
       labels;
       ldap_enabled;
       location;
       name;
       network;
+      project;
       service_level;
       timeouts;
     }

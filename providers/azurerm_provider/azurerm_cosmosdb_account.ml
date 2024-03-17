@@ -124,6 +124,7 @@ type azurerm_cosmosdb_account = {
       (** access_key_metadata_writes_enabled *)
   analytical_storage_enabled : bool option; [@option]
       (** analytical_storage_enabled *)
+  create_mode : string option; [@option]  (** create_mode *)
   default_identity_type : string option; [@option]
       (** default_identity_type *)
   enable_automatic_failover : bool option; [@option]
@@ -131,6 +132,7 @@ type azurerm_cosmosdb_account = {
   enable_free_tier : bool option; [@option]  (** enable_free_tier *)
   enable_multiple_write_locations : bool option; [@option]
       (** enable_multiple_write_locations *)
+  id : string option; [@option]  (** id *)
   ip_range_filter : string option; [@option]  (** ip_range_filter *)
   is_virtual_network_filter_enabled : bool option; [@option]
       (** is_virtual_network_filter_enabled *)
@@ -140,6 +142,10 @@ type azurerm_cosmosdb_account = {
   local_authentication_disabled : bool option; [@option]
       (** local_authentication_disabled *)
   location : string;  (** location *)
+  minimal_tls_version : string option; [@option]
+      (** minimal_tls_version *)
+  mongo_server_version : string option; [@option]
+      (** mongo_server_version *)
   name : string;  (** name *)
   network_acl_bypass_for_azure_services : bool option; [@option]
       (** network_acl_bypass_for_azure_services *)
@@ -171,32 +177,37 @@ type azurerm_cosmosdb_account = {
 (** azurerm_cosmosdb_account *)
 
 let azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
-    ?analytical_storage_enabled ?default_identity_type
+    ?analytical_storage_enabled ?create_mode ?default_identity_type
     ?enable_automatic_failover ?enable_free_tier
-    ?enable_multiple_write_locations ?ip_range_filter
+    ?enable_multiple_write_locations ?id ?ip_range_filter
     ?is_virtual_network_filter_enabled ?key_vault_key_id ?kind
-    ?local_authentication_disabled
-    ?network_acl_bypass_for_azure_services ?network_acl_bypass_ids
-    ?partition_merge_enabled ?public_network_access_enabled ?tags
-    ?timeouts ~location ~name ~offer_type ~resource_group_name
-    ~analytical_storage ~backup ~capabilities ~capacity
-    ~consistency_policy ~cors_rule ~geo_location ~identity ~restore
-    ~virtual_network_rule __resource_id =
+    ?local_authentication_disabled ?minimal_tls_version
+    ?mongo_server_version ?network_acl_bypass_for_azure_services
+    ?network_acl_bypass_ids ?partition_merge_enabled
+    ?public_network_access_enabled ?tags ?timeouts ~location ~name
+    ~offer_type ~resource_group_name ~analytical_storage ~backup
+    ~capabilities ~capacity ~consistency_policy ~cors_rule
+    ~geo_location ~identity ~restore ~virtual_network_rule
+    __resource_id =
   let __resource_type = "azurerm_cosmosdb_account" in
   let __resource =
     {
       access_key_metadata_writes_enabled;
       analytical_storage_enabled;
+      create_mode;
       default_identity_type;
       enable_automatic_failover;
       enable_free_tier;
       enable_multiple_write_locations;
+      id;
       ip_range_filter;
       is_virtual_network_filter_enabled;
       key_vault_key_id;
       kind;
       local_authentication_disabled;
       location;
+      minimal_tls_version;
+      mongo_server_version;
       name;
       network_acl_bypass_for_azure_services;
       network_acl_bypass_ids;

@@ -7,6 +7,7 @@ type azurerm_dev_center_project
 
 val azurerm_dev_center_project :
   ?description:string ->
+  ?id:string ->
   ?maximum_dev_boxes_per_user:float ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dev_center_project__timeouts ->

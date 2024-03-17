@@ -55,9 +55,12 @@ type azurerm_servicebus_namespace__timeouts = {
 
 type azurerm_servicebus_namespace = {
   capacity : float option; [@option]  (** capacity *)
+  id : string option; [@option]  (** id *)
   local_auth_enabled : bool option; [@option]
       (** local_auth_enabled *)
   location : string;  (** location *)
+  minimum_tls_version : string option; [@option]
+      (** minimum_tls_version *)
   name : string;  (** name *)
   premium_messaging_partitions : float option; [@option]
       (** premium_messaging_partitions *)
@@ -77,17 +80,19 @@ type azurerm_servicebus_namespace = {
 [@@deriving yojson_of]
 (** azurerm_servicebus_namespace *)
 
-let azurerm_servicebus_namespace ?capacity ?local_auth_enabled
-    ?premium_messaging_partitions ?public_network_access_enabled
-    ?tags ?zone_redundant ?timeouts ~location ~name
-    ~resource_group_name ~sku ~customer_managed_key ~identity
-    ~network_rule_set __resource_id =
+let azurerm_servicebus_namespace ?capacity ?id ?local_auth_enabled
+    ?minimum_tls_version ?premium_messaging_partitions
+    ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
+    ~location ~name ~resource_group_name ~sku ~customer_managed_key
+    ~identity ~network_rule_set __resource_id =
   let __resource_type = "azurerm_servicebus_namespace" in
   let __resource =
     {
       capacity;
+      id;
       local_auth_enabled;
       location;
+      minimum_tls_version;
       name;
       premium_messaging_partitions;
       public_network_access_enabled;

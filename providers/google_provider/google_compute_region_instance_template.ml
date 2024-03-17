@@ -292,6 +292,7 @@ type google_compute_region_instance_template = {
       (** Whether to allow sending and receiving of packets with non-matching source or destination IPs. This defaults to false. *)
   description : string option; [@option]
       (** A brief description of this resource. *)
+  id : string option; [@option]  (** id *)
   instance_description : string option; [@option]
       (** A description of the instance. *)
   labels : (string * string) list option; [@option]
@@ -307,6 +308,14 @@ type google_compute_region_instance_template = {
       (** An alternative to using the startup-script metadata key, mostly to match the compute_instance resource. This replaces the startup-script metadata key on the created instance and thus the two mechanisms are not allowed to be used simultaneously. *)
   min_cpu_platform : string option; [@option]
       (** Specifies a minimum CPU platform. Applicable values are the friendly names of CPU platforms, such as Intel Haswell or Intel Skylake. *)
+  name : string option; [@option]
+      (** The name of the instance template. If you leave this blank, Terraform will auto-generate a unique name. *)
+  name_prefix : string option; [@option]
+      (** Creates a unique name beginning with the specified prefix. Conflicts with name. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
+  region : string option; [@option]
+      (** The region in which the instance template is located. If it is not provided, the provider region is used. *)
   resource_manager_tags : (string * string) list option; [@option]
       (** A map of resource manager tags.
 				Resource manager tag keys and values have the same definition as resource manager tags. Keys must be in the format tagKeys/{tag_key_id}, and values are in the format tagValues/456. The field is ignored (both PUT & PATCH) when empty. *)
@@ -344,11 +353,12 @@ type google_compute_region_instance_template = {
 (** google_compute_region_instance_template *)
 
 let google_compute_region_instance_template ?can_ip_forward
-    ?description ?instance_description ?labels ?metadata
-    ?metadata_startup_script ?min_cpu_platform ?resource_manager_tags
-    ?resource_policies ?tags ?timeouts ~machine_type
-    ~advanced_machine_features ~confidential_instance_config ~disk
-    ~guest_accelerator ~network_interface ~network_performance_config
+    ?description ?id ?instance_description ?labels ?metadata
+    ?metadata_startup_script ?min_cpu_platform ?name ?name_prefix
+    ?project ?region ?resource_manager_tags ?resource_policies ?tags
+    ?timeouts ~machine_type ~advanced_machine_features
+    ~confidential_instance_config ~disk ~guest_accelerator
+    ~network_interface ~network_performance_config
     ~reservation_affinity ~scheduling ~service_account
     ~shielded_instance_config __resource_id =
   let __resource_type = "google_compute_region_instance_template" in
@@ -356,12 +366,17 @@ let google_compute_region_instance_template ?can_ip_forward
     {
       can_ip_forward;
       description;
+      id;
       instance_description;
       labels;
       machine_type;
       metadata;
       metadata_startup_script;
       min_cpu_platform;
+      name;
+      name_prefix;
+      project;
+      region;
       resource_manager_tags;
       resource_policies;
       tags;

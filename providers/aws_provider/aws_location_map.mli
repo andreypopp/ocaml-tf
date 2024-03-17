@@ -7,7 +7,9 @@ type aws_location_map
 
 val aws_location_map :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   map_name:string ->
   configuration:aws_location_map__configuration list ->
   string ->

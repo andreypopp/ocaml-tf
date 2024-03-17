@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_xray_encryption_config
 
 val aws_xray_encryption_config :
-  ?key_id:string -> type_:string -> string -> unit
+  ?id:string -> ?key_id:string -> type_:string -> string -> unit

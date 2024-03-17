@@ -55,10 +55,13 @@ type aws_networkfirewall_firewall = {
   firewall_policy_arn : string;  (** firewall_policy_arn *)
   firewall_policy_change_protection : bool option; [@option]
       (** firewall_policy_change_protection *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   subnet_change_protection : bool option; [@option]
       (** subnet_change_protection *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_id : string;  (** vpc_id *)
   encryption_configuration :
     aws_networkfirewall_firewall__encryption_configuration list;
@@ -69,8 +72,8 @@ type aws_networkfirewall_firewall = {
 (** aws_networkfirewall_firewall *)
 
 let aws_networkfirewall_firewall ?delete_protection ?description
-    ?firewall_policy_change_protection ?subnet_change_protection
-    ?tags ?timeouts ~firewall_policy_arn ~name ~vpc_id
+    ?firewall_policy_change_protection ?id ?subnet_change_protection
+    ?tags ?tags_all ?timeouts ~firewall_policy_arn ~name ~vpc_id
     ~encryption_configuration ~subnet_mapping __resource_id =
   let __resource_type = "aws_networkfirewall_firewall" in
   let __resource =
@@ -79,9 +82,11 @@ let aws_networkfirewall_firewall ?delete_protection ?description
       description;
       firewall_policy_arn;
       firewall_policy_change_protection;
+      id;
       name;
       subnet_change_protection;
       tags;
+      tags_all;
       vpc_id;
       encryption_configuration;
       subnet_mapping;

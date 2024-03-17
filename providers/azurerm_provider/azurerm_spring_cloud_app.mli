@@ -10,7 +10,9 @@ type azurerm_spring_cloud_app__timeouts
 type azurerm_spring_cloud_app
 
 val azurerm_spring_cloud_app :
+  ?addon_json:string ->
   ?https_only:bool ->
+  ?id:string ->
   ?is_public:bool ->
   ?public_endpoint_enabled:bool ->
   ?tls_enabled:bool ->

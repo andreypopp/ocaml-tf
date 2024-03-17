@@ -49,9 +49,16 @@ type aws_ecs_task_set__service_registries = {
 
 type aws_ecs_task_set = {
   cluster : string;  (** cluster *)
+  external_id : string option; [@option]  (** external_id *)
   force_delete : bool option; [@option]  (** force_delete *)
+  id : string option; [@option]  (** id *)
+  launch_type : string option; [@option]  (** launch_type *)
+  platform_version : string option; [@option]
+      (** platform_version *)
   service : string;  (** service *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   task_definition : string;  (** task_definition *)
   wait_until_stable : bool option; [@option]
       (** wait_until_stable *)
@@ -68,7 +75,8 @@ type aws_ecs_task_set = {
 [@@deriving yojson_of]
 (** aws_ecs_task_set *)
 
-let aws_ecs_task_set ?force_delete ?tags ?wait_until_stable
+let aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
+    ?platform_version ?tags ?tags_all ?wait_until_stable
     ?wait_until_stable_timeout ~cluster ~service ~task_definition
     ~capacity_provider_strategy ~load_balancer ~network_configuration
     ~scale ~service_registries __resource_id =
@@ -76,9 +84,14 @@ let aws_ecs_task_set ?force_delete ?tags ?wait_until_stable
   let __resource =
     {
       cluster;
+      external_id;
       force_delete;
+      id;
+      launch_type;
+      platform_version;
       service;
       tags;
+      tags_all;
       task_definition;
       wait_until_stable;
       wait_until_stable_timeout;

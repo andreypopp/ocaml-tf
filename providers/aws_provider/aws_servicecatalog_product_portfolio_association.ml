@@ -14,6 +14,7 @@ type aws_servicecatalog_product_portfolio_association__timeouts = {
 
 type aws_servicecatalog_product_portfolio_association = {
   accept_language : string option; [@option]  (** accept_language *)
+  id : string option; [@option]  (** id *)
   portfolio_id : string;  (** portfolio_id *)
   product_id : string;  (** product_id *)
   source_portfolio_id : string option; [@option]
@@ -25,7 +26,7 @@ type aws_servicecatalog_product_portfolio_association = {
 (** aws_servicecatalog_product_portfolio_association *)
 
 let aws_servicecatalog_product_portfolio_association ?accept_language
-    ?source_portfolio_id ?timeouts ~portfolio_id ~product_id
+    ?id ?source_portfolio_id ?timeouts ~portfolio_id ~product_id
     __resource_id =
   let __resource_type =
     "aws_servicecatalog_product_portfolio_association"
@@ -33,6 +34,7 @@ let aws_servicecatalog_product_portfolio_association ?accept_language
   let __resource =
     {
       accept_language;
+      id;
       portfolio_id;
       product_id;
       source_portfolio_id;

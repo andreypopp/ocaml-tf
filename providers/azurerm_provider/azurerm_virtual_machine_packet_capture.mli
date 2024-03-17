@@ -8,6 +8,7 @@ type azurerm_virtual_machine_packet_capture__timeouts
 type azurerm_virtual_machine_packet_capture
 
 val azurerm_virtual_machine_packet_capture :
+  ?id:string ->
   ?maximum_bytes_per_packet:float ->
   ?maximum_bytes_per_session:float ->
   ?maximum_capture_duration_in_seconds:float ->

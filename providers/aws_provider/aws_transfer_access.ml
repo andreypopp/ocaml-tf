@@ -25,6 +25,7 @@ type aws_transfer_access = {
   home_directory : string option; [@option]  (** home_directory *)
   home_directory_type : string option; [@option]
       (** home_directory_type *)
+  id : string option; [@option]  (** id *)
   policy : string option; [@option]  (** policy *)
   role : string option; [@option]  (** role *)
   server_id : string;  (** server_id *)
@@ -35,8 +36,8 @@ type aws_transfer_access = {
 [@@deriving yojson_of]
 (** aws_transfer_access *)
 
-let aws_transfer_access ?home_directory ?home_directory_type ?policy
-    ?role ~external_id ~server_id ~home_directory_mappings
+let aws_transfer_access ?home_directory ?home_directory_type ?id
+    ?policy ?role ~external_id ~server_id ~home_directory_mappings
     ~posix_profile __resource_id =
   let __resource_type = "aws_transfer_access" in
   let __resource =
@@ -44,6 +45,7 @@ let aws_transfer_access ?home_directory ?home_directory_type ?policy
       external_id;
       home_directory;
       home_directory_type;
+      id;
       policy;
       role;
       server_id;

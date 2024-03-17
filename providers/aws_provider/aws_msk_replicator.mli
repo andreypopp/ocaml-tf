@@ -15,7 +15,9 @@ type aws_msk_replicator
 
 val aws_msk_replicator :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_msk_replicator__timeouts ->
   replicator_name:string ->
   service_execution_role_arn:string ->

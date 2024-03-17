@@ -8,7 +8,9 @@ type google_active_directory_domain
 val google_active_directory_domain :
   ?admin:string ->
   ?authorized_networks:string list ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_active_directory_domain__timeouts ->
   domain_name:string ->
   locations:string list ->

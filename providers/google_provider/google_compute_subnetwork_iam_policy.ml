@@ -5,16 +5,21 @@
 open! Tf.Prelude
 
 type google_compute_subnetwork_iam_policy = {
+  id : string option; [@option]  (** id *)
   policy_data : string;  (** policy_data *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]  (** region *)
   subnetwork : string;  (** subnetwork *)
 }
 [@@deriving yojson_of]
 (** google_compute_subnetwork_iam_policy *)
 
-let google_compute_subnetwork_iam_policy ~policy_data ~subnetwork
-    __resource_id =
+let google_compute_subnetwork_iam_policy ?id ?project ?region
+    ~policy_data ~subnetwork __resource_id =
   let __resource_type = "google_compute_subnetwork_iam_policy" in
-  let __resource = { policy_data; subnetwork } in
+  let __resource =
+    { id; policy_data; project; region; subnetwork }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_subnetwork_iam_policy __resource);
   ()

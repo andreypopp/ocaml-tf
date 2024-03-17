@@ -8,6 +8,7 @@ type azurerm_virtual_network_gateway_nat_rule__timeouts
 type azurerm_virtual_network_gateway_nat_rule
 
 val azurerm_virtual_network_gateway_nat_rule :
+  ?id:string ->
   ?ip_configuration_id:string ->
   ?mode:string ->
   ?type_:string ->

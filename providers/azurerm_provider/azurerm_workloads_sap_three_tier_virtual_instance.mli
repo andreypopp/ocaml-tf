@@ -64,6 +64,7 @@ type azurerm_workloads_sap_three_tier_virtual_instance__timeouts
 type azurerm_workloads_sap_three_tier_virtual_instance
 
 val azurerm_workloads_sap_three_tier_virtual_instance :
+  ?id:string ->
   ?managed_resource_group_name:string ->
   ?tags:(string * string) list ->
   ?timeouts:

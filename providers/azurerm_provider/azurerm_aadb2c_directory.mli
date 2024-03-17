@@ -6,6 +6,9 @@ type azurerm_aadb2c_directory__timeouts
 type azurerm_aadb2c_directory
 
 val azurerm_aadb2c_directory :
+  ?country_code:string ->
+  ?display_name:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_aadb2c_directory__timeouts ->
   data_residency_location:string ->

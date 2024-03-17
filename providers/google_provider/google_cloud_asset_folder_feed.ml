@@ -67,6 +67,7 @@ enablement check, quota, and billing. *)
   feed_id : string;
       (** This is the client-assigned asset feed identifier and it needs to be unique under a specific parent. *)
   folder : string;  (** The folder this feed should be created in. *)
+  id : string option; [@option]  (** id *)
   condition : google_cloud_asset_folder_feed__condition list;
   feed_output_config :
     google_cloud_asset_folder_feed__feed_output_config list;
@@ -76,7 +77,7 @@ enablement check, quota, and billing. *)
 (** google_cloud_asset_folder_feed *)
 
 let google_cloud_asset_folder_feed ?asset_names ?asset_types
-    ?content_type ?timeouts ~billing_project ~feed_id ~folder
+    ?content_type ?id ?timeouts ~billing_project ~feed_id ~folder
     ~condition ~feed_output_config __resource_id =
   let __resource_type = "google_cloud_asset_folder_feed" in
   let __resource =
@@ -87,6 +88,7 @@ let google_cloud_asset_folder_feed ?asset_names ?asset_types
       content_type;
       feed_id;
       folder;
+      id;
       condition;
       feed_output_config;
       timeouts;

@@ -158,16 +158,23 @@ type google_compute_instance_group_manager = {
       (** The base instance name to use for instances in this group. The value must be a valid RFC1035 name. Supported characters are lowercase letters, numbers, and hyphens (-). Instances are named by appending a hyphen and a random four-character string to the base instance name. *)
   description : string option; [@option]
       (** An optional textual description of the instance group manager. *)
+  id : string option; [@option]  (** id *)
   list_managed_instances_results : string option; [@option]
       (** Pagination behavior of the listManagedInstances API method for this managed instance group. Valid values are: PAGELESS, PAGINATED. If PAGELESS (default), Pagination is disabled for the group's listManagedInstances API method. maxResults and pageToken query parameters are ignored and all instances are returned in a single response. If PAGINATED, pagination is enabled, maxResults and pageToken query parameters are respected. *)
   name : string;
       (** The name of the instance group manager. Must be 1-63 characters long and comply with RFC1035. Supported characters include lowercase letters, numbers, and hyphens. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   target_pools : string list option; [@option]
       (** The full URL of all target pools to which new instances in the group are added. Updating the target pools attribute does not affect existing instances. *)
+  target_size : float option; [@option]
+      (** The target number of running instances for this managed instance group. This value should always be explicitly set unless this resource is attached to an autoscaler, in which case it should never be set. Defaults to 0. *)
   wait_for_instances : bool option; [@option]
       (** Whether to wait for all instances to be created/updated before returning. Note that if this is set to true and the operation does not succeed, Terraform will continue trying until it times out. *)
   wait_for_instances_status : string option; [@option]
       (** When used with wait_for_instances specifies the status to wait for. When STABLE is specified this resource will wait until the instances are stable before returning. When UPDATED is set, it will wait for the version target to be reached and any per instance configs to be effective and all instances configs to be effective as well as all instances to be stable before returning. *)
+  zone : string option; [@option]
+      (** The zone that instances in this group should be created in. *)
   all_instances_config :
     google_compute_instance_group_manager__all_instances_config list;
   auto_healing_policies :
@@ -191,23 +198,27 @@ type google_compute_instance_group_manager = {
 [@@deriving yojson_of]
 (** google_compute_instance_group_manager *)
 
-let google_compute_instance_group_manager ?description
-    ?list_managed_instances_results ?target_pools ?wait_for_instances
-    ?wait_for_instances_status ?timeouts ~base_instance_name ~name
-    ~all_instances_config ~auto_healing_policies
-    ~instance_lifecycle_policy ~named_port ~stateful_disk
-    ~stateful_external_ip ~stateful_internal_ip ~update_policy
-    ~version __resource_id =
+let google_compute_instance_group_manager ?description ?id
+    ?list_managed_instances_results ?project ?target_pools
+    ?target_size ?wait_for_instances ?wait_for_instances_status ?zone
+    ?timeouts ~base_instance_name ~name ~all_instances_config
+    ~auto_healing_policies ~instance_lifecycle_policy ~named_port
+    ~stateful_disk ~stateful_external_ip ~stateful_internal_ip
+    ~update_policy ~version __resource_id =
   let __resource_type = "google_compute_instance_group_manager" in
   let __resource =
     {
       base_instance_name;
       description;
+      id;
       list_managed_instances_results;
       name;
+      project;
       target_pools;
+      target_size;
       wait_for_instances;
       wait_for_instances_status;
+      zone;
       all_instances_config;
       auto_healing_policies;
       instance_lifecycle_policy;

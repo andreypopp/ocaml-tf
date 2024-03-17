@@ -10,7 +10,9 @@ type google_beyondcorp_app_connection
 val google_beyondcorp_app_connection :
   ?connectors:string list ->
   ?display_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?region:string ->
   ?type_:string ->
   ?timeouts:google_beyondcorp_app_connection__timeouts ->

@@ -22,8 +22,11 @@ type aws_networkmanager_vpc_attachment__timeouts = {
 
 type aws_networkmanager_vpc_attachment = {
   core_network_id : string;  (** core_network_id *)
+  id : string option; [@option]  (** id *)
   subnet_arns : string list;  (** subnet_arns *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_arn : string;  (** vpc_arn *)
   options : aws_networkmanager_vpc_attachment__options list;
   timeouts : aws_networkmanager_vpc_attachment__timeouts option;
@@ -31,14 +34,16 @@ type aws_networkmanager_vpc_attachment = {
 [@@deriving yojson_of]
 (** aws_networkmanager_vpc_attachment *)
 
-let aws_networkmanager_vpc_attachment ?tags ?timeouts
+let aws_networkmanager_vpc_attachment ?id ?tags ?tags_all ?timeouts
     ~core_network_id ~subnet_arns ~vpc_arn ~options __resource_id =
   let __resource_type = "aws_networkmanager_vpc_attachment" in
   let __resource =
     {
       core_network_id;
+      id;
       subnet_arns;
       tags;
+      tags_all;
       vpc_arn;
       options;
       timeouts;

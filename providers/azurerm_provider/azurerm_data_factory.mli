@@ -12,6 +12,7 @@ type azurerm_data_factory
 val azurerm_data_factory :
   ?customer_managed_key_id:string ->
   ?customer_managed_key_identity_id:string ->
+  ?id:string ->
   ?managed_virtual_network_enabled:bool ->
   ?public_network_enabled:bool ->
   ?purview_id:string ->

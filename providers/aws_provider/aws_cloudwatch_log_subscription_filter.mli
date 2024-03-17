@@ -6,6 +6,8 @@ type aws_cloudwatch_log_subscription_filter
 
 val aws_cloudwatch_log_subscription_filter :
   ?distribution:string ->
+  ?id:string ->
+  ?role_arn:string ->
   destination_arn:string ->
   filter_pattern:string ->
   log_group_name:string ->

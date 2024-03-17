@@ -18,7 +18,9 @@ type google_dns_managed_zone
 val google_dns_managed_zone :
   ?description:string ->
   ?force_destroy:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?visibility:string ->
   ?timeouts:google_dns_managed_zone__timeouts ->
   dns_name:string ->

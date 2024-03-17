@@ -11,6 +11,7 @@ val azurerm_virtual_machine_extension :
   ?auto_upgrade_minor_version:bool ->
   ?automatic_upgrade_enabled:bool ->
   ?failure_suppression_enabled:bool ->
+  ?id:string ->
   ?protected_settings:string ->
   ?provision_after_extensions:string list ->
   ?settings:string ->

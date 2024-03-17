@@ -8,6 +8,7 @@ type azurerm_site_recovery_protection_container_mapping__timeouts
 type azurerm_site_recovery_protection_container_mapping
 
 val azurerm_site_recovery_protection_container_mapping :
+  ?id:string ->
   ?timeouts:
     azurerm_site_recovery_protection_container_mapping__timeouts ->
   name:string ->

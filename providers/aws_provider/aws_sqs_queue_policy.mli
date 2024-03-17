@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_sqs_queue_policy
 
 val aws_sqs_queue_policy :
-  policy:string -> queue_url:string -> string -> unit
+  ?id:string -> policy:string -> queue_url:string -> string -> unit

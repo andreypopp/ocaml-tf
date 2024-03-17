@@ -40,6 +40,7 @@ type azurerm_machine_learning_compute_cluster__timeouts = {
 
 type azurerm_machine_learning_compute_cluster = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   local_auth_enabled : bool option; [@option]
       (** local_auth_enabled *)
   location : string;  (** location *)
@@ -48,6 +49,8 @@ type azurerm_machine_learning_compute_cluster = {
   name : string;  (** name *)
   node_public_ip_enabled : bool option; [@option]
       (** node_public_ip_enabled *)
+  ssh_public_access_enabled : bool option; [@option]
+      (** ssh_public_access_enabled *)
   subnet_resource_id : string option; [@option]
       (** subnet_resource_id *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -63,20 +66,22 @@ type azurerm_machine_learning_compute_cluster = {
 [@@deriving yojson_of]
 (** azurerm_machine_learning_compute_cluster *)
 
-let azurerm_machine_learning_compute_cluster ?description
-    ?local_auth_enabled ?node_public_ip_enabled ?subnet_resource_id
-    ?tags ?timeouts ~location ~machine_learning_workspace_id ~name
-    ~vm_priority ~vm_size ~identity ~scale_settings ~ssh
-    __resource_id =
+let azurerm_machine_learning_compute_cluster ?description ?id
+    ?local_auth_enabled ?node_public_ip_enabled
+    ?ssh_public_access_enabled ?subnet_resource_id ?tags ?timeouts
+    ~location ~machine_learning_workspace_id ~name ~vm_priority
+    ~vm_size ~identity ~scale_settings ~ssh __resource_id =
   let __resource_type = "azurerm_machine_learning_compute_cluster" in
   let __resource =
     {
       description;
+      id;
       local_auth_enabled;
       location;
       machine_learning_workspace_id;
       name;
       node_public_ip_enabled;
+      ssh_public_access_enabled;
       subnet_resource_id;
       tags;
       vm_priority;

@@ -34,6 +34,7 @@ type azurerm_cdn_frontdoor_origin_group__timeouts = {
 
 type azurerm_cdn_frontdoor_origin_group = {
   cdn_frontdoor_profile_id : string;  (** cdn_frontdoor_profile_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   restore_traffic_time_to_healed_or_new_endpoint_in_minutes :
     float option;
@@ -50,7 +51,7 @@ type azurerm_cdn_frontdoor_origin_group = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_origin_group *)
 
-let azurerm_cdn_frontdoor_origin_group
+let azurerm_cdn_frontdoor_origin_group ?id
     ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
     ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
     ~name ~health_probe ~load_balancing __resource_id =
@@ -58,6 +59,7 @@ let azurerm_cdn_frontdoor_origin_group
   let __resource =
     {
       cdn_frontdoor_profile_id;
+      id;
       name;
       restore_traffic_time_to_healed_or_new_endpoint_in_minutes;
       session_affinity_enabled;

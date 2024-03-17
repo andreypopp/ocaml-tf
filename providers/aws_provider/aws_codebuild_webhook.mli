@@ -9,6 +9,7 @@ type aws_codebuild_webhook
 val aws_codebuild_webhook :
   ?branch_filter:string ->
   ?build_type:string ->
+  ?id:string ->
   project_name:string ->
   filter_group:aws_codebuild_webhook__filter_group list ->
   string ->

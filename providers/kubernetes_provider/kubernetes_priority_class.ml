@@ -28,6 +28,7 @@ type kubernetes_priority_class = {
       (** An arbitrary string that usually provides guidelines on when this priority class should be used. *)
   global_default : bool option; [@option]
       (** Specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority. *)
+  id : string option; [@option]  (** id *)
   preemption_policy : string option; [@option]
       (** PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. *)
   value : float;
@@ -37,13 +38,14 @@ type kubernetes_priority_class = {
 [@@deriving yojson_of]
 (** kubernetes_priority_class *)
 
-let kubernetes_priority_class ?description ?global_default
+let kubernetes_priority_class ?description ?global_default ?id
     ?preemption_policy ~value ~metadata __resource_id =
   let __resource_type = "kubernetes_priority_class" in
   let __resource =
     {
       description;
       global_default;
+      id;
       preemption_policy;
       value;
       metadata;

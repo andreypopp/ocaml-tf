@@ -16,6 +16,7 @@ type azurerm_mssql_managed_instance_active_directory_administrator__timeouts = {
 type azurerm_mssql_managed_instance_active_directory_administrator = {
   azuread_authentication_only : bool option; [@option]
       (** azuread_authentication_only *)
+  id : string option; [@option]  (** id *)
   login_username : string;  (** login_username *)
   managed_instance_id : string;  (** managed_instance_id *)
   object_id : string;  (** object_id *)
@@ -28,7 +29,7 @@ type azurerm_mssql_managed_instance_active_directory_administrator = {
 (** azurerm_mssql_managed_instance_active_directory_administrator *)
 
 let azurerm_mssql_managed_instance_active_directory_administrator
-    ?azuread_authentication_only ?timeouts ~login_username
+    ?azuread_authentication_only ?id ?timeouts ~login_username
     ~managed_instance_id ~object_id ~tenant_id __resource_id =
   let __resource_type =
     "azurerm_mssql_managed_instance_active_directory_administrator"
@@ -36,6 +37,7 @@ let azurerm_mssql_managed_instance_active_directory_administrator
   let __resource =
     {
       azuread_authentication_only;
+      id;
       login_username;
       managed_instance_id;
       object_id;

@@ -10,6 +10,7 @@ type azurerm_route_map__timeouts
 type azurerm_route_map
 
 val azurerm_route_map :
+  ?id:string ->
   ?timeouts:azurerm_route_map__timeouts ->
   name:string ->
   virtual_hub_id:string ->

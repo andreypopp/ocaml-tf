@@ -11,6 +11,7 @@ type aws_api_gateway_method = {
       (** authorization_scopes *)
   authorizer_id : string option; [@option]  (** authorizer_id *)
   http_method : string;  (** http_method *)
+  id : string option; [@option]  (** id *)
   operation_name : string option; [@option]  (** operation_name *)
   request_models : (string * string) list option; [@option]
       (** request_models *)
@@ -25,7 +26,7 @@ type aws_api_gateway_method = {
 (** aws_api_gateway_method *)
 
 let aws_api_gateway_method ?api_key_required ?authorization_scopes
-    ?authorizer_id ?operation_name ?request_models
+    ?authorizer_id ?id ?operation_name ?request_models
     ?request_parameters ?request_validator_id ~authorization
     ~http_method ~resource_id ~rest_api_id __resource_id =
   let __resource_type = "aws_api_gateway_method" in
@@ -36,6 +37,7 @@ let aws_api_gateway_method ?api_key_required ?authorization_scopes
       authorization_scopes;
       authorizer_id;
       http_method;
+      id;
       operation_name;
       request_models;
       request_parameters;

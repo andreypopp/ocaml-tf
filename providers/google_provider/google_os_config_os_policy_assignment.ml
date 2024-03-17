@@ -554,8 +554,11 @@ type google_os_config_os_policy_assignment__timeouts = {
 type google_os_config_os_policy_assignment = {
   description : string option; [@option]
       (** OS policy assignment description. Length of the description is limited to 1024 characters. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource *)
   name : string;  (** Resource name. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   skip_await_rollout : bool option; [@option]
       (** Set to true to skip awaiting rollout during resource creation and update. *)
   instance_filter :
@@ -568,15 +571,17 @@ type google_os_config_os_policy_assignment = {
 [@@deriving yojson_of]
 (** google_os_config_os_policy_assignment *)
 
-let google_os_config_os_policy_assignment ?description
+let google_os_config_os_policy_assignment ?description ?id ?project
     ?skip_await_rollout ?timeouts ~location ~name ~instance_filter
     ~os_policies ~rollout __resource_id =
   let __resource_type = "google_os_config_os_policy_assignment" in
   let __resource =
     {
       description;
+      id;
       location;
       name;
+      project;
       skip_await_rollout;
       instance_filter;
       os_policies;

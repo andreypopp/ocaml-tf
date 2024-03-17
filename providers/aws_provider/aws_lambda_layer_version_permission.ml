@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_lambda_layer_version_permission = {
   action : string;  (** action *)
+  id : string option; [@option]  (** id *)
   layer_name : string;  (** layer_name *)
   organization_id : string option; [@option]  (** organization_id *)
   principal : string;  (** principal *)
@@ -16,13 +17,14 @@ type aws_lambda_layer_version_permission = {
 [@@deriving yojson_of]
 (** aws_lambda_layer_version_permission *)
 
-let aws_lambda_layer_version_permission ?organization_id
+let aws_lambda_layer_version_permission ?id ?organization_id
     ?skip_destroy ~action ~layer_name ~principal ~statement_id
     ~version_number __resource_id =
   let __resource_type = "aws_lambda_layer_version_permission" in
   let __resource =
     {
       action;
+      id;
       layer_name;
       organization_id;
       principal;

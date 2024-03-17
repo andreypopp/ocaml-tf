@@ -38,8 +38,19 @@ type google_compute_region_commitment__timeouts = {
 (** google_compute_region_commitment__timeouts *)
 
 type google_compute_region_commitment = {
+  auto_renew : bool option; [@option]
+      (** Specifies whether to enable automatic renewal for the commitment.
+The default value is false if not specified.
+If the field is set to true, the commitment will be automatically renewed for either
+one or three years according to the terms of the existing commitment. *)
+  category : string option; [@option]
+      (** The category of the commitment. Category MACHINE specifies commitments composed of
+machine resources such as VCPU or MEMORY, listed in resources. Category LICENSE
+specifies commitments composed of software licenses, listed in licenseResources.
+Note that only MACHINE commitments should have a Type specified. Possible values: [LICENSE, MACHINE] *)
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. The name must be 1-63 characters long and match
 the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
@@ -49,6 +60,15 @@ character, which cannot be a dash. *)
   plan : string;
       (** The plan for this commitment, which determines duration and discount rate.
 The currently supported plans are TWELVE_MONTH (1 year), and THIRTY_SIX_MONTH (3 years). Possible values: [TWELVE_MONTH, THIRTY_SIX_MONTH] *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** URL of the region where this commitment may be used. *)
+  type_ : string option; [@option] [@key "type"]
+      (** The type of commitment, which affects the discount rate and the eligible resources.
+The type could be one of the following value: 'MEMORY_OPTIMIZED', 'ACCELERATOR_OPTIMIZED',
+'GENERAL_PURPOSE_N1', 'GENERAL_PURPOSE_N2', 'GENERAL_PURPOSE_N2D', 'GENERAL_PURPOSE_E2',
+'GENERAL_PURPOSE_T2D', 'GENERAL_PURPOSE_C3', 'COMPUTE_OPTIMIZED_C2', 'COMPUTE_OPTIMIZED_C2D' and
+'GRAPHICS_OPTIMIZED_G2' *)
   license_resource :
     google_compute_region_commitment__license_resource list;
   resources : google_compute_region_commitment__resources list;
@@ -57,14 +77,21 @@ The currently supported plans are TWELVE_MONTH (1 year), and THIRTY_SIX_MONTH (3
 [@@deriving yojson_of]
 (** google_compute_region_commitment *)
 
-let google_compute_region_commitment ?description ?timeouts ~name
-    ~plan ~license_resource ~resources __resource_id =
+let google_compute_region_commitment ?auto_renew ?category
+    ?description ?id ?project ?region ?type_ ?timeouts ~name ~plan
+    ~license_resource ~resources __resource_id =
   let __resource_type = "google_compute_region_commitment" in
   let __resource =
     {
+      auto_renew;
+      category;
       description;
+      id;
       name;
       plan;
+      project;
+      region;
+      type_;
       license_resource;
       resources;
       timeouts;

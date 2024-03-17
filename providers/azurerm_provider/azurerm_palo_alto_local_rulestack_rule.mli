@@ -13,6 +13,7 @@ val azurerm_palo_alto_local_rulestack_rule :
   ?decryption_rule_type:string ->
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?inspection_certificate_id:string ->
   ?logging_enabled:bool ->
   ?negate_destination:bool ->

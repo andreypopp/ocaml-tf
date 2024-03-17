@@ -8,6 +8,7 @@ type azurerm_elastic_cloud_elasticsearch__timeouts
 type azurerm_elastic_cloud_elasticsearch
 
 val azurerm_elastic_cloud_elasticsearch :
+  ?id:string ->
   ?monitoring_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_elastic_cloud_elasticsearch__timeouts ->

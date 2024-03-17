@@ -17,12 +17,18 @@ type aws_grafana_workspace_saml_configuration = {
   allowed_organizations : string list option; [@option]
       (** allowed_organizations *)
   editor_role_values : string list;  (** editor_role_values *)
+  email_assertion : string option; [@option]  (** email_assertion *)
   groups_assertion : string option; [@option]
       (** groups_assertion *)
+  id : string option; [@option]  (** id *)
   idp_metadata_url : string option; [@option]
       (** idp_metadata_url *)
   idp_metadata_xml : string option; [@option]
       (** idp_metadata_xml *)
+  login_assertion : string option; [@option]  (** login_assertion *)
+  login_validity_duration : float option; [@option]
+      (** login_validity_duration *)
+  name_assertion : string option; [@option]  (** name_assertion *)
   org_assertion : string option; [@option]  (** org_assertion *)
   role_assertion : string option; [@option]  (** role_assertion *)
   workspace_id : string;  (** workspace_id *)
@@ -33,18 +39,25 @@ type aws_grafana_workspace_saml_configuration = {
 (** aws_grafana_workspace_saml_configuration *)
 
 let aws_grafana_workspace_saml_configuration ?admin_role_values
-    ?allowed_organizations ?groups_assertion ?idp_metadata_url
-    ?idp_metadata_xml ?org_assertion ?role_assertion ?timeouts
-    ~editor_role_values ~workspace_id __resource_id =
+    ?allowed_organizations ?email_assertion ?groups_assertion ?id
+    ?idp_metadata_url ?idp_metadata_xml ?login_assertion
+    ?login_validity_duration ?name_assertion ?org_assertion
+    ?role_assertion ?timeouts ~editor_role_values ~workspace_id
+    __resource_id =
   let __resource_type = "aws_grafana_workspace_saml_configuration" in
   let __resource =
     {
       admin_role_values;
       allowed_organizations;
       editor_role_values;
+      email_assertion;
       groups_assertion;
+      id;
       idp_metadata_url;
       idp_metadata_xml;
+      login_assertion;
+      login_validity_duration;
+      name_assertion;
       org_assertion;
       role_assertion;
       workspace_id;

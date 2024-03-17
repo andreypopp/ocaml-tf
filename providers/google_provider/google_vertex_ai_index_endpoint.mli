@@ -8,8 +8,10 @@ type google_vertex_ai_index_endpoint
 
 val google_vertex_ai_index_endpoint :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?network:string ->
+  ?project:string ->
   ?public_endpoint_enabled:bool ->
   ?region:string ->
   ?timeouts:google_vertex_ai_index_endpoint__timeouts ->

@@ -45,8 +45,10 @@ type aws_opsworks_application = {
   document_root : string option; [@option]  (** document_root *)
   domains : string list option; [@option]  (** domains *)
   enable_ssl : bool option; [@option]  (** enable_ssl *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   rails_env : string option; [@option]  (** rails_env *)
+  short_name : string option; [@option]  (** short_name *)
   stack_id : string;  (** stack_id *)
   type_ : string; [@key "type"]  (** type *)
   app_source : aws_opsworks_application__app_source list;
@@ -60,9 +62,9 @@ type aws_opsworks_application = {
 let aws_opsworks_application ?auto_bundle_on_deploy
     ?aws_flow_ruby_settings ?data_source_arn
     ?data_source_database_name ?data_source_type ?description
-    ?document_root ?domains ?enable_ssl ?rails_env ~name ~stack_id
-    ~type_ ~app_source ~environment ~ssl_configuration __resource_id
-    =
+    ?document_root ?domains ?enable_ssl ?id ?rails_env ?short_name
+    ~name ~stack_id ~type_ ~app_source ~environment
+    ~ssl_configuration __resource_id =
   let __resource_type = "aws_opsworks_application" in
   let __resource =
     {
@@ -75,8 +77,10 @@ let aws_opsworks_application ?auto_bundle_on_deploy
       document_root;
       domains;
       enable_ssl;
+      id;
       name;
       rails_env;
+      short_name;
       stack_id;
       type_;
       app_source;

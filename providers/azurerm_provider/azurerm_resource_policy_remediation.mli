@@ -7,6 +7,7 @@ type azurerm_resource_policy_remediation
 
 val azurerm_resource_policy_remediation :
   ?failure_percentage:float ->
+  ?id:string ->
   ?location_filters:string list ->
   ?parallel_deployments:float ->
   ?policy_definition_id:string ->

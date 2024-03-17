@@ -85,12 +85,19 @@ type google_cloudfunctions_function = {
       (** Name of the Cloud Build Custom Worker Pool that should be used to build the function. *)
   description : string option; [@option]
       (** Description of the function. *)
+  docker_registry : string option; [@option]
+      (** Docker Registry to use for storing the function's Docker images. Allowed values are ARTIFACT_REGISTRY (default) and CONTAINER_REGISTRY. *)
   docker_repository : string option; [@option]
       (** User managed repository created in Artifact Registry optionally with a customer managed encryption key. If specified, deployments will use Artifact Registry for storing images built with Cloud Build. *)
   entry_point : string option; [@option]
       (** Name of the function that will be executed when the Google Cloud Function is triggered. *)
   environment_variables : (string * string) list option; [@option]
       (** A set of key/value environment variable pairs to assign to the function. *)
+  https_trigger_security_level : string option; [@option]
+      (** The security level for the function. Defaults to SECURE_OPTIONAL. Valid only if trigger_http is used. *)
+  https_trigger_url : string option; [@option]
+      (** URL which triggers function execution. Returned only if trigger_http is used. *)
+  id : string option; [@option]  (** id *)
   ingress_settings : string option; [@option]
       (** String value that controls what traffic can reach the function. Allowed values are ALLOW_ALL and ALLOW_INTERNAL_ONLY. Changes to this field will recreate the cloud function. *)
   kms_key_name : string option; [@option]
@@ -100,12 +107,20 @@ type google_cloudfunctions_function = {
 
 				**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  max_instances : float option; [@option]
+      (** The limit on the maximum number of function instances that may coexist at a given time. *)
   min_instances : float option; [@option]
       (** The limit on the minimum number of function instances that may coexist at a given time. *)
   name : string;
       (** A user-defined name of the function. Function names must be unique globally. *)
+  project : string option; [@option]
+      (** Project of the function. If it is not provided, the provider project is used. *)
+  region : string option; [@option]
+      (** Region of function. If it is not provided, the provider region is used. *)
   runtime : string;
       (** The runtime in which the function is going to run. Eg. nodejs12, nodejs14, python37, go111. *)
+  service_account_email : string option; [@option]
+      (**  If provided, the self-provided service account to run the function with. *)
   source_archive_bucket : string option; [@option]
       (** The GCS bucket containing the zip archive which contains the function. *)
   source_archive_object : string option; [@option]
@@ -116,6 +131,8 @@ type google_cloudfunctions_function = {
       (** Boolean variable. Any HTTP request (of a supported type) to the endpoint will trigger function execution. Supported HTTP request types are: POST, PUT, GET, DELETE, and OPTIONS. Endpoint is returned as https_trigger_url. Cannot be used with trigger_bucket and trigger_topic. *)
   vpc_connector : string option; [@option]
       (** The VPC Network Connector that this cloud function can connect to. It can be either the fully-qualified URI, or the short name of the network connector resource. The format of this field is projects/*/locations/*/connectors/*. *)
+  vpc_connector_egress_settings : string option; [@option]
+      (** The egress settings for the connector, controlling what traffic is diverted through it. Allowed values are ALL_TRAFFIC and PRIVATE_RANGES_ONLY. Defaults to PRIVATE_RANGES_ONLY. If unset, this field preserves the previously set value. *)
   event_trigger : google_cloudfunctions_function__event_trigger list;
   secret_environment_variables :
     google_cloudfunctions_function__secret_environment_variables list;
@@ -130,10 +147,13 @@ type google_cloudfunctions_function = {
 
 let google_cloudfunctions_function ?available_memory_mb
     ?build_environment_variables ?build_worker_pool ?description
-    ?docker_repository ?entry_point ?environment_variables
-    ?ingress_settings ?kms_key_name ?labels ?min_instances
-    ?source_archive_bucket ?source_archive_object ?timeout
-    ?trigger_http ?vpc_connector ?timeouts ~name ~runtime
+    ?docker_registry ?docker_repository ?entry_point
+    ?environment_variables ?https_trigger_security_level
+    ?https_trigger_url ?id ?ingress_settings ?kms_key_name ?labels
+    ?max_instances ?min_instances ?project ?region
+    ?service_account_email ?source_archive_bucket
+    ?source_archive_object ?timeout ?trigger_http ?vpc_connector
+    ?vpc_connector_egress_settings ?timeouts ~name ~runtime
     ~event_trigger ~secret_environment_variables ~secret_volumes
     ~source_repository __resource_id =
   let __resource_type = "google_cloudfunctions_function" in
@@ -143,20 +163,29 @@ let google_cloudfunctions_function ?available_memory_mb
       build_environment_variables;
       build_worker_pool;
       description;
+      docker_registry;
       docker_repository;
       entry_point;
       environment_variables;
+      https_trigger_security_level;
+      https_trigger_url;
+      id;
       ingress_settings;
       kms_key_name;
       labels;
+      max_instances;
       min_instances;
       name;
+      project;
+      region;
       runtime;
+      service_account_email;
       source_archive_bucket;
       source_archive_object;
       timeout;
       trigger_http;
       vpc_connector;
+      vpc_connector_egress_settings;
       event_trigger;
       secret_environment_variables;
       secret_volumes;

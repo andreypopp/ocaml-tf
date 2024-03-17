@@ -8,6 +8,7 @@ type azurerm_confidential_ledger__timeouts
 type azurerm_confidential_ledger
 
 val azurerm_confidential_ledger :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_confidential_ledger__timeouts ->
   ledger_type:string ->

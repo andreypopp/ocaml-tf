@@ -240,6 +240,8 @@ type azurerm_virtual_machine_scale_set = {
       (** automatic_os_upgrade *)
   eviction_policy : string option; [@option]  (** eviction_policy *)
   health_probe_id : string option; [@option]  (** health_probe_id *)
+  id : string option; [@option]  (** id *)
+  license_type : string option; [@option]  (** license_type *)
   location : string;  (** location *)
   name : string;  (** name *)
   overprovision : bool option; [@option]  (** overprovision *)
@@ -282,21 +284,23 @@ type azurerm_virtual_machine_scale_set = {
 (** azurerm_virtual_machine_scale_set *)
 
 let azurerm_virtual_machine_scale_set ?automatic_os_upgrade
-    ?eviction_policy ?health_probe_id ?overprovision ?priority
-    ?proximity_placement_group_id ?single_placement_group ?tags
-    ?zones ?timeouts ~location ~name ~resource_group_name
-    ~upgrade_policy_mode ~boot_diagnostics ~extension ~identity
-    ~network_profile ~os_profile ~os_profile_linux_config
-    ~os_profile_secrets ~os_profile_windows_config ~plan
-    ~rolling_upgrade_policy ~sku ~storage_profile_data_disk
-    ~storage_profile_image_reference ~storage_profile_os_disk
-    __resource_id =
+    ?eviction_policy ?health_probe_id ?id ?license_type
+    ?overprovision ?priority ?proximity_placement_group_id
+    ?single_placement_group ?tags ?zones ?timeouts ~location ~name
+    ~resource_group_name ~upgrade_policy_mode ~boot_diagnostics
+    ~extension ~identity ~network_profile ~os_profile
+    ~os_profile_linux_config ~os_profile_secrets
+    ~os_profile_windows_config ~plan ~rolling_upgrade_policy ~sku
+    ~storage_profile_data_disk ~storage_profile_image_reference
+    ~storage_profile_os_disk __resource_id =
   let __resource_type = "azurerm_virtual_machine_scale_set" in
   let __resource =
     {
       automatic_os_upgrade;
       eviction_policy;
       health_probe_id;
+      id;
+      license_type;
       location;
       name;
       overprovision;

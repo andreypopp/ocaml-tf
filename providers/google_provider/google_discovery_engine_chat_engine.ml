@@ -52,9 +52,11 @@ type google_discovery_engine_chat_engine = {
   display_name : string;
       (** The display name of the engine. Should be human readable. UTF-8 encoded string with limit of 1024 characters. *)
   engine_id : string;  (** The ID to use for chat engine. *)
+  id : string option; [@option]  (** id *)
   industry_vertical : string option; [@option]
       (** The industry vertical that the chat engine registers. Vertical on Engine has to match vertical of the DataStore linked to the engine. Default value: GENERIC Possible values: [GENERIC] *)
   location : string;  (** Location. *)
+  project : string option; [@option]  (** project *)
   chat_engine_config :
     google_discovery_engine_chat_engine__chat_engine_config list;
   common_config :
@@ -64,9 +66,10 @@ type google_discovery_engine_chat_engine = {
 [@@deriving yojson_of]
 (** google_discovery_engine_chat_engine *)
 
-let google_discovery_engine_chat_engine ?industry_vertical ?timeouts
-    ~collection_id ~data_store_ids ~display_name ~engine_id ~location
-    ~chat_engine_config ~common_config __resource_id =
+let google_discovery_engine_chat_engine ?id ?industry_vertical
+    ?project ?timeouts ~collection_id ~data_store_ids ~display_name
+    ~engine_id ~location ~chat_engine_config ~common_config
+    __resource_id =
   let __resource_type = "google_discovery_engine_chat_engine" in
   let __resource =
     {
@@ -74,8 +77,10 @@ let google_discovery_engine_chat_engine ?industry_vertical ?timeouts
       data_store_ids;
       display_name;
       engine_id;
+      id;
       industry_vertical;
       location;
+      project;
       chat_engine_config;
       common_config;
       timeouts;

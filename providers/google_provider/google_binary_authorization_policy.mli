@@ -10,6 +10,9 @@ type google_binary_authorization_policy
 
 val google_binary_authorization_policy :
   ?description:string ->
+  ?global_policy_evaluation_mode:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_binary_authorization_policy__timeouts ->
   admission_whitelist_patterns:
     google_binary_authorization_policy__admission_whitelist_patterns

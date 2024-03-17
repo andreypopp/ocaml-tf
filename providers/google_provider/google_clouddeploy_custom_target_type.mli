@@ -15,7 +15,9 @@ type google_clouddeploy_custom_target_type
 val google_clouddeploy_custom_target_type :
   ?annotations:(string * string) list ->
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_clouddeploy_custom_target_type__timeouts ->
   location:string ->
   name:string ->

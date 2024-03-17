@@ -32,8 +32,12 @@ type google_compute_network_endpoints__timeouts = {
 (** google_compute_network_endpoints__timeouts *)
 
 type google_compute_network_endpoints = {
+  id : string option; [@option]  (** id *)
   network_endpoint_group : string;
       (** The network endpoint group these endpoints are part of. *)
+  project : string option; [@option]  (** project *)
+  zone : string option; [@option]
+      (** Zone where the containing network endpoint group is located. *)
   network_endpoints :
     google_compute_network_endpoints__network_endpoints list;
   timeouts : google_compute_network_endpoints__timeouts option;
@@ -41,11 +45,18 @@ type google_compute_network_endpoints = {
 [@@deriving yojson_of]
 (** google_compute_network_endpoints *)
 
-let google_compute_network_endpoints ?timeouts
+let google_compute_network_endpoints ?id ?project ?zone ?timeouts
     ~network_endpoint_group ~network_endpoints __resource_id =
   let __resource_type = "google_compute_network_endpoints" in
   let __resource =
-    { network_endpoint_group; network_endpoints; timeouts }
+    {
+      id;
+      network_endpoint_group;
+      project;
+      zone;
+      network_endpoints;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_network_endpoints __resource);

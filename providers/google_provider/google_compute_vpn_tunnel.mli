@@ -7,11 +7,17 @@ type google_compute_vpn_tunnel
 
 val google_compute_vpn_tunnel :
   ?description:string ->
+  ?id:string ->
   ?ike_version:float ->
   ?labels:(string * string) list ->
+  ?local_traffic_selector:string list ->
   ?peer_external_gateway:string ->
   ?peer_external_gateway_interface:float ->
   ?peer_gcp_gateway:string ->
+  ?peer_ip:string ->
+  ?project:string ->
+  ?region:string ->
+  ?remote_traffic_selector:string list ->
   ?router:string ->
   ?target_vpn_gateway:string ->
   ?vpn_gateway:string ->

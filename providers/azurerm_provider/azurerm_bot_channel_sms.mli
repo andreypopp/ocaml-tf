@@ -6,6 +6,7 @@ type azurerm_bot_channel_sms__timeouts
 type azurerm_bot_channel_sms
 
 val azurerm_bot_channel_sms :
+  ?id:string ->
   ?timeouts:azurerm_bot_channel_sms__timeouts ->
   bot_name:string ->
   location:string ->

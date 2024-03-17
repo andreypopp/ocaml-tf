@@ -361,6 +361,7 @@ type google_dialogflow_cx_flow = {
   description : string option; [@option]
       (** The description of the flow. The maximum length is 500 characters. If exceeded, the request is rejected. *)
   display_name : string;  (** The human-readable name of the flow. *)
+  id : string option; [@option]  (** id *)
   is_default_start_flow : bool option; [@option]
       (** Marks this as the [Default Start Flow](https://cloud.google.com/dialogflow/cx/docs/concept/flow#start) for an agent. When you create an agent, the Default Start Flow is created automatically.
 The Default Start Flow cannot be deleted; deleting the 'google_dialogflow_cx_flow' resource does nothing to the underlying GCP resources.
@@ -392,7 +393,7 @@ Format:projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Fl
 [@@deriving yojson_of]
 (** google_dialogflow_cx_flow *)
 
-let google_dialogflow_cx_flow ?description ?is_default_start_flow
+let google_dialogflow_cx_flow ?description ?id ?is_default_start_flow
     ?language_code ?parent ?transition_route_groups ?timeouts
     ~display_name ~advanced_settings ~event_handlers ~nlu_settings
     ~transition_routes __resource_id =
@@ -401,6 +402,7 @@ let google_dialogflow_cx_flow ?description ?is_default_start_flow
     {
       description;
       display_name;
+      id;
       is_default_start_flow;
       language_code;
       parent;

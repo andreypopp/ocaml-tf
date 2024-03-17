@@ -14,6 +14,7 @@ type azurerm_synapse_workspace_aad_admin__timeouts = {
 (** azurerm_synapse_workspace_aad_admin__timeouts *)
 
 type azurerm_synapse_workspace_aad_admin = {
+  id : string option; [@option]  (** id *)
   login : string;  (** login *)
   object_id : string;  (** object_id *)
   synapse_workspace_id : string;  (** synapse_workspace_id *)
@@ -23,11 +24,18 @@ type azurerm_synapse_workspace_aad_admin = {
 [@@deriving yojson_of]
 (** azurerm_synapse_workspace_aad_admin *)
 
-let azurerm_synapse_workspace_aad_admin ?timeouts ~login ~object_id
-    ~synapse_workspace_id ~tenant_id __resource_id =
+let azurerm_synapse_workspace_aad_admin ?id ?timeouts ~login
+    ~object_id ~synapse_workspace_id ~tenant_id __resource_id =
   let __resource_type = "azurerm_synapse_workspace_aad_admin" in
   let __resource =
-    { login; object_id; synapse_workspace_id; tenant_id; timeouts }
+    {
+      id;
+      login;
+      object_id;
+      synapse_workspace_id;
+      tenant_id;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_workspace_aad_admin __resource);

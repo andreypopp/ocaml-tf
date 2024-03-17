@@ -6,6 +6,7 @@ type cloudflare_waiting_room_rules__rules
 type cloudflare_waiting_room_rules
 
 val cloudflare_waiting_room_rules :
+  ?id:string ->
   waiting_room_id:string ->
   zone_id:string ->
   rules:cloudflare_waiting_room_rules__rules list ->

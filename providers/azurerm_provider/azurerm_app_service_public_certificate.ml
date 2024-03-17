@@ -17,13 +17,14 @@ type azurerm_app_service_public_certificate = {
   blob : string;  (** blob *)
   certificate_location : string;  (** certificate_location *)
   certificate_name : string;  (** certificate_name *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts : azurerm_app_service_public_certificate__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_public_certificate *)
 
-let azurerm_app_service_public_certificate ?timeouts
+let azurerm_app_service_public_certificate ?id ?timeouts
     ~app_service_name ~blob ~certificate_location ~certificate_name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_app_service_public_certificate" in
@@ -33,6 +34,7 @@ let azurerm_app_service_public_certificate ?timeouts
       blob;
       certificate_location;
       certificate_name;
+      id;
       resource_group_name;
       timeouts;
     }

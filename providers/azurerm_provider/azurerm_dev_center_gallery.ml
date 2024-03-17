@@ -14,6 +14,7 @@ type azurerm_dev_center_gallery__timeouts = {
 
 type azurerm_dev_center_gallery = {
   dev_center_id : string;  (** dev_center_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   shared_gallery_id : string;  (** shared_gallery_id *)
   timeouts : azurerm_dev_center_gallery__timeouts option;
@@ -21,11 +22,11 @@ type azurerm_dev_center_gallery = {
 [@@deriving yojson_of]
 (** azurerm_dev_center_gallery *)
 
-let azurerm_dev_center_gallery ?timeouts ~dev_center_id ~name
+let azurerm_dev_center_gallery ?id ?timeouts ~dev_center_id ~name
     ~shared_gallery_id __resource_id =
   let __resource_type = "azurerm_dev_center_gallery" in
   let __resource =
-    { dev_center_id; name; shared_gallery_id; timeouts }
+    { dev_center_id; id; name; shared_gallery_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_center_gallery __resource);

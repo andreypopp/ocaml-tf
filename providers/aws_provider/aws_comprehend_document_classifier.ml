@@ -54,12 +54,18 @@ type aws_comprehend_document_classifier__vpc_config = {
 
 type aws_comprehend_document_classifier = {
   data_access_role_arn : string;  (** data_access_role_arn *)
+  id : string option; [@option]  (** id *)
   language_code : string;  (** language_code *)
   mode : string option; [@option]  (** mode *)
   model_kms_key_id : string option; [@option]
       (** model_kms_key_id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  version_name : string option; [@option]  (** version_name *)
+  version_name_prefix : string option; [@option]
+      (** version_name_prefix *)
   volume_kms_key_id : string option; [@option]
       (** volume_kms_key_id *)
   input_data_config :
@@ -72,7 +78,8 @@ type aws_comprehend_document_classifier = {
 [@@deriving yojson_of]
 (** aws_comprehend_document_classifier *)
 
-let aws_comprehend_document_classifier ?mode ?model_kms_key_id ?tags
+let aws_comprehend_document_classifier ?id ?mode ?model_kms_key_id
+    ?tags ?tags_all ?version_name ?version_name_prefix
     ?volume_kms_key_id ?timeouts ~data_access_role_arn ~language_code
     ~name ~input_data_config ~output_data_config ~vpc_config
     __resource_id =
@@ -80,11 +87,15 @@ let aws_comprehend_document_classifier ?mode ?model_kms_key_id ?tags
   let __resource =
     {
       data_access_role_arn;
+      id;
       language_code;
       mode;
       model_kms_key_id;
       name;
       tags;
+      tags_all;
+      version_name;
+      version_name_prefix;
       volume_kms_key_id;
       input_data_config;
       output_data_config;

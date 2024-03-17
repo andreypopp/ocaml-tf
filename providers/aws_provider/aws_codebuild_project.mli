@@ -28,11 +28,15 @@ val aws_codebuild_project :
   ?badge_enabled:bool ->
   ?build_timeout:float ->
   ?concurrent_build_limit:float ->
+  ?description:string ->
+  ?encryption_key:string ->
+  ?id:string ->
   ?project_visibility:string ->
   ?queued_timeout:float ->
   ?resource_access_role:string ->
   ?source_version:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   service_role:string ->
   artifacts:aws_codebuild_project__artifacts list ->

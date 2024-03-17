@@ -7,6 +7,7 @@ type aws_codestarconnections_host__vpc_configuration
 type aws_codestarconnections_host
 
 val aws_codestarconnections_host :
+  ?id:string ->
   ?timeouts:aws_codestarconnections_host__timeouts ->
   name:string ->
   provider_endpoint:string ->

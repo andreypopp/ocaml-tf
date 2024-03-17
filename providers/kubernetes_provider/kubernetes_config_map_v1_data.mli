@@ -8,6 +8,7 @@ type kubernetes_config_map_v1_data
 val kubernetes_config_map_v1_data :
   ?field_manager:string ->
   ?force:bool ->
+  ?id:string ->
   data:(string * string) list ->
   metadata:kubernetes_config_map_v1_data__metadata list ->
   string ->

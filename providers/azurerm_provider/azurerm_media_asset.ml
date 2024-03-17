@@ -15,27 +15,34 @@ type azurerm_media_asset__timeouts = {
 
 type azurerm_media_asset = {
   alternate_id : string option; [@option]  (** alternate_id *)
+  container : string option; [@option]  (** container *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   media_services_account_name : string;
       (** media_services_account_name *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
+  storage_account_name : string option; [@option]
+      (** storage_account_name *)
   timeouts : azurerm_media_asset__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_media_asset *)
 
-let azurerm_media_asset ?alternate_id ?description ?timeouts
-    ~media_services_account_name ~name ~resource_group_name
-    __resource_id =
+let azurerm_media_asset ?alternate_id ?container ?description ?id
+    ?storage_account_name ?timeouts ~media_services_account_name
+    ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_media_asset" in
   let __resource =
     {
       alternate_id;
+      container;
       description;
+      id;
       media_services_account_name;
       name;
       resource_group_name;
+      storage_account_name;
       timeouts;
     }
   in

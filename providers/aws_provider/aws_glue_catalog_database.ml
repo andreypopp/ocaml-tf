@@ -36,11 +36,16 @@ type aws_glue_catalog_database__target_database = {
 (** aws_glue_catalog_database__target_database *)
 
 type aws_glue_catalog_database = {
+  catalog_id : string option; [@option]  (** catalog_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
+  location_uri : string option; [@option]  (** location_uri *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
       (** parameters *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   create_table_default_permission :
     aws_glue_catalog_database__create_table_default_permission list;
   federated_database :
@@ -50,16 +55,21 @@ type aws_glue_catalog_database = {
 [@@deriving yojson_of]
 (** aws_glue_catalog_database *)
 
-let aws_glue_catalog_database ?description ?parameters ?tags ~name
+let aws_glue_catalog_database ?catalog_id ?description ?id
+    ?location_uri ?parameters ?tags ?tags_all ~name
     ~create_table_default_permission ~federated_database
     ~target_database __resource_id =
   let __resource_type = "aws_glue_catalog_database" in
   let __resource =
     {
+      catalog_id;
       description;
+      id;
+      location_uri;
       name;
       parameters;
       tags;
+      tags_all;
       create_table_default_permission;
       federated_database;
       target_database;

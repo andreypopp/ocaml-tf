@@ -133,6 +133,15 @@ type azurerm_iothub__shared_access_policy = {
 [@@deriving yojson_of]
 
 type azurerm_iothub = {
+  endpoint : azurerm_iothub__endpoint list option; [@option]
+      (** endpoint *)
+  enrichment : azurerm_iothub__enrichment list option; [@option]
+      (** enrichment *)
+  event_hub_partition_count : float option; [@option]
+      (** event_hub_partition_count *)
+  event_hub_retention_in_days : float option; [@option]
+      (** event_hub_retention_in_days *)
+  id : string option; [@option]  (** id *)
   local_authentication_enabled : bool option; [@option]
       (** local_authentication_enabled *)
   location : string;  (** location *)
@@ -141,6 +150,7 @@ type azurerm_iothub = {
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
   resource_group_name : string;  (** resource_group_name *)
+  route : azurerm_iothub__route list option; [@option]  (** route *)
   tags : (string * string) list option; [@option]  (** tags *)
   cloud_to_device : azurerm_iothub__cloud_to_device list;
   fallback_route : azurerm_iothub__fallback_route list;
@@ -153,19 +163,27 @@ type azurerm_iothub = {
 [@@deriving yojson_of]
 (** azurerm_iothub *)
 
-let azurerm_iothub ?local_authentication_enabled ?min_tls_version
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~cloud_to_device ~fallback_route
-    ~file_upload ~identity ~network_rule_set ~sku __resource_id =
+let azurerm_iothub ?endpoint ?enrichment ?event_hub_partition_count
+    ?event_hub_retention_in_days ?id ?local_authentication_enabled
+    ?min_tls_version ?public_network_access_enabled ?route ?tags
+    ?timeouts ~location ~name ~resource_group_name ~cloud_to_device
+    ~fallback_route ~file_upload ~identity ~network_rule_set ~sku
+    __resource_id =
   let __resource_type = "azurerm_iothub" in
   let __resource =
     {
+      endpoint;
+      enrichment;
+      event_hub_partition_count;
+      event_hub_retention_in_days;
+      id;
       local_authentication_enabled;
       location;
       min_tls_version;
       name;
       public_network_access_enabled;
       resource_group_name;
+      route;
       tags;
       cloud_to_device;
       fallback_route;

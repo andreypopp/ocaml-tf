@@ -23,7 +23,9 @@ type azurerm_automation_software_update_configuration
 
 val azurerm_automation_software_update_configuration :
   ?duration:string ->
+  ?id:string ->
   ?non_azure_computer_names:string list ->
+  ?operating_system:string ->
   ?virtual_machine_ids:string list ->
   ?timeouts:
     azurerm_automation_software_update_configuration__timeouts ->

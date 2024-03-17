@@ -632,6 +632,9 @@ type azurerm_linux_function_app_slot = {
       (** The runtime version associated with the Function App Slot. *)
   https_only : bool option; [@option]
       (** Can the Function App Slot only be accessed via HTTPS? *)
+  id : string option; [@option]  (** id *)
+  key_vault_reference_identity_id : string option; [@option]
+      (** The User Assigned Identity to use for Key Vault access. *)
   name : string;  (** Specifies the name of the Function App Slot. *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
@@ -671,11 +674,11 @@ let azurerm_linux_function_app_slot ?app_settings
     ?client_certificate_exclusion_paths ?client_certificate_mode
     ?content_share_force_disabled ?daily_memory_time_quota ?enabled
     ?ftp_publish_basic_authentication_enabled
-    ?functions_extension_version ?https_only
-    ?public_network_access_enabled ?service_plan_id
-    ?storage_account_access_key ?storage_account_name
-    ?storage_key_vault_secret_id ?storage_uses_managed_identity ?tags
-    ?virtual_network_subnet_id
+    ?functions_extension_version ?https_only ?id
+    ?key_vault_reference_identity_id ?public_network_access_enabled
+    ?service_plan_id ?storage_account_access_key
+    ?storage_account_name ?storage_key_vault_secret_id
+    ?storage_uses_managed_identity ?tags ?virtual_network_subnet_id
     ?webdeploy_publish_basic_authentication_enabled ?timeouts
     ~function_app_id ~name ~auth_settings ~auth_settings_v2 ~backup
     ~connection_string ~identity ~site_config ~storage_account
@@ -695,6 +698,8 @@ let azurerm_linux_function_app_slot ?app_settings
       function_app_id;
       functions_extension_version;
       https_only;
+      id;
+      key_vault_reference_identity_id;
       name;
       public_network_access_enabled;
       service_plan_id;

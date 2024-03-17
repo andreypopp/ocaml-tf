@@ -68,12 +68,15 @@ type google_compute_region_disk = {
   description : string option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels to apply to this disk.  A list of key->value pairs.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  licenses : string list option; [@option]
+      (** Any applicable license URI. *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -82,8 +85,26 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  physical_block_size_bytes : float option; [@option]
+      (** Physical block size of the persistent disk, in bytes. If not present
+in a request, a default value is used. Currently supported sizes
+are 4096 and 16384, other sizes may be added in the future.
+If an unsupported value is requested, the error message will list
+the supported values for the caller's project. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** A reference to the region where the disk resides. *)
   replica_zones : string list;
       (** URLs of the zones where the disk should be replicated to. *)
+  size : float option; [@option]
+      (** Size of the persistent disk, specified in GB. You can specify this
+field when creating a persistent disk using the sourceImage or
+sourceSnapshot parameter, or specify it alone to create an empty
+persistent disk.
+
+If you specify this field along with sourceImage or sourceSnapshot,
+the value of sizeGb must not be less than the size of the sourceImage
+or the size of the snapshot. *)
   snapshot : string option; [@option]
       (** The source snapshot used to create this disk. You can provide this as
 a partial or full URL to the resource. For example, the following are
@@ -119,7 +140,8 @@ create the disk. Provide this when creating the disk. *)
 [@@deriving yojson_of]
 (** google_compute_region_disk *)
 
-let google_compute_region_disk ?description ?labels ?snapshot
+let google_compute_region_disk ?description ?id ?labels ?licenses
+    ?physical_block_size_bytes ?project ?region ?size ?snapshot
     ?source_disk ?type_ ?timeouts ~name ~replica_zones
     ~async_primary_disk ~disk_encryption_key ~guest_os_features
     ~source_snapshot_encryption_key __resource_id =
@@ -127,9 +149,15 @@ let google_compute_region_disk ?description ?labels ?snapshot
   let __resource =
     {
       description;
+      id;
       labels;
+      licenses;
       name;
+      physical_block_size_bytes;
+      project;
+      region;
       replica_zones;
+      size;
       snapshot;
       source_disk;
       type_;

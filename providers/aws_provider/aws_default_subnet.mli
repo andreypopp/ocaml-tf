@@ -12,10 +12,14 @@ val aws_default_subnet :
   ?enable_resource_name_dns_a_record_on_launch:bool ->
   ?enable_resource_name_dns_aaaa_record_on_launch:bool ->
   ?force_destroy:bool ->
+  ?id:string ->
+  ?ipv6_cidr_block:string ->
   ?ipv6_native:bool ->
   ?map_customer_owned_ip_on_launch:bool ->
   ?map_public_ip_on_launch:bool ->
+  ?private_dns_hostname_type_on_launch:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_default_subnet__timeouts ->
   availability_zone:string ->
   string ->

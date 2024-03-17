@@ -215,6 +215,7 @@ repository. *)
 can be found [here](https://cloud.google.com/artifact-registry/docs/supported-formats).
 You can only create alpha formats if you are a member of the
 [alpha user group](https://cloud.google.com/artifact-registry/docs/supported-formats#alpha-access). *)
+  id : string option; [@option]  (** id *)
   kms_key_name : string option; [@option]
       (** The Cloud KMS resource name of the customer managed encryption key that’s
 used to encrypt the contents of the Repository. Has the form:
@@ -230,8 +231,11 @@ and dashes.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  location : string option; [@option]
+      (** The name of the location this repository is located in. *)
   mode : string option; [@option]
       (** The mode configures the repository to serve artifacts from different sources. Default value: STANDARD_REPOSITORY Possible values: [STANDARD_REPOSITORY, VIRTUAL_REPOSITORY, REMOTE_REPOSITORY] *)
+  project : string option; [@option]  (** project *)
   repository_id : string;
       (** The last part of the repository name, for example:
 repo1 *)
@@ -253,19 +257,22 @@ repo1 *)
 (** google_artifact_registry_repository *)
 
 let google_artifact_registry_repository ?cleanup_policy_dry_run
-    ?description ?kms_key_name ?labels ?mode ?timeouts ~format
-    ~repository_id ~cleanup_policies ~docker_config ~maven_config
-    ~remote_repository_config ~virtual_repository_config
-    __resource_id =
+    ?description ?id ?kms_key_name ?labels ?location ?mode ?project
+    ?timeouts ~format ~repository_id ~cleanup_policies ~docker_config
+    ~maven_config ~remote_repository_config
+    ~virtual_repository_config __resource_id =
   let __resource_type = "google_artifact_registry_repository" in
   let __resource =
     {
       cleanup_policy_dry_run;
       description;
       format;
+      id;
       kms_key_name;
       labels;
+      location;
       mode;
+      project;
       repository_id;
       cleanup_policies;
       docker_config;

@@ -9,6 +9,8 @@ type google_dialogflow_fulfillment
 
 val google_dialogflow_fulfillment :
   ?enabled:bool ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_dialogflow_fulfillment__timeouts ->
   display_name:string ->
   features:google_dialogflow_fulfillment__features list ->

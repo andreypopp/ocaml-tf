@@ -54,7 +54,9 @@ that are bound to this policy. *)
   enable_logging : bool option; [@option]
       (** Controls whether logging is enabled for the networks bound to this policy.
 Defaults to no logging if not set. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** User assigned name for this policy. *)
+  project : string option; [@option]  (** project *)
   alternative_name_server_config :
     google_dns_policy__alternative_name_server_config list;
   networks : google_dns_policy__networks list;
@@ -64,15 +66,17 @@ Defaults to no logging if not set. *)
 (** google_dns_policy *)
 
 let google_dns_policy ?description ?enable_inbound_forwarding
-    ?enable_logging ?timeouts ~name ~alternative_name_server_config
-    ~networks __resource_id =
+    ?enable_logging ?id ?project ?timeouts ~name
+    ~alternative_name_server_config ~networks __resource_id =
   let __resource_type = "google_dns_policy" in
   let __resource =
     {
       description;
       enable_inbound_forwarding;
       enable_logging;
+      id;
       name;
+      project;
       alternative_name_server_config;
       networks;
       timeouts;

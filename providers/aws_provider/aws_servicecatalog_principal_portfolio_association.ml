@@ -14,6 +14,7 @@ type aws_servicecatalog_principal_portfolio_association__timeouts = {
 
 type aws_servicecatalog_principal_portfolio_association = {
   accept_language : string option; [@option]  (** accept_language *)
+  id : string option; [@option]  (** id *)
   portfolio_id : string;  (** portfolio_id *)
   principal_arn : string;  (** principal_arn *)
   principal_type : string option; [@option]  (** principal_type *)
@@ -25,7 +26,7 @@ type aws_servicecatalog_principal_portfolio_association = {
 (** aws_servicecatalog_principal_portfolio_association *)
 
 let aws_servicecatalog_principal_portfolio_association
-    ?accept_language ?principal_type ?timeouts ~portfolio_id
+    ?accept_language ?id ?principal_type ?timeouts ~portfolio_id
     ~principal_arn __resource_id =
   let __resource_type =
     "aws_servicecatalog_principal_portfolio_association"
@@ -33,6 +34,7 @@ let aws_servicecatalog_principal_portfolio_association
   let __resource =
     {
       accept_language;
+      id;
       portfolio_id;
       principal_arn;
       principal_type;

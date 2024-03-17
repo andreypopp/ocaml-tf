@@ -9,6 +9,7 @@ type azurerm_monitor_smart_detector_alert_rule
 val azurerm_monitor_smart_detector_alert_rule :
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?throttling_duration:string ->
   ?timeouts:azurerm_monitor_smart_detector_alert_rule__timeouts ->

@@ -13,6 +13,7 @@ val azurerm_cdn_frontdoor_route :
   ?enabled:bool ->
   ?forwarding_protocol:string ->
   ?https_redirect_enabled:bool ->
+  ?id:string ->
   ?link_to_default_domain:bool ->
   ?timeouts:azurerm_cdn_frontdoor_route__timeouts ->
   cdn_frontdoor_endpoint_id:string ->

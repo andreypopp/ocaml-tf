@@ -9,6 +9,7 @@ val azurerm_data_factory_linked_service_key_vault :
   ?additional_properties:(string * string) list ->
   ?annotations:string list ->
   ?description:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?parameters:(string * string) list ->
   ?timeouts:azurerm_data_factory_linked_service_key_vault__timeouts ->

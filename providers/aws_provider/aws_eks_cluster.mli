@@ -14,23 +14,23 @@ type aws_eks_cluster__vpc_config
 type aws_eks_cluster__certificate_authority = {
   data : string;  (** data *)
 }
-[@@deriving yojson_of]
 
 type aws_eks_cluster__identity__oidc = {
   issuer : string;  (** issuer *)
 }
-[@@deriving yojson_of]
 
 type aws_eks_cluster__identity = {
   oidc : aws_eks_cluster__identity__oidc list;  (** oidc *)
 }
-[@@deriving yojson_of]
 
 type aws_eks_cluster
 
 val aws_eks_cluster :
   ?enabled_cluster_log_types:string list ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?version:string ->
   ?timeouts:aws_eks_cluster__timeouts ->
   name:string ->
   role_arn:string ->

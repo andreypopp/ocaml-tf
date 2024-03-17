@@ -6,6 +6,7 @@ type azurerm_orbital_contact__timeouts
 type azurerm_orbital_contact
 
 val azurerm_orbital_contact :
+  ?id:string ->
   ?timeouts:azurerm_orbital_contact__timeouts ->
   contact_profile_id:string ->
   ground_station_name:string ->

@@ -15,6 +15,7 @@ type google_apigee_addons_config__timeouts
 type google_apigee_addons_config
 
 val google_apigee_addons_config :
+  ?id:string ->
   ?timeouts:google_apigee_addons_config__timeouts ->
   org:string ->
   addons_config:google_apigee_addons_config__addons_config list ->

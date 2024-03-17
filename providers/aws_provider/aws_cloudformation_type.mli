@@ -7,6 +7,8 @@ type aws_cloudformation_type
 
 val aws_cloudformation_type :
   ?execution_role_arn:string ->
+  ?id:string ->
+  ?type_:string ->
   schema_handler_package:string ->
   type_name:string ->
   logging_config:aws_cloudformation_type__logging_config list ->

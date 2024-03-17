@@ -14,6 +14,7 @@ type aws_emr_block_public_access_configuration__permitted_public_security_group_
 type aws_emr_block_public_access_configuration = {
   block_public_security_group_rules : bool;
       (** block_public_security_group_rules *)
+  id : string option; [@option]  (** id *)
   permitted_public_security_group_rule_range :
     aws_emr_block_public_access_configuration__permitted_public_security_group_rule_range
     list;
@@ -21,7 +22,7 @@ type aws_emr_block_public_access_configuration = {
 [@@deriving yojson_of]
 (** aws_emr_block_public_access_configuration *)
 
-let aws_emr_block_public_access_configuration
+let aws_emr_block_public_access_configuration ?id
     ~block_public_security_group_rules
     ~permitted_public_security_group_rule_range __resource_id =
   let __resource_type =
@@ -30,6 +31,7 @@ let aws_emr_block_public_access_configuration
   let __resource =
     {
       block_public_security_group_rules;
+      id;
       permitted_public_security_group_rule_range;
     }
   in

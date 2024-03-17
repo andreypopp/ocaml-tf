@@ -7,6 +7,7 @@ type azurerm_api_management_openid_connect_provider
 
 val azurerm_api_management_openid_connect_provider :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_api_management_openid_connect_provider__timeouts ->
   api_management_name:string ->
   client_id:string ->

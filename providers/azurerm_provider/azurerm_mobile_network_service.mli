@@ -19,6 +19,7 @@ type azurerm_mobile_network_service__timeouts
 type azurerm_mobile_network_service
 
 val azurerm_mobile_network_service :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_mobile_network_service__timeouts ->
   location:string ->

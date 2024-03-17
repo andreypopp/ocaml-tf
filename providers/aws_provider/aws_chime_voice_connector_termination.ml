@@ -11,14 +11,15 @@ type aws_chime_voice_connector_termination = {
   default_phone_number : string option; [@option]
       (** default_phone_number *)
   disabled : bool option; [@option]  (** disabled *)
+  id : string option; [@option]  (** id *)
   voice_connector_id : string;  (** voice_connector_id *)
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_termination *)
 
 let aws_chime_voice_connector_termination ?cps_limit
-    ?default_phone_number ?disabled ~calling_regions ~cidr_allow_list
-    ~voice_connector_id __resource_id =
+    ?default_phone_number ?disabled ?id ~calling_regions
+    ~cidr_allow_list ~voice_connector_id __resource_id =
   let __resource_type = "aws_chime_voice_connector_termination" in
   let __resource =
     {
@@ -27,6 +28,7 @@ let aws_chime_voice_connector_termination ?cps_limit
       cps_limit;
       default_phone_number;
       disabled;
+      id;
       voice_connector_id;
     }
   in

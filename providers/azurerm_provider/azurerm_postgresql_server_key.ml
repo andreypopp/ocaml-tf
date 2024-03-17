@@ -14,6 +14,7 @@ type azurerm_postgresql_server_key__timeouts = {
 (** azurerm_postgresql_server_key__timeouts *)
 
 type azurerm_postgresql_server_key = {
+  id : string option; [@option]  (** id *)
   key_vault_key_id : string;  (** key_vault_key_id *)
   server_id : string;  (** server_id *)
   timeouts : azurerm_postgresql_server_key__timeouts option;
@@ -21,10 +22,10 @@ type azurerm_postgresql_server_key = {
 [@@deriving yojson_of]
 (** azurerm_postgresql_server_key *)
 
-let azurerm_postgresql_server_key ?timeouts ~key_vault_key_id
+let azurerm_postgresql_server_key ?id ?timeouts ~key_vault_key_id
     ~server_id __resource_id =
   let __resource_type = "azurerm_postgresql_server_key" in
-  let __resource = { key_vault_key_id; server_id; timeouts } in
+  let __resource = { id; key_vault_key_id; server_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_postgresql_server_key __resource);
   ()

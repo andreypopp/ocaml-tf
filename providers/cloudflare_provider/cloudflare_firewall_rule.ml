@@ -11,6 +11,7 @@ type cloudflare_firewall_rule = {
       (** A description of the rule to help identify it. *)
   filter_id : string;
       (** The identifier of the Filter to use for determining if the Firewall Rule should be triggered. *)
+  id : string option; [@option]  (** id *)
   paused : bool option; [@option]
       (** Whether this filter based firewall rule is currently paused. *)
   priority : float option; [@option]
@@ -30,14 +31,15 @@ Filter expressions needs to be created first before using Firewall
 Rule.
  *)
 
-let cloudflare_firewall_rule ?description ?paused ?priority ?products
-    ~action ~filter_id ~zone_id __resource_id =
+let cloudflare_firewall_rule ?description ?id ?paused ?priority
+    ?products ~action ~filter_id ~zone_id __resource_id =
   let __resource_type = "cloudflare_firewall_rule" in
   let __resource =
     {
       action;
       description;
       filter_id;
+      id;
       paused;
       priority;
       products;

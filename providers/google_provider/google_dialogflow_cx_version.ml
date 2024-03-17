@@ -24,6 +24,7 @@ type google_dialogflow_cx_version = {
       (** The description of the version. The maximum length is 500 characters. If exceeded, the request is rejected. *)
   display_name : string;
       (** The human-readable name of the version. Limit of 64 characters. *)
+  id : string option; [@option]  (** id *)
   parent : string option; [@option]
       (** The Flow to create an Version for.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>. *)
@@ -32,10 +33,12 @@ Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<F
 [@@deriving yojson_of]
 (** google_dialogflow_cx_version *)
 
-let google_dialogflow_cx_version ?description ?parent ?timeouts
+let google_dialogflow_cx_version ?description ?id ?parent ?timeouts
     ~display_name __resource_id =
   let __resource_type = "google_dialogflow_cx_version" in
-  let __resource = { description; display_name; parent; timeouts } in
+  let __resource =
+    { description; display_name; id; parent; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dialogflow_cx_version __resource);
   ()

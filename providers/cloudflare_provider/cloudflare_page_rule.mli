@@ -15,6 +15,7 @@ type cloudflare_page_rule__actions
 type cloudflare_page_rule
 
 val cloudflare_page_rule :
+  ?id:string ->
   ?priority:float ->
   ?status:string ->
   target:string ->

@@ -51,6 +51,7 @@ type aws_cloudfront_origin_request_policy__query_strings_config = {
 
 type aws_cloudfront_origin_request_policy = {
   comment : string option; [@option]  (** comment *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   cookies_config :
     aws_cloudfront_origin_request_policy__cookies_config list;
@@ -62,13 +63,14 @@ type aws_cloudfront_origin_request_policy = {
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_request_policy *)
 
-let aws_cloudfront_origin_request_policy ?comment ~name
+let aws_cloudfront_origin_request_policy ?comment ?id ~name
     ~cookies_config ~headers_config ~query_strings_config
     __resource_id =
   let __resource_type = "aws_cloudfront_origin_request_policy" in
   let __resource =
     {
       comment;
+      id;
       name;
       cookies_config;
       headers_config;

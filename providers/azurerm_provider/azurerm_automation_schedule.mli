@@ -8,7 +8,11 @@ type azurerm_automation_schedule
 
 val azurerm_automation_schedule :
   ?description:string ->
+  ?expiry_time:string ->
+  ?id:string ->
+  ?interval:float ->
   ?month_days:float list ->
+  ?start_time:string ->
   ?timezone:string ->
   ?week_days:string list ->
   ?timeouts:azurerm_automation_schedule__timeouts ->

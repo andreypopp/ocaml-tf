@@ -34,26 +34,30 @@ type google_dialogflow_entity_type = {
       (** The name of this entity type to be displayed on the console. *)
   enable_fuzzy_extraction : bool option; [@option]
       (** Enables fuzzy entity extraction during classification. *)
+  id : string option; [@option]  (** id *)
   kind : string;
       (** Indicates the kind of entity type.
 * KIND_MAP: Map entity types allow mapping of a group of synonyms to a reference value.
 * KIND_LIST: List entity types contain a set of entries that do not map to reference values. However, list entity
 types can contain references to other entity types (with or without aliases).
 * KIND_REGEXP: Regexp entity types allow to specify regular expressions in entries values. Possible values: [KIND_MAP, KIND_LIST, KIND_REGEXP] *)
+  project : string option; [@option]  (** project *)
   entities : google_dialogflow_entity_type__entities list;
   timeouts : google_dialogflow_entity_type__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dialogflow_entity_type *)
 
-let google_dialogflow_entity_type ?enable_fuzzy_extraction ?timeouts
-    ~display_name ~kind ~entities __resource_id =
+let google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
+    ?project ?timeouts ~display_name ~kind ~entities __resource_id =
   let __resource_type = "google_dialogflow_entity_type" in
   let __resource =
     {
       display_name;
       enable_fuzzy_extraction;
+      id;
       kind;
+      project;
       entities;
       timeouts;
     }

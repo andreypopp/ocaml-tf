@@ -12,15 +12,17 @@ type aws_chime_voice_connector_group__connector = {
 (** aws_chime_voice_connector_group__connector *)
 
 type aws_chime_voice_connector_group = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   connector : aws_chime_voice_connector_group__connector list;
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_group *)
 
-let aws_chime_voice_connector_group ~name ~connector __resource_id =
+let aws_chime_voice_connector_group ?id ~name ~connector
+    __resource_id =
   let __resource_type = "aws_chime_voice_connector_group" in
-  let __resource = { name; connector } in
+  let __resource = { id; name; connector } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chime_voice_connector_group __resource);
   ()

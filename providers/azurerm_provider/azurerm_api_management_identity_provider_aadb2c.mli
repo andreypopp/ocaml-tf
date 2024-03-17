@@ -6,6 +6,7 @@ type azurerm_api_management_identity_provider_aadb2c__timeouts
 type azurerm_api_management_identity_provider_aadb2c
 
 val azurerm_api_management_identity_provider_aadb2c :
+  ?id:string ->
   ?password_reset_policy:string ->
   ?profile_editing_policy:string ->
   ?timeouts:azurerm_api_management_identity_provider_aadb2c__timeouts ->

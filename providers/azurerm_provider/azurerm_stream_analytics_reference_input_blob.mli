@@ -8,6 +8,7 @@ type azurerm_stream_analytics_reference_input_blob
 
 val azurerm_stream_analytics_reference_input_blob :
   ?authentication_mode:string ->
+  ?id:string ->
   ?storage_account_key:string ->
   ?timeouts:azurerm_stream_analytics_reference_input_blob__timeouts ->
   date_format:string ->

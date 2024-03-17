@@ -29,6 +29,7 @@ type aws_ssoadmin_permissions_boundary_attachment__timeouts = {
 (** aws_ssoadmin_permissions_boundary_attachment__timeouts *)
 
 type aws_ssoadmin_permissions_boundary_attachment = {
+  id : string option; [@option]  (** id *)
   instance_arn : string;  (** instance_arn *)
   permission_set_arn : string;  (** permission_set_arn *)
   permissions_boundary :
@@ -40,7 +41,7 @@ type aws_ssoadmin_permissions_boundary_attachment = {
 [@@deriving yojson_of]
 (** aws_ssoadmin_permissions_boundary_attachment *)
 
-let aws_ssoadmin_permissions_boundary_attachment ?timeouts
+let aws_ssoadmin_permissions_boundary_attachment ?id ?timeouts
     ~instance_arn ~permission_set_arn ~permissions_boundary
     __resource_id =
   let __resource_type =
@@ -48,6 +49,7 @@ let aws_ssoadmin_permissions_boundary_attachment ?timeouts
   in
   let __resource =
     {
+      id;
       instance_arn;
       permission_set_arn;
       permissions_boundary;

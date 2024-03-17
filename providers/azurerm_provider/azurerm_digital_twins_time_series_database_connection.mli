@@ -7,6 +7,8 @@ type azurerm_digital_twins_time_series_database_connection
 
 val azurerm_digital_twins_time_series_database_connection :
   ?eventhub_consumer_group_name:string ->
+  ?id:string ->
+  ?kusto_table_name:string ->
   ?timeouts:
     azurerm_digital_twins_time_series_database_connection__timeouts ->
   digital_twins_id:string ->

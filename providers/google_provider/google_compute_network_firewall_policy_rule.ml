@@ -83,8 +83,11 @@ type google_compute_network_firewall_policy_rule = {
       (** Denotes whether to enable logging for a particular rule. If logging is enabled, logs will be exported to the configured export destination in Stackdriver. Logs may be exported to BigQuery or Pub/Sub. Note: you cannot enable logging on goto_next rules. *)
   firewall_policy : string;
       (** The firewall policy of the resource. *)
+  id : string option; [@option]  (** id *)
   priority : float;
       (** An integer indicating the priority of a rule in the list. The priority must be a positive value between 0 and 2147483647. Rules are evaluated from highest to lowest priority where 0 is the highest priority and 2147483647 is the lowest prority. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   rule_name : string option; [@option]
       (** An optional name for the rule. This field is not a unique identifier and can be updated. *)
   target_service_accounts : string list option; [@option]
@@ -100,9 +103,10 @@ type google_compute_network_firewall_policy_rule = {
 (** google_compute_network_firewall_policy_rule *)
 
 let google_compute_network_firewall_policy_rule ?description
-    ?disabled ?enable_logging ?rule_name ?target_service_accounts
-    ?timeouts ~action ~direction ~firewall_policy ~priority ~match_
-    ~target_secure_tags __resource_id =
+    ?disabled ?enable_logging ?id ?project ?rule_name
+    ?target_service_accounts ?timeouts ~action ~direction
+    ~firewall_policy ~priority ~match_ ~target_secure_tags
+    __resource_id =
   let __resource_type =
     "google_compute_network_firewall_policy_rule"
   in
@@ -114,7 +118,9 @@ let google_compute_network_firewall_policy_rule ?description
       disabled;
       enable_logging;
       firewall_policy;
+      id;
       priority;
+      project;
       rule_name;
       target_service_accounts;
       match_;

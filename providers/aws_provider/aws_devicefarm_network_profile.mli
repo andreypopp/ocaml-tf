@@ -10,7 +10,9 @@ val aws_devicefarm_network_profile :
   ?downlink_delay_ms:float ->
   ?downlink_jitter_ms:float ->
   ?downlink_loss_percent:float ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?type_:string ->
   ?uplink_bandwidth_bits:float ->
   ?uplink_delay_ms:float ->

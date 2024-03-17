@@ -16,6 +16,7 @@ type azurerm_route_server__timeouts = {
 type azurerm_route_server = {
   branch_to_branch_traffic_enabled : bool option; [@option]
       (** branch_to_branch_traffic_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_ip_address_id : string;  (** public_ip_address_id *)
@@ -28,13 +29,14 @@ type azurerm_route_server = {
 [@@deriving yojson_of]
 (** azurerm_route_server *)
 
-let azurerm_route_server ?branch_to_branch_traffic_enabled ?tags
+let azurerm_route_server ?branch_to_branch_traffic_enabled ?id ?tags
     ?timeouts ~location ~name ~public_ip_address_id
     ~resource_group_name ~sku ~subnet_id __resource_id =
   let __resource_type = "azurerm_route_server" in
   let __resource =
     {
       branch_to_branch_traffic_enabled;
+      id;
       location;
       name;
       public_ip_address_id;

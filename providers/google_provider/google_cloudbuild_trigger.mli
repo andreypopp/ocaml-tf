@@ -15,7 +15,6 @@ type google_cloudbuild_trigger__build__artifacts__objects__timing = {
   end_time : string;  (** end_time *)
   start_time : string;  (** start_time *)
 }
-[@@deriving yojson_of]
 
 type google_cloudbuild_trigger__build__artifacts__objects
 type google_cloudbuild_trigger__build__artifacts__python_packages
@@ -52,10 +51,13 @@ val google_cloudbuild_trigger :
   ?disabled:bool ->
   ?filename:string ->
   ?filter:string ->
+  ?id:string ->
   ?ignored_files:string list ->
   ?include_build_logs:string ->
   ?included_files:string list ->
   ?location:string ->
+  ?name:string ->
+  ?project:string ->
   ?service_account:string ->
   ?substitutions:(string * string) list ->
   ?tags:string list ->

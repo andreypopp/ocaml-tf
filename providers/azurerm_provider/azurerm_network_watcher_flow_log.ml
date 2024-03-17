@@ -33,6 +33,8 @@ type azurerm_network_watcher_flow_log__traffic_analytics = {
 
 type azurerm_network_watcher_flow_log = {
   enabled : bool;  (** enabled *)
+  id : string option; [@option]  (** id *)
+  location : string option; [@option]  (** location *)
   name : string;  (** name *)
   network_security_group_id : string;
       (** network_security_group_id *)
@@ -40,6 +42,7 @@ type azurerm_network_watcher_flow_log = {
   resource_group_name : string;  (** resource_group_name *)
   storage_account_id : string;  (** storage_account_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  version : float option; [@option]  (** version *)
   retention_policy :
     azurerm_network_watcher_flow_log__retention_policy list;
   timeouts : azurerm_network_watcher_flow_log__timeouts option;
@@ -49,20 +52,23 @@ type azurerm_network_watcher_flow_log = {
 [@@deriving yojson_of]
 (** azurerm_network_watcher_flow_log *)
 
-let azurerm_network_watcher_flow_log ?tags ?timeouts ~enabled ~name
-    ~network_security_group_id ~network_watcher_name
-    ~resource_group_name ~storage_account_id ~retention_policy
-    ~traffic_analytics __resource_id =
+let azurerm_network_watcher_flow_log ?id ?location ?tags ?version
+    ?timeouts ~enabled ~name ~network_security_group_id
+    ~network_watcher_name ~resource_group_name ~storage_account_id
+    ~retention_policy ~traffic_analytics __resource_id =
   let __resource_type = "azurerm_network_watcher_flow_log" in
   let __resource =
     {
       enabled;
+      id;
+      location;
       name;
       network_security_group_id;
       network_watcher_name;
       resource_group_name;
       storage_account_id;
       tags;
+      version;
       retention_policy;
       timeouts;
       traffic_analytics;

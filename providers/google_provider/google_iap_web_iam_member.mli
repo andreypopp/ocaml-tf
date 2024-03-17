@@ -6,6 +6,8 @@ type google_iap_web_iam_member__condition
 type google_iap_web_iam_member
 
 val google_iap_web_iam_member :
+  ?id:string ->
+  ?project:string ->
   member:string ->
   role:string ->
   condition:google_iap_web_iam_member__condition list ->

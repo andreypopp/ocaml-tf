@@ -87,6 +87,7 @@ type aws_appsync_graphql_api__user_pool_config = {
 
 type aws_appsync_graphql_api = {
   authentication_type : string;  (** authentication_type *)
+  id : string option; [@option]  (** id *)
   introspection_config : string option; [@option]
       (** introspection_config *)
   name : string;  (** name *)
@@ -96,6 +97,8 @@ type aws_appsync_graphql_api = {
       (** resolver_count_limit *)
   schema : string option; [@option]  (** schema *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   visibility : string option; [@option]  (** visibility *)
   xray_enabled : bool option; [@option]  (** xray_enabled *)
   additional_authentication_provider :
@@ -110,21 +113,24 @@ type aws_appsync_graphql_api = {
 [@@deriving yojson_of]
 (** aws_appsync_graphql_api *)
 
-let aws_appsync_graphql_api ?introspection_config ?query_depth_limit
-    ?resolver_count_limit ?schema ?tags ?visibility ?xray_enabled
-    ~authentication_type ~name ~additional_authentication_provider
-    ~lambda_authorizer_config ~log_config ~openid_connect_config
-    ~user_pool_config __resource_id =
+let aws_appsync_graphql_api ?id ?introspection_config
+    ?query_depth_limit ?resolver_count_limit ?schema ?tags ?tags_all
+    ?visibility ?xray_enabled ~authentication_type ~name
+    ~additional_authentication_provider ~lambda_authorizer_config
+    ~log_config ~openid_connect_config ~user_pool_config
+    __resource_id =
   let __resource_type = "aws_appsync_graphql_api" in
   let __resource =
     {
       authentication_type;
+      id;
       introspection_config;
       name;
       query_depth_limit;
       resolver_count_limit;
       schema;
       tags;
+      tags_all;
       visibility;
       xray_enabled;
       additional_authentication_provider;

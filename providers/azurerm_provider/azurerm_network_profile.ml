@@ -30,6 +30,7 @@ type azurerm_network_profile__timeouts = {
 (** azurerm_network_profile__timeouts *)
 
 type azurerm_network_profile = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -41,11 +42,12 @@ type azurerm_network_profile = {
 [@@deriving yojson_of]
 (** azurerm_network_profile *)
 
-let azurerm_network_profile ?tags ?timeouts ~location ~name
+let azurerm_network_profile ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~container_network_interface __resource_id =
   let __resource_type = "azurerm_network_profile" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

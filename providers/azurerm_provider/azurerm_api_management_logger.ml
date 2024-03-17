@@ -34,6 +34,7 @@ type azurerm_api_management_logger = {
   api_management_name : string;  (** api_management_name *)
   buffered : bool option; [@option]  (** buffered *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   resource_id : string option; [@option]  (** resource_id *)
@@ -45,15 +46,17 @@ type azurerm_api_management_logger = {
 [@@deriving yojson_of]
 (** azurerm_api_management_logger *)
 
-let azurerm_api_management_logger ?buffered ?description ?resource_id
-    ?timeouts ~api_management_name ~name ~resource_group_name
-    ~application_insights ~eventhub __resource_id =
+let azurerm_api_management_logger ?buffered ?description ?id
+    ?resource_id ?timeouts ~api_management_name ~name
+    ~resource_group_name ~application_insights ~eventhub
+    __resource_id =
   let __resource_type = "azurerm_api_management_logger" in
   let __resource =
     {
       api_management_name;
       buffered;
       description;
+      id;
       name;
       resource_group_name;
       resource_id;

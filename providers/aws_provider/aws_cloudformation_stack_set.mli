@@ -13,9 +13,13 @@ val aws_cloudformation_stack_set :
   ?call_as:string ->
   ?capabilities:string list ->
   ?description:string ->
+  ?execution_role_name:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?permission_model:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?template_body:string ->
   ?template_url:string ->
   ?timeouts:aws_cloudformation_stack_set__timeouts ->
   name:string ->

@@ -6,13 +6,14 @@ open! Tf.Prelude
 
 type aws_detective_invitation_accepter = {
   graph_arn : string;  (** graph_arn *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_detective_invitation_accepter *)
 
-let aws_detective_invitation_accepter ~graph_arn __resource_id =
+let aws_detective_invitation_accepter ?id ~graph_arn __resource_id =
   let __resource_type = "aws_detective_invitation_accepter" in
-  let __resource = { graph_arn } in
+  let __resource = { graph_arn; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_detective_invitation_accepter __resource);
   ()

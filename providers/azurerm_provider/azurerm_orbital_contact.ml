@@ -15,6 +15,7 @@ type azurerm_orbital_contact__timeouts = {
 type azurerm_orbital_contact = {
   contact_profile_id : string;  (** contact_profile_id *)
   ground_station_name : string;  (** ground_station_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   reservation_end_time : string;  (** reservation_end_time *)
   reservation_start_time : string;  (** reservation_start_time *)
@@ -24,7 +25,7 @@ type azurerm_orbital_contact = {
 [@@deriving yojson_of]
 (** azurerm_orbital_contact *)
 
-let azurerm_orbital_contact ?timeouts ~contact_profile_id
+let azurerm_orbital_contact ?id ?timeouts ~contact_profile_id
     ~ground_station_name ~name ~reservation_end_time
     ~reservation_start_time ~spacecraft_id __resource_id =
   let __resource_type = "azurerm_orbital_contact" in
@@ -32,6 +33,7 @@ let azurerm_orbital_contact ?timeouts ~contact_profile_id
     {
       contact_profile_id;
       ground_station_name;
+      id;
       name;
       reservation_end_time;
       reservation_start_time;

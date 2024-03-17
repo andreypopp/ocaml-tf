@@ -64,7 +64,9 @@ type aws_route53_record__weighted_routing_policy = {
 (** aws_route53_record__weighted_routing_policy *)
 
 type aws_route53_record = {
+  allow_overwrite : bool option; [@option]  (** allow_overwrite *)
   health_check_id : string option; [@option]  (** health_check_id *)
+  id : string option; [@option]  (** id *)
   multivalue_answer_routing_policy : bool option; [@option]
       (** multivalue_answer_routing_policy *)
   name : string;  (** name *)
@@ -89,7 +91,7 @@ type aws_route53_record = {
 [@@deriving yojson_of]
 (** aws_route53_record *)
 
-let aws_route53_record ?health_check_id
+let aws_route53_record ?allow_overwrite ?health_check_id ?id
     ?multivalue_answer_routing_policy ?records ?set_identifier ?ttl
     ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
     ~failover_routing_policy ~geolocation_routing_policy
@@ -98,7 +100,9 @@ let aws_route53_record ?health_check_id
   let __resource_type = "aws_route53_record" in
   let __resource =
     {
+      allow_overwrite;
       health_check_id;
+      id;
       multivalue_answer_routing_policy;
       name;
       records;

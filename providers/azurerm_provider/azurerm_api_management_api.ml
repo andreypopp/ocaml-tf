@@ -69,19 +69,29 @@ type azurerm_api_management_api__timeouts = {
 
 type azurerm_api_management_api = {
   api_management_name : string;  (** api_management_name *)
+  api_type : string option; [@option]  (** api_type *)
   description : string option; [@option]  (** description *)
+  display_name : string option; [@option]  (** display_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  path : string option; [@option]  (** path *)
+  protocols : string list option; [@option]  (** protocols *)
   resource_group_name : string;  (** resource_group_name *)
   revision : string;  (** revision *)
   revision_description : string option; [@option]
       (** revision_description *)
+  service_url : string option; [@option]  (** service_url *)
+  soap_pass_through : bool option; [@option]
+      (** soap_pass_through *)
   source_api_id : string option; [@option]  (** source_api_id *)
   subscription_required : bool option; [@option]
       (** subscription_required *)
   terms_of_service_url : string option; [@option]
       (** terms_of_service_url *)
+  version : string option; [@option]  (** version *)
   version_description : string option; [@option]
       (** version_description *)
+  version_set_id : string option; [@option]  (** version_set_id *)
   contact : azurerm_api_management_api__contact list;
   import : azurerm_api_management_api__import list;
   license : azurerm_api_management_api__license list;
@@ -96,9 +106,11 @@ type azurerm_api_management_api = {
 [@@deriving yojson_of]
 (** azurerm_api_management_api *)
 
-let azurerm_api_management_api ?description ?revision_description
-    ?source_api_id ?subscription_required ?terms_of_service_url
-    ?version_description ?timeouts ~api_management_name ~name
+let azurerm_api_management_api ?api_type ?description ?display_name
+    ?id ?path ?protocols ?revision_description ?service_url
+    ?soap_pass_through ?source_api_id ?subscription_required
+    ?terms_of_service_url ?version ?version_description
+    ?version_set_id ?timeouts ~api_management_name ~name
     ~resource_group_name ~revision ~contact ~import ~license
     ~oauth2_authorization ~openid_authentication
     ~subscription_key_parameter_names __resource_id =
@@ -106,15 +118,24 @@ let azurerm_api_management_api ?description ?revision_description
   let __resource =
     {
       api_management_name;
+      api_type;
       description;
+      display_name;
+      id;
       name;
+      path;
+      protocols;
       resource_group_name;
       revision;
       revision_description;
+      service_url;
+      soap_pass_through;
       source_api_id;
       subscription_required;
       terms_of_service_url;
+      version;
       version_description;
+      version_set_id;
       contact;
       import;
       license;

@@ -14,6 +14,7 @@ type azurerm_synapse_private_link_hub__timeouts = {
 (** azurerm_synapse_private_link_hub__timeouts *)
 
 type azurerm_synapse_private_link_hub = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -23,11 +24,11 @@ type azurerm_synapse_private_link_hub = {
 [@@deriving yojson_of]
 (** azurerm_synapse_private_link_hub *)
 
-let azurerm_synapse_private_link_hub ?tags ?timeouts ~location ~name
-    ~resource_group_name __resource_id =
+let azurerm_synapse_private_link_hub ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_synapse_private_link_hub" in
   let __resource =
-    { location; name; resource_group_name; tags; timeouts }
+    { id; location; name; resource_group_name; tags; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_private_link_hub __resource);

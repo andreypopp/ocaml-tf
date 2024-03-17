@@ -6,6 +6,7 @@ type azurerm_monitor_private_link_scoped_service__timeouts
 type azurerm_monitor_private_link_scoped_service
 
 val azurerm_monitor_private_link_scoped_service :
+  ?id:string ->
   ?timeouts:azurerm_monitor_private_link_scoped_service__timeouts ->
   linked_resource_id:string ->
   name:string ->

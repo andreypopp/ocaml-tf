@@ -38,13 +38,14 @@ type google_monitoring_alert_policy__creation_record = {
   mutate_time : string;  (** mutate_time *)
   mutated_by : string;  (** mutated_by *)
 }
-[@@deriving yojson_of]
 
 type google_monitoring_alert_policy
 
 val google_monitoring_alert_policy :
   ?enabled:bool ->
+  ?id:string ->
   ?notification_channels:string list ->
+  ?project:string ->
   ?severity:string ->
   ?user_labels:(string * string) list ->
   ?timeouts:google_monitoring_alert_policy__timeouts ->

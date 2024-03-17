@@ -19,7 +19,9 @@ type aws_glue_catalog_table__target_table
 type aws_glue_catalog_table
 
 val aws_glue_catalog_table :
+  ?catalog_id:string ->
   ?description:string ->
+  ?id:string ->
   ?owner:string ->
   ?parameters:(string * string) list ->
   ?retention:float ->

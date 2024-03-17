@@ -11,7 +11,6 @@ type aws_networkmanager_connect_peer__configuration__bgp_configurations = {
   peer_address : string;  (** peer_address *)
   peer_asn : float;  (** peer_asn *)
 }
-[@@deriving yojson_of]
 
 type aws_networkmanager_connect_peer__configuration = {
   bgp_configurations :
@@ -23,15 +22,16 @@ type aws_networkmanager_connect_peer__configuration = {
   peer_address : string;  (** peer_address *)
   protocol : string;  (** protocol *)
 }
-[@@deriving yojson_of]
 
 type aws_networkmanager_connect_peer
 
 val aws_networkmanager_connect_peer :
   ?core_network_address:string ->
+  ?id:string ->
   ?inside_cidr_blocks:string list ->
   ?subnet_arn:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_networkmanager_connect_peer__timeouts ->
   connect_attachment_id:string ->
   peer_address:string ->

@@ -16,6 +16,7 @@ type cloudflare_tunnel_config__config
 type cloudflare_tunnel_config
 
 val cloudflare_tunnel_config :
+  ?id:string ->
   account_id:string ->
   tunnel_id:string ->
   config:cloudflare_tunnel_config__config list ->

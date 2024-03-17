@@ -10,6 +10,7 @@ val azurerm_spring_cloud_api_portal :
   ?api_try_out_enabled:bool ->
   ?gateway_ids:string list ->
   ?https_only_enabled:bool ->
+  ?id:string ->
   ?instance_count:float ->
   ?public_network_access_enabled:bool ->
   ?timeouts:azurerm_spring_cloud_api_portal__timeouts ->

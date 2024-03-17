@@ -57,6 +57,8 @@ type aws_s3_bucket_website_configuration = {
   bucket : string;  (** bucket *)
   expected_bucket_owner : string option; [@option]
       (** expected_bucket_owner *)
+  id : string option; [@option]  (** id *)
+  routing_rules : string option; [@option]  (** routing_rules *)
   error_document :
     aws_s3_bucket_website_configuration__error_document list;
   index_document :
@@ -70,14 +72,16 @@ type aws_s3_bucket_website_configuration = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_website_configuration *)
 
-let aws_s3_bucket_website_configuration ?expected_bucket_owner
-    ~bucket ~error_document ~index_document ~redirect_all_requests_to
-    ~routing_rule __resource_id =
+let aws_s3_bucket_website_configuration ?expected_bucket_owner ?id
+    ?routing_rules ~bucket ~error_document ~index_document
+    ~redirect_all_requests_to ~routing_rule __resource_id =
   let __resource_type = "aws_s3_bucket_website_configuration" in
   let __resource =
     {
       bucket;
       expected_bucket_owner;
+      id;
+      routing_rules;
       error_document;
       index_document;
       redirect_all_requests_to;

@@ -14,6 +14,7 @@ type aws_s3_bucket_analytics_configuration__storage_class_analysis
 type aws_s3_bucket_analytics_configuration
 
 val aws_s3_bucket_analytics_configuration :
+  ?id:string ->
   bucket:string ->
   name:string ->
   filter:aws_s3_bucket_analytics_configuration__filter list ->

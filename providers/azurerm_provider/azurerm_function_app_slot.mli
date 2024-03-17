@@ -18,7 +18,6 @@ type azurerm_function_app_slot__site_config__ip_restriction__headers = {
   x_forwarded_for : string list;  (** x_forwarded_for *)
   x_forwarded_host : string list;  (** x_forwarded_host *)
 }
-[@@deriving yojson_of]
 
 type azurerm_function_app_slot__site_config__ip_restriction = {
   action : string;  (** action *)
@@ -33,7 +32,6 @@ type azurerm_function_app_slot__site_config__ip_restriction = {
   virtual_network_subnet_id : string;
       (** virtual_network_subnet_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_function_app_slot__site_config__scm_ip_restriction__headers = {
   x_azure_fdid : string list;  (** x_azure_fdid *)
@@ -41,7 +39,6 @@ type azurerm_function_app_slot__site_config__scm_ip_restriction__headers = {
   x_forwarded_for : string list;  (** x_forwarded_for *)
   x_forwarded_host : string list;  (** x_forwarded_host *)
 }
-[@@deriving yojson_of]
 
 type azurerm_function_app_slot__site_config__scm_ip_restriction = {
   action : string;  (** action *)
@@ -56,7 +53,6 @@ type azurerm_function_app_slot__site_config__scm_ip_restriction = {
   virtual_network_subnet_id : string;
       (** virtual_network_subnet_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_function_app_slot__site_config
 type azurerm_function_app_slot__timeouts
@@ -65,15 +61,16 @@ type azurerm_function_app_slot__site_credential = {
   password : string;  (** password *)
   username : string;  (** username *)
 }
-[@@deriving yojson_of]
 
 type azurerm_function_app_slot
 
 val azurerm_function_app_slot :
+  ?app_settings:(string * string) list ->
   ?daily_memory_time_quota:float ->
   ?enable_builtin_logging:bool ->
   ?enabled:bool ->
   ?https_only:bool ->
+  ?id:string ->
   ?os_type:string ->
   ?tags:(string * string) list ->
   ?version:string ->

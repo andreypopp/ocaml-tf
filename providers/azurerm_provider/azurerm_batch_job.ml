@@ -19,6 +19,7 @@ type azurerm_batch_job = {
       [@option]
       (** common_environment_properties *)
   display_name : string option; [@option]  (** display_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   priority : float option; [@option]  (** priority *)
   task_retry_maximum : float option; [@option]
@@ -29,7 +30,7 @@ type azurerm_batch_job = {
 (** azurerm_batch_job *)
 
 let azurerm_batch_job ?common_environment_properties ?display_name
-    ?priority ?task_retry_maximum ?timeouts ~batch_pool_id ~name
+    ?id ?priority ?task_retry_maximum ?timeouts ~batch_pool_id ~name
     __resource_id =
   let __resource_type = "azurerm_batch_job" in
   let __resource =
@@ -37,6 +38,7 @@ let azurerm_batch_job ?common_environment_properties ?display_name
       batch_pool_id;
       common_environment_properties;
       display_name;
+      id;
       name;
       priority;
       task_retry_maximum;

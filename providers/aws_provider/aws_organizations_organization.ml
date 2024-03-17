@@ -44,18 +44,20 @@ type aws_organizations_organization = {
   enabled_policy_types : string list option; [@option]
       (** enabled_policy_types *)
   feature_set : string option; [@option]  (** feature_set *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_organizations_organization *)
 
 let aws_organizations_organization ?aws_service_access_principals
-    ?enabled_policy_types ?feature_set __resource_id =
+    ?enabled_policy_types ?feature_set ?id __resource_id =
   let __resource_type = "aws_organizations_organization" in
   let __resource =
     {
       aws_service_access_principals;
       enabled_policy_types;
       feature_set;
+      id;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

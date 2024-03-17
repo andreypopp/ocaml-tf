@@ -61,6 +61,7 @@ type aws_synthetics_canary = {
   failure_retention_period : float option; [@option]
       (** failure_retention_period *)
   handler : string;  (** handler *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   runtime_version : string;  (** runtime_version *)
   s3_bucket : string option; [@option]  (** s3_bucket *)
@@ -70,6 +71,8 @@ type aws_synthetics_canary = {
   success_retention_period : float option; [@option]
       (** success_retention_period *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   zip_file : string option; [@option]  (** zip_file *)
   artifact_config : aws_synthetics_canary__artifact_config list;
   run_config : aws_synthetics_canary__run_config list;
@@ -80,11 +83,11 @@ type aws_synthetics_canary = {
 (** aws_synthetics_canary *)
 
 let aws_synthetics_canary ?delete_lambda ?failure_retention_period
-    ?s3_bucket ?s3_key ?s3_version ?start_canary
-    ?success_retention_period ?tags ?zip_file ~artifact_s3_location
-    ~execution_role_arn ~handler ~name ~runtime_version
-    ~artifact_config ~run_config ~schedule ~vpc_config __resource_id
-    =
+    ?id ?s3_bucket ?s3_key ?s3_version ?start_canary
+    ?success_retention_period ?tags ?tags_all ?zip_file
+    ~artifact_s3_location ~execution_role_arn ~handler ~name
+    ~runtime_version ~artifact_config ~run_config ~schedule
+    ~vpc_config __resource_id =
   let __resource_type = "aws_synthetics_canary" in
   let __resource =
     {
@@ -93,6 +96,7 @@ let aws_synthetics_canary ?delete_lambda ?failure_retention_period
       execution_role_arn;
       failure_retention_period;
       handler;
+      id;
       name;
       runtime_version;
       s3_bucket;
@@ -101,6 +105,7 @@ let aws_synthetics_canary ?delete_lambda ?failure_retention_period
       start_canary;
       success_retention_period;
       tags;
+      tags_all;
       zip_file;
       artifact_config;
       run_config;

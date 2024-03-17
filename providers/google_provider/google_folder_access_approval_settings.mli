@@ -8,6 +8,8 @@ type google_folder_access_approval_settings
 
 val google_folder_access_approval_settings :
   ?active_key_version:string ->
+  ?id:string ->
+  ?notification_emails:string list ->
   ?timeouts:google_folder_access_approval_settings__timeouts ->
   folder_id:string ->
   enrolled_services:

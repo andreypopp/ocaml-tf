@@ -50,6 +50,7 @@ type azurerm_palo_alto_local_rulestack_rule = {
       (** decryption_rule_type *)
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   inspection_certificate_id : string option; [@option]
       (** inspection_certificate_id *)
   logging_enabled : bool option; [@option]  (** logging_enabled *)
@@ -73,7 +74,7 @@ type azurerm_palo_alto_local_rulestack_rule = {
 (** azurerm_palo_alto_local_rulestack_rule *)
 
 let azurerm_palo_alto_local_rulestack_rule ?audit_comment
-    ?decryption_rule_type ?description ?enabled
+    ?decryption_rule_type ?description ?enabled ?id
     ?inspection_certificate_id ?logging_enabled ?negate_destination
     ?negate_source ?protocol ?protocol_ports ?tags ?timeouts ~action
     ~applications ~name ~priority ~rulestack_id ~category
@@ -87,6 +88,7 @@ let azurerm_palo_alto_local_rulestack_rule ?audit_comment
       decryption_rule_type;
       description;
       enabled;
+      id;
       inspection_certificate_id;
       logging_enabled;
       name;

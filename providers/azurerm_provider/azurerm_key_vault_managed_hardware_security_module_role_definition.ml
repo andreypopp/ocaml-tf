@@ -25,6 +25,7 @@ type azurerm_key_vault_managed_hardware_security_module_role_definition__timeout
 
 type azurerm_key_vault_managed_hardware_security_module_role_definition = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   role_name : string option; [@option]  (** role_name *)
   vault_base_url : string;  (** vault_base_url *)
@@ -39,7 +40,7 @@ type azurerm_key_vault_managed_hardware_security_module_role_definition = {
 (** azurerm_key_vault_managed_hardware_security_module_role_definition *)
 
 let azurerm_key_vault_managed_hardware_security_module_role_definition
-    ?description ?role_name ?timeouts ~name ~vault_base_url
+    ?description ?id ?role_name ?timeouts ~name ~vault_base_url
     ~permission __resource_id =
   let __resource_type =
     "azurerm_key_vault_managed_hardware_security_module_role_definition"
@@ -47,6 +48,7 @@ let azurerm_key_vault_managed_hardware_security_module_role_definition
   let __resource =
     {
       description;
+      id;
       name;
       role_name;
       vault_base_url;

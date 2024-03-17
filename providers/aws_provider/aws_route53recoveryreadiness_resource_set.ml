@@ -59,9 +59,12 @@ type aws_route53recoveryreadiness_resource_set__timeouts = {
 (** aws_route53recoveryreadiness_resource_set__timeouts *)
 
 type aws_route53recoveryreadiness_resource_set = {
+  id : string option; [@option]  (** id *)
   resource_set_name : string;  (** resource_set_name *)
   resource_set_type : string;  (** resource_set_type *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   resources :
     aws_route53recoveryreadiness_resource_set__resources list;
   timeouts :
@@ -70,16 +73,19 @@ type aws_route53recoveryreadiness_resource_set = {
 [@@deriving yojson_of]
 (** aws_route53recoveryreadiness_resource_set *)
 
-let aws_route53recoveryreadiness_resource_set ?tags ?timeouts
-    ~resource_set_name ~resource_set_type ~resources __resource_id =
+let aws_route53recoveryreadiness_resource_set ?id ?tags ?tags_all
+    ?timeouts ~resource_set_name ~resource_set_type ~resources
+    __resource_id =
   let __resource_type =
     "aws_route53recoveryreadiness_resource_set"
   in
   let __resource =
     {
+      id;
       resource_set_name;
       resource_set_type;
       tags;
+      tags_all;
       resources;
       timeouts;
     }

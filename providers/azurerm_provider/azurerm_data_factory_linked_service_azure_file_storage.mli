@@ -13,6 +13,7 @@ val azurerm_data_factory_linked_service_azure_file_storage :
   ?description:string ->
   ?file_share:string ->
   ?host:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?parameters:(string * string) list ->
   ?password:string ->

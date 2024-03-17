@@ -23,16 +23,17 @@ type kubernetes_node_taint = {
       (** Set the name of the field manager for the node taint *)
   force : bool option; [@option]
       (** Force overwriting annotations that were created or edited outside of Terraform. *)
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_node_taint__metadata list;
   taint : kubernetes_node_taint__taint list;
 }
 [@@deriving yojson_of]
 (** kubernetes_node_taint *)
 
-let kubernetes_node_taint ?field_manager ?force ~metadata ~taint
+let kubernetes_node_taint ?field_manager ?force ?id ~metadata ~taint
     __resource_id =
   let __resource_type = "kubernetes_node_taint" in
-  let __resource = { field_manager; force; metadata; taint } in
+  let __resource = { field_manager; force; id; metadata; taint } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_node_taint __resource);
   ()

@@ -60,12 +60,26 @@ type aws_lb = {
       (** enable_waf_fail_open *)
   enable_xff_client_port : bool option; [@option]
       (** enable_xff_client_port *)
+  enforce_security_group_inbound_rules_on_private_link_traffic :
+    string option;
+      [@option]
+      (** enforce_security_group_inbound_rules_on_private_link_traffic *)
+  id : string option; [@option]  (** id *)
   idle_timeout : float option; [@option]  (** idle_timeout *)
+  internal : bool option; [@option]  (** internal *)
+  ip_address_type : string option; [@option]  (** ip_address_type *)
   load_balancer_type : string option; [@option]
       (** load_balancer_type *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   preserve_host_header : bool option; [@option]
       (** preserve_host_header *)
+  security_groups : string list option; [@option]
+      (** security_groups *)
+  subnets : string list option; [@option]  (** subnets *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   xff_header_processing_mode : string option; [@option]
       (** xff_header_processing_mode *)
   access_logs : aws_lb__access_logs list;
@@ -80,10 +94,12 @@ let aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
     ?dns_record_client_routing_policy ?drop_invalid_header_fields
     ?enable_cross_zone_load_balancing ?enable_deletion_protection
     ?enable_http2 ?enable_tls_version_and_cipher_suite_headers
-    ?enable_waf_fail_open ?enable_xff_client_port ?idle_timeout
-    ?load_balancer_type ?preserve_host_header ?tags
-    ?xff_header_processing_mode ?timeouts ~access_logs
-    ~connection_logs ~subnet_mapping __resource_id =
+    ?enable_waf_fail_open ?enable_xff_client_port
+    ?enforce_security_group_inbound_rules_on_private_link_traffic ?id
+    ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
+    ?name ?name_prefix ?preserve_host_header ?security_groups
+    ?subnets ?tags ?tags_all ?xff_header_processing_mode ?timeouts
+    ~access_logs ~connection_logs ~subnet_mapping __resource_id =
   let __resource_type = "aws_lb" in
   let __resource =
     {
@@ -97,10 +113,19 @@ let aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
       enable_tls_version_and_cipher_suite_headers;
       enable_waf_fail_open;
       enable_xff_client_port;
+      enforce_security_group_inbound_rules_on_private_link_traffic;
+      id;
       idle_timeout;
+      internal;
+      ip_address_type;
       load_balancer_type;
+      name;
+      name_prefix;
       preserve_host_header;
+      security_groups;
+      subnets;
       tags;
+      tags_all;
       xff_header_processing_mode;
       access_logs;
       connection_logs;

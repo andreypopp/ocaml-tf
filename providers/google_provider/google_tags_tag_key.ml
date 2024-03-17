@@ -15,6 +15,7 @@ type google_tags_tag_key__timeouts = {
 type google_tags_tag_key = {
   description : string option; [@option]
       (** User-assigned description of the TagKey. Must not exceed 256 characters. *)
+  id : string option; [@option]  (** id *)
   parent : string;
       (** Input only. The resource name of the new TagKey's parent. Must be of the form organizations/{org_id} or projects/{project_id_or_number}. *)
   purpose : string option; [@option]
@@ -34,12 +35,13 @@ The short name must be 1-63 characters, beginning and ending with an alphanumeri
 [@@deriving yojson_of]
 (** google_tags_tag_key *)
 
-let google_tags_tag_key ?description ?purpose ?purpose_data ?timeouts
-    ~parent ~short_name __resource_id =
+let google_tags_tag_key ?description ?id ?purpose ?purpose_data
+    ?timeouts ~parent ~short_name __resource_id =
   let __resource_type = "google_tags_tag_key" in
   let __resource =
     {
       description;
+      id;
       parent;
       purpose;
       purpose_data;

@@ -7,6 +7,8 @@ type google_firestore_document
 
 val google_firestore_document :
   ?database:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_firestore_document__timeouts ->
   collection:string ->
   document_id:string ->

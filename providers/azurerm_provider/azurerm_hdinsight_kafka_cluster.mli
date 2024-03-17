@@ -37,6 +37,7 @@ type azurerm_hdinsight_kafka_cluster
 
 val azurerm_hdinsight_kafka_cluster :
   ?encryption_in_transit_enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?tls_min_version:string ->
   ?timeouts:azurerm_hdinsight_kafka_cluster__timeouts ->

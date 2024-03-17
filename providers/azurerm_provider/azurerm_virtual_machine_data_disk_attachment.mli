@@ -7,6 +7,7 @@ type azurerm_virtual_machine_data_disk_attachment
 
 val azurerm_virtual_machine_data_disk_attachment :
   ?create_option:string ->
+  ?id:string ->
   ?write_accelerator_enabled:bool ->
   ?timeouts:azurerm_virtual_machine_data_disk_attachment__timeouts ->
   caching:string ->

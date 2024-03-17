@@ -25,6 +25,7 @@ type azurerm_static_site__timeouts = {
 type azurerm_static_site = {
   app_settings : (string * string) list option; [@option]
       (** app_settings *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -37,13 +38,14 @@ type azurerm_static_site = {
 [@@deriving yojson_of]
 (** azurerm_static_site *)
 
-let azurerm_static_site ?app_settings ?sku_size ?sku_tier ?tags
+let azurerm_static_site ?app_settings ?id ?sku_size ?sku_tier ?tags
     ?timeouts ~location ~name ~resource_group_name ~identity
     __resource_id =
   let __resource_type = "azurerm_static_site" in
   let __resource =
     {
       app_settings;
+      id;
       location;
       name;
       resource_group_name;

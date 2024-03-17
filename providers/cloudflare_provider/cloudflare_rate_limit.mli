@@ -14,6 +14,7 @@ val cloudflare_rate_limit :
   ?bypass_url_patterns:string list ->
   ?description:string ->
   ?disabled:bool ->
+  ?id:string ->
   period:float ->
   threshold:float ->
   zone_id:string ->

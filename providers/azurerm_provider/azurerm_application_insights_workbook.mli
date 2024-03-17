@@ -9,6 +9,7 @@ type azurerm_application_insights_workbook
 val azurerm_application_insights_workbook :
   ?category:string ->
   ?description:string ->
+  ?id:string ->
   ?source_id:string ->
   ?storage_container_id:string ->
   ?tags:(string * string) list ->

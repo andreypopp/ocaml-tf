@@ -32,6 +32,7 @@ type azurerm_app_service_environment_v3 = {
       (** allow_new_private_endpoint_connections *)
   dedicated_host_count : float option; [@option]
       (** dedicated_host_count *)
+  id : string option; [@option]  (** id *)
   internal_load_balancing_mode : string option; [@option]
       (** internal_load_balancing_mode *)
   name : string;  (** name *)
@@ -49,7 +50,7 @@ type azurerm_app_service_environment_v3 = {
 (** azurerm_app_service_environment_v3 *)
 
 let azurerm_app_service_environment_v3
-    ?allow_new_private_endpoint_connections ?dedicated_host_count
+    ?allow_new_private_endpoint_connections ?dedicated_host_count ?id
     ?internal_load_balancing_mode ?remote_debugging_enabled ?tags
     ?zone_redundant ?timeouts ~name ~resource_group_name ~subnet_id
     ~cluster_setting __resource_id =
@@ -58,6 +59,7 @@ let azurerm_app_service_environment_v3
     {
       allow_new_private_endpoint_connections;
       dedicated_host_count;
+      id;
       internal_load_balancing_mode;
       name;
       remote_debugging_enabled;

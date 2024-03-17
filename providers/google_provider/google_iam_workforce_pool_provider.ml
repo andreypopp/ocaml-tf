@@ -185,6 +185,7 @@ Example: '{ name: wrench, mass: 1.3kg, count: 3 }'. *)
 However, existing tokens still grant access. *)
   display_name : string option; [@option]
       (** A user-specified display name for the provider. Cannot exceed 32 characters. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource. *)
   provider_id : string;
       (** The ID for the provider, which becomes the final component of the resource name.
@@ -203,8 +204,8 @@ The prefix 'gcp-' is reserved for use by Google, and may not be specified. *)
 (** google_iam_workforce_pool_provider *)
 
 let google_iam_workforce_pool_provider ?attribute_condition
-    ?attribute_mapping ?description ?disabled ?display_name ?timeouts
-    ~location ~provider_id ~workforce_pool_id ~oidc ~saml
+    ?attribute_mapping ?description ?disabled ?display_name ?id
+    ?timeouts ~location ~provider_id ~workforce_pool_id ~oidc ~saml
     __resource_id =
   let __resource_type = "google_iam_workforce_pool_provider" in
   let __resource =
@@ -214,6 +215,7 @@ let google_iam_workforce_pool_provider ?attribute_condition
       description;
       disabled;
       display_name;
+      id;
       location;
       provider_id;
       workforce_pool_id;

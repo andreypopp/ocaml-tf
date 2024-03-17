@@ -18,6 +18,7 @@ type aws_config_organization_custom_policy_rule = {
   description : string option; [@option]  (** description *)
   excluded_accounts : string list option; [@option]
       (** excluded_accounts *)
+  id : string option; [@option]  (** id *)
   input_parameters : string option; [@option]
       (** input_parameters *)
   maximum_execution_frequency : string option; [@option]
@@ -39,7 +40,7 @@ type aws_config_organization_custom_policy_rule = {
 (** aws_config_organization_custom_policy_rule *)
 
 let aws_config_organization_custom_policy_rule
-    ?debug_log_delivery_accounts ?description ?excluded_accounts
+    ?debug_log_delivery_accounts ?description ?excluded_accounts ?id
     ?input_parameters ?maximum_execution_frequency ?resource_id_scope
     ?resource_types_scope ?tag_key_scope ?tag_value_scope ?timeouts
     ~name ~policy_runtime ~policy_text ~trigger_types __resource_id =
@@ -51,6 +52,7 @@ let aws_config_organization_custom_policy_rule
       debug_log_delivery_accounts;
       description;
       excluded_accounts;
+      id;
       input_parameters;
       maximum_execution_frequency;
       name;

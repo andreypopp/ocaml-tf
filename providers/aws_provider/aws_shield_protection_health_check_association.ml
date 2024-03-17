@@ -6,17 +6,18 @@ open! Tf.Prelude
 
 type aws_shield_protection_health_check_association = {
   health_check_arn : string;  (** health_check_arn *)
+  id : string option; [@option]  (** id *)
   shield_protection_id : string;  (** shield_protection_id *)
 }
 [@@deriving yojson_of]
 (** aws_shield_protection_health_check_association *)
 
-let aws_shield_protection_health_check_association ~health_check_arn
-    ~shield_protection_id __resource_id =
+let aws_shield_protection_health_check_association ?id
+    ~health_check_arn ~shield_protection_id __resource_id =
   let __resource_type =
     "aws_shield_protection_health_check_association"
   in
-  let __resource = { health_check_arn; shield_protection_id } in
+  let __resource = { health_check_arn; id; shield_protection_id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_shield_protection_health_check_association
        __resource);

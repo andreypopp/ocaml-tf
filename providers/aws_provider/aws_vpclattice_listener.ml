@@ -43,20 +43,39 @@ type aws_vpclattice_listener__timeouts = {
 (** aws_vpclattice_listener__timeouts *)
 
 type aws_vpclattice_listener = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  port : float option; [@option]  (** port *)
   protocol : string;  (** protocol *)
+  service_arn : string option; [@option]  (** service_arn *)
+  service_identifier : string option; [@option]
+      (** service_identifier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   default_action : aws_vpclattice_listener__default_action list;
   timeouts : aws_vpclattice_listener__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_listener *)
 
-let aws_vpclattice_listener ?tags ?timeouts ~name ~protocol
+let aws_vpclattice_listener ?id ?port ?service_arn
+    ?service_identifier ?tags ?tags_all ?timeouts ~name ~protocol
     ~default_action __resource_id =
   let __resource_type = "aws_vpclattice_listener" in
   let __resource =
-    { name; protocol; tags; default_action; timeouts }
+    {
+      id;
+      name;
+      port;
+      protocol;
+      service_arn;
+      service_identifier;
+      tags;
+      tags_all;
+      default_action;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_listener __resource);

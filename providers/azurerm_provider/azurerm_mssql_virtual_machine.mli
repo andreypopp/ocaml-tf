@@ -22,6 +22,7 @@ type azurerm_mssql_virtual_machine__wsfc_domain_credential
 type azurerm_mssql_virtual_machine
 
 val azurerm_mssql_virtual_machine :
+  ?id:string ->
   ?r_services_enabled:bool ->
   ?sql_connectivity_port:float ->
   ?sql_connectivity_type:string ->

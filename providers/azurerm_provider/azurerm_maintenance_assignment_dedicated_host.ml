@@ -14,6 +14,7 @@ type azurerm_maintenance_assignment_dedicated_host__timeouts = {
 
 type azurerm_maintenance_assignment_dedicated_host = {
   dedicated_host_id : string;  (** dedicated_host_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   maintenance_configuration_id : string;
       (** maintenance_configuration_id *)
@@ -23,7 +24,7 @@ type azurerm_maintenance_assignment_dedicated_host = {
 [@@deriving yojson_of]
 (** azurerm_maintenance_assignment_dedicated_host *)
 
-let azurerm_maintenance_assignment_dedicated_host ?timeouts
+let azurerm_maintenance_assignment_dedicated_host ?id ?timeouts
     ~dedicated_host_id ~location ~maintenance_configuration_id
     __resource_id =
   let __resource_type =
@@ -32,6 +33,7 @@ let azurerm_maintenance_assignment_dedicated_host ?timeouts
   let __resource =
     {
       dedicated_host_id;
+      id;
       location;
       maintenance_configuration_id;
       timeouts;

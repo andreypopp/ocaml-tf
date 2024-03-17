@@ -6,7 +6,9 @@ type google_project_usage_export_bucket__timeouts
 type google_project_usage_export_bucket
 
 val google_project_usage_export_bucket :
+  ?id:string ->
   ?prefix:string ->
+  ?project:string ->
   ?timeouts:google_project_usage_export_bucket__timeouts ->
   bucket_name:string ->
   string ->

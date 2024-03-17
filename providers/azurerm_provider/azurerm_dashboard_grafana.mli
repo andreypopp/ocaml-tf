@@ -13,6 +13,7 @@ val azurerm_dashboard_grafana :
   ?auto_generated_domain_name_label_scope:string ->
   ?deterministic_outbound_ip_enabled:bool ->
   ?grafana_major_version:string ->
+  ?id:string ->
   ?public_network_access_enabled:bool ->
   ?sku:string ->
   ?tags:(string * string) list ->

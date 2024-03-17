@@ -10,14 +10,12 @@ type google_network_connectivity_service_connection_policy__psc_connections__err
   metadata : (string * string) list;  (** metadata *)
   reason : string;  (** reason *)
 }
-[@@deriving yojson_of]
 
 type google_network_connectivity_service_connection_policy__psc_connections__error = {
   code : float;  (** code *)
   details : (string * string) list list;  (** details *)
   message : string;  (** message *)
 }
-[@@deriving yojson_of]
 
 type google_network_connectivity_service_connection_policy__psc_connections = {
   consumer_address : string;  (** consumer_address *)
@@ -36,13 +34,14 @@ type google_network_connectivity_service_connection_policy__psc_connections = {
   psc_connection_id : string;  (** psc_connection_id *)
   state : string;  (** state *)
 }
-[@@deriving yojson_of]
 
 type google_network_connectivity_service_connection_policy
 
 val google_network_connectivity_service_connection_policy :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:
     google_network_connectivity_service_connection_policy__timeouts ->
   location:string ->

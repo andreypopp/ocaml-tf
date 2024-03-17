@@ -6,6 +6,7 @@ type google_data_catalog_policy_tag_iam_binding__condition
 type google_data_catalog_policy_tag_iam_binding
 
 val google_data_catalog_policy_tag_iam_binding :
+  ?id:string ->
   members:string list ->
   policy_tag:string ->
   role:string ->

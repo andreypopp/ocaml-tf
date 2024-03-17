@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_detective_organization_configuration
 
 val aws_detective_organization_configuration :
-  auto_enable:bool -> graph_arn:string -> string -> unit
+  ?id:string ->
+  auto_enable:bool ->
+  graph_arn:string ->
+  string ->
+  unit

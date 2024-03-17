@@ -4,4 +4,5 @@ open! Tf.Prelude
 
 type aws_iam_group
 
-val aws_iam_group : ?path:string -> name:string -> string -> unit
+val aws_iam_group :
+  ?id:string -> ?path:string -> name:string -> string -> unit

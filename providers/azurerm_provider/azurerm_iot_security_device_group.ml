@@ -36,6 +36,7 @@ type azurerm_iot_security_device_group__timeouts = {
 (** azurerm_iot_security_device_group__timeouts *)
 
 type azurerm_iot_security_device_group = {
+  id : string option; [@option]  (** id *)
   iothub_id : string;  (** iothub_id *)
   name : string;  (** name *)
   allow_rule : azurerm_iot_security_device_group__allow_rule list;
@@ -45,11 +46,11 @@ type azurerm_iot_security_device_group = {
 [@@deriving yojson_of]
 (** azurerm_iot_security_device_group *)
 
-let azurerm_iot_security_device_group ?timeouts ~iothub_id ~name
+let azurerm_iot_security_device_group ?id ?timeouts ~iothub_id ~name
     ~allow_rule ~range_rule __resource_id =
   let __resource_type = "azurerm_iot_security_device_group" in
   let __resource =
-    { iothub_id; name; allow_rule; range_rule; timeouts }
+    { id; iothub_id; name; allow_rule; range_rule; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_iot_security_device_group __resource);

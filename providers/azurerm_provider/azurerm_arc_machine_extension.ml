@@ -19,6 +19,7 @@ type azurerm_arc_machine_extension = {
       (** automatic_upgrade_enabled *)
   force_update_tag : string option; [@option]
       (** force_update_tag *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   protected_settings : string option; [@option]
@@ -35,7 +36,7 @@ type azurerm_arc_machine_extension = {
 (** azurerm_arc_machine_extension *)
 
 let azurerm_arc_machine_extension ?automatic_upgrade_enabled
-    ?force_update_tag ?protected_settings ?settings ?tags
+    ?force_update_tag ?id ?protected_settings ?settings ?tags
     ?type_handler_version ?timeouts ~arc_machine_id ~location ~name
     ~publisher ~type_ __resource_id =
   let __resource_type = "azurerm_arc_machine_extension" in
@@ -44,6 +45,7 @@ let azurerm_arc_machine_extension ?automatic_upgrade_enabled
       arc_machine_id;
       automatic_upgrade_enabled;
       force_update_tag;
+      id;
       location;
       name;
       protected_settings;

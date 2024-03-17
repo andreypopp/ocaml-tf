@@ -7,6 +7,7 @@ type azurerm_private_dns_resolver_inbound_endpoint__timeouts
 type azurerm_private_dns_resolver_inbound_endpoint
 
 val azurerm_private_dns_resolver_inbound_endpoint :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_private_dns_resolver_inbound_endpoint__timeouts ->
   location:string ->

@@ -76,6 +76,12 @@ type google_binary_authorization_policy__timeouts = {
 type google_binary_authorization_policy = {
   description : string option; [@option]
       (** A descriptive comment. *)
+  global_policy_evaluation_mode : string option; [@option]
+      (** Controls the evaluation of a Google-maintained global admission policy
+for common system-level images. Images not covered by the global
+policy will be subject to the project admission policy. Possible values: [ENABLE, DISABLE] *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   admission_whitelist_patterns :
     google_binary_authorization_policy__admission_whitelist_patterns
     list;
@@ -88,13 +94,17 @@ type google_binary_authorization_policy = {
 [@@deriving yojson_of]
 (** google_binary_authorization_policy *)
 
-let google_binary_authorization_policy ?description ?timeouts
+let google_binary_authorization_policy ?description
+    ?global_policy_evaluation_mode ?id ?project ?timeouts
     ~admission_whitelist_patterns ~cluster_admission_rules
     ~default_admission_rule __resource_id =
   let __resource_type = "google_binary_authorization_policy" in
   let __resource =
     {
       description;
+      global_policy_evaluation_mode;
+      id;
+      project;
       admission_whitelist_patterns;
       cluster_admission_rules;
       default_admission_rule;

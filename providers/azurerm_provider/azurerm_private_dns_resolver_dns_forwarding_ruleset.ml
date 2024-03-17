@@ -14,6 +14,7 @@ type azurerm_private_dns_resolver_dns_forwarding_ruleset__timeouts = {
 (** azurerm_private_dns_resolver_dns_forwarding_ruleset__timeouts *)
 
 type azurerm_private_dns_resolver_dns_forwarding_ruleset = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   private_dns_resolver_outbound_endpoint_ids : string list;
@@ -27,7 +28,7 @@ type azurerm_private_dns_resolver_dns_forwarding_ruleset = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_dns_forwarding_ruleset *)
 
-let azurerm_private_dns_resolver_dns_forwarding_ruleset ?tags
+let azurerm_private_dns_resolver_dns_forwarding_ruleset ?id ?tags
     ?timeouts ~location ~name
     ~private_dns_resolver_outbound_endpoint_ids ~resource_group_name
     __resource_id =
@@ -36,6 +37,7 @@ let azurerm_private_dns_resolver_dns_forwarding_ruleset ?tags
   in
   let __resource =
     {
+      id;
       location;
       name;
       private_dns_resolver_outbound_endpoint_ids;

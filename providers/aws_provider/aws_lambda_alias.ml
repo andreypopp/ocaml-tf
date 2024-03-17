@@ -15,20 +15,22 @@ type aws_lambda_alias = {
   description : string option; [@option]  (** description *)
   function_name : string;  (** function_name *)
   function_version : string;  (** function_version *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   routing_config : aws_lambda_alias__routing_config list;
 }
 [@@deriving yojson_of]
 (** aws_lambda_alias *)
 
-let aws_lambda_alias ?description ~function_name ~function_version
-    ~name ~routing_config __resource_id =
+let aws_lambda_alias ?description ?id ~function_name
+    ~function_version ~name ~routing_config __resource_id =
   let __resource_type = "aws_lambda_alias" in
   let __resource =
     {
       description;
       function_name;
       function_version;
+      id;
       name;
       routing_config;
     }

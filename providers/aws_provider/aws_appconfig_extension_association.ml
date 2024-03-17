@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_appconfig_extension_association = {
   extension_arn : string;  (** extension_arn *)
+  id : string option; [@option]  (** id *)
   parameters : (string * string) list option; [@option]
       (** parameters *)
   resource_arn : string;  (** resource_arn *)
@@ -13,10 +14,10 @@ type aws_appconfig_extension_association = {
 [@@deriving yojson_of]
 (** aws_appconfig_extension_association *)
 
-let aws_appconfig_extension_association ?parameters ~extension_arn
-    ~resource_arn __resource_id =
+let aws_appconfig_extension_association ?id ?parameters
+    ~extension_arn ~resource_arn __resource_id =
   let __resource_type = "aws_appconfig_extension_association" in
-  let __resource = { extension_arn; parameters; resource_arn } in
+  let __resource = { extension_arn; id; parameters; resource_arn } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_extension_association __resource);
   ()

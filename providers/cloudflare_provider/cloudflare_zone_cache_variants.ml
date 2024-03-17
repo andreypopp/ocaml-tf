@@ -11,6 +11,7 @@ type cloudflare_zone_cache_variants = {
       (** List of strings with the MIME types of all the variants that should be served for bmp. *)
   gif : string list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for gif. *)
+  id : string option; [@option]  (** id *)
   jp2 : string list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for jp2. *)
   jpeg : string list option; [@option]
@@ -33,14 +34,15 @@ type cloudflare_zone_cache_variants = {
 [@@deriving yojson_of]
 (** Provides a resource which customizes Cloudflare zone cache variants. *)
 
-let cloudflare_zone_cache_variants ?avif ?bmp ?gif ?jp2 ?jpeg ?jpg
-    ?jpg2 ?png ?tif ?tiff ?webp ~zone_id __resource_id =
+let cloudflare_zone_cache_variants ?avif ?bmp ?gif ?id ?jp2 ?jpeg
+    ?jpg ?jpg2 ?png ?tif ?tiff ?webp ~zone_id __resource_id =
   let __resource_type = "cloudflare_zone_cache_variants" in
   let __resource =
     {
       avif;
       bmp;
       gif;
+      id;
       jp2;
       jpeg;
       jpg;

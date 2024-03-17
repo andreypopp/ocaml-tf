@@ -20,6 +20,7 @@ type azurerm_logic_app_integration_account_assembly = {
   content : string option; [@option]  (** content *)
   content_link_uri : string option; [@option]
       (** content_link_uri *)
+  id : string option; [@option]  (** id *)
   integration_account_name : string;  (** integration_account_name *)
   metadata : (string * string) list option; [@option]
       (** metadata *)
@@ -32,7 +33,7 @@ type azurerm_logic_app_integration_account_assembly = {
 (** azurerm_logic_app_integration_account_assembly *)
 
 let azurerm_logic_app_integration_account_assembly ?assembly_version
-    ?content ?content_link_uri ?metadata ?timeouts ~assembly_name
+    ?content ?content_link_uri ?id ?metadata ?timeouts ~assembly_name
     ~integration_account_name ~name ~resource_group_name
     __resource_id =
   let __resource_type =
@@ -44,6 +45,7 @@ let azurerm_logic_app_integration_account_assembly ?assembly_version
       assembly_version;
       content;
       content_link_uri;
+      id;
       integration_account_name;
       metadata;
       name;

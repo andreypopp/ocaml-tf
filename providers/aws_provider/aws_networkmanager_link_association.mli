@@ -6,6 +6,7 @@ type aws_networkmanager_link_association__timeouts
 type aws_networkmanager_link_association
 
 val aws_networkmanager_link_association :
+  ?id:string ->
   ?timeouts:aws_networkmanager_link_association__timeouts ->
   device_id:string ->
   global_network_id:string ->

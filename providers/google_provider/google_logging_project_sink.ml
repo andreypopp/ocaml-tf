@@ -35,7 +35,10 @@ type google_logging_project_sink = {
       (** If set to True, then this sink is disabled and it does not export any log entries. *)
   filter : string option; [@option]
       (** The filter to apply when exporting logs. Only log entries that match the filter are exported. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the logging sink. *)
+  project : string option; [@option]
+      (** The ID of the project to create the sink in. If omitted, the project associated with the provider is used. *)
   unique_writer_identity : bool option; [@option]
       (** Whether or not to create a unique identity associated with this sink. If false (the legacy behavior), then the writer_identity used is serviceAccount:cloud-logs@system.gserviceaccount.com. If true (default), then a unique service account is created and used for this sink. If you wish to publish logs across projects, you must set unique_writer_identity to true. *)
   bigquery_options :
@@ -46,8 +49,8 @@ type google_logging_project_sink = {
 (** google_logging_project_sink *)
 
 let google_logging_project_sink ?custom_writer_identity ?description
-    ?disabled ?filter ?unique_writer_identity ~destination ~name
-    ~bigquery_options ~exclusions __resource_id =
+    ?disabled ?filter ?id ?project ?unique_writer_identity
+    ~destination ~name ~bigquery_options ~exclusions __resource_id =
   let __resource_type = "google_logging_project_sink" in
   let __resource =
     {
@@ -56,7 +59,9 @@ let google_logging_project_sink ?custom_writer_identity ?description
       destination;
       disabled;
       filter;
+      id;
       name;
+      project;
       unique_writer_identity;
       bigquery_options;
       exclusions;

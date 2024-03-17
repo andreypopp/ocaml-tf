@@ -10,15 +10,17 @@ type aws_wafv2_web_acl_association__timeouts = {
 (** aws_wafv2_web_acl_association__timeouts *)
 
 type aws_wafv2_web_acl_association = {
+  id: string option; [@option] (** id *)
   resource_arn: string;  (** resource_arn *)
   web_acl_arn: string;  (** web_acl_arn *)
   timeouts: aws_wafv2_web_acl_association__timeouts option;
 } [@@deriving yojson_of]
 (** aws_wafv2_web_acl_association *)
 
-let aws_wafv2_web_acl_association  ?timeouts ~resource_arn ~web_acl_arn  __resource_id =
+let aws_wafv2_web_acl_association ?id ?timeouts ~resource_arn ~web_acl_arn  __resource_id =
   let __resource_type = "aws_wafv2_web_acl_association" in
   let __resource = {
+    id;
     resource_arn;
     web_acl_arn;
     timeouts;

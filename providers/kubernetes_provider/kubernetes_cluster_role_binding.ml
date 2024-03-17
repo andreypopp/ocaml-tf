@@ -44,6 +44,7 @@ type kubernetes_cluster_role_binding__subject = {
 (** Subjects defines the entities to bind a ClusterRole to. *)
 
 type kubernetes_cluster_role_binding = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_cluster_role_binding__metadata list;
   role_ref : kubernetes_cluster_role_binding__role_ref list;
   subject : kubernetes_cluster_role_binding__subject list;
@@ -51,10 +52,10 @@ type kubernetes_cluster_role_binding = {
 [@@deriving yojson_of]
 (** kubernetes_cluster_role_binding *)
 
-let kubernetes_cluster_role_binding ~metadata ~role_ref ~subject
+let kubernetes_cluster_role_binding ?id ~metadata ~role_ref ~subject
     __resource_id =
   let __resource_type = "kubernetes_cluster_role_binding" in
-  let __resource = { metadata; role_ref; subject } in
+  let __resource = { id; metadata; role_ref; subject } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_cluster_role_binding __resource);
   ()

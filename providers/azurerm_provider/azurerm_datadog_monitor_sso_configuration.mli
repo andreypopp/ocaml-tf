@@ -6,6 +6,7 @@ type azurerm_datadog_monitor_sso_configuration__timeouts
 type azurerm_datadog_monitor_sso_configuration
 
 val azurerm_datadog_monitor_sso_configuration :
+  ?id:string ->
   ?name:string ->
   ?timeouts:azurerm_datadog_monitor_sso_configuration__timeouts ->
   datadog_monitor_id:string ->

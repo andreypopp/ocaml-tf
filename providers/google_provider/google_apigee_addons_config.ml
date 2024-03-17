@@ -72,6 +72,7 @@ type google_apigee_addons_config__timeouts = {
 (** google_apigee_addons_config__timeouts *)
 
 type google_apigee_addons_config = {
+  id : string option; [@option]  (** id *)
   org : string;  (** Name of the Apigee organization. *)
   addons_config : google_apigee_addons_config__addons_config list;
   timeouts : google_apigee_addons_config__timeouts option;
@@ -79,10 +80,10 @@ type google_apigee_addons_config = {
 [@@deriving yojson_of]
 (** google_apigee_addons_config *)
 
-let google_apigee_addons_config ?timeouts ~org ~addons_config
+let google_apigee_addons_config ?id ?timeouts ~org ~addons_config
     __resource_id =
   let __resource_type = "google_apigee_addons_config" in
-  let __resource = { org; addons_config; timeouts } in
+  let __resource = { id; org; addons_config; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_addons_config __resource);
   ()

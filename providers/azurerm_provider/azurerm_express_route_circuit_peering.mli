@@ -9,7 +9,9 @@ type azurerm_express_route_circuit_peering__timeouts
 type azurerm_express_route_circuit_peering
 
 val azurerm_express_route_circuit_peering :
+  ?id:string ->
   ?ipv4_enabled:bool ->
+  ?peer_asn:float ->
   ?primary_peer_address_prefix:string ->
   ?route_filter_id:string ->
   ?secondary_peer_address_prefix:string ->

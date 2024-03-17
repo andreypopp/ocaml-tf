@@ -8,6 +8,7 @@ type azurerm_network_function_collector_policy__timeouts
 type azurerm_network_function_collector_policy
 
 val azurerm_network_function_collector_policy :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_network_function_collector_policy__timeouts ->
   location:string ->

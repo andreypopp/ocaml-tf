@@ -11,6 +11,7 @@ val azurerm_data_factory_linked_service_cosmosdb_mongoapi :
   ?connection_string:string ->
   ?database:string ->
   ?description:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?parameters:(string * string) list ->
   ?server_version_is_32_or_higher:bool ->

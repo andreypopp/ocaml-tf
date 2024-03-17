@@ -7,6 +7,7 @@ type azurerm_virtual_hub_route_table__timeouts
 type azurerm_virtual_hub_route_table
 
 val azurerm_virtual_hub_route_table :
+  ?id:string ->
   ?labels:string list ->
   ?timeouts:azurerm_virtual_hub_route_table__timeouts ->
   name:string ->

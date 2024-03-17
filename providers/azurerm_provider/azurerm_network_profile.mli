@@ -9,6 +9,7 @@ type azurerm_network_profile__timeouts
 type azurerm_network_profile
 
 val azurerm_network_profile :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_network_profile__timeouts ->
   location:string ->

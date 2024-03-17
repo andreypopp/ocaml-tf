@@ -12,6 +12,7 @@ type azurerm_active_directory_domain_service
 val azurerm_active_directory_domain_service :
   ?domain_configuration_type:string ->
   ?filtered_sync_enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_active_directory_domain_service__timeouts ->
   domain_name:string ->

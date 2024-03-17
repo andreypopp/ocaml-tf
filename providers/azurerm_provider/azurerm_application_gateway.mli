@@ -59,7 +59,6 @@ type azurerm_application_gateway__private_endpoint_connection = {
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type azurerm_application_gateway
 
@@ -68,6 +67,7 @@ val azurerm_application_gateway :
   ?fips_enabled:bool ->
   ?firewall_policy_id:string ->
   ?force_firewall_policy_association:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?zones:string list ->
   ?timeouts:azurerm_application_gateway__timeouts ->

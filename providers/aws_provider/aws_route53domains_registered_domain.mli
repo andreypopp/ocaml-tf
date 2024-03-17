@@ -14,8 +14,10 @@ val aws_route53domains_registered_domain :
   ?admin_privacy:bool ->
   ?auto_renew:bool ->
   ?billing_privacy:bool ->
+  ?id:string ->
   ?registrant_privacy:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?tech_privacy:bool ->
   ?transfer_lock:bool ->
   ?timeouts:aws_route53domains_registered_domain__timeouts ->

@@ -15,6 +15,7 @@ type aws_glue_user_defined_function = {
   catalog_id : string option; [@option]  (** catalog_id *)
   class_name : string;  (** class_name *)
   database_name : string;  (** database_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   owner_name : string;  (** owner_name *)
   owner_type : string;  (** owner_type *)
@@ -23,7 +24,7 @@ type aws_glue_user_defined_function = {
 [@@deriving yojson_of]
 (** aws_glue_user_defined_function *)
 
-let aws_glue_user_defined_function ?catalog_id ~class_name
+let aws_glue_user_defined_function ?catalog_id ?id ~class_name
     ~database_name ~name ~owner_name ~owner_type ~resource_uris
     __resource_id =
   let __resource_type = "aws_glue_user_defined_function" in
@@ -32,6 +33,7 @@ let aws_glue_user_defined_function ?catalog_id ~class_name
       catalog_id;
       class_name;
       database_name;
+      id;
       name;
       owner_name;
       owner_type;

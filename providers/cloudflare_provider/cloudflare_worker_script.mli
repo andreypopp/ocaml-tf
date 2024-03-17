@@ -16,6 +16,8 @@ type cloudflare_worker_script
 
 val cloudflare_worker_script :
   ?compatibility_date:string ->
+  ?compatibility_flags:string list ->
+  ?id:string ->
   ?logpush:bool ->
   ?module_:bool ->
   account_id:string ->

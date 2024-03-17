@@ -17,6 +17,7 @@ val azurerm_spring_cloud_gateway :
   ?application_performance_monitoring_types:string list ->
   ?environment_variables:(string * string) list ->
   ?https_only:bool ->
+  ?id:string ->
   ?instance_count:float ->
   ?public_network_access_enabled:bool ->
   ?sensitive_environment_variables:(string * string) list ->

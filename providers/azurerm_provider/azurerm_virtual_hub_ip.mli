@@ -6,6 +6,7 @@ type azurerm_virtual_hub_ip__timeouts
 type azurerm_virtual_hub_ip
 
 val azurerm_virtual_hub_ip :
+  ?id:string ->
   ?private_ip_address:string ->
   ?private_ip_allocation_method:string ->
   ?timeouts:azurerm_virtual_hub_ip__timeouts ->

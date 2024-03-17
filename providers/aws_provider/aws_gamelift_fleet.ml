@@ -59,13 +59,17 @@ type aws_gamelift_fleet = {
   description : string option; [@option]  (** description *)
   ec2_instance_type : string;  (** ec2_instance_type *)
   fleet_type : string option; [@option]  (** fleet_type *)
+  id : string option; [@option]  (** id *)
   instance_role_arn : string option; [@option]
       (** instance_role_arn *)
+  metric_groups : string list option; [@option]  (** metric_groups *)
   name : string;  (** name *)
   new_game_session_protection_policy : string option; [@option]
       (** new_game_session_protection_policy *)
   script_id : string option; [@option]  (** script_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   certificate_configuration :
     aws_gamelift_fleet__certificate_configuration list;
   ec2_inbound_permission :
@@ -79,12 +83,12 @@ type aws_gamelift_fleet = {
 [@@deriving yojson_of]
 (** aws_gamelift_fleet *)
 
-let aws_gamelift_fleet ?build_id ?description ?fleet_type
-    ?instance_role_arn ?new_game_session_protection_policy ?script_id
-    ?tags ?timeouts ~ec2_instance_type ~name
-    ~certificate_configuration ~ec2_inbound_permission
-    ~resource_creation_limit_policy ~runtime_configuration
-    __resource_id =
+let aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
+    ?instance_role_arn ?metric_groups
+    ?new_game_session_protection_policy ?script_id ?tags ?tags_all
+    ?timeouts ~ec2_instance_type ~name ~certificate_configuration
+    ~ec2_inbound_permission ~resource_creation_limit_policy
+    ~runtime_configuration __resource_id =
   let __resource_type = "aws_gamelift_fleet" in
   let __resource =
     {
@@ -92,11 +96,14 @@ let aws_gamelift_fleet ?build_id ?description ?fleet_type
       description;
       ec2_instance_type;
       fleet_type;
+      id;
       instance_role_arn;
+      metric_groups;
       name;
       new_game_session_protection_policy;
       script_id;
       tags;
+      tags_all;
       certificate_configuration;
       ec2_inbound_permission;
       resource_creation_limit_policy;

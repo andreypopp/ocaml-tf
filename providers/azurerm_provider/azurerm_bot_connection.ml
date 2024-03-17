@@ -17,6 +17,7 @@ type azurerm_bot_connection = {
   bot_name : string;  (** bot_name *)
   client_id : string;  (** client_id *)
   client_secret : string;  (** client_secret *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
@@ -30,7 +31,7 @@ type azurerm_bot_connection = {
 [@@deriving yojson_of]
 (** azurerm_bot_connection *)
 
-let azurerm_bot_connection ?parameters ?scopes ?tags ?timeouts
+let azurerm_bot_connection ?id ?parameters ?scopes ?tags ?timeouts
     ~bot_name ~client_id ~client_secret ~location ~name
     ~resource_group_name ~service_provider_name __resource_id =
   let __resource_type = "azurerm_bot_connection" in
@@ -39,6 +40,7 @@ let azurerm_bot_connection ?parameters ?scopes ?tags ?timeouts
       bot_name;
       client_id;
       client_secret;
+      id;
       location;
       name;
       parameters;

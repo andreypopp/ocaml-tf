@@ -13,12 +13,14 @@ type aws_redshift_hsm_configuration = {
   hsm_partition_password : string;  (** hsm_partition_password *)
   hsm_server_public_certificate : string;
       (** hsm_server_public_certificate *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_hsm_configuration *)
 
-let aws_redshift_hsm_configuration ?tags ~description
+let aws_redshift_hsm_configuration ?id ?tags ?tags_all ~description
     ~hsm_configuration_identifier ~hsm_ip_address ~hsm_partition_name
     ~hsm_partition_password ~hsm_server_public_certificate
     __resource_id =
@@ -31,7 +33,9 @@ let aws_redshift_hsm_configuration ?tags ~description
       hsm_partition_name;
       hsm_partition_password;
       hsm_server_public_certificate;
+      id;
       tags;
+      tags_all;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

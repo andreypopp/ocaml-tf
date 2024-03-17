@@ -112,6 +112,7 @@ type azurerm_lab_service_lab__virtual_machine = {
 
 type azurerm_lab_service_lab = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   lab_plan_id : string option; [@option]  (** lab_plan_id *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -130,14 +131,15 @@ type azurerm_lab_service_lab = {
 [@@deriving yojson_of]
 (** azurerm_lab_service_lab *)
 
-let azurerm_lab_service_lab ?description ?lab_plan_id ?tags ?timeouts
-    ~location ~name ~resource_group_name ~title ~auto_shutdown
-    ~connection_setting ~network ~roster ~security ~virtual_machine
-    __resource_id =
+let azurerm_lab_service_lab ?description ?id ?lab_plan_id ?tags
+    ?timeouts ~location ~name ~resource_group_name ~title
+    ~auto_shutdown ~connection_setting ~network ~roster ~security
+    ~virtual_machine __resource_id =
   let __resource_type = "azurerm_lab_service_lab" in
   let __resource =
     {
       description;
+      id;
       lab_plan_id;
       location;
       name;

@@ -23,6 +23,7 @@ type aws_athena_database = {
   expected_bucket_owner : string option; [@option]
       (** expected_bucket_owner *)
   force_destroy : bool option; [@option]  (** force_destroy *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   properties : (string * string) list option; [@option]
       (** properties *)
@@ -34,7 +35,7 @@ type aws_athena_database = {
 (** aws_athena_database *)
 
 let aws_athena_database ?bucket ?comment ?expected_bucket_owner
-    ?force_destroy ?properties ~name ~acl_configuration
+    ?force_destroy ?id ?properties ~name ~acl_configuration
     ~encryption_configuration __resource_id =
   let __resource_type = "aws_athena_database" in
   let __resource =
@@ -43,6 +44,7 @@ let aws_athena_database ?bucket ?comment ?expected_bucket_owner
       comment;
       expected_bucket_owner;
       force_destroy;
+      id;
       name;
       properties;
       acl_configuration;

@@ -24,6 +24,7 @@ type azurerm_key_vault_certificate_issuer__timeouts = {
 
 type azurerm_key_vault_certificate_issuer = {
   account_id : string option; [@option]  (** account_id *)
+  id : string option; [@option]  (** id *)
   key_vault_id : string;  (** key_vault_id *)
   name : string;  (** name *)
   org_id : string option; [@option]  (** org_id *)
@@ -35,13 +36,14 @@ type azurerm_key_vault_certificate_issuer = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate_issuer *)
 
-let azurerm_key_vault_certificate_issuer ?account_id ?org_id
+let azurerm_key_vault_certificate_issuer ?account_id ?id ?org_id
     ?password ?timeouts ~key_vault_id ~name ~provider_name ~admin
     __resource_id =
   let __resource_type = "azurerm_key_vault_certificate_issuer" in
   let __resource =
     {
       account_id;
+      id;
       key_vault_id;
       name;
       org_id;

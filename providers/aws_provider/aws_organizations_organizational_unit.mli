@@ -8,12 +8,13 @@ type aws_organizations_organizational_unit__accounts = {
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_organizations_organizational_unit
 
 val aws_organizations_organizational_unit :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   parent_id:string ->
   string ->

@@ -41,29 +41,34 @@ type aws_networkmanager_connect_peer = {
   connect_attachment_id : string;  (** connect_attachment_id *)
   core_network_address : string option; [@option]
       (** core_network_address *)
+  id : string option; [@option]  (** id *)
   inside_cidr_blocks : string list option; [@option]
       (** inside_cidr_blocks *)
   peer_address : string;  (** peer_address *)
   subnet_arn : string option; [@option]  (** subnet_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   bgp_options : aws_networkmanager_connect_peer__bgp_options list;
   timeouts : aws_networkmanager_connect_peer__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_connect_peer *)
 
-let aws_networkmanager_connect_peer ?core_network_address
-    ?inside_cidr_blocks ?subnet_arn ?tags ?timeouts
+let aws_networkmanager_connect_peer ?core_network_address ?id
+    ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all ?timeouts
     ~connect_attachment_id ~peer_address ~bgp_options __resource_id =
   let __resource_type = "aws_networkmanager_connect_peer" in
   let __resource =
     {
       connect_attachment_id;
       core_network_address;
+      id;
       inside_cidr_blocks;
       peer_address;
       subnet_arn;
       tags;
+      tags_all;
       bgp_options;
       timeouts;
     }

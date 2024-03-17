@@ -6,6 +6,7 @@ type aws_api_gateway_deployment
 
 val aws_api_gateway_deployment :
   ?description:string ->
+  ?id:string ->
   ?stage_description:string ->
   ?stage_name:string ->
   ?triggers:(string * string) list ->

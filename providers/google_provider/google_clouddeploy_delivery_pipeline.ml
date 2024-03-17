@@ -268,6 +268,7 @@ type google_clouddeploy_delivery_pipeline = {
 Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
   description : string option; [@option]
       (** Description of the `DeliveryPipeline`. Max length is 255 characters. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels are attributes that can be set and used by both the user and by Google Cloud Deploy. Labels must meet the following constraints: * Keys and values can contain only lowercase letters, numeric characters, underscores, and dashes. * All characters must use UTF-8 encoding, and international characters are allowed. * Keys must start with a lowercase letter or international character. * Each resource is limited to a maximum of 64 labels. Both keys and values are additionally constrained to be <= 128 bytes.
 
@@ -276,6 +277,8 @@ Please refer to the field `effective_labels` for all of the labels present on th
   location : string;  (** The location for the resource *)
   name : string;
       (** Name of the `DeliveryPipeline`. Format is [a-z][a-z0-9\-]{0,62}. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   suspended : bool option; [@option]
       (** When suspended, no new releases or rollouts can be created, but in-progress ones will complete. *)
   serial_pipeline :
@@ -286,16 +289,18 @@ Please refer to the field `effective_labels` for all of the labels present on th
 (** google_clouddeploy_delivery_pipeline *)
 
 let google_clouddeploy_delivery_pipeline ?annotations ?description
-    ?labels ?suspended ?timeouts ~location ~name ~serial_pipeline
-    __resource_id =
+    ?id ?labels ?project ?suspended ?timeouts ~location ~name
+    ~serial_pipeline __resource_id =
   let __resource_type = "google_clouddeploy_delivery_pipeline" in
   let __resource =
     {
       annotations;
       description;
+      id;
       labels;
       location;
       name;
+      project;
       suspended;
       serial_pipeline;
       timeouts;

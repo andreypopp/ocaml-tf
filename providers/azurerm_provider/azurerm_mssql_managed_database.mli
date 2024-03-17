@@ -8,6 +8,7 @@ type azurerm_mssql_managed_database__timeouts
 type azurerm_mssql_managed_database
 
 val azurerm_mssql_managed_database :
+  ?id:string ->
   ?short_term_retention_days:float ->
   ?timeouts:azurerm_mssql_managed_database__timeouts ->
   managed_instance_id:string ->

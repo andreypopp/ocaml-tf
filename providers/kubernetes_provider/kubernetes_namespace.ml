@@ -30,6 +30,7 @@ type kubernetes_namespace__timeouts = {
 (** kubernetes_namespace__timeouts *)
 
 type kubernetes_namespace = {
+  id : string option; [@option]  (** id *)
   wait_for_default_service_account : bool option; [@option]
       (** Terraform will wait for the default service account to be created. *)
   metadata : kubernetes_namespace__metadata list;
@@ -38,11 +39,11 @@ type kubernetes_namespace = {
 [@@deriving yojson_of]
 (** kubernetes_namespace *)
 
-let kubernetes_namespace ?wait_for_default_service_account ?timeouts
-    ~metadata __resource_id =
+let kubernetes_namespace ?id ?wait_for_default_service_account
+    ?timeouts ~metadata __resource_id =
   let __resource_type = "kubernetes_namespace" in
   let __resource =
-    { wait_for_default_service_account; metadata; timeouts }
+    { id; wait_for_default_service_account; metadata; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_namespace __resource);

@@ -8,6 +8,7 @@ type azurerm_mobile_network_sim
 
 val azurerm_mobile_network_sim :
   ?device_type:string ->
+  ?id:string ->
   ?sim_policy_id:string ->
   ?timeouts:azurerm_mobile_network_sim__timeouts ->
   authentication_key:string ->

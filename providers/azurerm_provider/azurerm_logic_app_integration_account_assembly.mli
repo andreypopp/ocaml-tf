@@ -9,6 +9,7 @@ val azurerm_logic_app_integration_account_assembly :
   ?assembly_version:string ->
   ?content:string ->
   ?content_link_uri:string ->
+  ?id:string ->
   ?metadata:(string * string) list ->
   ?timeouts:azurerm_logic_app_integration_account_assembly__timeouts ->
   assembly_name:string ->

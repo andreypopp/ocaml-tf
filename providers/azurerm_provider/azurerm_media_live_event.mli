@@ -10,7 +10,6 @@ type azurerm_media_live_event__input__endpoint = {
   protocol : string;  (** protocol *)
   url : string;  (** url *)
 }
-[@@deriving yojson_of]
 
 type azurerm_media_live_event__input
 type azurerm_media_live_event__preview__ip_access_control_allow
@@ -19,7 +18,6 @@ type azurerm_media_live_event__preview__endpoint = {
   protocol : string;  (** protocol *)
   url : string;  (** url *)
 }
-[@@deriving yojson_of]
 
 type azurerm_media_live_event__preview
 type azurerm_media_live_event__timeouts
@@ -29,6 +27,7 @@ val azurerm_media_live_event :
   ?auto_start_enabled:bool ->
   ?description:string ->
   ?hostname_prefix:string ->
+  ?id:string ->
   ?stream_options:string list ->
   ?tags:(string * string) list ->
   ?transcription_languages:string list ->

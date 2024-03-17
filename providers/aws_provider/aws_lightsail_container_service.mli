@@ -11,8 +11,10 @@ type aws_lightsail_container_service__timeouts
 type aws_lightsail_container_service
 
 val aws_lightsail_container_service :
+  ?id:string ->
   ?is_disabled:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_lightsail_container_service__timeouts ->
   name:string ->
   power:string ->

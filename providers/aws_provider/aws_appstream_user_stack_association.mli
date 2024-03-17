@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_appstream_user_stack_association
 
 val aws_appstream_user_stack_association :
+  ?id:string ->
   ?send_email_notification:bool ->
   authentication_type:string ->
   stack_name:string ->

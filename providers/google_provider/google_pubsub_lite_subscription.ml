@@ -20,7 +20,9 @@ type google_pubsub_lite_subscription__timeouts = {
 (** google_pubsub_lite_subscription__timeouts *)
 
 type google_pubsub_lite_subscription = {
+  id : string option; [@option]  (** id *)
   name : string;  (** Name of the subscription. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region of the pubsub lite topic. *)
   topic : string;  (** A reference to a Topic resource. *)
@@ -33,11 +35,20 @@ type google_pubsub_lite_subscription = {
 [@@deriving yojson_of]
 (** google_pubsub_lite_subscription *)
 
-let google_pubsub_lite_subscription ?region ?zone ?timeouts ~name
-    ~topic ~delivery_config __resource_id =
+let google_pubsub_lite_subscription ?id ?project ?region ?zone
+    ?timeouts ~name ~topic ~delivery_config __resource_id =
   let __resource_type = "google_pubsub_lite_subscription" in
   let __resource =
-    { name; region; topic; zone; delivery_config; timeouts }
+    {
+      id;
+      name;
+      project;
+      region;
+      topic;
+      zone;
+      delivery_config;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_lite_subscription __resource);

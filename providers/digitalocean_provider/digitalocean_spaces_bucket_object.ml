@@ -16,7 +16,10 @@ type digitalocean_spaces_bucket_object = {
       (** content_encoding *)
   content_language : string option; [@option]
       (** content_language *)
+  content_type : string option; [@option]  (** content_type *)
+  etag : string option; [@option]  (** etag *)
   force_destroy : bool option; [@option]  (** force_destroy *)
+  id : string option; [@option]  (** id *)
   key : string;  (** key *)
   metadata : (string * string) list option; [@option]
       (** metadata *)
@@ -29,8 +32,9 @@ type digitalocean_spaces_bucket_object = {
 
 let digitalocean_spaces_bucket_object ?acl ?cache_control ?content
     ?content_base64 ?content_disposition ?content_encoding
-    ?content_language ?force_destroy ?metadata ?source
-    ?website_redirect ~bucket ~key ~region __resource_id =
+    ?content_language ?content_type ?etag ?force_destroy ?id
+    ?metadata ?source ?website_redirect ~bucket ~key ~region
+    __resource_id =
   let __resource_type = "digitalocean_spaces_bucket_object" in
   let __resource =
     {
@@ -42,7 +46,10 @@ let digitalocean_spaces_bucket_object ?acl ?cache_control ?content
       content_disposition;
       content_encoding;
       content_language;
+      content_type;
+      etag;
       force_destroy;
+      id;
       key;
       metadata;
       region;

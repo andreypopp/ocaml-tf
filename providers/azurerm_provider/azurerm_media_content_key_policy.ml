@@ -173,6 +173,7 @@ type azurerm_media_content_key_policy__timeouts = {
 
 type azurerm_media_content_key_policy = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   media_services_account_name : string;
       (** media_services_account_name *)
   name : string;  (** name *)
@@ -184,13 +185,14 @@ type azurerm_media_content_key_policy = {
 [@@deriving yojson_of]
 (** azurerm_media_content_key_policy *)
 
-let azurerm_media_content_key_policy ?description ?timeouts
+let azurerm_media_content_key_policy ?description ?id ?timeouts
     ~media_services_account_name ~name ~resource_group_name
     ~policy_option __resource_id =
   let __resource_type = "azurerm_media_content_key_policy" in
   let __resource =
     {
       description;
+      id;
       media_services_account_name;
       name;
       resource_group_name;

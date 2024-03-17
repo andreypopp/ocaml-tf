@@ -7,6 +7,7 @@ type aws_grafana_role_association
 
 val aws_grafana_role_association :
   ?group_ids:string list ->
+  ?id:string ->
   ?user_ids:string list ->
   ?timeouts:aws_grafana_role_association__timeouts ->
   role:string ->

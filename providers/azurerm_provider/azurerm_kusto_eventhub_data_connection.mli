@@ -9,6 +9,8 @@ val azurerm_kusto_eventhub_data_connection :
   ?compression:string ->
   ?data_format:string ->
   ?database_routing_type:string ->
+  ?event_system_properties:string list ->
+  ?id:string ->
   ?identity_id:string ->
   ?mapping_rule_name:string ->
   ?table_name:string ->

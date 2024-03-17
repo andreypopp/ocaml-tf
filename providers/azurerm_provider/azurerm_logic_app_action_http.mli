@@ -9,6 +9,7 @@ type azurerm_logic_app_action_http
 val azurerm_logic_app_action_http :
   ?body:string ->
   ?headers:(string * string) list ->
+  ?id:string ->
   ?queries:(string * string) list ->
   ?timeouts:azurerm_logic_app_action_http__timeouts ->
   logic_app_id:string ->

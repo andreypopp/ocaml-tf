@@ -15,6 +15,8 @@ type aws_servicecatalog_constraint__timeouts = {
 
 type aws_servicecatalog_constraint = {
   accept_language : string option; [@option]  (** accept_language *)
+  description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   parameters : string;  (** parameters *)
   portfolio_id : string;  (** portfolio_id *)
   product_id : string;  (** product_id *)
@@ -24,12 +26,15 @@ type aws_servicecatalog_constraint = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_constraint *)
 
-let aws_servicecatalog_constraint ?accept_language ?timeouts
-    ~parameters ~portfolio_id ~product_id ~type_ __resource_id =
+let aws_servicecatalog_constraint ?accept_language ?description ?id
+    ?timeouts ~parameters ~portfolio_id ~product_id ~type_
+    __resource_id =
   let __resource_type = "aws_servicecatalog_constraint" in
   let __resource =
     {
       accept_language;
+      description;
+      id;
       parameters;
       portfolio_id;
       product_id;

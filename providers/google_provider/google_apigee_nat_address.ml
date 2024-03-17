@@ -12,6 +12,7 @@ type google_apigee_nat_address__timeouts = {
 (** google_apigee_nat_address__timeouts *)
 
 type google_apigee_nat_address = {
+  id : string option; [@option]  (** id *)
   instance_id : string;
       (** The Apigee instance associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/instances/{{instance_name}}'. *)
@@ -21,10 +22,10 @@ in the format 'organizations/{{org_name}}/instances/{{instance_name}}'. *)
 [@@deriving yojson_of]
 (** google_apigee_nat_address *)
 
-let google_apigee_nat_address ?timeouts ~instance_id ~name
+let google_apigee_nat_address ?id ?timeouts ~instance_id ~name
     __resource_id =
   let __resource_type = "google_apigee_nat_address" in
-  let __resource = { instance_id; name; timeouts } in
+  let __resource = { id; instance_id; name; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_nat_address __resource);
   ()

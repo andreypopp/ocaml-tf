@@ -17,15 +17,17 @@ type google_billing_project_info = {
       (** The ID of the billing account associated with the project, if
 any. Set to empty string to disable billing for the project.
 For example, '012345-567890-ABCDEF' or ''. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   timeouts : google_billing_project_info__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_billing_project_info *)
 
-let google_billing_project_info ?timeouts ~billing_account
-    __resource_id =
+let google_billing_project_info ?id ?project ?timeouts
+    ~billing_account __resource_id =
   let __resource_type = "google_billing_project_info" in
-  let __resource = { billing_account; timeouts } in
+  let __resource = { billing_account; id; project; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_billing_project_info __resource);
   ()

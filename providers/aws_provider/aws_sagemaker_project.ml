@@ -24,24 +24,30 @@ type aws_sagemaker_project__service_catalog_provisioning_details = {
 (** aws_sagemaker_project__service_catalog_provisioning_details *)
 
 type aws_sagemaker_project = {
+  id : string option; [@option]  (** id *)
   project_description : string option; [@option]
       (** project_description *)
   project_name : string;  (** project_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   service_catalog_provisioning_details :
     aws_sagemaker_project__service_catalog_provisioning_details list;
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_project *)
 
-let aws_sagemaker_project ?project_description ?tags ~project_name
-    ~service_catalog_provisioning_details __resource_id =
+let aws_sagemaker_project ?id ?project_description ?tags ?tags_all
+    ~project_name ~service_catalog_provisioning_details __resource_id
+    =
   let __resource_type = "aws_sagemaker_project" in
   let __resource =
     {
+      id;
       project_description;
       project_name;
       tags;
+      tags_all;
       service_catalog_provisioning_details;
     }
   in

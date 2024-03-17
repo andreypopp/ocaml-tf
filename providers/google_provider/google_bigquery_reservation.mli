@@ -8,9 +8,12 @@ type google_bigquery_reservation
 
 val google_bigquery_reservation :
   ?concurrency:float ->
+  ?edition:string ->
+  ?id:string ->
   ?ignore_idle_slots:bool ->
   ?location:string ->
   ?multi_region_auxiliary:bool ->
+  ?project:string ->
   ?timeouts:google_bigquery_reservation__timeouts ->
   name:string ->
   slot_capacity:float ->

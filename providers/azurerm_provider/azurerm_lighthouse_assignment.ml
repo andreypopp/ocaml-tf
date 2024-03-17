@@ -13,17 +13,21 @@ type azurerm_lighthouse_assignment__timeouts = {
 (** azurerm_lighthouse_assignment__timeouts *)
 
 type azurerm_lighthouse_assignment = {
+  id : string option; [@option]  (** id *)
   lighthouse_definition_id : string;  (** lighthouse_definition_id *)
+  name : string option; [@option]  (** name *)
   scope : string;  (** scope *)
   timeouts : azurerm_lighthouse_assignment__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_lighthouse_assignment *)
 
-let azurerm_lighthouse_assignment ?timeouts ~lighthouse_definition_id
-    ~scope __resource_id =
+let azurerm_lighthouse_assignment ?id ?name ?timeouts
+    ~lighthouse_definition_id ~scope __resource_id =
   let __resource_type = "azurerm_lighthouse_assignment" in
-  let __resource = { lighthouse_definition_id; scope; timeouts } in
+  let __resource =
+    { id; lighthouse_definition_id; name; scope; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lighthouse_assignment __resource);
   ()

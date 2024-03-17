@@ -26,6 +26,7 @@ type aws_lambda_function_url__timeouts = {
 type aws_lambda_function_url = {
   authorization_type : string;  (** authorization_type *)
   function_name : string;  (** function_name *)
+  id : string option; [@option]  (** id *)
   invoke_mode : string option; [@option]  (** invoke_mode *)
   qualifier : string option; [@option]  (** qualifier *)
   cors : aws_lambda_function_url__cors list;
@@ -34,13 +35,14 @@ type aws_lambda_function_url = {
 [@@deriving yojson_of]
 (** aws_lambda_function_url *)
 
-let aws_lambda_function_url ?invoke_mode ?qualifier ?timeouts
+let aws_lambda_function_url ?id ?invoke_mode ?qualifier ?timeouts
     ~authorization_type ~function_name ~cors __resource_id =
   let __resource_type = "aws_lambda_function_url" in
   let __resource =
     {
       authorization_type;
       function_name;
+      id;
       invoke_mode;
       qualifier;
       cors;

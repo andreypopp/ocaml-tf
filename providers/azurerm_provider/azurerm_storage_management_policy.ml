@@ -148,6 +148,7 @@ type azurerm_storage_management_policy__timeouts = {
 (** azurerm_storage_management_policy__timeouts *)
 
 type azurerm_storage_management_policy = {
+  id : string option; [@option]  (** id *)
   storage_account_id : string;  (** storage_account_id *)
   rule : azurerm_storage_management_policy__rule list;
   timeouts : azurerm_storage_management_policy__timeouts option;
@@ -155,10 +156,10 @@ type azurerm_storage_management_policy = {
 [@@deriving yojson_of]
 (** azurerm_storage_management_policy *)
 
-let azurerm_storage_management_policy ?timeouts ~storage_account_id
-    ~rule __resource_id =
+let azurerm_storage_management_policy ?id ?timeouts
+    ~storage_account_id ~rule __resource_id =
   let __resource_type = "azurerm_storage_management_policy" in
-  let __resource = { storage_account_id; rule; timeouts } in
+  let __resource = { id; storage_account_id; rule; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_management_policy __resource);
   ()

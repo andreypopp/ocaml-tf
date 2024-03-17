@@ -604,6 +604,11 @@ type azurerm_windows_function_app = {
       (** ftp_publish_basic_authentication_enabled *)
   functions_extension_version : string option; [@option]
       (** The runtime version associated with the Function App. *)
+  https_only : bool option; [@option]
+      (** Can the Function App only be accessed via HTTPS? *)
+  id : string option; [@option]  (** id *)
+  key_vault_reference_identity_id : string option; [@option]
+      (** The User Assigned Identity to use for Key Vault access. *)
   location : string;  (** location *)
   name : string;  (** Specifies the name of the Function App. *)
   public_network_access_enabled : bool option; [@option]
@@ -625,6 +630,8 @@ type azurerm_windows_function_app = {
   webdeploy_publish_basic_authentication_enabled : bool option;
       [@option]
       (** webdeploy_publish_basic_authentication_enabled *)
+  zip_deploy_file : string option; [@option]
+      (** The local path and filename of the Zip packaged application to deploy to this Windows Function App. **Note:** Using this value requires `WEBSITE_RUN_FROM_PACKAGE=1` to be set on the App in `app_settings`. *)
   auth_settings : azurerm_windows_function_app__auth_settings list;
   auth_settings_v2 :
     azurerm_windows_function_app__auth_settings_v2 list;
@@ -647,12 +654,13 @@ let azurerm_windows_function_app ?app_settings
     ?client_certificate_exclusion_paths ?client_certificate_mode
     ?content_share_force_disabled ?daily_memory_time_quota ?enabled
     ?ftp_publish_basic_authentication_enabled
-    ?functions_extension_version ?public_network_access_enabled
+    ?functions_extension_version ?https_only ?id
+    ?key_vault_reference_identity_id ?public_network_access_enabled
     ?storage_account_access_key ?storage_account_name
     ?storage_key_vault_secret_id ?storage_uses_managed_identity ?tags
     ?virtual_network_subnet_id
-    ?webdeploy_publish_basic_authentication_enabled ?timeouts
-    ~location ~name ~resource_group_name ~service_plan_id
+    ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
+    ?timeouts ~location ~name ~resource_group_name ~service_plan_id
     ~auth_settings ~auth_settings_v2 ~backup ~connection_string
     ~identity ~site_config ~sticky_settings ~storage_account
     __resource_id =
@@ -669,6 +677,9 @@ let azurerm_windows_function_app ?app_settings
       enabled;
       ftp_publish_basic_authentication_enabled;
       functions_extension_version;
+      https_only;
+      id;
+      key_vault_reference_identity_id;
       location;
       name;
       public_network_access_enabled;
@@ -681,6 +692,7 @@ let azurerm_windows_function_app ?app_settings
       tags;
       virtual_network_subnet_id;
       webdeploy_publish_basic_authentication_enabled;
+      zip_deploy_file;
       auth_settings;
       auth_settings_v2;
       backup;

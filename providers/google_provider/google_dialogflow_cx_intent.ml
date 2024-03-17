@@ -55,6 +55,7 @@ type google_dialogflow_cx_intent = {
       (** Human readable description for better understanding an intent like its scope, content, result etc. Maximum character limit: 140 characters. *)
   display_name : string;
       (** The human-readable name of the intent, unique within the agent. *)
+  id : string option; [@option]  (** id *)
   is_default_negative_intent : bool option; [@option]
       (** Marks this as the [Default Negative Intent](https://cloud.google.com/dialogflow/cx/docs/concept/intent#negative) for an agent. When you create an agent, a Default Negative Intent is created automatically.
 The Default Negative Intent cannot be deleted; deleting the 'google_dialogflow_cx_intent' resource does nothing to the underlying GCP resources.
@@ -96,7 +97,7 @@ If the supplied value is negative, the intent is ignored in runtime detect inten
 [@@deriving yojson_of]
 (** google_dialogflow_cx_intent *)
 
-let google_dialogflow_cx_intent ?description
+let google_dialogflow_cx_intent ?description ?id
     ?is_default_negative_intent ?is_default_welcome_intent
     ?is_fallback ?labels ?language_code ?parent ?priority ?timeouts
     ~display_name ~parameters ~training_phrases __resource_id =
@@ -105,6 +106,7 @@ let google_dialogflow_cx_intent ?description
     {
       description;
       display_name;
+      id;
       is_default_negative_intent;
       is_default_welcome_intent;
       is_fallback;

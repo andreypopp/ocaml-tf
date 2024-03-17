@@ -16,6 +16,7 @@ type azurerm_api_management_email_template__timeouts = {
 type azurerm_api_management_email_template = {
   api_management_name : string;  (** api_management_name *)
   body : string;  (** body *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   subject : string;  (** subject *)
   template_name : string;  (** template_name *)
@@ -24,7 +25,7 @@ type azurerm_api_management_email_template = {
 [@@deriving yojson_of]
 (** azurerm_api_management_email_template *)
 
-let azurerm_api_management_email_template ?timeouts
+let azurerm_api_management_email_template ?id ?timeouts
     ~api_management_name ~body ~resource_group_name ~subject
     ~template_name __resource_id =
   let __resource_type = "azurerm_api_management_email_template" in
@@ -32,6 +33,7 @@ let azurerm_api_management_email_template ?timeouts
     {
       api_management_name;
       body;
+      id;
       resource_group_name;
       subject;
       template_name;

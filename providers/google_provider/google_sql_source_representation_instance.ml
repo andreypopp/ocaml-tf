@@ -24,6 +24,7 @@ type google_sql_source_representation_instance = {
       (** A file in the bucket that contains the data from the external server. *)
   host : string;
       (** The IPv4 address and port for the external server, or the the DNS address for the external server. If the external server is hosted on Cloud SQL, the port is 5432. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The name of the source representation instance. Use any valid Cloud SQL instance name. *)
   password : string option; [@option]
@@ -31,6 +32,10 @@ type google_sql_source_representation_instance = {
   port : float option; [@option]
       (** The externally accessible port for the source database server.
 Defaults to 3306. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The Region in which the created instance should reside.
+If it is not provided, the provider region is used. *)
   username : string option; [@option]
       (** The replication user account on the external server. *)
   timeouts :
@@ -40,8 +45,9 @@ Defaults to 3306. *)
 (** google_sql_source_representation_instance *)
 
 let google_sql_source_representation_instance ?ca_certificate
-    ?client_certificate ?client_key ?dump_file_path ?password ?port
-    ?username ?timeouts ~database_version ~host ~name __resource_id =
+    ?client_certificate ?client_key ?dump_file_path ?id ?password
+    ?port ?project ?region ?username ?timeouts ~database_version
+    ~host ~name __resource_id =
   let __resource_type =
     "google_sql_source_representation_instance"
   in
@@ -53,9 +59,12 @@ let google_sql_source_representation_instance ?ca_certificate
       database_version;
       dump_file_path;
       host;
+      id;
       name;
       password;
       port;
+      project;
+      region;
       username;
       timeouts;
     }

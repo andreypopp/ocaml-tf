@@ -97,6 +97,7 @@ type google_access_context_manager_service_perimeter_ingress_policy__timeouts = 
 (** google_access_context_manager_service_perimeter_ingress_policy__timeouts *)
 
 type google_access_context_manager_service_perimeter_ingress_policy = {
+  id : string option; [@option]  (** id *)
   perimeter : string;
       (** The name of the Service Perimeter to add this resource to. *)
   ingress_from :
@@ -113,12 +114,13 @@ type google_access_context_manager_service_perimeter_ingress_policy = {
 (** google_access_context_manager_service_perimeter_ingress_policy *)
 
 let google_access_context_manager_service_perimeter_ingress_policy
-    ?timeouts ~perimeter ~ingress_from ~ingress_to __resource_id =
+    ?id ?timeouts ~perimeter ~ingress_from ~ingress_to __resource_id
+    =
   let __resource_type =
     "google_access_context_manager_service_perimeter_ingress_policy"
   in
   let __resource =
-    { perimeter; ingress_from; ingress_to; timeouts }
+    { id; perimeter; ingress_from; ingress_to; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_service_perimeter_ingress_policy

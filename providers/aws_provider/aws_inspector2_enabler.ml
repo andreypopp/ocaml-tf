@@ -14,16 +14,17 @@ type aws_inspector2_enabler__timeouts = {
 
 type aws_inspector2_enabler = {
   account_ids : string list;  (** account_ids *)
+  id : string option; [@option]  (** id *)
   resource_types : string list;  (** resource_types *)
   timeouts : aws_inspector2_enabler__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_inspector2_enabler *)
 
-let aws_inspector2_enabler ?timeouts ~account_ids ~resource_types
+let aws_inspector2_enabler ?id ?timeouts ~account_ids ~resource_types
     __resource_id =
   let __resource_type = "aws_inspector2_enabler" in
-  let __resource = { account_ids; resource_types; timeouts } in
+  let __resource = { account_ids; id; resource_types; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_inspector2_enabler __resource);
   ()

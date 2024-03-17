@@ -13,6 +13,7 @@ type azurerm_site_recovery_fabric__timeouts = {
 (** azurerm_site_recovery_fabric__timeouts *)
 
 type azurerm_site_recovery_fabric = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   recovery_vault_name : string;  (** recovery_vault_name *)
@@ -22,11 +23,12 @@ type azurerm_site_recovery_fabric = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_fabric *)
 
-let azurerm_site_recovery_fabric ?timeouts ~location ~name
+let azurerm_site_recovery_fabric ?id ?timeouts ~location ~name
     ~recovery_vault_name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_site_recovery_fabric" in
   let __resource =
     {
+      id;
       location;
       name;
       recovery_vault_name;

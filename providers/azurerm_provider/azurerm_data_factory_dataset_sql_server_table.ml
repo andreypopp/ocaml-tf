@@ -28,6 +28,7 @@ type azurerm_data_factory_dataset_sql_server_table = {
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
   folder : string option; [@option]  (** folder *)
+  id : string option; [@option]  (** id *)
   linked_service_name : string;  (** linked_service_name *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
@@ -42,7 +43,7 @@ type azurerm_data_factory_dataset_sql_server_table = {
 (** azurerm_data_factory_dataset_sql_server_table *)
 
 let azurerm_data_factory_dataset_sql_server_table
-    ?additional_properties ?annotations ?description ?folder
+    ?additional_properties ?annotations ?description ?folder ?id
     ?parameters ?table_name ?timeouts ~data_factory_id
     ~linked_service_name ~name ~schema_column __resource_id =
   let __resource_type =
@@ -55,6 +56,7 @@ let azurerm_data_factory_dataset_sql_server_table
       data_factory_id;
       description;
       folder;
+      id;
       linked_service_name;
       name;
       parameters;

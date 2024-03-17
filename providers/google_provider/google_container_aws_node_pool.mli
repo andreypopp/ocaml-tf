@@ -21,6 +21,8 @@ type google_container_aws_node_pool
 
 val google_container_aws_node_pool :
   ?annotations:(string * string) list ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_container_aws_node_pool__timeouts ->
   cluster:string ->
   location:string ->

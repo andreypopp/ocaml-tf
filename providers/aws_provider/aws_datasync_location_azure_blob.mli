@@ -8,7 +8,10 @@ type aws_datasync_location_azure_blob
 val aws_datasync_location_azure_blob :
   ?access_tier:string ->
   ?blob_type:string ->
+  ?id:string ->
+  ?subdirectory:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   agent_arns:string list ->
   authentication_type:string ->
   container_url:string ->

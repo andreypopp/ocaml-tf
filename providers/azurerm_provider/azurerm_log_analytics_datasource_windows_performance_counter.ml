@@ -15,6 +15,7 @@ type azurerm_log_analytics_datasource_windows_performance_counter__timeouts = {
 
 type azurerm_log_analytics_datasource_windows_performance_counter = {
   counter_name : string;  (** counter_name *)
+  id : string option; [@option]  (** id *)
   instance_name : string;  (** instance_name *)
   interval_seconds : float;  (** interval_seconds *)
   name : string;  (** name *)
@@ -28,7 +29,7 @@ type azurerm_log_analytics_datasource_windows_performance_counter = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_datasource_windows_performance_counter *)
 
-let azurerm_log_analytics_datasource_windows_performance_counter
+let azurerm_log_analytics_datasource_windows_performance_counter ?id
     ?timeouts ~counter_name ~instance_name ~interval_seconds ~name
     ~object_name ~resource_group_name ~workspace_name __resource_id =
   let __resource_type =
@@ -37,6 +38,7 @@ let azurerm_log_analytics_datasource_windows_performance_counter
   let __resource =
     {
       counter_name;
+      id;
       instance_name;
       interval_seconds;
       name;

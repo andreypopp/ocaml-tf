@@ -7,6 +7,7 @@ type aws_acmpca_certificate
 
 val aws_acmpca_certificate :
   ?api_passthrough:string ->
+  ?id:string ->
   ?template_arn:string ->
   certificate_authority_arn:string ->
   certificate_signing_request:string ->

@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type digitalocean_project_resources = {
+  id : string option; [@option]  (** id *)
   project : string;  (** project ID *)
   resources : string list;
       (** the resources associated with the project *)
@@ -12,10 +13,10 @@ type digitalocean_project_resources = {
 [@@deriving yojson_of]
 (** digitalocean_project_resources *)
 
-let digitalocean_project_resources ~project ~resources __resource_id
-    =
+let digitalocean_project_resources ?id ~project ~resources
+    __resource_id =
   let __resource_type = "digitalocean_project_resources" in
-  let __resource = { project; resources } in
+  let __resource = { id; project; resources } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_project_resources __resource);
   ()

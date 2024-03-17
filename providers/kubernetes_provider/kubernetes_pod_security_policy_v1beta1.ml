@@ -190,16 +190,17 @@ Examples: e.g. foo/* forbids foo/bar, foo/baz, etc. e.g. foo.* forbids foo.bar, 
 (** spec defines the policy enforced. *)
 
 type kubernetes_pod_security_policy_v1beta1 = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_pod_security_policy_v1beta1__metadata list;
   spec : kubernetes_pod_security_policy_v1beta1__spec list;
 }
 [@@deriving yojson_of]
 (** kubernetes_pod_security_policy_v1beta1 *)
 
-let kubernetes_pod_security_policy_v1beta1 ~metadata ~spec
+let kubernetes_pod_security_policy_v1beta1 ?id ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_pod_security_policy_v1beta1" in
-  let __resource = { metadata; spec } in
+  let __resource = { id; metadata; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_pod_security_policy_v1beta1 __resource);
   ()

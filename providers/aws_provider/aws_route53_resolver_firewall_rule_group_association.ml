@@ -6,21 +6,36 @@ open! Tf.Prelude
 
 type aws_route53_resolver_firewall_rule_group_association = {
   firewall_rule_group_id : string;  (** firewall_rule_group_id *)
+  id : string option; [@option]  (** id *)
+  mutation_protection : string option; [@option]
+      (** mutation_protection *)
   name : string;  (** name *)
   priority : float;  (** priority *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_id : string;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_firewall_rule_group_association *)
 
-let aws_route53_resolver_firewall_rule_group_association ?tags
-    ~firewall_rule_group_id ~name ~priority ~vpc_id __resource_id =
+let aws_route53_resolver_firewall_rule_group_association ?id
+    ?mutation_protection ?tags ?tags_all ~firewall_rule_group_id
+    ~name ~priority ~vpc_id __resource_id =
   let __resource_type =
     "aws_route53_resolver_firewall_rule_group_association"
   in
   let __resource =
-    { firewall_rule_group_id; name; priority; tags; vpc_id }
+    {
+      firewall_rule_group_id;
+      id;
+      mutation_protection;
+      name;
+      priority;
+      tags;
+      tags_all;
+      vpc_id;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_firewall_rule_group_association

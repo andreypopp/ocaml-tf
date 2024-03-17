@@ -52,6 +52,7 @@ type azurerm_mobile_network_packet_core_control_plane = {
       (** control_plane_access_name *)
   core_network_technology : string option; [@option]
       (** core_network_technology *)
+  id : string option; [@option]  (** id *)
   interoperability_settings_json : string option; [@option]
       (** interoperability_settings_json *)
   location : string;  (** location *)
@@ -81,7 +82,7 @@ let azurerm_mobile_network_packet_core_control_plane
     ?control_plane_access_ipv4_address
     ?control_plane_access_ipv4_gateway
     ?control_plane_access_ipv4_subnet ?control_plane_access_name
-    ?core_network_technology ?interoperability_settings_json
+    ?core_network_technology ?id ?interoperability_settings_json
     ?software_version ?tags ?user_equipment_mtu_in_bytes ?timeouts
     ~location ~name ~resource_group_name ~site_ids ~sku ~identity
     ~local_diagnostics_access ~platform __resource_id =
@@ -95,6 +96,7 @@ let azurerm_mobile_network_packet_core_control_plane
       control_plane_access_ipv4_subnet;
       control_plane_access_name;
       core_network_technology;
+      id;
       interoperability_settings_json;
       location;
       name;

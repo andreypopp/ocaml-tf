@@ -66,7 +66,10 @@ type aws_appmesh_route__spec
 type aws_appmesh_route
 
 val aws_appmesh_route :
+  ?id:string ->
+  ?mesh_owner:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   mesh_name:string ->
   name:string ->
   virtual_router_name:string ->

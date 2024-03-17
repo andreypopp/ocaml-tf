@@ -57,17 +57,22 @@ type google_compute_image = {
   description : string option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
+  disk_size_gb : float option; [@option]
+      (** Size of the image when restored onto a persistent disk (in GB). *)
   family : string option; [@option]
       (** The name of the image family to which this image belongs. You can
 create disks by specifying an image family instead of a specific
 image name. The image family always returns its latest image that is
 not deprecated. The name of the image family must comply with
 RFC1035. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels to apply to this Image.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  licenses : string list option; [@option]
+      (** Any applicable license URI. *)
   name : string;
       (** Name of the resource; provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -76,6 +81,7 @@ match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means
 the first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the
 last character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   source_disk : string option; [@option]
       (** The source disk to create this image based on.
 You must provide either this property or the
@@ -98,6 +104,10 @@ In order to create an image, you must provide the full or partial URL of one of 
 * The sourceImage URL
 * The rawDisk.source URL
 * The sourceDisk URL *)
+  storage_locations : string list option; [@option]
+      (** Cloud Storage bucket storage location of the image
+(regional or multi-regional).
+Reference link: https://cloud.google.com/compute/docs/reference/rest/v1/images *)
   guest_os_features : google_compute_image__guest_os_features list;
   image_encryption_key :
     google_compute_image__image_encryption_key list;
@@ -107,19 +117,26 @@ In order to create an image, you must provide the full or partial URL of one of 
 [@@deriving yojson_of]
 (** google_compute_image *)
 
-let google_compute_image ?description ?family ?labels ?source_disk
-    ?source_image ?source_snapshot ?timeouts ~name ~guest_os_features
-    ~image_encryption_key ~raw_disk __resource_id =
+let google_compute_image ?description ?disk_size_gb ?family ?id
+    ?labels ?licenses ?project ?source_disk ?source_image
+    ?source_snapshot ?storage_locations ?timeouts ~name
+    ~guest_os_features ~image_encryption_key ~raw_disk __resource_id
+    =
   let __resource_type = "google_compute_image" in
   let __resource =
     {
       description;
+      disk_size_gb;
       family;
+      id;
       labels;
+      licenses;
       name;
+      project;
       source_disk;
       source_image;
       source_snapshot;
+      storage_locations;
       guest_os_features;
       image_encryption_key;
       raw_disk;

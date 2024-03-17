@@ -17,6 +17,7 @@ type aws_connect_instance_storage_config__storage_config
 type aws_connect_instance_storage_config
 
 val aws_connect_instance_storage_config :
+  ?id:string ->
   instance_id:string ->
   resource_type:string ->
   storage_config:

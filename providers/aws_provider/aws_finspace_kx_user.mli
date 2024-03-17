@@ -6,7 +6,9 @@ type aws_finspace_kx_user__timeouts
 type aws_finspace_kx_user
 
 val aws_finspace_kx_user :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_finspace_kx_user__timeouts ->
   environment_id:string ->
   iam_role:string ->

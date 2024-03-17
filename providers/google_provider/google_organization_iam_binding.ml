@@ -13,6 +13,7 @@ type google_organization_iam_binding__condition = {
 (** google_organization_iam_binding__condition *)
 
 type google_organization_iam_binding = {
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   org_id : string;
       (** The numeric ID of the organization in which you want to manage the audit logging config. *)
@@ -22,10 +23,10 @@ type google_organization_iam_binding = {
 [@@deriving yojson_of]
 (** google_organization_iam_binding *)
 
-let google_organization_iam_binding ~members ~org_id ~role ~condition
-    __resource_id =
+let google_organization_iam_binding ?id ~members ~org_id ~role
+    ~condition __resource_id =
   let __resource_type = "google_organization_iam_binding" in
-  let __resource = { members; org_id; role; condition } in
+  let __resource = { id; members; org_id; role; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_organization_iam_binding __resource);
   ()

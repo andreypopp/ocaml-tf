@@ -7,6 +7,7 @@ type azurerm_network_interface_application_security_group_association__timeouts
 type azurerm_network_interface_application_security_group_association
 
 val azurerm_network_interface_application_security_group_association :
+  ?id:string ->
   ?timeouts:
     azurerm_network_interface_application_security_group_association__timeouts ->
   application_security_group_id:string ->

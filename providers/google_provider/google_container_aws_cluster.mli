@@ -25,13 +25,14 @@ type google_container_aws_cluster__workload_identity_config = {
   issuer_uri : string;  (** issuer_uri *)
   workload_pool : string;  (** workload_pool *)
 }
-[@@deriving yojson_of]
 
 type google_container_aws_cluster
 
 val google_container_aws_cluster :
   ?annotations:(string * string) list ->
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_container_aws_cluster__timeouts ->
   aws_region:string ->
   location:string ->

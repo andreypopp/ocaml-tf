@@ -8,7 +8,13 @@ type google_compute_region_commitment__timeouts
 type google_compute_region_commitment
 
 val google_compute_region_commitment :
+  ?auto_renew:bool ->
+  ?category:string ->
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
+  ?type_:string ->
   ?timeouts:google_compute_region_commitment__timeouts ->
   name:string ->
   plan:string ->

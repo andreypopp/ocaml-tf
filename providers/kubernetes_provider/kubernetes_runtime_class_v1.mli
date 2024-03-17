@@ -6,6 +6,7 @@ type kubernetes_runtime_class_v1__metadata
 type kubernetes_runtime_class_v1
 
 val kubernetes_runtime_class_v1 :
+  ?id:string ->
   handler:string ->
   metadata:kubernetes_runtime_class_v1__metadata list ->
   string ->

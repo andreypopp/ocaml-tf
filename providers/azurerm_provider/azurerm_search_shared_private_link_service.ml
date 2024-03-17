@@ -14,6 +14,7 @@ type azurerm_search_shared_private_link_service__timeouts = {
 (** azurerm_search_shared_private_link_service__timeouts *)
 
 type azurerm_search_shared_private_link_service = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   request_message : string option; [@option]  (** request_message *)
   search_service_id : string;  (** search_service_id *)
@@ -25,7 +26,7 @@ type azurerm_search_shared_private_link_service = {
 [@@deriving yojson_of]
 (** azurerm_search_shared_private_link_service *)
 
-let azurerm_search_shared_private_link_service ?request_message
+let azurerm_search_shared_private_link_service ?id ?request_message
     ?timeouts ~name ~search_service_id ~subresource_name
     ~target_resource_id __resource_id =
   let __resource_type =
@@ -33,6 +34,7 @@ let azurerm_search_shared_private_link_service ?request_message
   in
   let __resource =
     {
+      id;
       name;
       request_message;
       search_service_id;

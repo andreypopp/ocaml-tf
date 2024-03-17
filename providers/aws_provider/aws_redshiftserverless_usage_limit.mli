@@ -6,6 +6,7 @@ type aws_redshiftserverless_usage_limit
 
 val aws_redshiftserverless_usage_limit :
   ?breach_action:string ->
+  ?id:string ->
   ?period:string ->
   amount:float ->
   resource_arn:string ->

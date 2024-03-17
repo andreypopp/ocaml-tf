@@ -6,6 +6,7 @@ type azurerm_cosmosdb_sql_stored_procedure__timeouts
 type azurerm_cosmosdb_sql_stored_procedure
 
 val azurerm_cosmosdb_sql_stored_procedure :
+  ?id:string ->
   ?timeouts:azurerm_cosmosdb_sql_stored_procedure__timeouts ->
   account_name:string ->
   body:string ->

@@ -57,6 +57,7 @@ type digitalocean_spaces_bucket = {
       (** Canned ACL applied on bucket creation *)
   force_destroy : bool option; [@option]
       (** Unless true, the bucket will only be destroyed if empty *)
+  id : string option; [@option]  (** id *)
   name : string;  (** Bucket name *)
   region : string option; [@option]  (** Bucket region *)
   cors_rule : digitalocean_spaces_bucket__cors_rule list;
@@ -66,13 +67,14 @@ type digitalocean_spaces_bucket = {
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket *)
 
-let digitalocean_spaces_bucket ?acl ?force_destroy ?region ~name
+let digitalocean_spaces_bucket ?acl ?force_destroy ?id ?region ~name
     ~cors_rule ~lifecycle_rule ~versioning __resource_id =
   let __resource_type = "digitalocean_spaces_bucket" in
   let __resource =
     {
       acl;
       force_destroy;
+      id;
       name;
       region;
       cors_rule;

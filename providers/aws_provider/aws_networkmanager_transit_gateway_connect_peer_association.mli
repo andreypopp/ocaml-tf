@@ -7,6 +7,7 @@ type aws_networkmanager_transit_gateway_connect_peer_association__timeouts
 type aws_networkmanager_transit_gateway_connect_peer_association
 
 val aws_networkmanager_transit_gateway_connect_peer_association :
+  ?id:string ->
   ?link_id:string ->
   ?timeouts:
     aws_networkmanager_transit_gateway_connect_peer_association__timeouts ->

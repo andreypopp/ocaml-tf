@@ -21,6 +21,7 @@ type azurerm_spring_cloud_container_deployment__timeouts = {
 (** azurerm_spring_cloud_container_deployment__timeouts *)
 
 type azurerm_spring_cloud_container_deployment = {
+  addon_json : string option; [@option]  (** addon_json *)
   application_performance_monitoring_ids : string list option;
       [@option]
       (** application_performance_monitoring_ids *)
@@ -28,6 +29,7 @@ type azurerm_spring_cloud_container_deployment = {
   commands : string list option; [@option]  (** commands *)
   environment_variables : (string * string) list option; [@option]
       (** environment_variables *)
+  id : string option; [@option]  (** id *)
   image : string;  (** image *)
   instance_count : float option; [@option]  (** instance_count *)
   language_framework : string option; [@option]
@@ -42,9 +44,9 @@ type azurerm_spring_cloud_container_deployment = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_container_deployment *)
 
-let azurerm_spring_cloud_container_deployment
+let azurerm_spring_cloud_container_deployment ?addon_json
     ?application_performance_monitoring_ids ?arguments ?commands
-    ?environment_variables ?instance_count ?language_framework
+    ?environment_variables ?id ?instance_count ?language_framework
     ?timeouts ~image ~name ~server ~spring_cloud_app_id ~quota
     __resource_id =
   let __resource_type =
@@ -52,10 +54,12 @@ let azurerm_spring_cloud_container_deployment
   in
   let __resource =
     {
+      addon_json;
       application_performance_monitoring_ids;
       arguments;
       commands;
       environment_variables;
+      id;
       image;
       instance_count;
       language_framework;

@@ -13,14 +13,17 @@ type azurerm_media_streaming_endpoint__sku = {
   capacity : float;  (** capacity *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type azurerm_media_streaming_endpoint
 
 val azurerm_media_streaming_endpoint :
+  ?auto_start_enabled:bool ->
   ?cdn_enabled:bool ->
+  ?cdn_profile:string ->
+  ?cdn_provider:string ->
   ?custom_host_names:string list ->
   ?description:string ->
+  ?id:string ->
   ?max_cache_age_seconds:float ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_media_streaming_endpoint__timeouts ->

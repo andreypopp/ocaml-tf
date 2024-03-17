@@ -29,6 +29,8 @@ type google_database_migration_service_private_connection__error = {
 [@@deriving yojson_of]
 
 type google_database_migration_service_private_connection = {
+  display_name : string option; [@option]  (** Display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels.
 
@@ -38,6 +40,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The name of the location this private connection is located in. *)
   private_connection_id : string;
       (** The private connectivity identifier. *)
+  project : string option; [@option]  (** project *)
   timeouts :
     google_database_migration_service_private_connection__timeouts
     option;
@@ -48,17 +51,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_database_migration_service_private_connection *)
 
-let google_database_migration_service_private_connection ?labels
-    ?timeouts ~location ~private_connection_id ~vpc_peering_config
-    __resource_id =
+let google_database_migration_service_private_connection
+    ?display_name ?id ?labels ?project ?timeouts ~location
+    ~private_connection_id ~vpc_peering_config __resource_id =
   let __resource_type =
     "google_database_migration_service_private_connection"
   in
   let __resource =
     {
+      display_name;
+      id;
       labels;
       location;
       private_connection_id;
+      project;
       timeouts;
       vpc_peering_config;
     }

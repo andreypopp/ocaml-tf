@@ -18,21 +18,43 @@ type aws_eip = {
       (** associate_with_private_ip *)
   customer_owned_ipv4_pool : string option; [@option]
       (** customer_owned_ipv4_pool *)
+  domain : string option; [@option]  (** domain *)
+  id : string option; [@option]  (** id *)
+  instance : string option; [@option]  (** instance *)
+  network_border_group : string option; [@option]
+      (** network_border_group *)
+  network_interface : string option; [@option]
+      (** network_interface *)
+  public_ipv4_pool : string option; [@option]
+      (** public_ipv4_pool *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  vpc : bool option; [@option]  (** vpc *)
   timeouts : aws_eip__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_eip *)
 
 let aws_eip ?address ?associate_with_private_ip
-    ?customer_owned_ipv4_pool ?tags ?timeouts __resource_id =
+    ?customer_owned_ipv4_pool ?domain ?id ?instance
+    ?network_border_group ?network_interface ?public_ipv4_pool ?tags
+    ?tags_all ?vpc ?timeouts __resource_id =
   let __resource_type = "aws_eip" in
   let __resource =
     {
       address;
       associate_with_private_ip;
       customer_owned_ipv4_pool;
+      domain;
+      id;
+      instance;
+      network_border_group;
+      network_interface;
+      public_ipv4_pool;
       tags;
+      tags_all;
+      vpc;
       timeouts;
     }
   in

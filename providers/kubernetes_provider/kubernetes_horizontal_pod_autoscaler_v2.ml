@@ -355,16 +355,17 @@ type kubernetes_horizontal_pod_autoscaler_v2__spec = {
 (** Behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
 
 type kubernetes_horizontal_pod_autoscaler_v2 = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_horizontal_pod_autoscaler_v2__metadata list;
   spec : kubernetes_horizontal_pod_autoscaler_v2__spec list;
 }
 [@@deriving yojson_of]
 (** kubernetes_horizontal_pod_autoscaler_v2 *)
 
-let kubernetes_horizontal_pod_autoscaler_v2 ~metadata ~spec
+let kubernetes_horizontal_pod_autoscaler_v2 ?id ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_horizontal_pod_autoscaler_v2" in
-  let __resource = { metadata; spec } in
+  let __resource = { id; metadata; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_horizontal_pod_autoscaler_v2 __resource);
   ()

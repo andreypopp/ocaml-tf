@@ -211,8 +211,12 @@ type google_identity_platform_config__timeouts = {
 (** google_identity_platform_config__timeouts *)
 
 type google_identity_platform_config = {
+  authorized_domains : string list option; [@option]
+      (** List of domains authorized for OAuth redirects. *)
   autodelete_anonymous_users : bool option; [@option]
       (** Whether anonymous users will be auto-deleted after a period of 30 days *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   blocking_functions :
     google_identity_platform_config__blocking_functions list;
   client : google_identity_platform_config__client list;
@@ -228,13 +232,17 @@ type google_identity_platform_config = {
 [@@deriving yojson_of]
 (** google_identity_platform_config *)
 
-let google_identity_platform_config ?autodelete_anonymous_users
-    ?timeouts ~blocking_functions ~client ~mfa ~monitoring
-    ~multi_tenant ~quota ~sign_in ~sms_region_config __resource_id =
+let google_identity_platform_config ?authorized_domains
+    ?autodelete_anonymous_users ?id ?project ?timeouts
+    ~blocking_functions ~client ~mfa ~monitoring ~multi_tenant ~quota
+    ~sign_in ~sms_region_config __resource_id =
   let __resource_type = "google_identity_platform_config" in
   let __resource =
     {
+      authorized_domains;
       autodelete_anonymous_users;
+      id;
+      project;
       blocking_functions;
       client;
       mfa;

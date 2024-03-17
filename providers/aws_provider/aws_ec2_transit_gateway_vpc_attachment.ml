@@ -8,9 +8,18 @@ type aws_ec2_transit_gateway_vpc_attachment = {
   appliance_mode_support : string option; [@option]
       (** appliance_mode_support *)
   dns_support : string option; [@option]  (** dns_support *)
+  id : string option; [@option]  (** id *)
   ipv6_support : string option; [@option]  (** ipv6_support *)
   subnet_ids : string list;  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  transit_gateway_default_route_table_association : bool option;
+      [@option]
+      (** transit_gateway_default_route_table_association *)
+  transit_gateway_default_route_table_propagation : bool option;
+      [@option]
+      (** transit_gateway_default_route_table_propagation *)
   transit_gateway_id : string;  (** transit_gateway_id *)
   vpc_id : string;  (** vpc_id *)
 }
@@ -18,16 +27,22 @@ type aws_ec2_transit_gateway_vpc_attachment = {
 (** aws_ec2_transit_gateway_vpc_attachment *)
 
 let aws_ec2_transit_gateway_vpc_attachment ?appliance_mode_support
-    ?dns_support ?ipv6_support ?tags ~subnet_ids ~transit_gateway_id
-    ~vpc_id __resource_id =
+    ?dns_support ?id ?ipv6_support ?tags ?tags_all
+    ?transit_gateway_default_route_table_association
+    ?transit_gateway_default_route_table_propagation ~subnet_ids
+    ~transit_gateway_id ~vpc_id __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_vpc_attachment" in
   let __resource =
     {
       appliance_mode_support;
       dns_support;
+      id;
       ipv6_support;
       subnet_ids;
       tags;
+      tags_all;
+      transit_gateway_default_route_table_association;
+      transit_gateway_default_route_table_propagation;
       transit_gateway_id;
       vpc_id;
     }

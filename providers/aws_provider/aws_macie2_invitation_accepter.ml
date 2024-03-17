@@ -12,15 +12,16 @@ type aws_macie2_invitation_accepter__timeouts = {
 
 type aws_macie2_invitation_accepter = {
   administrator_account_id : string;  (** administrator_account_id *)
+  id : string option; [@option]  (** id *)
   timeouts : aws_macie2_invitation_accepter__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_macie2_invitation_accepter *)
 
-let aws_macie2_invitation_accepter ?timeouts
+let aws_macie2_invitation_accepter ?id ?timeouts
     ~administrator_account_id __resource_id =
   let __resource_type = "aws_macie2_invitation_accepter" in
-  let __resource = { administrator_account_id; timeouts } in
+  let __resource = { administrator_account_id; id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_macie2_invitation_accepter __resource);
   ()

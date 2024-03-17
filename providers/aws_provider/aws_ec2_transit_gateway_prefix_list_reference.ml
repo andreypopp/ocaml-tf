@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_ec2_transit_gateway_prefix_list_reference = {
   blackhole : bool option; [@option]  (** blackhole *)
+  id : string option; [@option]  (** id *)
   prefix_list_id : string;  (** prefix_list_id *)
   transit_gateway_attachment_id : string option; [@option]
       (** transit_gateway_attachment_id *)
@@ -15,7 +16,7 @@ type aws_ec2_transit_gateway_prefix_list_reference = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_prefix_list_reference *)
 
-let aws_ec2_transit_gateway_prefix_list_reference ?blackhole
+let aws_ec2_transit_gateway_prefix_list_reference ?blackhole ?id
     ?transit_gateway_attachment_id ~prefix_list_id
     ~transit_gateway_route_table_id __resource_id =
   let __resource_type =
@@ -24,6 +25,7 @@ let aws_ec2_transit_gateway_prefix_list_reference ?blackhole
   let __resource =
     {
       blackhole;
+      id;
       prefix_list_id;
       transit_gateway_attachment_id;
       transit_gateway_route_table_id;

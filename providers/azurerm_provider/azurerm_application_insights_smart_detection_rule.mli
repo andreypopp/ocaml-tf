@@ -8,6 +8,7 @@ type azurerm_application_insights_smart_detection_rule
 val azurerm_application_insights_smart_detection_rule :
   ?additional_email_recipients:string list ->
   ?enabled:bool ->
+  ?id:string ->
   ?send_emails_to_subscription_owners:bool ->
   ?timeouts:
     azurerm_application_insights_smart_detection_rule__timeouts ->

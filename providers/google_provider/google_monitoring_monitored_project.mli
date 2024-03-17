@@ -6,6 +6,7 @@ type google_monitoring_monitored_project__timeouts
 type google_monitoring_monitored_project
 
 val google_monitoring_monitored_project :
+  ?id:string ->
   ?timeouts:google_monitoring_monitored_project__timeouts ->
   metrics_scope:string ->
   name:string ->

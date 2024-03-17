@@ -57,6 +57,7 @@ type aws_lex_bot = {
   detect_sentiment : bool option; [@option]  (** detect_sentiment *)
   enable_model_improvements : bool option; [@option]
       (** enable_model_improvements *)
+  id : string option; [@option]  (** id *)
   idle_session_ttl_in_seconds : float option; [@option]
       (** idle_session_ttl_in_seconds *)
   locale : string option; [@option]  (** locale *)
@@ -65,6 +66,7 @@ type aws_lex_bot = {
       (** nlu_intent_confidence_threshold *)
   process_behavior : string option; [@option]
       (** process_behavior *)
+  voice_id : string option; [@option]  (** voice_id *)
   abort_statement : aws_lex_bot__abort_statement list;
   clarification_prompt : aws_lex_bot__clarification_prompt list;
   intent : aws_lex_bot__intent list;
@@ -74,10 +76,10 @@ type aws_lex_bot = {
 (** aws_lex_bot *)
 
 let aws_lex_bot ?create_version ?description ?detect_sentiment
-    ?enable_model_improvements ?idle_session_ttl_in_seconds ?locale
-    ?nlu_intent_confidence_threshold ?process_behavior ?timeouts
-    ~child_directed ~name ~abort_statement ~clarification_prompt
-    ~intent __resource_id =
+    ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
+    ?locale ?nlu_intent_confidence_threshold ?process_behavior
+    ?voice_id ?timeouts ~child_directed ~name ~abort_statement
+    ~clarification_prompt ~intent __resource_id =
   let __resource_type = "aws_lex_bot" in
   let __resource =
     {
@@ -86,11 +88,13 @@ let aws_lex_bot ?create_version ?description ?detect_sentiment
       description;
       detect_sentiment;
       enable_model_improvements;
+      id;
       idle_session_ttl_in_seconds;
       locale;
       name;
       nlu_intent_confidence_threshold;
       process_behavior;
+      voice_id;
       abort_statement;
       clarification_prompt;
       intent;

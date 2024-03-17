@@ -10,6 +10,7 @@ type google_storage_notification = {
       (**  A set of key/value attribute pairs to attach to each Cloud Pub/Sub message published for this notification subscription *)
   event_types : string list option; [@option]
       (** List of event type filters for this notification config. If not specified, Cloud Storage will send notifications for all event types. The valid types are: OBJECT_FINALIZE, OBJECT_METADATA_UPDATE, OBJECT_DELETE, OBJECT_ARCHIVE *)
+  id : string option; [@option]  (** id *)
   object_name_prefix : string option; [@option]
       (** Specifies a prefix path filter for this notification config. Cloud Storage will only send notifications for objects in this bucket whose names begin with the specified prefix. *)
   payload_format : string;
@@ -20,7 +21,7 @@ type google_storage_notification = {
 [@@deriving yojson_of]
 (** google_storage_notification *)
 
-let google_storage_notification ?custom_attributes ?event_types
+let google_storage_notification ?custom_attributes ?event_types ?id
     ?object_name_prefix ~bucket ~payload_format ~topic __resource_id
     =
   let __resource_type = "google_storage_notification" in
@@ -29,6 +30,7 @@ let google_storage_notification ?custom_attributes ?event_types
       bucket;
       custom_attributes;
       event_types;
+      id;
       object_name_prefix;
       payload_format;
       topic;

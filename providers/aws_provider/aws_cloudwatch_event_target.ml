@@ -157,10 +157,12 @@ type aws_cloudwatch_event_target__sqs_target = {
 type aws_cloudwatch_event_target = {
   arn : string;  (** arn *)
   event_bus_name : string option; [@option]  (** event_bus_name *)
+  id : string option; [@option]  (** id *)
   input : string option; [@option]  (** input *)
   input_path : string option; [@option]  (** input_path *)
   role_arn : string option; [@option]  (** role_arn *)
   rule : string;  (** rule *)
+  target_id : string option; [@option]  (** target_id *)
   batch_target : aws_cloudwatch_event_target__batch_target list;
   dead_letter_config :
     aws_cloudwatch_event_target__dead_letter_config list;
@@ -181,20 +183,23 @@ type aws_cloudwatch_event_target = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_target *)
 
-let aws_cloudwatch_event_target ?event_bus_name ?input ?input_path
-    ?role_arn ~arn ~rule ~batch_target ~dead_letter_config
-    ~ecs_target ~http_target ~input_transformer ~kinesis_target
-    ~redshift_target ~retry_policy ~run_command_targets
-    ~sagemaker_pipeline_target ~sqs_target __resource_id =
+let aws_cloudwatch_event_target ?event_bus_name ?id ?input
+    ?input_path ?role_arn ?target_id ~arn ~rule ~batch_target
+    ~dead_letter_config ~ecs_target ~http_target ~input_transformer
+    ~kinesis_target ~redshift_target ~retry_policy
+    ~run_command_targets ~sagemaker_pipeline_target ~sqs_target
+    __resource_id =
   let __resource_type = "aws_cloudwatch_event_target" in
   let __resource =
     {
       arn;
       event_bus_name;
+      id;
       input;
       input_path;
       role_arn;
       rule;
+      target_id;
       batch_target;
       dead_letter_config;
       ecs_target;

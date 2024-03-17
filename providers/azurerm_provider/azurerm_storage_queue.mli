@@ -6,6 +6,7 @@ type azurerm_storage_queue__timeouts
 type azurerm_storage_queue
 
 val azurerm_storage_queue :
+  ?id:string ->
   ?metadata:(string * string) list ->
   ?timeouts:azurerm_storage_queue__timeouts ->
   name:string ->

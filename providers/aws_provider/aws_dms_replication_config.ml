@@ -34,9 +34,14 @@ type aws_dms_replication_config__timeouts = {
 (** aws_dms_replication_config__timeouts *)
 
 type aws_dms_replication_config = {
+  id : string option; [@option]  (** id *)
   replication_config_identifier : string;
       (** replication_config_identifier *)
+  replication_settings : string option; [@option]
+      (** replication_settings *)
   replication_type : string;  (** replication_type *)
+  resource_identifier : string option; [@option]
+      (** resource_identifier *)
   source_endpoint_arn : string;  (** source_endpoint_arn *)
   start_replication : bool option; [@option]
       (** start_replication *)
@@ -44,6 +49,8 @@ type aws_dms_replication_config = {
       (** supplemental_settings *)
   table_mappings : string;  (** table_mappings *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target_endpoint_arn : string;  (** target_endpoint_arn *)
   compute_config : aws_dms_replication_config__compute_config list;
   timeouts : aws_dms_replication_config__timeouts option;
@@ -51,21 +58,25 @@ type aws_dms_replication_config = {
 [@@deriving yojson_of]
 (** aws_dms_replication_config *)
 
-let aws_dms_replication_config ?start_replication
-    ?supplemental_settings ?tags ?timeouts
-    ~replication_config_identifier ~replication_type
-    ~source_endpoint_arn ~table_mappings ~target_endpoint_arn
-    ~compute_config __resource_id =
+let aws_dms_replication_config ?id ?replication_settings
+    ?resource_identifier ?start_replication ?supplemental_settings
+    ?tags ?tags_all ?timeouts ~replication_config_identifier
+    ~replication_type ~source_endpoint_arn ~table_mappings
+    ~target_endpoint_arn ~compute_config __resource_id =
   let __resource_type = "aws_dms_replication_config" in
   let __resource =
     {
+      id;
       replication_config_identifier;
+      replication_settings;
       replication_type;
+      resource_identifier;
       source_endpoint_arn;
       start_replication;
       supplemental_settings;
       table_mappings;
       tags;
+      tags_all;
       target_endpoint_arn;
       compute_config;
       timeouts;

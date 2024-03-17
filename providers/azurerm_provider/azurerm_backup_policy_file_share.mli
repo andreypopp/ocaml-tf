@@ -12,6 +12,7 @@ type azurerm_backup_policy_file_share__timeouts
 type azurerm_backup_policy_file_share
 
 val azurerm_backup_policy_file_share :
+  ?id:string ->
   ?timezone:string ->
   ?timeouts:azurerm_backup_policy_file_share__timeouts ->
   name:string ->

@@ -48,6 +48,7 @@ type google_cloud_identity_group = {
 Must not be longer than 4,096 characters. *)
   display_name : string option; [@option]
       (** The display name of the Group. *)
+  id : string option; [@option]  (** id *)
   initial_group_config : string option; [@option]
       (** The initial configuration options for creating a Group.
 
@@ -76,7 +77,7 @@ groups or customers/{customer_id} for Google Groups. *)
 [@@deriving yojson_of]
 (** google_cloud_identity_group *)
 
-let google_cloud_identity_group ?description ?display_name
+let google_cloud_identity_group ?description ?display_name ?id
     ?initial_group_config ?timeouts ~labels ~parent ~group_key
     __resource_id =
   let __resource_type = "google_cloud_identity_group" in
@@ -84,6 +85,7 @@ let google_cloud_identity_group ?description ?display_name
     {
       description;
       display_name;
+      id;
       initial_group_config;
       labels;
       parent;

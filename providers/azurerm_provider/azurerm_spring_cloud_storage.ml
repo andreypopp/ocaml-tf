@@ -14,6 +14,7 @@ type azurerm_spring_cloud_storage__timeouts = {
 (** azurerm_spring_cloud_storage__timeouts *)
 
 type azurerm_spring_cloud_storage = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_service_id : string;  (** spring_cloud_service_id *)
   storage_account_key : string;  (** storage_account_key *)
@@ -23,12 +24,13 @@ type azurerm_spring_cloud_storage = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_storage *)
 
-let azurerm_spring_cloud_storage ?timeouts ~name
+let azurerm_spring_cloud_storage ?id ?timeouts ~name
     ~spring_cloud_service_id ~storage_account_key
     ~storage_account_name __resource_id =
   let __resource_type = "azurerm_spring_cloud_storage" in
   let __resource =
     {
+      id;
       name;
       spring_cloud_service_id;
       storage_account_key;

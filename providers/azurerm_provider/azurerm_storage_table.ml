@@ -29,6 +29,7 @@ type azurerm_storage_table__timeouts = {
 (** azurerm_storage_table__timeouts *)
 
 type azurerm_storage_table = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   storage_account_name : string;  (** storage_account_name *)
   acl : azurerm_storage_table__acl list;
@@ -37,10 +38,12 @@ type azurerm_storage_table = {
 [@@deriving yojson_of]
 (** azurerm_storage_table *)
 
-let azurerm_storage_table ?timeouts ~name ~storage_account_name ~acl
-    __resource_id =
+let azurerm_storage_table ?id ?timeouts ~name ~storage_account_name
+    ~acl __resource_id =
   let __resource_type = "azurerm_storage_table" in
-  let __resource = { name; storage_account_name; acl; timeouts } in
+  let __resource =
+    { id; name; storage_account_name; acl; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_table __resource);
   ()

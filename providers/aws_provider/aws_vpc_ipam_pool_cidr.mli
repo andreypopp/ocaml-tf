@@ -7,6 +7,8 @@ type aws_vpc_ipam_pool_cidr__timeouts
 type aws_vpc_ipam_pool_cidr
 
 val aws_vpc_ipam_pool_cidr :
+  ?cidr:string ->
+  ?id:string ->
   ?netmask_length:float ->
   ?timeouts:aws_vpc_ipam_pool_cidr__timeouts ->
   ipam_pool_id:string ->

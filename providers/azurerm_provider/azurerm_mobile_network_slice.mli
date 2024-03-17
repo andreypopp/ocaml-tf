@@ -9,6 +9,7 @@ type azurerm_mobile_network_slice
 
 val azurerm_mobile_network_slice :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_mobile_network_slice__timeouts ->
   location:string ->

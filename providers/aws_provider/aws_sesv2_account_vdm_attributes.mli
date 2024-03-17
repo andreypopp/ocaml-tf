@@ -7,6 +7,7 @@ type aws_sesv2_account_vdm_attributes__guardian_attributes
 type aws_sesv2_account_vdm_attributes
 
 val aws_sesv2_account_vdm_attributes :
+  ?id:string ->
   vdm_enabled:string ->
   dashboard_attributes:
     aws_sesv2_account_vdm_attributes__dashboard_attributes list ->

@@ -19,8 +19,13 @@ type google_network_services_edge_cache_origin
 val google_network_services_edge_cache_origin :
   ?description:string ->
   ?failover_origin:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?max_attempts:float ->
+  ?port:float ->
+  ?project:string ->
+  ?protocol:string ->
+  ?retry_conditions:string list ->
   ?timeouts:google_network_services_edge_cache_origin__timeouts ->
   name:string ->
   origin_address:string ->

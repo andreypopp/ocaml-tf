@@ -7,6 +7,7 @@ type aws_wafv2_web_acl_association__timeouts
 type aws_wafv2_web_acl_association
 
 val aws_wafv2_web_acl_association :
+    ?id:string ->
     ?timeouts:aws_wafv2_web_acl_association__timeouts ->
     resource_arn:string ->
     web_acl_arn:string ->

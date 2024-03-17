@@ -16,11 +16,15 @@ type google_compute_region_network_endpoint = {
       (** Fully qualified domain name of network endpoint.
 
 This can only be specified when network_endpoint_type of the NEG is INTERNET_FQDN_PORT. *)
+  id : string option; [@option]  (** id *)
   ip_address : string option; [@option]
       (** IPv4 address external endpoint.
 
 This can only be specified when network_endpoint_type of the NEG is INTERNET_IP_PORT. *)
   port : float;  (** Port number of network endpoint. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** Region where the containing network endpoint group is located. *)
   region_network_endpoint_group : string;
       (** The network endpoint group this endpoint is part of. *)
   timeouts : google_compute_region_network_endpoint__timeouts option;
@@ -28,14 +32,18 @@ This can only be specified when network_endpoint_type of the NEG is INTERNET_IP_
 [@@deriving yojson_of]
 (** google_compute_region_network_endpoint *)
 
-let google_compute_region_network_endpoint ?fqdn ?ip_address
-    ?timeouts ~port ~region_network_endpoint_group __resource_id =
+let google_compute_region_network_endpoint ?fqdn ?id ?ip_address
+    ?project ?region ?timeouts ~port ~region_network_endpoint_group
+    __resource_id =
   let __resource_type = "google_compute_region_network_endpoint" in
   let __resource =
     {
       fqdn;
+      id;
       ip_address;
       port;
+      project;
+      region;
       region_network_endpoint_group;
       timeouts;
     }

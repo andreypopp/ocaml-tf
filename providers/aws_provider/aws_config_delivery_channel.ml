@@ -12,6 +12,7 @@ type aws_config_delivery_channel__snapshot_delivery_properties = {
 (** aws_config_delivery_channel__snapshot_delivery_properties *)
 
 type aws_config_delivery_channel = {
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   s3_bucket_name : string;  (** s3_bucket_name *)
   s3_key_prefix : string option; [@option]  (** s3_key_prefix *)
@@ -23,12 +24,13 @@ type aws_config_delivery_channel = {
 [@@deriving yojson_of]
 (** aws_config_delivery_channel *)
 
-let aws_config_delivery_channel ?name ?s3_key_prefix ?s3_kms_key_arn
-    ?sns_topic_arn ~s3_bucket_name ~snapshot_delivery_properties
-    __resource_id =
+let aws_config_delivery_channel ?id ?name ?s3_key_prefix
+    ?s3_kms_key_arn ?sns_topic_arn ~s3_bucket_name
+    ~snapshot_delivery_properties __resource_id =
   let __resource_type = "aws_config_delivery_channel" in
   let __resource =
     {
+      id;
       name;
       s3_bucket_name;
       s3_key_prefix;

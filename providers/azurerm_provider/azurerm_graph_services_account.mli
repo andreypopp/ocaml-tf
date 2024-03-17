@@ -6,6 +6,7 @@ type azurerm_graph_services_account__timeouts
 type azurerm_graph_services_account
 
 val azurerm_graph_services_account :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_graph_services_account__timeouts ->
   application_id:string ->

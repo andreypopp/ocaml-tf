@@ -5,6 +5,9 @@ open! Tf.Prelude
 type aws_emr_studio_session_mapping
 
 val aws_emr_studio_session_mapping :
+  ?id:string ->
+  ?identity_id:string ->
+  ?identity_name:string ->
   identity_type:string ->
   session_policy_arn:string ->
   studio_id:string ->

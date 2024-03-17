@@ -22,6 +22,7 @@ val azurerm_cdn_frontdoor_firewall_policy :
   ?custom_block_response_body:string ->
   ?custom_block_response_status_code:float ->
   ?enabled:bool ->
+  ?id:string ->
   ?redirect_url:string ->
   ?request_body_check_enabled:bool ->
   ?tags:(string * string) list ->

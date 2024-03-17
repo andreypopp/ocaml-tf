@@ -7,6 +7,7 @@ type azurerm_monitor_data_collection_endpoint
 
 val azurerm_monitor_data_collection_endpoint :
   ?description:string ->
+  ?id:string ->
   ?kind:string ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->

@@ -46,17 +46,24 @@ type aws_servicecatalog_provisioned_product__outputs = {
 
 type aws_servicecatalog_provisioned_product = {
   accept_language : string option; [@option]  (** accept_language *)
+  id : string option; [@option]  (** id *)
   ignore_errors : bool option; [@option]  (** ignore_errors *)
   name : string;  (** name *)
   notification_arns : string list option; [@option]
       (** notification_arns *)
+  path_id : string option; [@option]  (** path_id *)
   path_name : string option; [@option]  (** path_name *)
+  product_id : string option; [@option]  (** product_id *)
   product_name : string option; [@option]  (** product_name *)
+  provisioning_artifact_id : string option; [@option]
+      (** provisioning_artifact_id *)
   provisioning_artifact_name : string option; [@option]
       (** provisioning_artifact_name *)
   retain_physical_resources : bool option; [@option]
       (** retain_physical_resources *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   provisioning_parameters :
     aws_servicecatalog_provisioned_product__provisioning_parameters
     list;
@@ -68,23 +75,29 @@ type aws_servicecatalog_provisioned_product = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_provisioned_product *)
 
-let aws_servicecatalog_provisioned_product ?accept_language
-    ?ignore_errors ?notification_arns ?path_name ?product_name
+let aws_servicecatalog_provisioned_product ?accept_language ?id
+    ?ignore_errors ?notification_arns ?path_id ?path_name ?product_id
+    ?product_name ?provisioning_artifact_id
     ?provisioning_artifact_name ?retain_physical_resources ?tags
-    ?timeouts ~name ~provisioning_parameters
+    ?tags_all ?timeouts ~name ~provisioning_parameters
     ~stack_set_provisioning_preferences __resource_id =
   let __resource_type = "aws_servicecatalog_provisioned_product" in
   let __resource =
     {
       accept_language;
+      id;
       ignore_errors;
       name;
       notification_arns;
+      path_id;
       path_name;
+      product_id;
       product_name;
+      provisioning_artifact_id;
       provisioning_artifact_name;
       retain_physical_resources;
       tags;
+      tags_all;
       provisioning_parameters;
       stack_set_provisioning_preferences;
       timeouts;

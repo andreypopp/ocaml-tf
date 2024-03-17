@@ -10,14 +10,15 @@ type azurerm_cosmosdb_mongo_collection__system_indexes = {
   keys : string list;  (** keys *)
   unique : bool;  (** unique *)
 }
-[@@deriving yojson_of]
 
 type azurerm_cosmosdb_mongo_collection
 
 val azurerm_cosmosdb_mongo_collection :
   ?analytical_storage_ttl:float ->
   ?default_ttl_seconds:float ->
+  ?id:string ->
   ?shard_key:string ->
+  ?throughput:float ->
   ?timeouts:azurerm_cosmosdb_mongo_collection__timeouts ->
   account_name:string ->
   database_name:string ->

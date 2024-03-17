@@ -16,8 +16,14 @@ val google_data_fusion_instance :
   ?enable_rbac:bool ->
   ?enable_stackdriver_logging:bool ->
   ?enable_stackdriver_monitoring:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?options:(string * string) list ->
   ?private_instance:bool ->
+  ?project:string ->
+  ?region:string ->
+  ?version:string ->
+  ?zone:string ->
   ?timeouts:google_data_fusion_instance__timeouts ->
   name:string ->
   type_:string ->

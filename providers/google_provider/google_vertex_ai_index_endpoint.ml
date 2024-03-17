@@ -26,6 +26,7 @@ type google_vertex_ai_index_endpoint = {
       (** The description of the Index. *)
   display_name : string;
       (** The display name of the Index. The name can be up to 128 characters long and can consist of any UTF-8 characters. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The labels with user-defined metadata to organize your Indexes.
 
@@ -36,6 +37,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 Private services access must already be configured for the network. If left unspecified, the index endpoint is not peered with any network.
 [Format](https://cloud.google.com/compute/docs/reference/rest/v1/networks/insert): 'projects/{project}/global/networks/{network}'.
 Where '{project}' is a project number, as in '12345', and '{network}' is network name. *)
+  project : string option; [@option]  (** project *)
   public_endpoint_enabled : bool option; [@option]
       (** If true, the deployed index will be accessible through public endpoint. *)
   region : string option; [@option]
@@ -48,16 +50,18 @@ Where '{project}' is a project number, as in '12345', and '{network}' is network
 [@@deriving yojson_of]
 (** google_vertex_ai_index_endpoint *)
 
-let google_vertex_ai_index_endpoint ?description ?labels ?network
-    ?public_endpoint_enabled ?region ?timeouts ~display_name
+let google_vertex_ai_index_endpoint ?description ?id ?labels ?network
+    ?project ?public_endpoint_enabled ?region ?timeouts ~display_name
     ~private_service_connect_config __resource_id =
   let __resource_type = "google_vertex_ai_index_endpoint" in
   let __resource =
     {
       description;
       display_name;
+      id;
       labels;
       network;
+      project;
       public_endpoint_enabled;
       region;
       private_service_connect_config;

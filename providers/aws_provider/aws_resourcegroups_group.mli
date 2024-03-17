@@ -10,7 +10,9 @@ type aws_resourcegroups_group
 
 val aws_resourcegroups_group :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_resourcegroups_group__timeouts ->
   name:string ->
   configuration:aws_resourcegroups_group__configuration list ->

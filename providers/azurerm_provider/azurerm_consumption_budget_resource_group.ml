@@ -87,6 +87,8 @@ type azurerm_consumption_budget_resource_group__timeouts = {
 
 type azurerm_consumption_budget_resource_group = {
   amount : float;  (** amount *)
+  etag : string option; [@option]  (** etag *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_id : string;  (** resource_group_id *)
   time_grain : string option; [@option]  (** time_grain *)
@@ -101,8 +103,8 @@ type azurerm_consumption_budget_resource_group = {
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_resource_group *)
 
-let azurerm_consumption_budget_resource_group ?time_grain ?timeouts
-    ~amount ~name ~resource_group_id ~filter ~notification
+let azurerm_consumption_budget_resource_group ?etag ?id ?time_grain
+    ?timeouts ~amount ~name ~resource_group_id ~filter ~notification
     ~time_period __resource_id =
   let __resource_type =
     "azurerm_consumption_budget_resource_group"
@@ -110,6 +112,8 @@ let azurerm_consumption_budget_resource_group ?time_grain ?timeouts
   let __resource =
     {
       amount;
+      etag;
+      id;
       name;
       resource_group_id;
       time_grain;

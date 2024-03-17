@@ -7,6 +7,7 @@ type azurerm_dns_caa_record__timeouts
 type azurerm_dns_caa_record
 
 val azurerm_dns_caa_record :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dns_caa_record__timeouts ->
   name:string ->

@@ -8,7 +8,9 @@ type aws_rum_app_monitor
 
 val aws_rum_app_monitor :
   ?cw_log_enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   domain:string ->
   name:string ->
   app_monitor_configuration:

@@ -83,6 +83,7 @@ type google_compute_region_network_endpoint_group = {
   description : string option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource; provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -98,6 +99,7 @@ The URL of the network to which all network endpoints in the NEG belong. Uses
 default project network if unspecified. *)
   network_endpoint_type : string option; [@option]
       (** Type of network endpoints in this network endpoint group. Defaults to SERVERLESS. Default value: SERVERLESS Possible values: [SERVERLESS, PRIVATE_SERVICE_CONNECT, INTERNET_IP_PORT, INTERNET_FQDN_PORT] *)
+  project : string option; [@option]  (** project *)
   psc_target_service : string option; [@option]
       (** This field is only used for PSC and INTERNET NEGs.
 
@@ -121,19 +123,21 @@ Optional URL of the subnetwork to which all network endpoints in the NEG belong.
 [@@deriving yojson_of]
 (** google_compute_region_network_endpoint_group *)
 
-let google_compute_region_network_endpoint_group ?description
-    ?network ?network_endpoint_type ?psc_target_service ?subnetwork
-    ?timeouts ~name ~region ~app_engine ~cloud_function ~cloud_run
-    __resource_id =
+let google_compute_region_network_endpoint_group ?description ?id
+    ?network ?network_endpoint_type ?project ?psc_target_service
+    ?subnetwork ?timeouts ~name ~region ~app_engine ~cloud_function
+    ~cloud_run __resource_id =
   let __resource_type =
     "google_compute_region_network_endpoint_group"
   in
   let __resource =
     {
       description;
+      id;
       name;
       network;
       network_endpoint_type;
+      project;
       psc_target_service;
       region;
       subnetwork;

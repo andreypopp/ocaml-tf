@@ -6,6 +6,7 @@ type aws_api_gateway_base_path_mapping
 
 val aws_api_gateway_base_path_mapping :
   ?base_path:string ->
+  ?id:string ->
   ?stage_name:string ->
   api_id:string ->
   domain_name:string ->

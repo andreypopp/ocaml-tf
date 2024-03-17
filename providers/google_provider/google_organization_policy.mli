@@ -11,6 +11,8 @@ type google_organization_policy__timeouts
 type google_organization_policy
 
 val google_organization_policy :
+  ?id:string ->
+  ?version:float ->
   ?timeouts:google_organization_policy__timeouts ->
   constraint_:string ->
   org_id:string ->

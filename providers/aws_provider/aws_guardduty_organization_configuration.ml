@@ -61,17 +61,30 @@ type aws_guardduty_organization_configuration__datasources = {
 (** aws_guardduty_organization_configuration__datasources *)
 
 type aws_guardduty_organization_configuration = {
+  auto_enable : bool option; [@option]  (** auto_enable *)
+  auto_enable_organization_members : string option; [@option]
+      (** auto_enable_organization_members *)
   detector_id : string;  (** detector_id *)
+  id : string option; [@option]  (** id *)
   datasources :
     aws_guardduty_organization_configuration__datasources list;
 }
 [@@deriving yojson_of]
 (** aws_guardduty_organization_configuration *)
 
-let aws_guardduty_organization_configuration ~detector_id
-    ~datasources __resource_id =
+let aws_guardduty_organization_configuration ?auto_enable
+    ?auto_enable_organization_members ?id ~detector_id ~datasources
+    __resource_id =
   let __resource_type = "aws_guardduty_organization_configuration" in
-  let __resource = { detector_id; datasources } in
+  let __resource =
+    {
+      auto_enable;
+      auto_enable_organization_members;
+      detector_id;
+      id;
+      datasources;
+    }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_guardduty_organization_configuration __resource);
   ()

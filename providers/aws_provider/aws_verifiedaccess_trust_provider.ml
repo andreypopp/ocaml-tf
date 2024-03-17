@@ -36,8 +36,11 @@ type aws_verifiedaccess_trust_provider = {
   description : string option; [@option]  (** description *)
   device_trust_provider_type : string option; [@option]
       (** device_trust_provider_type *)
+  id : string option; [@option]  (** id *)
   policy_reference_name : string;  (** policy_reference_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   trust_provider_type : string;  (** trust_provider_type *)
   user_trust_provider_type : string option; [@option]
       (** user_trust_provider_type *)
@@ -51,16 +54,19 @@ type aws_verifiedaccess_trust_provider = {
 (** aws_verifiedaccess_trust_provider *)
 
 let aws_verifiedaccess_trust_provider ?description
-    ?device_trust_provider_type ?tags ?user_trust_provider_type
-    ?timeouts ~policy_reference_name ~trust_provider_type
-    ~device_options ~oidc_options __resource_id =
+    ?device_trust_provider_type ?id ?tags ?tags_all
+    ?user_trust_provider_type ?timeouts ~policy_reference_name
+    ~trust_provider_type ~device_options ~oidc_options __resource_id
+    =
   let __resource_type = "aws_verifiedaccess_trust_provider" in
   let __resource =
     {
       description;
       device_trust_provider_type;
+      id;
       policy_reference_name;
       tags;
+      tags_all;
       trust_provider_type;
       user_trust_provider_type;
       device_options;

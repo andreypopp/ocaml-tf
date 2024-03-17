@@ -261,6 +261,7 @@ type google_dataplex_datascan = {
       (** Description of the scan. *)
   display_name : string option; [@option]
       (** User friendly display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-defined labels for the scan. A list of key->value pairs.
 
@@ -269,6 +270,7 @@ type google_dataplex_datascan = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;
       (** The location where the data scan should reside. *)
+  project : string option; [@option]  (** project *)
   data : google_dataplex_datascan__data list;
   data_profile_spec :
     google_dataplex_datascan__data_profile_spec list;
@@ -280,17 +282,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_dataplex_datascan *)
 
-let google_dataplex_datascan ?description ?display_name ?labels
-    ?timeouts ~data_scan_id ~location ~data ~data_profile_spec
-    ~data_quality_spec ~execution_spec __resource_id =
+let google_dataplex_datascan ?description ?display_name ?id ?labels
+    ?project ?timeouts ~data_scan_id ~location ~data
+    ~data_profile_spec ~data_quality_spec ~execution_spec
+    __resource_id =
   let __resource_type = "google_dataplex_datascan" in
   let __resource =
     {
       data_scan_id;
       description;
       display_name;
+      id;
       labels;
       location;
+      project;
       data;
       data_profile_spec;
       data_quality_spec;

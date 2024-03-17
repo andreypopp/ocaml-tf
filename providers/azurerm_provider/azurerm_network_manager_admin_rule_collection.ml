@@ -15,6 +15,7 @@ type azurerm_network_manager_admin_rule_collection__timeouts = {
 
 type azurerm_network_manager_admin_rule_collection = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   network_group_ids : string list;  (** network_group_ids *)
   security_admin_configuration_id : string;
@@ -25,7 +26,7 @@ type azurerm_network_manager_admin_rule_collection = {
 [@@deriving yojson_of]
 (** azurerm_network_manager_admin_rule_collection *)
 
-let azurerm_network_manager_admin_rule_collection ?description
+let azurerm_network_manager_admin_rule_collection ?description ?id
     ?timeouts ~name ~network_group_ids
     ~security_admin_configuration_id __resource_id =
   let __resource_type =
@@ -34,6 +35,7 @@ let azurerm_network_manager_admin_rule_collection ?description
   let __resource =
     {
       description;
+      id;
       name;
       network_group_ids;
       security_admin_configuration_id;

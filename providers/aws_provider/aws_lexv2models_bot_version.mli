@@ -7,11 +7,11 @@ type aws_lexv2models_bot_version__timeouts
 type aws_lexv2models_bot_version__locale_specification = {
   source_bot_version : string;  (** source_bot_version *)
 }
-[@@deriving yojson_of]
 
 type aws_lexv2models_bot_version
 
 val aws_lexv2models_bot_version :
+  ?bot_version:string ->
   ?description:string ->
   ?timeouts:aws_lexv2models_bot_version__timeouts ->
   bot_id:string ->

@@ -50,7 +50,6 @@ type google_gkeonprem_bare_metal_admin_cluster__timeouts
 type google_gkeonprem_bare_metal_admin_cluster__fleet = {
   membership : string;  (** membership *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_admin_cluster__status__conditions = {
   last_transition_time : string;  (** last_transition_time *)
@@ -59,7 +58,6 @@ type google_gkeonprem_bare_metal_admin_cluster__status__conditions = {
   state : string;  (** state *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_admin_cluster__status = {
   conditions :
@@ -68,7 +66,6 @@ type google_gkeonprem_bare_metal_admin_cluster__status = {
       (** conditions *)
   error_message : string;  (** error_message *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_admin_cluster__validation_check__status__result = {
   category : string;  (** category *)
@@ -77,7 +74,6 @@ type google_gkeonprem_bare_metal_admin_cluster__validation_check__status__result
   options : string;  (** options *)
   reason : string;  (** reason *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_admin_cluster__validation_check__status = {
   result :
@@ -85,7 +81,6 @@ type google_gkeonprem_bare_metal_admin_cluster__validation_check__status = {
     list;
       (** result *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_admin_cluster__validation_check = {
   options : string;  (** options *)
@@ -95,7 +90,6 @@ type google_gkeonprem_bare_metal_admin_cluster__validation_check = {
     list;
       (** status *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_admin_cluster
 
@@ -103,6 +97,8 @@ val google_gkeonprem_bare_metal_admin_cluster :
   ?annotations:(string * string) list ->
   ?bare_metal_version:string ->
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_gkeonprem_bare_metal_admin_cluster__timeouts ->
   location:string ->
   name:string ->

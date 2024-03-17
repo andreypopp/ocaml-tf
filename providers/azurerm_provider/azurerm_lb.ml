@@ -40,6 +40,7 @@ type azurerm_lb__timeouts = {
 
 type azurerm_lb = {
   edge_zone : string option; [@option]  (** edge_zone *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -53,13 +54,14 @@ type azurerm_lb = {
 [@@deriving yojson_of]
 (** azurerm_lb *)
 
-let azurerm_lb ?edge_zone ?sku ?sku_tier ?tags ?timeouts ~location
-    ~name ~resource_group_name ~frontend_ip_configuration
+let azurerm_lb ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts
+    ~location ~name ~resource_group_name ~frontend_ip_configuration
     __resource_id =
   let __resource_type = "azurerm_lb" in
   let __resource =
     {
       edge_zone;
+      id;
       location;
       name;
       resource_group_name;

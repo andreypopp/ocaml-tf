@@ -9,7 +9,9 @@ type aws_connect_hours_of_operation
 
 val aws_connect_hours_of_operation :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   instance_id:string ->
   name:string ->
   time_zone:string ->

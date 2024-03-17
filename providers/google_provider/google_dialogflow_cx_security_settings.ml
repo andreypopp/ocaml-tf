@@ -46,6 +46,7 @@ Note: deidentifyTemplate must be located in the same region as the SecuritySetti
 Format: projects/<Project ID>/locations/<Location ID>/deidentifyTemplates/<Template ID> OR organizations/<Organization ID>/locations/<Location ID>/deidentifyTemplates/<Template ID> *)
   display_name : string;
       (** The human-readable name of the security settings, unique within the location. *)
+  id : string option; [@option]  (** id *)
   inspect_template : string option; [@option]
       (** [DLP](https://cloud.google.com/dlp/docs) inspect template name. Use this template to define inspect base settings. If empty, we use the default DLP inspect config.
 Note: inspectTemplate must be located in the same region as the SecuritySettings.
@@ -53,6 +54,7 @@ Format: projects/<Project ID>/locations/<Location ID>/inspectTemplates/<Template
   location : string;
       (** The location these settings are located in. Settings can only be applied to an agent in the same location.
 See [Available Regions](https://cloud.google.com/dialogflow/cx/docs/concept/region#avail) for a list of supported locations. *)
+  project : string option; [@option]  (** project *)
   purge_data_types : string list option; [@option]
       (** List of types of data to remove when retention settings triggers purge. Possible values: [DIALOGFLOW_HISTORY] *)
   redaction_scope : string option; [@option]
@@ -78,8 +80,8 @@ Only one of 'retention_window_days' and 'retention_strategy' may be set. *)
 [@@deriving yojson_of]
 (** google_dialogflow_cx_security_settings *)
 
-let google_dialogflow_cx_security_settings ?deidentify_template
-    ?inspect_template ?purge_data_types ?redaction_scope
+let google_dialogflow_cx_security_settings ?deidentify_template ?id
+    ?inspect_template ?project ?purge_data_types ?redaction_scope
     ?redaction_strategy ?retention_strategy ?retention_window_days
     ?timeouts ~display_name ~location ~audio_export_settings
     ~insights_export_settings __resource_id =
@@ -88,8 +90,10 @@ let google_dialogflow_cx_security_settings ?deidentify_template
     {
       deidentify_template;
       display_name;
+      id;
       inspect_template;
       location;
+      project;
       purge_data_types;
       redaction_scope;
       redaction_strategy;

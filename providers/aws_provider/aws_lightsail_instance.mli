@@ -6,9 +6,11 @@ type aws_lightsail_instance__add_on
 type aws_lightsail_instance
 
 val aws_lightsail_instance :
+  ?id:string ->
   ?ip_address_type:string ->
   ?key_pair_name:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?user_data:string ->
   availability_zone:string ->
   blueprint_id:string ->

@@ -14,6 +14,9 @@ type azurerm_dashboard__timeouts = {
 (** azurerm_dashboard__timeouts *)
 
 type azurerm_dashboard = {
+  dashboard_properties : string option; [@option]
+      (** dashboard_properties *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -23,11 +26,19 @@ type azurerm_dashboard = {
 [@@deriving yojson_of]
 (** azurerm_dashboard *)
 
-let azurerm_dashboard ?tags ?timeouts ~location ~name
-    ~resource_group_name __resource_id =
+let azurerm_dashboard ?dashboard_properties ?id ?tags ?timeouts
+    ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_dashboard" in
   let __resource =
-    { location; name; resource_group_name; tags; timeouts }
+    {
+      dashboard_properties;
+      id;
+      location;
+      name;
+      resource_group_name;
+      tags;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dashboard __resource);

@@ -26,6 +26,7 @@ type azurerm_kusto_eventgrid_data_connection = {
   eventhub_consumer_group_name : string;
       (** eventhub_consumer_group_name *)
   eventhub_id : string;  (** eventhub_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   managed_identity_resource_id : string option; [@option]
       (** managed_identity_resource_id *)
@@ -43,7 +44,7 @@ type azurerm_kusto_eventgrid_data_connection = {
 (** azurerm_kusto_eventgrid_data_connection *)
 
 let azurerm_kusto_eventgrid_data_connection ?blob_storage_event_type
-    ?data_format ?database_routing_type ?eventgrid_resource_id
+    ?data_format ?database_routing_type ?eventgrid_resource_id ?id
     ?managed_identity_resource_id ?mapping_rule_name
     ?skip_first_record ?table_name ?timeouts ~cluster_name
     ~database_name ~eventhub_consumer_group_name ~eventhub_id
@@ -60,6 +61,7 @@ let azurerm_kusto_eventgrid_data_connection ?blob_storage_event_type
       eventgrid_resource_id;
       eventhub_consumer_group_name;
       eventhub_id;
+      id;
       location;
       managed_identity_resource_id;
       mapping_rule_name;

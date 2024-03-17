@@ -8,7 +8,6 @@ type azurerm_kubernetes_cluster__aci_connector_linux__connector_identity = {
   user_assigned_identity_id : string;
       (** user_assigned_identity_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_kubernetes_cluster__aci_connector_linux
 type azurerm_kubernetes_cluster__api_server_access_profile
@@ -38,7 +37,6 @@ type azurerm_kubernetes_cluster__ingress_application_gateway__ingress_applicatio
   user_assigned_identity_id : string;
       (** user_assigned_identity_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_kubernetes_cluster__ingress_application_gateway
 type azurerm_kubernetes_cluster__key_management_service
@@ -49,7 +47,6 @@ type azurerm_kubernetes_cluster__key_vault_secrets_provider__secret_identity = {
   user_assigned_identity_id : string;
       (** user_assigned_identity_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_kubernetes_cluster__key_vault_secrets_provider
 type azurerm_kubernetes_cluster__kubelet_identity
@@ -80,7 +77,6 @@ type azurerm_kubernetes_cluster__oms_agent__oms_agent_identity = {
   user_assigned_identity_id : string;
       (** user_assigned_identity_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_kubernetes_cluster__oms_agent
 type azurerm_kubernetes_cluster__service_mesh_profile
@@ -94,7 +90,6 @@ type azurerm_kubernetes_cluster__web_app_routing__web_app_routing_identity = {
   user_assigned_identity_id : string;
       (** user_assigned_identity_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_kubernetes_cluster__web_app_routing
 type azurerm_kubernetes_cluster__windows_profile__gmsa
@@ -109,7 +104,6 @@ type azurerm_kubernetes_cluster__kube_admin_config = {
   password : string;  (** password *)
   username : string;  (** username *)
 }
-[@@deriving yojson_of]
 
 type azurerm_kubernetes_cluster__kube_config = {
   client_certificate : string;  (** client_certificate *)
@@ -119,11 +113,11 @@ type azurerm_kubernetes_cluster__kube_config = {
   password : string;  (** password *)
   username : string;  (** username *)
 }
-[@@deriving yojson_of]
 
 type azurerm_kubernetes_cluster
 
 val azurerm_kubernetes_cluster :
+  ?api_server_authorized_ip_ranges:string list ->
   ?automatic_channel_upgrade:string ->
   ?azure_policy_enabled:bool ->
   ?custom_ca_trust_certificates_base64:string list ->
@@ -133,14 +127,18 @@ val azurerm_kubernetes_cluster :
   ?edge_zone:string ->
   ?enable_pod_security_policy:bool ->
   ?http_application_routing_enabled:bool ->
+  ?id:string ->
   ?image_cleaner_enabled:bool ->
   ?image_cleaner_interval_hours:float ->
+  ?kubernetes_version:string ->
   ?local_account_disabled:bool ->
   ?node_os_channel_upgrade:string ->
+  ?node_resource_group:string ->
   ?oidc_issuer_enabled:bool ->
   ?open_service_mesh_enabled:bool ->
   ?private_cluster_enabled:bool ->
   ?private_cluster_public_fqdn_enabled:bool ->
+  ?private_dns_zone_id:string ->
   ?public_network_access_enabled:bool ->
   ?role_based_access_control_enabled:bool ->
   ?run_command_enabled:bool ->

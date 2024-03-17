@@ -12,6 +12,7 @@ type aws_load_balancer_policy__policy_attribute = {
 (** aws_load_balancer_policy__policy_attribute *)
 
 type aws_load_balancer_policy = {
+  id : string option; [@option]  (** id *)
   load_balancer_name : string;  (** load_balancer_name *)
   policy_name : string;  (** policy_name *)
   policy_type_name : string;  (** policy_type_name *)
@@ -20,11 +21,12 @@ type aws_load_balancer_policy = {
 [@@deriving yojson_of]
 (** aws_load_balancer_policy *)
 
-let aws_load_balancer_policy ~load_balancer_name ~policy_name
+let aws_load_balancer_policy ?id ~load_balancer_name ~policy_name
     ~policy_type_name ~policy_attribute __resource_id =
   let __resource_type = "aws_load_balancer_policy" in
   let __resource =
     {
+      id;
       load_balancer_name;
       policy_name;
       policy_type_name;

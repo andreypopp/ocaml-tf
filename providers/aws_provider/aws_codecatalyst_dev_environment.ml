@@ -34,6 +34,7 @@ type aws_codecatalyst_dev_environment__timeouts = {
 
 type aws_codecatalyst_dev_environment = {
   alias : string option; [@option]  (** alias *)
+  id : string option; [@option]  (** id *)
   inactivity_timeout_minutes : float option; [@option]
       (** inactivity_timeout_minutes *)
   instance_type : string;  (** instance_type *)
@@ -48,7 +49,7 @@ type aws_codecatalyst_dev_environment = {
 [@@deriving yojson_of]
 (** aws_codecatalyst_dev_environment *)
 
-let aws_codecatalyst_dev_environment ?alias
+let aws_codecatalyst_dev_environment ?alias ?id
     ?inactivity_timeout_minutes ?timeouts ~instance_type
     ~project_name ~space_name ~ides ~persistent_storage ~repositories
     __resource_id =
@@ -56,6 +57,7 @@ let aws_codecatalyst_dev_environment ?alias
   let __resource =
     {
       alias;
+      id;
       inactivity_timeout_minutes;
       instance_type;
       project_name;

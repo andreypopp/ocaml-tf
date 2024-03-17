@@ -14,6 +14,7 @@ type azurerm_api_management_notification_recipient_user__timeouts = {
 
 type azurerm_api_management_notification_recipient_user = {
   api_management_id : string;  (** api_management_id *)
+  id : string option; [@option]  (** id *)
   notification_type : string;  (** notification_type *)
   user_id : string;  (** user_id *)
   timeouts :
@@ -23,13 +24,13 @@ type azurerm_api_management_notification_recipient_user = {
 [@@deriving yojson_of]
 (** azurerm_api_management_notification_recipient_user *)
 
-let azurerm_api_management_notification_recipient_user ?timeouts
+let azurerm_api_management_notification_recipient_user ?id ?timeouts
     ~api_management_id ~notification_type ~user_id __resource_id =
   let __resource_type =
     "azurerm_api_management_notification_recipient_user"
   in
   let __resource =
-    { api_management_id; notification_type; user_id; timeouts }
+    { api_management_id; id; notification_type; user_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_notification_recipient_user

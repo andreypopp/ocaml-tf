@@ -9,6 +9,7 @@ type azurerm_custom_provider__validation
 type azurerm_custom_provider
 
 val azurerm_custom_provider :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_custom_provider__timeouts ->
   location:string ->

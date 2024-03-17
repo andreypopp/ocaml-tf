@@ -14,6 +14,7 @@ type azurerm_netapp_snapshot__timeouts = {
 
 type azurerm_netapp_snapshot = {
   account_name : string;  (** account_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   pool_name : string;  (** pool_name *)
@@ -24,12 +25,14 @@ type azurerm_netapp_snapshot = {
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot *)
 
-let azurerm_netapp_snapshot ?timeouts ~account_name ~location ~name
-    ~pool_name ~resource_group_name ~volume_name __resource_id =
+let azurerm_netapp_snapshot ?id ?timeouts ~account_name ~location
+    ~name ~pool_name ~resource_group_name ~volume_name __resource_id
+    =
   let __resource_type = "azurerm_netapp_snapshot" in
   let __resource =
     {
       account_name;
+      id;
       location;
       name;
       pool_name;

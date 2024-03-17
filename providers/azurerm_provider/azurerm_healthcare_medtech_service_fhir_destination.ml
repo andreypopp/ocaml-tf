@@ -20,6 +20,7 @@ type azurerm_healthcare_medtech_service_fhir_destination = {
       (** destination_fhir_service_id *)
   destination_identity_resolution_type : string;
       (** destination_identity_resolution_type *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   medtech_service_id : string;  (** medtech_service_id *)
   name : string;  (** name *)
@@ -30,7 +31,7 @@ type azurerm_healthcare_medtech_service_fhir_destination = {
 [@@deriving yojson_of]
 (** azurerm_healthcare_medtech_service_fhir_destination *)
 
-let azurerm_healthcare_medtech_service_fhir_destination ?timeouts
+let azurerm_healthcare_medtech_service_fhir_destination ?id ?timeouts
     ~destination_fhir_mapping_json ~destination_fhir_service_id
     ~destination_identity_resolution_type ~location
     ~medtech_service_id ~name __resource_id =
@@ -42,6 +43,7 @@ let azurerm_healthcare_medtech_service_fhir_destination ?timeouts
       destination_fhir_mapping_json;
       destination_fhir_service_id;
       destination_identity_resolution_type;
+      id;
       location;
       medtech_service_id;
       name;

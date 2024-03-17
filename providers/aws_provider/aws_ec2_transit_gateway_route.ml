@@ -7,6 +7,7 @@ open! Tf.Prelude
 type aws_ec2_transit_gateway_route = {
   blackhole : bool option; [@option]  (** blackhole *)
   destination_cidr_block : string;  (** destination_cidr_block *)
+  id : string option; [@option]  (** id *)
   transit_gateway_attachment_id : string option; [@option]
       (** transit_gateway_attachment_id *)
   transit_gateway_route_table_id : string;
@@ -15,7 +16,7 @@ type aws_ec2_transit_gateway_route = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_route *)
 
-let aws_ec2_transit_gateway_route ?blackhole
+let aws_ec2_transit_gateway_route ?blackhole ?id
     ?transit_gateway_attachment_id ~destination_cidr_block
     ~transit_gateway_route_table_id __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_route" in
@@ -23,6 +24,7 @@ let aws_ec2_transit_gateway_route ?blackhole
     {
       blackhole;
       destination_cidr_block;
+      id;
       transit_gateway_attachment_id;
       transit_gateway_route_table_id;
     }

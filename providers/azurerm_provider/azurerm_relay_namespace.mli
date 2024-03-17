@@ -6,6 +6,7 @@ type azurerm_relay_namespace__timeouts
 type azurerm_relay_namespace
 
 val azurerm_relay_namespace :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_relay_namespace__timeouts ->
   location:string ->

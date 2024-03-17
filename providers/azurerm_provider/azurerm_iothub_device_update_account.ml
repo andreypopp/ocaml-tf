@@ -23,6 +23,7 @@ type azurerm_iothub_device_update_account__timeouts = {
 (** azurerm_iothub_device_update_account__timeouts *)
 
 type azurerm_iothub_device_update_account = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -36,12 +37,13 @@ type azurerm_iothub_device_update_account = {
 [@@deriving yojson_of]
 (** azurerm_iothub_device_update_account *)
 
-let azurerm_iothub_device_update_account
+let azurerm_iothub_device_update_account ?id
     ?public_network_access_enabled ?sku ?tags ?timeouts ~location
     ~name ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_iothub_device_update_account" in
   let __resource =
     {
+      id;
       location;
       name;
       public_network_access_enabled;

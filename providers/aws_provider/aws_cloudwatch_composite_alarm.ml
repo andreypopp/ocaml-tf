@@ -19,10 +19,13 @@ type aws_cloudwatch_composite_alarm = {
       (** alarm_description *)
   alarm_name : string;  (** alarm_name *)
   alarm_rule : string;  (** alarm_rule *)
+  id : string option; [@option]  (** id *)
   insufficient_data_actions : string list option; [@option]
       (** insufficient_data_actions *)
   ok_actions : string list option; [@option]  (** ok_actions *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   actions_suppressor :
     aws_cloudwatch_composite_alarm__actions_suppressor list;
 }
@@ -30,8 +33,9 @@ type aws_cloudwatch_composite_alarm = {
 (** aws_cloudwatch_composite_alarm *)
 
 let aws_cloudwatch_composite_alarm ?actions_enabled ?alarm_actions
-    ?alarm_description ?insufficient_data_actions ?ok_actions ?tags
-    ~alarm_name ~alarm_rule ~actions_suppressor __resource_id =
+    ?alarm_description ?id ?insufficient_data_actions ?ok_actions
+    ?tags ?tags_all ~alarm_name ~alarm_rule ~actions_suppressor
+    __resource_id =
   let __resource_type = "aws_cloudwatch_composite_alarm" in
   let __resource =
     {
@@ -40,9 +44,11 @@ let aws_cloudwatch_composite_alarm ?actions_enabled ?alarm_actions
       alarm_description;
       alarm_name;
       alarm_rule;
+      id;
       insufficient_data_actions;
       ok_actions;
       tags;
+      tags_all;
       actions_suppressor;
     }
   in

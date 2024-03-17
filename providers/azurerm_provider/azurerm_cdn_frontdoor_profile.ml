@@ -14,6 +14,7 @@ type azurerm_cdn_frontdoor_profile__timeouts = {
 (** azurerm_cdn_frontdoor_profile__timeouts *)
 
 type azurerm_cdn_frontdoor_profile = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   response_timeout_seconds : float option; [@option]
@@ -25,11 +26,12 @@ type azurerm_cdn_frontdoor_profile = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_profile *)
 
-let azurerm_cdn_frontdoor_profile ?response_timeout_seconds ?tags
+let azurerm_cdn_frontdoor_profile ?id ?response_timeout_seconds ?tags
     ?timeouts ~name ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_profile" in
   let __resource =
     {
+      id;
       name;
       resource_group_name;
       response_timeout_seconds;

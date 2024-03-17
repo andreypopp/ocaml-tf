@@ -50,6 +50,7 @@ type azurerm_monitor_scheduled_query_rules_alert = {
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
   frequency : float;  (** frequency *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   query : string;  (** query *)
@@ -69,7 +70,7 @@ type azurerm_monitor_scheduled_query_rules_alert = {
 
 let azurerm_monitor_scheduled_query_rules_alert
     ?authorized_resource_ids ?auto_mitigation_enabled ?description
-    ?enabled ?query_type ?severity ?tags ?throttling ?timeouts
+    ?enabled ?id ?query_type ?severity ?tags ?throttling ?timeouts
     ~data_source_id ~frequency ~location ~name ~query
     ~resource_group_name ~time_window ~action ~trigger __resource_id
     =
@@ -84,6 +85,7 @@ let azurerm_monitor_scheduled_query_rules_alert
       description;
       enabled;
       frequency;
+      id;
       location;
       name;
       query;

@@ -20,6 +20,7 @@ type azurerm_data_factory_pipeline = {
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
   folder : string option; [@option]  (** folder *)
+  id : string option; [@option]  (** id *)
   moniter_metrics_after_duration : string option; [@option]
       (** moniter_metrics_after_duration *)
   name : string;  (** name *)
@@ -33,9 +34,9 @@ type azurerm_data_factory_pipeline = {
 (** azurerm_data_factory_pipeline *)
 
 let azurerm_data_factory_pipeline ?activities_json ?annotations
-    ?concurrency ?description ?folder ?moniter_metrics_after_duration
-    ?parameters ?variables ?timeouts ~data_factory_id ~name
-    __resource_id =
+    ?concurrency ?description ?folder ?id
+    ?moniter_metrics_after_duration ?parameters ?variables ?timeouts
+    ~data_factory_id ~name __resource_id =
   let __resource_type = "azurerm_data_factory_pipeline" in
   let __resource =
     {
@@ -45,6 +46,7 @@ let azurerm_data_factory_pipeline ?activities_json ?annotations
       data_factory_id;
       description;
       folder;
+      id;
       moniter_metrics_after_duration;
       name;
       parameters;

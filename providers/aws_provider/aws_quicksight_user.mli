@@ -5,7 +5,9 @@ open! Tf.Prelude
 type aws_quicksight_user
 
 val aws_quicksight_user :
+    ?aws_account_id:string ->
     ?iam_arn:string ->
+    ?id:string ->
     ?namespace:string ->
     ?session_name:string ->
     ?user_name:string ->

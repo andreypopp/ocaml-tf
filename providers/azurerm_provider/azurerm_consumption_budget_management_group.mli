@@ -16,6 +16,8 @@ type azurerm_consumption_budget_management_group__timeouts
 type azurerm_consumption_budget_management_group
 
 val azurerm_consumption_budget_management_group :
+  ?etag:string ->
+  ?id:string ->
   ?time_grain:string ->
   ?timeouts:azurerm_consumption_budget_management_group__timeouts ->
   amount:float ->

@@ -6,6 +6,7 @@ type azurerm_public_ip_prefix__timeouts
 type azurerm_public_ip_prefix
 
 val azurerm_public_ip_prefix :
+  ?id:string ->
   ?ip_version:string ->
   ?prefix_length:float ->
   ?sku:string ->

@@ -8,6 +8,7 @@ type kubernetes_token_request_v1__spec
 type kubernetes_token_request_v1
 
 val kubernetes_token_request_v1 :
+  ?id:string ->
   metadata:kubernetes_token_request_v1__metadata list ->
   spec:kubernetes_token_request_v1__spec list ->
   string ->

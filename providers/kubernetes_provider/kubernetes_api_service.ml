@@ -52,15 +52,16 @@ type kubernetes_api_service__spec = {
 (** Spec contains information for locating and communicating with a server. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
 
 type kubernetes_api_service = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_api_service__metadata list;
   spec : kubernetes_api_service__spec list;
 }
 [@@deriving yojson_of]
 (** kubernetes_api_service *)
 
-let kubernetes_api_service ~metadata ~spec __resource_id =
+let kubernetes_api_service ?id ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_api_service" in
-  let __resource = { metadata; spec } in
+  let __resource = { id; metadata; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_api_service __resource);
   ()

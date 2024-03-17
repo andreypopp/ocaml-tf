@@ -32,6 +32,7 @@ type aws_config_remediation_configuration__parameter = {
 type aws_config_remediation_configuration = {
   automatic : bool option; [@option]  (** automatic *)
   config_rule_name : string;  (** config_rule_name *)
+  id : string option; [@option]  (** id *)
   maximum_automatic_attempts : float option; [@option]
       (** maximum_automatic_attempts *)
   resource_type : string option; [@option]  (** resource_type *)
@@ -47,7 +48,7 @@ type aws_config_remediation_configuration = {
 [@@deriving yojson_of]
 (** aws_config_remediation_configuration *)
 
-let aws_config_remediation_configuration ?automatic
+let aws_config_remediation_configuration ?automatic ?id
     ?maximum_automatic_attempts ?resource_type ?retry_attempt_seconds
     ?target_version ~config_rule_name ~target_id ~target_type
     ~execution_controls ~parameter __resource_id =
@@ -56,6 +57,7 @@ let aws_config_remediation_configuration ?automatic
     {
       automatic;
       config_rule_name;
+      id;
       maximum_automatic_attempts;
       resource_type;
       retry_attempt_seconds;

@@ -10,6 +10,7 @@ val aws_apigatewayv2_route :
   ?authorization_scopes:string list ->
   ?authorization_type:string ->
   ?authorizer_id:string ->
+  ?id:string ->
   ?model_selection_expression:string ->
   ?operation_name:string ->
   ?request_models:(string * string) list ->

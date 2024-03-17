@@ -258,12 +258,14 @@ type google_clouddomains_registration = {
       (** Required. The domain name. Unicode domain names must be expressed in Punycode format. *)
   domain_notices : string list option; [@option]
       (** The list of domain notices that you acknowledge. Possible value is HSTS_PRELOADED *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Set of labels associated with the Registration.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;  (** The location for the resource *)
+  project : string option; [@option]  (** project *)
   contact_settings :
     google_clouddomains_registration__contact_settings list;
   dns_settings : google_clouddomains_registration__dns_settings list;
@@ -276,16 +278,19 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_clouddomains_registration *)
 
 let google_clouddomains_registration ?contact_notices ?domain_notices
-    ?labels ?timeouts ~domain_name ~location ~contact_settings
-    ~dns_settings ~management_settings ~yearly_price __resource_id =
+    ?id ?labels ?project ?timeouts ~domain_name ~location
+    ~contact_settings ~dns_settings ~management_settings
+    ~yearly_price __resource_id =
   let __resource_type = "google_clouddomains_registration" in
   let __resource =
     {
       contact_notices;
       domain_name;
       domain_notices;
+      id;
       labels;
       location;
+      project;
       contact_settings;
       dns_settings;
       management_settings;

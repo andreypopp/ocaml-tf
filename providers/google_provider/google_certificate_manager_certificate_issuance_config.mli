@@ -11,8 +11,10 @@ type google_certificate_manager_certificate_issuance_config
 
 val google_certificate_manager_certificate_issuance_config :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?location:string ->
+  ?project:string ->
   ?timeouts:
     google_certificate_manager_certificate_issuance_config__timeouts ->
   key_algorithm:string ->

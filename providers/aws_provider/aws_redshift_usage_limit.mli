@@ -6,8 +6,10 @@ type aws_redshift_usage_limit
 
 val aws_redshift_usage_limit :
   ?breach_action:string ->
+  ?id:string ->
   ?period:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   amount:float ->
   cluster_identifier:string ->
   feature_type:string ->

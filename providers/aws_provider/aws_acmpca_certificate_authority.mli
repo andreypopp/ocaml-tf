@@ -16,9 +16,13 @@ type aws_acmpca_certificate_authority
 
 val aws_acmpca_certificate_authority :
   ?enabled:bool ->
+  ?id:string ->
+  ?key_storage_security_standard:string ->
   ?permanent_deletion_time_in_days:float ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?type_:string ->
+  ?usage_mode:string ->
   ?timeouts:aws_acmpca_certificate_authority__timeouts ->
   certificate_authority_configuration:
     aws_acmpca_certificate_authority__certificate_authority_configuration

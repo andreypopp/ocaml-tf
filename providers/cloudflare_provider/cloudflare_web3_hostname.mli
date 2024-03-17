@@ -7,6 +7,7 @@ type cloudflare_web3_hostname
 val cloudflare_web3_hostname :
   ?description:string ->
   ?dnslink:string ->
+  ?id:string ->
   name:string ->
   target:string ->
   zone_id:string ->

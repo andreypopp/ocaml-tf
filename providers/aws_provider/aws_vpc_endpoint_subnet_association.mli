@@ -6,6 +6,7 @@ type aws_vpc_endpoint_subnet_association__timeouts
 type aws_vpc_endpoint_subnet_association
 
 val aws_vpc_endpoint_subnet_association :
+  ?id:string ->
   ?timeouts:aws_vpc_endpoint_subnet_association__timeouts ->
   subnet_id:string ->
   vpc_endpoint_id:string ->

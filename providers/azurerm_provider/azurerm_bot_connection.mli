@@ -6,6 +6,7 @@ type azurerm_bot_connection__timeouts
 type azurerm_bot_connection
 
 val azurerm_bot_connection :
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?scopes:string ->
   ?tags:(string * string) list ->

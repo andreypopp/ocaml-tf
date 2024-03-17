@@ -485,6 +485,7 @@ in the format 'projects/*/locations/*/certificateTemplates/*'. If this is specif
 the caller must have the necessary permission to use this template. If this is
 omitted, no template will be used. This template must be in the same location
 as the Certificate. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels with user-defined metadata to apply to this resource.
 
@@ -503,6 +504,7 @@ running 'gcloud privateca locations list'. *)
       (** Immutable. A pem-encoded X.509 certificate signing request (CSR). *)
   pool : string;
       (** The name of the CaPool this Certificate belongs to. *)
+  project : string option; [@option]  (** project *)
   config : google_privateca_certificate__config list;
   timeouts : google_privateca_certificate__timeouts option;
 }
@@ -510,19 +512,21 @@ running 'gcloud privateca locations list'. *)
 (** google_privateca_certificate *)
 
 let google_privateca_certificate ?certificate_authority
-    ?certificate_template ?labels ?lifetime ?pem_csr ?timeouts
-    ~location ~name ~pool ~config __resource_id =
+    ?certificate_template ?id ?labels ?lifetime ?pem_csr ?project
+    ?timeouts ~location ~name ~pool ~config __resource_id =
   let __resource_type = "google_privateca_certificate" in
   let __resource =
     {
       certificate_authority;
       certificate_template;
+      id;
       labels;
       lifetime;
       location;
       name;
       pem_csr;
       pool;
+      project;
       config;
       timeouts;
     }

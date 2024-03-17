@@ -6,6 +6,7 @@ type azurerm_mssql_firewall_rule__timeouts
 type azurerm_mssql_firewall_rule
 
 val azurerm_mssql_firewall_rule :
+  ?id:string ->
   ?timeouts:azurerm_mssql_firewall_rule__timeouts ->
   end_ip_address:string ->
   name:string ->

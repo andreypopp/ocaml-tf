@@ -10,13 +10,13 @@ type azurerm_app_service_environment_v3__inbound_network_dependencies = {
   ip_addresses : string list;  (** ip_addresses *)
   ports : string list;  (** ports *)
 }
-[@@deriving yojson_of]
 
 type azurerm_app_service_environment_v3
 
 val azurerm_app_service_environment_v3 :
   ?allow_new_private_endpoint_connections:bool ->
   ?dedicated_host_count:float ->
+  ?id:string ->
   ?internal_load_balancing_mode:string ->
   ?remote_debugging_enabled:bool ->
   ?tags:(string * string) list ->

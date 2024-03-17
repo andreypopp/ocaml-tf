@@ -12,16 +12,17 @@ type google_logging_billing_account_exclusion = {
       (** Whether this exclusion rule should be disabled or not. This defaults to false. *)
   filter : string;
       (** The filter to apply when excluding logs. Only log entries that match the filter are excluded. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the logging exclusion. *)
 }
 [@@deriving yojson_of]
 (** google_logging_billing_account_exclusion *)
 
 let google_logging_billing_account_exclusion ?description ?disabled
-    ~billing_account ~filter ~name __resource_id =
+    ?id ~billing_account ~filter ~name __resource_id =
   let __resource_type = "google_logging_billing_account_exclusion" in
   let __resource =
-    { billing_account; description; disabled; filter; name }
+    { billing_account; description; disabled; filter; id; name }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_billing_account_exclusion __resource);

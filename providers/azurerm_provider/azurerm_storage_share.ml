@@ -29,8 +29,12 @@ type azurerm_storage_share__timeouts = {
 (** azurerm_storage_share__timeouts *)
 
 type azurerm_storage_share = {
+  access_tier : string option; [@option]  (** access_tier *)
   enabled_protocol : string option; [@option]
       (** enabled_protocol *)
+  id : string option; [@option]  (** id *)
+  metadata : (string * string) list option; [@option]
+      (** metadata *)
   name : string;  (** name *)
   quota : float;  (** quota *)
   storage_account_name : string;  (** storage_account_name *)
@@ -40,12 +44,16 @@ type azurerm_storage_share = {
 [@@deriving yojson_of]
 (** azurerm_storage_share *)
 
-let azurerm_storage_share ?enabled_protocol ?timeouts ~name ~quota
-    ~storage_account_name ~acl __resource_id =
+let azurerm_storage_share ?access_tier ?enabled_protocol ?id
+    ?metadata ?timeouts ~name ~quota ~storage_account_name ~acl
+    __resource_id =
   let __resource_type = "azurerm_storage_share" in
   let __resource =
     {
+      access_tier;
       enabled_protocol;
+      id;
+      metadata;
       name;
       quota;
       storage_account_name;

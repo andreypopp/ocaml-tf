@@ -14,9 +14,13 @@ type azurerm_storage_blob__timeouts = {
 (** azurerm_storage_blob__timeouts *)
 
 type azurerm_storage_blob = {
+  access_tier : string option; [@option]  (** access_tier *)
   cache_control : string option; [@option]  (** cache_control *)
   content_md5 : string option; [@option]  (** content_md5 *)
   content_type : string option; [@option]  (** content_type *)
+  id : string option; [@option]  (** id *)
+  metadata : (string * string) list option; [@option]
+      (** metadata *)
   name : string;  (** name *)
   parallelism : float option; [@option]  (** parallelism *)
   size : float option; [@option]  (** size *)
@@ -31,16 +35,19 @@ type azurerm_storage_blob = {
 [@@deriving yojson_of]
 (** azurerm_storage_blob *)
 
-let azurerm_storage_blob ?cache_control ?content_md5 ?content_type
-    ?parallelism ?size ?source ?source_content ?source_uri ?timeouts
-    ~name ~storage_account_name ~storage_container_name ~type_
-    __resource_id =
+let azurerm_storage_blob ?access_tier ?cache_control ?content_md5
+    ?content_type ?id ?metadata ?parallelism ?size ?source
+    ?source_content ?source_uri ?timeouts ~name ~storage_account_name
+    ~storage_container_name ~type_ __resource_id =
   let __resource_type = "azurerm_storage_blob" in
   let __resource =
     {
+      access_tier;
       cache_control;
       content_md5;
       content_type;
+      id;
+      metadata;
       name;
       parallelism;
       size;

@@ -11,8 +11,11 @@ type google_dataflow_job__timeouts = {
 (** google_dataflow_job__timeouts *)
 
 type google_dataflow_job = {
+  additional_experiments : string list option; [@option]
+      (** List of experiments that should be used by the job. An example value is [enable_stackdriver_agent_metrics]. *)
   enable_streaming_engine : bool option; [@option]
       (** Indicates if the job should use the streaming engine feature. *)
+  id : string option; [@option]  (** id *)
   ip_configuration : string option; [@option]
       (** The configuration for VM IPs. Options are WORKER_IP_PUBLIC or WORKER_IP_PRIVATE. *)
   kms_key_name : string option; [@option]
@@ -32,6 +35,8 @@ type google_dataflow_job = {
       (** One of drain or cancel. Specifies behavior of deletion during terraform destroy. *)
   parameters : (string * string) list option; [@option]
       (** Key/Value pairs to be passed to the Dataflow job (as used in the template). *)
+  project : string option; [@option]
+      (** The project in which the resource belongs. *)
   region : string option; [@option]
       (** The region in which the created job should run. *)
   service_account_email : string option; [@option]
@@ -53,16 +58,19 @@ type google_dataflow_job = {
 [@@deriving yojson_of]
 (** google_dataflow_job *)
 
-let google_dataflow_job ?enable_streaming_engine ?ip_configuration
-    ?kms_key_name ?labels ?machine_type ?max_workers ?network
-    ?on_delete ?parameters ?region ?service_account_email
+let google_dataflow_job ?additional_experiments
+    ?enable_streaming_engine ?id ?ip_configuration ?kms_key_name
+    ?labels ?machine_type ?max_workers ?network ?on_delete
+    ?parameters ?project ?region ?service_account_email
     ?skip_wait_on_job_termination ?subnetwork ?transform_name_mapping
     ?zone ?timeouts ~name ~temp_gcs_location ~template_gcs_path
     __resource_id =
   let __resource_type = "google_dataflow_job" in
   let __resource =
     {
+      additional_experiments;
       enable_streaming_engine;
+      id;
       ip_configuration;
       kms_key_name;
       labels;
@@ -72,6 +80,7 @@ let google_dataflow_job ?enable_streaming_engine ?ip_configuration
       network;
       on_delete;
       parameters;
+      project;
       region;
       service_account_email;
       skip_wait_on_job_termination;

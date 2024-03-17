@@ -13,18 +13,23 @@ type google_iap_tunnel_instance_iam_binding__condition = {
 (** google_iap_tunnel_instance_iam_binding__condition *)
 
 type google_iap_tunnel_instance_iam_binding = {
+  id : string option; [@option]  (** id *)
   instance : string;  (** instance *)
   members : string list;  (** members *)
+  project : string option; [@option]  (** project *)
   role : string;  (** role *)
+  zone : string option; [@option]  (** zone *)
   condition : google_iap_tunnel_instance_iam_binding__condition list;
 }
 [@@deriving yojson_of]
 (** google_iap_tunnel_instance_iam_binding *)
 
-let google_iap_tunnel_instance_iam_binding ~instance ~members ~role
-    ~condition __resource_id =
+let google_iap_tunnel_instance_iam_binding ?id ?project ?zone
+    ~instance ~members ~role ~condition __resource_id =
   let __resource_type = "google_iap_tunnel_instance_iam_binding" in
-  let __resource = { instance; members; role; condition } in
+  let __resource =
+    { id; instance; members; project; role; zone; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_tunnel_instance_iam_binding __resource);
   ()

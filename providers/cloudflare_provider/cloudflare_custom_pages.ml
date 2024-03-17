@@ -7,6 +7,7 @@ open! Tf.Prelude
 type cloudflare_custom_pages = {
   account_id : string option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
+  id : string option; [@option]  (** id *)
   state : string option; [@option]
       (** Managed state of the custom page. Available values: `default`, `customized`. *)
   type_ : string; [@key "type"]
@@ -19,10 +20,10 @@ type cloudflare_custom_pages = {
 [@@deriving yojson_of]
 (** Provides a resource which manages Cloudflare custom error pages. *)
 
-let cloudflare_custom_pages ?account_id ?state ?zone_id ~type_ ~url
-    __resource_id =
+let cloudflare_custom_pages ?account_id ?id ?state ?zone_id ~type_
+    ~url __resource_id =
   let __resource_type = "cloudflare_custom_pages" in
-  let __resource = { account_id; state; type_; url; zone_id } in
+  let __resource = { account_id; id; state; type_; url; zone_id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_custom_pages __resource);
   ()

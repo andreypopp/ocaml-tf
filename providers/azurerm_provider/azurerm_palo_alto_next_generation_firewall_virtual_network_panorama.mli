@@ -25,11 +25,11 @@ type azurerm_palo_alto_next_generation_firewall_virtual_network_panorama__panora
   template_name : string;  (** template_name *)
   virtual_machine_ssh_key : string;  (** virtual_machine_ssh_key *)
 }
-[@@deriving yojson_of]
 
 type azurerm_palo_alto_next_generation_firewall_virtual_network_panorama
 
 val azurerm_palo_alto_next_generation_firewall_virtual_network_panorama :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_palo_alto_next_generation_firewall_virtual_network_panorama__timeouts ->

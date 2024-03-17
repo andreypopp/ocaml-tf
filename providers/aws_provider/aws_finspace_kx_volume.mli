@@ -10,13 +10,14 @@ type aws_finspace_kx_volume__attached_clusters = {
   cluster_status : string;  (** cluster_status *)
   cluster_type : string;  (** cluster_type *)
 }
-[@@deriving yojson_of]
 
 type aws_finspace_kx_volume
 
 val aws_finspace_kx_volume :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_finspace_kx_volume__timeouts ->
   availability_zones:string list ->
   az_mode:string ->

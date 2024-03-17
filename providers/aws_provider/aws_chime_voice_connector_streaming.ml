@@ -15,6 +15,7 @@ type aws_chime_voice_connector_streaming__media_insights_configuration = {
 type aws_chime_voice_connector_streaming = {
   data_retention : float;  (** data_retention *)
   disabled : bool option; [@option]  (** disabled *)
+  id : string option; [@option]  (** id *)
   streaming_notification_targets : string list option; [@option]
       (** streaming_notification_targets *)
   voice_connector_id : string;  (** voice_connector_id *)
@@ -25,7 +26,7 @@ type aws_chime_voice_connector_streaming = {
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_streaming *)
 
-let aws_chime_voice_connector_streaming ?disabled
+let aws_chime_voice_connector_streaming ?disabled ?id
     ?streaming_notification_targets ~data_retention
     ~voice_connector_id ~media_insights_configuration __resource_id =
   let __resource_type = "aws_chime_voice_connector_streaming" in
@@ -33,6 +34,7 @@ let aws_chime_voice_connector_streaming ?disabled
     {
       data_retention;
       disabled;
+      id;
       streaming_notification_targets;
       voice_connector_id;
       media_insights_configuration;

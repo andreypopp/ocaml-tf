@@ -245,10 +245,13 @@ type aws_kinesis_analytics_application__reference_data_sources = {
 type aws_kinesis_analytics_application = {
   code : string option; [@option]  (** code *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   start_application : bool option; [@option]
       (** start_application *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   cloudwatch_logging_options :
     aws_kinesis_analytics_application__cloudwatch_logging_options
     list;
@@ -260,17 +263,20 @@ type aws_kinesis_analytics_application = {
 [@@deriving yojson_of]
 (** aws_kinesis_analytics_application *)
 
-let aws_kinesis_analytics_application ?code ?description
-    ?start_application ?tags ~name ~cloudwatch_logging_options
-    ~inputs ~outputs ~reference_data_sources __resource_id =
+let aws_kinesis_analytics_application ?code ?description ?id
+    ?start_application ?tags ?tags_all ~name
+    ~cloudwatch_logging_options ~inputs ~outputs
+    ~reference_data_sources __resource_id =
   let __resource_type = "aws_kinesis_analytics_application" in
   let __resource =
     {
       code;
       description;
+      id;
       name;
       start_application;
       tags;
+      tags_all;
       cloudwatch_logging_options;
       inputs;
       outputs;

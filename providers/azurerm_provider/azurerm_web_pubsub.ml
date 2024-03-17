@@ -37,6 +37,7 @@ type azurerm_web_pubsub__timeouts = {
 type azurerm_web_pubsub = {
   aad_auth_enabled : bool option; [@option]  (** aad_auth_enabled *)
   capacity : float option; [@option]  (** capacity *)
+  id : string option; [@option]  (** id *)
   local_auth_enabled : bool option; [@option]
       (** local_auth_enabled *)
   location : string;  (** location *)
@@ -55,7 +56,7 @@ type azurerm_web_pubsub = {
 [@@deriving yojson_of]
 (** azurerm_web_pubsub *)
 
-let azurerm_web_pubsub ?aad_auth_enabled ?capacity
+let azurerm_web_pubsub ?aad_auth_enabled ?capacity ?id
     ?local_auth_enabled ?public_network_access_enabled ?tags
     ?tls_client_cert_enabled ?timeouts ~location ~name
     ~resource_group_name ~sku ~identity ~live_trace __resource_id =
@@ -64,6 +65,7 @@ let azurerm_web_pubsub ?aad_auth_enabled ?capacity
     {
       aad_auth_enabled;
       capacity;
+      id;
       local_auth_enabled;
       location;
       name;

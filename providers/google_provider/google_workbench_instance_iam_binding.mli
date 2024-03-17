@@ -7,6 +7,9 @@ type google_workbench_instance_iam_binding__condition
 type google_workbench_instance_iam_binding
 
 val google_workbench_instance_iam_binding :
+    ?id:string ->
+    ?location:string ->
+    ?project:string ->
     members:string list ->
     name:string ->
     role:string ->

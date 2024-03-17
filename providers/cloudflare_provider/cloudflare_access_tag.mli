@@ -6,6 +6,8 @@ type cloudflare_access_tag
 
 val cloudflare_access_tag :
   ?account_id:string ->
+  ?app_count:float ->
+  ?id:string ->
   ?zone_id:string ->
   name:string ->
   string ->

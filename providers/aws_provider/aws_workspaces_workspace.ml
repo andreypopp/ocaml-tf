@@ -29,9 +29,12 @@ type aws_workspaces_workspace__workspace_properties = {
 type aws_workspaces_workspace = {
   bundle_id : string;  (** bundle_id *)
   directory_id : string;  (** directory_id *)
+  id : string option; [@option]  (** id *)
   root_volume_encryption_enabled : bool option; [@option]
       (** root_volume_encryption_enabled *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   user_name : string;  (** user_name *)
   user_volume_encryption_enabled : bool option; [@option]
       (** user_volume_encryption_enabled *)
@@ -44,17 +47,19 @@ type aws_workspaces_workspace = {
 [@@deriving yojson_of]
 (** aws_workspaces_workspace *)
 
-let aws_workspaces_workspace ?root_volume_encryption_enabled ?tags
-    ?user_volume_encryption_enabled ?volume_encryption_key ?timeouts
-    ~bundle_id ~directory_id ~user_name ~workspace_properties
-    __resource_id =
+let aws_workspaces_workspace ?id ?root_volume_encryption_enabled
+    ?tags ?tags_all ?user_volume_encryption_enabled
+    ?volume_encryption_key ?timeouts ~bundle_id ~directory_id
+    ~user_name ~workspace_properties __resource_id =
   let __resource_type = "aws_workspaces_workspace" in
   let __resource =
     {
       bundle_id;
       directory_id;
+      id;
       root_volume_encryption_enabled;
       tags;
+      tags_all;
       user_name;
       user_volume_encryption_enabled;
       volume_encryption_key;

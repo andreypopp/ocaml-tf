@@ -15,8 +15,12 @@ type aws_comprehend_entity_recognizer__vpc_config
 type aws_comprehend_entity_recognizer
 
 val aws_comprehend_entity_recognizer :
+  ?id:string ->
   ?model_kms_key_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?version_name:string ->
+  ?version_name_prefix:string ->
   ?volume_kms_key_id:string ->
   ?timeouts:aws_comprehend_entity_recognizer__timeouts ->
   data_access_role_arn:string ->

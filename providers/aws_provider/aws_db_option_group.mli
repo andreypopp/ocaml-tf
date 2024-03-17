@@ -8,8 +8,12 @@ type aws_db_option_group__timeouts
 type aws_db_option_group
 
 val aws_db_option_group :
+  ?id:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?option_group_description:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_db_option_group__timeouts ->
   engine_name:string ->
   major_engine_version:string ->

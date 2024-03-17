@@ -81,6 +81,8 @@ up to a maximum of 64000 GB (64 TB). The minimum recommended value is 100 GB.
 If not specified, this defaults to 100. *)
   boot_disk_type : string option; [@option]
       (** Possible disk types for notebook instances. Possible values: [DISK_TYPE_UNSPECIFIED, PD_STANDARD, PD_SSD, PD_BALANCED, PD_EXTREME] *)
+  create_time : string option; [@option]
+      (** Instance creation time *)
   custom_gpu_driver_path : string option; [@option]
       (** Specify a custom Cloud Storage path where the GPU driver is stored.
 If not specified, we'll automatically choose from official GPU drivers. *)
@@ -93,6 +95,9 @@ If not specified, this defaults to 100. *)
       (** Possible disk types for notebook instances. Possible values: [DISK_TYPE_UNSPECIFIED, PD_STANDARD, PD_SSD, PD_BALANCED, PD_EXTREME] *)
   desired_state : string option; [@option]
       (** Desired state of the Notebook Instance. Set this field to 'ACTIVE' to start the Instance, and 'STOPPED' to stop the Instance. *)
+  disk_encryption : string option; [@option]
+      (** Disk encryption method used on the boot and data disks, defaults to GMEK. Possible values: [DISK_ENCRYPTION_UNSPECIFIED, GMEK, CMEK] *)
+  id : string option; [@option]  (** id *)
   install_gpu_driver : bool option; [@option]
       (** Whether the end user authorizes Google Cloud to install GPU driver
 on this instance. If this field is empty or set to false, the GPU driver
@@ -122,6 +127,9 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   name : string;
       (** The name specified for the Notebook instance. *)
+  network : string option; [@option]
+      (** The name of the VPC that this instance is in.
+Format: projects/{project_id}/global/networks/{network_id} *)
   nic_type : string option; [@option]
       (** The type of vNIC driver. Possible values: [UNSPECIFIED_NIC_TYPE, VIRTIO_NET, GVNIC] *)
   no_proxy_access : bool option; [@option]
@@ -134,6 +142,25 @@ An object containing a list of key: value pairs. Example: { name: wrench, mass: 
       (** Path to a Bash script that automatically runs after a
 notebook instance fully boots up. The path must be a URL
 or Cloud Storage path (gs://path-to-file/file-name). *)
+  project : string option; [@option]  (** project *)
+  service_account : string option; [@option]
+      (** The service account on this instance, giving access to other
+Google Cloud services. You can use any service account within
+the same project, but you must have the service account user
+permission to use the instance. If not specified,
+the Compute Engine default service account is used. *)
+  service_account_scopes : string list option; [@option]
+      (** Optional. The URIs of service account scopes to be included in Compute Engine instances.
+If not specified, the following scopes are defined:
+- https://www.googleapis.com/auth/cloud-platform
+- https://www.googleapis.com/auth/userinfo.email *)
+  subnet : string option; [@option]
+      (** The name of the subnet that this instance is in.
+Format: projects/{project_id}/regions/{region}/subnetworks/{subnetwork_id} *)
+  tags : string list option; [@option]
+      (** The Compute Engine tags to add to instance. *)
+  update_time : string option; [@option]
+      (** Instance update time. *)
   accelerator_config :
     google_notebooks_instance__accelerator_config list;
   container_image : google_notebooks_instance__container_image list;
@@ -148,22 +175,27 @@ or Cloud Storage path (gs://path-to-file/file-name). *)
 (** google_notebooks_instance *)
 
 let google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
-    ?custom_gpu_driver_path ?data_disk_size_gb ?data_disk_type
-    ?desired_state ?install_gpu_driver ?instance_owners ?kms_key
-    ?labels ?metadata ?nic_type ?no_proxy_access ?no_public_ip
-    ?no_remove_data_disk ?post_startup_script ?timeouts ~location
-    ~machine_type ~name ~accelerator_config ~container_image
-    ~reservation_affinity ~shielded_instance_config ~vm_image
-    __resource_id =
+    ?create_time ?custom_gpu_driver_path ?data_disk_size_gb
+    ?data_disk_type ?desired_state ?disk_encryption ?id
+    ?install_gpu_driver ?instance_owners ?kms_key ?labels ?metadata
+    ?network ?nic_type ?no_proxy_access ?no_public_ip
+    ?no_remove_data_disk ?post_startup_script ?project
+    ?service_account ?service_account_scopes ?subnet ?tags
+    ?update_time ?timeouts ~location ~machine_type ~name
+    ~accelerator_config ~container_image ~reservation_affinity
+    ~shielded_instance_config ~vm_image __resource_id =
   let __resource_type = "google_notebooks_instance" in
   let __resource =
     {
       boot_disk_size_gb;
       boot_disk_type;
+      create_time;
       custom_gpu_driver_path;
       data_disk_size_gb;
       data_disk_type;
       desired_state;
+      disk_encryption;
+      id;
       install_gpu_driver;
       instance_owners;
       kms_key;
@@ -172,11 +204,18 @@ let google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
       machine_type;
       metadata;
       name;
+      network;
       nic_type;
       no_proxy_access;
       no_public_ip;
       no_remove_data_disk;
       post_startup_script;
+      project;
+      service_account;
+      service_account_scopes;
+      subnet;
+      tags;
+      update_time;
       accelerator_config;
       container_image;
       reservation_affinity;

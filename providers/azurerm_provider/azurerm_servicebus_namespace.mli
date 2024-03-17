@@ -11,7 +11,9 @@ type azurerm_servicebus_namespace
 
 val azurerm_servicebus_namespace :
   ?capacity:float ->
+  ?id:string ->
   ?local_auth_enabled:bool ->
+  ?minimum_tls_version:string ->
   ?premium_messaging_partitions:float ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->

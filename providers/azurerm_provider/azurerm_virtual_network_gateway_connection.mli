@@ -13,15 +13,21 @@ type azurerm_virtual_network_gateway_connection
 val azurerm_virtual_network_gateway_connection :
   ?authorization_key:string ->
   ?connection_mode:string ->
+  ?connection_protocol:string ->
   ?dpd_timeout_seconds:float ->
   ?egress_nat_rule_ids:string list ->
+  ?enable_bgp:bool ->
   ?express_route_circuit_id:string ->
+  ?express_route_gateway_bypass:bool ->
+  ?id:string ->
   ?ingress_nat_rule_ids:string list ->
   ?local_azure_ip_address_enabled:bool ->
   ?local_network_gateway_id:string ->
   ?peer_virtual_network_gateway_id:string ->
+  ?routing_weight:float ->
   ?shared_key:string ->
   ?tags:(string * string) list ->
+  ?use_policy_based_traffic_selectors:bool ->
   ?timeouts:azurerm_virtual_network_gateway_connection__timeouts ->
   location:string ->
   name:string ->

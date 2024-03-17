@@ -14,6 +14,7 @@ type aws_volume_attachment__timeouts = {
 type aws_volume_attachment = {
   device_name : string;  (** device_name *)
   force_detach : bool option; [@option]  (** force_detach *)
+  id : string option; [@option]  (** id *)
   instance_id : string;  (** instance_id *)
   skip_destroy : bool option; [@option]  (** skip_destroy *)
   stop_instance_before_detaching : bool option; [@option]
@@ -24,7 +25,7 @@ type aws_volume_attachment = {
 [@@deriving yojson_of]
 (** aws_volume_attachment *)
 
-let aws_volume_attachment ?force_detach ?skip_destroy
+let aws_volume_attachment ?force_detach ?id ?skip_destroy
     ?stop_instance_before_detaching ?timeouts ~device_name
     ~instance_id ~volume_id __resource_id =
   let __resource_type = "aws_volume_attachment" in
@@ -32,6 +33,7 @@ let aws_volume_attachment ?force_detach ?skip_destroy
     {
       device_name;
       force_detach;
+      id;
       instance_id;
       skip_destroy;
       stop_instance_before_detaching;

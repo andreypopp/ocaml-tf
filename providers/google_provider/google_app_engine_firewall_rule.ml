@@ -17,6 +17,7 @@ type google_app_engine_firewall_rule = {
       (** The action to take if this rule matches. Possible values: [UNSPECIFIED_ACTION, ALLOW, DENY] *)
   description : string option; [@option]
       (** An optional string description of this rule. *)
+  id : string option; [@option]  (** id *)
   priority : float option; [@option]
       (** A positive integer that defines the order of rule evaluation.
 Rules with the lowest priority are evaluated first.
@@ -24,6 +25,7 @@ Rules with the lowest priority are evaluated first.
 A default rule at priority Int32.MaxValue matches all IPv4 and
 IPv6 traffic when no previous rule matches. Only the action of
 this rule can be modified by the user. *)
+  project : string option; [@option]  (** project *)
   source_range : string;
       (** IP address or range, defined using CIDR notation, of requests that this rule applies to. *)
   timeouts : google_app_engine_firewall_rule__timeouts option;
@@ -31,11 +33,19 @@ this rule can be modified by the user. *)
 [@@deriving yojson_of]
 (** google_app_engine_firewall_rule *)
 
-let google_app_engine_firewall_rule ?description ?priority ?timeouts
-    ~action ~source_range __resource_id =
+let google_app_engine_firewall_rule ?description ?id ?priority
+    ?project ?timeouts ~action ~source_range __resource_id =
   let __resource_type = "google_app_engine_firewall_rule" in
   let __resource =
-    { action; description; priority; source_range; timeouts }
+    {
+      action;
+      description;
+      id;
+      priority;
+      project;
+      source_range;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_firewall_rule __resource);

@@ -7,7 +7,9 @@ type aws_route53recoveryreadiness_cell
 
 val aws_route53recoveryreadiness_cell :
   ?cells:string list ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_route53recoveryreadiness_cell__timeouts ->
   cell_name:string ->
   string ->

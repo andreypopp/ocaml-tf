@@ -63,14 +63,19 @@ type aws_imagebuilder_container_recipe__target_repository = {
 type aws_imagebuilder_container_recipe = {
   container_type : string;  (** container_type *)
   description : string option; [@option]  (** description *)
+  dockerfile_template_data : string option; [@option]
+      (** dockerfile_template_data *)
   dockerfile_template_uri : string option; [@option]
       (** dockerfile_template_uri *)
+  id : string option; [@option]  (** id *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
   name : string;  (** name *)
   parent_image : string;  (** parent_image *)
   platform_override : string option; [@option]
       (** platform_override *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   version : string;  (** version *)
   working_directory : string option; [@option]
       (** working_directory *)
@@ -84,21 +89,24 @@ type aws_imagebuilder_container_recipe = {
 (** aws_imagebuilder_container_recipe *)
 
 let aws_imagebuilder_container_recipe ?description
-    ?dockerfile_template_uri ?kms_key_id ?platform_override ?tags
-    ?working_directory ~container_type ~name ~parent_image ~version
-    ~component ~instance_configuration ~target_repository
-    __resource_id =
+    ?dockerfile_template_data ?dockerfile_template_uri ?id
+    ?kms_key_id ?platform_override ?tags ?tags_all ?working_directory
+    ~container_type ~name ~parent_image ~version ~component
+    ~instance_configuration ~target_repository __resource_id =
   let __resource_type = "aws_imagebuilder_container_recipe" in
   let __resource =
     {
       container_type;
       description;
+      dockerfile_template_data;
       dockerfile_template_uri;
+      id;
       kms_key_id;
       name;
       parent_image;
       platform_override;
       tags;
+      tags_all;
       version;
       working_directory;
       component;

@@ -137,6 +137,7 @@ Volumes may have nested snapshot resources. Deleting such a volume will fail.
 Setting this parameter to FORCE will delete volumes including nested snapshots. *)
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   kerberos_enabled : bool option; [@option]
       (** Flag indicating if the volume is a kerberos volume or not, export policy rules control kerberos security modes (krb5, krb5i, krb5p). *)
   labels : (string * string) list option; [@option]
@@ -149,10 +150,14 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Name of the pool location. Usually a region name, expect for some STANDARD service level pools which require a zone name. *)
   name : string;
       (** The name of the volume. Needs to be unique per location. *)
+  project : string option; [@option]  (** project *)
   protocols : string list;
       (** The protocol of the volume. Allowed combinations are '['NFSV3']', '['NFSV4']', '['SMB']', '['NFSV3', 'NFSV4']', '['SMB', 'NFSV3']' and '['SMB', 'NFSV4']'. Possible values: [NFSV3, NFSV4, SMB] *)
   restricted_actions : string list option; [@option]
       (** List of actions that are restricted on this volume. Possible values: [DELETE] *)
+  security_style : string option; [@option]
+      (** Security Style of the Volume. Use UNIX to use UNIX or NFSV4 ACLs for file permissions.
+Use NTFS to use NTFS ACLs for file permissions. Can only be set for volumes which use SMB together with NFS as protocol. Possible values: [NTFS, UNIX] *)
   share_name : string;
       (** Share name (SMB) or export path (NFS) of the volume. Needs to be unique per location. *)
   smb_settings : string list option; [@option]
@@ -161,6 +166,8 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** If enabled, a NFS volume will contain a read-only .snapshot directory which provides access to each of the volume's snapshots. Will enable Previous Versions support for SMB. *)
   storage_pool : string;
       (** Name of the storage pool to create the volume in. Pool needs enough spare capacity to accomodate the volume. *)
+  unix_permissions : string option; [@option]
+      (** Unix permission the mount point will be created with. Default is 0770. Applicable for UNIX security style volumes only. *)
   export_policy : google_netapp_volume__export_policy list;
   restore_parameters : google_netapp_volume__restore_parameters list;
   snapshot_policy : google_netapp_volume__snapshot_policy list;
@@ -169,9 +176,10 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_netapp_volume *)
 
-let google_netapp_volume ?deletion_policy ?description
-    ?kerberos_enabled ?labels ?restricted_actions ?smb_settings
-    ?snapshot_directory ?timeouts ~capacity_gib ~location ~name
+let google_netapp_volume ?deletion_policy ?description ?id
+    ?kerberos_enabled ?labels ?project ?restricted_actions
+    ?security_style ?smb_settings ?snapshot_directory
+    ?unix_permissions ?timeouts ~capacity_gib ~location ~name
     ~protocols ~share_name ~storage_pool ~export_policy
     ~restore_parameters ~snapshot_policy __resource_id =
   let __resource_type = "google_netapp_volume" in
@@ -180,16 +188,20 @@ let google_netapp_volume ?deletion_policy ?description
       capacity_gib;
       deletion_policy;
       description;
+      id;
       kerberos_enabled;
       labels;
       location;
       name;
+      project;
       protocols;
       restricted_actions;
+      security_style;
       share_name;
       smb_settings;
       snapshot_directory;
       storage_pool;
+      unix_permissions;
       export_policy;
       restore_parameters;
       snapshot_policy;

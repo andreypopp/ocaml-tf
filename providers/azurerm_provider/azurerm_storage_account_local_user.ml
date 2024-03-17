@@ -42,6 +42,7 @@ type azurerm_storage_account_local_user__timeouts = {
 
 type azurerm_storage_account_local_user = {
   home_directory : string option; [@option]  (** home_directory *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   ssh_key_enabled : bool option; [@option]  (** ssh_key_enabled *)
   ssh_password_enabled : bool option; [@option]
@@ -56,7 +57,7 @@ type azurerm_storage_account_local_user = {
 [@@deriving yojson_of]
 (** azurerm_storage_account_local_user *)
 
-let azurerm_storage_account_local_user ?home_directory
+let azurerm_storage_account_local_user ?home_directory ?id
     ?ssh_key_enabled ?ssh_password_enabled ?timeouts ~name
     ~storage_account_id ~permission_scope ~ssh_authorized_key
     __resource_id =
@@ -64,6 +65,7 @@ let azurerm_storage_account_local_user ?home_directory
   let __resource =
     {
       home_directory;
+      id;
       name;
       ssh_key_enabled;
       ssh_password_enabled;

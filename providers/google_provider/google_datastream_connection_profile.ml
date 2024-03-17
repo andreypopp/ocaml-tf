@@ -105,6 +105,7 @@ type google_datastream_connection_profile = {
   connection_profile_id : string;
       (** The connection profile identifier. *)
   display_name : string;  (** Display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels.
 
@@ -112,6 +113,7 @@ type google_datastream_connection_profile = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;
       (** The name of the location this connection profile is located in. *)
+  project : string option; [@option]  (** project *)
   bigquery_profile :
     google_datastream_connection_profile__bigquery_profile list;
   forward_ssh_connectivity :
@@ -132,18 +134,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_datastream_connection_profile *)
 
-let google_datastream_connection_profile ?labels ?timeouts
-    ~connection_profile_id ~display_name ~location ~bigquery_profile
-    ~forward_ssh_connectivity ~gcs_profile ~mysql_profile
-    ~oracle_profile ~postgresql_profile ~private_connectivity
-    __resource_id =
+let google_datastream_connection_profile ?id ?labels ?project
+    ?timeouts ~connection_profile_id ~display_name ~location
+    ~bigquery_profile ~forward_ssh_connectivity ~gcs_profile
+    ~mysql_profile ~oracle_profile ~postgresql_profile
+    ~private_connectivity __resource_id =
   let __resource_type = "google_datastream_connection_profile" in
   let __resource =
     {
       connection_profile_id;
       display_name;
+      id;
       labels;
       location;
+      project;
       bigquery_profile;
       forward_ssh_connectivity;
       gcs_profile;

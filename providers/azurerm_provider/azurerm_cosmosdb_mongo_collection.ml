@@ -39,9 +39,11 @@ type azurerm_cosmosdb_mongo_collection = {
   database_name : string;  (** database_name *)
   default_ttl_seconds : float option; [@option]
       (** default_ttl_seconds *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   shard_key : string option; [@option]  (** shard_key *)
+  throughput : float option; [@option]  (** throughput *)
   autoscale_settings :
     azurerm_cosmosdb_mongo_collection__autoscale_settings list;
   index : azurerm_cosmosdb_mongo_collection__index list;
@@ -51,9 +53,9 @@ type azurerm_cosmosdb_mongo_collection = {
 (** azurerm_cosmosdb_mongo_collection *)
 
 let azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
-    ?default_ttl_seconds ?shard_key ?timeouts ~account_name
-    ~database_name ~name ~resource_group_name ~autoscale_settings
-    ~index __resource_id =
+    ?default_ttl_seconds ?id ?shard_key ?throughput ?timeouts
+    ~account_name ~database_name ~name ~resource_group_name
+    ~autoscale_settings ~index __resource_id =
   let __resource_type = "azurerm_cosmosdb_mongo_collection" in
   let __resource =
     {
@@ -61,9 +63,11 @@ let azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
       analytical_storage_ttl;
       database_name;
       default_ttl_seconds;
+      id;
       name;
       resource_group_name;
       shard_key;
+      throughput;
       autoscale_settings;
       index;
       timeouts;

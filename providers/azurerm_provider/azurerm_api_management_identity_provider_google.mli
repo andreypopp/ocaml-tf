@@ -6,6 +6,7 @@ type azurerm_api_management_identity_provider_google__timeouts
 type azurerm_api_management_identity_provider_google
 
 val azurerm_api_management_identity_provider_google :
+  ?id:string ->
   ?timeouts:azurerm_api_management_identity_provider_google__timeouts ->
   api_management_name:string ->
   client_id:string ->

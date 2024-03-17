@@ -70,8 +70,11 @@ type aws_sagemaker_flow_definition__output_config = {
 
 type aws_sagemaker_flow_definition = {
   flow_definition_name : string;  (** flow_definition_name *)
+  id : string option; [@option]  (** id *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   human_loop_activation_config :
     aws_sagemaker_flow_definition__human_loop_activation_config list;
   human_loop_config :
@@ -83,15 +86,18 @@ type aws_sagemaker_flow_definition = {
 [@@deriving yojson_of]
 (** aws_sagemaker_flow_definition *)
 
-let aws_sagemaker_flow_definition ?tags ~flow_definition_name
-    ~role_arn ~human_loop_activation_config ~human_loop_config
-    ~human_loop_request_source ~output_config __resource_id =
+let aws_sagemaker_flow_definition ?id ?tags ?tags_all
+    ~flow_definition_name ~role_arn ~human_loop_activation_config
+    ~human_loop_config ~human_loop_request_source ~output_config
+    __resource_id =
   let __resource_type = "aws_sagemaker_flow_definition" in
   let __resource =
     {
       flow_definition_name;
+      id;
       role_arn;
       tags;
+      tags_all;
       human_loop_activation_config;
       human_loop_config;
       human_loop_request_source;

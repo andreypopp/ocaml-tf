@@ -40,7 +40,10 @@ type aws_msk_serverless_cluster__vpc_config = {
 
 type aws_msk_serverless_cluster = {
   cluster_name : string;  (** cluster_name *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   client_authentication :
     aws_msk_serverless_cluster__client_authentication list;
   timeouts : aws_msk_serverless_cluster__timeouts option;
@@ -49,13 +52,15 @@ type aws_msk_serverless_cluster = {
 [@@deriving yojson_of]
 (** aws_msk_serverless_cluster *)
 
-let aws_msk_serverless_cluster ?tags ?timeouts ~cluster_name
-    ~client_authentication ~vpc_config __resource_id =
+let aws_msk_serverless_cluster ?id ?tags ?tags_all ?timeouts
+    ~cluster_name ~client_authentication ~vpc_config __resource_id =
   let __resource_type = "aws_msk_serverless_cluster" in
   let __resource =
     {
       cluster_name;
+      id;
       tags;
+      tags_all;
       client_authentication;
       timeouts;
       vpc_config;

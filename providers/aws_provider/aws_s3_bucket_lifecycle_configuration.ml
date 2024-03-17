@@ -109,17 +109,18 @@ type aws_s3_bucket_lifecycle_configuration = {
   bucket : string;  (** bucket *)
   expected_bucket_owner : string option; [@option]
       (** expected_bucket_owner *)
+  id : string option; [@option]  (** id *)
   rule : aws_s3_bucket_lifecycle_configuration__rule list;
   timeouts : aws_s3_bucket_lifecycle_configuration__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_lifecycle_configuration *)
 
-let aws_s3_bucket_lifecycle_configuration ?expected_bucket_owner
+let aws_s3_bucket_lifecycle_configuration ?expected_bucket_owner ?id
     ?timeouts ~bucket ~rule __resource_id =
   let __resource_type = "aws_s3_bucket_lifecycle_configuration" in
   let __resource =
-    { bucket; expected_bucket_owner; rule; timeouts }
+    { bucket; expected_bucket_owner; id; rule; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_lifecycle_configuration __resource);

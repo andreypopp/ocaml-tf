@@ -6,6 +6,7 @@ type azurerm_private_dns_resolver_virtual_network_link__timeouts
 type azurerm_private_dns_resolver_virtual_network_link
 
 val azurerm_private_dns_resolver_virtual_network_link :
+  ?id:string ->
   ?metadata:(string * string) list ->
   ?timeouts:
     azurerm_private_dns_resolver_virtual_network_link__timeouts ->

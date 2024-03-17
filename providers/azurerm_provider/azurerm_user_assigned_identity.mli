@@ -6,6 +6,7 @@ type azurerm_user_assigned_identity__timeouts
 type azurerm_user_assigned_identity
 
 val azurerm_user_assigned_identity :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_user_assigned_identity__timeouts ->
   location:string ->

@@ -35,11 +35,15 @@ type azurerm_network_interface__timeouts = {
 type azurerm_network_interface = {
   auxiliary_mode : string option; [@option]  (** auxiliary_mode *)
   auxiliary_sku : string option; [@option]  (** auxiliary_sku *)
+  dns_servers : string list option; [@option]  (** dns_servers *)
   edge_zone : string option; [@option]  (** edge_zone *)
   enable_accelerated_networking : bool option; [@option]
       (** enable_accelerated_networking *)
   enable_ip_forwarding : bool option; [@option]
       (** enable_ip_forwarding *)
+  id : string option; [@option]  (** id *)
+  internal_dns_name_label : string option; [@option]
+      (** internal_dns_name_label *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -52,17 +56,21 @@ type azurerm_network_interface = {
 (** azurerm_network_interface *)
 
 let azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
-    ?edge_zone ?enable_accelerated_networking ?enable_ip_forwarding
-    ?tags ?timeouts ~location ~name ~resource_group_name
-    ~ip_configuration __resource_id =
+    ?dns_servers ?edge_zone ?enable_accelerated_networking
+    ?enable_ip_forwarding ?id ?internal_dns_name_label ?tags
+    ?timeouts ~location ~name ~resource_group_name ~ip_configuration
+    __resource_id =
   let __resource_type = "azurerm_network_interface" in
   let __resource =
     {
       auxiliary_mode;
       auxiliary_sku;
+      dns_servers;
       edge_zone;
       enable_accelerated_networking;
       enable_ip_forwarding;
+      id;
+      internal_dns_name_label;
       location;
       name;
       resource_group_name;

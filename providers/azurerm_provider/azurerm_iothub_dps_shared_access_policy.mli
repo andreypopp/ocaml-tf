@@ -8,6 +8,7 @@ type azurerm_iothub_dps_shared_access_policy
 val azurerm_iothub_dps_shared_access_policy :
   ?enrollment_read:bool ->
   ?enrollment_write:bool ->
+  ?id:string ->
   ?registration_read:bool ->
   ?registration_write:bool ->
   ?service_config:bool ->

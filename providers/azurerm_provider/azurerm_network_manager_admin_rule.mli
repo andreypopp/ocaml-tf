@@ -10,6 +10,7 @@ type azurerm_network_manager_admin_rule
 val azurerm_network_manager_admin_rule :
   ?description:string ->
   ?destination_port_ranges:string list ->
+  ?id:string ->
   ?source_port_ranges:string list ->
   ?timeouts:azurerm_network_manager_admin_rule__timeouts ->
   action:string ->

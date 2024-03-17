@@ -370,27 +370,32 @@ type aws_sagemaker_user_profile__user_settings = {
 
 type aws_sagemaker_user_profile = {
   domain_id : string;  (** domain_id *)
+  id : string option; [@option]  (** id *)
   single_sign_on_user_identifier : string option; [@option]
       (** single_sign_on_user_identifier *)
   single_sign_on_user_value : string option; [@option]
       (** single_sign_on_user_value *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   user_profile_name : string;  (** user_profile_name *)
   user_settings : aws_sagemaker_user_profile__user_settings list;
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_user_profile *)
 
-let aws_sagemaker_user_profile ?single_sign_on_user_identifier
-    ?single_sign_on_user_value ?tags ~domain_id ~user_profile_name
-    ~user_settings __resource_id =
+let aws_sagemaker_user_profile ?id ?single_sign_on_user_identifier
+    ?single_sign_on_user_value ?tags ?tags_all ~domain_id
+    ~user_profile_name ~user_settings __resource_id =
   let __resource_type = "aws_sagemaker_user_profile" in
   let __resource =
     {
       domain_id;
+      id;
       single_sign_on_user_identifier;
       single_sign_on_user_value;
       tags;
+      tags_all;
       user_profile_name;
       user_settings;
     }

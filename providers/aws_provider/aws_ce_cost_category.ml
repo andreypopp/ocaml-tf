@@ -173,24 +173,32 @@ type aws_ce_cost_category__split_charge_rule = {
 
 type aws_ce_cost_category = {
   default_value : string option; [@option]  (** default_value *)
+  effective_start : string option; [@option]  (** effective_start *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   rule_version : string;  (** rule_version *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   rule : aws_ce_cost_category__rule list;
   split_charge_rule : aws_ce_cost_category__split_charge_rule list;
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category *)
 
-let aws_ce_cost_category ?default_value ?tags ~name ~rule_version
-    ~rule ~split_charge_rule __resource_id =
+let aws_ce_cost_category ?default_value ?effective_start ?id ?tags
+    ?tags_all ~name ~rule_version ~rule ~split_charge_rule
+    __resource_id =
   let __resource_type = "aws_ce_cost_category" in
   let __resource =
     {
       default_value;
+      effective_start;
+      id;
       name;
       rule_version;
       tags;
+      tags_all;
       rule;
       split_charge_rule;
     }

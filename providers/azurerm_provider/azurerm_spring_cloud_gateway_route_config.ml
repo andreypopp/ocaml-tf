@@ -37,6 +37,7 @@ type azurerm_spring_cloud_gateway_route_config__timeouts = {
 
 type azurerm_spring_cloud_gateway_route_config = {
   filters : string list option; [@option]  (** filters *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   predicates : string list option; [@option]  (** predicates *)
   protocol : string option; [@option]  (** protocol *)
@@ -54,15 +55,17 @@ type azurerm_spring_cloud_gateway_route_config = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway_route_config *)
 
-let azurerm_spring_cloud_gateway_route_config ?filters ?predicates
-    ?protocol ?spring_cloud_app_id ?sso_validation_enabled ?timeouts
-    ~name ~spring_cloud_gateway_id ~open_api ~route __resource_id =
+let azurerm_spring_cloud_gateway_route_config ?filters ?id
+    ?predicates ?protocol ?spring_cloud_app_id
+    ?sso_validation_enabled ?timeouts ~name ~spring_cloud_gateway_id
+    ~open_api ~route __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_gateway_route_config"
   in
   let __resource =
     {
       filters;
+      id;
       name;
       predicates;
       protocol;

@@ -10,7 +10,6 @@ type aws_fsx_file_cache__lustre_configuration__log_configuration = {
   destination : string;  (** destination *)
   level : string;  (** level *)
 }
-[@@deriving yojson_of]
 
 type aws_fsx_file_cache__lustre_configuration
 type aws_fsx_file_cache__timeouts
@@ -18,8 +17,11 @@ type aws_fsx_file_cache
 
 val aws_fsx_file_cache :
   ?copy_tags_to_data_repository_associations:bool ->
+  ?id:string ->
+  ?kms_key_id:string ->
   ?security_group_ids:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_fsx_file_cache__timeouts ->
   file_cache_type:string ->
   file_cache_type_version:string ->

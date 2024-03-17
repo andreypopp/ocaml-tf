@@ -7,6 +7,7 @@ open! Tf.Prelude
 type digitalocean_database_connection_pool = {
   cluster_id : string;  (** cluster_id *)
   db_name : string;  (** db_name *)
+  id : string option; [@option]  (** id *)
   mode : string;  (** mode *)
   name : string;  (** name *)
   size : float;  (** size *)
@@ -15,10 +16,12 @@ type digitalocean_database_connection_pool = {
 [@@deriving yojson_of]
 (** digitalocean_database_connection_pool *)
 
-let digitalocean_database_connection_pool ?user ~cluster_id ~db_name
-    ~mode ~name ~size __resource_id =
+let digitalocean_database_connection_pool ?id ?user ~cluster_id
+    ~db_name ~mode ~name ~size __resource_id =
   let __resource_type = "digitalocean_database_connection_pool" in
-  let __resource = { cluster_id; db_name; mode; name; size; user } in
+  let __resource =
+    { cluster_id; db_name; id; mode; name; size; user }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_connection_pool __resource);
   ()

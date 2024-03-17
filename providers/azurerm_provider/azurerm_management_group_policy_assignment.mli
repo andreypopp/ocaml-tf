@@ -19,7 +19,9 @@ val azurerm_management_group_policy_assignment :
   ?description:string ->
   ?display_name:string ->
   ?enforce:bool ->
+  ?id:string ->
   ?location:string ->
+  ?metadata:string ->
   ?not_scopes:string list ->
   ?parameters:string ->
   ?timeouts:azurerm_management_group_policy_assignment__timeouts ->

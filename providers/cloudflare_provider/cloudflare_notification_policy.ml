@@ -96,6 +96,7 @@ type cloudflare_notification_policy = {
   description : string option; [@option]
       (** Description of the notification policy. *)
   enabled : bool;  (** The status of the notification policy. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the notification policy. *)
   email_integration :
     cloudflare_notification_policy__email_integration list;
@@ -111,7 +112,7 @@ Cloudflare's products. The delivery mechanisms supported are email,
 webhooks, and PagerDuty.
  *)
 
-let cloudflare_notification_policy ?description ~account_id
+let cloudflare_notification_policy ?description ?id ~account_id
     ~alert_type ~enabled ~name ~email_integration ~filters
     ~pagerduty_integration ~webhooks_integration __resource_id =
   let __resource_type = "cloudflare_notification_policy" in
@@ -121,6 +122,7 @@ let cloudflare_notification_policy ?description ~account_id
       alert_type;
       description;
       enabled;
+      id;
       name;
       email_integration;
       filters;

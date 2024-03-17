@@ -24,6 +24,7 @@ type azurerm_media_content_key_policy
 
 val azurerm_media_content_key_policy :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_media_content_key_policy__timeouts ->
   media_services_account_name:string ->
   name:string ->

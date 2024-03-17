@@ -9,7 +9,10 @@ type azurerm_recovery_services_vault__timeouts
 type azurerm_recovery_services_vault
 
 val azurerm_recovery_services_vault :
+  ?classic_vmware_replication_enabled:bool ->
   ?cross_region_restore_enabled:bool ->
+  ?id:string ->
+  ?immutability:string ->
   ?public_network_access_enabled:bool ->
   ?soft_delete_enabled:bool ->
   ?storage_mode_type:string ->

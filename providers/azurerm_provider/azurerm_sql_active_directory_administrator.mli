@@ -6,6 +6,8 @@ type azurerm_sql_active_directory_administrator__timeouts
 type azurerm_sql_active_directory_administrator
 
 val azurerm_sql_active_directory_administrator :
+  ?azuread_authentication_only:bool ->
+  ?id:string ->
   ?timeouts:azurerm_sql_active_directory_administrator__timeouts ->
   login:string ->
   object_id:string ->

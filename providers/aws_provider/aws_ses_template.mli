@@ -6,6 +6,7 @@ type aws_ses_template
 
 val aws_ses_template :
   ?html:string ->
+  ?id:string ->
   ?subject:string ->
   ?text:string ->
   name:string ->

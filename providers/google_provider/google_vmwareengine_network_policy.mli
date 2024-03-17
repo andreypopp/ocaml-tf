@@ -9,6 +9,8 @@ type google_vmwareengine_network_policy
 
 val google_vmwareengine_network_policy :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_vmwareengine_network_policy__timeouts ->
   edge_services_cidr:string ->
   location:string ->

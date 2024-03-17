@@ -6,6 +6,7 @@ type azurerm_federated_identity_credential__timeouts
 type azurerm_federated_identity_credential
 
 val azurerm_federated_identity_credential :
+  ?id:string ->
   ?timeouts:azurerm_federated_identity_credential__timeouts ->
   audience:string list ->
   issuer:string ->

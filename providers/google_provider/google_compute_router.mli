@@ -10,6 +10,9 @@ type google_compute_router
 val google_compute_router :
   ?description:string ->
   ?encrypted_interconnect_router:bool ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:google_compute_router__timeouts ->
   name:string ->
   network:string ->

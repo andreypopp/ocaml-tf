@@ -298,6 +298,7 @@ such as the CA certificate and CRLs. This must be a bucket name, without any pre
 (such as 'gs://') or suffixes (such as '.googleapis.com'). For example, to use a bucket named
 my-bucket, you would simply specify 'my-bucket'. If not specified, a managed bucket will be
 created. *)
+  id : string option; [@option]  (** id *)
   ignore_active_certificates_on_deletion : bool option; [@option]
       (** This field allows the CA to be deleted even if the CA has active certs. Active certs include both unrevoked and unexpired certs.
 Use with care. Defaults to 'false'. *)
@@ -321,6 +322,7 @@ running 'gcloud privateca locations list'. *)
       (** The signed CA certificate issued from the subordinated CA's CSR. This is needed when activating the subordiante CA with a third party issuer. *)
   pool : string;
       (** The name of the CaPool this Certificate Authority belongs to. *)
+  project : string option; [@option]  (** project *)
   skip_grace_period : bool option; [@option]
       (** If this flag is set, the Certificate Authority will be deleted as soon as
 possible without a 30-day grace period where undeletion would have been
@@ -341,9 +343,9 @@ be activated before they can issue certificates. Default value: SELF_SIGNED Poss
 (** google_privateca_certificate_authority *)
 
 let google_privateca_certificate_authority ?deletion_protection
-    ?desired_state ?gcs_bucket
+    ?desired_state ?gcs_bucket ?id
     ?ignore_active_certificates_on_deletion ?labels ?lifetime
-    ?pem_ca_certificate ?skip_grace_period ?type_ ?timeouts
+    ?pem_ca_certificate ?project ?skip_grace_period ?type_ ?timeouts
     ~certificate_authority_id ~location ~pool ~config ~key_spec
     ~subordinate_config __resource_id =
   let __resource_type = "google_privateca_certificate_authority" in
@@ -353,12 +355,14 @@ let google_privateca_certificate_authority ?deletion_protection
       deletion_protection;
       desired_state;
       gcs_bucket;
+      id;
       ignore_active_certificates_on_deletion;
       labels;
       lifetime;
       location;
       pem_ca_certificate;
       pool;
+      project;
       skip_grace_period;
       type_;
       config;

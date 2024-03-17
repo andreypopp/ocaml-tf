@@ -28,14 +28,12 @@ type azurerm_iothub__endpoint = {
   resource_group_name : string;  (** resource_group_name *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type azurerm_iothub__enrichment = {
   endpoint_names : string list;  (** endpoint_names *)
   key : string;  (** key *)
   value : string;  (** value *)
 }
-[@@deriving yojson_of]
 
 type azurerm_iothub__route = {
   condition : string;  (** condition *)
@@ -44,7 +42,6 @@ type azurerm_iothub__route = {
   name : string;  (** name *)
   source : string;  (** source *)
 }
-[@@deriving yojson_of]
 
 type azurerm_iothub__shared_access_policy = {
   key_name : string;  (** key_name *)
@@ -52,14 +49,19 @@ type azurerm_iothub__shared_access_policy = {
   primary_key : string;  (** primary_key *)
   secondary_key : string;  (** secondary_key *)
 }
-[@@deriving yojson_of]
 
 type azurerm_iothub
 
 val azurerm_iothub :
+  ?endpoint:azurerm_iothub__endpoint list ->
+  ?enrichment:azurerm_iothub__enrichment list ->
+  ?event_hub_partition_count:float ->
+  ?event_hub_retention_in_days:float ->
+  ?id:string ->
   ?local_authentication_enabled:bool ->
   ?min_tls_version:string ->
   ?public_network_access_enabled:bool ->
+  ?route:azurerm_iothub__route list ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_iothub__timeouts ->
   location:string ->

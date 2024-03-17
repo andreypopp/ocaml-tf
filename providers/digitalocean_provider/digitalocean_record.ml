@@ -7,10 +7,12 @@ open! Tf.Prelude
 type digitalocean_record = {
   domain : string;  (** domain *)
   flags : float option; [@option]  (** flags *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   port : float option; [@option]  (** port *)
   priority : float option; [@option]  (** priority *)
   tag : string option; [@option]  (** tag *)
+  ttl : float option; [@option]  (** ttl *)
   type_ : string; [@key "type"]  (** type *)
   value : string;  (** value *)
   weight : float option; [@option]  (** weight *)
@@ -18,17 +20,19 @@ type digitalocean_record = {
 [@@deriving yojson_of]
 (** digitalocean_record *)
 
-let digitalocean_record ?flags ?port ?priority ?tag ?weight ~domain
-    ~name ~type_ ~value __resource_id =
+let digitalocean_record ?flags ?id ?port ?priority ?tag ?ttl ?weight
+    ~domain ~name ~type_ ~value __resource_id =
   let __resource_type = "digitalocean_record" in
   let __resource =
     {
       domain;
       flags;
+      id;
       name;
       port;
       priority;
       tag;
+      ttl;
       type_;
       value;
       weight;

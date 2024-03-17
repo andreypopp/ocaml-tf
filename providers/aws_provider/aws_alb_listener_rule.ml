@@ -153,18 +153,24 @@ type aws_alb_listener_rule__condition = {
 (** aws_alb_listener_rule__condition *)
 
 type aws_alb_listener_rule = {
+  id : string option; [@option]  (** id *)
   listener_arn : string;  (** listener_arn *)
+  priority : float option; [@option]  (** priority *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   action : aws_alb_listener_rule__action list;
   condition : aws_alb_listener_rule__condition list;
 }
 [@@deriving yojson_of]
 (** aws_alb_listener_rule *)
 
-let aws_alb_listener_rule ?tags ~listener_arn ~action ~condition
-    __resource_id =
+let aws_alb_listener_rule ?id ?priority ?tags ?tags_all ~listener_arn
+    ~action ~condition __resource_id =
   let __resource_type = "aws_alb_listener_rule" in
-  let __resource = { listener_arn; tags; action; condition } in
+  let __resource =
+    { id; listener_arn; priority; tags; tags_all; action; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_alb_listener_rule __resource);
   ()

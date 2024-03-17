@@ -7,6 +7,7 @@ type azurerm_iot_time_series_insights_gen2_environment__timeouts
 type azurerm_iot_time_series_insights_gen2_environment
 
 val azurerm_iot_time_series_insights_gen2_environment :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?warm_store_data_retention_time:string ->
   ?timeouts:

@@ -28,6 +28,9 @@ type google_storage_transfer_job__transfer_spec
 type google_storage_transfer_job
 
 val google_storage_transfer_job :
+  ?id:string ->
+  ?name:string ->
+  ?project:string ->
   ?status:string ->
   description:string ->
   event_stream:google_storage_transfer_job__event_stream list ->

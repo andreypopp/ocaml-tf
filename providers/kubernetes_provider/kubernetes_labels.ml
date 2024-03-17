@@ -19,6 +19,7 @@ type kubernetes_labels = {
       (** Set the name of the field manager for the specified labels. *)
   force : bool option; [@option]
       (** Force overwriting labels that were created or edited outside of Terraform. *)
+  id : string option; [@option]  (** id *)
   kind : string;  (** The kind of the resource to label. *)
   labels : (string * string) list;
       (** A map of labels to apply to the resource. *)
@@ -27,11 +28,11 @@ type kubernetes_labels = {
 [@@deriving yojson_of]
 (** kubernetes_labels *)
 
-let kubernetes_labels ?field_manager ?force ~api_version ~kind
+let kubernetes_labels ?field_manager ?force ?id ~api_version ~kind
     ~labels ~metadata __resource_id =
   let __resource_type = "kubernetes_labels" in
   let __resource =
-    { api_version; field_manager; force; kind; labels; metadata }
+    { api_version; field_manager; force; id; kind; labels; metadata }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_labels __resource);

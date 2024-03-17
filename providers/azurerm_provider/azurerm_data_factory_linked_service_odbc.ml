@@ -27,6 +27,7 @@ type azurerm_data_factory_linked_service_odbc = {
   connection_string : string;  (** connection_string *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -42,8 +43,8 @@ type azurerm_data_factory_linked_service_odbc = {
 (** azurerm_data_factory_linked_service_odbc *)
 
 let azurerm_data_factory_linked_service_odbc ?additional_properties
-    ?annotations ?description ?integration_runtime_name ?parameters
-    ?timeouts ~connection_string ~data_factory_id ~name
+    ?annotations ?description ?id ?integration_runtime_name
+    ?parameters ?timeouts ~connection_string ~data_factory_id ~name
     ~basic_authentication __resource_id =
   let __resource_type = "azurerm_data_factory_linked_service_odbc" in
   let __resource =
@@ -53,6 +54,7 @@ let azurerm_data_factory_linked_service_odbc ?additional_properties
       connection_string;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

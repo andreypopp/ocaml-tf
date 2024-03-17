@@ -68,8 +68,10 @@ type azurerm_management_group_policy_assignment = {
   description : string option; [@option]  (** description *)
   display_name : string option; [@option]  (** display_name *)
   enforce : bool option; [@option]  (** enforce *)
+  id : string option; [@option]  (** id *)
   location : string option; [@option]  (** location *)
   management_group_id : string;  (** management_group_id *)
+  metadata : string option; [@option]  (** metadata *)
   name : string;  (** name *)
   not_scopes : string list option; [@option]  (** not_scopes *)
   parameters : string option; [@option]  (** parameters *)
@@ -91,10 +93,10 @@ type azurerm_management_group_policy_assignment = {
 (** azurerm_management_group_policy_assignment *)
 
 let azurerm_management_group_policy_assignment ?description
-    ?display_name ?enforce ?location ?not_scopes ?parameters
-    ?timeouts ~management_group_id ~name ~policy_definition_id
-    ~identity ~non_compliance_message ~overrides ~resource_selectors
-    __resource_id =
+    ?display_name ?enforce ?id ?location ?metadata ?not_scopes
+    ?parameters ?timeouts ~management_group_id ~name
+    ~policy_definition_id ~identity ~non_compliance_message
+    ~overrides ~resource_selectors __resource_id =
   let __resource_type =
     "azurerm_management_group_policy_assignment"
   in
@@ -103,8 +105,10 @@ let azurerm_management_group_policy_assignment ?description
       description;
       display_name;
       enforce;
+      id;
       location;
       management_group_id;
+      metadata;
       name;
       not_scopes;
       parameters;

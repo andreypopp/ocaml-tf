@@ -44,6 +44,9 @@ type azurerm_key_vault__access_policy = {
 [@@deriving yojson_of]
 
 type azurerm_key_vault = {
+  access_policy : azurerm_key_vault__access_policy list option;
+      [@option]
+      (** access_policy *)
   enable_rbac_authorization : bool option; [@option]
       (** enable_rbac_authorization *)
   enabled_for_deployment : bool option; [@option]
@@ -52,6 +55,7 @@ type azurerm_key_vault = {
       (** enabled_for_disk_encryption *)
   enabled_for_template_deployment : bool option; [@option]
       (** enabled_for_template_deployment *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -71,19 +75,22 @@ type azurerm_key_vault = {
 [@@deriving yojson_of]
 (** azurerm_key_vault *)
 
-let azurerm_key_vault ?enable_rbac_authorization
+let azurerm_key_vault ?access_policy ?enable_rbac_authorization
     ?enabled_for_deployment ?enabled_for_disk_encryption
-    ?enabled_for_template_deployment ?public_network_access_enabled
-    ?purge_protection_enabled ?soft_delete_retention_days ?tags
-    ?timeouts ~location ~name ~resource_group_name ~sku_name
-    ~tenant_id ~contact ~network_acls __resource_id =
+    ?enabled_for_template_deployment ?id
+    ?public_network_access_enabled ?purge_protection_enabled
+    ?soft_delete_retention_days ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku_name ~tenant_id ~contact ~network_acls
+    __resource_id =
   let __resource_type = "azurerm_key_vault" in
   let __resource =
     {
+      access_policy;
       enable_rbac_authorization;
       enabled_for_deployment;
       enabled_for_disk_encryption;
       enabled_for_template_deployment;
+      id;
       location;
       name;
       public_network_access_enabled;

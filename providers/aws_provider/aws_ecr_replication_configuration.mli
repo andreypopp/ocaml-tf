@@ -12,6 +12,7 @@ type aws_ecr_replication_configuration__replication_configuration
 type aws_ecr_replication_configuration
 
 val aws_ecr_replication_configuration :
+  ?id:string ->
   replication_configuration:
     aws_ecr_replication_configuration__replication_configuration list ->
   string ->

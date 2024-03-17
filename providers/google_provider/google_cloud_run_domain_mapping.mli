@@ -11,7 +11,6 @@ type google_cloud_run_domain_mapping__status__resource_records = {
   rrdata : string;  (** rrdata *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_domain_mapping__status__conditions = {
   message : string;  (** message *)
@@ -19,7 +18,6 @@ type google_cloud_run_domain_mapping__status__conditions = {
   status : string;  (** status *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_domain_mapping__status = {
   conditions :
@@ -31,11 +29,12 @@ type google_cloud_run_domain_mapping__status = {
     google_cloud_run_domain_mapping__status__resource_records list;
       (** resource_records *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_domain_mapping
 
 val google_cloud_run_domain_mapping :
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_cloud_run_domain_mapping__timeouts ->
   location:string ->
   name:string ->

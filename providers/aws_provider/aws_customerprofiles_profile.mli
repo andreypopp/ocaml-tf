@@ -20,6 +20,7 @@ val aws_customerprofiles_profile :
   ?first_name:string ->
   ?gender_string:string ->
   ?home_phone_number:string ->
+  ?id:string ->
   ?last_name:string ->
   ?middle_name:string ->
   ?mobile_phone_number:string ->

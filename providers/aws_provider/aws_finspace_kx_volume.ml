@@ -31,8 +31,11 @@ type aws_finspace_kx_volume = {
   az_mode : string;  (** az_mode *)
   description : string option; [@option]  (** description *)
   environment_id : string;  (** environment_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   nas1_configuration :
     aws_finspace_kx_volume__nas1_configuration list;
@@ -41,7 +44,7 @@ type aws_finspace_kx_volume = {
 [@@deriving yojson_of]
 (** aws_finspace_kx_volume *)
 
-let aws_finspace_kx_volume ?description ?tags ?timeouts
+let aws_finspace_kx_volume ?description ?id ?tags ?tags_all ?timeouts
     ~availability_zones ~az_mode ~environment_id ~name ~type_
     ~nas1_configuration __resource_id =
   let __resource_type = "aws_finspace_kx_volume" in
@@ -51,8 +54,10 @@ let aws_finspace_kx_volume ?description ?tags ?timeouts
       az_mode;
       description;
       environment_id;
+      id;
       name;
       tags;
+      tags_all;
       type_;
       nas1_configuration;
       timeouts;

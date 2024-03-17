@@ -7,6 +7,7 @@ type azurerm_automation_connection_type__timeouts
 type azurerm_automation_connection_type
 
 val azurerm_automation_connection_type :
+  ?id:string ->
   ?is_global:bool ->
   ?timeouts:azurerm_automation_connection_type__timeouts ->
   automation_account_name:string ->

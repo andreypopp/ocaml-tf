@@ -23,6 +23,7 @@ type google_kms_key_ring_import_job__public_key = {
 [@@deriving yojson_of]
 
 type google_kms_key_ring_import_job = {
+  id : string option; [@option]  (** id *)
   import_job_id : string;
       (** It must be unique within a KeyRing and match the regular expression [a-zA-Z0-9_-]{1,63} *)
   import_method : string;
@@ -38,11 +39,12 @@ versionTemplate on the CryptoKey you attempt to import into. Possible values: [S
 [@@deriving yojson_of]
 (** google_kms_key_ring_import_job *)
 
-let google_kms_key_ring_import_job ?timeouts ~import_job_id
+let google_kms_key_ring_import_job ?id ?timeouts ~import_job_id
     ~import_method ~key_ring ~protection_level __resource_id =
   let __resource_type = "google_kms_key_ring_import_job" in
   let __resource =
     {
+      id;
       import_job_id;
       import_method;
       key_ring;

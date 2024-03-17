@@ -16,6 +16,7 @@ type azurerm_synapse_sql_pool_workload_classifier__timeouts = {
 type azurerm_synapse_sql_pool_workload_classifier = {
   context : string option; [@option]  (** context *)
   end_time : string option; [@option]  (** end_time *)
+  id : string option; [@option]  (** id *)
   importance : string option; [@option]  (** importance *)
   label : string option; [@option]  (** label *)
   member_name : string;  (** member_name *)
@@ -29,7 +30,7 @@ type azurerm_synapse_sql_pool_workload_classifier = {
 (** azurerm_synapse_sql_pool_workload_classifier *)
 
 let azurerm_synapse_sql_pool_workload_classifier ?context ?end_time
-    ?importance ?label ?start_time ?timeouts ~member_name ~name
+    ?id ?importance ?label ?start_time ?timeouts ~member_name ~name
     ~workload_group_id __resource_id =
   let __resource_type =
     "azurerm_synapse_sql_pool_workload_classifier"
@@ -38,6 +39,7 @@ let azurerm_synapse_sql_pool_workload_classifier ?context ?end_time
     {
       context;
       end_time;
+      id;
       importance;
       label;
       member_name;

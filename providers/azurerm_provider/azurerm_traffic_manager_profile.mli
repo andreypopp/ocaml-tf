@@ -9,7 +9,9 @@ type azurerm_traffic_manager_profile__timeouts
 type azurerm_traffic_manager_profile
 
 val azurerm_traffic_manager_profile :
+  ?id:string ->
   ?max_return:float ->
+  ?profile_status:string ->
   ?tags:(string * string) list ->
   ?traffic_view_enabled:bool ->
   ?timeouts:azurerm_traffic_manager_profile__timeouts ->

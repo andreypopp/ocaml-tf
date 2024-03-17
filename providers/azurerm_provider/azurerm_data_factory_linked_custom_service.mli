@@ -10,6 +10,7 @@ val azurerm_data_factory_linked_custom_service :
   ?additional_properties:(string * string) list ->
   ?annotations:string list ->
   ?description:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?timeouts:azurerm_data_factory_linked_custom_service__timeouts ->
   data_factory_id:string ->

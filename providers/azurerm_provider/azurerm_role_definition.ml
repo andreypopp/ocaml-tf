@@ -24,8 +24,13 @@ type azurerm_role_definition__timeouts = {
 (** azurerm_role_definition__timeouts *)
 
 type azurerm_role_definition = {
+  assignable_scopes : string list option; [@option]
+      (** assignable_scopes *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  role_definition_id : string option; [@option]
+      (** role_definition_id *)
   scope : string;  (** scope *)
   permissions : azurerm_role_definition__permissions list;
   timeouts : azurerm_role_definition__timeouts option;
@@ -33,11 +38,21 @@ type azurerm_role_definition = {
 [@@deriving yojson_of]
 (** azurerm_role_definition *)
 
-let azurerm_role_definition ?description ?timeouts ~name ~scope
-    ~permissions __resource_id =
+let azurerm_role_definition ?assignable_scopes ?description ?id
+    ?role_definition_id ?timeouts ~name ~scope ~permissions
+    __resource_id =
   let __resource_type = "azurerm_role_definition" in
   let __resource =
-    { description; name; scope; permissions; timeouts }
+    {
+      assignable_scopes;
+      description;
+      id;
+      name;
+      role_definition_id;
+      scope;
+      permissions;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_role_definition __resource);

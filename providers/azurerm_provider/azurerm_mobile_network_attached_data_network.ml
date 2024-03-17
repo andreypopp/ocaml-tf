@@ -44,6 +44,7 @@ type azurerm_mobile_network_attached_data_network__timeouts = {
 
 type azurerm_mobile_network_attached_data_network = {
   dns_addresses : string list;  (** dns_addresses *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   mobile_network_data_network_name : string;
       (** mobile_network_data_network_name *)
@@ -73,7 +74,7 @@ type azurerm_mobile_network_attached_data_network = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_attached_data_network *)
 
-let azurerm_mobile_network_attached_data_network ?tags
+let azurerm_mobile_network_attached_data_network ?id ?tags
     ?user_equipment_address_pool_prefixes
     ?user_equipment_static_address_pool_prefixes
     ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
@@ -87,6 +88,7 @@ let azurerm_mobile_network_attached_data_network ?tags
   let __resource =
     {
       dns_addresses;
+      id;
       location;
       mobile_network_data_network_name;
       mobile_network_packet_core_data_plane_id;

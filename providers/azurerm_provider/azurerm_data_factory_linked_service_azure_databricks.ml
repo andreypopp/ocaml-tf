@@ -63,6 +63,7 @@ type azurerm_data_factory_linked_service_azure_databricks = {
   description : string option; [@option]  (** description *)
   existing_cluster_id : string option; [@option]
       (** existing_cluster_id *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   msi_work_space_resource_id : string option; [@option]
@@ -88,7 +89,7 @@ type azurerm_data_factory_linked_service_azure_databricks = {
 
 let azurerm_data_factory_linked_service_azure_databricks
     ?access_token ?additional_properties ?annotations ?description
-    ?existing_cluster_id ?integration_runtime_name
+    ?existing_cluster_id ?id ?integration_runtime_name
     ?msi_work_space_resource_id ?parameters ?timeouts ~adb_domain
     ~data_factory_id ~name ~instance_pool ~key_vault_password
     ~new_cluster_config __resource_id =
@@ -104,6 +105,7 @@ let azurerm_data_factory_linked_service_azure_databricks
       data_factory_id;
       description;
       existing_cluster_id;
+      id;
       integration_runtime_name;
       msi_work_space_resource_id;
       name;

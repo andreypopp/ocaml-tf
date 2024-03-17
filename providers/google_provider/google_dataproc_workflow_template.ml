@@ -730,6 +730,7 @@ type google_dataproc_workflow_template__timeouts = {
 type google_dataproc_workflow_template = {
   dag_timeout : string option; [@option]
       (** Optional. Timeout duration for the DAG of jobs, expressed in seconds (see [JSON representation of duration](https://developers.google.com/protocol-buffers/docs/proto3#json)). The timeout duration must be from 10 minutes (600s) to 24 hours (86400s). The timer begins when the first job is submitted. If the workflow is running at the end of the timeout period, any remaining jobs are cancelled, the workflow is ended, and if the workflow was running on a [managed cluster](/dataproc/docs/concepts/workflows/using-workflows#configuring_or_selecting_a_cluster), the cluster is deleted. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. The labels to associate with this template. These labels will be propagated to all jobs and clusters created by the workflow instance. Label **keys** must contain 1 to 63 characters, and must conform to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt). Label **values** may be empty, but, if present, must contain 1 to 63 characters, and must conform to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can be associated with a template.
 
@@ -738,6 +739,10 @@ Please refer to the field `effective_labels` for all of the labels present on th
   location : string;  (** The location for the resource *)
   name : string;
       (** Output only. The resource name of the workflow template, as described in https://cloud.google.com/apis/design/resource_names. * For `projects.regions.workflowTemplates`, the resource name of the template has the following format: `projects/{project_id}/regions/{region}/workflowTemplates/{template_id}` * For `projects.locations.workflowTemplates`, the resource name of the template has the following format: `projects/{project_id}/locations/{location}/workflowTemplates/{template_id}` *)
+  project : string option; [@option]
+      (** The project for the resource *)
+  version : float option; [@option]
+      (** Output only. The current version of this workflow template. *)
   jobs : google_dataproc_workflow_template__jobs list;
   parameters : google_dataproc_workflow_template__parameters list;
   placement : google_dataproc_workflow_template__placement list;
@@ -746,15 +751,19 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_dataproc_workflow_template *)
 
-let google_dataproc_workflow_template ?dag_timeout ?labels ?timeouts
-    ~location ~name ~jobs ~parameters ~placement __resource_id =
+let google_dataproc_workflow_template ?dag_timeout ?id ?labels
+    ?project ?version ?timeouts ~location ~name ~jobs ~parameters
+    ~placement __resource_id =
   let __resource_type = "google_dataproc_workflow_template" in
   let __resource =
     {
       dag_timeout;
+      id;
       labels;
       location;
       name;
+      project;
+      version;
       jobs;
       parameters;
       placement;

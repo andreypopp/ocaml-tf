@@ -14,6 +14,7 @@ type azurerm_private_dns_aaaa_record__timeouts = {
 (** azurerm_private_dns_aaaa_record__timeouts *)
 
 type azurerm_private_dns_aaaa_record = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   records : string list;  (** records *)
   resource_group_name : string;  (** resource_group_name *)
@@ -25,11 +26,12 @@ type azurerm_private_dns_aaaa_record = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_aaaa_record *)
 
-let azurerm_private_dns_aaaa_record ?tags ?timeouts ~name ~records
-    ~resource_group_name ~ttl ~zone_name __resource_id =
+let azurerm_private_dns_aaaa_record ?id ?tags ?timeouts ~name
+    ~records ~resource_group_name ~ttl ~zone_name __resource_id =
   let __resource_type = "azurerm_private_dns_aaaa_record" in
   let __resource =
     {
+      id;
       name;
       records;
       resource_group_name;

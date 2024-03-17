@@ -60,12 +60,18 @@ type aws_fms_policy = {
       (** delete_unused_fm_managed_resources *)
   description : string option; [@option]  (** description *)
   exclude_resource_tags : bool;  (** exclude_resource_tags *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   remediation_enabled : bool option; [@option]
       (** remediation_enabled *)
   resource_tags : (string * string) list option; [@option]
       (** resource_tags *)
+  resource_type : string option; [@option]  (** resource_type *)
+  resource_type_list : string list option; [@option]
+      (** resource_type_list *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   exclude_map : aws_fms_policy__exclude_map list;
   include_map : aws_fms_policy__include_map list;
   security_service_policy_data :
@@ -75,9 +81,10 @@ type aws_fms_policy = {
 (** aws_fms_policy *)
 
 let aws_fms_policy ?delete_all_policy_resources
-    ?delete_unused_fm_managed_resources ?description
-    ?remediation_enabled ?resource_tags ?tags ~exclude_resource_tags
-    ~name ~exclude_map ~include_map ~security_service_policy_data
+    ?delete_unused_fm_managed_resources ?description ?id
+    ?remediation_enabled ?resource_tags ?resource_type
+    ?resource_type_list ?tags ?tags_all ~exclude_resource_tags ~name
+    ~exclude_map ~include_map ~security_service_policy_data
     __resource_id =
   let __resource_type = "aws_fms_policy" in
   let __resource =
@@ -86,10 +93,14 @@ let aws_fms_policy ?delete_all_policy_resources
       delete_unused_fm_managed_resources;
       description;
       exclude_resource_tags;
+      id;
       name;
       remediation_enabled;
       resource_tags;
+      resource_type;
+      resource_type_list;
       tags;
+      tags_all;
       exclude_map;
       include_map;
       security_service_policy_data;

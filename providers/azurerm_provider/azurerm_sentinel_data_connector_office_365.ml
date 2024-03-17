@@ -15,20 +15,22 @@ type azurerm_sentinel_data_connector_office_365__timeouts = {
 
 type azurerm_sentinel_data_connector_office_365 = {
   exchange_enabled : bool option; [@option]  (** exchange_enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
   sharepoint_enabled : bool option; [@option]
       (** sharepoint_enabled *)
   teams_enabled : bool option; [@option]  (** teams_enabled *)
+  tenant_id : string option; [@option]  (** tenant_id *)
   timeouts :
     azurerm_sentinel_data_connector_office_365__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_office_365 *)
 
-let azurerm_sentinel_data_connector_office_365 ?exchange_enabled
-    ?sharepoint_enabled ?teams_enabled ?timeouts
+let azurerm_sentinel_data_connector_office_365 ?exchange_enabled ?id
+    ?sharepoint_enabled ?teams_enabled ?tenant_id ?timeouts
     ~log_analytics_workspace_id ~name __resource_id =
   let __resource_type =
     "azurerm_sentinel_data_connector_office_365"
@@ -36,10 +38,12 @@ let azurerm_sentinel_data_connector_office_365 ?exchange_enabled
   let __resource =
     {
       exchange_enabled;
+      id;
       log_analytics_workspace_id;
       name;
       sharepoint_enabled;
       teams_enabled;
+      tenant_id;
       timeouts;
     }
   in

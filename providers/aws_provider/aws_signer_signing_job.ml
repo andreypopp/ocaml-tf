@@ -50,6 +50,7 @@ type aws_signer_signing_job__signed_object = {
 [@@deriving yojson_of]
 
 type aws_signer_signing_job = {
+  id : string option; [@option]  (** id *)
   ignore_signing_job_failure : bool option; [@option]
       (** ignore_signing_job_failure *)
   profile_name : string;  (** profile_name *)
@@ -59,11 +60,17 @@ type aws_signer_signing_job = {
 [@@deriving yojson_of]
 (** aws_signer_signing_job *)
 
-let aws_signer_signing_job ?ignore_signing_job_failure ~profile_name
-    ~destination ~source __resource_id =
+let aws_signer_signing_job ?id ?ignore_signing_job_failure
+    ~profile_name ~destination ~source __resource_id =
   let __resource_type = "aws_signer_signing_job" in
   let __resource =
-    { ignore_signing_job_failure; profile_name; destination; source }
+    {
+      id;
+      ignore_signing_job_failure;
+      profile_name;
+      destination;
+      source;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_signer_signing_job __resource);

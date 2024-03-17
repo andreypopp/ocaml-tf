@@ -8,12 +8,12 @@ type aws_apprunner_custom_domain_association__certificate_validation_records = {
   type_ : string; [@key "type"]  (** type *)
   value : string;  (** value *)
 }
-[@@deriving yojson_of]
 
 type aws_apprunner_custom_domain_association
 
 val aws_apprunner_custom_domain_association :
   ?enable_www_subdomain:bool ->
+  ?id:string ->
   domain_name:string ->
   service_arn:string ->
   string ->

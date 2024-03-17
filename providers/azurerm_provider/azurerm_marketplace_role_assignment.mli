@@ -10,6 +10,7 @@ val azurerm_marketplace_role_assignment :
   ?condition_version:string ->
   ?delegated_managed_identity_resource_id:string ->
   ?description:string ->
+  ?id:string ->
   ?name:string ->
   ?role_definition_id:string ->
   ?role_definition_name:string ->

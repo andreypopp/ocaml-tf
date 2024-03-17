@@ -12,11 +12,20 @@ type google_compute_disk
 
 val google_compute_disk :
   ?description:string ->
+  ?enable_confidential_compute:bool ->
+  ?id:string ->
   ?image:string ->
   ?labels:(string * string) list ->
+  ?licenses:string list ->
+  ?physical_block_size_bytes:float ->
+  ?project:string ->
+  ?provisioned_iops:float ->
+  ?provisioned_throughput:float ->
+  ?size:float ->
   ?snapshot:string ->
   ?source_disk:string ->
   ?type_:string ->
+  ?zone:string ->
   ?timeouts:google_compute_disk__timeouts ->
   name:string ->
   async_primary_disk:google_compute_disk__async_primary_disk list ->

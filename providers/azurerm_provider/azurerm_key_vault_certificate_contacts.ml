@@ -22,6 +22,7 @@ type azurerm_key_vault_certificate_contacts__timeouts = {
 (** azurerm_key_vault_certificate_contacts__timeouts *)
 
 type azurerm_key_vault_certificate_contacts = {
+  id : string option; [@option]  (** id *)
   key_vault_id : string;  (** key_vault_id *)
   contact : azurerm_key_vault_certificate_contacts__contact list;
   timeouts : azurerm_key_vault_certificate_contacts__timeouts option;
@@ -29,10 +30,10 @@ type azurerm_key_vault_certificate_contacts = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate_contacts *)
 
-let azurerm_key_vault_certificate_contacts ?timeouts ~key_vault_id
-    ~contact __resource_id =
+let azurerm_key_vault_certificate_contacts ?id ?timeouts
+    ~key_vault_id ~contact __resource_id =
   let __resource_type = "azurerm_key_vault_certificate_contacts" in
-  let __resource = { key_vault_id; contact; timeouts } in
+  let __resource = { id; key_vault_id; contact; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_key_vault_certificate_contacts __resource);
   ()

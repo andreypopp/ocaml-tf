@@ -19,6 +19,7 @@ type azurerm_monitor_data_collection_rule_association = {
   data_collection_rule_id : string option; [@option]
       (** data_collection_rule_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   target_resource_id : string;  (** target_resource_id *)
   timeouts :
@@ -29,7 +30,8 @@ type azurerm_monitor_data_collection_rule_association = {
 
 let azurerm_monitor_data_collection_rule_association
     ?data_collection_endpoint_id ?data_collection_rule_id
-    ?description ?name ?timeouts ~target_resource_id __resource_id =
+    ?description ?id ?name ?timeouts ~target_resource_id
+    __resource_id =
   let __resource_type =
     "azurerm_monitor_data_collection_rule_association"
   in
@@ -38,6 +40,7 @@ let azurerm_monitor_data_collection_rule_association
       data_collection_endpoint_id;
       data_collection_rule_id;
       description;
+      id;
       name;
       target_resource_id;
       timeouts;

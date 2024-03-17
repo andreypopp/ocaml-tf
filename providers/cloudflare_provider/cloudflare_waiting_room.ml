@@ -33,6 +33,7 @@ type cloudflare_waiting_room = {
       (** Disables automatic renewal of session cookies. *)
   host : string;
       (** Host name for which the waiting room will be applied (no wildcards). *)
+  id : string option; [@option]  (** id *)
   json_response_enabled : bool option; [@option]
       (** If true, requests to the waiting room with the header `Accept: application/json` will receive a JSON response object. *)
   name : string;
@@ -64,7 +65,7 @@ type cloudflare_waiting_room = {
 
 let cloudflare_waiting_room ?cookie_suffix ?custom_page_html
     ?default_template_language ?description ?disable_session_renewal
-    ?json_response_enabled ?path ?queue_all ?queueing_method
+    ?id ?json_response_enabled ?path ?queue_all ?queueing_method
     ?queueing_status_code ?session_duration ?suspended ?timeouts
     ~host ~name ~new_users_per_minute ~total_active_users ~zone_id
     ~additional_routes __resource_id =
@@ -77,6 +78,7 @@ let cloudflare_waiting_room ?cookie_suffix ?custom_page_html
       description;
       disable_session_renewal;
       host;
+      id;
       json_response_enabled;
       name;
       new_users_per_minute;

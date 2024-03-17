@@ -11,9 +11,12 @@ val aws_ssm_association :
   ?association_name:string ->
   ?automation_target_parameter_name:string ->
   ?compliance_severity:string ->
+  ?document_version:string ->
+  ?id:string ->
   ?instance_id:string ->
   ?max_concurrency:string ->
   ?max_errors:string ->
+  ?parameters:(string * string) list ->
   ?schedule_expression:string ->
   ?sync_compliance:string ->
   ?wait_for_success_timeout_seconds:float ->

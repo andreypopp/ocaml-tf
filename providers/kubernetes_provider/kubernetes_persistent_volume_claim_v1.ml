@@ -79,6 +79,7 @@ type kubernetes_persistent_volume_claim_v1__timeouts = {
 (** kubernetes_persistent_volume_claim_v1__timeouts *)
 
 type kubernetes_persistent_volume_claim_v1 = {
+  id : string option; [@option]  (** id *)
   wait_until_bound : bool option; [@option]
       (** Whether to wait for the claim to reach `Bound` state (to find volume in which to claim the space) *)
   metadata : kubernetes_persistent_volume_claim_v1__metadata list;
@@ -88,10 +89,12 @@ type kubernetes_persistent_volume_claim_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_persistent_volume_claim_v1 *)
 
-let kubernetes_persistent_volume_claim_v1 ?wait_until_bound ?timeouts
-    ~metadata ~spec __resource_id =
+let kubernetes_persistent_volume_claim_v1 ?id ?wait_until_bound
+    ?timeouts ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_persistent_volume_claim_v1" in
-  let __resource = { wait_until_bound; metadata; spec; timeouts } in
+  let __resource =
+    { id; wait_until_bound; metadata; spec; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_persistent_volume_claim_v1 __resource);
   ()

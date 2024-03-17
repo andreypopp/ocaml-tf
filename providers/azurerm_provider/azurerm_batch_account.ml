@@ -77,9 +77,12 @@ type azurerm_batch_account__encryption = {
 [@@deriving yojson_of]
 
 type azurerm_batch_account = {
+  allowed_authentication_modes : string list option; [@option]
+      (** allowed_authentication_modes *)
   encryption : azurerm_batch_account__encryption list option;
       [@option]
       (** encryption *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   pool_allocation_mode : string option; [@option]
@@ -103,8 +106,8 @@ type azurerm_batch_account = {
 [@@deriving yojson_of]
 (** azurerm_batch_account *)
 
-let azurerm_batch_account ?encryption ?pool_allocation_mode
-    ?public_network_access_enabled
+let azurerm_batch_account ?allowed_authentication_modes ?encryption
+    ?id ?pool_allocation_mode ?public_network_access_enabled
     ?storage_account_authentication_mode ?storage_account_id
     ?storage_account_node_identity ?tags ?timeouts ~location ~name
     ~resource_group_name ~identity ~key_vault_reference
@@ -112,7 +115,9 @@ let azurerm_batch_account ?encryption ?pool_allocation_mode
   let __resource_type = "azurerm_batch_account" in
   let __resource =
     {
+      allowed_authentication_modes;
       encryption;
+      id;
       location;
       name;
       pool_allocation_mode;

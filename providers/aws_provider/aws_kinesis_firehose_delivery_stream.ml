@@ -866,9 +866,15 @@ type aws_kinesis_firehose_delivery_stream__timeouts = {
 (** aws_kinesis_firehose_delivery_stream__timeouts *)
 
 type aws_kinesis_firehose_delivery_stream = {
+  arn : string option; [@option]  (** arn *)
   destination : string;  (** destination *)
+  destination_id : string option; [@option]  (** destination_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  version_id : string option; [@option]  (** version_id *)
   elasticsearch_configuration :
     aws_kinesis_firehose_delivery_stream__elasticsearch_configuration
     list;
@@ -901,8 +907,9 @@ type aws_kinesis_firehose_delivery_stream = {
 [@@deriving yojson_of]
 (** aws_kinesis_firehose_delivery_stream *)
 
-let aws_kinesis_firehose_delivery_stream ?tags ?timeouts ~destination
-    ~name ~elasticsearch_configuration ~extended_s3_configuration
+let aws_kinesis_firehose_delivery_stream ?arn ?destination_id ?id
+    ?tags ?tags_all ?version_id ?timeouts ~destination ~name
+    ~elasticsearch_configuration ~extended_s3_configuration
     ~http_endpoint_configuration ~kinesis_source_configuration
     ~msk_source_configuration ~opensearch_configuration
     ~opensearchserverless_configuration ~redshift_configuration
@@ -910,9 +917,14 @@ let aws_kinesis_firehose_delivery_stream ?tags ?timeouts ~destination
   let __resource_type = "aws_kinesis_firehose_delivery_stream" in
   let __resource =
     {
+      arn;
       destination;
+      destination_id;
+      id;
       name;
       tags;
+      tags_all;
+      version_id;
       elasticsearch_configuration;
       extended_s3_configuration;
       http_endpoint_configuration;

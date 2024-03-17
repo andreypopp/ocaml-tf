@@ -23,6 +23,7 @@ type azurerm_servicebus_namespace_network_rule_set__timeouts = {
 
 type azurerm_servicebus_namespace_network_rule_set = {
   default_action : string option; [@option]  (** default_action *)
+  id : string option; [@option]  (** id *)
   ip_rules : string list option; [@option]  (** ip_rules *)
   namespace_id : string;  (** namespace_id *)
   public_network_access_enabled : bool option; [@option]
@@ -37,7 +38,7 @@ type azurerm_servicebus_namespace_network_rule_set = {
 [@@deriving yojson_of]
 (** azurerm_servicebus_namespace_network_rule_set *)
 
-let azurerm_servicebus_namespace_network_rule_set ?default_action
+let azurerm_servicebus_namespace_network_rule_set ?default_action ?id
     ?ip_rules ?public_network_access_enabled
     ?trusted_services_allowed ?timeouts ~namespace_id ~network_rules
     __resource_id =
@@ -47,6 +48,7 @@ let azurerm_servicebus_namespace_network_rule_set ?default_action
   let __resource =
     {
       default_action;
+      id;
       ip_rules;
       namespace_id;
       public_network_access_enabled;

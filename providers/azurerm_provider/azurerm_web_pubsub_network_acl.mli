@@ -9,6 +9,7 @@ type azurerm_web_pubsub_network_acl
 
 val azurerm_web_pubsub_network_acl :
   ?default_action:string ->
+  ?id:string ->
   ?timeouts:azurerm_web_pubsub_network_acl__timeouts ->
   web_pubsub_id:string ->
   private_endpoint:

@@ -17223,8 +17223,11 @@ type aws_quicksight_analysis__timeouts
 type aws_quicksight_analysis
 
 val aws_quicksight_analysis :
+    ?aws_account_id:string ->
+    ?id:string ->
     ?recovery_window_in_days:float ->
     ?tags:(string * string) list ->
+    ?tags_all:(string * string) list ->
     ?theme_arn:string ->
     ?timeouts:aws_quicksight_analysis__timeouts ->
     analysis_id:string ->

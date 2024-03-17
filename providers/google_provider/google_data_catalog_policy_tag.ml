@@ -22,6 +22,7 @@ If not set, defaults to an empty description. *)
       (** User defined name of this policy tag. It must: be unique within the parent
 taxonomy; contain only unicode letters, numbers, underscores, dashes and spaces;
 not start or end with spaces; and be at most 200 bytes long when encoded in UTF-8. *)
+  id : string option; [@option]  (** id *)
   parent_policy_tag : string option; [@option]
       (** Resource name of this policy tag's parent policy tag.
 If empty, it means this policy tag is a top level policy tag.
@@ -33,13 +34,15 @@ If not set, defaults to an empty string. *)
 [@@deriving yojson_of]
 (** google_data_catalog_policy_tag *)
 
-let google_data_catalog_policy_tag ?description ?parent_policy_tag
-    ?timeouts ~display_name ~taxonomy __resource_id =
+let google_data_catalog_policy_tag ?description ?id
+    ?parent_policy_tag ?timeouts ~display_name ~taxonomy
+    __resource_id =
   let __resource_type = "google_data_catalog_policy_tag" in
   let __resource =
     {
       description;
       display_name;
+      id;
       parent_policy_tag;
       taxonomy;
       timeouts;

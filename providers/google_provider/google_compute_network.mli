@@ -10,7 +10,12 @@ val google_compute_network :
   ?delete_default_routes_on_create:bool ->
   ?description:string ->
   ?enable_ula_internal_ipv6:bool ->
+  ?id:string ->
+  ?internal_ipv6_range:string ->
+  ?mtu:float ->
   ?network_firewall_policy_enforcement_order:string ->
+  ?project:string ->
+  ?routing_mode:string ->
   ?timeouts:google_compute_network__timeouts ->
   name:string ->
   string ->

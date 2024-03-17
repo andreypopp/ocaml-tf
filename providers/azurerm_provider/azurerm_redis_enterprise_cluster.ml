@@ -14,6 +14,7 @@ type azurerm_redis_enterprise_cluster__timeouts = {
 (** azurerm_redis_enterprise_cluster__timeouts *)
 
 type azurerm_redis_enterprise_cluster = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   minimum_tls_version : string option; [@option]
       (** minimum_tls_version *)
@@ -27,12 +28,13 @@ type azurerm_redis_enterprise_cluster = {
 [@@deriving yojson_of]
 (** azurerm_redis_enterprise_cluster *)
 
-let azurerm_redis_enterprise_cluster ?minimum_tls_version ?tags
+let azurerm_redis_enterprise_cluster ?id ?minimum_tls_version ?tags
     ?zones ?timeouts ~location ~name ~resource_group_name ~sku_name
     __resource_id =
   let __resource_type = "azurerm_redis_enterprise_cluster" in
   let __resource =
     {
+      id;
       location;
       minimum_tls_version;
       name;

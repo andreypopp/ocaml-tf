@@ -12,6 +12,7 @@ val cloudflare_waiting_room :
   ?default_template_language:string ->
   ?description:string ->
   ?disable_session_renewal:bool ->
+  ?id:string ->
   ?json_response_enabled:bool ->
   ?path:string ->
   ?queue_all:bool ->

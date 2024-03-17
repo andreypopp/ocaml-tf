@@ -6,14 +6,18 @@ open! Tf.Prelude
 
 type aws_iam_group_policy = {
   group : string;  (** group *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   policy : string;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_iam_group_policy *)
 
-let aws_iam_group_policy ~group ~policy __resource_id =
+let aws_iam_group_policy ?id ?name ?name_prefix ~group ~policy
+    __resource_id =
   let __resource_type = "aws_iam_group_policy" in
-  let __resource = { group; policy } in
+  let __resource = { group; id; name; name_prefix; policy } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_group_policy __resource);
   ()

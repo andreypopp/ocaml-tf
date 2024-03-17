@@ -29,7 +29,6 @@ type google_compute_instance__guest_accelerator = {
   count : float;  (** count *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance
 
@@ -40,12 +39,17 @@ val google_compute_instance :
   ?description:string ->
   ?desired_status:string ->
   ?enable_display:bool ->
+  ?guest_accelerator:google_compute_instance__guest_accelerator list ->
   ?hostname:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?metadata:(string * string) list ->
   ?metadata_startup_script:string ->
+  ?min_cpu_platform:string ->
+  ?project:string ->
   ?resource_policies:string list ->
   ?tags:string list ->
+  ?zone:string ->
   ?timeouts:google_compute_instance__timeouts ->
   machine_type:string ->
   name:string ->

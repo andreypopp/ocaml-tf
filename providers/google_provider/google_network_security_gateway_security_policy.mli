@@ -7,7 +7,9 @@ type google_network_security_gateway_security_policy
 
 val google_network_security_gateway_security_policy :
   ?description:string ->
+  ?id:string ->
   ?location:string ->
+  ?project:string ->
   ?timeouts:google_network_security_gateway_security_policy__timeouts ->
   name:string ->
   string ->

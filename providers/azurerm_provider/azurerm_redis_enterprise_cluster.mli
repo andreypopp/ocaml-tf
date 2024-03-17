@@ -6,6 +6,7 @@ type azurerm_redis_enterprise_cluster__timeouts
 type azurerm_redis_enterprise_cluster
 
 val azurerm_redis_enterprise_cluster :
+  ?id:string ->
   ?minimum_tls_version:string ->
   ?tags:(string * string) list ->
   ?zones:string list ->

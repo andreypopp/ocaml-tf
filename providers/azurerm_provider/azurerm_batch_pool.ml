@@ -321,6 +321,7 @@ type azurerm_batch_pool__windows = {
 type azurerm_batch_pool = {
   account_name : string;  (** account_name *)
   display_name : string option; [@option]  (** display_name *)
+  id : string option; [@option]  (** id *)
   inter_node_communication : string option; [@option]
       (** inter_node_communication *)
   license_type : string option; [@option]  (** license_type *)
@@ -363,7 +364,7 @@ type azurerm_batch_pool = {
 [@@deriving yojson_of]
 (** azurerm_batch_pool *)
 
-let azurerm_batch_pool ?display_name ?inter_node_communication
+let azurerm_batch_pool ?display_name ?id ?inter_node_communication
     ?license_type ?max_tasks_per_node ?metadata ?os_disk_placement
     ?stop_pending_resize_operation ?target_node_communication_mode
     ?timeouts ~account_name ~name ~node_agent_sku_id
@@ -377,6 +378,7 @@ let azurerm_batch_pool ?display_name ?inter_node_communication
     {
       account_name;
       display_name;
+      id;
       inter_node_communication;
       license_type;
       max_tasks_per_node;

@@ -6,6 +6,7 @@ type azurerm_stream_analytics_cluster__timeouts
 type azurerm_stream_analytics_cluster
 
 val azurerm_stream_analytics_cluster :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_stream_analytics_cluster__timeouts ->
   location:string ->

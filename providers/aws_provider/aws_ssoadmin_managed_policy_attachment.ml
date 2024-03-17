@@ -12,6 +12,7 @@ type aws_ssoadmin_managed_policy_attachment__timeouts = {
 (** aws_ssoadmin_managed_policy_attachment__timeouts *)
 
 type aws_ssoadmin_managed_policy_attachment = {
+  id : string option; [@option]  (** id *)
   instance_arn : string;  (** instance_arn *)
   managed_policy_arn : string;  (** managed_policy_arn *)
   permission_set_arn : string;  (** permission_set_arn *)
@@ -20,11 +21,13 @@ type aws_ssoadmin_managed_policy_attachment = {
 [@@deriving yojson_of]
 (** aws_ssoadmin_managed_policy_attachment *)
 
-let aws_ssoadmin_managed_policy_attachment ?timeouts ~instance_arn
-    ~managed_policy_arn ~permission_set_arn __resource_id =
+let aws_ssoadmin_managed_policy_attachment ?id ?timeouts
+    ~instance_arn ~managed_policy_arn ~permission_set_arn
+    __resource_id =
   let __resource_type = "aws_ssoadmin_managed_policy_attachment" in
   let __resource =
     {
+      id;
       instance_arn;
       managed_policy_arn;
       permission_set_arn;

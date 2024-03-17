@@ -17,6 +17,7 @@ type azurerm_iothub_fallback_route = {
   condition : string option; [@option]  (** condition *)
   enabled : bool;  (** enabled *)
   endpoint_names : string list;  (** endpoint_names *)
+  id : string option; [@option]  (** id *)
   iothub_name : string;  (** iothub_name *)
   resource_group_name : string;  (** resource_group_name *)
   source : string option; [@option]  (** source *)
@@ -25,7 +26,7 @@ type azurerm_iothub_fallback_route = {
 [@@deriving yojson_of]
 (** azurerm_iothub_fallback_route *)
 
-let azurerm_iothub_fallback_route ?condition ?source ?timeouts
+let azurerm_iothub_fallback_route ?condition ?id ?source ?timeouts
     ~enabled ~endpoint_names ~iothub_name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_iothub_fallback_route" in
@@ -34,6 +35,7 @@ let azurerm_iothub_fallback_route ?condition ?source ?timeouts
       condition;
       enabled;
       endpoint_names;
+      id;
       iothub_name;
       resource_group_name;
       source;

@@ -10,6 +10,7 @@ val azurerm_automation_source_control :
   ?automatic_sync:bool ->
   ?branch:string ->
   ?description:string ->
+  ?id:string ->
   ?publish_runbook_enabled:bool ->
   ?timeouts:azurerm_automation_source_control__timeouts ->
   automation_account_id:string ->

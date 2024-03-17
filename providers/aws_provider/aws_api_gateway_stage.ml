@@ -31,9 +31,12 @@ type aws_api_gateway_stage = {
   description : string option; [@option]  (** description *)
   documentation_version : string option; [@option]
       (** documentation_version *)
+  id : string option; [@option]  (** id *)
   rest_api_id : string;  (** rest_api_id *)
   stage_name : string;  (** stage_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   variables : (string * string) list option; [@option]
       (** variables *)
   xray_tracing_enabled : bool option; [@option]
@@ -46,9 +49,10 @@ type aws_api_gateway_stage = {
 (** aws_api_gateway_stage *)
 
 let aws_api_gateway_stage ?cache_cluster_enabled ?cache_cluster_size
-    ?client_certificate_id ?description ?documentation_version ?tags
-    ?variables ?xray_tracing_enabled ~deployment_id ~rest_api_id
-    ~stage_name ~access_log_settings ~canary_settings __resource_id =
+    ?client_certificate_id ?description ?documentation_version ?id
+    ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
+    ~rest_api_id ~stage_name ~access_log_settings ~canary_settings
+    __resource_id =
   let __resource_type = "aws_api_gateway_stage" in
   let __resource =
     {
@@ -58,9 +62,11 @@ let aws_api_gateway_stage ?cache_cluster_enabled ?cache_cluster_size
       deployment_id;
       description;
       documentation_version;
+      id;
       rest_api_id;
       stage_name;
       tags;
+      tags_all;
       variables;
       xray_tracing_enabled;
       access_log_settings;

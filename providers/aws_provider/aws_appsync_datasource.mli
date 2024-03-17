@@ -21,6 +21,7 @@ type aws_appsync_datasource
 
 val aws_appsync_datasource :
   ?description:string ->
+  ?id:string ->
   ?service_role_arn:string ->
   api_id:string ->
   name:string ->

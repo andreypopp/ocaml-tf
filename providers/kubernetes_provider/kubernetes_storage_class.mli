@@ -10,6 +10,7 @@ type kubernetes_storage_class
 
 val kubernetes_storage_class :
   ?allow_volume_expansion:bool ->
+  ?id:string ->
   ?mount_options:string list ->
   ?parameters:(string * string) list ->
   ?reclaim_policy:string ->

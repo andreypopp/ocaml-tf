@@ -7,6 +7,8 @@ open! Tf.Prelude
 type hcloud_load_balancer_network = {
   enable_public_interface : bool option; [@option]
       (** enable_public_interface *)
+  id : string option; [@option]  (** id *)
+  ip : string option; [@option]  (** ip *)
   load_balancer_id : float;  (** load_balancer_id *)
   network_id : float option; [@option]  (** network_id *)
   subnet_id : string option; [@option]  (** subnet_id *)
@@ -14,12 +16,14 @@ type hcloud_load_balancer_network = {
 [@@deriving yojson_of]
 (** hcloud_load_balancer_network *)
 
-let hcloud_load_balancer_network ?enable_public_interface ?network_id
-    ?subnet_id ~load_balancer_id __resource_id =
+let hcloud_load_balancer_network ?enable_public_interface ?id ?ip
+    ?network_id ?subnet_id ~load_balancer_id __resource_id =
   let __resource_type = "hcloud_load_balancer_network" in
   let __resource =
     {
       enable_public_interface;
+      id;
+      ip;
       load_balancer_id;
       network_id;
       subnet_id;

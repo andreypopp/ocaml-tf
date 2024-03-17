@@ -24,6 +24,7 @@ type azurerm_elastic_san = {
   base_size_in_tib : float;  (** base_size_in_tib *)
   extended_size_in_tib : float option; [@option]
       (** extended_size_in_tib *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -35,14 +36,15 @@ type azurerm_elastic_san = {
 [@@deriving yojson_of]
 (** azurerm_elastic_san *)
 
-let azurerm_elastic_san ?extended_size_in_tib ?tags ?zones ?timeouts
-    ~base_size_in_tib ~location ~name ~resource_group_name ~sku
-    __resource_id =
+let azurerm_elastic_san ?extended_size_in_tib ?id ?tags ?zones
+    ?timeouts ~base_size_in_tib ~location ~name ~resource_group_name
+    ~sku __resource_id =
   let __resource_type = "azurerm_elastic_san" in
   let __resource =
     {
       base_size_in_tib;
       extended_size_in_tib;
+      id;
       location;
       name;
       resource_group_name;

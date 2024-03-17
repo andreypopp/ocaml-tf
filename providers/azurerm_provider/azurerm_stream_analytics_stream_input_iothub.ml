@@ -25,6 +25,7 @@ type azurerm_stream_analytics_stream_input_iothub = {
   endpoint : string;  (** endpoint *)
   eventhub_consumer_group_name : string;
       (** eventhub_consumer_group_name *)
+  id : string option; [@option]  (** id *)
   iothub_namespace : string;  (** iothub_namespace *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -41,8 +42,8 @@ type azurerm_stream_analytics_stream_input_iothub = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_stream_input_iothub *)
 
-let azurerm_stream_analytics_stream_input_iothub ?timeouts ~endpoint
-    ~eventhub_consumer_group_name ~iothub_namespace ~name
+let azurerm_stream_analytics_stream_input_iothub ?id ?timeouts
+    ~endpoint ~eventhub_consumer_group_name ~iothub_namespace ~name
     ~resource_group_name ~shared_access_policy_key
     ~shared_access_policy_name ~stream_analytics_job_name
     ~serialization __resource_id =
@@ -53,6 +54,7 @@ let azurerm_stream_analytics_stream_input_iothub ?timeouts ~endpoint
     {
       endpoint;
       eventhub_consumer_group_name;
+      id;
       iothub_namespace;
       name;
       resource_group_name;

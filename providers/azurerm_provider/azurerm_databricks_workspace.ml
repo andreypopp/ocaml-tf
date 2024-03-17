@@ -61,6 +61,7 @@ type azurerm_databricks_workspace__storage_account_identity = {
 type azurerm_databricks_workspace = {
   customer_managed_key_enabled : bool option; [@option]
       (** customer_managed_key_enabled *)
+  id : string option; [@option]  (** id *)
   infrastructure_encryption_enabled : bool option; [@option]
       (** infrastructure_encryption_enabled *)
   load_balancer_backend_address_pool_id : string option; [@option]
@@ -71,9 +72,13 @@ type azurerm_databricks_workspace = {
   managed_disk_cmk_rotation_to_latest_version_enabled : bool option;
       [@option]
       (** managed_disk_cmk_rotation_to_latest_version_enabled *)
+  managed_resource_group_name : string option; [@option]
+      (** managed_resource_group_name *)
   managed_services_cmk_key_vault_key_id : string option; [@option]
       (** managed_services_cmk_key_vault_key_id *)
   name : string;  (** name *)
+  network_security_group_rules_required : string option; [@option]
+      (** network_security_group_rules_required *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
   resource_group_name : string;  (** resource_group_name *)
@@ -86,25 +91,30 @@ type azurerm_databricks_workspace = {
 [@@deriving yojson_of]
 (** azurerm_databricks_workspace *)
 
-let azurerm_databricks_workspace ?customer_managed_key_enabled
+let azurerm_databricks_workspace ?customer_managed_key_enabled ?id
     ?infrastructure_encryption_enabled
     ?load_balancer_backend_address_pool_id
     ?managed_disk_cmk_key_vault_key_id
     ?managed_disk_cmk_rotation_to_latest_version_enabled
+    ?managed_resource_group_name
     ?managed_services_cmk_key_vault_key_id
+    ?network_security_group_rules_required
     ?public_network_access_enabled ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku ~custom_parameters __resource_id =
   let __resource_type = "azurerm_databricks_workspace" in
   let __resource =
     {
       customer_managed_key_enabled;
+      id;
       infrastructure_encryption_enabled;
       load_balancer_backend_address_pool_id;
       location;
       managed_disk_cmk_key_vault_key_id;
       managed_disk_cmk_rotation_to_latest_version_enabled;
+      managed_resource_group_name;
       managed_services_cmk_key_vault_key_id;
       name;
+      network_security_group_rules_required;
       public_network_access_enabled;
       resource_group_name;
       sku;

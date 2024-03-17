@@ -16,7 +16,10 @@ type azurerm_cosmosdb_gremlin_graph
 
 val azurerm_cosmosdb_gremlin_graph :
   ?analytical_storage_ttl:float ->
+  ?default_ttl:float ->
+  ?id:string ->
   ?partition_key_version:float ->
+  ?throughput:float ->
   ?timeouts:azurerm_cosmosdb_gremlin_graph__timeouts ->
   account_name:string ->
   database_name:string ->

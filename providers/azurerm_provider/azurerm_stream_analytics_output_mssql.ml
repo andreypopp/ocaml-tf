@@ -17,6 +17,7 @@ type azurerm_stream_analytics_output_mssql = {
   authentication_mode : string option; [@option]
       (** authentication_mode *)
   database : string;  (** database *)
+  id : string option; [@option]  (** id *)
   max_batch_count : float option; [@option]  (** max_batch_count *)
   max_writer_count : float option; [@option]  (** max_writer_count *)
   name : string;  (** name *)
@@ -32,7 +33,7 @@ type azurerm_stream_analytics_output_mssql = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_mssql *)
 
-let azurerm_stream_analytics_output_mssql ?authentication_mode
+let azurerm_stream_analytics_output_mssql ?authentication_mode ?id
     ?max_batch_count ?max_writer_count ?password ?user ?timeouts
     ~database ~name ~resource_group_name ~server
     ~stream_analytics_job_name ~table __resource_id =
@@ -41,6 +42,7 @@ let azurerm_stream_analytics_output_mssql ?authentication_mode
     {
       authentication_mode;
       database;
+      id;
       max_batch_count;
       max_writer_count;
       name;

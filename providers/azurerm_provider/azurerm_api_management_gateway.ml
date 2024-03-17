@@ -25,6 +25,7 @@ type azurerm_api_management_gateway__timeouts = {
 type azurerm_api_management_gateway = {
   api_management_id : string;  (** api_management_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   location_data : azurerm_api_management_gateway__location_data list;
   timeouts : azurerm_api_management_gateway__timeouts option;
@@ -32,11 +33,18 @@ type azurerm_api_management_gateway = {
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway *)
 
-let azurerm_api_management_gateway ?description ?timeouts
+let azurerm_api_management_gateway ?description ?id ?timeouts
     ~api_management_id ~name ~location_data __resource_id =
   let __resource_type = "azurerm_api_management_gateway" in
   let __resource =
-    { api_management_id; description; name; location_data; timeouts }
+    {
+      api_management_id;
+      description;
+      id;
+      name;
+      location_data;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_api_management_gateway __resource);

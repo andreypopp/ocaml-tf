@@ -21,6 +21,7 @@ type azurerm_kusto_iothub_data_connection = {
       (** database_routing_type *)
   event_system_properties : string list option; [@option]
       (** event_system_properties *)
+  id : string option; [@option]  (** id *)
   iothub_id : string;  (** iothub_id *)
   location : string;  (** location *)
   mapping_rule_name : string option; [@option]
@@ -36,7 +37,7 @@ type azurerm_kusto_iothub_data_connection = {
 (** azurerm_kusto_iothub_data_connection *)
 
 let azurerm_kusto_iothub_data_connection ?data_format
-    ?database_routing_type ?event_system_properties
+    ?database_routing_type ?event_system_properties ?id
     ?mapping_rule_name ?table_name ?timeouts ~cluster_name
     ~consumer_group ~database_name ~iothub_id ~location ~name
     ~resource_group_name ~shared_access_policy_name __resource_id =
@@ -49,6 +50,7 @@ let azurerm_kusto_iothub_data_connection ?data_format
       database_name;
       database_routing_type;
       event_system_properties;
+      id;
       iothub_id;
       location;
       mapping_rule_name;

@@ -5,4 +5,10 @@ open! Tf.Prelude
 type google_dataproc_job_iam_policy
 
 val google_dataproc_job_iam_policy :
-  job_id:string -> policy_data:string -> string -> unit
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
+  job_id:string ->
+  policy_data:string ->
+  string ->
+  unit

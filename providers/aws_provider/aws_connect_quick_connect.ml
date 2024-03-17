@@ -40,20 +40,31 @@ type aws_connect_quick_connect__quick_connect_config = {
 
 type aws_connect_quick_connect = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   instance_id : string;  (** instance_id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   quick_connect_config :
     aws_connect_quick_connect__quick_connect_config list;
 }
 [@@deriving yojson_of]
 (** aws_connect_quick_connect *)
 
-let aws_connect_quick_connect ?description ?tags ~instance_id ~name
-    ~quick_connect_config __resource_id =
+let aws_connect_quick_connect ?description ?id ?tags ?tags_all
+    ~instance_id ~name ~quick_connect_config __resource_id =
   let __resource_type = "aws_connect_quick_connect" in
   let __resource =
-    { description; instance_id; name; tags; quick_connect_config }
+    {
+      description;
+      id;
+      instance_id;
+      name;
+      tags;
+      tags_all;
+      quick_connect_config;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_quick_connect __resource);

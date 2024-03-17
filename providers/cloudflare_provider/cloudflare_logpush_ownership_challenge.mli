@@ -6,6 +6,7 @@ type cloudflare_logpush_ownership_challenge
 
 val cloudflare_logpush_ownership_challenge :
   ?account_id:string ->
+  ?id:string ->
   ?zone_id:string ->
   destination_conf:string ->
   string ->

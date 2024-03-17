@@ -55,6 +55,7 @@ type azurerm_data_factory_dataset_json = {
   description : string option; [@option]  (** description *)
   encoding : string option; [@option]  (** encoding *)
   folder : string option; [@option]  (** folder *)
+  id : string option; [@option]  (** id *)
   linked_service_name : string;  (** linked_service_name *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
@@ -72,8 +73,8 @@ type azurerm_data_factory_dataset_json = {
 (** azurerm_data_factory_dataset_json *)
 
 let azurerm_data_factory_dataset_json ?additional_properties
-    ?annotations ?description ?encoding ?folder ?parameters ?timeouts
-    ~data_factory_id ~linked_service_name ~name
+    ?annotations ?description ?encoding ?folder ?id ?parameters
+    ?timeouts ~data_factory_id ~linked_service_name ~name
     ~azure_blob_storage_location ~http_server_location ~schema_column
     __resource_id =
   let __resource_type = "azurerm_data_factory_dataset_json" in
@@ -85,6 +86,7 @@ let azurerm_data_factory_dataset_json ?additional_properties
       description;
       encoding;
       folder;
+      id;
       linked_service_name;
       name;
       parameters;

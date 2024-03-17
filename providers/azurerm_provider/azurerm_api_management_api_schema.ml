@@ -19,6 +19,7 @@ type azurerm_api_management_api_schema = {
   components : string option; [@option]  (** components *)
   content_type : string;  (** content_type *)
   definitions : string option; [@option]  (** definitions *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   schema_id : string;  (** schema_id *)
   value : string option; [@option]  (** value *)
@@ -27,8 +28,8 @@ type azurerm_api_management_api_schema = {
 [@@deriving yojson_of]
 (** azurerm_api_management_api_schema *)
 
-let azurerm_api_management_api_schema ?components ?definitions ?value
-    ?timeouts ~api_management_name ~api_name ~content_type
+let azurerm_api_management_api_schema ?components ?definitions ?id
+    ?value ?timeouts ~api_management_name ~api_name ~content_type
     ~resource_group_name ~schema_id __resource_id =
   let __resource_type = "azurerm_api_management_api_schema" in
   let __resource =
@@ -38,6 +39,7 @@ let azurerm_api_management_api_schema ?components ?definitions ?value
       components;
       content_type;
       definitions;
+      id;
       resource_group_name;
       schema_id;
       value;

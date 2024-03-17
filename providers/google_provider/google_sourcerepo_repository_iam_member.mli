@@ -6,6 +6,8 @@ type google_sourcerepo_repository_iam_member__condition
 type google_sourcerepo_repository_iam_member
 
 val google_sourcerepo_repository_iam_member :
+  ?id:string ->
+  ?project:string ->
   member:string ->
   repository:string ->
   role:string ->

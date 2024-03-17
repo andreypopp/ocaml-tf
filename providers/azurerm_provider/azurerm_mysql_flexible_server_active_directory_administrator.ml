@@ -14,6 +14,7 @@ type azurerm_mysql_flexible_server_active_directory_administrator__timeouts = {
 (** azurerm_mysql_flexible_server_active_directory_administrator__timeouts *)
 
 type azurerm_mysql_flexible_server_active_directory_administrator = {
+  id : string option; [@option]  (** id *)
   identity_id : string;  (** identity_id *)
   login : string;  (** login *)
   object_id : string;  (** object_id *)
@@ -26,14 +27,22 @@ type azurerm_mysql_flexible_server_active_directory_administrator = {
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server_active_directory_administrator *)
 
-let azurerm_mysql_flexible_server_active_directory_administrator
+let azurerm_mysql_flexible_server_active_directory_administrator ?id
     ?timeouts ~identity_id ~login ~object_id ~server_id ~tenant_id
     __resource_id =
   let __resource_type =
     "azurerm_mysql_flexible_server_active_directory_administrator"
   in
   let __resource =
-    { identity_id; login; object_id; server_id; tenant_id; timeouts }
+    {
+      id;
+      identity_id;
+      login;
+      object_id;
+      server_id;
+      tenant_id;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mysql_flexible_server_active_directory_administrator

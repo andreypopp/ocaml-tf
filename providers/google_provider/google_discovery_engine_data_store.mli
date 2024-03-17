@@ -7,6 +7,8 @@ type google_discovery_engine_data_store
 
 val google_discovery_engine_data_store :
   ?create_advanced_site_search:bool ->
+  ?id:string ->
+  ?project:string ->
   ?solution_types:string list ->
   ?timeouts:google_discovery_engine_data_store__timeouts ->
   content_config:string ->

@@ -6,6 +6,7 @@ type aws_connect_bot_association__lex_bot
 type aws_connect_bot_association
 
 val aws_connect_bot_association :
+  ?id:string ->
   instance_id:string ->
   lex_bot:aws_connect_bot_association__lex_bot list ->
   string ->

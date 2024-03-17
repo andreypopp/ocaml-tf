@@ -167,6 +167,7 @@ type google_access_context_manager_access_levels__timeouts = {
 (** google_access_context_manager_access_levels__timeouts *)
 
 type google_access_context_manager_access_levels = {
+  id : string option; [@option]  (** id *)
   parent : string;
       (** The AccessPolicy this AccessLevel lives in.
 Format: accessPolicies/{policy_id} *)
@@ -178,12 +179,12 @@ Format: accessPolicies/{policy_id} *)
 [@@deriving yojson_of]
 (** google_access_context_manager_access_levels *)
 
-let google_access_context_manager_access_levels ?timeouts ~parent
+let google_access_context_manager_access_levels ?id ?timeouts ~parent
     ~access_levels __resource_id =
   let __resource_type =
     "google_access_context_manager_access_levels"
   in
-  let __resource = { parent; access_levels; timeouts } in
+  let __resource = { id; parent; access_levels; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_access_levels __resource);
   ()

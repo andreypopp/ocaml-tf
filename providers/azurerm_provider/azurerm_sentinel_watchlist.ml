@@ -17,6 +17,7 @@ type azurerm_sentinel_watchlist = {
       (** default_duration *)
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   item_search_key : string;  (** item_search_key *)
   labels : string list option; [@option]  (** labels *)
   log_analytics_workspace_id : string;
@@ -27,8 +28,8 @@ type azurerm_sentinel_watchlist = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_watchlist *)
 
-let azurerm_sentinel_watchlist ?default_duration ?description ?labels
-    ?timeouts ~display_name ~item_search_key
+let azurerm_sentinel_watchlist ?default_duration ?description ?id
+    ?labels ?timeouts ~display_name ~item_search_key
     ~log_analytics_workspace_id ~name __resource_id =
   let __resource_type = "azurerm_sentinel_watchlist" in
   let __resource =
@@ -36,6 +37,7 @@ let azurerm_sentinel_watchlist ?default_duration ?description ?labels
       default_duration;
       description;
       display_name;
+      id;
       item_search_key;
       labels;
       log_analytics_workspace_id;

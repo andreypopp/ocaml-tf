@@ -785,6 +785,7 @@ TransitionRoutes defined in the transition route groups with only condition spec
 type google_dialogflow_cx_page = {
   display_name : string;
       (** The human-readable name of the page, unique within the agent. *)
+  id : string option; [@option]  (** id *)
   language_code : string option; [@option]
       (** The language of the following fields in page:
 
@@ -820,7 +821,7 @@ Format:projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Fl
 [@@deriving yojson_of]
 (** google_dialogflow_cx_page *)
 
-let google_dialogflow_cx_page ?language_code ?parent
+let google_dialogflow_cx_page ?id ?language_code ?parent
     ?transition_route_groups ?timeouts ~display_name
     ~advanced_settings ~entry_fulfillment ~event_handlers ~form
     ~transition_routes __resource_id =
@@ -828,6 +829,7 @@ let google_dialogflow_cx_page ?language_code ?parent
   let __resource =
     {
       display_name;
+      id;
       language_code;
       parent;
       transition_route_groups;

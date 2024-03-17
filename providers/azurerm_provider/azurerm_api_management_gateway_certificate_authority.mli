@@ -6,6 +6,7 @@ type azurerm_api_management_gateway_certificate_authority__timeouts
 type azurerm_api_management_gateway_certificate_authority
 
 val azurerm_api_management_gateway_certificate_authority :
+  ?id:string ->
   ?is_trusted:bool ->
   ?timeouts:
     azurerm_api_management_gateway_certificate_authority__timeouts ->

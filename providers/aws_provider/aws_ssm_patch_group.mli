@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_ssm_patch_group
 
 val aws_ssm_patch_group :
-  baseline_id:string -> patch_group:string -> string -> unit
+  ?id:string ->
+  baseline_id:string ->
+  patch_group:string ->
+  string ->
+  unit

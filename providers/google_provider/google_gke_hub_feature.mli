@@ -59,25 +59,24 @@ type google_gke_hub_feature__resource_state = {
   has_resources : bool;  (** has_resources *)
   state : string;  (** state *)
 }
-[@@deriving yojson_of]
 
 type google_gke_hub_feature__state__state = {
   code : string;  (** code *)
   description : string;  (** description *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_gke_hub_feature__state = {
   state : google_gke_hub_feature__state__state list;  (** state *)
 }
-[@@deriving yojson_of]
 
 type google_gke_hub_feature
 
 val google_gke_hub_feature :
+  ?id:string ->
   ?labels:(string * string) list ->
   ?name:string ->
+  ?project:string ->
   ?timeouts:google_gke_hub_feature__timeouts ->
   location:string ->
   fleet_default_member_config:

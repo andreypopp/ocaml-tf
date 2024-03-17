@@ -72,6 +72,7 @@ type azurerm_virtual_machine_run_command__instance_view = {
 
 type azurerm_virtual_machine_run_command = {
   error_blob_uri : string option; [@option]  (** error_blob_uri *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   output_blob_uri : string option; [@option]  (** output_blob_uri *)
@@ -94,7 +95,7 @@ type azurerm_virtual_machine_run_command = {
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_run_command *)
 
-let azurerm_virtual_machine_run_command ?error_blob_uri
+let azurerm_virtual_machine_run_command ?error_blob_uri ?id
     ?output_blob_uri ?run_as_password ?run_as_user ?tags ?timeouts
     ~location ~name ~virtual_machine_id ~error_blob_managed_identity
     ~output_blob_managed_identity ~parameter ~protected_parameter
@@ -103,6 +104,7 @@ let azurerm_virtual_machine_run_command ?error_blob_uri
   let __resource =
     {
       error_blob_uri;
+      id;
       location;
       name;
       output_blob_uri;

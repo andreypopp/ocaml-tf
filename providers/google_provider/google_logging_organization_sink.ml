@@ -33,6 +33,7 @@ type google_logging_organization_sink = {
       (** If set to True, then this sink is disabled and it does not export any log entries. *)
   filter : string option; [@option]
       (** The filter to apply when exporting logs. Only log entries that match the filter are exported. *)
+  id : string option; [@option]  (** id *)
   include_children : bool option; [@option]
       (** Whether or not to include children organizations in the sink export. If true, logs associated with child projects are also exported; otherwise only logs relating to the provided organization are included. *)
   name : string;  (** The name of the logging sink. *)
@@ -46,8 +47,8 @@ type google_logging_organization_sink = {
 (** google_logging_organization_sink *)
 
 let google_logging_organization_sink ?description ?disabled ?filter
-    ?include_children ~destination ~name ~org_id ~bigquery_options
-    ~exclusions __resource_id =
+    ?id ?include_children ~destination ~name ~org_id
+    ~bigquery_options ~exclusions __resource_id =
   let __resource_type = "google_logging_organization_sink" in
   let __resource =
     {
@@ -55,6 +56,7 @@ let google_logging_organization_sink ?description ?disabled ?filter
       destination;
       disabled;
       filter;
+      id;
       include_children;
       name;
       org_id;

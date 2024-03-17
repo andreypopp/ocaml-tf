@@ -59,11 +59,15 @@ val azurerm_orchestrated_virtual_machine_scale_set :
   ?capacity_reservation_group_id:string ->
   ?encryption_at_host_enabled:bool ->
   ?eviction_policy:string ->
+  ?extension_operations_enabled:bool ->
   ?extensions_time_budget:string ->
+  ?id:string ->
+  ?instances:float ->
   ?license_type:string ->
   ?max_bid_price:float ->
   ?priority:string ->
   ?proximity_placement_group_id:string ->
+  ?single_placement_group:bool ->
   ?sku_name:string ->
   ?source_image_id:string ->
   ?tags:(string * string) list ->

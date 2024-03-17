@@ -8,8 +8,14 @@ type google_workflows_workflow
 val google_workflows_workflow :
   ?call_log_level:string ->
   ?crypto_key_name:string ->
+  ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?name:string ->
+  ?name_prefix:string ->
+  ?project:string ->
   ?region:string ->
+  ?service_account:string ->
   ?source_contents:string ->
   ?user_env_vars:(string * string) list ->
   ?timeouts:google_workflows_workflow__timeouts ->

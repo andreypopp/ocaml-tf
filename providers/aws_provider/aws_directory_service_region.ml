@@ -20,20 +20,36 @@ type aws_directory_service_region__vpc_settings = {
 (** aws_directory_service_region__vpc_settings *)
 
 type aws_directory_service_region = {
+  desired_number_of_domain_controllers : float option; [@option]
+      (** desired_number_of_domain_controllers *)
   directory_id : string;  (** directory_id *)
+  id : string option; [@option]  (** id *)
   region_name : string;  (** region_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_directory_service_region__timeouts option;
   vpc_settings : aws_directory_service_region__vpc_settings list;
 }
 [@@deriving yojson_of]
 (** aws_directory_service_region *)
 
-let aws_directory_service_region ?tags ?timeouts ~directory_id
-    ~region_name ~vpc_settings __resource_id =
+let aws_directory_service_region
+    ?desired_number_of_domain_controllers ?id ?tags ?tags_all
+    ?timeouts ~directory_id ~region_name ~vpc_settings __resource_id
+    =
   let __resource_type = "aws_directory_service_region" in
   let __resource =
-    { directory_id; region_name; tags; timeouts; vpc_settings }
+    {
+      desired_number_of_domain_controllers;
+      directory_id;
+      id;
+      region_name;
+      tags;
+      tags_all;
+      timeouts;
+      vpc_settings;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_directory_service_region __resource);

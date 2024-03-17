@@ -7,6 +7,8 @@ type google_app_engine_service_network_settings__timeouts
 type google_app_engine_service_network_settings
 
 val google_app_engine_service_network_settings :
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_app_engine_service_network_settings__timeouts ->
   service:string ->
   network_settings:

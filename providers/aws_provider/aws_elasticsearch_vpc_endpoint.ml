@@ -24,16 +24,17 @@ type aws_elasticsearch_vpc_endpoint__vpc_options = {
 
 type aws_elasticsearch_vpc_endpoint = {
   domain_arn : string;  (** domain_arn *)
+  id : string option; [@option]  (** id *)
   timeouts : aws_elasticsearch_vpc_endpoint__timeouts option;
   vpc_options : aws_elasticsearch_vpc_endpoint__vpc_options list;
 }
 [@@deriving yojson_of]
 (** aws_elasticsearch_vpc_endpoint *)
 
-let aws_elasticsearch_vpc_endpoint ?timeouts ~domain_arn ~vpc_options
-    __resource_id =
+let aws_elasticsearch_vpc_endpoint ?id ?timeouts ~domain_arn
+    ~vpc_options __resource_id =
   let __resource_type = "aws_elasticsearch_vpc_endpoint" in
-  let __resource = { domain_arn; timeouts; vpc_options } in
+  let __resource = { domain_arn; id; timeouts; vpc_options } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticsearch_vpc_endpoint __resource);
   ()

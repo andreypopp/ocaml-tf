@@ -41,7 +41,6 @@ type aws_emr_cluster__placement_group_config = {
   instance_role : string;  (** instance_role *)
   placement_strategy : string;  (** placement_strategy *)
 }
-[@@deriving yojson_of]
 
 type aws_emr_cluster__step__hadoop_jar_step = {
   args : string list;  (** args *)
@@ -49,7 +48,6 @@ type aws_emr_cluster__step__hadoop_jar_step = {
   main_class : string;  (** main_class *)
   properties : (string * string) list;  (** properties *)
 }
-[@@deriving yojson_of]
 
 type aws_emr_cluster__step = {
   action_on_failure : string;  (** action_on_failure *)
@@ -57,7 +55,6 @@ type aws_emr_cluster__step = {
       (** hadoop_jar_step *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_emr_cluster
 
@@ -69,14 +66,20 @@ val aws_emr_cluster :
   ?configurations_json:string ->
   ?custom_ami_id:string ->
   ?ebs_root_volume_size:float ->
+  ?id:string ->
+  ?keep_job_flow_alive_when_no_steps:bool ->
   ?list_steps_states:string list ->
   ?log_encryption_kms_key_id:string ->
   ?log_uri:string ->
   ?placement_group_config:
     aws_emr_cluster__placement_group_config list ->
+  ?scale_down_behavior:string ->
   ?security_configuration:string ->
+  ?step:aws_emr_cluster__step list ->
   ?step_concurrency_level:float ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?termination_protection:bool ->
   ?visible_to_all_users:bool ->
   name:string ->
   release_label:string ->

@@ -15,6 +15,7 @@ type azurerm_network_manager_deployment__timeouts = {
 
 type azurerm_network_manager_deployment = {
   configuration_ids : string list;  (** configuration_ids *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   network_manager_id : string;  (** network_manager_id *)
   scope_access : string;  (** scope_access *)
@@ -25,13 +26,14 @@ type azurerm_network_manager_deployment = {
 [@@deriving yojson_of]
 (** azurerm_network_manager_deployment *)
 
-let azurerm_network_manager_deployment ?triggers ?timeouts
+let azurerm_network_manager_deployment ?id ?triggers ?timeouts
     ~configuration_ids ~location ~network_manager_id ~scope_access
     __resource_id =
   let __resource_type = "azurerm_network_manager_deployment" in
   let __resource =
     {
       configuration_ids;
+      id;
       location;
       network_manager_id;
       scope_access;

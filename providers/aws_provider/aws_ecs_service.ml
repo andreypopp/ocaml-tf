@@ -161,6 +161,7 @@ type aws_ecs_service__timeouts = {
 (** aws_ecs_service__timeouts *)
 
 type aws_ecs_service = {
+  cluster : string option; [@option]  (** cluster *)
   deployment_maximum_percent : float option; [@option]
       (** deployment_maximum_percent *)
   deployment_minimum_healthy_percent : float option; [@option]
@@ -174,12 +175,21 @@ type aws_ecs_service = {
       (** force_new_deployment *)
   health_check_grace_period_seconds : float option; [@option]
       (** health_check_grace_period_seconds *)
+  iam_role : string option; [@option]  (** iam_role *)
+  id : string option; [@option]  (** id *)
+  launch_type : string option; [@option]  (** launch_type *)
   name : string;  (** name *)
+  platform_version : string option; [@option]
+      (** platform_version *)
   propagate_tags : string option; [@option]  (** propagate_tags *)
   scheduling_strategy : string option; [@option]
       (** scheduling_strategy *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   task_definition : string option; [@option]  (** task_definition *)
+  triggers : (string * string) list option; [@option]
+      (** triggers *)
   wait_for_steady_state : bool option; [@option]
       (** wait_for_steady_state *)
   alarms : aws_ecs_service__alarms list;
@@ -204,11 +214,12 @@ type aws_ecs_service = {
 [@@deriving yojson_of]
 (** aws_ecs_service *)
 
-let aws_ecs_service ?deployment_maximum_percent
+let aws_ecs_service ?cluster ?deployment_maximum_percent
     ?deployment_minimum_healthy_percent ?desired_count
     ?enable_ecs_managed_tags ?enable_execute_command
     ?force_new_deployment ?health_check_grace_period_seconds
-    ?propagate_tags ?scheduling_strategy ?tags ?task_definition
+    ?iam_role ?id ?launch_type ?platform_version ?propagate_tags
+    ?scheduling_strategy ?tags ?tags_all ?task_definition ?triggers
     ?wait_for_steady_state ?timeouts ~name ~alarms
     ~capacity_provider_strategy ~deployment_circuit_breaker
     ~deployment_controller ~load_balancer ~network_configuration
@@ -218,6 +229,7 @@ let aws_ecs_service ?deployment_maximum_percent
   let __resource_type = "aws_ecs_service" in
   let __resource =
     {
+      cluster;
       deployment_maximum_percent;
       deployment_minimum_healthy_percent;
       desired_count;
@@ -225,11 +237,17 @@ let aws_ecs_service ?deployment_maximum_percent
       enable_execute_command;
       force_new_deployment;
       health_check_grace_period_seconds;
+      iam_role;
+      id;
+      launch_type;
       name;
+      platform_version;
       propagate_tags;
       scheduling_strategy;
       tags;
+      tags_all;
       task_definition;
+      triggers;
       wait_for_steady_state;
       alarms;
       capacity_provider_strategy;

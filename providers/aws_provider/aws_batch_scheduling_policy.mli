@@ -8,7 +8,9 @@ type aws_batch_scheduling_policy__fair_share_policy
 type aws_batch_scheduling_policy
 
 val aws_batch_scheduling_policy :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   fair_share_policy:
     aws_batch_scheduling_policy__fair_share_policy list ->

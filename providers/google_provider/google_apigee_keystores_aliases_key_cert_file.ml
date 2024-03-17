@@ -50,6 +50,7 @@ type google_apigee_keystores_aliases_key_cert_file = {
   alias : string;  (** Alias Name *)
   cert : string;  (** Cert content *)
   environment : string;  (** Environment associated with the alias *)
+  id : string option; [@option]  (** id *)
   key : string option; [@option]
       (** Private Key content, omit if uploading to truststore *)
   keystore : string;  (** Keystore Name *)
@@ -64,7 +65,7 @@ type google_apigee_keystores_aliases_key_cert_file = {
 [@@deriving yojson_of]
 (** google_apigee_keystores_aliases_key_cert_file *)
 
-let google_apigee_keystores_aliases_key_cert_file ?key ?password
+let google_apigee_keystores_aliases_key_cert_file ?id ?key ?password
     ?timeouts ~alias ~cert ~environment ~keystore ~org_id ~certs_info
     __resource_id =
   let __resource_type =
@@ -75,6 +76,7 @@ let google_apigee_keystores_aliases_key_cert_file ?key ?password
       alias;
       cert;
       environment;
+      id;
       key;
       keystore;
       org_id;

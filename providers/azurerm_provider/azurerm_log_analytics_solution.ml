@@ -23,6 +23,7 @@ type azurerm_log_analytics_solution__timeouts = {
 (** azurerm_log_analytics_solution__timeouts *)
 
 type azurerm_log_analytics_solution = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   resource_group_name : string;  (** resource_group_name *)
   solution_name : string;  (** solution_name *)
@@ -35,12 +36,13 @@ type azurerm_log_analytics_solution = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_solution *)
 
-let azurerm_log_analytics_solution ?tags ?timeouts ~location
+let azurerm_log_analytics_solution ?id ?tags ?timeouts ~location
     ~resource_group_name ~solution_name ~workspace_name
     ~workspace_resource_id ~plan __resource_id =
   let __resource_type = "azurerm_log_analytics_solution" in
   let __resource =
     {
+      id;
       location;
       resource_group_name;
       solution_name;

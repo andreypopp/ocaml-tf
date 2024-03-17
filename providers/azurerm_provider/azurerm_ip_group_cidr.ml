@@ -14,16 +14,17 @@ type azurerm_ip_group_cidr__timeouts = {
 
 type azurerm_ip_group_cidr = {
   cidr : string;  (** cidr *)
+  id : string option; [@option]  (** id *)
   ip_group_id : string;  (** ip_group_id *)
   timeouts : azurerm_ip_group_cidr__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_ip_group_cidr *)
 
-let azurerm_ip_group_cidr ?timeouts ~cidr ~ip_group_id __resource_id
-    =
+let azurerm_ip_group_cidr ?id ?timeouts ~cidr ~ip_group_id
+    __resource_id =
   let __resource_type = "azurerm_ip_group_cidr" in
-  let __resource = { cidr; ip_group_id; timeouts } in
+  let __resource = { cidr; id; ip_group_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_ip_group_cidr __resource);
   ()

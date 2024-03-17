@@ -10,6 +10,7 @@ val azurerm_synapse_linked_service :
   ?additional_properties:(string * string) list ->
   ?annotations:string list ->
   ?description:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?timeouts:azurerm_synapse_linked_service__timeouts ->
   name:string ->

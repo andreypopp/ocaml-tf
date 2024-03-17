@@ -15,6 +15,7 @@ type google_service_networking_connection__timeouts = {
 type google_service_networking_connection = {
   deletion_policy : string option; [@option]
       (** When set to ABANDON, terraform will abandon management of the resource instead of deleting it. Prevents terraform apply failures with CloudSQL. Note: The resource will still exist. *)
+  id : string option; [@option]  (** id *)
   network : string;
       (** Name of VPC network connected with service producers using VPC peering. *)
   reserved_peering_ranges : string list;
@@ -26,12 +27,14 @@ type google_service_networking_connection = {
 [@@deriving yojson_of]
 (** google_service_networking_connection *)
 
-let google_service_networking_connection ?deletion_policy ?timeouts
-    ~network ~reserved_peering_ranges ~service __resource_id =
+let google_service_networking_connection ?deletion_policy ?id
+    ?timeouts ~network ~reserved_peering_ranges ~service
+    __resource_id =
   let __resource_type = "google_service_networking_connection" in
   let __resource =
     {
       deletion_policy;
+      id;
       network;
       reserved_peering_ranges;
       service;

@@ -25,12 +25,13 @@ type google_notebooks_runtime__virtual_machine
 type google_notebooks_runtime__metrics = {
   system_metrics : (string * string) list;  (** system_metrics *)
 }
-[@@deriving yojson_of]
 
 type google_notebooks_runtime
 
 val google_notebooks_runtime :
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_notebooks_runtime__timeouts ->
   location:string ->
   name:string ->

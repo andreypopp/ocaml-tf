@@ -8,6 +8,7 @@ type azurerm_api_management_product
 val azurerm_api_management_product :
   ?approval_required:bool ->
   ?description:string ->
+  ?id:string ->
   ?subscription_required:bool ->
   ?subscriptions_limit:float ->
   ?terms:string ->

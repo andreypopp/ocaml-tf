@@ -6,6 +6,7 @@ type aws_opensearch_package_association__timeouts
 type aws_opensearch_package_association
 
 val aws_opensearch_package_association :
+  ?id:string ->
   ?timeouts:aws_opensearch_package_association__timeouts ->
   domain_name:string ->
   package_id:string ->

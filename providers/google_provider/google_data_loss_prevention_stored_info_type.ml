@@ -108,6 +108,7 @@ type google_data_loss_prevention_stored_info_type = {
       (** A description of the info type. *)
   display_name : string option; [@option]
       (** User set display name of the info type. *)
+  id : string option; [@option]  (** id *)
   parent : string;
       (** The parent of the info type in any of the following formats:
 
@@ -115,6 +116,10 @@ type google_data_loss_prevention_stored_info_type = {
 * 'projects/{{project}}/locations/{{location}}'
 * 'organizations/{{organization_id}}'
 * 'organizations/{{organization_id}}/locations/{{location}}' *)
+  stored_info_type_id : string option; [@option]
+      (** The storedInfoType ID can contain uppercase and lowercase letters, numbers, and hyphens;
+that is, it must match the regular expression: [a-zA-Z\d-_]+. The maximum length is 100
+characters. Can be empty to allow the system to generate one. *)
   dictionary :
     google_data_loss_prevention_stored_info_type__dictionary list;
   large_custom_dictionary :
@@ -128,8 +133,8 @@ type google_data_loss_prevention_stored_info_type = {
 (** google_data_loss_prevention_stored_info_type *)
 
 let google_data_loss_prevention_stored_info_type ?description
-    ?display_name ?timeouts ~parent ~dictionary
-    ~large_custom_dictionary ~regex __resource_id =
+    ?display_name ?id ?stored_info_type_id ?timeouts ~parent
+    ~dictionary ~large_custom_dictionary ~regex __resource_id =
   let __resource_type =
     "google_data_loss_prevention_stored_info_type"
   in
@@ -137,7 +142,9 @@ let google_data_loss_prevention_stored_info_type ?description
     {
       description;
       display_name;
+      id;
       parent;
+      stored_info_type_id;
       dictionary;
       large_custom_dictionary;
       regex;

@@ -9,6 +9,7 @@ type azurerm_managed_application_definition
 val azurerm_managed_application_definition :
   ?create_ui_definition:string ->
   ?description:string ->
+  ?id:string ->
   ?main_template:string ->
   ?package_enabled:bool ->
   ?package_file_uri:string ->

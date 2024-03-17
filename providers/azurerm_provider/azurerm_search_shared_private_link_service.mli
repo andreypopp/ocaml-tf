@@ -6,6 +6,7 @@ type azurerm_search_shared_private_link_service__timeouts
 type azurerm_search_shared_private_link_service
 
 val azurerm_search_shared_private_link_service :
+  ?id:string ->
   ?request_message:string ->
   ?timeouts:azurerm_search_shared_private_link_service__timeouts ->
   name:string ->

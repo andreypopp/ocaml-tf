@@ -8,8 +8,11 @@ type aws_servicecatalog_provisioning_artifact
 val aws_servicecatalog_provisioning_artifact :
   ?accept_language:string ->
   ?active:bool ->
+  ?description:string ->
   ?disable_template_validation:bool ->
   ?guidance:string ->
+  ?id:string ->
+  ?name:string ->
   ?template_physical_id:string ->
   ?template_url:string ->
   ?type_:string ->

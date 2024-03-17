@@ -8,6 +8,8 @@ type google_datastore_index
 
 val google_datastore_index :
   ?ancestor:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_datastore_index__timeouts ->
   kind:string ->
   properties:google_datastore_index__properties list ->

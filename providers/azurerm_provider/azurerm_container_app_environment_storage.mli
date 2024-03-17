@@ -6,6 +6,7 @@ type azurerm_container_app_environment_storage__timeouts
 type azurerm_container_app_environment_storage
 
 val azurerm_container_app_environment_storage :
+  ?id:string ->
   ?timeouts:azurerm_container_app_environment_storage__timeouts ->
   access_key:string ->
   access_mode:string ->

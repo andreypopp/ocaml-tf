@@ -8,6 +8,7 @@ type azurerm_lb
 
 val azurerm_lb :
   ?edge_zone:string ->
+  ?id:string ->
   ?sku:string ->
   ?sku_tier:string ->
   ?tags:(string * string) list ->

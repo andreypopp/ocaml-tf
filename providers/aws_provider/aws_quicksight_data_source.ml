@@ -189,9 +189,12 @@ type aws_quicksight_data_source__vpc_connection_properties = {
 (** aws_quicksight_data_source__vpc_connection_properties *)
 
 type aws_quicksight_data_source = {
+  aws_account_id: string option; [@option] (** aws_account_id *)
   data_source_id: string;  (** data_source_id *)
+  id: string option; [@option] (** id *)
   name: string;  (** name *)
   tags: (string * string) list option; [@option] (** tags *)
+  tags_all: (string * string) list option; [@option] (** tags_all *)
   type_: string; [@key "type"] (** type *)
   credentials: aws_quicksight_data_source__credentials list;
   parameters: aws_quicksight_data_source__parameters list;
@@ -201,12 +204,15 @@ type aws_quicksight_data_source = {
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source *)
 
-let aws_quicksight_data_source ?tags  ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties __resource_id =
+let aws_quicksight_data_source ?aws_account_id ?id ?tags ?tags_all  ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties __resource_id =
   let __resource_type = "aws_quicksight_data_source" in
   let __resource = {
+    aws_account_id;
     data_source_id;
+    id;
     name;
     tags;
+    tags_all;
     type_;
     credentials;
     parameters;

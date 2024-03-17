@@ -39,6 +39,7 @@ type azurerm_image__timeouts = {
 type azurerm_image = {
   hyper_v_generation : string option; [@option]
       (** hyper_v_generation *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -53,13 +54,14 @@ type azurerm_image = {
 [@@deriving yojson_of]
 (** azurerm_image *)
 
-let azurerm_image ?hyper_v_generation ?source_virtual_machine_id
+let azurerm_image ?hyper_v_generation ?id ?source_virtual_machine_id
     ?tags ?zone_resilient ?timeouts ~location ~name
     ~resource_group_name ~data_disk ~os_disk __resource_id =
   let __resource_type = "azurerm_image" in
   let __resource =
     {
       hyper_v_generation;
+      id;
       location;
       name;
       resource_group_name;

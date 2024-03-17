@@ -12,6 +12,7 @@ type aws_appsync_resolver
 val aws_appsync_resolver :
   ?code:string ->
   ?data_source:string ->
+  ?id:string ->
   ?kind:string ->
   ?max_batch_size:float ->
   ?request_template:string ->

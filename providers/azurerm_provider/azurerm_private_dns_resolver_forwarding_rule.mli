@@ -8,6 +8,7 @@ type azurerm_private_dns_resolver_forwarding_rule
 
 val azurerm_private_dns_resolver_forwarding_rule :
   ?enabled:bool ->
+  ?id:string ->
   ?metadata:(string * string) list ->
   ?timeouts:azurerm_private_dns_resolver_forwarding_rule__timeouts ->
   dns_forwarding_ruleset_id:string ->

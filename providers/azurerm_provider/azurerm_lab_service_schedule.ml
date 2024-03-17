@@ -23,6 +23,7 @@ type azurerm_lab_service_schedule__timeouts = {
 (** azurerm_lab_service_schedule__timeouts *)
 
 type azurerm_lab_service_schedule = {
+  id : string option; [@option]  (** id *)
   lab_id : string;  (** lab_id *)
   name : string;  (** name *)
   notes : string option; [@option]  (** notes *)
@@ -35,11 +36,12 @@ type azurerm_lab_service_schedule = {
 [@@deriving yojson_of]
 (** azurerm_lab_service_schedule *)
 
-let azurerm_lab_service_schedule ?notes ?start_time ?timeouts ~lab_id
-    ~name ~stop_time ~time_zone ~recurrence __resource_id =
+let azurerm_lab_service_schedule ?id ?notes ?start_time ?timeouts
+    ~lab_id ~name ~stop_time ~time_zone ~recurrence __resource_id =
   let __resource_type = "azurerm_lab_service_schedule" in
   let __resource =
     {
+      id;
       lab_id;
       name;
       notes;

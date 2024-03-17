@@ -14,6 +14,7 @@ type azurerm_eventhub_namespace_disaster_recovery_config__timeouts = {
 (** azurerm_eventhub_namespace_disaster_recovery_config__timeouts *)
 
 type azurerm_eventhub_namespace_disaster_recovery_config = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   namespace_name : string;  (** namespace_name *)
   partner_namespace_id : string;  (** partner_namespace_id *)
@@ -25,7 +26,7 @@ type azurerm_eventhub_namespace_disaster_recovery_config = {
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace_disaster_recovery_config *)
 
-let azurerm_eventhub_namespace_disaster_recovery_config ?timeouts
+let azurerm_eventhub_namespace_disaster_recovery_config ?id ?timeouts
     ~name ~namespace_name ~partner_namespace_id ~resource_group_name
     __resource_id =
   let __resource_type =
@@ -33,6 +34,7 @@ let azurerm_eventhub_namespace_disaster_recovery_config ?timeouts
   in
   let __resource =
     {
+      id;
       name;
       namespace_name;
       partner_namespace_id;

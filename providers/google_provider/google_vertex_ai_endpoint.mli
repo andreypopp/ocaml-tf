@@ -11,20 +11,17 @@ type google_vertex_ai_endpoint__deployed_models__private_endpoints = {
   predict_http_uri : string;  (** predict_http_uri *)
   service_attachment : string;  (** service_attachment *)
 }
-[@@deriving yojson_of]
 
 type google_vertex_ai_endpoint__deployed_models__dedicated_resources__machine_spec = {
   accelerator_count : float;  (** accelerator_count *)
   accelerator_type : string;  (** accelerator_type *)
   machine_type : string;  (** machine_type *)
 }
-[@@deriving yojson_of]
 
 type google_vertex_ai_endpoint__deployed_models__dedicated_resources__autoscaling_metric_specs = {
   metric_name : string;  (** metric_name *)
   target : float;  (** target *)
 }
-[@@deriving yojson_of]
 
 type google_vertex_ai_endpoint__deployed_models__dedicated_resources = {
   autoscaling_metric_specs :
@@ -38,13 +35,11 @@ type google_vertex_ai_endpoint__deployed_models__dedicated_resources = {
   max_replica_count : float;  (** max_replica_count *)
   min_replica_count : float;  (** min_replica_count *)
 }
-[@@deriving yojson_of]
 
 type google_vertex_ai_endpoint__deployed_models__automatic_resources = {
   max_replica_count : float;  (** max_replica_count *)
   min_replica_count : float;  (** min_replica_count *)
 }
-[@@deriving yojson_of]
 
 type google_vertex_ai_endpoint__deployed_models = {
   automatic_resources :
@@ -69,14 +64,15 @@ type google_vertex_ai_endpoint__deployed_models = {
   service_account : string;  (** service_account *)
   shared_resources : string;  (** shared_resources *)
 }
-[@@deriving yojson_of]
 
 type google_vertex_ai_endpoint
 
 val google_vertex_ai_endpoint :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?network:string ->
+  ?project:string ->
   ?region:string ->
   ?timeouts:google_vertex_ai_endpoint__timeouts ->
   display_name:string ->

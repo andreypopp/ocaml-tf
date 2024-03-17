@@ -15,6 +15,7 @@ type azurerm_network_manager_management_group_connection__timeouts = {
 
 type azurerm_network_manager_management_group_connection = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   management_group_id : string;  (** management_group_id *)
   name : string;  (** name *)
   network_manager_id : string;  (** network_manager_id *)
@@ -26,7 +27,7 @@ type azurerm_network_manager_management_group_connection = {
 (** azurerm_network_manager_management_group_connection *)
 
 let azurerm_network_manager_management_group_connection ?description
-    ?timeouts ~management_group_id ~name ~network_manager_id
+    ?id ?timeouts ~management_group_id ~name ~network_manager_id
     __resource_id =
   let __resource_type =
     "azurerm_network_manager_management_group_connection"
@@ -34,6 +35,7 @@ let azurerm_network_manager_management_group_connection ?description
   let __resource =
     {
       description;
+      id;
       management_group_id;
       name;
       network_manager_id;

@@ -14,6 +14,7 @@ type azurerm_monitor_private_link_scope__timeouts = {
 (** azurerm_monitor_private_link_scope__timeouts *)
 
 type azurerm_monitor_private_link_scope = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -22,10 +23,12 @@ type azurerm_monitor_private_link_scope = {
 [@@deriving yojson_of]
 (** azurerm_monitor_private_link_scope *)
 
-let azurerm_monitor_private_link_scope ?tags ?timeouts ~name
+let azurerm_monitor_private_link_scope ?id ?tags ?timeouts ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_monitor_private_link_scope" in
-  let __resource = { name; resource_group_name; tags; timeouts } in
+  let __resource =
+    { id; name; resource_group_name; tags; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_monitor_private_link_scope __resource);
   ()

@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_load_balancer_listener_policy = {
+  id : string option; [@option]  (** id *)
   load_balancer_name : string;  (** load_balancer_name *)
   load_balancer_port : float;  (** load_balancer_port *)
   policy_names : string list option; [@option]  (** policy_names *)
@@ -13,11 +14,12 @@ type aws_load_balancer_listener_policy = {
 [@@deriving yojson_of]
 (** aws_load_balancer_listener_policy *)
 
-let aws_load_balancer_listener_policy ?policy_names ?triggers
+let aws_load_balancer_listener_policy ?id ?policy_names ?triggers
     ~load_balancer_name ~load_balancer_port __resource_id =
   let __resource_type = "aws_load_balancer_listener_policy" in
   let __resource =
     {
+      id;
       load_balancer_name;
       load_balancer_port;
       policy_names;

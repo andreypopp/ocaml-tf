@@ -27,6 +27,7 @@ type azurerm_virtual_machine_extension = {
       (** automatic_upgrade_enabled *)
   failure_suppression_enabled : bool option; [@option]
       (** failure_suppression_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   protected_settings : string option; [@option]
       (** protected_settings *)
@@ -47,7 +48,7 @@ type azurerm_virtual_machine_extension = {
 (** azurerm_virtual_machine_extension *)
 
 let azurerm_virtual_machine_extension ?auto_upgrade_minor_version
-    ?automatic_upgrade_enabled ?failure_suppression_enabled
+    ?automatic_upgrade_enabled ?failure_suppression_enabled ?id
     ?protected_settings ?provision_after_extensions ?settings ?tags
     ?timeouts ~name ~publisher ~type_ ~type_handler_version
     ~virtual_machine_id ~protected_settings_from_key_vault
@@ -58,6 +59,7 @@ let azurerm_virtual_machine_extension ?auto_upgrade_minor_version
       auto_upgrade_minor_version;
       automatic_upgrade_enabled;
       failure_suppression_enabled;
+      id;
       name;
       protected_settings;
       provision_after_extensions;

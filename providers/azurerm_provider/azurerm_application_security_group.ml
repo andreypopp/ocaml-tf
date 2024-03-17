@@ -14,6 +14,7 @@ type azurerm_application_security_group__timeouts = {
 (** azurerm_application_security_group__timeouts *)
 
 type azurerm_application_security_group = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -23,11 +24,11 @@ type azurerm_application_security_group = {
 [@@deriving yojson_of]
 (** azurerm_application_security_group *)
 
-let azurerm_application_security_group ?tags ?timeouts ~location
+let azurerm_application_security_group ?id ?tags ?timeouts ~location
     ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_application_security_group" in
   let __resource =
-    { location; name; resource_group_name; tags; timeouts }
+    { id; location; name; resource_group_name; tags; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_security_group __resource);

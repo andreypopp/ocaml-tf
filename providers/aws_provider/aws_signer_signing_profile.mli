@@ -11,12 +11,15 @@ type aws_signer_signing_profile__revocation_record = {
   revoked_at : string;  (** revoked_at *)
   revoked_by : string;  (** revoked_by *)
 }
-[@@deriving yojson_of]
 
 type aws_signer_signing_profile
 
 val aws_signer_signing_profile :
+  ?id:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   platform_id:string ->
   signature_validity_period:
     aws_signer_signing_profile__signature_validity_period list ->

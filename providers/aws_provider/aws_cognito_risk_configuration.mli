@@ -29,6 +29,7 @@ type aws_cognito_risk_configuration
 
 val aws_cognito_risk_configuration :
   ?client_id:string ->
+  ?id:string ->
   user_pool_id:string ->
   account_takeover_risk_configuration:
     aws_cognito_risk_configuration__account_takeover_risk_configuration

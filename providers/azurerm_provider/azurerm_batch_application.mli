@@ -9,6 +9,7 @@ val azurerm_batch_application :
   ?allow_updates:bool ->
   ?default_version:string ->
   ?display_name:string ->
+  ?id:string ->
   ?timeouts:azurerm_batch_application__timeouts ->
   account_name:string ->
   name:string ->

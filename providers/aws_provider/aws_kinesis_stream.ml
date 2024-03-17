@@ -19,9 +19,11 @@ type aws_kinesis_stream__timeouts = {
 (** aws_kinesis_stream__timeouts *)
 
 type aws_kinesis_stream = {
+  arn : string option; [@option]  (** arn *)
   encryption_type : string option; [@option]  (** encryption_type *)
   enforce_consumer_deletion : bool option; [@option]
       (** enforce_consumer_deletion *)
+  id : string option; [@option]  (** id *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
   name : string;  (** name *)
   retention_period : float option; [@option]  (** retention_period *)
@@ -29,26 +31,32 @@ type aws_kinesis_stream = {
   shard_level_metrics : string list option; [@option]
       (** shard_level_metrics *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   stream_mode_details : aws_kinesis_stream__stream_mode_details list;
   timeouts : aws_kinesis_stream__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_kinesis_stream *)
 
-let aws_kinesis_stream ?encryption_type ?enforce_consumer_deletion
-    ?kms_key_id ?retention_period ?shard_count ?shard_level_metrics
-    ?tags ?timeouts ~name ~stream_mode_details __resource_id =
+let aws_kinesis_stream ?arn ?encryption_type
+    ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
+    ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts ~name
+    ~stream_mode_details __resource_id =
   let __resource_type = "aws_kinesis_stream" in
   let __resource =
     {
+      arn;
       encryption_type;
       enforce_consumer_deletion;
+      id;
       kms_key_id;
       name;
       retention_period;
       shard_count;
       shard_level_metrics;
       tags;
+      tags_all;
       stream_mode_details;
       timeouts;
     }

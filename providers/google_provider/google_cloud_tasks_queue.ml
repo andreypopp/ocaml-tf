@@ -108,8 +108,10 @@ type google_cloud_tasks_queue__timeouts = {
 (** google_cloud_tasks_queue__timeouts *)
 
 type google_cloud_tasks_queue = {
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the queue *)
   name : string option; [@option]  (** The queue name. *)
+  project : string option; [@option]  (** project *)
   app_engine_routing_override :
     google_cloud_tasks_queue__app_engine_routing_override list;
   rate_limits : google_cloud_tasks_queue__rate_limits list;
@@ -121,14 +123,16 @@ type google_cloud_tasks_queue = {
 [@@deriving yojson_of]
 (** google_cloud_tasks_queue *)
 
-let google_cloud_tasks_queue ?name ?timeouts ~location
+let google_cloud_tasks_queue ?id ?name ?project ?timeouts ~location
     ~app_engine_routing_override ~rate_limits ~retry_config
     ~stackdriver_logging_config __resource_id =
   let __resource_type = "google_cloud_tasks_queue" in
   let __resource =
     {
+      id;
       location;
       name;
+      project;
       app_engine_routing_override;
       rate_limits;
       retry_config;

@@ -2570,6 +2570,7 @@ type kubernetes_cron_job_v1__timeouts = {
 (** kubernetes_cron_job_v1__timeouts *)
 
 type kubernetes_cron_job_v1 = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_cron_job_v1__metadata list;
   spec : kubernetes_cron_job_v1__spec list;
   timeouts : kubernetes_cron_job_v1__timeouts option;
@@ -2577,9 +2578,10 @@ type kubernetes_cron_job_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_cron_job_v1 *)
 
-let kubernetes_cron_job_v1 ?timeouts ~metadata ~spec __resource_id =
+let kubernetes_cron_job_v1 ?id ?timeouts ~metadata ~spec
+    __resource_id =
   let __resource_type = "kubernetes_cron_job_v1" in
-  let __resource = { metadata; spec; timeouts } in
+  let __resource = { id; metadata; spec; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_cron_job_v1 __resource);
   ()

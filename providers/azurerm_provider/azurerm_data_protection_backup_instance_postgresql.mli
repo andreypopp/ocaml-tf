@@ -7,6 +7,7 @@ type azurerm_data_protection_backup_instance_postgresql
 
 val azurerm_data_protection_backup_instance_postgresql :
   ?database_credential_key_vault_secret_id:string ->
+  ?id:string ->
   ?timeouts:
     azurerm_data_protection_backup_instance_postgresql__timeouts ->
   backup_policy_id:string ->

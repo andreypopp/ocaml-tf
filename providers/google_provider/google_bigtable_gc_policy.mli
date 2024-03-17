@@ -10,7 +10,9 @@ type google_bigtable_gc_policy
 val google_bigtable_gc_policy :
   ?deletion_policy:string ->
   ?gc_rules:string ->
+  ?id:string ->
   ?mode:string ->
+  ?project:string ->
   ?timeouts:google_bigtable_gc_policy__timeouts ->
   column_family:string ->
   instance_name:string ->

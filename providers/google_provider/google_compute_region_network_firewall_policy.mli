@@ -7,6 +7,9 @@ type google_compute_region_network_firewall_policy
 
 val google_compute_region_network_firewall_policy :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:google_compute_region_network_firewall_policy__timeouts ->
   name:string ->
   string ->

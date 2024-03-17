@@ -123,6 +123,7 @@ type kubernetes_service__status = {
 [@@deriving yojson_of]
 
 type kubernetes_service = {
+  id : string option; [@option]  (** id *)
   wait_for_load_balancer : bool option; [@option]
       (** Terraform will wait for the load balancer to have at least 1 endpoint before considering the resource created. *)
   metadata : kubernetes_service__metadata list;
@@ -132,11 +133,11 @@ type kubernetes_service = {
 [@@deriving yojson_of]
 (** kubernetes_service *)
 
-let kubernetes_service ?wait_for_load_balancer ?timeouts ~metadata
-    ~spec __resource_id =
+let kubernetes_service ?id ?wait_for_load_balancer ?timeouts
+    ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_service" in
   let __resource =
-    { wait_for_load_balancer; metadata; spec; timeouts }
+    { id; wait_for_load_balancer; metadata; spec; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_service __resource);

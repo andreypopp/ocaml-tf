@@ -32,7 +32,9 @@ type google_privateca_certificate_template
 
 val google_privateca_certificate_template :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_privateca_certificate_template__timeouts ->
   location:string ->
   name:string ->

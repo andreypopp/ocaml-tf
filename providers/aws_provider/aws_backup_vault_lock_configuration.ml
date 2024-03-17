@@ -8,6 +8,7 @@ type aws_backup_vault_lock_configuration = {
   backup_vault_name : string;  (** backup_vault_name *)
   changeable_for_days : float option; [@option]
       (** changeable_for_days *)
+  id : string option; [@option]  (** id *)
   max_retention_days : float option; [@option]
       (** max_retention_days *)
   min_retention_days : float option; [@option]
@@ -16,7 +17,7 @@ type aws_backup_vault_lock_configuration = {
 [@@deriving yojson_of]
 (** aws_backup_vault_lock_configuration *)
 
-let aws_backup_vault_lock_configuration ?changeable_for_days
+let aws_backup_vault_lock_configuration ?changeable_for_days ?id
     ?max_retention_days ?min_retention_days ~backup_vault_name
     __resource_id =
   let __resource_type = "aws_backup_vault_lock_configuration" in
@@ -24,6 +25,7 @@ let aws_backup_vault_lock_configuration ?changeable_for_days
     {
       backup_vault_name;
       changeable_for_days;
+      id;
       max_retention_days;
       min_retention_days;
     }

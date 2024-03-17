@@ -20,6 +20,7 @@ type azurerm_iothub_endpoint_servicebus_topic = {
       (** connection_string *)
   endpoint_uri : string option; [@option]  (** endpoint_uri *)
   entity_path : string option; [@option]  (** entity_path *)
+  id : string option; [@option]  (** id *)
   identity_id : string option; [@option]  (** identity_id *)
   iothub_id : string;  (** iothub_id *)
   name : string;  (** name *)
@@ -31,7 +32,7 @@ type azurerm_iothub_endpoint_servicebus_topic = {
 (** azurerm_iothub_endpoint_servicebus_topic *)
 
 let azurerm_iothub_endpoint_servicebus_topic ?authentication_type
-    ?connection_string ?endpoint_uri ?entity_path ?identity_id
+    ?connection_string ?endpoint_uri ?entity_path ?id ?identity_id
     ?timeouts ~iothub_id ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_iothub_endpoint_servicebus_topic" in
   let __resource =
@@ -40,6 +41,7 @@ let azurerm_iothub_endpoint_servicebus_topic ?authentication_type
       connection_string;
       endpoint_uri;
       entity_path;
+      id;
       identity_id;
       iothub_id;
       name;

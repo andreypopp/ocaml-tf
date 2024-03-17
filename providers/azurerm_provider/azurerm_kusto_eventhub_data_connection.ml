@@ -21,7 +21,10 @@ type azurerm_kusto_eventhub_data_connection = {
   database_name : string;  (** database_name *)
   database_routing_type : string option; [@option]
       (** database_routing_type *)
+  event_system_properties : string list option; [@option]
+      (** event_system_properties *)
   eventhub_id : string;  (** eventhub_id *)
+  id : string option; [@option]  (** id *)
   identity_id : string option; [@option]  (** identity_id *)
   location : string;  (** location *)
   mapping_rule_name : string option; [@option]
@@ -35,10 +38,10 @@ type azurerm_kusto_eventhub_data_connection = {
 (** azurerm_kusto_eventhub_data_connection *)
 
 let azurerm_kusto_eventhub_data_connection ?compression ?data_format
-    ?database_routing_type ?identity_id ?mapping_rule_name
-    ?table_name ?timeouts ~cluster_name ~consumer_group
-    ~database_name ~eventhub_id ~location ~name ~resource_group_name
-    __resource_id =
+    ?database_routing_type ?event_system_properties ?id ?identity_id
+    ?mapping_rule_name ?table_name ?timeouts ~cluster_name
+    ~consumer_group ~database_name ~eventhub_id ~location ~name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_kusto_eventhub_data_connection" in
   let __resource =
     {
@@ -48,7 +51,9 @@ let azurerm_kusto_eventhub_data_connection ?compression ?data_format
       data_format;
       database_name;
       database_routing_type;
+      event_system_properties;
       eventhub_id;
+      id;
       identity_id;
       location;
       mapping_rule_name;

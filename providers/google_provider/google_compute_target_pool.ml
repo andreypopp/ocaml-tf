@@ -21,8 +21,15 @@ type google_compute_target_pool = {
       (** Ratio (0 to 1) of failed nodes before using the backup pool (which must also be set). *)
   health_checks : string list option; [@option]
       (** List of zero or one health check name or self_link. Only legacy google_compute_http_health_check is supported. *)
+  id : string option; [@option]  (** id *)
+  instances : string list option; [@option]
+      (** List of instances in the pool. They can be given as URLs, or in the form of zone/name. Note that the instances need not exist at the time of target pool creation, so there is no need to use the Terraform interpolators to create a dependency on the instances from the target pool. *)
   name : string;
       (** A unique name for the resource, required by GCE. Changing this forces a new resource to be created. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
+  region : string option; [@option]
+      (** Where the target pool resides. Defaults to project region. *)
   session_affinity : string option; [@option]
       (** How to distribute load. Options are NONE (no affinity). CLIENT_IP (hash of the source/dest addresses / ports), and CLIENT_IP_PROTO also includes the protocol (default NONE). *)
   timeouts : google_compute_target_pool__timeouts option;
@@ -31,8 +38,8 @@ type google_compute_target_pool = {
 (** google_compute_target_pool *)
 
 let google_compute_target_pool ?backup_pool ?description
-    ?failover_ratio ?health_checks ?session_affinity ?timeouts ~name
-    __resource_id =
+    ?failover_ratio ?health_checks ?id ?instances ?project ?region
+    ?session_affinity ?timeouts ~name __resource_id =
   let __resource_type = "google_compute_target_pool" in
   let __resource =
     {
@@ -40,7 +47,11 @@ let google_compute_target_pool ?backup_pool ?description
       description;
       failover_ratio;
       health_checks;
+      id;
+      instances;
       name;
+      project;
+      region;
       session_affinity;
       timeouts;
     }

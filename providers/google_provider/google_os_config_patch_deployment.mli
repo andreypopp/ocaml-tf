@@ -49,6 +49,8 @@ type google_os_config_patch_deployment
 val google_os_config_patch_deployment :
   ?description:string ->
   ?duration:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_os_config_patch_deployment__timeouts ->
   patch_deployment_id:string ->
   instance_filter:

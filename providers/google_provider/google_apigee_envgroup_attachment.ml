@@ -16,15 +16,16 @@ type google_apigee_envgroup_attachment = {
       (** The Apigee environment group associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/envgroups/{{envgroup_name}}'. *)
   environment : string;  (** The resource ID of the environment. *)
+  id : string option; [@option]  (** id *)
   timeouts : google_apigee_envgroup_attachment__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_envgroup_attachment *)
 
-let google_apigee_envgroup_attachment ?timeouts ~envgroup_id
+let google_apigee_envgroup_attachment ?id ?timeouts ~envgroup_id
     ~environment __resource_id =
   let __resource_type = "google_apigee_envgroup_attachment" in
-  let __resource = { envgroup_id; environment; timeouts } in
+  let __resource = { envgroup_id; environment; id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_envgroup_attachment __resource);
   ()

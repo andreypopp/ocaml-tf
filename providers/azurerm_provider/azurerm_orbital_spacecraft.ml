@@ -24,6 +24,7 @@ type azurerm_orbital_spacecraft__timeouts = {
 (** azurerm_orbital_spacecraft__timeouts *)
 
 type azurerm_orbital_spacecraft = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   norad_id : string;  (** norad_id *)
@@ -37,12 +38,13 @@ type azurerm_orbital_spacecraft = {
 [@@deriving yojson_of]
 (** azurerm_orbital_spacecraft *)
 
-let azurerm_orbital_spacecraft ?tags ?timeouts ~location ~name
+let azurerm_orbital_spacecraft ?id ?tags ?timeouts ~location ~name
     ~norad_id ~resource_group_name ~title_line ~two_line_elements
     ~links __resource_id =
   let __resource_type = "azurerm_orbital_spacecraft" in
   let __resource =
     {
+      id;
       location;
       name;
       norad_id;

@@ -6,6 +6,7 @@ type cloudflare_tunnel_route
 
 val cloudflare_tunnel_route :
   ?comment:string ->
+  ?id:string ->
   ?virtual_network_id:string ->
   account_id:string ->
   network:string ->

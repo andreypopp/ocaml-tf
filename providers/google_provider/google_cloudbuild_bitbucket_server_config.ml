@@ -41,6 +41,7 @@ Changing this field will result in deleting/ recreating the resource. *)
   host_uri : string;
       (** Immutable. The URI of the Bitbucket Server host. Once this field has been set, it cannot be changed.
 If you need to change it, please create another BitbucketServerConfig. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The location of this bitbucket server config. *)
   peered_network : string option; [@option]
@@ -48,6 +49,7 @@ If you need to change it, please create another BitbucketServerConfig. *)
 This should be set if the Bitbucket Server instance is hosted on-premises and not reachable by public internet. If this field is left empty,
 no network peering will occur and calls to the Bitbucket Server instance will be made over the public internet. Must be in the format
 projects/{project}/global/networks/{network}, where {project} is a project number or id and {network} is the name of a VPC network in the project. *)
+  project : string option; [@option]  (** project *)
   ssl_ca : string option; [@option]
       (** SSL certificate to use for requests to Bitbucket Server. The format should be PEM format but the extension can be one of .pem, .cer, or .crt. *)
   username : string;
@@ -62,9 +64,10 @@ projects/{project}/global/networks/{network}, where {project} is a project numbe
 [@@deriving yojson_of]
 (** google_cloudbuild_bitbucket_server_config *)
 
-let google_cloudbuild_bitbucket_server_config ?peered_network ?ssl_ca
-    ?timeouts ~api_key ~config_id ~host_uri ~location ~username
-    ~connected_repositories ~secrets __resource_id =
+let google_cloudbuild_bitbucket_server_config ?id ?peered_network
+    ?project ?ssl_ca ?timeouts ~api_key ~config_id ~host_uri
+    ~location ~username ~connected_repositories ~secrets
+    __resource_id =
   let __resource_type =
     "google_cloudbuild_bitbucket_server_config"
   in
@@ -73,8 +76,10 @@ let google_cloudbuild_bitbucket_server_config ?peered_network ?ssl_ca
       api_key;
       config_id;
       host_uri;
+      id;
       location;
       peered_network;
+      project;
       ssl_ca;
       username;
       connected_repositories;

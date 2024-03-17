@@ -7,6 +7,7 @@ type azurerm_automation_credential
 
 val azurerm_automation_credential :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_automation_credential__timeouts ->
   automation_account_name:string ->
   name:string ->

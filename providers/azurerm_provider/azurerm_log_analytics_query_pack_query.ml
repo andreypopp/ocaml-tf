@@ -20,6 +20,8 @@ type azurerm_log_analytics_query_pack_query = {
   categories : string list option; [@option]  (** categories *)
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
   query_pack_id : string;  (** query_pack_id *)
   resource_types : string list option; [@option]
       (** resource_types *)
@@ -31,8 +33,9 @@ type azurerm_log_analytics_query_pack_query = {
 (** azurerm_log_analytics_query_pack_query *)
 
 let azurerm_log_analytics_query_pack_query ?additional_settings_json
-    ?categories ?description ?resource_types ?solutions ?tags
-    ?timeouts ~body ~display_name ~query_pack_id __resource_id =
+    ?categories ?description ?id ?name ?resource_types ?solutions
+    ?tags ?timeouts ~body ~display_name ~query_pack_id __resource_id
+    =
   let __resource_type = "azurerm_log_analytics_query_pack_query" in
   let __resource =
     {
@@ -41,6 +44,8 @@ let azurerm_log_analytics_query_pack_query ?additional_settings_json
       categories;
       description;
       display_name;
+      id;
+      name;
       query_pack_id;
       resource_types;
       solutions;

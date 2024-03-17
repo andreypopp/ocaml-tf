@@ -67,11 +67,14 @@ type aws_imagebuilder_image = {
       (** distribution_configuration_arn *)
   enhanced_image_metadata_enabled : bool option; [@option]
       (** enhanced_image_metadata_enabled *)
+  id : string option; [@option]  (** id *)
   image_recipe_arn : string option; [@option]
       (** image_recipe_arn *)
   infrastructure_configuration_arn : string;
       (** infrastructure_configuration_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   image_scanning_configuration :
     aws_imagebuilder_image__image_scanning_configuration list;
   image_tests_configuration :
@@ -83,7 +86,7 @@ type aws_imagebuilder_image = {
 
 let aws_imagebuilder_image ?container_recipe_arn
     ?distribution_configuration_arn ?enhanced_image_metadata_enabled
-    ?image_recipe_arn ?tags ?timeouts
+    ?id ?image_recipe_arn ?tags ?tags_all ?timeouts
     ~infrastructure_configuration_arn ~image_scanning_configuration
     ~image_tests_configuration __resource_id =
   let __resource_type = "aws_imagebuilder_image" in
@@ -92,9 +95,11 @@ let aws_imagebuilder_image ?container_recipe_arn
       container_recipe_arn;
       distribution_configuration_arn;
       enhanced_image_metadata_enabled;
+      id;
       image_recipe_arn;
       infrastructure_configuration_arn;
       tags;
+      tags_all;
       image_scanning_configuration;
       image_tests_configuration;
       timeouts;

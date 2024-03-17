@@ -13,6 +13,7 @@ type azurerm_redhat_openshift_cluster__worker_profile
 type azurerm_redhat_openshift_cluster
 
 val azurerm_redhat_openshift_cluster :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_redhat_openshift_cluster__timeouts ->
   location:string ->

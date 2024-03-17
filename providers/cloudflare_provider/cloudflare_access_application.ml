@@ -109,6 +109,8 @@ type cloudflare_access_application__saas_app = {
 (** SaaS configuration for the Access Application. *)
 
 type cloudflare_access_application = {
+  account_id : string option; [@option]
+      (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
   allow_authenticate_via_warp : bool option; [@option]
       (** When set to true, users can authenticate to this application using their WARP session. When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication. *)
   allowed_idps : string list option; [@option]
@@ -129,14 +131,19 @@ type cloudflare_access_application = {
       (** Option that redirects to a custom URL when a user is denied access to the application via non identity rules. *)
   custom_pages : string list option; [@option]
       (** The custom pages selected for the application. *)
+  domain : string option; [@option]
+      (** The primary hostname and path that Access will secure. If the app is visible in the App Launcher dashboard, this is the domain that will be displayed. *)
   enable_binding_cookie : bool option; [@option]
       (** Option to provide increased security against compromised authorization tokens and CSRF attacks by requiring an additional binding cookie on requests. Defaults to `false`. *)
   header_bg_color : string option; [@option]
       (** The background color of the header bar in the app launcher. *)
   http_only_cookie_attribute : bool option; [@option]
       (** Option to add the `HttpOnly` cookie flag to access tokens. *)
+  id : string option; [@option]  (** id *)
   logo_url : string option; [@option]
       (** Image URL for the logo shown in the app launcher dashboard. *)
+  name : string option; [@option]
+      (** Friendly name of the Access Application. *)
   same_site_cookie_attribute : string option; [@option]
       (** Defines the same-site cookie setting for access tokens. Available values: `none`, `lax`, `strict`. *)
   self_hosted_domains : string list option; [@option]
@@ -151,6 +158,8 @@ type cloudflare_access_application = {
       (** The itags associated with the application. *)
   type_ : string option; [@option] [@key "type"]
       (** The application type. Available values: `app_launcher`, `bookmark`, `biso`, `dash_sso`, `saas`, `self_hosted`, `ssh`, `vnc`, `warp`. Defaults to `self_hosted`. *)
+  zone_id : string option; [@option]
+      (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
   cors_headers : cloudflare_access_application__cors_headers list;
   footer_links : cloudflare_access_application__footer_links list;
   landing_page_design :
@@ -163,18 +172,21 @@ Applications are used to restrict access to a whole application using an
 authorisation gateway managed by Cloudflare.
  *)
 
-let cloudflare_access_application ?allow_authenticate_via_warp
-    ?allowed_idps ?app_launcher_logo_url ?app_launcher_visible
-    ?auto_redirect_to_identity ?bg_color ?custom_deny_message
-    ?custom_deny_url ?custom_non_identity_deny_url ?custom_pages
+let cloudflare_access_application ?account_id
+    ?allow_authenticate_via_warp ?allowed_idps ?app_launcher_logo_url
+    ?app_launcher_visible ?auto_redirect_to_identity ?bg_color
+    ?custom_deny_message ?custom_deny_url
+    ?custom_non_identity_deny_url ?custom_pages ?domain
     ?enable_binding_cookie ?header_bg_color
-    ?http_only_cookie_attribute ?logo_url ?same_site_cookie_attribute
-    ?self_hosted_domains ?service_auth_401_redirect ?session_duration
-    ?skip_interstitial ?tags ?type_ ~cors_headers ~footer_links
+    ?http_only_cookie_attribute ?id ?logo_url ?name
+    ?same_site_cookie_attribute ?self_hosted_domains
+    ?service_auth_401_redirect ?session_duration ?skip_interstitial
+    ?tags ?type_ ?zone_id ~cors_headers ~footer_links
     ~landing_page_design ~saas_app __resource_id =
   let __resource_type = "cloudflare_access_application" in
   let __resource =
     {
+      account_id;
       allow_authenticate_via_warp;
       allowed_idps;
       app_launcher_logo_url;
@@ -185,10 +197,13 @@ let cloudflare_access_application ?allow_authenticate_via_warp
       custom_deny_url;
       custom_non_identity_deny_url;
       custom_pages;
+      domain;
       enable_binding_cookie;
       header_bg_color;
       http_only_cookie_attribute;
+      id;
       logo_url;
+      name;
       same_site_cookie_attribute;
       self_hosted_domains;
       service_auth_401_redirect;
@@ -196,6 +211,7 @@ let cloudflare_access_application ?allow_authenticate_via_warp
       skip_interstitial;
       tags;
       type_;
+      zone_id;
       cors_headers;
       footer_links;
       landing_page_design;

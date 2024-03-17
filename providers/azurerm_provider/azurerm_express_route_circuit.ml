@@ -31,6 +31,7 @@ type azurerm_express_route_circuit = {
       (** bandwidth_in_mbps *)
   express_route_port_id : string option; [@option]
       (** express_route_port_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   peering_location : string option; [@option]
@@ -47,9 +48,9 @@ type azurerm_express_route_circuit = {
 
 let azurerm_express_route_circuit ?allow_classic_operations
     ?authorization_key ?bandwidth_in_gbps ?bandwidth_in_mbps
-    ?express_route_port_id ?peering_location ?service_provider_name
-    ?tags ?timeouts ~location ~name ~resource_group_name ~sku
-    __resource_id =
+    ?express_route_port_id ?id ?peering_location
+    ?service_provider_name ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku __resource_id =
   let __resource_type = "azurerm_express_route_circuit" in
   let __resource =
     {
@@ -58,6 +59,7 @@ let azurerm_express_route_circuit ?allow_classic_operations
       bandwidth_in_gbps;
       bandwidth_in_mbps;
       express_route_port_id;
+      id;
       location;
       name;
       peering_location;

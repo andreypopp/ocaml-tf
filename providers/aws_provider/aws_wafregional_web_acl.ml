@@ -58,9 +58,12 @@ type aws_wafregional_web_acl__rule = {
 (** aws_wafregional_web_acl__rule *)
 
 type aws_wafregional_web_acl = {
+  id : string option; [@option]  (** id *)
   metric_name : string;  (** metric_name *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   default_action : aws_wafregional_web_acl__default_action list;
   logging_configuration :
     aws_wafregional_web_acl__logging_configuration list;
@@ -69,14 +72,16 @@ type aws_wafregional_web_acl = {
 [@@deriving yojson_of]
 (** aws_wafregional_web_acl *)
 
-let aws_wafregional_web_acl ?tags ~metric_name ~name ~default_action
-    ~logging_configuration ~rule __resource_id =
+let aws_wafregional_web_acl ?id ?tags ?tags_all ~metric_name ~name
+    ~default_action ~logging_configuration ~rule __resource_id =
   let __resource_type = "aws_wafregional_web_acl" in
   let __resource =
     {
+      id;
       metric_name;
       name;
       tags;
+      tags_all;
       default_action;
       logging_configuration;
       rule;

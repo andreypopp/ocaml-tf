@@ -31,6 +31,9 @@ type google_compute_resource_policy
 
 val google_compute_resource_policy :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:google_compute_resource_policy__timeouts ->
   name:string ->
   disk_consistency_group_policy:

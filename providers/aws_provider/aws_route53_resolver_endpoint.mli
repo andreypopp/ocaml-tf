@@ -7,8 +7,12 @@ type aws_route53_resolver_endpoint__timeouts
 type aws_route53_resolver_endpoint
 
 val aws_route53_resolver_endpoint :
+  ?id:string ->
   ?name:string ->
+  ?protocols:string list ->
+  ?resolver_endpoint_type:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_route53_resolver_endpoint__timeouts ->
   direction:string ->
   security_group_ids:string list ->

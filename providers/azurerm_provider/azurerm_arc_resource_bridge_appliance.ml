@@ -23,6 +23,7 @@ type azurerm_arc_resource_bridge_appliance__timeouts = {
 
 type azurerm_arc_resource_bridge_appliance = {
   distro : string;  (** distro *)
+  id : string option; [@option]  (** id *)
   infrastructure_provider : string;  (** infrastructure_provider *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -36,13 +37,14 @@ type azurerm_arc_resource_bridge_appliance = {
 [@@deriving yojson_of]
 (** azurerm_arc_resource_bridge_appliance *)
 
-let azurerm_arc_resource_bridge_appliance ?public_key_base64 ?tags
-    ?timeouts ~distro ~infrastructure_provider ~location ~name
+let azurerm_arc_resource_bridge_appliance ?id ?public_key_base64
+    ?tags ?timeouts ~distro ~infrastructure_provider ~location ~name
     ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_arc_resource_bridge_appliance" in
   let __resource =
     {
       distro;
+      id;
       infrastructure_provider;
       location;
       name;

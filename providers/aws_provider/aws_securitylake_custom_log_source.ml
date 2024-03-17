@@ -44,16 +44,19 @@ type aws_securitylake_custom_log_source__provider_details = {
 type aws_securitylake_custom_log_source = {
   event_classes : string list option; [@option]  (** event_classes *)
   source_name : string;  (** source_name *)
+  source_version : string option; [@option]  (** source_version *)
   configuration :
     aws_securitylake_custom_log_source__configuration list;
 }
 [@@deriving yojson_of]
 (** aws_securitylake_custom_log_source *)
 
-let aws_securitylake_custom_log_source ?event_classes ~source_name
-    ~configuration __resource_id =
+let aws_securitylake_custom_log_source ?event_classes ?source_version
+    ~source_name ~configuration __resource_id =
   let __resource_type = "aws_securitylake_custom_log_source" in
-  let __resource = { event_classes; source_name; configuration } in
+  let __resource =
+    { event_classes; source_name; source_version; configuration }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securitylake_custom_log_source __resource);
   ()

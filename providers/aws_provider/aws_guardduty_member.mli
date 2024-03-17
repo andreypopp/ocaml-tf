@@ -7,6 +7,7 @@ type aws_guardduty_member
 
 val aws_guardduty_member :
   ?disable_email_notification:bool ->
+  ?id:string ->
   ?invitation_message:string ->
   ?invite:bool ->
   ?timeouts:aws_guardduty_member__timeouts ->

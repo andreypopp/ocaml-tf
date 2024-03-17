@@ -98,6 +98,7 @@ type azurerm_sentinel_alert_rule_nrt = {
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -125,7 +126,7 @@ type azurerm_sentinel_alert_rule_nrt = {
 
 let azurerm_sentinel_alert_rule_nrt ?alert_rule_template_guid
     ?alert_rule_template_version ?custom_details ?description
-    ?enabled ?suppression_duration ?suppression_enabled ?tactics
+    ?enabled ?id ?suppression_duration ?suppression_enabled ?tactics
     ?techniques ?timeouts ~display_name ~log_analytics_workspace_id
     ~name ~query ~severity ~alert_details_override ~entity_mapping
     ~event_grouping ~incident ~sentinel_entity_mapping __resource_id
@@ -139,6 +140,7 @@ let azurerm_sentinel_alert_rule_nrt ?alert_rule_template_guid
       description;
       display_name;
       enabled;
+      id;
       log_analytics_workspace_id;
       name;
       query;

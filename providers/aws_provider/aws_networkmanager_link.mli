@@ -8,8 +8,10 @@ type aws_networkmanager_link
 
 val aws_networkmanager_link :
   ?description:string ->
+  ?id:string ->
   ?provider_name:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?type_:string ->
   ?timeouts:aws_networkmanager_link__timeouts ->
   global_network_id:string ->

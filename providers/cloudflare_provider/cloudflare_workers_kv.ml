@@ -7,6 +7,7 @@ open! Tf.Prelude
 type cloudflare_workers_kv = {
   account_id : string;
       (** The account identifier to target for the resource. *)
+  id : string option; [@option]  (** id *)
   key : string;
       (** Name of the KV pair. **Modifying this attribute will force creation of a new resource.** *)
   namespace_id : string;
@@ -16,10 +17,10 @@ type cloudflare_workers_kv = {
 [@@deriving yojson_of]
 (** Provides a resource to manage a Cloudflare Workers KV Pair. *)
 
-let cloudflare_workers_kv ~account_id ~key ~namespace_id ~value
+let cloudflare_workers_kv ?id ~account_id ~key ~namespace_id ~value
     __resource_id =
   let __resource_type = "cloudflare_workers_kv" in
-  let __resource = { account_id; key; namespace_id; value } in
+  let __resource = { account_id; id; key; namespace_id; value } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_workers_kv __resource);
   ()

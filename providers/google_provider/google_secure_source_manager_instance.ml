@@ -33,6 +33,7 @@ type google_secure_source_manager_instance__host_config = {
 [@@deriving yojson_of]
 
 type google_secure_source_manager_instance = {
+  id : string option; [@option]  (** id *)
   instance_id : string;  (** The name for the Instance. *)
   kms_key : string option; [@option]
       (** Customer-managed encryption key name, in the format projects/*/locations/*/keyRings/*/cryptoKeys/*. *)
@@ -43,6 +44,7 @@ type google_secure_source_manager_instance = {
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;  (** The location for the Instance. *)
+  project : string option; [@option]  (** project *)
   private_config :
     google_secure_source_manager_instance__private_config list;
   timeouts : google_secure_source_manager_instance__timeouts option;
@@ -50,15 +52,18 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_secure_source_manager_instance *)
 
-let google_secure_source_manager_instance ?kms_key ?labels ?timeouts
-    ~instance_id ~location ~private_config __resource_id =
+let google_secure_source_manager_instance ?id ?kms_key ?labels
+    ?project ?timeouts ~instance_id ~location ~private_config
+    __resource_id =
   let __resource_type = "google_secure_source_manager_instance" in
   let __resource =
     {
+      id;
       instance_id;
       kms_key;
       labels;
       location;
+      project;
       private_config;
       timeouts;
     }

@@ -15,6 +15,7 @@ type azurerm_nginx_certificate__timeouts = {
 
 type azurerm_nginx_certificate = {
   certificate_virtual_path : string;  (** certificate_virtual_path *)
+  id : string option; [@option]  (** id *)
   key_vault_secret_id : string;  (** key_vault_secret_id *)
   key_virtual_path : string;  (** key_virtual_path *)
   name : string;  (** name *)
@@ -24,13 +25,14 @@ type azurerm_nginx_certificate = {
 [@@deriving yojson_of]
 (** azurerm_nginx_certificate *)
 
-let azurerm_nginx_certificate ?timeouts ~certificate_virtual_path
+let azurerm_nginx_certificate ?id ?timeouts ~certificate_virtual_path
     ~key_vault_secret_id ~key_virtual_path ~name ~nginx_deployment_id
     __resource_id =
   let __resource_type = "azurerm_nginx_certificate" in
   let __resource =
     {
       certificate_virtual_path;
+      id;
       key_vault_secret_id;
       key_virtual_path;
       name;

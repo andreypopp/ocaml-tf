@@ -15,6 +15,7 @@ val aws_dms_s3_endpoint :
   ?cdc_max_batch_interval:float ->
   ?cdc_min_file_size:float ->
   ?cdc_path:string ->
+  ?certificate_arn:string ->
   ?compression_type:string ->
   ?csv_delimiter:string ->
   ?csv_no_sup_value:string ->
@@ -34,8 +35,10 @@ val aws_dms_s3_endpoint :
   ?expected_bucket_owner:string ->
   ?external_table_definition:string ->
   ?glue_catalog_generation:bool ->
+  ?id:string ->
   ?ignore_header_rows:float ->
   ?include_op_for_full_load:bool ->
+  ?kms_key_arn:string ->
   ?max_file_size:float ->
   ?parquet_timestamp_in_millisecond:bool ->
   ?parquet_version:string ->
@@ -43,7 +46,9 @@ val aws_dms_s3_endpoint :
   ?rfc_4180:bool ->
   ?row_group_length:float ->
   ?server_side_encryption_kms_key_id:string ->
+  ?ssl_mode:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timestamp_column_name:string ->
   ?use_csv_no_sup_value:bool ->
   ?use_task_start_time_for_full_load_timestamp:bool ->

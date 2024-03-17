@@ -57,12 +57,14 @@ type google_bigquery_analytics_hub_listing = {
       (** Documentation describing the listing. *)
   icon : string option; [@option]
       (** Base64 encoded image representing the listing. *)
+  id : string option; [@option]  (** id *)
   listing_id : string;
       (** The ID of the listing. Must contain only Unicode letters, numbers (0-9), underscores (_). Should not use characters that require URL-escaping, or characters outside of ASCII, spaces. *)
   location : string;
       (** The name of the location this data exchange listing. *)
   primary_contact : string option; [@option]
       (** Email or URL of the primary point of contact of the listing. *)
+  project : string option; [@option]  (** project *)
   request_access : string option; [@option]
       (** Email or URL of the request access of the listing. Subscribers can use this reference to request access. *)
   bigquery_dataset :
@@ -79,9 +81,9 @@ type google_bigquery_analytics_hub_listing = {
 (** google_bigquery_analytics_hub_listing *)
 
 let google_bigquery_analytics_hub_listing ?categories ?description
-    ?documentation ?icon ?primary_contact ?request_access ?timeouts
-    ~data_exchange_id ~display_name ~listing_id ~location
-    ~bigquery_dataset ~data_provider ~publisher
+    ?documentation ?icon ?id ?primary_contact ?project
+    ?request_access ?timeouts ~data_exchange_id ~display_name
+    ~listing_id ~location ~bigquery_dataset ~data_provider ~publisher
     ~restricted_export_config __resource_id =
   let __resource_type = "google_bigquery_analytics_hub_listing" in
   let __resource =
@@ -92,9 +94,11 @@ let google_bigquery_analytics_hub_listing ?categories ?description
       display_name;
       documentation;
       icon;
+      id;
       listing_id;
       location;
       primary_contact;
+      project;
       request_access;
       bigquery_dataset;
       data_provider;

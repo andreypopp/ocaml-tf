@@ -17,6 +17,9 @@ val google_compute_region_network_firewall_policy_rule :
   ?description:string ->
   ?disabled:bool ->
   ?enable_logging:bool ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?rule_name:string ->
   ?target_service_accounts:string list ->
   ?timeouts:

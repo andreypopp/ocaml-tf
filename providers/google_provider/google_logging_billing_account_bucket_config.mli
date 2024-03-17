@@ -7,6 +7,8 @@ type google_logging_billing_account_bucket_config__index_configs
 type google_logging_billing_account_bucket_config
 
 val google_logging_billing_account_bucket_config :
+  ?description:string ->
+  ?id:string ->
   ?retention_days:float ->
   billing_account:string ->
   bucket_id:string ->

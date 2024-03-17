@@ -10,9 +10,12 @@ type aws_apigatewayv2_stage
 val aws_apigatewayv2_stage :
   ?auto_deploy:bool ->
   ?client_certificate_id:string ->
+  ?deployment_id:string ->
   ?description:string ->
+  ?id:string ->
   ?stage_variables:(string * string) list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   api_id:string ->
   name:string ->
   access_log_settings:

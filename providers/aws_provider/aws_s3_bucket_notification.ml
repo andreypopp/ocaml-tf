@@ -38,6 +38,7 @@ type aws_s3_bucket_notification__topic = {
 type aws_s3_bucket_notification = {
   bucket : string;  (** bucket *)
   eventbridge : bool option; [@option]  (** eventbridge *)
+  id : string option; [@option]  (** id *)
   lambda_function : aws_s3_bucket_notification__lambda_function list;
   queue : aws_s3_bucket_notification__queue list;
   topic : aws_s3_bucket_notification__topic list;
@@ -45,11 +46,11 @@ type aws_s3_bucket_notification = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_notification *)
 
-let aws_s3_bucket_notification ?eventbridge ~bucket ~lambda_function
-    ~queue ~topic __resource_id =
+let aws_s3_bucket_notification ?eventbridge ?id ~bucket
+    ~lambda_function ~queue ~topic __resource_id =
   let __resource_type = "aws_s3_bucket_notification" in
   let __resource =
-    { bucket; eventbridge; lambda_function; queue; topic }
+    { bucket; eventbridge; id; lambda_function; queue; topic }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_notification __resource);

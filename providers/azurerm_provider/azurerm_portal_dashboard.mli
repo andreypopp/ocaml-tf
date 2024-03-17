@@ -6,6 +6,7 @@ type azurerm_portal_dashboard__timeouts
 type azurerm_portal_dashboard
 
 val azurerm_portal_dashboard :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_portal_dashboard__timeouts ->
   dashboard_properties:string ->

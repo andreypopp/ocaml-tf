@@ -11,6 +11,7 @@ type aws_cur_report_definition = {
       (** additional_schema_elements *)
   compression : string;  (** compression *)
   format : string;  (** format *)
+  id : string option; [@option]  (** id *)
   refresh_closed_reports : bool option; [@option]
       (** refresh_closed_reports *)
   report_name : string;  (** report_name *)
@@ -24,7 +25,7 @@ type aws_cur_report_definition = {
 [@@deriving yojson_of]
 (** aws_cur_report_definition *)
 
-let aws_cur_report_definition ?additional_artifacts
+let aws_cur_report_definition ?additional_artifacts ?id
     ?refresh_closed_reports ?report_versioning ?s3_prefix
     ~additional_schema_elements ~compression ~format ~report_name
     ~s3_bucket ~s3_region ~time_unit __resource_id =
@@ -35,6 +36,7 @@ let aws_cur_report_definition ?additional_artifacts
       additional_schema_elements;
       compression;
       format;
+      id;
       refresh_closed_reports;
       report_name;
       report_versioning;

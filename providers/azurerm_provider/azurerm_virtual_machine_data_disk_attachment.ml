@@ -16,6 +16,7 @@ type azurerm_virtual_machine_data_disk_attachment__timeouts = {
 type azurerm_virtual_machine_data_disk_attachment = {
   caching : string;  (** caching *)
   create_option : string option; [@option]  (** create_option *)
+  id : string option; [@option]  (** id *)
   lun : float;  (** lun *)
   managed_disk_id : string;  (** managed_disk_id *)
   virtual_machine_id : string;  (** virtual_machine_id *)
@@ -27,7 +28,7 @@ type azurerm_virtual_machine_data_disk_attachment = {
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_data_disk_attachment *)
 
-let azurerm_virtual_machine_data_disk_attachment ?create_option
+let azurerm_virtual_machine_data_disk_attachment ?create_option ?id
     ?write_accelerator_enabled ?timeouts ~caching ~lun
     ~managed_disk_id ~virtual_machine_id __resource_id =
   let __resource_type =
@@ -37,6 +38,7 @@ let azurerm_virtual_machine_data_disk_attachment ?create_option
     {
       caching;
       create_option;
+      id;
       lun;
       managed_disk_id;
       virtual_machine_id;

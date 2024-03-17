@@ -27,12 +27,15 @@ type azurerm_redis_enterprise_database = {
   clustering_policy : string option; [@option]
       (** clustering_policy *)
   eviction_policy : string option; [@option]  (** eviction_policy *)
+  id : string option; [@option]  (** id *)
   linked_database_group_nickname : string option; [@option]
       (** linked_database_group_nickname *)
   linked_database_id : string list option; [@option]
       (** linked_database_id *)
   name : string option; [@option]  (** name *)
   port : float option; [@option]  (** port *)
+  resource_group_name : string option; [@option]
+      (** resource_group_name *)
   module_ : azurerm_redis_enterprise_database__module list;
   timeouts : azurerm_redis_enterprise_database__timeouts option;
 }
@@ -40,9 +43,10 @@ type azurerm_redis_enterprise_database = {
 (** azurerm_redis_enterprise_database *)
 
 let azurerm_redis_enterprise_database ?client_protocol
-    ?clustering_policy ?eviction_policy
+    ?clustering_policy ?eviction_policy ?id
     ?linked_database_group_nickname ?linked_database_id ?name ?port
-    ?timeouts ~cluster_id ~module_ __resource_id =
+    ?resource_group_name ?timeouts ~cluster_id ~module_ __resource_id
+    =
   let __resource_type = "azurerm_redis_enterprise_database" in
   let __resource =
     {
@@ -50,10 +54,12 @@ let azurerm_redis_enterprise_database ?client_protocol
       cluster_id;
       clustering_policy;
       eviction_policy;
+      id;
       linked_database_group_nickname;
       linked_database_id;
       name;
       port;
+      resource_group_name;
       module_;
       timeouts;
     }

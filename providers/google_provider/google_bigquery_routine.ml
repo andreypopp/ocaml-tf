@@ -94,11 +94,13 @@ If language=SQL, it is the substring inside (but excluding) the parentheses. *)
       (** The description of the routine if defined. *)
   determinism_level : string option; [@option]
       (** The determinism level of the JavaScript UDF if defined. Possible values: [DETERMINISM_LEVEL_UNSPECIFIED, DETERMINISTIC, NOT_DETERMINISTIC] *)
+  id : string option; [@option]  (** id *)
   imported_libraries : string list option; [@option]
       (** Optional. If language = JAVASCRIPT, this field stores the path of the
 imported JAVASCRIPT libraries. *)
   language : string option; [@option]
       (** The language of the routine. Possible values: [SQL, JAVASCRIPT, PYTHON, JAVA, SCALA] *)
+  project : string option; [@option]  (** project *)
   return_table_type : string option; [@option]
       (** Optional. Can be set only if routineType = TABLE_VALUED_FUNCTION.
 
@@ -128,11 +130,11 @@ the schema as returned by the API. *)
 [@@deriving yojson_of]
 (** google_bigquery_routine *)
 
-let google_bigquery_routine ?description ?determinism_level
-    ?imported_libraries ?language ?return_table_type ?return_type
-    ?timeouts ~dataset_id ~definition_body ~routine_id ~routine_type
-    ~arguments ~remote_function_options ~spark_options __resource_id
-    =
+let google_bigquery_routine ?description ?determinism_level ?id
+    ?imported_libraries ?language ?project ?return_table_type
+    ?return_type ?timeouts ~dataset_id ~definition_body ~routine_id
+    ~routine_type ~arguments ~remote_function_options ~spark_options
+    __resource_id =
   let __resource_type = "google_bigquery_routine" in
   let __resource =
     {
@@ -140,8 +142,10 @@ let google_bigquery_routine ?description ?determinism_level
       definition_body;
       description;
       determinism_level;
+      id;
       imported_libraries;
       language;
+      project;
       return_table_type;
       return_type;
       routine_id;

@@ -16,6 +16,7 @@ type azurerm_automation_hybrid_runbook_worker_group__timeouts = {
 type azurerm_automation_hybrid_runbook_worker_group = {
   automation_account_name : string;  (** automation_account_name *)
   credential_name : string option; [@option]  (** credential_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts :
@@ -25,7 +26,7 @@ type azurerm_automation_hybrid_runbook_worker_group = {
 (** azurerm_automation_hybrid_runbook_worker_group *)
 
 let azurerm_automation_hybrid_runbook_worker_group ?credential_name
-    ?timeouts ~automation_account_name ~name ~resource_group_name
+    ?id ?timeouts ~automation_account_name ~name ~resource_group_name
     __resource_id =
   let __resource_type =
     "azurerm_automation_hybrid_runbook_worker_group"
@@ -34,6 +35,7 @@ let azurerm_automation_hybrid_runbook_worker_group ?credential_name
     {
       automation_account_name;
       credential_name;
+      id;
       name;
       resource_group_name;
       timeouts;

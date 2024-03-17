@@ -12,6 +12,7 @@ val azurerm_iothub_endpoint_storage_container :
   ?encoding:string ->
   ?endpoint_uri:string ->
   ?file_name_format:string ->
+  ?id:string ->
   ?identity_id:string ->
   ?max_chunk_size_in_bytes:float ->
   ?timeouts:azurerm_iothub_endpoint_storage_container__timeouts ->

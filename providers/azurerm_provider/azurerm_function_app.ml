@@ -211,6 +211,8 @@ type azurerm_function_app__site_credential = {
 
 type azurerm_function_app = {
   app_service_plan_id : string;  (** app_service_plan_id *)
+  app_settings : (string * string) list option; [@option]
+      (** app_settings *)
   client_cert_mode : string option; [@option]
       (** client_cert_mode *)
   daily_memory_time_quota : float option; [@option]
@@ -219,6 +221,9 @@ type azurerm_function_app = {
       (** enable_builtin_logging *)
   enabled : bool option; [@option]  (** enabled *)
   https_only : bool option; [@option]  (** https_only *)
+  id : string option; [@option]  (** id *)
+  key_vault_reference_identity_id : string option; [@option]
+      (** key_vault_reference_identity_id *)
   location : string;  (** location *)
   name : string;  (** name *)
   os_type : string option; [@option]  (** os_type *)
@@ -238,8 +243,9 @@ type azurerm_function_app = {
 [@@deriving yojson_of]
 (** azurerm_function_app *)
 
-let azurerm_function_app ?client_cert_mode ?daily_memory_time_quota
-    ?enable_builtin_logging ?enabled ?https_only ?os_type ?tags
+let azurerm_function_app ?app_settings ?client_cert_mode
+    ?daily_memory_time_quota ?enable_builtin_logging ?enabled
+    ?https_only ?id ?key_vault_reference_identity_id ?os_type ?tags
     ?version ?timeouts ~app_service_plan_id ~location ~name
     ~resource_group_name ~storage_account_access_key
     ~storage_account_name ~auth_settings ~connection_string ~identity
@@ -248,11 +254,14 @@ let azurerm_function_app ?client_cert_mode ?daily_memory_time_quota
   let __resource =
     {
       app_service_plan_id;
+      app_settings;
       client_cert_mode;
       daily_memory_time_quota;
       enable_builtin_logging;
       enabled;
       https_only;
+      id;
+      key_vault_reference_identity_id;
       location;
       name;
       os_type;

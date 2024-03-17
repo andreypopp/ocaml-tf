@@ -14,6 +14,7 @@ val azurerm_data_factory_dataset_json :
   ?description:string ->
   ?encoding:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?timeouts:azurerm_data_factory_dataset_json__timeouts ->
   data_factory_id:string ->

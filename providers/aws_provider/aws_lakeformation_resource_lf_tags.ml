@@ -48,6 +48,8 @@ type aws_lakeformation_resource_lf_tags__timeouts = {
 (** aws_lakeformation_resource_lf_tags__timeouts *)
 
 type aws_lakeformation_resource_lf_tags = {
+  catalog_id : string option; [@option]  (** catalog_id *)
+  id : string option; [@option]  (** id *)
   database : aws_lakeformation_resource_lf_tags__database list;
   lf_tag : aws_lakeformation_resource_lf_tags__lf_tag list;
   table : aws_lakeformation_resource_lf_tags__table list;
@@ -58,11 +60,19 @@ type aws_lakeformation_resource_lf_tags = {
 [@@deriving yojson_of]
 (** aws_lakeformation_resource_lf_tags *)
 
-let aws_lakeformation_resource_lf_tags ?timeouts ~database ~lf_tag
-    ~table ~table_with_columns __resource_id =
+let aws_lakeformation_resource_lf_tags ?catalog_id ?id ?timeouts
+    ~database ~lf_tag ~table ~table_with_columns __resource_id =
   let __resource_type = "aws_lakeformation_resource_lf_tags" in
   let __resource =
-    { database; lf_tag; table; table_with_columns; timeouts }
+    {
+      catalog_id;
+      id;
+      database;
+      lf_tag;
+      table;
+      table_with_columns;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lakeformation_resource_lf_tags __resource);

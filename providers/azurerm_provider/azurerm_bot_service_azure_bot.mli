@@ -9,8 +9,10 @@ val azurerm_bot_service_azure_bot :
   ?developer_app_insights_api_key:string ->
   ?developer_app_insights_application_id:string ->
   ?developer_app_insights_key:string ->
+  ?display_name:string ->
   ?endpoint:string ->
   ?icon_url:string ->
+  ?id:string ->
   ?local_authentication_enabled:bool ->
   ?luis_app_ids:string list ->
   ?luis_key:string ->

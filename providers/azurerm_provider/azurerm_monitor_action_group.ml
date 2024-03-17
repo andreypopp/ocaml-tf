@@ -133,6 +133,7 @@ type azurerm_monitor_action_group__webhook_receiver = {
 
 type azurerm_monitor_action_group = {
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   location : string option; [@option]  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -161,16 +162,17 @@ type azurerm_monitor_action_group = {
 [@@deriving yojson_of]
 (** azurerm_monitor_action_group *)
 
-let azurerm_monitor_action_group ?enabled ?location ?tags ?timeouts
-    ~name ~resource_group_name ~short_name ~arm_role_receiver
-    ~automation_runbook_receiver ~azure_app_push_receiver
-    ~azure_function_receiver ~email_receiver ~event_hub_receiver
-    ~itsm_receiver ~logic_app_receiver ~sms_receiver ~voice_receiver
-    ~webhook_receiver __resource_id =
+let azurerm_monitor_action_group ?enabled ?id ?location ?tags
+    ?timeouts ~name ~resource_group_name ~short_name
+    ~arm_role_receiver ~automation_runbook_receiver
+    ~azure_app_push_receiver ~azure_function_receiver ~email_receiver
+    ~event_hub_receiver ~itsm_receiver ~logic_app_receiver
+    ~sms_receiver ~voice_receiver ~webhook_receiver __resource_id =
   let __resource_type = "azurerm_monitor_action_group" in
   let __resource =
     {
       enabled;
+      id;
       location;
       name;
       resource_group_name;

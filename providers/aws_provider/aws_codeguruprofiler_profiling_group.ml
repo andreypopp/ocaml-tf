@@ -11,6 +11,8 @@ type aws_codeguruprofiler_profiling_group__agent_orchestration_config = {
 (** aws_codeguruprofiler_profiling_group__agent_orchestration_config *)
 
 type aws_codeguruprofiler_profiling_group = {
+  compute_platform : string option; [@option]
+      (** compute_platform *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
   agent_orchestration_config :
@@ -20,10 +22,12 @@ type aws_codeguruprofiler_profiling_group = {
 [@@deriving yojson_of]
 (** aws_codeguruprofiler_profiling_group *)
 
-let aws_codeguruprofiler_profiling_group ?tags ~name
-    ~agent_orchestration_config __resource_id =
+let aws_codeguruprofiler_profiling_group ?compute_platform ?tags
+    ~name ~agent_orchestration_config __resource_id =
   let __resource_type = "aws_codeguruprofiler_profiling_group" in
-  let __resource = { name; tags; agent_orchestration_config } in
+  let __resource =
+    { compute_platform; name; tags; agent_orchestration_config }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codeguruprofiler_profiling_group __resource);
   ()

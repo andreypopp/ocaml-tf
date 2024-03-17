@@ -14,6 +14,7 @@ val azurerm_data_factory_linked_service_azure_sql_database :
   ?annotations:string list ->
   ?connection_string:string ->
   ?description:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?parameters:(string * string) list ->
   ?service_principal_id:string ->

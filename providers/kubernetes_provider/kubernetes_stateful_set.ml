@@ -2573,6 +2573,7 @@ type kubernetes_stateful_set__timeouts = {
 (** kubernetes_stateful_set__timeouts *)
 
 type kubernetes_stateful_set = {
+  id : string option; [@option]  (** id *)
   wait_for_rollout : bool option; [@option]
       (** Wait for the rollout of the stateful set to complete. Defaults to true. *)
   metadata : kubernetes_stateful_set__metadata list;
@@ -2582,10 +2583,12 @@ type kubernetes_stateful_set = {
 [@@deriving yojson_of]
 (** kubernetes_stateful_set *)
 
-let kubernetes_stateful_set ?wait_for_rollout ?timeouts ~metadata
+let kubernetes_stateful_set ?id ?wait_for_rollout ?timeouts ~metadata
     ~spec __resource_id =
   let __resource_type = "kubernetes_stateful_set" in
-  let __resource = { wait_for_rollout; metadata; spec; timeouts } in
+  let __resource =
+    { id; wait_for_rollout; metadata; spec; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_stateful_set __resource);
   ()

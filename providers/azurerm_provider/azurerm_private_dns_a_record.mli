@@ -6,6 +6,7 @@ type azurerm_private_dns_a_record__timeouts
 type azurerm_private_dns_a_record
 
 val azurerm_private_dns_a_record :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_private_dns_a_record__timeouts ->
   name:string ->

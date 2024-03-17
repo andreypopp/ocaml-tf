@@ -8,10 +8,13 @@ type azurerm_mssql_server__timeouts
 type azurerm_mssql_server
 
 val azurerm_mssql_server :
+  ?administrator_login:string ->
   ?administrator_login_password:string ->
   ?connection_policy:string ->
+  ?id:string ->
   ?minimum_tls_version:string ->
   ?outbound_network_restriction_enabled:bool ->
+  ?primary_user_assigned_identity_id:string ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->
   ?transparent_data_encryption_key_vault_key_id:string ->

@@ -5,4 +5,9 @@ open! Tf.Prelude
 type cloudflare_url_normalization_settings
 
 val cloudflare_url_normalization_settings :
-  scope:string -> type_:string -> zone_id:string -> string -> unit
+  ?id:string ->
+  scope:string ->
+  type_:string ->
+  zone_id:string ->
+  string ->
+  unit

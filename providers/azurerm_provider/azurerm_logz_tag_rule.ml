@@ -22,6 +22,7 @@ type azurerm_logz_tag_rule__timeouts = {
 (** azurerm_logz_tag_rule__timeouts *)
 
 type azurerm_logz_tag_rule = {
+  id : string option; [@option]  (** id *)
   logz_monitor_id : string;  (** logz_monitor_id *)
   send_aad_logs : bool option; [@option]  (** send_aad_logs *)
   send_activity_logs : bool option; [@option]
@@ -34,12 +35,13 @@ type azurerm_logz_tag_rule = {
 [@@deriving yojson_of]
 (** azurerm_logz_tag_rule *)
 
-let azurerm_logz_tag_rule ?send_aad_logs ?send_activity_logs
+let azurerm_logz_tag_rule ?id ?send_aad_logs ?send_activity_logs
     ?send_subscription_logs ?timeouts ~logz_monitor_id ~tag_filter
     __resource_id =
   let __resource_type = "azurerm_logz_tag_rule" in
   let __resource =
     {
+      id;
       logz_monitor_id;
       send_aad_logs;
       send_activity_logs;

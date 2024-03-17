@@ -8,6 +8,7 @@ type azurerm_static_site
 
 val azurerm_static_site :
   ?app_settings:(string * string) list ->
+  ?id:string ->
   ?sku_size:string ->
   ?sku_tier:string ->
   ?tags:(string * string) list ->

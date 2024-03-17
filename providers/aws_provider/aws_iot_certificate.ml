@@ -7,14 +7,17 @@ open! Tf.Prelude
 type aws_iot_certificate = {
   active : bool;  (** active *)
   ca_pem : string option; [@option]  (** ca_pem *)
+  certificate_pem : string option; [@option]  (** certificate_pem *)
   csr : string option; [@option]  (** csr *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_iot_certificate *)
 
-let aws_iot_certificate ?ca_pem ?csr ~active __resource_id =
+let aws_iot_certificate ?ca_pem ?certificate_pem ?csr ?id ~active
+    __resource_id =
   let __resource_type = "aws_iot_certificate" in
-  let __resource = { active; ca_pem; csr } in
+  let __resource = { active; ca_pem; certificate_pem; csr; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_certificate __resource);
   ()

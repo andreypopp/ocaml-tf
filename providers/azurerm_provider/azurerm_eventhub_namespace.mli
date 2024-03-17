@@ -10,13 +10,11 @@ type azurerm_eventhub_namespace__network_rulesets__virtual_network_rule = {
       (** ignore_missing_virtual_network_service_endpoint *)
   subnet_id : string;  (** subnet_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_eventhub_namespace__network_rulesets__ip_rule = {
   action : string;  (** action *)
   ip_mask : string;  (** ip_mask *)
 }
-[@@deriving yojson_of]
 
 type azurerm_eventhub_namespace__network_rulesets = {
   default_action : string;  (** default_action *)
@@ -32,7 +30,6 @@ type azurerm_eventhub_namespace__network_rulesets = {
     list;
       (** virtual_network_rule *)
 }
-[@@deriving yojson_of]
 
 type azurerm_eventhub_namespace
 
@@ -40,7 +37,11 @@ val azurerm_eventhub_namespace :
   ?auto_inflate_enabled:bool ->
   ?capacity:float ->
   ?dedicated_cluster_id:string ->
+  ?id:string ->
   ?local_authentication_enabled:bool ->
+  ?maximum_throughput_units:float ->
+  ?minimum_tls_version:string ->
+  ?network_rulesets:azurerm_eventhub_namespace__network_rulesets list ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->
   ?zone_redundant:bool ->

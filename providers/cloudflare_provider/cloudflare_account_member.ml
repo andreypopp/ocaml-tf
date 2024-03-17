@@ -9,17 +9,22 @@ type cloudflare_account_member = {
       (** Account ID to create the account member in. *)
   email_address : string;
       (** The email address of the user who you wish to manage. Following creation, this field becomes read only via the API and cannot be updated. *)
+  id : string option; [@option]  (** id *)
   role_ids : string list;
       (** List of account role IDs that you want to assign to a member. *)
+  status : string option; [@option]
+      (** A member's status in the account. Available values: `accepted`, `pending`. *)
 }
 [@@deriving yojson_of]
 (** Provides a resource which manages Cloudflare account members.
  *)
 
-let cloudflare_account_member ~account_id ~email_address ~role_ids
-    __resource_id =
+let cloudflare_account_member ?id ?status ~account_id ~email_address
+    ~role_ids __resource_id =
   let __resource_type = "cloudflare_account_member" in
-  let __resource = { account_id; email_address; role_ids } in
+  let __resource =
+    { account_id; email_address; id; role_ids; status }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_account_member __resource);
   ()

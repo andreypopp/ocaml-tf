@@ -138,6 +138,7 @@ type cloudflare_teams_account = {
       (** The account identifier to target for the resource. *)
   activity_log_enabled : bool option; [@option]
       (** Whether to enable the activity log. *)
+  id : string option; [@option]  (** id *)
   non_identity_browser_isolation_enabled : bool option; [@option]
       (** Enable non-identity onramp for Browser Isolation. Defaults to `false`. *)
   protocol_detection_enabled : bool option; [@option]
@@ -162,7 +163,7 @@ type cloudflare_teams_account = {
 resource defines configuration for secure web gateway.
  *)
 
-let cloudflare_teams_account ?activity_log_enabled
+let cloudflare_teams_account ?activity_log_enabled ?id
     ?non_identity_browser_isolation_enabled
     ?protocol_detection_enabled ?tls_decrypt_enabled
     ?url_browser_isolation_enabled ~account_id ~antivirus ~block_page
@@ -173,6 +174,7 @@ let cloudflare_teams_account ?activity_log_enabled
     {
       account_id;
       activity_log_enabled;
+      id;
       non_identity_browser_isolation_enabled;
       protocol_detection_enabled;
       tls_decrypt_enabled;

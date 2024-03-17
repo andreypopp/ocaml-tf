@@ -41,8 +41,11 @@ For example: jsonPayload.request.status *)
 type google_logging_folder_bucket_config = {
   bucket_id : string;
       (** The name of the logging bucket. Logging automatically creates two log buckets: _Required and _Default. *)
+  description : string option; [@option]
+      (** An optional description for this bucket. *)
   folder : string;
       (** The parent resource that contains the logging bucket. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the bucket. *)
   retention_days : float option; [@option]
       (** Logs will be retained by default for this amount of time, after which they will automatically be deleted. The minimum retention period is 1 day. If this value is set to zero at bucket creation time, the default time of 30 days will be used. *)
@@ -54,13 +57,16 @@ type google_logging_folder_bucket_config = {
 [@@deriving yojson_of]
 (** google_logging_folder_bucket_config *)
 
-let google_logging_folder_bucket_config ?retention_days ~bucket_id
-    ~folder ~location ~cmek_settings ~index_configs __resource_id =
+let google_logging_folder_bucket_config ?description ?id
+    ?retention_days ~bucket_id ~folder ~location ~cmek_settings
+    ~index_configs __resource_id =
   let __resource_type = "google_logging_folder_bucket_config" in
   let __resource =
     {
       bucket_id;
+      description;
       folder;
+      id;
       location;
       retention_days;
       cmek_settings;

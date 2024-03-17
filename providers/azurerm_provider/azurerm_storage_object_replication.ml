@@ -29,6 +29,7 @@ type azurerm_storage_object_replication__timeouts = {
 type azurerm_storage_object_replication = {
   destination_storage_account_id : string;
       (** destination_storage_account_id *)
+  id : string option; [@option]  (** id *)
   source_storage_account_id : string;
       (** source_storage_account_id *)
   rules : azurerm_storage_object_replication__rules list;
@@ -37,13 +38,14 @@ type azurerm_storage_object_replication = {
 [@@deriving yojson_of]
 (** azurerm_storage_object_replication *)
 
-let azurerm_storage_object_replication ?timeouts
+let azurerm_storage_object_replication ?id ?timeouts
     ~destination_storage_account_id ~source_storage_account_id ~rules
     __resource_id =
   let __resource_type = "azurerm_storage_object_replication" in
   let __resource =
     {
       destination_storage_account_id;
+      id;
       source_storage_account_id;
       rules;
       timeouts;

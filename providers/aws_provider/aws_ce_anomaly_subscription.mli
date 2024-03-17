@@ -28,7 +28,10 @@ type aws_ce_anomaly_subscription__threshold_expression
 type aws_ce_anomaly_subscription
 
 val aws_ce_anomaly_subscription :
+  ?account_id:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   frequency:string ->
   monitor_arn_list:string list ->
   name:string ->

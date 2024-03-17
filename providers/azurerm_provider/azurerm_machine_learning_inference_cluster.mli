@@ -10,6 +10,7 @@ type azurerm_machine_learning_inference_cluster
 val azurerm_machine_learning_inference_cluster :
   ?cluster_purpose:string ->
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_machine_learning_inference_cluster__timeouts ->
   kubernetes_cluster_id:string ->

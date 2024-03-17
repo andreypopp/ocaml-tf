@@ -6,6 +6,7 @@ type digitalocean_spaces_bucket_cors_configuration__cors_rule
 type digitalocean_spaces_bucket_cors_configuration
 
 val digitalocean_spaces_bucket_cors_configuration :
+  ?id:string ->
   bucket:string ->
   region:string ->
   cors_rule:

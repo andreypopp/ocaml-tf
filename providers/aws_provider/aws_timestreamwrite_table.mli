@@ -13,7 +13,9 @@ type aws_timestreamwrite_table__schema
 type aws_timestreamwrite_table
 
 val aws_timestreamwrite_table :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   database_name:string ->
   table_name:string ->
   magnetic_store_write_properties:

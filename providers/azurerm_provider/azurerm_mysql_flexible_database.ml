@@ -15,6 +15,7 @@ type azurerm_mysql_flexible_database__timeouts = {
 type azurerm_mysql_flexible_database = {
   charset : string;  (** charset *)
   collation : string;  (** collation *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   server_name : string;  (** server_name *)
@@ -23,13 +24,14 @@ type azurerm_mysql_flexible_database = {
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_database *)
 
-let azurerm_mysql_flexible_database ?timeouts ~charset ~collation
+let azurerm_mysql_flexible_database ?id ?timeouts ~charset ~collation
     ~name ~resource_group_name ~server_name __resource_id =
   let __resource_type = "azurerm_mysql_flexible_database" in
   let __resource =
     {
       charset;
       collation;
+      id;
       name;
       resource_group_name;
       server_name;

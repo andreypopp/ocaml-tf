@@ -9,7 +9,9 @@ type aws_vpc_peering_connection_accepter
 
 val aws_vpc_peering_connection_accepter :
   ?auto_accept:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_vpc_peering_connection_accepter__timeouts ->
   vpc_peering_connection_id:string ->
   accepter:aws_vpc_peering_connection_accepter__accepter list ->

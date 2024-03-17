@@ -13,6 +13,9 @@ type aws_sns_sms_preferences = {
       (** delivery_status_iam_role_arn *)
   delivery_status_success_sampling_rate : string option; [@option]
       (** delivery_status_success_sampling_rate *)
+  id : string option; [@option]  (** id *)
+  monthly_spend_limit : float option; [@option]
+      (** monthly_spend_limit *)
   usage_report_s3_bucket : string option; [@option]
       (** usage_report_s3_bucket *)
 }
@@ -21,8 +24,8 @@ type aws_sns_sms_preferences = {
 
 let aws_sns_sms_preferences ?default_sender_id ?default_sms_type
     ?delivery_status_iam_role_arn
-    ?delivery_status_success_sampling_rate ?usage_report_s3_bucket
-    __resource_id =
+    ?delivery_status_success_sampling_rate ?id ?monthly_spend_limit
+    ?usage_report_s3_bucket __resource_id =
   let __resource_type = "aws_sns_sms_preferences" in
   let __resource =
     {
@@ -30,6 +33,8 @@ let aws_sns_sms_preferences ?default_sender_id ?default_sms_type
       default_sms_type;
       delivery_status_iam_role_arn;
       delivery_status_success_sampling_rate;
+      id;
+      monthly_spend_limit;
       usage_report_s3_bucket;
     }
   in

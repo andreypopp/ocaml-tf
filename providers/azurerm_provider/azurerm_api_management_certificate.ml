@@ -16,6 +16,7 @@ type azurerm_api_management_certificate__timeouts = {
 type azurerm_api_management_certificate = {
   api_management_name : string;  (** api_management_name *)
   data : string option; [@option]  (** data *)
+  id : string option; [@option]  (** id *)
   key_vault_identity_client_id : string option; [@option]
       (** key_vault_identity_client_id *)
   key_vault_secret_id : string option; [@option]
@@ -28,7 +29,7 @@ type azurerm_api_management_certificate = {
 [@@deriving yojson_of]
 (** azurerm_api_management_certificate *)
 
-let azurerm_api_management_certificate ?data
+let azurerm_api_management_certificate ?data ?id
     ?key_vault_identity_client_id ?key_vault_secret_id ?password
     ?timeouts ~api_management_name ~name ~resource_group_name
     __resource_id =
@@ -37,6 +38,7 @@ let azurerm_api_management_certificate ?data
     {
       api_management_name;
       data;
+      id;
       key_vault_identity_client_id;
       key_vault_secret_id;
       name;

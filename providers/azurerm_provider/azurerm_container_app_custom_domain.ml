@@ -18,6 +18,7 @@ type azurerm_container_app_custom_domain = {
   container_app_environment_certificate_id : string;
       (** container_app_environment_certificate_id *)
   container_app_id : string;  (** container_app_id *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The hostname of the Certificate. Must be the CN or a named SAN in the certificate. *)
   timeouts : azurerm_container_app_custom_domain__timeouts option;
@@ -25,7 +26,7 @@ type azurerm_container_app_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_container_app_custom_domain *)
 
-let azurerm_container_app_custom_domain ?timeouts
+let azurerm_container_app_custom_domain ?id ?timeouts
     ~certificate_binding_type
     ~container_app_environment_certificate_id ~container_app_id ~name
     __resource_id =
@@ -35,6 +36,7 @@ let azurerm_container_app_custom_domain ?timeouts
       certificate_binding_type;
       container_app_environment_certificate_id;
       container_app_id;
+      id;
       name;
       timeouts;
     }

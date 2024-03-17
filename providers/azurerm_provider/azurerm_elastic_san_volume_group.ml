@@ -45,6 +45,7 @@ type azurerm_elastic_san_volume_group__timeouts = {
 type azurerm_elastic_san_volume_group = {
   elastic_san_id : string;  (** elastic_san_id *)
   encryption_type : string option; [@option]  (** encryption_type *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   protocol_type : string option; [@option]  (** protocol_type *)
   encryption : azurerm_elastic_san_volume_group__encryption list;
@@ -55,14 +56,15 @@ type azurerm_elastic_san_volume_group = {
 [@@deriving yojson_of]
 (** azurerm_elastic_san_volume_group *)
 
-let azurerm_elastic_san_volume_group ?encryption_type ?protocol_type
-    ?timeouts ~elastic_san_id ~name ~encryption ~identity
-    ~network_rule __resource_id =
+let azurerm_elastic_san_volume_group ?encryption_type ?id
+    ?protocol_type ?timeouts ~elastic_san_id ~name ~encryption
+    ~identity ~network_rule __resource_id =
   let __resource_type = "azurerm_elastic_san_volume_group" in
   let __resource =
     {
       elastic_san_id;
       encryption_type;
+      id;
       name;
       protocol_type;
       encryption;

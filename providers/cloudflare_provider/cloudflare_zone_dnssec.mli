@@ -4,4 +4,9 @@ open! Tf.Prelude
 
 type cloudflare_zone_dnssec
 
-val cloudflare_zone_dnssec : zone_id:string -> string -> unit
+val cloudflare_zone_dnssec :
+  ?id:string ->
+  ?modified_on:string ->
+  zone_id:string ->
+  string ->
+  unit

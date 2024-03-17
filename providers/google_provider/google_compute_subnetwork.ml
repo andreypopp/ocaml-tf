@@ -53,6 +53,9 @@ type google_compute_subnetwork = {
       (** An optional description of this resource. Provide this property when
 you create the resource. This field can be set only at resource
 creation time. *)
+  external_ipv6_prefix : string option; [@option]
+      (** The range of external IPv6 addresses that are owned by this subnetwork. *)
+  id : string option; [@option]  (** id *)
   ip_cidr_range : string;
       (** The range of internal addresses that are owned by this subnetwork.
 Provide this property when you create the subnetwork. For example,
@@ -73,30 +76,73 @@ except the last character, which cannot be a dash. *)
   network : string;
       (** The network this subnet belongs to.
 Only networks that are in the distributed mode can have subnetworks. *)
+  private_ip_google_access : bool option; [@option]
+      (** When enabled, VMs in this subnetwork without external IP addresses can
+access Google APIs and services by using Private Google Access. *)
+  private_ipv6_google_access : string option; [@option]
+      (** The private IPv6 google access type for the VMs in this subnet. *)
+  project : string option; [@option]  (** project *)
+  purpose : string option; [@option]
+      (** The purpose of the resource. This field can be either 'PRIVATE_RFC_1918', 'REGIONAL_MANAGED_PROXY', 'GLOBAL_MANAGED_PROXY', 'PRIVATE_SERVICE_CONNECT' or 'PRIVATE_NAT'([Beta](https://terraform.io/docs/providers/google/guides/provider_versions.html)).
+A subnet with purpose set to 'REGIONAL_MANAGED_PROXY' is a user-created subnetwork that is reserved for regional Envoy-based load balancers.
+A subnetwork in a given region with purpose set to 'GLOBAL_MANAGED_PROXY' is a proxy-only subnet and is shared between all the cross-regional Envoy-based load balancers.
+A subnetwork with purpose set to 'PRIVATE_SERVICE_CONNECT' reserves the subnet for hosting a Private Service Connect published service.
+A subnetwork with purpose set to 'PRIVATE_NAT' is used as source range for Private NAT gateways.
+Note that 'REGIONAL_MANAGED_PROXY' is the preferred setting for all regional Envoy load balancers.
+If unspecified, the purpose defaults to 'PRIVATE_RFC_1918'. *)
+  region : string option; [@option]
+      (** The GCP region for this subnetwork. *)
   role : string option; [@option]
       (** The role of subnetwork.
 Currently, this field is only used when 'purpose' is 'REGIONAL_MANAGED_PROXY'.
 The value can be set to 'ACTIVE' or 'BACKUP'.
 An 'ACTIVE' subnetwork is one that is currently being used for Envoy-based load balancers in a region.
 A 'BACKUP' subnetwork is one that is ready to be promoted to 'ACTIVE' or is currently draining. Possible values: [ACTIVE, BACKUP] *)
+  secondary_ip_range :
+    google_compute_subnetwork__secondary_ip_range list option;
+      [@option]
+      (** An array of configurations for secondary IP ranges for VM instances
+contained in this subnetwork. The primary IP of such VM must belong
+to the primary ipCidrRange of the subnetwork. The alias IPs may belong
+to either primary or secondary ranges.
+
+**Note**: This field uses [attr-as-block mode](https://www.terraform.io/docs/configuration/attr-as-blocks.html) to avoid
+breaking users during the 0.12 upgrade. To explicitly send a list
+of zero objects you must use the following syntax:
+'example=[]'
+For more details about this behavior, see [this section](https://www.terraform.io/docs/configuration/attr-as-blocks.html#defining-a-fixed-object-collection-value). *)
+  stack_type : string option; [@option]
+      (** The stack type for this subnet to identify whether the IPv6 feature is enabled or not.
+If not specified IPV4_ONLY will be used. Possible values: [IPV4_ONLY, IPV4_IPV6] *)
   log_config : google_compute_subnetwork__log_config list;
   timeouts : google_compute_subnetwork__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_subnetwork *)
 
-let google_compute_subnetwork ?description ?ipv6_access_type ?role
-    ?timeouts ~ip_cidr_range ~name ~network ~log_config __resource_id
-    =
+let google_compute_subnetwork ?description ?external_ipv6_prefix ?id
+    ?ipv6_access_type ?private_ip_google_access
+    ?private_ipv6_google_access ?project ?purpose ?region ?role
+    ?secondary_ip_range ?stack_type ?timeouts ~ip_cidr_range ~name
+    ~network ~log_config __resource_id =
   let __resource_type = "google_compute_subnetwork" in
   let __resource =
     {
       description;
+      external_ipv6_prefix;
+      id;
       ip_cidr_range;
       ipv6_access_type;
       name;
       network;
+      private_ip_google_access;
+      private_ipv6_google_access;
+      project;
+      purpose;
+      region;
       role;
+      secondary_ip_range;
+      stack_type;
       log_config;
       timeouts;
     }

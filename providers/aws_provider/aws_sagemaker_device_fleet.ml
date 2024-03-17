@@ -16,23 +16,29 @@ type aws_sagemaker_device_fleet = {
   device_fleet_name : string;  (** device_fleet_name *)
   enable_iot_role_alias : bool option; [@option]
       (** enable_iot_role_alias *)
+  id : string option; [@option]  (** id *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   output_config : aws_sagemaker_device_fleet__output_config list;
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_device_fleet *)
 
 let aws_sagemaker_device_fleet ?description ?enable_iot_role_alias
-    ?tags ~device_fleet_name ~role_arn ~output_config __resource_id =
+    ?id ?tags ?tags_all ~device_fleet_name ~role_arn ~output_config
+    __resource_id =
   let __resource_type = "aws_sagemaker_device_fleet" in
   let __resource =
     {
       description;
       device_fleet_name;
       enable_iot_role_alias;
+      id;
       role_arn;
       tags;
+      tags_all;
       output_config;
     }
   in

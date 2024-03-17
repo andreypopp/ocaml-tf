@@ -45,15 +45,16 @@ type kubernetes_ingress_class__spec = {
 (** spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
 
 type kubernetes_ingress_class = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_ingress_class__metadata list;
   spec : kubernetes_ingress_class__spec list;
 }
 [@@deriving yojson_of]
 (** kubernetes_ingress_class *)
 
-let kubernetes_ingress_class ~metadata ~spec __resource_id =
+let kubernetes_ingress_class ?id ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_ingress_class" in
-  let __resource = { metadata; spec } in
+  let __resource = { id; metadata; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_ingress_class __resource);
   ()

@@ -16,6 +16,7 @@ type azurerm_log_analytics_data_export_rule__timeouts = {
 type azurerm_log_analytics_data_export_rule = {
   destination_resource_id : string;  (** destination_resource_id *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   table_names : string list;  (** table_names *)
@@ -25,7 +26,7 @@ type azurerm_log_analytics_data_export_rule = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_data_export_rule *)
 
-let azurerm_log_analytics_data_export_rule ?enabled ?timeouts
+let azurerm_log_analytics_data_export_rule ?enabled ?id ?timeouts
     ~destination_resource_id ~name ~resource_group_name ~table_names
     ~workspace_resource_id __resource_id =
   let __resource_type = "azurerm_log_analytics_data_export_rule" in
@@ -33,6 +34,7 @@ let azurerm_log_analytics_data_export_rule ?enabled ?timeouts
     {
       destination_resource_id;
       enabled;
+      id;
       name;
       resource_group_name;
       table_names;

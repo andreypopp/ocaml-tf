@@ -29,6 +29,7 @@ type azurerm_video_analyzer__timeouts = {
 (** azurerm_video_analyzer__timeouts *)
 
 type azurerm_video_analyzer = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -40,11 +41,12 @@ type azurerm_video_analyzer = {
 [@@deriving yojson_of]
 (** azurerm_video_analyzer *)
 
-let azurerm_video_analyzer ?tags ?timeouts ~location ~name
+let azurerm_video_analyzer ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~identity ~storage_account __resource_id =
   let __resource_type = "azurerm_video_analyzer" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

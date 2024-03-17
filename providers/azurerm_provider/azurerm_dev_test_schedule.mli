@@ -10,6 +10,7 @@ type azurerm_dev_test_schedule__weekly_recurrence
 type azurerm_dev_test_schedule
 
 val azurerm_dev_test_schedule :
+  ?id:string ->
   ?status:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dev_test_schedule__timeouts ->

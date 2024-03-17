@@ -135,14 +135,23 @@ type google_storage_bucket = {
       (** Enables each object in the bucket to have its own retention policy, which prevents deletion until stored for a specific length of time. *)
   force_destroy : bool option; [@option]
       (** When deleting a bucket, this boolean option will delete all contained objects. If you try to delete a bucket that contains objects, Terraform will fail that run. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A set of key/value label pairs to assign to the bucket. *)
   location : string;  (** The Google Cloud Storage location *)
   name : string;  (** The name of the bucket. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
+  public_access_prevention : string option; [@option]
+      (** Prevents public access to a bucket. *)
   requester_pays : bool option; [@option]
       (** Enables Requester Pays on a storage bucket. *)
+  rpo : string option; [@option]
+      (** Specifies the RPO setting of bucket. If set 'ASYNC_TURBO', The Turbo Replication will be enabled for the dual-region bucket. Value 'DEFAULT' will set RPO setting to default. Turbo Replication is only for buckets in dual-regions.See the docs for more details. *)
   storage_class : string option; [@option]
       (** The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE. *)
+  uniform_bucket_level_access : bool option; [@option]
+      (** Enables uniform bucket-level access on a bucket. *)
   autoclass : google_storage_bucket__autoclass list;
   cors : google_storage_bucket__cors list;
   custom_placement_config :
@@ -159,21 +168,27 @@ type google_storage_bucket = {
 (** google_storage_bucket *)
 
 let google_storage_bucket ?default_event_based_hold
-    ?enable_object_retention ?force_destroy ?labels ?requester_pays
-    ?storage_class ?timeouts ~location ~name ~autoclass ~cors
-    ~custom_placement_config ~encryption ~lifecycle_rule ~logging
-    ~retention_policy ~versioning ~website __resource_id =
+    ?enable_object_retention ?force_destroy ?id ?labels ?project
+    ?public_access_prevention ?requester_pays ?rpo ?storage_class
+    ?uniform_bucket_level_access ?timeouts ~location ~name ~autoclass
+    ~cors ~custom_placement_config ~encryption ~lifecycle_rule
+    ~logging ~retention_policy ~versioning ~website __resource_id =
   let __resource_type = "google_storage_bucket" in
   let __resource =
     {
       default_event_based_hold;
       enable_object_retention;
       force_destroy;
+      id;
       labels;
       location;
       name;
+      project;
+      public_access_prevention;
       requester_pays;
+      rpo;
       storage_class;
+      uniform_bucket_level_access;
       autoclass;
       cors;
       custom_placement_config;

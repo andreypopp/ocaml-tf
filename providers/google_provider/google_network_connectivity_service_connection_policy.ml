@@ -57,6 +57,7 @@ type google_network_connectivity_service_connection_policy__psc_connections = {
 type google_network_connectivity_service_connection_policy = {
   description : string option; [@option]
       (** Free-text description of the resource. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-defined labels.
 
@@ -69,6 +70,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The name of a ServiceConnectionPolicy. Format: projects/{project}/locations/{location}/serviceConnectionPolicies/{service_connection_policy} See: https://google.aip.dev/122#fields-representing-resource-names *)
   network : string;
       (** The resource path of the consumer network. Example: - projects/{projectNumOrId}/global/networks/{resourceId}. *)
+  project : string option; [@option]  (** project *)
   service_class : string;
       (** The service class identifier for which this ServiceConnectionPolicy is for. The service class identifier is a unique, symbolic representation of a ServiceClass.
 It is provided by the Service Producer. Google services have a prefix of gcp. For example, gcp-cloud-sql. 3rd party services do not. For example, test-service-a3dfcx. *)
@@ -83,18 +85,20 @@ It is provided by the Service Producer. Google services have a prefix of gcp. Fo
 (** google_network_connectivity_service_connection_policy *)
 
 let google_network_connectivity_service_connection_policy
-    ?description ?labels ?timeouts ~location ~name ~network
-    ~service_class ~psc_config __resource_id =
+    ?description ?id ?labels ?project ?timeouts ~location ~name
+    ~network ~service_class ~psc_config __resource_id =
   let __resource_type =
     "google_network_connectivity_service_connection_policy"
   in
   let __resource =
     {
       description;
+      id;
       labels;
       location;
       name;
       network;
+      project;
       service_class;
       psc_config;
       timeouts;

@@ -17,8 +17,12 @@ type aws_lb_listener
 val aws_lb_listener :
   ?alpn_policy:string ->
   ?certificate_arn:string ->
+  ?id:string ->
   ?port:float ->
+  ?protocol:string ->
+  ?ssl_policy:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_lb_listener__timeouts ->
   load_balancer_arn:string ->
   default_action:aws_lb_listener__default_action list ->

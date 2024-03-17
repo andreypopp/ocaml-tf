@@ -95,9 +95,12 @@ type aws_quicksight_theme__timeouts = {
 (** aws_quicksight_theme__timeouts *)
 
 type aws_quicksight_theme = {
+  aws_account_id: string option; [@option] (** aws_account_id *)
   base_theme_id: string;  (** base_theme_id *)
+  id: string option; [@option] (** id *)
   name: string;  (** name *)
   tags: (string * string) list option; [@option] (** tags *)
+  tags_all: (string * string) list option; [@option] (** tags_all *)
   theme_id: string;  (** theme_id *)
   version_description: string option; [@option] (** version_description *)
   configuration: aws_quicksight_theme__configuration list;
@@ -106,12 +109,15 @@ type aws_quicksight_theme = {
 } [@@deriving yojson_of]
 (** aws_quicksight_theme *)
 
-let aws_quicksight_theme ?tags ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions __resource_id =
+let aws_quicksight_theme ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions __resource_id =
   let __resource_type = "aws_quicksight_theme" in
   let __resource = {
+    aws_account_id;
     base_theme_id;
+    id;
     name;
     tags;
+    tags_all;
     theme_id;
     version_description;
     configuration;

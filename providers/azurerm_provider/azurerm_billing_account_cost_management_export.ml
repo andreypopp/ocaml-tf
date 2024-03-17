@@ -30,6 +30,7 @@ type azurerm_billing_account_cost_management_export__timeouts = {
 type azurerm_billing_account_cost_management_export = {
   active : bool option; [@option]  (** active *)
   billing_account_id : string;  (** billing_account_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   recurrence_period_end_date : string;
       (** recurrence_period_end_date *)
@@ -48,8 +49,8 @@ type azurerm_billing_account_cost_management_export = {
 [@@deriving yojson_of]
 (** azurerm_billing_account_cost_management_export *)
 
-let azurerm_billing_account_cost_management_export ?active ?timeouts
-    ~billing_account_id ~name ~recurrence_period_end_date
+let azurerm_billing_account_cost_management_export ?active ?id
+    ?timeouts ~billing_account_id ~name ~recurrence_period_end_date
     ~recurrence_period_start_date ~recurrence_type
     ~export_data_options ~export_data_storage_location __resource_id
     =
@@ -60,6 +61,7 @@ let azurerm_billing_account_cost_management_export ?active ?timeouts
     {
       active;
       billing_account_id;
+      id;
       name;
       recurrence_period_end_date;
       recurrence_period_start_date;

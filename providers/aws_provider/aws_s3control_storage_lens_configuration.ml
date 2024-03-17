@@ -211,8 +211,12 @@ type aws_s3control_storage_lens_configuration__storage_lens_configuration = {
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration *)
 
 type aws_s3control_storage_lens_configuration = {
+  account_id : string option; [@option]  (** account_id *)
   config_id : string;  (** config_id *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   storage_lens_configuration :
     aws_s3control_storage_lens_configuration__storage_lens_configuration
     list;
@@ -220,10 +224,19 @@ type aws_s3control_storage_lens_configuration = {
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration *)
 
-let aws_s3control_storage_lens_configuration ?tags ~config_id
-    ~storage_lens_configuration __resource_id =
+let aws_s3control_storage_lens_configuration ?account_id ?id ?tags
+    ?tags_all ~config_id ~storage_lens_configuration __resource_id =
   let __resource_type = "aws_s3control_storage_lens_configuration" in
-  let __resource = { config_id; tags; storage_lens_configuration } in
+  let __resource =
+    {
+      account_id;
+      config_id;
+      id;
+      tags;
+      tags_all;
+      storage_lens_configuration;
+    }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_storage_lens_configuration __resource);
   ()

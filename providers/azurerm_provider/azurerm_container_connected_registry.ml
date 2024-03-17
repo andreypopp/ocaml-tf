@@ -28,6 +28,7 @@ type azurerm_container_connected_registry = {
   client_token_ids : string list option; [@option]
       (** client_token_ids *)
   container_registry_id : string;  (** container_registry_id *)
+  id : string option; [@option]  (** id *)
   log_level : string option; [@option]  (** log_level *)
   mode : string option; [@option]  (** mode *)
   name : string;  (** name *)
@@ -46,7 +47,7 @@ type azurerm_container_connected_registry = {
 (** azurerm_container_connected_registry *)
 
 let azurerm_container_connected_registry ?audit_log_enabled
-    ?client_token_ids ?log_level ?mode ?parent_registry_id
+    ?client_token_ids ?id ?log_level ?mode ?parent_registry_id
     ?sync_message_ttl ?sync_schedule ?sync_window ?timeouts
     ~container_registry_id ~name ~sync_token_id ~notification
     __resource_id =
@@ -56,6 +57,7 @@ let azurerm_container_connected_registry ?audit_log_enabled
       audit_log_enabled;
       client_token_ids;
       container_registry_id;
+      id;
       log_level;
       mode;
       name;

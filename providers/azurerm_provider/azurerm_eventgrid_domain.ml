@@ -52,6 +52,7 @@ type azurerm_eventgrid_domain = {
       (** auto_create_topic_with_first_subscription *)
   auto_delete_topic_with_last_subscription : bool option; [@option]
       (** auto_delete_topic_with_last_subscription *)
+  id : string option; [@option]  (** id *)
   inbound_ip_rule :
     azurerm_eventgrid_domain__inbound_ip_rule list option;
       [@option]
@@ -77,7 +78,7 @@ type azurerm_eventgrid_domain = {
 
 let azurerm_eventgrid_domain
     ?auto_create_topic_with_first_subscription
-    ?auto_delete_topic_with_last_subscription ?inbound_ip_rule
+    ?auto_delete_topic_with_last_subscription ?id ?inbound_ip_rule
     ?input_schema ?local_auth_enabled ?public_network_access_enabled
     ?tags ?timeouts ~location ~name ~resource_group_name ~identity
     ~input_mapping_default_values ~input_mapping_fields __resource_id
@@ -87,6 +88,7 @@ let azurerm_eventgrid_domain
     {
       auto_create_topic_with_first_subscription;
       auto_delete_topic_with_last_subscription;
+      id;
       inbound_ip_rule;
       input_schema;
       local_auth_enabled;

@@ -40,6 +40,7 @@ type google_dataplex_lake = {
       (** Optional. Description of the lake. *)
   display_name : string option; [@option]
       (** Optional. User friendly display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. User-defined labels for the lake.
 
@@ -47,22 +48,26 @@ type google_dataplex_lake = {
 Please refer to the field `effective_labels` for all of the labels present on the resource. *)
   location : string;  (** The location for the resource *)
   name : string;  (** The name of the lake. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   metastore : google_dataplex_lake__metastore list;
   timeouts : google_dataplex_lake__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_dataplex_lake *)
 
-let google_dataplex_lake ?description ?display_name ?labels ?timeouts
-    ~location ~name ~metastore __resource_id =
+let google_dataplex_lake ?description ?display_name ?id ?labels
+    ?project ?timeouts ~location ~name ~metastore __resource_id =
   let __resource_type = "google_dataplex_lake" in
   let __resource =
     {
       description;
       display_name;
+      id;
       labels;
       location;
       name;
+      project;
       metastore;
       timeouts;
     }

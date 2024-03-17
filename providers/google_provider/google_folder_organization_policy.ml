@@ -61,6 +61,9 @@ type google_folder_organization_policy = {
       (** The name of the Constraint the Policy is configuring, for example, serviceuser.services. *)
   folder : string;
       (** The resource name of the folder to set the policy for. Its format is folders/{folder_id}. *)
+  id : string option; [@option]  (** id *)
+  version : float option; [@option]
+      (** Version of the Policy. Default version is 0. *)
   boolean_policy :
     google_folder_organization_policy__boolean_policy list;
   list_policy : google_folder_organization_policy__list_policy list;
@@ -71,13 +74,16 @@ type google_folder_organization_policy = {
 [@@deriving yojson_of]
 (** google_folder_organization_policy *)
 
-let google_folder_organization_policy ?timeouts ~constraint_ ~folder
-    ~boolean_policy ~list_policy ~restore_policy __resource_id =
+let google_folder_organization_policy ?id ?version ?timeouts
+    ~constraint_ ~folder ~boolean_policy ~list_policy ~restore_policy
+    __resource_id =
   let __resource_type = "google_folder_organization_policy" in
   let __resource =
     {
       constraint_;
       folder;
+      id;
+      version;
       boolean_policy;
       list_policy;
       restore_policy;

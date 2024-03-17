@@ -29,6 +29,7 @@ type azurerm_cdn_frontdoor_secret__timeouts = {
 
 type azurerm_cdn_frontdoor_secret = {
   cdn_frontdoor_profile_id : string;  (** cdn_frontdoor_profile_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   secret : azurerm_cdn_frontdoor_secret__secret list;
   timeouts : azurerm_cdn_frontdoor_secret__timeouts option;
@@ -36,11 +37,11 @@ type azurerm_cdn_frontdoor_secret = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_secret *)
 
-let azurerm_cdn_frontdoor_secret ?timeouts ~cdn_frontdoor_profile_id
-    ~name ~secret __resource_id =
+let azurerm_cdn_frontdoor_secret ?id ?timeouts
+    ~cdn_frontdoor_profile_id ~name ~secret __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_secret" in
   let __resource =
-    { cdn_frontdoor_profile_id; name; secret; timeouts }
+    { cdn_frontdoor_profile_id; id; name; secret; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cdn_frontdoor_secret __resource);

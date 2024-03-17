@@ -8,6 +8,11 @@ type google_compute_instance_group
 
 val google_compute_instance_group :
   ?description:string ->
+  ?id:string ->
+  ?instances:string list ->
+  ?network:string ->
+  ?project:string ->
+  ?zone:string ->
   ?timeouts:google_compute_instance_group__timeouts ->
   name:string ->
   named_port:google_compute_instance_group__named_port list ->

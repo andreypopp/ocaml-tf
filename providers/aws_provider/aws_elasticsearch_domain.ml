@@ -170,10 +170,16 @@ type aws_elasticsearch_domain__vpc_options = {
 (** aws_elasticsearch_domain__vpc_options *)
 
 type aws_elasticsearch_domain = {
+  access_policies : string option; [@option]  (** access_policies *)
+  advanced_options : (string * string) list option; [@option]
+      (** advanced_options *)
   domain_name : string;  (** domain_name *)
   elasticsearch_version : string option; [@option]
       (** elasticsearch_version *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   advanced_security_options :
     aws_elasticsearch_domain__advanced_security_options list;
   auto_tune_options :
@@ -195,18 +201,22 @@ type aws_elasticsearch_domain = {
 [@@deriving yojson_of]
 (** aws_elasticsearch_domain *)
 
-let aws_elasticsearch_domain ?elasticsearch_version ?tags ?timeouts
-    ~domain_name ~advanced_security_options ~auto_tune_options
-    ~cluster_config ~cognito_options ~domain_endpoint_options
-    ~ebs_options ~encrypt_at_rest ~log_publishing_options
-    ~node_to_node_encryption ~snapshot_options ~vpc_options
-    __resource_id =
+let aws_elasticsearch_domain ?access_policies ?advanced_options
+    ?elasticsearch_version ?id ?tags ?tags_all ?timeouts ~domain_name
+    ~advanced_security_options ~auto_tune_options ~cluster_config
+    ~cognito_options ~domain_endpoint_options ~ebs_options
+    ~encrypt_at_rest ~log_publishing_options ~node_to_node_encryption
+    ~snapshot_options ~vpc_options __resource_id =
   let __resource_type = "aws_elasticsearch_domain" in
   let __resource =
     {
+      access_policies;
+      advanced_options;
       domain_name;
       elasticsearch_version;
+      id;
       tags;
+      tags_all;
       advanced_security_options;
       auto_tune_options;
       cluster_config;

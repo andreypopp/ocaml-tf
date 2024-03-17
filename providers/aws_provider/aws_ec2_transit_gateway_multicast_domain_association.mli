@@ -6,6 +6,7 @@ type aws_ec2_transit_gateway_multicast_domain_association__timeouts
 type aws_ec2_transit_gateway_multicast_domain_association
 
 val aws_ec2_transit_gateway_multicast_domain_association :
+  ?id:string ->
   ?timeouts:
     aws_ec2_transit_gateway_multicast_domain_association__timeouts ->
   subnet_id:string ->

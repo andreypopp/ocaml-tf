@@ -25,6 +25,7 @@ type aws_servicequotas_service_quota__usage_metric = {
 [@@deriving yojson_of]
 
 type aws_servicequotas_service_quota = {
+  id : string option; [@option]  (** id *)
   quota_code : string;  (** quota_code *)
   service_code : string;  (** service_code *)
   value : float;  (** value *)
@@ -32,10 +33,10 @@ type aws_servicequotas_service_quota = {
 [@@deriving yojson_of]
 (** aws_servicequotas_service_quota *)
 
-let aws_servicequotas_service_quota ~quota_code ~service_code ~value
-    __resource_id =
+let aws_servicequotas_service_quota ?id ~quota_code ~service_code
+    ~value __resource_id =
   let __resource_type = "aws_servicequotas_service_quota" in
-  let __resource = { quota_code; service_code; value } in
+  let __resource = { id; quota_code; service_code; value } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicequotas_service_quota __resource);
   ()

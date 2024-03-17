@@ -19,16 +19,24 @@ type aws_docdbelastic_cluster = {
   admin_user_name : string;  (** admin_user_name *)
   admin_user_password : string;  (** admin_user_password *)
   auth_type : string;  (** auth_type *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
   name : string;  (** name *)
+  preferred_maintenance_window : string option; [@option]
+      (** preferred_maintenance_window *)
   shard_capacity : float;  (** shard_capacity *)
   shard_count : float;  (** shard_count *)
+  subnet_ids : string list option; [@option]  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  vpc_security_group_ids : string list option; [@option]
+      (** vpc_security_group_ids *)
   timeouts : aws_docdbelastic_cluster__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_docdbelastic_cluster *)
 
-let aws_docdbelastic_cluster ?tags ?timeouts ~admin_user_name
+let aws_docdbelastic_cluster ?kms_key_id
+    ?preferred_maintenance_window ?subnet_ids ?tags
+    ?vpc_security_group_ids ?timeouts ~admin_user_name
     ~admin_user_password ~auth_type ~name ~shard_capacity
     ~shard_count __resource_id =
   let __resource_type = "aws_docdbelastic_cluster" in
@@ -37,10 +45,14 @@ let aws_docdbelastic_cluster ?tags ?timeouts ~admin_user_name
       admin_user_name;
       admin_user_password;
       auth_type;
+      kms_key_id;
       name;
+      preferred_maintenance_window;
       shard_capacity;
       shard_count;
+      subnet_ids;
       tags;
+      vpc_security_group_ids;
       timeouts;
     }
   in

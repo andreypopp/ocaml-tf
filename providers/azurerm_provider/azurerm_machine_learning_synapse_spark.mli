@@ -8,6 +8,7 @@ type azurerm_machine_learning_synapse_spark
 
 val azurerm_machine_learning_synapse_spark :
   ?description:string ->
+  ?id:string ->
   ?local_auth_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_machine_learning_synapse_spark__timeouts ->

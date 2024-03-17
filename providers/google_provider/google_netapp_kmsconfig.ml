@@ -17,6 +17,7 @@ type google_netapp_kmsconfig = {
       (** Resource name of the KMS key to use. Only regional keys are supported. Format: 'projects/{{project}}/locations/{{location}}/keyRings/{{key_ring}}/cryptoKeys/{{key}}'. *)
   description : string option; [@option]
       (** Description for the CMEK policy. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'.
 
@@ -26,21 +27,24 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string;
       (** Name of the policy location. CMEK policies apply to the whole region. *)
   name : string;  (** Name of the CMEK policy. *)
+  project : string option; [@option]  (** project *)
   timeouts : google_netapp_kmsconfig__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_netapp_kmsconfig *)
 
-let google_netapp_kmsconfig ?description ?labels ?timeouts
-    ~crypto_key_name ~location ~name __resource_id =
+let google_netapp_kmsconfig ?description ?id ?labels ?project
+    ?timeouts ~crypto_key_name ~location ~name __resource_id =
   let __resource_type = "google_netapp_kmsconfig" in
   let __resource =
     {
       crypto_key_name;
       description;
+      id;
       labels;
       location;
       name;
+      project;
       timeouts;
     }
   in

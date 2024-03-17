@@ -8,7 +8,9 @@ type aws_cleanrooms_configured_table
 
 val aws_cleanrooms_configured_table :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_cleanrooms_configured_table__timeouts ->
   allowed_columns:string list ->
   analysis_method:string ->

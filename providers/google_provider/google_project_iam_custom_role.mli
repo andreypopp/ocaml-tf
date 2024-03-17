@@ -6,6 +6,8 @@ type google_project_iam_custom_role
 
 val google_project_iam_custom_role :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?stage:string ->
   permissions:string list ->
   role_id:string ->

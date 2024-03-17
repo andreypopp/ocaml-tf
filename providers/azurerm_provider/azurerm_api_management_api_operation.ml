@@ -248,6 +248,7 @@ type azurerm_api_management_api_operation = {
   api_name : string;  (** api_name *)
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   method_ : string; [@key "method"]  (** method *)
   operation_id : string;  (** operation_id *)
   resource_group_name : string;  (** resource_group_name *)
@@ -261,7 +262,7 @@ type azurerm_api_management_api_operation = {
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation *)
 
-let azurerm_api_management_api_operation ?description ?timeouts
+let azurerm_api_management_api_operation ?description ?id ?timeouts
     ~api_management_name ~api_name ~display_name ~method_
     ~operation_id ~resource_group_name ~url_template ~request
     ~response ~template_parameter __resource_id =
@@ -272,6 +273,7 @@ let azurerm_api_management_api_operation ?description ?timeouts
       api_name;
       description;
       display_name;
+      id;
       method_;
       operation_id;
       resource_group_name;

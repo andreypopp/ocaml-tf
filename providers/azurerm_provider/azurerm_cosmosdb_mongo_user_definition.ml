@@ -15,6 +15,7 @@ type azurerm_cosmosdb_mongo_user_definition__timeouts = {
 
 type azurerm_cosmosdb_mongo_user_definition = {
   cosmos_mongo_database_id : string;  (** cosmos_mongo_database_id *)
+  id : string option; [@option]  (** id *)
   inherited_role_names : string list option; [@option]
       (** inherited_role_names *)
   password : string;  (** password *)
@@ -24,13 +25,14 @@ type azurerm_cosmosdb_mongo_user_definition = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_mongo_user_definition *)
 
-let azurerm_cosmosdb_mongo_user_definition ?inherited_role_names
+let azurerm_cosmosdb_mongo_user_definition ?id ?inherited_role_names
     ?timeouts ~cosmos_mongo_database_id ~password ~username
     __resource_id =
   let __resource_type = "azurerm_cosmosdb_mongo_user_definition" in
   let __resource =
     {
       cosmos_mongo_database_id;
+      id;
       inherited_role_names;
       password;
       username;

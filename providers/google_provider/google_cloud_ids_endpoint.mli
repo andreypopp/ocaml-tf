@@ -7,6 +7,8 @@ type google_cloud_ids_endpoint
 
 val google_cloud_ids_endpoint :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?threat_exceptions:string list ->
   ?timeouts:google_cloud_ids_endpoint__timeouts ->
   location:string ->

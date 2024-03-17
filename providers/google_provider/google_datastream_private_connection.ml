@@ -30,6 +30,7 @@ type google_datastream_private_connection__error = {
 
 type google_datastream_private_connection = {
   display_name : string;  (** Display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels.
 
@@ -39,6 +40,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The name of the location this private connection is located in. *)
   private_connection_id : string;
       (** The private connectivity identifier. *)
+  project : string option; [@option]  (** project *)
   timeouts : google_datastream_private_connection__timeouts option;
   vpc_peering_config :
     google_datastream_private_connection__vpc_peering_config list;
@@ -46,16 +48,18 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_datastream_private_connection *)
 
-let google_datastream_private_connection ?labels ?timeouts
-    ~display_name ~location ~private_connection_id
+let google_datastream_private_connection ?id ?labels ?project
+    ?timeouts ~display_name ~location ~private_connection_id
     ~vpc_peering_config __resource_id =
   let __resource_type = "google_datastream_private_connection" in
   let __resource =
     {
       display_name;
+      id;
       labels;
       location;
       private_connection_id;
+      project;
       timeouts;
       vpc_peering_config;
     }

@@ -6,6 +6,7 @@ type azurerm_network_function_azure_traffic_collector__timeouts
 type azurerm_network_function_azure_traffic_collector
 
 val azurerm_network_function_azure_traffic_collector :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_network_function_azure_traffic_collector__timeouts ->

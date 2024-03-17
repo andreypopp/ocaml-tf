@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_lambda_invocation
 
 val aws_lambda_invocation :
+  ?id:string ->
   ?lifecycle_scope:string ->
   ?qualifier:string ->
   ?terraform_key:string ->

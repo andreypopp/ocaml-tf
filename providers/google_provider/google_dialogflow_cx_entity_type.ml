@@ -41,6 +41,7 @@ type google_dialogflow_cx_entity_type = {
       (** The human-readable name of the entity type, unique within the agent. *)
   enable_fuzzy_extraction : bool option; [@option]
       (** Enables fuzzy entity extraction during classification. *)
+  id : string option; [@option]  (** id *)
   kind : string;
       (** Indicates whether the entity type can be automatically expanded.
 * KIND_MAP: Map entity types allow mapping of a group of synonyms to a canonical value.
@@ -66,14 +67,16 @@ Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
 (** google_dialogflow_cx_entity_type *)
 
 let google_dialogflow_cx_entity_type ?auto_expansion_mode
-    ?enable_fuzzy_extraction ?language_code ?parent ?redact ?timeouts
-    ~display_name ~kind ~entities ~excluded_phrases __resource_id =
+    ?enable_fuzzy_extraction ?id ?language_code ?parent ?redact
+    ?timeouts ~display_name ~kind ~entities ~excluded_phrases
+    __resource_id =
   let __resource_type = "google_dialogflow_cx_entity_type" in
   let __resource =
     {
       auto_expansion_mode;
       display_name;
       enable_fuzzy_extraction;
+      id;
       kind;
       language_code;
       parent;

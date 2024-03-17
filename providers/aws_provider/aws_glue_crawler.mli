@@ -20,10 +20,12 @@ val aws_glue_crawler :
   ?classifiers:string list ->
   ?configuration:string ->
   ?description:string ->
+  ?id:string ->
   ?schedule:string ->
   ?security_configuration:string ->
   ?table_prefix:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   database_name:string ->
   name:string ->
   role:string ->

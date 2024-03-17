@@ -22,6 +22,7 @@ disabled rather than deleted. Default is 'DELETE'. Possible values are:
   * ABANDON *)
   enabled : bool option; [@option]
       (** The current state of the SecretVersion. *)
+  id : string option; [@option]  (** id *)
   is_secret_data_base64 : bool option; [@option]
       (** If set to 'true', the secret data is expected to be base64-encoded string and would be sent as is. *)
   secret : string;  (** Secret Manager secret resource *)
@@ -33,13 +34,14 @@ disabled rather than deleted. Default is 'DELETE'. Possible values are:
 (** google_secret_manager_secret_version *)
 
 let google_secret_manager_secret_version ?deletion_policy ?enabled
-    ?is_secret_data_base64 ?timeouts ~secret ~secret_data
+    ?id ?is_secret_data_base64 ?timeouts ~secret ~secret_data
     __resource_id =
   let __resource_type = "google_secret_manager_secret_version" in
   let __resource =
     {
       deletion_policy;
       enabled;
+      id;
       is_secret_data_base64;
       secret;
       secret_data;

@@ -7,6 +7,8 @@ type google_network_security_url_lists
 
 val google_network_security_url_lists :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_network_security_url_lists__timeouts ->
   location:string ->
   name:string ->

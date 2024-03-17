@@ -70,6 +70,7 @@ Set the value to 0 to use the default value. *)
       (** When set to true, no runs are scheduled for a given transfer. *)
   display_name : string;
       (** The user specified display name for the transfer config. *)
+  id : string option; [@option]  (** id *)
   location : string option; [@option]
       (** The geographic location where the transfer config should reside.
 Examples: US, EU, asia-northeast1. The default value is US. *)
@@ -82,6 +83,7 @@ section for each data source. For example the parameters for Cloud Storage trans
 https://cloud.google.com/bigquery-transfer/docs/cloud-storage-transfer#bq
 
 **NOTE** : If you are attempting to update a parameter that cannot be updated (due to api limitations) [please force recreation of the resource](https://www.terraform.io/cli/state/taint#forcing-re-creation-of-resources). *)
+  project : string option; [@option]  (** project *)
   schedule : string option; [@option]
       (** Data transfer schedule. If the data source does not support a custom
 schedule, this should be empty. If it is empty, the default value for
@@ -107,10 +109,10 @@ requesting user calling this API has permissions to act as this service account.
 (** google_bigquery_data_transfer_config *)
 
 let google_bigquery_data_transfer_config ?data_refresh_window_days
-    ?destination_dataset_id ?disabled ?location
-    ?notification_pubsub_topic ?schedule ?service_account_name
-    ?timeouts ~data_source_id ~display_name ~params
-    ~email_preferences ~schedule_options ~sensitive_params
+    ?destination_dataset_id ?disabled ?id ?location
+    ?notification_pubsub_topic ?project ?schedule
+    ?service_account_name ?timeouts ~data_source_id ~display_name
+    ~params ~email_preferences ~schedule_options ~sensitive_params
     __resource_id =
   let __resource_type = "google_bigquery_data_transfer_config" in
   let __resource =
@@ -120,9 +122,11 @@ let google_bigquery_data_transfer_config ?data_refresh_window_days
       destination_dataset_id;
       disabled;
       display_name;
+      id;
       location;
       notification_pubsub_topic;
       params;
+      project;
       schedule;
       service_account_name;
       email_preferences;

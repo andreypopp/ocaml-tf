@@ -105,6 +105,7 @@ characters or underscores only. *)
   enablement_state : string;
       (** The enablement state of the custom module. Possible values: [ENABLED, DISABLED] *)
   folder : string;  (** Numerical ID of the parent folder. *)
+  id : string option; [@option]  (** id *)
   custom_config :
     google_scc_folder_custom_module__custom_config list;
   timeouts : google_scc_folder_custom_module__timeouts option;
@@ -112,7 +113,7 @@ characters or underscores only. *)
 [@@deriving yojson_of]
 (** google_scc_folder_custom_module *)
 
-let google_scc_folder_custom_module ?timeouts ~display_name
+let google_scc_folder_custom_module ?id ?timeouts ~display_name
     ~enablement_state ~folder ~custom_config __resource_id =
   let __resource_type = "google_scc_folder_custom_module" in
   let __resource =
@@ -120,6 +121,7 @@ let google_scc_folder_custom_module ?timeouts ~display_name
       display_name;
       enablement_state;
       folder;
+      id;
       custom_config;
       timeouts;
     }

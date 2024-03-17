@@ -7,6 +7,7 @@ type azurerm_databricks_access_connector__timeouts
 type azurerm_databricks_access_connector
 
 val azurerm_databricks_access_connector :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_databricks_access_connector__timeouts ->
   location:string ->

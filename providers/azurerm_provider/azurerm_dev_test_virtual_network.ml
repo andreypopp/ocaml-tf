@@ -25,6 +25,7 @@ type azurerm_dev_test_virtual_network__timeouts = {
 
 type azurerm_dev_test_virtual_network = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   lab_name : string;  (** lab_name *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -35,12 +36,13 @@ type azurerm_dev_test_virtual_network = {
 [@@deriving yojson_of]
 (** azurerm_dev_test_virtual_network *)
 
-let azurerm_dev_test_virtual_network ?description ?tags ?timeouts
+let azurerm_dev_test_virtual_network ?description ?id ?tags ?timeouts
     ~lab_name ~name ~resource_group_name ~subnet __resource_id =
   let __resource_type = "azurerm_dev_test_virtual_network" in
   let __resource =
     {
       description;
+      id;
       lab_name;
       name;
       resource_group_name;

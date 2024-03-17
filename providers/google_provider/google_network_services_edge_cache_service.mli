@@ -47,9 +47,13 @@ type google_network_services_edge_cache_service
 val google_network_services_edge_cache_service :
   ?description:string ->
   ?disable_http2:bool ->
+  ?disable_quic:bool ->
   ?edge_security_policy:string ->
   ?edge_ssl_certificates:string list ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
+  ?require_tls:bool ->
   ?ssl_policy:string ->
   ?timeouts:google_network_services_edge_cache_service__timeouts ->
   name:string ->

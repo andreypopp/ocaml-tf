@@ -8,6 +8,7 @@ type azurerm_notification_hub__timeouts
 type azurerm_notification_hub
 
 val azurerm_notification_hub :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_notification_hub__timeouts ->
   location:string ->

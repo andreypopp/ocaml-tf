@@ -9,6 +9,7 @@ type digitalocean_monitor_alert
 val digitalocean_monitor_alert :
   ?enabled:bool ->
   ?entities:string list ->
+  ?id:string ->
   ?tags:string list ->
   compare:string ->
   description:string ->

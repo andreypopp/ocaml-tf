@@ -23,7 +23,10 @@ type aws_sagemaker_endpoint__deployment_config
 type aws_sagemaker_endpoint
 
 val aws_sagemaker_endpoint :
+  ?id:string ->
+  ?name:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   endpoint_config_name:string ->
   deployment_config:aws_sagemaker_endpoint__deployment_config list ->
   string ->

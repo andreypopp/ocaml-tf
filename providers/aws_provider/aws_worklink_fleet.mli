@@ -10,6 +10,7 @@ val aws_worklink_fleet :
   ?audit_stream_arn:string ->
   ?device_ca_certificate:string ->
   ?display_name:string ->
+  ?id:string ->
   ?optimize_for_end_user_location:bool ->
   name:string ->
   identity_provider:aws_worklink_fleet__identity_provider list ->

@@ -12,6 +12,8 @@ type google_binary_authorization_attestor
 
 val google_binary_authorization_attestor :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_binary_authorization_attestor__timeouts ->
   name:string ->
   attestation_authority_note:

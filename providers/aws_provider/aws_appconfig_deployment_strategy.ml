@@ -12,15 +12,17 @@ type aws_appconfig_deployment_strategy = {
       (** final_bake_time_in_minutes *)
   growth_factor : float;  (** growth_factor *)
   growth_type : string option; [@option]  (** growth_type *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   replicate_to : string;  (** replicate_to *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_appconfig_deployment_strategy *)
 
 let aws_appconfig_deployment_strategy ?description
-    ?final_bake_time_in_minutes ?growth_type ?tags
+    ?final_bake_time_in_minutes ?growth_type ?id ?tags ?tags_all
     ~deployment_duration_in_minutes ~growth_factor ~name
     ~replicate_to __resource_id =
   let __resource_type = "aws_appconfig_deployment_strategy" in
@@ -31,9 +33,11 @@ let aws_appconfig_deployment_strategy ?description
       final_bake_time_in_minutes;
       growth_factor;
       growth_type;
+      id;
       name;
       replicate_to;
       tags;
+      tags_all;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

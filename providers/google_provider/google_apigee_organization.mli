@@ -10,9 +10,11 @@ type google_apigee_organization
 val google_apigee_organization :
   ?analytics_region:string ->
   ?authorized_network:string ->
+  ?billing_type:string ->
   ?description:string ->
   ?disable_vpc_peering:bool ->
   ?display_name:string ->
+  ?id:string ->
   ?retention:string ->
   ?runtime_database_encryption_key_name:string ->
   ?runtime_type:string ->

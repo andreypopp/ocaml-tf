@@ -55,6 +55,11 @@ Empty active_key_version indicates that a Google-managed key should be used for 
 This property will be ignored if set by an ancestor of the resource, and new non-empty values may not be set. *)
   folder_id : string;
       (** ID of the folder of the access approval settings. *)
+  id : string option; [@option]  (** id *)
+  notification_emails : string list option; [@option]
+      (** A list of email addresses to which notifications relating to approval requests should be sent.
+Notifications relating to a resource will be sent to all emails in the settings of ancestor
+resources of that resource. A maximum of 50 email addresses are allowed. *)
   enrolled_services :
     google_folder_access_approval_settings__enrolled_services list;
   timeouts : google_folder_access_approval_settings__timeouts option;
@@ -62,11 +67,19 @@ This property will be ignored if set by an ancestor of the resource, and new non
 [@@deriving yojson_of]
 (** google_folder_access_approval_settings *)
 
-let google_folder_access_approval_settings ?active_key_version
-    ?timeouts ~folder_id ~enrolled_services __resource_id =
+let google_folder_access_approval_settings ?active_key_version ?id
+    ?notification_emails ?timeouts ~folder_id ~enrolled_services
+    __resource_id =
   let __resource_type = "google_folder_access_approval_settings" in
   let __resource =
-    { active_key_version; folder_id; enrolled_services; timeouts }
+    {
+      active_key_version;
+      folder_id;
+      id;
+      notification_emails;
+      enrolled_services;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_folder_access_approval_settings __resource);

@@ -25,13 +25,14 @@ type aws_ssoadmin_application = {
   description : string option; [@option]  (** description *)
   instance_arn : string;  (** instance_arn *)
   name : string;  (** name *)
+  status : string option; [@option]  (** status *)
   tags : (string * string) list option; [@option]  (** tags *)
   portal_options : aws_ssoadmin_application__portal_options list;
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_application *)
 
-let aws_ssoadmin_application ?client_token ?description ?tags
+let aws_ssoadmin_application ?client_token ?description ?status ?tags
     ~application_provider_arn ~instance_arn ~name ~portal_options
     __resource_id =
   let __resource_type = "aws_ssoadmin_application" in
@@ -42,6 +43,7 @@ let aws_ssoadmin_application ?client_token ?description ?tags
       description;
       instance_arn;
       name;
+      status;
       tags;
       portal_options;
     }

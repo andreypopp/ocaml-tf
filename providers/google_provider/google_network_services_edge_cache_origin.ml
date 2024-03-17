@@ -130,6 +130,7 @@ After maxAttempts is reached, the configured failoverOrigin will be used to fulf
 
 The value of timeout.maxAttemptsTimeout dictates the timeout across all origins.
 A reference to a Topic resource. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Set of label tags associated with the EdgeCache resource.
 
@@ -159,6 +160,33 @@ This address will be used as the origin for cache requests - e.g. FQDN: media-ba
 
 When providing an FQDN (hostname), it must be publicly resolvable (e.g. via Google public DNS) and IP addresses must be publicly routable.  It must not contain a protocol (e.g., https://) and it must not contain any slashes.
 If a Cloud Storage bucket is provided, it must be in the canonical gs://bucketname format. Other forms, such as storage.googleapis.com, will be rejected. *)
+  port : float option; [@option]
+      (** The port to connect to the origin on.
+Defaults to port 443 for HTTP2 and HTTPS protocols, and port 80 for HTTP. *)
+  project : string option; [@option]  (** project *)
+  protocol : string option; [@option]
+      (** The protocol to use to connect to the configured origin. Defaults to HTTP2, and it is strongly recommended that users use HTTP2 for both security & performance.
+
+When using HTTP2 or HTTPS as the protocol, a valid, publicly-signed, unexpired TLS (SSL) certificate must be presented by the origin server. Possible values: [HTTP2, HTTPS, HTTP] *)
+  retry_conditions : string list option; [@option]
+      (** Specifies one or more retry conditions for the configured origin.
+
+If the failure mode during a connection attempt to the origin matches the configured retryCondition(s),
+the origin request will be retried up to maxAttempts times. The failoverOrigin, if configured, will then be used to satisfy the request.
+
+The default retryCondition is CONNECT_FAILURE.
+
+retryConditions apply to this origin, and not subsequent failoverOrigin(s),
+which may specify their own retryConditions and maxAttempts.
+
+Valid values are:
+
+- CONNECT_FAILURE: Retry on failures connecting to origins, for example due to connection timeouts.
+- HTTP_5XX: Retry if the origin responds with any 5xx response code, or if the origin does not respond at all, example: disconnects, reset, read timeout, connection failure, and refused streams.
+- GATEWAY_ERROR: Similar to 5xx, but only applies to response codes 502, 503 or 504.
+- RETRIABLE_4XX: Retry for retriable 4xx response codes, which include HTTP 409 (Conflict) and HTTP 429 (Too Many Requests)
+- NOT_FOUND: Retry if the origin returns a HTTP 404 (Not Found). This can be useful when generating video content, and the segment is not available yet.
+- FORBIDDEN: Retry if the origin returns a HTTP 403 (Forbidden). Possible values: [CONNECT_FAILURE, HTTP_5XX, GATEWAY_ERROR, RETRIABLE_4XX, NOT_FOUND, FORBIDDEN] *)
   aws_v4_authentication :
     google_network_services_edge_cache_origin__aws_v4_authentication
     list;
@@ -175,9 +203,10 @@ If a Cloud Storage bucket is provided, it must be in the canonical gs://bucketna
 (** google_network_services_edge_cache_origin *)
 
 let google_network_services_edge_cache_origin ?description
-    ?failover_origin ?labels ?max_attempts ?timeouts ~name
-    ~origin_address ~aws_v4_authentication ~origin_override_action
-    ~origin_redirect ~timeout __resource_id =
+    ?failover_origin ?id ?labels ?max_attempts ?port ?project
+    ?protocol ?retry_conditions ?timeouts ~name ~origin_address
+    ~aws_v4_authentication ~origin_override_action ~origin_redirect
+    ~timeout __resource_id =
   let __resource_type =
     "google_network_services_edge_cache_origin"
   in
@@ -185,10 +214,15 @@ let google_network_services_edge_cache_origin ?description
     {
       description;
       failover_origin;
+      id;
       labels;
       max_attempts;
       name;
       origin_address;
+      port;
+      project;
+      protocol;
+      retry_conditions;
       aws_v4_authentication;
       origin_override_action;
       origin_redirect;

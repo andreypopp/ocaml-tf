@@ -14,6 +14,7 @@ type aws_rekognition_project__timeouts = {
 (** aws_rekognition_project__timeouts *)
 
 type aws_rekognition_project = {
+  auto_update : string option; [@option]  (** auto_update *)
   feature : string option; [@option]  (** feature *)
   name : string;  (** name *)
   timeouts : aws_rekognition_project__timeouts option;
@@ -21,9 +22,10 @@ type aws_rekognition_project = {
 [@@deriving yojson_of]
 (** aws_rekognition_project *)
 
-let aws_rekognition_project ?feature ?timeouts ~name __resource_id =
+let aws_rekognition_project ?auto_update ?feature ?timeouts ~name
+    __resource_id =
   let __resource_type = "aws_rekognition_project" in
-  let __resource = { feature; name; timeouts } in
+  let __resource = { auto_update; feature; name; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rekognition_project __resource);
   ()

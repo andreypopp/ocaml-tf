@@ -49,6 +49,7 @@ type azurerm_netapp_snapshot_policy__weekly_schedule = {
 type azurerm_netapp_snapshot_policy = {
   account_name : string;  (** account_name *)
   enabled : bool;  (** enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -66,7 +67,7 @@ type azurerm_netapp_snapshot_policy = {
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot_policy *)
 
-let azurerm_netapp_snapshot_policy ?tags ?timeouts ~account_name
+let azurerm_netapp_snapshot_policy ?id ?tags ?timeouts ~account_name
     ~enabled ~location ~name ~resource_group_name ~daily_schedule
     ~hourly_schedule ~monthly_schedule ~weekly_schedule __resource_id
     =
@@ -75,6 +76,7 @@ let azurerm_netapp_snapshot_policy ?tags ?timeouts ~account_name
     {
       account_name;
       enabled;
+      id;
       location;
       name;
       resource_group_name;

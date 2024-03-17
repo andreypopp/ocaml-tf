@@ -38,6 +38,7 @@ type azurerm_automation_account__private_endpoint_connection = {
 [@@deriving yojson_of]
 
 type azurerm_automation_account = {
+  id : string option; [@option]  (** id *)
   local_authentication_enabled : bool option; [@option]
       (** local_authentication_enabled *)
   location : string;  (** location *)
@@ -54,13 +55,14 @@ type azurerm_automation_account = {
 [@@deriving yojson_of]
 (** azurerm_automation_account *)
 
-let azurerm_automation_account ?local_authentication_enabled
+let azurerm_automation_account ?id ?local_authentication_enabled
     ?public_network_access_enabled ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku_name ~encryption ~identity
     __resource_id =
   let __resource_type = "azurerm_automation_account" in
   let __resource =
     {
+      id;
       local_authentication_enabled;
       location;
       name;

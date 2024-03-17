@@ -58,6 +58,7 @@ type google_iam_deny_policy__timeouts = {
 type google_iam_deny_policy = {
   display_name : string option; [@option]
       (** The display name of the rule. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the policy. *)
   parent : string;
       (** The attachment point is identified by its URL-encoded full resource name. *)
@@ -67,10 +68,12 @@ type google_iam_deny_policy = {
 [@@deriving yojson_of]
 (** google_iam_deny_policy *)
 
-let google_iam_deny_policy ?display_name ?timeouts ~name ~parent
+let google_iam_deny_policy ?display_name ?id ?timeouts ~name ~parent
     ~rules __resource_id =
   let __resource_type = "google_iam_deny_policy" in
-  let __resource = { display_name; name; parent; rules; timeouts } in
+  let __resource =
+    { display_name; id; name; parent; rules; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iam_deny_policy __resource);
   ()

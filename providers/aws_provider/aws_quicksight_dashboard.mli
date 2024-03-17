@@ -17245,7 +17245,10 @@ type aws_quicksight_dashboard__timeouts
 type aws_quicksight_dashboard
 
 val aws_quicksight_dashboard :
+    ?aws_account_id:string ->
+    ?id:string ->
     ?tags:(string * string) list ->
+    ?tags_all:(string * string) list ->
     ?theme_arn:string ->
     ?timeouts:aws_quicksight_dashboard__timeouts ->
     dashboard_id:string ->

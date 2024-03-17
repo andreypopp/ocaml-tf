@@ -16,8 +16,11 @@ type google_gke_backup_backup_plan__timeouts
 type google_gke_backup_backup_plan
 
 val google_gke_backup_backup_plan :
+  ?deactivated:bool ->
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_gke_backup_backup_plan__timeouts ->
   cluster:string ->
   location:string ->

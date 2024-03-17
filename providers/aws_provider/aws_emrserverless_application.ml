@@ -68,9 +68,12 @@ type aws_emrserverless_application__network_configuration = {
 
 type aws_emrserverless_application = {
   architecture : string option; [@option]  (** architecture *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   release_label : string;  (** release_label *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   auto_start_configuration :
     aws_emrserverless_application__auto_start_configuration list;
@@ -88,17 +91,19 @@ type aws_emrserverless_application = {
 [@@deriving yojson_of]
 (** aws_emrserverless_application *)
 
-let aws_emrserverless_application ?architecture ?tags ~name
-    ~release_label ~type_ ~auto_start_configuration
+let aws_emrserverless_application ?architecture ?id ?tags ?tags_all
+    ~name ~release_label ~type_ ~auto_start_configuration
     ~auto_stop_configuration ~image_configuration ~initial_capacity
     ~maximum_capacity ~network_configuration __resource_id =
   let __resource_type = "aws_emrserverless_application" in
   let __resource =
     {
       architecture;
+      id;
       name;
       release_label;
       tags;
+      tags_all;
       type_;
       auto_start_configuration;
       auto_stop_configuration;

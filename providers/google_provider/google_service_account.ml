@@ -21,13 +21,17 @@ type google_service_account = {
       (** Whether the service account is disabled. Defaults to false *)
   display_name : string option; [@option]
       (** The display name for the service account. Can be updated without creating a new resource. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]
+      (** The ID of the project that the service account will be created in. Defaults to the provider project configuration. *)
   timeouts : google_service_account__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_service_account *)
 
 let google_service_account ?create_ignore_already_exists ?description
-    ?disabled ?display_name ?timeouts ~account_id __resource_id =
+    ?disabled ?display_name ?id ?project ?timeouts ~account_id
+    __resource_id =
   let __resource_type = "google_service_account" in
   let __resource =
     {
@@ -36,6 +40,8 @@ let google_service_account ?create_ignore_already_exists ?description
       description;
       disabled;
       display_name;
+      id;
+      project;
       timeouts;
     }
   in

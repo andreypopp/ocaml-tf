@@ -24,9 +24,12 @@ type azurerm_app_service_plan__timeouts = {
 type azurerm_app_service_plan = {
   app_service_environment_id : string option; [@option]
       (** app_service_environment_id *)
+  id : string option; [@option]  (** id *)
   is_xenon : bool option; [@option]  (** is_xenon *)
   kind : string option; [@option]  (** kind *)
   location : string;  (** location *)
+  maximum_elastic_worker_count : float option; [@option]
+      (** maximum_elastic_worker_count *)
   name : string;  (** name *)
   per_site_scaling : bool option; [@option]  (** per_site_scaling *)
   reserved : bool option; [@option]  (** reserved *)
@@ -39,16 +42,19 @@ type azurerm_app_service_plan = {
 [@@deriving yojson_of]
 (** azurerm_app_service_plan *)
 
-let azurerm_app_service_plan ?app_service_environment_id ?is_xenon
-    ?kind ?per_site_scaling ?reserved ?tags ?zone_redundant ?timeouts
-    ~location ~name ~resource_group_name ~sku __resource_id =
+let azurerm_app_service_plan ?app_service_environment_id ?id
+    ?is_xenon ?kind ?maximum_elastic_worker_count ?per_site_scaling
+    ?reserved ?tags ?zone_redundant ?timeouts ~location ~name
+    ~resource_group_name ~sku __resource_id =
   let __resource_type = "azurerm_app_service_plan" in
   let __resource =
     {
       app_service_environment_id;
+      id;
       is_xenon;
       kind;
       location;
+      maximum_elastic_worker_count;
       name;
       per_site_scaling;
       reserved;

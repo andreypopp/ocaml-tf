@@ -26,14 +26,16 @@ type kubernetes_runtime_class_v1__metadata = {
 type kubernetes_runtime_class_v1 = {
   handler : string;
       (** Specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class *)
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_runtime_class_v1__metadata list;
 }
 [@@deriving yojson_of]
 (** kubernetes_runtime_class_v1 *)
 
-let kubernetes_runtime_class_v1 ~handler ~metadata __resource_id =
+let kubernetes_runtime_class_v1 ?id ~handler ~metadata __resource_id
+    =
   let __resource_type = "kubernetes_runtime_class_v1" in
-  let __resource = { handler; metadata } in
+  let __resource = { handler; id; metadata } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_runtime_class_v1 __resource);
   ()

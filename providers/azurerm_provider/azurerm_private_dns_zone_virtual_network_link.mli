@@ -6,6 +6,7 @@ type azurerm_private_dns_zone_virtual_network_link__timeouts
 type azurerm_private_dns_zone_virtual_network_link
 
 val azurerm_private_dns_zone_virtual_network_link :
+  ?id:string ->
   ?registration_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_private_dns_zone_virtual_network_link__timeouts ->

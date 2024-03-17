@@ -20,9 +20,14 @@ val google_storage_bucket :
   ?default_event_based_hold:bool ->
   ?enable_object_retention:bool ->
   ?force_destroy:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
+  ?public_access_prevention:string ->
   ?requester_pays:bool ->
+  ?rpo:string ->
   ?storage_class:string ->
+  ?uniform_bucket_level_access:bool ->
   ?timeouts:google_storage_bucket__timeouts ->
   location:string ->
   name:string ->

@@ -20,6 +20,7 @@ type cloudflare_pages_project__source
 type cloudflare_pages_project
 
 val cloudflare_pages_project :
+  ?id:string ->
   account_id:string ->
   name:string ->
   production_branch:string ->

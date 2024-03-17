@@ -8,6 +8,7 @@ type digitalocean_custom_image
 val digitalocean_custom_image :
   ?description:string ->
   ?distribution:string ->
+  ?id:string ->
   ?tags:string list ->
   ?timeouts:digitalocean_custom_image__timeouts ->
   name:string ->

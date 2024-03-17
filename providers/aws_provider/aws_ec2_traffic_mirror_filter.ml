@@ -6,17 +6,21 @@ open! Tf.Prelude
 
 type aws_ec2_traffic_mirror_filter = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   network_services : string list option; [@option]
       (** network_services *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_traffic_mirror_filter *)
 
-let aws_ec2_traffic_mirror_filter ?description ?network_services
-    ?tags __resource_id =
+let aws_ec2_traffic_mirror_filter ?description ?id ?network_services
+    ?tags ?tags_all __resource_id =
   let __resource_type = "aws_ec2_traffic_mirror_filter" in
-  let __resource = { description; network_services; tags } in
+  let __resource =
+    { description; id; network_services; tags; tags_all }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_traffic_mirror_filter __resource);
   ()

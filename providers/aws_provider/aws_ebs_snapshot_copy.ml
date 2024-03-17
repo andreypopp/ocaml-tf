@@ -14,12 +14,16 @@ type aws_ebs_snapshot_copy__timeouts = {
 type aws_ebs_snapshot_copy = {
   description : string option; [@option]  (** description *)
   encrypted : bool option; [@option]  (** encrypted *)
+  id : string option; [@option]  (** id *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
   permanent_restore : bool option; [@option]
       (** permanent_restore *)
   source_region : string;  (** source_region *)
   source_snapshot_id : string;  (** source_snapshot_id *)
+  storage_tier : string option; [@option]  (** storage_tier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   temporary_restore_days : float option; [@option]
       (** temporary_restore_days *)
   timeouts : aws_ebs_snapshot_copy__timeouts option;
@@ -27,19 +31,23 @@ type aws_ebs_snapshot_copy = {
 [@@deriving yojson_of]
 (** aws_ebs_snapshot_copy *)
 
-let aws_ebs_snapshot_copy ?description ?encrypted ?kms_key_id
-    ?permanent_restore ?tags ?temporary_restore_days ?timeouts
-    ~source_region ~source_snapshot_id __resource_id =
+let aws_ebs_snapshot_copy ?description ?encrypted ?id ?kms_key_id
+    ?permanent_restore ?storage_tier ?tags ?tags_all
+    ?temporary_restore_days ?timeouts ~source_region
+    ~source_snapshot_id __resource_id =
   let __resource_type = "aws_ebs_snapshot_copy" in
   let __resource =
     {
       description;
       encrypted;
+      id;
       kms_key_id;
       permanent_restore;
       source_region;
       source_snapshot_id;
+      storage_tier;
       tags;
+      tags_all;
       temporary_restore_days;
       timeouts;
     }

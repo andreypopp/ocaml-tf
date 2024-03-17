@@ -20,6 +20,7 @@ type azurerm_databricks_virtual_network_peering = {
       (** allow_gateway_transit *)
   allow_virtual_network_access : bool option; [@option]
       (** allow_virtual_network_access *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   remote_address_space_prefixes : string list;
       (** remote_address_space_prefixes *)
@@ -37,7 +38,7 @@ type azurerm_databricks_virtual_network_peering = {
 
 let azurerm_databricks_virtual_network_peering
     ?allow_forwarded_traffic ?allow_gateway_transit
-    ?allow_virtual_network_access ?use_remote_gateways ?timeouts
+    ?allow_virtual_network_access ?id ?use_remote_gateways ?timeouts
     ~name ~remote_address_space_prefixes ~remote_virtual_network_id
     ~resource_group_name ~workspace_id __resource_id =
   let __resource_type =
@@ -48,6 +49,7 @@ let azurerm_databricks_virtual_network_peering
       allow_forwarded_traffic;
       allow_gateway_transit;
       allow_virtual_network_access;
+      id;
       name;
       remote_address_space_prefixes;
       remote_virtual_network_id;

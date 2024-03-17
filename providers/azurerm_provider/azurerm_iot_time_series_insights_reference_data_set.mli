@@ -8,6 +8,7 @@ type azurerm_iot_time_series_insights_reference_data_set
 
 val azurerm_iot_time_series_insights_reference_data_set :
   ?data_string_comparison_behavior:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_iot_time_series_insights_reference_data_set__timeouts ->

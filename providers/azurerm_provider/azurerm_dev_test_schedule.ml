@@ -41,6 +41,7 @@ type azurerm_dev_test_schedule__weekly_recurrence = {
 (** azurerm_dev_test_schedule__weekly_recurrence *)
 
 type azurerm_dev_test_schedule = {
+  id : string option; [@option]  (** id *)
   lab_name : string;  (** lab_name *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -62,13 +63,14 @@ type azurerm_dev_test_schedule = {
 [@@deriving yojson_of]
 (** azurerm_dev_test_schedule *)
 
-let azurerm_dev_test_schedule ?status ?tags ?timeouts ~lab_name
+let azurerm_dev_test_schedule ?id ?status ?tags ?timeouts ~lab_name
     ~location ~name ~resource_group_name ~task_type ~time_zone_id
     ~daily_recurrence ~hourly_recurrence ~notification_settings
     ~weekly_recurrence __resource_id =
   let __resource_type = "azurerm_dev_test_schedule" in
   let __resource =
     {
+      id;
       lab_name;
       location;
       name;

@@ -17,12 +17,10 @@ type google_compute_instance_group_manager__version
 type google_compute_instance_group_manager__status__version_target = {
   is_reached : bool;  (** is_reached *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_group_manager__status__stateful__per_instance_configs = {
   all_effective : bool;  (** all_effective *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_group_manager__status__stateful = {
   has_stateful_config : bool;  (** has_stateful_config *)
@@ -31,12 +29,10 @@ type google_compute_instance_group_manager__status__stateful = {
     list;
       (** per_instance_configs *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_group_manager__status__all_instances_config = {
   effective : bool;  (** effective *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_group_manager__status = {
   all_instances_config :
@@ -52,16 +48,19 @@ type google_compute_instance_group_manager__status = {
     list;
       (** version_target *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_group_manager
 
 val google_compute_instance_group_manager :
   ?description:string ->
+  ?id:string ->
   ?list_managed_instances_results:string ->
+  ?project:string ->
   ?target_pools:string list ->
+  ?target_size:float ->
   ?wait_for_instances:bool ->
   ?wait_for_instances_status:string ->
+  ?zone:string ->
   ?timeouts:google_compute_instance_group_manager__timeouts ->
   base_instance_name:string ->
   name:string ->

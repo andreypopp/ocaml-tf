@@ -14,8 +14,10 @@ type aws_ses_receipt_rule
 val aws_ses_receipt_rule :
   ?after:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?recipients:string list ->
   ?scan_enabled:bool ->
+  ?tls_policy:string ->
   name:string ->
   rule_set_name:string ->
   add_header_action:aws_ses_receipt_rule__add_header_action list ->

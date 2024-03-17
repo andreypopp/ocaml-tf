@@ -6,6 +6,7 @@ type azurerm_api_management_identity_provider_aad__timeouts
 type azurerm_api_management_identity_provider_aad
 
 val azurerm_api_management_identity_provider_aad :
+  ?id:string ->
   ?signin_tenant:string ->
   ?timeouts:azurerm_api_management_identity_provider_aad__timeouts ->
   allowed_tenants:string list ->

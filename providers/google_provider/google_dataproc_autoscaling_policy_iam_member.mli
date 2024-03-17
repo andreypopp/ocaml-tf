@@ -6,6 +6,9 @@ type google_dataproc_autoscaling_policy_iam_member__condition
 type google_dataproc_autoscaling_policy_iam_member
 
 val google_dataproc_autoscaling_policy_iam_member :
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
   member:string ->
   policy_id:string ->
   role:string ->

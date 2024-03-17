@@ -7,6 +7,7 @@ type aws_chimesdkvoice_sip_rule
 
 val aws_chimesdkvoice_sip_rule :
   ?disabled:bool ->
+  ?id:string ->
   name:string ->
   trigger_type:string ->
   trigger_value:string ->

@@ -5,4 +5,11 @@ open! Tf.Prelude
 type digitalocean_cdn
 
 val digitalocean_cdn :
-  ?custom_domain:string -> origin:string -> string -> unit
+  ?certificate_id:string ->
+  ?certificate_name:string ->
+  ?custom_domain:string ->
+  ?id:string ->
+  ?ttl:float ->
+  origin:string ->
+  string ->
+  unit

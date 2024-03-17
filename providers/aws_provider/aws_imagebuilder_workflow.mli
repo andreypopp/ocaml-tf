@@ -6,9 +6,12 @@ type aws_imagebuilder_workflow
 
 val aws_imagebuilder_workflow :
   ?change_description:string ->
+  ?data:string ->
   ?description:string ->
+  ?id:string ->
   ?kms_key_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?uri:string ->
   name:string ->
   type_:string ->

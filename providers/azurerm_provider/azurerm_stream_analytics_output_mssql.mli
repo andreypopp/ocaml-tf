@@ -7,6 +7,7 @@ type azurerm_stream_analytics_output_mssql
 
 val azurerm_stream_analytics_output_mssql :
   ?authentication_mode:string ->
+  ?id:string ->
   ?max_batch_count:float ->
   ?max_writer_count:float ->
   ?password:string ->

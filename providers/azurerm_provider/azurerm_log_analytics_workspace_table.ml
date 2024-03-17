@@ -14,6 +14,7 @@ type azurerm_log_analytics_workspace_table__timeouts = {
 (** azurerm_log_analytics_workspace_table__timeouts *)
 
 type azurerm_log_analytics_workspace_table = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   plan : string option; [@option]  (** plan *)
   retention_in_days : float option; [@option]
@@ -26,12 +27,13 @@ type azurerm_log_analytics_workspace_table = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_workspace_table *)
 
-let azurerm_log_analytics_workspace_table ?plan ?retention_in_days
-    ?total_retention_in_days ?timeouts ~name ~workspace_id
-    __resource_id =
+let azurerm_log_analytics_workspace_table ?id ?plan
+    ?retention_in_days ?total_retention_in_days ?timeouts ~name
+    ~workspace_id __resource_id =
   let __resource_type = "azurerm_log_analytics_workspace_table" in
   let __resource =
     {
+      id;
       name;
       plan;
       retention_in_days;

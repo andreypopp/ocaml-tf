@@ -20,6 +20,7 @@ type azurerm_data_factory_credential_user_managed_identity = {
       (** The resource ID of the parent Data Factory *)
   description : string option; [@option]
       (** (Optional) Short text description *)
+  id : string option; [@option]  (** id *)
   identity_id : string;
       (** The resource ID of the User Assigned Managed Identity *)
   name : string;  (** The desired name of the credential resource *)
@@ -31,8 +32,8 @@ type azurerm_data_factory_credential_user_managed_identity = {
 (** azurerm_data_factory_credential_user_managed_identity *)
 
 let azurerm_data_factory_credential_user_managed_identity
-    ?annotations ?description ?timeouts ~data_factory_id ~identity_id
-    ~name __resource_id =
+    ?annotations ?description ?id ?timeouts ~data_factory_id
+    ~identity_id ~name __resource_id =
   let __resource_type =
     "azurerm_data_factory_credential_user_managed_identity"
   in
@@ -41,6 +42,7 @@ let azurerm_data_factory_credential_user_managed_identity
       annotations;
       data_factory_id;
       description;
+      id;
       identity_id;
       name;
       timeouts;

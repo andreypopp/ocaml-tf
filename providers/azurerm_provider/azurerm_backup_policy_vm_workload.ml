@@ -95,6 +95,7 @@ type azurerm_backup_policy_vm_workload__timeouts = {
 (** azurerm_backup_policy_vm_workload__timeouts *)
 
 type azurerm_backup_policy_vm_workload = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   recovery_vault_name : string;  (** recovery_vault_name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -107,12 +108,13 @@ type azurerm_backup_policy_vm_workload = {
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm_workload *)
 
-let azurerm_backup_policy_vm_workload ?timeouts ~name
+let azurerm_backup_policy_vm_workload ?id ?timeouts ~name
     ~recovery_vault_name ~resource_group_name ~workload_type
     ~protection_policy ~settings __resource_id =
   let __resource_type = "azurerm_backup_policy_vm_workload" in
   let __resource =
     {
+      id;
       name;
       recovery_vault_name;
       resource_group_name;

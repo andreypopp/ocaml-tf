@@ -15,6 +15,7 @@ val azurerm_monitor_scheduled_query_rules_alert :
   ?auto_mitigation_enabled:bool ->
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?query_type:string ->
   ?severity:float ->
   ?tags:(string * string) list ->

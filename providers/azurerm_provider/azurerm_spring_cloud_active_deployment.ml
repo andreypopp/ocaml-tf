@@ -15,17 +15,18 @@ type azurerm_spring_cloud_active_deployment__timeouts = {
 
 type azurerm_spring_cloud_active_deployment = {
   deployment_name : string;  (** deployment_name *)
+  id : string option; [@option]  (** id *)
   spring_cloud_app_id : string;  (** spring_cloud_app_id *)
   timeouts : azurerm_spring_cloud_active_deployment__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_active_deployment *)
 
-let azurerm_spring_cloud_active_deployment ?timeouts ~deployment_name
-    ~spring_cloud_app_id __resource_id =
+let azurerm_spring_cloud_active_deployment ?id ?timeouts
+    ~deployment_name ~spring_cloud_app_id __resource_id =
   let __resource_type = "azurerm_spring_cloud_active_deployment" in
   let __resource =
-    { deployment_name; spring_cloud_app_id; timeouts }
+    { deployment_name; id; spring_cloud_app_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_active_deployment __resource);

@@ -20,6 +20,8 @@ type google_firebase_app_check_debug_token = {
 or [Android App](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects.androidApps#AndroidApp.FIELDS.app_id) *)
   display_name : string;
       (** A human readable display name used to identify this debug token. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   token : string;
       (** The secret token itself. Must be provided during creation, and must be a UUID4,
 case insensitive. You may use a method of your choice such as random/random_uuid
@@ -34,10 +36,12 @@ For security reasons, this field will never be populated in any response. *)
 [@@deriving yojson_of]
 (** google_firebase_app_check_debug_token *)
 
-let google_firebase_app_check_debug_token ?timeouts ~app_id
-    ~display_name ~token __resource_id =
+let google_firebase_app_check_debug_token ?id ?project ?timeouts
+    ~app_id ~display_name ~token __resource_id =
   let __resource_type = "google_firebase_app_check_debug_token" in
-  let __resource = { app_id; display_name; token; timeouts } in
+  let __resource =
+    { app_id; display_name; id; project; token; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebase_app_check_debug_token __resource);
   ()

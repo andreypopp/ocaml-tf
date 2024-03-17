@@ -7,6 +7,7 @@ type azurerm_express_route_gateway
 
 val azurerm_express_route_gateway :
   ?allow_non_virtual_wan_traffic:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_express_route_gateway__timeouts ->
   location:string ->

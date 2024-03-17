@@ -15,7 +15,9 @@ val azurerm_resource_policy_assignment :
   ?description:string ->
   ?display_name:string ->
   ?enforce:bool ->
+  ?id:string ->
   ?location:string ->
+  ?metadata:string ->
   ?not_scopes:string list ->
   ?parameters:string ->
   ?timeouts:azurerm_resource_policy_assignment__timeouts ->

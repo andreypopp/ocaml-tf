@@ -19,13 +19,16 @@ type aws_memorydb_snapshot__cluster_configuration = {
   topic_arn : string;  (** topic_arn *)
   vpc_id : string;  (** vpc_id *)
 }
-[@@deriving yojson_of]
 
 type aws_memorydb_snapshot
 
 val aws_memorydb_snapshot :
+  ?id:string ->
   ?kms_key_arn:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_memorydb_snapshot__timeouts ->
   cluster_name:string ->
   string ->

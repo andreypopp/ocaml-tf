@@ -49,6 +49,11 @@ type azurerm_app_service_source_control_slot__timeouts = {
 (** azurerm_app_service_source_control_slot__timeouts *)
 
 type azurerm_app_service_source_control_slot = {
+  branch : string option; [@option]
+      (** The URL for the repository *)
+  id : string option; [@option]  (** id *)
+  repo_url : string option; [@option]
+      (** The branch name to use for deployments. *)
   rollback_enabled : bool option; [@option]
       (** Should the Deployment Rollback be enabled? Defaults to `false` *)
   slot_id : string;
@@ -67,12 +72,16 @@ type azurerm_app_service_source_control_slot = {
 [@@deriving yojson_of]
 (** azurerm_app_service_source_control_slot *)
 
-let azurerm_app_service_source_control_slot ?rollback_enabled
-    ?use_local_git ?use_manual_integration ?use_mercurial ?timeouts
-    ~slot_id ~github_action_configuration __resource_id =
+let azurerm_app_service_source_control_slot ?branch ?id ?repo_url
+    ?rollback_enabled ?use_local_git ?use_manual_integration
+    ?use_mercurial ?timeouts ~slot_id ~github_action_configuration
+    __resource_id =
   let __resource_type = "azurerm_app_service_source_control_slot" in
   let __resource =
     {
+      branch;
+      id;
+      repo_url;
       rollback_enabled;
       slot_id;
       use_local_git;

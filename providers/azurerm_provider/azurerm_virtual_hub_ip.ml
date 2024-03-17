@@ -14,6 +14,7 @@ type azurerm_virtual_hub_ip__timeouts = {
 (** azurerm_virtual_hub_ip__timeouts *)
 
 type azurerm_virtual_hub_ip = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   private_ip_address : string option; [@option]
       (** private_ip_address *)
@@ -27,12 +28,13 @@ type azurerm_virtual_hub_ip = {
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_ip *)
 
-let azurerm_virtual_hub_ip ?private_ip_address
+let azurerm_virtual_hub_ip ?id ?private_ip_address
     ?private_ip_allocation_method ?timeouts ~name
     ~public_ip_address_id ~subnet_id ~virtual_hub_id __resource_id =
   let __resource_type = "azurerm_virtual_hub_ip" in
   let __resource =
     {
+      id;
       name;
       private_ip_address;
       private_ip_allocation_method;

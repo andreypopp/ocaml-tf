@@ -16,6 +16,7 @@ type azurerm_palo_alto_local_rulestack_certificate__timeouts = {
 type azurerm_palo_alto_local_rulestack_certificate = {
   audit_comment : string option; [@option]  (** audit_comment *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   key_vault_certificate_id : string option; [@option]
       (** key_vault_certificate_id *)
   name : string;  (** name *)
@@ -28,7 +29,7 @@ type azurerm_palo_alto_local_rulestack_certificate = {
 (** azurerm_palo_alto_local_rulestack_certificate *)
 
 let azurerm_palo_alto_local_rulestack_certificate ?audit_comment
-    ?description ?key_vault_certificate_id ?self_signed ?timeouts
+    ?description ?id ?key_vault_certificate_id ?self_signed ?timeouts
     ~name ~rulestack_id __resource_id =
   let __resource_type =
     "azurerm_palo_alto_local_rulestack_certificate"
@@ -37,6 +38,7 @@ let azurerm_palo_alto_local_rulestack_certificate ?audit_comment
     {
       audit_comment;
       description;
+      id;
       key_vault_certificate_id;
       name;
       rulestack_id;

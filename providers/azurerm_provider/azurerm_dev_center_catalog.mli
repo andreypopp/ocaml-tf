@@ -8,6 +8,7 @@ type azurerm_dev_center_catalog__timeouts
 type azurerm_dev_center_catalog
 
 val azurerm_dev_center_catalog :
+  ?id:string ->
   ?timeouts:azurerm_dev_center_catalog__timeouts ->
   dev_center_id:string ->
   name:string ->

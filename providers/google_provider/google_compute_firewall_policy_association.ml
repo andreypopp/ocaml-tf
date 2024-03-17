@@ -16,6 +16,7 @@ type google_compute_firewall_policy_association = {
       (** The target that the firewall policy is attached to. *)
   firewall_policy : string;
       (** The firewall policy ID of the association. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name for an association. *)
   timeouts :
     google_compute_firewall_policy_association__timeouts option;
@@ -23,13 +24,13 @@ type google_compute_firewall_policy_association = {
 [@@deriving yojson_of]
 (** google_compute_firewall_policy_association *)
 
-let google_compute_firewall_policy_association ?timeouts
+let google_compute_firewall_policy_association ?id ?timeouts
     ~attachment_target ~firewall_policy ~name __resource_id =
   let __resource_type =
     "google_compute_firewall_policy_association"
   in
   let __resource =
-    { attachment_target; firewall_policy; name; timeouts }
+    { attachment_target; firewall_policy; id; name; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_firewall_policy_association __resource);

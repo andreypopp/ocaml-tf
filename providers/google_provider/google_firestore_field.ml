@@ -49,6 +49,8 @@ type google_firestore_field = {
   database : string option; [@option]
       (** The Firestore database id. Defaults to '(default)'. *)
   field : string;  (** The id of the field to configure. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   index_config : google_firestore_field__index_config list;
   timeouts : google_firestore_field__timeouts option;
   ttl_config : google_firestore_field__ttl_config list;
@@ -56,14 +58,16 @@ type google_firestore_field = {
 [@@deriving yojson_of]
 (** google_firestore_field *)
 
-let google_firestore_field ?database ?timeouts ~collection ~field
-    ~index_config ~ttl_config __resource_id =
+let google_firestore_field ?database ?id ?project ?timeouts
+    ~collection ~field ~index_config ~ttl_config __resource_id =
   let __resource_type = "google_firestore_field" in
   let __resource =
     {
       collection;
       database;
       field;
+      id;
+      project;
       index_config;
       timeouts;
       ttl_config;

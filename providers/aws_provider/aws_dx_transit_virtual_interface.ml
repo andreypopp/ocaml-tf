@@ -14,33 +14,46 @@ type aws_dx_transit_virtual_interface__timeouts = {
 
 type aws_dx_transit_virtual_interface = {
   address_family : string;  (** address_family *)
+  amazon_address : string option; [@option]  (** amazon_address *)
   bgp_asn : float;  (** bgp_asn *)
+  bgp_auth_key : string option; [@option]  (** bgp_auth_key *)
   connection_id : string;  (** connection_id *)
+  customer_address : string option; [@option]
+      (** customer_address *)
   dx_gateway_id : string;  (** dx_gateway_id *)
+  id : string option; [@option]  (** id *)
   mtu : float option; [@option]  (** mtu *)
   name : string;  (** name *)
   sitelink_enabled : bool option; [@option]  (** sitelink_enabled *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vlan : float;  (** vlan *)
   timeouts : aws_dx_transit_virtual_interface__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dx_transit_virtual_interface *)
 
-let aws_dx_transit_virtual_interface ?mtu ?sitelink_enabled ?tags
+let aws_dx_transit_virtual_interface ?amazon_address ?bgp_auth_key
+    ?customer_address ?id ?mtu ?sitelink_enabled ?tags ?tags_all
     ?timeouts ~address_family ~bgp_asn ~connection_id ~dx_gateway_id
     ~name ~vlan __resource_id =
   let __resource_type = "aws_dx_transit_virtual_interface" in
   let __resource =
     {
       address_family;
+      amazon_address;
       bgp_asn;
+      bgp_auth_key;
       connection_id;
+      customer_address;
       dx_gateway_id;
+      id;
       mtu;
       name;
       sitelink_enabled;
       tags;
+      tags_all;
       vlan;
       timeouts;
     }

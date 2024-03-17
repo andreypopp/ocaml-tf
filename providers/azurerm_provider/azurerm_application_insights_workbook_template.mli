@@ -8,6 +8,7 @@ type azurerm_application_insights_workbook_template
 
 val azurerm_application_insights_workbook_template :
   ?author:string ->
+  ?id:string ->
   ?localized:string ->
   ?priority:float ->
   ?tags:(string * string) list ->

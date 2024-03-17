@@ -37,6 +37,7 @@ type azurerm_hdinsight_hbase_cluster__timeouts
 type azurerm_hdinsight_hbase_cluster
 
 val azurerm_hdinsight_hbase_cluster :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?tls_min_version:string ->
   ?timeouts:azurerm_hdinsight_hbase_cluster__timeouts ->

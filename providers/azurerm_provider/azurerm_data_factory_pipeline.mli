@@ -11,6 +11,7 @@ val azurerm_data_factory_pipeline :
   ?concurrency:float ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?moniter_metrics_after_duration:string ->
   ?parameters:(string * string) list ->
   ?variables:(string * string) list ->

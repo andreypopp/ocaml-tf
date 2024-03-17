@@ -22,8 +22,11 @@ type azurerm_cosmosdb_sql_role_definition__timeouts = {
 type azurerm_cosmosdb_sql_role_definition = {
   account_name : string;  (** account_name *)
   assignable_scopes : string list;  (** assignable_scopes *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
+  role_definition_id : string option; [@option]
+      (** role_definition_id *)
   type_ : string option; [@option] [@key "type"]  (** type *)
   permissions :
     azurerm_cosmosdb_sql_role_definition__permissions list;
@@ -32,16 +35,18 @@ type azurerm_cosmosdb_sql_role_definition = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_role_definition *)
 
-let azurerm_cosmosdb_sql_role_definition ?type_ ?timeouts
-    ~account_name ~assignable_scopes ~name ~resource_group_name
-    ~permissions __resource_id =
+let azurerm_cosmosdb_sql_role_definition ?id ?role_definition_id
+    ?type_ ?timeouts ~account_name ~assignable_scopes ~name
+    ~resource_group_name ~permissions __resource_id =
   let __resource_type = "azurerm_cosmosdb_sql_role_definition" in
   let __resource =
     {
       account_name;
       assignable_scopes;
+      id;
       name;
       resource_group_name;
+      role_definition_id;
       type_;
       permissions;
       timeouts;

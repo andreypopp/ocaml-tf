@@ -167,8 +167,12 @@ type aws_sagemaker_data_quality_job_definition__stopping_condition = {
 (** aws_sagemaker_data_quality_job_definition__stopping_condition *)
 
 type aws_sagemaker_data_quality_job_definition = {
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   data_quality_app_specification :
     aws_sagemaker_data_quality_job_definition__data_quality_app_specification
     list;
@@ -192,18 +196,21 @@ type aws_sagemaker_data_quality_job_definition = {
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition *)
 
-let aws_sagemaker_data_quality_job_definition ?tags ~role_arn
-    ~data_quality_app_specification ~data_quality_baseline_config
-    ~data_quality_job_input ~data_quality_job_output_config
-    ~job_resources ~network_config ~stopping_condition __resource_id
-    =
+let aws_sagemaker_data_quality_job_definition ?id ?name ?tags
+    ?tags_all ~role_arn ~data_quality_app_specification
+    ~data_quality_baseline_config ~data_quality_job_input
+    ~data_quality_job_output_config ~job_resources ~network_config
+    ~stopping_condition __resource_id =
   let __resource_type =
     "aws_sagemaker_data_quality_job_definition"
   in
   let __resource =
     {
+      id;
+      name;
       role_arn;
       tags;
+      tags_all;
       data_quality_app_specification;
       data_quality_baseline_config;
       data_quality_job_input;

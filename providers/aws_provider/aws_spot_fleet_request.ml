@@ -265,10 +265,13 @@ type aws_spot_fleet_request = {
       (** excess_capacity_termination_policy *)
   fleet_type : string option; [@option]  (** fleet_type *)
   iam_fleet_role : string;  (** iam_fleet_role *)
+  id : string option; [@option]  (** id *)
   instance_interruption_behaviour : string option; [@option]
       (** instance_interruption_behaviour *)
   instance_pools_to_use_count : float option; [@option]
       (** instance_pools_to_use_count *)
+  load_balancers : string list option; [@option]
+      (** load_balancers *)
   on_demand_allocation_strategy : string option; [@option]
       (** on_demand_allocation_strategy *)
   on_demand_max_total_price : string option; [@option]
@@ -279,9 +282,13 @@ type aws_spot_fleet_request = {
       (** replace_unhealthy_instances *)
   spot_price : string option; [@option]  (** spot_price *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target_capacity : float;  (** target_capacity *)
   target_capacity_unit_type : string option; [@option]
       (** target_capacity_unit_type *)
+  target_group_arns : string list option; [@option]
+      (** target_group_arns *)
   terminate_instances_on_delete : string option; [@option]
       (** terminate_instances_on_delete *)
   terminate_instances_with_expiration : bool option; [@option]
@@ -302,11 +309,12 @@ type aws_spot_fleet_request = {
 (** aws_spot_fleet_request *)
 
 let aws_spot_fleet_request ?allocation_strategy ?context
-    ?excess_capacity_termination_policy ?fleet_type
+    ?excess_capacity_termination_policy ?fleet_type ?id
     ?instance_interruption_behaviour ?instance_pools_to_use_count
-    ?on_demand_allocation_strategy ?on_demand_max_total_price
-    ?on_demand_target_capacity ?replace_unhealthy_instances
-    ?spot_price ?tags ?target_capacity_unit_type
+    ?load_balancers ?on_demand_allocation_strategy
+    ?on_demand_max_total_price ?on_demand_target_capacity
+    ?replace_unhealthy_instances ?spot_price ?tags ?tags_all
+    ?target_capacity_unit_type ?target_group_arns
     ?terminate_instances_on_delete
     ?terminate_instances_with_expiration ?valid_from ?valid_until
     ?wait_for_fulfillment ?timeouts ~iam_fleet_role ~target_capacity
@@ -320,16 +328,20 @@ let aws_spot_fleet_request ?allocation_strategy ?context
       excess_capacity_termination_policy;
       fleet_type;
       iam_fleet_role;
+      id;
       instance_interruption_behaviour;
       instance_pools_to_use_count;
+      load_balancers;
       on_demand_allocation_strategy;
       on_demand_max_total_price;
       on_demand_target_capacity;
       replace_unhealthy_instances;
       spot_price;
       tags;
+      tags_all;
       target_capacity;
       target_capacity_unit_type;
+      target_group_arns;
       terminate_instances_on_delete;
       terminate_instances_with_expiration;
       valid_from;

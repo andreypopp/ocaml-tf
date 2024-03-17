@@ -11,6 +11,7 @@ val aws_connect_instance :
   ?contact_lens_enabled:bool ->
   ?directory_id:string ->
   ?early_media_enabled:bool ->
+  ?id:string ->
   ?instance_alias:string ->
   ?multi_party_conference_enabled:bool ->
   ?timeouts:aws_connect_instance__timeouts ->

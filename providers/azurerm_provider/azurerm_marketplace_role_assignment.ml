@@ -19,6 +19,7 @@ type azurerm_marketplace_role_assignment = {
   delegated_managed_identity_resource_id : string option; [@option]
       (** delegated_managed_identity_resource_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   principal_id : string;  (** principal_id *)
   role_definition_id : string option; [@option]
@@ -33,7 +34,7 @@ type azurerm_marketplace_role_assignment = {
 (** azurerm_marketplace_role_assignment *)
 
 let azurerm_marketplace_role_assignment ?condition ?condition_version
-    ?delegated_managed_identity_resource_id ?description ?name
+    ?delegated_managed_identity_resource_id ?description ?id ?name
     ?role_definition_id ?role_definition_name
     ?skip_service_principal_aad_check ?timeouts ~principal_id
     __resource_id =
@@ -44,6 +45,7 @@ let azurerm_marketplace_role_assignment ?condition ?condition_version
       condition_version;
       delegated_managed_identity_resource_id;
       description;
+      id;
       name;
       principal_id;
       role_definition_id;

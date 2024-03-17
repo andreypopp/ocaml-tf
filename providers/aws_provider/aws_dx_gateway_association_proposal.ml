@@ -5,22 +5,28 @@
 open! Tf.Prelude
 
 type aws_dx_gateway_association_proposal = {
+  allowed_prefixes : string list option; [@option]
+      (** allowed_prefixes *)
   associated_gateway_id : string;  (** associated_gateway_id *)
   dx_gateway_id : string;  (** dx_gateway_id *)
   dx_gateway_owner_account_id : string;
       (** dx_gateway_owner_account_id *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_dx_gateway_association_proposal *)
 
-let aws_dx_gateway_association_proposal ~associated_gateway_id
-    ~dx_gateway_id ~dx_gateway_owner_account_id __resource_id =
+let aws_dx_gateway_association_proposal ?allowed_prefixes ?id
+    ~associated_gateway_id ~dx_gateway_id
+    ~dx_gateway_owner_account_id __resource_id =
   let __resource_type = "aws_dx_gateway_association_proposal" in
   let __resource =
     {
+      allowed_prefixes;
       associated_gateway_id;
       dx_gateway_id;
       dx_gateway_owner_account_id;
+      id;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

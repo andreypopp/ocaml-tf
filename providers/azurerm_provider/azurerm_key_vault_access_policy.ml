@@ -17,6 +17,7 @@ type azurerm_key_vault_access_policy = {
   application_id : string option; [@option]  (** application_id *)
   certificate_permissions : string list option; [@option]
       (** certificate_permissions *)
+  id : string option; [@option]  (** id *)
   key_permissions : string list option; [@option]
       (** key_permissions *)
   key_vault_id : string;  (** key_vault_id *)
@@ -32,7 +33,7 @@ type azurerm_key_vault_access_policy = {
 (** azurerm_key_vault_access_policy *)
 
 let azurerm_key_vault_access_policy ?application_id
-    ?certificate_permissions ?key_permissions ?secret_permissions
+    ?certificate_permissions ?id ?key_permissions ?secret_permissions
     ?storage_permissions ?timeouts ~key_vault_id ~object_id
     ~tenant_id __resource_id =
   let __resource_type = "azurerm_key_vault_access_policy" in
@@ -40,6 +41,7 @@ let azurerm_key_vault_access_policy ?application_id
     {
       application_id;
       certificate_permissions;
+      id;
       key_permissions;
       key_vault_id;
       object_id;

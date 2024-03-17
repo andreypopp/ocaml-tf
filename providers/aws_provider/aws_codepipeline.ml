@@ -134,10 +134,13 @@ type aws_codepipeline__variable = {
 
 type aws_codepipeline = {
   execution_mode : string option; [@option]  (** execution_mode *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   pipeline_type : string option; [@option]  (** pipeline_type *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   artifact_store : aws_codepipeline__artifact_store list;
   stage : aws_codepipeline__stage list;
   trigger : aws_codepipeline__trigger list;
@@ -146,17 +149,19 @@ type aws_codepipeline = {
 [@@deriving yojson_of]
 (** aws_codepipeline *)
 
-let aws_codepipeline ?execution_mode ?pipeline_type ?tags ~name
-    ~role_arn ~artifact_store ~stage ~trigger ~variable __resource_id
-    =
+let aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
+    ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
+    ~variable __resource_id =
   let __resource_type = "aws_codepipeline" in
   let __resource =
     {
       execution_mode;
+      id;
       name;
       pipeline_type;
       role_arn;
       tags;
+      tags_all;
       artifact_store;
       stage;
       trigger;

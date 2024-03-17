@@ -7,6 +7,8 @@ type azurerm_cosmosdb_mongo_database__timeouts
 type azurerm_cosmosdb_mongo_database
 
 val azurerm_cosmosdb_mongo_database :
+  ?id:string ->
+  ?throughput:float ->
   ?timeouts:azurerm_cosmosdb_mongo_database__timeouts ->
   account_name:string ->
   name:string ->

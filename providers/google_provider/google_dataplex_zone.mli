@@ -14,14 +14,15 @@ type google_dataplex_zone__asset_status = {
       (** security_policy_applying_assets *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_zone
 
 val google_dataplex_zone :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_dataplex_zone__timeouts ->
   lake:string ->
   location:string ->

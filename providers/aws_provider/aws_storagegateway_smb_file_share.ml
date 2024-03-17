@@ -32,9 +32,11 @@ type aws_storagegateway_smb_file_share = {
       (** case_sensitivity *)
   default_storage_class : string option; [@option]
       (** default_storage_class *)
+  file_share_name : string option; [@option]  (** file_share_name *)
   gateway_arn : string;  (** gateway_arn *)
   guess_mime_type_enabled : bool option; [@option]
       (** guess_mime_type_enabled *)
+  id : string option; [@option]  (** id *)
   invalid_user_list : string list option; [@option]
       (** invalid_user_list *)
   kms_encrypted : bool option; [@option]  (** kms_encrypted *)
@@ -43,11 +45,14 @@ type aws_storagegateway_smb_file_share = {
   notification_policy : string option; [@option]
       (** notification_policy *)
   object_acl : string option; [@option]  (** object_acl *)
+  oplocks_enabled : bool option; [@option]  (** oplocks_enabled *)
   read_only : bool option; [@option]  (** read_only *)
   requester_pays : bool option; [@option]  (** requester_pays *)
   role_arn : string;  (** role_arn *)
   smb_acl_enabled : bool option; [@option]  (** smb_acl_enabled *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   valid_user_list : string list option; [@option]
       (** valid_user_list *)
   vpc_endpoint_dns_name : string option; [@option]
@@ -62,11 +67,12 @@ type aws_storagegateway_smb_file_share = {
 let aws_storagegateway_smb_file_share ?access_based_enumeration
     ?admin_user_list ?audit_destination_arn ?authentication
     ?bucket_region ?case_sensitivity ?default_storage_class
-    ?guess_mime_type_enabled ?invalid_user_list ?kms_encrypted
-    ?kms_key_arn ?notification_policy ?object_acl ?read_only
-    ?requester_pays ?smb_acl_enabled ?tags ?valid_user_list
-    ?vpc_endpoint_dns_name ?timeouts ~gateway_arn ~location_arn
-    ~role_arn ~cache_attributes __resource_id =
+    ?file_share_name ?guess_mime_type_enabled ?id ?invalid_user_list
+    ?kms_encrypted ?kms_key_arn ?notification_policy ?object_acl
+    ?oplocks_enabled ?read_only ?requester_pays ?smb_acl_enabled
+    ?tags ?tags_all ?valid_user_list ?vpc_endpoint_dns_name ?timeouts
+    ~gateway_arn ~location_arn ~role_arn ~cache_attributes
+    __resource_id =
   let __resource_type = "aws_storagegateway_smb_file_share" in
   let __resource =
     {
@@ -77,19 +83,23 @@ let aws_storagegateway_smb_file_share ?access_based_enumeration
       bucket_region;
       case_sensitivity;
       default_storage_class;
+      file_share_name;
       gateway_arn;
       guess_mime_type_enabled;
+      id;
       invalid_user_list;
       kms_encrypted;
       kms_key_arn;
       location_arn;
       notification_policy;
       object_acl;
+      oplocks_enabled;
       read_only;
       requester_pays;
       role_arn;
       smb_acl_enabled;
       tags;
+      tags_all;
       valid_user_list;
       vpc_endpoint_dns_name;
       cache_attributes;

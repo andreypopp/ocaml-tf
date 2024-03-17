@@ -28,6 +28,7 @@ type azurerm_healthcare_medtech_service = {
       (** eventhub_consumer_group_name *)
   eventhub_name : string;  (** eventhub_name *)
   eventhub_namespace_name : string;  (** eventhub_namespace_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -38,7 +39,7 @@ type azurerm_healthcare_medtech_service = {
 [@@deriving yojson_of]
 (** azurerm_healthcare_medtech_service *)
 
-let azurerm_healthcare_medtech_service ?tags ?timeouts
+let azurerm_healthcare_medtech_service ?id ?tags ?timeouts
     ~device_mapping_json ~eventhub_consumer_group_name ~eventhub_name
     ~eventhub_namespace_name ~location ~name ~workspace_id ~identity
     __resource_id =
@@ -49,6 +50,7 @@ let azurerm_healthcare_medtech_service ?tags ?timeouts
       eventhub_consumer_group_name;
       eventhub_name;
       eventhub_namespace_name;
+      id;
       location;
       name;
       tags;

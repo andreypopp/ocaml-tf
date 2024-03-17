@@ -16,6 +16,7 @@ type aws_account_alternate_contact = {
   account_id : string option; [@option]  (** account_id *)
   alternate_contact_type : string;  (** alternate_contact_type *)
   email_address : string;  (** email_address *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   phone_number : string;  (** phone_number *)
   title : string;  (** title *)
@@ -24,7 +25,7 @@ type aws_account_alternate_contact = {
 [@@deriving yojson_of]
 (** aws_account_alternate_contact *)
 
-let aws_account_alternate_contact ?account_id ?timeouts
+let aws_account_alternate_contact ?account_id ?id ?timeouts
     ~alternate_contact_type ~email_address ~name ~phone_number ~title
     __resource_id =
   let __resource_type = "aws_account_alternate_contact" in
@@ -33,6 +34,7 @@ let aws_account_alternate_contact ?account_id ?timeouts
       account_id;
       alternate_contact_type;
       email_address;
+      id;
       name;
       phone_number;
       title;

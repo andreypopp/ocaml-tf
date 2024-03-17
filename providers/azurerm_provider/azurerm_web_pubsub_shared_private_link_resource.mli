@@ -6,6 +6,7 @@ type azurerm_web_pubsub_shared_private_link_resource__timeouts
 type azurerm_web_pubsub_shared_private_link_resource
 
 val azurerm_web_pubsub_shared_private_link_resource :
+  ?id:string ->
   ?request_message:string ->
   ?timeouts:azurerm_web_pubsub_shared_private_link_resource__timeouts ->
   name:string ->

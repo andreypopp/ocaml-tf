@@ -31,6 +31,7 @@ type azurerm_web_application_firewall_policy__timeouts
 type azurerm_web_application_firewall_policy
 
 val azurerm_web_application_firewall_policy :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_web_application_firewall_policy__timeouts ->
   location:string ->

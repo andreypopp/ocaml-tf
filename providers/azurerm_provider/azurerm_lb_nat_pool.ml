@@ -21,6 +21,7 @@ type azurerm_lb_nat_pool = {
       (** frontend_ip_configuration_name *)
   frontend_port_end : float;  (** frontend_port_end *)
   frontend_port_start : float;  (** frontend_port_start *)
+  id : string option; [@option]  (** id *)
   idle_timeout_in_minutes : float option; [@option]
       (** idle_timeout_in_minutes *)
   loadbalancer_id : string;  (** loadbalancer_id *)
@@ -34,9 +35,9 @@ type azurerm_lb_nat_pool = {
 [@@deriving yojson_of]
 (** azurerm_lb_nat_pool *)
 
-let azurerm_lb_nat_pool ?floating_ip_enabled ?idle_timeout_in_minutes
-    ?tcp_reset_enabled ?timeouts ~backend_port
-    ~frontend_ip_configuration_name ~frontend_port_end
+let azurerm_lb_nat_pool ?floating_ip_enabled ?id
+    ?idle_timeout_in_minutes ?tcp_reset_enabled ?timeouts
+    ~backend_port ~frontend_ip_configuration_name ~frontend_port_end
     ~frontend_port_start ~loadbalancer_id ~name ~protocol
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_lb_nat_pool" in
@@ -47,6 +48,7 @@ let azurerm_lb_nat_pool ?floating_ip_enabled ?idle_timeout_in_minutes
       frontend_ip_configuration_name;
       frontend_port_end;
       frontend_port_start;
+      id;
       idle_timeout_in_minutes;
       loadbalancer_id;
       name;

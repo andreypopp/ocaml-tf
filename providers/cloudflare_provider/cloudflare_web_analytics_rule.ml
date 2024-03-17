@@ -14,6 +14,7 @@ type cloudflare_web_analytics_rule = {
   account_id : string;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   host : string;  (** The host to apply the rule to. *)
+  id : string option; [@option]  (** id *)
   inclusive : bool;
       (** Whether the rule includes or excludes the matched traffic from being measured in Web Analytics. *)
   is_paused : bool;  (** Whether the rule is paused or not. *)
@@ -25,13 +26,14 @@ type cloudflare_web_analytics_rule = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Web Analytics Rule resource. *)
 
-let cloudflare_web_analytics_rule ?timeouts ~account_id ~host
+let cloudflare_web_analytics_rule ?id ?timeouts ~account_id ~host
     ~inclusive ~is_paused ~paths ~ruleset_id __resource_id =
   let __resource_type = "cloudflare_web_analytics_rule" in
   let __resource =
     {
       account_id;
       host;
+      id;
       inclusive;
       is_paused;
       paths;

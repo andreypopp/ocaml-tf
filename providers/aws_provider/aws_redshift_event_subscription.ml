@@ -16,31 +16,36 @@ type aws_redshift_event_subscription = {
   enabled : bool option; [@option]  (** enabled *)
   event_categories : string list option; [@option]
       (** event_categories *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   severity : string option; [@option]  (** severity *)
   sns_topic_arn : string;  (** sns_topic_arn *)
   source_ids : string list option; [@option]  (** source_ids *)
   source_type : string option; [@option]  (** source_type *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_redshift_event_subscription__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_redshift_event_subscription *)
 
-let aws_redshift_event_subscription ?enabled ?event_categories
-    ?severity ?source_ids ?source_type ?tags ?timeouts ~name
-    ~sns_topic_arn __resource_id =
+let aws_redshift_event_subscription ?enabled ?event_categories ?id
+    ?severity ?source_ids ?source_type ?tags ?tags_all ?timeouts
+    ~name ~sns_topic_arn __resource_id =
   let __resource_type = "aws_redshift_event_subscription" in
   let __resource =
     {
       enabled;
       event_categories;
+      id;
       name;
       severity;
       sns_topic_arn;
       source_ids;
       source_type;
       tags;
+      tags_all;
       timeouts;
     }
   in

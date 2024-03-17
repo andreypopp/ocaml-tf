@@ -20,6 +20,7 @@ type azurerm_backup_policy_vm_workload__timeouts
 type azurerm_backup_policy_vm_workload
 
 val azurerm_backup_policy_vm_workload :
+  ?id:string ->
   ?timeouts:azurerm_backup_policy_vm_workload__timeouts ->
   name:string ->
   recovery_vault_name:string ->

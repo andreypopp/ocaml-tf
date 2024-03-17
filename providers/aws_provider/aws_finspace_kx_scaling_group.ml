@@ -16,14 +16,17 @@ type aws_finspace_kx_scaling_group = {
   availability_zone_id : string;  (** availability_zone_id *)
   environment_id : string;  (** environment_id *)
   host_type : string;  (** host_type *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_finspace_kx_scaling_group__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_scaling_group *)
 
-let aws_finspace_kx_scaling_group ?tags ?timeouts
+let aws_finspace_kx_scaling_group ?id ?tags ?tags_all ?timeouts
     ~availability_zone_id ~environment_id ~host_type ~name
     __resource_id =
   let __resource_type = "aws_finspace_kx_scaling_group" in
@@ -32,8 +35,10 @@ let aws_finspace_kx_scaling_group ?tags ?timeouts
       availability_zone_id;
       environment_id;
       host_type;
+      id;
       name;
       tags;
+      tags_all;
       timeouts;
     }
   in

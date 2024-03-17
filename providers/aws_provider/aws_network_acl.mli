@@ -13,7 +13,6 @@ type aws_network_acl__egress = {
   rule_no : float;  (** rule_no *)
   to_port : float;  (** to_port *)
 }
-[@@deriving yojson_of]
 
 type aws_network_acl__ingress = {
   action : string;  (** action *)
@@ -26,9 +25,16 @@ type aws_network_acl__ingress = {
   rule_no : float;  (** rule_no *)
   to_port : float;  (** to_port *)
 }
-[@@deriving yojson_of]
 
 type aws_network_acl
 
 val aws_network_acl :
-  ?tags:(string * string) list -> vpc_id:string -> string -> unit
+  ?egress:aws_network_acl__egress list ->
+  ?id:string ->
+  ?ingress:aws_network_acl__ingress list ->
+  ?subnet_ids:string list ->
+  ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  vpc_id:string ->
+  string ->
+  unit

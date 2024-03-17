@@ -7,7 +7,11 @@ type google_compute_region_target_tcp_proxy
 
 val google_compute_region_target_tcp_proxy :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
+  ?proxy_bind:bool ->
   ?proxy_header:string ->
+  ?region:string ->
   ?timeouts:google_compute_region_target_tcp_proxy__timeouts ->
   backend_service:string ->
   name:string ->

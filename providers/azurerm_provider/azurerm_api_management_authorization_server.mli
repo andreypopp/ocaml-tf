@@ -12,6 +12,7 @@ val azurerm_api_management_authorization_server :
   ?client_secret:string ->
   ?default_scope:string ->
   ?description:string ->
+  ?id:string ->
   ?resource_owner_password:string ->
   ?resource_owner_username:string ->
   ?support_state:bool ->

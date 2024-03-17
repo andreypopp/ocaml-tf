@@ -120,6 +120,7 @@ type azurerm_key_vault_certificate__certificate_attribute = {
 [@@deriving yojson_of]
 
 type azurerm_key_vault_certificate = {
+  id : string option; [@option]  (** id *)
   key_vault_id : string;  (** key_vault_id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -131,11 +132,12 @@ type azurerm_key_vault_certificate = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate *)
 
-let azurerm_key_vault_certificate ?tags ?timeouts ~key_vault_id ~name
-    ~certificate ~certificate_policy __resource_id =
+let azurerm_key_vault_certificate ?id ?tags ?timeouts ~key_vault_id
+    ~name ~certificate ~certificate_policy __resource_id =
   let __resource_type = "azurerm_key_vault_certificate" in
   let __resource =
     {
+      id;
       key_vault_id;
       name;
       tags;

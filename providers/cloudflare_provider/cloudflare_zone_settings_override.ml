@@ -210,6 +210,7 @@ type cloudflare_zone_settings_override__initial_settings = {
 [@@deriving yojson_of]
 
 type cloudflare_zone_settings_override = {
+  id : string option; [@option]  (** id *)
   zone_id : string;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   settings : cloudflare_zone_settings_override__settings list;
@@ -217,10 +218,10 @@ type cloudflare_zone_settings_override = {
 [@@deriving yojson_of]
 (** Provides a resource which customizes Cloudflare zone settings. *)
 
-let cloudflare_zone_settings_override ~zone_id ~settings
+let cloudflare_zone_settings_override ?id ~zone_id ~settings
     __resource_id =
   let __resource_type = "cloudflare_zone_settings_override" in
-  let __resource = { zone_id; settings } in
+  let __resource = { id; zone_id; settings } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_settings_override __resource);
   ()

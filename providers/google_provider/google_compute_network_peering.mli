@@ -8,6 +8,7 @@ type google_compute_network_peering
 val google_compute_network_peering :
   ?export_custom_routes:bool ->
   ?export_subnet_routes_with_public_ip:bool ->
+  ?id:string ->
   ?import_custom_routes:bool ->
   ?import_subnet_routes_with_public_ip:bool ->
   ?stack_type:string ->

@@ -23,7 +23,11 @@ val aws_lambda_event_source_mapping :
   ?enabled:bool ->
   ?event_source_arn:string ->
   ?function_response_types:string list ->
+  ?id:string ->
   ?maximum_batching_window_in_seconds:float ->
+  ?maximum_record_age_in_seconds:float ->
+  ?maximum_retry_attempts:float ->
+  ?parallelization_factor:float ->
   ?queues:string list ->
   ?starting_position:string ->
   ?starting_position_timestamp:string ->

@@ -33,6 +33,8 @@ type google_monitoring_service__telemetry = {
 type google_monitoring_service = {
   display_name : string option; [@option]
       (** Name used for UI elements listing this Service. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   service_id : string;
       (** An optional service ID to use. If not given, the server will generate a
 service ID. *)
@@ -49,12 +51,14 @@ the empty string may be supplied for the label value. *)
 [@@deriving yojson_of]
 (** google_monitoring_service *)
 
-let google_monitoring_service ?display_name ?user_labels ?timeouts
-    ~service_id ~basic_service __resource_id =
+let google_monitoring_service ?display_name ?id ?project ?user_labels
+    ?timeouts ~service_id ~basic_service __resource_id =
   let __resource_type = "google_monitoring_service" in
   let __resource =
     {
       display_name;
+      id;
+      project;
       service_id;
       user_labels;
       basic_service;

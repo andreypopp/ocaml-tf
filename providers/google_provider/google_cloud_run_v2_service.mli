@@ -60,7 +60,6 @@ type google_cloud_run_v2_service__conditions = {
   state : string;  (** state *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_v2_service__terminal_condition = {
   execution_reason : string;  (** execution_reason *)
@@ -72,7 +71,6 @@ type google_cloud_run_v2_service__terminal_condition = {
   state : string;  (** state *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_v2_service__traffic_statuses = {
   percent : float;  (** percent *)
@@ -81,7 +79,6 @@ type google_cloud_run_v2_service__traffic_statuses = {
   type_ : string; [@key "type"]  (** type *)
   uri : string;  (** uri *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_v2_service
 
@@ -91,7 +88,11 @@ val google_cloud_run_v2_service :
   ?client_version:string ->
   ?custom_audiences:string list ->
   ?description:string ->
+  ?id:string ->
+  ?ingress:string ->
   ?labels:(string * string) list ->
+  ?launch_stage:string ->
+  ?project:string ->
   ?timeouts:google_cloud_run_v2_service__timeouts ->
   location:string ->
   name:string ->

@@ -9,6 +9,7 @@ type hcloud_network = {
       (** delete_protection *)
   expose_routes_to_vswitch : bool option; [@option]
       (** Enable or disable exposing the routes to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active. *)
+  id : string option; [@option]  (** id *)
   ip_range : string;  (** ip_range *)
   labels : (string * string) list option; [@option]  (** labels *)
   name : string;  (** name *)
@@ -16,13 +17,14 @@ type hcloud_network = {
 [@@deriving yojson_of]
 (** hcloud_network *)
 
-let hcloud_network ?delete_protection ?expose_routes_to_vswitch
+let hcloud_network ?delete_protection ?expose_routes_to_vswitch ?id
     ?labels ~ip_range ~name __resource_id =
   let __resource_type = "hcloud_network" in
   let __resource =
     {
       delete_protection;
       expose_routes_to_vswitch;
+      id;
       ip_range;
       labels;
       name;

@@ -38,7 +38,10 @@ type aws_sagemaker_workteam__notification_configuration = {
 
 type aws_sagemaker_workteam = {
   description : string;  (** description *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   workforce_name : string;  (** workforce_name *)
   workteam_name : string;  (** workteam_name *)
   member_definition : aws_sagemaker_workteam__member_definition list;
@@ -48,14 +51,16 @@ type aws_sagemaker_workteam = {
 [@@deriving yojson_of]
 (** aws_sagemaker_workteam *)
 
-let aws_sagemaker_workteam ?tags ~description ~workforce_name
-    ~workteam_name ~member_definition ~notification_configuration
-    __resource_id =
+let aws_sagemaker_workteam ?id ?tags ?tags_all ~description
+    ~workforce_name ~workteam_name ~member_definition
+    ~notification_configuration __resource_id =
   let __resource_type = "aws_sagemaker_workteam" in
   let __resource =
     {
       description;
+      id;
       tags;
+      tags_all;
       workforce_name;
       workteam_name;
       member_definition;

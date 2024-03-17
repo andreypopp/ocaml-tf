@@ -88,9 +88,11 @@ type google_storage_insights_report_config__timeouts = {
 type google_storage_insights_report_config = {
   display_name : string option; [@option]
       (** The editable display name of the inventory report configuration. Has a limit of 256 characters. Can be empty. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The location of the ReportConfig. The source and destination buckets specified in the ReportConfig
 must be in the same location. *)
+  project : string option; [@option]  (** project *)
   csv_options :
     google_storage_insights_report_config__csv_options list;
   frequency_options :
@@ -103,14 +105,16 @@ must be in the same location. *)
 [@@deriving yojson_of]
 (** google_storage_insights_report_config *)
 
-let google_storage_insights_report_config ?display_name ?timeouts
-    ~location ~csv_options ~frequency_options
+let google_storage_insights_report_config ?display_name ?id ?project
+    ?timeouts ~location ~csv_options ~frequency_options
     ~object_metadata_report_options __resource_id =
   let __resource_type = "google_storage_insights_report_config" in
   let __resource =
     {
       display_name;
+      id;
       location;
+      project;
       csv_options;
       frequency_options;
       object_metadata_report_options;

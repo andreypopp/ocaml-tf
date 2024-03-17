@@ -21,6 +21,7 @@ events of findings. While creating a filter string, be mindful of
 the scope in which the mute configuration is being created. E.g.,
 If a filter contains project = X but is created under the
 project = Y scope, it might not match any findings. *)
+  id : string option; [@option]  (** id *)
   mute_config_id : string;
       (** Unique identifier provided by the client within the parent scope. *)
   parent : string;
@@ -32,11 +33,11 @@ projects/[project_id]. *)
 [@@deriving yojson_of]
 (** google_scc_mute_config *)
 
-let google_scc_mute_config ?description ?timeouts ~filter
+let google_scc_mute_config ?description ?id ?timeouts ~filter
     ~mute_config_id ~parent __resource_id =
   let __resource_type = "google_scc_mute_config" in
   let __resource =
-    { description; filter; mute_config_id; parent; timeouts }
+    { description; filter; id; mute_config_id; parent; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_mute_config __resource);

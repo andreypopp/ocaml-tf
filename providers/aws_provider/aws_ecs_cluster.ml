@@ -49,8 +49,11 @@ type aws_ecs_cluster__setting = {
 (** aws_ecs_cluster__setting *)
 
 type aws_ecs_cluster = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   configuration : aws_ecs_cluster__configuration list;
   service_connect_defaults :
     aws_ecs_cluster__service_connect_defaults list;
@@ -59,11 +62,19 @@ type aws_ecs_cluster = {
 [@@deriving yojson_of]
 (** aws_ecs_cluster *)
 
-let aws_ecs_cluster ?tags ~name ~configuration
+let aws_ecs_cluster ?id ?tags ?tags_all ~name ~configuration
     ~service_connect_defaults ~setting __resource_id =
   let __resource_type = "aws_ecs_cluster" in
   let __resource =
-    { name; tags; configuration; service_connect_defaults; setting }
+    {
+      id;
+      name;
+      tags;
+      tags_all;
+      configuration;
+      service_connect_defaults;
+      setting;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_cluster __resource);

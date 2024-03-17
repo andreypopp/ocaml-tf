@@ -33,9 +33,12 @@ type azurerm_traffic_manager_azure_endpoint = {
       (** always_serve_enabled *)
   enabled : bool option; [@option]  (** enabled *)
   geo_mappings : string list option; [@option]  (** geo_mappings *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  priority : float option; [@option]  (** priority *)
   profile_id : string;  (** profile_id *)
   target_resource_id : string;  (** target_resource_id *)
+  weight : float option; [@option]  (** weight *)
   custom_header :
     azurerm_traffic_manager_azure_endpoint__custom_header list;
   subnet : azurerm_traffic_manager_azure_endpoint__subnet list;
@@ -45,17 +48,21 @@ type azurerm_traffic_manager_azure_endpoint = {
 (** azurerm_traffic_manager_azure_endpoint *)
 
 let azurerm_traffic_manager_azure_endpoint ?always_serve_enabled
-    ?enabled ?geo_mappings ?timeouts ~name ~profile_id
-    ~target_resource_id ~custom_header ~subnet __resource_id =
+    ?enabled ?geo_mappings ?id ?priority ?weight ?timeouts ~name
+    ~profile_id ~target_resource_id ~custom_header ~subnet
+    __resource_id =
   let __resource_type = "azurerm_traffic_manager_azure_endpoint" in
   let __resource =
     {
       always_serve_enabled;
       enabled;
       geo_mappings;
+      id;
       name;
+      priority;
       profile_id;
       target_resource_id;
+      weight;
       custom_header;
       subnet;
       timeouts;

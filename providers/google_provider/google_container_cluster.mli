@@ -26,7 +26,6 @@ type google_container_cluster__cluster_autoscaling__auto_provisioning_defaults__
   auto_upgrade_start_time : string;  (** auto_upgrade_start_time *)
   description : string;  (** description *)
 }
-[@@deriving yojson_of]
 
 type google_container_cluster__cluster_autoscaling__auto_provisioning_defaults__management
 
@@ -108,19 +107,16 @@ type google_container_cluster__node_config__effective_taints = {
   key : string;  (** key *)
   value : string;  (** value *)
 }
-[@@deriving yojson_of]
 
 type google_container_cluster__node_config__guest_accelerator__gpu_sharing_config = {
   gpu_sharing_strategy : string;  (** gpu_sharing_strategy *)
   max_shared_clients_per_gpu : float;
       (** max_shared_clients_per_gpu *)
 }
-[@@deriving yojson_of]
 
 type google_container_cluster__node_config__guest_accelerator__gpu_driver_installation_config = {
   gpu_driver_version : string;  (** gpu_driver_version *)
 }
-[@@deriving yojson_of]
 
 type google_container_cluster__node_config__guest_accelerator = {
   count : float;  (** count *)
@@ -135,7 +131,6 @@ type google_container_cluster__node_config__guest_accelerator = {
       (** gpu_sharing_config *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_container_cluster__node_config
 type google_container_cluster__node_pool__autoscaling
@@ -182,19 +177,16 @@ type google_container_cluster__node_pool__node_config__effective_taints = {
   key : string;  (** key *)
   value : string;  (** value *)
 }
-[@@deriving yojson_of]
 
 type google_container_cluster__node_pool__node_config__guest_accelerator__gpu_sharing_config = {
   gpu_sharing_strategy : string;  (** gpu_sharing_strategy *)
   max_shared_clients_per_gpu : float;
       (** max_shared_clients_per_gpu *)
 }
-[@@deriving yojson_of]
 
 type google_container_cluster__node_pool__node_config__guest_accelerator__gpu_driver_installation_config = {
   gpu_driver_version : string;  (** gpu_driver_version *)
 }
-[@@deriving yojson_of]
 
 type google_container_cluster__node_pool__node_config__guest_accelerator = {
   count : float;  (** count *)
@@ -209,7 +201,6 @@ type google_container_cluster__node_pool__node_config__guest_accelerator = {
       (** gpu_sharing_config *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_container_cluster__node_pool__node_config
 type google_container_cluster__node_pool__placement_policy
@@ -247,19 +238,33 @@ type google_container_cluster
 
 val google_container_cluster :
   ?allow_net_admin:bool ->
+  ?cluster_ipv4_cidr:string ->
+  ?datapath_provider:string ->
+  ?default_max_pods_per_node:float ->
   ?deletion_protection:bool ->
   ?description:string ->
   ?enable_autopilot:bool ->
+  ?enable_intranode_visibility:bool ->
   ?enable_kubernetes_alpha:bool ->
   ?enable_l4_ilb_subsetting:bool ->
   ?enable_legacy_abac:bool ->
   ?enable_shielded_nodes:bool ->
   ?enable_tpu:bool ->
+  ?id:string ->
   ?initial_node_count:float ->
+  ?location:string ->
+  ?logging_service:string ->
   ?min_master_version:string ->
+  ?monitoring_service:string ->
   ?network:string ->
+  ?networking_mode:string ->
+  ?node_locations:string list ->
+  ?node_version:string ->
+  ?private_ipv6_google_access:string ->
+  ?project:string ->
   ?remove_default_node_pool:bool ->
   ?resource_labels:(string * string) list ->
+  ?subnetwork:string ->
   ?timeouts:google_container_cluster__timeouts ->
   name:string ->
   addons_config:google_container_cluster__addons_config list ->

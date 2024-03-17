@@ -8,6 +8,7 @@ type cloudflare_filter = {
   description : string option; [@option]
       (** A note that you can use to describe the purpose of the filter. *)
   expression : string;  (** The filter expression to be used. *)
+  id : string option; [@option]  (** id *)
   paused : bool option; [@option]
       (** Whether this filter is currently paused. *)
   ref : string option; [@option]
@@ -21,11 +22,11 @@ e.g. Firewall Rules. See [what is a filter](https://developers.cloudflare.com/fi
 for more details and available fields and operators.
  *)
 
-let cloudflare_filter ?description ?paused ?ref ~expression ~zone_id
-    __resource_id =
+let cloudflare_filter ?description ?id ?paused ?ref ~expression
+    ~zone_id __resource_id =
   let __resource_type = "cloudflare_filter" in
   let __resource =
-    { description; expression; paused; ref; zone_id }
+    { description; expression; id; paused; ref; zone_id }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_filter __resource);

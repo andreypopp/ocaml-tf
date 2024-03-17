@@ -4,4 +4,9 @@ open! Tf.Prelude
 
 type google_iap_web_iam_policy
 
-val google_iap_web_iam_policy : policy_data:string -> string -> unit
+val google_iap_web_iam_policy :
+  ?id:string ->
+  ?project:string ->
+  policy_data:string ->
+  string ->
+  unit

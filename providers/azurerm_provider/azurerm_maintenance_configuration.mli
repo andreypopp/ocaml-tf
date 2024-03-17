@@ -10,6 +10,7 @@ type azurerm_maintenance_configuration__window
 type azurerm_maintenance_configuration
 
 val azurerm_maintenance_configuration :
+  ?id:string ->
   ?in_guest_user_patch_mode:string ->
   ?properties:(string * string) list ->
   ?tags:(string * string) list ->

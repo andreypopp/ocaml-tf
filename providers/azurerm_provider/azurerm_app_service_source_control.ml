@@ -50,6 +50,11 @@ type azurerm_app_service_source_control__timeouts = {
 
 type azurerm_app_service_source_control = {
   app_id : string;  (** The ID of the Windows or Linux Web App. *)
+  branch : string option; [@option]
+      (** The branch name to use for deployments. *)
+  id : string option; [@option]  (** id *)
+  repo_url : string option; [@option]
+      (** The URL for the repository. *)
   rollback_enabled : bool option; [@option]
       (** Should the Deployment Rollback be enabled? Defaults to `false`. *)
   use_local_git : bool option; [@option]
@@ -66,13 +71,17 @@ type azurerm_app_service_source_control = {
 [@@deriving yojson_of]
 (** azurerm_app_service_source_control *)
 
-let azurerm_app_service_source_control ?rollback_enabled
-    ?use_local_git ?use_manual_integration ?use_mercurial ?timeouts
-    ~app_id ~github_action_configuration __resource_id =
+let azurerm_app_service_source_control ?branch ?id ?repo_url
+    ?rollback_enabled ?use_local_git ?use_manual_integration
+    ?use_mercurial ?timeouts ~app_id ~github_action_configuration
+    __resource_id =
   let __resource_type = "azurerm_app_service_source_control" in
   let __resource =
     {
       app_id;
+      branch;
+      id;
+      repo_url;
       rollback_enabled;
       use_local_git;
       use_manual_integration;

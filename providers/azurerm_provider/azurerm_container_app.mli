@@ -44,6 +44,7 @@ type azurerm_container_app__timeouts
 type azurerm_container_app
 
 val azurerm_container_app :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?workload_profile_name:string ->
   ?timeouts:azurerm_container_app__timeouts ->

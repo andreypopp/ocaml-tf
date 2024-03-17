@@ -6,6 +6,7 @@ type azurerm_eventhub_consumer_group__timeouts
 type azurerm_eventhub_consumer_group
 
 val azurerm_eventhub_consumer_group :
+  ?id:string ->
   ?user_metadata:string ->
   ?timeouts:azurerm_eventhub_consumer_group__timeouts ->
   eventhub_name:string ->

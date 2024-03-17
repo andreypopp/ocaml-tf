@@ -17,6 +17,7 @@ type azurerm_spring_cloud_application_insights_application_performance_monitorin
   connection_string : string option; [@option]
       (** connection_string *)
   globally_enabled : bool option; [@option]  (** globally_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   role_instance : string option; [@option]  (** role_instance *)
   role_name : string option; [@option]  (** role_name *)
@@ -33,9 +34,9 @@ type azurerm_spring_cloud_application_insights_application_performance_monitorin
 (** azurerm_spring_cloud_application_insights_application_performance_monitoring *)
 
 let azurerm_spring_cloud_application_insights_application_performance_monitoring
-    ?connection_string ?globally_enabled ?role_instance ?role_name
-    ?sampling_percentage ?sampling_requests_per_second ?timeouts
-    ~name ~spring_cloud_service_id __resource_id =
+    ?connection_string ?globally_enabled ?id ?role_instance
+    ?role_name ?sampling_percentage ?sampling_requests_per_second
+    ?timeouts ~name ~spring_cloud_service_id __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_application_insights_application_performance_monitoring"
   in
@@ -43,6 +44,7 @@ let azurerm_spring_cloud_application_insights_application_performance_monitoring
     {
       connection_string;
       globally_enabled;
+      id;
       name;
       role_instance;
       role_name;

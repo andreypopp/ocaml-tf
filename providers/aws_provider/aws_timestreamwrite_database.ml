@@ -6,14 +6,20 @@ open! Tf.Prelude
 
 type aws_timestreamwrite_database = {
   database_name : string;  (** database_name *)
+  id : string option; [@option]  (** id *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_timestreamwrite_database *)
 
-let aws_timestreamwrite_database ?tags ~database_name __resource_id =
+let aws_timestreamwrite_database ?id ?kms_key_id ?tags ?tags_all
+    ~database_name __resource_id =
   let __resource_type = "aws_timestreamwrite_database" in
-  let __resource = { database_name; tags } in
+  let __resource =
+    { database_name; id; kms_key_id; tags; tags_all }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_timestreamwrite_database __resource);
   ()

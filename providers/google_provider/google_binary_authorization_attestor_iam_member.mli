@@ -6,6 +6,8 @@ type google_binary_authorization_attestor_iam_member__condition
 type google_binary_authorization_attestor_iam_member
 
 val google_binary_authorization_attestor_iam_member :
+  ?id:string ->
+  ?project:string ->
   attestor:string ->
   member:string ->
   role:string ->

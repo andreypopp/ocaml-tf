@@ -6,6 +6,7 @@ type azurerm_mysql_virtual_network_rule__timeouts
 type azurerm_mysql_virtual_network_rule
 
 val azurerm_mysql_virtual_network_rule :
+  ?id:string ->
   ?timeouts:azurerm_mysql_virtual_network_rule__timeouts ->
   name:string ->
   resource_group_name:string ->

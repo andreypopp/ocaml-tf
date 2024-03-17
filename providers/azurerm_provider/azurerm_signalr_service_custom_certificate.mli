@@ -6,6 +6,7 @@ type azurerm_signalr_service_custom_certificate__timeouts
 type azurerm_signalr_service_custom_certificate
 
 val azurerm_signalr_service_custom_certificate :
+  ?id:string ->
   ?timeouts:azurerm_signalr_service_custom_certificate__timeouts ->
   custom_certificate_id:string ->
   name:string ->

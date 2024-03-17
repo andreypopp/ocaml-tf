@@ -11,13 +11,14 @@ type aws_verifiedaccess_instance__verified_access_trust_providers = {
   verified_access_trust_provider_id : string;
       (** verified_access_trust_provider_id *)
 }
-[@@deriving yojson_of]
 
 type aws_verifiedaccess_instance
 
 val aws_verifiedaccess_instance :
   ?description:string ->
   ?fips_enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   string ->
   unit

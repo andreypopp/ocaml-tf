@@ -7,6 +7,7 @@ type google_compute_disk_async_replication__timeouts
 type google_compute_disk_async_replication
 
 val google_compute_disk_async_replication :
+  ?id:string ->
   ?timeouts:google_compute_disk_async_replication__timeouts ->
   primary_disk:string ->
   secondary_disk:

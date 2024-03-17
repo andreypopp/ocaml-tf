@@ -15,6 +15,7 @@ type azurerm_system_center_virtual_machine_manager_availability_set__timeouts = 
 
 type azurerm_system_center_virtual_machine_manager_availability_set = {
   custom_location_id : string;  (** custom_location_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -29,7 +30,7 @@ type azurerm_system_center_virtual_machine_manager_availability_set = {
 (** azurerm_system_center_virtual_machine_manager_availability_set *)
 
 let azurerm_system_center_virtual_machine_manager_availability_set
-    ?tags ?timeouts ~custom_location_id ~location ~name
+    ?id ?tags ?timeouts ~custom_location_id ~location ~name
     ~resource_group_name
     ~system_center_virtual_machine_manager_server_id __resource_id =
   let __resource_type =
@@ -38,6 +39,7 @@ let azurerm_system_center_virtual_machine_manager_availability_set
   let __resource =
     {
       custom_location_id;
+      id;
       location;
       name;
       resource_group_name;

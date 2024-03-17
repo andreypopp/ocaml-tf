@@ -180,6 +180,7 @@ type azurerm_monitor_alert_processing_rule_action_group = {
   add_action_group_ids : string list;  (** add_action_group_ids *)
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   scopes : string list;  (** scopes *)
@@ -197,7 +198,7 @@ type azurerm_monitor_alert_processing_rule_action_group = {
 (** azurerm_monitor_alert_processing_rule_action_group *)
 
 let azurerm_monitor_alert_processing_rule_action_group ?description
-    ?enabled ?tags ?timeouts ~add_action_group_ids ~name
+    ?enabled ?id ?tags ?timeouts ~add_action_group_ids ~name
     ~resource_group_name ~scopes ~condition ~schedule __resource_id =
   let __resource_type =
     "azurerm_monitor_alert_processing_rule_action_group"
@@ -207,6 +208,7 @@ let azurerm_monitor_alert_processing_rule_action_group ?description
       add_action_group_ids;
       description;
       enabled;
+      id;
       name;
       resource_group_name;
       scopes;

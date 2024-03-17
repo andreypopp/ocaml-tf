@@ -14,22 +14,28 @@ type azurerm_storage_sync_cloud_endpoint__timeouts = {
 
 type azurerm_storage_sync_cloud_endpoint = {
   file_share_name : string;  (** file_share_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   storage_account_id : string;  (** storage_account_id *)
+  storage_account_tenant_id : string option; [@option]
+      (** storage_account_tenant_id *)
   storage_sync_group_id : string;  (** storage_sync_group_id *)
   timeouts : azurerm_storage_sync_cloud_endpoint__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_storage_sync_cloud_endpoint *)
 
-let azurerm_storage_sync_cloud_endpoint ?timeouts ~file_share_name
-    ~name ~storage_account_id ~storage_sync_group_id __resource_id =
+let azurerm_storage_sync_cloud_endpoint ?id
+    ?storage_account_tenant_id ?timeouts ~file_share_name ~name
+    ~storage_account_id ~storage_sync_group_id __resource_id =
   let __resource_type = "azurerm_storage_sync_cloud_endpoint" in
   let __resource =
     {
       file_share_name;
+      id;
       name;
       storage_account_id;
+      storage_account_tenant_id;
       storage_sync_group_id;
       timeouts;
     }

@@ -8,6 +8,7 @@ type azurerm_automation_module__timeouts
 type azurerm_automation_module
 
 val azurerm_automation_module :
+  ?id:string ->
   ?timeouts:azurerm_automation_module__timeouts ->
   automation_account_name:string ->
   name:string ->

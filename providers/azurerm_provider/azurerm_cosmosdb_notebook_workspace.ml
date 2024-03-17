@@ -14,6 +14,7 @@ type azurerm_cosmosdb_notebook_workspace__timeouts = {
 
 type azurerm_cosmosdb_notebook_workspace = {
   account_name : string;  (** account_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts : azurerm_cosmosdb_notebook_workspace__timeouts option;
@@ -21,11 +22,11 @@ type azurerm_cosmosdb_notebook_workspace = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_notebook_workspace *)
 
-let azurerm_cosmosdb_notebook_workspace ?timeouts ~account_name ~name
-    ~resource_group_name __resource_id =
+let azurerm_cosmosdb_notebook_workspace ?id ?timeouts ~account_name
+    ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_cosmosdb_notebook_workspace" in
   let __resource =
-    { account_name; name; resource_group_name; timeouts }
+    { account_name; id; name; resource_group_name; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_notebook_workspace __resource);

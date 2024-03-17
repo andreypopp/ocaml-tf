@@ -46,10 +46,13 @@ type aws_verifiedaccess_endpoint = {
   domain_certificate_arn : string;  (** domain_certificate_arn *)
   endpoint_domain_prefix : string;  (** endpoint_domain_prefix *)
   endpoint_type : string;  (** endpoint_type *)
+  id : string option; [@option]  (** id *)
   policy_document : string option; [@option]  (** policy_document *)
   security_group_ids : string list option; [@option]
       (** security_group_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   verified_access_group_id : string;  (** verified_access_group_id *)
   load_balancer_options :
     aws_verifiedaccess_endpoint__load_balancer_options list;
@@ -62,8 +65,8 @@ type aws_verifiedaccess_endpoint = {
 [@@deriving yojson_of]
 (** aws_verifiedaccess_endpoint *)
 
-let aws_verifiedaccess_endpoint ?description ?policy_document
-    ?security_group_ids ?tags ?timeouts ~application_domain
+let aws_verifiedaccess_endpoint ?description ?id ?policy_document
+    ?security_group_ids ?tags ?tags_all ?timeouts ~application_domain
     ~attachment_type ~domain_certificate_arn ~endpoint_domain_prefix
     ~endpoint_type ~verified_access_group_id ~load_balancer_options
     ~network_interface_options ~sse_specification __resource_id =
@@ -76,9 +79,11 @@ let aws_verifiedaccess_endpoint ?description ?policy_document
       domain_certificate_arn;
       endpoint_domain_prefix;
       endpoint_type;
+      id;
       policy_document;
       security_group_ids;
       tags;
+      tags_all;
       verified_access_group_id;
       load_balancer_options;
       network_interface_options;

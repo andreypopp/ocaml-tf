@@ -13,25 +13,27 @@ type azurerm_synapse_workspace__aad_admin = {
   object_id : string;  (** object_id *)
   tenant_id : string;  (** tenant_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_synapse_workspace__sql_aad_admin = {
   login : string;  (** login *)
   object_id : string;  (** object_id *)
   tenant_id : string;  (** tenant_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_synapse_workspace
 
 val azurerm_synapse_workspace :
+  ?aad_admin:azurerm_synapse_workspace__aad_admin list ->
   ?azuread_authentication_only:bool ->
   ?compute_subnet_id:string ->
   ?data_exfiltration_protection_enabled:bool ->
+  ?id:string ->
   ?linking_allowed_for_aad_tenant_ids:string list ->
+  ?managed_resource_group_name:string ->
   ?managed_virtual_network_enabled:bool ->
   ?public_network_access_enabled:bool ->
   ?purview_id:string ->
+  ?sql_aad_admin:azurerm_synapse_workspace__sql_aad_admin list ->
   ?sql_administrator_login:string ->
   ?sql_administrator_login_password:string ->
   ?sql_identity_control_enabled:bool ->

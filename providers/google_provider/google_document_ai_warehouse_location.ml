@@ -18,6 +18,7 @@ type google_document_ai_warehouse_location = {
       (** The type of database used to store customer data. Possible values: [DB_INFRA_SPANNER, DB_CLOUD_SQL_POSTGRES] *)
   document_creator_default_role : string option; [@option]
       (** The default role for the person who create a document. Possible values: [DOCUMENT_ADMIN, DOCUMENT_EDITOR, DOCUMENT_VIEWER] *)
+  id : string option; [@option]  (** id *)
   kms_key : string option; [@option]
       (** The KMS key used for CMEK encryption. It is required that
 the kms key is in the same region as the endpoint. The
@@ -34,7 +35,7 @@ encryption will be enforced. *)
 (** google_document_ai_warehouse_location *)
 
 let google_document_ai_warehouse_location
-    ?document_creator_default_role ?kms_key ?timeouts
+    ?document_creator_default_role ?id ?kms_key ?timeouts
     ~access_control_mode ~database_type ~location ~project_number
     __resource_id =
   let __resource_type = "google_document_ai_warehouse_location" in
@@ -43,6 +44,7 @@ let google_document_ai_warehouse_location
       access_control_mode;
       database_type;
       document_creator_default_role;
+      id;
       kms_key;
       location;
       project_number;

@@ -151,6 +151,7 @@ type azurerm_container_registry_task = {
   agent_pool_name : string option; [@option]  (** agent_pool_name *)
   container_registry_id : string;  (** container_registry_id *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   is_system_task : bool option; [@option]  (** is_system_task *)
   log_template : string option; [@option]  (** log_template *)
   name : string;  (** name *)
@@ -176,7 +177,7 @@ type azurerm_container_registry_task = {
 [@@deriving yojson_of]
 (** azurerm_container_registry_task *)
 
-let azurerm_container_registry_task ?agent_pool_name ?enabled
+let azurerm_container_registry_task ?agent_pool_name ?enabled ?id
     ?is_system_task ?log_template ?tags ?timeout_in_seconds ?timeouts
     ~container_registry_id ~name ~agent_setting ~base_image_trigger
     ~docker_step ~encoded_step ~file_step ~identity ~platform
@@ -188,6 +189,7 @@ let azurerm_container_registry_task ?agent_pool_name ?enabled
       agent_pool_name;
       container_registry_id;
       enabled;
+      id;
       is_system_task;
       log_template;
       name;

@@ -23,6 +23,7 @@ type google_apigee_sharedflow = {
   config_bundle : string;  (** Path to the config zip bundle *)
   detect_md5hash : string option; [@option]
       (** A hash of local config bundle in string, user needs to use a Terraform Hash function of their choice. A change in hash will trigger an update. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The ID of the shared flow. *)
   org_id : string;
       (** The Apigee Organization name associated with the Apigee instance. *)
@@ -31,11 +32,11 @@ type google_apigee_sharedflow = {
 [@@deriving yojson_of]
 (** google_apigee_sharedflow *)
 
-let google_apigee_sharedflow ?detect_md5hash ?timeouts ~config_bundle
-    ~name ~org_id __resource_id =
+let google_apigee_sharedflow ?detect_md5hash ?id ?timeouts
+    ~config_bundle ~name ~org_id __resource_id =
   let __resource_type = "google_apigee_sharedflow" in
   let __resource =
-    { config_bundle; detect_md5hash; name; org_id; timeouts }
+    { config_bundle; detect_md5hash; id; name; org_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_sharedflow __resource);

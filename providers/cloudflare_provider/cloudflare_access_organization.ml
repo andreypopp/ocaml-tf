@@ -29,12 +29,15 @@ type cloudflare_access_organization__login_design = {
 (** cloudflare_access_organization__login_design *)
 
 type cloudflare_access_organization = {
+  account_id : string option; [@option]
+      (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
   allow_authenticate_via_warp : bool option; [@option]
       (** When set to true, users can authenticate via WARP for any application in your organization. Application settings will take precedence over this value. *)
   auth_domain : string;
       (** The unique subdomain assigned to your Zero Trust organization. *)
   auto_redirect_to_identity : bool option; [@option]
       (** When set to true, users skip the identity provider selection step during login. *)
+  id : string option; [@option]  (** id *)
   is_ui_read_only : bool option; [@option]
       (** When set to true, this will disable all editing of Access resources via the Zero Trust Dashboard. *)
   name : string option; [@option]
@@ -47,6 +50,8 @@ type cloudflare_access_organization = {
       (** The amount of time a user seat is inactive before it expires. When the user seat exceeds the set time of inactivity, the user is removed as an active seat and no longer counts against your Teams seat count. Must be in the format `300ms` or `2h45m`. *)
   warp_auth_session_duration : string option; [@option]
       (** The amount of time that tokens issued for applications will be valid. Must be in the format 30m or 2h45m. Valid time units are: m, h. *)
+  zone_id : string option; [@option]
+      (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
   custom_pages : cloudflare_access_organization__custom_pages list;
   login_design : cloudflare_access_organization__login_design list;
 }
@@ -54,23 +59,27 @@ type cloudflare_access_organization = {
 (** A Zero Trust organization defines the user login experience.
  *)
 
-let cloudflare_access_organization ?allow_authenticate_via_warp
-    ?auto_redirect_to_identity ?is_ui_read_only ?name
-    ?session_duration ?ui_read_only_toggle_reason
-    ?user_seat_expiration_inactive_time ?warp_auth_session_duration
-    ~auth_domain ~custom_pages ~login_design __resource_id =
+let cloudflare_access_organization ?account_id
+    ?allow_authenticate_via_warp ?auto_redirect_to_identity ?id
+    ?is_ui_read_only ?name ?session_duration
+    ?ui_read_only_toggle_reason ?user_seat_expiration_inactive_time
+    ?warp_auth_session_duration ?zone_id ~auth_domain ~custom_pages
+    ~login_design __resource_id =
   let __resource_type = "cloudflare_access_organization" in
   let __resource =
     {
+      account_id;
       allow_authenticate_via_warp;
       auth_domain;
       auto_redirect_to_identity;
+      id;
       is_ui_read_only;
       name;
       session_duration;
       ui_read_only_toggle_reason;
       user_seat_expiration_inactive_time;
       warp_auth_session_duration;
+      zone_id;
       custom_pages;
       login_design;
     }

@@ -33,7 +33,6 @@ type google_privateca_certificate__timeouts
 type google_privateca_certificate__certificate_description__x509_description__policy_ids = {
   object_id_path : float list;  (** object_id_path *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__x509_description__name_constraints = {
   critical : bool;  (** critical *)
@@ -48,12 +47,10 @@ type google_privateca_certificate__certificate_description__x509_description__na
   permitted_ip_ranges : string list;  (** permitted_ip_ranges *)
   permitted_uris : string list;  (** permitted_uris *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__x509_description__key_usage__unknown_extended_key_usages = {
   object_id_path : float list;  (** object_id_path *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__x509_description__key_usage__extended_key_usage = {
   client_auth : bool;  (** client_auth *)
@@ -63,7 +60,6 @@ type google_privateca_certificate__certificate_description__x509_description__ke
   server_auth : bool;  (** server_auth *)
   time_stamping : bool;  (** time_stamping *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__x509_description__key_usage__base_key_usage = {
   cert_sign : bool;  (** cert_sign *)
@@ -76,7 +72,6 @@ type google_privateca_certificate__certificate_description__x509_description__ke
   key_agreement : bool;  (** key_agreement *)
   key_encipherment : bool;  (** key_encipherment *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__x509_description__key_usage = {
   base_key_usage :
@@ -92,18 +87,15 @@ type google_privateca_certificate__certificate_description__x509_description__ke
     list;
       (** unknown_extended_key_usages *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__x509_description__ca_options = {
   is_ca : bool;  (** is_ca *)
   max_issuer_path_length : float;  (** max_issuer_path_length *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__x509_description__additional_extensions__object_id = {
   object_id_path : float list;  (** object_id_path *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__x509_description__additional_extensions = {
   critical : bool;  (** critical *)
@@ -113,7 +105,6 @@ type google_privateca_certificate__certificate_description__x509_description__ad
       (** object_id *)
   value : string;  (** value *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__x509_description = {
   additional_extensions :
@@ -138,17 +129,14 @@ type google_privateca_certificate__certificate_description__x509_description = {
     list;
       (** policy_ids *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__subject_key_id = {
   key_id : string;  (** key_id *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__subject_description__subject_alt_name__custom_sans__obect_id = {
   object_id_path : float list;  (** object_id_path *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__subject_description__subject_alt_name__custom_sans = {
   critical : bool;  (** critical *)
@@ -158,7 +146,6 @@ type google_privateca_certificate__certificate_description__subject_description_
       (** obect_id *)
   value : string;  (** value *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__subject_description__subject_alt_name = {
   custom_sans :
@@ -170,7 +157,6 @@ type google_privateca_certificate__certificate_description__subject_description_
   ip_addresses : string list;  (** ip_addresses *)
   uris : string list;  (** uris *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__subject_description__subject = {
   common_name : string;  (** common_name *)
@@ -182,7 +168,6 @@ type google_privateca_certificate__certificate_description__subject_description_
   province : string;  (** province *)
   street_address : string;  (** street_address *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__subject_description = {
   hex_serial_number : string;  (** hex_serial_number *)
@@ -198,23 +183,19 @@ type google_privateca_certificate__certificate_description__subject_description 
     list;
       (** subject_alt_name *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__public_key = {
   format : string;  (** format *)
   key : string;  (** key *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__cert_fingerprint = {
   sha256_hash : string;  (** sha256_hash *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description__authority_key_id = {
   key_id : string;  (** key_id *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__certificate_description = {
   aia_issuing_certificate_urls : string list;
@@ -246,22 +227,22 @@ type google_privateca_certificate__certificate_description = {
     list;
       (** x509_description *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate__revocation_details = {
   revocation_state : string;  (** revocation_state *)
   revocation_time : string;  (** revocation_time *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate
 
 val google_privateca_certificate :
   ?certificate_authority:string ->
   ?certificate_template:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?lifetime:string ->
   ?pem_csr:string ->
+  ?project:string ->
   ?timeouts:google_privateca_certificate__timeouts ->
   location:string ->
   name:string ->

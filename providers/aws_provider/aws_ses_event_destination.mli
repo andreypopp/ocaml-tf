@@ -9,6 +9,7 @@ type aws_ses_event_destination
 
 val aws_ses_event_destination :
   ?enabled:bool ->
+  ?id:string ->
   configuration_set_name:string ->
   matching_types:string list ->
   name:string ->

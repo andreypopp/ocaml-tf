@@ -159,10 +159,14 @@ type azurerm_virtual_machine__timeouts = {
 (** azurerm_virtual_machine__timeouts *)
 
 type azurerm_virtual_machine = {
+  availability_set_id : string option; [@option]
+      (** availability_set_id *)
   delete_data_disks_on_termination : bool option; [@option]
       (** delete_data_disks_on_termination *)
   delete_os_disk_on_termination : bool option; [@option]
       (** delete_os_disk_on_termination *)
+  id : string option; [@option]  (** id *)
+  license_type : string option; [@option]  (** license_type *)
   location : string;  (** location *)
   name : string;  (** name *)
   network_interface_ids : string list;  (** network_interface_ids *)
@@ -196,8 +200,9 @@ type azurerm_virtual_machine = {
 [@@deriving yojson_of]
 (** azurerm_virtual_machine *)
 
-let azurerm_virtual_machine ?delete_data_disks_on_termination
-    ?delete_os_disk_on_termination ?primary_network_interface_id
+let azurerm_virtual_machine ?availability_set_id
+    ?delete_data_disks_on_termination ?delete_os_disk_on_termination
+    ?id ?license_type ?primary_network_interface_id
     ?proximity_placement_group_id ?tags ?zones ?timeouts ~location
     ~name ~network_interface_ids ~resource_group_name ~vm_size
     ~additional_capabilities ~boot_diagnostics ~identity ~os_profile
@@ -207,8 +212,11 @@ let azurerm_virtual_machine ?delete_data_disks_on_termination
   let __resource_type = "azurerm_virtual_machine" in
   let __resource =
     {
+      availability_set_id;
       delete_data_disks_on_termination;
       delete_os_disk_on_termination;
+      id;
+      license_type;
       location;
       name;
       network_interface_ids;

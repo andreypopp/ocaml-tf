@@ -10,12 +10,13 @@ type aws_detective_member = {
       (** disable_email_notification *)
   email_address : string;  (** email_address *)
   graph_arn : string;  (** graph_arn *)
+  id : string option; [@option]  (** id *)
   message : string option; [@option]  (** message *)
 }
 [@@deriving yojson_of]
 (** aws_detective_member *)
 
-let aws_detective_member ?disable_email_notification ?message
+let aws_detective_member ?disable_email_notification ?id ?message
     ~account_id ~email_address ~graph_arn __resource_id =
   let __resource_type = "aws_detective_member" in
   let __resource =
@@ -24,6 +25,7 @@ let aws_detective_member ?disable_email_notification ?message
       disable_email_notification;
       email_address;
       graph_arn;
+      id;
       message;
     }
   in

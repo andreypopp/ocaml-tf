@@ -8,6 +8,7 @@ val aws_api_gateway_method :
   ?api_key_required:bool ->
   ?authorization_scopes:string list ->
   ?authorizer_id:string ->
+  ?id:string ->
   ?operation_name:string ->
   ?request_models:(string * string) list ->
   ?request_parameters:(string * bool) list ->

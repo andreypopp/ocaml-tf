@@ -47,6 +47,7 @@ type aws_imagebuilder_image_pipeline = {
       (** distribution_configuration_arn *)
   enhanced_image_metadata_enabled : bool option; [@option]
       (** enhanced_image_metadata_enabled *)
+  id : string option; [@option]  (** id *)
   image_recipe_arn : string option; [@option]
       (** image_recipe_arn *)
   infrastructure_configuration_arn : string;
@@ -54,6 +55,8 @@ type aws_imagebuilder_image_pipeline = {
   name : string;  (** name *)
   status : string option; [@option]  (** status *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   image_scanning_configuration :
     aws_imagebuilder_image_pipeline__image_scanning_configuration
     list;
@@ -66,8 +69,8 @@ type aws_imagebuilder_image_pipeline = {
 
 let aws_imagebuilder_image_pipeline ?container_recipe_arn
     ?description ?distribution_configuration_arn
-    ?enhanced_image_metadata_enabled ?image_recipe_arn ?status ?tags
-    ~infrastructure_configuration_arn ~name
+    ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?status
+    ?tags ?tags_all ~infrastructure_configuration_arn ~name
     ~image_scanning_configuration ~image_tests_configuration
     ~schedule __resource_id =
   let __resource_type = "aws_imagebuilder_image_pipeline" in
@@ -77,11 +80,13 @@ let aws_imagebuilder_image_pipeline ?container_recipe_arn
       description;
       distribution_configuration_arn;
       enhanced_image_metadata_enabled;
+      id;
       image_recipe_arn;
       infrastructure_configuration_arn;
       name;
       status;
       tags;
+      tags_all;
       image_scanning_configuration;
       image_tests_configuration;
       schedule;

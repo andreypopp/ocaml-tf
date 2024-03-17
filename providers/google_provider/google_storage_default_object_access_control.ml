@@ -30,6 +30,7 @@ type google_storage_default_object_access_control = {
   * project-team-{{projectId}}
   * allUsers
   * allAuthenticatedUsers *)
+  id : string option; [@option]  (** id *)
   object_ : string option; [@option] [@key "object"]
       (** The name of the object, if applied to an object. *)
   role : string;
@@ -40,12 +41,12 @@ type google_storage_default_object_access_control = {
 [@@deriving yojson_of]
 (** google_storage_default_object_access_control *)
 
-let google_storage_default_object_access_control ?object_ ?timeouts
-    ~bucket ~entity ~role __resource_id =
+let google_storage_default_object_access_control ?id ?object_
+    ?timeouts ~bucket ~entity ~role __resource_id =
   let __resource_type =
     "google_storage_default_object_access_control"
   in
-  let __resource = { bucket; entity; object_; role; timeouts } in
+  let __resource = { bucket; entity; id; object_; role; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_default_object_access_control
        __resource);

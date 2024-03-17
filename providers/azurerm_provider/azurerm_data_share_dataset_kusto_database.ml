@@ -13,6 +13,7 @@ type azurerm_data_share_dataset_kusto_database__timeouts = {
 (** azurerm_data_share_dataset_kusto_database__timeouts *)
 
 type azurerm_data_share_dataset_kusto_database = {
+  id : string option; [@option]  (** id *)
   kusto_database_id : string;  (** kusto_database_id *)
   name : string;  (** name *)
   share_id : string;  (** share_id *)
@@ -22,12 +23,14 @@ type azurerm_data_share_dataset_kusto_database = {
 [@@deriving yojson_of]
 (** azurerm_data_share_dataset_kusto_database *)
 
-let azurerm_data_share_dataset_kusto_database ?timeouts
+let azurerm_data_share_dataset_kusto_database ?id ?timeouts
     ~kusto_database_id ~name ~share_id __resource_id =
   let __resource_type =
     "azurerm_data_share_dataset_kusto_database"
   in
-  let __resource = { kusto_database_id; name; share_id; timeouts } in
+  let __resource =
+    { id; kusto_database_id; name; share_id; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_share_dataset_kusto_database __resource);
   ()

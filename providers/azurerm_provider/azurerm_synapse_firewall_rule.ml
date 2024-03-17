@@ -15,6 +15,7 @@ type azurerm_synapse_firewall_rule__timeouts = {
 
 type azurerm_synapse_firewall_rule = {
   end_ip_address : string;  (** end_ip_address *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   start_ip_address : string;  (** start_ip_address *)
   synapse_workspace_id : string;  (** synapse_workspace_id *)
@@ -23,12 +24,13 @@ type azurerm_synapse_firewall_rule = {
 [@@deriving yojson_of]
 (** azurerm_synapse_firewall_rule *)
 
-let azurerm_synapse_firewall_rule ?timeouts ~end_ip_address ~name
+let azurerm_synapse_firewall_rule ?id ?timeouts ~end_ip_address ~name
     ~start_ip_address ~synapse_workspace_id __resource_id =
   let __resource_type = "azurerm_synapse_firewall_rule" in
   let __resource =
     {
       end_ip_address;
+      id;
       name;
       start_ip_address;
       synapse_workspace_id;

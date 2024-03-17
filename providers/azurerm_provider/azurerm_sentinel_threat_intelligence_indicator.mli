@@ -12,7 +12,6 @@ type azurerm_sentinel_threat_intelligence_indicator__parsed_pattern__pattern_typ
   value : string;  (** value *)
   value_type : string;  (** value_type *)
 }
-[@@deriving yojson_of]
 
 type azurerm_sentinel_threat_intelligence_indicator__parsed_pattern = {
   pattern_type_key : string;  (** pattern_type_key *)
@@ -21,7 +20,6 @@ type azurerm_sentinel_threat_intelligence_indicator__parsed_pattern = {
     list;
       (** pattern_type_values *)
 }
-[@@deriving yojson_of]
 
 type azurerm_sentinel_threat_intelligence_indicator
 
@@ -29,6 +27,8 @@ val azurerm_sentinel_threat_intelligence_indicator :
   ?confidence:float ->
   ?created_by:string ->
   ?description:string ->
+  ?extension:string ->
+  ?id:string ->
   ?language:string ->
   ?object_marking_refs:string list ->
   ?pattern_version:string ->

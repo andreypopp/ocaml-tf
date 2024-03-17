@@ -9,6 +9,7 @@ type azurerm_lb_outbound_rule
 val azurerm_lb_outbound_rule :
   ?allocated_outbound_ports:float ->
   ?enable_tcp_reset:bool ->
+  ?id:string ->
   ?idle_timeout_in_minutes:float ->
   ?timeouts:azurerm_lb_outbound_rule__timeouts ->
   backend_address_pool_id:string ->

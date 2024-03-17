@@ -13,6 +13,7 @@ type azurerm_subnet_nat_gateway_association__timeouts = {
 (** azurerm_subnet_nat_gateway_association__timeouts *)
 
 type azurerm_subnet_nat_gateway_association = {
+  id : string option; [@option]  (** id *)
   nat_gateway_id : string;  (** nat_gateway_id *)
   subnet_id : string;  (** subnet_id *)
   timeouts : azurerm_subnet_nat_gateway_association__timeouts option;
@@ -20,10 +21,10 @@ type azurerm_subnet_nat_gateway_association = {
 [@@deriving yojson_of]
 (** azurerm_subnet_nat_gateway_association *)
 
-let azurerm_subnet_nat_gateway_association ?timeouts ~nat_gateway_id
-    ~subnet_id __resource_id =
+let azurerm_subnet_nat_gateway_association ?id ?timeouts
+    ~nat_gateway_id ~subnet_id __resource_id =
   let __resource_type = "azurerm_subnet_nat_gateway_association" in
-  let __resource = { nat_gateway_id; subnet_id; timeouts } in
+  let __resource = { id; nat_gateway_id; subnet_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_subnet_nat_gateway_association __resource);
   ()

@@ -23,10 +23,12 @@ type google_bigquery_analytics_hub_data_exchange = {
       (** Documentation describing the data exchange. *)
   icon : string option; [@option]
       (** Base64 encoded image representing the data exchange. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The name of the location this data exchange. *)
   primary_contact : string option; [@option]
       (** Email or URL of the primary point of contact of the data exchange. *)
+  project : string option; [@option]  (** project *)
   timeouts :
     google_bigquery_analytics_hub_data_exchange__timeouts option;
 }
@@ -34,8 +36,8 @@ type google_bigquery_analytics_hub_data_exchange = {
 (** google_bigquery_analytics_hub_data_exchange *)
 
 let google_bigquery_analytics_hub_data_exchange ?description
-    ?documentation ?icon ?primary_contact ?timeouts ~data_exchange_id
-    ~display_name ~location __resource_id =
+    ?documentation ?icon ?id ?primary_contact ?project ?timeouts
+    ~data_exchange_id ~display_name ~location __resource_id =
   let __resource_type =
     "google_bigquery_analytics_hub_data_exchange"
   in
@@ -46,8 +48,10 @@ let google_bigquery_analytics_hub_data_exchange ?description
       display_name;
       documentation;
       icon;
+      id;
       location;
       primary_contact;
+      project;
       timeouts;
     }
   in

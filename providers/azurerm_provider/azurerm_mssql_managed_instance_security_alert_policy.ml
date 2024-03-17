@@ -21,6 +21,7 @@ type azurerm_mssql_managed_instance_security_alert_policy = {
   email_addresses : string list option; [@option]
       (** email_addresses *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   managed_instance_name : string;  (** managed_instance_name *)
   resource_group_name : string;  (** resource_group_name *)
   retention_days : float option; [@option]  (** retention_days *)
@@ -37,7 +38,7 @@ type azurerm_mssql_managed_instance_security_alert_policy = {
 
 let azurerm_mssql_managed_instance_security_alert_policy
     ?disabled_alerts ?email_account_admins_enabled ?email_addresses
-    ?enabled ?retention_days ?storage_account_access_key
+    ?enabled ?id ?retention_days ?storage_account_access_key
     ?storage_endpoint ?timeouts ~managed_instance_name
     ~resource_group_name __resource_id =
   let __resource_type =
@@ -49,6 +50,7 @@ let azurerm_mssql_managed_instance_security_alert_policy
       email_account_admins_enabled;
       email_addresses;
       enabled;
+      id;
       managed_instance_name;
       resource_group_name;
       retention_days;

@@ -9,6 +9,8 @@ val azurerm_log_analytics_query_pack_query :
   ?additional_settings_json:string ->
   ?categories:string list ->
   ?description:string ->
+  ?id:string ->
+  ?name:string ->
   ?resource_types:string list ->
   ?solutions:string list ->
   ?tags:(string * string) list ->

@@ -20,7 +20,10 @@ type aws_lb_listener_rule__condition
 type aws_lb_listener_rule
 
 val aws_lb_listener_rule :
+  ?id:string ->
+  ?priority:float ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   listener_arn:string ->
   action:aws_lb_listener_rule__action list ->
   condition:aws_lb_listener_rule__condition list ->

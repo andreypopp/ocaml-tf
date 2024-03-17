@@ -67,6 +67,9 @@ type azurerm_backup_policy_vm__timeouts = {
 (** azurerm_backup_policy_vm__timeouts *)
 
 type azurerm_backup_policy_vm = {
+  id : string option; [@option]  (** id *)
+  instant_restore_retention_days : float option; [@option]
+      (** instant_restore_retention_days *)
   name : string;  (** name *)
   policy_type : string option; [@option]  (** policy_type *)
   recovery_vault_name : string;  (** recovery_vault_name *)
@@ -85,14 +88,16 @@ type azurerm_backup_policy_vm = {
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm *)
 
-let azurerm_backup_policy_vm ?policy_type ?timezone ?timeouts ~name
-    ~recovery_vault_name ~resource_group_name ~backup
-    ~instant_restore_resource_group ~retention_daily
-    ~retention_monthly ~retention_weekly ~retention_yearly
-    __resource_id =
+let azurerm_backup_policy_vm ?id ?instant_restore_retention_days
+    ?policy_type ?timezone ?timeouts ~name ~recovery_vault_name
+    ~resource_group_name ~backup ~instant_restore_resource_group
+    ~retention_daily ~retention_monthly ~retention_weekly
+    ~retention_yearly __resource_id =
   let __resource_type = "azurerm_backup_policy_vm" in
   let __resource =
     {
+      id;
+      instant_restore_retention_days;
       name;
       policy_type;
       recovery_vault_name;

@@ -33,6 +33,7 @@ type azurerm_cognitive_deployment__timeouts = {
 
 type azurerm_cognitive_deployment = {
   cognitive_account_id : string;  (** cognitive_account_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   rai_policy_name : string option; [@option]  (** rai_policy_name *)
   version_upgrade_option : string option; [@option]
@@ -44,13 +45,14 @@ type azurerm_cognitive_deployment = {
 [@@deriving yojson_of]
 (** azurerm_cognitive_deployment *)
 
-let azurerm_cognitive_deployment ?rai_policy_name
+let azurerm_cognitive_deployment ?id ?rai_policy_name
     ?version_upgrade_option ?timeouts ~cognitive_account_id ~name
     ~model ~scale __resource_id =
   let __resource_type = "azurerm_cognitive_deployment" in
   let __resource =
     {
       cognitive_account_id;
+      id;
       name;
       rai_policy_name;
       version_upgrade_option;

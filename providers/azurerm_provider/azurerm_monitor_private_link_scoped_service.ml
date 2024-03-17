@@ -13,6 +13,7 @@ type azurerm_monitor_private_link_scoped_service__timeouts = {
 (** azurerm_monitor_private_link_scoped_service__timeouts *)
 
 type azurerm_monitor_private_link_scoped_service = {
+  id : string option; [@option]  (** id *)
   linked_resource_id : string;  (** linked_resource_id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -23,7 +24,7 @@ type azurerm_monitor_private_link_scoped_service = {
 [@@deriving yojson_of]
 (** azurerm_monitor_private_link_scoped_service *)
 
-let azurerm_monitor_private_link_scoped_service ?timeouts
+let azurerm_monitor_private_link_scoped_service ?id ?timeouts
     ~linked_resource_id ~name ~resource_group_name ~scope_name
     __resource_id =
   let __resource_type =
@@ -31,6 +32,7 @@ let azurerm_monitor_private_link_scoped_service ?timeouts
   in
   let __resource =
     {
+      id;
       linked_resource_id;
       name;
       resource_group_name;

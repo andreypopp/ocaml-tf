@@ -10,6 +10,7 @@ type cloudflare_notification_policy
 
 val cloudflare_notification_policy :
   ?description:string ->
+  ?id:string ->
   account_id:string ->
   alert_type:string ->
   enabled:bool ->

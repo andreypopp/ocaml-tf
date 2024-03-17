@@ -15,7 +15,9 @@ type azurerm_vpn_server_configuration__timeouts
 type azurerm_vpn_server_configuration
 
 val azurerm_vpn_server_configuration :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?vpn_protocols:string list ->
   ?timeouts:azurerm_vpn_server_configuration__timeouts ->
   location:string ->
   name:string ->

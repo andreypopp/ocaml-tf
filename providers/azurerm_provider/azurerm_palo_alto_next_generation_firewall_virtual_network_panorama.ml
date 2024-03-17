@@ -88,6 +88,7 @@ type azurerm_palo_alto_next_generation_firewall_virtual_network_panorama__panora
 [@@deriving yojson_of]
 
 type azurerm_palo_alto_next_generation_firewall_virtual_network_panorama = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   panorama_base64_config : string;  (** panorama_base64_config *)
@@ -110,7 +111,7 @@ type azurerm_palo_alto_next_generation_firewall_virtual_network_panorama = {
 (** azurerm_palo_alto_next_generation_firewall_virtual_network_panorama *)
 
 let azurerm_palo_alto_next_generation_firewall_virtual_network_panorama
-    ?tags ?timeouts ~location ~name ~panorama_base64_config
+    ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
     ~resource_group_name ~destination_nat ~dns_settings
     ~network_profile __resource_id =
   let __resource_type =
@@ -118,6 +119,7 @@ let azurerm_palo_alto_next_generation_firewall_virtual_network_panorama
   in
   let __resource =
     {
+      id;
       location;
       name;
       panorama_base64_config;

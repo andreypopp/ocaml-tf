@@ -26,6 +26,7 @@ type azurerm_spring_cloud_new_relic_application_performance_monitoring = {
   custom_tracing_enabled : bool option; [@option]
       (** custom_tracing_enabled *)
   globally_enabled : bool option; [@option]  (** globally_enabled *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]  (** labels *)
   license_key : string;  (** license_key *)
   name : string;  (** name *)
@@ -40,7 +41,7 @@ type azurerm_spring_cloud_new_relic_application_performance_monitoring = {
 let azurerm_spring_cloud_new_relic_application_performance_monitoring
     ?agent_enabled ?app_server_port ?audit_mode_enabled
     ?auto_app_naming_enabled ?auto_transaction_naming_enabled
-    ?custom_tracing_enabled ?globally_enabled ?labels ?timeouts
+    ?custom_tracing_enabled ?globally_enabled ?id ?labels ?timeouts
     ~app_name ~license_key ~name ~spring_cloud_service_id
     __resource_id =
   let __resource_type =
@@ -56,6 +57,7 @@ let azurerm_spring_cloud_new_relic_application_performance_monitoring
       auto_transaction_naming_enabled;
       custom_tracing_enabled;
       globally_enabled;
+      id;
       labels;
       license_key;
       name;

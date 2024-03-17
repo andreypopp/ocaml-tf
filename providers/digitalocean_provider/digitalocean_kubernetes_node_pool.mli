@@ -13,12 +13,12 @@ type digitalocean_kubernetes_node_pool__nodes = {
   status : string;  (** status *)
   updated_at : string;  (** updated_at *)
 }
-[@@deriving yojson_of]
 
 type digitalocean_kubernetes_node_pool
 
 val digitalocean_kubernetes_node_pool :
   ?auto_scale:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?max_nodes:float ->
   ?min_nodes:float ->

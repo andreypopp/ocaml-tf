@@ -9,9 +9,13 @@ type azurerm_traffic_manager_nested_endpoint
 
 val azurerm_traffic_manager_nested_endpoint :
   ?enabled:bool ->
+  ?endpoint_location:string ->
   ?geo_mappings:string list ->
+  ?id:string ->
   ?minimum_required_child_endpoints_ipv4:float ->
   ?minimum_required_child_endpoints_ipv6:float ->
+  ?priority:float ->
+  ?weight:float ->
   ?timeouts:azurerm_traffic_manager_nested_endpoint__timeouts ->
   minimum_child_endpoints:float ->
   name:string ->

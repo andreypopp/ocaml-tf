@@ -34,6 +34,7 @@ type google_bigtable_app_profile = {
       (** The unique name of the app profile in the form '[_a-zA-Z0-9][-_.a-zA-Z0-9]*'. *)
   description : string option; [@option]
       (** Long form description of the use case for this app profile. *)
+  id : string option; [@option]  (** id *)
   ignore_warnings : bool option; [@option]
       (** If true, ignore safety checks when deleting/updating the app profile. *)
   instance : string option; [@option]
@@ -44,6 +45,7 @@ type google_bigtable_app_profile = {
       (** If true, read/write requests are routed to the nearest cluster in the instance, and will fail over to the nearest cluster that is available
 in the event of transient errors or delays. Clusters in a region are considered equidistant. Choosing this option sacrifices read-your-writes
 consistency to improve availability. *)
+  project : string option; [@option]  (** project *)
   single_cluster_routing :
     google_bigtable_app_profile__single_cluster_routing list;
   standard_isolation :
@@ -53,19 +55,21 @@ consistency to improve availability. *)
 [@@deriving yojson_of]
 (** google_bigtable_app_profile *)
 
-let google_bigtable_app_profile ?description ?ignore_warnings
+let google_bigtable_app_profile ?description ?id ?ignore_warnings
     ?instance ?multi_cluster_routing_cluster_ids
-    ?multi_cluster_routing_use_any ?timeouts ~app_profile_id
+    ?multi_cluster_routing_use_any ?project ?timeouts ~app_profile_id
     ~single_cluster_routing ~standard_isolation __resource_id =
   let __resource_type = "google_bigtable_app_profile" in
   let __resource =
     {
       app_profile_id;
       description;
+      id;
       ignore_warnings;
       instance;
       multi_cluster_routing_cluster_ids;
       multi_cluster_routing_use_any;
+      project;
       single_cluster_routing;
       standard_isolation;
       timeouts;

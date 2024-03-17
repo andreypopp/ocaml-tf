@@ -7,6 +7,7 @@ type azurerm_app_service_slot_virtual_network_swift_connection__timeouts
 type azurerm_app_service_slot_virtual_network_swift_connection
 
 val azurerm_app_service_slot_virtual_network_swift_connection :
+  ?id:string ->
   ?timeouts:
     azurerm_app_service_slot_virtual_network_swift_connection__timeouts ->
   app_service_id:string ->

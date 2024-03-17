@@ -13,8 +13,11 @@ type aws_ec2_transit_gateway_connect__timeouts = {
 (** aws_ec2_transit_gateway_connect__timeouts *)
 
 type aws_ec2_transit_gateway_connect = {
+  id : string option; [@option]  (** id *)
   protocol : string option; [@option]  (** protocol *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   transit_gateway_default_route_table_association : bool option;
       [@option]
       (** transit_gateway_default_route_table_association *)
@@ -28,15 +31,17 @@ type aws_ec2_transit_gateway_connect = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_connect *)
 
-let aws_ec2_transit_gateway_connect ?protocol ?tags
+let aws_ec2_transit_gateway_connect ?id ?protocol ?tags ?tags_all
     ?transit_gateway_default_route_table_association
     ?transit_gateway_default_route_table_propagation ?timeouts
     ~transit_gateway_id ~transport_attachment_id __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_connect" in
   let __resource =
     {
+      id;
       protocol;
       tags;
+      tags_all;
       transit_gateway_default_route_table_association;
       transit_gateway_default_route_table_propagation;
       transit_gateway_id;

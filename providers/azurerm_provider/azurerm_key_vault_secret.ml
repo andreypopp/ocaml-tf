@@ -16,6 +16,7 @@ type azurerm_key_vault_secret__timeouts = {
 type azurerm_key_vault_secret = {
   content_type : string option; [@option]  (** content_type *)
   expiration_date : string option; [@option]  (** expiration_date *)
+  id : string option; [@option]  (** id *)
   key_vault_id : string;  (** key_vault_id *)
   name : string;  (** name *)
   not_before_date : string option; [@option]  (** not_before_date *)
@@ -26,7 +27,7 @@ type azurerm_key_vault_secret = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_secret *)
 
-let azurerm_key_vault_secret ?content_type ?expiration_date
+let azurerm_key_vault_secret ?content_type ?expiration_date ?id
     ?not_before_date ?tags ?timeouts ~key_vault_id ~name ~value
     __resource_id =
   let __resource_type = "azurerm_key_vault_secret" in
@@ -34,6 +35,7 @@ let azurerm_key_vault_secret ?content_type ?expiration_date
     {
       content_type;
       expiration_date;
+      id;
       key_vault_id;
       name;
       not_before_date;

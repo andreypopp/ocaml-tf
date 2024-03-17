@@ -9,6 +9,7 @@ type cloudflare_teams_list = {
       (** The account identifier to target for the resource. *)
   description : string option; [@option]
       (** The description of the teams list. *)
+  id : string option; [@option]  (** id *)
   items : string list option; [@option]
       (** The items of the teams list. *)
   name : string;  (** Name of the teams list. *)
@@ -21,10 +22,12 @@ referenced when creating secure web gateway policies or device
 posture rules.
  *)
 
-let cloudflare_teams_list ?description ?items ~account_id ~name
+let cloudflare_teams_list ?description ?id ?items ~account_id ~name
     ~type_ __resource_id =
   let __resource_type = "cloudflare_teams_list" in
-  let __resource = { account_id; description; items; name; type_ } in
+  let __resource =
+    { account_id; description; id; items; name; type_ }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_list __resource);
   ()

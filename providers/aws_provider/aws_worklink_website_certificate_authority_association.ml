@@ -8,16 +8,17 @@ type aws_worklink_website_certificate_authority_association = {
   certificate : string;  (** certificate *)
   display_name : string option; [@option]  (** display_name *)
   fleet_arn : string;  (** fleet_arn *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_worklink_website_certificate_authority_association *)
 
 let aws_worklink_website_certificate_authority_association
-    ?display_name ~certificate ~fleet_arn __resource_id =
+    ?display_name ?id ~certificate ~fleet_arn __resource_id =
   let __resource_type =
     "aws_worklink_website_certificate_authority_association"
   in
-  let __resource = { certificate; display_name; fleet_arn } in
+  let __resource = { certificate; display_name; fleet_arn; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_worklink_website_certificate_authority_association
        __resource);

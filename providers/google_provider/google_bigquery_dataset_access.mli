@@ -13,6 +13,8 @@ val google_bigquery_dataset_access :
   ?domain:string ->
   ?group_by_email:string ->
   ?iam_member:string ->
+  ?id:string ->
+  ?project:string ->
   ?role:string ->
   ?special_group:string ->
   ?user_by_email:string ->

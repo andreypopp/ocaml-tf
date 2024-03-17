@@ -113,8 +113,11 @@ type aws_dynamodb_table = {
   billing_mode : string option; [@option]  (** billing_mode *)
   deletion_protection_enabled : bool option; [@option]
       (** deletion_protection_enabled *)
+  hash_key : string option; [@option]  (** hash_key *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   range_key : string option; [@option]  (** range_key *)
+  read_capacity : float option; [@option]  (** read_capacity *)
   restore_date_time : string option; [@option]
       (** restore_date_time *)
   restore_source_name : string option; [@option]
@@ -122,8 +125,13 @@ type aws_dynamodb_table = {
   restore_to_latest_time : bool option; [@option]
       (** restore_to_latest_time *)
   stream_enabled : bool option; [@option]  (** stream_enabled *)
+  stream_view_type : string option; [@option]
+      (** stream_view_type *)
   table_class : string option; [@option]  (** table_class *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  write_capacity : float option; [@option]  (** write_capacity *)
   attribute : aws_dynamodb_table__attribute list;
   global_secondary_index :
     aws_dynamodb_table__global_secondary_index list;
@@ -142,8 +150,9 @@ type aws_dynamodb_table = {
 (** aws_dynamodb_table *)
 
 let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
-    ?range_key ?restore_date_time ?restore_source_name
-    ?restore_to_latest_time ?stream_enabled ?table_class ?tags
+    ?hash_key ?id ?range_key ?read_capacity ?restore_date_time
+    ?restore_source_name ?restore_to_latest_time ?stream_enabled
+    ?stream_view_type ?table_class ?tags ?tags_all ?write_capacity
     ?timeouts ~name ~attribute ~global_secondary_index ~import_table
     ~local_secondary_index ~point_in_time_recovery ~replica
     ~server_side_encryption ~ttl __resource_id =
@@ -152,14 +161,20 @@ let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
     {
       billing_mode;
       deletion_protection_enabled;
+      hash_key;
+      id;
       name;
       range_key;
+      read_capacity;
       restore_date_time;
       restore_source_name;
       restore_to_latest_time;
       stream_enabled;
+      stream_view_type;
       table_class;
       tags;
+      tags_all;
+      write_capacity;
       attribute;
       global_secondary_index;
       import_table;

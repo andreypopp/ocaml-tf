@@ -8,7 +8,10 @@ type azurerm_virtual_desktop_application
 val azurerm_virtual_desktop_application :
   ?command_line_arguments:string ->
   ?description:string ->
+  ?friendly_name:string ->
   ?icon_index:float ->
+  ?icon_path:string ->
+  ?id:string ->
   ?show_in_portal:bool ->
   ?timeouts:azurerm_virtual_desktop_application__timeouts ->
   application_group_id:string ->

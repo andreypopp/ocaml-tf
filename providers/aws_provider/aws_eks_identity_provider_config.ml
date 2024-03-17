@@ -28,17 +28,22 @@ type aws_eks_identity_provider_config__timeouts = {
 
 type aws_eks_identity_provider_config = {
   cluster_name : string;  (** cluster_name *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   oidc : aws_eks_identity_provider_config__oidc list;
   timeouts : aws_eks_identity_provider_config__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_eks_identity_provider_config *)
 
-let aws_eks_identity_provider_config ?tags ?timeouts ~cluster_name
-    ~oidc __resource_id =
+let aws_eks_identity_provider_config ?id ?tags ?tags_all ?timeouts
+    ~cluster_name ~oidc __resource_id =
   let __resource_type = "aws_eks_identity_provider_config" in
-  let __resource = { cluster_name; tags; oidc; timeouts } in
+  let __resource =
+    { cluster_name; id; tags; tags_all; oidc; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_eks_identity_provider_config __resource);
   ()

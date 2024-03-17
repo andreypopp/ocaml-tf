@@ -38,16 +38,17 @@ type aws_ecr_replication_configuration__replication_configuration = {
 (** aws_ecr_replication_configuration__replication_configuration *)
 
 type aws_ecr_replication_configuration = {
+  id : string option; [@option]  (** id *)
   replication_configuration :
     aws_ecr_replication_configuration__replication_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_ecr_replication_configuration *)
 
-let aws_ecr_replication_configuration ~replication_configuration
+let aws_ecr_replication_configuration ?id ~replication_configuration
     __resource_id =
   let __resource_type = "aws_ecr_replication_configuration" in
-  let __resource = { replication_configuration } in
+  let __resource = { id; replication_configuration } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecr_replication_configuration __resource);
   ()

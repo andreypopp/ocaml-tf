@@ -32,25 +32,35 @@ type aws_db_option_group__timeouts = {
 
 type aws_db_option_group = {
   engine_name : string;  (** engine_name *)
+  id : string option; [@option]  (** id *)
   major_engine_version : string;  (** major_engine_version *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   option_group_description : string option; [@option]
       (** option_group_description *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   option : aws_db_option_group__option list;
   timeouts : aws_db_option_group__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_db_option_group *)
 
-let aws_db_option_group ?option_group_description ?tags ?timeouts
-    ~engine_name ~major_engine_version ~option __resource_id =
+let aws_db_option_group ?id ?name ?name_prefix
+    ?option_group_description ?tags ?tags_all ?timeouts ~engine_name
+    ~major_engine_version ~option __resource_id =
   let __resource_type = "aws_db_option_group" in
   let __resource =
     {
       engine_name;
+      id;
       major_engine_version;
+      name;
+      name_prefix;
       option_group_description;
       tags;
+      tags_all;
       option;
       timeouts;
     }

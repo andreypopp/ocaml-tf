@@ -46,6 +46,7 @@ type azurerm_shared_image = {
   gallery_name : string;  (** gallery_name *)
   hyper_v_generation : string option; [@option]
       (** hyper_v_generation *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   max_recommended_memory_in_gb : float option; [@option]
       (** max_recommended_memory_in_gb *)
@@ -78,7 +79,7 @@ type azurerm_shared_image = {
 let azurerm_shared_image ?accelerated_network_support_enabled
     ?architecture ?confidential_vm_enabled ?confidential_vm_supported
     ?description ?disk_types_not_allowed ?end_of_life_date ?eula
-    ?hyper_v_generation ?max_recommended_memory_in_gb
+    ?hyper_v_generation ?id ?max_recommended_memory_in_gb
     ?max_recommended_vcpu_count ?min_recommended_memory_in_gb
     ?min_recommended_vcpu_count ?privacy_statement_uri
     ?release_note_uri ?specialized ?tags ?trusted_launch_enabled
@@ -98,6 +99,7 @@ let azurerm_shared_image ?accelerated_network_support_enabled
       eula;
       gallery_name;
       hyper_v_generation;
+      id;
       location;
       max_recommended_memory_in_gb;
       max_recommended_vcpu_count;

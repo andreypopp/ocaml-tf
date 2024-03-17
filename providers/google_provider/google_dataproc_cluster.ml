@@ -560,6 +560,7 @@ type google_dataproc_cluster__virtual_cluster_config = {
 type google_dataproc_cluster = {
   graceful_decommission_timeout : string option; [@option]
       (** The timeout duration which allows graceful decomissioning when you change the number of worker nodes directly through a terraform apply *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The list of the labels (key/value pairs) configured on the resource and to be applied to instances in the cluster.
 				
@@ -567,6 +568,8 @@ type google_dataproc_cluster = {
 				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;
       (** The name of the cluster, unique within the project and zone. *)
+  project : string option; [@option]
+      (** The ID of the project in which the cluster will exist. If it is not provided, the provider project is used. *)
   region : string option; [@option]
       (** The region in which the cluster and associated nodes will be created in. Defaults to global. *)
   cluster_config : google_dataproc_cluster__cluster_config list;
@@ -577,15 +580,17 @@ type google_dataproc_cluster = {
 [@@deriving yojson_of]
 (** google_dataproc_cluster *)
 
-let google_dataproc_cluster ?graceful_decommission_timeout ?labels
-    ?region ?timeouts ~name ~cluster_config ~virtual_cluster_config
-    __resource_id =
+let google_dataproc_cluster ?graceful_decommission_timeout ?id
+    ?labels ?project ?region ?timeouts ~name ~cluster_config
+    ~virtual_cluster_config __resource_id =
   let __resource_type = "google_dataproc_cluster" in
   let __resource =
     {
       graceful_decommission_timeout;
+      id;
       labels;
       name;
+      project;
       region;
       cluster_config;
       timeouts;

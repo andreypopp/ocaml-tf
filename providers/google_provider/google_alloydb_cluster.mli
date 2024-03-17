@@ -27,13 +27,11 @@ type google_alloydb_cluster__timeouts
 type google_alloydb_cluster__backup_source = {
   backup_name : string;  (** backup_name *)
 }
-[@@deriving yojson_of]
 
 type google_alloydb_cluster__continuous_backup_info__encryption_info = {
   encryption_type : string;  (** encryption_type *)
   kms_key_versions : string list;  (** kms_key_versions *)
 }
-[@@deriving yojson_of]
 
 type google_alloydb_cluster__continuous_backup_info = {
   earliest_restorable_time : string;  (** earliest_restorable_time *)
@@ -44,30 +42,31 @@ type google_alloydb_cluster__continuous_backup_info = {
       (** encryption_info *)
   schedule : string list;  (** schedule *)
 }
-[@@deriving yojson_of]
 
 type google_alloydb_cluster__encryption_info = {
   encryption_type : string;  (** encryption_type *)
   kms_key_versions : string list;  (** kms_key_versions *)
 }
-[@@deriving yojson_of]
 
 type google_alloydb_cluster__migration_source = {
   host_port : string;  (** host_port *)
   reference_id : string;  (** reference_id *)
   source_type : string;  (** source_type *)
 }
-[@@deriving yojson_of]
 
 type google_alloydb_cluster
 
 val google_alloydb_cluster :
   ?annotations:(string * string) list ->
   ?cluster_type:string ->
+  ?database_version:string ->
   ?deletion_policy:string ->
   ?display_name:string ->
   ?etag:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?network:string ->
+  ?project:string ->
   ?timeouts:google_alloydb_cluster__timeouts ->
   cluster_id:string ->
   location:string ->

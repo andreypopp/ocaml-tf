@@ -26,9 +26,12 @@ type aws_route = {
   egress_only_gateway_id : string option; [@option]
       (** egress_only_gateway_id *)
   gateway_id : string option; [@option]  (** gateway_id *)
+  id : string option; [@option]  (** id *)
   local_gateway_id : string option; [@option]
       (** local_gateway_id *)
   nat_gateway_id : string option; [@option]  (** nat_gateway_id *)
+  network_interface_id : string option; [@option]
+      (** network_interface_id *)
   route_table_id : string;  (** route_table_id *)
   transit_gateway_id : string option; [@option]
       (** transit_gateway_id *)
@@ -43,9 +46,9 @@ type aws_route = {
 let aws_route ?carrier_gateway_id ?core_network_arn
     ?destination_cidr_block ?destination_ipv6_cidr_block
     ?destination_prefix_list_id ?egress_only_gateway_id ?gateway_id
-    ?local_gateway_id ?nat_gateway_id ?transit_gateway_id
-    ?vpc_endpoint_id ?vpc_peering_connection_id ?timeouts
-    ~route_table_id __resource_id =
+    ?id ?local_gateway_id ?nat_gateway_id ?network_interface_id
+    ?transit_gateway_id ?vpc_endpoint_id ?vpc_peering_connection_id
+    ?timeouts ~route_table_id __resource_id =
   let __resource_type = "aws_route" in
   let __resource =
     {
@@ -56,8 +59,10 @@ let aws_route ?carrier_gateway_id ?core_network_arn
       destination_prefix_list_id;
       egress_only_gateway_id;
       gateway_id;
+      id;
       local_gateway_id;
       nat_gateway_id;
+      network_interface_id;
       route_table_id;
       transit_gateway_id;
       vpc_endpoint_id;

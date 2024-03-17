@@ -6,6 +6,7 @@ type azurerm_arc_private_link_scope__timeouts
 type azurerm_arc_private_link_scope
 
 val azurerm_arc_private_link_scope :
+  ?id:string ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_arc_private_link_scope__timeouts ->

@@ -25,6 +25,7 @@ type azurerm_hpc_cache_nfs_target__timeouts = {
 
 type azurerm_hpc_cache_nfs_target = {
   cache_name : string;  (** cache_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   target_host_name : string;  (** target_host_name *)
@@ -40,7 +41,7 @@ type azurerm_hpc_cache_nfs_target = {
 [@@deriving yojson_of]
 (** azurerm_hpc_cache_nfs_target *)
 
-let azurerm_hpc_cache_nfs_target ?verification_timer_in_seconds
+let azurerm_hpc_cache_nfs_target ?id ?verification_timer_in_seconds
     ?write_back_timer_in_seconds ?timeouts ~cache_name ~name
     ~resource_group_name ~target_host_name ~usage_model
     ~namespace_junction __resource_id =
@@ -48,6 +49,7 @@ let azurerm_hpc_cache_nfs_target ?verification_timer_in_seconds
   let __resource =
     {
       cache_name;
+      id;
       name;
       resource_group_name;
       target_host_name;

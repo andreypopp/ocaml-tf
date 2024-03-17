@@ -19,6 +19,7 @@ type azurerm_monitor_action_group
 
 val azurerm_monitor_action_group :
   ?enabled:bool ->
+  ?id:string ->
   ?location:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_monitor_action_group__timeouts ->

@@ -6,6 +6,7 @@ type azurerm_cosmosdb_notebook_workspace__timeouts
 type azurerm_cosmosdb_notebook_workspace
 
 val azurerm_cosmosdb_notebook_workspace :
+  ?id:string ->
   ?timeouts:azurerm_cosmosdb_notebook_workspace__timeouts ->
   account_name:string ->
   name:string ->

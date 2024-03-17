@@ -12,12 +12,12 @@ type aws_kendra_experience__endpoints = {
   endpoint : string;  (** endpoint *)
   endpoint_type : string;  (** endpoint_type *)
 }
-[@@deriving yojson_of]
 
 type aws_kendra_experience
 
 val aws_kendra_experience :
   ?description:string ->
+  ?id:string ->
   ?timeouts:aws_kendra_experience__timeouts ->
   index_id:string ->
   name:string ->

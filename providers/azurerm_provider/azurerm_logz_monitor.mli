@@ -11,6 +11,7 @@ val azurerm_logz_monitor :
   ?company_name:string ->
   ?enabled:bool ->
   ?enterprise_app_id:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_logz_monitor__timeouts ->
   location:string ->

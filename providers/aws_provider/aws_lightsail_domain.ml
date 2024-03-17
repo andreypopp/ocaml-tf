@@ -6,13 +6,14 @@ open! Tf.Prelude
 
 type aws_lightsail_domain = {
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_domain *)
 
-let aws_lightsail_domain ~domain_name __resource_id =
+let aws_lightsail_domain ?id ~domain_name __resource_id =
   let __resource_type = "aws_lightsail_domain" in
-  let __resource = { domain_name } in
+  let __resource = { domain_name; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_domain __resource);
   ()

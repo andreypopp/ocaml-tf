@@ -15,6 +15,7 @@ val azurerm_data_factory_linked_service_azure_blob_storage :
   ?connection_string:string ->
   ?connection_string_insecure:string ->
   ?description:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?parameters:(string * string) list ->
   ?sas_uri:string ->

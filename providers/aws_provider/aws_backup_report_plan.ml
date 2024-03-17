@@ -28,8 +28,11 @@ type aws_backup_report_plan__report_setting = {
 
 type aws_backup_report_plan = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   report_delivery_channel :
     aws_backup_report_plan__report_delivery_channel list;
   report_setting : aws_backup_report_plan__report_setting list;
@@ -37,14 +40,16 @@ type aws_backup_report_plan = {
 [@@deriving yojson_of]
 (** aws_backup_report_plan *)
 
-let aws_backup_report_plan ?description ?tags ~name
+let aws_backup_report_plan ?description ?id ?tags ?tags_all ~name
     ~report_delivery_channel ~report_setting __resource_id =
   let __resource_type = "aws_backup_report_plan" in
   let __resource =
     {
       description;
+      id;
       name;
       tags;
+      tags_all;
       report_delivery_channel;
       report_setting;
     }

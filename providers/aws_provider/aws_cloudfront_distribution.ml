@@ -301,15 +301,20 @@ type aws_cloudfront_distribution__trusted_signers = {
 type aws_cloudfront_distribution = {
   aliases : string list option; [@option]  (** aliases *)
   comment : string option; [@option]  (** comment *)
+  continuous_deployment_policy_id : string option; [@option]
+      (** continuous_deployment_policy_id *)
   default_root_object : string option; [@option]
       (** default_root_object *)
   enabled : bool;  (** enabled *)
   http_version : string option; [@option]  (** http_version *)
+  id : string option; [@option]  (** id *)
   is_ipv6_enabled : bool option; [@option]  (** is_ipv6_enabled *)
   price_class : string option; [@option]  (** price_class *)
   retain_on_delete : bool option; [@option]  (** retain_on_delete *)
   staging : bool option; [@option]  (** staging *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   wait_for_deployment : bool option; [@option]
       (** wait_for_deployment *)
   web_acl_id : string option; [@option]  (** web_acl_id *)
@@ -330,8 +335,9 @@ type aws_cloudfront_distribution = {
 (** aws_cloudfront_distribution *)
 
 let aws_cloudfront_distribution ?aliases ?comment
-    ?default_root_object ?http_version ?is_ipv6_enabled ?price_class
-    ?retain_on_delete ?staging ?tags ?wait_for_deployment ?web_acl_id
+    ?continuous_deployment_policy_id ?default_root_object
+    ?http_version ?id ?is_ipv6_enabled ?price_class ?retain_on_delete
+    ?staging ?tags ?tags_all ?wait_for_deployment ?web_acl_id
     ~enabled ~custom_error_response ~default_cache_behavior
     ~logging_config ~ordered_cache_behavior ~origin ~origin_group
     ~restrictions ~viewer_certificate __resource_id =
@@ -340,14 +346,17 @@ let aws_cloudfront_distribution ?aliases ?comment
     {
       aliases;
       comment;
+      continuous_deployment_policy_id;
       default_root_object;
       enabled;
       http_version;
+      id;
       is_ipv6_enabled;
       price_class;
       retain_on_delete;
       staging;
       tags;
+      tags_all;
       wait_for_deployment;
       web_acl_id;
       custom_error_response;

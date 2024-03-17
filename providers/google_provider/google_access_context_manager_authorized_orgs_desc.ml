@@ -37,6 +37,7 @@ AUTHORIZATION_DIRECTION_FROM as the authorization direction in their
 AuthorizedOrgsDesc resource. Possible values: [AUTHORIZATION_DIRECTION_TO, AUTHORIZATION_DIRECTION_FROM] *)
   authorization_type : string option; [@option]
       (** A granular control type for authorization levels. Valid value is AUTHORIZATION_TYPE_TRUST. Possible values: [AUTHORIZATION_TYPE_TRUST] *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Resource name for the 'AuthorizedOrgsDesc'. Format:
 'accessPolicies/{access_policy}/authorizedOrgsDescs/{authorized_orgs_desc}'.
@@ -57,7 +58,7 @@ Example: 'organizations/123456' *)
 (** google_access_context_manager_authorized_orgs_desc *)
 
 let google_access_context_manager_authorized_orgs_desc ?asset_type
-    ?authorization_direction ?authorization_type ?orgs ?timeouts
+    ?authorization_direction ?authorization_type ?id ?orgs ?timeouts
     ~name ~parent __resource_id =
   let __resource_type =
     "google_access_context_manager_authorized_orgs_desc"
@@ -67,6 +68,7 @@ let google_access_context_manager_authorized_orgs_desc ?asset_type
       asset_type;
       authorization_direction;
       authorization_type;
+      id;
       name;
       orgs;
       parent;

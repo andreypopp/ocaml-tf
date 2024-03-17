@@ -8,6 +8,9 @@ type azurerm_managed_application
 
 val azurerm_managed_application :
   ?application_definition_id:string ->
+  ?id:string ->
+  ?parameter_values:string ->
+  ?parameters:(string * string) list ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_managed_application__timeouts ->
   kind:string ->

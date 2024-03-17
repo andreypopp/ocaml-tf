@@ -16,6 +16,8 @@ type google_active_directory_domain_trust = {
   domain : string;
       (** The fully qualified domain name. e.g. mydomain.myorganization.com, with the restrictions,
 https://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locations.global.domains. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   selective_authentication : bool option; [@option]
       (** Whether the trusted side has forest/domain wide access or selective access to an approved set of resources. *)
   target_dns_ip_addresses : string list;
@@ -33,14 +35,16 @@ https://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locatio
 [@@deriving yojson_of]
 (** google_active_directory_domain_trust *)
 
-let google_active_directory_domain_trust ?selective_authentication
-    ?timeouts ~domain ~target_dns_ip_addresses ~target_domain_name
-    ~trust_direction ~trust_handshake_secret ~trust_type
-    __resource_id =
+let google_active_directory_domain_trust ?id ?project
+    ?selective_authentication ?timeouts ~domain
+    ~target_dns_ip_addresses ~target_domain_name ~trust_direction
+    ~trust_handshake_secret ~trust_type __resource_id =
   let __resource_type = "google_active_directory_domain_trust" in
   let __resource =
     {
       domain;
+      id;
+      project;
       selective_authentication;
       target_dns_ip_addresses;
       target_domain_name;

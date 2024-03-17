@@ -6,6 +6,7 @@ type azurerm_portal_tenant_configuration__timeouts
 type azurerm_portal_tenant_configuration
 
 val azurerm_portal_tenant_configuration :
+  ?id:string ->
   ?timeouts:azurerm_portal_tenant_configuration__timeouts ->
   private_markdown_storage_enforced:bool ->
   string ->

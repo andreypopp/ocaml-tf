@@ -41,8 +41,11 @@ For example: jsonPayload.request.status *)
 type google_logging_project_bucket_config = {
   bucket_id : string;
       (** The name of the logging bucket. Logging automatically creates two log buckets: _Required and _Default. *)
+  description : string option; [@option]
+      (** An optional description for this bucket. *)
   enable_analytics : bool option; [@option]
       (** Enable log analytics for the bucket. Cannot be disabled once enabled. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the bucket. *)
   locked : bool option; [@option]
       (** Whether the bucket is locked. The retention period on a locked bucket cannot be changed. Locked buckets may only be deleted if they are empty. *)
@@ -58,14 +61,16 @@ type google_logging_project_bucket_config = {
 [@@deriving yojson_of]
 (** google_logging_project_bucket_config *)
 
-let google_logging_project_bucket_config ?enable_analytics ?locked
-    ?retention_days ~bucket_id ~location ~project ~cmek_settings
-    ~index_configs __resource_id =
+let google_logging_project_bucket_config ?description
+    ?enable_analytics ?id ?locked ?retention_days ~bucket_id
+    ~location ~project ~cmek_settings ~index_configs __resource_id =
   let __resource_type = "google_logging_project_bucket_config" in
   let __resource =
     {
       bucket_id;
+      description;
       enable_analytics;
+      id;
       location;
       locked;
       project;

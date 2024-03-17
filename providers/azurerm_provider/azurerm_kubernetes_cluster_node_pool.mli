@@ -26,13 +26,21 @@ val azurerm_kubernetes_cluster_node_pool :
   ?fips_enabled:bool ->
   ?gpu_instance:string ->
   ?host_group_id:string ->
+  ?id:string ->
+  ?kubelet_disk_type:string ->
   ?max_count:float ->
+  ?max_pods:float ->
   ?message_of_the_day:string ->
   ?min_count:float ->
   ?mode:string ->
+  ?node_count:float ->
+  ?node_labels:(string * string) list ->
   ?node_public_ip_prefix_id:string ->
   ?node_taints:string list ->
+  ?orchestrator_version:string ->
+  ?os_disk_size_gb:float ->
   ?os_disk_type:string ->
+  ?os_sku:string ->
   ?os_type:string ->
   ?pod_subnet_id:string ->
   ?priority:string ->

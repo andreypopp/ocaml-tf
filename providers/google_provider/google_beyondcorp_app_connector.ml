@@ -29,6 +29,7 @@ type google_beyondcorp_app_connector__timeouts = {
 type google_beyondcorp_app_connector = {
   display_name : string option; [@option]
       (** An arbitrary user-provided name for the AppConnector. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
@@ -36,6 +37,7 @@ type google_beyondcorp_app_connector = {
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;  (** ID of the AppConnector. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region of the AppConnector. *)
   principal_info :
@@ -45,11 +47,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_beyondcorp_app_connector *)
 
-let google_beyondcorp_app_connector ?display_name ?labels ?region
-    ?timeouts ~name ~principal_info __resource_id =
+let google_beyondcorp_app_connector ?display_name ?id ?labels
+    ?project ?region ?timeouts ~name ~principal_info __resource_id =
   let __resource_type = "google_beyondcorp_app_connector" in
   let __resource =
-    { display_name; labels; name; region; principal_info; timeouts }
+    {
+      display_name;
+      id;
+      labels;
+      name;
+      project;
+      region;
+      principal_info;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_beyondcorp_app_connector __resource);

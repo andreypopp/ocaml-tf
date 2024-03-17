@@ -10,7 +10,9 @@ type aws_sagemaker_workteam__notification_configuration
 type aws_sagemaker_workteam
 
 val aws_sagemaker_workteam :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   description:string ->
   workforce_name:string ->
   workteam_name:string ->

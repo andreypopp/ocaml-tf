@@ -12,6 +12,7 @@ type google_monitoring_monitored_project__timeouts = {
 (** google_monitoring_monitored_project__timeouts *)
 
 type google_monitoring_monitored_project = {
+  id : string option; [@option]  (** id *)
   metrics_scope : string;
       (** Required. The resource name of the existing Metrics Scope that will monitor this project. Example: locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER} *)
   name : string;
@@ -21,10 +22,10 @@ type google_monitoring_monitored_project = {
 [@@deriving yojson_of]
 (** google_monitoring_monitored_project *)
 
-let google_monitoring_monitored_project ?timeouts ~metrics_scope
+let google_monitoring_monitored_project ?id ?timeouts ~metrics_scope
     ~name __resource_id =
   let __resource_type = "google_monitoring_monitored_project" in
-  let __resource = { metrics_scope; name; timeouts } in
+  let __resource = { id; metrics_scope; name; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_monitored_project __resource);
   ()

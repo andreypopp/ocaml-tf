@@ -12,7 +12,12 @@ type aws_appstream_stack
 val aws_appstream_stack :
   ?description:string ->
   ?display_name:string ->
+  ?embed_host_domains:string list ->
+  ?feedback_url:string ->
+  ?id:string ->
+  ?redirect_url:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   access_endpoints:aws_appstream_stack__access_endpoints list ->
   application_settings:aws_appstream_stack__application_settings list ->

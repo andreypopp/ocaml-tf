@@ -6,6 +6,7 @@ type azurerm_storage_encryption_scope__timeouts
 type azurerm_storage_encryption_scope
 
 val azurerm_storage_encryption_scope :
+  ?id:string ->
   ?infrastructure_encryption_required:bool ->
   ?key_vault_key_id:string ->
   ?timeouts:azurerm_storage_encryption_scope__timeouts ->

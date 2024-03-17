@@ -92,6 +92,7 @@ type azurerm_mobile_network_service__timeouts = {
 (** azurerm_mobile_network_service__timeouts *)
 
 type azurerm_mobile_network_service = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   mobile_network_id : string;  (** mobile_network_id *)
   name : string;  (** name *)
@@ -105,12 +106,13 @@ type azurerm_mobile_network_service = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_service *)
 
-let azurerm_mobile_network_service ?tags ?timeouts ~location
+let azurerm_mobile_network_service ?id ?tags ?timeouts ~location
     ~mobile_network_id ~name ~service_precedence ~pcc_rule
     ~service_qos_policy __resource_id =
   let __resource_type = "azurerm_mobile_network_service" in
   let __resource =
     {
+      id;
       location;
       mobile_network_id;
       name;

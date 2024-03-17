@@ -14,6 +14,7 @@ type azurerm_netapp_volume_quota_rule__timeouts = {
 (** azurerm_netapp_volume_quota_rule__timeouts *)
 
 type azurerm_netapp_volume_quota_rule = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   quota_size_in_kib : float;  (** quota_size_in_kib *)
@@ -25,12 +26,13 @@ type azurerm_netapp_volume_quota_rule = {
 [@@deriving yojson_of]
 (** azurerm_netapp_volume_quota_rule *)
 
-let azurerm_netapp_volume_quota_rule ?quota_target ?timeouts
+let azurerm_netapp_volume_quota_rule ?id ?quota_target ?timeouts
     ~location ~name ~quota_size_in_kib ~quota_type ~volume_id
     __resource_id =
   let __resource_type = "azurerm_netapp_volume_quota_rule" in
   let __resource =
     {
+      id;
       location;
       name;
       quota_size_in_kib;

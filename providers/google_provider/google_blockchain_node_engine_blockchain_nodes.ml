@@ -81,6 +81,7 @@ type google_blockchain_node_engine_blockchain_nodes = {
   blockchain_node_id : string;  (** ID of the requesting object. *)
   blockchain_type : string option; [@option]
       (** User-provided key-value pairs Possible values: [ETHEREUM] *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-provided key-value pairs
 
@@ -89,6 +90,7 @@ type google_blockchain_node_engine_blockchain_nodes = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;
       (** Location of Blockchain Node being created. *)
+  project : string option; [@option]  (** project *)
   ethereum_details :
     google_blockchain_node_engine_blockchain_nodes__ethereum_details
     list;
@@ -99,8 +101,8 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_blockchain_node_engine_blockchain_nodes *)
 
 let google_blockchain_node_engine_blockchain_nodes ?blockchain_type
-    ?labels ?timeouts ~blockchain_node_id ~location ~ethereum_details
-    __resource_id =
+    ?id ?labels ?project ?timeouts ~blockchain_node_id ~location
+    ~ethereum_details __resource_id =
   let __resource_type =
     "google_blockchain_node_engine_blockchain_nodes"
   in
@@ -108,8 +110,10 @@ let google_blockchain_node_engine_blockchain_nodes ?blockchain_type
     {
       blockchain_node_id;
       blockchain_type;
+      id;
       labels;
       location;
+      project;
       ethereum_details;
       timeouts;
     }

@@ -6,6 +6,7 @@ type azurerm_security_center_storage_defender__timeouts
 type azurerm_security_center_storage_defender
 
 val azurerm_security_center_storage_defender :
+  ?id:string ->
   ?malware_scanning_on_upload_cap_gb_per_month:float ->
   ?malware_scanning_on_upload_enabled:bool ->
   ?override_subscription_settings_enabled:bool ->

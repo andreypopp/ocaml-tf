@@ -15,14 +15,16 @@ type digitalocean_database_firewall__rule = {
 
 type digitalocean_database_firewall = {
   cluster_id : string;  (** cluster_id *)
+  id : string option; [@option]  (** id *)
   rule : digitalocean_database_firewall__rule list;
 }
 [@@deriving yojson_of]
 (** digitalocean_database_firewall *)
 
-let digitalocean_database_firewall ~cluster_id ~rule __resource_id =
+let digitalocean_database_firewall ?id ~cluster_id ~rule
+    __resource_id =
   let __resource_type = "digitalocean_database_firewall" in
-  let __resource = { cluster_id; rule } in
+  let __resource = { cluster_id; id; rule } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_firewall __resource);
   ()

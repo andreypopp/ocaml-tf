@@ -15,6 +15,7 @@ type azurerm_synapse_integration_runtime_self_hosted__timeouts = {
 
 type azurerm_synapse_integration_runtime_self_hosted = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   synapse_workspace_id : string;  (** synapse_workspace_id *)
   timeouts :
@@ -23,13 +24,13 @@ type azurerm_synapse_integration_runtime_self_hosted = {
 [@@deriving yojson_of]
 (** azurerm_synapse_integration_runtime_self_hosted *)
 
-let azurerm_synapse_integration_runtime_self_hosted ?description
+let azurerm_synapse_integration_runtime_self_hosted ?description ?id
     ?timeouts ~name ~synapse_workspace_id __resource_id =
   let __resource_type =
     "azurerm_synapse_integration_runtime_self_hosted"
   in
   let __resource =
-    { description; name; synapse_workspace_id; timeouts }
+    { description; id; name; synapse_workspace_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_synapse_integration_runtime_self_hosted

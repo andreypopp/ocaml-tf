@@ -41,6 +41,7 @@ individual column based on that schema.
 
 For attaching a tag to a nested column, use '.' to separate the column names. Example:
 'outer_column.inner_column' *)
+  id : string option; [@option]  (** id *)
   parent : string option; [@option]
       (** The name of the parent this tag is attached to. This can be the name of an entry or an entry group. If an entry group, the tag will be attached to
 all entries in that group. *)
@@ -54,10 +55,12 @@ This field cannot be modified after creation. *)
 [@@deriving yojson_of]
 (** google_data_catalog_tag *)
 
-let google_data_catalog_tag ?column ?parent ?timeouts ~template
+let google_data_catalog_tag ?column ?id ?parent ?timeouts ~template
     ~fields __resource_id =
   let __resource_type = "google_data_catalog_tag" in
-  let __resource = { column; parent; template; fields; timeouts } in
+  let __resource =
+    { column; id; parent; template; fields; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_tag __resource);
   ()

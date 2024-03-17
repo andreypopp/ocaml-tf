@@ -41,14 +41,12 @@ type google_cloud_run_v2_job__conditions = {
   state : string;  (** state *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_v2_job__latest_created_execution = {
   completion_time : string;  (** completion_time *)
   create_time : string;  (** create_time *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_v2_job__terminal_condition = {
   execution_reason : string;  (** execution_reason *)
@@ -60,7 +58,6 @@ type google_cloud_run_v2_job__terminal_condition = {
   state : string;  (** state *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_v2_job
 
@@ -68,7 +65,10 @@ val google_cloud_run_v2_job :
   ?annotations:(string * string) list ->
   ?client:string ->
   ?client_version:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?launch_stage:string ->
+  ?project:string ->
   ?timeouts:google_cloud_run_v2_job__timeouts ->
   location:string ->
   name:string ->

@@ -162,14 +162,18 @@ type google_compute_autoscaler__timeouts = {
 type google_compute_autoscaler = {
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. The name must be 1-63 characters long and match
 the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   target : string;
       (** URL of the managed instance group that this autoscaler will scale. *)
+  zone : string option; [@option]
+      (** URL of the zone where the instance group resides. *)
   autoscaling_policy :
     google_compute_autoscaler__autoscaling_policy list;
   timeouts : google_compute_autoscaler__timeouts option;
@@ -177,11 +181,20 @@ character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_autoscaler *)
 
-let google_compute_autoscaler ?description ?timeouts ~name ~target
-    ~autoscaling_policy __resource_id =
+let google_compute_autoscaler ?description ?id ?project ?zone
+    ?timeouts ~name ~target ~autoscaling_policy __resource_id =
   let __resource_type = "google_compute_autoscaler" in
   let __resource =
-    { description; name; target; autoscaling_policy; timeouts }
+    {
+      description;
+      id;
+      name;
+      project;
+      target;
+      zone;
+      autoscaling_policy;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_autoscaler __resource);

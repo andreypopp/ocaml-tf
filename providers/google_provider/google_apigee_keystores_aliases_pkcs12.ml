@@ -40,15 +40,19 @@ type google_apigee_keystores_aliases_pkcs12 = {
   environment : string;  (** Environment associated with the alias *)
   file : string;  (** Cert content *)
   filehash : string;  (** Hash of the pkcs file *)
+  id : string option; [@option]  (** id *)
   keystore : string;  (** Keystore Name *)
   org_id : string;  (** Organization ID associated with the alias *)
+  password : string option; [@option]
+      (** Password for the Private Key if it's encrypted *)
   timeouts : google_apigee_keystores_aliases_pkcs12__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_keystores_aliases_pkcs12 *)
 
-let google_apigee_keystores_aliases_pkcs12 ?timeouts ~alias
-    ~environment ~file ~filehash ~keystore ~org_id __resource_id =
+let google_apigee_keystores_aliases_pkcs12 ?id ?password ?timeouts
+    ~alias ~environment ~file ~filehash ~keystore ~org_id
+    __resource_id =
   let __resource_type = "google_apigee_keystores_aliases_pkcs12" in
   let __resource =
     {
@@ -56,8 +60,10 @@ let google_apigee_keystores_aliases_pkcs12 ?timeouts ~alias
       environment;
       file;
       filehash;
+      id;
       keystore;
       org_id;
+      password;
       timeouts;
     }
   in

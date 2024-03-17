@@ -239,9 +239,20 @@ type aws_macie2_classification_job__user_paused_details = {
 [@@deriving yojson_of]
 
 type aws_macie2_classification_job = {
+  custom_data_identifier_ids : string list option; [@option]
+      (** custom_data_identifier_ids *)
+  description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   initial_run : bool option; [@option]  (** initial_run *)
+  job_status : string option; [@option]  (** job_status *)
   job_type : string;  (** job_type *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
+  sampling_percentage : float option; [@option]
+      (** sampling_percentage *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   s3_job_definition :
     aws_macie2_classification_job__s3_job_definition list;
   schedule_frequency :
@@ -250,14 +261,24 @@ type aws_macie2_classification_job = {
 [@@deriving yojson_of]
 (** aws_macie2_classification_job *)
 
-let aws_macie2_classification_job ?initial_run ?tags ~job_type
-    ~s3_job_definition ~schedule_frequency __resource_id =
+let aws_macie2_classification_job ?custom_data_identifier_ids
+    ?description ?id ?initial_run ?job_status ?name ?name_prefix
+    ?sampling_percentage ?tags ?tags_all ~job_type ~s3_job_definition
+    ~schedule_frequency __resource_id =
   let __resource_type = "aws_macie2_classification_job" in
   let __resource =
     {
+      custom_data_identifier_ids;
+      description;
+      id;
       initial_run;
+      job_status;
       job_type;
+      name;
+      name_prefix;
+      sampling_percentage;
       tags;
+      tags_all;
       s3_job_definition;
       schedule_frequency;
     }

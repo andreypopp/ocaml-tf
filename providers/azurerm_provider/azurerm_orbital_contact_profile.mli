@@ -10,6 +10,7 @@ type azurerm_orbital_contact_profile
 
 val azurerm_orbital_contact_profile :
   ?event_hub_uri:string ->
+  ?id:string ->
   ?minimum_elevation_degrees:float ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_orbital_contact_profile__timeouts ->

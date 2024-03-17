@@ -92,11 +92,14 @@ type aws_vpclattice_listener_rule__timeouts = {
 (** aws_vpclattice_listener_rule__timeouts *)
 
 type aws_vpclattice_listener_rule = {
+  id : string option; [@option]  (** id *)
   listener_identifier : string;  (** listener_identifier *)
   name : string;  (** name *)
   priority : float;  (** priority *)
   service_identifier : string;  (** service_identifier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   action : aws_vpclattice_listener_rule__action list;
   match_ : aws_vpclattice_listener_rule__match list;
   timeouts : aws_vpclattice_listener_rule__timeouts option;
@@ -104,17 +107,19 @@ type aws_vpclattice_listener_rule = {
 [@@deriving yojson_of]
 (** aws_vpclattice_listener_rule *)
 
-let aws_vpclattice_listener_rule ?tags ?timeouts ~listener_identifier
-    ~name ~priority ~service_identifier ~action ~match_ __resource_id
-    =
+let aws_vpclattice_listener_rule ?id ?tags ?tags_all ?timeouts
+    ~listener_identifier ~name ~priority ~service_identifier ~action
+    ~match_ __resource_id =
   let __resource_type = "aws_vpclattice_listener_rule" in
   let __resource =
     {
+      id;
       listener_identifier;
       name;
       priority;
       service_identifier;
       tags;
+      tags_all;
       action;
       match_;
       timeouts;

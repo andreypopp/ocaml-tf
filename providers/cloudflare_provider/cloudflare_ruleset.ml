@@ -457,6 +457,8 @@ type cloudflare_ruleset__rules = {
 type cloudflare_ruleset = {
   account_id : string option; [@option]
       (** The account identifier to target for the resource. *)
+  description : string option; [@option]
+      (** Brief summary of the ruleset and its intended use. *)
   kind : string;
       (** Type of Ruleset to create. Available values: `custom`, `managed`, `root`, `zone`. *)
   name : string;  (** Name of the ruleset. *)
@@ -476,11 +478,11 @@ in different products, allowing you to configure several products using the same
 basic syntax.
  *)
 
-let cloudflare_ruleset ?account_id ?zone_id ~kind ~name ~phase ~rules
-    __resource_id =
+let cloudflare_ruleset ?account_id ?description ?zone_id ~kind ~name
+    ~phase ~rules __resource_id =
   let __resource_type = "cloudflare_ruleset" in
   let __resource =
-    { account_id; kind; name; phase; zone_id; rules }
+    { account_id; description; kind; name; phase; zone_id; rules }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_ruleset __resource);

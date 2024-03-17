@@ -39,6 +39,8 @@ type azurerm_snapshot__timeouts = {
 
 type azurerm_snapshot = {
   create_option : string;  (** create_option *)
+  disk_size_gb : float option; [@option]  (** disk_size_gb *)
+  id : string option; [@option]  (** id *)
   incremental_enabled : bool option; [@option]
       (** incremental_enabled *)
   location : string;  (** location *)
@@ -56,14 +58,16 @@ type azurerm_snapshot = {
 [@@deriving yojson_of]
 (** azurerm_snapshot *)
 
-let azurerm_snapshot ?incremental_enabled ?source_resource_id
-    ?source_uri ?storage_account_id ?tags ?timeouts ~create_option
-    ~location ~name ~resource_group_name ~encryption_settings
-    __resource_id =
+let azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
+    ?source_resource_id ?source_uri ?storage_account_id ?tags
+    ?timeouts ~create_option ~location ~name ~resource_group_name
+    ~encryption_settings __resource_id =
   let __resource_type = "azurerm_snapshot" in
   let __resource =
     {
       create_option;
+      disk_size_gb;
+      id;
       incremental_enabled;
       location;
       name;

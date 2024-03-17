@@ -21,16 +21,17 @@ type aws_ecr_registry_scanning_configuration__rule = {
 (** aws_ecr_registry_scanning_configuration__rule *)
 
 type aws_ecr_registry_scanning_configuration = {
+  id : string option; [@option]  (** id *)
   scan_type : string;  (** scan_type *)
   rule : aws_ecr_registry_scanning_configuration__rule list;
 }
 [@@deriving yojson_of]
 (** aws_ecr_registry_scanning_configuration *)
 
-let aws_ecr_registry_scanning_configuration ~scan_type ~rule
+let aws_ecr_registry_scanning_configuration ?id ~scan_type ~rule
     __resource_id =
   let __resource_type = "aws_ecr_registry_scanning_configuration" in
-  let __resource = { scan_type; rule } in
+  let __resource = { id; scan_type; rule } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecr_registry_scanning_configuration __resource);
   ()

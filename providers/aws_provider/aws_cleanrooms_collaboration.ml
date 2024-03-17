@@ -39,6 +39,8 @@ type aws_cleanrooms_collaboration = {
   name : string;  (** name *)
   query_log_status : string;  (** query_log_status *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   data_encryption_metadata :
     aws_cleanrooms_collaboration__data_encryption_metadata list;
   member : aws_cleanrooms_collaboration__member list;
@@ -47,7 +49,7 @@ type aws_cleanrooms_collaboration = {
 [@@deriving yojson_of]
 (** aws_cleanrooms_collaboration *)
 
-let aws_cleanrooms_collaboration ?tags ?timeouts
+let aws_cleanrooms_collaboration ?tags ?tags_all ?timeouts
     ~creator_display_name ~creator_member_abilities ~description
     ~name ~query_log_status ~data_encryption_metadata ~member
     __resource_id =
@@ -60,6 +62,7 @@ let aws_cleanrooms_collaboration ?tags ?timeouts
       name;
       query_log_status;
       tags;
+      tags_all;
       data_encryption_metadata;
       member;
       timeouts;

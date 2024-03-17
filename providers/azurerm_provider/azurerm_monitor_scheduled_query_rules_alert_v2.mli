@@ -18,6 +18,7 @@ val azurerm_monitor_scheduled_query_rules_alert_v2 :
   ?display_name:string ->
   ?enabled:bool ->
   ?evaluation_frequency:string ->
+  ?id:string ->
   ?mute_actions_after_alert_duration:string ->
   ?query_time_range_override:string ->
   ?skip_query_validation:bool ->

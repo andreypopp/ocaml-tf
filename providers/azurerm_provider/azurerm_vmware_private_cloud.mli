@@ -12,11 +12,11 @@ type azurerm_vmware_private_cloud__circuit = {
   primary_subnet_cidr : string;  (** primary_subnet_cidr *)
   secondary_subnet_cidr : string;  (** secondary_subnet_cidr *)
 }
-[@@deriving yojson_of]
 
 type azurerm_vmware_private_cloud
 
 val azurerm_vmware_private_cloud :
+  ?id:string ->
   ?internet_connection_enabled:bool ->
   ?nsxt_password:string ->
   ?tags:(string * string) list ->

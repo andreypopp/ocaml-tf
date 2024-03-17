@@ -26,6 +26,7 @@ type azurerm_data_factory_linked_service_odata = {
   annotations : string list option; [@option]  (** annotations *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -42,9 +43,9 @@ type azurerm_data_factory_linked_service_odata = {
 (** azurerm_data_factory_linked_service_odata *)
 
 let azurerm_data_factory_linked_service_odata ?additional_properties
-    ?annotations ?description ?integration_runtime_name ?parameters
-    ?timeouts ~data_factory_id ~name ~url ~basic_authentication
-    __resource_id =
+    ?annotations ?description ?id ?integration_runtime_name
+    ?parameters ?timeouts ~data_factory_id ~name ~url
+    ~basic_authentication __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_odata"
   in
@@ -54,6 +55,7 @@ let azurerm_data_factory_linked_service_odata ?additional_properties
       annotations;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

@@ -67,6 +67,8 @@ project will be used. *)
       (** Asset content type. If not specified, no content but the asset name and type will be returned. Possible values: [CONTENT_TYPE_UNSPECIFIED, RESOURCE, IAM_POLICY, ORG_POLICY, OS_INVENTORY, ACCESS_POLICY] *)
   feed_id : string;
       (** This is the client-assigned asset feed identifier and it needs to be unique under a specific parent. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   condition : google_cloud_asset_project_feed__condition list;
   feed_output_config :
     google_cloud_asset_project_feed__feed_output_config list;
@@ -76,8 +78,8 @@ project will be used. *)
 (** google_cloud_asset_project_feed *)
 
 let google_cloud_asset_project_feed ?asset_names ?asset_types
-    ?billing_project ?content_type ?timeouts ~feed_id ~condition
-    ~feed_output_config __resource_id =
+    ?billing_project ?content_type ?id ?project ?timeouts ~feed_id
+    ~condition ~feed_output_config __resource_id =
   let __resource_type = "google_cloud_asset_project_feed" in
   let __resource =
     {
@@ -86,6 +88,8 @@ let google_cloud_asset_project_feed ?asset_names ?asset_types
       billing_project;
       content_type;
       feed_id;
+      id;
+      project;
       condition;
       feed_output_config;
       timeouts;

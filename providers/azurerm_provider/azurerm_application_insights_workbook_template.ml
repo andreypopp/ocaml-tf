@@ -25,6 +25,7 @@ type azurerm_application_insights_workbook_template__timeouts = {
 
 type azurerm_application_insights_workbook_template = {
   author : string option; [@option]  (** author *)
+  id : string option; [@option]  (** id *)
   localized : string option; [@option]  (** localized *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -40,15 +41,16 @@ type azurerm_application_insights_workbook_template = {
 [@@deriving yojson_of]
 (** azurerm_application_insights_workbook_template *)
 
-let azurerm_application_insights_workbook_template ?author ?localized
-    ?priority ?tags ?timeouts ~location ~name ~resource_group_name
-    ~template_data ~galleries __resource_id =
+let azurerm_application_insights_workbook_template ?author ?id
+    ?localized ?priority ?tags ?timeouts ~location ~name
+    ~resource_group_name ~template_data ~galleries __resource_id =
   let __resource_type =
     "azurerm_application_insights_workbook_template"
   in
   let __resource =
     {
       author;
+      id;
       localized;
       location;
       name;

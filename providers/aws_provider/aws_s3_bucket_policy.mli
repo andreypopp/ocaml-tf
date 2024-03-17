@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_s3_bucket_policy
 
 val aws_s3_bucket_policy :
-  bucket:string -> policy:string -> string -> unit
+  ?id:string -> bucket:string -> policy:string -> string -> unit

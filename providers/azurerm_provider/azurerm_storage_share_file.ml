@@ -20,6 +20,7 @@ type azurerm_storage_share_file = {
       (** content_encoding *)
   content_md5 : string option; [@option]  (** content_md5 *)
   content_type : string option; [@option]  (** content_type *)
+  id : string option; [@option]  (** id *)
   metadata : (string * string) list option; [@option]
       (** metadata *)
   name : string;  (** name *)
@@ -32,7 +33,7 @@ type azurerm_storage_share_file = {
 (** azurerm_storage_share_file *)
 
 let azurerm_storage_share_file ?content_disposition ?content_encoding
-    ?content_md5 ?content_type ?metadata ?path ?source ?timeouts
+    ?content_md5 ?content_type ?id ?metadata ?path ?source ?timeouts
     ~name ~storage_share_id __resource_id =
   let __resource_type = "azurerm_storage_share_file" in
   let __resource =
@@ -41,6 +42,7 @@ let azurerm_storage_share_file ?content_disposition ?content_encoding
       content_encoding;
       content_md5;
       content_type;
+      id;
       metadata;
       name;
       path;

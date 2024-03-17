@@ -6,6 +6,7 @@ type azurerm_voice_services_communications_gateway_test_line__timeouts
 type azurerm_voice_services_communications_gateway_test_line
 
 val azurerm_voice_services_communications_gateway_test_line :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_voice_services_communications_gateway_test_line__timeouts ->

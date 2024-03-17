@@ -6,6 +6,7 @@ type azurerm_api_management_email_template__timeouts
 type azurerm_api_management_email_template
 
 val azurerm_api_management_email_template :
+  ?id:string ->
   ?timeouts:azurerm_api_management_email_template__timeouts ->
   api_management_name:string ->
   body:string ->

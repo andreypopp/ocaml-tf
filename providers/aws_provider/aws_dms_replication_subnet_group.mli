@@ -5,7 +5,9 @@ open! Tf.Prelude
 type aws_dms_replication_subnet_group
 
 val aws_dms_replication_subnet_group :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   replication_subnet_group_description:string ->
   replication_subnet_group_id:string ->
   subnet_ids:string list ->

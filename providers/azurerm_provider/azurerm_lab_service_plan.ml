@@ -48,6 +48,7 @@ type azurerm_lab_service_plan = {
   allowed_regions : string list;  (** allowed_regions *)
   default_network_subnet_id : string option; [@option]
       (** default_network_subnet_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -64,7 +65,7 @@ type azurerm_lab_service_plan = {
 [@@deriving yojson_of]
 (** azurerm_lab_service_plan *)
 
-let azurerm_lab_service_plan ?default_network_subnet_id
+let azurerm_lab_service_plan ?default_network_subnet_id ?id
     ?shared_gallery_id ?tags ?timeouts ~allowed_regions ~location
     ~name ~resource_group_name ~default_auto_shutdown
     ~default_connection ~support __resource_id =
@@ -73,6 +74,7 @@ let azurerm_lab_service_plan ?default_network_subnet_id
     {
       allowed_regions;
       default_network_subnet_id;
+      id;
       location;
       name;
       resource_group_name;

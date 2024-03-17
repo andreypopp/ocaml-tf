@@ -15,6 +15,7 @@ type google_integration_connectors_endpoint_attachment__timeouts = {
 type google_integration_connectors_endpoint_attachment = {
   description : string option; [@option]
       (** Description of the resource. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
@@ -25,6 +26,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Location in which Endpoint Attachment needs to be created. *)
   name : string;
       (** Name of Endpoint Attachment needs to be created. *)
+  project : string option; [@option]  (** project *)
   service_attachment : string;
       (** The path of the service attachment. *)
   timeouts :
@@ -35,17 +37,19 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_integration_connectors_endpoint_attachment *)
 
 let google_integration_connectors_endpoint_attachment ?description
-    ?labels ?timeouts ~location ~name ~service_attachment
-    __resource_id =
+    ?id ?labels ?project ?timeouts ~location ~name
+    ~service_attachment __resource_id =
   let __resource_type =
     "google_integration_connectors_endpoint_attachment"
   in
   let __resource =
     {
       description;
+      id;
       labels;
       location;
       name;
+      project;
       service_attachment;
       timeouts;
     }

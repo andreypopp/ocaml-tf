@@ -8,6 +8,7 @@ type azurerm_key_vault_certificate_issuer
 
 val azurerm_key_vault_certificate_issuer :
   ?account_id:string ->
+  ?id:string ->
   ?org_id:string ->
   ?password:string ->
   ?timeouts:azurerm_key_vault_certificate_issuer__timeouts ->

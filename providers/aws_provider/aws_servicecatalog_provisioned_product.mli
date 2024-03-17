@@ -13,19 +13,23 @@ type aws_servicecatalog_provisioned_product__outputs = {
   key : string;  (** key *)
   value : string;  (** value *)
 }
-[@@deriving yojson_of]
 
 type aws_servicecatalog_provisioned_product
 
 val aws_servicecatalog_provisioned_product :
   ?accept_language:string ->
+  ?id:string ->
   ?ignore_errors:bool ->
   ?notification_arns:string list ->
+  ?path_id:string ->
   ?path_name:string ->
+  ?product_id:string ->
   ?product_name:string ->
+  ?provisioning_artifact_id:string ->
   ?provisioning_artifact_name:string ->
   ?retain_physical_resources:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_servicecatalog_provisioned_product__timeouts ->
   name:string ->
   provisioning_parameters:

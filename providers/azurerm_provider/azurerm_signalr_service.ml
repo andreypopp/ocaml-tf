@@ -64,6 +64,7 @@ type azurerm_signalr_service = {
       (** connectivity_logs_enabled *)
   http_request_logs_enabled : bool option; [@option]
       (** http_request_logs_enabled *)
+  id : string option; [@option]  (** id *)
   live_trace_enabled : bool option; [@option]
       (** live_trace_enabled *)
   local_auth_enabled : bool option; [@option]
@@ -92,7 +93,7 @@ type azurerm_signalr_service = {
 (** azurerm_signalr_service *)
 
 let azurerm_signalr_service ?aad_auth_enabled
-    ?connectivity_logs_enabled ?http_request_logs_enabled
+    ?connectivity_logs_enabled ?http_request_logs_enabled ?id
     ?live_trace_enabled ?local_auth_enabled ?messaging_logs_enabled
     ?public_network_access_enabled
     ?serverless_connection_timeout_in_seconds ?service_mode ?tags
@@ -105,6 +106,7 @@ let azurerm_signalr_service ?aad_auth_enabled
       aad_auth_enabled;
       connectivity_logs_enabled;
       http_request_logs_enabled;
+      id;
       live_trace_enabled;
       local_auth_enabled;
       location;

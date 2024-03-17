@@ -6,6 +6,7 @@ type azurerm_mobile_network_packet_core_data_plane__timeouts
 type azurerm_mobile_network_packet_core_data_plane
 
 val azurerm_mobile_network_packet_core_data_plane :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?user_plane_access_ipv4_address:string ->
   ?user_plane_access_ipv4_gateway:string ->

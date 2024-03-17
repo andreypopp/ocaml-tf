@@ -99,6 +99,7 @@ description is 8000 characters. *)
   filter : string;
       (** An advanced logs filter (https://cloud.google.com/logging/docs/view/advanced-filters) which
 is used to match log entries. *)
+  id : string option; [@option]  (** id *)
   label_extractors : (string * string) list option; [@option]
       (** A map from a label key string to an extractor expression which is used to extract data from a log
 entry field and assign as the label value. Each label key specified in the LabelDescriptor must
@@ -110,6 +111,7 @@ Metric identifiers are limited to 100 characters and can include only the follow
 characters A-Z, a-z, 0-9, and the special characters _-.,+!*',()%/. The forward-slash
 character (/) denotes a hierarchy of name pieces, and it cannot be the first character
 of the name. *)
+  project : string option; [@option]  (** project *)
   value_extractor : string option; [@option]
       (** A valueExtractor is required when using a distribution logs-based metric to extract the values to
 record from a log entry. Two functions are supported for value extraction - EXTRACT(field) or
@@ -125,9 +127,9 @@ error to specify a regex that does not include exactly one capture group. *)
 [@@deriving yojson_of]
 (** google_logging_metric *)
 
-let google_logging_metric ?bucket_name ?description ?disabled
-    ?label_extractors ?value_extractor ?timeouts ~filter ~name
-    ~bucket_options ~metric_descriptor __resource_id =
+let google_logging_metric ?bucket_name ?description ?disabled ?id
+    ?label_extractors ?project ?value_extractor ?timeouts ~filter
+    ~name ~bucket_options ~metric_descriptor __resource_id =
   let __resource_type = "google_logging_metric" in
   let __resource =
     {
@@ -135,8 +137,10 @@ let google_logging_metric ?bucket_name ?description ?disabled
       description;
       disabled;
       filter;
+      id;
       label_extractors;
       name;
+      project;
       value_extractor;
       bucket_options;
       metric_descriptor;

@@ -23,9 +23,42 @@ type aws_cognito_user_pool_client__token_validity_units = {
 (** aws_cognito_user_pool_client__token_validity_units *)
 
 type aws_cognito_user_pool_client = {
+  access_token_validity : float option; [@option]
+      (** access_token_validity *)
+  allowed_oauth_flows : string list option; [@option]
+      (** allowed_oauth_flows *)
+  allowed_oauth_flows_user_pool_client : bool option; [@option]
+      (** allowed_oauth_flows_user_pool_client *)
+  allowed_oauth_scopes : string list option; [@option]
+      (** allowed_oauth_scopes *)
+  auth_session_validity : float option; [@option]
+      (** auth_session_validity *)
+  callback_urls : string list option; [@option]  (** callback_urls *)
+  default_redirect_uri : string option; [@option]
+      (** default_redirect_uri *)
+  enable_propagate_additional_user_context_data : bool option;
+      [@option]
+      (** enable_propagate_additional_user_context_data *)
+  enable_token_revocation : bool option; [@option]
+      (** enable_token_revocation *)
+  explicit_auth_flows : string list option; [@option]
+      (** explicit_auth_flows *)
   generate_secret : bool option; [@option]  (** generate_secret *)
+  id_token_validity : float option; [@option]
+      (** id_token_validity *)
+  logout_urls : string list option; [@option]  (** logout_urls *)
   name : string;  (** name *)
+  prevent_user_existence_errors : string option; [@option]
+      (** prevent_user_existence_errors *)
+  read_attributes : string list option; [@option]
+      (** read_attributes *)
+  refresh_token_validity : float option; [@option]
+      (** refresh_token_validity *)
+  supported_identity_providers : string list option; [@option]
+      (** supported_identity_providers *)
   user_pool_id : string;  (** user_pool_id *)
+  write_attributes : string list option; [@option]
+      (** write_attributes *)
   analytics_configuration :
     aws_cognito_user_pool_client__analytics_configuration list;
   token_validity_units :
@@ -34,14 +67,40 @@ type aws_cognito_user_pool_client = {
 [@@deriving yojson_of]
 (** aws_cognito_user_pool_client *)
 
-let aws_cognito_user_pool_client ?generate_secret ~name ~user_pool_id
-    ~analytics_configuration ~token_validity_units __resource_id =
+let aws_cognito_user_pool_client ?access_token_validity
+    ?allowed_oauth_flows ?allowed_oauth_flows_user_pool_client
+    ?allowed_oauth_scopes ?auth_session_validity ?callback_urls
+    ?default_redirect_uri
+    ?enable_propagate_additional_user_context_data
+    ?enable_token_revocation ?explicit_auth_flows ?generate_secret
+    ?id_token_validity ?logout_urls ?prevent_user_existence_errors
+    ?read_attributes ?refresh_token_validity
+    ?supported_identity_providers ?write_attributes ~name
+    ~user_pool_id ~analytics_configuration ~token_validity_units
+    __resource_id =
   let __resource_type = "aws_cognito_user_pool_client" in
   let __resource =
     {
+      access_token_validity;
+      allowed_oauth_flows;
+      allowed_oauth_flows_user_pool_client;
+      allowed_oauth_scopes;
+      auth_session_validity;
+      callback_urls;
+      default_redirect_uri;
+      enable_propagate_additional_user_context_data;
+      enable_token_revocation;
+      explicit_auth_flows;
       generate_secret;
+      id_token_validity;
+      logout_urls;
       name;
+      prevent_user_existence_errors;
+      read_attributes;
+      refresh_token_validity;
+      supported_identity_providers;
       user_pool_id;
+      write_attributes;
       analytics_configuration;
       token_validity_units;
     }

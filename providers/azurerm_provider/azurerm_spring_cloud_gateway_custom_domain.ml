@@ -14,6 +14,7 @@ type azurerm_spring_cloud_gateway_custom_domain__timeouts = {
 (** azurerm_spring_cloud_gateway_custom_domain__timeouts *)
 
 type azurerm_spring_cloud_gateway_custom_domain = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_gateway_id : string;  (** spring_cloud_gateway_id *)
   thumbprint : string option; [@option]  (** thumbprint *)
@@ -23,13 +24,13 @@ type azurerm_spring_cloud_gateway_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway_custom_domain *)
 
-let azurerm_spring_cloud_gateway_custom_domain ?thumbprint ?timeouts
-    ~name ~spring_cloud_gateway_id __resource_id =
+let azurerm_spring_cloud_gateway_custom_domain ?id ?thumbprint
+    ?timeouts ~name ~spring_cloud_gateway_id __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_gateway_custom_domain"
   in
   let __resource =
-    { name; spring_cloud_gateway_id; thumbprint; timeouts }
+    { id; name; spring_cloud_gateway_id; thumbprint; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_gateway_custom_domain __resource);

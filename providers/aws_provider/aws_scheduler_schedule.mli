@@ -28,7 +28,11 @@ type aws_scheduler_schedule
 val aws_scheduler_schedule :
   ?description:string ->
   ?end_date:string ->
+  ?group_name:string ->
+  ?id:string ->
   ?kms_key_arn:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?schedule_expression_timezone:string ->
   ?start_date:string ->
   ?state:string ->

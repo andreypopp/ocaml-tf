@@ -15,6 +15,7 @@ type azurerm_container_registry_agent_pool__timeouts = {
 
 type azurerm_container_registry_agent_pool = {
   container_registry_name : string;  (** container_registry_name *)
+  id : string option; [@option]  (** id *)
   instance_count : float option; [@option]  (** instance_count *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -28,13 +29,15 @@ type azurerm_container_registry_agent_pool = {
 [@@deriving yojson_of]
 (** azurerm_container_registry_agent_pool *)
 
-let azurerm_container_registry_agent_pool ?instance_count ?tags ?tier
-    ?virtual_network_subnet_id ?timeouts ~container_registry_name
-    ~location ~name ~resource_group_name __resource_id =
+let azurerm_container_registry_agent_pool ?id ?instance_count ?tags
+    ?tier ?virtual_network_subnet_id ?timeouts
+    ~container_registry_name ~location ~name ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_container_registry_agent_pool" in
   let __resource =
     {
       container_registry_name;
+      id;
       instance_count;
       location;
       name;

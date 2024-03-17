@@ -79,6 +79,7 @@ type azurerm_site_recovery_replicated_vm__unmanaged_disk = {
 [@@deriving yojson_of]
 
 type azurerm_site_recovery_replicated_vm = {
+  id : string option; [@option]  (** id *)
   managed_disk :
     azurerm_site_recovery_replicated_vm__managed_disk list option;
       [@option]
@@ -86,6 +87,11 @@ type azurerm_site_recovery_replicated_vm = {
   multi_vm_group_name : string option; [@option]
       (** multi_vm_group_name *)
   name : string;  (** name *)
+  network_interface :
+    azurerm_site_recovery_replicated_vm__network_interface list
+    option;
+      [@option]
+      (** network_interface *)
   recovery_replication_policy_id : string;
       (** recovery_replication_policy_id *)
   recovery_vault_name : string;  (** recovery_vault_name *)
@@ -104,6 +110,8 @@ type azurerm_site_recovery_replicated_vm = {
       (** target_capacity_reservation_group_id *)
   target_edge_zone : string option; [@option]
       (** target_edge_zone *)
+  target_network_id : string option; [@option]
+      (** target_network_id *)
   target_proximity_placement_group_id : string option; [@option]
       (** target_proximity_placement_group_id *)
   target_recovery_fabric_id : string;
@@ -114,6 +122,7 @@ type azurerm_site_recovery_replicated_vm = {
   target_virtual_machine_scale_set_id : string option; [@option]
       (** target_virtual_machine_scale_set_id *)
   target_zone : string option; [@option]  (** target_zone *)
+  test_network_id : string option; [@option]  (** test_network_id *)
   unmanaged_disk :
     azurerm_site_recovery_replicated_vm__unmanaged_disk list option;
       [@option]
@@ -123,15 +132,16 @@ type azurerm_site_recovery_replicated_vm = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replicated_vm *)
 
-let azurerm_site_recovery_replicated_vm ?managed_disk
-    ?multi_vm_group_name ?target_availability_set_id
+let azurerm_site_recovery_replicated_vm ?id ?managed_disk
+    ?multi_vm_group_name ?network_interface
+    ?target_availability_set_id
     ?target_boot_diagnostic_storage_account_id
     ?target_capacity_reservation_group_id ?target_edge_zone
-    ?target_proximity_placement_group_id
-    ?target_virtual_machine_scale_set_id ?target_zone ?unmanaged_disk
-    ?timeouts ~name ~recovery_replication_policy_id
-    ~recovery_vault_name ~resource_group_name
-    ~source_recovery_fabric_name
+    ?target_network_id ?target_proximity_placement_group_id
+    ?target_virtual_machine_scale_set_id ?target_zone
+    ?test_network_id ?unmanaged_disk ?timeouts ~name
+    ~recovery_replication_policy_id ~recovery_vault_name
+    ~resource_group_name ~source_recovery_fabric_name
     ~source_recovery_protection_container_name ~source_vm_id
     ~target_recovery_fabric_id
     ~target_recovery_protection_container_id
@@ -139,9 +149,11 @@ let azurerm_site_recovery_replicated_vm ?managed_disk
   let __resource_type = "azurerm_site_recovery_replicated_vm" in
   let __resource =
     {
+      id;
       managed_disk;
       multi_vm_group_name;
       name;
+      network_interface;
       recovery_replication_policy_id;
       recovery_vault_name;
       resource_group_name;
@@ -152,12 +164,14 @@ let azurerm_site_recovery_replicated_vm ?managed_disk
       target_boot_diagnostic_storage_account_id;
       target_capacity_reservation_group_id;
       target_edge_zone;
+      target_network_id;
       target_proximity_placement_group_id;
       target_recovery_fabric_id;
       target_recovery_protection_container_id;
       target_resource_group_id;
       target_virtual_machine_scale_set_id;
       target_zone;
+      test_network_id;
       unmanaged_disk;
       timeouts;
     }

@@ -14,6 +14,7 @@ type azurerm_mobile_network_packet_core_data_plane__timeouts = {
 (** azurerm_mobile_network_packet_core_data_plane__timeouts *)
 
 type azurerm_mobile_network_packet_core_data_plane = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   mobile_network_packet_core_control_plane_id : string;
       (** mobile_network_packet_core_control_plane_id *)
@@ -33,7 +34,7 @@ type azurerm_mobile_network_packet_core_data_plane = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_packet_core_data_plane *)
 
-let azurerm_mobile_network_packet_core_data_plane ?tags
+let azurerm_mobile_network_packet_core_data_plane ?id ?tags
     ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
     ?user_plane_access_ipv4_subnet ?user_plane_access_name ?timeouts
     ~location ~mobile_network_packet_core_control_plane_id ~name
@@ -43,6 +44,7 @@ let azurerm_mobile_network_packet_core_data_plane ?tags
   in
   let __resource =
     {
+      id;
       location;
       mobile_network_packet_core_control_plane_id;
       name;

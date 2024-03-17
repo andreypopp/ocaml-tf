@@ -198,6 +198,8 @@ type aws_chimesdkmediapipelines_media_insights_pipeline_configuration = {
   name : string;  (** name *)
   resource_access_role_arn : string;  (** resource_access_role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   elements :
     aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements
     list;
@@ -212,8 +214,8 @@ type aws_chimesdkmediapipelines_media_insights_pipeline_configuration = {
 (** aws_chimesdkmediapipelines_media_insights_pipeline_configuration *)
 
 let aws_chimesdkmediapipelines_media_insights_pipeline_configuration
-    ?tags ?timeouts ~name ~resource_access_role_arn ~elements
-    ~real_time_alert_configuration __resource_id =
+    ?tags ?tags_all ?timeouts ~name ~resource_access_role_arn
+    ~elements ~real_time_alert_configuration __resource_id =
   let __resource_type =
     "aws_chimesdkmediapipelines_media_insights_pipeline_configuration"
   in
@@ -222,6 +224,7 @@ let aws_chimesdkmediapipelines_media_insights_pipeline_configuration
       name;
       resource_access_role_arn;
       tags;
+      tags_all;
       elements;
       real_time_alert_configuration;
       timeouts;

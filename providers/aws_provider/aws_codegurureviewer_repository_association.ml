@@ -84,7 +84,10 @@ type aws_codegurureviewer_repository_association__s3_repository_details = {
 [@@deriving yojson_of]
 
 type aws_codegurureviewer_repository_association = {
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   kms_key_details :
     aws_codegurureviewer_repository_association__kms_key_details list;
   repository :
@@ -95,12 +98,14 @@ type aws_codegurureviewer_repository_association = {
 [@@deriving yojson_of]
 (** aws_codegurureviewer_repository_association *)
 
-let aws_codegurureviewer_repository_association ?tags ?timeouts
-    ~kms_key_details ~repository __resource_id =
+let aws_codegurureviewer_repository_association ?id ?tags ?tags_all
+    ?timeouts ~kms_key_details ~repository __resource_id =
   let __resource_type =
     "aws_codegurureviewer_repository_association"
   in
-  let __resource = { tags; kms_key_details; repository; timeouts } in
+  let __resource =
+    { id; tags; tags_all; kms_key_details; repository; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codegurureviewer_repository_association __resource);
   ()

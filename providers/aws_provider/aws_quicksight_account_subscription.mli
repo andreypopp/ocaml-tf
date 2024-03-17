@@ -10,10 +10,12 @@ val aws_quicksight_account_subscription :
     ?active_directory_name:string ->
     ?admin_group:string list ->
     ?author_group:string list ->
+    ?aws_account_id:string ->
     ?contact_number:string ->
     ?directory_id:string ->
     ?email_address:string ->
     ?first_name:string ->
+    ?id:string ->
     ?last_name:string ->
     ?reader_group:string list ->
     ?realm:string ->

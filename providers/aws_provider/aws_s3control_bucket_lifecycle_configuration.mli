@@ -10,6 +10,7 @@ type aws_s3control_bucket_lifecycle_configuration__rule
 type aws_s3control_bucket_lifecycle_configuration
 
 val aws_s3control_bucket_lifecycle_configuration :
+  ?id:string ->
   bucket:string ->
   rule:aws_s3control_bucket_lifecycle_configuration__rule list ->
   string ->

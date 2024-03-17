@@ -47,8 +47,10 @@ type azurerm_traffic_manager_profile__timeouts = {
 (** azurerm_traffic_manager_profile__timeouts *)
 
 type azurerm_traffic_manager_profile = {
+  id : string option; [@option]  (** id *)
   max_return : float option; [@option]  (** max_return *)
   name : string;  (** name *)
+  profile_status : string option; [@option]  (** profile_status *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
   traffic_routing_method : string;  (** traffic_routing_method *)
@@ -62,15 +64,17 @@ type azurerm_traffic_manager_profile = {
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_profile *)
 
-let azurerm_traffic_manager_profile ?max_return ?tags
-    ?traffic_view_enabled ?timeouts ~name ~resource_group_name
+let azurerm_traffic_manager_profile ?id ?max_return ?profile_status
+    ?tags ?traffic_view_enabled ?timeouts ~name ~resource_group_name
     ~traffic_routing_method ~dns_config ~monitor_config __resource_id
     =
   let __resource_type = "azurerm_traffic_manager_profile" in
   let __resource =
     {
+      id;
       max_return;
       name;
+      profile_status;
       resource_group_name;
       tags;
       traffic_routing_method;

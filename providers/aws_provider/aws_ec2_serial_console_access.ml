@@ -6,13 +6,14 @@ open! Tf.Prelude
 
 type aws_ec2_serial_console_access = {
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_serial_console_access *)
 
-let aws_ec2_serial_console_access ?enabled __resource_id =
+let aws_ec2_serial_console_access ?enabled ?id __resource_id =
   let __resource_type = "aws_ec2_serial_console_access" in
-  let __resource = { enabled } in
+  let __resource = { enabled; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_serial_console_access __resource);
   ()

@@ -14,6 +14,7 @@ type azurerm_iothub_consumer_group__timeouts = {
 
 type azurerm_iothub_consumer_group = {
   eventhub_endpoint_name : string;  (** eventhub_endpoint_name *)
+  id : string option; [@option]  (** id *)
   iothub_name : string;  (** iothub_name *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -22,12 +23,14 @@ type azurerm_iothub_consumer_group = {
 [@@deriving yojson_of]
 (** azurerm_iothub_consumer_group *)
 
-let azurerm_iothub_consumer_group ?timeouts ~eventhub_endpoint_name
-    ~iothub_name ~name ~resource_group_name __resource_id =
+let azurerm_iothub_consumer_group ?id ?timeouts
+    ~eventhub_endpoint_name ~iothub_name ~name ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_iothub_consumer_group" in
   let __resource =
     {
       eventhub_endpoint_name;
+      id;
       iothub_name;
       name;
       resource_group_name;

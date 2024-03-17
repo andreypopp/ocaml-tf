@@ -7,6 +7,7 @@ type aws_athena_prepared_statement
 
 val aws_athena_prepared_statement :
   ?description:string ->
+  ?id:string ->
   ?timeouts:aws_athena_prepared_statement__timeouts ->
   name:string ->
   query_statement:string ->

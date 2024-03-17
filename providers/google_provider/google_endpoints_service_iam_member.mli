@@ -6,6 +6,7 @@ type google_endpoints_service_iam_member__condition
 type google_endpoints_service_iam_member
 
 val google_endpoints_service_iam_member :
+  ?id:string ->
   member:string ->
   role:string ->
   service_name:string ->

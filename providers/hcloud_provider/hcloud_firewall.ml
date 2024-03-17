@@ -24,6 +24,8 @@ type hcloud_firewall__rule = {
 (** hcloud_firewall__rule *)
 
 type hcloud_firewall = {
+  id : string option; [@option]  (** id *)
+  labels : (string * string) list option; [@option]  (** labels *)
   name : string;  (** name *)
   apply_to : hcloud_firewall__apply_to list;
   rule : hcloud_firewall__rule list;
@@ -31,9 +33,9 @@ type hcloud_firewall = {
 [@@deriving yojson_of]
 (** hcloud_firewall *)
 
-let hcloud_firewall ~name ~apply_to ~rule __resource_id =
+let hcloud_firewall ?id ?labels ~name ~apply_to ~rule __resource_id =
   let __resource_type = "hcloud_firewall" in
-  let __resource = { name; apply_to; rule } in
+  let __resource = { id; labels; name; apply_to; rule } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_firewall __resource);
   ()

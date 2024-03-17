@@ -46,6 +46,7 @@ type azurerm_iothub_dps = {
       (** allocation_policy *)
   data_residency_enabled : bool option; [@option]
       (** data_residency_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -60,7 +61,7 @@ type azurerm_iothub_dps = {
 [@@deriving yojson_of]
 (** azurerm_iothub_dps *)
 
-let azurerm_iothub_dps ?allocation_policy ?data_residency_enabled
+let azurerm_iothub_dps ?allocation_policy ?data_residency_enabled ?id
     ?public_network_access_enabled ?tags ?timeouts ~location ~name
     ~resource_group_name ~ip_filter_rule ~linked_hub ~sku
     __resource_id =
@@ -69,6 +70,7 @@ let azurerm_iothub_dps ?allocation_policy ?data_residency_enabled
     {
       allocation_policy;
       data_residency_enabled;
+      id;
       location;
       name;
       public_network_access_enabled;

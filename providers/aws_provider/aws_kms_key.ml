@@ -19,11 +19,17 @@ type aws_kms_key = {
       (** customer_master_key_spec *)
   deletion_window_in_days : float option; [@option]
       (** deletion_window_in_days *)
+  description : string option; [@option]  (** description *)
   enable_key_rotation : bool option; [@option]
       (** enable_key_rotation *)
+  id : string option; [@option]  (** id *)
   is_enabled : bool option; [@option]  (** is_enabled *)
   key_usage : string option; [@option]  (** key_usage *)
+  multi_region : bool option; [@option]  (** multi_region *)
+  policy : string option; [@option]  (** policy *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   xks_key_id : string option; [@option]  (** xks_key_id *)
   timeouts : aws_kms_key__timeouts option;
 }
@@ -32,8 +38,9 @@ type aws_kms_key = {
 
 let aws_kms_key ?bypass_policy_lockout_safety_check
     ?custom_key_store_id ?customer_master_key_spec
-    ?deletion_window_in_days ?enable_key_rotation ?is_enabled
-    ?key_usage ?tags ?xks_key_id ?timeouts __resource_id =
+    ?deletion_window_in_days ?description ?enable_key_rotation ?id
+    ?is_enabled ?key_usage ?multi_region ?policy ?tags ?tags_all
+    ?xks_key_id ?timeouts __resource_id =
   let __resource_type = "aws_kms_key" in
   let __resource =
     {
@@ -41,10 +48,15 @@ let aws_kms_key ?bypass_policy_lockout_safety_check
       custom_key_store_id;
       customer_master_key_spec;
       deletion_window_in_days;
+      description;
       enable_key_rotation;
+      id;
       is_enabled;
       key_usage;
+      multi_region;
+      policy;
       tags;
+      tags_all;
       xks_key_id;
       timeouts;
     }

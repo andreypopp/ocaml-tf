@@ -121,9 +121,14 @@ type aws_alb_listener__timeouts = {
 type aws_alb_listener = {
   alpn_policy : string option; [@option]  (** alpn_policy *)
   certificate_arn : string option; [@option]  (** certificate_arn *)
+  id : string option; [@option]  (** id *)
   load_balancer_arn : string;  (** load_balancer_arn *)
   port : float option; [@option]  (** port *)
+  protocol : string option; [@option]  (** protocol *)
+  ssl_policy : string option; [@option]  (** ssl_policy *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   default_action : aws_alb_listener__default_action list;
   mutual_authentication :
     aws_alb_listener__mutual_authentication list;
@@ -132,17 +137,22 @@ type aws_alb_listener = {
 [@@deriving yojson_of]
 (** aws_alb_listener *)
 
-let aws_alb_listener ?alpn_policy ?certificate_arn ?port ?tags
-    ?timeouts ~load_balancer_arn ~default_action
-    ~mutual_authentication __resource_id =
+let aws_alb_listener ?alpn_policy ?certificate_arn ?id ?port
+    ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
+    ~load_balancer_arn ~default_action ~mutual_authentication
+    __resource_id =
   let __resource_type = "aws_alb_listener" in
   let __resource =
     {
       alpn_policy;
       certificate_arn;
+      id;
       load_balancer_arn;
       port;
+      protocol;
+      ssl_policy;
       tags;
+      tags_all;
       default_action;
       mutual_authentication;
       timeouts;

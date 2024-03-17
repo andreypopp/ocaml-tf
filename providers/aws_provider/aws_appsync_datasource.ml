@@ -99,6 +99,7 @@ type aws_appsync_datasource__relational_database_config = {
 type aws_appsync_datasource = {
   api_id : string;  (** api_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   service_role_arn : string option; [@option]
       (** service_role_arn *)
@@ -118,7 +119,7 @@ type aws_appsync_datasource = {
 [@@deriving yojson_of]
 (** aws_appsync_datasource *)
 
-let aws_appsync_datasource ?description ?service_role_arn ~api_id
+let aws_appsync_datasource ?description ?id ?service_role_arn ~api_id
     ~name ~type_ ~dynamodb_config ~elasticsearch_config
     ~event_bridge_config ~http_config ~lambda_config
     ~opensearchservice_config ~relational_database_config
@@ -128,6 +129,7 @@ let aws_appsync_datasource ?description ?service_role_arn ~api_id
     {
       api_id;
       description;
+      id;
       name;
       service_role_arn;
       type_;

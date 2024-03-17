@@ -8,7 +8,10 @@ type azurerm_network_watcher_flow_log__traffic_analytics
 type azurerm_network_watcher_flow_log
 
 val azurerm_network_watcher_flow_log :
+  ?id:string ->
+  ?location:string ->
   ?tags:(string * string) list ->
+  ?version:float ->
   ?timeouts:azurerm_network_watcher_flow_log__timeouts ->
   enabled:bool ->
   name:string ->

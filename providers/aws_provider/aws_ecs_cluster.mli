@@ -11,7 +11,9 @@ type aws_ecs_cluster__setting
 type aws_ecs_cluster
 
 val aws_ecs_cluster :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   configuration:aws_ecs_cluster__configuration list ->
   service_connect_defaults:

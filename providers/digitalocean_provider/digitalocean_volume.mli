@@ -6,6 +6,8 @@ type digitalocean_volume
 
 val digitalocean_volume :
   ?description:string ->
+  ?filesystem_type:string ->
+  ?id:string ->
   ?initial_filesystem_label:string ->
   ?initial_filesystem_type:string ->
   ?snapshot_id:string ->

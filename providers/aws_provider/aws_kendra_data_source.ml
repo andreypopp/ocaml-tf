@@ -260,11 +260,15 @@ type aws_kendra_data_source__timeouts = {
 
 type aws_kendra_data_source = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   index_id : string;  (** index_id *)
+  language_code : string option; [@option]  (** language_code *)
   name : string;  (** name *)
   role_arn : string option; [@option]  (** role_arn *)
   schedule : string option; [@option]  (** schedule *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   configuration : aws_kendra_data_source__configuration list;
   custom_document_enrichment_configuration :
@@ -275,18 +279,22 @@ type aws_kendra_data_source = {
 [@@deriving yojson_of]
 (** aws_kendra_data_source *)
 
-let aws_kendra_data_source ?description ?role_arn ?schedule ?tags
-    ?timeouts ~index_id ~name ~type_ ~configuration
-    ~custom_document_enrichment_configuration __resource_id =
+let aws_kendra_data_source ?description ?id ?language_code ?role_arn
+    ?schedule ?tags ?tags_all ?timeouts ~index_id ~name ~type_
+    ~configuration ~custom_document_enrichment_configuration
+    __resource_id =
   let __resource_type = "aws_kendra_data_source" in
   let __resource =
     {
       description;
+      id;
       index_id;
+      language_code;
       name;
       role_arn;
       schedule;
       tags;
+      tags_all;
       type_;
       configuration;
       custom_document_enrichment_configuration;

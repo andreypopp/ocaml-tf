@@ -51,6 +51,7 @@ type azurerm_virtual_hub_connection__timeouts = {
 (** azurerm_virtual_hub_connection__timeouts *)
 
 type azurerm_virtual_hub_connection = {
+  id : string option; [@option]  (** id *)
   internet_security_enabled : bool option; [@option]
       (** internet_security_enabled *)
   name : string;  (** name *)
@@ -63,12 +64,13 @@ type azurerm_virtual_hub_connection = {
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_connection *)
 
-let azurerm_virtual_hub_connection ?internet_security_enabled
+let azurerm_virtual_hub_connection ?id ?internet_security_enabled
     ?timeouts ~name ~remote_virtual_network_id ~virtual_hub_id
     ~routing __resource_id =
   let __resource_type = "azurerm_virtual_hub_connection" in
   let __resource =
     {
+      id;
       internet_security_enabled;
       name;
       remote_virtual_network_id;

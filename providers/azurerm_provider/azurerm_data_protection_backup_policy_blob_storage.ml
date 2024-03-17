@@ -13,6 +13,7 @@ type azurerm_data_protection_backup_policy_blob_storage__timeouts = {
 (** azurerm_data_protection_backup_policy_blob_storage__timeouts *)
 
 type azurerm_data_protection_backup_policy_blob_storage = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   retention_duration : string;  (** retention_duration *)
   vault_id : string;  (** vault_id *)
@@ -23,13 +24,13 @@ type azurerm_data_protection_backup_policy_blob_storage = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_blob_storage *)
 
-let azurerm_data_protection_backup_policy_blob_storage ?timeouts
+let azurerm_data_protection_backup_policy_blob_storage ?id ?timeouts
     ~name ~retention_duration ~vault_id __resource_id =
   let __resource_type =
     "azurerm_data_protection_backup_policy_blob_storage"
   in
   let __resource =
-    { name; retention_duration; vault_id; timeouts }
+    { id; name; retention_duration; vault_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_protection_backup_policy_blob_storage

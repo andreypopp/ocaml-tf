@@ -430,6 +430,7 @@ type google_data_loss_prevention_inspect_template = {
       (** A description of the inspect template. *)
   display_name : string option; [@option]
       (** User set display name of the inspect template. *)
+  id : string option; [@option]  (** id *)
   parent : string;
       (** The parent of the inspect template in any of the following formats:
 
@@ -437,6 +438,10 @@ type google_data_loss_prevention_inspect_template = {
 * 'projects/{{project}}/locations/{{location}}'
 * 'organizations/{{organization_id}}'
 * 'organizations/{{organization_id}}/locations/{{location}}' *)
+  template_id : string option; [@option]
+      (** The template id can contain uppercase and lowercase letters, numbers, and hyphens;
+that is, it must match the regular expression: [a-zA-Z\d-_]+. The maximum length is
+100 characters. Can be empty to allow the system to generate one. *)
   inspect_config :
     google_data_loss_prevention_inspect_template__inspect_config list;
   timeouts :
@@ -446,12 +451,21 @@ type google_data_loss_prevention_inspect_template = {
 (** google_data_loss_prevention_inspect_template *)
 
 let google_data_loss_prevention_inspect_template ?description
-    ?display_name ?timeouts ~parent ~inspect_config __resource_id =
+    ?display_name ?id ?template_id ?timeouts ~parent ~inspect_config
+    __resource_id =
   let __resource_type =
     "google_data_loss_prevention_inspect_template"
   in
   let __resource =
-    { description; display_name; parent; inspect_config; timeouts }
+    {
+      description;
+      display_name;
+      id;
+      parent;
+      template_id;
+      inspect_config;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_loss_prevention_inspect_template

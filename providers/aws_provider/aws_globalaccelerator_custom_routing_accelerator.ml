@@ -30,10 +30,13 @@ type aws_globalaccelerator_custom_routing_accelerator__ip_sets = {
 
 type aws_globalaccelerator_custom_routing_accelerator = {
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   ip_address_type : string option; [@option]  (** ip_address_type *)
   ip_addresses : string list option; [@option]  (** ip_addresses *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   attributes :
     aws_globalaccelerator_custom_routing_accelerator__attributes list;
   timeouts :
@@ -42,19 +45,21 @@ type aws_globalaccelerator_custom_routing_accelerator = {
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_accelerator *)
 
-let aws_globalaccelerator_custom_routing_accelerator ?enabled
-    ?ip_address_type ?ip_addresses ?tags ?timeouts ~name ~attributes
-    __resource_id =
+let aws_globalaccelerator_custom_routing_accelerator ?enabled ?id
+    ?ip_address_type ?ip_addresses ?tags ?tags_all ?timeouts ~name
+    ~attributes __resource_id =
   let __resource_type =
     "aws_globalaccelerator_custom_routing_accelerator"
   in
   let __resource =
     {
       enabled;
+      id;
       ip_address_type;
       ip_addresses;
       name;
       tags;
+      tags_all;
       attributes;
       timeouts;
     }

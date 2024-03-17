@@ -8,6 +8,7 @@ type digitalocean_certificate = {
   certificate_chain : string option; [@option]
       (** certificate_chain *)
   domains : string list option; [@option]  (** domains *)
+  id : string option; [@option]  (** id *)
   leaf_certificate : string option; [@option]
       (** leaf_certificate *)
   name : string;  (** name *)
@@ -17,13 +18,14 @@ type digitalocean_certificate = {
 [@@deriving yojson_of]
 (** digitalocean_certificate *)
 
-let digitalocean_certificate ?certificate_chain ?domains
+let digitalocean_certificate ?certificate_chain ?domains ?id
     ?leaf_certificate ?private_key ?type_ ~name __resource_id =
   let __resource_type = "digitalocean_certificate" in
   let __resource =
     {
       certificate_chain;
       domains;
+      id;
       leaf_certificate;
       name;
       private_key;

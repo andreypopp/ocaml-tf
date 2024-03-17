@@ -16,6 +16,7 @@ type google_gke_hub_namespace__state = { code : string  (** code *) }
 [@@deriving yojson_of]
 
 type google_gke_hub_namespace = {
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels for this Namespace.
 
@@ -28,6 +29,7 @@ to the related namespace of the member clusters bound to the parent
 Scope. Scope-level labels ('namespace_labels' in the Fleet Scope
 resource) take precedence over Namespace-level labels if they share
 a key. Keys and values must be Kubernetes-conformant. *)
+  project : string option; [@option]  (** project *)
   scope : string;  (** The name of the Scope instance. *)
   scope_id : string;  (** Id of the scope *)
   scope_namespace_id : string;
@@ -37,13 +39,15 @@ a key. Keys and values must be Kubernetes-conformant. *)
 [@@deriving yojson_of]
 (** google_gke_hub_namespace *)
 
-let google_gke_hub_namespace ?labels ?namespace_labels ?timeouts
-    ~scope ~scope_id ~scope_namespace_id __resource_id =
+let google_gke_hub_namespace ?id ?labels ?namespace_labels ?project
+    ?timeouts ~scope ~scope_id ~scope_namespace_id __resource_id =
   let __resource_type = "google_gke_hub_namespace" in
   let __resource =
     {
+      id;
       labels;
       namespace_labels;
+      project;
       scope;
       scope_id;
       scope_namespace_id;

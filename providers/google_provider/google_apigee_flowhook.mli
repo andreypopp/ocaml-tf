@@ -8,6 +8,7 @@ type google_apigee_flowhook
 val google_apigee_flowhook :
   ?continue_on_error:bool ->
   ?description:string ->
+  ?id:string ->
   ?timeouts:google_apigee_flowhook__timeouts ->
   environment:string ->
   flow_hook_point:string ->

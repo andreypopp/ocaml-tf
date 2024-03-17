@@ -30,7 +30,9 @@ type google_gke_backup_restore_plan
 
 val google_gke_backup_restore_plan :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_gke_backup_restore_plan__timeouts ->
   backup_plan:string ->
   cluster:string ->

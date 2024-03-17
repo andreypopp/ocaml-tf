@@ -8,6 +8,7 @@ type azurerm_iot_security_device_group__timeouts
 type azurerm_iot_security_device_group
 
 val azurerm_iot_security_device_group :
+  ?id:string ->
   ?timeouts:azurerm_iot_security_device_group__timeouts ->
   iothub_id:string ->
   name:string ->

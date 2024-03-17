@@ -8,7 +8,9 @@ type google_monitoring_metric_descriptor__timeouts
 type google_monitoring_metric_descriptor
 
 val google_monitoring_metric_descriptor :
+  ?id:string ->
   ?launch_stage:string ->
+  ?project:string ->
   ?unit:string ->
   ?timeouts:google_monitoring_metric_descriptor__timeouts ->
   description:string ->

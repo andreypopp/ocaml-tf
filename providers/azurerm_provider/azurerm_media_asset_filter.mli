@@ -10,6 +10,7 @@ type azurerm_media_asset_filter
 
 val azurerm_media_asset_filter :
   ?first_quality_bitrate:float ->
+  ?id:string ->
   ?timeouts:azurerm_media_asset_filter__timeouts ->
   asset_id:string ->
   name:string ->

@@ -47,6 +47,8 @@ type aws_cloudsearch_domain__timeouts = {
 (** aws_cloudsearch_domain__timeouts *)
 
 type aws_cloudsearch_domain = {
+  id : string option; [@option]  (** id *)
+  multi_az : bool option; [@option]  (** multi_az *)
   name : string;  (** name *)
   endpoint_options : aws_cloudsearch_domain__endpoint_options list;
   index_field : aws_cloudsearch_domain__index_field list;
@@ -57,11 +59,14 @@ type aws_cloudsearch_domain = {
 [@@deriving yojson_of]
 (** aws_cloudsearch_domain *)
 
-let aws_cloudsearch_domain ?timeouts ~name ~endpoint_options
-    ~index_field ~scaling_parameters __resource_id =
+let aws_cloudsearch_domain ?id ?multi_az ?timeouts ~name
+    ~endpoint_options ~index_field ~scaling_parameters __resource_id
+    =
   let __resource_type = "aws_cloudsearch_domain" in
   let __resource =
     {
+      id;
+      multi_az;
       name;
       endpoint_options;
       index_field;

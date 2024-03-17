@@ -20,6 +20,7 @@ For the inherited module, its config value is inherited from the ancestor module
       (** The human readable name to be displayed for the module. *)
   enablement_state : string;
       (** The state of enablement for the module at the given level of the hierarchy. Possible values: [ENABLED, DISABLED] *)
+  id : string option; [@option]  (** id *)
   organization : string;
       (** Numerical ID of the parent organization. *)
   type_ : string; [@key "type"]
@@ -30,7 +31,7 @@ For the inherited module, its config value is inherited from the ancestor module
 [@@deriving yojson_of]
 (** google_scc_event_threat_detection_custom_module *)
 
-let google_scc_event_threat_detection_custom_module ?display_name
+let google_scc_event_threat_detection_custom_module ?display_name ?id
     ?timeouts ~config ~enablement_state ~organization ~type_
     __resource_id =
   let __resource_type =
@@ -41,6 +42,7 @@ let google_scc_event_threat_detection_custom_module ?display_name
       config;
       display_name;
       enablement_state;
+      id;
       organization;
       type_;
       timeouts;

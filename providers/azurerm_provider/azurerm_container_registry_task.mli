@@ -21,6 +21,7 @@ type azurerm_container_registry_task
 val azurerm_container_registry_task :
   ?agent_pool_name:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?is_system_task:bool ->
   ?log_template:string ->
   ?tags:(string * string) list ->

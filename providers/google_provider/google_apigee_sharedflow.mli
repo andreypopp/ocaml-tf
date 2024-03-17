@@ -9,12 +9,12 @@ type google_apigee_sharedflow__meta_data = {
   last_modified_at : string;  (** last_modified_at *)
   sub_type : string;  (** sub_type *)
 }
-[@@deriving yojson_of]
 
 type google_apigee_sharedflow
 
 val google_apigee_sharedflow :
   ?detect_md5hash:string ->
+  ?id:string ->
   ?timeouts:google_apigee_sharedflow__timeouts ->
   config_bundle:string ->
   name:string ->

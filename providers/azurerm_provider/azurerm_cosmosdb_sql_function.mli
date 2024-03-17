@@ -6,6 +6,7 @@ type azurerm_cosmosdb_sql_function__timeouts
 type azurerm_cosmosdb_sql_function
 
 val azurerm_cosmosdb_sql_function :
+  ?id:string ->
   ?timeouts:azurerm_cosmosdb_sql_function__timeouts ->
   body:string ->
   container_id:string ->

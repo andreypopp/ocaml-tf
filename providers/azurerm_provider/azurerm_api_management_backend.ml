@@ -75,6 +75,7 @@ type azurerm_api_management_backend__tls = {
 type azurerm_api_management_backend = {
   api_management_name : string;  (** api_management_name *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   protocol : string;  (** protocol *)
   resource_group_name : string;  (** resource_group_name *)
@@ -91,8 +92,8 @@ type azurerm_api_management_backend = {
 [@@deriving yojson_of]
 (** azurerm_api_management_backend *)
 
-let azurerm_api_management_backend ?description ?resource_id ?title
-    ?timeouts ~api_management_name ~name ~protocol
+let azurerm_api_management_backend ?description ?id ?resource_id
+    ?title ?timeouts ~api_management_name ~name ~protocol
     ~resource_group_name ~url ~credentials ~proxy
     ~service_fabric_cluster ~tls __resource_id =
   let __resource_type = "azurerm_api_management_backend" in
@@ -100,6 +101,7 @@ let azurerm_api_management_backend ?description ?resource_id ?title
     {
       api_management_name;
       description;
+      id;
       name;
       protocol;
       resource_group_name;

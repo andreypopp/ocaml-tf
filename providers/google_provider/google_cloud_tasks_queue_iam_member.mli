@@ -6,6 +6,9 @@ type google_cloud_tasks_queue_iam_member__condition
 type google_cloud_tasks_queue_iam_member
 
 val google_cloud_tasks_queue_iam_member :
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
   member:string ->
   name:string ->
   role:string ->

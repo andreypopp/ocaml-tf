@@ -167,9 +167,12 @@ type google_dns_record_set__routing_policy = {
 (** The configuration for steering traffic based on query. You can specify either Weighted Round Robin(WRR) type or Geolocation(GEO) type. *)
 
 type google_dns_record_set = {
+  id : string option; [@option]  (** id *)
   managed_zone : string;
       (** The name of the zone in which this record set will reside. *)
   name : string;  (** The DNS name this record set will apply to. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   rrdatas : string list option; [@option]
       (** The string data for the records in this record set whose meaning depends on the DNS type. For TXT record, if the string data contains spaces, add surrounding \ if you don't want your string to get split on spaces. To specify a single record value longer than 255 characters such as a TXT record for DKIM, add \\ inside the Terraform configuration string (e.g. first255characters\\morecharacters). *)
   ttl : float option; [@option]
@@ -180,11 +183,20 @@ type google_dns_record_set = {
 [@@deriving yojson_of]
 (** google_dns_record_set *)
 
-let google_dns_record_set ?rrdatas ?ttl ~managed_zone ~name ~type_
-    ~routing_policy __resource_id =
+let google_dns_record_set ?id ?project ?rrdatas ?ttl ~managed_zone
+    ~name ~type_ ~routing_policy __resource_id =
   let __resource_type = "google_dns_record_set" in
   let __resource =
-    { managed_zone; name; rrdatas; ttl; type_; routing_policy }
+    {
+      id;
+      managed_zone;
+      name;
+      project;
+      rrdatas;
+      ttl;
+      type_;
+      routing_policy;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_record_set __resource);

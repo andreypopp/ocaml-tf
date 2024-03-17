@@ -174,6 +174,7 @@ type google_billing_budget = {
       (** ID of the billing account to set a budget on. *)
   display_name : string option; [@option]
       (** User data for display name in UI. Must be <= 60 chars. *)
+  id : string option; [@option]  (** id *)
   all_updates_rule : google_billing_budget__all_updates_rule list;
   amount : google_billing_budget__amount list;
   budget_filter : google_billing_budget__budget_filter list;
@@ -183,14 +184,15 @@ type google_billing_budget = {
 [@@deriving yojson_of]
 (** google_billing_budget *)
 
-let google_billing_budget ?display_name ?timeouts ~billing_account
-    ~all_updates_rule ~amount ~budget_filter ~threshold_rules
-    __resource_id =
+let google_billing_budget ?display_name ?id ?timeouts
+    ~billing_account ~all_updates_rule ~amount ~budget_filter
+    ~threshold_rules __resource_id =
   let __resource_type = "google_billing_budget" in
   let __resource =
     {
       billing_account;
       display_name;
+      id;
       all_updates_rule;
       amount;
       budget_filter;

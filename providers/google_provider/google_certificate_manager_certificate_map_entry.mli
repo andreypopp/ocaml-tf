@@ -8,8 +8,10 @@ type google_certificate_manager_certificate_map_entry
 val google_certificate_manager_certificate_map_entry :
   ?description:string ->
   ?hostname:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?matcher:string ->
+  ?project:string ->
   ?timeouts:
     google_certificate_manager_certificate_map_entry__timeouts ->
   certificates:string list ->

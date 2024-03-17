@@ -63,6 +63,7 @@ example, for chargeback tracking.  When you describe your snapshot
 resource, this field is visible only if it has a non-empty value. *)
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels to apply to this Snapshot.
 
@@ -76,8 +77,13 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   source_disk : string;
       (** A reference to the disk used to create this snapshot. *)
+  storage_locations : string list option; [@option]
+      (** Cloud Storage bucket storage location of the snapshot (regional or multi-regional). *)
+  zone : string option; [@option]
+      (** A reference to the zone where the disk is hosted. *)
   snapshot_encryption_key :
     google_compute_snapshot__snapshot_encryption_key list;
   source_disk_encryption_key :
@@ -87,17 +93,22 @@ character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_snapshot *)
 
-let google_compute_snapshot ?chain_name ?description ?labels
-    ?timeouts ~name ~source_disk ~snapshot_encryption_key
-    ~source_disk_encryption_key __resource_id =
+let google_compute_snapshot ?chain_name ?description ?id ?labels
+    ?project ?storage_locations ?zone ?timeouts ~name ~source_disk
+    ~snapshot_encryption_key ~source_disk_encryption_key
+    __resource_id =
   let __resource_type = "google_compute_snapshot" in
   let __resource =
     {
       chain_name;
       description;
+      id;
       labels;
       name;
+      project;
       source_disk;
+      storage_locations;
+      zone;
       snapshot_encryption_key;
       source_disk_encryption_key;
       timeouts;

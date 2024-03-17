@@ -13,6 +13,7 @@ type aws_appconfig_environment__monitor = {
 
 type aws_appconfig_environment = {
   application_id : string;  (** application_id *)
+  description : string option; [@option]  (** description *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
   monitor : aws_appconfig_environment__monitor list;
@@ -20,10 +21,12 @@ type aws_appconfig_environment = {
 [@@deriving yojson_of]
 (** aws_appconfig_environment *)
 
-let aws_appconfig_environment ?tags ~application_id ~name ~monitor
-    __resource_id =
+let aws_appconfig_environment ?description ?tags ~application_id
+    ~name ~monitor __resource_id =
   let __resource_type = "aws_appconfig_environment" in
-  let __resource = { application_id; name; tags; monitor } in
+  let __resource =
+    { application_id; description; name; tags; monitor }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appconfig_environment __resource);
   ()

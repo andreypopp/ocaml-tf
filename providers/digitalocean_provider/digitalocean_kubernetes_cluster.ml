@@ -70,6 +70,7 @@ type digitalocean_kubernetes_cluster = {
   destroy_all_associated_resources : bool option; [@option]
       (** destroy_all_associated_resources *)
   ha : bool option; [@option]  (** ha *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   region : string;  (** region *)
   registry_integration : bool option; [@option]
@@ -77,6 +78,7 @@ type digitalocean_kubernetes_cluster = {
   surge_upgrade : bool option; [@option]  (** surge_upgrade *)
   tags : string list option; [@option]  (** tags *)
   version : string;  (** version *)
+  vpc_uuid : string option; [@option]  (** vpc_uuid *)
   maintenance_policy :
     digitalocean_kubernetes_cluster__maintenance_policy list;
   node_pool : digitalocean_kubernetes_cluster__node_pool list;
@@ -86,8 +88,8 @@ type digitalocean_kubernetes_cluster = {
 (** digitalocean_kubernetes_cluster *)
 
 let digitalocean_kubernetes_cluster ?auto_upgrade
-    ?destroy_all_associated_resources ?ha ?registry_integration
-    ?surge_upgrade ?tags ?timeouts ~name ~region ~version
+    ?destroy_all_associated_resources ?ha ?id ?registry_integration
+    ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
     ~maintenance_policy ~node_pool __resource_id =
   let __resource_type = "digitalocean_kubernetes_cluster" in
   let __resource =
@@ -95,12 +97,14 @@ let digitalocean_kubernetes_cluster ?auto_upgrade
       auto_upgrade;
       destroy_all_associated_resources;
       ha;
+      id;
       name;
       region;
       registry_integration;
       surge_upgrade;
       tags;
       version;
+      vpc_uuid;
       maintenance_policy;
       node_pool;
       timeouts;

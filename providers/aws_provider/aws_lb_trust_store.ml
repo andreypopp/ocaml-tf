@@ -18,22 +18,32 @@ type aws_lb_trust_store = {
       (** ca_certificates_bundle_s3_key *)
   ca_certificates_bundle_s3_object_version : string option; [@option]
       (** ca_certificates_bundle_s3_object_version *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_lb_trust_store__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_lb_trust_store *)
 
-let aws_lb_trust_store ?ca_certificates_bundle_s3_object_version
-    ?tags ?timeouts ~ca_certificates_bundle_s3_bucket
-    ~ca_certificates_bundle_s3_key __resource_id =
+let aws_lb_trust_store ?ca_certificates_bundle_s3_object_version ?id
+    ?name ?name_prefix ?tags ?tags_all ?timeouts
+    ~ca_certificates_bundle_s3_bucket ~ca_certificates_bundle_s3_key
+    __resource_id =
   let __resource_type = "aws_lb_trust_store" in
   let __resource =
     {
       ca_certificates_bundle_s3_bucket;
       ca_certificates_bundle_s3_key;
       ca_certificates_bundle_s3_object_version;
+      id;
+      name;
+      name_prefix;
       tags;
+      tags_all;
       timeouts;
     }
   in

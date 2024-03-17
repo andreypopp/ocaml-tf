@@ -5,4 +5,8 @@ open! Tf.Prelude
 type digitalocean_reserved_ip_assignment
 
 val digitalocean_reserved_ip_assignment :
-  droplet_id:float -> ip_address:string -> string -> unit
+  ?id:string ->
+  droplet_id:float ->
+  ip_address:string ->
+  string ->
+  unit

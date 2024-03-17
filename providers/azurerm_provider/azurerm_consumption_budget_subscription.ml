@@ -87,6 +87,8 @@ type azurerm_consumption_budget_subscription__timeouts = {
 
 type azurerm_consumption_budget_subscription = {
   amount : float;  (** amount *)
+  etag : string option; [@option]  (** etag *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   subscription_id : string;  (** subscription_id *)
   time_grain : string option; [@option]  (** time_grain *)
@@ -100,13 +102,15 @@ type azurerm_consumption_budget_subscription = {
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_subscription *)
 
-let azurerm_consumption_budget_subscription ?time_grain ?timeouts
-    ~amount ~name ~subscription_id ~filter ~notification ~time_period
-    __resource_id =
+let azurerm_consumption_budget_subscription ?etag ?id ?time_grain
+    ?timeouts ~amount ~name ~subscription_id ~filter ~notification
+    ~time_period __resource_id =
   let __resource_type = "azurerm_consumption_budget_subscription" in
   let __resource =
     {
       amount;
+      etag;
+      id;
       name;
       subscription_id;
       time_grain;

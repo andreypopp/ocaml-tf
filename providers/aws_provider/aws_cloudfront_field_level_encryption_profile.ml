@@ -30,6 +30,7 @@ type aws_cloudfront_field_level_encryption_profile__encryption_entities = {
 
 type aws_cloudfront_field_level_encryption_profile = {
   comment : string option; [@option]  (** comment *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   encryption_entities :
     aws_cloudfront_field_level_encryption_profile__encryption_entities
@@ -38,12 +39,12 @@ type aws_cloudfront_field_level_encryption_profile = {
 [@@deriving yojson_of]
 (** aws_cloudfront_field_level_encryption_profile *)
 
-let aws_cloudfront_field_level_encryption_profile ?comment ~name
+let aws_cloudfront_field_level_encryption_profile ?comment ?id ~name
     ~encryption_entities __resource_id =
   let __resource_type =
     "aws_cloudfront_field_level_encryption_profile"
   in
-  let __resource = { comment; name; encryption_entities } in
+  let __resource = { comment; id; name; encryption_entities } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_field_level_encryption_profile
        __resource);

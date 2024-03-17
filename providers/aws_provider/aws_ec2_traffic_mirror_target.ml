@@ -8,26 +8,30 @@ type aws_ec2_traffic_mirror_target = {
   description : string option; [@option]  (** description *)
   gateway_load_balancer_endpoint_id : string option; [@option]
       (** gateway_load_balancer_endpoint_id *)
+  id : string option; [@option]  (** id *)
   network_interface_id : string option; [@option]
       (** network_interface_id *)
   network_load_balancer_arn : string option; [@option]
       (** network_load_balancer_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_traffic_mirror_target *)
 
 let aws_ec2_traffic_mirror_target ?description
-    ?gateway_load_balancer_endpoint_id ?network_interface_id
-    ?network_load_balancer_arn ?tags __resource_id =
+    ?gateway_load_balancer_endpoint_id ?id ?network_interface_id
+    ?network_load_balancer_arn ?tags ?tags_all __resource_id =
   let __resource_type = "aws_ec2_traffic_mirror_target" in
   let __resource =
     {
       description;
       gateway_load_balancer_endpoint_id;
+      id;
       network_interface_id;
       network_load_balancer_arn;
       tags;
+      tags_all;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

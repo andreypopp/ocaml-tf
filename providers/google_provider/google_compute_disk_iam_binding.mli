@@ -6,6 +6,9 @@ type google_compute_disk_iam_binding__condition
 type google_compute_disk_iam_binding
 
 val google_compute_disk_iam_binding :
+  ?id:string ->
+  ?project:string ->
+  ?zone:string ->
   members:string list ->
   name:string ->
   role:string ->

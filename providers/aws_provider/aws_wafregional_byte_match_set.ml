@@ -23,6 +23,7 @@ type aws_wafregional_byte_match_set__byte_match_tuples = {
 (** aws_wafregional_byte_match_set__byte_match_tuples *)
 
 type aws_wafregional_byte_match_set = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   byte_match_tuples :
     aws_wafregional_byte_match_set__byte_match_tuples list;
@@ -30,10 +31,10 @@ type aws_wafregional_byte_match_set = {
 [@@deriving yojson_of]
 (** aws_wafregional_byte_match_set *)
 
-let aws_wafregional_byte_match_set ~name ~byte_match_tuples
+let aws_wafregional_byte_match_set ?id ~name ~byte_match_tuples
     __resource_id =
   let __resource_type = "aws_wafregional_byte_match_set" in
-  let __resource = { name; byte_match_tuples } in
+  let __resource = { id; name; byte_match_tuples } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_wafregional_byte_match_set __resource);
   ()

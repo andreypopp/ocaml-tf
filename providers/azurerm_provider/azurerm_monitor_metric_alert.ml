@@ -83,11 +83,16 @@ type azurerm_monitor_metric_alert = {
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
   frequency : string option; [@option]  (** frequency *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   scopes : string list;  (** scopes *)
   severity : float option; [@option]  (** severity *)
   tags : (string * string) list option; [@option]  (** tags *)
+  target_resource_location : string option; [@option]
+      (** The location of the target pluginsdk. Required when using subscription, resource group scope or multiple scopes. *)
+  target_resource_type : string option; [@option]
+      (** The resource type (e.g. Microsoft.Compute/virtualMachines) of the target pluginsdk. Required when using subscription, resource group scope or multiple scopes. *)
   window_size : string option; [@option]  (** window_size *)
   action : azurerm_monitor_metric_alert__action list;
   application_insights_web_test_location_availability_criteria :
@@ -102,7 +107,8 @@ type azurerm_monitor_metric_alert = {
 (** azurerm_monitor_metric_alert *)
 
 let azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
-    ?frequency ?severity ?tags ?window_size ?timeouts ~name
+    ?frequency ?id ?severity ?tags ?target_resource_location
+    ?target_resource_type ?window_size ?timeouts ~name
     ~resource_group_name ~scopes ~action
     ~application_insights_web_test_location_availability_criteria
     ~criteria ~dynamic_criteria __resource_id =
@@ -113,11 +119,14 @@ let azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
       description;
       enabled;
       frequency;
+      id;
       name;
       resource_group_name;
       scopes;
       severity;
       tags;
+      target_resource_location;
+      target_resource_type;
       window_size;
       action;
       application_insights_web_test_location_availability_criteria;

@@ -15,6 +15,8 @@ type azurerm_lighthouse_definition
 
 val azurerm_lighthouse_definition :
   ?description:string ->
+  ?id:string ->
+  ?lighthouse_definition_id:string ->
   ?timeouts:azurerm_lighthouse_definition__timeouts ->
   managing_tenant_id:string ->
   name:string ->

@@ -6,6 +6,7 @@ type cloudflare_device_posture_integration__config
 type cloudflare_device_posture_integration
 
 val cloudflare_device_posture_integration :
+  ?id:string ->
   ?identifier:string ->
   ?interval:string ->
   account_id:string ->

@@ -7,12 +7,13 @@ type google_gke_hub_membership_binding__timeouts
 type google_gke_hub_membership_binding__state = {
   code : string;  (** code *)
 }
-[@@deriving yojson_of]
 
 type google_gke_hub_membership_binding
 
 val google_gke_hub_membership_binding :
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_gke_hub_membership_binding__timeouts ->
   location:string ->
   membership_binding_id:string ->

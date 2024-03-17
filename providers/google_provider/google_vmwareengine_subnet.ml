@@ -19,6 +19,7 @@ type google_vmwareengine_subnet__dhcp_address_ranges = {
 [@@deriving yojson_of]
 
 type google_vmwareengine_subnet = {
+  id : string option; [@option]  (** id *)
   ip_cidr_range : string;
       (** The IP address range of the subnet in CIDR format. *)
   name : string;
@@ -33,10 +34,10 @@ For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)
 [@@deriving yojson_of]
 (** google_vmwareengine_subnet *)
 
-let google_vmwareengine_subnet ?timeouts ~ip_cidr_range ~name ~parent
-    __resource_id =
+let google_vmwareengine_subnet ?id ?timeouts ~ip_cidr_range ~name
+    ~parent __resource_id =
   let __resource_type = "google_vmwareengine_subnet" in
-  let __resource = { ip_cidr_range; name; parent; timeouts } in
+  let __resource = { id; ip_cidr_range; name; parent; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_subnet __resource);
   ()

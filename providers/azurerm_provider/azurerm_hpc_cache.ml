@@ -95,6 +95,7 @@ type azurerm_hpc_cache = {
   automatically_rotate_key_to_latest_enabled : bool option; [@option]
       (** automatically_rotate_key_to_latest_enabled *)
   cache_size_in_gb : float;  (** cache_size_in_gb *)
+  id : string option; [@option]  (** id *)
   key_vault_key_id : string option; [@option]
       (** key_vault_key_id *)
   location : string;  (** location *)
@@ -118,7 +119,7 @@ type azurerm_hpc_cache = {
 [@@deriving yojson_of]
 (** azurerm_hpc_cache *)
 
-let azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled
+let azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled ?id
     ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
     ~cache_size_in_gb ~location ~name ~resource_group_name ~sku_name
     ~subnet_id ~default_access_policy ~directory_active_directory
@@ -129,6 +130,7 @@ let azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled
     {
       automatically_rotate_key_to_latest_enabled;
       cache_size_in_gb;
+      id;
       key_vault_key_id;
       location;
       mtu;

@@ -7,6 +7,8 @@ type google_pubsub_lite_subscription__timeouts
 type google_pubsub_lite_subscription
 
 val google_pubsub_lite_subscription :
+  ?id:string ->
+  ?project:string ->
   ?region:string ->
   ?zone:string ->
   ?timeouts:google_pubsub_lite_subscription__timeouts ->

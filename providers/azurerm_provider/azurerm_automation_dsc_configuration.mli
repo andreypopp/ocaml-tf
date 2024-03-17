@@ -7,6 +7,7 @@ type azurerm_automation_dsc_configuration
 
 val azurerm_automation_dsc_configuration :
   ?description:string ->
+  ?id:string ->
   ?log_verbose:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_automation_dsc_configuration__timeouts ->

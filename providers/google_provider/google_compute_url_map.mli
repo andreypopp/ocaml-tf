@@ -161,6 +161,8 @@ type google_compute_url_map
 val google_compute_url_map :
   ?default_service:string ->
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_compute_url_map__timeouts ->
   name:string ->
   default_route_action:

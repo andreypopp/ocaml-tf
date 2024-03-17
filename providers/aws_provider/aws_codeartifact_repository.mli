@@ -8,7 +8,10 @@ type aws_codeartifact_repository
 
 val aws_codeartifact_repository :
   ?description:string ->
+  ?domain_owner:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   domain:string ->
   repository:string ->
   external_connections:

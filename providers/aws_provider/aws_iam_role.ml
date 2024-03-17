@@ -16,30 +16,43 @@ type aws_iam_role = {
   description : string option; [@option]  (** description *)
   force_detach_policies : bool option; [@option]
       (** force_detach_policies *)
+  id : string option; [@option]  (** id *)
+  managed_policy_arns : string list option; [@option]
+      (** managed_policy_arns *)
   max_session_duration : float option; [@option]
       (** max_session_duration *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   path : string option; [@option]  (** path *)
   permissions_boundary : string option; [@option]
       (** permissions_boundary *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   inline_policy : aws_iam_role__inline_policy list;
 }
 [@@deriving yojson_of]
 (** aws_iam_role *)
 
-let aws_iam_role ?description ?force_detach_policies
-    ?max_session_duration ?path ?permissions_boundary ?tags
-    ~assume_role_policy ~inline_policy __resource_id =
+let aws_iam_role ?description ?force_detach_policies ?id
+    ?managed_policy_arns ?max_session_duration ?name ?name_prefix
+    ?path ?permissions_boundary ?tags ?tags_all ~assume_role_policy
+    ~inline_policy __resource_id =
   let __resource_type = "aws_iam_role" in
   let __resource =
     {
       assume_role_policy;
       description;
       force_detach_policies;
+      id;
+      managed_policy_arns;
       max_session_duration;
+      name;
+      name_prefix;
       path;
       permissions_boundary;
       tags;
+      tags_all;
       inline_policy;
     }
   in

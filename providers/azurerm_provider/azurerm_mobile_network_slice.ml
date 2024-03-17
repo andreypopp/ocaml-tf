@@ -23,6 +23,7 @@ type azurerm_mobile_network_slice__timeouts = {
 
 type azurerm_mobile_network_slice = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   mobile_network_id : string;  (** mobile_network_id *)
   name : string;  (** name *)
@@ -35,7 +36,7 @@ type azurerm_mobile_network_slice = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_slice *)
 
-let azurerm_mobile_network_slice ?description ?tags ?timeouts
+let azurerm_mobile_network_slice ?description ?id ?tags ?timeouts
     ~location ~mobile_network_id ~name
     ~single_network_slice_selection_assistance_information
     __resource_id =
@@ -43,6 +44,7 @@ let azurerm_mobile_network_slice ?description ?tags ?timeouts
   let __resource =
     {
       description;
+      id;
       location;
       mobile_network_id;
       name;

@@ -35,6 +35,7 @@ type kubernetes_network_policy_v1__spec
 type kubernetes_network_policy_v1
 
 val kubernetes_network_policy_v1 :
+  ?id:string ->
   metadata:kubernetes_network_policy_v1__metadata list ->
   spec:kubernetes_network_policy_v1__spec list ->
   string ->

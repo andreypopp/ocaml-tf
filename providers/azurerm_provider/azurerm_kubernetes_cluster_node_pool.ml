@@ -157,17 +157,28 @@ type azurerm_kubernetes_cluster_node_pool = {
   fips_enabled : bool option; [@option]  (** fips_enabled *)
   gpu_instance : string option; [@option]  (** gpu_instance *)
   host_group_id : string option; [@option]  (** host_group_id *)
+  id : string option; [@option]  (** id *)
+  kubelet_disk_type : string option; [@option]
+      (** kubelet_disk_type *)
   kubernetes_cluster_id : string;  (** kubernetes_cluster_id *)
   max_count : float option; [@option]  (** max_count *)
+  max_pods : float option; [@option]  (** max_pods *)
   message_of_the_day : string option; [@option]
       (** message_of_the_day *)
   min_count : float option; [@option]  (** min_count *)
   mode : string option; [@option]  (** mode *)
   name : string;  (** name *)
+  node_count : float option; [@option]  (** node_count *)
+  node_labels : (string * string) list option; [@option]
+      (** node_labels *)
   node_public_ip_prefix_id : string option; [@option]
       (** node_public_ip_prefix_id *)
   node_taints : string list option; [@option]  (** node_taints *)
+  orchestrator_version : string option; [@option]
+      (** orchestrator_version *)
+  os_disk_size_gb : float option; [@option]  (** os_disk_size_gb *)
   os_disk_type : string option; [@option]  (** os_disk_type *)
+  os_sku : string option; [@option]  (** os_sku *)
   os_type : string option; [@option]  (** os_type *)
   pod_subnet_id : string option; [@option]  (** pod_subnet_id *)
   priority : string option; [@option]  (** priority *)
@@ -203,14 +214,16 @@ let azurerm_kubernetes_cluster_node_pool
     ?capacity_reservation_group_id ?custom_ca_trust_enabled
     ?enable_auto_scaling ?enable_host_encryption
     ?enable_node_public_ip ?eviction_policy ?fips_enabled
-    ?gpu_instance ?host_group_id ?max_count ?message_of_the_day
-    ?min_count ?mode ?node_public_ip_prefix_id ?node_taints
-    ?os_disk_type ?os_type ?pod_subnet_id ?priority
-    ?proximity_placement_group_id ?scale_down_mode ?snapshot_id
-    ?spot_max_price ?tags ?ultra_ssd_enabled ?vnet_subnet_id
-    ?workload_runtime ?zones ?timeouts ~kubernetes_cluster_id ~name
-    ~vm_size ~kubelet_config ~linux_os_config ~node_network_profile
-    ~upgrade_settings ~windows_profile __resource_id =
+    ?gpu_instance ?host_group_id ?id ?kubelet_disk_type ?max_count
+    ?max_pods ?message_of_the_day ?min_count ?mode ?node_count
+    ?node_labels ?node_public_ip_prefix_id ?node_taints
+    ?orchestrator_version ?os_disk_size_gb ?os_disk_type ?os_sku
+    ?os_type ?pod_subnet_id ?priority ?proximity_placement_group_id
+    ?scale_down_mode ?snapshot_id ?spot_max_price ?tags
+    ?ultra_ssd_enabled ?vnet_subnet_id ?workload_runtime ?zones
+    ?timeouts ~kubernetes_cluster_id ~name ~vm_size ~kubelet_config
+    ~linux_os_config ~node_network_profile ~upgrade_settings
+    ~windows_profile __resource_id =
   let __resource_type = "azurerm_kubernetes_cluster_node_pool" in
   let __resource =
     {
@@ -223,15 +236,23 @@ let azurerm_kubernetes_cluster_node_pool
       fips_enabled;
       gpu_instance;
       host_group_id;
+      id;
+      kubelet_disk_type;
       kubernetes_cluster_id;
       max_count;
+      max_pods;
       message_of_the_day;
       min_count;
       mode;
       name;
+      node_count;
+      node_labels;
       node_public_ip_prefix_id;
       node_taints;
+      orchestrator_version;
+      os_disk_size_gb;
       os_disk_type;
+      os_sku;
       os_type;
       pod_subnet_id;
       priority;

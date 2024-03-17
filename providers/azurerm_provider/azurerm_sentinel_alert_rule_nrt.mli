@@ -20,6 +20,7 @@ val azurerm_sentinel_alert_rule_nrt :
   ?custom_details:(string * string) list ->
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?suppression_duration:string ->
   ?suppression_enabled:bool ->
   ?tactics:string list ->

@@ -9,15 +9,16 @@ type aws_globalaccelerator_custom_routing_accelerator__ip_sets = {
   ip_addresses : string list;  (** ip_addresses *)
   ip_family : string;  (** ip_family *)
 }
-[@@deriving yojson_of]
 
 type aws_globalaccelerator_custom_routing_accelerator
 
 val aws_globalaccelerator_custom_routing_accelerator :
   ?enabled:bool ->
+  ?id:string ->
   ?ip_address_type:string ->
   ?ip_addresses:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:
     aws_globalaccelerator_custom_routing_accelerator__timeouts ->
   name:string ->

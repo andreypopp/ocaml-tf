@@ -7,6 +7,7 @@ type azurerm_kusto_database
 
 val azurerm_kusto_database :
   ?hot_cache_period:string ->
+  ?id:string ->
   ?soft_delete_period:string ->
   ?timeouts:azurerm_kusto_database__timeouts ->
   cluster_name:string ->

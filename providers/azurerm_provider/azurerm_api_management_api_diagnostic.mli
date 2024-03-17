@@ -37,7 +37,13 @@ type azurerm_api_management_api_diagnostic__timeouts
 type azurerm_api_management_api_diagnostic
 
 val azurerm_api_management_api_diagnostic :
+  ?always_log_errors:bool ->
+  ?http_correlation_protocol:string ->
+  ?id:string ->
+  ?log_client_ip:bool ->
   ?operation_name_format:string ->
+  ?sampling_percentage:float ->
+  ?verbosity:string ->
   ?timeouts:azurerm_api_management_api_diagnostic__timeouts ->
   api_management_logger_id:string ->
   api_management_name:string ->

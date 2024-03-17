@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type cloudflare_argo = {
+  id : string option; [@option]  (** id *)
   smart_routing : string option; [@option]
       (** Whether smart routing is enabled. Available values: `on`, `off`. *)
   tiered_caching : string option; [@option]
@@ -17,10 +18,10 @@ type cloudflare_argo = {
 caching options to speed up your website browsing experience.
  *)
 
-let cloudflare_argo ?smart_routing ?tiered_caching ~zone_id
+let cloudflare_argo ?id ?smart_routing ?tiered_caching ~zone_id
     __resource_id =
   let __resource_type = "cloudflare_argo" in
-  let __resource = { smart_routing; tiered_caching; zone_id } in
+  let __resource = { id; smart_routing; tiered_caching; zone_id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_argo __resource);
   ()

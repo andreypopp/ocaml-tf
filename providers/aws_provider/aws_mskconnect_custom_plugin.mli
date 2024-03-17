@@ -9,6 +9,7 @@ type aws_mskconnect_custom_plugin
 
 val aws_mskconnect_custom_plugin :
   ?description:string ->
+  ?id:string ->
   ?timeouts:aws_mskconnect_custom_plugin__timeouts ->
   content_type:string ->
   name:string ->

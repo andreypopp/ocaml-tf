@@ -850,11 +850,16 @@ type google_data_loss_prevention_job_trigger = {
       (** A description of the job trigger. *)
   display_name : string option; [@option]
       (** User set display name of the job trigger. *)
+  id : string option; [@option]  (** id *)
   parent : string;
       (** The parent of the trigger, either in the format 'projects/{{project}}'
 or 'projects/{{project}}/locations/{{location}}' *)
   status : string option; [@option]
       (** Whether the trigger is currently active. Default value: HEALTHY Possible values: [PAUSED, HEALTHY, CANCELLED] *)
+  trigger_id : string option; [@option]
+      (** The trigger id can contain uppercase and lowercase letters, numbers, and hyphens;
+that is, it must match the regular expression: [a-zA-Z\d-_]+.
+The maximum length is 100 characters. Can be empty to allow the system to generate one. *)
   inspect_job :
     google_data_loss_prevention_job_trigger__inspect_job list;
   timeouts :
@@ -865,15 +870,17 @@ or 'projects/{{project}}/locations/{{location}}' *)
 (** google_data_loss_prevention_job_trigger *)
 
 let google_data_loss_prevention_job_trigger ?description
-    ?display_name ?status ?timeouts ~parent ~inspect_job ~triggers
-    __resource_id =
+    ?display_name ?id ?status ?trigger_id ?timeouts ~parent
+    ~inspect_job ~triggers __resource_id =
   let __resource_type = "google_data_loss_prevention_job_trigger" in
   let __resource =
     {
       description;
       display_name;
+      id;
       parent;
       status;
+      trigger_id;
       inspect_job;
       timeouts;
       triggers;

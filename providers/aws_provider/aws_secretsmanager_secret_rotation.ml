@@ -15,6 +15,7 @@ type aws_secretsmanager_secret_rotation__rotation_rules = {
 (** aws_secretsmanager_secret_rotation__rotation_rules *)
 
 type aws_secretsmanager_secret_rotation = {
+  id : string option; [@option]  (** id *)
   rotate_immediately : bool option; [@option]
       (** rotate_immediately *)
   rotation_lambda_arn : string option; [@option]
@@ -26,11 +27,12 @@ type aws_secretsmanager_secret_rotation = {
 [@@deriving yojson_of]
 (** aws_secretsmanager_secret_rotation *)
 
-let aws_secretsmanager_secret_rotation ?rotate_immediately
+let aws_secretsmanager_secret_rotation ?id ?rotate_immediately
     ?rotation_lambda_arn ~secret_id ~rotation_rules __resource_id =
   let __resource_type = "aws_secretsmanager_secret_rotation" in
   let __resource =
     {
+      id;
       rotate_immediately;
       rotation_lambda_arn;
       secret_id;

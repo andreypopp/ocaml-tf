@@ -13,9 +13,12 @@ val aws_ssm_patch_baseline :
   ?approved_patches_compliance_level:string ->
   ?approved_patches_enable_non_security:bool ->
   ?description:string ->
+  ?id:string ->
   ?operating_system:string ->
   ?rejected_patches:string list ->
+  ?rejected_patches_action:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   approval_rule:aws_ssm_patch_baseline__approval_rule list ->
   global_filter:aws_ssm_patch_baseline__global_filter list ->

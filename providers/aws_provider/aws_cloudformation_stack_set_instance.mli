@@ -11,13 +11,15 @@ type aws_cloudformation_stack_set_instance__stack_instance_summaries = {
   organizational_unit_id : string;  (** organizational_unit_id *)
   stack_id : string;  (** stack_id *)
 }
-[@@deriving yojson_of]
 
 type aws_cloudformation_stack_set_instance
 
 val aws_cloudformation_stack_set_instance :
+  ?account_id:string ->
   ?call_as:string ->
+  ?id:string ->
   ?parameter_overrides:(string * string) list ->
+  ?region:string ->
   ?retain_stack:bool ->
   ?timeouts:aws_cloudformation_stack_set_instance__timeouts ->
   stack_set_name:string ->

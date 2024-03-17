@@ -15,6 +15,7 @@ type google_folder_iam_audit_config__audit_log_config = {
 
 type google_folder_iam_audit_config = {
   folder : string;  (** folder *)
+  id : string option; [@option]  (** id *)
   service : string;
       (** Service which will be enabled for audit logging. The special value allServices covers all services. *)
   audit_log_config :
@@ -23,10 +24,10 @@ type google_folder_iam_audit_config = {
 [@@deriving yojson_of]
 (** google_folder_iam_audit_config *)
 
-let google_folder_iam_audit_config ~folder ~service ~audit_log_config
-    __resource_id =
+let google_folder_iam_audit_config ?id ~folder ~service
+    ~audit_log_config __resource_id =
   let __resource_type = "google_folder_iam_audit_config" in
-  let __resource = { folder; service; audit_log_config } in
+  let __resource = { folder; id; service; audit_log_config } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_folder_iam_audit_config __resource);
   ()

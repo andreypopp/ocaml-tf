@@ -14,6 +14,7 @@ type google_folder_iam_binding__condition = {
 
 type google_folder_iam_binding = {
   folder : string;  (** folder *)
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   role : string;  (** role *)
   condition : google_folder_iam_binding__condition list;
@@ -21,10 +22,10 @@ type google_folder_iam_binding = {
 [@@deriving yojson_of]
 (** google_folder_iam_binding *)
 
-let google_folder_iam_binding ~folder ~members ~role ~condition
+let google_folder_iam_binding ?id ~folder ~members ~role ~condition
     __resource_id =
   let __resource_type = "google_folder_iam_binding" in
-  let __resource = { folder; members; role; condition } in
+  let __resource = { folder; id; members; role; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_folder_iam_binding __resource);
   ()

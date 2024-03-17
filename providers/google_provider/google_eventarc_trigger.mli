@@ -15,7 +15,10 @@ type google_eventarc_trigger
 
 val google_eventarc_trigger :
   ?channel:string ->
+  ?event_data_content_type:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?service_account:string ->
   ?timeouts:google_eventarc_trigger__timeouts ->
   location:string ->

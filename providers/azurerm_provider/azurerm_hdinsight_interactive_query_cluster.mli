@@ -42,6 +42,8 @@ type azurerm_hdinsight_interactive_query_cluster__timeouts
 type azurerm_hdinsight_interactive_query_cluster
 
 val azurerm_hdinsight_interactive_query_cluster :
+  ?encryption_in_transit_enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?tls_min_version:string ->
   ?timeouts:azurerm_hdinsight_interactive_query_cluster__timeouts ->

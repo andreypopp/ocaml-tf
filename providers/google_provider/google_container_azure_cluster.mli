@@ -24,7 +24,6 @@ type google_container_azure_cluster__workload_identity_config = {
   issuer_uri : string;  (** issuer_uri *)
   workload_pool : string;  (** workload_pool *)
 }
-[@@deriving yojson_of]
 
 type google_container_azure_cluster
 
@@ -32,6 +31,8 @@ val google_container_azure_cluster :
   ?annotations:(string * string) list ->
   ?client:string ->
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_container_azure_cluster__timeouts ->
   azure_region:string ->
   location:string ->

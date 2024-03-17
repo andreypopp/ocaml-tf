@@ -83,6 +83,7 @@ type google_compute_region_per_instance_config__timeouts = {
 (** google_compute_region_per_instance_config__timeouts *)
 
 type google_compute_region_per_instance_config = {
+  id : string option; [@option]  (** id *)
   minimal_action : string option; [@option]
       (** The minimal action to perform on the instance during an update.
 Default is 'NONE'. Possible values are:
@@ -99,6 +100,9 @@ Default is 'REPLACE'. Possible values are:
 * NONE *)
   name : string;
       (** The name for this per-instance config and its corresponding instance. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** Region where the containing instance group manager is located *)
   region_instance_group_manager : string;
       (** The region instance group manager this instance config is part of. *)
   remove_instance_on_destroy : bool option; [@option]
@@ -116,18 +120,22 @@ State will be removed on the next instance recreation or update. *)
 [@@deriving yojson_of]
 (** google_compute_region_per_instance_config *)
 
-let google_compute_region_per_instance_config ?minimal_action
-    ?most_disruptive_allowed_action ?remove_instance_on_destroy
-    ?remove_instance_state_on_destroy ?timeouts ~name
-    ~region_instance_group_manager ~preserved_state __resource_id =
+let google_compute_region_per_instance_config ?id ?minimal_action
+    ?most_disruptive_allowed_action ?project ?region
+    ?remove_instance_on_destroy ?remove_instance_state_on_destroy
+    ?timeouts ~name ~region_instance_group_manager ~preserved_state
+    __resource_id =
   let __resource_type =
     "google_compute_region_per_instance_config"
   in
   let __resource =
     {
+      id;
       minimal_action;
       most_disruptive_allowed_action;
       name;
+      project;
+      region;
       region_instance_group_manager;
       remove_instance_on_destroy;
       remove_instance_state_on_destroy;

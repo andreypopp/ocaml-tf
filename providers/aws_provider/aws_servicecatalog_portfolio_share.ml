@@ -15,6 +15,7 @@ type aws_servicecatalog_portfolio_share__timeouts = {
 
 type aws_servicecatalog_portfolio_share = {
   accept_language : string option; [@option]  (** accept_language *)
+  id : string option; [@option]  (** id *)
   portfolio_id : string;  (** portfolio_id *)
   principal_id : string;  (** principal_id *)
   share_principals : bool option; [@option]  (** share_principals *)
@@ -28,13 +29,14 @@ type aws_servicecatalog_portfolio_share = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_portfolio_share *)
 
-let aws_servicecatalog_portfolio_share ?accept_language
+let aws_servicecatalog_portfolio_share ?accept_language ?id
     ?share_principals ?share_tag_options ?wait_for_acceptance
     ?timeouts ~portfolio_id ~principal_id ~type_ __resource_id =
   let __resource_type = "aws_servicecatalog_portfolio_share" in
   let __resource =
     {
       accept_language;
+      id;
       portfolio_id;
       principal_id;
       share_principals;

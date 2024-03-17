@@ -7,6 +7,7 @@ type google_scc_source
 
 val google_scc_source :
   ?description:string ->
+  ?id:string ->
   ?timeouts:google_scc_source__timeouts ->
   display_name:string ->
   organization:string ->

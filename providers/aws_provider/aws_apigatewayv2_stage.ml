@@ -45,11 +45,15 @@ type aws_apigatewayv2_stage = {
   auto_deploy : bool option; [@option]  (** auto_deploy *)
   client_certificate_id : string option; [@option]
       (** client_certificate_id *)
+  deployment_id : string option; [@option]  (** deployment_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   stage_variables : (string * string) list option; [@option]
       (** stage_variables *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   access_log_settings :
     aws_apigatewayv2_stage__access_log_settings list;
   default_route_settings :
@@ -60,19 +64,22 @@ type aws_apigatewayv2_stage = {
 (** aws_apigatewayv2_stage *)
 
 let aws_apigatewayv2_stage ?auto_deploy ?client_certificate_id
-    ?description ?stage_variables ?tags ~api_id ~name
-    ~access_log_settings ~default_route_settings ~route_settings
-    __resource_id =
+    ?deployment_id ?description ?id ?stage_variables ?tags ?tags_all
+    ~api_id ~name ~access_log_settings ~default_route_settings
+    ~route_settings __resource_id =
   let __resource_type = "aws_apigatewayv2_stage" in
   let __resource =
     {
       api_id;
       auto_deploy;
       client_certificate_id;
+      deployment_id;
       description;
+      id;
       name;
       stage_variables;
       tags;
+      tags_all;
       access_log_settings;
       default_route_settings;
       route_settings;

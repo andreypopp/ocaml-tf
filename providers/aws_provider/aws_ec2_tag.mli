@@ -5,4 +5,9 @@ open! Tf.Prelude
 type aws_ec2_tag
 
 val aws_ec2_tag :
-  key:string -> resource_id:string -> value:string -> string -> unit
+  ?id:string ->
+  key:string ->
+  resource_id:string ->
+  value:string ->
+  string ->
+  unit

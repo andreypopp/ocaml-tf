@@ -14,6 +14,7 @@ type google_apigee_endpoint_attachment__timeouts = {
 type google_apigee_endpoint_attachment = {
   endpoint_attachment_id : string;
       (** ID of the endpoint attachment. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** Location of the endpoint attachment. *)
   org_id : string;
       (** The Apigee Organization associated with the Apigee instance,
@@ -25,13 +26,14 @@ in the format 'organizations/{{org_name}}'. *)
 [@@deriving yojson_of]
 (** google_apigee_endpoint_attachment *)
 
-let google_apigee_endpoint_attachment ?timeouts
+let google_apigee_endpoint_attachment ?id ?timeouts
     ~endpoint_attachment_id ~location ~org_id ~service_attachment
     __resource_id =
   let __resource_type = "google_apigee_endpoint_attachment" in
   let __resource =
     {
       endpoint_attachment_id;
+      id;
       location;
       org_id;
       service_attachment;

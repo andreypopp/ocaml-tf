@@ -15,6 +15,7 @@ type azurerm_postgresql_flexible_server_firewall_rule__timeouts = {
 
 type azurerm_postgresql_flexible_server_firewall_rule = {
   end_ip_address : string;  (** end_ip_address *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   server_id : string;  (** server_id *)
   start_ip_address : string;  (** start_ip_address *)
@@ -24,14 +25,21 @@ type azurerm_postgresql_flexible_server_firewall_rule = {
 [@@deriving yojson_of]
 (** azurerm_postgresql_flexible_server_firewall_rule *)
 
-let azurerm_postgresql_flexible_server_firewall_rule ?timeouts
+let azurerm_postgresql_flexible_server_firewall_rule ?id ?timeouts
     ~end_ip_address ~name ~server_id ~start_ip_address __resource_id
     =
   let __resource_type =
     "azurerm_postgresql_flexible_server_firewall_rule"
   in
   let __resource =
-    { end_ip_address; name; server_id; start_ip_address; timeouts }
+    {
+      end_ip_address;
+      id;
+      name;
+      server_id;
+      start_ip_address;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_postgresql_flexible_server_firewall_rule

@@ -41,6 +41,8 @@ type aws_ami = {
       (** deprecation_time *)
   description : string option; [@option]  (** description *)
   ena_support : bool option; [@option]  (** ena_support *)
+  id : string option; [@option]  (** id *)
+  image_location : string option; [@option]  (** image_location *)
   imds_support : string option; [@option]  (** imds_support *)
   kernel_id : string option; [@option]  (** kernel_id *)
   name : string;  (** name *)
@@ -50,6 +52,8 @@ type aws_ami = {
   sriov_net_support : string option; [@option]
       (** sriov_net_support *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   tpm_support : string option; [@option]  (** tpm_support *)
   virtualization_type : string option; [@option]
       (** virtualization_type *)
@@ -61,10 +65,10 @@ type aws_ami = {
 (** aws_ami *)
 
 let aws_ami ?architecture ?boot_mode ?deprecation_time ?description
-    ?ena_support ?imds_support ?kernel_id ?ramdisk_id
-    ?root_device_name ?sriov_net_support ?tags ?tpm_support
-    ?virtualization_type ?timeouts ~name ~ebs_block_device
-    ~ephemeral_block_device __resource_id =
+    ?ena_support ?id ?image_location ?imds_support ?kernel_id
+    ?ramdisk_id ?root_device_name ?sriov_net_support ?tags ?tags_all
+    ?tpm_support ?virtualization_type ?timeouts ~name
+    ~ebs_block_device ~ephemeral_block_device __resource_id =
   let __resource_type = "aws_ami" in
   let __resource =
     {
@@ -73,6 +77,8 @@ let aws_ami ?architecture ?boot_mode ?deprecation_time ?description
       deprecation_time;
       description;
       ena_support;
+      id;
+      image_location;
       imds_support;
       kernel_id;
       name;
@@ -80,6 +86,7 @@ let aws_ami ?architecture ?boot_mode ?deprecation_time ?description
       root_device_name;
       sriov_net_support;
       tags;
+      tags_all;
       tpm_support;
       virtualization_type;
       ebs_block_device;

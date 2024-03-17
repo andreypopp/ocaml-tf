@@ -424,12 +424,15 @@ type aws_kinesisanalyticsv2_application__timeouts = {
 type aws_kinesisanalyticsv2_application = {
   description : string option; [@option]  (** description *)
   force_stop : bool option; [@option]  (** force_stop *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   runtime_environment : string;  (** runtime_environment *)
   service_execution_role : string;  (** service_execution_role *)
   start_application : bool option; [@option]
       (** start_application *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   application_configuration :
     aws_kinesisanalyticsv2_application__application_configuration
     list;
@@ -441,20 +444,23 @@ type aws_kinesisanalyticsv2_application = {
 [@@deriving yojson_of]
 (** aws_kinesisanalyticsv2_application *)
 
-let aws_kinesisanalyticsv2_application ?description ?force_stop
-    ?start_application ?tags ?timeouts ~name ~runtime_environment
-    ~service_execution_role ~application_configuration
-    ~cloudwatch_logging_options __resource_id =
+let aws_kinesisanalyticsv2_application ?description ?force_stop ?id
+    ?start_application ?tags ?tags_all ?timeouts ~name
+    ~runtime_environment ~service_execution_role
+    ~application_configuration ~cloudwatch_logging_options
+    __resource_id =
   let __resource_type = "aws_kinesisanalyticsv2_application" in
   let __resource =
     {
       description;
       force_stop;
+      id;
       name;
       runtime_environment;
       service_execution_role;
       start_application;
       tags;
+      tags_all;
       application_configuration;
       cloudwatch_logging_options;
       timeouts;

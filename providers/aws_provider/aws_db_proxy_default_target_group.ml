@@ -27,6 +27,7 @@ type aws_db_proxy_default_target_group__timeouts = {
 
 type aws_db_proxy_default_target_group = {
   db_proxy_name : string;  (** db_proxy_name *)
+  id : string option; [@option]  (** id *)
   connection_pool_config :
     aws_db_proxy_default_target_group__connection_pool_config list;
   timeouts : aws_db_proxy_default_target_group__timeouts option;
@@ -34,11 +35,11 @@ type aws_db_proxy_default_target_group = {
 [@@deriving yojson_of]
 (** aws_db_proxy_default_target_group *)
 
-let aws_db_proxy_default_target_group ?timeouts ~db_proxy_name
+let aws_db_proxy_default_target_group ?id ?timeouts ~db_proxy_name
     ~connection_pool_config __resource_id =
   let __resource_type = "aws_db_proxy_default_target_group" in
   let __resource =
-    { db_proxy_name; connection_pool_config; timeouts }
+    { db_proxy_name; id; connection_pool_config; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_db_proxy_default_target_group __resource);

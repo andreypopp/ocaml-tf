@@ -41,6 +41,9 @@ For example: jsonPayload.request.status *)
 type google_logging_organization_bucket_config = {
   bucket_id : string;
       (** The name of the logging bucket. Logging automatically creates two log buckets: _Required and _Default. *)
+  description : string option; [@option]
+      (** An optional description for this bucket. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the bucket. *)
   organization : string;
       (** The parent resource that contains the logging bucket. *)
@@ -54,15 +57,17 @@ type google_logging_organization_bucket_config = {
 [@@deriving yojson_of]
 (** google_logging_organization_bucket_config *)
 
-let google_logging_organization_bucket_config ?retention_days
-    ~bucket_id ~location ~organization ~cmek_settings ~index_configs
-    __resource_id =
+let google_logging_organization_bucket_config ?description ?id
+    ?retention_days ~bucket_id ~location ~organization ~cmek_settings
+    ~index_configs __resource_id =
   let __resource_type =
     "google_logging_organization_bucket_config"
   in
   let __resource =
     {
       bucket_id;
+      description;
+      id;
       location;
       organization;
       retention_days;

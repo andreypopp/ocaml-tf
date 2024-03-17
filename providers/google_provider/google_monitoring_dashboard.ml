@@ -15,15 +15,18 @@ type google_monitoring_dashboard__timeouts = {
 type google_monitoring_dashboard = {
   dashboard_json : string;
       (** The JSON representation of a dashboard, following the format at https://cloud.google.com/monitoring/api/ref_v3/rest/v1/projects.dashboards. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   timeouts : google_monitoring_dashboard__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_monitoring_dashboard *)
 
-let google_monitoring_dashboard ?timeouts ~dashboard_json
-    __resource_id =
+let google_monitoring_dashboard ?id ?project ?timeouts
+    ~dashboard_json __resource_id =
   let __resource_type = "google_monitoring_dashboard" in
-  let __resource = { dashboard_json; timeouts } in
+  let __resource = { dashboard_json; id; project; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_monitoring_dashboard __resource);
   ()

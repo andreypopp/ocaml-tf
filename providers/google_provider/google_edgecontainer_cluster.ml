@@ -203,6 +203,14 @@ type google_edgecontainer_cluster__maintenance_events = {
 [@@deriving yojson_of]
 
 type google_edgecontainer_cluster = {
+  default_max_pods_per_node : float option; [@option]
+      (** The default maximum number of pods per node used if a maximum value is not
+specified explicitly for a node pool in this cluster. If unspecified, the
+Kubernetes default value will be used. *)
+  external_load_balancer_ipv4_address_pools : string list option;
+      [@option]
+      (** Address pools for cluster data plane external load balancing. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-defined labels for the edgecloud cluster.
 
@@ -210,6 +218,11 @@ type google_edgecontainer_cluster = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;  (** The location of the resource. *)
   name : string;  (** The GDCE cluster name. *)
+  project : string option; [@option]  (** project *)
+  release_channel : string option; [@option]
+      (** The release channel a cluster is subscribed to. Possible values: [RELEASE_CHANNEL_UNSPECIFIED, NONE, REGULAR] *)
+  target_version : string option; [@option]
+      (** The target cluster version. For example: 1.5.0. *)
   authorization : google_edgecontainer_cluster__authorization list;
   control_plane : google_edgecontainer_cluster__control_plane list;
   control_plane_encryption :
@@ -225,16 +238,24 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_edgecontainer_cluster *)
 
-let google_edgecontainer_cluster ?labels ?timeouts ~location ~name
+let google_edgecontainer_cluster ?default_max_pods_per_node
+    ?external_load_balancer_ipv4_address_pools ?id ?labels ?project
+    ?release_channel ?target_version ?timeouts ~location ~name
     ~authorization ~control_plane ~control_plane_encryption ~fleet
     ~maintenance_policy ~networking ~system_addons_config
     __resource_id =
   let __resource_type = "google_edgecontainer_cluster" in
   let __resource =
     {
+      default_max_pods_per_node;
+      external_load_balancer_ipv4_address_pools;
+      id;
       labels;
       location;
       name;
+      project;
+      release_channel;
+      target_version;
       authorization;
       control_plane;
       control_plane_encryption;

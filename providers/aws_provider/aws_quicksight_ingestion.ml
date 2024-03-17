@@ -5,15 +5,17 @@
 open! Tf.Prelude
 
 type aws_quicksight_ingestion = {
+  aws_account_id: string option; [@option] (** aws_account_id *)
   data_set_id: string;  (** data_set_id *)
   ingestion_id: string;  (** ingestion_id *)
   ingestion_type: string;  (** ingestion_type *)
 } [@@deriving yojson_of]
 (** aws_quicksight_ingestion *)
 
-let aws_quicksight_ingestion   ~data_set_id ~ingestion_id ~ingestion_type  __resource_id =
+let aws_quicksight_ingestion ?aws_account_id  ~data_set_id ~ingestion_id ~ingestion_type  __resource_id =
   let __resource_type = "aws_quicksight_ingestion" in
   let __resource = {
+    aws_account_id;
     data_set_id;
     ingestion_id;
     ingestion_type;

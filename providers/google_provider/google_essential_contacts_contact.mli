@@ -6,6 +6,7 @@ type google_essential_contacts_contact__timeouts
 type google_essential_contacts_contact
 
 val google_essential_contacts_contact :
+  ?id:string ->
   ?timeouts:google_essential_contacts_contact__timeouts ->
   email:string ->
   language_tag:string ->

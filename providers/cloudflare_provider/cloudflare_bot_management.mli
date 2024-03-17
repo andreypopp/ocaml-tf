@@ -8,6 +8,7 @@ val cloudflare_bot_management :
   ?auto_update_model:bool ->
   ?enable_js:bool ->
   ?fight_mode:bool ->
+  ?id:string ->
   ?optimize_wordpress:bool ->
   ?sbfm_definitely_automated:string ->
   ?sbfm_likely_automated:string ->

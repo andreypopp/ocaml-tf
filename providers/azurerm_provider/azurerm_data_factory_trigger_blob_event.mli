@@ -13,6 +13,7 @@ val azurerm_data_factory_trigger_blob_event :
   ?blob_path_begins_with:string ->
   ?blob_path_ends_with:string ->
   ?description:string ->
+  ?id:string ->
   ?ignore_empty_blobs:bool ->
   ?timeouts:azurerm_data_factory_trigger_blob_event__timeouts ->
   data_factory_id:string ->

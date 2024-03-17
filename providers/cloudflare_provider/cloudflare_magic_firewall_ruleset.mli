@@ -6,6 +6,7 @@ type cloudflare_magic_firewall_ruleset
 
 val cloudflare_magic_firewall_ruleset :
   ?description:string ->
+  ?id:string ->
   ?rules:(string * string) list list ->
   account_id:string ->
   name:string ->

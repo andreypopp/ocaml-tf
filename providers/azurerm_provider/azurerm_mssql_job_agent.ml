@@ -15,6 +15,7 @@ type azurerm_mssql_job_agent__timeouts = {
 
 type azurerm_mssql_job_agent = {
   database_id : string;  (** database_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -23,10 +24,12 @@ type azurerm_mssql_job_agent = {
 [@@deriving yojson_of]
 (** azurerm_mssql_job_agent *)
 
-let azurerm_mssql_job_agent ?tags ?timeouts ~database_id ~location
-    ~name __resource_id =
+let azurerm_mssql_job_agent ?id ?tags ?timeouts ~database_id
+    ~location ~name __resource_id =
   let __resource_type = "azurerm_mssql_job_agent" in
-  let __resource = { database_id; location; name; tags; timeouts } in
+  let __resource =
+    { database_id; id; location; name; tags; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_job_agent __resource);
   ()

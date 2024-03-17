@@ -12,6 +12,7 @@ type aws_cloudfront_field_level_encryption_profile
 
 val aws_cloudfront_field_level_encryption_profile :
   ?comment:string ->
+  ?id:string ->
   name:string ->
   encryption_entities:
     aws_cloudfront_field_level_encryption_profile__encryption_entities

@@ -11,6 +11,7 @@ type azurerm_iothub_dps
 val azurerm_iothub_dps :
   ?allocation_policy:string ->
   ?data_residency_enabled:bool ->
+  ?id:string ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_iothub_dps__timeouts ->

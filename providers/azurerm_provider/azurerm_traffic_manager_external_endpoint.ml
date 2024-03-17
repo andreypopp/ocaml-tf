@@ -32,10 +32,15 @@ type azurerm_traffic_manager_external_endpoint = {
   always_serve_enabled : bool option; [@option]
       (** always_serve_enabled *)
   enabled : bool option; [@option]  (** enabled *)
+  endpoint_location : string option; [@option]
+      (** endpoint_location *)
   geo_mappings : string list option; [@option]  (** geo_mappings *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  priority : float option; [@option]  (** priority *)
   profile_id : string;  (** profile_id *)
   target : string;  (** target *)
+  weight : float option; [@option]  (** weight *)
   custom_header :
     azurerm_traffic_manager_external_endpoint__custom_header list;
   subnet : azurerm_traffic_manager_external_endpoint__subnet list;
@@ -46,8 +51,9 @@ type azurerm_traffic_manager_external_endpoint = {
 (** azurerm_traffic_manager_external_endpoint *)
 
 let azurerm_traffic_manager_external_endpoint ?always_serve_enabled
-    ?enabled ?geo_mappings ?timeouts ~name ~profile_id ~target
-    ~custom_header ~subnet __resource_id =
+    ?enabled ?endpoint_location ?geo_mappings ?id ?priority ?weight
+    ?timeouts ~name ~profile_id ~target ~custom_header ~subnet
+    __resource_id =
   let __resource_type =
     "azurerm_traffic_manager_external_endpoint"
   in
@@ -55,10 +61,14 @@ let azurerm_traffic_manager_external_endpoint ?always_serve_enabled
     {
       always_serve_enabled;
       enabled;
+      endpoint_location;
       geo_mappings;
+      id;
       name;
+      priority;
       profile_id;
       target;
+      weight;
       custom_header;
       subnet;
       timeouts;

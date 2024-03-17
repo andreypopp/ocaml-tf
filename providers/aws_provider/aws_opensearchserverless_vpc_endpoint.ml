@@ -17,6 +17,8 @@ type aws_opensearchserverless_vpc_endpoint__timeouts = {
 
 type aws_opensearchserverless_vpc_endpoint = {
   name : string;  (** name *)
+  security_group_ids : string list option; [@option]
+      (** security_group_ids *)
   subnet_ids : string list;  (** subnet_ids *)
   vpc_id : string;  (** vpc_id *)
   timeouts : aws_opensearchserverless_vpc_endpoint__timeouts option;
@@ -24,10 +26,12 @@ type aws_opensearchserverless_vpc_endpoint = {
 [@@deriving yojson_of]
 (** aws_opensearchserverless_vpc_endpoint *)
 
-let aws_opensearchserverless_vpc_endpoint ?timeouts ~name ~subnet_ids
-    ~vpc_id __resource_id =
+let aws_opensearchserverless_vpc_endpoint ?security_group_ids
+    ?timeouts ~name ~subnet_ids ~vpc_id __resource_id =
   let __resource_type = "aws_opensearchserverless_vpc_endpoint" in
-  let __resource = { name; subnet_ids; vpc_id; timeouts } in
+  let __resource =
+    { name; security_group_ids; subnet_ids; vpc_id; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearchserverless_vpc_endpoint __resource);
   ()

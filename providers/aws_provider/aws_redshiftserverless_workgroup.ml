@@ -47,13 +47,21 @@ type aws_redshiftserverless_workgroup__endpoint = {
 [@@deriving yojson_of]
 
 type aws_redshiftserverless_workgroup = {
+  base_capacity : float option; [@option]  (** base_capacity *)
   enhanced_vpc_routing : bool option; [@option]
       (** enhanced_vpc_routing *)
+  id : string option; [@option]  (** id *)
   max_capacity : float option; [@option]  (** max_capacity *)
   namespace_name : string;  (** namespace_name *)
+  port : float option; [@option]  (** port *)
   publicly_accessible : bool option; [@option]
       (** publicly_accessible *)
+  security_group_ids : string list option; [@option]
+      (** security_group_ids *)
+  subnet_ids : string list option; [@option]  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   workgroup_name : string;  (** workgroup_name *)
   config_parameter :
     aws_redshiftserverless_workgroup__config_parameter list;
@@ -62,17 +70,25 @@ type aws_redshiftserverless_workgroup = {
 [@@deriving yojson_of]
 (** aws_redshiftserverless_workgroup *)
 
-let aws_redshiftserverless_workgroup ?enhanced_vpc_routing
-    ?max_capacity ?publicly_accessible ?tags ?timeouts
-    ~namespace_name ~workgroup_name ~config_parameter __resource_id =
+let aws_redshiftserverless_workgroup ?base_capacity
+    ?enhanced_vpc_routing ?id ?max_capacity ?port
+    ?publicly_accessible ?security_group_ids ?subnet_ids ?tags
+    ?tags_all ?timeouts ~namespace_name ~workgroup_name
+    ~config_parameter __resource_id =
   let __resource_type = "aws_redshiftserverless_workgroup" in
   let __resource =
     {
+      base_capacity;
       enhanced_vpc_routing;
+      id;
       max_capacity;
       namespace_name;
+      port;
       publicly_accessible;
+      security_group_ids;
+      subnet_ids;
       tags;
+      tags_all;
       workgroup_name;
       config_parameter;
       timeouts;

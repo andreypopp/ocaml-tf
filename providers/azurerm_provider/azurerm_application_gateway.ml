@@ -494,6 +494,7 @@ type azurerm_application_gateway = {
       (** firewall_policy_id *)
   force_firewall_policy_association : bool option; [@option]
       (** force_firewall_policy_association *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -544,7 +545,7 @@ type azurerm_application_gateway = {
 (** azurerm_application_gateway *)
 
 let azurerm_application_gateway ?enable_http2 ?fips_enabled
-    ?firewall_policy_id ?force_firewall_policy_association ?tags
+    ?firewall_policy_id ?force_firewall_policy_association ?id ?tags
     ?zones ?timeouts ~location ~name ~resource_group_name
     ~authentication_certificate ~autoscale_configuration
     ~backend_address_pool ~backend_http_settings
@@ -562,6 +563,7 @@ let azurerm_application_gateway ?enable_http2 ?fips_enabled
       fips_enabled;
       firewall_policy_id;
       force_firewall_policy_association;
+      id;
       location;
       name;
       resource_group_name;

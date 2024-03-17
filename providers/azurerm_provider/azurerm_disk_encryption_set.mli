@@ -10,6 +10,7 @@ val azurerm_disk_encryption_set :
   ?auto_key_rotation_enabled:bool ->
   ?encryption_type:string ->
   ?federated_client_id:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_disk_encryption_set__timeouts ->
   key_vault_key_id:string ->

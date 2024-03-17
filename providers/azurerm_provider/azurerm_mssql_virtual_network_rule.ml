@@ -14,6 +14,7 @@ type azurerm_mssql_virtual_network_rule__timeouts = {
 (** azurerm_mssql_virtual_network_rule__timeouts *)
 
 type azurerm_mssql_virtual_network_rule = {
+  id : string option; [@option]  (** id *)
   ignore_missing_vnet_service_endpoint : bool option; [@option]
       (** ignore_missing_vnet_service_endpoint *)
   name : string;  (** name *)
@@ -24,12 +25,13 @@ type azurerm_mssql_virtual_network_rule = {
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_network_rule *)
 
-let azurerm_mssql_virtual_network_rule
+let azurerm_mssql_virtual_network_rule ?id
     ?ignore_missing_vnet_service_endpoint ?timeouts ~name ~server_id
     ~subnet_id __resource_id =
   let __resource_type = "azurerm_mssql_virtual_network_rule" in
   let __resource =
     {
+      id;
       ignore_missing_vnet_service_endpoint;
       name;
       server_id;

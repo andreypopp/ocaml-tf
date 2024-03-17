@@ -7,6 +7,8 @@ type azurerm_fluid_relay_server__timeouts
 type azurerm_fluid_relay_server
 
 val azurerm_fluid_relay_server :
+  ?id:string ->
+  ?storage_sku:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_fluid_relay_server__timeouts ->
   location:string ->

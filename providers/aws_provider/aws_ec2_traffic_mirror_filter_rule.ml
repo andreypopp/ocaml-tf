@@ -21,6 +21,7 @@ type aws_ec2_traffic_mirror_filter_rule__source_port_range = {
 type aws_ec2_traffic_mirror_filter_rule = {
   description : string option; [@option]  (** description *)
   destination_cidr_block : string;  (** destination_cidr_block *)
+  id : string option; [@option]  (** id *)
   protocol : float option; [@option]  (** protocol *)
   rule_action : string;  (** rule_action *)
   rule_number : float;  (** rule_number *)
@@ -35,7 +36,7 @@ type aws_ec2_traffic_mirror_filter_rule = {
 [@@deriving yojson_of]
 (** aws_ec2_traffic_mirror_filter_rule *)
 
-let aws_ec2_traffic_mirror_filter_rule ?description ?protocol
+let aws_ec2_traffic_mirror_filter_rule ?description ?id ?protocol
     ~destination_cidr_block ~rule_action ~rule_number
     ~source_cidr_block ~traffic_direction ~traffic_mirror_filter_id
     ~destination_port_range ~source_port_range __resource_id =
@@ -44,6 +45,7 @@ let aws_ec2_traffic_mirror_filter_rule ?description ?protocol
     {
       description;
       destination_cidr_block;
+      id;
       protocol;
       rule_action;
       rule_number;

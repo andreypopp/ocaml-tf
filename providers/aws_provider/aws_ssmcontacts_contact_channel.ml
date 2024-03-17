@@ -12,6 +12,7 @@ type aws_ssmcontacts_contact_channel__delivery_address = {
 
 type aws_ssmcontacts_contact_channel = {
   contact_id : string;  (** contact_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   type_ : string; [@key "type"]  (** type *)
   delivery_address :
@@ -20,10 +21,12 @@ type aws_ssmcontacts_contact_channel = {
 [@@deriving yojson_of]
 (** aws_ssmcontacts_contact_channel *)
 
-let aws_ssmcontacts_contact_channel ~contact_id ~name ~type_
+let aws_ssmcontacts_contact_channel ?id ~contact_id ~name ~type_
     ~delivery_address __resource_id =
   let __resource_type = "aws_ssmcontacts_contact_channel" in
-  let __resource = { contact_id; name; type_; delivery_address } in
+  let __resource =
+    { contact_id; id; name; type_; delivery_address }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmcontacts_contact_channel __resource);
   ()

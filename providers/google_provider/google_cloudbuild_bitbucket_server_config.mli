@@ -8,7 +8,9 @@ type google_cloudbuild_bitbucket_server_config__timeouts
 type google_cloudbuild_bitbucket_server_config
 
 val google_cloudbuild_bitbucket_server_config :
+  ?id:string ->
   ?peered_network:string ->
+  ?project:string ->
   ?ssl_ca:string ->
   ?timeouts:google_cloudbuild_bitbucket_server_config__timeouts ->
   api_key:string ->

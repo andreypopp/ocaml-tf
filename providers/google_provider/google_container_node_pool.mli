@@ -40,19 +40,16 @@ type google_container_node_pool__node_config__effective_taints = {
   key : string;  (** key *)
   value : string;  (** value *)
 }
-[@@deriving yojson_of]
 
 type google_container_node_pool__node_config__guest_accelerator__gpu_sharing_config = {
   gpu_sharing_strategy : string;  (** gpu_sharing_strategy *)
   max_shared_clients_per_gpu : float;
       (** max_shared_clients_per_gpu *)
 }
-[@@deriving yojson_of]
 
 type google_container_node_pool__node_config__guest_accelerator__gpu_driver_installation_config = {
   gpu_driver_version : string;  (** gpu_driver_version *)
 }
-[@@deriving yojson_of]
 
 type google_container_node_pool__node_config__guest_accelerator = {
   count : float;  (** count *)
@@ -67,7 +64,6 @@ type google_container_node_pool__node_config__guest_accelerator = {
       (** gpu_sharing_config *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_container_node_pool__node_config
 type google_container_node_pool__placement_policy
@@ -80,6 +76,16 @@ type google_container_node_pool__upgrade_settings
 type google_container_node_pool
 
 val google_container_node_pool :
+  ?id:string ->
+  ?initial_node_count:float ->
+  ?location:string ->
+  ?max_pods_per_node:float ->
+  ?name:string ->
+  ?name_prefix:string ->
+  ?node_count:float ->
+  ?node_locations:string list ->
+  ?project:string ->
+  ?version:string ->
   ?timeouts:google_container_node_pool__timeouts ->
   cluster:string ->
   autoscaling:google_container_node_pool__autoscaling list ->

@@ -82,6 +82,7 @@ type azurerm_logic_app_workflow__timeouts = {
 
 type azurerm_logic_app_workflow = {
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   integration_service_environment_id : string option; [@option]
       (** integration_service_environment_id *)
   location : string;  (** location *)
@@ -104,7 +105,7 @@ type azurerm_logic_app_workflow = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_workflow *)
 
-let azurerm_logic_app_workflow ?enabled
+let azurerm_logic_app_workflow ?enabled ?id
     ?integration_service_environment_id
     ?logic_app_integration_account_id ?parameters ?tags
     ?workflow_parameters ?workflow_schema ?workflow_version ?timeouts
@@ -114,6 +115,7 @@ let azurerm_logic_app_workflow ?enabled
   let __resource =
     {
       enabled;
+      id;
       integration_service_environment_id;
       location;
       logic_app_integration_account_id;

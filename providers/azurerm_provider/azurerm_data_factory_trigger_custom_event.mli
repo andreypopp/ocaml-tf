@@ -11,6 +11,7 @@ val azurerm_data_factory_trigger_custom_event :
   ?additional_properties:(string * string) list ->
   ?annotations:string list ->
   ?description:string ->
+  ?id:string ->
   ?subject_begins_with:string ->
   ?subject_ends_with:string ->
   ?timeouts:azurerm_data_factory_trigger_custom_event__timeouts ->

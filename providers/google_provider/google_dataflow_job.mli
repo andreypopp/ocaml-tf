@@ -6,7 +6,9 @@ type google_dataflow_job__timeouts
 type google_dataflow_job
 
 val google_dataflow_job :
+  ?additional_experiments:string list ->
   ?enable_streaming_engine:bool ->
+  ?id:string ->
   ?ip_configuration:string ->
   ?kms_key_name:string ->
   ?labels:(string * string) list ->
@@ -15,6 +17,7 @@ val google_dataflow_job :
   ?network:string ->
   ?on_delete:string ->
   ?parameters:(string * string) list ->
+  ?project:string ->
   ?region:string ->
   ?service_account_email:string ->
   ?skip_wait_on_job_termination:bool ->

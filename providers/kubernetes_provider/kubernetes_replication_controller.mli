@@ -383,6 +383,7 @@ type kubernetes_replication_controller__timeouts
 type kubernetes_replication_controller
 
 val kubernetes_replication_controller :
+  ?id:string ->
   ?timeouts:kubernetes_replication_controller__timeouts ->
   metadata:kubernetes_replication_controller__metadata list ->
   spec:kubernetes_replication_controller__spec list ->

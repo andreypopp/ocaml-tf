@@ -7,8 +7,10 @@ type aws_medialive_multiplex__timeouts
 type aws_medialive_multiplex
 
 val aws_medialive_multiplex :
+  ?id:string ->
   ?start_multiplex:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_medialive_multiplex__timeouts ->
   availability_zones:string list ->
   name:string ->

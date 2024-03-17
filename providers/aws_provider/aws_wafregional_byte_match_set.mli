@@ -7,6 +7,7 @@ type aws_wafregional_byte_match_set__byte_match_tuples
 type aws_wafregional_byte_match_set
 
 val aws_wafregional_byte_match_set :
+  ?id:string ->
   name:string ->
   byte_match_tuples:
     aws_wafregional_byte_match_set__byte_match_tuples list ->

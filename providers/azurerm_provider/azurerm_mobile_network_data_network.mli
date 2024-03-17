@@ -7,6 +7,7 @@ type azurerm_mobile_network_data_network
 
 val azurerm_mobile_network_data_network :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_mobile_network_data_network__timeouts ->
   location:string ->

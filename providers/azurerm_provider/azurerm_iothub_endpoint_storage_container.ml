@@ -25,6 +25,7 @@ type azurerm_iothub_endpoint_storage_container = {
   endpoint_uri : string option; [@option]  (** endpoint_uri *)
   file_name_format : string option; [@option]
       (** file_name_format *)
+  id : string option; [@option]  (** id *)
   identity_id : string option; [@option]  (** identity_id *)
   iothub_id : string;  (** iothub_id *)
   max_chunk_size_in_bytes : float option; [@option]
@@ -39,7 +40,7 @@ type azurerm_iothub_endpoint_storage_container = {
 
 let azurerm_iothub_endpoint_storage_container ?authentication_type
     ?batch_frequency_in_seconds ?connection_string ?encoding
-    ?endpoint_uri ?file_name_format ?identity_id
+    ?endpoint_uri ?file_name_format ?id ?identity_id
     ?max_chunk_size_in_bytes ?timeouts ~container_name ~iothub_id
     ~name ~resource_group_name __resource_id =
   let __resource_type =
@@ -54,6 +55,7 @@ let azurerm_iothub_endpoint_storage_container ?authentication_type
       encoding;
       endpoint_uri;
       file_name_format;
+      id;
       identity_id;
       iothub_id;
       max_chunk_size_in_bytes;

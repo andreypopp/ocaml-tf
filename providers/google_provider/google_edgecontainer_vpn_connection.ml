@@ -44,6 +44,9 @@ type google_edgecontainer_vpn_connection__details = {
 type google_edgecontainer_vpn_connection = {
   cluster : string;
       (** The canonical Cluster name to connect to. It is in the form of projects/{project}/locations/{location}/clusters/{cluster}. *)
+  enable_high_availability : bool option; [@option]
+      (** Whether this VPN connection has HA enabled on cluster side. If enabled, when creating VPN connection we will attempt to use 2 ANG floating IPs. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels associated with this resource.
 
@@ -54,6 +57,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   nat_gateway_ip : string option; [@option]
       (** NAT gateway IP, or WAN IP address. If a customer has multiple NAT IPs, the customer needs to configure NAT such that only one external IP maps to the GMEC Anthos cluster.
 This is empty if NAT is not used. *)
+  project : string option; [@option]  (** project *)
   router : string option; [@option]
       (** The VPN connection Cloud Router name. *)
   vpc : string option; [@option]
@@ -64,17 +68,20 @@ This is empty if NAT is not used. *)
 [@@deriving yojson_of]
 (** google_edgecontainer_vpn_connection *)
 
-let google_edgecontainer_vpn_connection ?labels ?nat_gateway_ip
-    ?router ?vpc ?timeouts ~cluster ~location ~name ~vpc_project
-    __resource_id =
+let google_edgecontainer_vpn_connection ?enable_high_availability ?id
+    ?labels ?nat_gateway_ip ?project ?router ?vpc ?timeouts ~cluster
+    ~location ~name ~vpc_project __resource_id =
   let __resource_type = "google_edgecontainer_vpn_connection" in
   let __resource =
     {
       cluster;
+      enable_high_availability;
+      id;
       labels;
       location;
       name;
       nat_gateway_ip;
+      project;
       router;
       vpc;
       timeouts;

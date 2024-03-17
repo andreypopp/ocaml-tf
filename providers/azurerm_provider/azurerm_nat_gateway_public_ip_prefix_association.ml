@@ -13,6 +13,7 @@ type azurerm_nat_gateway_public_ip_prefix_association__timeouts = {
 (** azurerm_nat_gateway_public_ip_prefix_association__timeouts *)
 
 type azurerm_nat_gateway_public_ip_prefix_association = {
+  id : string option; [@option]  (** id *)
   nat_gateway_id : string;  (** nat_gateway_id *)
   public_ip_prefix_id : string;  (** public_ip_prefix_id *)
   timeouts :
@@ -21,13 +22,13 @@ type azurerm_nat_gateway_public_ip_prefix_association = {
 [@@deriving yojson_of]
 (** azurerm_nat_gateway_public_ip_prefix_association *)
 
-let azurerm_nat_gateway_public_ip_prefix_association ?timeouts
+let azurerm_nat_gateway_public_ip_prefix_association ?id ?timeouts
     ~nat_gateway_id ~public_ip_prefix_id __resource_id =
   let __resource_type =
     "azurerm_nat_gateway_public_ip_prefix_association"
   in
   let __resource =
-    { nat_gateway_id; public_ip_prefix_id; timeouts }
+    { id; nat_gateway_id; public_ip_prefix_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_nat_gateway_public_ip_prefix_association

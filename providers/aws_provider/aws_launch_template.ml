@@ -335,21 +335,27 @@ type aws_launch_template__tag_specifications = {
 (** aws_launch_template__tag_specifications *)
 
 type aws_launch_template = {
+  default_version : float option; [@option]  (** default_version *)
   description : string option; [@option]  (** description *)
   disable_api_stop : bool option; [@option]  (** disable_api_stop *)
   disable_api_termination : bool option; [@option]
       (** disable_api_termination *)
   ebs_optimized : string option; [@option]  (** ebs_optimized *)
+  id : string option; [@option]  (** id *)
   image_id : string option; [@option]  (** image_id *)
   instance_initiated_shutdown_behavior : string option; [@option]
       (** instance_initiated_shutdown_behavior *)
   instance_type : string option; [@option]  (** instance_type *)
   kernel_id : string option; [@option]  (** kernel_id *)
   key_name : string option; [@option]  (** key_name *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   ram_disk_id : string option; [@option]  (** ram_disk_id *)
   security_group_names : string list option; [@option]
       (** security_group_names *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   update_default_version : bool option; [@option]
       (** update_default_version *)
   user_data : string option; [@option]  (** user_data *)
@@ -390,13 +396,14 @@ type aws_launch_template = {
 [@@deriving yojson_of]
 (** aws_launch_template *)
 
-let aws_launch_template ?description ?disable_api_stop
-    ?disable_api_termination ?ebs_optimized ?image_id
-    ?instance_initiated_shutdown_behavior ?instance_type ?kernel_id
-    ?key_name ?ram_disk_id ?security_group_names ?tags
-    ?update_default_version ?user_data ?vpc_security_group_ids
-    ~block_device_mappings ~capacity_reservation_specification
-    ~cpu_options ~credit_specification ~elastic_gpu_specifications
+let aws_launch_template ?default_version ?description
+    ?disable_api_stop ?disable_api_termination ?ebs_optimized ?id
+    ?image_id ?instance_initiated_shutdown_behavior ?instance_type
+    ?kernel_id ?key_name ?name ?name_prefix ?ram_disk_id
+    ?security_group_names ?tags ?tags_all ?update_default_version
+    ?user_data ?vpc_security_group_ids ~block_device_mappings
+    ~capacity_reservation_specification ~cpu_options
+    ~credit_specification ~elastic_gpu_specifications
     ~elastic_inference_accelerator ~enclave_options
     ~hibernation_options ~iam_instance_profile
     ~instance_market_options ~instance_requirements
@@ -406,18 +413,23 @@ let aws_launch_template ?description ?disable_api_stop
   let __resource_type = "aws_launch_template" in
   let __resource =
     {
+      default_version;
       description;
       disable_api_stop;
       disable_api_termination;
       ebs_optimized;
+      id;
       image_id;
       instance_initiated_shutdown_behavior;
       instance_type;
       kernel_id;
       key_name;
+      name;
+      name_prefix;
       ram_disk_id;
       security_group_names;
       tags;
+      tags_all;
       update_default_version;
       user_data;
       vpc_security_group_ids;

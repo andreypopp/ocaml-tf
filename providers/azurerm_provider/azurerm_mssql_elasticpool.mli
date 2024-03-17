@@ -9,7 +9,11 @@ type azurerm_mssql_elasticpool
 
 val azurerm_mssql_elasticpool :
   ?enclave_type:string ->
+  ?id:string ->
+  ?license_type:string ->
   ?maintenance_configuration_name:string ->
+  ?max_size_bytes:float ->
+  ?max_size_gb:float ->
   ?tags:(string * string) list ->
   ?zone_redundant:bool ->
   ?timeouts:azurerm_mssql_elasticpool__timeouts ->

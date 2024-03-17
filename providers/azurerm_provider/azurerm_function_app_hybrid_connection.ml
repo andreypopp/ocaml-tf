@@ -17,6 +17,7 @@ type azurerm_function_app_hybrid_connection = {
   function_app_id : string;
       (** The ID of the Function App for this Hybrid Connection. *)
   hostname : string;  (** The hostname of the endpoint. *)
+  id : string option; [@option]  (** id *)
   port : float;  (** The port to use for the endpoint *)
   relay_id : string;
       (** The ID of the Relay Hybrid Connection to use. *)
@@ -27,13 +28,15 @@ type azurerm_function_app_hybrid_connection = {
 [@@deriving yojson_of]
 (** azurerm_function_app_hybrid_connection *)
 
-let azurerm_function_app_hybrid_connection ?send_key_name ?timeouts
-    ~function_app_id ~hostname ~port ~relay_id __resource_id =
+let azurerm_function_app_hybrid_connection ?id ?send_key_name
+    ?timeouts ~function_app_id ~hostname ~port ~relay_id
+    __resource_id =
   let __resource_type = "azurerm_function_app_hybrid_connection" in
   let __resource =
     {
       function_app_id;
       hostname;
+      id;
       port;
       relay_id;
       send_key_name;

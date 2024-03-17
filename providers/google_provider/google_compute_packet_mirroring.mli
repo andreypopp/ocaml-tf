@@ -13,6 +13,10 @@ type google_compute_packet_mirroring
 
 val google_compute_packet_mirroring :
   ?description:string ->
+  ?id:string ->
+  ?priority:float ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:google_compute_packet_mirroring__timeouts ->
   name:string ->
   collector_ilb:google_compute_packet_mirroring__collector_ilb list ->

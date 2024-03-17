@@ -6,6 +6,7 @@ type aws_codeguruprofiler_profiling_group__agent_orchestration_config
 type aws_codeguruprofiler_profiling_group
 
 val aws_codeguruprofiler_profiling_group :
+  ?compute_platform:string ->
   ?tags:(string * string) list ->
   name:string ->
   agent_orchestration_config:

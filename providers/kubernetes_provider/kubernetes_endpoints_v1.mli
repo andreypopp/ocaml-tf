@@ -10,6 +10,7 @@ type kubernetes_endpoints_v1__subset
 type kubernetes_endpoints_v1
 
 val kubernetes_endpoints_v1 :
+  ?id:string ->
   metadata:kubernetes_endpoints_v1__metadata list ->
   subset:kubernetes_endpoints_v1__subset list ->
   string ->

@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type digitalocean_volume_snapshot = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : string list option; [@option]  (** tags *)
   volume_id : string;  (** volume_id *)
@@ -12,10 +13,10 @@ type digitalocean_volume_snapshot = {
 [@@deriving yojson_of]
 (** digitalocean_volume_snapshot *)
 
-let digitalocean_volume_snapshot ?tags ~name ~volume_id __resource_id
-    =
+let digitalocean_volume_snapshot ?id ?tags ~name ~volume_id
+    __resource_id =
   let __resource_type = "digitalocean_volume_snapshot" in
-  let __resource = { name; tags; volume_id } in
+  let __resource = { id; name; tags; volume_id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_volume_snapshot __resource);
   ()

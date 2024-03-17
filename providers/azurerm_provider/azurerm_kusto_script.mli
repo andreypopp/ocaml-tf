@@ -7,6 +7,8 @@ type azurerm_kusto_script
 
 val azurerm_kusto_script :
   ?continue_on_errors_enabled:bool ->
+  ?force_an_update_when_value_changed:string ->
+  ?id:string ->
   ?sas_token:string ->
   ?script_content:string ->
   ?url:string ->

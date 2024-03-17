@@ -52,7 +52,9 @@ type google_pubsub_lite_topic__timeouts = {
 (** google_pubsub_lite_topic__timeouts *)
 
 type google_pubsub_lite_topic = {
+  id : string option; [@option]  (** id *)
   name : string;  (** Name of the topic. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region of the pubsub lite topic. *)
   zone : string option; [@option]
@@ -66,13 +68,15 @@ type google_pubsub_lite_topic = {
 [@@deriving yojson_of]
 (** google_pubsub_lite_topic *)
 
-let google_pubsub_lite_topic ?region ?zone ?timeouts ~name
-    ~partition_config ~reservation_config ~retention_config
+let google_pubsub_lite_topic ?id ?project ?region ?zone ?timeouts
+    ~name ~partition_config ~reservation_config ~retention_config
     __resource_id =
   let __resource_type = "google_pubsub_lite_topic" in
   let __resource =
     {
+      id;
       name;
+      project;
       region;
       zone;
       partition_config;

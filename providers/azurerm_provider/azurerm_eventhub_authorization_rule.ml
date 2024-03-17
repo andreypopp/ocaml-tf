@@ -15,6 +15,7 @@ type azurerm_eventhub_authorization_rule__timeouts = {
 
 type azurerm_eventhub_authorization_rule = {
   eventhub_name : string;  (** eventhub_name *)
+  id : string option; [@option]  (** id *)
   listen : bool option; [@option]  (** listen *)
   manage : bool option; [@option]  (** manage *)
   name : string;  (** name *)
@@ -26,13 +27,14 @@ type azurerm_eventhub_authorization_rule = {
 [@@deriving yojson_of]
 (** azurerm_eventhub_authorization_rule *)
 
-let azurerm_eventhub_authorization_rule ?listen ?manage ?send
+let azurerm_eventhub_authorization_rule ?id ?listen ?manage ?send
     ?timeouts ~eventhub_name ~name ~namespace_name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_eventhub_authorization_rule" in
   let __resource =
     {
       eventhub_name;
+      id;
       listen;
       manage;
       name;

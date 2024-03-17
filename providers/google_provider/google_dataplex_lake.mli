@@ -11,7 +11,6 @@ type google_dataplex_lake__asset_status = {
       (** security_policy_applying_assets *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_lake__metastore_status = {
   endpoint : string;  (** endpoint *)
@@ -19,14 +18,15 @@ type google_dataplex_lake__metastore_status = {
   state : string;  (** state *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_lake
 
 val google_dataplex_lake :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_dataplex_lake__timeouts ->
   location:string ->
   name:string ->

@@ -10,7 +10,6 @@ type google_endpoints_service__apis__methods = {
   response_type : string;  (** response_type *)
   syntax : string;  (** syntax *)
 }
-[@@deriving yojson_of]
 
 type google_endpoints_service__apis = {
   methods : google_endpoints_service__apis__methods list;
@@ -19,19 +18,19 @@ type google_endpoints_service__apis = {
   syntax : string;  (** syntax *)
   version : string;  (** version *)
 }
-[@@deriving yojson_of]
 
 type google_endpoints_service__endpoints = {
   address : string;  (** address *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type google_endpoints_service
 
 val google_endpoints_service :
   ?grpc_config:string ->
+  ?id:string ->
   ?openapi_config:string ->
+  ?project:string ->
   ?protoc_output_base64:string ->
   ?timeouts:google_endpoints_service__timeouts ->
   service_name:string ->

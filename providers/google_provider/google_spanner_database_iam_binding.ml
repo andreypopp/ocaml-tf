@@ -14,19 +14,21 @@ type google_spanner_database_iam_binding__condition = {
 
 type google_spanner_database_iam_binding = {
   database : string;  (** database *)
+  id : string option; [@option]  (** id *)
   instance : string;  (** instance *)
   members : string list;  (** members *)
+  project : string option; [@option]  (** project *)
   role : string;  (** role *)
   condition : google_spanner_database_iam_binding__condition list;
 }
 [@@deriving yojson_of]
 (** google_spanner_database_iam_binding *)
 
-let google_spanner_database_iam_binding ~database ~instance ~members
-    ~role ~condition __resource_id =
+let google_spanner_database_iam_binding ?id ?project ~database
+    ~instance ~members ~role ~condition __resource_id =
   let __resource_type = "google_spanner_database_iam_binding" in
   let __resource =
-    { database; instance; members; role; condition }
+    { database; id; instance; members; project; role; condition }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_spanner_database_iam_binding __resource);

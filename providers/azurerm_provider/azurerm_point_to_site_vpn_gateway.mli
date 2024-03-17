@@ -14,6 +14,7 @@ type azurerm_point_to_site_vpn_gateway
 
 val azurerm_point_to_site_vpn_gateway :
   ?dns_servers:string list ->
+  ?id:string ->
   ?routing_preference_internet_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_point_to_site_vpn_gateway__timeouts ->

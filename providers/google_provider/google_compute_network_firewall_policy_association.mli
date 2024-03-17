@@ -6,6 +6,8 @@ type google_compute_network_firewall_policy_association__timeouts
 type google_compute_network_firewall_policy_association
 
 val google_compute_network_firewall_policy_association :
+  ?id:string ->
+  ?project:string ->
   ?timeouts:
     google_compute_network_firewall_policy_association__timeouts ->
   attachment_target:string ->

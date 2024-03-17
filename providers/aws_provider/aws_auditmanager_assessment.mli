@@ -11,13 +11,11 @@ type aws_auditmanager_assessment__roles = {
   role_arn : string;  (** role_arn *)
   role_type : string;  (** role_type *)
 }
-[@@deriving yojson_of]
 
 type aws_auditmanager_assessment__roles_all = {
   role_arn : string;  (** role_arn *)
   role_type : string;  (** role_type *)
 }
-[@@deriving yojson_of]
 
 type aws_auditmanager_assessment
 

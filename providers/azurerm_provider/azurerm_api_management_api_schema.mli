@@ -8,6 +8,7 @@ type azurerm_api_management_api_schema
 val azurerm_api_management_api_schema :
   ?components:string ->
   ?definitions:string ->
+  ?id:string ->
   ?value:string ->
   ?timeouts:azurerm_api_management_api_schema__timeouts ->
   api_management_name:string ->

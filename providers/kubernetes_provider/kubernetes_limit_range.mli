@@ -8,6 +8,7 @@ type kubernetes_limit_range__spec
 type kubernetes_limit_range
 
 val kubernetes_limit_range :
+  ?id:string ->
   metadata:kubernetes_limit_range__metadata list ->
   spec:kubernetes_limit_range__spec list ->
   string ->

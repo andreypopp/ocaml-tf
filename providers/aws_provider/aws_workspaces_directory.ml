@@ -53,7 +53,12 @@ type aws_workspaces_directory__workspace_creation_properties = {
 
 type aws_workspaces_directory = {
   directory_id : string;  (** directory_id *)
+  id : string option; [@option]  (** id *)
+  ip_group_ids : string list option; [@option]  (** ip_group_ids *)
+  subnet_ids : string list option; [@option]  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   self_service_permissions :
     aws_workspaces_directory__self_service_permissions list;
   workspace_access_properties :
@@ -64,14 +69,19 @@ type aws_workspaces_directory = {
 [@@deriving yojson_of]
 (** aws_workspaces_directory *)
 
-let aws_workspaces_directory ?tags ~directory_id
-    ~self_service_permissions ~workspace_access_properties
-    ~workspace_creation_properties __resource_id =
+let aws_workspaces_directory ?id ?ip_group_ids ?subnet_ids ?tags
+    ?tags_all ~directory_id ~self_service_permissions
+    ~workspace_access_properties ~workspace_creation_properties
+    __resource_id =
   let __resource_type = "aws_workspaces_directory" in
   let __resource =
     {
       directory_id;
+      id;
+      ip_group_ids;
+      subnet_ids;
       tags;
+      tags_all;
       self_service_permissions;
       workspace_access_properties;
       workspace_creation_properties;

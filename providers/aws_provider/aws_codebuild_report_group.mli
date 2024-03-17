@@ -8,7 +8,9 @@ type aws_codebuild_report_group
 
 val aws_codebuild_report_group :
   ?delete_reports:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   type_:string ->
   export_config:aws_codebuild_report_group__export_config list ->

@@ -6,6 +6,7 @@ type azurerm_dns_a_record__timeouts
 type azurerm_dns_a_record
 
 val azurerm_dns_a_record :
+  ?id:string ->
   ?records:string list ->
   ?tags:(string * string) list ->
   ?target_resource_id:string ->

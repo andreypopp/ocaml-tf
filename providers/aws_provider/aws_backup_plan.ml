@@ -56,8 +56,11 @@ type aws_backup_plan__rule = {
 (** aws_backup_plan__rule *)
 
 type aws_backup_plan = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   advanced_backup_setting :
     aws_backup_plan__advanced_backup_setting list;
   rule : aws_backup_plan__rule list;
@@ -65,10 +68,12 @@ type aws_backup_plan = {
 [@@deriving yojson_of]
 (** aws_backup_plan *)
 
-let aws_backup_plan ?tags ~name ~advanced_backup_setting ~rule
-    __resource_id =
+let aws_backup_plan ?id ?tags ?tags_all ~name
+    ~advanced_backup_setting ~rule __resource_id =
   let __resource_type = "aws_backup_plan" in
-  let __resource = { name; tags; advanced_backup_setting; rule } in
+  let __resource =
+    { id; name; tags; tags_all; advanced_backup_setting; rule }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_backup_plan __resource);
   ()

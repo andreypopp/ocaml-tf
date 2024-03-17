@@ -10,6 +10,7 @@ type aws_ssoadmin_permissions_boundary_attachment__timeouts
 type aws_ssoadmin_permissions_boundary_attachment
 
 val aws_ssoadmin_permissions_boundary_attachment :
+  ?id:string ->
   ?timeouts:aws_ssoadmin_permissions_boundary_attachment__timeouts ->
   instance_arn:string ->
   permission_set_arn:string ->

@@ -8,6 +8,7 @@ type azurerm_mssql_managed_instance_active_directory_administrator
 
 val azurerm_mssql_managed_instance_active_directory_administrator :
   ?azuread_authentication_only:bool ->
+  ?id:string ->
   ?timeouts:
     azurerm_mssql_managed_instance_active_directory_administrator__timeouts ->
   login_username:string ->

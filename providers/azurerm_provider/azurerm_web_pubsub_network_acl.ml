@@ -34,6 +34,7 @@ type azurerm_web_pubsub_network_acl__timeouts = {
 
 type azurerm_web_pubsub_network_acl = {
   default_action : string option; [@option]  (** default_action *)
+  id : string option; [@option]  (** id *)
   web_pubsub_id : string;  (** web_pubsub_id *)
   private_endpoint :
     azurerm_web_pubsub_network_acl__private_endpoint list;
@@ -44,12 +45,13 @@ type azurerm_web_pubsub_network_acl = {
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_network_acl *)
 
-let azurerm_web_pubsub_network_acl ?default_action ?timeouts
+let azurerm_web_pubsub_network_acl ?default_action ?id ?timeouts
     ~web_pubsub_id ~private_endpoint ~public_network __resource_id =
   let __resource_type = "azurerm_web_pubsub_network_acl" in
   let __resource =
     {
       default_action;
+      id;
       web_pubsub_id;
       private_endpoint;
       public_network;

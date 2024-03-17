@@ -19,7 +19,9 @@ type azurerm_service_fabric_managed_cluster
 
 val azurerm_service_fabric_managed_cluster :
   ?backup_service_enabled:bool ->
+  ?dns_name:string ->
   ?dns_service_enabled:bool ->
+  ?id:string ->
   ?password:string ->
   ?sku:string ->
   ?tags:(string * string) list ->

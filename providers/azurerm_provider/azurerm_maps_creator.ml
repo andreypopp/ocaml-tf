@@ -14,6 +14,7 @@ type azurerm_maps_creator__timeouts = {
 (** azurerm_maps_creator__timeouts *)
 
 type azurerm_maps_creator = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   maps_account_id : string;  (** maps_account_id *)
   name : string;  (** name *)
@@ -24,11 +25,12 @@ type azurerm_maps_creator = {
 [@@deriving yojson_of]
 (** azurerm_maps_creator *)
 
-let azurerm_maps_creator ?tags ?timeouts ~location ~maps_account_id
-    ~name ~storage_units __resource_id =
+let azurerm_maps_creator ?id ?tags ?timeouts ~location
+    ~maps_account_id ~name ~storage_units __resource_id =
   let __resource_type = "azurerm_maps_creator" in
   let __resource =
     {
+      id;
       location;
       maps_account_id;
       name;

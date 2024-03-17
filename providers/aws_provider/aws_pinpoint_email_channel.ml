@@ -10,14 +10,15 @@ type aws_pinpoint_email_channel = {
       (** configuration_set *)
   enabled : bool option; [@option]  (** enabled *)
   from_address : string;  (** from_address *)
+  id : string option; [@option]  (** id *)
   identity : string;  (** identity *)
   role_arn : string option; [@option]  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_pinpoint_email_channel *)
 
-let aws_pinpoint_email_channel ?configuration_set ?enabled ?role_arn
-    ~application_id ~from_address ~identity __resource_id =
+let aws_pinpoint_email_channel ?configuration_set ?enabled ?id
+    ?role_arn ~application_id ~from_address ~identity __resource_id =
   let __resource_type = "aws_pinpoint_email_channel" in
   let __resource =
     {
@@ -25,6 +26,7 @@ let aws_pinpoint_email_channel ?configuration_set ?enabled ?role_arn
       configuration_set;
       enabled;
       from_address;
+      id;
       identity;
       role_arn;
     }

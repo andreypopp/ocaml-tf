@@ -10,6 +10,7 @@ val azurerm_mssql_managed_instance_security_alert_policy :
   ?email_account_admins_enabled:bool ->
   ?email_addresses:string list ->
   ?enabled:bool ->
+  ?id:string ->
   ?retention_days:float ->
   ?storage_account_access_key:string ->
   ?storage_endpoint:string ->

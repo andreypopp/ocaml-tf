@@ -34,6 +34,7 @@ type aws_lex_bot_alias = {
   bot_name : string;  (** bot_name *)
   bot_version : string;  (** bot_version *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   conversation_logs : aws_lex_bot_alias__conversation_logs list;
   timeouts : aws_lex_bot_alias__timeouts option;
@@ -41,14 +42,15 @@ type aws_lex_bot_alias = {
 [@@deriving yojson_of]
 (** aws_lex_bot_alias *)
 
-let aws_lex_bot_alias ?description ?timeouts ~bot_name ~bot_version
-    ~name ~conversation_logs __resource_id =
+let aws_lex_bot_alias ?description ?id ?timeouts ~bot_name
+    ~bot_version ~name ~conversation_logs __resource_id =
   let __resource_type = "aws_lex_bot_alias" in
   let __resource =
     {
       bot_name;
       bot_version;
       description;
+      id;
       name;
       conversation_logs;
       timeouts;

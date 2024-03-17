@@ -109,7 +109,9 @@ type google_datastream_stream
 val google_datastream_stream :
   ?customer_managed_encryption_key:string ->
   ?desired_state:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_datastream_stream__timeouts ->
   display_name:string ->
   location:string ->

@@ -24,6 +24,7 @@ type azurerm_arc_kubernetes_cluster__timeouts = {
 type azurerm_arc_kubernetes_cluster = {
   agent_public_key_certificate : string;
       (** agent_public_key_certificate *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -34,13 +35,14 @@ type azurerm_arc_kubernetes_cluster = {
 [@@deriving yojson_of]
 (** azurerm_arc_kubernetes_cluster *)
 
-let azurerm_arc_kubernetes_cluster ?tags ?timeouts
+let azurerm_arc_kubernetes_cluster ?id ?tags ?timeouts
     ~agent_public_key_certificate ~location ~name
     ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_arc_kubernetes_cluster" in
   let __resource =
     {
       agent_public_key_certificate;
+      id;
       location;
       name;
       resource_group_name;

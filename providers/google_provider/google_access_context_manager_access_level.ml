@@ -151,6 +151,7 @@ type google_access_context_manager_access_level__timeouts = {
 type google_access_context_manager_access_level = {
   description : string option; [@option]
       (** Description of the AccessLevel and its use. Does not affect behavior. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Resource name for the Access Level. The short_name component must begin
 with a letter and only include alphanumeric and '_'.
@@ -168,13 +169,13 @@ Format: accessPolicies/{policy_id} *)
 [@@deriving yojson_of]
 (** google_access_context_manager_access_level *)
 
-let google_access_context_manager_access_level ?description ?timeouts
-    ~name ~parent ~title ~basic ~custom __resource_id =
+let google_access_context_manager_access_level ?description ?id
+    ?timeouts ~name ~parent ~title ~basic ~custom __resource_id =
   let __resource_type =
     "google_access_context_manager_access_level"
   in
   let __resource =
-    { description; name; parent; title; basic; custom; timeouts }
+    { description; id; name; parent; title; basic; custom; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_access_level __resource);

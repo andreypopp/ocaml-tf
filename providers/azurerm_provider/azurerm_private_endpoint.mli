@@ -11,13 +11,11 @@ type azurerm_private_endpoint__custom_dns_configs = {
   fqdn : string;  (** fqdn *)
   ip_addresses : string list;  (** ip_addresses *)
 }
-[@@deriving yojson_of]
 
 type azurerm_private_endpoint__network_interface = {
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type azurerm_private_endpoint__private_dns_zone_configs__record_sets = {
   fqdn : string;  (** fqdn *)
@@ -26,7 +24,6 @@ type azurerm_private_endpoint__private_dns_zone_configs__record_sets = {
   ttl : float;  (** ttl *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type azurerm_private_endpoint__private_dns_zone_configs = {
   id : string;  (** id *)
@@ -37,12 +34,12 @@ type azurerm_private_endpoint__private_dns_zone_configs = {
     list;
       (** record_sets *)
 }
-[@@deriving yojson_of]
 
 type azurerm_private_endpoint
 
 val azurerm_private_endpoint :
   ?custom_network_interface_name:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_private_endpoint__timeouts ->
   location:string ->

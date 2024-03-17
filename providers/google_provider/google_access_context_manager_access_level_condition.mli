@@ -15,6 +15,7 @@ type google_access_context_manager_access_level_condition__vpc_network_sources
 type google_access_context_manager_access_level_condition
 
 val google_access_context_manager_access_level_condition :
+  ?id:string ->
   ?ip_subnetworks:string list ->
   ?members:string list ->
   ?negate:bool ->

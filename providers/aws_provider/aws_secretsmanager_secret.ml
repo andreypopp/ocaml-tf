@@ -18,26 +18,38 @@ type aws_secretsmanager_secret = {
   description : string option; [@option]  (** description *)
   force_overwrite_replica_secret : bool option; [@option]
       (** force_overwrite_replica_secret *)
+  id : string option; [@option]  (** id *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
+  policy : string option; [@option]  (** policy *)
   recovery_window_in_days : float option; [@option]
       (** recovery_window_in_days *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   replica : aws_secretsmanager_secret__replica list;
 }
 [@@deriving yojson_of]
 (** aws_secretsmanager_secret *)
 
 let aws_secretsmanager_secret ?description
-    ?force_overwrite_replica_secret ?kms_key_id
-    ?recovery_window_in_days ?tags ~replica __resource_id =
+    ?force_overwrite_replica_secret ?id ?kms_key_id ?name
+    ?name_prefix ?policy ?recovery_window_in_days ?tags ?tags_all
+    ~replica __resource_id =
   let __resource_type = "aws_secretsmanager_secret" in
   let __resource =
     {
       description;
       force_overwrite_replica_secret;
+      id;
       kms_key_id;
+      name;
+      name_prefix;
+      policy;
       recovery_window_in_days;
       tags;
+      tags_all;
       replica;
     }
   in

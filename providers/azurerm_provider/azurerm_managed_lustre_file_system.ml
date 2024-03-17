@@ -43,6 +43,7 @@ type azurerm_managed_lustre_file_system__timeouts = {
 (** azurerm_managed_lustre_file_system__timeouts *)
 
 type azurerm_managed_lustre_file_system = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -62,13 +63,14 @@ type azurerm_managed_lustre_file_system = {
 [@@deriving yojson_of]
 (** azurerm_managed_lustre_file_system *)
 
-let azurerm_managed_lustre_file_system ?tags ?timeouts ~location
+let azurerm_managed_lustre_file_system ?id ?tags ?timeouts ~location
     ~name ~resource_group_name ~sku_name ~storage_capacity_in_tb
     ~subnet_id ~zones ~encryption_key ~hsm_setting ~identity
     ~maintenance_window __resource_id =
   let __resource_type = "azurerm_managed_lustre_file_system" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

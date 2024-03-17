@@ -14,6 +14,7 @@ type azurerm_capacity_reservation_group__timeouts = {
 (** azurerm_capacity_reservation_group__timeouts *)
 
 type azurerm_capacity_reservation_group = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,11 +25,19 @@ type azurerm_capacity_reservation_group = {
 [@@deriving yojson_of]
 (** azurerm_capacity_reservation_group *)
 
-let azurerm_capacity_reservation_group ?tags ?zones ?timeouts
+let azurerm_capacity_reservation_group ?id ?tags ?zones ?timeouts
     ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_capacity_reservation_group" in
   let __resource =
-    { location; name; resource_group_name; tags; zones; timeouts }
+    {
+      id;
+      location;
+      name;
+      resource_group_name;
+      tags;
+      zones;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_capacity_reservation_group __resource);

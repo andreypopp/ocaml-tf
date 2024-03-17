@@ -10,12 +10,14 @@ type google_database_migration_service_private_connection__error = {
   details : (string * string) list;  (** details *)
   message : string;  (** message *)
 }
-[@@deriving yojson_of]
 
 type google_database_migration_service_private_connection
 
 val google_database_migration_service_private_connection :
+  ?display_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:
     google_database_migration_service_private_connection__timeouts ->
   location:string ->

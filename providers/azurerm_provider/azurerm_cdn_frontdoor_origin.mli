@@ -7,8 +7,11 @@ type azurerm_cdn_frontdoor_origin__timeouts
 type azurerm_cdn_frontdoor_origin
 
 val azurerm_cdn_frontdoor_origin :
+  ?enabled:bool ->
+  ?health_probes_enabled:bool ->
   ?http_port:float ->
   ?https_port:float ->
+  ?id:string ->
   ?origin_host_header:string ->
   ?priority:float ->
   ?weight:float ->

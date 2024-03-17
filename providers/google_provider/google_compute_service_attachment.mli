@@ -9,7 +9,6 @@ type google_compute_service_attachment__connected_endpoints = {
   endpoint : string;  (** endpoint *)
   status : string;  (** status *)
 }
-[@@deriving yojson_of]
 
 type google_compute_service_attachment
 
@@ -17,6 +16,10 @@ val google_compute_service_attachment :
   ?consumer_reject_lists:string list ->
   ?description:string ->
   ?domain_names:string list ->
+  ?id:string ->
+  ?project:string ->
+  ?reconcile_connections:bool ->
+  ?region:string ->
   ?timeouts:google_compute_service_attachment__timeouts ->
   connection_preference:string ->
   enable_proxy_protocol:bool ->

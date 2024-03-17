@@ -14,19 +14,20 @@ type aws_synthetics_canary__timeline = {
   last_started : string;  (** last_started *)
   last_stopped : string;  (** last_stopped *)
 }
-[@@deriving yojson_of]
 
 type aws_synthetics_canary
 
 val aws_synthetics_canary :
   ?delete_lambda:bool ->
   ?failure_retention_period:float ->
+  ?id:string ->
   ?s3_bucket:string ->
   ?s3_key:string ->
   ?s3_version:string ->
   ?start_canary:bool ->
   ?success_retention_period:float ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?zip_file:string ->
   artifact_s3_location:string ->
   execution_role_arn:string ->

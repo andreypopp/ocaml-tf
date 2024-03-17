@@ -455,10 +455,13 @@ type aws_iot_topic_rule__timestream = {
 type aws_iot_topic_rule = {
   description : string option; [@option]  (** description *)
   enabled : bool;  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   sql : string;  (** sql *)
   sql_version : string;  (** sql_version *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   cloudwatch_alarm : aws_iot_topic_rule__cloudwatch_alarm list;
   cloudwatch_logs : aws_iot_topic_rule__cloudwatch_logs list;
   cloudwatch_metric : aws_iot_topic_rule__cloudwatch_metric list;
@@ -483,8 +486,8 @@ type aws_iot_topic_rule = {
 [@@deriving yojson_of]
 (** aws_iot_topic_rule *)
 
-let aws_iot_topic_rule ?description ?tags ~enabled ~name ~sql
-    ~sql_version ~cloudwatch_alarm ~cloudwatch_logs
+let aws_iot_topic_rule ?description ?id ?tags ?tags_all ~enabled
+    ~name ~sql ~sql_version ~cloudwatch_alarm ~cloudwatch_logs
     ~cloudwatch_metric ~dynamodb ~dynamodbv2 ~elasticsearch
     ~error_action ~firehose ~http ~iot_analytics ~iot_events ~kafka
     ~kinesis ~lambda ~republish ~s3 ~sns ~sqs ~step_functions
@@ -494,10 +497,12 @@ let aws_iot_topic_rule ?description ?tags ~enabled ~name ~sql
     {
       description;
       enabled;
+      id;
       name;
       sql;
       sql_version;
       tags;
+      tags_all;
       cloudwatch_alarm;
       cloudwatch_logs;
       cloudwatch_metric;

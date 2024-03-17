@@ -82,6 +82,7 @@ type google_compute_per_instance_config__timeouts = {
 (** google_compute_per_instance_config__timeouts *)
 
 type google_compute_per_instance_config = {
+  id : string option; [@option]  (** id *)
   instance_group_manager : string;
       (** The instance group manager this instance config is part of. *)
   minimal_action : string option; [@option]
@@ -100,6 +101,7 @@ Default is 'REPLACE'. Possible values are:
 * NONE *)
   name : string;
       (** The name for this per-instance config and its corresponding instance. *)
+  project : string option; [@option]  (** project *)
   remove_instance_on_destroy : bool option; [@option]
       (** When true, deleting this config will immediately remove the underlying instance.
 When false, deleting this config will use the behavior as determined by remove_instance_on_destroy. *)
@@ -107,6 +109,8 @@ When false, deleting this config will use the behavior as determined by remove_i
       (** When true, deleting this config will immediately remove any specified state from the underlying instance.
 When false, deleting this config will *not* immediately remove any state from the underlying instance.
 State will be removed on the next instance recreation or update. *)
+  zone : string option; [@option]
+      (** Zone where the containing instance group manager is located *)
   preserved_state :
     google_compute_per_instance_config__preserved_state list;
   timeouts : google_compute_per_instance_config__timeouts option;
@@ -114,19 +118,23 @@ State will be removed on the next instance recreation or update. *)
 [@@deriving yojson_of]
 (** google_compute_per_instance_config *)
 
-let google_compute_per_instance_config ?minimal_action
-    ?most_disruptive_allowed_action ?remove_instance_on_destroy
-    ?remove_instance_state_on_destroy ?timeouts
-    ~instance_group_manager ~name ~preserved_state __resource_id =
+let google_compute_per_instance_config ?id ?minimal_action
+    ?most_disruptive_allowed_action ?project
+    ?remove_instance_on_destroy ?remove_instance_state_on_destroy
+    ?zone ?timeouts ~instance_group_manager ~name ~preserved_state
+    __resource_id =
   let __resource_type = "google_compute_per_instance_config" in
   let __resource =
     {
+      id;
       instance_group_manager;
       minimal_action;
       most_disruptive_allowed_action;
       name;
+      project;
       remove_instance_on_destroy;
       remove_instance_state_on_destroy;
+      zone;
       preserved_state;
       timeouts;
     }

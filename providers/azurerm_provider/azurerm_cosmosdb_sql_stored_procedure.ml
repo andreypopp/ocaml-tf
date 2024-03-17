@@ -18,6 +18,7 @@ type azurerm_cosmosdb_sql_stored_procedure = {
   body : string;  (** body *)
   container_name : string;  (** container_name *)
   database_name : string;  (** database_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts : azurerm_cosmosdb_sql_stored_procedure__timeouts option;
@@ -25,7 +26,7 @@ type azurerm_cosmosdb_sql_stored_procedure = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_stored_procedure *)
 
-let azurerm_cosmosdb_sql_stored_procedure ?timeouts ~account_name
+let azurerm_cosmosdb_sql_stored_procedure ?id ?timeouts ~account_name
     ~body ~container_name ~database_name ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_cosmosdb_sql_stored_procedure" in
@@ -35,6 +36,7 @@ let azurerm_cosmosdb_sql_stored_procedure ?timeouts ~account_name
       body;
       container_name;
       database_name;
+      id;
       name;
       resource_group_name;
       timeouts;

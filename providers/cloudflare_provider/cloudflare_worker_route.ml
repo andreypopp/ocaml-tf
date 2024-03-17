@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type cloudflare_worker_route = {
+  id : string option; [@option]  (** id *)
   pattern : string;
       (** The [route pattern](https://developers.cloudflare.com/workers/about/routes/) to associate the Worker with. *)
   script_name : string option; [@option]
@@ -15,10 +16,10 @@ type cloudflare_worker_route = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare worker route resource. A route will also require a `cloudflare_worker_script`. *)
 
-let cloudflare_worker_route ?script_name ~pattern ~zone_id
+let cloudflare_worker_route ?id ?script_name ~pattern ~zone_id
     __resource_id =
   let __resource_type = "cloudflare_worker_route" in
-  let __resource = { pattern; script_name; zone_id } in
+  let __resource = { id; pattern; script_name; zone_id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_worker_route __resource);
   ()

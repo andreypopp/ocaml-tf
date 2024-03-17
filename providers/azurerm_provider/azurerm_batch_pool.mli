@@ -12,7 +12,6 @@ type azurerm_batch_pool__container_configuration__container_registries = {
       (** user_assigned_identity_id *)
   user_name : string;  (** user_name *)
 }
-[@@deriving yojson_of]
 
 type azurerm_batch_pool__container_configuration
 type azurerm_batch_pool__data_disks
@@ -48,6 +47,7 @@ type azurerm_batch_pool
 
 val azurerm_batch_pool :
   ?display_name:string ->
+  ?id:string ->
   ?inter_node_communication:string ->
   ?license_type:string ->
   ?max_tasks_per_node:float ->

@@ -37,6 +37,7 @@ type azurerm_network_manager_connectivity_configuration = {
   description : string option; [@option]  (** description *)
   global_mesh_enabled : bool option; [@option]
       (** global_mesh_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   network_manager_id : string;  (** network_manager_id *)
   applies_to_group :
@@ -52,7 +53,7 @@ type azurerm_network_manager_connectivity_configuration = {
 
 let azurerm_network_manager_connectivity_configuration
     ?delete_existing_peering_enabled ?description
-    ?global_mesh_enabled ?timeouts ~connectivity_topology ~name
+    ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
     ~network_manager_id ~applies_to_group ~hub __resource_id =
   let __resource_type =
     "azurerm_network_manager_connectivity_configuration"
@@ -63,6 +64,7 @@ let azurerm_network_manager_connectivity_configuration
       delete_existing_peering_enabled;
       description;
       global_mesh_enabled;
+      id;
       name;
       network_manager_id;
       applies_to_group;

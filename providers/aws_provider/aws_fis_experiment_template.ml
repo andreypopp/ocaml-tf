@@ -99,8 +99,11 @@ type aws_fis_experiment_template__timeouts = {
 
 type aws_fis_experiment_template = {
   description : string;  (** description *)
+  id : string option; [@option]  (** id *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   action : aws_fis_experiment_template__action list;
   log_configuration :
     aws_fis_experiment_template__log_configuration list;
@@ -111,15 +114,17 @@ type aws_fis_experiment_template = {
 [@@deriving yojson_of]
 (** aws_fis_experiment_template *)
 
-let aws_fis_experiment_template ?tags ?timeouts ~description
-    ~role_arn ~action ~log_configuration ~stop_condition ~target
-    __resource_id =
+let aws_fis_experiment_template ?id ?tags ?tags_all ?timeouts
+    ~description ~role_arn ~action ~log_configuration ~stop_condition
+    ~target __resource_id =
   let __resource_type = "aws_fis_experiment_template" in
   let __resource =
     {
       description;
+      id;
       role_arn;
       tags;
+      tags_all;
       action;
       log_configuration;
       stop_condition;

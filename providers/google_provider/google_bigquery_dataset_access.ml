@@ -76,6 +76,8 @@ domain specified will be granted the specified access *)
   iam_member : string option; [@option]
       (** Some other type of member that appears in the IAM Policy but isn't a user,
 group, domain, or special group. For example: 'allUsers' *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   role : string option; [@option]
       (** Describes the rights granted to the user specified by the other
 member of the access object. Basic, predefined, and custom roles are
@@ -109,8 +111,8 @@ fred@example.com *)
 (** google_bigquery_dataset_access *)
 
 let google_bigquery_dataset_access ?domain ?group_by_email
-    ?iam_member ?role ?special_group ?user_by_email ?timeouts
-    ~dataset_id ~dataset ~routine ~view __resource_id =
+    ?iam_member ?id ?project ?role ?special_group ?user_by_email
+    ?timeouts ~dataset_id ~dataset ~routine ~view __resource_id =
   let __resource_type = "google_bigquery_dataset_access" in
   let __resource =
     {
@@ -118,6 +120,8 @@ let google_bigquery_dataset_access ?domain ?group_by_email
       domain;
       group_by_email;
       iam_member;
+      id;
+      project;
       role;
       special_group;
       user_by_email;

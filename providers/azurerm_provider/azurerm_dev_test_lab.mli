@@ -6,6 +6,7 @@ type azurerm_dev_test_lab__timeouts
 type azurerm_dev_test_lab
 
 val azurerm_dev_test_lab :
+  ?id:string ->
   ?storage_type:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dev_test_lab__timeouts ->

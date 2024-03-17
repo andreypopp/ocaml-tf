@@ -20,16 +20,48 @@ type aws_spot_instance_request__timeouts
 type aws_spot_instance_request
 
 val aws_spot_instance_request :
+  ?ami:string ->
+  ?associate_public_ip_address:bool ->
+  ?availability_zone:string ->
   ?block_duration_minutes:float ->
+  ?cpu_core_count:float ->
+  ?cpu_threads_per_core:float ->
+  ?disable_api_stop:bool ->
+  ?disable_api_termination:bool ->
+  ?ebs_optimized:bool ->
   ?get_password_data:bool ->
   ?hibernation:bool ->
+  ?host_id:string ->
+  ?host_resource_group_arn:string ->
+  ?iam_instance_profile:string ->
+  ?id:string ->
+  ?instance_initiated_shutdown_behavior:string ->
   ?instance_interruption_behavior:string ->
+  ?instance_type:string ->
+  ?ipv6_address_count:float ->
+  ?ipv6_addresses:string list ->
+  ?key_name:string ->
   ?launch_group:string ->
+  ?monitoring:bool ->
+  ?placement_group:string ->
+  ?placement_partition_number:float ->
+  ?private_ip:string ->
+  ?secondary_private_ips:string list ->
+  ?security_groups:string list ->
   ?source_dest_check:bool ->
+  ?spot_price:string ->
   ?spot_type:string ->
+  ?subnet_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?tenancy:string ->
+  ?user_data:string ->
+  ?user_data_base64:string ->
   ?user_data_replace_on_change:bool ->
+  ?valid_from:string ->
+  ?valid_until:string ->
   ?volume_tags:(string * string) list ->
+  ?vpc_security_group_ids:string list ->
   ?wait_for_fulfillment:bool ->
   ?timeouts:aws_spot_instance_request__timeouts ->
   capacity_reservation_specification:

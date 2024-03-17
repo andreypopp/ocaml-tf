@@ -18,6 +18,7 @@ type azurerm_network_manager_security_admin_configuration = {
       [@option]
       (** apply_on_network_intent_policy_based_services *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   network_manager_id : string;  (** network_manager_id *)
   timeouts :
@@ -28,7 +29,7 @@ type azurerm_network_manager_security_admin_configuration = {
 (** azurerm_network_manager_security_admin_configuration *)
 
 let azurerm_network_manager_security_admin_configuration
-    ?apply_on_network_intent_policy_based_services ?description
+    ?apply_on_network_intent_policy_based_services ?description ?id
     ?timeouts ~name ~network_manager_id __resource_id =
   let __resource_type =
     "azurerm_network_manager_security_admin_configuration"
@@ -37,6 +38,7 @@ let azurerm_network_manager_security_admin_configuration
     {
       apply_on_network_intent_policy_based_services;
       description;
+      id;
       name;
       network_manager_id;
       timeouts;

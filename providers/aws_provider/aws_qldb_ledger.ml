@@ -14,18 +14,32 @@ type aws_qldb_ledger__timeouts = {
 type aws_qldb_ledger = {
   deletion_protection : bool option; [@option]
       (** deletion_protection *)
+  id : string option; [@option]  (** id *)
+  kms_key : string option; [@option]  (** kms_key *)
+  name : string option; [@option]  (** name *)
   permissions_mode : string;  (** permissions_mode *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_qldb_ledger__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_qldb_ledger *)
 
-let aws_qldb_ledger ?deletion_protection ?tags ?timeouts
-    ~permissions_mode __resource_id =
+let aws_qldb_ledger ?deletion_protection ?id ?kms_key ?name ?tags
+    ?tags_all ?timeouts ~permissions_mode __resource_id =
   let __resource_type = "aws_qldb_ledger" in
   let __resource =
-    { deletion_protection; permissions_mode; tags; timeouts }
+    {
+      deletion_protection;
+      id;
+      kms_key;
+      name;
+      permissions_mode;
+      tags;
+      tags_all;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_qldb_ledger __resource);

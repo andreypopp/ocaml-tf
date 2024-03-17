@@ -11,6 +11,7 @@ type azurerm_api_management_custom_domain__timeouts
 type azurerm_api_management_custom_domain
 
 val azurerm_api_management_custom_domain :
+  ?id:string ->
   ?timeouts:azurerm_api_management_custom_domain__timeouts ->
   api_management_id:string ->
   developer_portal:

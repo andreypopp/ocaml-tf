@@ -13,6 +13,7 @@ type google_tags_tag_key_iam_binding__condition = {
 (** google_tags_tag_key_iam_binding__condition *)
 
 type google_tags_tag_key_iam_binding = {
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   role : string;  (** role *)
   tag_key : string;  (** tag_key *)
@@ -21,10 +22,10 @@ type google_tags_tag_key_iam_binding = {
 [@@deriving yojson_of]
 (** google_tags_tag_key_iam_binding *)
 
-let google_tags_tag_key_iam_binding ~members ~role ~tag_key
+let google_tags_tag_key_iam_binding ?id ~members ~role ~tag_key
     ~condition __resource_id =
   let __resource_type = "google_tags_tag_key_iam_binding" in
-  let __resource = { members; role; tag_key; condition } in
+  let __resource = { id; members; role; tag_key; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_tag_key_iam_binding __resource);
   ()

@@ -18,18 +18,21 @@ type google_netapp_volume__mount_options = {
   instructions : string;  (** instructions *)
   protocol : string;  (** protocol *)
 }
-[@@deriving yojson_of]
 
 type google_netapp_volume
 
 val google_netapp_volume :
   ?deletion_policy:string ->
   ?description:string ->
+  ?id:string ->
   ?kerberos_enabled:bool ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?restricted_actions:string list ->
+  ?security_style:string ->
   ?smb_settings:string list ->
   ?snapshot_directory:bool ->
+  ?unix_permissions:string ->
   ?timeouts:google_netapp_volume__timeouts ->
   capacity_gib:string ->
   location:string ->

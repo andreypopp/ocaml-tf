@@ -7,6 +7,7 @@ type azurerm_bot_channel_email
 
 val azurerm_bot_channel_email :
   ?email_password:string ->
+  ?id:string ->
   ?magic_code:string ->
   ?timeouts:azurerm_bot_channel_email__timeouts ->
   bot_name:string ->

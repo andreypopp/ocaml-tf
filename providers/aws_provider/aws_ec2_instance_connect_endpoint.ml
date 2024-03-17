@@ -14,6 +14,10 @@ type aws_ec2_instance_connect_endpoint__timeouts = {
 (** aws_ec2_instance_connect_endpoint__timeouts *)
 
 type aws_ec2_instance_connect_endpoint = {
+  preserve_client_ip : bool option; [@option]
+      (** preserve_client_ip *)
+  security_group_ids : string list option; [@option]
+      (** security_group_ids *)
   subnet_id : string;  (** subnet_id *)
   tags : (string * string) list option; [@option]  (** tags *)
   timeouts : aws_ec2_instance_connect_endpoint__timeouts option;
@@ -21,10 +25,18 @@ type aws_ec2_instance_connect_endpoint = {
 [@@deriving yojson_of]
 (** aws_ec2_instance_connect_endpoint *)
 
-let aws_ec2_instance_connect_endpoint ?tags ?timeouts ~subnet_id
-    __resource_id =
+let aws_ec2_instance_connect_endpoint ?preserve_client_ip
+    ?security_group_ids ?tags ?timeouts ~subnet_id __resource_id =
   let __resource_type = "aws_ec2_instance_connect_endpoint" in
-  let __resource = { subnet_id; tags; timeouts } in
+  let __resource =
+    {
+      preserve_client_ip;
+      security_group_ids;
+      subnet_id;
+      tags;
+      timeouts;
+    }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_instance_connect_endpoint __resource);
   ()

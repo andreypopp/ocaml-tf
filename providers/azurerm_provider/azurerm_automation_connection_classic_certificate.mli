@@ -7,6 +7,7 @@ type azurerm_automation_connection_classic_certificate
 
 val azurerm_automation_connection_classic_certificate :
   ?description:string ->
+  ?id:string ->
   ?timeouts:
     azurerm_automation_connection_classic_certificate__timeouts ->
   automation_account_name:string ->

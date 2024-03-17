@@ -10,6 +10,8 @@ type aws_s3control_multi_region_access_point__timeouts
 type aws_s3control_multi_region_access_point
 
 val aws_s3control_multi_region_access_point :
+  ?account_id:string ->
+  ?id:string ->
   ?timeouts:aws_s3control_multi_region_access_point__timeouts ->
   details:aws_s3control_multi_region_access_point__details list ->
   string ->

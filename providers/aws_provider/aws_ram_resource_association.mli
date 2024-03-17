@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_ram_resource_association
 
 val aws_ram_resource_association :
-  resource_arn:string -> resource_share_arn:string -> string -> unit
+  ?id:string ->
+  resource_arn:string ->
+  resource_share_arn:string ->
+  string ->
+  unit

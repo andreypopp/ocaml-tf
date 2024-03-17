@@ -6,6 +6,7 @@ type azurerm_app_service_active_slot__timeouts
 type azurerm_app_service_active_slot
 
 val azurerm_app_service_active_slot :
+  ?id:string ->
   ?timeouts:azurerm_app_service_active_slot__timeouts ->
   app_service_name:string ->
   app_service_slot_name:string ->

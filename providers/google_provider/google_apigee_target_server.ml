@@ -52,29 +52,35 @@ type google_apigee_target_server = {
 in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
   host : string;
       (** The host name this target connects to. Value must be a valid hostname as described by RFC-1123. *)
+  id : string option; [@option]  (** id *)
   is_enabled : bool option; [@option]
       (** Enabling/disabling a TargetServer is useful when TargetServers are used in load balancing configurations, and one or more TargetServers need to taken out of rotation periodically. Defaults to true. *)
   name : string;
       (** The resource id of this reference. Values must match the regular expression [\w\s-.]+. *)
   port : float;
       (** The port number this target connects to on the given host. Value must be between 1 and 65535, inclusive. *)
+  protocol : string option; [@option]
+      (** Immutable. The protocol used by this TargetServer. Possible values: [HTTP, HTTP2, GRPC_TARGET, GRPC, EXTERNAL_CALLOUT] *)
   s_sl_info : google_apigee_target_server__s_sl_info list;
   timeouts : google_apigee_target_server__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apigee_target_server *)
 
-let google_apigee_target_server ?description ?is_enabled ?timeouts
-    ~env_id ~host ~name ~port ~s_sl_info __resource_id =
+let google_apigee_target_server ?description ?id ?is_enabled
+    ?protocol ?timeouts ~env_id ~host ~name ~port ~s_sl_info
+    __resource_id =
   let __resource_type = "google_apigee_target_server" in
   let __resource =
     {
       description;
       env_id;
       host;
+      id;
       is_enabled;
       name;
       port;
+      protocol;
       s_sl_info;
       timeouts;
     }

@@ -13,7 +13,10 @@ type aws_datasync_location_fsx_ontap_file_system__protocol
 type aws_datasync_location_fsx_ontap_file_system
 
 val aws_datasync_location_fsx_ontap_file_system :
+  ?id:string ->
+  ?subdirectory:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   security_group_arns:string list ->
   storage_virtual_machine_arn:string ->
   protocol:aws_datasync_location_fsx_ontap_file_system__protocol list ->

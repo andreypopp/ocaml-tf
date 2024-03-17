@@ -9,8 +9,14 @@ type aws_launch_configuration__root_block_device
 type aws_launch_configuration
 
 val aws_launch_configuration :
+  ?associate_public_ip_address:bool ->
+  ?ebs_optimized:bool ->
   ?enable_monitoring:bool ->
   ?iam_instance_profile:string ->
+  ?id:string ->
+  ?key_name:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?placement_tenancy:string ->
   ?security_groups:string list ->
   ?spot_price:string ->

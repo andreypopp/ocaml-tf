@@ -48,6 +48,7 @@ type kubernetes_service_account__timeouts = {
 type kubernetes_service_account = {
   automount_service_account_token : bool option; [@option]
       (** Enable automatic mounting of the service account token *)
+  id : string option; [@option]  (** id *)
   image_pull_secret :
     kubernetes_service_account__image_pull_secret list;
   metadata : kubernetes_service_account__metadata list;
@@ -57,12 +58,13 @@ type kubernetes_service_account = {
 [@@deriving yojson_of]
 (** kubernetes_service_account *)
 
-let kubernetes_service_account ?automount_service_account_token
+let kubernetes_service_account ?automount_service_account_token ?id
     ?timeouts ~image_pull_secret ~metadata ~secret __resource_id =
   let __resource_type = "kubernetes_service_account" in
   let __resource =
     {
       automount_service_account_token;
+      id;
       image_pull_secret;
       metadata;
       secret;

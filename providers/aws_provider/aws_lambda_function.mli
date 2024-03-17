@@ -15,10 +15,12 @@ type aws_lambda_function__vpc_config
 type aws_lambda_function
 
 val aws_lambda_function :
+  ?architectures:string list ->
   ?code_signing_config_arn:string ->
   ?description:string ->
   ?filename:string ->
   ?handler:string ->
+  ?id:string ->
   ?image_uri:string ->
   ?kms_key_arn:string ->
   ?layers:string list ->
@@ -33,7 +35,9 @@ val aws_lambda_function :
   ?s3_key:string ->
   ?s3_object_version:string ->
   ?skip_destroy:bool ->
+  ?source_code_hash:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeout:float ->
   ?timeouts:aws_lambda_function__timeouts ->
   function_name:string ->

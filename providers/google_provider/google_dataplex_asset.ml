@@ -100,6 +100,7 @@ type google_dataplex_asset = {
       (** Optional. Description of the asset. *)
   display_name : string option; [@option]
       (** Optional. User friendly display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. User defined labels for the asset.
 
@@ -108,6 +109,8 @@ Please refer to the field `effective_labels` for all of the labels present on th
   lake : string;  (** The lake for the resource *)
   location : string;  (** The location for the resource *)
   name : string;  (** The name of the asset. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   discovery_spec : google_dataplex_asset__discovery_spec list;
   resource_spec : google_dataplex_asset__resource_spec list;
   timeouts : google_dataplex_asset__timeouts option;
@@ -115,19 +118,21 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_dataplex_asset *)
 
-let google_dataplex_asset ?description ?display_name ?labels
-    ?timeouts ~dataplex_zone ~lake ~location ~name ~discovery_spec
-    ~resource_spec __resource_id =
+let google_dataplex_asset ?description ?display_name ?id ?labels
+    ?project ?timeouts ~dataplex_zone ~lake ~location ~name
+    ~discovery_spec ~resource_spec __resource_id =
   let __resource_type = "google_dataplex_asset" in
   let __resource =
     {
       dataplex_zone;
       description;
       display_name;
+      id;
       labels;
       lake;
       location;
       name;
+      project;
       discovery_spec;
       resource_spec;
       timeouts;

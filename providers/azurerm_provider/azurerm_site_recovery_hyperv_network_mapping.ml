@@ -13,6 +13,7 @@ type azurerm_site_recovery_hyperv_network_mapping__timeouts = {
 (** azurerm_site_recovery_hyperv_network_mapping__timeouts *)
 
 type azurerm_site_recovery_hyperv_network_mapping = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   recovery_vault_id : string;  (** recovery_vault_id *)
   source_network_name : string;  (** source_network_name *)
@@ -25,7 +26,7 @@ type azurerm_site_recovery_hyperv_network_mapping = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_hyperv_network_mapping *)
 
-let azurerm_site_recovery_hyperv_network_mapping ?timeouts ~name
+let azurerm_site_recovery_hyperv_network_mapping ?id ?timeouts ~name
     ~recovery_vault_id ~source_network_name
     ~source_system_center_virtual_machine_manager_name
     ~target_network_id __resource_id =
@@ -34,6 +35,7 @@ let azurerm_site_recovery_hyperv_network_mapping ?timeouts ~name
   in
   let __resource =
     {
+      id;
       name;
       recovery_vault_id;
       source_network_name;

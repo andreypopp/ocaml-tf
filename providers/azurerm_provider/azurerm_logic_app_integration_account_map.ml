@@ -15,6 +15,7 @@ type azurerm_logic_app_integration_account_map__timeouts = {
 
 type azurerm_logic_app_integration_account_map = {
   content : string;  (** content *)
+  id : string option; [@option]  (** id *)
   integration_account_name : string;  (** integration_account_name *)
   map_type : string;  (** map_type *)
   metadata : (string * string) list option; [@option]
@@ -27,7 +28,7 @@ type azurerm_logic_app_integration_account_map = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_map *)
 
-let azurerm_logic_app_integration_account_map ?metadata ?timeouts
+let azurerm_logic_app_integration_account_map ?id ?metadata ?timeouts
     ~content ~integration_account_name ~map_type ~name
     ~resource_group_name __resource_id =
   let __resource_type =
@@ -36,6 +37,7 @@ let azurerm_logic_app_integration_account_map ?metadata ?timeouts
   let __resource =
     {
       content;
+      id;
       integration_account_name;
       map_type;
       metadata;

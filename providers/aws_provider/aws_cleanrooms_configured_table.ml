@@ -23,8 +23,11 @@ type aws_cleanrooms_configured_table = {
   allowed_columns : string list;  (** allowed_columns *)
   analysis_method : string;  (** analysis_method *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   table_reference :
     aws_cleanrooms_configured_table__table_reference list;
   timeouts : aws_cleanrooms_configured_table__timeouts option;
@@ -32,17 +35,19 @@ type aws_cleanrooms_configured_table = {
 [@@deriving yojson_of]
 (** aws_cleanrooms_configured_table *)
 
-let aws_cleanrooms_configured_table ?description ?tags ?timeouts
-    ~allowed_columns ~analysis_method ~name ~table_reference
-    __resource_id =
+let aws_cleanrooms_configured_table ?description ?id ?tags ?tags_all
+    ?timeouts ~allowed_columns ~analysis_method ~name
+    ~table_reference __resource_id =
   let __resource_type = "aws_cleanrooms_configured_table" in
   let __resource =
     {
       allowed_columns;
       analysis_method;
       description;
+      id;
       name;
       tags;
+      tags_all;
       table_reference;
       timeouts;
     }

@@ -35,6 +35,7 @@ type azurerm_healthcare_dicom_service__private_endpoint = {
 [@@deriving yojson_of]
 
 type azurerm_healthcare_dicom_service = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -47,12 +48,13 @@ type azurerm_healthcare_dicom_service = {
 [@@deriving yojson_of]
 (** azurerm_healthcare_dicom_service *)
 
-let azurerm_healthcare_dicom_service ?public_network_access_enabled
-    ?tags ?timeouts ~location ~name ~workspace_id ~identity
-    __resource_id =
+let azurerm_healthcare_dicom_service ?id
+    ?public_network_access_enabled ?tags ?timeouts ~location ~name
+    ~workspace_id ~identity __resource_id =
   let __resource_type = "azurerm_healthcare_dicom_service" in
   let __resource =
     {
+      id;
       location;
       name;
       public_network_access_enabled;

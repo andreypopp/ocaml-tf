@@ -13,6 +13,7 @@ type azurerm_network_interface_security_group_association__timeouts = {
 (** azurerm_network_interface_security_group_association__timeouts *)
 
 type azurerm_network_interface_security_group_association = {
+  id : string option; [@option]  (** id *)
   network_interface_id : string;  (** network_interface_id *)
   network_security_group_id : string;
       (** network_security_group_id *)
@@ -23,13 +24,14 @@ type azurerm_network_interface_security_group_association = {
 [@@deriving yojson_of]
 (** azurerm_network_interface_security_group_association *)
 
-let azurerm_network_interface_security_group_association ?timeouts
-    ~network_interface_id ~network_security_group_id __resource_id =
+let azurerm_network_interface_security_group_association ?id
+    ?timeouts ~network_interface_id ~network_security_group_id
+    __resource_id =
   let __resource_type =
     "azurerm_network_interface_security_group_association"
   in
   let __resource =
-    { network_interface_id; network_security_group_id; timeouts }
+    { id; network_interface_id; network_security_group_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_interface_security_group_association

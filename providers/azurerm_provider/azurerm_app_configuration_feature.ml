@@ -41,6 +41,9 @@ type azurerm_app_configuration_feature = {
   configuration_store_id : string;  (** configuration_store_id *)
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  etag : string option; [@option]  (** etag *)
+  id : string option; [@option]  (** id *)
+  key : string option; [@option]  (** key *)
   label : string option; [@option]  (** label *)
   locked : bool option; [@option]  (** locked *)
   name : string;  (** name *)
@@ -56,8 +59,8 @@ type azurerm_app_configuration_feature = {
 [@@deriving yojson_of]
 (** azurerm_app_configuration_feature *)
 
-let azurerm_app_configuration_feature ?description ?enabled ?label
-    ?locked ?percentage_filter_value ?tags ?timeouts
+let azurerm_app_configuration_feature ?description ?enabled ?etag ?id
+    ?key ?label ?locked ?percentage_filter_value ?tags ?timeouts
     ~configuration_store_id ~name ~targeting_filter
     ~timewindow_filter __resource_id =
   let __resource_type = "azurerm_app_configuration_feature" in
@@ -66,6 +69,9 @@ let azurerm_app_configuration_feature ?description ?enabled ?label
       configuration_store_id;
       description;
       enabled;
+      etag;
+      id;
+      key;
       label;
       locked;
       name;

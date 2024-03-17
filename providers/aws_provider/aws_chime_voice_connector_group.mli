@@ -6,6 +6,7 @@ type aws_chime_voice_connector_group__connector
 type aws_chime_voice_connector_group
 
 val aws_chime_voice_connector_group :
+  ?id:string ->
   name:string ->
   connector:aws_chime_voice_connector_group__connector list ->
   string ->

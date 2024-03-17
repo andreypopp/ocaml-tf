@@ -16,6 +16,7 @@ type azurerm_palo_alto_local_rulestack_prefix_list__timeouts = {
 type azurerm_palo_alto_local_rulestack_prefix_list = {
   audit_comment : string option; [@option]  (** audit_comment *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   prefix_list : string list;  (** prefix_list *)
   rulestack_id : string;  (** rulestack_id *)
@@ -26,7 +27,7 @@ type azurerm_palo_alto_local_rulestack_prefix_list = {
 (** azurerm_palo_alto_local_rulestack_prefix_list *)
 
 let azurerm_palo_alto_local_rulestack_prefix_list ?audit_comment
-    ?description ?timeouts ~name ~prefix_list ~rulestack_id
+    ?description ?id ?timeouts ~name ~prefix_list ~rulestack_id
     __resource_id =
   let __resource_type =
     "azurerm_palo_alto_local_rulestack_prefix_list"
@@ -35,6 +36,7 @@ let azurerm_palo_alto_local_rulestack_prefix_list ?audit_comment
     {
       audit_comment;
       description;
+      id;
       name;
       prefix_list;
       rulestack_id;

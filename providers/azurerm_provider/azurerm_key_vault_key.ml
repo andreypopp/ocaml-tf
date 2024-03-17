@@ -32,7 +32,9 @@ type azurerm_key_vault_key__timeouts = {
 (** azurerm_key_vault_key__timeouts *)
 
 type azurerm_key_vault_key = {
+  curve : string option; [@option]  (** curve *)
   expiration_date : string option; [@option]  (** expiration_date *)
+  id : string option; [@option]  (** id *)
   key_opts : string list;  (** key_opts *)
   key_size : float option; [@option]  (** key_size *)
   key_type : string;  (** key_type *)
@@ -46,13 +48,15 @@ type azurerm_key_vault_key = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_key *)
 
-let azurerm_key_vault_key ?expiration_date ?key_size ?not_before_date
-    ?tags ?timeouts ~key_opts ~key_type ~key_vault_id ~name
-    ~rotation_policy __resource_id =
+let azurerm_key_vault_key ?curve ?expiration_date ?id ?key_size
+    ?not_before_date ?tags ?timeouts ~key_opts ~key_type
+    ~key_vault_id ~name ~rotation_policy __resource_id =
   let __resource_type = "azurerm_key_vault_key" in
   let __resource =
     {
+      curve;
       expiration_date;
+      id;
       key_opts;
       key_size;
       key_type;

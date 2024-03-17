@@ -17,6 +17,9 @@ type azurerm_kusto_script = {
   continue_on_errors_enabled : bool option; [@option]
       (** continue_on_errors_enabled *)
   database_id : string;  (** database_id *)
+  force_an_update_when_value_changed : string option; [@option]
+      (** force_an_update_when_value_changed *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   sas_token : string option; [@option]  (** sas_token *)
   script_content : string option; [@option]  (** script_content *)
@@ -26,13 +29,16 @@ type azurerm_kusto_script = {
 [@@deriving yojson_of]
 (** azurerm_kusto_script *)
 
-let azurerm_kusto_script ?continue_on_errors_enabled ?sas_token
+let azurerm_kusto_script ?continue_on_errors_enabled
+    ?force_an_update_when_value_changed ?id ?sas_token
     ?script_content ?url ?timeouts ~database_id ~name __resource_id =
   let __resource_type = "azurerm_kusto_script" in
   let __resource =
     {
       continue_on_errors_enabled;
       database_id;
+      force_an_update_when_value_changed;
+      id;
       name;
       sas_token;
       script_content;

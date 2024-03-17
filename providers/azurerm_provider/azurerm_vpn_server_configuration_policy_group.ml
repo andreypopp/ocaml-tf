@@ -22,6 +22,7 @@ type azurerm_vpn_server_configuration_policy_group__timeouts = {
 (** azurerm_vpn_server_configuration_policy_group__timeouts *)
 
 type azurerm_vpn_server_configuration_policy_group = {
+  id : string option; [@option]  (** id *)
   is_default : bool option; [@option]  (** is_default *)
   name : string;  (** name *)
   priority : float option; [@option]  (** priority *)
@@ -35,7 +36,7 @@ type azurerm_vpn_server_configuration_policy_group = {
 [@@deriving yojson_of]
 (** azurerm_vpn_server_configuration_policy_group *)
 
-let azurerm_vpn_server_configuration_policy_group ?is_default
+let azurerm_vpn_server_configuration_policy_group ?id ?is_default
     ?priority ?timeouts ~name ~vpn_server_configuration_id ~policy
     __resource_id =
   let __resource_type =
@@ -43,6 +44,7 @@ let azurerm_vpn_server_configuration_policy_group ?is_default
   in
   let __resource =
     {
+      id;
       is_default;
       name;
       priority;

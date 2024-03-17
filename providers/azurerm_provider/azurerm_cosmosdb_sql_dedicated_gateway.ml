@@ -15,6 +15,7 @@ type azurerm_cosmosdb_sql_dedicated_gateway__timeouts = {
 
 type azurerm_cosmosdb_sql_dedicated_gateway = {
   cosmosdb_account_id : string;  (** cosmosdb_account_id *)
+  id : string option; [@option]  (** id *)
   instance_count : float;  (** instance_count *)
   instance_size : string;  (** instance_size *)
   timeouts : azurerm_cosmosdb_sql_dedicated_gateway__timeouts option;
@@ -22,12 +23,18 @@ type azurerm_cosmosdb_sql_dedicated_gateway = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_dedicated_gateway *)
 
-let azurerm_cosmosdb_sql_dedicated_gateway ?timeouts
+let azurerm_cosmosdb_sql_dedicated_gateway ?id ?timeouts
     ~cosmosdb_account_id ~instance_count ~instance_size __resource_id
     =
   let __resource_type = "azurerm_cosmosdb_sql_dedicated_gateway" in
   let __resource =
-    { cosmosdb_account_id; instance_count; instance_size; timeouts }
+    {
+      cosmosdb_account_id;
+      id;
+      instance_count;
+      instance_size;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_cosmosdb_sql_dedicated_gateway __resource);

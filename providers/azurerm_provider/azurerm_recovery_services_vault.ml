@@ -45,8 +45,12 @@ type azurerm_recovery_services_vault__timeouts = {
 (** azurerm_recovery_services_vault__timeouts *)
 
 type azurerm_recovery_services_vault = {
+  classic_vmware_replication_enabled : bool option; [@option]
+      (** classic_vmware_replication_enabled *)
   cross_region_restore_enabled : bool option; [@option]
       (** cross_region_restore_enabled *)
+  id : string option; [@option]  (** id *)
+  immutability : string option; [@option]  (** immutability *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -66,15 +70,19 @@ type azurerm_recovery_services_vault = {
 [@@deriving yojson_of]
 (** azurerm_recovery_services_vault *)
 
-let azurerm_recovery_services_vault ?cross_region_restore_enabled
-    ?public_network_access_enabled ?soft_delete_enabled
-    ?storage_mode_type ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~encryption ~identity ~monitoring
+let azurerm_recovery_services_vault
+    ?classic_vmware_replication_enabled ?cross_region_restore_enabled
+    ?id ?immutability ?public_network_access_enabled
+    ?soft_delete_enabled ?storage_mode_type ?tags ?timeouts ~location
+    ~name ~resource_group_name ~sku ~encryption ~identity ~monitoring
     __resource_id =
   let __resource_type = "azurerm_recovery_services_vault" in
   let __resource =
     {
+      classic_vmware_replication_enabled;
       cross_region_restore_enabled;
+      id;
+      immutability;
       location;
       name;
       public_network_access_enabled;

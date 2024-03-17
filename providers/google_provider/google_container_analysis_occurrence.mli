@@ -8,6 +8,8 @@ type google_container_analysis_occurrence__timeouts
 type google_container_analysis_occurrence
 
 val google_container_analysis_occurrence :
+  ?id:string ->
+  ?project:string ->
   ?remediation:string ->
   ?timeouts:google_container_analysis_occurrence__timeouts ->
   note_name:string ->

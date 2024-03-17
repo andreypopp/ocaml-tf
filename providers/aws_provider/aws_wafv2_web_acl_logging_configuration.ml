@@ -53,6 +53,7 @@ type aws_wafv2_web_acl_logging_configuration__redacted_fields = {
 (** Parts of the request to exclude from logs *)
 
 type aws_wafv2_web_acl_logging_configuration = {
+  id: string option; [@option] (** id *)
   log_destination_configs: string list;  (** AWS Kinesis Firehose Delivery Stream ARNs *)
   resource_arn: string;  (** AWS WebACL ARN *)
   logging_filter: aws_wafv2_web_acl_logging_configuration__logging_filter list;
@@ -60,9 +61,10 @@ type aws_wafv2_web_acl_logging_configuration = {
 } [@@deriving yojson_of]
 (** aws_wafv2_web_acl_logging_configuration *)
 
-let aws_wafv2_web_acl_logging_configuration   ~log_destination_configs ~resource_arn ~logging_filter ~redacted_fields __resource_id =
+let aws_wafv2_web_acl_logging_configuration ?id  ~log_destination_configs ~resource_arn ~logging_filter ~redacted_fields __resource_id =
   let __resource_type = "aws_wafv2_web_acl_logging_configuration" in
   let __resource = {
+    id;
     log_destination_configs;
     resource_arn;
     logging_filter;

@@ -15,6 +15,7 @@ type google_os_login_ssh_public_key__timeouts = {
 type google_os_login_ssh_public_key = {
   expiration_time_usec : string option; [@option]
       (** An expiration time in microseconds since epoch. *)
+  id : string option; [@option]  (** id *)
   key : string;
       (** Public key text in SSH format, defined by RFC4253 section 6.6. *)
   project : string option; [@option]
@@ -25,11 +26,11 @@ type google_os_login_ssh_public_key = {
 [@@deriving yojson_of]
 (** google_os_login_ssh_public_key *)
 
-let google_os_login_ssh_public_key ?expiration_time_usec ?project
+let google_os_login_ssh_public_key ?expiration_time_usec ?id ?project
     ?timeouts ~key ~user __resource_id =
   let __resource_type = "google_os_login_ssh_public_key" in
   let __resource =
-    { expiration_time_usec; key; project; user; timeouts }
+    { expiration_time_usec; id; key; project; user; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_os_login_ssh_public_key __resource);

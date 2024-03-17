@@ -11,6 +11,7 @@ type cloudflare_access_custom_page = {
       (** Number of apps to display on the custom page. *)
   custom_html : string option; [@option]
       (** Custom HTML to display on the custom page. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Friendly name of the Access Custom Page configuration. *)
   type_ : string; [@key "type"]
@@ -24,10 +25,10 @@ when trying to reach applications behind Cloudflare Access.
  *)
 
 let cloudflare_access_custom_page ?account_id ?app_count ?custom_html
-    ?zone_id ~name ~type_ __resource_id =
+    ?id ?zone_id ~name ~type_ __resource_id =
   let __resource_type = "cloudflare_access_custom_page" in
   let __resource =
-    { account_id; app_count; custom_html; name; type_; zone_id }
+    { account_id; app_count; custom_html; id; name; type_; zone_id }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_custom_page __resource);

@@ -57,6 +57,7 @@ type azurerm_spring_cloud_customized_accelerator = {
   description : string option; [@option]  (** description *)
   display_name : string option; [@option]  (** display_name *)
   icon_url : string option; [@option]  (** icon_url *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_accelerator_id : string;
       (** spring_cloud_accelerator_id *)
@@ -69,9 +70,9 @@ type azurerm_spring_cloud_customized_accelerator = {
 (** azurerm_spring_cloud_customized_accelerator *)
 
 let azurerm_spring_cloud_customized_accelerator ?accelerator_tags
-    ?accelerator_type ?description ?display_name ?icon_url ?timeouts
-    ~name ~spring_cloud_accelerator_id ~git_repository __resource_id
-    =
+    ?accelerator_type ?description ?display_name ?icon_url ?id
+    ?timeouts ~name ~spring_cloud_accelerator_id ~git_repository
+    __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_customized_accelerator"
   in
@@ -82,6 +83,7 @@ let azurerm_spring_cloud_customized_accelerator ?accelerator_tags
       description;
       display_name;
       icon_url;
+      id;
       name;
       spring_cloud_accelerator_id;
       git_repository;

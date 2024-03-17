@@ -8,6 +8,7 @@ type aws_config_organization_managed_rule
 val aws_config_organization_managed_rule :
   ?description:string ->
   ?excluded_accounts:string list ->
+  ?id:string ->
   ?input_parameters:string ->
   ?maximum_execution_frequency:string ->
   ?resource_id_scope:string ->

@@ -30,11 +30,14 @@ type cloudflare_access_policy__require
 type cloudflare_access_policy
 
 val cloudflare_access_policy :
+  ?account_id:string ->
   ?approval_required:bool ->
+  ?id:string ->
   ?isolation_required:bool ->
   ?purpose_justification_prompt:string ->
   ?purpose_justification_required:bool ->
   ?session_duration:string ->
+  ?zone_id:string ->
   application_id:string ->
   decision:string ->
   name:string ->

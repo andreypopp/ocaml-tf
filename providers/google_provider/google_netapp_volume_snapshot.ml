@@ -15,6 +15,7 @@ type google_netapp_volume_snapshot__timeouts = {
 type google_netapp_volume_snapshot = {
   description : string option; [@option]
       (** Description for the snapshot. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'.
 
@@ -24,6 +25,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string;
       (** Name of the snapshot location. Snapshots are child resources of volumes and live in the same location. *)
   name : string;  (** The name of the snapshot. *)
+  project : string option; [@option]  (** project *)
   volume_name : string;
       (** The name of the volume to create the snapshot in. *)
   timeouts : google_netapp_volume_snapshot__timeouts option;
@@ -31,11 +33,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_netapp_volume_snapshot *)
 
-let google_netapp_volume_snapshot ?description ?labels ?timeouts
-    ~location ~name ~volume_name __resource_id =
+let google_netapp_volume_snapshot ?description ?id ?labels ?project
+    ?timeouts ~location ~name ~volume_name __resource_id =
   let __resource_type = "google_netapp_volume_snapshot" in
   let __resource =
-    { description; labels; location; name; volume_name; timeouts }
+    {
+      description;
+      id;
+      labels;
+      location;
+      name;
+      project;
+      volume_name;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_volume_snapshot __resource);

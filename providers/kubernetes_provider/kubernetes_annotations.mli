@@ -9,6 +9,7 @@ val kubernetes_annotations :
   ?annotations:(string * string) list ->
   ?field_manager:string ->
   ?force:bool ->
+  ?id:string ->
   ?template_annotations:(string * string) list ->
   api_version:string ->
   kind:string ->

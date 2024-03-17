@@ -7,14 +7,15 @@ open! Tf.Prelude
 type cloudflare_queue = {
   account_id : string;
       (** The account identifier to target for the resource. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the queue. *)
 }
 [@@deriving yojson_of]
 (** Provides the ability to manage Cloudflare Workers Queue features. *)
 
-let cloudflare_queue ~account_id ~name __resource_id =
+let cloudflare_queue ?id ~account_id ~name __resource_id =
   let __resource_type = "cloudflare_queue" in
-  let __resource = { account_id; name } in
+  let __resource = { account_id; id; name } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_queue __resource);
   ()

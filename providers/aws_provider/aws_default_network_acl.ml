@@ -34,19 +34,30 @@ type aws_default_network_acl__ingress = {
 
 type aws_default_network_acl = {
   default_network_acl_id : string;  (** default_network_acl_id *)
+  id : string option; [@option]  (** id *)
   subnet_ids : string list option; [@option]  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   egress : aws_default_network_acl__egress list;
   ingress : aws_default_network_acl__ingress list;
 }
 [@@deriving yojson_of]
 (** aws_default_network_acl *)
 
-let aws_default_network_acl ?subnet_ids ?tags ~default_network_acl_id
-    ~egress ~ingress __resource_id =
+let aws_default_network_acl ?id ?subnet_ids ?tags ?tags_all
+    ~default_network_acl_id ~egress ~ingress __resource_id =
   let __resource_type = "aws_default_network_acl" in
   let __resource =
-    { default_network_acl_id; subnet_ids; tags; egress; ingress }
+    {
+      default_network_acl_id;
+      id;
+      subnet_ids;
+      tags;
+      tags_all;
+      egress;
+      ingress;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_network_acl __resource);

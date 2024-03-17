@@ -22,6 +22,7 @@ type azurerm_digital_twins_endpoint_eventgrid = {
       (** eventgrid_topic_primary_access_key *)
   eventgrid_topic_secondary_access_key : string;
       (** eventgrid_topic_secondary_access_key *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   timeouts :
     azurerm_digital_twins_endpoint_eventgrid__timeouts option;
@@ -30,7 +31,7 @@ type azurerm_digital_twins_endpoint_eventgrid = {
 (** azurerm_digital_twins_endpoint_eventgrid *)
 
 let azurerm_digital_twins_endpoint_eventgrid
-    ?dead_letter_storage_secret ?timeouts ~digital_twins_id
+    ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
     ~eventgrid_topic_endpoint ~eventgrid_topic_primary_access_key
     ~eventgrid_topic_secondary_access_key ~name __resource_id =
   let __resource_type = "azurerm_digital_twins_endpoint_eventgrid" in
@@ -41,6 +42,7 @@ let azurerm_digital_twins_endpoint_eventgrid
       eventgrid_topic_endpoint;
       eventgrid_topic_primary_access_key;
       eventgrid_topic_secondary_access_key;
+      id;
       name;
       timeouts;
     }

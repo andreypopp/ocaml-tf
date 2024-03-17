@@ -158,8 +158,13 @@ type aws_apprunner_service__source_configuration = {
 (** aws_apprunner_service__source_configuration *)
 
 type aws_apprunner_service = {
+  auto_scaling_configuration_arn : string option; [@option]
+      (** auto_scaling_configuration_arn *)
+  id : string option; [@option]  (** id *)
   service_name : string;  (** service_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   encryption_configuration :
     aws_apprunner_service__encryption_configuration list;
   health_check_configuration :
@@ -176,16 +181,19 @@ type aws_apprunner_service = {
 [@@deriving yojson_of]
 (** aws_apprunner_service *)
 
-let aws_apprunner_service ?tags ~service_name
-    ~encryption_configuration ~health_check_configuration
-    ~instance_configuration ~network_configuration
-    ~observability_configuration ~source_configuration __resource_id
-    =
+let aws_apprunner_service ?auto_scaling_configuration_arn ?id ?tags
+    ?tags_all ~service_name ~encryption_configuration
+    ~health_check_configuration ~instance_configuration
+    ~network_configuration ~observability_configuration
+    ~source_configuration __resource_id =
   let __resource_type = "aws_apprunner_service" in
   let __resource =
     {
+      auto_scaling_configuration_arn;
+      id;
       service_name;
       tags;
+      tags_all;
       encryption_configuration;
       health_check_configuration;
       instance_configuration;

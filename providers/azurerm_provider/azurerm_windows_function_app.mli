@@ -38,7 +38,6 @@ type azurerm_windows_function_app__site_config__ip_restriction__headers = {
   x_forwarded_for : string list;  (** x_forwarded_for *)
   x_forwarded_host : string list;  (** x_forwarded_host *)
 }
-[@@deriving yojson_of]
 
 type azurerm_windows_function_app__site_config__ip_restriction
 
@@ -48,7 +47,6 @@ type azurerm_windows_function_app__site_config__scm_ip_restriction__headers = {
   x_forwarded_for : string list;  (** x_forwarded_for *)
   x_forwarded_host : string list;  (** x_forwarded_host *)
 }
-[@@deriving yojson_of]
 
 type azurerm_windows_function_app__site_config__scm_ip_restriction
 type azurerm_windows_function_app__site_config
@@ -60,7 +58,6 @@ type azurerm_windows_function_app__site_credential = {
   name : string;  (** name *)
   password : string;  (** password *)
 }
-[@@deriving yojson_of]
 
 type azurerm_windows_function_app
 
@@ -75,6 +72,9 @@ val azurerm_windows_function_app :
   ?enabled:bool ->
   ?ftp_publish_basic_authentication_enabled:bool ->
   ?functions_extension_version:string ->
+  ?https_only:bool ->
+  ?id:string ->
+  ?key_vault_reference_identity_id:string ->
   ?public_network_access_enabled:bool ->
   ?storage_account_access_key:string ->
   ?storage_account_name:string ->
@@ -83,6 +83,7 @@ val azurerm_windows_function_app :
   ?tags:(string * string) list ->
   ?virtual_network_subnet_id:string ->
   ?webdeploy_publish_basic_authentication_enabled:bool ->
+  ?zip_deploy_file:string ->
   ?timeouts:azurerm_windows_function_app__timeouts ->
   location:string ->
   name:string ->

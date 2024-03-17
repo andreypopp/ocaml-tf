@@ -15,7 +15,6 @@ type google_netapp_volume_replication__transfer_stats = {
   transfer_bytes : string;  (** transfer_bytes *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_netapp_volume_replication
 
@@ -23,7 +22,9 @@ val google_netapp_volume_replication :
   ?delete_destination_volume:bool ->
   ?description:string ->
   ?force_stopping:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?replication_enabled:bool ->
   ?wait_for_mirror:bool ->
   ?timeouts:google_netapp_volume_replication__timeouts ->

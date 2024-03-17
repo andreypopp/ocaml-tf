@@ -29,6 +29,7 @@ type azurerm_kubernetes_fleet_update_strategy__timeouts = {
 (** azurerm_kubernetes_fleet_update_strategy__timeouts *)
 
 type azurerm_kubernetes_fleet_update_strategy = {
+  id : string option; [@option]  (** id *)
   kubernetes_fleet_manager_id : string;
       (** kubernetes_fleet_manager_id *)
   name : string;  (** name *)
@@ -39,11 +40,11 @@ type azurerm_kubernetes_fleet_update_strategy = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_update_strategy *)
 
-let azurerm_kubernetes_fleet_update_strategy ?timeouts
+let azurerm_kubernetes_fleet_update_strategy ?id ?timeouts
     ~kubernetes_fleet_manager_id ~name ~stage __resource_id =
   let __resource_type = "azurerm_kubernetes_fleet_update_strategy" in
   let __resource =
-    { kubernetes_fleet_manager_id; name; stage; timeouts }
+    { id; kubernetes_fleet_manager_id; name; stage; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_kubernetes_fleet_update_strategy __resource);

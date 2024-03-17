@@ -19,15 +19,16 @@ type kubernetes_config_map_v1_data = {
       (** Set the name of the field manager for the specified labels. *)
   force : bool option; [@option]
       (** Force overwriting data that is managed outside of Terraform. *)
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_config_map_v1_data__metadata list;
 }
 [@@deriving yojson_of]
 (** kubernetes_config_map_v1_data *)
 
-let kubernetes_config_map_v1_data ?field_manager ?force ~data
+let kubernetes_config_map_v1_data ?field_manager ?force ?id ~data
     ~metadata __resource_id =
   let __resource_type = "kubernetes_config_map_v1_data" in
-  let __resource = { data; field_manager; force; metadata } in
+  let __resource = { data; field_manager; force; id; metadata } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_config_map_v1_data __resource);
   ()

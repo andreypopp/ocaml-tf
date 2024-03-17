@@ -8,6 +8,7 @@ type google_scc_notification_config
 
 val google_scc_notification_config :
   ?description:string ->
+  ?id:string ->
   ?timeouts:google_scc_notification_config__timeouts ->
   config_id:string ->
   organization:string ->

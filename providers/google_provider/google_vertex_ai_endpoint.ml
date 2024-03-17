@@ -90,6 +90,7 @@ type google_vertex_ai_endpoint = {
       (** The description of the Endpoint. *)
   display_name : string;
       (** Required. The display name of the Endpoint. The name can be up to 128 characters long and can consist of any UTF-8 characters. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The labels with user-defined metadata to organize your Endpoints. Label keys and values can be no longer than 64 characters (Unicode codepoints), can only contain lowercase letters, numeric characters, underscores and dashes. International characters are allowed. See https://goo.gl/xmQnxf for more information and examples of labels.
 
@@ -100,6 +101,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The resource name of the Endpoint. The name must be numeric with no leading zeros and can be at most 10 digits. *)
   network : string option; [@option]
       (** The full name of the Google Compute Engine [network](https://cloud.google.com//compute/docs/networks-and-firewalls#networks) to which the Endpoint should be peered. Private services access must already be configured for the network. If left unspecified, the Endpoint is not peered with any network. Only one of the fields, network or enable_private_service_connect, can be set. [Format](https://cloud.google.com/compute/docs/reference/rest/v1/networks/insert): 'projects/{project}/global/networks/{network}'. Where '{project}' is a project number, as in '12345', and '{network}' is network name. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region for the resource *)
   encryption_spec : google_vertex_ai_endpoint__encryption_spec list;
@@ -108,18 +110,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_endpoint *)
 
-let google_vertex_ai_endpoint ?description ?labels ?network ?region
-    ?timeouts ~display_name ~location ~name ~encryption_spec
-    __resource_id =
+let google_vertex_ai_endpoint ?description ?id ?labels ?network
+    ?project ?region ?timeouts ~display_name ~location ~name
+    ~encryption_spec __resource_id =
   let __resource_type = "google_vertex_ai_endpoint" in
   let __resource =
     {
       description;
       display_name;
+      id;
       labels;
       location;
       name;
       network;
+      project;
       region;
       encryption_spec;
       timeouts;

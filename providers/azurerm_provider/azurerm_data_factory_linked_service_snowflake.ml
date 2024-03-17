@@ -27,6 +27,7 @@ type azurerm_data_factory_linked_service_snowflake = {
   connection_string : string;  (** connection_string *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -42,7 +43,7 @@ type azurerm_data_factory_linked_service_snowflake = {
 (** azurerm_data_factory_linked_service_snowflake *)
 
 let azurerm_data_factory_linked_service_snowflake
-    ?additional_properties ?annotations ?description
+    ?additional_properties ?annotations ?description ?id
     ?integration_runtime_name ?parameters ?timeouts
     ~connection_string ~data_factory_id ~name ~key_vault_password
     __resource_id =
@@ -56,6 +57,7 @@ let azurerm_data_factory_linked_service_snowflake
       connection_string;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

@@ -6,6 +6,7 @@ type azurerm_api_management_identity_provider_twitter__timeouts
 type azurerm_api_management_identity_provider_twitter
 
 val azurerm_api_management_identity_provider_twitter :
+  ?id:string ->
   ?timeouts:
     azurerm_api_management_identity_provider_twitter__timeouts ->
   api_key:string ->

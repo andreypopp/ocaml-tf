@@ -25,6 +25,7 @@ type azurerm_managed_application_definition = {
       (** create_ui_definition *)
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   lock_level : string;  (** lock_level *)
   main_template : string option; [@option]  (** main_template *)
@@ -42,15 +43,17 @@ type azurerm_managed_application_definition = {
 (** azurerm_managed_application_definition *)
 
 let azurerm_managed_application_definition ?create_ui_definition
-    ?description ?main_template ?package_enabled ?package_file_uri
-    ?tags ?timeouts ~display_name ~location ~lock_level ~name
-    ~resource_group_name ~authorization __resource_id =
+    ?description ?id ?main_template ?package_enabled
+    ?package_file_uri ?tags ?timeouts ~display_name ~location
+    ~lock_level ~name ~resource_group_name ~authorization
+    __resource_id =
   let __resource_type = "azurerm_managed_application_definition" in
   let __resource =
     {
       create_ui_definition;
       description;
       display_name;
+      id;
       location;
       lock_level;
       main_template;

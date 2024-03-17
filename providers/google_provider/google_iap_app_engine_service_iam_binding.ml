@@ -14,7 +14,9 @@ type google_iap_app_engine_service_iam_binding__condition = {
 
 type google_iap_app_engine_service_iam_binding = {
   app_id : string;  (** app_id *)
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
+  project : string option; [@option]  (** project *)
   role : string;  (** role *)
   service : string;  (** service *)
   condition :
@@ -23,12 +25,14 @@ type google_iap_app_engine_service_iam_binding = {
 [@@deriving yojson_of]
 (** google_iap_app_engine_service_iam_binding *)
 
-let google_iap_app_engine_service_iam_binding ~app_id ~members ~role
-    ~service ~condition __resource_id =
+let google_iap_app_engine_service_iam_binding ?id ?project ~app_id
+    ~members ~role ~service ~condition __resource_id =
   let __resource_type =
     "google_iap_app_engine_service_iam_binding"
   in
-  let __resource = { app_id; members; role; service; condition } in
+  let __resource =
+    { app_id; id; members; project; role; service; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_app_engine_service_iam_binding __resource);
   ()

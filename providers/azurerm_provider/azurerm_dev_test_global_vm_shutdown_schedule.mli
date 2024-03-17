@@ -9,6 +9,7 @@ type azurerm_dev_test_global_vm_shutdown_schedule
 
 val azurerm_dev_test_global_vm_shutdown_schedule :
   ?enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dev_test_global_vm_shutdown_schedule__timeouts ->
   daily_recurrence_time:string ->

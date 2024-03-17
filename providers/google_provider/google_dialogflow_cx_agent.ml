@@ -102,12 +102,14 @@ for a list of the currently supported language codes. This field cannot be updat
       (** Indicates if automatic spell correction is enabled in detect intent requests. *)
   enable_stackdriver_logging : bool option; [@option]
       (** Determines whether this agent should log conversation queries. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The name of the location this agent is located in.
 
 ~> **Note:** The first time you are deploying an Agent in your project you must configure location settings.
  This is a one time step but at the moment you can only [configure location settings](https://cloud.google.com/dialogflow/cx/docs/concept/region#location-settings) via the Dialogflow CX console.
  Another options is to use global location so you don't need to manually configure location settings. *)
+  project : string option; [@option]  (** project *)
   security_settings : string option; [@option]
       (** Name of the SecuritySettings reference for the agent. Format: projects/<Project ID>/locations/<Location ID>/securitySettings/<Security Settings ID>. *)
   supported_language_codes : string list option; [@option]
@@ -129,7 +131,7 @@ Europe/Paris. *)
 (** google_dialogflow_cx_agent *)
 
 let google_dialogflow_cx_agent ?avatar_uri ?description
-    ?enable_spell_correction ?enable_stackdriver_logging
+    ?enable_spell_correction ?enable_stackdriver_logging ?id ?project
     ?security_settings ?supported_language_codes ?timeouts
     ~default_language_code ~display_name ~location ~time_zone
     ~advanced_settings ~git_integration_settings
@@ -143,7 +145,9 @@ let google_dialogflow_cx_agent ?avatar_uri ?description
       display_name;
       enable_spell_correction;
       enable_stackdriver_logging;
+      id;
       location;
+      project;
       security_settings;
       supported_language_codes;
       time_zone;

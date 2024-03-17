@@ -77,6 +77,7 @@ unique per project and between 4 and 30 characters in length. *)
   force_destroy : bool option; [@option]
       (** When deleting a spanner instance, this boolean option will delete all backups of this instance.
 This must be set to true if you created a backup manually in the console. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }.
@@ -84,6 +85,20 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  name : string option; [@option]
+      (** A unique identifier for the instance, which cannot be changed after
+the instance is created. The name must be between 6 and 30 characters
+in length.
+
+
+If not provided, a random string starting with 'tf-' will be selected. *)
+  num_nodes : float option; [@option]
+      (** The number of nodes allocated to this instance. Exactly one of either node_count or processing_units
+must be present in terraform. *)
+  processing_units : float option; [@option]
+      (** The number of processing units allocated to this instance. Exactly one of processing_units
+or node_count must be present in terraform. *)
+  project : string option; [@option]  (** project *)
   autoscaling_config :
     google_spanner_instance__autoscaling_config list;
   timeouts : google_spanner_instance__timeouts option;
@@ -91,7 +106,8 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_spanner_instance *)
 
-let google_spanner_instance ?force_destroy ?labels ?timeouts ~config
+let google_spanner_instance ?force_destroy ?id ?labels ?name
+    ?num_nodes ?processing_units ?project ?timeouts ~config
     ~display_name ~autoscaling_config __resource_id =
   let __resource_type = "google_spanner_instance" in
   let __resource =
@@ -99,7 +115,12 @@ let google_spanner_instance ?force_destroy ?labels ?timeouts ~config
       config;
       display_name;
       force_destroy;
+      id;
       labels;
+      name;
+      num_nodes;
+      processing_units;
+      project;
       autoscaling_config;
       timeouts;
     }

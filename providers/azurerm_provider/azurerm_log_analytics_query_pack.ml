@@ -14,6 +14,7 @@ type azurerm_log_analytics_query_pack__timeouts = {
 (** azurerm_log_analytics_query_pack__timeouts *)
 
 type azurerm_log_analytics_query_pack = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -23,11 +24,11 @@ type azurerm_log_analytics_query_pack = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_query_pack *)
 
-let azurerm_log_analytics_query_pack ?tags ?timeouts ~location ~name
-    ~resource_group_name __resource_id =
+let azurerm_log_analytics_query_pack ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_log_analytics_query_pack" in
   let __resource =
-    { location; name; resource_group_name; tags; timeouts }
+    { id; location; name; resource_group_name; tags; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_log_analytics_query_pack __resource);

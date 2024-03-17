@@ -49,12 +49,17 @@ type aws_ssm_patch_baseline = {
   approved_patches_enable_non_security : bool option; [@option]
       (** approved_patches_enable_non_security *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   operating_system : string option; [@option]
       (** operating_system *)
   rejected_patches : string list option; [@option]
       (** rejected_patches *)
+  rejected_patches_action : string option; [@option]
+      (** rejected_patches_action *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   approval_rule : aws_ssm_patch_baseline__approval_rule list;
   global_filter : aws_ssm_patch_baseline__global_filter list;
   source : aws_ssm_patch_baseline__source list;
@@ -64,9 +69,10 @@ type aws_ssm_patch_baseline = {
 
 let aws_ssm_patch_baseline ?approved_patches
     ?approved_patches_compliance_level
-    ?approved_patches_enable_non_security ?description
-    ?operating_system ?rejected_patches ?tags ~name ~approval_rule
-    ~global_filter ~source __resource_id =
+    ?approved_patches_enable_non_security ?description ?id
+    ?operating_system ?rejected_patches ?rejected_patches_action
+    ?tags ?tags_all ~name ~approval_rule ~global_filter ~source
+    __resource_id =
   let __resource_type = "aws_ssm_patch_baseline" in
   let __resource =
     {
@@ -74,10 +80,13 @@ let aws_ssm_patch_baseline ?approved_patches
       approved_patches_compliance_level;
       approved_patches_enable_non_security;
       description;
+      id;
       name;
       operating_system;
       rejected_patches;
+      rejected_patches_action;
       tags;
+      tags_all;
       approval_rule;
       global_filter;
       source;

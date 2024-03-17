@@ -7,9 +7,12 @@ type aws_connect_user__phone_config
 type aws_connect_user
 
 val aws_connect_user :
+  ?directory_user_id:string ->
   ?hierarchy_group_id:string ->
+  ?id:string ->
   ?password:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   instance_id:string ->
   name:string ->
   routing_profile_id:string ->

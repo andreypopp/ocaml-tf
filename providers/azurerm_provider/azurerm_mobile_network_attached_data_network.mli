@@ -10,6 +10,7 @@ type azurerm_mobile_network_attached_data_network__timeouts
 type azurerm_mobile_network_attached_data_network
 
 val azurerm_mobile_network_attached_data_network :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?user_equipment_address_pool_prefixes:string list ->
   ?user_equipment_static_address_pool_prefixes:string list ->

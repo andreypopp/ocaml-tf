@@ -21,8 +21,11 @@ type aws_config_configuration_aggregator__organization_aggregation_source = {
 (** aws_config_configuration_aggregator__organization_aggregation_source *)
 
 type aws_config_configuration_aggregator = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   account_aggregation_source :
     aws_config_configuration_aggregator__account_aggregation_source
     list;
@@ -33,14 +36,16 @@ type aws_config_configuration_aggregator = {
 [@@deriving yojson_of]
 (** aws_config_configuration_aggregator *)
 
-let aws_config_configuration_aggregator ?tags ~name
+let aws_config_configuration_aggregator ?id ?tags ?tags_all ~name
     ~account_aggregation_source ~organization_aggregation_source
     __resource_id =
   let __resource_type = "aws_config_configuration_aggregator" in
   let __resource =
     {
+      id;
       name;
       tags;
+      tags_all;
       account_aggregation_source;
       organization_aggregation_source;
     }

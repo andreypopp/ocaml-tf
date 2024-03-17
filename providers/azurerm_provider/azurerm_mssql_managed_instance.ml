@@ -29,6 +29,7 @@ type azurerm_mssql_managed_instance = {
   collation : string option; [@option]  (** collation *)
   dns_zone_partner_id : string option; [@option]
       (** dns_zone_partner_id *)
+  id : string option; [@option]  (** id *)
   license_type : string;  (** license_type *)
   location : string;  (** location *)
   maintenance_configuration_name : string option; [@option]
@@ -57,7 +58,7 @@ type azurerm_mssql_managed_instance = {
 (** azurerm_mssql_managed_instance *)
 
 let azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
-    ?maintenance_configuration_name ?minimum_tls_version
+    ?id ?maintenance_configuration_name ?minimum_tls_version
     ?proxy_override ?public_data_endpoint_enabled
     ?storage_account_type ?tags ?timezone_id ?zone_redundant_enabled
     ?timeouts ~administrator_login ~administrator_login_password
@@ -70,6 +71,7 @@ let azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
       administrator_login_password;
       collation;
       dns_zone_partner_id;
+      id;
       license_type;
       location;
       maintenance_configuration_name;

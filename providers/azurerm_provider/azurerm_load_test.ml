@@ -24,6 +24,7 @@ type azurerm_load_test__timeouts = {
 
 type azurerm_load_test = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -34,12 +35,13 @@ type azurerm_load_test = {
 [@@deriving yojson_of]
 (** azurerm_load_test *)
 
-let azurerm_load_test ?description ?tags ?timeouts ~location ~name
-    ~resource_group_name ~identity __resource_id =
+let azurerm_load_test ?description ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_load_test" in
   let __resource =
     {
       description;
+      id;
       location;
       name;
       resource_group_name;

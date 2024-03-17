@@ -16,6 +16,7 @@ type azurerm_automation_dsc_nodeconfiguration__timeouts = {
 type azurerm_automation_dsc_nodeconfiguration = {
   automation_account_name : string;  (** automation_account_name *)
   content_embedded : string;  (** content_embedded *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts :
@@ -24,7 +25,7 @@ type azurerm_automation_dsc_nodeconfiguration = {
 [@@deriving yojson_of]
 (** azurerm_automation_dsc_nodeconfiguration *)
 
-let azurerm_automation_dsc_nodeconfiguration ?timeouts
+let azurerm_automation_dsc_nodeconfiguration ?id ?timeouts
     ~automation_account_name ~content_embedded ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_automation_dsc_nodeconfiguration" in
@@ -32,6 +33,7 @@ let azurerm_automation_dsc_nodeconfiguration ?timeouts
     {
       automation_account_name;
       content_embedded;
+      id;
       name;
       resource_group_name;
       timeouts;

@@ -9,6 +9,7 @@ val azurerm_virtual_network_peering :
   ?allow_forwarded_traffic:bool ->
   ?allow_gateway_transit:bool ->
   ?allow_virtual_network_access:bool ->
+  ?id:string ->
   ?triggers:(string * string) list ->
   ?use_remote_gateways:bool ->
   ?timeouts:azurerm_virtual_network_peering__timeouts ->

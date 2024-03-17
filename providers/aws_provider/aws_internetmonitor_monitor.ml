@@ -31,12 +31,15 @@ type aws_internetmonitor_monitor__internet_measurements_log_delivery = {
 (** aws_internetmonitor_monitor__internet_measurements_log_delivery *)
 
 type aws_internetmonitor_monitor = {
+  id : string option; [@option]  (** id *)
   max_city_networks_to_monitor : float option; [@option]
       (** max_city_networks_to_monitor *)
   monitor_name : string;  (** monitor_name *)
   resources : string list option; [@option]  (** resources *)
   status : string option; [@option]  (** status *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   traffic_percentage_to_monitor : float option; [@option]
       (** traffic_percentage_to_monitor *)
   health_events_config :
@@ -48,18 +51,20 @@ type aws_internetmonitor_monitor = {
 [@@deriving yojson_of]
 (** aws_internetmonitor_monitor *)
 
-let aws_internetmonitor_monitor ?max_city_networks_to_monitor
-    ?resources ?status ?tags ?traffic_percentage_to_monitor
+let aws_internetmonitor_monitor ?id ?max_city_networks_to_monitor
+    ?resources ?status ?tags ?tags_all ?traffic_percentage_to_monitor
     ~monitor_name ~health_events_config
     ~internet_measurements_log_delivery __resource_id =
   let __resource_type = "aws_internetmonitor_monitor" in
   let __resource =
     {
+      id;
       max_city_networks_to_monitor;
       monitor_name;
       resources;
       status;
       tags;
+      tags_all;
       traffic_percentage_to_monitor;
       health_events_config;
       internet_measurements_log_delivery;

@@ -45,21 +45,26 @@ type azurerm_linux_virtual_machine_scale_set
 val azurerm_linux_virtual_machine_scale_set :
   ?admin_password:string ->
   ?capacity_reservation_group_id:string ->
+  ?computer_name_prefix:string ->
   ?custom_data:string ->
   ?disable_password_authentication:bool ->
   ?do_not_run_extensions_on_overprovisioned_machines:bool ->
   ?edge_zone:string ->
   ?encryption_at_host_enabled:bool ->
   ?eviction_policy:string ->
+  ?extension_operations_enabled:bool ->
   ?extensions_time_budget:string ->
   ?health_probe_id:string ->
   ?host_group_id:string ->
+  ?id:string ->
   ?instances:float ->
   ?max_bid_price:float ->
   ?overprovision:bool ->
+  ?platform_fault_domain_count:float ->
   ?priority:string ->
   ?provision_vm_agent:bool ->
   ?proximity_placement_group_id:string ->
+  ?scale_in_policy:string ->
   ?secure_boot_enabled:bool ->
   ?single_placement_group:bool ->
   ?source_image_id:string ->

@@ -67,13 +67,26 @@ type aws_eks_node_group__resources = {
 [@@deriving yojson_of]
 
 type aws_eks_node_group = {
+  ami_type : string option; [@option]  (** ami_type *)
+  capacity_type : string option; [@option]  (** capacity_type *)
   cluster_name : string;  (** cluster_name *)
+  disk_size : float option; [@option]  (** disk_size *)
   force_update_version : bool option; [@option]
       (** force_update_version *)
+  id : string option; [@option]  (** id *)
+  instance_types : string list option; [@option]
+      (** instance_types *)
   labels : (string * string) list option; [@option]  (** labels *)
+  node_group_name : string option; [@option]  (** node_group_name *)
+  node_group_name_prefix : string option; [@option]
+      (** node_group_name_prefix *)
   node_role_arn : string;  (** node_role_arn *)
+  release_version : string option; [@option]  (** release_version *)
   subnet_ids : string list;  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  version : string option; [@option]  (** version *)
   launch_template : aws_eks_node_group__launch_template list;
   remote_access : aws_eks_node_group__remote_access list;
   scaling_config : aws_eks_node_group__scaling_config list;
@@ -84,19 +97,31 @@ type aws_eks_node_group = {
 [@@deriving yojson_of]
 (** aws_eks_node_group *)
 
-let aws_eks_node_group ?force_update_version ?labels ?tags ?timeouts
-    ~cluster_name ~node_role_arn ~subnet_ids ~launch_template
-    ~remote_access ~scaling_config ~taint ~update_config
-    __resource_id =
+let aws_eks_node_group ?ami_type ?capacity_type ?disk_size
+    ?force_update_version ?id ?instance_types ?labels
+    ?node_group_name ?node_group_name_prefix ?release_version ?tags
+    ?tags_all ?version ?timeouts ~cluster_name ~node_role_arn
+    ~subnet_ids ~launch_template ~remote_access ~scaling_config
+    ~taint ~update_config __resource_id =
   let __resource_type = "aws_eks_node_group" in
   let __resource =
     {
+      ami_type;
+      capacity_type;
       cluster_name;
+      disk_size;
       force_update_version;
+      id;
+      instance_types;
       labels;
+      node_group_name;
+      node_group_name_prefix;
       node_role_arn;
+      release_version;
       subnet_ids;
       tags;
+      tags_all;
+      version;
       launch_template;
       remote_access;
       scaling_config;

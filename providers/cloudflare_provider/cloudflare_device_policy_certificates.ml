@@ -7,6 +7,7 @@ open! Tf.Prelude
 type cloudflare_device_policy_certificates = {
   enabled : bool;
       (** `true` if certificate generation is enabled. *)
+  id : string option; [@option]  (** id *)
   zone_id : string;
       (** The zone identifier to target for the resource. *)
 }
@@ -16,10 +17,10 @@ policy certificate resources enable client device certificate
 generation.
  *)
 
-let cloudflare_device_policy_certificates ~enabled ~zone_id
+let cloudflare_device_policy_certificates ?id ~enabled ~zone_id
     __resource_id =
   let __resource_type = "cloudflare_device_policy_certificates" in
-  let __resource = { enabled; zone_id } in
+  let __resource = { enabled; id; zone_id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_policy_certificates __resource);
   ()

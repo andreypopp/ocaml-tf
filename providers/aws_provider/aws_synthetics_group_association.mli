@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_synthetics_group_association
 
 val aws_synthetics_group_association :
-  canary_arn:string -> group_name:string -> string -> unit
+  ?id:string ->
+  canary_arn:string ->
+  group_name:string ->
+  string ->
+  unit

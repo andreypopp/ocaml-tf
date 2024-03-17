@@ -56,6 +56,7 @@ type azurerm_machine_learning_workspace = {
   friendly_name : string option; [@option]  (** friendly_name *)
   high_business_impact : bool option; [@option]
       (** high_business_impact *)
+  id : string option; [@option]  (** id *)
   image_build_compute_name : string option; [@option]
       (** image_build_compute_name *)
   key_vault_id : string;  (** key_vault_id *)
@@ -67,6 +68,8 @@ type azurerm_machine_learning_workspace = {
   public_access_behind_virtual_network_enabled : bool option;
       [@option]
       (** public_access_behind_virtual_network_enabled *)
+  public_network_access_enabled : bool option; [@option]
+      (** public_network_access_enabled *)
   resource_group_name : string;  (** resource_group_name *)
   sku_name : string option; [@option]  (** sku_name *)
   storage_account_id : string;  (** storage_account_id *)
@@ -85,9 +88,10 @@ type azurerm_machine_learning_workspace = {
 (** azurerm_machine_learning_workspace *)
 
 let azurerm_machine_learning_workspace ?container_registry_id
-    ?description ?friendly_name ?high_business_impact
+    ?description ?friendly_name ?high_business_impact ?id
     ?image_build_compute_name ?kind ?primary_user_assigned_identity
-    ?public_access_behind_virtual_network_enabled ?sku_name ?tags
+    ?public_access_behind_virtual_network_enabled
+    ?public_network_access_enabled ?sku_name ?tags
     ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
     ~key_vault_id ~location ~name ~resource_group_name
     ~storage_account_id ~encryption ~feature_store ~identity
@@ -100,6 +104,7 @@ let azurerm_machine_learning_workspace ?container_registry_id
       description;
       friendly_name;
       high_business_impact;
+      id;
       image_build_compute_name;
       key_vault_id;
       kind;
@@ -107,6 +112,7 @@ let azurerm_machine_learning_workspace ?container_registry_id
       name;
       primary_user_assigned_identity;
       public_access_behind_virtual_network_enabled;
+      public_network_access_enabled;
       resource_group_name;
       sku_name;
       storage_account_id;

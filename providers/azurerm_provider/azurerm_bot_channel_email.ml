@@ -17,6 +17,7 @@ type azurerm_bot_channel_email = {
   bot_name : string;  (** bot_name *)
   email_address : string;  (** email_address *)
   email_password : string option; [@option]  (** email_password *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   magic_code : string option; [@option]  (** magic_code *)
   resource_group_name : string;  (** resource_group_name *)
@@ -25,8 +26,8 @@ type azurerm_bot_channel_email = {
 [@@deriving yojson_of]
 (** azurerm_bot_channel_email *)
 
-let azurerm_bot_channel_email ?email_password ?magic_code ?timeouts
-    ~bot_name ~email_address ~location ~resource_group_name
+let azurerm_bot_channel_email ?email_password ?id ?magic_code
+    ?timeouts ~bot_name ~email_address ~location ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_bot_channel_email" in
   let __resource =
@@ -34,6 +35,7 @@ let azurerm_bot_channel_email ?email_password ?magic_code ?timeouts
       bot_name;
       email_address;
       email_password;
+      id;
       location;
       magic_code;
       resource_group_name;

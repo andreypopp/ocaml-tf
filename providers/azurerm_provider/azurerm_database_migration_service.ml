@@ -14,6 +14,7 @@ type azurerm_database_migration_service__timeouts = {
 (** azurerm_database_migration_service__timeouts *)
 
 type azurerm_database_migration_service = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -25,11 +26,12 @@ type azurerm_database_migration_service = {
 [@@deriving yojson_of]
 (** azurerm_database_migration_service *)
 
-let azurerm_database_migration_service ?tags ?timeouts ~location
+let azurerm_database_migration_service ?id ?tags ?timeouts ~location
     ~name ~resource_group_name ~sku_name ~subnet_id __resource_id =
   let __resource_type = "azurerm_database_migration_service" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

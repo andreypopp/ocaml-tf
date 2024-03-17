@@ -9,6 +9,7 @@ type google_vmwareengine_external_access_rule
 
 val google_vmwareengine_external_access_rule :
   ?description:string ->
+  ?id:string ->
   ?timeouts:google_vmwareengine_external_access_rule__timeouts ->
   action:string ->
   destination_ports:string list ->

@@ -45,6 +45,7 @@ type aws_datapipeline_pipeline_definition__pipeline_object = {
 (** aws_datapipeline_pipeline_definition__pipeline_object *)
 
 type aws_datapipeline_pipeline_definition = {
+  id : string option; [@option]  (** id *)
   pipeline_id : string;  (** pipeline_id *)
   parameter_object :
     aws_datapipeline_pipeline_definition__parameter_object list;
@@ -56,12 +57,13 @@ type aws_datapipeline_pipeline_definition = {
 [@@deriving yojson_of]
 (** aws_datapipeline_pipeline_definition *)
 
-let aws_datapipeline_pipeline_definition ~pipeline_id
+let aws_datapipeline_pipeline_definition ?id ~pipeline_id
     ~parameter_object ~parameter_value ~pipeline_object __resource_id
     =
   let __resource_type = "aws_datapipeline_pipeline_definition" in
   let __resource =
     {
+      id;
       pipeline_id;
       parameter_object;
       parameter_value;

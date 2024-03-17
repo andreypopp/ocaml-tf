@@ -5,18 +5,20 @@
 open! Tf.Prelude
 
 type google_container_analysis_note_iam_policy = {
+  id : string option; [@option]  (** id *)
   note : string;  (** note *)
   policy_data : string;  (** policy_data *)
+  project : string option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_container_analysis_note_iam_policy *)
 
-let google_container_analysis_note_iam_policy ~note ~policy_data
-    __resource_id =
+let google_container_analysis_note_iam_policy ?id ?project ~note
+    ~policy_data __resource_id =
   let __resource_type =
     "google_container_analysis_note_iam_policy"
   in
-  let __resource = { note; policy_data } in
+  let __resource = { id; note; policy_data; project } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_analysis_note_iam_policy __resource);
   ()

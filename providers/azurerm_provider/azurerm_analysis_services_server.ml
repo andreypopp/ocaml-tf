@@ -27,8 +27,11 @@ type azurerm_analysis_services_server = {
       (** backup_blob_container_uri *)
   enable_power_bi_service : bool option; [@option]
       (** enable_power_bi_service *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
+  querypool_connection_mode : string option; [@option]
+      (** querypool_connection_mode *)
   resource_group_name : string;  (** resource_group_name *)
   sku : string;  (** sku *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -40,17 +43,19 @@ type azurerm_analysis_services_server = {
 (** azurerm_analysis_services_server *)
 
 let azurerm_analysis_services_server ?admin_users
-    ?backup_blob_container_uri ?enable_power_bi_service ?tags
-    ?timeouts ~location ~name ~resource_group_name ~sku
-    ~ipv4_firewall_rule __resource_id =
+    ?backup_blob_container_uri ?enable_power_bi_service ?id
+    ?querypool_connection_mode ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku ~ipv4_firewall_rule __resource_id =
   let __resource_type = "azurerm_analysis_services_server" in
   let __resource =
     {
       admin_users;
       backup_blob_container_uri;
       enable_power_bi_service;
+      id;
       location;
       name;
+      querypool_connection_mode;
       resource_group_name;
       sku;
       tags;

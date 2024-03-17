@@ -31,6 +31,7 @@ type google_vertex_ai_feature_group__timeouts = {
 type google_vertex_ai_feature_group = {
   description : string option; [@option]
       (** The description of the FeatureGroup. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The labels with user-defined metadata to organize your FeatureGroup.
 
@@ -38,6 +39,7 @@ type google_vertex_ai_feature_group = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string option; [@option]
       (** The resource name of the Feature Group. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region of feature group. eg us-central1 *)
   big_query : google_vertex_ai_feature_group__big_query list;
@@ -46,11 +48,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_feature_group *)
 
-let google_vertex_ai_feature_group ?description ?labels ?name ?region
-    ?timeouts ~big_query __resource_id =
+let google_vertex_ai_feature_group ?description ?id ?labels ?name
+    ?project ?region ?timeouts ~big_query __resource_id =
   let __resource_type = "google_vertex_ai_feature_group" in
   let __resource =
-    { description; labels; name; region; big_query; timeouts }
+    {
+      description;
+      id;
+      labels;
+      name;
+      project;
+      region;
+      big_query;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_feature_group __resource);

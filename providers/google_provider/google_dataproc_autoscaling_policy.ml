@@ -117,6 +117,7 @@ only on primary workers, the cluster will use primary workers only and no second
 (** Describes how the autoscaler will operate for primary workers. *)
 
 type google_dataproc_autoscaling_policy = {
+  id : string option; [@option]  (** id *)
   location : string option; [@option]
       (** The  location where the autoscaling policy should reside.
 The default value is 'global'. *)
@@ -124,6 +125,7 @@ The default value is 'global'. *)
       (** The policy id. The id must contain only letters (a-z, A-Z), numbers (0-9), underscores (_),
 and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of between
 3 and 50 characters. *)
+  project : string option; [@option]  (** project *)
   basic_algorithm :
     google_dataproc_autoscaling_policy__basic_algorithm list;
   secondary_worker_config :
@@ -135,14 +137,16 @@ and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of 
 [@@deriving yojson_of]
 (** google_dataproc_autoscaling_policy *)
 
-let google_dataproc_autoscaling_policy ?location ?timeouts ~policy_id
-    ~basic_algorithm ~secondary_worker_config ~worker_config
-    __resource_id =
+let google_dataproc_autoscaling_policy ?id ?location ?project
+    ?timeouts ~policy_id ~basic_algorithm ~secondary_worker_config
+    ~worker_config __resource_id =
   let __resource_type = "google_dataproc_autoscaling_policy" in
   let __resource =
     {
+      id;
       location;
       policy_id;
+      project;
       basic_algorithm;
       secondary_worker_config;
       timeouts;

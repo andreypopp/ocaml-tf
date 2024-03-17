@@ -68,15 +68,16 @@ type kubernetes_endpoints__subset = {
 (** Set of addresses and ports that comprise a service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#services-without-selectors *)
 
 type kubernetes_endpoints = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_endpoints__metadata list;
   subset : kubernetes_endpoints__subset list;
 }
 [@@deriving yojson_of]
 (** kubernetes_endpoints *)
 
-let kubernetes_endpoints ~metadata ~subset __resource_id =
+let kubernetes_endpoints ?id ~metadata ~subset __resource_id =
   let __resource_type = "kubernetes_endpoints" in
-  let __resource = { metadata; subset } in
+  let __resource = { id; metadata; subset } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_endpoints __resource);
   ()

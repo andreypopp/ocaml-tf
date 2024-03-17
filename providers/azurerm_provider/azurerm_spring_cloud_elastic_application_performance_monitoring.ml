@@ -16,6 +16,7 @@ type azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts =
 type azurerm_spring_cloud_elastic_application_performance_monitoring = {
   application_packages : string list;  (** application_packages *)
   globally_enabled : bool option; [@option]  (** globally_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   server_url : string;  (** server_url *)
   service_name : string;  (** service_name *)
@@ -28,7 +29,7 @@ type azurerm_spring_cloud_elastic_application_performance_monitoring = {
 (** azurerm_spring_cloud_elastic_application_performance_monitoring *)
 
 let azurerm_spring_cloud_elastic_application_performance_monitoring
-    ?globally_enabled ?timeouts ~application_packages ~name
+    ?globally_enabled ?id ?timeouts ~application_packages ~name
     ~server_url ~service_name ~spring_cloud_service_id __resource_id
     =
   let __resource_type =
@@ -38,6 +39,7 @@ let azurerm_spring_cloud_elastic_application_performance_monitoring
     {
       application_packages;
       globally_enabled;
+      id;
       name;
       server_url;
       service_name;

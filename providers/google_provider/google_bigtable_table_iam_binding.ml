@@ -13,8 +13,10 @@ type google_bigtable_table_iam_binding__condition = {
 (** google_bigtable_table_iam_binding__condition *)
 
 type google_bigtable_table_iam_binding = {
+  id : string option; [@option]  (** id *)
   instance : string;  (** instance *)
   members : string list;  (** members *)
+  project : string option; [@option]  (** project *)
   role : string;  (** role *)
   table : string;  (** table *)
   condition : google_bigtable_table_iam_binding__condition list;
@@ -22,10 +24,12 @@ type google_bigtable_table_iam_binding = {
 [@@deriving yojson_of]
 (** google_bigtable_table_iam_binding *)
 
-let google_bigtable_table_iam_binding ~instance ~members ~role ~table
-    ~condition __resource_id =
+let google_bigtable_table_iam_binding ?id ?project ~instance ~members
+    ~role ~table ~condition __resource_id =
   let __resource_type = "google_bigtable_table_iam_binding" in
-  let __resource = { instance; members; role; table; condition } in
+  let __resource =
+    { id; instance; members; project; role; table; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigtable_table_iam_binding __resource);
   ()

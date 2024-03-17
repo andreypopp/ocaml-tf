@@ -7,6 +7,7 @@ type azurerm_route_server
 
 val azurerm_route_server :
   ?branch_to_branch_traffic_enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_route_server__timeouts ->
   location:string ->

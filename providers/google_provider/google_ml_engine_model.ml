@@ -23,6 +23,7 @@ type google_ml_engine_model__timeouts = {
 type google_ml_engine_model = {
   description : string option; [@option]
       (** The description specified for the model when it was created. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** One or more labels that you can add, to organize your models.
 
@@ -33,6 +34,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** If true, online prediction nodes send stderr and stdout streams to Stackdriver Logging *)
   online_prediction_logging : bool option; [@option]
       (** If true, online prediction access logs are sent to StackDriver Logging. *)
+  project : string option; [@option]  (** project *)
   regions : string list option; [@option]
       (** The list of regions where the model is going to be deployed.
 Currently only one region per model is supported *)
@@ -42,17 +44,20 @@ Currently only one region per model is supported *)
 [@@deriving yojson_of]
 (** google_ml_engine_model *)
 
-let google_ml_engine_model ?description ?labels
+let google_ml_engine_model ?description ?id ?labels
     ?online_prediction_console_logging ?online_prediction_logging
-    ?regions ?timeouts ~name ~default_version __resource_id =
+    ?project ?regions ?timeouts ~name ~default_version __resource_id
+    =
   let __resource_type = "google_ml_engine_model" in
   let __resource =
     {
       description;
+      id;
       labels;
       name;
       online_prediction_console_logging;
       online_prediction_logging;
+      project;
       regions;
       default_version;
       timeouts;

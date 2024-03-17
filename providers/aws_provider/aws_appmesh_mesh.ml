@@ -17,16 +17,19 @@ type aws_appmesh_mesh__spec = {
 (** aws_appmesh_mesh__spec *)
 
 type aws_appmesh_mesh = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   spec : aws_appmesh_mesh__spec list;
 }
 [@@deriving yojson_of]
 (** aws_appmesh_mesh *)
 
-let aws_appmesh_mesh ?tags ~name ~spec __resource_id =
+let aws_appmesh_mesh ?id ?tags ?tags_all ~name ~spec __resource_id =
   let __resource_type = "aws_appmesh_mesh" in
-  let __resource = { name; tags; spec } in
+  let __resource = { id; name; tags; tags_all; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appmesh_mesh __resource);
   ()

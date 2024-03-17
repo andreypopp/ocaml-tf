@@ -6,6 +6,7 @@ type aws_servicecatalog_budget_resource_association__timeouts
 type aws_servicecatalog_budget_resource_association
 
 val aws_servicecatalog_budget_resource_association :
+  ?id:string ->
   ?timeouts:aws_servicecatalog_budget_resource_association__timeouts ->
   budget_name:string ->
   resource_id:string ->

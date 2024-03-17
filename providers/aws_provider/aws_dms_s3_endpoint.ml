@@ -27,6 +27,7 @@ type aws_dms_s3_endpoint = {
   cdc_min_file_size : float option; [@option]
       (** cdc_min_file_size *)
   cdc_path : string option; [@option]  (** cdc_path *)
+  certificate_arn : string option; [@option]  (** certificate_arn *)
   compression_type : string option; [@option]
       (** compression_type *)
   csv_delimiter : string option; [@option]  (** csv_delimiter *)
@@ -62,10 +63,12 @@ type aws_dms_s3_endpoint = {
       (** external_table_definition *)
   glue_catalog_generation : bool option; [@option]
       (** glue_catalog_generation *)
+  id : string option; [@option]  (** id *)
   ignore_header_rows : float option; [@option]
       (** ignore_header_rows *)
   include_op_for_full_load : bool option; [@option]
       (** include_op_for_full_load *)
+  kms_key_arn : string option; [@option]  (** kms_key_arn *)
   max_file_size : float option; [@option]  (** max_file_size *)
   parquet_timestamp_in_millisecond : bool option; [@option]
       (** parquet_timestamp_in_millisecond *)
@@ -77,7 +80,10 @@ type aws_dms_s3_endpoint = {
   server_side_encryption_kms_key_id : string option; [@option]
       (** server_side_encryption_kms_key_id *)
   service_access_role_arn : string;  (** service_access_role_arn *)
+  ssl_mode : string option; [@option]  (** ssl_mode *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timestamp_column_name : string option; [@option]
       (** timestamp_column_name *)
   use_csv_no_sup_value : bool option; [@option]
@@ -94,19 +100,19 @@ let aws_dms_s3_endpoint ?add_column_name
     ?add_trailing_padding_character ?bucket_folder
     ?canned_acl_for_objects ?cdc_inserts_and_updates
     ?cdc_inserts_only ?cdc_max_batch_interval ?cdc_min_file_size
-    ?cdc_path ?compression_type ?csv_delimiter ?csv_no_sup_value
-    ?csv_null_value ?csv_row_delimiter ?data_format ?data_page_size
-    ?date_partition_delimiter ?date_partition_enabled
+    ?cdc_path ?certificate_arn ?compression_type ?csv_delimiter
+    ?csv_no_sup_value ?csv_null_value ?csv_row_delimiter ?data_format
+    ?data_page_size ?date_partition_delimiter ?date_partition_enabled
     ?date_partition_sequence ?date_partition_timezone
     ?detach_target_on_lob_lookup_failure_parquet
     ?dict_page_size_limit ?enable_statistics ?encoding_type
     ?encryption_mode ?expected_bucket_owner
-    ?external_table_definition ?glue_catalog_generation
-    ?ignore_header_rows ?include_op_for_full_load ?max_file_size
-    ?parquet_timestamp_in_millisecond ?parquet_version
+    ?external_table_definition ?glue_catalog_generation ?id
+    ?ignore_header_rows ?include_op_for_full_load ?kms_key_arn
+    ?max_file_size ?parquet_timestamp_in_millisecond ?parquet_version
     ?preserve_transactions ?rfc_4180 ?row_group_length
-    ?server_side_encryption_kms_key_id ?tags ?timestamp_column_name
-    ?use_csv_no_sup_value
+    ?server_side_encryption_kms_key_id ?ssl_mode ?tags ?tags_all
+    ?timestamp_column_name ?use_csv_no_sup_value
     ?use_task_start_time_for_full_load_timestamp ?timeouts
     ~bucket_name ~endpoint_id ~endpoint_type ~service_access_role_arn
     __resource_id =
@@ -123,6 +129,7 @@ let aws_dms_s3_endpoint ?add_column_name
       cdc_max_batch_interval;
       cdc_min_file_size;
       cdc_path;
+      certificate_arn;
       compression_type;
       csv_delimiter;
       csv_no_sup_value;
@@ -144,8 +151,10 @@ let aws_dms_s3_endpoint ?add_column_name
       expected_bucket_owner;
       external_table_definition;
       glue_catalog_generation;
+      id;
       ignore_header_rows;
       include_op_for_full_load;
+      kms_key_arn;
       max_file_size;
       parquet_timestamp_in_millisecond;
       parquet_version;
@@ -154,7 +163,9 @@ let aws_dms_s3_endpoint ?add_column_name
       row_group_length;
       server_side_encryption_kms_key_id;
       service_access_role_arn;
+      ssl_mode;
       tags;
+      tags_all;
       timestamp_column_name;
       use_csv_no_sup_value;
       use_task_start_time_for_full_load_timestamp;

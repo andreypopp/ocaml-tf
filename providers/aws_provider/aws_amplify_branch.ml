@@ -12,6 +12,7 @@ type aws_amplify_branch = {
       (** basic_auth_credentials *)
   branch_name : string;  (** branch_name *)
   description : string option; [@option]  (** description *)
+  display_name : string option; [@option]  (** display_name *)
   enable_auto_build : bool option; [@option]
       (** enable_auto_build *)
   enable_basic_auth : bool option; [@option]
@@ -25,21 +26,25 @@ type aws_amplify_branch = {
   environment_variables : (string * string) list option; [@option]
       (** environment_variables *)
   framework : string option; [@option]  (** framework *)
+  id : string option; [@option]  (** id *)
   pull_request_environment_name : string option; [@option]
       (** pull_request_environment_name *)
   stage : string option; [@option]  (** stage *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   ttl : string option; [@option]  (** ttl *)
 }
 [@@deriving yojson_of]
 (** aws_amplify_branch *)
 
 let aws_amplify_branch ?backend_environment_arn
-    ?basic_auth_credentials ?description ?enable_auto_build
-    ?enable_basic_auth ?enable_notification ?enable_performance_mode
-    ?enable_pull_request_preview ?environment_variables ?framework
-    ?pull_request_environment_name ?stage ?tags ?ttl ~app_id
-    ~branch_name __resource_id =
+    ?basic_auth_credentials ?description ?display_name
+    ?enable_auto_build ?enable_basic_auth ?enable_notification
+    ?enable_performance_mode ?enable_pull_request_preview
+    ?environment_variables ?framework ?id
+    ?pull_request_environment_name ?stage ?tags ?tags_all ?ttl
+    ~app_id ~branch_name __resource_id =
   let __resource_type = "aws_amplify_branch" in
   let __resource =
     {
@@ -48,6 +53,7 @@ let aws_amplify_branch ?backend_environment_arn
       basic_auth_credentials;
       branch_name;
       description;
+      display_name;
       enable_auto_build;
       enable_basic_auth;
       enable_notification;
@@ -55,9 +61,11 @@ let aws_amplify_branch ?backend_environment_arn
       enable_pull_request_preview;
       environment_variables;
       framework;
+      id;
       pull_request_environment_name;
       stage;
       tags;
+      tags_all;
       ttl;
     }
   in

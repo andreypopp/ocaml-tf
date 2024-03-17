@@ -7,6 +7,7 @@ type azurerm_network_manager_scope_connection
 
 val azurerm_network_manager_scope_connection :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_network_manager_scope_connection__timeouts ->
   name:string ->
   network_manager_id:string ->

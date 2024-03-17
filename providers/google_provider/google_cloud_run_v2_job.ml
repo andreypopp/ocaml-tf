@@ -263,6 +263,7 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
       (** Arbitrary identifier for the API client. *)
   client_version : string option; [@option]
       (** Arbitrary version identifier for the API client. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Unstructured key value map that can be used to organize and categorize objects. User-provided labels are shared with Google's billing system, so they can be used to filter, or break down billing charges by team, component,
 environment, state, etc. For more information, visit https://cloud.google.com/resource-manager/docs/creating-managing-labels or https://cloud.google.com/run/docs/configuring/labels.
@@ -272,8 +273,14 @@ All system labels in v1 now have a corresponding field in v2 Job.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  launch_stage : string option; [@option]
+      (** The launch stage as defined by [Google Cloud Platform Launch Stages](https://cloud.google.com/products#product-launch-stages). Cloud Run supports ALPHA, BETA, and GA.
+If no value is specified, GA is assumed. Set the launch stage to a preview stage on input to allow use of preview features in that stage. On read (or output), describes whether the resource uses preview features.
+
+For example, if ALPHA is provided as input, but only BETA and GA-level features are used, this field will be BETA on output. Possible values: [UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS, ALPHA, BETA, GA, DEPRECATED] *)
   location : string;  (** The location of the cloud run job *)
   name : string;  (** Name of the Job. *)
+  project : string option; [@option]  (** project *)
   binary_authorization :
     google_cloud_run_v2_job__binary_authorization list;
   template : google_cloud_run_v2_job__template list;
@@ -282,18 +289,21 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_cloud_run_v2_job *)
 
-let google_cloud_run_v2_job ?annotations ?client ?client_version
-    ?labels ?timeouts ~location ~name ~binary_authorization ~template
-    __resource_id =
+let google_cloud_run_v2_job ?annotations ?client ?client_version ?id
+    ?labels ?launch_stage ?project ?timeouts ~location ~name
+    ~binary_authorization ~template __resource_id =
   let __resource_type = "google_cloud_run_v2_job" in
   let __resource =
     {
       annotations;
       client;
       client_version;
+      id;
       labels;
+      launch_stage;
       location;
       name;
+      project;
       binary_authorization;
       template;
       timeouts;

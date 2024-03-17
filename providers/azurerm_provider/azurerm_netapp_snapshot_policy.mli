@@ -10,6 +10,7 @@ type azurerm_netapp_snapshot_policy__weekly_schedule
 type azurerm_netapp_snapshot_policy
 
 val azurerm_netapp_snapshot_policy :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_netapp_snapshot_policy__timeouts ->
   account_name:string ->

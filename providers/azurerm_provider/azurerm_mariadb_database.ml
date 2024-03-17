@@ -15,6 +15,7 @@ type azurerm_mariadb_database__timeouts = {
 type azurerm_mariadb_database = {
   charset : string;  (** charset *)
   collation : string;  (** collation *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   server_name : string;  (** server_name *)
@@ -23,13 +24,14 @@ type azurerm_mariadb_database = {
 [@@deriving yojson_of]
 (** azurerm_mariadb_database *)
 
-let azurerm_mariadb_database ?timeouts ~charset ~collation ~name
+let azurerm_mariadb_database ?id ?timeouts ~charset ~collation ~name
     ~resource_group_name ~server_name __resource_id =
   let __resource_type = "azurerm_mariadb_database" in
   let __resource =
     {
       charset;
       collation;
+      id;
       name;
       resource_group_name;
       server_name;

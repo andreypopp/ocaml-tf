@@ -26,16 +26,27 @@ The taxonomy display name must be unique within an organization.
 It must: contain only unicode letters, numbers, underscores, dashes
 and spaces; not start or end with spaces; and be at most 200 bytes
 long when encoded in UTF-8. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]  (** Taxonomy location region. *)
   timeouts : google_data_catalog_taxonomy__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_data_catalog_taxonomy *)
 
 let google_data_catalog_taxonomy ?activated_policy_types ?description
-    ?timeouts ~display_name __resource_id =
+    ?id ?project ?region ?timeouts ~display_name __resource_id =
   let __resource_type = "google_data_catalog_taxonomy" in
   let __resource =
-    { activated_policy_types; description; display_name; timeouts }
+    {
+      activated_policy_types;
+      description;
+      display_name;
+      id;
+      project;
+      region;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_taxonomy __resource);

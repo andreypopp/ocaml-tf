@@ -8,6 +8,7 @@ type azurerm_stream_analytics_function_javascript_udf__timeouts
 type azurerm_stream_analytics_function_javascript_udf
 
 val azurerm_stream_analytics_function_javascript_udf :
+  ?id:string ->
   ?timeouts:
     azurerm_stream_analytics_function_javascript_udf__timeouts ->
   name:string ->

@@ -4,4 +4,5 @@ open! Tf.Prelude
 
 type google_container_registry
 
-val google_container_registry : ?location:string -> string -> unit
+val google_container_registry :
+  ?id:string -> ?location:string -> ?project:string -> string -> unit

@@ -13,6 +13,7 @@ val azurerm_gallery_application_version :
   ?enable_health_check:bool ->
   ?end_of_life_date:string ->
   ?exclude_from_latest:bool ->
+  ?id:string ->
   ?package_file:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_gallery_application_version__timeouts ->

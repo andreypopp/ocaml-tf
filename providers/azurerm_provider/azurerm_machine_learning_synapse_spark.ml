@@ -23,6 +23,7 @@ type azurerm_machine_learning_synapse_spark__timeouts = {
 
 type azurerm_machine_learning_synapse_spark = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   local_auth_enabled : bool option; [@option]
       (** local_auth_enabled *)
   location : string;  (** location *)
@@ -37,7 +38,7 @@ type azurerm_machine_learning_synapse_spark = {
 [@@deriving yojson_of]
 (** azurerm_machine_learning_synapse_spark *)
 
-let azurerm_machine_learning_synapse_spark ?description
+let azurerm_machine_learning_synapse_spark ?description ?id
     ?local_auth_enabled ?tags ?timeouts ~location
     ~machine_learning_workspace_id ~name ~synapse_spark_pool_id
     ~identity __resource_id =
@@ -45,6 +46,7 @@ let azurerm_machine_learning_synapse_spark ?description
   let __resource =
     {
       description;
+      id;
       local_auth_enabled;
       location;
       machine_learning_workspace_id;

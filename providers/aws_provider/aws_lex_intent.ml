@@ -157,6 +157,7 @@ type aws_lex_intent__timeouts = {
 type aws_lex_intent = {
   create_version : bool option; [@option]  (** create_version *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   parent_intent_signature : string option; [@option]
       (** parent_intent_signature *)
@@ -174,7 +175,7 @@ type aws_lex_intent = {
 [@@deriving yojson_of]
 (** aws_lex_intent *)
 
-let aws_lex_intent ?create_version ?description
+let aws_lex_intent ?create_version ?description ?id
     ?parent_intent_signature ?sample_utterances ?timeouts ~name
     ~conclusion_statement ~confirmation_prompt ~dialog_code_hook
     ~follow_up_prompt ~fulfillment_activity ~rejection_statement
@@ -184,6 +185,7 @@ let aws_lex_intent ?create_version ?description
     {
       create_version;
       description;
+      id;
       name;
       parent_intent_signature;
       sample_utterances;

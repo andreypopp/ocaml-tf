@@ -11,6 +11,9 @@ val azurerm_traffic_manager_azure_endpoint :
   ?always_serve_enabled:bool ->
   ?enabled:bool ->
   ?geo_mappings:string list ->
+  ?id:string ->
+  ?priority:float ->
+  ?weight:float ->
   ?timeouts:azurerm_traffic_manager_azure_endpoint__timeouts ->
   name:string ->
   profile_id:string ->

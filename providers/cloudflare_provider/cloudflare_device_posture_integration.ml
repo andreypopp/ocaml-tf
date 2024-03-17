@@ -28,6 +28,7 @@ type cloudflare_device_posture_integration__config = {
 type cloudflare_device_posture_integration = {
   account_id : string;
       (** The account identifier to target for the resource. *)
+  id : string option; [@option]  (** id *)
   identifier : string option; [@option]  (** identifier *)
   interval : string option; [@option]
       (** Indicates the frequency with which to poll the third-party API. Must be in the format `1h` or `30m`. *)
@@ -42,11 +43,11 @@ posture integrations configure third-party data providers for device
 posture rules.
  *)
 
-let cloudflare_device_posture_integration ?identifier ?interval
+let cloudflare_device_posture_integration ?id ?identifier ?interval
     ~account_id ~name ~type_ ~config __resource_id =
   let __resource_type = "cloudflare_device_posture_integration" in
   let __resource =
-    { account_id; identifier; interval; name; type_; config }
+    { account_id; id; identifier; interval; name; type_; config }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_posture_integration __resource);

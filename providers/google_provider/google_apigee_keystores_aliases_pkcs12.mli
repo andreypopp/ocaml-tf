@@ -18,7 +18,6 @@ type google_apigee_keystores_aliases_pkcs12__certs_info__cert_info = {
   valid_from : string;  (** valid_from *)
   version : float;  (** version *)
 }
-[@@deriving yojson_of]
 
 type google_apigee_keystores_aliases_pkcs12__certs_info = {
   cert_info :
@@ -26,11 +25,12 @@ type google_apigee_keystores_aliases_pkcs12__certs_info = {
     list;
       (** cert_info *)
 }
-[@@deriving yojson_of]
 
 type google_apigee_keystores_aliases_pkcs12
 
 val google_apigee_keystores_aliases_pkcs12 :
+  ?id:string ->
+  ?password:string ->
   ?timeouts:google_apigee_keystores_aliases_pkcs12__timeouts ->
   alias:string ->
   environment:string ->

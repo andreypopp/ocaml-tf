@@ -6,6 +6,7 @@ type azurerm_application_load_balancer__timeouts
 type azurerm_application_load_balancer
 
 val azurerm_application_load_balancer :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_application_load_balancer__timeouts ->
   location:string ->

@@ -6,6 +6,7 @@ type azurerm_kusto_cluster_principal_assignment__timeouts
 type azurerm_kusto_cluster_principal_assignment
 
 val azurerm_kusto_cluster_principal_assignment :
+  ?id:string ->
   ?timeouts:azurerm_kusto_cluster_principal_assignment__timeouts ->
   cluster_name:string ->
   name:string ->

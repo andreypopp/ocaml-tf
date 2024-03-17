@@ -43,6 +43,7 @@ type azurerm_virtual_machine_scale_set_packet_capture__timeouts = {
 (** azurerm_virtual_machine_scale_set_packet_capture__timeouts *)
 
 type azurerm_virtual_machine_scale_set_packet_capture = {
+  id : string option; [@option]  (** id *)
   maximum_bytes_per_packet : float option; [@option]
       (** maximum_bytes_per_packet *)
   maximum_bytes_per_session : float option; [@option]
@@ -67,7 +68,7 @@ type azurerm_virtual_machine_scale_set_packet_capture = {
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set_packet_capture *)
 
-let azurerm_virtual_machine_scale_set_packet_capture
+let azurerm_virtual_machine_scale_set_packet_capture ?id
     ?maximum_bytes_per_packet ?maximum_bytes_per_session
     ?maximum_capture_duration_in_seconds ?timeouts ~name
     ~network_watcher_id ~virtual_machine_scale_set_id ~filter
@@ -77,6 +78,7 @@ let azurerm_virtual_machine_scale_set_packet_capture
   in
   let __resource =
     {
+      id;
       maximum_bytes_per_packet;
       maximum_bytes_per_session;
       maximum_capture_duration_in_seconds;

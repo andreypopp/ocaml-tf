@@ -5,4 +5,9 @@ open! Tf.Prelude
 type digitalocean_floating_ip
 
 val digitalocean_floating_ip :
-  ?droplet_id:float -> region:string -> string -> unit
+  ?droplet_id:float ->
+  ?id:string ->
+  ?ip_address:string ->
+  region:string ->
+  string ->
+  unit

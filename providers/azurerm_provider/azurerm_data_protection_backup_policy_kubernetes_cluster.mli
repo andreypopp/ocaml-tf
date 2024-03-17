@@ -17,6 +17,7 @@ type azurerm_data_protection_backup_policy_kubernetes_cluster__timeouts
 type azurerm_data_protection_backup_policy_kubernetes_cluster
 
 val azurerm_data_protection_backup_policy_kubernetes_cluster :
+  ?id:string ->
   ?time_zone:string ->
   ?timeouts:
     azurerm_data_protection_backup_policy_kubernetes_cluster__timeouts ->

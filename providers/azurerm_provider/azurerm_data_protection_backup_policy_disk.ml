@@ -35,6 +35,7 @@ type azurerm_data_protection_backup_policy_disk = {
       (** backup_repeating_time_intervals *)
   default_retention_duration : string;
       (** default_retention_duration *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   time_zone : string option; [@option]  (** time_zone *)
   vault_id : string;  (** vault_id *)
@@ -46,9 +47,10 @@ type azurerm_data_protection_backup_policy_disk = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_disk *)
 
-let azurerm_data_protection_backup_policy_disk ?time_zone ?timeouts
-    ~backup_repeating_time_intervals ~default_retention_duration
-    ~name ~vault_id ~retention_rule __resource_id =
+let azurerm_data_protection_backup_policy_disk ?id ?time_zone
+    ?timeouts ~backup_repeating_time_intervals
+    ~default_retention_duration ~name ~vault_id ~retention_rule
+    __resource_id =
   let __resource_type =
     "azurerm_data_protection_backup_policy_disk"
   in
@@ -56,6 +58,7 @@ let azurerm_data_protection_backup_policy_disk ?time_zone ?timeouts
     {
       backup_repeating_time_intervals;
       default_retention_duration;
+      id;
       name;
       time_zone;
       vault_id;

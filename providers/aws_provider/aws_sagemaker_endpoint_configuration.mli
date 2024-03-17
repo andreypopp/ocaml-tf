@@ -34,8 +34,12 @@ type aws_sagemaker_endpoint_configuration__shadow_production_variants
 type aws_sagemaker_endpoint_configuration
 
 val aws_sagemaker_endpoint_configuration :
+  ?id:string ->
   ?kms_key_arn:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   async_inference_config:
     aws_sagemaker_endpoint_configuration__async_inference_config list ->
   data_capture_config:

@@ -27,21 +27,27 @@ type aws_sesv2_email_identity = {
   configuration_set_name : string option; [@option]
       (** configuration_set_name *)
   email_identity : string;  (** email_identity *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   dkim_signing_attributes :
     aws_sesv2_email_identity__dkim_signing_attributes list;
 }
 [@@deriving yojson_of]
 (** aws_sesv2_email_identity *)
 
-let aws_sesv2_email_identity ?configuration_set_name ?tags
-    ~email_identity ~dkim_signing_attributes __resource_id =
+let aws_sesv2_email_identity ?configuration_set_name ?id ?tags
+    ?tags_all ~email_identity ~dkim_signing_attributes __resource_id
+    =
   let __resource_type = "aws_sesv2_email_identity" in
   let __resource =
     {
       configuration_set_name;
       email_identity;
+      id;
       tags;
+      tags_all;
       dkim_signing_attributes;
     }
   in

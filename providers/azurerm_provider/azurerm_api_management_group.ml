@@ -18,6 +18,7 @@ type azurerm_api_management_group = {
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
   external_id : string option; [@option]  (** external_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   type_ : string option; [@option] [@key "type"]  (** type *)
@@ -26,7 +27,7 @@ type azurerm_api_management_group = {
 [@@deriving yojson_of]
 (** azurerm_api_management_group *)
 
-let azurerm_api_management_group ?description ?external_id ?type_
+let azurerm_api_management_group ?description ?external_id ?id ?type_
     ?timeouts ~api_management_name ~display_name ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_api_management_group" in
@@ -36,6 +37,7 @@ let azurerm_api_management_group ?description ?external_id ?type_
       description;
       display_name;
       external_id;
+      id;
       name;
       resource_group_name;
       type_;

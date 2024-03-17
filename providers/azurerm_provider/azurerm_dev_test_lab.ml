@@ -14,6 +14,7 @@ type azurerm_dev_test_lab__timeouts = {
 (** azurerm_dev_test_lab__timeouts *)
 
 type azurerm_dev_test_lab = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,11 +25,12 @@ type azurerm_dev_test_lab = {
 [@@deriving yojson_of]
 (** azurerm_dev_test_lab *)
 
-let azurerm_dev_test_lab ?storage_type ?tags ?timeouts ~location
+let azurerm_dev_test_lab ?id ?storage_type ?tags ?timeouts ~location
     ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_dev_test_lab" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

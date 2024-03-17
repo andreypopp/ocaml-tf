@@ -17,6 +17,7 @@ type aws_ec2_client_vpn_authorization_rule = {
       (** authorize_all_groups *)
   client_vpn_endpoint_id : string;  (** client_vpn_endpoint_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   target_network_cidr : string;  (** target_network_cidr *)
   timeouts : aws_ec2_client_vpn_authorization_rule__timeouts option;
 }
@@ -24,7 +25,7 @@ type aws_ec2_client_vpn_authorization_rule = {
 (** aws_ec2_client_vpn_authorization_rule *)
 
 let aws_ec2_client_vpn_authorization_rule ?access_group_id
-    ?authorize_all_groups ?description ?timeouts
+    ?authorize_all_groups ?description ?id ?timeouts
     ~client_vpn_endpoint_id ~target_network_cidr __resource_id =
   let __resource_type = "aws_ec2_client_vpn_authorization_rule" in
   let __resource =
@@ -33,6 +34,7 @@ let aws_ec2_client_vpn_authorization_rule ?access_group_id
       authorize_all_groups;
       client_vpn_endpoint_id;
       description;
+      id;
       target_network_cidr;
       timeouts;
     }

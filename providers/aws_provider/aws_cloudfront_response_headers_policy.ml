@@ -159,6 +159,8 @@ type aws_cloudfront_response_headers_policy__server_timing_headers_config = {
 
 type aws_cloudfront_response_headers_policy = {
   comment : string option; [@option]  (** comment *)
+  etag : string option; [@option]  (** etag *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   cors_config :
     aws_cloudfront_response_headers_policy__cors_config list;
@@ -178,7 +180,7 @@ type aws_cloudfront_response_headers_policy = {
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy *)
 
-let aws_cloudfront_response_headers_policy ?comment ~name
+let aws_cloudfront_response_headers_policy ?comment ?etag ?id ~name
     ~cors_config ~custom_headers_config ~remove_headers_config
     ~security_headers_config ~server_timing_headers_config
     __resource_id =
@@ -186,6 +188,8 @@ let aws_cloudfront_response_headers_policy ?comment ~name
   let __resource =
     {
       comment;
+      etag;
+      id;
       name;
       cors_config;
       custom_headers_config;

@@ -20,6 +20,7 @@ type azurerm_stream_analytics_output_function = {
       (** batch_max_in_bytes *)
   function_app : string;  (** function_app *)
   function_name : string;  (** function_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   stream_analytics_job_name : string;
@@ -31,7 +32,7 @@ type azurerm_stream_analytics_output_function = {
 (** azurerm_stream_analytics_output_function *)
 
 let azurerm_stream_analytics_output_function ?batch_max_count
-    ?batch_max_in_bytes ?timeouts ~api_key ~function_app
+    ?batch_max_in_bytes ?id ?timeouts ~api_key ~function_app
     ~function_name ~name ~resource_group_name
     ~stream_analytics_job_name __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_function" in
@@ -42,6 +43,7 @@ let azurerm_stream_analytics_output_function ?batch_max_count
       batch_max_in_bytes;
       function_app;
       function_name;
+      id;
       name;
       resource_group_name;
       stream_analytics_job_name;

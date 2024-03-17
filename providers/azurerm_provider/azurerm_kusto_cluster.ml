@@ -56,6 +56,7 @@ type azurerm_kusto_cluster = {
   double_encryption_enabled : bool option; [@option]
       (** double_encryption_enabled *)
   engine : string option; [@option]  (** engine *)
+  id : string option; [@option]  (** id *)
   language_extensions : string list option; [@option]
       (** language_extensions *)
   location : string;  (** location *)
@@ -70,6 +71,8 @@ type azurerm_kusto_cluster = {
   streaming_ingestion_enabled : bool option; [@option]
       (** streaming_ingestion_enabled *)
   tags : (string * string) list option; [@option]  (** tags *)
+  trusted_external_tenants : string list option; [@option]
+      (** trusted_external_tenants *)
   zones : string list option; [@option]  (** zones *)
   identity : azurerm_kusto_cluster__identity list;
   optimized_auto_scale :
@@ -84,12 +87,13 @@ type azurerm_kusto_cluster = {
 
 let azurerm_kusto_cluster ?allowed_fqdns ?allowed_ip_ranges
     ?auto_stop_enabled ?disk_encryption_enabled
-    ?double_encryption_enabled ?engine ?language_extensions
+    ?double_encryption_enabled ?engine ?id ?language_extensions
     ?outbound_network_access_restricted ?public_ip_type
     ?public_network_access_enabled ?purge_enabled
-    ?streaming_ingestion_enabled ?tags ?zones ?timeouts ~location
-    ~name ~resource_group_name ~identity ~optimized_auto_scale ~sku
-    ~virtual_network_configuration __resource_id =
+    ?streaming_ingestion_enabled ?tags ?trusted_external_tenants
+    ?zones ?timeouts ~location ~name ~resource_group_name ~identity
+    ~optimized_auto_scale ~sku ~virtual_network_configuration
+    __resource_id =
   let __resource_type = "azurerm_kusto_cluster" in
   let __resource =
     {
@@ -99,6 +103,7 @@ let azurerm_kusto_cluster ?allowed_fqdns ?allowed_ip_ranges
       disk_encryption_enabled;
       double_encryption_enabled;
       engine;
+      id;
       language_extensions;
       location;
       name;
@@ -109,6 +114,7 @@ let azurerm_kusto_cluster ?allowed_fqdns ?allowed_ip_ranges
       resource_group_name;
       streaming_ingestion_enabled;
       tags;
+      trusted_external_tenants;
       zones;
       identity;
       optimized_auto_scale;

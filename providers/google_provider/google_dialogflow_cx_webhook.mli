@@ -14,6 +14,7 @@ val google_dialogflow_cx_webhook :
   ?disabled:bool ->
   ?enable_spell_correction:bool ->
   ?enable_stackdriver_logging:bool ->
+  ?id:string ->
   ?parent:string ->
   ?security_settings:string ->
   ?timeout:string ->

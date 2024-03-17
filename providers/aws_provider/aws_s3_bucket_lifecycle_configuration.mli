@@ -20,6 +20,7 @@ type aws_s3_bucket_lifecycle_configuration
 
 val aws_s3_bucket_lifecycle_configuration :
   ?expected_bucket_owner:string ->
+  ?id:string ->
   ?timeouts:aws_s3_bucket_lifecycle_configuration__timeouts ->
   bucket:string ->
   rule:aws_s3_bucket_lifecycle_configuration__rule list ->

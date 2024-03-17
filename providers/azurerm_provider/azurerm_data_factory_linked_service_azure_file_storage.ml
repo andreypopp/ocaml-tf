@@ -29,6 +29,7 @@ type azurerm_data_factory_linked_service_azure_file_storage = {
   description : string option; [@option]  (** description *)
   file_share : string option; [@option]  (** file_share *)
   host : string option; [@option]  (** host *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -48,8 +49,8 @@ type azurerm_data_factory_linked_service_azure_file_storage = {
 
 let azurerm_data_factory_linked_service_azure_file_storage
     ?additional_properties ?annotations ?description ?file_share
-    ?host ?integration_runtime_name ?parameters ?password ?user_id
-    ?timeouts ~connection_string ~data_factory_id ~name
+    ?host ?id ?integration_runtime_name ?parameters ?password
+    ?user_id ?timeouts ~connection_string ~data_factory_id ~name
     ~key_vault_password __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_azure_file_storage"
@@ -63,6 +64,7 @@ let azurerm_data_factory_linked_service_azure_file_storage
       description;
       file_share;
       host;
+      id;
       integration_runtime_name;
       name;
       parameters;

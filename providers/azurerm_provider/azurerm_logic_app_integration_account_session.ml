@@ -15,6 +15,7 @@ type azurerm_logic_app_integration_account_session__timeouts = {
 
 type azurerm_logic_app_integration_account_session = {
   content : string;  (** content *)
+  id : string option; [@option]  (** id *)
   integration_account_name : string;  (** integration_account_name *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,8 +25,8 @@ type azurerm_logic_app_integration_account_session = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_session *)
 
-let azurerm_logic_app_integration_account_session ?timeouts ~content
-    ~integration_account_name ~name ~resource_group_name
+let azurerm_logic_app_integration_account_session ?id ?timeouts
+    ~content ~integration_account_name ~name ~resource_group_name
     __resource_id =
   let __resource_type =
     "azurerm_logic_app_integration_account_session"
@@ -33,6 +34,7 @@ let azurerm_logic_app_integration_account_session ?timeouts ~content
   let __resource =
     {
       content;
+      id;
       integration_account_name;
       name;
       resource_group_name;

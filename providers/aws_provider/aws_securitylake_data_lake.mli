@@ -13,7 +13,6 @@ type aws_securitylake_data_lake__configuration__replication_configuration
 type aws_securitylake_data_lake__configuration__encryption_configuration = {
   kms_key_id : string;  (** kms_key_id *)
 }
-[@@deriving yojson_of]
 
 type aws_securitylake_data_lake__configuration
 type aws_securitylake_data_lake__timeouts

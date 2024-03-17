@@ -10,6 +10,7 @@ type azurerm_storage_account_local_user
 
 val azurerm_storage_account_local_user :
   ?home_directory:string ->
+  ?id:string ->
   ?ssh_key_enabled:bool ->
   ?ssh_password_enabled:bool ->
   ?timeouts:azurerm_storage_account_local_user__timeouts ->

@@ -14,6 +14,7 @@ type azurerm_kusto_cluster_principal_assignment__timeouts = {
 
 type azurerm_kusto_cluster_principal_assignment = {
   cluster_name : string;  (** cluster_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   principal_id : string;  (** principal_id *)
   principal_type : string;  (** principal_type *)
@@ -26,7 +27,7 @@ type azurerm_kusto_cluster_principal_assignment = {
 [@@deriving yojson_of]
 (** azurerm_kusto_cluster_principal_assignment *)
 
-let azurerm_kusto_cluster_principal_assignment ?timeouts
+let azurerm_kusto_cluster_principal_assignment ?id ?timeouts
     ~cluster_name ~name ~principal_id ~principal_type
     ~resource_group_name ~role ~tenant_id __resource_id =
   let __resource_type =
@@ -35,6 +36,7 @@ let azurerm_kusto_cluster_principal_assignment ?timeouts
   let __resource =
     {
       cluster_name;
+      id;
       name;
       principal_id;
       principal_type;

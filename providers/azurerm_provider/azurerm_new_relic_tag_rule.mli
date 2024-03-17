@@ -10,6 +10,7 @@ type azurerm_new_relic_tag_rule
 val azurerm_new_relic_tag_rule :
   ?activity_log_enabled:bool ->
   ?azure_active_directory_log_enabled:bool ->
+  ?id:string ->
   ?metric_enabled:bool ->
   ?subscription_log_enabled:bool ->
   ?timeouts:azurerm_new_relic_tag_rule__timeouts ->

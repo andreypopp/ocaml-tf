@@ -6,6 +6,7 @@ type google_apigee_envgroup_attachment__timeouts
 type google_apigee_envgroup_attachment
 
 val google_apigee_envgroup_attachment :
+  ?id:string ->
   ?timeouts:google_apigee_envgroup_attachment__timeouts ->
   envgroup_id:string ->
   environment:string ->

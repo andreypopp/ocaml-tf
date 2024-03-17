@@ -29,7 +29,6 @@ type google_identity_platform_config__sign_in__hash_config = {
   salt_separator : string;  (** salt_separator *)
   signer_key : string;  (** signer_key *)
 }
-[@@deriving yojson_of]
 
 type google_identity_platform_config__sign_in
 
@@ -42,7 +41,10 @@ type google_identity_platform_config__timeouts
 type google_identity_platform_config
 
 val google_identity_platform_config :
+  ?authorized_domains:string list ->
   ?autodelete_anonymous_users:bool ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_identity_platform_config__timeouts ->
   blocking_functions:
     google_identity_platform_config__blocking_functions list ->

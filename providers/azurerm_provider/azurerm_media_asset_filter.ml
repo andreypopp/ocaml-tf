@@ -46,6 +46,7 @@ type azurerm_media_asset_filter = {
   asset_id : string;  (** asset_id *)
   first_quality_bitrate : float option; [@option]
       (** first_quality_bitrate *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   presentation_time_range :
     azurerm_media_asset_filter__presentation_time_range list;
@@ -55,7 +56,7 @@ type azurerm_media_asset_filter = {
 [@@deriving yojson_of]
 (** azurerm_media_asset_filter *)
 
-let azurerm_media_asset_filter ?first_quality_bitrate ?timeouts
+let azurerm_media_asset_filter ?first_quality_bitrate ?id ?timeouts
     ~asset_id ~name ~presentation_time_range ~track_selection
     __resource_id =
   let __resource_type = "azurerm_media_asset_filter" in
@@ -63,6 +64,7 @@ let azurerm_media_asset_filter ?first_quality_bitrate ?timeouts
     {
       asset_id;
       first_quality_bitrate;
+      id;
       name;
       presentation_time_range;
       timeouts;

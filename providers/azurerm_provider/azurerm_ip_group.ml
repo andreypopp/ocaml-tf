@@ -15,6 +15,7 @@ type azurerm_ip_group__timeouts = {
 
 type azurerm_ip_group = {
   cidrs : string list option; [@option]  (** cidrs *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,11 +25,19 @@ type azurerm_ip_group = {
 [@@deriving yojson_of]
 (** azurerm_ip_group *)
 
-let azurerm_ip_group ?cidrs ?tags ?timeouts ~location ~name
+let azurerm_ip_group ?cidrs ?id ?tags ?timeouts ~location ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_ip_group" in
   let __resource =
-    { cidrs; location; name; resource_group_name; tags; timeouts }
+    {
+      cidrs;
+      id;
+      location;
+      name;
+      resource_group_name;
+      tags;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_ip_group __resource);

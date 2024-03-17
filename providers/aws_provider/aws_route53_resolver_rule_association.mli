@@ -6,6 +6,7 @@ type aws_route53_resolver_rule_association__timeouts
 type aws_route53_resolver_rule_association
 
 val aws_route53_resolver_rule_association :
+  ?id:string ->
   ?name:string ->
   ?timeouts:aws_route53_resolver_rule_association__timeouts ->
   resolver_rule_id:string ->

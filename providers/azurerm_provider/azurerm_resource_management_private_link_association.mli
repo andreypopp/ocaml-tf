@@ -6,6 +6,7 @@ type azurerm_resource_management_private_link_association__timeouts
 type azurerm_resource_management_private_link_association
 
 val azurerm_resource_management_private_link_association :
+  ?id:string ->
   ?name:string ->
   ?timeouts:
     azurerm_resource_management_private_link_association__timeouts ->

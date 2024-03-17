@@ -7,6 +7,7 @@ type aws_ecr_registry_scanning_configuration__rule
 type aws_ecr_registry_scanning_configuration
 
 val aws_ecr_registry_scanning_configuration :
+  ?id:string ->
   scan_type:string ->
   rule:aws_ecr_registry_scanning_configuration__rule list ->
   string ->

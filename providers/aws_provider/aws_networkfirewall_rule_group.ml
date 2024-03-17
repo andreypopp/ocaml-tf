@@ -265,9 +265,12 @@ type aws_networkfirewall_rule_group__rule_group = {
 type aws_networkfirewall_rule_group = {
   capacity : float;  (** capacity *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   rules : string option; [@option]  (** rules *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   encryption_configuration :
     aws_networkfirewall_rule_group__encryption_configuration list;
@@ -276,17 +279,19 @@ type aws_networkfirewall_rule_group = {
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group *)
 
-let aws_networkfirewall_rule_group ?description ?rules ?tags
-    ~capacity ~name ~type_ ~encryption_configuration ~rule_group
-    __resource_id =
+let aws_networkfirewall_rule_group ?description ?id ?rules ?tags
+    ?tags_all ~capacity ~name ~type_ ~encryption_configuration
+    ~rule_group __resource_id =
   let __resource_type = "aws_networkfirewall_rule_group" in
   let __resource =
     {
       capacity;
       description;
+      id;
       name;
       rules;
       tags;
+      tags_all;
       type_;
       encryption_configuration;
       rule_group;

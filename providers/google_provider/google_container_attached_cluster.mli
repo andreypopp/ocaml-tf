@@ -23,14 +23,12 @@ type google_container_attached_cluster__timeouts
 type google_container_attached_cluster__errors = {
   message : string;  (** message *)
 }
-[@@deriving yojson_of]
 
 type google_container_attached_cluster__workload_identity_config = {
   identity_provider : string;  (** identity_provider *)
   issuer_uri : string;  (** issuer_uri *)
   workload_pool : string;  (** workload_pool *)
 }
-[@@deriving yojson_of]
 
 type google_container_attached_cluster
 
@@ -38,6 +36,8 @@ val google_container_attached_cluster :
   ?annotations:(string * string) list ->
   ?deletion_policy:string ->
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_container_attached_cluster__timeouts ->
   distribution:string ->
   location:string ->

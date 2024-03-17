@@ -30,10 +30,13 @@ type aws_networkmanager_device__timeouts = {
 type aws_networkmanager_device = {
   description : string option; [@option]  (** description *)
   global_network_id : string;  (** global_network_id *)
+  id : string option; [@option]  (** id *)
   model : string option; [@option]  (** model *)
   serial_number : string option; [@option]  (** serial_number *)
   site_id : string option; [@option]  (** site_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string option; [@option] [@key "type"]  (** type *)
   vendor : string option; [@option]  (** vendor *)
   aws_location : aws_networkmanager_device__aws_location list;
@@ -43,18 +46,20 @@ type aws_networkmanager_device = {
 [@@deriving yojson_of]
 (** aws_networkmanager_device *)
 
-let aws_networkmanager_device ?description ?model ?serial_number
-    ?site_id ?tags ?type_ ?vendor ?timeouts ~global_network_id
-    ~aws_location ~location __resource_id =
+let aws_networkmanager_device ?description ?id ?model ?serial_number
+    ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
+    ~global_network_id ~aws_location ~location __resource_id =
   let __resource_type = "aws_networkmanager_device" in
   let __resource =
     {
       description;
       global_network_id;
+      id;
       model;
       serial_number;
       site_id;
       tags;
+      tags_all;
       type_;
       vendor;
       aws_location;

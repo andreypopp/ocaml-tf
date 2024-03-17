@@ -16,6 +16,7 @@ type aws_sesv2_configuration_set_event_destination__event_destination
 type aws_sesv2_configuration_set_event_destination
 
 val aws_sesv2_configuration_set_event_destination :
+  ?id:string ->
   configuration_set_name:string ->
   event_destination_name:string ->
   event_destination:

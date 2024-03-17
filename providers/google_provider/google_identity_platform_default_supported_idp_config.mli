@@ -7,6 +7,8 @@ type google_identity_platform_default_supported_idp_config
 
 val google_identity_platform_default_supported_idp_config :
   ?enabled:bool ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:
     google_identity_platform_default_supported_idp_config__timeouts ->
   client_id:string ->

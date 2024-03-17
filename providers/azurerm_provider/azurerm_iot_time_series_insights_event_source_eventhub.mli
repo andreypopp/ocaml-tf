@@ -6,7 +6,9 @@ type azurerm_iot_time_series_insights_event_source_eventhub__timeouts
 type azurerm_iot_time_series_insights_event_source_eventhub
 
 val azurerm_iot_time_series_insights_event_source_eventhub :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?timestamp_property_name:string ->
   ?timeouts:
     azurerm_iot_time_series_insights_event_source_eventhub__timeouts ->
   consumer_group_name:string ->

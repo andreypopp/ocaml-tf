@@ -70,6 +70,7 @@ type aws_cloudfront_cache_policy__parameters_in_cache_key_and_forwarded_to_origi
 type aws_cloudfront_cache_policy = {
   comment : string option; [@option]  (** comment *)
   default_ttl : float option; [@option]  (** default_ttl *)
+  id : string option; [@option]  (** id *)
   max_ttl : float option; [@option]  (** max_ttl *)
   min_ttl : float option; [@option]  (** min_ttl *)
   name : string;  (** name *)
@@ -80,7 +81,7 @@ type aws_cloudfront_cache_policy = {
 [@@deriving yojson_of]
 (** aws_cloudfront_cache_policy *)
 
-let aws_cloudfront_cache_policy ?comment ?default_ttl ?max_ttl
+let aws_cloudfront_cache_policy ?comment ?default_ttl ?id ?max_ttl
     ?min_ttl ~name ~parameters_in_cache_key_and_forwarded_to_origin
     __resource_id =
   let __resource_type = "aws_cloudfront_cache_policy" in
@@ -88,6 +89,7 @@ let aws_cloudfront_cache_policy ?comment ?default_ttl ?max_ttl
     {
       comment;
       default_ttl;
+      id;
       max_ttl;
       min_ttl;
       name;

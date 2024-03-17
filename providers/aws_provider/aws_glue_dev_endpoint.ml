@@ -12,6 +12,7 @@ type aws_glue_dev_endpoint = {
   extra_python_libs_s3_path : string option; [@option]
       (** extra_python_libs_s3_path *)
   glue_version : string option; [@option]  (** glue_version *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   number_of_nodes : float option; [@option]  (** number_of_nodes *)
   number_of_workers : float option; [@option]
@@ -25,16 +26,18 @@ type aws_glue_dev_endpoint = {
       (** security_group_ids *)
   subnet_id : string option; [@option]  (** subnet_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   worker_type : string option; [@option]  (** worker_type *)
 }
 [@@deriving yojson_of]
 (** aws_glue_dev_endpoint *)
 
 let aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
-    ?extra_python_libs_s3_path ?glue_version ?number_of_nodes
+    ?extra_python_libs_s3_path ?glue_version ?id ?number_of_nodes
     ?number_of_workers ?public_key ?public_keys
     ?security_configuration ?security_group_ids ?subnet_id ?tags
-    ?worker_type ~name ~role_arn __resource_id =
+    ?tags_all ?worker_type ~name ~role_arn __resource_id =
   let __resource_type = "aws_glue_dev_endpoint" in
   let __resource =
     {
@@ -42,6 +45,7 @@ let aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
       extra_jars_s3_path;
       extra_python_libs_s3_path;
       glue_version;
+      id;
       name;
       number_of_nodes;
       number_of_workers;
@@ -52,6 +56,7 @@ let aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
       security_group_ids;
       subnet_id;
       tags;
+      tags_all;
       worker_type;
     }
   in

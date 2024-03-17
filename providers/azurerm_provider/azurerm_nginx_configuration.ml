@@ -28,6 +28,7 @@ type azurerm_nginx_configuration__timeouts = {
 (** azurerm_nginx_configuration__timeouts *)
 
 type azurerm_nginx_configuration = {
+  id : string option; [@option]  (** id *)
   nginx_deployment_id : string;  (** nginx_deployment_id *)
   package_data : string option; [@option]  (** package_data *)
   root_file : string;  (** root_file *)
@@ -38,12 +39,13 @@ type azurerm_nginx_configuration = {
 [@@deriving yojson_of]
 (** azurerm_nginx_configuration *)
 
-let azurerm_nginx_configuration ?package_data ?timeouts
+let azurerm_nginx_configuration ?id ?package_data ?timeouts
     ~nginx_deployment_id ~root_file ~config_file ~protected_file
     __resource_id =
   let __resource_type = "azurerm_nginx_configuration" in
   let __resource =
     {
+      id;
       nginx_deployment_id;
       package_data;
       root_file;

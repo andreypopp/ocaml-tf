@@ -15,6 +15,7 @@ type azurerm_kubernetes_fleet_member__timeouts = {
 
 type azurerm_kubernetes_fleet_member = {
   group : string option; [@option]  (** group *)
+  id : string option; [@option]  (** id *)
   kubernetes_cluster_id : string;  (** kubernetes_cluster_id *)
   kubernetes_fleet_id : string;  (** kubernetes_fleet_id *)
   name : string;  (** name *)
@@ -23,12 +24,13 @@ type azurerm_kubernetes_fleet_member = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_member *)
 
-let azurerm_kubernetes_fleet_member ?group ?timeouts
+let azurerm_kubernetes_fleet_member ?group ?id ?timeouts
     ~kubernetes_cluster_id ~kubernetes_fleet_id ~name __resource_id =
   let __resource_type = "azurerm_kubernetes_fleet_member" in
   let __resource =
     {
       group;
+      id;
       kubernetes_cluster_id;
       kubernetes_fleet_id;
       name;

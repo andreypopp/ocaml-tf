@@ -10,6 +10,7 @@ type kubernetes_resource_quota__timeouts
 type kubernetes_resource_quota
 
 val kubernetes_resource_quota :
+  ?id:string ->
   ?timeouts:kubernetes_resource_quota__timeouts ->
   metadata:kubernetes_resource_quota__metadata list ->
   spec:kubernetes_resource_quota__spec list ->

@@ -176,10 +176,13 @@ type aws_codedeploy_deployment_group = {
   deployment_config_name : string option; [@option]
       (** deployment_config_name *)
   deployment_group_name : string;  (** deployment_group_name *)
+  id : string option; [@option]  (** id *)
   outdated_instances_strategy : string option; [@option]
       (** outdated_instances_strategy *)
   service_role_arn : string;  (** service_role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   alarm_configuration :
     aws_codedeploy_deployment_group__alarm_configuration list;
   auto_rollback_configuration :
@@ -205,8 +208,8 @@ type aws_codedeploy_deployment_group = {
 (** aws_codedeploy_deployment_group *)
 
 let aws_codedeploy_deployment_group ?autoscaling_groups
-    ?deployment_config_name ?outdated_instances_strategy ?tags
-    ~app_name ~deployment_group_name ~service_role_arn
+    ?deployment_config_name ?id ?outdated_instances_strategy ?tags
+    ?tags_all ~app_name ~deployment_group_name ~service_role_arn
     ~alarm_configuration ~auto_rollback_configuration
     ~blue_green_deployment_config ~deployment_style ~ec2_tag_filter
     ~ec2_tag_set ~ecs_service ~load_balancer_info
@@ -219,9 +222,11 @@ let aws_codedeploy_deployment_group ?autoscaling_groups
       autoscaling_groups;
       deployment_config_name;
       deployment_group_name;
+      id;
       outdated_instances_strategy;
       service_role_arn;
       tags;
+      tags_all;
       alarm_configuration;
       auto_rollback_configuration;
       blue_green_deployment_config;

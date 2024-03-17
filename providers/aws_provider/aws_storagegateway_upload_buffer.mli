@@ -5,4 +5,9 @@ open! Tf.Prelude
 type aws_storagegateway_upload_buffer
 
 val aws_storagegateway_upload_buffer :
-  gateway_arn:string -> string -> unit
+  ?disk_id:string ->
+  ?disk_path:string ->
+  ?id:string ->
+  gateway_arn:string ->
+  string ->
+  unit

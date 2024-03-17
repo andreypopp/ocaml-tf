@@ -684,6 +684,7 @@ the same display name for multiple policies in the same project. The
 name is limited to 512 Unicode characters. *)
   enabled : bool option; [@option]
       (** Whether or not the policy is enabled. The default is true. *)
+  id : string option; [@option]  (** id *)
   notification_channels : string list option; [@option]
       (** Identifies the notification channels to which notifications should be
 sent when incidents are opened or closed or when new violations occur
@@ -692,6 +693,7 @@ to the name field in each of the NotificationChannel objects that are
 returned from the notificationChannels.list method. The syntax of the
 entries in this field is
 'projects/[PROJECT_ID]/notificationChannels/[CHANNEL_ID]' *)
+  project : string option; [@option]  (** project *)
   severity : string option; [@option]
       (** The severity of an alert policy indicates how important incidents generated
 by that policy are. The severity level will be displayed on the Incident
@@ -711,16 +713,19 @@ must begin with a letter. *)
 [@@deriving yojson_of]
 (** google_monitoring_alert_policy *)
 
-let google_monitoring_alert_policy ?enabled ?notification_channels
-    ?severity ?user_labels ?timeouts ~combiner ~display_name
-    ~alert_strategy ~conditions ~documentation __resource_id =
+let google_monitoring_alert_policy ?enabled ?id
+    ?notification_channels ?project ?severity ?user_labels ?timeouts
+    ~combiner ~display_name ~alert_strategy ~conditions
+    ~documentation __resource_id =
   let __resource_type = "google_monitoring_alert_policy" in
   let __resource =
     {
       combiner;
       display_name;
       enabled;
+      id;
       notification_channels;
+      project;
       severity;
       user_labels;
       alert_strategy;

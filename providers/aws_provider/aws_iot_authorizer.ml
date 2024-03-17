@@ -8,6 +8,7 @@ type aws_iot_authorizer = {
   authorizer_function_arn : string;  (** authorizer_function_arn *)
   enable_caching_for_http : bool option; [@option]
       (** enable_caching_for_http *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   signing_disabled : bool option; [@option]  (** signing_disabled *)
   status : string option; [@option]  (** status *)
@@ -18,7 +19,7 @@ type aws_iot_authorizer = {
 [@@deriving yojson_of]
 (** aws_iot_authorizer *)
 
-let aws_iot_authorizer ?enable_caching_for_http ?signing_disabled
+let aws_iot_authorizer ?enable_caching_for_http ?id ?signing_disabled
     ?status ?token_key_name ?token_signing_public_keys
     ~authorizer_function_arn ~name __resource_id =
   let __resource_type = "aws_iot_authorizer" in
@@ -26,6 +27,7 @@ let aws_iot_authorizer ?enable_caching_for_http ?signing_disabled
     {
       authorizer_function_arn;
       enable_caching_for_http;
+      id;
       name;
       signing_disabled;
       status;

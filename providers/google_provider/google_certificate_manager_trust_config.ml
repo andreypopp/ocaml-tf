@@ -44,6 +44,7 @@ This field is supported when TrustConfig is configured with Load Balancers, curr
 type google_certificate_manager_trust_config = {
   description : string option; [@option]
       (** One or more paragraphs of text description of a trust config. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Set of label tags associated with the trust config.
 
@@ -52,6 +53,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string;  (** The trust config location. *)
   name : string;
       (** A user-defined name of the trust config. Trust config names must be unique globally. *)
+  project : string option; [@option]  (** project *)
   timeouts :
     google_certificate_manager_trust_config__timeouts option;
   trust_stores :
@@ -60,11 +62,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_certificate_manager_trust_config *)
 
-let google_certificate_manager_trust_config ?description ?labels
-    ?timeouts ~location ~name ~trust_stores __resource_id =
+let google_certificate_manager_trust_config ?description ?id ?labels
+    ?project ?timeouts ~location ~name ~trust_stores __resource_id =
   let __resource_type = "google_certificate_manager_trust_config" in
   let __resource =
-    { description; labels; location; name; timeouts; trust_stores }
+    {
+      description;
+      id;
+      labels;
+      location;
+      name;
+      project;
+      timeouts;
+      trust_stores;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_certificate_manager_trust_config __resource);

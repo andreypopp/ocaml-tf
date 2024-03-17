@@ -15,23 +15,27 @@ type azurerm_api_management_product_policy__timeouts = {
 
 type azurerm_api_management_product_policy = {
   api_management_name : string;  (** api_management_name *)
+  id : string option; [@option]  (** id *)
   product_id : string;  (** product_id *)
   resource_group_name : string;  (** resource_group_name *)
+  xml_content : string option; [@option]  (** xml_content *)
   xml_link : string option; [@option]  (** xml_link *)
   timeouts : azurerm_api_management_product_policy__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_product_policy *)
 
-let azurerm_api_management_product_policy ?xml_link ?timeouts
-    ~api_management_name ~product_id ~resource_group_name
+let azurerm_api_management_product_policy ?id ?xml_content ?xml_link
+    ?timeouts ~api_management_name ~product_id ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_api_management_product_policy" in
   let __resource =
     {
       api_management_name;
+      id;
       product_id;
       resource_group_name;
+      xml_content;
       xml_link;
       timeouts;
     }

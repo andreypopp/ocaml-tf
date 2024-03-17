@@ -7,6 +7,7 @@ type azurerm_stream_analytics_output_cosmosdb
 
 val azurerm_stream_analytics_output_cosmosdb :
   ?document_id:string ->
+  ?id:string ->
   ?partition_key:string ->
   ?timeouts:azurerm_stream_analytics_output_cosmosdb__timeouts ->
   container_name:string ->

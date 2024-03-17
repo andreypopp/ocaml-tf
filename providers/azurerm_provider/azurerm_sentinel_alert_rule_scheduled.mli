@@ -24,6 +24,7 @@ val azurerm_sentinel_alert_rule_scheduled :
   ?custom_details:(string * string) list ->
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?query_frequency:string ->
   ?query_period:string ->
   ?suppression_duration:string ->

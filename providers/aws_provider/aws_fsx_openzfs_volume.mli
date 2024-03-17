@@ -13,8 +13,13 @@ val aws_fsx_openzfs_volume :
   ?copy_tags_to_snapshots:bool ->
   ?data_compression_type:string ->
   ?delete_volume_options:string list ->
+  ?id:string ->
+  ?read_only:bool ->
   ?record_size_kib:float ->
+  ?storage_capacity_quota_gib:float ->
+  ?storage_capacity_reservation_gib:float ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?volume_type:string ->
   ?timeouts:aws_fsx_openzfs_volume__timeouts ->
   name:string ->

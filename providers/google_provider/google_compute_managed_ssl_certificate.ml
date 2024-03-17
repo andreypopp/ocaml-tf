@@ -21,8 +21,11 @@ type google_compute_managed_ssl_certificate__timeouts = {
 (** google_compute_managed_ssl_certificate__timeouts *)
 
 type google_compute_managed_ssl_certificate = {
+  certificate_id : float option; [@option]
+      (** The unique identifier for the resource. *)
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -34,6 +37,7 @@ character, which cannot be a dash.
 
 
 These are in the same namespace as the managed SSL certificates. *)
+  project : string option; [@option]  (** project *)
   type_ : string option; [@option] [@key "type"]
       (** Enum field whose value is always 'MANAGED' - used to signal to the API
 which type this is. Default value: MANAGED Possible values: [MANAGED] *)
@@ -43,10 +47,22 @@ which type this is. Default value: MANAGED Possible values: [MANAGED] *)
 [@@deriving yojson_of]
 (** google_compute_managed_ssl_certificate *)
 
-let google_compute_managed_ssl_certificate ?description ?name ?type_
-    ?timeouts ~managed __resource_id =
+let google_compute_managed_ssl_certificate ?certificate_id
+    ?description ?id ?name ?project ?type_ ?timeouts ~managed
+    __resource_id =
   let __resource_type = "google_compute_managed_ssl_certificate" in
-  let __resource = { description; name; type_; managed; timeouts } in
+  let __resource =
+    {
+      certificate_id;
+      description;
+      id;
+      name;
+      project;
+      type_;
+      managed;
+      timeouts;
+    }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_managed_ssl_certificate __resource);
   ()

@@ -19,15 +19,16 @@ type aws_lightsail_distribution__location = {
   availability_zone : string;  (** availability_zone *)
   region_name : string;  (** region_name *)
 }
-[@@deriving yojson_of]
 
 type aws_lightsail_distribution
 
 val aws_lightsail_distribution :
   ?certificate_name:string ->
+  ?id:string ->
   ?ip_address_type:string ->
   ?is_enabled:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_lightsail_distribution__timeouts ->
   bundle_id:string ->
   name:string ->

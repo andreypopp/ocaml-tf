@@ -20,7 +20,9 @@ type aws_glue_partition_index__timeouts = {
 (** aws_glue_partition_index__timeouts *)
 
 type aws_glue_partition_index = {
+  catalog_id : string option; [@option]  (** catalog_id *)
   database_name : string;  (** database_name *)
+  id : string option; [@option]  (** id *)
   table_name : string;  (** table_name *)
   partition_index : aws_glue_partition_index__partition_index list;
   timeouts : aws_glue_partition_index__timeouts option;
@@ -28,11 +30,18 @@ type aws_glue_partition_index = {
 [@@deriving yojson_of]
 (** aws_glue_partition_index *)
 
-let aws_glue_partition_index ?timeouts ~database_name ~table_name
-    ~partition_index __resource_id =
+let aws_glue_partition_index ?catalog_id ?id ?timeouts ~database_name
+    ~table_name ~partition_index __resource_id =
   let __resource_type = "aws_glue_partition_index" in
   let __resource =
-    { database_name; table_name; partition_index; timeouts }
+    {
+      catalog_id;
+      database_name;
+      id;
+      table_name;
+      partition_index;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_partition_index __resource);

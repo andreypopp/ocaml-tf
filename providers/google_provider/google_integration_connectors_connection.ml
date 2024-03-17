@@ -541,6 +541,7 @@ type google_integration_connectors_connection = {
       (** An arbitrary description for the Conection. *)
   eventing_enablement_type : string option; [@option]
       (** Eventing enablement type. Will be nil if eventing is not enabled. Possible values: [EVENTING_AND_CONNECTION, ONLY_EVENTING] *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
@@ -550,6 +551,9 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string;
       (** Location in which Connection needs to be created. *)
   name : string;  (** Name of Connection needs to be created. *)
+  project : string option; [@option]  (** project *)
+  service_account : string option; [@option]
+      (** Service account needed for runtime plane to access Google Cloud resources. *)
   suspended : bool option; [@option]
       (** Suspended indicates if a user has suspended a connection or not. *)
   auth_config :
@@ -575,19 +579,23 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_integration_connectors_connection *)
 
 let google_integration_connectors_connection ?description
-    ?eventing_enablement_type ?labels ?suspended ?timeouts
-    ~connector_version ~location ~name ~auth_config ~config_variable
-    ~destination_config ~eventing_config ~lock_config ~log_config
-    ~node_config ~ssl_config __resource_id =
+    ?eventing_enablement_type ?id ?labels ?project ?service_account
+    ?suspended ?timeouts ~connector_version ~location ~name
+    ~auth_config ~config_variable ~destination_config
+    ~eventing_config ~lock_config ~log_config ~node_config
+    ~ssl_config __resource_id =
   let __resource_type = "google_integration_connectors_connection" in
   let __resource =
     {
       connector_version;
       description;
       eventing_enablement_type;
+      id;
       labels;
       location;
       name;
+      project;
+      service_account;
       suspended;
       auth_config;
       config_variable;

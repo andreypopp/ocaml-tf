@@ -14,6 +14,8 @@ type azurerm_automation_job_schedule__timeouts = {
 
 type azurerm_automation_job_schedule = {
   automation_account_name : string;  (** automation_account_name *)
+  id : string option; [@option]  (** id *)
+  job_schedule_id : string option; [@option]  (** job_schedule_id *)
   parameters : (string * string) list option; [@option]
       (** parameters *)
   resource_group_name : string;  (** resource_group_name *)
@@ -25,13 +27,15 @@ type azurerm_automation_job_schedule = {
 [@@deriving yojson_of]
 (** azurerm_automation_job_schedule *)
 
-let azurerm_automation_job_schedule ?parameters ?run_on ?timeouts
-    ~automation_account_name ~resource_group_name ~runbook_name
-    ~schedule_name __resource_id =
+let azurerm_automation_job_schedule ?id ?job_schedule_id ?parameters
+    ?run_on ?timeouts ~automation_account_name ~resource_group_name
+    ~runbook_name ~schedule_name __resource_id =
   let __resource_type = "azurerm_automation_job_schedule" in
   let __resource =
     {
       automation_account_name;
+      id;
+      job_schedule_id;
       parameters;
       resource_group_name;
       run_on;

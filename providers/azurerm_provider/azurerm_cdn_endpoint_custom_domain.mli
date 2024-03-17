@@ -8,6 +8,7 @@ type azurerm_cdn_endpoint_custom_domain__user_managed_https
 type azurerm_cdn_endpoint_custom_domain
 
 val azurerm_cdn_endpoint_custom_domain :
+  ?id:string ->
   ?timeouts:azurerm_cdn_endpoint_custom_domain__timeouts ->
   cdn_endpoint_id:string ->
   host_name:string ->

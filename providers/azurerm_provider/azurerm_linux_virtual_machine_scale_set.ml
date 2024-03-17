@@ -297,6 +297,8 @@ type azurerm_linux_virtual_machine_scale_set = {
   admin_username : string;  (** admin_username *)
   capacity_reservation_group_id : string option; [@option]
       (** capacity_reservation_group_id *)
+  computer_name_prefix : string option; [@option]
+      (** computer_name_prefix *)
   custom_data : string option; [@option]  (** custom_data *)
   disable_password_authentication : bool option; [@option]
       (** disable_password_authentication *)
@@ -307,21 +309,27 @@ type azurerm_linux_virtual_machine_scale_set = {
   encryption_at_host_enabled : bool option; [@option]
       (** encryption_at_host_enabled *)
   eviction_policy : string option; [@option]  (** eviction_policy *)
+  extension_operations_enabled : bool option; [@option]
+      (** extension_operations_enabled *)
   extensions_time_budget : string option; [@option]
       (** extensions_time_budget *)
   health_probe_id : string option; [@option]  (** health_probe_id *)
   host_group_id : string option; [@option]  (** host_group_id *)
+  id : string option; [@option]  (** id *)
   instances : float option; [@option]  (** instances *)
   location : string;  (** location *)
   max_bid_price : float option; [@option]  (** max_bid_price *)
   name : string;  (** name *)
   overprovision : bool option; [@option]  (** overprovision *)
+  platform_fault_domain_count : float option; [@option]
+      (** platform_fault_domain_count *)
   priority : string option; [@option]  (** priority *)
   provision_vm_agent : bool option; [@option]
       (** provision_vm_agent *)
   proximity_placement_group_id : string option; [@option]
       (** proximity_placement_group_id *)
   resource_group_name : string;  (** resource_group_name *)
+  scale_in_policy : string option; [@option]  (** scale_in_policy *)
   secure_boot_enabled : bool option; [@option]
       (** secure_boot_enabled *)
   single_placement_group : bool option; [@option]
@@ -383,17 +391,18 @@ type azurerm_linux_virtual_machine_scale_set = {
 (** azurerm_linux_virtual_machine_scale_set *)
 
 let azurerm_linux_virtual_machine_scale_set ?admin_password
-    ?capacity_reservation_group_id ?custom_data
+    ?capacity_reservation_group_id ?computer_name_prefix ?custom_data
     ?disable_password_authentication
     ?do_not_run_extensions_on_overprovisioned_machines ?edge_zone
     ?encryption_at_host_enabled ?eviction_policy
-    ?extensions_time_budget ?health_probe_id ?host_group_id
-    ?instances ?max_bid_price ?overprovision ?priority
+    ?extension_operations_enabled ?extensions_time_budget
+    ?health_probe_id ?host_group_id ?id ?instances ?max_bid_price
+    ?overprovision ?platform_fault_domain_count ?priority
     ?provision_vm_agent ?proximity_placement_group_id
-    ?secure_boot_enabled ?single_placement_group ?source_image_id
-    ?tags ?upgrade_mode ?user_data ?vtpm_enabled ?zone_balance ?zones
-    ?timeouts ~admin_username ~location ~name ~resource_group_name
-    ~sku ~additional_capabilities ~admin_ssh_key
+    ?scale_in_policy ?secure_boot_enabled ?single_placement_group
+    ?source_image_id ?tags ?upgrade_mode ?user_data ?vtpm_enabled
+    ?zone_balance ?zones ?timeouts ~admin_username ~location ~name
+    ~resource_group_name ~sku ~additional_capabilities ~admin_ssh_key
     ~automatic_instance_repair ~automatic_os_upgrade_policy
     ~boot_diagnostics ~data_disk ~extension ~gallery_application
     ~gallery_applications ~identity ~network_interface ~os_disk ~plan
@@ -406,24 +415,29 @@ let azurerm_linux_virtual_machine_scale_set ?admin_password
       admin_password;
       admin_username;
       capacity_reservation_group_id;
+      computer_name_prefix;
       custom_data;
       disable_password_authentication;
       do_not_run_extensions_on_overprovisioned_machines;
       edge_zone;
       encryption_at_host_enabled;
       eviction_policy;
+      extension_operations_enabled;
       extensions_time_budget;
       health_probe_id;
       host_group_id;
+      id;
       instances;
       location;
       max_bid_price;
       name;
       overprovision;
+      platform_fault_domain_count;
       priority;
       provision_vm_agent;
       proximity_placement_group_id;
       resource_group_name;
+      scale_in_policy;
       secure_boot_enabled;
       single_placement_group;
       sku;

@@ -12,6 +12,7 @@ type aws_lb_ssl_negotiation_policy__attribute = {
 (** aws_lb_ssl_negotiation_policy__attribute *)
 
 type aws_lb_ssl_negotiation_policy = {
+  id : string option; [@option]  (** id *)
   lb_port : float;  (** lb_port *)
   load_balancer : string;  (** load_balancer *)
   name : string;  (** name *)
@@ -22,11 +23,11 @@ type aws_lb_ssl_negotiation_policy = {
 [@@deriving yojson_of]
 (** aws_lb_ssl_negotiation_policy *)
 
-let aws_lb_ssl_negotiation_policy ?triggers ~lb_port ~load_balancer
-    ~name ~attribute __resource_id =
+let aws_lb_ssl_negotiation_policy ?id ?triggers ~lb_port
+    ~load_balancer ~name ~attribute __resource_id =
   let __resource_type = "aws_lb_ssl_negotiation_policy" in
   let __resource =
-    { lb_port; load_balancer; name; triggers; attribute }
+    { id; lb_port; load_balancer; name; triggers; attribute }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lb_ssl_negotiation_policy __resource);

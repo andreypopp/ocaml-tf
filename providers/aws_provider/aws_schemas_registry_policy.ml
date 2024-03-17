@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type aws_schemas_registry_policy = {
+  id : string option; [@option]  (** id *)
   policy : string;  (** policy *)
   registry_name : string;  (** registry_name *)
 }
 [@@deriving yojson_of]
 (** aws_schemas_registry_policy *)
 
-let aws_schemas_registry_policy ~policy ~registry_name __resource_id
-    =
+let aws_schemas_registry_policy ?id ~policy ~registry_name
+    __resource_id =
   let __resource_type = "aws_schemas_registry_policy" in
-  let __resource = { policy; registry_name } in
+  let __resource = { id; policy; registry_name } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_schemas_registry_policy __resource);
   ()

@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_licensemanager_grant
 
 val aws_licensemanager_grant :
+  ?id:string ->
   allowed_operations:string list ->
   license_arn:string ->
   name:string ->

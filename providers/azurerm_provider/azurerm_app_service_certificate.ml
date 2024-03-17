@@ -16,6 +16,7 @@ type azurerm_app_service_certificate__timeouts = {
 type azurerm_app_service_certificate = {
   app_service_plan_id : string option; [@option]
       (** app_service_plan_id *)
+  id : string option; [@option]  (** id *)
   key_vault_id : string option; [@option]  (** key_vault_id *)
   key_vault_secret_id : string option; [@option]
       (** key_vault_secret_id *)
@@ -30,13 +31,14 @@ type azurerm_app_service_certificate = {
 [@@deriving yojson_of]
 (** azurerm_app_service_certificate *)
 
-let azurerm_app_service_certificate ?app_service_plan_id
+let azurerm_app_service_certificate ?app_service_plan_id ?id
     ?key_vault_id ?key_vault_secret_id ?password ?pfx_blob ?tags
     ?timeouts ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_app_service_certificate" in
   let __resource =
     {
       app_service_plan_id;
+      id;
       key_vault_id;
       key_vault_secret_id;
       location;

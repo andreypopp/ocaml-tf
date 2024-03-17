@@ -24,6 +24,7 @@ type azurerm_virtual_hub_route_table__timeouts = {
 (** azurerm_virtual_hub_route_table__timeouts *)
 
 type azurerm_virtual_hub_route_table = {
+  id : string option; [@option]  (** id *)
   labels : string list option; [@option]  (** labels *)
   name : string;  (** name *)
   virtual_hub_id : string;  (** virtual_hub_id *)
@@ -33,11 +34,11 @@ type azurerm_virtual_hub_route_table = {
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_route_table *)
 
-let azurerm_virtual_hub_route_table ?labels ?timeouts ~name
+let azurerm_virtual_hub_route_table ?id ?labels ?timeouts ~name
     ~virtual_hub_id ~route __resource_id =
   let __resource_type = "azurerm_virtual_hub_route_table" in
   let __resource =
-    { labels; name; virtual_hub_id; route; timeouts }
+    { id; labels; name; virtual_hub_id; route; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_virtual_hub_route_table __resource);

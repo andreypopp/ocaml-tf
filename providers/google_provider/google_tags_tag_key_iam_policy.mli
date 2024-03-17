@@ -5,4 +5,8 @@ open! Tf.Prelude
 type google_tags_tag_key_iam_policy
 
 val google_tags_tag_key_iam_policy :
-  policy_data:string -> tag_key:string -> string -> unit
+  ?id:string ->
+  policy_data:string ->
+  tag_key:string ->
+  string ->
+  unit

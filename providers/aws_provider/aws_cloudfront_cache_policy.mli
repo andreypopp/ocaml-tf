@@ -21,6 +21,7 @@ type aws_cloudfront_cache_policy
 val aws_cloudfront_cache_policy :
   ?comment:string ->
   ?default_ttl:float ->
+  ?id:string ->
   ?max_ttl:float ->
   ?min_ttl:float ->
   name:string ->

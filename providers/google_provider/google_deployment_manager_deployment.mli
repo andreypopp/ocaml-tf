@@ -13,7 +13,9 @@ val google_deployment_manager_deployment :
   ?create_policy:string ->
   ?delete_policy:string ->
   ?description:string ->
+  ?id:string ->
   ?preview:bool ->
+  ?project:string ->
   ?timeouts:google_deployment_manager_deployment__timeouts ->
   name:string ->
   labels:google_deployment_manager_deployment__labels list ->

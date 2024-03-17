@@ -24,8 +24,10 @@ type aws_emrcontainers_job_template__timeouts
 type aws_emrcontainers_job_template
 
 val aws_emrcontainers_job_template :
+  ?id:string ->
   ?kms_key_arn:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_emrcontainers_job_template__timeouts ->
   name:string ->
   job_template_data:

@@ -7,6 +7,7 @@ type azurerm_storage_mover_target_endpoint
 
 val azurerm_storage_mover_target_endpoint :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_storage_mover_target_endpoint__timeouts ->
   name:string ->
   storage_account_id:string ->

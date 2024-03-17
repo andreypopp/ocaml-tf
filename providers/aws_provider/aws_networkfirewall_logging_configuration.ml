@@ -22,6 +22,7 @@ type aws_networkfirewall_logging_configuration__logging_configuration = {
 
 type aws_networkfirewall_logging_configuration = {
   firewall_arn : string;  (** firewall_arn *)
+  id : string option; [@option]  (** id *)
   logging_configuration :
     aws_networkfirewall_logging_configuration__logging_configuration
     list;
@@ -29,12 +30,12 @@ type aws_networkfirewall_logging_configuration = {
 [@@deriving yojson_of]
 (** aws_networkfirewall_logging_configuration *)
 
-let aws_networkfirewall_logging_configuration ~firewall_arn
+let aws_networkfirewall_logging_configuration ?id ~firewall_arn
     ~logging_configuration __resource_id =
   let __resource_type =
     "aws_networkfirewall_logging_configuration"
   in
-  let __resource = { firewall_arn; logging_configuration } in
+  let __resource = { firewall_arn; id; logging_configuration } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_networkfirewall_logging_configuration __resource);
   ()

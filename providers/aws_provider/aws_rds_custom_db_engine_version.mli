@@ -10,10 +10,14 @@ val aws_rds_custom_db_engine_version :
   ?database_installation_files_s3_prefix:string ->
   ?description:string ->
   ?filename:string ->
+  ?id:string ->
+  ?kms_key_id:string ->
   ?manifest:string ->
   ?manifest_hash:string ->
   ?source_image_id:string ->
+  ?status:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_rds_custom_db_engine_version__timeouts ->
   engine:string ->
   engine_version:string ->

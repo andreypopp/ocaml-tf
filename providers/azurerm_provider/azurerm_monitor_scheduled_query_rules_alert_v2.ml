@@ -65,6 +65,7 @@ type azurerm_monitor_scheduled_query_rules_alert_v2 = {
   enabled : bool option; [@option]  (** enabled *)
   evaluation_frequency : string option; [@option]
       (** evaluation_frequency *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   mute_actions_after_alert_duration : string option; [@option]
       (** mute_actions_after_alert_duration *)
@@ -94,7 +95,7 @@ type azurerm_monitor_scheduled_query_rules_alert_v2 = {
 
 let azurerm_monitor_scheduled_query_rules_alert_v2
     ?auto_mitigation_enabled ?description ?display_name ?enabled
-    ?evaluation_frequency ?mute_actions_after_alert_duration
+    ?evaluation_frequency ?id ?mute_actions_after_alert_duration
     ?query_time_range_override ?skip_query_validation ?tags
     ?target_resource_types ?workspace_alerts_storage_enabled
     ?timeouts ~location ~name ~resource_group_name ~scopes ~severity
@@ -109,6 +110,7 @@ let azurerm_monitor_scheduled_query_rules_alert_v2
       display_name;
       enabled;
       evaluation_frequency;
+      id;
       location;
       mute_actions_after_alert_duration;
       name;

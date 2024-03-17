@@ -184,8 +184,11 @@ Please refer to the field `effective_annotations` for all of the annotations pre
       (** The AWS region where the cluster runs. Each Google Cloud region supports a subset of nearby AWS regions. You can call to list all supported AWS regions within a given Google Cloud region. *)
   description : string option; [@option]
       (** Optional. A human readable description of this cluster. Cannot be longer than 255 UTF-8 encoded bytes. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource *)
   name : string;  (** The name of this resource. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   authorization : google_container_aws_cluster__authorization list;
   binary_authorization :
     google_container_aws_cluster__binary_authorization list;
@@ -197,17 +200,20 @@ Please refer to the field `effective_annotations` for all of the annotations pre
 [@@deriving yojson_of]
 (** google_container_aws_cluster *)
 
-let google_container_aws_cluster ?annotations ?description ?timeouts
-    ~aws_region ~location ~name ~authorization ~binary_authorization
-    ~control_plane ~fleet ~networking __resource_id =
+let google_container_aws_cluster ?annotations ?description ?id
+    ?project ?timeouts ~aws_region ~location ~name ~authorization
+    ~binary_authorization ~control_plane ~fleet ~networking
+    __resource_id =
   let __resource_type = "google_container_aws_cluster" in
   let __resource =
     {
       annotations;
       aws_region;
       description;
+      id;
       location;
       name;
+      project;
       authorization;
       binary_authorization;
       control_plane;

@@ -10,12 +10,14 @@ type azurerm_app_service_certificate_order__certificates = {
   key_vault_secret_name : string;  (** key_vault_secret_name *)
   provisioning_state : string;  (** provisioning_state *)
 }
-[@@deriving yojson_of]
 
 type azurerm_app_service_certificate_order
 
 val azurerm_app_service_certificate_order :
   ?auto_renew:bool ->
+  ?csr:string ->
+  ?distinguished_name:string ->
+  ?id:string ->
   ?key_size:float ->
   ?product_type:string ->
   ?tags:(string * string) list ->

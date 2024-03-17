@@ -6,6 +6,7 @@ type azurerm_container_app_environment_certificate__timeouts
 type azurerm_container_app_environment_certificate
 
 val azurerm_container_app_environment_certificate :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_container_app_environment_certificate__timeouts ->
   certificate_blob_base64:string ->

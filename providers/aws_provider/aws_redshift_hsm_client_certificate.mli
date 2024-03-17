@@ -5,7 +5,9 @@ open! Tf.Prelude
 type aws_redshift_hsm_client_certificate
 
 val aws_redshift_hsm_client_certificate :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   hsm_client_certificate_identifier:string ->
   string ->
   unit

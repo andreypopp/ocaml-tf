@@ -7,6 +7,10 @@ type aws_s3_access_point__vpc_configuration
 type aws_s3_access_point
 
 val aws_s3_access_point :
+  ?account_id:string ->
+  ?bucket_account_id:string ->
+  ?id:string ->
+  ?policy:string ->
   bucket:string ->
   name:string ->
   public_access_block_configuration:

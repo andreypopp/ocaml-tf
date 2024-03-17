@@ -35,9 +35,11 @@ type google_discovery_engine_search_engine = {
   display_name : string;
       (** Required. The display name of the engine. Should be human readable. UTF-8 encoded string with limit of 1024 characters. *)
   engine_id : string;  (** Unique ID to use for Search Engine App. *)
+  id : string option; [@option]  (** id *)
   industry_vertical : string option; [@option]
       (** The industry vertical that the engine registers. The restriction of the Engine industry vertical is based on DataStore: If unspecified, default to GENERIC. Vertical on Engine has to match vertical of the DataStore liniked to the engine. Default value: GENERIC Possible values: [GENERIC, MEDIA] *)
   location : string;  (** Location. *)
+  project : string option; [@option]  (** project *)
   common_config :
     google_discovery_engine_search_engine__common_config list;
   search_engine_config :
@@ -47,9 +49,10 @@ type google_discovery_engine_search_engine = {
 [@@deriving yojson_of]
 (** google_discovery_engine_search_engine *)
 
-let google_discovery_engine_search_engine ?industry_vertical
-    ?timeouts ~collection_id ~data_store_ids ~display_name ~engine_id
-    ~location ~common_config ~search_engine_config __resource_id =
+let google_discovery_engine_search_engine ?id ?industry_vertical
+    ?project ?timeouts ~collection_id ~data_store_ids ~display_name
+    ~engine_id ~location ~common_config ~search_engine_config
+    __resource_id =
   let __resource_type = "google_discovery_engine_search_engine" in
   let __resource =
     {
@@ -57,8 +60,10 @@ let google_discovery_engine_search_engine ?industry_vertical
       data_store_ids;
       display_name;
       engine_id;
+      id;
       industry_vertical;
       location;
+      project;
       common_config;
       search_engine_config;
       timeouts;

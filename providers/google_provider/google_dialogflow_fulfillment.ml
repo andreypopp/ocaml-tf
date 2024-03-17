@@ -38,6 +38,8 @@ type google_dialogflow_fulfillment = {
       (** The human-readable name of the fulfillment, unique within the agent. *)
   enabled : bool option; [@option]
       (** Whether fulfillment is enabled. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   features : google_dialogflow_fulfillment__features list;
   generic_web_service :
     google_dialogflow_fulfillment__generic_web_service list;
@@ -46,13 +48,15 @@ type google_dialogflow_fulfillment = {
 [@@deriving yojson_of]
 (** google_dialogflow_fulfillment *)
 
-let google_dialogflow_fulfillment ?enabled ?timeouts ~display_name
-    ~features ~generic_web_service __resource_id =
+let google_dialogflow_fulfillment ?enabled ?id ?project ?timeouts
+    ~display_name ~features ~generic_web_service __resource_id =
   let __resource_type = "google_dialogflow_fulfillment" in
   let __resource =
     {
       display_name;
       enabled;
+      id;
+      project;
       features;
       generic_web_service;
       timeouts;

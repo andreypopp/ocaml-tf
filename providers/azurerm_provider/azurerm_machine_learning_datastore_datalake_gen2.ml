@@ -14,9 +14,11 @@ type azurerm_machine_learning_datastore_datalake_gen2__timeouts = {
 (** azurerm_machine_learning_datastore_datalake_gen2__timeouts *)
 
 type azurerm_machine_learning_datastore_datalake_gen2 = {
+  authority_url : string option; [@option]  (** authority_url *)
   client_id : string option; [@option]  (** client_id *)
   client_secret : string option; [@option]  (** client_secret *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   service_data_identity : string option; [@option]
       (** service_data_identity *)
@@ -30,18 +32,20 @@ type azurerm_machine_learning_datastore_datalake_gen2 = {
 [@@deriving yojson_of]
 (** azurerm_machine_learning_datastore_datalake_gen2 *)
 
-let azurerm_machine_learning_datastore_datalake_gen2 ?client_id
-    ?client_secret ?description ?service_data_identity ?tags
-    ?tenant_id ?timeouts ~name ~storage_container_id ~workspace_id
-    __resource_id =
+let azurerm_machine_learning_datastore_datalake_gen2 ?authority_url
+    ?client_id ?client_secret ?description ?id ?service_data_identity
+    ?tags ?tenant_id ?timeouts ~name ~storage_container_id
+    ~workspace_id __resource_id =
   let __resource_type =
     "azurerm_machine_learning_datastore_datalake_gen2"
   in
   let __resource =
     {
+      authority_url;
       client_id;
       client_secret;
       description;
+      id;
       name;
       service_data_identity;
       storage_container_id;

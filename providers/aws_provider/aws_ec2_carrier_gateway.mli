@@ -5,4 +5,9 @@ open! Tf.Prelude
 type aws_ec2_carrier_gateway
 
 val aws_ec2_carrier_gateway :
-  ?tags:(string * string) list -> vpc_id:string -> string -> unit
+  ?id:string ->
+  ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  vpc_id:string ->
+  string ->
+  unit

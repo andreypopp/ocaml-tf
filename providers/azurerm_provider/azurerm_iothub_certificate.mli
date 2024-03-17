@@ -6,6 +6,7 @@ type azurerm_iothub_certificate__timeouts
 type azurerm_iothub_certificate
 
 val azurerm_iothub_certificate :
+  ?id:string ->
   ?is_verified:bool ->
   ?timeouts:azurerm_iothub_certificate__timeouts ->
   certificate_content:string ->

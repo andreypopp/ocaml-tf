@@ -7,6 +7,8 @@ type google_compute_target_grpc_proxy
 
 val google_compute_target_grpc_proxy :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?url_map:string ->
   ?validate_for_proxyless:bool ->
   ?timeouts:google_compute_target_grpc_proxy__timeouts ->

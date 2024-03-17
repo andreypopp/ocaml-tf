@@ -17,6 +17,7 @@ type azurerm_cdn_frontdoor_route_disable_link_to_default_domain = {
   cdn_frontdoor_custom_domain_ids : string list;
       (** cdn_frontdoor_custom_domain_ids *)
   cdn_frontdoor_route_id : string;  (** cdn_frontdoor_route_id *)
+  id : string option; [@option]  (** id *)
   timeouts :
     azurerm_cdn_frontdoor_route_disable_link_to_default_domain__timeouts
     option;
@@ -24,7 +25,7 @@ type azurerm_cdn_frontdoor_route_disable_link_to_default_domain = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_route_disable_link_to_default_domain *)
 
-let azurerm_cdn_frontdoor_route_disable_link_to_default_domain
+let azurerm_cdn_frontdoor_route_disable_link_to_default_domain ?id
     ?timeouts ~cdn_frontdoor_custom_domain_ids
     ~cdn_frontdoor_route_id __resource_id =
   let __resource_type =
@@ -34,6 +35,7 @@ let azurerm_cdn_frontdoor_route_disable_link_to_default_domain
     {
       cdn_frontdoor_custom_domain_ids;
       cdn_frontdoor_route_id;
+      id;
       timeouts;
     }
   in

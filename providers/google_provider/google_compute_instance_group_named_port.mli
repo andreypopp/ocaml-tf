@@ -6,6 +6,9 @@ type google_compute_instance_group_named_port__timeouts
 type google_compute_instance_group_named_port
 
 val google_compute_instance_group_named_port :
+  ?id:string ->
+  ?project:string ->
+  ?zone:string ->
   ?timeouts:google_compute_instance_group_named_port__timeouts ->
   group:string ->
   name:string ->

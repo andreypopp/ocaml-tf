@@ -7,6 +7,7 @@ type aws_inspector2_organization_configuration__timeouts
 type aws_inspector2_organization_configuration
 
 val aws_inspector2_organization_configuration :
+  ?id:string ->
   ?timeouts:aws_inspector2_organization_configuration__timeouts ->
   auto_enable:
     aws_inspector2_organization_configuration__auto_enable list ->

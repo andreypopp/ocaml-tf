@@ -14,6 +14,7 @@ type azurerm_key_vault_managed_storage_account_sas_token_definition__timeouts = 
 (** azurerm_key_vault_managed_storage_account_sas_token_definition__timeouts *)
 
 type azurerm_key_vault_managed_storage_account_sas_token_definition = {
+  id : string option; [@option]  (** id *)
   managed_storage_account_id : string;
       (** managed_storage_account_id *)
   name : string;  (** name *)
@@ -29,13 +30,14 @@ type azurerm_key_vault_managed_storage_account_sas_token_definition = {
 (** azurerm_key_vault_managed_storage_account_sas_token_definition *)
 
 let azurerm_key_vault_managed_storage_account_sas_token_definition
-    ?tags ?timeouts ~managed_storage_account_id ~name
+    ?id ?tags ?timeouts ~managed_storage_account_id ~name
     ~sas_template_uri ~sas_type ~validity_period __resource_id =
   let __resource_type =
     "azurerm_key_vault_managed_storage_account_sas_token_definition"
   in
   let __resource =
     {
+      id;
       managed_storage_account_id;
       name;
       sas_template_uri;

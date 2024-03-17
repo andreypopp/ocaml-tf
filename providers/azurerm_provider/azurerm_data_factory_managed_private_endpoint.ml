@@ -14,6 +14,8 @@ type azurerm_data_factory_managed_private_endpoint__timeouts = {
 
 type azurerm_data_factory_managed_private_endpoint = {
   data_factory_id : string;  (** data_factory_id *)
+  fqdns : string list option; [@option]  (** fqdns *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   subresource_name : string option; [@option]
       (** subresource_name *)
@@ -24,15 +26,17 @@ type azurerm_data_factory_managed_private_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_data_factory_managed_private_endpoint *)
 
-let azurerm_data_factory_managed_private_endpoint ?subresource_name
-    ?timeouts ~data_factory_id ~name ~target_resource_id
-    __resource_id =
+let azurerm_data_factory_managed_private_endpoint ?fqdns ?id
+    ?subresource_name ?timeouts ~data_factory_id ~name
+    ~target_resource_id __resource_id =
   let __resource_type =
     "azurerm_data_factory_managed_private_endpoint"
   in
   let __resource =
     {
       data_factory_id;
+      fqdns;
+      id;
       name;
       subresource_name;
       target_resource_id;

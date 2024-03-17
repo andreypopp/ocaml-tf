@@ -6,6 +6,7 @@ type azurerm_dns_cname_record__timeouts
 type azurerm_dns_cname_record
 
 val azurerm_dns_cname_record :
+  ?id:string ->
   ?record:string ->
   ?tags:(string * string) list ->
   ?target_resource_id:string ->

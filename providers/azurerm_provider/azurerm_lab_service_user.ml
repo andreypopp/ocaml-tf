@@ -17,6 +17,7 @@ type azurerm_lab_service_user = {
   additional_usage_quota : string option; [@option]
       (** additional_usage_quota *)
   email : string;  (** email *)
+  id : string option; [@option]  (** id *)
   lab_id : string;  (** lab_id *)
   name : string;  (** name *)
   timeouts : azurerm_lab_service_user__timeouts option;
@@ -24,11 +25,11 @@ type azurerm_lab_service_user = {
 [@@deriving yojson_of]
 (** azurerm_lab_service_user *)
 
-let azurerm_lab_service_user ?additional_usage_quota ?timeouts ~email
-    ~lab_id ~name __resource_id =
+let azurerm_lab_service_user ?additional_usage_quota ?id ?timeouts
+    ~email ~lab_id ~name __resource_id =
   let __resource_type = "azurerm_lab_service_user" in
   let __resource =
-    { additional_usage_quota; email; lab_id; name; timeouts }
+    { additional_usage_quota; email; id; lab_id; name; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_lab_service_user __resource);

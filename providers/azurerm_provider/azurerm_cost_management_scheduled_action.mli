@@ -9,6 +9,7 @@ val azurerm_cost_management_scheduled_action :
   ?day_of_month:float ->
   ?days_of_week:string list ->
   ?hour_of_day:float ->
+  ?id:string ->
   ?message:string ->
   ?weeks_of_month:string list ->
   ?timeouts:azurerm_cost_management_scheduled_action__timeouts ->

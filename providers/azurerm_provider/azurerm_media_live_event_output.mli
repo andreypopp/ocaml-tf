@@ -8,6 +8,8 @@ type azurerm_media_live_event_output
 val azurerm_media_live_event_output :
   ?description:string ->
   ?hls_fragments_per_ts_segment:float ->
+  ?id:string ->
+  ?manifest_name:string ->
   ?output_snap_time_in_seconds:float ->
   ?rewind_window_duration:string ->
   ?timeouts:azurerm_media_live_event_output__timeouts ->

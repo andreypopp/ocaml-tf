@@ -62,10 +62,12 @@ type aws_budgets_budget_action__timeouts = {
 (** aws_budgets_budget_action__timeouts *)
 
 type aws_budgets_budget_action = {
+  account_id : string option; [@option]  (** account_id *)
   action_type : string;  (** action_type *)
   approval_model : string;  (** approval_model *)
   budget_name : string;  (** budget_name *)
   execution_role_arn : string;  (** execution_role_arn *)
+  id : string option; [@option]  (** id *)
   notification_type : string;  (** notification_type *)
   action_threshold :
     aws_budgets_budget_action__action_threshold list;
@@ -76,16 +78,19 @@ type aws_budgets_budget_action = {
 [@@deriving yojson_of]
 (** aws_budgets_budget_action *)
 
-let aws_budgets_budget_action ?timeouts ~action_type ~approval_model
-    ~budget_name ~execution_role_arn ~notification_type
-    ~action_threshold ~definition ~subscriber __resource_id =
+let aws_budgets_budget_action ?account_id ?id ?timeouts ~action_type
+    ~approval_model ~budget_name ~execution_role_arn
+    ~notification_type ~action_threshold ~definition ~subscriber
+    __resource_id =
   let __resource_type = "aws_budgets_budget_action" in
   let __resource =
     {
+      account_id;
       action_type;
       approval_model;
       budget_name;
       execution_role_arn;
+      id;
       notification_type;
       action_threshold;
       definition;

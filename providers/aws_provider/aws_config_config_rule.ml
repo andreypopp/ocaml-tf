@@ -52,12 +52,15 @@ type aws_config_config_rule__source = {
 
 type aws_config_config_rule = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   input_parameters : string option; [@option]
       (** input_parameters *)
   maximum_execution_frequency : string option; [@option]
       (** maximum_execution_frequency *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   evaluation_mode : aws_config_config_rule__evaluation_mode list;
   scope : aws_config_config_rule__scope list;
   source : aws_config_config_rule__source list;
@@ -65,17 +68,19 @@ type aws_config_config_rule = {
 [@@deriving yojson_of]
 (** aws_config_config_rule *)
 
-let aws_config_config_rule ?description ?input_parameters
-    ?maximum_execution_frequency ?tags ~name ~evaluation_mode ~scope
-    ~source __resource_id =
+let aws_config_config_rule ?description ?id ?input_parameters
+    ?maximum_execution_frequency ?tags ?tags_all ~name
+    ~evaluation_mode ~scope ~source __resource_id =
   let __resource_type = "aws_config_config_rule" in
   let __resource =
     {
       description;
+      id;
       input_parameters;
       maximum_execution_frequency;
       name;
       tags;
+      tags_all;
       evaluation_mode;
       scope;
       source;

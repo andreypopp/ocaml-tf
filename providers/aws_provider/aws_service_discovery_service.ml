@@ -39,8 +39,13 @@ type aws_service_discovery_service__health_check_custom_config = {
 type aws_service_discovery_service = {
   description : string option; [@option]  (** description *)
   force_destroy : bool option; [@option]  (** force_destroy *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  namespace_id : string option; [@option]  (** namespace_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  type_ : string option; [@option] [@key "type"]  (** type *)
   dns_config : aws_service_discovery_service__dns_config list;
   health_check_config :
     aws_service_discovery_service__health_check_config list;
@@ -50,16 +55,20 @@ type aws_service_discovery_service = {
 [@@deriving yojson_of]
 (** aws_service_discovery_service *)
 
-let aws_service_discovery_service ?description ?force_destroy ?tags
-    ~name ~dns_config ~health_check_config
-    ~health_check_custom_config __resource_id =
+let aws_service_discovery_service ?description ?force_destroy ?id
+    ?namespace_id ?tags ?tags_all ?type_ ~name ~dns_config
+    ~health_check_config ~health_check_custom_config __resource_id =
   let __resource_type = "aws_service_discovery_service" in
   let __resource =
     {
       description;
       force_destroy;
+      id;
       name;
+      namespace_id;
       tags;
+      tags_all;
+      type_;
       dns_config;
       health_check_config;
       health_check_custom_config;

@@ -7,6 +7,7 @@ type azurerm_private_dns_zone__timeouts
 type azurerm_private_dns_zone
 
 val azurerm_private_dns_zone :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_private_dns_zone__timeouts ->
   name:string ->

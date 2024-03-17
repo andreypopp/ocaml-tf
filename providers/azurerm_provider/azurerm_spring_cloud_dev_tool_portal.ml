@@ -23,6 +23,11 @@ type azurerm_spring_cloud_dev_tool_portal__timeouts = {
 (** azurerm_spring_cloud_dev_tool_portal__timeouts *)
 
 type azurerm_spring_cloud_dev_tool_portal = {
+  application_accelerator_enabled : bool option; [@option]
+      (** application_accelerator_enabled *)
+  application_live_view_enabled : bool option; [@option]
+      (** application_live_view_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
@@ -34,11 +39,15 @@ type azurerm_spring_cloud_dev_tool_portal = {
 (** azurerm_spring_cloud_dev_tool_portal *)
 
 let azurerm_spring_cloud_dev_tool_portal
-    ?public_network_access_enabled ?timeouts ~name
+    ?application_accelerator_enabled ?application_live_view_enabled
+    ?id ?public_network_access_enabled ?timeouts ~name
     ~spring_cloud_service_id ~sso __resource_id =
   let __resource_type = "azurerm_spring_cloud_dev_tool_portal" in
   let __resource =
     {
+      application_accelerator_enabled;
+      application_live_view_enabled;
+      id;
       name;
       public_network_access_enabled;
       spring_cloud_service_id;

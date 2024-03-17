@@ -19,6 +19,7 @@ type azurerm_data_factory_linked_service_kusto = {
   annotations : string list option; [@option]  (** annotations *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   kusto_database_name : string;  (** kusto_database_name *)
@@ -40,8 +41,8 @@ type azurerm_data_factory_linked_service_kusto = {
 (** azurerm_data_factory_linked_service_kusto *)
 
 let azurerm_data_factory_linked_service_kusto ?additional_properties
-    ?annotations ?description ?integration_runtime_name ?parameters
-    ?service_principal_id ?service_principal_key ?tenant
+    ?annotations ?description ?id ?integration_runtime_name
+    ?parameters ?service_principal_id ?service_principal_key ?tenant
     ?use_managed_identity ?timeouts ~data_factory_id
     ~kusto_database_name ~kusto_endpoint ~name __resource_id =
   let __resource_type =
@@ -53,6 +54,7 @@ let azurerm_data_factory_linked_service_kusto ?additional_properties
       annotations;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       kusto_database_name;
       kusto_endpoint;

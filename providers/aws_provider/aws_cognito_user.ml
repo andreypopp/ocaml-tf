@@ -14,6 +14,7 @@ type aws_cognito_user = {
   enabled : bool option; [@option]  (** enabled *)
   force_alias_creation : bool option; [@option]
       (** force_alias_creation *)
+  id : string option; [@option]  (** id *)
   message_action : string option; [@option]  (** message_action *)
   password : string option; [@option]  (** password *)
   temporary_password : string option; [@option]
@@ -27,7 +28,7 @@ type aws_cognito_user = {
 (** aws_cognito_user *)
 
 let aws_cognito_user ?attributes ?client_metadata
-    ?desired_delivery_mediums ?enabled ?force_alias_creation
+    ?desired_delivery_mediums ?enabled ?force_alias_creation ?id
     ?message_action ?password ?temporary_password ?validation_data
     ~user_pool_id ~username __resource_id =
   let __resource_type = "aws_cognito_user" in
@@ -38,6 +39,7 @@ let aws_cognito_user ?attributes ?client_metadata
       desired_delivery_mediums;
       enabled;
       force_alias_creation;
+      id;
       message_action;
       password;
       temporary_password;

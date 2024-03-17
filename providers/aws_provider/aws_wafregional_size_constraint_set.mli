@@ -8,6 +8,7 @@ type aws_wafregional_size_constraint_set__size_constraints
 type aws_wafregional_size_constraint_set
 
 val aws_wafregional_size_constraint_set :
+  ?id:string ->
   name:string ->
   size_constraints:
     aws_wafregional_size_constraint_set__size_constraints list ->

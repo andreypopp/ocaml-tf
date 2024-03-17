@@ -17,6 +17,7 @@ type azurerm_api_management_gateway_certificate_authority = {
   api_management_id : string;  (** api_management_id *)
   certificate_name : string;  (** certificate_name *)
   gateway_name : string;  (** gateway_name *)
+  id : string option; [@option]  (** id *)
   is_trusted : bool option; [@option]  (** is_trusted *)
   timeouts :
     azurerm_api_management_gateway_certificate_authority__timeouts
@@ -25,9 +26,9 @@ type azurerm_api_management_gateway_certificate_authority = {
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway_certificate_authority *)
 
-let azurerm_api_management_gateway_certificate_authority ?is_trusted
-    ?timeouts ~api_management_id ~certificate_name ~gateway_name
-    __resource_id =
+let azurerm_api_management_gateway_certificate_authority ?id
+    ?is_trusted ?timeouts ~api_management_id ~certificate_name
+    ~gateway_name __resource_id =
   let __resource_type =
     "azurerm_api_management_gateway_certificate_authority"
   in
@@ -36,6 +37,7 @@ let azurerm_api_management_gateway_certificate_authority ?is_trusted
       api_management_id;
       certificate_name;
       gateway_name;
+      id;
       is_trusted;
       timeouts;
     }

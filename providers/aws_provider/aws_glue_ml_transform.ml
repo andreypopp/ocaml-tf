@@ -42,12 +42,17 @@ type aws_glue_ml_transform__schema = {
 
 type aws_glue_ml_transform = {
   description : string option; [@option]  (** description *)
+  glue_version : string option; [@option]  (** glue_version *)
+  id : string option; [@option]  (** id *)
+  max_capacity : float option; [@option]  (** max_capacity *)
   max_retries : float option; [@option]  (** max_retries *)
   name : string;  (** name *)
   number_of_workers : float option; [@option]
       (** number_of_workers *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeout : float option; [@option]  (** timeout *)
   worker_type : string option; [@option]  (** worker_type *)
   input_record_tables :
@@ -57,18 +62,23 @@ type aws_glue_ml_transform = {
 [@@deriving yojson_of]
 (** aws_glue_ml_transform *)
 
-let aws_glue_ml_transform ?description ?max_retries
-    ?number_of_workers ?tags ?timeout ?worker_type ~name ~role_arn
-    ~input_record_tables ~parameters __resource_id =
+let aws_glue_ml_transform ?description ?glue_version ?id
+    ?max_capacity ?max_retries ?number_of_workers ?tags ?tags_all
+    ?timeout ?worker_type ~name ~role_arn ~input_record_tables
+    ~parameters __resource_id =
   let __resource_type = "aws_glue_ml_transform" in
   let __resource =
     {
       description;
+      glue_version;
+      id;
+      max_capacity;
       max_retries;
       name;
       number_of_workers;
       role_arn;
       tags;
+      tags_all;
       timeout;
       worker_type;
       input_record_tables;

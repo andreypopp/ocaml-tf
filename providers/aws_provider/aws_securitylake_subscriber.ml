@@ -68,6 +68,7 @@ type aws_securitylake_subscriber__timeouts = {
 (** aws_securitylake_subscriber__timeouts *)
 
 type aws_securitylake_subscriber = {
+  access_type : string option; [@option]  (** access_type *)
   subscriber_description : string option; [@option]
       (** subscriber_description *)
   subscriber_name : string option; [@option]  (** subscriber_name *)
@@ -80,12 +81,13 @@ type aws_securitylake_subscriber = {
 [@@deriving yojson_of]
 (** aws_securitylake_subscriber *)
 
-let aws_securitylake_subscriber ?subscriber_description
+let aws_securitylake_subscriber ?access_type ?subscriber_description
     ?subscriber_name ?tags ?timeouts ~source ~subscriber_identity
     __resource_id =
   let __resource_type = "aws_securitylake_subscriber" in
   let __resource =
     {
+      access_type;
       subscriber_description;
       subscriber_name;
       tags;

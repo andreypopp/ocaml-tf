@@ -50,6 +50,7 @@ type azurerm_monitor_alert_prometheus_rule_group__timeouts = {
 type azurerm_monitor_alert_prometheus_rule_group = {
   cluster_name : string option; [@option]  (** cluster_name *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   interval : string option; [@option]  (** interval *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -66,7 +67,7 @@ type azurerm_monitor_alert_prometheus_rule_group = {
 (** azurerm_monitor_alert_prometheus_rule_group *)
 
 let azurerm_monitor_alert_prometheus_rule_group ?cluster_name
-    ?description ?interval ?rule_group_enabled ?tags ?timeouts
+    ?description ?id ?interval ?rule_group_enabled ?tags ?timeouts
     ~location ~name ~resource_group_name ~scopes ~rule __resource_id
     =
   let __resource_type =
@@ -76,6 +77,7 @@ let azurerm_monitor_alert_prometheus_rule_group ?cluster_name
     {
       cluster_name;
       description;
+      id;
       interval;
       location;
       name;

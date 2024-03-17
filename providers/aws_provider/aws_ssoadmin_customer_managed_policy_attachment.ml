@@ -19,6 +19,7 @@ type aws_ssoadmin_customer_managed_policy_attachment__timeouts = {
 (** aws_ssoadmin_customer_managed_policy_attachment__timeouts *)
 
 type aws_ssoadmin_customer_managed_policy_attachment = {
+  id : string option; [@option]  (** id *)
   instance_arn : string;  (** instance_arn *)
   permission_set_arn : string;  (** permission_set_arn *)
   customer_managed_policy_reference :
@@ -30,7 +31,7 @@ type aws_ssoadmin_customer_managed_policy_attachment = {
 [@@deriving yojson_of]
 (** aws_ssoadmin_customer_managed_policy_attachment *)
 
-let aws_ssoadmin_customer_managed_policy_attachment ?timeouts
+let aws_ssoadmin_customer_managed_policy_attachment ?id ?timeouts
     ~instance_arn ~permission_set_arn
     ~customer_managed_policy_reference __resource_id =
   let __resource_type =
@@ -38,6 +39,7 @@ let aws_ssoadmin_customer_managed_policy_attachment ?timeouts
   in
   let __resource =
     {
+      id;
       instance_arn;
       permission_set_arn;
       customer_managed_policy_reference;

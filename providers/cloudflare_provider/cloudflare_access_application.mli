@@ -11,6 +11,7 @@ type cloudflare_access_application__saas_app
 type cloudflare_access_application
 
 val cloudflare_access_application :
+  ?account_id:string ->
   ?allow_authenticate_via_warp:bool ->
   ?allowed_idps:string list ->
   ?app_launcher_logo_url:string ->
@@ -21,10 +22,13 @@ val cloudflare_access_application :
   ?custom_deny_url:string ->
   ?custom_non_identity_deny_url:string ->
   ?custom_pages:string list ->
+  ?domain:string ->
   ?enable_binding_cookie:bool ->
   ?header_bg_color:string ->
   ?http_only_cookie_attribute:bool ->
+  ?id:string ->
   ?logo_url:string ->
+  ?name:string ->
   ?same_site_cookie_attribute:string ->
   ?self_hosted_domains:string list ->
   ?service_auth_401_redirect:bool ->
@@ -32,6 +36,7 @@ val cloudflare_access_application :
   ?skip_interstitial:bool ->
   ?tags:string list ->
   ?type_:string ->
+  ?zone_id:string ->
   cors_headers:cloudflare_access_application__cors_headers list ->
   footer_links:cloudflare_access_application__footer_links list ->
   landing_page_design:

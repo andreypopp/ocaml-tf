@@ -8,6 +8,7 @@ type azurerm_dev_test_policy
 val azurerm_dev_test_policy :
   ?description:string ->
   ?fact_data:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dev_test_policy__timeouts ->
   evaluator_type:string ->

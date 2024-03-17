@@ -15,6 +15,7 @@ val kubernetes_env :
   ?container:string ->
   ?field_manager:string ->
   ?force:bool ->
+  ?id:string ->
   ?init_container:string ->
   api_version:string ->
   kind:string ->

@@ -32,6 +32,7 @@ type azurerm_servicebus_subscription_rule__timeouts = {
 type azurerm_servicebus_subscription_rule = {
   action : string option; [@option]  (** action *)
   filter_type : string;  (** filter_type *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   sql_filter : string option; [@option]  (** sql_filter *)
   subscription_id : string;  (** subscription_id *)
@@ -42,7 +43,7 @@ type azurerm_servicebus_subscription_rule = {
 [@@deriving yojson_of]
 (** azurerm_servicebus_subscription_rule *)
 
-let azurerm_servicebus_subscription_rule ?action ?sql_filter
+let azurerm_servicebus_subscription_rule ?action ?id ?sql_filter
     ?timeouts ~filter_type ~name ~subscription_id ~correlation_filter
     __resource_id =
   let __resource_type = "azurerm_servicebus_subscription_rule" in
@@ -50,6 +51,7 @@ let azurerm_servicebus_subscription_rule ?action ?sql_filter
     {
       action;
       filter_type;
+      id;
       name;
       sql_filter;
       subscription_id;

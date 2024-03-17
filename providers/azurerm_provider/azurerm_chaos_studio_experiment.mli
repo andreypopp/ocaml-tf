@@ -11,6 +11,7 @@ type azurerm_chaos_studio_experiment__timeouts
 type azurerm_chaos_studio_experiment
 
 val azurerm_chaos_studio_experiment :
+  ?id:string ->
   ?timeouts:azurerm_chaos_studio_experiment__timeouts ->
   location:string ->
   name:string ->

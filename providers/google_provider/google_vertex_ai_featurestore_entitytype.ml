@@ -77,6 +77,7 @@ type google_vertex_ai_featurestore_entitytype = {
       (** Optional. Description of the EntityType. *)
   featurestore : string;
       (** The name of the Featurestore to use, in the format projects/{project}/locations/{location}/featurestores/{featurestore}. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A set of key/value label pairs to assign to this EntityType.
 
@@ -93,13 +94,14 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_featurestore_entitytype *)
 
-let google_vertex_ai_featurestore_entitytype ?description ?labels
+let google_vertex_ai_featurestore_entitytype ?description ?id ?labels
     ?name ?timeouts ~featurestore ~monitoring_config __resource_id =
   let __resource_type = "google_vertex_ai_featurestore_entitytype" in
   let __resource =
     {
       description;
       featurestore;
+      id;
       labels;
       name;
       monitoring_config;

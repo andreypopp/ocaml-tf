@@ -18,6 +18,8 @@ type google_project_service = {
       (** disable_dependent_services *)
   disable_on_destroy : bool option; [@option]
       (** disable_on_destroy *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   service : string;  (** service *)
   timeouts : google_project_service__timeouts option;
 }
@@ -25,12 +27,15 @@ type google_project_service = {
 (** google_project_service *)
 
 let google_project_service ?disable_dependent_services
-    ?disable_on_destroy ?timeouts ~service __resource_id =
+    ?disable_on_destroy ?id ?project ?timeouts ~service __resource_id
+    =
   let __resource_type = "google_project_service" in
   let __resource =
     {
       disable_dependent_services;
       disable_on_destroy;
+      id;
+      project;
       service;
       timeouts;
     }

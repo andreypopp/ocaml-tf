@@ -33,11 +33,14 @@ type azurerm_new_relic_monitor__user = {
 type azurerm_new_relic_monitor = {
   account_creation_source : string option; [@option]
       (** account_creation_source *)
+  account_id : string option; [@option]  (** account_id *)
+  id : string option; [@option]  (** id *)
   ingestion_key : string option; [@option]  (** ingestion_key *)
   location : string;  (** location *)
   name : string;  (** name *)
   org_creation_source : string option; [@option]
       (** org_creation_source *)
+  organization_id : string option; [@option]  (** organization_id *)
   resource_group_name : string;  (** resource_group_name *)
   user_id : string option; [@option]  (** user_id *)
   plan : azurerm_new_relic_monitor__plan list;
@@ -47,17 +50,21 @@ type azurerm_new_relic_monitor = {
 [@@deriving yojson_of]
 (** azurerm_new_relic_monitor *)
 
-let azurerm_new_relic_monitor ?account_creation_source ?ingestion_key
-    ?org_creation_source ?user_id ?timeouts ~location ~name
-    ~resource_group_name ~plan ~user __resource_id =
+let azurerm_new_relic_monitor ?account_creation_source ?account_id
+    ?id ?ingestion_key ?org_creation_source ?organization_id ?user_id
+    ?timeouts ~location ~name ~resource_group_name ~plan ~user
+    __resource_id =
   let __resource_type = "azurerm_new_relic_monitor" in
   let __resource =
     {
       account_creation_source;
+      account_id;
+      id;
       ingestion_key;
       location;
       name;
       org_creation_source;
+      organization_id;
       resource_group_name;
       user_id;
       plan;

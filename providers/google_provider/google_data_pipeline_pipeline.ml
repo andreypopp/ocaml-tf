@@ -196,6 +196,7 @@ https://cloud.google.com/dataflow/docs/reference/data-pipelines/rest/v1/projects
 type google_data_pipeline_pipeline = {
   display_name : string option; [@option]
       (** The display name of the pipeline. It can contain only letters ([A-Za-z]), numbers ([0-9]), hyphens (-), and underscores (_). *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The pipeline name. For example': 'projects/PROJECT_ID/locations/LOCATION_ID/pipelines/PIPELINE_ID.
 - PROJECT_ID can contain letters ([A-Za-z]), numbers ([0-9]), hyphens (-), colons (:), and periods (.). For more information, see Identifying projects.
@@ -204,7 +205,10 @@ PIPELINE_ID is the ID of the pipeline. Must be unique for the selected project a
   pipeline_sources : (string * string) list option; [@option]
       (** The sources of the pipeline (for example, Dataplex). The keys and values are set by the corresponding sources during pipeline creation.
 An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]  (** A reference to the region *)
+  scheduler_service_account_email : string option; [@option]
+      (** Optional. A service account email to be used with the Cloud Scheduler job. If not specified, the default compute engine service account will be used. *)
   state : string;
       (** The state of the pipeline. When the pipeline is created, the state is set to 'PIPELINE_STATE_ACTIVE' by default. State changes can be requested by setting the state to stopping, paused, or resuming. State cannot be changed through pipelines.patch requests.
 https://cloud.google.com/dataflow/docs/reference/data-pipelines/rest/v1/projects.locations.pipelines#state Possible values: [STATE_UNSPECIFIED, STATE_RESUMING, STATE_ACTIVE, STATE_STOPPING, STATE_ARCHIVED, STATE_PAUSED] *)
@@ -218,16 +222,19 @@ https://cloud.google.com/dataflow/docs/reference/data-pipelines/rest/v1/projects
 [@@deriving yojson_of]
 (** google_data_pipeline_pipeline *)
 
-let google_data_pipeline_pipeline ?display_name ?pipeline_sources
-    ?region ?timeouts ~name ~state ~type_ ~schedule_info ~workload
-    __resource_id =
+let google_data_pipeline_pipeline ?display_name ?id ?pipeline_sources
+    ?project ?region ?scheduler_service_account_email ?timeouts ~name
+    ~state ~type_ ~schedule_info ~workload __resource_id =
   let __resource_type = "google_data_pipeline_pipeline" in
   let __resource =
     {
       display_name;
+      id;
       name;
       pipeline_sources;
+      project;
       region;
+      scheduler_service_account_email;
       state;
       type_;
       schedule_info;

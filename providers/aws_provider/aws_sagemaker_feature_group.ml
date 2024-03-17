@@ -73,10 +73,13 @@ type aws_sagemaker_feature_group = {
   description : string option; [@option]  (** description *)
   event_time_feature_name : string;  (** event_time_feature_name *)
   feature_group_name : string;  (** feature_group_name *)
+  id : string option; [@option]  (** id *)
   record_identifier_feature_name : string;
       (** record_identifier_feature_name *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   feature_definition :
     aws_sagemaker_feature_group__feature_definition list;
   offline_store_config :
@@ -87,7 +90,7 @@ type aws_sagemaker_feature_group = {
 [@@deriving yojson_of]
 (** aws_sagemaker_feature_group *)
 
-let aws_sagemaker_feature_group ?description ?tags
+let aws_sagemaker_feature_group ?description ?id ?tags ?tags_all
     ~event_time_feature_name ~feature_group_name
     ~record_identifier_feature_name ~role_arn ~feature_definition
     ~offline_store_config ~online_store_config __resource_id =
@@ -97,9 +100,11 @@ let aws_sagemaker_feature_group ?description ?tags
       description;
       event_time_feature_name;
       feature_group_name;
+      id;
       record_identifier_feature_name;
       role_arn;
       tags;
+      tags_all;
       feature_definition;
       offline_store_config;
       online_store_config;

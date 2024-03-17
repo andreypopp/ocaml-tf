@@ -16,6 +16,7 @@ val azurerm_spring_cloud_customized_accelerator :
   ?description:string ->
   ?display_name:string ->
   ?icon_url:string ->
+  ?id:string ->
   ?timeouts:azurerm_spring_cloud_customized_accelerator__timeouts ->
   name:string ->
   spring_cloud_accelerator_id:string ->

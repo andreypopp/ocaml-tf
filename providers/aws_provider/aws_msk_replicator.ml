@@ -80,10 +80,13 @@ type aws_msk_replicator__timeouts = {
 
 type aws_msk_replicator = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   replicator_name : string;  (** replicator_name *)
   service_execution_role_arn : string;
       (** service_execution_role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   kafka_cluster : aws_msk_replicator__kafka_cluster list;
   replication_info_list :
     aws_msk_replicator__replication_info_list list;
@@ -92,16 +95,18 @@ type aws_msk_replicator = {
 [@@deriving yojson_of]
 (** aws_msk_replicator *)
 
-let aws_msk_replicator ?description ?tags ?timeouts ~replicator_name
-    ~service_execution_role_arn ~kafka_cluster ~replication_info_list
-    __resource_id =
+let aws_msk_replicator ?description ?id ?tags ?tags_all ?timeouts
+    ~replicator_name ~service_execution_role_arn ~kafka_cluster
+    ~replication_info_list __resource_id =
   let __resource_type = "aws_msk_replicator" in
   let __resource =
     {
       description;
+      id;
       replicator_name;
       service_execution_role_arn;
       tags;
+      tags_all;
       kafka_cluster;
       replication_info_list;
       timeouts;

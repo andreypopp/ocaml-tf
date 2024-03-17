@@ -8,6 +8,7 @@ type aws_appstream_user = {
   authentication_type : string;  (** authentication_type *)
   enabled : bool option; [@option]  (** enabled *)
   first_name : string option; [@option]  (** first_name *)
+  id : string option; [@option]  (** id *)
   last_name : string option; [@option]  (** last_name *)
   send_email_notification : bool option; [@option]
       (** send_email_notification *)
@@ -16,7 +17,7 @@ type aws_appstream_user = {
 [@@deriving yojson_of]
 (** aws_appstream_user *)
 
-let aws_appstream_user ?enabled ?first_name ?last_name
+let aws_appstream_user ?enabled ?first_name ?id ?last_name
     ?send_email_notification ~authentication_type ~user_name
     __resource_id =
   let __resource_type = "aws_appstream_user" in
@@ -25,6 +26,7 @@ let aws_appstream_user ?enabled ?first_name ?last_name
       authentication_type;
       enabled;
       first_name;
+      id;
       last_name;
       send_email_notification;
       user_name;

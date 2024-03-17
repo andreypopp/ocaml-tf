@@ -6,6 +6,9 @@ type google_firebase_app_check_play_integrity_config__timeouts
 type google_firebase_app_check_play_integrity_config
 
 val google_firebase_app_check_play_integrity_config :
+  ?id:string ->
+  ?project:string ->
+  ?token_ttl:string ->
   ?timeouts:google_firebase_app_check_play_integrity_config__timeouts ->
   app_id:string ->
   string ->

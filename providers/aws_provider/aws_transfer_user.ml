@@ -30,10 +30,13 @@ type aws_transfer_user = {
   home_directory : string option; [@option]  (** home_directory *)
   home_directory_type : string option; [@option]
       (** home_directory_type *)
+  id : string option; [@option]  (** id *)
   policy : string option; [@option]  (** policy *)
   role : string;  (** role *)
   server_id : string;  (** server_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   user_name : string;  (** user_name *)
   home_directory_mappings :
     aws_transfer_user__home_directory_mappings list;
@@ -43,18 +46,20 @@ type aws_transfer_user = {
 [@@deriving yojson_of]
 (** aws_transfer_user *)
 
-let aws_transfer_user ?home_directory ?home_directory_type ?policy
-    ?tags ?timeouts ~role ~server_id ~user_name
+let aws_transfer_user ?home_directory ?home_directory_type ?id
+    ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
     ~home_directory_mappings ~posix_profile __resource_id =
   let __resource_type = "aws_transfer_user" in
   let __resource =
     {
       home_directory;
       home_directory_type;
+      id;
       policy;
       role;
       server_id;
       tags;
+      tags_all;
       user_name;
       home_directory_mappings;
       posix_profile;

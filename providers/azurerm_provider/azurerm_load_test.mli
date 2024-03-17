@@ -8,6 +8,7 @@ type azurerm_load_test
 
 val azurerm_load_test :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_load_test__timeouts ->
   location:string ->

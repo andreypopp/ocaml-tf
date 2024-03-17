@@ -17,6 +17,7 @@ type azurerm_automation_connection_classic_certificate = {
   automation_account_name : string;  (** automation_account_name *)
   certificate_asset_name : string;  (** certificate_asset_name *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   subscription_id : string;  (** subscription_id *)
@@ -29,8 +30,8 @@ type azurerm_automation_connection_classic_certificate = {
 (** azurerm_automation_connection_classic_certificate *)
 
 let azurerm_automation_connection_classic_certificate ?description
-    ?timeouts ~automation_account_name ~certificate_asset_name ~name
-    ~resource_group_name ~subscription_id ~subscription_name
+    ?id ?timeouts ~automation_account_name ~certificate_asset_name
+    ~name ~resource_group_name ~subscription_id ~subscription_name
     __resource_id =
   let __resource_type =
     "azurerm_automation_connection_classic_certificate"
@@ -40,6 +41,7 @@ let azurerm_automation_connection_classic_certificate ?description
       automation_account_name;
       certificate_asset_name;
       description;
+      id;
       name;
       resource_group_name;
       subscription_id;

@@ -44,8 +44,15 @@ type aws_appstream_stack__user_settings = {
 type aws_appstream_stack = {
   description : string option; [@option]  (** description *)
   display_name : string option; [@option]  (** display_name *)
+  embed_host_domains : string list option; [@option]
+      (** embed_host_domains *)
+  feedback_url : string option; [@option]  (** feedback_url *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  redirect_url : string option; [@option]  (** redirect_url *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   access_endpoints : aws_appstream_stack__access_endpoints list;
   application_settings :
     aws_appstream_stack__application_settings list;
@@ -57,16 +64,23 @@ type aws_appstream_stack = {
 [@@deriving yojson_of]
 (** aws_appstream_stack *)
 
-let aws_appstream_stack ?description ?display_name ?tags ~name
-    ~access_endpoints ~application_settings ~storage_connectors
-    ~streaming_experience_settings ~user_settings __resource_id =
+let aws_appstream_stack ?description ?display_name
+    ?embed_host_domains ?feedback_url ?id ?redirect_url ?tags
+    ?tags_all ~name ~access_endpoints ~application_settings
+    ~storage_connectors ~streaming_experience_settings ~user_settings
+    __resource_id =
   let __resource_type = "aws_appstream_stack" in
   let __resource =
     {
       description;
       display_name;
+      embed_host_domains;
+      feedback_url;
+      id;
       name;
+      redirect_url;
       tags;
+      tags_all;
       access_endpoints;
       application_settings;
       storage_connectors;

@@ -12,6 +12,7 @@ val azurerm_express_route_circuit :
   ?bandwidth_in_gbps:float ->
   ?bandwidth_in_mbps:float ->
   ?express_route_port_id:string ->
+  ?id:string ->
   ?peering_location:string ->
   ?service_provider_name:string ->
   ?tags:(string * string) list ->

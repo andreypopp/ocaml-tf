@@ -14,6 +14,7 @@ type azurerm_healthbot__timeouts = {
 (** azurerm_healthbot__timeouts *)
 
 type azurerm_healthbot = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,11 +25,19 @@ type azurerm_healthbot = {
 [@@deriving yojson_of]
 (** azurerm_healthbot *)
 
-let azurerm_healthbot ?tags ?timeouts ~location ~name
+let azurerm_healthbot ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_healthbot" in
   let __resource =
-    { location; name; resource_group_name; sku_name; tags; timeouts }
+    {
+      id;
+      location;
+      name;
+      resource_group_name;
+      sku_name;
+      tags;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_healthbot __resource);

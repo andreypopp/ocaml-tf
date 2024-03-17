@@ -31,6 +31,7 @@ val azurerm_data_factory_integration_runtime_azure_ssis :
   ?credential_name:string ->
   ?description:string ->
   ?edition:string ->
+  ?id:string ->
   ?license_type:string ->
   ?max_parallel_executions_per_node:float ->
   ?number_of_nodes:float ->

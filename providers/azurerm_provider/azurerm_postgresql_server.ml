@@ -38,15 +38,20 @@ type azurerm_postgresql_server__timeouts = {
 (** azurerm_postgresql_server__timeouts *)
 
 type azurerm_postgresql_server = {
+  administrator_login : string option; [@option]
+      (** administrator_login *)
   administrator_login_password : string option; [@option]
       (** administrator_login_password *)
   auto_grow_enabled : bool option; [@option]
       (** auto_grow_enabled *)
+  backup_retention_days : float option; [@option]
+      (** backup_retention_days *)
   create_mode : string option; [@option]  (** create_mode *)
   creation_source_server_id : string option; [@option]
       (** creation_source_server_id *)
   geo_redundant_backup_enabled : bool option; [@option]
       (** geo_redundant_backup_enabled *)
+  id : string option; [@option]  (** id *)
   infrastructure_encryption_enabled : bool option; [@option]
       (** infrastructure_encryption_enabled *)
   location : string;  (** location *)
@@ -60,6 +65,7 @@ type azurerm_postgresql_server = {
   ssl_enforcement_enabled : bool;  (** ssl_enforcement_enabled *)
   ssl_minimal_tls_version_enforced : string option; [@option]
       (** ssl_minimal_tls_version_enforced *)
+  storage_mb : float option; [@option]  (** storage_mb *)
   tags : (string * string) list option; [@option]  (** tags *)
   version : string;  (** version *)
   identity : azurerm_postgresql_server__identity list;
@@ -70,21 +76,26 @@ type azurerm_postgresql_server = {
 [@@deriving yojson_of]
 (** azurerm_postgresql_server *)
 
-let azurerm_postgresql_server ?administrator_login_password
-    ?auto_grow_enabled ?create_mode ?creation_source_server_id
-    ?geo_redundant_backup_enabled ?infrastructure_encryption_enabled
-    ?public_network_access_enabled ?restore_point_in_time
-    ?ssl_minimal_tls_version_enforced ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~ssl_enforcement_enabled ~version
-    ~identity ~threat_detection_policy __resource_id =
+let azurerm_postgresql_server ?administrator_login
+    ?administrator_login_password ?auto_grow_enabled
+    ?backup_retention_days ?create_mode ?creation_source_server_id
+    ?geo_redundant_backup_enabled ?id
+    ?infrastructure_encryption_enabled ?public_network_access_enabled
+    ?restore_point_in_time ?ssl_minimal_tls_version_enforced
+    ?storage_mb ?tags ?timeouts ~location ~name ~resource_group_name
+    ~sku_name ~ssl_enforcement_enabled ~version ~identity
+    ~threat_detection_policy __resource_id =
   let __resource_type = "azurerm_postgresql_server" in
   let __resource =
     {
+      administrator_login;
       administrator_login_password;
       auto_grow_enabled;
+      backup_retention_days;
       create_mode;
       creation_source_server_id;
       geo_redundant_backup_enabled;
+      id;
       infrastructure_encryption_enabled;
       location;
       name;
@@ -94,6 +105,7 @@ let azurerm_postgresql_server ?administrator_login_password
       sku_name;
       ssl_enforcement_enabled;
       ssl_minimal_tls_version_enforced;
+      storage_mb;
       tags;
       version;
       identity;

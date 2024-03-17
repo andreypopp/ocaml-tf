@@ -7,6 +7,9 @@ open! Tf.Prelude
 type cloudflare_access_tag = {
   account_id : string option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
+  app_count : float option; [@option]
+      (** Number of apps associated with the tag. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** Friendly name of the Access Tag. *)
   zone_id : string option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. **Modifying this attribute will force creation of a new resource.** *)
@@ -16,9 +19,10 @@ type cloudflare_access_tag = {
 when trying to reach applications behind Cloudflare Access.
  *)
 
-let cloudflare_access_tag ?account_id ?zone_id ~name __resource_id =
+let cloudflare_access_tag ?account_id ?app_count ?id ?zone_id ~name
+    __resource_id =
   let __resource_type = "cloudflare_access_tag" in
-  let __resource = { account_id; name; zone_id } in
+  let __resource = { account_id; app_count; id; name; zone_id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_tag __resource);
   ()

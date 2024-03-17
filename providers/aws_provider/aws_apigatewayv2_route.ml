@@ -19,6 +19,7 @@ type aws_apigatewayv2_route = {
   authorization_type : string option; [@option]
       (** authorization_type *)
   authorizer_id : string option; [@option]  (** authorizer_id *)
+  id : string option; [@option]  (** id *)
   model_selection_expression : string option; [@option]
       (** model_selection_expression *)
   operation_name : string option; [@option]  (** operation_name *)
@@ -34,8 +35,8 @@ type aws_apigatewayv2_route = {
 (** aws_apigatewayv2_route *)
 
 let aws_apigatewayv2_route ?api_key_required ?authorization_scopes
-    ?authorization_type ?authorizer_id ?model_selection_expression
-    ?operation_name ?request_models
+    ?authorization_type ?authorizer_id ?id
+    ?model_selection_expression ?operation_name ?request_models
     ?route_response_selection_expression ?target ~api_id ~route_key
     ~request_parameter __resource_id =
   let __resource_type = "aws_apigatewayv2_route" in
@@ -46,6 +47,7 @@ let aws_apigatewayv2_route ?api_key_required ?authorization_scopes
       authorization_scopes;
       authorization_type;
       authorizer_id;
+      id;
       model_selection_expression;
       operation_name;
       request_models;

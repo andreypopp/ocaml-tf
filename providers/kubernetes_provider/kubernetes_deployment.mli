@@ -369,6 +369,7 @@ type kubernetes_deployment__timeouts
 type kubernetes_deployment
 
 val kubernetes_deployment :
+  ?id:string ->
   ?wait_for_rollout:bool ->
   ?timeouts:kubernetes_deployment__timeouts ->
   metadata:kubernetes_deployment__metadata list ->

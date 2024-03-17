@@ -8,6 +8,7 @@ type cloudflare_access_identity_provider
 
 val cloudflare_access_identity_provider :
   ?account_id:string ->
+  ?id:string ->
   ?zone_id:string ->
   name:string ->
   type_:string ->

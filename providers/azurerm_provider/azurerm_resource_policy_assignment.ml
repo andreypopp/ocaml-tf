@@ -67,7 +67,9 @@ type azurerm_resource_policy_assignment = {
   description : string option; [@option]  (** description *)
   display_name : string option; [@option]  (** display_name *)
   enforce : bool option; [@option]  (** enforce *)
+  id : string option; [@option]  (** id *)
   location : string option; [@option]  (** location *)
+  metadata : string option; [@option]  (** metadata *)
   name : string;  (** name *)
   not_scopes : string list option; [@option]  (** not_scopes *)
   parameters : string option; [@option]  (** parameters *)
@@ -85,8 +87,8 @@ type azurerm_resource_policy_assignment = {
 (** azurerm_resource_policy_assignment *)
 
 let azurerm_resource_policy_assignment ?description ?display_name
-    ?enforce ?location ?not_scopes ?parameters ?timeouts ~name
-    ~policy_definition_id ~resource_id ~identity
+    ?enforce ?id ?location ?metadata ?not_scopes ?parameters
+    ?timeouts ~name ~policy_definition_id ~resource_id ~identity
     ~non_compliance_message ~overrides ~resource_selectors
     __resource_id =
   let __resource_type = "azurerm_resource_policy_assignment" in
@@ -95,7 +97,9 @@ let azurerm_resource_policy_assignment ?description ?display_name
       description;
       display_name;
       enforce;
+      id;
       location;
+      metadata;
       name;
       not_scopes;
       parameters;

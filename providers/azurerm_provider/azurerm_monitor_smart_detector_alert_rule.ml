@@ -26,6 +26,7 @@ type azurerm_monitor_smart_detector_alert_rule = {
   detector_type : string;  (** detector_type *)
   enabled : bool option; [@option]  (** enabled *)
   frequency : string;  (** frequency *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   scope_resource_ids : string list;  (** scope_resource_ids *)
@@ -42,9 +43,9 @@ type azurerm_monitor_smart_detector_alert_rule = {
 (** azurerm_monitor_smart_detector_alert_rule *)
 
 let azurerm_monitor_smart_detector_alert_rule ?description ?enabled
-    ?tags ?throttling_duration ?timeouts ~detector_type ~frequency
-    ~name ~resource_group_name ~scope_resource_ids ~severity
-    ~action_group __resource_id =
+    ?id ?tags ?throttling_duration ?timeouts ~detector_type
+    ~frequency ~name ~resource_group_name ~scope_resource_ids
+    ~severity ~action_group __resource_id =
   let __resource_type =
     "azurerm_monitor_smart_detector_alert_rule"
   in
@@ -54,6 +55,7 @@ let azurerm_monitor_smart_detector_alert_rule ?description ?enabled
       detector_type;
       enabled;
       frequency;
+      id;
       name;
       resource_group_name;
       scope_resource_ids;

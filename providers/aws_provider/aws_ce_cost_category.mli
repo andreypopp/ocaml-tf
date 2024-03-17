@@ -26,7 +26,10 @@ type aws_ce_cost_category
 
 val aws_ce_cost_category :
   ?default_value:string ->
+  ?effective_start:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   rule_version:string ->
   rule:aws_ce_cost_category__rule list ->

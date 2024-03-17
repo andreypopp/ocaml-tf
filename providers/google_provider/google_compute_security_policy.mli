@@ -32,6 +32,9 @@ type google_compute_security_policy
 
 val google_compute_security_policy :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
+  ?type_:string ->
   ?timeouts:google_compute_security_policy__timeouts ->
   name:string ->
   adaptive_protection_config:

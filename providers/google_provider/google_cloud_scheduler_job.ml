@@ -161,7 +161,13 @@ A duration in seconds with up to nine fractional digits, terminated by 's'. Exam
   description : string option; [@option]
       (** A human-readable description for the job.
 This string must not contain more than 500 characters. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the job. *)
+  paused : bool option; [@option]
+      (** Sets the job to a paused state. Jobs default to being enabled when this property is not set. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** Region where the scheduler job resides. If it is not provided, Terraform will use the provider default. *)
   schedule : string option; [@option]
       (** Describes the schedule on which the job will be executed. *)
   time_zone : string option; [@option]
@@ -177,15 +183,20 @@ The value of this field must be a time zone name from the tz database. *)
 [@@deriving yojson_of]
 (** google_cloud_scheduler_job *)
 
-let google_cloud_scheduler_job ?attempt_deadline ?description
-    ?schedule ?time_zone ?timeouts ~name ~app_engine_http_target
-    ~http_target ~pubsub_target ~retry_config __resource_id =
+let google_cloud_scheduler_job ?attempt_deadline ?description ?id
+    ?paused ?project ?region ?schedule ?time_zone ?timeouts ~name
+    ~app_engine_http_target ~http_target ~pubsub_target ~retry_config
+    __resource_id =
   let __resource_type = "google_cloud_scheduler_job" in
   let __resource =
     {
       attempt_deadline;
       description;
+      id;
       name;
+      paused;
+      project;
+      region;
       schedule;
       time_zone;
       app_engine_http_target;

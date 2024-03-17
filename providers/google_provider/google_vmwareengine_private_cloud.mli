@@ -14,7 +14,6 @@ type google_vmwareengine_private_cloud__hcx = {
   state : string;  (** state *)
   version : string;  (** version *)
 }
-[@@deriving yojson_of]
 
 type google_vmwareengine_private_cloud__nsx = {
   fqdn : string;  (** fqdn *)
@@ -22,7 +21,6 @@ type google_vmwareengine_private_cloud__nsx = {
   state : string;  (** state *)
   version : string;  (** version *)
 }
-[@@deriving yojson_of]
 
 type google_vmwareengine_private_cloud__vcenter = {
   fqdn : string;  (** fqdn *)
@@ -30,12 +28,13 @@ type google_vmwareengine_private_cloud__vcenter = {
   state : string;  (** state *)
   version : string;  (** version *)
 }
-[@@deriving yojson_of]
 
 type google_vmwareengine_private_cloud
 
 val google_vmwareengine_private_cloud :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?type_:string ->
   ?timeouts:google_vmwareengine_private_cloud__timeouts ->
   location:string ->

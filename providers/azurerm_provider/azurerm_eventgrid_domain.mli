@@ -11,13 +11,13 @@ type azurerm_eventgrid_domain__inbound_ip_rule = {
   action : string;  (** action *)
   ip_mask : string;  (** ip_mask *)
 }
-[@@deriving yojson_of]
 
 type azurerm_eventgrid_domain
 
 val azurerm_eventgrid_domain :
   ?auto_create_topic_with_first_subscription:bool ->
   ?auto_delete_topic_with_last_subscription:bool ->
+  ?id:string ->
   ?inbound_ip_rule:azurerm_eventgrid_domain__inbound_ip_rule list ->
   ?input_schema:string ->
   ?local_auth_enabled:bool ->

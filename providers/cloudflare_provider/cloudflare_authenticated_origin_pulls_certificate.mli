@@ -6,6 +6,7 @@ type cloudflare_authenticated_origin_pulls_certificate__timeouts
 type cloudflare_authenticated_origin_pulls_certificate
 
 val cloudflare_authenticated_origin_pulls_certificate :
+  ?id:string ->
   ?timeouts:
     cloudflare_authenticated_origin_pulls_certificate__timeouts ->
   certificate:string ->

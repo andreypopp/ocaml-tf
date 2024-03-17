@@ -12,6 +12,7 @@ type google_tags_tag_binding__timeouts = {
 (** google_tags_tag_binding__timeouts *)
 
 type google_tags_tag_binding = {
+  id : string option; [@option]  (** id *)
   parent : string;
       (** The full resource name of the resource the TagValue is bound to. E.g. //cloudresourcemanager.googleapis.com/projects/123 *)
   tag_value : string;
@@ -21,10 +22,10 @@ type google_tags_tag_binding = {
 [@@deriving yojson_of]
 (** google_tags_tag_binding *)
 
-let google_tags_tag_binding ?timeouts ~parent ~tag_value
+let google_tags_tag_binding ?id ?timeouts ~parent ~tag_value
     __resource_id =
   let __resource_type = "google_tags_tag_binding" in
-  let __resource = { parent; tag_value; timeouts } in
+  let __resource = { id; parent; tag_value; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_tag_binding __resource);
   ()

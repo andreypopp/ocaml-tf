@@ -32,6 +32,8 @@ type google_apigee_organization = {
       (** Compute Engine network used for Service Networking to be peered with Apigee runtime instances.
 See [Getting started with the Service Networking API](https://cloud.google.com/service-infrastructure/docs/service-networking/getting-started).
 Valid only when 'RuntimeType' is set to CLOUD. The value can be updated only when there are no runtime instances. For example: default. *)
+  billing_type : string option; [@option]
+      (** Billing type of the Apigee organization. See [Apigee pricing](https://cloud.google.com/apigee/pricing). *)
   description : string option; [@option]
       (** Description of the Apigee organization. *)
   disable_vpc_peering : bool option; [@option]
@@ -42,6 +44,7 @@ Valid only when 'RuntimeType' is set to CLOUD. The value must be set before the 
 of any Apigee runtime instance and can be updated only when there are no runtime instances. *)
   display_name : string option; [@option]
       (** The display name of the Apigee organization. *)
+  id : string option; [@option]  (** id *)
   project_id : string;
       (** The project ID associated with the Apigee organization. *)
   retention : string option; [@option]
@@ -63,17 +66,19 @@ Valid only when 'RuntimeType' is CLOUD. For example: 'projects/foo/locations/us/
 (** google_apigee_organization *)
 
 let google_apigee_organization ?analytics_region ?authorized_network
-    ?description ?disable_vpc_peering ?display_name ?retention
-    ?runtime_database_encryption_key_name ?runtime_type ?timeouts
-    ~project_id ~properties __resource_id =
+    ?billing_type ?description ?disable_vpc_peering ?display_name ?id
+    ?retention ?runtime_database_encryption_key_name ?runtime_type
+    ?timeouts ~project_id ~properties __resource_id =
   let __resource_type = "google_apigee_organization" in
   let __resource =
     {
       analytics_region;
       authorized_network;
+      billing_type;
       description;
       disable_vpc_peering;
       display_name;
+      id;
       project_id;
       retention;
       runtime_database_encryption_key_name;

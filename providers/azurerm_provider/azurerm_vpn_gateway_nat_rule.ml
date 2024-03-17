@@ -28,6 +28,11 @@ type azurerm_vpn_gateway_nat_rule__timeouts = {
 (** azurerm_vpn_gateway_nat_rule__timeouts *)
 
 type azurerm_vpn_gateway_nat_rule = {
+  external_address_space_mappings : string list option; [@option]
+      (** external_address_space_mappings *)
+  id : string option; [@option]  (** id *)
+  internal_address_space_mappings : string list option; [@option]
+      (** internal_address_space_mappings *)
   ip_configuration_id : string option; [@option]
       (** ip_configuration_id *)
   mode : string option; [@option]  (** mode *)
@@ -44,12 +49,16 @@ type azurerm_vpn_gateway_nat_rule = {
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway_nat_rule *)
 
-let azurerm_vpn_gateway_nat_rule ?ip_configuration_id ?mode ?type_
-    ?timeouts ~name ~resource_group_name ~vpn_gateway_id
+let azurerm_vpn_gateway_nat_rule ?external_address_space_mappings ?id
+    ?internal_address_space_mappings ?ip_configuration_id ?mode
+    ?type_ ?timeouts ~name ~resource_group_name ~vpn_gateway_id
     ~external_mapping ~internal_mapping __resource_id =
   let __resource_type = "azurerm_vpn_gateway_nat_rule" in
   let __resource =
     {
+      external_address_space_mappings;
+      id;
+      internal_address_space_mappings;
       ip_configuration_id;
       mode;
       name;

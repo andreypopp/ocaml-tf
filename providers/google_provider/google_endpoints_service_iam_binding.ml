@@ -13,6 +13,7 @@ type google_endpoints_service_iam_binding__condition = {
 (** google_endpoints_service_iam_binding__condition *)
 
 type google_endpoints_service_iam_binding = {
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   role : string;  (** role *)
   service_name : string;  (** service_name *)
@@ -21,10 +22,10 @@ type google_endpoints_service_iam_binding = {
 [@@deriving yojson_of]
 (** google_endpoints_service_iam_binding *)
 
-let google_endpoints_service_iam_binding ~members ~role ~service_name
-    ~condition __resource_id =
+let google_endpoints_service_iam_binding ?id ~members ~role
+    ~service_name ~condition __resource_id =
   let __resource_type = "google_endpoints_service_iam_binding" in
-  let __resource = { members; role; service_name; condition } in
+  let __resource = { id; members; role; service_name; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_endpoints_service_iam_binding __resource);
   ()

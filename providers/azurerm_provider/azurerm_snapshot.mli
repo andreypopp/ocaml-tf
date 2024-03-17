@@ -9,6 +9,8 @@ type azurerm_snapshot__timeouts
 type azurerm_snapshot
 
 val azurerm_snapshot :
+  ?disk_size_gb:float ->
+  ?id:string ->
   ?incremental_enabled:bool ->
   ?source_resource_id:string ->
   ?source_uri:string ->

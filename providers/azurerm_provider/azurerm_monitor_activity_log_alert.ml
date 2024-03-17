@@ -77,6 +77,7 @@ type azurerm_monitor_activity_log_alert__timeouts = {
 type azurerm_monitor_activity_log_alert = {
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   scopes : string list;  (** scopes *)
@@ -88,14 +89,15 @@ type azurerm_monitor_activity_log_alert = {
 [@@deriving yojson_of]
 (** azurerm_monitor_activity_log_alert *)
 
-let azurerm_monitor_activity_log_alert ?description ?enabled ?tags
-    ?timeouts ~name ~resource_group_name ~scopes ~action ~criteria
-    __resource_id =
+let azurerm_monitor_activity_log_alert ?description ?enabled ?id
+    ?tags ?timeouts ~name ~resource_group_name ~scopes ~action
+    ~criteria __resource_id =
   let __resource_type = "azurerm_monitor_activity_log_alert" in
   let __resource =
     {
       description;
       enabled;
+      id;
       name;
       resource_group_name;
       scopes;

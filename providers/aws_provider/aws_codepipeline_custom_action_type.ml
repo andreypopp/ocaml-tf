@@ -45,8 +45,11 @@ type aws_codepipeline_custom_action_type__settings = {
 
 type aws_codepipeline_custom_action_type = {
   category : string;  (** category *)
+  id : string option; [@option]  (** id *)
   provider_name : string;  (** provider_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   version : string;  (** version *)
   configuration_property :
     aws_codepipeline_custom_action_type__configuration_property list;
@@ -59,7 +62,7 @@ type aws_codepipeline_custom_action_type = {
 [@@deriving yojson_of]
 (** aws_codepipeline_custom_action_type *)
 
-let aws_codepipeline_custom_action_type ?tags ~category
+let aws_codepipeline_custom_action_type ?id ?tags ?tags_all ~category
     ~provider_name ~version ~configuration_property
     ~input_artifact_details ~output_artifact_details ~settings
     __resource_id =
@@ -67,8 +70,10 @@ let aws_codepipeline_custom_action_type ?tags ~category
   let __resource =
     {
       category;
+      id;
       provider_name;
       tags;
+      tags_all;
       version;
       configuration_property;
       input_artifact_details;

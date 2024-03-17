@@ -19,13 +19,19 @@ type aws_dynamodb_table
 val aws_dynamodb_table :
   ?billing_mode:string ->
   ?deletion_protection_enabled:bool ->
+  ?hash_key:string ->
+  ?id:string ->
   ?range_key:string ->
+  ?read_capacity:float ->
   ?restore_date_time:string ->
   ?restore_source_name:string ->
   ?restore_to_latest_time:bool ->
   ?stream_enabled:bool ->
+  ?stream_view_type:string ->
   ?table_class:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?write_capacity:float ->
   ?timeouts:aws_dynamodb_table__timeouts ->
   name:string ->
   attribute:aws_dynamodb_table__attribute list ->

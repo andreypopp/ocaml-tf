@@ -15,6 +15,7 @@ type google_compute_vpn_tunnel__timeouts = {
 type google_compute_vpn_tunnel = {
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   ike_version : float option; [@option]
       (** IKE protocol version to use when establishing the VPN tunnel with
 peer VPN gateway.
@@ -24,6 +25,11 @@ Acceptable IKE versions are 1 or 2. Default version is 2. *)
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  local_traffic_selector : string list option; [@option]
+      (** Local traffic selector to use when establishing the VPN tunnel with
+peer VPN gateway. The value should be a CIDR formatted string,
+for example '192.168.0.0/16'. The ranges should be disjoint.
+Only IPv4 is supported. *)
   name : string;
       (** Name of the resource. The name must be 1-63 characters long, and
 comply with RFC1035. Specifically, the name must be 1-63
@@ -41,6 +47,16 @@ except the last character, which cannot be a dash. *)
 If provided, the VPN tunnel will automatically use the same vpn_gateway_interface
 ID in the peer GCP VPN gateway.
 This field must reference a 'google_compute_ha_vpn_gateway' resource. *)
+  peer_ip : string option; [@option]
+      (** IP address of the peer VPN gateway. Only IPv4 is supported. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The region where the tunnel is located. If unset, is set to the region of 'target_vpn_gateway'. *)
+  remote_traffic_selector : string list option; [@option]
+      (** Remote traffic selector to use when establishing the VPN tunnel with
+peer VPN gateway. The value should be a CIDR formatted string,
+for example '192.168.0.0/16'. The ranges should be disjoint.
+Only IPv4 is supported. *)
   router : string option; [@option]
       (** URL of router resource to be used for dynamic routing. *)
   shared_secret : string;
@@ -60,21 +76,28 @@ This field must reference a 'google_compute_ha_vpn_gateway' resource. *)
 [@@deriving yojson_of]
 (** google_compute_vpn_tunnel *)
 
-let google_compute_vpn_tunnel ?description ?ike_version ?labels
-    ?peer_external_gateway ?peer_external_gateway_interface
-    ?peer_gcp_gateway ?router ?target_vpn_gateway ?vpn_gateway
-    ?vpn_gateway_interface ?timeouts ~name ~shared_secret
-    __resource_id =
+let google_compute_vpn_tunnel ?description ?id ?ike_version ?labels
+    ?local_traffic_selector ?peer_external_gateway
+    ?peer_external_gateway_interface ?peer_gcp_gateway ?peer_ip
+    ?project ?region ?remote_traffic_selector ?router
+    ?target_vpn_gateway ?vpn_gateway ?vpn_gateway_interface ?timeouts
+    ~name ~shared_secret __resource_id =
   let __resource_type = "google_compute_vpn_tunnel" in
   let __resource =
     {
       description;
+      id;
       ike_version;
       labels;
+      local_traffic_selector;
       name;
       peer_external_gateway;
       peer_external_gateway_interface;
       peer_gcp_gateway;
+      peer_ip;
+      project;
+      region;
+      remote_traffic_selector;
       router;
       shared_secret;
       target_vpn_gateway;

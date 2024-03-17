@@ -15,11 +15,13 @@ type google_healthcare_fhir_store__timeouts
 type google_healthcare_fhir_store
 
 val google_healthcare_fhir_store :
+  ?complex_data_type_reference_parsing:string ->
   ?default_search_handling_strict:bool ->
   ?disable_referential_integrity:bool ->
   ?disable_resource_versioning:bool ->
   ?enable_history_import:bool ->
   ?enable_update_create:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?timeouts:google_healthcare_fhir_store__timeouts ->
   dataset:string ->

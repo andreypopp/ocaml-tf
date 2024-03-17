@@ -14,6 +14,7 @@ type azurerm_express_route_port_authorization__timeouts = {
 
 type azurerm_express_route_port_authorization = {
   express_route_port_name : string;  (** express_route_port_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts :
@@ -22,12 +23,18 @@ type azurerm_express_route_port_authorization = {
 [@@deriving yojson_of]
 (** azurerm_express_route_port_authorization *)
 
-let azurerm_express_route_port_authorization ?timeouts
+let azurerm_express_route_port_authorization ?id ?timeouts
     ~express_route_port_name ~name ~resource_group_name __resource_id
     =
   let __resource_type = "azurerm_express_route_port_authorization" in
   let __resource =
-    { express_route_port_name; name; resource_group_name; timeouts }
+    {
+      express_route_port_name;
+      id;
+      name;
+      resource_group_name;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_express_route_port_authorization __resource);

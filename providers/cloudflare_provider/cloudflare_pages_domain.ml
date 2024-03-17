@@ -9,6 +9,7 @@ type cloudflare_pages_domain = {
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   domain : string;
       (** Custom domain. **Modifying this attribute will force creation of a new resource.** *)
+  id : string option; [@option]  (** id *)
   project_name : string;
       (** Name of the Pages Project. **Modifying this attribute will force creation of a new resource.** *)
 }
@@ -16,10 +17,10 @@ type cloudflare_pages_domain = {
 (** Provides a resource for managing Cloudflare Pages domains.
  *)
 
-let cloudflare_pages_domain ~account_id ~domain ~project_name
+let cloudflare_pages_domain ?id ~account_id ~domain ~project_name
     __resource_id =
   let __resource_type = "cloudflare_pages_domain" in
-  let __resource = { account_id; domain; project_name } in
+  let __resource = { account_id; domain; id; project_name } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_pages_domain __resource);
   ()

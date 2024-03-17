@@ -46,6 +46,7 @@ type digitalocean_firewall__pending_changes = {
 
 type digitalocean_firewall = {
   droplet_ids : float list option; [@option]  (** droplet_ids *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : string list option; [@option]  (** tags *)
   inbound_rule : digitalocean_firewall__inbound_rule list;
@@ -54,11 +55,11 @@ type digitalocean_firewall = {
 [@@deriving yojson_of]
 (** digitalocean_firewall *)
 
-let digitalocean_firewall ?droplet_ids ?tags ~name ~inbound_rule
+let digitalocean_firewall ?droplet_ids ?id ?tags ~name ~inbound_rule
     ~outbound_rule __resource_id =
   let __resource_type = "digitalocean_firewall" in
   let __resource =
-    { droplet_ids; name; tags; inbound_rule; outbound_rule }
+    { droplet_ids; id; name; tags; inbound_rule; outbound_rule }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_firewall __resource);

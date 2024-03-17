@@ -9,6 +9,7 @@ type cloudflare_address_map
 val cloudflare_address_map :
   ?default_sni:string ->
   ?description:string ->
+  ?id:string ->
   account_id:string ->
   enabled:bool ->
   ips:cloudflare_address_map__ips list ->

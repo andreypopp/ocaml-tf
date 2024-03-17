@@ -14,16 +14,20 @@ val aws_storagegateway_smb_file_share :
   ?bucket_region:string ->
   ?case_sensitivity:string ->
   ?default_storage_class:string ->
+  ?file_share_name:string ->
   ?guess_mime_type_enabled:bool ->
+  ?id:string ->
   ?invalid_user_list:string list ->
   ?kms_encrypted:bool ->
   ?kms_key_arn:string ->
   ?notification_policy:string ->
   ?object_acl:string ->
+  ?oplocks_enabled:bool ->
   ?read_only:bool ->
   ?requester_pays:bool ->
   ?smb_acl_enabled:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?valid_user_list:string list ->
   ?vpc_endpoint_dns_name:string ->
   ?timeouts:aws_storagegateway_smb_file_share__timeouts ->

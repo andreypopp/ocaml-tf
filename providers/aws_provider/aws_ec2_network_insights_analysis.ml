@@ -920,22 +920,28 @@ type aws_ec2_network_insights_analysis__return_path_components = {
 type aws_ec2_network_insights_analysis = {
   filter_in_arns : string list option; [@option]
       (** filter_in_arns *)
+  id : string option; [@option]  (** id *)
   network_insights_path_id : string;  (** network_insights_path_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   wait_for_completion : bool option; [@option]
       (** wait_for_completion *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_network_insights_analysis *)
 
-let aws_ec2_network_insights_analysis ?filter_in_arns ?tags
-    ?wait_for_completion ~network_insights_path_id __resource_id =
+let aws_ec2_network_insights_analysis ?filter_in_arns ?id ?tags
+    ?tags_all ?wait_for_completion ~network_insights_path_id
+    __resource_id =
   let __resource_type = "aws_ec2_network_insights_analysis" in
   let __resource =
     {
       filter_in_arns;
+      id;
       network_insights_path_id;
       tags;
+      tags_all;
       wait_for_completion;
     }
   in

@@ -7,7 +7,10 @@ type aws_codecommit_repository
 val aws_codecommit_repository :
   ?default_branch:string ->
   ?description:string ->
+  ?id:string ->
+  ?kms_key_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   repository_name:string ->
   string ->
   unit

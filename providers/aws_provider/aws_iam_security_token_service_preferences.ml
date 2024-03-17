@@ -7,16 +7,17 @@ open! Tf.Prelude
 type aws_iam_security_token_service_preferences = {
   global_endpoint_token_version : string;
       (** global_endpoint_token_version *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_iam_security_token_service_preferences *)
 
-let aws_iam_security_token_service_preferences
+let aws_iam_security_token_service_preferences ?id
     ~global_endpoint_token_version __resource_id =
   let __resource_type =
     "aws_iam_security_token_service_preferences"
   in
-  let __resource = { global_endpoint_token_version } in
+  let __resource = { global_endpoint_token_version; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iam_security_token_service_preferences __resource);
   ()

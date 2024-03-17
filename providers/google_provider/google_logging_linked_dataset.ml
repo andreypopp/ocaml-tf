@@ -28,7 +28,12 @@ type google_logging_linked_dataset = {
       (** The bucket to which the linked dataset is attached. *)
   description : string option; [@option]
       (** Describes this link. The maximum length of the description is 8000 characters. *)
+  id : string option; [@option]  (** id *)
   link_id : string;  (** The id of the linked dataset. *)
+  location : string option; [@option]
+      (** The location of the linked dataset. *)
+  parent : string option; [@option]
+      (** The parent of the linked dataset. *)
   bigquery_dataset :
     google_logging_linked_dataset__bigquery_dataset list;
   timeouts : google_logging_linked_dataset__timeouts option;
@@ -36,11 +41,20 @@ type google_logging_linked_dataset = {
 [@@deriving yojson_of]
 (** google_logging_linked_dataset *)
 
-let google_logging_linked_dataset ?description ?timeouts ~bucket
-    ~link_id ~bigquery_dataset __resource_id =
+let google_logging_linked_dataset ?description ?id ?location ?parent
+    ?timeouts ~bucket ~link_id ~bigquery_dataset __resource_id =
   let __resource_type = "google_logging_linked_dataset" in
   let __resource =
-    { bucket; description; link_id; bigquery_dataset; timeouts }
+    {
+      bucket;
+      description;
+      id;
+      link_id;
+      location;
+      parent;
+      bigquery_dataset;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_linked_dataset __resource);

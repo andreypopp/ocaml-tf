@@ -61,8 +61,10 @@ type aws_networkfirewall_rule_group
 
 val aws_networkfirewall_rule_group :
   ?description:string ->
+  ?id:string ->
   ?rules:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   capacity:float ->
   name:string ->
   type_:string ->

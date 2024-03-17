@@ -14,6 +14,7 @@ type azurerm_storage_encryption_scope__timeouts = {
 (** azurerm_storage_encryption_scope__timeouts *)
 
 type azurerm_storage_encryption_scope = {
+  id : string option; [@option]  (** id *)
   infrastructure_encryption_required : bool option; [@option]
       (** infrastructure_encryption_required *)
   key_vault_key_id : string option; [@option]
@@ -26,12 +27,13 @@ type azurerm_storage_encryption_scope = {
 [@@deriving yojson_of]
 (** azurerm_storage_encryption_scope *)
 
-let azurerm_storage_encryption_scope
+let azurerm_storage_encryption_scope ?id
     ?infrastructure_encryption_required ?key_vault_key_id ?timeouts
     ~name ~source ~storage_account_id __resource_id =
   let __resource_type = "azurerm_storage_encryption_scope" in
   let __resource =
     {
+      id;
       infrastructure_encryption_required;
       key_vault_key_id;
       name;

@@ -33,6 +33,7 @@ type azurerm_shared_image_gallery__timeouts = {
 
 type azurerm_shared_image_gallery = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -43,12 +44,13 @@ type azurerm_shared_image_gallery = {
 [@@deriving yojson_of]
 (** azurerm_shared_image_gallery *)
 
-let azurerm_shared_image_gallery ?description ?tags ?timeouts
+let azurerm_shared_image_gallery ?description ?id ?tags ?timeouts
     ~location ~name ~resource_group_name ~sharing __resource_id =
   let __resource_type = "azurerm_shared_image_gallery" in
   let __resource =
     {
       description;
+      id;
       location;
       name;
       resource_group_name;

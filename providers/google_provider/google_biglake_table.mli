@@ -9,6 +9,7 @@ type google_biglake_table
 
 val google_biglake_table :
   ?database:string ->
+  ?id:string ->
   ?type_:string ->
   ?timeouts:google_biglake_table__timeouts ->
   name:string ->

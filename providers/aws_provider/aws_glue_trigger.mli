@@ -13,9 +13,11 @@ type aws_glue_trigger
 val aws_glue_trigger :
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?schedule:string ->
   ?start_on_creation:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?workflow_name:string ->
   ?timeouts:aws_glue_trigger__timeouts ->
   name:string ->

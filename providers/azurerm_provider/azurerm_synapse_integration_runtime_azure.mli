@@ -9,6 +9,7 @@ val azurerm_synapse_integration_runtime_azure :
   ?compute_type:string ->
   ?core_count:float ->
   ?description:string ->
+  ?id:string ->
   ?time_to_live_min:float ->
   ?timeouts:azurerm_synapse_integration_runtime_azure__timeouts ->
   location:string ->

@@ -3,15 +3,14 @@
 open! Tf.Prelude
 
 type google_gke_hub_namespace__timeouts
-
 type google_gke_hub_namespace__state = { code : string  (** code *) }
-[@@deriving yojson_of]
-
 type google_gke_hub_namespace
 
 val google_gke_hub_namespace :
+  ?id:string ->
   ?labels:(string * string) list ->
   ?namespace_labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_gke_hub_namespace__timeouts ->
   scope:string ->
   scope_id:string ->

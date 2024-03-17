@@ -6,14 +6,15 @@ open! Tf.Prelude
 
 type aws_elb_attachment = {
   elb : string;  (** elb *)
+  id : string option; [@option]  (** id *)
   instance : string;  (** instance *)
 }
 [@@deriving yojson_of]
 (** aws_elb_attachment *)
 
-let aws_elb_attachment ~elb ~instance __resource_id =
+let aws_elb_attachment ?id ~elb ~instance __resource_id =
   let __resource_type = "aws_elb_attachment" in
-  let __resource = { elb; instance } in
+  let __resource = { elb; id; instance } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elb_attachment __resource);
   ()

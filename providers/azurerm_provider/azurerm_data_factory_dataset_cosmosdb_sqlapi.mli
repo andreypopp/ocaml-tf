@@ -12,6 +12,7 @@ val azurerm_data_factory_dataset_cosmosdb_sqlapi :
   ?collection_name:string ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?timeouts:azurerm_data_factory_dataset_cosmosdb_sqlapi__timeouts ->
   data_factory_id:string ->

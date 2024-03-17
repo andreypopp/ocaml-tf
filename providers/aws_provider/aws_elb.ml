@@ -42,6 +42,8 @@ type aws_elb__timeouts = {
 (** aws_elb__timeouts *)
 
 type aws_elb = {
+  availability_zones : string list option; [@option]
+      (** availability_zones *)
   connection_draining : bool option; [@option]
       (** connection_draining *)
   connection_draining_timeout : float option; [@option]
@@ -50,8 +52,20 @@ type aws_elb = {
       (** cross_zone_load_balancing *)
   desync_mitigation_mode : string option; [@option]
       (** desync_mitigation_mode *)
+  id : string option; [@option]  (** id *)
   idle_timeout : float option; [@option]  (** idle_timeout *)
+  instances : string list option; [@option]  (** instances *)
+  internal : bool option; [@option]  (** internal *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
+  security_groups : string list option; [@option]
+      (** security_groups *)
+  source_security_group : string option; [@option]
+      (** source_security_group *)
+  subnets : string list option; [@option]  (** subnets *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   access_logs : aws_elb__access_logs list;
   health_check : aws_elb__health_check list;
   listener : aws_elb__listener list;
@@ -60,19 +74,31 @@ type aws_elb = {
 [@@deriving yojson_of]
 (** aws_elb *)
 
-let aws_elb ?connection_draining ?connection_draining_timeout
-    ?cross_zone_load_balancing ?desync_mitigation_mode ?idle_timeout
-    ?tags ?timeouts ~access_logs ~health_check ~listener
-    __resource_id =
+let aws_elb ?availability_zones ?connection_draining
+    ?connection_draining_timeout ?cross_zone_load_balancing
+    ?desync_mitigation_mode ?id ?idle_timeout ?instances ?internal
+    ?name ?name_prefix ?security_groups ?source_security_group
+    ?subnets ?tags ?tags_all ?timeouts ~access_logs ~health_check
+    ~listener __resource_id =
   let __resource_type = "aws_elb" in
   let __resource =
     {
+      availability_zones;
       connection_draining;
       connection_draining_timeout;
       cross_zone_load_balancing;
       desync_mitigation_mode;
+      id;
       idle_timeout;
+      instances;
+      internal;
+      name;
+      name_prefix;
+      security_groups;
+      source_security_group;
+      subnets;
       tags;
+      tags_all;
       access_logs;
       health_check;
       listener;

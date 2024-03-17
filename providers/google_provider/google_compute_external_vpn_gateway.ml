@@ -31,6 +31,7 @@ type google_compute_external_vpn_gateway__timeouts = {
 type google_compute_external_vpn_gateway = {
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels for the external VPN gateway resource.
 
@@ -44,6 +45,7 @@ match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means
 the first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   redundancy_type : string option; [@option]
       (** Indicates the redundancy type of this external VPN gateway Possible values: [FOUR_IPS_REDUNDANCY, SINGLE_IP_INTERNALLY_REDUNDANT, TWO_IPS_REDUNDANCY] *)
   interface : google_compute_external_vpn_gateway__interface list;
@@ -52,14 +54,17 @@ character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_external_vpn_gateway *)
 
-let google_compute_external_vpn_gateway ?description ?labels
-    ?redundancy_type ?timeouts ~name ~interface __resource_id =
+let google_compute_external_vpn_gateway ?description ?id ?labels
+    ?project ?redundancy_type ?timeouts ~name ~interface
+    __resource_id =
   let __resource_type = "google_compute_external_vpn_gateway" in
   let __resource =
     {
       description;
+      id;
       labels;
       name;
+      project;
       redundancy_type;
       interface;
       timeouts;

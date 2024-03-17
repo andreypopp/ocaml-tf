@@ -20,6 +20,7 @@ type azurerm_virtual_network_peering = {
       (** allow_gateway_transit *)
   allow_virtual_network_access : bool option; [@option]
       (** allow_virtual_network_access *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   remote_virtual_network_id : string;
       (** remote_virtual_network_id *)
@@ -35,15 +36,17 @@ type azurerm_virtual_network_peering = {
 (** azurerm_virtual_network_peering *)
 
 let azurerm_virtual_network_peering ?allow_forwarded_traffic
-    ?allow_gateway_transit ?allow_virtual_network_access ?triggers
-    ?use_remote_gateways ?timeouts ~name ~remote_virtual_network_id
-    ~resource_group_name ~virtual_network_name __resource_id =
+    ?allow_gateway_transit ?allow_virtual_network_access ?id
+    ?triggers ?use_remote_gateways ?timeouts ~name
+    ~remote_virtual_network_id ~resource_group_name
+    ~virtual_network_name __resource_id =
   let __resource_type = "azurerm_virtual_network_peering" in
   let __resource =
     {
       allow_forwarded_traffic;
       allow_gateway_transit;
       allow_virtual_network_access;
+      id;
       name;
       remote_virtual_network_id;
       resource_group_name;

@@ -26,6 +26,7 @@ type azurerm_synapse_linked_service = {
       (** additional_properties *)
   annotations : string list option; [@option]  (** annotations *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
       (** parameters *)
@@ -40,7 +41,7 @@ type azurerm_synapse_linked_service = {
 (** azurerm_synapse_linked_service *)
 
 let azurerm_synapse_linked_service ?additional_properties
-    ?annotations ?description ?parameters ?timeouts ~name
+    ?annotations ?description ?id ?parameters ?timeouts ~name
     ~synapse_workspace_id ~type_ ~type_properties_json
     ~integration_runtime __resource_id =
   let __resource_type = "azurerm_synapse_linked_service" in
@@ -49,6 +50,7 @@ let azurerm_synapse_linked_service ?additional_properties
       additional_properties;
       annotations;
       description;
+      id;
       name;
       parameters;
       synapse_workspace_id;

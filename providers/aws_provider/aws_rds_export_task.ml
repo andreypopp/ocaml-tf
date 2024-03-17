@@ -19,13 +19,14 @@ type aws_rds_export_task = {
   iam_role_arn : string;  (** iam_role_arn *)
   kms_key_id : string;  (** kms_key_id *)
   s3_bucket_name : string;  (** s3_bucket_name *)
+  s3_prefix : string option; [@option]  (** s3_prefix *)
   source_arn : string;  (** source_arn *)
   timeouts : aws_rds_export_task__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_rds_export_task *)
 
-let aws_rds_export_task ?export_only ?timeouts
+let aws_rds_export_task ?export_only ?s3_prefix ?timeouts
     ~export_task_identifier ~iam_role_arn ~kms_key_id ~s3_bucket_name
     ~source_arn __resource_id =
   let __resource_type = "aws_rds_export_task" in
@@ -36,6 +37,7 @@ let aws_rds_export_task ?export_only ?timeouts
       iam_role_arn;
       kms_key_id;
       s3_bucket_name;
+      s3_prefix;
       source_arn;
       timeouts;
     }

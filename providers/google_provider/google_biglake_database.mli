@@ -7,6 +7,7 @@ type google_biglake_database__timeouts
 type google_biglake_database
 
 val google_biglake_database :
+  ?id:string ->
   ?timeouts:google_biglake_database__timeouts ->
   catalog:string ->
   name:string ->

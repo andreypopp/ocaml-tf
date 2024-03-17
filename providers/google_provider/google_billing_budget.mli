@@ -15,6 +15,7 @@ type google_billing_budget
 
 val google_billing_budget :
   ?display_name:string ->
+  ?id:string ->
   ?timeouts:google_billing_budget__timeouts ->
   billing_account:string ->
   all_updates_rule:google_billing_budget__all_updates_rule list ->

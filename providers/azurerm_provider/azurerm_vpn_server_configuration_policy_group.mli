@@ -7,6 +7,7 @@ type azurerm_vpn_server_configuration_policy_group__timeouts
 type azurerm_vpn_server_configuration_policy_group
 
 val azurerm_vpn_server_configuration_policy_group :
+  ?id:string ->
   ?is_default:bool ->
   ?priority:float ->
   ?timeouts:azurerm_vpn_server_configuration_policy_group__timeouts ->

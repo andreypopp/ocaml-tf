@@ -42,15 +42,18 @@ type google_kms_crypto_key_version = {
   crypto_key : string;
       (** The name of the cryptoKey associated with the CryptoKeyVersions.
 Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyring}}/cryptoKeys/{{cryptoKey}}'' *)
+  id : string option; [@option]  (** id *)
+  state : string option; [@option]
+      (** The current state of the CryptoKeyVersion. Possible values: [PENDING_GENERATION, ENABLED, DISABLED, DESTROYED, DESTROY_SCHEDULED, PENDING_IMPORT, IMPORT_FAILED] *)
   timeouts : google_kms_crypto_key_version__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_kms_crypto_key_version *)
 
-let google_kms_crypto_key_version ?timeouts ~crypto_key __resource_id
-    =
+let google_kms_crypto_key_version ?id ?state ?timeouts ~crypto_key
+    __resource_id =
   let __resource_type = "google_kms_crypto_key_version" in
-  let __resource = { crypto_key; timeouts } in
+  let __resource = { crypto_key; id; state; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_kms_crypto_key_version __resource);
   ()

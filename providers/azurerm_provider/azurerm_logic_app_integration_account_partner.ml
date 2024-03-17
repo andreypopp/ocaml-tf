@@ -21,6 +21,7 @@ type azurerm_logic_app_integration_account_partner__timeouts = {
 (** azurerm_logic_app_integration_account_partner__timeouts *)
 
 type azurerm_logic_app_integration_account_partner = {
+  id : string option; [@option]  (** id *)
   integration_account_name : string;  (** integration_account_name *)
   metadata : string option; [@option]  (** metadata *)
   name : string;  (** name *)
@@ -34,14 +35,15 @@ type azurerm_logic_app_integration_account_partner = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_partner *)
 
-let azurerm_logic_app_integration_account_partner ?metadata ?timeouts
-    ~integration_account_name ~name ~resource_group_name
+let azurerm_logic_app_integration_account_partner ?id ?metadata
+    ?timeouts ~integration_account_name ~name ~resource_group_name
     ~business_identity __resource_id =
   let __resource_type =
     "azurerm_logic_app_integration_account_partner"
   in
   let __resource =
     {
+      id;
       integration_account_name;
       metadata;
       name;

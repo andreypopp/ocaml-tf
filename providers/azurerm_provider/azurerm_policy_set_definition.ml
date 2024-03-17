@@ -38,8 +38,10 @@ type azurerm_policy_set_definition__timeouts = {
 type azurerm_policy_set_definition = {
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   management_group_id : string option; [@option]
       (** management_group_id *)
+  metadata : string option; [@option]  (** metadata *)
   name : string;  (** name *)
   parameters : string option; [@option]  (** parameters *)
   policy_type : string;  (** policy_type *)
@@ -52,16 +54,18 @@ type azurerm_policy_set_definition = {
 [@@deriving yojson_of]
 (** azurerm_policy_set_definition *)
 
-let azurerm_policy_set_definition ?description ?management_group_id
-    ?parameters ?timeouts ~display_name ~name ~policy_type
-    ~policy_definition_group ~policy_definition_reference
-    __resource_id =
+let azurerm_policy_set_definition ?description ?id
+    ?management_group_id ?metadata ?parameters ?timeouts
+    ~display_name ~name ~policy_type ~policy_definition_group
+    ~policy_definition_reference __resource_id =
   let __resource_type = "azurerm_policy_set_definition" in
   let __resource =
     {
       description;
       display_name;
+      id;
       management_group_id;
+      metadata;
       name;
       parameters;
       policy_type;

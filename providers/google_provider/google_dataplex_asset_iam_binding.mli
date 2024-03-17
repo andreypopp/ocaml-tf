@@ -6,6 +6,9 @@ type google_dataplex_asset_iam_binding__condition
 type google_dataplex_asset_iam_binding
 
 val google_dataplex_asset_iam_binding :
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
   asset:string ->
   dataplex_zone:string ->
   lake:string ->

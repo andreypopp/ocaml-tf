@@ -14,13 +14,20 @@ type azurerm_mariadb_server__timeouts = {
 (** azurerm_mariadb_server__timeouts *)
 
 type azurerm_mariadb_server = {
+  administrator_login : string option; [@option]
+      (** administrator_login *)
   administrator_login_password : string option; [@option]
       (** administrator_login_password *)
   auto_grow_enabled : bool option; [@option]
       (** auto_grow_enabled *)
+  backup_retention_days : float option; [@option]
+      (** backup_retention_days *)
   create_mode : string option; [@option]  (** create_mode *)
   creation_source_server_id : string option; [@option]
       (** creation_source_server_id *)
+  geo_redundant_backup_enabled : bool option; [@option]
+      (** geo_redundant_backup_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -32,6 +39,7 @@ type azurerm_mariadb_server = {
   ssl_enforcement_enabled : bool;  (** ssl_enforcement_enabled *)
   ssl_minimal_tls_version_enforced : string option; [@option]
       (** ssl_minimal_tls_version_enforced *)
+  storage_mb : float option; [@option]  (** storage_mb *)
   tags : (string * string) list option; [@option]  (** tags *)
   version : string;  (** version *)
   timeouts : azurerm_mariadb_server__timeouts option;
@@ -39,19 +47,24 @@ type azurerm_mariadb_server = {
 [@@deriving yojson_of]
 (** azurerm_mariadb_server *)
 
-let azurerm_mariadb_server ?administrator_login_password
-    ?auto_grow_enabled ?create_mode ?creation_source_server_id
-    ?public_network_access_enabled ?restore_point_in_time
-    ?ssl_minimal_tls_version_enforced ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~ssl_enforcement_enabled ~version
-    __resource_id =
+let azurerm_mariadb_server ?administrator_login
+    ?administrator_login_password ?auto_grow_enabled
+    ?backup_retention_days ?create_mode ?creation_source_server_id
+    ?geo_redundant_backup_enabled ?id ?public_network_access_enabled
+    ?restore_point_in_time ?ssl_minimal_tls_version_enforced
+    ?storage_mb ?tags ?timeouts ~location ~name ~resource_group_name
+    ~sku_name ~ssl_enforcement_enabled ~version __resource_id =
   let __resource_type = "azurerm_mariadb_server" in
   let __resource =
     {
+      administrator_login;
       administrator_login_password;
       auto_grow_enabled;
+      backup_retention_days;
       create_mode;
       creation_source_server_id;
+      geo_redundant_backup_enabled;
+      id;
       location;
       name;
       public_network_access_enabled;
@@ -60,6 +73,7 @@ let azurerm_mariadb_server ?administrator_login_password
       sku_name;
       ssl_enforcement_enabled;
       ssl_minimal_tls_version_enforced;
+      storage_mb;
       tags;
       version;
       timeouts;

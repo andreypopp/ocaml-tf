@@ -9,10 +9,12 @@ type aws_networkmanager_device
 
 val aws_networkmanager_device :
   ?description:string ->
+  ?id:string ->
   ?model:string ->
   ?serial_number:string ->
   ?site_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?type_:string ->
   ?vendor:string ->
   ?timeouts:aws_networkmanager_device__timeouts ->

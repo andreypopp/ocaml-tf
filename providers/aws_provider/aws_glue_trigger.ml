@@ -61,11 +61,14 @@ type aws_glue_trigger__timeouts = {
 type aws_glue_trigger = {
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   schedule : string option; [@option]  (** schedule *)
   start_on_creation : bool option; [@option]
       (** start_on_creation *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   workflow_name : string option; [@option]  (** workflow_name *)
   actions : aws_glue_trigger__actions list;
@@ -77,18 +80,21 @@ type aws_glue_trigger = {
 [@@deriving yojson_of]
 (** aws_glue_trigger *)
 
-let aws_glue_trigger ?description ?enabled ?schedule
-    ?start_on_creation ?tags ?workflow_name ?timeouts ~name ~type_
-    ~actions ~event_batching_condition ~predicate __resource_id =
+let aws_glue_trigger ?description ?enabled ?id ?schedule
+    ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts ~name
+    ~type_ ~actions ~event_batching_condition ~predicate
+    __resource_id =
   let __resource_type = "aws_glue_trigger" in
   let __resource =
     {
       description;
       enabled;
+      id;
       name;
       schedule;
       start_on_creation;
       tags;
+      tags_all;
       type_;
       workflow_name;
       actions;

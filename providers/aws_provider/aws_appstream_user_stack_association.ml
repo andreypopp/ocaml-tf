@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_appstream_user_stack_association = {
   authentication_type : string;  (** authentication_type *)
+  id : string option; [@option]  (** id *)
   send_email_notification : bool option; [@option]
       (** send_email_notification *)
   stack_name : string;  (** stack_name *)
@@ -14,12 +15,13 @@ type aws_appstream_user_stack_association = {
 [@@deriving yojson_of]
 (** aws_appstream_user_stack_association *)
 
-let aws_appstream_user_stack_association ?send_email_notification
+let aws_appstream_user_stack_association ?id ?send_email_notification
     ~authentication_type ~stack_name ~user_name __resource_id =
   let __resource_type = "aws_appstream_user_stack_association" in
   let __resource =
     {
       authentication_type;
+      id;
       send_email_notification;
       stack_name;
       user_name;

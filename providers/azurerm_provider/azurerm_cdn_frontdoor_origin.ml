@@ -27,9 +27,13 @@ type azurerm_cdn_frontdoor_origin = {
       (** cdn_frontdoor_origin_group_id *)
   certificate_name_check_enabled : bool;
       (** certificate_name_check_enabled *)
+  enabled : bool option; [@option]  (** enabled *)
+  health_probes_enabled : bool option; [@option]
+      (** health_probes_enabled *)
   host_name : string;  (** host_name *)
   http_port : float option; [@option]  (** http_port *)
   https_port : float option; [@option]  (** https_port *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   origin_host_header : string option; [@option]
       (** origin_host_header *)
@@ -41,18 +45,22 @@ type azurerm_cdn_frontdoor_origin = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_origin *)
 
-let azurerm_cdn_frontdoor_origin ?http_port ?https_port
-    ?origin_host_header ?priority ?weight ?timeouts
-    ~cdn_frontdoor_origin_group_id ~certificate_name_check_enabled
-    ~host_name ~name ~private_link __resource_id =
+let azurerm_cdn_frontdoor_origin ?enabled ?health_probes_enabled
+    ?http_port ?https_port ?id ?origin_host_header ?priority ?weight
+    ?timeouts ~cdn_frontdoor_origin_group_id
+    ~certificate_name_check_enabled ~host_name ~name ~private_link
+    __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_origin" in
   let __resource =
     {
       cdn_frontdoor_origin_group_id;
       certificate_name_check_enabled;
+      enabled;
+      health_probes_enabled;
       host_name;
       http_port;
       https_port;
+      id;
       name;
       origin_host_header;
       priority;

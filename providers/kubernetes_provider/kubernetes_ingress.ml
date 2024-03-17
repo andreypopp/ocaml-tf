@@ -110,6 +110,7 @@ type kubernetes_ingress__status = {
 [@@deriving yojson_of]
 
 type kubernetes_ingress = {
+  id : string option; [@option]  (** id *)
   wait_for_load_balancer : bool option; [@option]
       (** Terraform will wait for the load balancer to have at least 1 endpoint before considering the resource created. *)
   metadata : kubernetes_ingress__metadata list;
@@ -118,10 +119,10 @@ type kubernetes_ingress = {
 [@@deriving yojson_of]
 (** kubernetes_ingress *)
 
-let kubernetes_ingress ?wait_for_load_balancer ~metadata ~spec
+let kubernetes_ingress ?id ?wait_for_load_balancer ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_ingress" in
-  let __resource = { wait_for_load_balancer; metadata; spec } in
+  let __resource = { id; wait_for_load_balancer; metadata; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_ingress __resource);
   ()

@@ -14,6 +14,7 @@ type azurerm_synapse_sql_pool_workload_group__timeouts = {
 (** azurerm_synapse_sql_pool_workload_group__timeouts *)
 
 type azurerm_synapse_sql_pool_workload_group = {
+  id : string option; [@option]  (** id *)
   importance : string option; [@option]  (** importance *)
   max_resource_percent : float;  (** max_resource_percent *)
   max_resource_percent_per_request : float option; [@option]
@@ -30,7 +31,7 @@ type azurerm_synapse_sql_pool_workload_group = {
 [@@deriving yojson_of]
 (** azurerm_synapse_sql_pool_workload_group *)
 
-let azurerm_synapse_sql_pool_workload_group ?importance
+let azurerm_synapse_sql_pool_workload_group ?id ?importance
     ?max_resource_percent_per_request
     ?min_resource_percent_per_request
     ?query_execution_timeout_in_seconds ?timeouts
@@ -39,6 +40,7 @@ let azurerm_synapse_sql_pool_workload_group ?importance
   let __resource_type = "azurerm_synapse_sql_pool_workload_group" in
   let __resource =
     {
+      id;
       importance;
       max_resource_percent;
       max_resource_percent_per_request;

@@ -22,6 +22,7 @@ type google_network_security_gateway_security_policy_rule = {
   enabled : bool;  (** Whether the rule is enforced. *)
   gateway_security_policy : string;
       (** The name of the gatewat security policy this rule belongs to. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The location of the gateway security policy. *)
   name : string;
@@ -29,6 +30,7 @@ type google_network_security_gateway_security_policy_rule = {
 rule should match the pattern: (^a-z?$). *)
   priority : float;
       (** Priority of the rule. Lower number corresponds to higher precedence. *)
+  project : string option; [@option]  (** project *)
   session_matcher : string;
       (** CEL expression for matching on session criteria. *)
   tls_inspection_enabled : bool option; [@option]
@@ -42,9 +44,10 @@ parent GatewaySecurityPolicy references a TLSInspectionConfig. *)
 (** google_network_security_gateway_security_policy_rule *)
 
 let google_network_security_gateway_security_policy_rule
-    ?application_matcher ?description ?tls_inspection_enabled
-    ?timeouts ~basic_profile ~enabled ~gateway_security_policy
-    ~location ~name ~priority ~session_matcher __resource_id =
+    ?application_matcher ?description ?id ?project
+    ?tls_inspection_enabled ?timeouts ~basic_profile ~enabled
+    ~gateway_security_policy ~location ~name ~priority
+    ~session_matcher __resource_id =
   let __resource_type =
     "google_network_security_gateway_security_policy_rule"
   in
@@ -55,9 +58,11 @@ let google_network_security_gateway_security_policy_rule
       description;
       enabled;
       gateway_security_policy;
+      id;
       location;
       name;
       priority;
+      project;
       session_matcher;
       tls_inspection_enabled;
       timeouts;

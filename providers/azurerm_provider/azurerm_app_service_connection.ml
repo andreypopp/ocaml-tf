@@ -34,6 +34,7 @@ type azurerm_app_service_connection__timeouts = {
 type azurerm_app_service_connection = {
   app_service_id : string;  (** app_service_id *)
   client_type : string option; [@option]  (** client_type *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   target_resource_id : string;  (** target_resource_id *)
   vnet_solution : string option; [@option]  (** vnet_solution *)
@@ -45,7 +46,7 @@ type azurerm_app_service_connection = {
 [@@deriving yojson_of]
 (** azurerm_app_service_connection *)
 
-let azurerm_app_service_connection ?client_type ?vnet_solution
+let azurerm_app_service_connection ?client_type ?id ?vnet_solution
     ?timeouts ~app_service_id ~name ~target_resource_id
     ~authentication ~secret_store __resource_id =
   let __resource_type = "azurerm_app_service_connection" in
@@ -53,6 +54,7 @@ let azurerm_app_service_connection ?client_type ?vnet_solution
     {
       app_service_id;
       client_type;
+      id;
       name;
       target_resource_id;
       vnet_solution;

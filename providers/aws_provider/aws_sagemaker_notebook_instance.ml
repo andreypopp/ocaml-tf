@@ -20,15 +20,22 @@ type aws_sagemaker_notebook_instance = {
       (** default_code_repository *)
   direct_internet_access : string option; [@option]
       (** direct_internet_access *)
+  id : string option; [@option]  (** id *)
   instance_type : string;  (** instance_type *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
   lifecycle_config_name : string option; [@option]
       (** lifecycle_config_name *)
   name : string;  (** name *)
+  platform_identifier : string option; [@option]
+      (** platform_identifier *)
   role_arn : string;  (** role_arn *)
   root_access : string option; [@option]  (** root_access *)
+  security_groups : string list option; [@option]
+      (** security_groups *)
   subnet_id : string option; [@option]  (** subnet_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   volume_size : float option; [@option]  (** volume_size *)
   instance_metadata_service_configuration :
     aws_sagemaker_notebook_instance__instance_metadata_service_configuration
@@ -39,10 +46,10 @@ type aws_sagemaker_notebook_instance = {
 
 let aws_sagemaker_notebook_instance ?accelerator_types
     ?additional_code_repositories ?default_code_repository
-    ?direct_internet_access ?kms_key_id ?lifecycle_config_name
-    ?root_access ?subnet_id ?tags ?volume_size ~instance_type ~name
-    ~role_arn ~instance_metadata_service_configuration __resource_id
-    =
+    ?direct_internet_access ?id ?kms_key_id ?lifecycle_config_name
+    ?platform_identifier ?root_access ?security_groups ?subnet_id
+    ?tags ?tags_all ?volume_size ~instance_type ~name ~role_arn
+    ~instance_metadata_service_configuration __resource_id =
   let __resource_type = "aws_sagemaker_notebook_instance" in
   let __resource =
     {
@@ -50,14 +57,18 @@ let aws_sagemaker_notebook_instance ?accelerator_types
       additional_code_repositories;
       default_code_repository;
       direct_internet_access;
+      id;
       instance_type;
       kms_key_id;
       lifecycle_config_name;
       name;
+      platform_identifier;
       role_arn;
       root_access;
+      security_groups;
       subnet_id;
       tags;
+      tags_all;
       volume_size;
       instance_metadata_service_configuration;
     }

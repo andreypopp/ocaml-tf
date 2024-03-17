@@ -18,7 +18,9 @@ type azurerm_management_group_policy_exemption = {
   display_name : string option; [@option]  (** display_name *)
   exemption_category : string;  (** exemption_category *)
   expires_on : string option; [@option]  (** expires_on *)
+  id : string option; [@option]  (** id *)
   management_group_id : string;  (** management_group_id *)
+  metadata : string option; [@option]  (** metadata *)
   name : string;  (** name *)
   policy_assignment_id : string;  (** policy_assignment_id *)
   policy_definition_reference_ids : string list option; [@option]
@@ -30,9 +32,9 @@ type azurerm_management_group_policy_exemption = {
 (** azurerm_management_group_policy_exemption *)
 
 let azurerm_management_group_policy_exemption ?description
-    ?display_name ?expires_on ?policy_definition_reference_ids
-    ?timeouts ~exemption_category ~management_group_id ~name
-    ~policy_assignment_id __resource_id =
+    ?display_name ?expires_on ?id ?metadata
+    ?policy_definition_reference_ids ?timeouts ~exemption_category
+    ~management_group_id ~name ~policy_assignment_id __resource_id =
   let __resource_type =
     "azurerm_management_group_policy_exemption"
   in
@@ -42,7 +44,9 @@ let azurerm_management_group_policy_exemption ?description
       display_name;
       exemption_category;
       expires_on;
+      id;
       management_group_id;
+      metadata;
       name;
       policy_assignment_id;
       policy_definition_reference_ids;

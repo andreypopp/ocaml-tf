@@ -17,6 +17,7 @@ type azurerm_datadog_monitor_sso_configuration = {
   datadog_monitor_id : string;  (** datadog_monitor_id *)
   enterprise_application_id : string;
       (** enterprise_application_id *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   single_sign_on_enabled : string;  (** single_sign_on_enabled *)
   timeouts :
@@ -25,7 +26,7 @@ type azurerm_datadog_monitor_sso_configuration = {
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor_sso_configuration *)
 
-let azurerm_datadog_monitor_sso_configuration ?name ?timeouts
+let azurerm_datadog_monitor_sso_configuration ?id ?name ?timeouts
     ~datadog_monitor_id ~enterprise_application_id
     ~single_sign_on_enabled __resource_id =
   let __resource_type =
@@ -35,6 +36,7 @@ let azurerm_datadog_monitor_sso_configuration ?name ?timeouts
     {
       datadog_monitor_id;
       enterprise_application_id;
+      id;
       name;
       single_sign_on_enabled;
       timeouts;

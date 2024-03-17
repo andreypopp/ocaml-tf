@@ -12,6 +12,7 @@ type aws_verifiedaccess_instance_logging_configuration__access_logs
 type aws_verifiedaccess_instance_logging_configuration
 
 val aws_verifiedaccess_instance_logging_configuration :
+  ?id:string ->
   verifiedaccess_instance_id:string ->
   access_logs:
     aws_verifiedaccess_instance_logging_configuration__access_logs

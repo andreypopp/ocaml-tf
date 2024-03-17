@@ -25,6 +25,7 @@ type aws_worklink_fleet = {
   device_ca_certificate : string option; [@option]
       (** device_ca_certificate *)
   display_name : string option; [@option]  (** display_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   optimize_for_end_user_location : bool option; [@option]
       (** optimize_for_end_user_location *)
@@ -35,7 +36,7 @@ type aws_worklink_fleet = {
 (** aws_worklink_fleet *)
 
 let aws_worklink_fleet ?audit_stream_arn ?device_ca_certificate
-    ?display_name ?optimize_for_end_user_location ~name
+    ?display_name ?id ?optimize_for_end_user_location ~name
     ~identity_provider ~network __resource_id =
   let __resource_type = "aws_worklink_fleet" in
   let __resource =
@@ -43,6 +44,7 @@ let aws_worklink_fleet ?audit_stream_arn ?device_ca_certificate
       audit_stream_arn;
       device_ca_certificate;
       display_name;
+      id;
       name;
       optimize_for_end_user_location;
       identity_provider;

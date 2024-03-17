@@ -10,8 +10,12 @@ type google_filestore_instance
 
 val google_filestore_instance :
   ?description:string ->
+  ?id:string ->
   ?kms_key_name:string ->
   ?labels:(string * string) list ->
+  ?location:string ->
+  ?project:string ->
+  ?zone:string ->
   ?timeouts:google_filestore_instance__timeouts ->
   name:string ->
   tier:string ->

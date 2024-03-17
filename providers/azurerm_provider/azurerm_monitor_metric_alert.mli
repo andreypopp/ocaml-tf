@@ -18,8 +18,11 @@ val azurerm_monitor_metric_alert :
   ?description:string ->
   ?enabled:bool ->
   ?frequency:string ->
+  ?id:string ->
   ?severity:float ->
   ?tags:(string * string) list ->
+  ?target_resource_location:string ->
+  ?target_resource_type:string ->
   ?window_size:string ->
   ?timeouts:azurerm_monitor_metric_alert__timeouts ->
   name:string ->

@@ -38,6 +38,7 @@ type google_vmwareengine_external_access_rule = {
       (** User-provided description for the external access rule. *)
   destination_ports : string list;
       (** A list of destination ports to which the external access rule applies. *)
+  id : string option; [@option]  (** id *)
   ip_protocol : string;
       (** The IP protocol to which the external access rule applies. *)
   name : string;  (** The ID of the external access rule. *)
@@ -60,9 +61,9 @@ For example: projects/my-project/locations/us-west1-a/networkPolicies/my-policy 
 [@@deriving yojson_of]
 (** google_vmwareengine_external_access_rule *)
 
-let google_vmwareengine_external_access_rule ?description ?timeouts
-    ~action ~destination_ports ~ip_protocol ~name ~parent ~priority
-    ~source_ports ~destination_ip_ranges ~source_ip_ranges
+let google_vmwareengine_external_access_rule ?description ?id
+    ?timeouts ~action ~destination_ports ~ip_protocol ~name ~parent
+    ~priority ~source_ports ~destination_ip_ranges ~source_ip_ranges
     __resource_id =
   let __resource_type = "google_vmwareengine_external_access_rule" in
   let __resource =
@@ -70,6 +71,7 @@ let google_vmwareengine_external_access_rule ?description ?timeouts
       action;
       description;
       destination_ports;
+      id;
       ip_protocol;
       name;
       parent;

@@ -20,17 +20,22 @@ type aws_accessanalyzer_analyzer__configuration = {
 
 type aws_accessanalyzer_analyzer = {
   analyzer_name : string;  (** analyzer_name *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string option; [@option] [@key "type"]  (** type *)
   configuration : aws_accessanalyzer_analyzer__configuration list;
 }
 [@@deriving yojson_of]
 (** aws_accessanalyzer_analyzer *)
 
-let aws_accessanalyzer_analyzer ?tags ?type_ ~analyzer_name
-    ~configuration __resource_id =
+let aws_accessanalyzer_analyzer ?id ?tags ?tags_all ?type_
+    ~analyzer_name ~configuration __resource_id =
   let __resource_type = "aws_accessanalyzer_analyzer" in
-  let __resource = { analyzer_name; tags; type_; configuration } in
+  let __resource =
+    { analyzer_name; id; tags; tags_all; type_; configuration }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_accessanalyzer_analyzer __resource);
   ()

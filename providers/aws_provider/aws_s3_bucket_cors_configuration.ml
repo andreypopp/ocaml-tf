@@ -21,15 +21,18 @@ type aws_s3_bucket_cors_configuration = {
   bucket : string;  (** bucket *)
   expected_bucket_owner : string option; [@option]
       (** expected_bucket_owner *)
+  id : string option; [@option]  (** id *)
   cors_rule : aws_s3_bucket_cors_configuration__cors_rule list;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_cors_configuration *)
 
-let aws_s3_bucket_cors_configuration ?expected_bucket_owner ~bucket
-    ~cors_rule __resource_id =
+let aws_s3_bucket_cors_configuration ?expected_bucket_owner ?id
+    ~bucket ~cors_rule __resource_id =
   let __resource_type = "aws_s3_bucket_cors_configuration" in
-  let __resource = { bucket; expected_bucket_owner; cors_rule } in
+  let __resource =
+    { bucket; expected_bucket_owner; id; cors_rule }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_cors_configuration __resource);
   ()

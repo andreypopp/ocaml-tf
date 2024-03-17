@@ -190,10 +190,13 @@ type aws_sagemaker_space__space_sharing_settings = {
 
 type aws_sagemaker_space = {
   domain_id : string;  (** domain_id *)
+  id : string option; [@option]  (** id *)
   space_display_name : string option; [@option]
       (** space_display_name *)
   space_name : string;  (** space_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   ownership_settings : aws_sagemaker_space__ownership_settings list;
   space_settings : aws_sagemaker_space__space_settings list;
   space_sharing_settings :
@@ -202,16 +205,18 @@ type aws_sagemaker_space = {
 [@@deriving yojson_of]
 (** aws_sagemaker_space *)
 
-let aws_sagemaker_space ?space_display_name ?tags ~domain_id
-    ~space_name ~ownership_settings ~space_settings
+let aws_sagemaker_space ?id ?space_display_name ?tags ?tags_all
+    ~domain_id ~space_name ~ownership_settings ~space_settings
     ~space_sharing_settings __resource_id =
   let __resource_type = "aws_sagemaker_space" in
   let __resource =
     {
       domain_id;
+      id;
       space_display_name;
       space_name;
       tags;
+      tags_all;
       ownership_settings;
       space_settings;
       space_sharing_settings;

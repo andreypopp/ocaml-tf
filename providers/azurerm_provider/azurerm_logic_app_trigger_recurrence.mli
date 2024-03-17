@@ -7,7 +7,9 @@ type azurerm_logic_app_trigger_recurrence__timeouts
 type azurerm_logic_app_trigger_recurrence
 
 val azurerm_logic_app_trigger_recurrence :
+  ?id:string ->
   ?start_time:string ->
+  ?time_zone:string ->
   ?timeouts:azurerm_logic_app_trigger_recurrence__timeouts ->
   frequency:string ->
   interval:float ->

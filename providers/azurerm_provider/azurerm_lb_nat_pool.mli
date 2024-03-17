@@ -7,6 +7,7 @@ type azurerm_lb_nat_pool
 
 val azurerm_lb_nat_pool :
   ?floating_ip_enabled:bool ->
+  ?id:string ->
   ?idle_timeout_in_minutes:float ->
   ?tcp_reset_enabled:bool ->
   ?timeouts:azurerm_lb_nat_pool__timeouts ->

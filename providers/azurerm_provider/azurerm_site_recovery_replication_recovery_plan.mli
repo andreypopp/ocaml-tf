@@ -32,6 +32,7 @@ type azurerm_site_recovery_replication_recovery_plan__timeouts
 type azurerm_site_recovery_replication_recovery_plan
 
 val azurerm_site_recovery_replication_recovery_plan :
+  ?id:string ->
   ?timeouts:azurerm_site_recovery_replication_recovery_plan__timeouts ->
   name:string ->
   recovery_vault_id:string ->

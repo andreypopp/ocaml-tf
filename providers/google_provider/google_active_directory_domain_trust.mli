@@ -6,6 +6,8 @@ type google_active_directory_domain_trust__timeouts
 type google_active_directory_domain_trust
 
 val google_active_directory_domain_trust :
+  ?id:string ->
+  ?project:string ->
   ?selective_authentication:bool ->
   ?timeouts:google_active_directory_domain_trust__timeouts ->
   domain:string ->

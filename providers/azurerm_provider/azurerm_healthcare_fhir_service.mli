@@ -13,6 +13,7 @@ val azurerm_healthcare_fhir_service :
   ?access_policy_object_ids:string list ->
   ?configuration_export_storage_account_name:string ->
   ?container_registry_login_server_url:string list ->
+  ?id:string ->
   ?kind:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_healthcare_fhir_service__timeouts ->

@@ -69,6 +69,7 @@ this parameter or the JSON body. *)
   cert_validity_in_days : float option; [@option]
       (** Validity duration of certificate, in days. Accepts positive non-zero value. Defaults to 365. *)
   environment : string;  (** The Apigee environment name *)
+  id : string option; [@option]  (** id *)
   key_size : string option; [@option]
       (** Key size. Default and maximum value is 2048 bits. *)
   keystore : string;
@@ -89,8 +90,8 @@ this parameter or the JSON body. *)
 (** google_apigee_keystores_aliases_self_signed_cert *)
 
 let google_apigee_keystores_aliases_self_signed_cert
-    ?cert_validity_in_days ?key_size ?timeouts ~alias ~environment
-    ~keystore ~org_id ~sig_alg ~subject
+    ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
+    ~environment ~keystore ~org_id ~sig_alg ~subject
     ~subject_alternative_dns_names __resource_id =
   let __resource_type =
     "google_apigee_keystores_aliases_self_signed_cert"
@@ -100,6 +101,7 @@ let google_apigee_keystores_aliases_self_signed_cert
       alias;
       cert_validity_in_days;
       environment;
+      id;
       key_size;
       keystore;
       org_id;

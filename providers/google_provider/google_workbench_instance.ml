@@ -129,6 +129,7 @@ type google_workbench_instance__upgrade_history = {
 type google_workbench_instance = {
   desired_state: string option; [@option] (** Desired state of the Workbench Instance. Set this field to 'ACTIVE' to start the Instance, and 'STOPPED' to stop the Instance. *)
   disable_proxy_access: bool option; [@option] (** Optional. If true, the workbench instance will not register with the proxy. *)
+  id: string option; [@option] (** id *)
   instance_id: string option; [@option] (** Required. User-defined unique ID of this instance. *)
   instance_owners: string list option; [@option] (** 'Optional. Input only. The owner of this instance after creation. Format:
 'alias@example.com' Currently supports one owner only. If not specified, all of
@@ -141,21 +142,24 @@ by the UpdateInstance method.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location: string;  (** Part of 'parent'. See documentation of 'projectsId'. *)
   name: string;  (** The name of this workbench instance. Format: 'projects/{project_id}/locations/{location}/instances/{instance_id}' *)
+  project: string option; [@option] (** project *)
   gce_setup: google_workbench_instance__gce_setup list;
   timeouts: google_workbench_instance__timeouts option;
 } [@@deriving yojson_of]
 (** google_workbench_instance *)
 
-let google_workbench_instance ?desired_state ?disable_proxy_access ?instance_id ?instance_owners ?labels ?timeouts ~location ~name ~gce_setup __resource_id =
+let google_workbench_instance ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup __resource_id =
   let __resource_type = "google_workbench_instance" in
   let __resource = {
     desired_state;
     disable_proxy_access;
+    id;
     instance_id;
     instance_owners;
     labels;
     location;
     name;
+    project;
     gce_setup;
     timeouts;
   } in

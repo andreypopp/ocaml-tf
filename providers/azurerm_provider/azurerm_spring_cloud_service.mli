@@ -26,16 +26,17 @@ type azurerm_spring_cloud_service__required_network_traffic_rules = {
   port : float;  (** port *)
   protocol : string;  (** protocol *)
 }
-[@@deriving yojson_of]
 
 type azurerm_spring_cloud_service
 
 val azurerm_spring_cloud_service :
   ?build_agent_pool_size:string ->
+  ?id:string ->
   ?log_stream_public_endpoint_enabled:bool ->
   ?managed_environment_id:string ->
   ?service_registry_enabled:bool ->
   ?sku_name:string ->
+  ?sku_tier:string ->
   ?tags:(string * string) list ->
   ?zone_redundant:bool ->
   ?timeouts:azurerm_spring_cloud_service__timeouts ->

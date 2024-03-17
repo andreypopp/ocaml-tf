@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_api_gateway_request_validator = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   rest_api_id : string;  (** rest_api_id *)
   validate_request_body : bool option; [@option]
@@ -15,11 +16,12 @@ type aws_api_gateway_request_validator = {
 [@@deriving yojson_of]
 (** aws_api_gateway_request_validator *)
 
-let aws_api_gateway_request_validator ?validate_request_body
+let aws_api_gateway_request_validator ?id ?validate_request_body
     ?validate_request_parameters ~name ~rest_api_id __resource_id =
   let __resource_type = "aws_api_gateway_request_validator" in
   let __resource =
     {
+      id;
       name;
       rest_api_id;
       validate_request_body;

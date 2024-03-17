@@ -33,6 +33,7 @@ type cloudflare_api_token__policy = {
 type cloudflare_api_token = {
   expires_on : string option; [@option]
       (** The expiration time on or after which the token MUST NOT be accepted for processing. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** Name of the API Token. *)
   not_before : string option; [@option]
       (** The time before which the token MUST NOT be accepted for processing. *)
@@ -46,11 +47,11 @@ Read more about permission groups and their applicable scopes in the
 [developer documentation](https://developers.cloudflare.com/api/tokens/create/permissions).
  *)
 
-let cloudflare_api_token ?expires_on ?not_before ~name ~condition
+let cloudflare_api_token ?expires_on ?id ?not_before ~name ~condition
     ~policy __resource_id =
   let __resource_type = "cloudflare_api_token" in
   let __resource =
-    { expires_on; name; not_before; condition; policy }
+    { expires_on; id; name; not_before; condition; policy }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_api_token __resource);

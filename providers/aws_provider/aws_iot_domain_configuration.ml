@@ -21,12 +21,15 @@ type aws_iot_domain_configuration__tls_config = {
 
 type aws_iot_domain_configuration = {
   domain_name : string option; [@option]  (** domain_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   server_certificate_arns : string list option; [@option]
       (** server_certificate_arns *)
   service_type : string option; [@option]  (** service_type *)
   status : string option; [@option]  (** status *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   validation_certificate_arn : string option; [@option]
       (** validation_certificate_arn *)
   authorizer_config :
@@ -36,19 +39,21 @@ type aws_iot_domain_configuration = {
 [@@deriving yojson_of]
 (** aws_iot_domain_configuration *)
 
-let aws_iot_domain_configuration ?domain_name
-    ?server_certificate_arns ?service_type ?status ?tags
+let aws_iot_domain_configuration ?domain_name ?id
+    ?server_certificate_arns ?service_type ?status ?tags ?tags_all
     ?validation_certificate_arn ~name ~authorizer_config ~tls_config
     __resource_id =
   let __resource_type = "aws_iot_domain_configuration" in
   let __resource =
     {
       domain_name;
+      id;
       name;
       server_certificate_arns;
       service_type;
       status;
       tags;
+      tags_all;
       validation_certificate_arn;
       authorizer_config;
       tls_config;

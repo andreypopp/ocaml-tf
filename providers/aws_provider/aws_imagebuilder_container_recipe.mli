@@ -15,10 +15,13 @@ type aws_imagebuilder_container_recipe
 
 val aws_imagebuilder_container_recipe :
   ?description:string ->
+  ?dockerfile_template_data:string ->
   ?dockerfile_template_uri:string ->
+  ?id:string ->
   ?kms_key_id:string ->
   ?platform_override:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?working_directory:string ->
   container_type:string ->
   name:string ->

@@ -9,6 +9,7 @@ type azurerm_pim_active_role_assignment__timeouts
 type azurerm_pim_active_role_assignment
 
 val azurerm_pim_active_role_assignment :
+  ?id:string ->
   ?justification:string ->
   ?timeouts:azurerm_pim_active_role_assignment__timeouts ->
   principal_id:string ->

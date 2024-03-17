@@ -483,6 +483,7 @@ type google_access_context_manager_service_perimeter = {
   description : string option; [@option]
       (** Description of the ServicePerimeter and its use. Does not affect
 behavior. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Resource name for the ServicePerimeter. The short_name component must
 begin with a letter and only include alphanumeric and '_'.
@@ -528,7 +529,7 @@ bet set to True if any of the fields in the spec are set to non-default values. 
 [@@deriving yojson_of]
 (** google_access_context_manager_service_perimeter *)
 
-let google_access_context_manager_service_perimeter ?description
+let google_access_context_manager_service_perimeter ?description ?id
     ?perimeter_type ?use_explicit_dry_run_spec ?timeouts ~name
     ~parent ~title ~spec ~status __resource_id =
   let __resource_type =
@@ -537,6 +538,7 @@ let google_access_context_manager_service_perimeter ?description
   let __resource =
     {
       description;
+      id;
       name;
       parent;
       perimeter_type;

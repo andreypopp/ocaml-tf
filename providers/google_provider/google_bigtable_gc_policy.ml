@@ -35,9 +35,12 @@ type google_bigtable_gc_policy = {
 				in a replicated instance. Possible values are: ABANDON. *)
   gc_rules : string option; [@option]
       (** Serialized JSON string for garbage collection policy. Conflicts with mode, max_age and max_version. *)
+  id : string option; [@option]  (** id *)
   instance_name : string;  (** The name of the Bigtable instance. *)
   mode : string option; [@option]
       (** NOTE: 'gc_rules' is more flexible, and should be preferred over this field for new resources. This field may be deprecated in the future. If multiple policies are set, you should choose between UNION OR INTERSECTION. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   table : string;  (** The name of the table. *)
   max_age : google_bigtable_gc_policy__max_age list;
   max_version : google_bigtable_gc_policy__max_version list;
@@ -46,8 +49,8 @@ type google_bigtable_gc_policy = {
 [@@deriving yojson_of]
 (** google_bigtable_gc_policy *)
 
-let google_bigtable_gc_policy ?deletion_policy ?gc_rules ?mode
-    ?timeouts ~column_family ~instance_name ~table ~max_age
+let google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id ?mode
+    ?project ?timeouts ~column_family ~instance_name ~table ~max_age
     ~max_version __resource_id =
   let __resource_type = "google_bigtable_gc_policy" in
   let __resource =
@@ -55,8 +58,10 @@ let google_bigtable_gc_policy ?deletion_policy ?gc_rules ?mode
       column_family;
       deletion_policy;
       gc_rules;
+      id;
       instance_name;
       mode;
+      project;
       table;
       max_age;
       max_version;

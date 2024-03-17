@@ -13,6 +13,7 @@ type azurerm_monitor_aad_diagnostic_setting
 val azurerm_monitor_aad_diagnostic_setting :
   ?eventhub_authorization_rule_id:string ->
   ?eventhub_name:string ->
+  ?id:string ->
   ?log_analytics_workspace_id:string ->
   ?storage_account_id:string ->
   ?timeouts:azurerm_monitor_aad_diagnostic_setting__timeouts ->

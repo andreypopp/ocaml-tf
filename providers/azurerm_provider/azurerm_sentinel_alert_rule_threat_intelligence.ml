@@ -16,6 +16,7 @@ type azurerm_sentinel_alert_rule_threat_intelligence__timeouts = {
 type azurerm_sentinel_alert_rule_threat_intelligence = {
   alert_rule_template_guid : string;  (** alert_rule_template_guid *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -25,7 +26,7 @@ type azurerm_sentinel_alert_rule_threat_intelligence = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_threat_intelligence *)
 
-let azurerm_sentinel_alert_rule_threat_intelligence ?enabled
+let azurerm_sentinel_alert_rule_threat_intelligence ?enabled ?id
     ?timeouts ~alert_rule_template_guid ~log_analytics_workspace_id
     ~name __resource_id =
   let __resource_type =
@@ -35,6 +36,7 @@ let azurerm_sentinel_alert_rule_threat_intelligence ?enabled
     {
       alert_rule_template_guid;
       enabled;
+      id;
       log_analytics_workspace_id;
       name;
       timeouts;

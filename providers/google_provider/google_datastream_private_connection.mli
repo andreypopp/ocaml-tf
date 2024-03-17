@@ -9,12 +9,13 @@ type google_datastream_private_connection__error = {
   details : (string * string) list;  (** details *)
   message : string;  (** message *)
 }
-[@@deriving yojson_of]
 
 type google_datastream_private_connection
 
 val google_datastream_private_connection :
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_datastream_private_connection__timeouts ->
   display_name:string ->
   location:string ->

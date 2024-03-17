@@ -10,7 +10,10 @@ val aws_route53_health_check :
   ?cloudwatch_alarm_name:string ->
   ?cloudwatch_alarm_region:string ->
   ?disabled:bool ->
+  ?enable_sni:bool ->
+  ?failure_threshold:float ->
   ?fqdn:string ->
+  ?id:string ->
   ?insufficient_data_health_status:string ->
   ?invert_healthcheck:bool ->
   ?ip_address:string ->
@@ -23,6 +26,7 @@ val aws_route53_health_check :
   ?routing_control_arn:string ->
   ?search_string:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   type_:string ->
   string ->
   unit

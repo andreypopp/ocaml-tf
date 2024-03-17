@@ -83,6 +83,7 @@ type cloudflare_device_posture_rule = {
   description : string option; [@option]  (** description *)
   expiration : string option; [@option]
       (** Expire posture results after the specified amount of time. Must be in the format `1h` or `30m`. Valid units are `h` and `m`. *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]
       (** Name of the device posture rule. *)
   schedule : string option; [@option]
@@ -96,7 +97,7 @@ type cloudflare_device_posture_rule = {
 (** Provides a Cloudflare Device Posture Rule resource. Device posture rules configure security policies for device posture checks.
  *)
 
-let cloudflare_device_posture_rule ?description ?expiration ?name
+let cloudflare_device_posture_rule ?description ?expiration ?id ?name
     ?schedule ~account_id ~type_ ~input ~match_ __resource_id =
   let __resource_type = "cloudflare_device_posture_rule" in
   let __resource =
@@ -104,6 +105,7 @@ let cloudflare_device_posture_rule ?description ?expiration ?name
       account_id;
       description;
       expiration;
+      id;
       name;
       schedule;
       type_;

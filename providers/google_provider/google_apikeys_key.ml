@@ -75,18 +75,23 @@ type google_apikeys_key__timeouts = {
 type google_apikeys_key = {
   display_name : string option; [@option]
       (** Human-readable display name of this API key. Modifiable by user. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The resource name of the key. The name must be unique within the project, must conform with RFC-1034, is restricted to lower-cased letters, and has a maximum length of 63 characters. In another word, the name must match the regular expression: `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   restrictions : google_apikeys_key__restrictions list;
   timeouts : google_apikeys_key__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_apikeys_key *)
 
-let google_apikeys_key ?display_name ?timeouts ~name ~restrictions
-    __resource_id =
+let google_apikeys_key ?display_name ?id ?project ?timeouts ~name
+    ~restrictions __resource_id =
   let __resource_type = "google_apikeys_key" in
-  let __resource = { display_name; name; restrictions; timeouts } in
+  let __resource =
+    { display_name; id; name; project; restrictions; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apikeys_key __resource);
   ()

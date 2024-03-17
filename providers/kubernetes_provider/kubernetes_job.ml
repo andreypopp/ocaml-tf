@@ -2452,6 +2452,7 @@ type kubernetes_job__timeouts = {
 (** kubernetes_job__timeouts *)
 
 type kubernetes_job = {
+  id : string option; [@option]  (** id *)
   wait_for_completion : bool option; [@option]
       (** wait_for_completion *)
   metadata : kubernetes_job__metadata list;
@@ -2461,11 +2462,11 @@ type kubernetes_job = {
 [@@deriving yojson_of]
 (** kubernetes_job *)
 
-let kubernetes_job ?wait_for_completion ?timeouts ~metadata ~spec
+let kubernetes_job ?id ?wait_for_completion ?timeouts ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_job" in
   let __resource =
-    { wait_for_completion; metadata; spec; timeouts }
+    { id; wait_for_completion; metadata; spec; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_job __resource);

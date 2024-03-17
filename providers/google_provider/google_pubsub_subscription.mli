@@ -15,11 +15,14 @@ type google_pubsub_subscription__timeouts
 type google_pubsub_subscription
 
 val google_pubsub_subscription :
+  ?ack_deadline_seconds:float ->
   ?enable_exactly_once_delivery:bool ->
   ?enable_message_ordering:bool ->
   ?filter:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?message_retention_duration:string ->
+  ?project:string ->
   ?retain_acked_messages:bool ->
   ?timeouts:google_pubsub_subscription__timeouts ->
   name:string ->

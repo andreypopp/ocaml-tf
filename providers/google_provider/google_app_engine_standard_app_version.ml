@@ -178,16 +178,25 @@ type google_app_engine_standard_app_version = {
       (** If set to 'true', the service will be deleted if it is the last version. *)
   env_variables : (string * string) list option; [@option]
       (** Environment variables available to the application. *)
+  id : string option; [@option]  (** id *)
   inbound_services : string list option; [@option]
       (** A list of the types of messages that this application is able to receive. Possible values: [INBOUND_SERVICE_MAIL, INBOUND_SERVICE_MAIL_BOUNCE, INBOUND_SERVICE_XMPP_ERROR, INBOUND_SERVICE_XMPP_MESSAGE, INBOUND_SERVICE_XMPP_SUBSCRIBE, INBOUND_SERVICE_XMPP_PRESENCE, INBOUND_SERVICE_CHANNEL_PRESENCE, INBOUND_SERVICE_WARMUP] *)
+  instance_class : string option; [@option]
+      (** Instance class that is used to run this version. Valid values are
+AutomaticScaling: F1, F2, F4, F4_1G
+BasicScaling or ManualScaling: B1, B2, B4, B4_1G, B8
+Defaults to F1 for AutomaticScaling and B2 for ManualScaling and BasicScaling. If no scaling is specified, AutomaticScaling is chosen. *)
   noop_on_destroy : bool option; [@option]
       (** If set to 'true', the application version will not be deleted. *)
+  project : string option; [@option]  (** project *)
   runtime : string;  (** Desired runtime. Example python27. *)
   runtime_api_version : string option; [@option]
       (** The version of the API in the given runtime environment.
 Please see the app.yaml reference for valid values at 'https://cloud.google.com/appengine/docs/standard/<language>/config/appref'\
 Substitute '<language>' with 'python', 'java', 'php', 'ruby', 'go' or 'nodejs'. *)
   service : string;  (** AppEngine service resource *)
+  service_account : string option; [@option]
+      (** The identity that the deployed version will run as. Admin API will use the App Engine Appspot service account as default if this field is neither provided in app.yaml file nor through CLI flag. *)
   threadsafe : bool option; [@option]
       (** Whether multiple requests can be dispatched to this version at once. *)
   version_id : string option; [@option]
@@ -212,10 +221,11 @@ Substitute '<language>' with 'python', 'java', 'php', 'ruby', 'go' or 'nodejs'. 
 (** google_app_engine_standard_app_version *)
 
 let google_app_engine_standard_app_version ?app_engine_apis
-    ?delete_service_on_destroy ?env_variables ?inbound_services
-    ?noop_on_destroy ?runtime_api_version ?threadsafe ?version_id
-    ?timeouts ~runtime ~service ~automatic_scaling ~basic_scaling
-    ~deployment ~entrypoint ~handlers ~libraries ~manual_scaling
+    ?delete_service_on_destroy ?env_variables ?id ?inbound_services
+    ?instance_class ?noop_on_destroy ?project ?runtime_api_version
+    ?service_account ?threadsafe ?version_id ?timeouts ~runtime
+    ~service ~automatic_scaling ~basic_scaling ~deployment
+    ~entrypoint ~handlers ~libraries ~manual_scaling
     ~vpc_access_connector __resource_id =
   let __resource_type = "google_app_engine_standard_app_version" in
   let __resource =
@@ -223,11 +233,15 @@ let google_app_engine_standard_app_version ?app_engine_apis
       app_engine_apis;
       delete_service_on_destroy;
       env_variables;
+      id;
       inbound_services;
+      instance_class;
       noop_on_destroy;
+      project;
       runtime;
       runtime_api_version;
       service;
+      service_account;
       threadsafe;
       version_id;
       automatic_scaling;

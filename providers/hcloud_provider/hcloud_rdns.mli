@@ -6,6 +6,7 @@ type hcloud_rdns
 
 val hcloud_rdns :
   ?floating_ip_id:float ->
+  ?id:string ->
   ?load_balancer_id:float ->
   ?primary_ip_id:float ->
   ?server_id:float ->

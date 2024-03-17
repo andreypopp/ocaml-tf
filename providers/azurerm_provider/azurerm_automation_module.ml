@@ -29,6 +29,7 @@ type azurerm_automation_module__timeouts = {
 
 type azurerm_automation_module = {
   automation_account_name : string;  (** automation_account_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   module_link : azurerm_automation_module__module_link list;
@@ -37,12 +38,13 @@ type azurerm_automation_module = {
 [@@deriving yojson_of]
 (** azurerm_automation_module *)
 
-let azurerm_automation_module ?timeouts ~automation_account_name
+let azurerm_automation_module ?id ?timeouts ~automation_account_name
     ~name ~resource_group_name ~module_link __resource_id =
   let __resource_type = "azurerm_automation_module" in
   let __resource =
     {
       automation_account_name;
+      id;
       name;
       resource_group_name;
       module_link;

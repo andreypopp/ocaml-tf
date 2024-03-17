@@ -22,6 +22,7 @@ type google_storage_transfer_agent_pool__timeouts = {
 type google_storage_transfer_agent_pool = {
   display_name : string option; [@option]
       (** Specifies the client-specified AgentPool description. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The ID of the agent pool to create.
 
@@ -33,6 +34,7 @@ The agentPoolId must meet the following requirements:
   * One or more numerals or lowercase ASCII characters.
 
 As expressed by the regular expression: ^(?!goog)[a-z]([a-z0-9-._~]*[a-z0-9])?$. *)
+  project : string option; [@option]  (** project *)
   bandwidth_limit :
     google_storage_transfer_agent_pool__bandwidth_limit list;
   timeouts : google_storage_transfer_agent_pool__timeouts option;
@@ -40,11 +42,11 @@ As expressed by the regular expression: ^(?!goog)[a-z]([a-z0-9-._~]*[a-z0-9])?$.
 [@@deriving yojson_of]
 (** google_storage_transfer_agent_pool *)
 
-let google_storage_transfer_agent_pool ?display_name ?timeouts ~name
-    ~bandwidth_limit __resource_id =
+let google_storage_transfer_agent_pool ?display_name ?id ?project
+    ?timeouts ~name ~bandwidth_limit __resource_id =
   let __resource_type = "google_storage_transfer_agent_pool" in
   let __resource =
-    { display_name; name; bandwidth_limit; timeouts }
+    { display_name; id; name; project; bandwidth_limit; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_transfer_agent_pool __resource);

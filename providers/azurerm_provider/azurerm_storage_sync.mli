@@ -6,6 +6,7 @@ type azurerm_storage_sync__timeouts
 type azurerm_storage_sync
 
 val azurerm_storage_sync :
+  ?id:string ->
   ?incoming_traffic_policy:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_storage_sync__timeouts ->

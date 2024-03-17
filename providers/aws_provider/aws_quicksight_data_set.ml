@@ -255,10 +255,13 @@ type aws_quicksight_data_set__output_columns = {
   type_: string; [@key "type"] (** type *)
 } [@@deriving yojson_of]
 type aws_quicksight_data_set = {
+  aws_account_id: string option; [@option] (** aws_account_id *)
   data_set_id: string;  (** data_set_id *)
+  id: string option; [@option] (** id *)
   import_mode: string;  (** import_mode *)
   name: string;  (** name *)
   tags: (string * string) list option; [@option] (** tags *)
+  tags_all: (string * string) list option; [@option] (** tags_all *)
   column_groups: aws_quicksight_data_set__column_groups list;
   column_level_permission_rules: aws_quicksight_data_set__column_level_permission_rules list;
   data_set_usage_configuration: aws_quicksight_data_set__data_set_usage_configuration list;
@@ -272,13 +275,16 @@ type aws_quicksight_data_set = {
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set *)
 
-let aws_quicksight_data_set ?tags  ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration __resource_id =
+let aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all  ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration __resource_id =
   let __resource_type = "aws_quicksight_data_set" in
   let __resource = {
+    aws_account_id;
     data_set_id;
+    id;
     import_mode;
     name;
     tags;
+    tags_all;
     column_groups;
     column_level_permission_rules;
     data_set_usage_configuration;

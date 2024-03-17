@@ -22,6 +22,7 @@ type azurerm_bot_channel_line__timeouts = {
 
 type azurerm_bot_channel_line = {
   bot_name : string;  (** bot_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   resource_group_name : string;  (** resource_group_name *)
   line_channel : azurerm_bot_channel_line__line_channel list;
@@ -30,12 +31,13 @@ type azurerm_bot_channel_line = {
 [@@deriving yojson_of]
 (** azurerm_bot_channel_line *)
 
-let azurerm_bot_channel_line ?timeouts ~bot_name ~location
+let azurerm_bot_channel_line ?id ?timeouts ~bot_name ~location
     ~resource_group_name ~line_channel __resource_id =
   let __resource_type = "azurerm_bot_channel_line" in
   let __resource =
     {
       bot_name;
+      id;
       location;
       resource_group_name;
       line_channel;

@@ -5,18 +5,20 @@
 open! Tf.Prelude
 
 type aws_s3control_object_lambda_access_point_policy = {
+  account_id : string option; [@option]  (** account_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   policy : string;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_object_lambda_access_point_policy *)
 
-let aws_s3control_object_lambda_access_point_policy ~name ~policy
-    __resource_id =
+let aws_s3control_object_lambda_access_point_policy ?account_id ?id
+    ~name ~policy __resource_id =
   let __resource_type =
     "aws_s3control_object_lambda_access_point_policy"
   in
-  let __resource = { name; policy } in
+  let __resource = { account_id; id; name; policy } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_object_lambda_access_point_policy
        __resource);

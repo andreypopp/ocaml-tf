@@ -13,18 +13,23 @@ type google_dataproc_job_iam_member__condition = {
 (** google_dataproc_job_iam_member__condition *)
 
 type google_dataproc_job_iam_member = {
+  id : string option; [@option]  (** id *)
   job_id : string;  (** job_id *)
   member : string;  (** member *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]  (** region *)
   role : string;  (** role *)
   condition : google_dataproc_job_iam_member__condition list;
 }
 [@@deriving yojson_of]
 (** google_dataproc_job_iam_member *)
 
-let google_dataproc_job_iam_member ~job_id ~member ~role ~condition
-    __resource_id =
+let google_dataproc_job_iam_member ?id ?project ?region ~job_id
+    ~member ~role ~condition __resource_id =
   let __resource_type = "google_dataproc_job_iam_member" in
-  let __resource = { job_id; member; role; condition } in
+  let __resource =
+    { id; job_id; member; project; region; role; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dataproc_job_iam_member __resource);
   ()

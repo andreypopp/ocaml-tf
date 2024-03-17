@@ -133,7 +133,10 @@ type aws_customerprofiles_domain = {
       (** default_encryption_key *)
   default_expiration_days : float;  (** default_expiration_days *)
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   matching : aws_customerprofiles_domain__matching list;
   rule_based_matching :
     aws_customerprofiles_domain__rule_based_matching list;
@@ -142,8 +145,9 @@ type aws_customerprofiles_domain = {
 (** aws_customerprofiles_domain *)
 
 let aws_customerprofiles_domain ?dead_letter_queue_url
-    ?default_encryption_key ?tags ~default_expiration_days
-    ~domain_name ~matching ~rule_based_matching __resource_id =
+    ?default_encryption_key ?id ?tags ?tags_all
+    ~default_expiration_days ~domain_name ~matching
+    ~rule_based_matching __resource_id =
   let __resource_type = "aws_customerprofiles_domain" in
   let __resource =
     {
@@ -151,7 +155,9 @@ let aws_customerprofiles_domain ?dead_letter_queue_url
       default_encryption_key;
       default_expiration_days;
       domain_name;
+      id;
       tags;
+      tags_all;
       matching;
       rule_based_matching;
     }

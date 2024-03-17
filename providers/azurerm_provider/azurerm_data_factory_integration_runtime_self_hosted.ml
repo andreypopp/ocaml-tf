@@ -22,6 +22,7 @@ type azurerm_data_factory_integration_runtime_self_hosted__timeouts = {
 type azurerm_data_factory_integration_runtime_self_hosted = {
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   rbac_authorization :
     azurerm_data_factory_integration_runtime_self_hosted__rbac_authorization
@@ -34,7 +35,7 @@ type azurerm_data_factory_integration_runtime_self_hosted = {
 (** azurerm_data_factory_integration_runtime_self_hosted *)
 
 let azurerm_data_factory_integration_runtime_self_hosted ?description
-    ?timeouts ~data_factory_id ~name ~rbac_authorization
+    ?id ?timeouts ~data_factory_id ~name ~rbac_authorization
     __resource_id =
   let __resource_type =
     "azurerm_data_factory_integration_runtime_self_hosted"
@@ -43,6 +44,7 @@ let azurerm_data_factory_integration_runtime_self_hosted ?description
     {
       data_factory_id;
       description;
+      id;
       name;
       rbac_authorization;
       timeouts;

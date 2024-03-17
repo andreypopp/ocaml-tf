@@ -31,6 +31,7 @@ type azurerm_private_link_service = {
   enable_proxy_protocol : bool option; [@option]
       (** enable_proxy_protocol *)
   fqdns : string list option; [@option]  (** fqdns *)
+  id : string option; [@option]  (** id *)
   load_balancer_frontend_ip_configuration_ids : string list;
       (** load_balancer_frontend_ip_configuration_ids *)
   location : string;  (** location *)
@@ -47,15 +48,17 @@ type azurerm_private_link_service = {
 (** azurerm_private_link_service *)
 
 let azurerm_private_link_service ?auto_approval_subscription_ids
-    ?enable_proxy_protocol ?fqdns ?tags ?visibility_subscription_ids
-    ?timeouts ~load_balancer_frontend_ip_configuration_ids ~location
-    ~name ~resource_group_name ~nat_ip_configuration __resource_id =
+    ?enable_proxy_protocol ?fqdns ?id ?tags
+    ?visibility_subscription_ids ?timeouts
+    ~load_balancer_frontend_ip_configuration_ids ~location ~name
+    ~resource_group_name ~nat_ip_configuration __resource_id =
   let __resource_type = "azurerm_private_link_service" in
   let __resource =
     {
       auto_approval_subscription_ids;
       enable_proxy_protocol;
       fqdns;
+      id;
       load_balancer_frontend_ip_configuration_ids;
       location;
       name;

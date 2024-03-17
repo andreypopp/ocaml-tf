@@ -7,9 +7,13 @@ type aws_dms_replication_config__timeouts
 type aws_dms_replication_config
 
 val aws_dms_replication_config :
+  ?id:string ->
+  ?replication_settings:string ->
+  ?resource_identifier:string ->
   ?start_replication:bool ->
   ?supplemental_settings:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_dms_replication_config__timeouts ->
   replication_config_identifier:string ->
   replication_type:string ->

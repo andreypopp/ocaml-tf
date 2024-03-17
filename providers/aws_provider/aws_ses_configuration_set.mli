@@ -7,6 +7,7 @@ type aws_ses_configuration_set__tracking_options
 type aws_ses_configuration_set
 
 val aws_ses_configuration_set :
+  ?id:string ->
   ?reputation_metrics_enabled:bool ->
   ?sending_enabled:bool ->
   name:string ->

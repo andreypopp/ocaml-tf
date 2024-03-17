@@ -16,6 +16,7 @@ type azurerm_express_route_gateway__timeouts = {
 type azurerm_express_route_gateway = {
   allow_non_virtual_wan_traffic : bool option; [@option]
       (** allow_non_virtual_wan_traffic *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -27,13 +28,14 @@ type azurerm_express_route_gateway = {
 [@@deriving yojson_of]
 (** azurerm_express_route_gateway *)
 
-let azurerm_express_route_gateway ?allow_non_virtual_wan_traffic
+let azurerm_express_route_gateway ?allow_non_virtual_wan_traffic ?id
     ?tags ?timeouts ~location ~name ~resource_group_name ~scale_units
     ~virtual_hub_id __resource_id =
   let __resource_type = "azurerm_express_route_gateway" in
   let __resource =
     {
       allow_non_virtual_wan_traffic;
+      id;
       location;
       name;
       resource_group_name;

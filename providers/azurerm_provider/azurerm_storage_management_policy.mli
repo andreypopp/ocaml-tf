@@ -15,6 +15,7 @@ type azurerm_storage_management_policy__timeouts
 type azurerm_storage_management_policy
 
 val azurerm_storage_management_policy :
+  ?id:string ->
   ?timeouts:azurerm_storage_management_policy__timeouts ->
   storage_account_id:string ->
   rule:azurerm_storage_management_policy__rule list ->

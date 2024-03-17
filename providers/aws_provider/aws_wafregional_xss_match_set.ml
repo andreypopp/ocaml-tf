@@ -21,6 +21,7 @@ type aws_wafregional_xss_match_set__xss_match_tuple = {
 (** aws_wafregional_xss_match_set__xss_match_tuple *)
 
 type aws_wafregional_xss_match_set = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   xss_match_tuple :
     aws_wafregional_xss_match_set__xss_match_tuple list;
@@ -28,10 +29,10 @@ type aws_wafregional_xss_match_set = {
 [@@deriving yojson_of]
 (** aws_wafregional_xss_match_set *)
 
-let aws_wafregional_xss_match_set ~name ~xss_match_tuple
+let aws_wafregional_xss_match_set ?id ~name ~xss_match_tuple
     __resource_id =
   let __resource_type = "aws_wafregional_xss_match_set" in
-  let __resource = { name; xss_match_tuple } in
+  let __resource = { id; name; xss_match_tuple } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_wafregional_xss_match_set __resource);
   ()

@@ -7,6 +7,7 @@ type digitalocean_certificate
 val digitalocean_certificate :
   ?certificate_chain:string ->
   ?domains:string list ->
+  ?id:string ->
   ?leaf_certificate:string ->
   ?private_key:string ->
   ?type_:string ->

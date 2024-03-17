@@ -6,6 +6,8 @@ type azurerm_sentinel_data_connector_office_365_project__timeouts
 type azurerm_sentinel_data_connector_office_365_project
 
 val azurerm_sentinel_data_connector_office_365_project :
+  ?id:string ->
+  ?tenant_id:string ->
   ?timeouts:
     azurerm_sentinel_data_connector_office_365_project__timeouts ->
   log_analytics_workspace_id:string ->

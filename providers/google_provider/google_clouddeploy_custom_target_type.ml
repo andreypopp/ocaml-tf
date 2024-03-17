@@ -65,6 +65,7 @@ type google_clouddeploy_custom_target_type = {
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
   description : string option; [@option]
       (** Description of the 'CustomTargetType'. Max length is 255 characters. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels are attributes that can be set and used by both the user and by Cloud Deploy. Labels must meet the following constraints: * Keys and values can contain only lowercase letters, numeric characters, underscores, and dashes. * All characters must use UTF-8 encoding, and international characters are allowed. * Keys must start with a lowercase letter or international character. * Each resource is limited to a maximum of 64 labels. Both keys and values are additionally constrained to be <= 128 bytes.
 
@@ -72,6 +73,7 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;  (** The location of the source. *)
   name : string;  (** Name of the 'CustomTargetType'. *)
+  project : string option; [@option]  (** project *)
   custom_actions :
     google_clouddeploy_custom_target_type__custom_actions list;
   timeouts : google_clouddeploy_custom_target_type__timeouts option;
@@ -80,15 +82,18 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_clouddeploy_custom_target_type *)
 
 let google_clouddeploy_custom_target_type ?annotations ?description
-    ?labels ?timeouts ~location ~name ~custom_actions __resource_id =
+    ?id ?labels ?project ?timeouts ~location ~name ~custom_actions
+    __resource_id =
   let __resource_type = "google_clouddeploy_custom_target_type" in
   let __resource =
     {
       annotations;
       description;
+      id;
       labels;
       location;
       name;
+      project;
       custom_actions;
       timeouts;
     }

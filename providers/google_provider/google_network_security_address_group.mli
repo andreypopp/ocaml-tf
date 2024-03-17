@@ -7,6 +7,7 @@ type google_network_security_address_group
 
 val google_network_security_address_group :
   ?description:string ->
+  ?id:string ->
   ?items:string list ->
   ?labels:(string * string) list ->
   ?parent:string ->

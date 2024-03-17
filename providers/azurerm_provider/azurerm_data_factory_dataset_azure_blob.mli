@@ -14,6 +14,7 @@ val azurerm_data_factory_dataset_azure_blob :
   ?dynamic_path_enabled:bool ->
   ?filename:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?path:string ->
   ?timeouts:azurerm_data_factory_dataset_azure_blob__timeouts ->

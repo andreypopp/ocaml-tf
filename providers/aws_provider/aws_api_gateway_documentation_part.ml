@@ -15,6 +15,7 @@ type aws_api_gateway_documentation_part__location = {
 (** aws_api_gateway_documentation_part__location *)
 
 type aws_api_gateway_documentation_part = {
+  id : string option; [@option]  (** id *)
   properties : string;  (** properties *)
   rest_api_id : string;  (** rest_api_id *)
   location : aws_api_gateway_documentation_part__location list;
@@ -22,10 +23,10 @@ type aws_api_gateway_documentation_part = {
 [@@deriving yojson_of]
 (** aws_api_gateway_documentation_part *)
 
-let aws_api_gateway_documentation_part ~properties ~rest_api_id
+let aws_api_gateway_documentation_part ?id ~properties ~rest_api_id
     ~location __resource_id =
   let __resource_type = "aws_api_gateway_documentation_part" in
-  let __resource = { properties; rest_api_id; location } in
+  let __resource = { id; properties; rest_api_id; location } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_documentation_part __resource);
   ()

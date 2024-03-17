@@ -16,6 +16,7 @@ type aws_ecs_cluster_capacity_providers = {
   capacity_providers : string list option; [@option]
       (** capacity_providers *)
   cluster_name : string;  (** cluster_name *)
+  id : string option; [@option]  (** id *)
   default_capacity_provider_strategy :
     aws_ecs_cluster_capacity_providers__default_capacity_provider_strategy
     list;
@@ -23,13 +24,14 @@ type aws_ecs_cluster_capacity_providers = {
 [@@deriving yojson_of]
 (** aws_ecs_cluster_capacity_providers *)
 
-let aws_ecs_cluster_capacity_providers ?capacity_providers
+let aws_ecs_cluster_capacity_providers ?capacity_providers ?id
     ~cluster_name ~default_capacity_provider_strategy __resource_id =
   let __resource_type = "aws_ecs_cluster_capacity_providers" in
   let __resource =
     {
       capacity_providers;
       cluster_name;
+      id;
       default_capacity_provider_strategy;
     }
   in

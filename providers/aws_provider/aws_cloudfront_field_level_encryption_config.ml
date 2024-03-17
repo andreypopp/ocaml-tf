@@ -57,6 +57,7 @@ type aws_cloudfront_field_level_encryption_config__query_arg_profile_config = {
 
 type aws_cloudfront_field_level_encryption_config = {
   comment : string option; [@option]  (** comment *)
+  id : string option; [@option]  (** id *)
   content_type_profile_config :
     aws_cloudfront_field_level_encryption_config__content_type_profile_config
     list;
@@ -67,7 +68,7 @@ type aws_cloudfront_field_level_encryption_config = {
 [@@deriving yojson_of]
 (** aws_cloudfront_field_level_encryption_config *)
 
-let aws_cloudfront_field_level_encryption_config ?comment
+let aws_cloudfront_field_level_encryption_config ?comment ?id
     ~content_type_profile_config ~query_arg_profile_config
     __resource_id =
   let __resource_type =
@@ -76,6 +77,7 @@ let aws_cloudfront_field_level_encryption_config ?comment
   let __resource =
     {
       comment;
+      id;
       content_type_profile_config;
       query_arg_profile_config;
     }

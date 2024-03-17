@@ -10,6 +10,7 @@ type azurerm_lab_service_plan
 
 val azurerm_lab_service_plan :
   ?default_network_subnet_id:string ->
+  ?id:string ->
   ?shared_gallery_id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_lab_service_plan__timeouts ->

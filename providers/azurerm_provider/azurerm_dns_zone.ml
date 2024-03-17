@@ -29,6 +29,7 @@ type azurerm_dns_zone__timeouts = {
 (** azurerm_dns_zone__timeouts *)
 
 type azurerm_dns_zone = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -38,11 +39,11 @@ type azurerm_dns_zone = {
 [@@deriving yojson_of]
 (** azurerm_dns_zone *)
 
-let azurerm_dns_zone ?tags ?timeouts ~name ~resource_group_name
+let azurerm_dns_zone ?id ?tags ?timeouts ~name ~resource_group_name
     ~soa_record __resource_id =
   let __resource_type = "azurerm_dns_zone" in
   let __resource =
-    { name; resource_group_name; tags; soa_record; timeouts }
+    { id; name; resource_group_name; tags; soa_record; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dns_zone __resource);

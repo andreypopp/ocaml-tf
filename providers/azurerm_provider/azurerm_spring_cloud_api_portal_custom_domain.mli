@@ -6,6 +6,7 @@ type azurerm_spring_cloud_api_portal_custom_domain__timeouts
 type azurerm_spring_cloud_api_portal_custom_domain
 
 val azurerm_spring_cloud_api_portal_custom_domain :
+  ?id:string ->
   ?thumbprint:string ->
   ?timeouts:azurerm_spring_cloud_api_portal_custom_domain__timeouts ->
   name:string ->

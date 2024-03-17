@@ -18,6 +18,7 @@ type azurerm_virtual_wan = {
       (** allow_branch_to_branch_traffic *)
   disable_vpn_encryption : bool option; [@option]
       (** disable_vpn_encryption *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   office365_local_breakout_category : string option; [@option]
@@ -31,14 +32,15 @@ type azurerm_virtual_wan = {
 (** azurerm_virtual_wan *)
 
 let azurerm_virtual_wan ?allow_branch_to_branch_traffic
-    ?disable_vpn_encryption ?office365_local_breakout_category ?tags
-    ?type_ ?timeouts ~location ~name ~resource_group_name
+    ?disable_vpn_encryption ?id ?office365_local_breakout_category
+    ?tags ?type_ ?timeouts ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_virtual_wan" in
   let __resource =
     {
       allow_branch_to_branch_traffic;
       disable_vpn_encryption;
+      id;
       location;
       name;
       office365_local_breakout_category;

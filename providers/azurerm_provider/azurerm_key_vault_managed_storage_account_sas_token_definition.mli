@@ -7,6 +7,7 @@ type azurerm_key_vault_managed_storage_account_sas_token_definition__timeouts
 type azurerm_key_vault_managed_storage_account_sas_token_definition
 
 val azurerm_key_vault_managed_storage_account_sas_token_definition :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_key_vault_managed_storage_account_sas_token_definition__timeouts ->

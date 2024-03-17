@@ -16,6 +16,7 @@ type azurerm_machine_learning_datastore_blobstorage__timeouts = {
 type azurerm_machine_learning_datastore_blobstorage = {
   account_key : string option; [@option]  (** account_key *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   is_default : bool option; [@option]  (** is_default *)
   name : string;  (** name *)
   service_data_auth_identity : string option; [@option]
@@ -32,7 +33,7 @@ type azurerm_machine_learning_datastore_blobstorage = {
 (** azurerm_machine_learning_datastore_blobstorage *)
 
 let azurerm_machine_learning_datastore_blobstorage ?account_key
-    ?description ?is_default ?service_data_auth_identity
+    ?description ?id ?is_default ?service_data_auth_identity
     ?shared_access_signature ?tags ?timeouts ~name
     ~storage_container_id ~workspace_id __resource_id =
   let __resource_type =
@@ -42,6 +43,7 @@ let azurerm_machine_learning_datastore_blobstorage ?account_key
     {
       account_key;
       description;
+      id;
       is_default;
       name;
       service_data_auth_identity;

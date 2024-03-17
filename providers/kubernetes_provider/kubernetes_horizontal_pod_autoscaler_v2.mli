@@ -58,6 +58,7 @@ type kubernetes_horizontal_pod_autoscaler_v2__spec
 type kubernetes_horizontal_pod_autoscaler_v2
 
 val kubernetes_horizontal_pod_autoscaler_v2 :
+  ?id:string ->
   metadata:kubernetes_horizontal_pod_autoscaler_v2__metadata list ->
   spec:kubernetes_horizontal_pod_autoscaler_v2__spec list ->
   string ->

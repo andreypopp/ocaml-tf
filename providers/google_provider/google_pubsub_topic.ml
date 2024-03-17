@@ -39,6 +39,7 @@ type google_pubsub_topic__timeouts = {
 (** google_pubsub_topic__timeouts *)
 
 type google_pubsub_topic = {
+  id : string option; [@option]  (** id *)
   kms_key_name : string option; [@option]
       (** The resource name of the Cloud KMS CryptoKey to be used to protect access
 to messages published on this topic. Your project's PubSub service account
@@ -61,6 +62,7 @@ set, message retention is controlled by settings on individual subscriptions.
 The rotation period has the format of a decimal number, followed by the
 letter 's' (seconds). Cannot be more than 31 days or less than 10 minutes. *)
   name : string;  (** Name of the topic. *)
+  project : string option; [@option]  (** project *)
   message_storage_policy :
     google_pubsub_topic__message_storage_policy list;
   schema_settings : google_pubsub_topic__schema_settings list;
@@ -69,16 +71,18 @@ letter 's' (seconds). Cannot be more than 31 days or less than 10 minutes. *)
 [@@deriving yojson_of]
 (** google_pubsub_topic *)
 
-let google_pubsub_topic ?kms_key_name ?labels
-    ?message_retention_duration ?timeouts ~name
+let google_pubsub_topic ?id ?kms_key_name ?labels
+    ?message_retention_duration ?project ?timeouts ~name
     ~message_storage_policy ~schema_settings __resource_id =
   let __resource_type = "google_pubsub_topic" in
   let __resource =
     {
+      id;
       kms_key_name;
       labels;
       message_retention_duration;
       name;
+      project;
       message_storage_policy;
       schema_settings;
       timeouts;

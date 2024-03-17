@@ -45,6 +45,7 @@ type azurerm_express_route_connection = {
   express_route_gateway_bypass_enabled : bool option; [@option]
       (** express_route_gateway_bypass_enabled *)
   express_route_gateway_id : string;  (** express_route_gateway_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   routing_weight : float option; [@option]  (** routing_weight *)
   routing : azurerm_express_route_connection__routing list;
@@ -55,7 +56,7 @@ type azurerm_express_route_connection = {
 
 let azurerm_express_route_connection ?authorization_key
     ?enable_internet_security ?express_route_gateway_bypass_enabled
-    ?routing_weight ?timeouts ~express_route_circuit_peering_id
+    ?id ?routing_weight ?timeouts ~express_route_circuit_peering_id
     ~express_route_gateway_id ~name ~routing __resource_id =
   let __resource_type = "azurerm_express_route_connection" in
   let __resource =
@@ -65,6 +66,7 @@ let azurerm_express_route_connection ?authorization_key
       express_route_circuit_peering_id;
       express_route_gateway_bypass_enabled;
       express_route_gateway_id;
+      id;
       name;
       routing_weight;
       routing;

@@ -35,6 +35,7 @@ type azurerm_api_management_api_operation
 
 val azurerm_api_management_api_operation :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_api_management_api_operation__timeouts ->
   api_management_name:string ->
   api_name:string ->

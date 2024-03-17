@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_securityhub_finding_aggregator
 
 val aws_securityhub_finding_aggregator :
+  ?id:string ->
   ?specified_regions:string list ->
   linking_mode:string ->
   string ->

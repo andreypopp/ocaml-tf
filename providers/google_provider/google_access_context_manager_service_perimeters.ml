@@ -531,6 +531,7 @@ type google_access_context_manager_service_perimeters__timeouts = {
 (** google_access_context_manager_service_perimeters__timeouts *)
 
 type google_access_context_manager_service_perimeters = {
+  id : string option; [@option]  (** id *)
   parent : string;
       (** The AccessPolicy this ServicePerimeter lives in.
 Format: accessPolicies/{policy_id} *)
@@ -543,12 +544,12 @@ Format: accessPolicies/{policy_id} *)
 [@@deriving yojson_of]
 (** google_access_context_manager_service_perimeters *)
 
-let google_access_context_manager_service_perimeters ?timeouts
+let google_access_context_manager_service_perimeters ?id ?timeouts
     ~parent ~service_perimeters __resource_id =
   let __resource_type =
     "google_access_context_manager_service_perimeters"
   in
-  let __resource = { parent; service_perimeters; timeouts } in
+  let __resource = { id; parent; service_perimeters; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_service_perimeters
        __resource);

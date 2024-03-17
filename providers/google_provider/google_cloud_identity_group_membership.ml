@@ -62,6 +62,7 @@ type google_cloud_identity_group_membership__timeouts = {
 type google_cloud_identity_group_membership = {
   group : string;
       (** The name of the Group to create this membership in. *)
+  id : string option; [@option]  (** id *)
   preferred_member_key :
     google_cloud_identity_group_membership__preferred_member_key list;
   roles : google_cloud_identity_group_membership__roles list;
@@ -70,11 +71,11 @@ type google_cloud_identity_group_membership = {
 [@@deriving yojson_of]
 (** google_cloud_identity_group_membership *)
 
-let google_cloud_identity_group_membership ?timeouts ~group
+let google_cloud_identity_group_membership ?id ?timeouts ~group
     ~preferred_member_key ~roles __resource_id =
   let __resource_type = "google_cloud_identity_group_membership" in
   let __resource =
-    { group; preferred_member_key; roles; timeouts }
+    { group; id; preferred_member_key; roles; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_identity_group_membership __resource);

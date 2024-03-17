@@ -8,7 +8,9 @@ type aws_backup_report_plan
 
 val aws_backup_report_plan :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   report_delivery_channel:
     aws_backup_report_plan__report_delivery_channel list ->

@@ -7,6 +7,7 @@ type azurerm_automation_connection_service_principal
 
 val azurerm_automation_connection_service_principal :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_automation_connection_service_principal__timeouts ->
   application_id:string ->
   automation_account_name:string ->

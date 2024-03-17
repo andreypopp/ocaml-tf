@@ -95,6 +95,7 @@ type azurerm_media_live_event = {
       (** auto_start_enabled *)
   description : string option; [@option]  (** description *)
   hostname_prefix : string option; [@option]  (** hostname_prefix *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   media_services_account_name : string;
       (** media_services_account_name *)
@@ -118,8 +119,8 @@ type azurerm_media_live_event = {
 (** azurerm_media_live_event *)
 
 let azurerm_media_live_event ?auto_start_enabled ?description
-    ?hostname_prefix ?stream_options ?tags ?transcription_languages
-    ?use_static_hostname ?timeouts ~location
+    ?hostname_prefix ?id ?stream_options ?tags
+    ?transcription_languages ?use_static_hostname ?timeouts ~location
     ~media_services_account_name ~name ~resource_group_name
     ~cross_site_access_policy ~encoding ~input ~preview __resource_id
     =
@@ -129,6 +130,7 @@ let azurerm_media_live_event ?auto_start_enabled ?description
       auto_start_enabled;
       description;
       hostname_prefix;
+      id;
       location;
       media_services_account_name;
       name;

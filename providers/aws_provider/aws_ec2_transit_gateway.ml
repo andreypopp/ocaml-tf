@@ -22,9 +22,12 @@ type aws_ec2_transit_gateway = {
       (** default_route_table_propagation *)
   description : string option; [@option]  (** description *)
   dns_support : string option; [@option]  (** dns_support *)
+  id : string option; [@option]  (** id *)
   multicast_support : string option; [@option]
       (** multicast_support *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   transit_gateway_cidr_blocks : string list option; [@option]
       (** transit_gateway_cidr_blocks *)
   vpn_ecmp_support : string option; [@option]
@@ -36,8 +39,8 @@ type aws_ec2_transit_gateway = {
 
 let aws_ec2_transit_gateway ?amazon_side_asn
     ?auto_accept_shared_attachments ?default_route_table_association
-    ?default_route_table_propagation ?description ?dns_support
-    ?multicast_support ?tags ?transit_gateway_cidr_blocks
+    ?default_route_table_propagation ?description ?dns_support ?id
+    ?multicast_support ?tags ?tags_all ?transit_gateway_cidr_blocks
     ?vpn_ecmp_support ?timeouts __resource_id =
   let __resource_type = "aws_ec2_transit_gateway" in
   let __resource =
@@ -48,8 +51,10 @@ let aws_ec2_transit_gateway ?amazon_side_asn
       default_route_table_propagation;
       description;
       dns_support;
+      id;
       multicast_support;
       tags;
+      tags_all;
       transit_gateway_cidr_blocks;
       vpn_ecmp_support;
       timeouts;

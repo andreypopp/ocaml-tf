@@ -13,12 +13,21 @@ type azurerm_api_management_api__timeouts
 type azurerm_api_management_api
 
 val azurerm_api_management_api :
+  ?api_type:string ->
   ?description:string ->
+  ?display_name:string ->
+  ?id:string ->
+  ?path:string ->
+  ?protocols:string list ->
   ?revision_description:string ->
+  ?service_url:string ->
+  ?soap_pass_through:bool ->
   ?source_api_id:string ->
   ?subscription_required:bool ->
   ?terms_of_service_url:string ->
+  ?version:string ->
   ?version_description:string ->
+  ?version_set_id:string ->
   ?timeouts:azurerm_api_management_api__timeouts ->
   api_management_name:string ->
   name:string ->

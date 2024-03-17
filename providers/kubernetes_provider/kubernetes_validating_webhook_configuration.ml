@@ -177,6 +177,7 @@ Defaults to Equivalent *)
 (** Webhooks is a list of webhooks and the affected resources and operations. *)
 
 type kubernetes_validating_webhook_configuration = {
+  id : string option; [@option]  (** id *)
   metadata :
     kubernetes_validating_webhook_configuration__metadata list;
   webhook : kubernetes_validating_webhook_configuration__webhook list;
@@ -184,12 +185,12 @@ type kubernetes_validating_webhook_configuration = {
 [@@deriving yojson_of]
 (** kubernetes_validating_webhook_configuration *)
 
-let kubernetes_validating_webhook_configuration ~metadata ~webhook
-    __resource_id =
+let kubernetes_validating_webhook_configuration ?id ~metadata
+    ~webhook __resource_id =
   let __resource_type =
     "kubernetes_validating_webhook_configuration"
   in
-  let __resource = { metadata; webhook } in
+  let __resource = { id; metadata; webhook } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_validating_webhook_configuration __resource);
   ()

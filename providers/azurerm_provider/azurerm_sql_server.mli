@@ -9,6 +9,7 @@ type azurerm_sql_server
 
 val azurerm_sql_server :
   ?connection_policy:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_sql_server__timeouts ->
   administrator_login:string ->

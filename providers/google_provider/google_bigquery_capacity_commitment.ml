@@ -22,11 +22,13 @@ or merged. *)
       (** The edition type. Valid values are STANDARD, ENTERPRISE, ENTERPRISE_PLUS *)
   enforce_single_admin_project_per_org : string option; [@option]
       (** If true, fail the request if another project in the organization has a capacity commitment. *)
+  id : string option; [@option]  (** id *)
   location : string option; [@option]
       (** The geographic location where the transfer config should reside.
 Examples: US, EU, asia-northeast1. The default value is US. *)
   plan : string;
       (** Capacity commitment plan. Valid values are at https://cloud.google.com/bigquery/docs/reference/reservations/rpc/google.cloud.bigquery.reservation.v1#commitmentplan *)
+  project : string option; [@option]  (** project *)
   renewal_plan : string option; [@option]
       (** The plan this capacity commitment is converted to after commitmentEndTime passes. Once the plan is changed, committed period is extended according to commitment plan. Only applicable for some commitment plans. *)
   slot_count : float;  (** Number of slots in this commitment. *)
@@ -36,16 +38,19 @@ Examples: US, EU, asia-northeast1. The default value is US. *)
 (** google_bigquery_capacity_commitment *)
 
 let google_bigquery_capacity_commitment ?capacity_commitment_id
-    ?edition ?enforce_single_admin_project_per_org ?location
-    ?renewal_plan ?timeouts ~plan ~slot_count __resource_id =
+    ?edition ?enforce_single_admin_project_per_org ?id ?location
+    ?project ?renewal_plan ?timeouts ~plan ~slot_count __resource_id
+    =
   let __resource_type = "google_bigquery_capacity_commitment" in
   let __resource =
     {
       capacity_commitment_id;
       edition;
       enforce_single_admin_project_per_org;
+      id;
       location;
       plan;
+      project;
       renewal_plan;
       slot_count;
       timeouts;

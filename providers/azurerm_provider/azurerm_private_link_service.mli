@@ -10,6 +10,7 @@ val azurerm_private_link_service :
   ?auto_approval_subscription_ids:string list ->
   ?enable_proxy_protocol:bool ->
   ?fqdns:string list ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?visibility_subscription_ids:string list ->
   ?timeouts:azurerm_private_link_service__timeouts ->

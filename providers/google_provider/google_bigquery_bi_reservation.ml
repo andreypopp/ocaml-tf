@@ -24,7 +24,9 @@ type google_bigquery_bi_reservation__timeouts = {
 (** google_bigquery_bi_reservation__timeouts *)
 
 type google_bigquery_bi_reservation = {
+  id : string option; [@option]  (** id *)
   location : string;  (** LOCATION_DESCRIPTION *)
+  project : string option; [@option]  (** project *)
   size : float option; [@option]
       (** Size of a reservation, in bytes. *)
   preferred_tables :
@@ -34,10 +36,12 @@ type google_bigquery_bi_reservation = {
 [@@deriving yojson_of]
 (** google_bigquery_bi_reservation *)
 
-let google_bigquery_bi_reservation ?size ?timeouts ~location
-    ~preferred_tables __resource_id =
+let google_bigquery_bi_reservation ?id ?project ?size ?timeouts
+    ~location ~preferred_tables __resource_id =
   let __resource_type = "google_bigquery_bi_reservation" in
-  let __resource = { location; size; preferred_tables; timeouts } in
+  let __resource =
+    { id; location; project; size; preferred_tables; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_bigquery_bi_reservation __resource);
   ()

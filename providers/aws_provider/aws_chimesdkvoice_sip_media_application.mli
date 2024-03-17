@@ -6,7 +6,9 @@ type aws_chimesdkvoice_sip_media_application__endpoints
 type aws_chimesdkvoice_sip_media_application
 
 val aws_chimesdkvoice_sip_media_application :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   aws_region:string ->
   name:string ->
   endpoints:aws_chimesdkvoice_sip_media_application__endpoints list ->

@@ -50,9 +50,14 @@ type aws_imagebuilder_image_recipe__systems_manager_agent = {
 
 type aws_imagebuilder_image_recipe = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   parent_image : string;  (** parent_image *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  user_data_base64 : string option; [@option]
+      (** user_data_base64 *)
   version : string;  (** version *)
   working_directory : string option; [@option]
       (** working_directory *)
@@ -65,17 +70,20 @@ type aws_imagebuilder_image_recipe = {
 [@@deriving yojson_of]
 (** aws_imagebuilder_image_recipe *)
 
-let aws_imagebuilder_image_recipe ?description ?tags
-    ?working_directory ~name ~parent_image ~version
+let aws_imagebuilder_image_recipe ?description ?id ?tags ?tags_all
+    ?user_data_base64 ?working_directory ~name ~parent_image ~version
     ~block_device_mapping ~component ~systems_manager_agent
     __resource_id =
   let __resource_type = "aws_imagebuilder_image_recipe" in
   let __resource =
     {
       description;
+      id;
       name;
       parent_image;
       tags;
+      tags_all;
+      user_data_base64;
       version;
       working_directory;
       block_device_mapping;

@@ -40,6 +40,7 @@ type azurerm_machine_learning_compute_instance = {
   authorization_type : string option; [@option]
       (** authorization_type *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   local_auth_enabled : bool option; [@option]
       (** local_auth_enabled *)
   location : string;  (** location *)
@@ -64,7 +65,7 @@ type azurerm_machine_learning_compute_instance = {
 (** azurerm_machine_learning_compute_instance *)
 
 let azurerm_machine_learning_compute_instance ?authorization_type
-    ?description ?local_auth_enabled ?node_public_ip_enabled
+    ?description ?id ?local_auth_enabled ?node_public_ip_enabled
     ?subnet_resource_id ?tags ?timeouts ~location
     ~machine_learning_workspace_id ~name ~virtual_machine_size
     ~assign_to_user ~identity ~ssh __resource_id =
@@ -75,6 +76,7 @@ let azurerm_machine_learning_compute_instance ?authorization_type
     {
       authorization_type;
       description;
+      id;
       local_auth_enabled;
       location;
       machine_learning_workspace_id;

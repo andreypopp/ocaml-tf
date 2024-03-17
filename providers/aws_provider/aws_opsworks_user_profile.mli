@@ -6,6 +6,7 @@ type aws_opsworks_user_profile
 
 val aws_opsworks_user_profile :
   ?allow_self_management:bool ->
+  ?id:string ->
   ?ssh_public_key:string ->
   ssh_username:string ->
   user_arn:string ->

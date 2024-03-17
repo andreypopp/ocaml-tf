@@ -7,6 +7,7 @@ type azurerm_healthcare_medtech_service__timeouts
 type azurerm_healthcare_medtech_service
 
 val azurerm_healthcare_medtech_service :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_healthcare_medtech_service__timeouts ->
   device_mapping_json:string ->

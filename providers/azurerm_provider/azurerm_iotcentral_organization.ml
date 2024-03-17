@@ -15,6 +15,7 @@ type azurerm_iotcentral_organization__timeouts = {
 
 type azurerm_iotcentral_organization = {
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   iotcentral_application_id : string;
       (** iotcentral_application_id *)
   organization_id : string;  (** organization_id *)
@@ -25,13 +26,14 @@ type azurerm_iotcentral_organization = {
 [@@deriving yojson_of]
 (** azurerm_iotcentral_organization *)
 
-let azurerm_iotcentral_organization ?parent_organization_id ?timeouts
-    ~display_name ~iotcentral_application_id ~organization_id
-    __resource_id =
+let azurerm_iotcentral_organization ?id ?parent_organization_id
+    ?timeouts ~display_name ~iotcentral_application_id
+    ~organization_id __resource_id =
   let __resource_type = "azurerm_iotcentral_organization" in
   let __resource =
     {
       display_name;
+      id;
       iotcentral_application_id;
       organization_id;
       parent_organization_id;

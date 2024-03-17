@@ -5,14 +5,16 @@
 open! Tf.Prelude
 
 type aws_securityhub_product_subscription = {
+  id : string option; [@option]  (** id *)
   product_arn : string;  (** product_arn *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_product_subscription *)
 
-let aws_securityhub_product_subscription ~product_arn __resource_id =
+let aws_securityhub_product_subscription ?id ~product_arn
+    __resource_id =
   let __resource_type = "aws_securityhub_product_subscription" in
-  let __resource = { product_arn } in
+  let __resource = { id; product_arn } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_product_subscription __resource);
   ()

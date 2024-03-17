@@ -21,10 +21,12 @@ type azurerm_synapse_sql_pool__timeouts = {
 (** azurerm_synapse_sql_pool__timeouts *)
 
 type azurerm_synapse_sql_pool = {
+  collation : string option; [@option]  (** collation *)
   create_mode : string option; [@option]  (** create_mode *)
   data_encrypted : bool option; [@option]  (** data_encrypted *)
   geo_backup_policy_enabled : bool option; [@option]
       (** geo_backup_policy_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   recovery_database_id : string option; [@option]
       (** recovery_database_id *)
@@ -39,16 +41,18 @@ type azurerm_synapse_sql_pool = {
 [@@deriving yojson_of]
 (** azurerm_synapse_sql_pool *)
 
-let azurerm_synapse_sql_pool ?create_mode ?data_encrypted
-    ?geo_backup_policy_enabled ?recovery_database_id
+let azurerm_synapse_sql_pool ?collation ?create_mode ?data_encrypted
+    ?geo_backup_policy_enabled ?id ?recovery_database_id
     ?storage_account_type ?tags ?timeouts ~name ~sku_name
     ~synapse_workspace_id ~restore __resource_id =
   let __resource_type = "azurerm_synapse_sql_pool" in
   let __resource =
     {
+      collation;
       create_mode;
       data_encrypted;
       geo_backup_policy_enabled;
+      id;
       name;
       recovery_database_id;
       sku_name;

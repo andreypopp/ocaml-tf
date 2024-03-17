@@ -8,6 +8,7 @@ val cloudflare_zone_cache_variants :
   ?avif:string list ->
   ?bmp:string list ->
   ?gif:string list ->
+  ?id:string ->
   ?jp2:string list ->
   ?jpeg:string list ->
   ?jpg:string list ->

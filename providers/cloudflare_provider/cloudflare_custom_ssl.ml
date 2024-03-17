@@ -27,6 +27,7 @@ type cloudflare_custom_ssl__custom_ssl_priority = {
 (** cloudflare_custom_ssl__custom_ssl_priority *)
 
 type cloudflare_custom_ssl = {
+  id : string option; [@option]  (** id *)
   zone_id : string;
       (** The zone identifier to target for the resource. *)
   custom_ssl_options :
@@ -37,11 +38,11 @@ type cloudflare_custom_ssl = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare custom SSL resource. *)
 
-let cloudflare_custom_ssl ~zone_id ~custom_ssl_options
+let cloudflare_custom_ssl ?id ~zone_id ~custom_ssl_options
     ~custom_ssl_priority __resource_id =
   let __resource_type = "cloudflare_custom_ssl" in
   let __resource =
-    { zone_id; custom_ssl_options; custom_ssl_priority }
+    { id; zone_id; custom_ssl_options; custom_ssl_priority }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_custom_ssl __resource);

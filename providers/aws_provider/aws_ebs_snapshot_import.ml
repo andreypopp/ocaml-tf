@@ -38,12 +38,17 @@ type aws_ebs_snapshot_import__timeouts = {
 (** aws_ebs_snapshot_import__timeouts *)
 
 type aws_ebs_snapshot_import = {
+  description : string option; [@option]  (** description *)
   encrypted : bool option; [@option]  (** encrypted *)
+  id : string option; [@option]  (** id *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
   permanent_restore : bool option; [@option]
       (** permanent_restore *)
   role_name : string option; [@option]  (** role_name *)
+  storage_tier : string option; [@option]  (** storage_tier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   temporary_restore_days : float option; [@option]
       (** temporary_restore_days *)
   client_data : aws_ebs_snapshot_import__client_data list;
@@ -53,17 +58,22 @@ type aws_ebs_snapshot_import = {
 [@@deriving yojson_of]
 (** aws_ebs_snapshot_import *)
 
-let aws_ebs_snapshot_import ?encrypted ?kms_key_id ?permanent_restore
-    ?role_name ?tags ?temporary_restore_days ?timeouts ~client_data
-    ~disk_container __resource_id =
+let aws_ebs_snapshot_import ?description ?encrypted ?id ?kms_key_id
+    ?permanent_restore ?role_name ?storage_tier ?tags ?tags_all
+    ?temporary_restore_days ?timeouts ~client_data ~disk_container
+    __resource_id =
   let __resource_type = "aws_ebs_snapshot_import" in
   let __resource =
     {
+      description;
       encrypted;
+      id;
       kms_key_id;
       permanent_restore;
       role_name;
+      storage_tier;
       tags;
+      tags_all;
       temporary_restore_days;
       client_data;
       disk_container;

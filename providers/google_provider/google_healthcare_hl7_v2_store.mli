@@ -9,6 +9,7 @@ type google_healthcare_hl7_v2_store__timeouts
 type google_healthcare_hl7_v2_store
 
 val google_healthcare_hl7_v2_store :
+  ?id:string ->
   ?labels:(string * string) list ->
   ?reject_duplicate_message:bool ->
   ?timeouts:google_healthcare_hl7_v2_store__timeouts ->

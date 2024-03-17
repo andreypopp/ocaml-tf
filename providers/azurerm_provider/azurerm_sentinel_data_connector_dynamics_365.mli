@@ -6,6 +6,8 @@ type azurerm_sentinel_data_connector_dynamics_365__timeouts
 type azurerm_sentinel_data_connector_dynamics_365
 
 val azurerm_sentinel_data_connector_dynamics_365 :
+  ?id:string ->
+  ?tenant_id:string ->
   ?timeouts:azurerm_sentinel_data_connector_dynamics_365__timeouts ->
   log_analytics_workspace_id:string ->
   name:string ->

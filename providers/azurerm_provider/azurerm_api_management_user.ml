@@ -18,19 +18,21 @@ type azurerm_api_management_user = {
   confirmation : string option; [@option]  (** confirmation *)
   email : string;  (** email *)
   first_name : string;  (** first_name *)
+  id : string option; [@option]  (** id *)
   last_name : string;  (** last_name *)
   note : string option; [@option]  (** note *)
   password : string option; [@option]  (** password *)
   resource_group_name : string;  (** resource_group_name *)
+  state : string option; [@option]  (** state *)
   user_id : string;  (** user_id *)
   timeouts : azurerm_api_management_user__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_user *)
 
-let azurerm_api_management_user ?confirmation ?note ?password
-    ?timeouts ~api_management_name ~email ~first_name ~last_name
-    ~resource_group_name ~user_id __resource_id =
+let azurerm_api_management_user ?confirmation ?id ?note ?password
+    ?state ?timeouts ~api_management_name ~email ~first_name
+    ~last_name ~resource_group_name ~user_id __resource_id =
   let __resource_type = "azurerm_api_management_user" in
   let __resource =
     {
@@ -38,10 +40,12 @@ let azurerm_api_management_user ?confirmation ?note ?password
       confirmation;
       email;
       first_name;
+      id;
       last_name;
       note;
       password;
       resource_group_name;
+      state;
       user_id;
       timeouts;
     }

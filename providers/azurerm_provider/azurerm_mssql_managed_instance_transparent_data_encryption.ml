@@ -16,6 +16,7 @@ type azurerm_mssql_managed_instance_transparent_data_encryption__timeouts = {
 type azurerm_mssql_managed_instance_transparent_data_encryption = {
   auto_rotation_enabled : bool option; [@option]
       (** auto_rotation_enabled *)
+  id : string option; [@option]  (** id *)
   key_vault_key_id : string option; [@option]
       (** key_vault_key_id *)
   managed_instance_id : string;  (** managed_instance_id *)
@@ -27,7 +28,7 @@ type azurerm_mssql_managed_instance_transparent_data_encryption = {
 (** azurerm_mssql_managed_instance_transparent_data_encryption *)
 
 let azurerm_mssql_managed_instance_transparent_data_encryption
-    ?auto_rotation_enabled ?key_vault_key_id ?timeouts
+    ?auto_rotation_enabled ?id ?key_vault_key_id ?timeouts
     ~managed_instance_id __resource_id =
   let __resource_type =
     "azurerm_mssql_managed_instance_transparent_data_encryption"
@@ -35,6 +36,7 @@ let azurerm_mssql_managed_instance_transparent_data_encryption
   let __resource =
     {
       auto_rotation_enabled;
+      id;
       key_vault_key_id;
       managed_instance_id;
       timeouts;

@@ -28,6 +28,7 @@ type google_healthcare_dicom_store = {
   dataset : string;
       (** Identifies the dataset addressed by this request. Must be in the format
 'projects/{project}/locations/{location}/datasets/{dataset}' *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-supplied key-value pairs used to organize DICOM stores.
 
@@ -56,11 +57,11 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_healthcare_dicom_store *)
 
-let google_healthcare_dicom_store ?labels ?timeouts ~dataset ~name
-    ~notification_config __resource_id =
+let google_healthcare_dicom_store ?id ?labels ?timeouts ~dataset
+    ~name ~notification_config __resource_id =
   let __resource_type = "google_healthcare_dicom_store" in
   let __resource =
-    { dataset; labels; name; notification_config; timeouts }
+    { dataset; id; labels; name; notification_config; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_dicom_store __resource);

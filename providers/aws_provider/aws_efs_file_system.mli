@@ -10,13 +10,19 @@ type aws_efs_file_system__size_in_bytes = {
   value_in_ia : float;  (** value_in_ia *)
   value_in_standard : float;  (** value_in_standard *)
 }
-[@@deriving yojson_of]
 
 type aws_efs_file_system
 
 val aws_efs_file_system :
+  ?availability_zone_name:string ->
+  ?creation_token:string ->
+  ?encrypted:bool ->
+  ?id:string ->
+  ?kms_key_id:string ->
+  ?performance_mode:string ->
   ?provisioned_throughput_in_mibps:float ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?throughput_mode:string ->
   lifecycle_policy:aws_efs_file_system__lifecycle_policy list ->
   protection:aws_efs_file_system__protection list ->

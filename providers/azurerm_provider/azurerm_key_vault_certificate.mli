@@ -31,11 +31,11 @@ type azurerm_key_vault_certificate__certificate_attribute = {
   recovery_level : string;  (** recovery_level *)
   updated : string;  (** updated *)
 }
-[@@deriving yojson_of]
 
 type azurerm_key_vault_certificate
 
 val azurerm_key_vault_certificate :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_key_vault_certificate__timeouts ->
   key_vault_id:string ->

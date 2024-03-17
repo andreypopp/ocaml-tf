@@ -29,19 +29,21 @@ type google_sourcerepo_repository__timeouts = {
 (** google_sourcerepo_repository__timeouts *)
 
 type google_sourcerepo_repository = {
+  id : string option; [@option]  (** id *)
   name : string;
       (** Resource name of the repository, of the form '{{repo}}'.
 The repo name may contain slashes. eg, 'name/with/slash' *)
+  project : string option; [@option]  (** project *)
   pubsub_configs : google_sourcerepo_repository__pubsub_configs list;
   timeouts : google_sourcerepo_repository__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_sourcerepo_repository *)
 
-let google_sourcerepo_repository ?timeouts ~name ~pubsub_configs
-    __resource_id =
+let google_sourcerepo_repository ?id ?project ?timeouts ~name
+    ~pubsub_configs __resource_id =
   let __resource_type = "google_sourcerepo_repository" in
-  let __resource = { name; pubsub_configs; timeouts } in
+  let __resource = { id; name; project; pubsub_configs; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_sourcerepo_repository __resource);
   ()

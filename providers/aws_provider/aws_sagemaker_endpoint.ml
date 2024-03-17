@@ -101,17 +101,28 @@ type aws_sagemaker_endpoint__deployment_config = {
 
 type aws_sagemaker_endpoint = {
   endpoint_config_name : string;  (** endpoint_config_name *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   deployment_config : aws_sagemaker_endpoint__deployment_config list;
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_endpoint *)
 
-let aws_sagemaker_endpoint ?tags ~endpoint_config_name
-    ~deployment_config __resource_id =
+let aws_sagemaker_endpoint ?id ?name ?tags ?tags_all
+    ~endpoint_config_name ~deployment_config __resource_id =
   let __resource_type = "aws_sagemaker_endpoint" in
   let __resource =
-    { endpoint_config_name; tags; deployment_config }
+    {
+      endpoint_config_name;
+      id;
+      name;
+      tags;
+      tags_all;
+      deployment_config;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_endpoint __resource);

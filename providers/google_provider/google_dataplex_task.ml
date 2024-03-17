@@ -192,6 +192,7 @@ type google_dataplex_task = {
       (** User-provided description of the task. *)
   display_name : string option; [@option]
       (** User friendly display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-defined labels for the task.
 
@@ -202,6 +203,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** The lake in which the task will be created in. *)
   location : string option; [@option]
       (** The location in which the task will be created in. *)
+  project : string option; [@option]  (** project *)
   task_id : string option; [@option]  (** The task Id of the task. *)
   execution_spec : google_dataplex_task__execution_spec list;
   notebook : google_dataplex_task__notebook list;
@@ -212,17 +214,19 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_dataplex_task *)
 
-let google_dataplex_task ?description ?display_name ?labels ?lake
-    ?location ?task_id ?timeouts ~execution_spec ~notebook ~spark
-    ~trigger_spec __resource_id =
+let google_dataplex_task ?description ?display_name ?id ?labels ?lake
+    ?location ?project ?task_id ?timeouts ~execution_spec ~notebook
+    ~spark ~trigger_spec __resource_id =
   let __resource_type = "google_dataplex_task" in
   let __resource =
     {
       description;
       display_name;
+      id;
       labels;
       lake;
       location;
+      project;
       task_id;
       execution_spec;
       notebook;

@@ -58,7 +58,11 @@ type azurerm_eventgrid_event_subscription
 val azurerm_eventgrid_event_subscription :
   ?advanced_filtering_on_arrays_enabled:bool ->
   ?event_delivery_schema:string ->
+  ?eventhub_endpoint_id:string ->
   ?expiration_time_utc:string ->
+  ?hybrid_connection_endpoint_id:string ->
+  ?id:string ->
+  ?included_event_types:string list ->
   ?labels:string list ->
   ?service_bus_queue_endpoint_id:string ->
   ?service_bus_topic_endpoint_id:string ->

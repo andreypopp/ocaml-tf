@@ -15,6 +15,7 @@ type aws_cloudwatch_event_endpoint
 
 val aws_cloudwatch_event_endpoint :
   ?description:string ->
+  ?id:string ->
   ?role_arn:string ->
   name:string ->
   event_bus:aws_cloudwatch_event_endpoint__event_bus list ->

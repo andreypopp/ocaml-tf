@@ -17,6 +17,7 @@ type azurerm_api_management_identity_provider_twitter = {
   api_key : string;  (** api_key *)
   api_management_name : string;  (** api_management_name *)
   api_secret_key : string;  (** api_secret_key *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts :
     azurerm_api_management_identity_provider_twitter__timeouts option;
@@ -24,7 +25,7 @@ type azurerm_api_management_identity_provider_twitter = {
 [@@deriving yojson_of]
 (** azurerm_api_management_identity_provider_twitter *)
 
-let azurerm_api_management_identity_provider_twitter ?timeouts
+let azurerm_api_management_identity_provider_twitter ?id ?timeouts
     ~api_key ~api_management_name ~api_secret_key
     ~resource_group_name __resource_id =
   let __resource_type =
@@ -35,6 +36,7 @@ let azurerm_api_management_identity_provider_twitter ?timeouts
       api_key;
       api_management_name;
       api_secret_key;
+      id;
       resource_group_name;
       timeouts;
     }

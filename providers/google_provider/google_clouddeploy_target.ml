@@ -67,6 +67,7 @@ Please refer to the field `effective_annotations` for all of the annotations pre
       (** Optional. The deploy parameters to use for this target. *)
   description : string option; [@option]
       (** Optional. Description of the `Target`. Max length is 255 characters. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. Labels are attributes that can be set and used by both the user and by Google Cloud Deploy. Labels must meet the following constraints: * Keys and values can contain only lowercase letters, numeric characters, underscores, and dashes. * All characters must use UTF-8 encoding, and international characters are allowed. * Keys must start with a lowercase letter or international character. * Each resource is limited to a maximum of 64 labels. Both keys and values are additionally constrained to be <= 128 bytes.
 
@@ -75,6 +76,8 @@ Please refer to the field `effective_labels` for all of the labels present on th
   location : string;  (** The location for the resource *)
   name : string;
       (** Name of the `Target`. Format is [a-z][a-z0-9\-]{0,62}. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   require_approval : bool option; [@option]
       (** Optional. Whether or not the `Target` requires approval. *)
   anthos_cluster : google_clouddeploy_target__anthos_cluster list;
@@ -89,18 +92,20 @@ Please refer to the field `effective_labels` for all of the labels present on th
 (** google_clouddeploy_target *)
 
 let google_clouddeploy_target ?annotations ?deploy_parameters
-    ?description ?labels ?require_approval ?timeouts ~location ~name
-    ~anthos_cluster ~execution_configs ~gke ~multi_target ~run
-    __resource_id =
+    ?description ?id ?labels ?project ?require_approval ?timeouts
+    ~location ~name ~anthos_cluster ~execution_configs ~gke
+    ~multi_target ~run __resource_id =
   let __resource_type = "google_clouddeploy_target" in
   let __resource =
     {
       annotations;
       deploy_parameters;
       description;
+      id;
       labels;
       location;
       name;
+      project;
       require_approval;
       anthos_cluster;
       execution_configs;

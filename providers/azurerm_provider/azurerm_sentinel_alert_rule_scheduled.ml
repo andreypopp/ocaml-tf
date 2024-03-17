@@ -101,6 +101,7 @@ type azurerm_sentinel_alert_rule_scheduled = {
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -138,7 +139,7 @@ type azurerm_sentinel_alert_rule_scheduled = {
 
 let azurerm_sentinel_alert_rule_scheduled ?alert_rule_template_guid
     ?alert_rule_template_version ?custom_details ?description
-    ?enabled ?query_frequency ?query_period ?suppression_duration
+    ?enabled ?id ?query_frequency ?query_period ?suppression_duration
     ?suppression_enabled ?tactics ?techniques ?trigger_operator
     ?trigger_threshold ?timeouts ~display_name
     ~log_analytics_workspace_id ~name ~query ~severity
@@ -153,6 +154,7 @@ let azurerm_sentinel_alert_rule_scheduled ?alert_rule_template_guid
       description;
       display_name;
       enabled;
+      id;
       log_analytics_workspace_id;
       name;
       query;

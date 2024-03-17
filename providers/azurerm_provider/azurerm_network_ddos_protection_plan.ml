@@ -14,6 +14,7 @@ type azurerm_network_ddos_protection_plan__timeouts = {
 (** azurerm_network_ddos_protection_plan__timeouts *)
 
 type azurerm_network_ddos_protection_plan = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -23,11 +24,11 @@ type azurerm_network_ddos_protection_plan = {
 [@@deriving yojson_of]
 (** azurerm_network_ddos_protection_plan *)
 
-let azurerm_network_ddos_protection_plan ?tags ?timeouts ~location
-    ~name ~resource_group_name __resource_id =
+let azurerm_network_ddos_protection_plan ?id ?tags ?timeouts
+    ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_network_ddos_protection_plan" in
   let __resource =
-    { location; name; resource_group_name; tags; timeouts }
+    { id; location; name; resource_group_name; tags; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_ddos_protection_plan __resource);

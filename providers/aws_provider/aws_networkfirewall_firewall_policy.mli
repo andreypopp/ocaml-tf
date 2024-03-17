@@ -31,7 +31,9 @@ type aws_networkfirewall_firewall_policy
 
 val aws_networkfirewall_firewall_policy :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   encryption_configuration:
     aws_networkfirewall_firewall_policy__encryption_configuration

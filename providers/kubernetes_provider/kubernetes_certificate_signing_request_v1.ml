@@ -82,6 +82,7 @@ type kubernetes_certificate_signing_request_v1__timeouts = {
 type kubernetes_certificate_signing_request_v1 = {
   auto_approve : bool option; [@option]
       (** Automatically approve the CertificateSigningRequest *)
+  id : string option; [@option]  (** id *)
   metadata :
     kubernetes_certificate_signing_request_v1__metadata list;
   spec : kubernetes_certificate_signing_request_v1__spec list;
@@ -91,12 +92,12 @@ type kubernetes_certificate_signing_request_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_certificate_signing_request_v1 *)
 
-let kubernetes_certificate_signing_request_v1 ?auto_approve ?timeouts
-    ~metadata ~spec __resource_id =
+let kubernetes_certificate_signing_request_v1 ?auto_approve ?id
+    ?timeouts ~metadata ~spec __resource_id =
   let __resource_type =
     "kubernetes_certificate_signing_request_v1"
   in
-  let __resource = { auto_approve; metadata; spec; timeouts } in
+  let __resource = { auto_approve; id; metadata; spec; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_certificate_signing_request_v1 __resource);
   ()

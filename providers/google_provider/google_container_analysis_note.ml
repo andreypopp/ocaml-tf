@@ -53,9 +53,11 @@ type google_container_analysis_note__timeouts = {
 type google_container_analysis_note = {
   expiration_time : string option; [@option]
       (** Time of expiration for this note. Leave empty if note does not expire. *)
+  id : string option; [@option]  (** id *)
   long_description : string option; [@option]
       (** A detailed description of the note *)
   name : string;  (** The name of the note. *)
+  project : string option; [@option]  (** project *)
   related_note_names : string list option; [@option]
       (** Names of other notes related to this note. *)
   short_description : string option; [@option]
@@ -68,15 +70,18 @@ type google_container_analysis_note = {
 [@@deriving yojson_of]
 (** google_container_analysis_note *)
 
-let google_container_analysis_note ?expiration_time ?long_description
-    ?related_note_names ?short_description ?timeouts ~name
-    ~attestation_authority ~related_url __resource_id =
+let google_container_analysis_note ?expiration_time ?id
+    ?long_description ?project ?related_note_names ?short_description
+    ?timeouts ~name ~attestation_authority ~related_url __resource_id
+    =
   let __resource_type = "google_container_analysis_note" in
   let __resource =
     {
       expiration_time;
+      id;
       long_description;
       name;
+      project;
       related_note_names;
       short_description;
       attestation_authority;

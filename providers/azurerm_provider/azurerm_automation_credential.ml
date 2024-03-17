@@ -16,6 +16,7 @@ type azurerm_automation_credential__timeouts = {
 type azurerm_automation_credential = {
   automation_account_name : string;  (** automation_account_name *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   password : string;  (** password *)
   resource_group_name : string;  (** resource_group_name *)
@@ -25,7 +26,7 @@ type azurerm_automation_credential = {
 [@@deriving yojson_of]
 (** azurerm_automation_credential *)
 
-let azurerm_automation_credential ?description ?timeouts
+let azurerm_automation_credential ?description ?id ?timeouts
     ~automation_account_name ~name ~password ~resource_group_name
     ~username __resource_id =
   let __resource_type = "azurerm_automation_credential" in
@@ -33,6 +34,7 @@ let azurerm_automation_credential ?description ?timeouts
     {
       automation_account_name;
       description;
+      id;
       name;
       password;
       resource_group_name;

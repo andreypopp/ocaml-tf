@@ -160,6 +160,7 @@ type aws_mskconnect_connector = {
   connector_configuration : (string * string) list;
       (** connector_configuration *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   kafkaconnect_version : string;  (** kafkaconnect_version *)
   name : string;  (** name *)
   service_execution_role_arn : string;
@@ -181,7 +182,7 @@ type aws_mskconnect_connector = {
 [@@deriving yojson_of]
 (** aws_mskconnect_connector *)
 
-let aws_mskconnect_connector ?description ?timeouts
+let aws_mskconnect_connector ?description ?id ?timeouts
     ~connector_configuration ~kafkaconnect_version ~name
     ~service_execution_role_arn ~capacity ~kafka_cluster
     ~kafka_cluster_client_authentication
@@ -192,6 +193,7 @@ let aws_mskconnect_connector ?description ?timeouts
     {
       connector_configuration;
       description;
+      id;
       kafkaconnect_version;
       name;
       service_execution_role_arn;

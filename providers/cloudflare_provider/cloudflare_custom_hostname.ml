@@ -71,6 +71,7 @@ type cloudflare_custom_hostname = {
       (** The [custom origin SNI](https://developers.cloudflare.com/ssl/ssl-for-saas/hostname-specific-behavior/custom-origin) used for certificates. *)
   hostname : string;
       (** Hostname you intend to request a certificate for. **Modifying this attribute will force creation of a new resource.** *)
+  id : string option; [@option]  (** id *)
   wait_for_ssl_pending_validation : bool option; [@option]
       (** Whether to wait for a custom hostname SSL sub-object to reach status `pending_validation` during creation. Defaults to `false`. *)
   zone_id : string;
@@ -82,7 +83,7 @@ type cloudflare_custom_hostname = {
  *)
 
 let cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
-    ?custom_origin_sni ?wait_for_ssl_pending_validation ~hostname
+    ?custom_origin_sni ?id ?wait_for_ssl_pending_validation ~hostname
     ~zone_id ~ssl __resource_id =
   let __resource_type = "cloudflare_custom_hostname" in
   let __resource =
@@ -91,6 +92,7 @@ let cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
       custom_origin_server;
       custom_origin_sni;
       hostname;
+      id;
       wait_for_ssl_pending_validation;
       zone_id;
       ssl;

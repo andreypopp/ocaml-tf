@@ -6,16 +6,20 @@ open! Tf.Prelude
 
 type google_storage_object_acl = {
   bucket : string;  (** bucket *)
+  id : string option; [@option]  (** id *)
   object_ : string; [@key "object"]  (** object *)
   predefined_acl : string option; [@option]  (** predefined_acl *)
+  role_entity : string list option; [@option]  (** role_entity *)
 }
 [@@deriving yojson_of]
 (** google_storage_object_acl *)
 
-let google_storage_object_acl ?predefined_acl ~bucket ~object_
-    __resource_id =
+let google_storage_object_acl ?id ?predefined_acl ?role_entity
+    ~bucket ~object_ __resource_id =
   let __resource_type = "google_storage_object_acl" in
-  let __resource = { bucket; object_; predefined_acl } in
+  let __resource =
+    { bucket; id; object_; predefined_acl; role_entity }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_object_acl __resource);
   ()

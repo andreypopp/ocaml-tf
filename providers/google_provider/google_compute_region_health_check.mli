@@ -16,6 +16,9 @@ val google_compute_region_health_check :
   ?check_interval_sec:float ->
   ?description:string ->
   ?healthy_threshold:float ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?timeout_sec:float ->
   ?unhealthy_threshold:float ->
   ?timeouts:google_compute_region_health_check__timeouts ->

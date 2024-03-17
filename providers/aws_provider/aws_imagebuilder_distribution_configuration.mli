@@ -23,7 +23,9 @@ type aws_imagebuilder_distribution_configuration
 
 val aws_imagebuilder_distribution_configuration :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   distribution:
     aws_imagebuilder_distribution_configuration__distribution list ->

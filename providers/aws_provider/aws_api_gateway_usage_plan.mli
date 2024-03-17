@@ -10,8 +10,10 @@ type aws_api_gateway_usage_plan
 
 val aws_api_gateway_usage_plan :
   ?description:string ->
+  ?id:string ->
   ?product_code:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   api_stages:aws_api_gateway_usage_plan__api_stages list ->
   quota_settings:aws_api_gateway_usage_plan__quota_settings list ->

@@ -6,16 +6,30 @@ open! Tf.Prelude
 
 type aws_lakeformation_resource = {
   arn : string;  (** arn *)
+  hybrid_access_enabled : bool option; [@option]
+      (** hybrid_access_enabled *)
+  id : string option; [@option]  (** id *)
+  role_arn : string option; [@option]  (** role_arn *)
   use_service_linked_role : bool option; [@option]
       (** use_service_linked_role *)
+  with_federation : bool option; [@option]  (** with_federation *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_resource *)
 
-let aws_lakeformation_resource ?use_service_linked_role ~arn
-    __resource_id =
+let aws_lakeformation_resource ?hybrid_access_enabled ?id ?role_arn
+    ?use_service_linked_role ?with_federation ~arn __resource_id =
   let __resource_type = "aws_lakeformation_resource" in
-  let __resource = { arn; use_service_linked_role } in
+  let __resource =
+    {
+      arn;
+      hybrid_access_enabled;
+      id;
+      role_arn;
+      use_service_linked_role;
+      with_federation;
+    }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lakeformation_resource __resource);
   ()

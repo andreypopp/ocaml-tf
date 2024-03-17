@@ -18,7 +18,10 @@ type google_secret_manager_secret
 
 val google_secret_manager_secret :
   ?annotations:(string * string) list ->
+  ?expire_time:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?ttl:string ->
   ?version_aliases:(string * string) list ->
   ?timeouts:google_secret_manager_secret__timeouts ->

@@ -7,6 +7,8 @@ type aws_s3_object__override_provider
 type aws_s3_object
 
 val aws_s3_object :
+  ?acl:string ->
+  ?bucket_key_enabled:bool ->
   ?cache_control:string ->
   ?checksum_algorithm:string ->
   ?content:string ->
@@ -14,14 +16,21 @@ val aws_s3_object :
   ?content_disposition:string ->
   ?content_encoding:string ->
   ?content_language:string ->
+  ?content_type:string ->
+  ?etag:string ->
   ?force_destroy:bool ->
+  ?id:string ->
+  ?kms_key_id:string ->
   ?metadata:(string * string) list ->
   ?object_lock_legal_hold_status:string ->
   ?object_lock_mode:string ->
   ?object_lock_retain_until_date:string ->
+  ?server_side_encryption:string ->
   ?source:string ->
   ?source_hash:string ->
+  ?storage_class:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?website_redirect:string ->
   bucket:string ->
   key:string ->

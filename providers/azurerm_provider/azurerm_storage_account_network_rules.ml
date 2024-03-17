@@ -22,8 +22,13 @@ type azurerm_storage_account_network_rules__timeouts = {
 (** azurerm_storage_account_network_rules__timeouts *)
 
 type azurerm_storage_account_network_rules = {
+  bypass : string list option; [@option]  (** bypass *)
   default_action : string;  (** default_action *)
+  id : string option; [@option]  (** id *)
+  ip_rules : string list option; [@option]  (** ip_rules *)
   storage_account_id : string;  (** storage_account_id *)
+  virtual_network_subnet_ids : string list option; [@option]
+      (** virtual_network_subnet_ids *)
   private_link_access :
     azurerm_storage_account_network_rules__private_link_access list;
   timeouts : azurerm_storage_account_network_rules__timeouts option;
@@ -31,13 +36,18 @@ type azurerm_storage_account_network_rules = {
 [@@deriving yojson_of]
 (** azurerm_storage_account_network_rules *)
 
-let azurerm_storage_account_network_rules ?timeouts ~default_action
+let azurerm_storage_account_network_rules ?bypass ?id ?ip_rules
+    ?virtual_network_subnet_ids ?timeouts ~default_action
     ~storage_account_id ~private_link_access __resource_id =
   let __resource_type = "azurerm_storage_account_network_rules" in
   let __resource =
     {
+      bypass;
       default_action;
+      id;
+      ip_rules;
       storage_account_id;
+      virtual_network_subnet_ids;
       private_link_access;
       timeouts;
     }

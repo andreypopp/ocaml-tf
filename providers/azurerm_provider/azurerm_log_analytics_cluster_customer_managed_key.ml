@@ -14,6 +14,7 @@ type azurerm_log_analytics_cluster_customer_managed_key__timeouts = {
 (** azurerm_log_analytics_cluster_customer_managed_key__timeouts *)
 
 type azurerm_log_analytics_cluster_customer_managed_key = {
+  id : string option; [@option]  (** id *)
   key_vault_key_id : string;  (** key_vault_key_id *)
   log_analytics_cluster_id : string;  (** log_analytics_cluster_id *)
   timeouts :
@@ -23,13 +24,13 @@ type azurerm_log_analytics_cluster_customer_managed_key = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_cluster_customer_managed_key *)
 
-let azurerm_log_analytics_cluster_customer_managed_key ?timeouts
+let azurerm_log_analytics_cluster_customer_managed_key ?id ?timeouts
     ~key_vault_key_id ~log_analytics_cluster_id __resource_id =
   let __resource_type =
     "azurerm_log_analytics_cluster_customer_managed_key"
   in
   let __resource =
-    { key_vault_key_id; log_analytics_cluster_id; timeouts }
+    { id; key_vault_key_id; log_analytics_cluster_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_log_analytics_cluster_customer_managed_key

@@ -14,17 +14,18 @@ type aws_rds_cluster_role_association__timeouts = {
 type aws_rds_cluster_role_association = {
   db_cluster_identifier : string;  (** db_cluster_identifier *)
   feature_name : string;  (** feature_name *)
+  id : string option; [@option]  (** id *)
   role_arn : string;  (** role_arn *)
   timeouts : aws_rds_cluster_role_association__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster_role_association *)
 
-let aws_rds_cluster_role_association ?timeouts ~db_cluster_identifier
-    ~feature_name ~role_arn __resource_id =
+let aws_rds_cluster_role_association ?id ?timeouts
+    ~db_cluster_identifier ~feature_name ~role_arn __resource_id =
   let __resource_type = "aws_rds_cluster_role_association" in
   let __resource =
-    { db_cluster_identifier; feature_name; role_arn; timeouts }
+    { db_cluster_identifier; feature_name; id; role_arn; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rds_cluster_role_association __resource);

@@ -7,6 +7,7 @@ type aws_quicksight_vpc_connection__timeouts
 type aws_quicksight_vpc_connection
 
 val aws_quicksight_vpc_connection :
+    ?aws_account_id:string ->
     ?dns_resolvers:string list ->
     ?tags:(string * string) list ->
     ?timeouts:aws_quicksight_vpc_connection__timeouts ->

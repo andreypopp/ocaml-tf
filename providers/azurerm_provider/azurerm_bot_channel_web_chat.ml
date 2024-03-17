@@ -26,19 +26,29 @@ type azurerm_bot_channel_web_chat__timeouts = {
 
 type azurerm_bot_channel_web_chat = {
   bot_name : string;  (** bot_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   resource_group_name : string;  (** resource_group_name *)
+  site_names : string list option; [@option]  (** site_names *)
   site : azurerm_bot_channel_web_chat__site list;
   timeouts : azurerm_bot_channel_web_chat__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_web_chat *)
 
-let azurerm_bot_channel_web_chat ?timeouts ~bot_name ~location
-    ~resource_group_name ~site __resource_id =
+let azurerm_bot_channel_web_chat ?id ?site_names ?timeouts ~bot_name
+    ~location ~resource_group_name ~site __resource_id =
   let __resource_type = "azurerm_bot_channel_web_chat" in
   let __resource =
-    { bot_name; location; resource_group_name; site; timeouts }
+    {
+      bot_name;
+      id;
+      location;
+      resource_group_name;
+      site_names;
+      site;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_bot_channel_web_chat __resource);

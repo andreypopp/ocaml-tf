@@ -27,6 +27,7 @@ type azurerm_automation_source_control = {
   branch : string option; [@option]  (** branch *)
   description : string option; [@option]  (** description *)
   folder_path : string;  (** folder_path *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   publish_runbook_enabled : bool option; [@option]
       (** publish_runbook_enabled *)
@@ -39,7 +40,7 @@ type azurerm_automation_source_control = {
 (** azurerm_automation_source_control *)
 
 let azurerm_automation_source_control ?automatic_sync ?branch
-    ?description ?publish_runbook_enabled ?timeouts
+    ?description ?id ?publish_runbook_enabled ?timeouts
     ~automation_account_id ~folder_path ~name ~repository_url
     ~source_control_type ~security __resource_id =
   let __resource_type = "azurerm_automation_source_control" in
@@ -50,6 +51,7 @@ let azurerm_automation_source_control ?automatic_sync ?branch
       branch;
       description;
       folder_path;
+      id;
       name;
       publish_runbook_enabled;
       repository_url;

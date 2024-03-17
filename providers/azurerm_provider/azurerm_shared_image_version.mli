@@ -11,6 +11,7 @@ val azurerm_shared_image_version :
   ?deletion_of_replicated_locations_enabled:bool ->
   ?end_of_life_date:string ->
   ?exclude_from_latest:bool ->
+  ?id:string ->
   ?managed_image_id:string ->
   ?os_disk_snapshot_id:string ->
   ?replication_mode:string ->

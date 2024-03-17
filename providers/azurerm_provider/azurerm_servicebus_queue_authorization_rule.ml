@@ -14,6 +14,7 @@ type azurerm_servicebus_queue_authorization_rule__timeouts = {
 (** azurerm_servicebus_queue_authorization_rule__timeouts *)
 
 type azurerm_servicebus_queue_authorization_rule = {
+  id : string option; [@option]  (** id *)
   listen : bool option; [@option]  (** listen *)
   manage : bool option; [@option]  (** manage *)
   name : string;  (** name *)
@@ -25,13 +26,13 @@ type azurerm_servicebus_queue_authorization_rule = {
 [@@deriving yojson_of]
 (** azurerm_servicebus_queue_authorization_rule *)
 
-let azurerm_servicebus_queue_authorization_rule ?listen ?manage ?send
-    ?timeouts ~name ~queue_id __resource_id =
+let azurerm_servicebus_queue_authorization_rule ?id ?listen ?manage
+    ?send ?timeouts ~name ~queue_id __resource_id =
   let __resource_type =
     "azurerm_servicebus_queue_authorization_rule"
   in
   let __resource =
-    { listen; manage; name; queue_id; send; timeouts }
+    { id; listen; manage; name; queue_id; send; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_servicebus_queue_authorization_rule __resource);

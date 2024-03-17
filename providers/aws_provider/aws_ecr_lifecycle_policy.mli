@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_ecr_lifecycle_policy
 
 val aws_ecr_lifecycle_policy :
-  policy:string -> repository:string -> string -> unit
+  ?id:string -> policy:string -> repository:string -> string -> unit

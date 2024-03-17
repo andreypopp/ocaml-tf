@@ -21,22 +21,31 @@ type hcloud_load_balancer__target = {
 type hcloud_load_balancer = {
   delete_protection : bool option; [@option]
       (** delete_protection *)
+  id : string option; [@option]  (** id *)
+  labels : (string * string) list option; [@option]  (** labels *)
   load_balancer_type : string;  (** load_balancer_type *)
+  location : string option; [@option]  (** location *)
   name : string;  (** name *)
+  network_zone : string option; [@option]  (** network_zone *)
   algorithm : hcloud_load_balancer__algorithm list;
   target : hcloud_load_balancer__target list;
 }
 [@@deriving yojson_of]
 (** hcloud_load_balancer *)
 
-let hcloud_load_balancer ?delete_protection ~load_balancer_type ~name
-    ~algorithm ~target __resource_id =
+let hcloud_load_balancer ?delete_protection ?id ?labels ?location
+    ?network_zone ~load_balancer_type ~name ~algorithm ~target
+    __resource_id =
   let __resource_type = "hcloud_load_balancer" in
   let __resource =
     {
       delete_protection;
+      id;
+      labels;
       load_balancer_type;
+      location;
       name;
+      network_zone;
       algorithm;
       target;
     }

@@ -6,6 +6,7 @@ type azurerm_eventhub_namespace_disaster_recovery_config__timeouts
 type azurerm_eventhub_namespace_disaster_recovery_config
 
 val azurerm_eventhub_namespace_disaster_recovery_config :
+  ?id:string ->
   ?timeouts:
     azurerm_eventhub_namespace_disaster_recovery_config__timeouts ->
   name:string ->

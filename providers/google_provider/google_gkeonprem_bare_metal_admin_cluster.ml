@@ -326,8 +326,10 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
       (** A human readable description of this Bare Metal Admin Cluster. *)
   description : string option; [@option]
       (** A human readable description of this Bare Metal Admin Cluster. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the resource. *)
   name : string;  (** The bare metal admin cluster name. *)
+  project : string option; [@option]  (** project *)
   cluster_operations :
     google_gkeonprem_bare_metal_admin_cluster__cluster_operations
     list;
@@ -356,8 +358,8 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 (** google_gkeonprem_bare_metal_admin_cluster *)
 
 let google_gkeonprem_bare_metal_admin_cluster ?annotations
-    ?bare_metal_version ?description ?timeouts ~location ~name
-    ~cluster_operations ~control_plane ~load_balancer
+    ?bare_metal_version ?description ?id ?project ?timeouts ~location
+    ~name ~cluster_operations ~control_plane ~load_balancer
     ~maintenance_config ~network_config ~node_access_config
     ~node_config ~proxy ~security_config ~storage __resource_id =
   let __resource_type =
@@ -368,8 +370,10 @@ let google_gkeonprem_bare_metal_admin_cluster ?annotations
       annotations;
       bare_metal_version;
       description;
+      id;
       location;
       name;
+      project;
       cluster_operations;
       control_plane;
       load_balancer;

@@ -7,6 +7,7 @@ type azurerm_digital_twins_instance__timeouts
 type azurerm_digital_twins_instance
 
 val azurerm_digital_twins_instance :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_digital_twins_instance__timeouts ->
   location:string ->

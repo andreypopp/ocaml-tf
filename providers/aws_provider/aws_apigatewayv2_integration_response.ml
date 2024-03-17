@@ -8,6 +8,7 @@ type aws_apigatewayv2_integration_response = {
   api_id : string;  (** api_id *)
   content_handling_strategy : string option; [@option]
       (** content_handling_strategy *)
+  id : string option; [@option]  (** id *)
   integration_id : string;  (** integration_id *)
   integration_response_key : string;  (** integration_response_key *)
   response_templates : (string * string) list option; [@option]
@@ -19,13 +20,14 @@ type aws_apigatewayv2_integration_response = {
 (** aws_apigatewayv2_integration_response *)
 
 let aws_apigatewayv2_integration_response ?content_handling_strategy
-    ?response_templates ?template_selection_expression ~api_id
+    ?id ?response_templates ?template_selection_expression ~api_id
     ~integration_id ~integration_response_key __resource_id =
   let __resource_type = "aws_apigatewayv2_integration_response" in
   let __resource =
     {
       api_id;
       content_handling_strategy;
+      id;
       integration_id;
       integration_response_key;
       response_templates;

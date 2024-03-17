@@ -202,6 +202,25 @@ type google_pubsub_subscription__timeouts = {
 (** google_pubsub_subscription__timeouts *)
 
 type google_pubsub_subscription = {
+  ack_deadline_seconds : float option; [@option]
+      (** This value is the maximum time after a subscriber receives a message
+before the subscriber should acknowledge the message. After message
+delivery but before the ack deadline expires and before the message is
+acknowledged, it is an outstanding message and will not be delivered
+again during that time (on a best-effort basis).
+
+For pull subscriptions, this value is used as the initial value for
+the ack deadline. To override this value for a given message, call
+subscriptions.modifyAckDeadline with the corresponding ackId if using
+pull. The minimum custom deadline you can specify is 10 seconds. The
+maximum custom deadline you can specify is 600 seconds (10 minutes).
+If this parameter is 0, a default value of 10 seconds is used.
+
+For push delivery, this value is also used to set the request timeout
+for the call to the push endpoint.
+
+If the subscriber never acknowledges the message, the Pub/Sub system
+will eventually redeliver the message. *)
   enable_exactly_once_delivery : bool option; [@option]
       (** If 'true', Pub/Sub provides the following guarantees for the delivery
 of a message with a given value of messageId on this Subscriptions':
@@ -221,6 +240,7 @@ may be delivered in any order. *)
 Pub/Sub automatically acknowledges the messages that don't match the filter. You can filter messages
 by their attributes. The maximum length of a filter is 256 bytes. After creating the subscription,
 you can't modify the filter. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A set of key/value label pairs to assign to this Subscription.
 
@@ -238,6 +258,7 @@ than 7 days ('604800s') or less than 10 minutes ('600s').
 A duration in seconds with up to nine fractional digits, terminated
 by 's'. Example: '600.5s'. *)
   name : string;  (** Name of the subscription. *)
+  project : string option; [@option]  (** project *)
   retain_acked_messages : bool option; [@option]
       (** Indicates whether to retain acknowledged messages. If 'true', then
 messages are not expunged from the subscription's backlog, even if
@@ -261,21 +282,24 @@ the topic is in the same project as the subscription. *)
 [@@deriving yojson_of]
 (** google_pubsub_subscription *)
 
-let google_pubsub_subscription ?enable_exactly_once_delivery
-    ?enable_message_ordering ?filter ?labels
-    ?message_retention_duration ?retain_acked_messages ?timeouts
-    ~name ~topic ~bigquery_config ~cloud_storage_config
-    ~dead_letter_policy ~expiration_policy ~push_config ~retry_policy
-    __resource_id =
+let google_pubsub_subscription ?ack_deadline_seconds
+    ?enable_exactly_once_delivery ?enable_message_ordering ?filter
+    ?id ?labels ?message_retention_duration ?project
+    ?retain_acked_messages ?timeouts ~name ~topic ~bigquery_config
+    ~cloud_storage_config ~dead_letter_policy ~expiration_policy
+    ~push_config ~retry_policy __resource_id =
   let __resource_type = "google_pubsub_subscription" in
   let __resource =
     {
+      ack_deadline_seconds;
       enable_exactly_once_delivery;
       enable_message_ordering;
       filter;
+      id;
       labels;
       message_retention_duration;
       name;
+      project;
       retain_acked_messages;
       topic;
       bigquery_config;

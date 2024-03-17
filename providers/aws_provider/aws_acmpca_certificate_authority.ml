@@ -73,10 +73,16 @@ type aws_acmpca_certificate_authority__timeouts = {
 
 type aws_acmpca_certificate_authority = {
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
+  key_storage_security_standard : string option; [@option]
+      (** key_storage_security_standard *)
   permanent_deletion_time_in_days : float option; [@option]
       (** permanent_deletion_time_in_days *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string option; [@option] [@key "type"]  (** type *)
+  usage_mode : string option; [@option]  (** usage_mode *)
   certificate_authority_configuration :
     aws_acmpca_certificate_authority__certificate_authority_configuration
     list;
@@ -87,17 +93,22 @@ type aws_acmpca_certificate_authority = {
 [@@deriving yojson_of]
 (** aws_acmpca_certificate_authority *)
 
-let aws_acmpca_certificate_authority ?enabled
-    ?permanent_deletion_time_in_days ?tags ?type_ ?timeouts
+let aws_acmpca_certificate_authority ?enabled ?id
+    ?key_storage_security_standard ?permanent_deletion_time_in_days
+    ?tags ?tags_all ?type_ ?usage_mode ?timeouts
     ~certificate_authority_configuration ~revocation_configuration
     __resource_id =
   let __resource_type = "aws_acmpca_certificate_authority" in
   let __resource =
     {
       enabled;
+      id;
+      key_storage_security_standard;
       permanent_deletion_time_in_days;
       tags;
+      tags_all;
       type_;
+      usage_mode;
       certificate_authority_configuration;
       revocation_configuration;
       timeouts;

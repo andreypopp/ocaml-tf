@@ -12,9 +12,13 @@ val aws_api_gateway_domain_name :
   ?certificate_chain:string ->
   ?certificate_name:string ->
   ?certificate_private_key:string ->
+  ?id:string ->
+  ?ownership_verification_certificate_arn:string ->
   ?regional_certificate_arn:string ->
   ?regional_certificate_name:string ->
+  ?security_policy:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   domain_name:string ->
   endpoint_configuration:
     aws_api_gateway_domain_name__endpoint_configuration list ->

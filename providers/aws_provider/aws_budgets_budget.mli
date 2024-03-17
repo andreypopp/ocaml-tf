@@ -11,7 +11,14 @@ type aws_budgets_budget__planned_limit
 type aws_budgets_budget
 
 val aws_budgets_budget :
+  ?account_id:string ->
+  ?id:string ->
+  ?limit_amount:string ->
+  ?limit_unit:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?time_period_end:string ->
+  ?time_period_start:string ->
   budget_type:string ->
   time_unit:string ->
   auto_adjust_data:aws_budgets_budget__auto_adjust_data list ->

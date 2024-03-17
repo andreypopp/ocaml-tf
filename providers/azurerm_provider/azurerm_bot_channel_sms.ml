@@ -15,6 +15,7 @@ type azurerm_bot_channel_sms__timeouts = {
 
 type azurerm_bot_channel_sms = {
   bot_name : string;  (** bot_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   phone_number : string;  (** phone_number *)
   resource_group_name : string;  (** resource_group_name *)
@@ -26,7 +27,7 @@ type azurerm_bot_channel_sms = {
 [@@deriving yojson_of]
 (** azurerm_bot_channel_sms *)
 
-let azurerm_bot_channel_sms ?timeouts ~bot_name ~location
+let azurerm_bot_channel_sms ?id ?timeouts ~bot_name ~location
     ~phone_number ~resource_group_name
     ~sms_channel_account_security_id ~sms_channel_auth_token
     __resource_id =
@@ -34,6 +35,7 @@ let azurerm_bot_channel_sms ?timeouts ~bot_name ~location
   let __resource =
     {
       bot_name;
+      id;
       location;
       phone_number;
       resource_group_name;

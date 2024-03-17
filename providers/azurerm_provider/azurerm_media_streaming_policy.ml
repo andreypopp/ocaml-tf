@@ -203,6 +203,7 @@ type azurerm_media_streaming_policy__timeouts = {
 type azurerm_media_streaming_policy = {
   default_content_key_policy_name : string option; [@option]
       (** default_content_key_policy_name *)
+  id : string option; [@option]  (** id *)
   media_services_account_name : string;
       (** media_services_account_name *)
   name : string;  (** name *)
@@ -222,14 +223,15 @@ type azurerm_media_streaming_policy = {
 (** azurerm_media_streaming_policy *)
 
 let azurerm_media_streaming_policy ?default_content_key_policy_name
-    ?timeouts ~media_services_account_name ~name ~resource_group_name
-    ~common_encryption_cbcs ~common_encryption_cenc
-    ~envelope_encryption ~no_encryption_enabled_protocols
-    __resource_id =
+    ?id ?timeouts ~media_services_account_name ~name
+    ~resource_group_name ~common_encryption_cbcs
+    ~common_encryption_cenc ~envelope_encryption
+    ~no_encryption_enabled_protocols __resource_id =
   let __resource_type = "azurerm_media_streaming_policy" in
   let __resource =
     {
       default_content_key_policy_name;
+      id;
       media_services_account_name;
       name;
       resource_group_name;

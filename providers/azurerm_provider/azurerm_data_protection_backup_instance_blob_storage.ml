@@ -15,6 +15,7 @@ type azurerm_data_protection_backup_instance_blob_storage__timeouts = {
 
 type azurerm_data_protection_backup_instance_blob_storage = {
   backup_policy_id : string;  (** backup_policy_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   storage_account_id : string;  (** storage_account_id *)
@@ -26,15 +27,16 @@ type azurerm_data_protection_backup_instance_blob_storage = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_instance_blob_storage *)
 
-let azurerm_data_protection_backup_instance_blob_storage ?timeouts
-    ~backup_policy_id ~location ~name ~storage_account_id ~vault_id
-    __resource_id =
+let azurerm_data_protection_backup_instance_blob_storage ?id
+    ?timeouts ~backup_policy_id ~location ~name ~storage_account_id
+    ~vault_id __resource_id =
   let __resource_type =
     "azurerm_data_protection_backup_instance_blob_storage"
   in
   let __resource =
     {
       backup_policy_id;
+      id;
       location;
       name;
       storage_account_id;

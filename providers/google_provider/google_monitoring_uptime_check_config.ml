@@ -150,10 +150,14 @@ type google_monitoring_uptime_check_config__timeouts = {
 (** google_monitoring_uptime_check_config__timeouts *)
 
 type google_monitoring_uptime_check_config = {
+  checker_type : string option; [@option]
+      (** The checker type to use for the check. If the monitored resource type is 'servicedirectory_service', 'checker_type' must be set to 'VPC_CHECKERS'. Possible values: [STATIC_IP_CHECKERS, VPC_CHECKERS] *)
   display_name : string;
       (** A human-friendly name for the uptime check configuration. The display name should be unique within a Stackdriver Workspace in order to make it easier to identify; however, uniqueness is not enforced. *)
+  id : string option; [@option]  (** id *)
   period : string option; [@option]
       (** How often, in seconds, the uptime check is performed. Currently, the only supported values are 60s (1 minute), 300s (5 minutes), 600s (10 minutes), and 900s (15 minutes). Optional, defaults to 300s. *)
+  project : string option; [@option]  (** project *)
   selected_regions : string list option; [@option]
       (** The list of regions from which the check will be run. Some regions contain one location, and others contain more than one. If this field is specified, enough regions to include a minimum of 3 locations must be provided, or an error message is returned. Not specifying this field will result in uptime checks running from all regions. *)
   timeout : string;
@@ -176,15 +180,18 @@ type google_monitoring_uptime_check_config = {
 [@@deriving yojson_of]
 (** google_monitoring_uptime_check_config *)
 
-let google_monitoring_uptime_check_config ?period ?selected_regions
-    ?user_labels ?timeouts ~display_name ~timeout ~content_matchers
-    ~http_check ~monitored_resource ~resource_group
-    ~synthetic_monitor ~tcp_check __resource_id =
+let google_monitoring_uptime_check_config ?checker_type ?id ?period
+    ?project ?selected_regions ?user_labels ?timeouts ~display_name
+    ~timeout ~content_matchers ~http_check ~monitored_resource
+    ~resource_group ~synthetic_monitor ~tcp_check __resource_id =
   let __resource_type = "google_monitoring_uptime_check_config" in
   let __resource =
     {
+      checker_type;
       display_name;
+      id;
       period;
+      project;
       selected_regions;
       timeout;
       user_labels;

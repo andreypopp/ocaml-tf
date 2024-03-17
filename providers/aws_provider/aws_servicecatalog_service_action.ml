@@ -25,6 +25,8 @@ type aws_servicecatalog_service_action__timeouts = {
 
 type aws_servicecatalog_service_action = {
   accept_language : string option; [@option]  (** accept_language *)
+  description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   definition : aws_servicecatalog_service_action__definition list;
   timeouts : aws_servicecatalog_service_action__timeouts option;
@@ -32,10 +34,12 @@ type aws_servicecatalog_service_action = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_service_action *)
 
-let aws_servicecatalog_service_action ?accept_language ?timeouts
-    ~name ~definition __resource_id =
+let aws_servicecatalog_service_action ?accept_language ?description
+    ?id ?timeouts ~name ~definition __resource_id =
   let __resource_type = "aws_servicecatalog_service_action" in
-  let __resource = { accept_language; name; definition; timeouts } in
+  let __resource =
+    { accept_language; description; id; name; definition; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_service_action __resource);
   ()

@@ -14,11 +14,22 @@ type azurerm_servicebus_topic__timeouts = {
 (** azurerm_servicebus_topic__timeouts *)
 
 type azurerm_servicebus_topic = {
+  auto_delete_on_idle : string option; [@option]
+      (** auto_delete_on_idle *)
+  default_message_ttl : string option; [@option]
+      (** default_message_ttl *)
+  duplicate_detection_history_time_window : string option; [@option]
+      (** duplicate_detection_history_time_window *)
   enable_batched_operations : bool option; [@option]
       (** enable_batched_operations *)
   enable_express : bool option; [@option]  (** enable_express *)
   enable_partitioning : bool option; [@option]
       (** enable_partitioning *)
+  id : string option; [@option]  (** id *)
+  max_message_size_in_kilobytes : float option; [@option]
+      (** max_message_size_in_kilobytes *)
+  max_size_in_megabytes : float option; [@option]
+      (** max_size_in_megabytes *)
   name : string;  (** name *)
   namespace_id : string;  (** namespace_id *)
   requires_duplicate_detection : bool option; [@option]
@@ -30,16 +41,24 @@ type azurerm_servicebus_topic = {
 [@@deriving yojson_of]
 (** azurerm_servicebus_topic *)
 
-let azurerm_servicebus_topic ?enable_batched_operations
-    ?enable_express ?enable_partitioning
+let azurerm_servicebus_topic ?auto_delete_on_idle
+    ?default_message_ttl ?duplicate_detection_history_time_window
+    ?enable_batched_operations ?enable_express ?enable_partitioning
+    ?id ?max_message_size_in_kilobytes ?max_size_in_megabytes
     ?requires_duplicate_detection ?status ?support_ordering ?timeouts
     ~name ~namespace_id __resource_id =
   let __resource_type = "azurerm_servicebus_topic" in
   let __resource =
     {
+      auto_delete_on_idle;
+      default_message_ttl;
+      duplicate_detection_history_time_window;
       enable_batched_operations;
       enable_express;
       enable_partitioning;
+      id;
+      max_message_size_in_kilobytes;
+      max_size_in_megabytes;
       name;
       namespace_id;
       requires_duplicate_detection;

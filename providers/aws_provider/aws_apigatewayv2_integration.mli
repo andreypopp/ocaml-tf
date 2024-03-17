@@ -12,6 +12,7 @@ val aws_apigatewayv2_integration :
   ?content_handling_strategy:string ->
   ?credentials_arn:string ->
   ?description:string ->
+  ?id:string ->
   ?integration_method:string ->
   ?integration_subtype:string ->
   ?integration_uri:string ->
@@ -20,6 +21,7 @@ val aws_apigatewayv2_integration :
   ?request_parameters:(string * string) list ->
   ?request_templates:(string * string) list ->
   ?template_selection_expression:string ->
+  ?timeout_milliseconds:float ->
   api_id:string ->
   integration_type:string ->
   response_parameters:

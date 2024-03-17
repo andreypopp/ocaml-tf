@@ -27,10 +27,17 @@ type aws_db_proxy__timeouts = {
 type aws_db_proxy = {
   debug_logging : bool option; [@option]  (** debug_logging *)
   engine_family : string;  (** engine_family *)
+  id : string option; [@option]  (** id *)
+  idle_client_timeout : float option; [@option]
+      (** idle_client_timeout *)
   name : string;  (** name *)
   require_tls : bool option; [@option]  (** require_tls *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  vpc_security_group_ids : string list option; [@option]
+      (** vpc_security_group_ids *)
   vpc_subnet_ids : string list;  (** vpc_subnet_ids *)
   auth : aws_db_proxy__auth list;
   timeouts : aws_db_proxy__timeouts option;
@@ -38,18 +45,22 @@ type aws_db_proxy = {
 [@@deriving yojson_of]
 (** aws_db_proxy *)
 
-let aws_db_proxy ?debug_logging ?require_tls ?tags ?timeouts
-    ~engine_family ~name ~role_arn ~vpc_subnet_ids ~auth
-    __resource_id =
+let aws_db_proxy ?debug_logging ?id ?idle_client_timeout ?require_tls
+    ?tags ?tags_all ?vpc_security_group_ids ?timeouts ~engine_family
+    ~name ~role_arn ~vpc_subnet_ids ~auth __resource_id =
   let __resource_type = "aws_db_proxy" in
   let __resource =
     {
       debug_logging;
       engine_family;
+      id;
+      idle_client_timeout;
       name;
       require_tls;
       role_arn;
       tags;
+      tags_all;
+      vpc_security_group_ids;
       vpc_subnet_ids;
       auth;
       timeouts;

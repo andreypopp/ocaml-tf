@@ -303,6 +303,9 @@ type aws_autoscaling_policy = {
   enabled : bool option; [@option]  (** enabled *)
   estimated_instance_warmup : float option; [@option]
       (** estimated_instance_warmup *)
+  id : string option; [@option]  (** id *)
+  metric_aggregation_type : string option; [@option]
+      (** metric_aggregation_type *)
   min_adjustment_magnitude : float option; [@option]
       (** min_adjustment_magnitude *)
   name : string;  (** name *)
@@ -319,10 +322,10 @@ type aws_autoscaling_policy = {
 (** aws_autoscaling_policy *)
 
 let aws_autoscaling_policy ?adjustment_type ?cooldown ?enabled
-    ?estimated_instance_warmup ?min_adjustment_magnitude ?policy_type
-    ?scaling_adjustment ~autoscaling_group_name ~name
-    ~predictive_scaling_configuration ~step_adjustment
-    ~target_tracking_configuration __resource_id =
+    ?estimated_instance_warmup ?id ?metric_aggregation_type
+    ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
+    ~autoscaling_group_name ~name ~predictive_scaling_configuration
+    ~step_adjustment ~target_tracking_configuration __resource_id =
   let __resource_type = "aws_autoscaling_policy" in
   let __resource =
     {
@@ -331,6 +334,8 @@ let aws_autoscaling_policy ?adjustment_type ?cooldown ?enabled
       cooldown;
       enabled;
       estimated_instance_warmup;
+      id;
+      metric_aggregation_type;
       min_adjustment_magnitude;
       name;
       policy_type;

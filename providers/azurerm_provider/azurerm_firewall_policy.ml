@@ -115,11 +115,13 @@ type azurerm_firewall_policy = {
   auto_learn_private_ranges_enabled : bool option; [@option]
       (** auto_learn_private_ranges_enabled *)
   base_policy_id : string option; [@option]  (** base_policy_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   private_ip_ranges : string list option; [@option]
       (** private_ip_ranges *)
   resource_group_name : string;  (** resource_group_name *)
+  sku : string option; [@option]  (** sku *)
   sql_redirect_allowed : bool option; [@option]
       (** sql_redirect_allowed *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -140,8 +142,8 @@ type azurerm_firewall_policy = {
 (** azurerm_firewall_policy *)
 
 let azurerm_firewall_policy ?auto_learn_private_ranges_enabled
-    ?base_policy_id ?private_ip_ranges ?sql_redirect_allowed ?tags
-    ?threat_intelligence_mode ?timeouts ~location ~name
+    ?base_policy_id ?id ?private_ip_ranges ?sku ?sql_redirect_allowed
+    ?tags ?threat_intelligence_mode ?timeouts ~location ~name
     ~resource_group_name ~dns ~explicit_proxy ~identity ~insights
     ~intrusion_detection ~threat_intelligence_allowlist
     ~tls_certificate __resource_id =
@@ -150,10 +152,12 @@ let azurerm_firewall_policy ?auto_learn_private_ranges_enabled
     {
       auto_learn_private_ranges_enabled;
       base_policy_id;
+      id;
       location;
       name;
       private_ip_ranges;
       resource_group_name;
+      sku;
       sql_redirect_allowed;
       tags;
       threat_intelligence_mode;

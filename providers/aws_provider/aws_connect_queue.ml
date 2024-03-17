@@ -17,31 +17,38 @@ type aws_connect_queue__outbound_caller_config = {
 type aws_connect_queue = {
   description : string option; [@option]  (** description *)
   hours_of_operation_id : string;  (** hours_of_operation_id *)
+  id : string option; [@option]  (** id *)
   instance_id : string;  (** instance_id *)
   max_contacts : float option; [@option]  (** max_contacts *)
   name : string;  (** name *)
   quick_connect_ids : string list option; [@option]
       (** quick_connect_ids *)
+  status : string option; [@option]  (** status *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   outbound_caller_config :
     aws_connect_queue__outbound_caller_config list;
 }
 [@@deriving yojson_of]
 (** aws_connect_queue *)
 
-let aws_connect_queue ?description ?max_contacts ?quick_connect_ids
-    ?tags ~hours_of_operation_id ~instance_id ~name
-    ~outbound_caller_config __resource_id =
+let aws_connect_queue ?description ?id ?max_contacts
+    ?quick_connect_ids ?status ?tags ?tags_all ~hours_of_operation_id
+    ~instance_id ~name ~outbound_caller_config __resource_id =
   let __resource_type = "aws_connect_queue" in
   let __resource =
     {
       description;
       hours_of_operation_id;
+      id;
       instance_id;
       max_contacts;
       name;
       quick_connect_ids;
+      status;
       tags;
+      tags_all;
       outbound_caller_config;
     }
   in

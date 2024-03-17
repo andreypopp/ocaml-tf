@@ -23,6 +23,7 @@ type azurerm_data_factory_linked_service_sftp = {
   host : string;  (** host *)
   host_key_fingerprint : string option; [@option]
       (** host_key_fingerprint *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -40,7 +41,7 @@ type azurerm_data_factory_linked_service_sftp = {
 (** azurerm_data_factory_linked_service_sftp *)
 
 let azurerm_data_factory_linked_service_sftp ?additional_properties
-    ?annotations ?description ?host_key_fingerprint
+    ?annotations ?description ?host_key_fingerprint ?id
     ?integration_runtime_name ?parameters ?skip_host_key_validation
     ?timeouts ~authentication_type ~data_factory_id ~host ~name
     ~password ~port ~username __resource_id =
@@ -54,6 +55,7 @@ let azurerm_data_factory_linked_service_sftp ?additional_properties
       description;
       host;
       host_key_fingerprint;
+      id;
       integration_runtime_name;
       name;
       parameters;

@@ -17,6 +17,7 @@ type aws_finspace_kx_environment
 val aws_finspace_kx_environment :
   ?description:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_finspace_kx_environment__timeouts ->
   kms_key_id:string ->
   name:string ->

@@ -8,6 +8,7 @@ type azurerm_logic_app_integration_account_agreement__timeouts
 type azurerm_logic_app_integration_account_agreement
 
 val azurerm_logic_app_integration_account_agreement :
+  ?id:string ->
   ?metadata:(string * string) list ->
   ?timeouts:azurerm_logic_app_integration_account_agreement__timeouts ->
   agreement_type:string ->

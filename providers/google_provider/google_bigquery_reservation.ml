@@ -24,6 +24,9 @@ type google_bigquery_reservation__timeouts = {
 type google_bigquery_reservation = {
   concurrency : float option; [@option]
       (** Maximum number of queries that are allowed to run concurrently in this reservation. This is a soft limit due to asynchronous nature of the system and various optimizations for small queries. Default value is 0 which means that concurrency will be automatically set based on the reservation size. *)
+  edition : string option; [@option]
+      (** The edition type. Valid values are STANDARD, ENTERPRISE, ENTERPRISE_PLUS *)
+  id : string option; [@option]  (** id *)
   ignore_idle_slots : bool option; [@option]
       (** If false, any query using this reservation will use idle slots from other reservations within
 the same admin project. If true, a query using this reservation will execute with the slot
@@ -36,6 +39,7 @@ Examples: US, EU, asia-northeast1. The default value is US. *)
 If set to true, this reservation is placed in the organization's secondary region which is designated for disaster recovery purposes. If false, this reservation is placed in the organization's default region. *)
   name : string;
       (** The name of the reservation. This field must only contain alphanumeric characters or dash. *)
+  project : string option; [@option]  (** project *)
   slot_capacity : float;
       (** Minimum slots available to this reservation. A slot is a unit of computational power in BigQuery, and serves as the
 unit of parallelism. Queries using this reservation might use more slots during runtime if ignoreIdleSlots is set to false. *)
@@ -45,17 +49,20 @@ unit of parallelism. Queries using this reservation might use more slots during 
 [@@deriving yojson_of]
 (** google_bigquery_reservation *)
 
-let google_bigquery_reservation ?concurrency ?ignore_idle_slots
-    ?location ?multi_region_auxiliary ?timeouts ~name ~slot_capacity
-    ~autoscale __resource_id =
+let google_bigquery_reservation ?concurrency ?edition ?id
+    ?ignore_idle_slots ?location ?multi_region_auxiliary ?project
+    ?timeouts ~name ~slot_capacity ~autoscale __resource_id =
   let __resource_type = "google_bigquery_reservation" in
   let __resource =
     {
       concurrency;
+      edition;
+      id;
       ignore_idle_slots;
       location;
       multi_region_auxiliary;
       name;
+      project;
       slot_capacity;
       autoscale;
       timeouts;

@@ -13,6 +13,8 @@ type google_storage_hmac_key__timeouts = {
 (** google_storage_hmac_key__timeouts *)
 
 type google_storage_hmac_key = {
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   service_account_email : string;
       (** The email address of the key's associated service account. *)
   state : string option; [@option]
@@ -22,10 +24,12 @@ type google_storage_hmac_key = {
 [@@deriving yojson_of]
 (** google_storage_hmac_key *)
 
-let google_storage_hmac_key ?state ?timeouts ~service_account_email
-    __resource_id =
+let google_storage_hmac_key ?id ?project ?state ?timeouts
+    ~service_account_email __resource_id =
   let __resource_type = "google_storage_hmac_key" in
-  let __resource = { service_account_email; state; timeouts } in
+  let __resource =
+    { id; project; service_account_email; state; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_storage_hmac_key __resource);
   ()

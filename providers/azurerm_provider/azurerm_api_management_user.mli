@@ -7,8 +7,10 @@ type azurerm_api_management_user
 
 val azurerm_api_management_user :
   ?confirmation:string ->
+  ?id:string ->
   ?note:string ->
   ?password:string ->
+  ?state:string ->
   ?timeouts:azurerm_api_management_user__timeouts ->
   api_management_name:string ->
   email:string ->

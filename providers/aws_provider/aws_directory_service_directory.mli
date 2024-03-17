@@ -8,9 +8,16 @@ type aws_directory_service_directory__vpc_settings
 type aws_directory_service_directory
 
 val aws_directory_service_directory :
+  ?alias:string ->
   ?description:string ->
+  ?desired_number_of_domain_controllers:float ->
+  ?edition:string ->
   ?enable_sso:bool ->
+  ?id:string ->
+  ?short_name:string ->
+  ?size:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?type_:string ->
   ?timeouts:aws_directory_service_directory__timeouts ->
   name:string ->

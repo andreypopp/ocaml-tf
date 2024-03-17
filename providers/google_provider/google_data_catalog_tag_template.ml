@@ -65,6 +65,9 @@ type google_data_catalog_tag_template = {
       (** The display name for this template. *)
   force_delete : bool option; [@option]
       (** This confirms the deletion of any possible tags using this template. Must be set to true in order to delete the tag template. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]  (** Template location region. *)
   tag_template_id : string;
       (** The id of the tag template to create. *)
   fields : google_data_catalog_tag_template__fields list;
@@ -73,11 +76,21 @@ type google_data_catalog_tag_template = {
 [@@deriving yojson_of]
 (** google_data_catalog_tag_template *)
 
-let google_data_catalog_tag_template ?display_name ?force_delete
-    ?timeouts ~tag_template_id ~fields __resource_id =
+let google_data_catalog_tag_template ?display_name ?force_delete ?id
+    ?project ?region ?timeouts ~tag_template_id ~fields __resource_id
+    =
   let __resource_type = "google_data_catalog_tag_template" in
   let __resource =
-    { display_name; force_delete; tag_template_id; fields; timeouts }
+    {
+      display_name;
+      force_delete;
+      id;
+      project;
+      region;
+      tag_template_id;
+      fields;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_catalog_tag_template __resource);

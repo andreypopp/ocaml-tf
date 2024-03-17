@@ -14,6 +14,7 @@ type aws_athena_prepared_statement__timeouts = {
 
 type aws_athena_prepared_statement = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   query_statement : string;  (** query_statement *)
   workgroup : string;  (** workgroup *)
@@ -22,11 +23,11 @@ type aws_athena_prepared_statement = {
 [@@deriving yojson_of]
 (** aws_athena_prepared_statement *)
 
-let aws_athena_prepared_statement ?description ?timeouts ~name
+let aws_athena_prepared_statement ?description ?id ?timeouts ~name
     ~query_statement ~workgroup __resource_id =
   let __resource_type = "aws_athena_prepared_statement" in
   let __resource =
-    { description; name; query_statement; workgroup; timeouts }
+    { description; id; name; query_statement; workgroup; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_athena_prepared_statement __resource);

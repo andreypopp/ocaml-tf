@@ -12,7 +12,10 @@ val digitalocean_spaces_bucket_object :
   ?content_disposition:string ->
   ?content_encoding:string ->
   ?content_language:string ->
+  ?content_type:string ->
+  ?etag:string ->
   ?force_destroy:bool ->
+  ?id:string ->
   ?metadata:(string * string) list ->
   ?source:string ->
   ?website_redirect:string ->

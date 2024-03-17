@@ -35,6 +35,7 @@ type azurerm_netapp_account__timeouts = {
 (** azurerm_netapp_account__timeouts *)
 
 type azurerm_netapp_account = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -46,11 +47,12 @@ type azurerm_netapp_account = {
 [@@deriving yojson_of]
 (** azurerm_netapp_account *)
 
-let azurerm_netapp_account ?tags ?timeouts ~location ~name
+let azurerm_netapp_account ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~active_directory ~identity __resource_id =
   let __resource_type = "azurerm_netapp_account" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

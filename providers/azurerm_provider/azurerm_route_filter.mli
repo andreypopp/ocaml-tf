@@ -10,11 +10,12 @@ type azurerm_route_filter__rule = {
   name : string;  (** name *)
   rule_type : string;  (** rule_type *)
 }
-[@@deriving yojson_of]
 
 type azurerm_route_filter
 
 val azurerm_route_filter :
+  ?id:string ->
+  ?rule:azurerm_route_filter__rule list ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_route_filter__timeouts ->
   location:string ->

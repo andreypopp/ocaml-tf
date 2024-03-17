@@ -11,6 +11,9 @@ type azurerm_app_service_source_control__timeouts
 type azurerm_app_service_source_control
 
 val azurerm_app_service_source_control :
+  ?branch:string ->
+  ?id:string ->
+  ?repo_url:string ->
   ?rollback_enabled:bool ->
   ?use_local_git:bool ->
   ?use_manual_integration:bool ->

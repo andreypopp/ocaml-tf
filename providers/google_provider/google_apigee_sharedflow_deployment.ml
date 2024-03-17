@@ -14,6 +14,7 @@ type google_apigee_sharedflow_deployment__timeouts = {
 
 type google_apigee_sharedflow_deployment = {
   environment : string;  (** The resource ID of the environment. *)
+  id : string option; [@option]  (** id *)
   org_id : string;
       (** The Apigee Organization associated with the Apigee instance *)
   revision : string;
@@ -27,12 +28,14 @@ type google_apigee_sharedflow_deployment = {
 [@@deriving yojson_of]
 (** google_apigee_sharedflow_deployment *)
 
-let google_apigee_sharedflow_deployment ?service_account ?timeouts
-    ~environment ~org_id ~revision ~sharedflow_id __resource_id =
+let google_apigee_sharedflow_deployment ?id ?service_account
+    ?timeouts ~environment ~org_id ~revision ~sharedflow_id
+    __resource_id =
   let __resource_type = "google_apigee_sharedflow_deployment" in
   let __resource =
     {
       environment;
+      id;
       org_id;
       revision;
       service_account;

@@ -6,6 +6,7 @@ type google_tags_tag_binding__timeouts
 type google_tags_tag_binding
 
 val google_tags_tag_binding :
+  ?id:string ->
   ?timeouts:google_tags_tag_binding__timeouts ->
   parent:string ->
   tag_value:string ->

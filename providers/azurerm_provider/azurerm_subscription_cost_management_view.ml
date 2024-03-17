@@ -64,6 +64,7 @@ type azurerm_subscription_cost_management_view = {
   accumulated : bool;  (** accumulated *)
   chart_type : string;  (** chart_type *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   report_type : string;  (** report_type *)
   subscription_id : string;  (** subscription_id *)
@@ -77,9 +78,9 @@ type azurerm_subscription_cost_management_view = {
 [@@deriving yojson_of]
 (** azurerm_subscription_cost_management_view *)
 
-let azurerm_subscription_cost_management_view ?timeouts ~accumulated
-    ~chart_type ~display_name ~name ~report_type ~subscription_id
-    ~timeframe ~dataset ~kpi ~pivot __resource_id =
+let azurerm_subscription_cost_management_view ?id ?timeouts
+    ~accumulated ~chart_type ~display_name ~name ~report_type
+    ~subscription_id ~timeframe ~dataset ~kpi ~pivot __resource_id =
   let __resource_type =
     "azurerm_subscription_cost_management_view"
   in
@@ -88,6 +89,7 @@ let azurerm_subscription_cost_management_view ?timeouts ~accumulated
       accumulated;
       chart_type;
       display_name;
+      id;
       name;
       report_type;
       subscription_id;

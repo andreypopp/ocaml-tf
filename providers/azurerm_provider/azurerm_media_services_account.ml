@@ -69,11 +69,14 @@ type azurerm_media_services_account__timeouts = {
 (** azurerm_media_services_account__timeouts *)
 
 type azurerm_media_services_account = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
   resource_group_name : string;  (** resource_group_name *)
+  storage_authentication_type : string option; [@option]
+      (** storage_authentication_type *)
   tags : (string * string) list option; [@option]  (** tags *)
   encryption : azurerm_media_services_account__encryption list;
   identity : azurerm_media_services_account__identity list;
@@ -86,17 +89,19 @@ type azurerm_media_services_account = {
 [@@deriving yojson_of]
 (** azurerm_media_services_account *)
 
-let azurerm_media_services_account ?public_network_access_enabled
-    ?tags ?timeouts ~location ~name ~resource_group_name ~encryption
-    ~identity ~key_delivery_access_control ~storage_account
-    __resource_id =
+let azurerm_media_services_account ?id ?public_network_access_enabled
+    ?storage_authentication_type ?tags ?timeouts ~location ~name
+    ~resource_group_name ~encryption ~identity
+    ~key_delivery_access_control ~storage_account __resource_id =
   let __resource_type = "azurerm_media_services_account" in
   let __resource =
     {
+      id;
       location;
       name;
       public_network_access_enabled;
       resource_group_name;
+      storage_authentication_type;
       tags;
       encryption;
       identity;

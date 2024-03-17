@@ -6,6 +6,7 @@ type aws_iam_policy_attachment
 
 val aws_iam_policy_attachment :
   ?groups:string list ->
+  ?id:string ->
   ?roles:string list ->
   ?users:string list ->
   name:string ->

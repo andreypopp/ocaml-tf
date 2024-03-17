@@ -18,7 +18,9 @@ type azurerm_firewall_policy
 val azurerm_firewall_policy :
   ?auto_learn_private_ranges_enabled:bool ->
   ?base_policy_id:string ->
+  ?id:string ->
   ?private_ip_ranges:string list ->
+  ?sku:string ->
   ?sql_redirect_allowed:bool ->
   ?tags:(string * string) list ->
   ?threat_intelligence_mode:string ->

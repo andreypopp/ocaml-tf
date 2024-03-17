@@ -22,27 +22,33 @@ type aws_route53_resolver_rule__timeouts = {
 
 type aws_route53_resolver_rule = {
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   resolver_endpoint_id : string option; [@option]
       (** resolver_endpoint_id *)
   rule_type : string;  (** rule_type *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target_ip : aws_route53_resolver_rule__target_ip list;
   timeouts : aws_route53_resolver_rule__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_rule *)
 
-let aws_route53_resolver_rule ?name ?resolver_endpoint_id ?tags
-    ?timeouts ~domain_name ~rule_type ~target_ip __resource_id =
+let aws_route53_resolver_rule ?id ?name ?resolver_endpoint_id ?tags
+    ?tags_all ?timeouts ~domain_name ~rule_type ~target_ip
+    __resource_id =
   let __resource_type = "aws_route53_resolver_rule" in
   let __resource =
     {
       domain_name;
+      id;
       name;
       resolver_endpoint_id;
       rule_type;
       tags;
+      tags_all;
       target_ip;
       timeouts;
     }

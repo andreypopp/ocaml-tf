@@ -23,6 +23,7 @@ type azurerm_data_protection_backup_vault__timeouts = {
 
 type azurerm_data_protection_backup_vault = {
   datastore_type : string;  (** datastore_type *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   redundancy : string;  (** redundancy *)
@@ -37,13 +38,15 @@ type azurerm_data_protection_backup_vault = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_vault *)
 
-let azurerm_data_protection_backup_vault ?retention_duration_in_days
-    ?soft_delete ?tags ?timeouts ~datastore_type ~location ~name
-    ~redundancy ~resource_group_name ~identity __resource_id =
+let azurerm_data_protection_backup_vault ?id
+    ?retention_duration_in_days ?soft_delete ?tags ?timeouts
+    ~datastore_type ~location ~name ~redundancy ~resource_group_name
+    ~identity __resource_id =
   let __resource_type = "azurerm_data_protection_backup_vault" in
   let __resource =
     {
       datastore_type;
+      id;
       location;
       name;
       redundancy;

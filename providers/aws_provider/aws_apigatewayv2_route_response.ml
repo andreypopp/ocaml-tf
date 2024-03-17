@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_apigatewayv2_route_response = {
   api_id : string;  (** api_id *)
+  id : string option; [@option]  (** id *)
   model_selection_expression : string option; [@option]
       (** model_selection_expression *)
   response_models : (string * string) list option; [@option]
@@ -16,13 +17,14 @@ type aws_apigatewayv2_route_response = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_route_response *)
 
-let aws_apigatewayv2_route_response ?model_selection_expression
+let aws_apigatewayv2_route_response ?id ?model_selection_expression
     ?response_models ~api_id ~route_id ~route_response_key
     __resource_id =
   let __resource_type = "aws_apigatewayv2_route_response" in
   let __resource =
     {
       api_id;
+      id;
       model_selection_expression;
       response_models;
       route_id;

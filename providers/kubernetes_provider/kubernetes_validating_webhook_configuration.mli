@@ -21,6 +21,7 @@ type kubernetes_validating_webhook_configuration__webhook
 type kubernetes_validating_webhook_configuration
 
 val kubernetes_validating_webhook_configuration :
+  ?id:string ->
   metadata:kubernetes_validating_webhook_configuration__metadata list ->
   webhook:kubernetes_validating_webhook_configuration__webhook list ->
   string ->

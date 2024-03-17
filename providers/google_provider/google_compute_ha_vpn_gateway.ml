@@ -31,6 +31,7 @@ Not currently available publicly. *)
 type google_compute_ha_vpn_gateway = {
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -41,6 +42,9 @@ characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
   network : string;
       (** The network this VPN gateway is accepting traffic for. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The region this gateway should sit in. *)
   stack_type : string option; [@option]
       (** The stack type for this VPN gateway to identify the IP protocols that are enabled.
 If not specified, IPV4_ONLY will be used. Default value: IPV4_ONLY Possible values: [IPV4_ONLY, IPV4_IPV6] *)
@@ -50,14 +54,18 @@ If not specified, IPV4_ONLY will be used. Default value: IPV4_ONLY Possible valu
 [@@deriving yojson_of]
 (** google_compute_ha_vpn_gateway *)
 
-let google_compute_ha_vpn_gateway ?description ?stack_type ?timeouts
-    ~name ~network ~vpn_interfaces __resource_id =
+let google_compute_ha_vpn_gateway ?description ?id ?project ?region
+    ?stack_type ?timeouts ~name ~network ~vpn_interfaces
+    __resource_id =
   let __resource_type = "google_compute_ha_vpn_gateway" in
   let __resource =
     {
       description;
+      id;
       name;
       network;
+      project;
+      region;
       stack_type;
       timeouts;
       vpn_interfaces;

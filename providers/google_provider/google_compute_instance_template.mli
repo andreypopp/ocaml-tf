@@ -38,11 +38,16 @@ type google_compute_instance_template
 val google_compute_instance_template :
   ?can_ip_forward:bool ->
   ?description:string ->
+  ?id:string ->
   ?instance_description:string ->
   ?labels:(string * string) list ->
   ?metadata:(string * string) list ->
   ?metadata_startup_script:string ->
   ?min_cpu_platform:string ->
+  ?name:string ->
+  ?name_prefix:string ->
+  ?project:string ->
+  ?region:string ->
   ?resource_manager_tags:(string * string) list ->
   ?resource_policies:string list ->
   ?tags:string list ->

@@ -23,6 +23,7 @@ type azurerm_dev_center__timeouts = {
 (** azurerm_dev_center__timeouts *)
 
 type azurerm_dev_center = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -33,11 +34,19 @@ type azurerm_dev_center = {
 [@@deriving yojson_of]
 (** azurerm_dev_center *)
 
-let azurerm_dev_center ?tags ?timeouts ~location ~name
+let azurerm_dev_center ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_dev_center" in
   let __resource =
-    { location; name; resource_group_name; tags; identity; timeouts }
+    {
+      id;
+      location;
+      name;
+      resource_group_name;
+      tags;
+      identity;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_dev_center __resource);

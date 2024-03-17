@@ -42,6 +42,8 @@ val azurerm_virtual_machine_scale_set :
   ?automatic_os_upgrade:bool ->
   ?eviction_policy:string ->
   ?health_probe_id:string ->
+  ?id:string ->
+  ?license_type:string ->
   ?overprovision:bool ->
   ?priority:string ->
   ?proximity_placement_group_id:string ->

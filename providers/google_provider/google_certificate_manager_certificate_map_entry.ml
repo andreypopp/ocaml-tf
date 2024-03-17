@@ -23,6 +23,7 @@ Each certificate must match pattern projects/*/locations/*/certificates/*. *)
       (** A Hostname (FQDN, e.g. example.com) or a wildcard hostname expression \(\*.example.com)
 for a set of hostnames with common suffix. Used as Server Name Indication (SNI) for
 selecting a proper certificate. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Set of labels associated with a Certificate Map Entry.
 An object containing a list of key: value pairs.
@@ -39,6 +40,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** A user-defined name of the Certificate Map Entry. Certificate Map Entry
 names must be unique globally and match pattern
 'projects/*/locations/*/certificateMaps/*/certificateMapEntries/*' *)
+  project : string option; [@option]  (** project *)
   timeouts :
     google_certificate_manager_certificate_map_entry__timeouts option;
 }
@@ -46,8 +48,8 @@ names must be unique globally and match pattern
 (** google_certificate_manager_certificate_map_entry *)
 
 let google_certificate_manager_certificate_map_entry ?description
-    ?hostname ?labels ?matcher ?timeouts ~certificates ~map ~name
-    __resource_id =
+    ?hostname ?id ?labels ?matcher ?project ?timeouts ~certificates
+    ~map ~name __resource_id =
   let __resource_type =
     "google_certificate_manager_certificate_map_entry"
   in
@@ -56,10 +58,12 @@ let google_certificate_manager_certificate_map_entry ?description
       certificates;
       description;
       hostname;
+      id;
       labels;
       map;
       matcher;
       name;
+      project;
       timeouts;
     }
   in

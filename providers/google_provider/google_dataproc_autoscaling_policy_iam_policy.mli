@@ -5,4 +5,10 @@ open! Tf.Prelude
 type google_dataproc_autoscaling_policy_iam_policy
 
 val google_dataproc_autoscaling_policy_iam_policy :
-  policy_data:string -> policy_id:string -> string -> unit
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
+  policy_data:string ->
+  policy_id:string ->
+  string ->
+  unit

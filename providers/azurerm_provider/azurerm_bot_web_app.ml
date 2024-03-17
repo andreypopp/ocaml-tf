@@ -14,7 +14,15 @@ type azurerm_bot_web_app__timeouts = {
 (** azurerm_bot_web_app__timeouts *)
 
 type azurerm_bot_web_app = {
+  developer_app_insights_api_key : string option; [@option]
+      (** developer_app_insights_api_key *)
+  developer_app_insights_application_id : string option; [@option]
+      (** developer_app_insights_application_id *)
+  developer_app_insights_key : string option; [@option]
+      (** developer_app_insights_key *)
+  display_name : string option; [@option]  (** display_name *)
   endpoint : string option; [@option]  (** endpoint *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   luis_app_ids : string list option; [@option]  (** luis_app_ids *)
   luis_key : string option; [@option]  (** luis_key *)
@@ -28,13 +36,20 @@ type azurerm_bot_web_app = {
 [@@deriving yojson_of]
 (** azurerm_bot_web_app *)
 
-let azurerm_bot_web_app ?endpoint ?luis_app_ids ?luis_key ?tags
-    ?timeouts ~location ~microsoft_app_id ~name ~resource_group_name
-    ~sku __resource_id =
+let azurerm_bot_web_app ?developer_app_insights_api_key
+    ?developer_app_insights_application_id
+    ?developer_app_insights_key ?display_name ?endpoint ?id
+    ?luis_app_ids ?luis_key ?tags ?timeouts ~location
+    ~microsoft_app_id ~name ~resource_group_name ~sku __resource_id =
   let __resource_type = "azurerm_bot_web_app" in
   let __resource =
     {
+      developer_app_insights_api_key;
+      developer_app_insights_application_id;
+      developer_app_insights_key;
+      display_name;
       endpoint;
+      id;
       location;
       luis_app_ids;
       luis_key;

@@ -5,4 +5,9 @@ open! Tf.Prelude
 type aws_ses_receipt_filter
 
 val aws_ses_receipt_filter :
-  cidr:string -> name:string -> policy:string -> string -> unit
+  ?id:string ->
+  cidr:string ->
+  name:string ->
+  policy:string ->
+  string ->
+  unit

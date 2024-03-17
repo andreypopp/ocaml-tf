@@ -9,6 +9,7 @@ type google_cloud_identity_group_membership__timeouts
 type google_cloud_identity_group_membership
 
 val google_cloud_identity_group_membership :
+  ?id:string ->
   ?timeouts:google_cloud_identity_group_membership__timeouts ->
   group:string ->
   preferred_member_key:

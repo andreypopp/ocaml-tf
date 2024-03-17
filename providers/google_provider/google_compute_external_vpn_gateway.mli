@@ -8,7 +8,9 @@ type google_compute_external_vpn_gateway
 
 val google_compute_external_vpn_gateway :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?redundancy_type:string ->
   ?timeouts:google_compute_external_vpn_gateway__timeouts ->
   name:string ->

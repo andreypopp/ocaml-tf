@@ -120,7 +120,11 @@ type aws_sagemaker_model = {
   enable_network_isolation : bool option; [@option]
       (** enable_network_isolation *)
   execution_role_arn : string;  (** execution_role_arn *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   container : aws_sagemaker_model__container list;
   inference_execution_config :
     aws_sagemaker_model__inference_execution_config list;
@@ -130,15 +134,19 @@ type aws_sagemaker_model = {
 [@@deriving yojson_of]
 (** aws_sagemaker_model *)
 
-let aws_sagemaker_model ?enable_network_isolation ?tags
-    ~execution_role_arn ~container ~inference_execution_config
-    ~primary_container ~vpc_config __resource_id =
+let aws_sagemaker_model ?enable_network_isolation ?id ?name ?tags
+    ?tags_all ~execution_role_arn ~container
+    ~inference_execution_config ~primary_container ~vpc_config
+    __resource_id =
   let __resource_type = "aws_sagemaker_model" in
   let __resource =
     {
       enable_network_isolation;
       execution_role_arn;
+      id;
+      name;
       tags;
+      tags_all;
       container;
       inference_execution_config;
       primary_container;

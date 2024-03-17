@@ -22,8 +22,11 @@ type aws_sagemaker_app = {
   app_name : string;  (** app_name *)
   app_type : string;  (** app_type *)
   domain_id : string;  (** domain_id *)
+  id : string option; [@option]  (** id *)
   space_name : string option; [@option]  (** space_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   user_profile_name : string option; [@option]
       (** user_profile_name *)
   resource_spec : aws_sagemaker_app__resource_spec list;
@@ -31,16 +34,19 @@ type aws_sagemaker_app = {
 [@@deriving yojson_of]
 (** aws_sagemaker_app *)
 
-let aws_sagemaker_app ?space_name ?tags ?user_profile_name ~app_name
-    ~app_type ~domain_id ~resource_spec __resource_id =
+let aws_sagemaker_app ?id ?space_name ?tags ?tags_all
+    ?user_profile_name ~app_name ~app_type ~domain_id ~resource_spec
+    __resource_id =
   let __resource_type = "aws_sagemaker_app" in
   let __resource =
     {
       app_name;
       app_type;
       domain_id;
+      id;
       space_name;
       tags;
+      tags_all;
       user_profile_name;
       resource_spec;
     }

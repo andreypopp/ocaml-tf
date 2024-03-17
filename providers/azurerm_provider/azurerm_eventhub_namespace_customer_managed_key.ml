@@ -15,6 +15,7 @@ type azurerm_eventhub_namespace_customer_managed_key__timeouts = {
 
 type azurerm_eventhub_namespace_customer_managed_key = {
   eventhub_namespace_id : string;  (** eventhub_namespace_id *)
+  id : string option; [@option]  (** id *)
   infrastructure_encryption_enabled : bool option; [@option]
       (** infrastructure_encryption_enabled *)
   key_vault_key_ids : string list;  (** key_vault_key_ids *)
@@ -26,7 +27,7 @@ type azurerm_eventhub_namespace_customer_managed_key = {
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace_customer_managed_key *)
 
-let azurerm_eventhub_namespace_customer_managed_key
+let azurerm_eventhub_namespace_customer_managed_key ?id
     ?infrastructure_encryption_enabled ?user_assigned_identity_id
     ?timeouts ~eventhub_namespace_id ~key_vault_key_ids __resource_id
     =
@@ -36,6 +37,7 @@ let azurerm_eventhub_namespace_customer_managed_key
   let __resource =
     {
       eventhub_namespace_id;
+      id;
       infrastructure_encryption_enabled;
       key_vault_key_ids;
       user_assigned_identity_id;

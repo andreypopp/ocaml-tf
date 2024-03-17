@@ -21,8 +21,11 @@ type aws_codepipeline_webhook__filter = {
 
 type aws_codepipeline_webhook = {
   authentication : string;  (** authentication *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target_action : string;  (** target_action *)
   target_pipeline : string;  (** target_pipeline *)
   authentication_configuration :
@@ -32,15 +35,17 @@ type aws_codepipeline_webhook = {
 [@@deriving yojson_of]
 (** aws_codepipeline_webhook *)
 
-let aws_codepipeline_webhook ?tags ~authentication ~name
-    ~target_action ~target_pipeline ~authentication_configuration
-    ~filter __resource_id =
+let aws_codepipeline_webhook ?id ?tags ?tags_all ~authentication
+    ~name ~target_action ~target_pipeline
+    ~authentication_configuration ~filter __resource_id =
   let __resource_type = "aws_codepipeline_webhook" in
   let __resource =
     {
       authentication;
+      id;
       name;
       tags;
+      tags_all;
       target_action;
       target_pipeline;
       authentication_configuration;

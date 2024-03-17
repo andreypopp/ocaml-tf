@@ -78,11 +78,14 @@ type azurerm_cosmosdb_gremlin_graph = {
   analytical_storage_ttl : float option; [@option]
       (** analytical_storage_ttl *)
   database_name : string;  (** database_name *)
+  default_ttl : float option; [@option]  (** default_ttl *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   partition_key_path : string;  (** partition_key_path *)
   partition_key_version : float option; [@option]
       (** partition_key_version *)
   resource_group_name : string;  (** resource_group_name *)
+  throughput : float option; [@option]  (** throughput *)
   autoscale_settings :
     azurerm_cosmosdb_gremlin_graph__autoscale_settings list;
   conflict_resolution_policy :
@@ -95,20 +98,24 @@ type azurerm_cosmosdb_gremlin_graph = {
 (** azurerm_cosmosdb_gremlin_graph *)
 
 let azurerm_cosmosdb_gremlin_graph ?analytical_storage_ttl
-    ?partition_key_version ?timeouts ~account_name ~database_name
-    ~name ~partition_key_path ~resource_group_name
-    ~autoscale_settings ~conflict_resolution_policy ~index_policy
-    ~unique_key __resource_id =
+    ?default_ttl ?id ?partition_key_version ?throughput ?timeouts
+    ~account_name ~database_name ~name ~partition_key_path
+    ~resource_group_name ~autoscale_settings
+    ~conflict_resolution_policy ~index_policy ~unique_key
+    __resource_id =
   let __resource_type = "azurerm_cosmosdb_gremlin_graph" in
   let __resource =
     {
       account_name;
       analytical_storage_ttl;
       database_name;
+      default_ttl;
+      id;
       name;
       partition_key_path;
       partition_key_version;
       resource_group_name;
+      throughput;
       autoscale_settings;
       conflict_resolution_policy;
       index_policy;

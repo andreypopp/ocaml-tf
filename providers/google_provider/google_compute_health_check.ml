@@ -259,6 +259,7 @@ you create the resource. *)
   healthy_threshold : float option; [@option]
       (** A so-far unhealthy instance will be marked healthy after this many
 consecutive successes. The default value is 2. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -267,6 +268,7 @@ match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means
 the first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the
 last character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   timeout_sec : float option; [@option]
       (** How long (in seconds) to wait before claiming failure.
 The default value is 5 seconds.  It is invalid for timeoutSec to have
@@ -293,17 +295,19 @@ consecutive failures. The default value is 2. *)
 (** google_compute_health_check *)
 
 let google_compute_health_check ?check_interval_sec ?description
-    ?healthy_threshold ?timeout_sec ?unhealthy_threshold ?timeouts
-    ~name ~grpc_health_check ~http2_health_check ~http_health_check
-    ~https_health_check ~log_config ~ssl_health_check
-    ~tcp_health_check __resource_id =
+    ?healthy_threshold ?id ?project ?timeout_sec ?unhealthy_threshold
+    ?timeouts ~name ~grpc_health_check ~http2_health_check
+    ~http_health_check ~https_health_check ~log_config
+    ~ssl_health_check ~tcp_health_check __resource_id =
   let __resource_type = "google_compute_health_check" in
   let __resource =
     {
       check_interval_sec;
       description;
       healthy_threshold;
+      id;
       name;
+      project;
       timeout_sec;
       unhealthy_threshold;
       grpc_health_check;

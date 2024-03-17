@@ -8,9 +8,15 @@ type aws_lightsail_certificate__domain_validation_options = {
   resource_record_type : string;  (** resource_record_type *)
   resource_record_value : string;  (** resource_record_value *)
 }
-[@@deriving yojson_of]
 
 type aws_lightsail_certificate
 
 val aws_lightsail_certificate :
-  ?tags:(string * string) list -> name:string -> string -> unit
+  ?domain_name:string ->
+  ?id:string ->
+  ?subject_alternative_names:string list ->
+  ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  name:string ->
+  string ->
+  unit

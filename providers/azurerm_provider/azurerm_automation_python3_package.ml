@@ -19,6 +19,7 @@ type azurerm_automation_python3_package = {
   content_version : string option; [@option]  (** content_version *)
   hash_algorithm : string option; [@option]  (** hash_algorithm *)
   hash_value : string option; [@option]  (** hash_value *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -28,7 +29,7 @@ type azurerm_automation_python3_package = {
 (** azurerm_automation_python3_package *)
 
 let azurerm_automation_python3_package ?content_version
-    ?hash_algorithm ?hash_value ?tags ?timeouts
+    ?hash_algorithm ?hash_value ?id ?tags ?timeouts
     ~automation_account_name ~content_uri ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_automation_python3_package" in
@@ -39,6 +40,7 @@ let azurerm_automation_python3_package ?content_version
       content_version;
       hash_algorithm;
       hash_value;
+      id;
       name;
       resource_group_name;
       tags;

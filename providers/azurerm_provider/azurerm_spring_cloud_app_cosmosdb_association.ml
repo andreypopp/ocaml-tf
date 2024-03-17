@@ -27,6 +27,7 @@ type azurerm_spring_cloud_app_cosmosdb_association = {
       (** cosmosdb_mongo_database_name *)
   cosmosdb_sql_database_name : string option; [@option]
       (** cosmosdb_sql_database_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_app_id : string;  (** spring_cloud_app_id *)
   timeouts :
@@ -38,7 +39,7 @@ type azurerm_spring_cloud_app_cosmosdb_association = {
 let azurerm_spring_cloud_app_cosmosdb_association
     ?cosmosdb_cassandra_keyspace_name ?cosmosdb_gremlin_database_name
     ?cosmosdb_gremlin_graph_name ?cosmosdb_mongo_database_name
-    ?cosmosdb_sql_database_name ?timeouts ~api_type
+    ?cosmosdb_sql_database_name ?id ?timeouts ~api_type
     ~cosmosdb_access_key ~cosmosdb_account_id ~name
     ~spring_cloud_app_id __resource_id =
   let __resource_type =
@@ -54,6 +55,7 @@ let azurerm_spring_cloud_app_cosmosdb_association
       cosmosdb_gremlin_graph_name;
       cosmosdb_mongo_database_name;
       cosmosdb_sql_database_name;
+      id;
       name;
       spring_cloud_app_id;
       timeouts;

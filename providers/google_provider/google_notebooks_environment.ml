@@ -39,6 +39,7 @@ type google_notebooks_environment = {
       (** A brief description of this environment. *)
   display_name : string option; [@option]
       (** Display name of this environment for the UI. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** A reference to the zone where the machine resides. *)
   name : string;
@@ -47,6 +48,7 @@ Format: projects/{project_id}/locations/{location}/environments/{environmentId} 
   post_startup_script : string option; [@option]
       (** Path to a Bash script that automatically runs after a notebook instance fully boots up.
 The path must be a URL or Cloud Storage path. Example: gs://path-to-file/file-name *)
+  project : string option; [@option]  (** project *)
   container_image :
     google_notebooks_environment__container_image list;
   timeouts : google_notebooks_environment__timeouts option;
@@ -55,17 +57,19 @@ The path must be a URL or Cloud Storage path. Example: gs://path-to-file/file-na
 [@@deriving yojson_of]
 (** google_notebooks_environment *)
 
-let google_notebooks_environment ?description ?display_name
-    ?post_startup_script ?timeouts ~location ~name ~container_image
-    ~vm_image __resource_id =
+let google_notebooks_environment ?description ?display_name ?id
+    ?post_startup_script ?project ?timeouts ~location ~name
+    ~container_image ~vm_image __resource_id =
   let __resource_type = "google_notebooks_environment" in
   let __resource =
     {
       description;
       display_name;
+      id;
       location;
       name;
       post_startup_script;
+      project;
       container_image;
       timeouts;
       vm_image;

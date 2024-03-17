@@ -8,6 +8,7 @@ type aws_s3_bucket_object_lock_configuration
 
 val aws_s3_bucket_object_lock_configuration :
   ?expected_bucket_owner:string ->
+  ?id:string ->
   ?object_lock_enabled:string ->
   ?token:string ->
   bucket:string ->

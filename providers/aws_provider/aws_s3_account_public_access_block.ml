@@ -5,10 +5,12 @@
 open! Tf.Prelude
 
 type aws_s3_account_public_access_block = {
+  account_id : string option; [@option]  (** account_id *)
   block_public_acls : bool option; [@option]
       (** block_public_acls *)
   block_public_policy : bool option; [@option]
       (** block_public_policy *)
+  id : string option; [@option]  (** id *)
   ignore_public_acls : bool option; [@option]
       (** ignore_public_acls *)
   restrict_public_buckets : bool option; [@option]
@@ -17,14 +19,16 @@ type aws_s3_account_public_access_block = {
 [@@deriving yojson_of]
 (** aws_s3_account_public_access_block *)
 
-let aws_s3_account_public_access_block ?block_public_acls
-    ?block_public_policy ?ignore_public_acls ?restrict_public_buckets
-    __resource_id =
+let aws_s3_account_public_access_block ?account_id ?block_public_acls
+    ?block_public_policy ?id ?ignore_public_acls
+    ?restrict_public_buckets __resource_id =
   let __resource_type = "aws_s3_account_public_access_block" in
   let __resource =
     {
+      account_id;
       block_public_acls;
       block_public_policy;
+      id;
       ignore_public_acls;
       restrict_public_buckets;
     }

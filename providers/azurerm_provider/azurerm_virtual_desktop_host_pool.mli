@@ -12,6 +12,7 @@ val azurerm_virtual_desktop_host_pool :
   ?custom_rdp_properties:string ->
   ?description:string ->
   ?friendly_name:string ->
+  ?id:string ->
   ?maximum_sessions_allowed:float ->
   ?personal_desktop_assignment_type:string ->
   ?preferred_app_group_type:string ->

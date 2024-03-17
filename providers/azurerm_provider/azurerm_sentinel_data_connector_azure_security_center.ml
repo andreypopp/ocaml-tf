@@ -13,9 +13,11 @@ type azurerm_sentinel_data_connector_azure_security_center__timeouts = {
 (** azurerm_sentinel_data_connector_azure_security_center__timeouts *)
 
 type azurerm_sentinel_data_connector_azure_security_center = {
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
+  subscription_id : string option; [@option]  (** subscription_id *)
   timeouts :
     azurerm_sentinel_data_connector_azure_security_center__timeouts
     option;
@@ -23,12 +25,21 @@ type azurerm_sentinel_data_connector_azure_security_center = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_azure_security_center *)
 
-let azurerm_sentinel_data_connector_azure_security_center ?timeouts
-    ~log_analytics_workspace_id ~name __resource_id =
+let azurerm_sentinel_data_connector_azure_security_center ?id
+    ?subscription_id ?timeouts ~log_analytics_workspace_id ~name
+    __resource_id =
   let __resource_type =
     "azurerm_sentinel_data_connector_azure_security_center"
   in
-  let __resource = { log_analytics_workspace_id; name; timeouts } in
+  let __resource =
+    {
+      id;
+      log_analytics_workspace_id;
+      name;
+      subscription_id;
+      timeouts;
+    }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_data_connector_azure_security_center
        __resource);

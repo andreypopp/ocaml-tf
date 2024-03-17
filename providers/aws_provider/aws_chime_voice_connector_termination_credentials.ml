@@ -12,6 +12,7 @@ type aws_chime_voice_connector_termination_credentials__credentials = {
 (** aws_chime_voice_connector_termination_credentials__credentials *)
 
 type aws_chime_voice_connector_termination_credentials = {
+  id : string option; [@option]  (** id *)
   voice_connector_id : string;  (** voice_connector_id *)
   credentials :
     aws_chime_voice_connector_termination_credentials__credentials
@@ -20,12 +21,12 @@ type aws_chime_voice_connector_termination_credentials = {
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_termination_credentials *)
 
-let aws_chime_voice_connector_termination_credentials
+let aws_chime_voice_connector_termination_credentials ?id
     ~voice_connector_id ~credentials __resource_id =
   let __resource_type =
     "aws_chime_voice_connector_termination_credentials"
   in
-  let __resource = { voice_connector_id; credentials } in
+  let __resource = { id; voice_connector_id; credentials } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_chime_voice_connector_termination_credentials
        __resource);

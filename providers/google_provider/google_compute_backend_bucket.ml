@@ -94,6 +94,7 @@ client when the resource is created. *)
       (** The security policy associated with this backend bucket. *)
   enable_cdn : bool option; [@option]
       (** If true, enable Cloud CDN for this BackendBucket. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -102,6 +103,7 @@ match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means
 the first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the
 last character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   cdn_policy : google_compute_backend_bucket__cdn_policy list;
   timeouts : google_compute_backend_bucket__timeouts option;
 }
@@ -110,7 +112,7 @@ last character, which cannot be a dash. *)
 
 let google_compute_backend_bucket ?compression_mode
     ?custom_response_headers ?description ?edge_security_policy
-    ?enable_cdn ?timeouts ~bucket_name ~name ~cdn_policy
+    ?enable_cdn ?id ?project ?timeouts ~bucket_name ~name ~cdn_policy
     __resource_id =
   let __resource_type = "google_compute_backend_bucket" in
   let __resource =
@@ -121,7 +123,9 @@ let google_compute_backend_bucket ?compression_mode
       description;
       edge_security_policy;
       enable_cdn;
+      id;
       name;
+      project;
       cdn_policy;
       timeouts;
     }

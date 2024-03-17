@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_apigatewayv2_route_response
 
 val aws_apigatewayv2_route_response :
+  ?id:string ->
   ?model_selection_expression:string ->
   ?response_models:(string * string) list ->
   api_id:string ->

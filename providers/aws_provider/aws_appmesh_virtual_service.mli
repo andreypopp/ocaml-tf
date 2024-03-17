@@ -9,7 +9,10 @@ type aws_appmesh_virtual_service__spec
 type aws_appmesh_virtual_service
 
 val aws_appmesh_virtual_service :
+  ?id:string ->
+  ?mesh_owner:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   mesh_name:string ->
   name:string ->
   spec:aws_appmesh_virtual_service__spec list ->

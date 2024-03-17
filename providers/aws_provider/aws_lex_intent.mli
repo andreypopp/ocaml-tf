@@ -25,6 +25,7 @@ type aws_lex_intent
 val aws_lex_intent :
   ?create_version:bool ->
   ?description:string ->
+  ?id:string ->
   ?parent_intent_signature:string ->
   ?sample_utterances:string list ->
   ?timeouts:aws_lex_intent__timeouts ->

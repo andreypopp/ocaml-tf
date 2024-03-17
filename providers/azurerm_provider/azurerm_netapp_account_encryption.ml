@@ -16,6 +16,7 @@ type azurerm_netapp_account_encryption__timeouts = {
 type azurerm_netapp_account_encryption = {
   encryption_key : string;
       (** The versionless encryption key url. *)
+  id : string option; [@option]  (** id *)
   netapp_account_id : string;
       (** The ID of the NetApp Account where encryption will be set. *)
   system_assigned_identity_principal_id : string option; [@option]
@@ -27,13 +28,14 @@ type azurerm_netapp_account_encryption = {
 [@@deriving yojson_of]
 (** azurerm_netapp_account_encryption *)
 
-let azurerm_netapp_account_encryption
+let azurerm_netapp_account_encryption ?id
     ?system_assigned_identity_principal_id ?user_assigned_identity_id
     ?timeouts ~encryption_key ~netapp_account_id __resource_id =
   let __resource_type = "azurerm_netapp_account_encryption" in
   let __resource =
     {
       encryption_key;
+      id;
       netapp_account_id;
       system_assigned_identity_principal_id;
       user_assigned_identity_id;

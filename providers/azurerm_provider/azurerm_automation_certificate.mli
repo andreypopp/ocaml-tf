@@ -7,6 +7,8 @@ type azurerm_automation_certificate
 
 val azurerm_automation_certificate :
   ?description:string ->
+  ?exportable:bool ->
+  ?id:string ->
   ?timeouts:azurerm_automation_certificate__timeouts ->
   automation_account_name:string ->
   base64:string ->

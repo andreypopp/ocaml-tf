@@ -12,9 +12,15 @@ type aws_ec2_transit_gateway_connect_peer__timeouts = {
 (** aws_ec2_transit_gateway_connect_peer__timeouts *)
 
 type aws_ec2_transit_gateway_connect_peer = {
+  bgp_asn : string option; [@option]  (** bgp_asn *)
+  id : string option; [@option]  (** id *)
   inside_cidr_blocks : string list;  (** inside_cidr_blocks *)
   peer_address : string;  (** peer_address *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  transit_gateway_address : string option; [@option]
+      (** transit_gateway_address *)
   transit_gateway_attachment_id : string;
       (** transit_gateway_attachment_id *)
   timeouts : aws_ec2_transit_gateway_connect_peer__timeouts option;
@@ -22,15 +28,19 @@ type aws_ec2_transit_gateway_connect_peer = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_connect_peer *)
 
-let aws_ec2_transit_gateway_connect_peer ?tags ?timeouts
-    ~inside_cidr_blocks ~peer_address ~transit_gateway_attachment_id
-    __resource_id =
+let aws_ec2_transit_gateway_connect_peer ?bgp_asn ?id ?tags ?tags_all
+    ?transit_gateway_address ?timeouts ~inside_cidr_blocks
+    ~peer_address ~transit_gateway_attachment_id __resource_id =
   let __resource_type = "aws_ec2_transit_gateway_connect_peer" in
   let __resource =
     {
+      bgp_asn;
+      id;
       inside_cidr_blocks;
       peer_address;
       tags;
+      tags_all;
+      transit_gateway_address;
       transit_gateway_attachment_id;
       timeouts;
     }

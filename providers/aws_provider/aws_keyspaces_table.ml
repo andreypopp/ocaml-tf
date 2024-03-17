@@ -93,9 +93,12 @@ type aws_keyspaces_table__ttl = { status : string  (** status *) }
 type aws_keyspaces_table = {
   default_time_to_live : float option; [@option]
       (** default_time_to_live *)
+  id : string option; [@option]  (** id *)
   keyspace_name : string;  (** keyspace_name *)
   table_name : string;  (** table_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   capacity_specification :
     aws_keyspaces_table__capacity_specification list;
   client_side_timestamps :
@@ -112,17 +115,19 @@ type aws_keyspaces_table = {
 [@@deriving yojson_of]
 (** aws_keyspaces_table *)
 
-let aws_keyspaces_table ?default_time_to_live ?tags ?timeouts
-    ~keyspace_name ~table_name ~capacity_specification
+let aws_keyspaces_table ?default_time_to_live ?id ?tags ?tags_all
+    ?timeouts ~keyspace_name ~table_name ~capacity_specification
     ~client_side_timestamps ~comment ~encryption_specification
     ~point_in_time_recovery ~schema_definition ~ttl __resource_id =
   let __resource_type = "aws_keyspaces_table" in
   let __resource =
     {
       default_time_to_live;
+      id;
       keyspace_name;
       table_name;
       tags;
+      tags_all;
       capacity_specification;
       client_side_timestamps;
       comment;

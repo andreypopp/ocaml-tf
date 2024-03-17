@@ -314,12 +314,19 @@ type azurerm_app_service__site_credential = {
 
 type azurerm_app_service = {
   app_service_plan_id : string;  (** app_service_plan_id *)
+  app_settings : (string * string) list option; [@option]
+      (** app_settings *)
   client_affinity_enabled : bool option; [@option]
       (** client_affinity_enabled *)
   client_cert_enabled : bool option; [@option]
       (** client_cert_enabled *)
+  client_cert_mode : string option; [@option]
+      (** client_cert_mode *)
   enabled : bool option; [@option]  (** enabled *)
   https_only : bool option; [@option]  (** https_only *)
+  id : string option; [@option]  (** id *)
+  key_vault_reference_identity_id : string option; [@option]
+      (** key_vault_reference_identity_id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -337,19 +344,24 @@ type azurerm_app_service = {
 [@@deriving yojson_of]
 (** azurerm_app_service *)
 
-let azurerm_app_service ?client_affinity_enabled ?client_cert_enabled
-    ?enabled ?https_only ?tags ?timeouts ~app_service_plan_id
-    ~location ~name ~resource_group_name ~auth_settings ~backup
-    ~connection_string ~identity ~logs ~site_config ~source_control
-    ~storage_account __resource_id =
+let azurerm_app_service ?app_settings ?client_affinity_enabled
+    ?client_cert_enabled ?client_cert_mode ?enabled ?https_only ?id
+    ?key_vault_reference_identity_id ?tags ?timeouts
+    ~app_service_plan_id ~location ~name ~resource_group_name
+    ~auth_settings ~backup ~connection_string ~identity ~logs
+    ~site_config ~source_control ~storage_account __resource_id =
   let __resource_type = "azurerm_app_service" in
   let __resource =
     {
       app_service_plan_id;
+      app_settings;
       client_affinity_enabled;
       client_cert_enabled;
+      client_cert_mode;
       enabled;
       https_only;
+      id;
+      key_vault_reference_identity_id;
       location;
       name;
       resource_group_name;

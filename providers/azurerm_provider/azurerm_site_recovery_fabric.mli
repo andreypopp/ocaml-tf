@@ -6,6 +6,7 @@ type azurerm_site_recovery_fabric__timeouts
 type azurerm_site_recovery_fabric
 
 val azurerm_site_recovery_fabric :
+  ?id:string ->
   ?timeouts:azurerm_site_recovery_fabric__timeouts ->
   location:string ->
   name:string ->

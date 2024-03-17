@@ -12,6 +12,8 @@ type aws_budgets_budget_action__timeouts
 type aws_budgets_budget_action
 
 val aws_budgets_budget_action :
+  ?account_id:string ->
+  ?id:string ->
   ?timeouts:aws_budgets_budget_action__timeouts ->
   action_type:string ->
   approval_model:string ->

@@ -4,4 +4,5 @@ open! Tf.Prelude
 
 type aws_ecr_registry_policy
 
-val aws_ecr_registry_policy : policy:string -> string -> unit
+val aws_ecr_registry_policy :
+  ?id:string -> policy:string -> string -> unit

@@ -7,6 +7,7 @@ type azurerm_app_service_certificate
 
 val azurerm_app_service_certificate :
   ?app_service_plan_id:string ->
+  ?id:string ->
   ?key_vault_id:string ->
   ?key_vault_secret_id:string ->
   ?password:string ->

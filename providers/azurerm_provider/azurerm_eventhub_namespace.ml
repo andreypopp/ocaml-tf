@@ -57,10 +57,19 @@ type azurerm_eventhub_namespace = {
   capacity : float option; [@option]  (** capacity *)
   dedicated_cluster_id : string option; [@option]
       (** dedicated_cluster_id *)
+  id : string option; [@option]  (** id *)
   local_authentication_enabled : bool option; [@option]
       (** local_authentication_enabled *)
   location : string;  (** location *)
+  maximum_throughput_units : float option; [@option]
+      (** maximum_throughput_units *)
+  minimum_tls_version : string option; [@option]
+      (** minimum_tls_version *)
   name : string;  (** name *)
+  network_rulesets :
+    azurerm_eventhub_namespace__network_rulesets list option;
+      [@option]
+      (** network_rulesets *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
   resource_group_name : string;  (** resource_group_name *)
@@ -74,7 +83,8 @@ type azurerm_eventhub_namespace = {
 (** azurerm_eventhub_namespace *)
 
 let azurerm_eventhub_namespace ?auto_inflate_enabled ?capacity
-    ?dedicated_cluster_id ?local_authentication_enabled
+    ?dedicated_cluster_id ?id ?local_authentication_enabled
+    ?maximum_throughput_units ?minimum_tls_version ?network_rulesets
     ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
     ~location ~name ~resource_group_name ~sku ~identity __resource_id
     =
@@ -84,9 +94,13 @@ let azurerm_eventhub_namespace ?auto_inflate_enabled ?capacity
       auto_inflate_enabled;
       capacity;
       dedicated_cluster_id;
+      id;
       local_authentication_enabled;
       location;
+      maximum_throughput_units;
+      minimum_tls_version;
       name;
+      network_rulesets;
       public_network_access_enabled;
       resource_group_name;
       sku;

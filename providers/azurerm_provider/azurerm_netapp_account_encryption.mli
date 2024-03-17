@@ -6,6 +6,7 @@ type azurerm_netapp_account_encryption__timeouts
 type azurerm_netapp_account_encryption
 
 val azurerm_netapp_account_encryption :
+  ?id:string ->
   ?system_assigned_identity_principal_id:string ->
   ?user_assigned_identity_id:string ->
   ?timeouts:azurerm_netapp_account_encryption__timeouts ->

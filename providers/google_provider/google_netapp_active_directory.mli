@@ -10,11 +10,14 @@ val google_netapp_active_directory :
   ?backup_operators:string list ->
   ?description:string ->
   ?encrypt_dc_connections:bool ->
+  ?id:string ->
   ?kdc_hostname:string ->
   ?kdc_ip:string ->
   ?labels:(string * string) list ->
   ?ldap_signing:bool ->
   ?nfs_users_with_ldap:bool ->
+  ?organizational_unit:string ->
+  ?project:string ->
   ?security_operators:string list ->
   ?site:string ->
   ?timeouts:google_netapp_active_directory__timeouts ->

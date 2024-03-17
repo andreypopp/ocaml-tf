@@ -15,6 +15,7 @@ type azurerm_api_management_backend
 
 val azurerm_api_management_backend :
   ?description:string ->
+  ?id:string ->
   ?resource_id:string ->
   ?title:string ->
   ?timeouts:azurerm_api_management_backend__timeouts ->

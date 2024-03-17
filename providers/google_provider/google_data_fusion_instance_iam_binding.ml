@@ -13,18 +13,23 @@ type google_data_fusion_instance_iam_binding__condition = {
 (** google_data_fusion_instance_iam_binding__condition *)
 
 type google_data_fusion_instance_iam_binding = {
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   name : string;  (** name *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]  (** region *)
   role : string;  (** role *)
   condition : google_data_fusion_instance_iam_binding__condition list;
 }
 [@@deriving yojson_of]
 (** google_data_fusion_instance_iam_binding *)
 
-let google_data_fusion_instance_iam_binding ~members ~name ~role
-    ~condition __resource_id =
+let google_data_fusion_instance_iam_binding ?id ?project ?region
+    ~members ~name ~role ~condition __resource_id =
   let __resource_type = "google_data_fusion_instance_iam_binding" in
-  let __resource = { members; name; role; condition } in
+  let __resource =
+    { id; members; name; project; region; role; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_data_fusion_instance_iam_binding __resource);
   ()

@@ -10,8 +10,11 @@ type google_vertex_ai_featurestore
 
 val google_vertex_ai_featurestore :
   ?force_destroy:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?name:string ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:google_vertex_ai_featurestore__timeouts ->
   encryption_spec:google_vertex_ai_featurestore__encryption_spec list ->
   online_serving_config:

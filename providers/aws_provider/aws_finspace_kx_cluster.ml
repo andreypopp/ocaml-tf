@@ -108,11 +108,14 @@ type aws_finspace_kx_cluster = {
   description : string option; [@option]  (** description *)
   environment_id : string;  (** environment_id *)
   execution_role : string option; [@option]  (** execution_role *)
+  id : string option; [@option]  (** id *)
   initialization_script : string option; [@option]
       (** initialization_script *)
   name : string;  (** name *)
   release_label : string;  (** release_label *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   auto_scaling_configuration :
     aws_finspace_kx_cluster__auto_scaling_configuration list;
@@ -135,13 +138,13 @@ type aws_finspace_kx_cluster = {
 (** aws_finspace_kx_cluster *)
 
 let aws_finspace_kx_cluster ?availability_zone_id
-    ?command_line_arguments ?description ?execution_role
-    ?initialization_script ?tags ?timeouts ~az_mode ~environment_id
-    ~name ~release_label ~type_ ~auto_scaling_configuration
-    ~cache_storage_configurations ~capacity_configuration ~code
-    ~database ~savedown_storage_configuration
-    ~scaling_group_configuration ~tickerplant_log_configuration
-    ~vpc_configuration __resource_id =
+    ?command_line_arguments ?description ?execution_role ?id
+    ?initialization_script ?tags ?tags_all ?timeouts ~az_mode
+    ~environment_id ~name ~release_label ~type_
+    ~auto_scaling_configuration ~cache_storage_configurations
+    ~capacity_configuration ~code ~database
+    ~savedown_storage_configuration ~scaling_group_configuration
+    ~tickerplant_log_configuration ~vpc_configuration __resource_id =
   let __resource_type = "aws_finspace_kx_cluster" in
   let __resource =
     {
@@ -151,10 +154,12 @@ let aws_finspace_kx_cluster ?availability_zone_id
       description;
       environment_id;
       execution_role;
+      id;
       initialization_script;
       name;
       release_label;
       tags;
+      tags_all;
       type_;
       auto_scaling_configuration;
       cache_storage_configurations;

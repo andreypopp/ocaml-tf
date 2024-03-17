@@ -8,7 +8,6 @@ type google_redis_cluster__timeouts
 type google_redis_cluster__discovery_endpoints__psc_config = {
   network : string;  (** network *)
 }
-[@@deriving yojson_of]
 
 type google_redis_cluster__discovery_endpoints = {
   address : string;  (** address *)
@@ -17,7 +16,6 @@ type google_redis_cluster__discovery_endpoints = {
     google_redis_cluster__discovery_endpoints__psc_config list;
       (** psc_config *)
 }
-[@@deriving yojson_of]
 
 type google_redis_cluster__psc_connections = {
   address : string;  (** address *)
@@ -26,24 +24,25 @@ type google_redis_cluster__psc_connections = {
   project_id : string;  (** project_id *)
   psc_connection_id : string;  (** psc_connection_id *)
 }
-[@@deriving yojson_of]
 
 type google_redis_cluster__state_info__update_info = {
   target_replica_count : float;  (** target_replica_count *)
   target_shard_count : float;  (** target_shard_count *)
 }
-[@@deriving yojson_of]
 
 type google_redis_cluster__state_info = {
   update_info : google_redis_cluster__state_info__update_info list;
       (** update_info *)
 }
-[@@deriving yojson_of]
 
 type google_redis_cluster
 
 val google_redis_cluster :
   ?authorization_mode:string ->
+  ?id:string ->
+  ?name:string ->
+  ?project:string ->
+  ?region:string ->
   ?replica_count:float ->
   ?transit_encryption_mode:string ->
   ?timeouts:google_redis_cluster__timeouts ->

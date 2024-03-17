@@ -8,6 +8,8 @@ type google_dns_response_policy_rule__timeouts
 type google_dns_response_policy_rule
 
 val google_dns_response_policy_rule :
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_dns_response_policy_rule__timeouts ->
   dns_name:string ->
   response_policy:string ->

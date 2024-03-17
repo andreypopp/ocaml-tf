@@ -30,6 +30,7 @@ type azurerm_stream_analytics_output_blob = {
   batch_min_rows : float option; [@option]  (** batch_min_rows *)
   blob_write_mode : string option; [@option]  (** blob_write_mode *)
   date_format : string;  (** date_format *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   path_pattern : string;  (** path_pattern *)
   resource_group_name : string;  (** resource_group_name *)
@@ -48,7 +49,7 @@ type azurerm_stream_analytics_output_blob = {
 (** azurerm_stream_analytics_output_blob *)
 
 let azurerm_stream_analytics_output_blob ?authentication_mode
-    ?batch_max_wait_time ?batch_min_rows ?blob_write_mode
+    ?batch_max_wait_time ?batch_min_rows ?blob_write_mode ?id
     ?storage_account_key ?timeouts ~date_format ~name ~path_pattern
     ~resource_group_name ~storage_account_name
     ~storage_container_name ~stream_analytics_job_name ~time_format
@@ -61,6 +62,7 @@ let azurerm_stream_analytics_output_blob ?authentication_mode
       batch_min_rows;
       blob_write_mode;
       date_format;
+      id;
       name;
       path_pattern;
       resource_group_name;

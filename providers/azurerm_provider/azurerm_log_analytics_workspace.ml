@@ -30,6 +30,7 @@ type azurerm_log_analytics_workspace = {
   daily_quota_gb : float option; [@option]  (** daily_quota_gb *)
   data_collection_rule_id : string option; [@option]
       (** data_collection_rule_id *)
+  id : string option; [@option]  (** id *)
   immediate_data_purge_on_30_days_enabled : bool option; [@option]
       (** immediate_data_purge_on_30_days_enabled *)
   internet_ingestion_enabled : bool option; [@option]
@@ -43,6 +44,9 @@ type azurerm_log_analytics_workspace = {
   reservation_capacity_in_gb_per_day : float option; [@option]
       (** reservation_capacity_in_gb_per_day *)
   resource_group_name : string;  (** resource_group_name *)
+  retention_in_days : float option; [@option]
+      (** retention_in_days *)
+  sku : string option; [@option]  (** sku *)
   tags : (string * string) list option; [@option]  (** tags *)
   identity : azurerm_log_analytics_workspace__identity list;
   timeouts : azurerm_log_analytics_workspace__timeouts option;
@@ -52,11 +56,12 @@ type azurerm_log_analytics_workspace = {
 
 let azurerm_log_analytics_workspace ?allow_resource_only_permissions
     ?cmk_for_query_forced ?daily_quota_gb ?data_collection_rule_id
-    ?immediate_data_purge_on_30_days_enabled
+    ?id ?immediate_data_purge_on_30_days_enabled
     ?internet_ingestion_enabled ?internet_query_enabled
     ?local_authentication_disabled
-    ?reservation_capacity_in_gb_per_day ?tags ?timeouts ~location
-    ~name ~resource_group_name ~identity __resource_id =
+    ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku ?tags
+    ?timeouts ~location ~name ~resource_group_name ~identity
+    __resource_id =
   let __resource_type = "azurerm_log_analytics_workspace" in
   let __resource =
     {
@@ -64,6 +69,7 @@ let azurerm_log_analytics_workspace ?allow_resource_only_permissions
       cmk_for_query_forced;
       daily_quota_gb;
       data_collection_rule_id;
+      id;
       immediate_data_purge_on_30_days_enabled;
       internet_ingestion_enabled;
       internet_query_enabled;
@@ -72,6 +78,8 @@ let azurerm_log_analytics_workspace ?allow_resource_only_permissions
       name;
       reservation_capacity_in_gb_per_day;
       resource_group_name;
+      retention_in_days;
+      sku;
       tags;
       identity;
       timeouts;

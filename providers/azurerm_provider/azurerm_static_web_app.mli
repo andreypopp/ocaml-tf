@@ -10,6 +10,7 @@ type azurerm_static_web_app
 val azurerm_static_web_app :
   ?app_settings:(string * string) list ->
   ?configuration_file_changes_enabled:bool ->
+  ?id:string ->
   ?preview_environments_enabled:bool ->
   ?sku_size:string ->
   ?sku_tier:string ->

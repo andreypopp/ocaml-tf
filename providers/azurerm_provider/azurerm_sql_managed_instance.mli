@@ -9,6 +9,7 @@ type azurerm_sql_managed_instance
 val azurerm_sql_managed_instance :
   ?collation:string ->
   ?dns_zone_partner_id:string ->
+  ?id:string ->
   ?minimum_tls_version:string ->
   ?proxy_override:string ->
   ?public_data_endpoint_enabled:bool ->

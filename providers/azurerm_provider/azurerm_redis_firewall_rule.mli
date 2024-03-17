@@ -6,6 +6,7 @@ type azurerm_redis_firewall_rule__timeouts
 type azurerm_redis_firewall_rule
 
 val azurerm_redis_firewall_rule :
+  ?id:string ->
   ?timeouts:azurerm_redis_firewall_rule__timeouts ->
   end_ip:string ->
   name:string ->

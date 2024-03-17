@@ -105,6 +105,12 @@ type google_memcache_instance__memcache_nodes = {
 [@@deriving yojson_of]
 
 type google_memcache_instance = {
+  authorized_network : string option; [@option]
+      (** The full name of the GCE network to connect the instance to.  If not provided,
+'default' will be used. *)
+  display_name : string option; [@option]
+      (** A user-visible name for the instance. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels to represent user-provided metadata.
 
@@ -118,10 +124,16 @@ determined by our system based on the latest supported minor version. Default va
   name : string;  (** The resource name of the instance. *)
   node_count : float;
       (** Number of nodes in the memcache instance. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The region of the Memcache instance. If it is not provided, the provider region is used. *)
   reserved_ip_range_id : string list option; [@option]
       (** Contains the name of allocated IP address ranges associated with
 the private service access connection for example, test-default
 associated with IP range 10.0.0.0/29. *)
+  zones : string list option; [@option]
+      (** Zones where memcache nodes should be provisioned.  If not
+provided, all zones will be used. *)
   maintenance_policy :
     google_memcache_instance__maintenance_policy list;
   memcache_parameters :
@@ -132,18 +144,24 @@ associated with IP range 10.0.0.0/29. *)
 [@@deriving yojson_of]
 (** google_memcache_instance *)
 
-let google_memcache_instance ?labels ?memcache_version
-    ?reserved_ip_range_id ?timeouts ~name ~node_count
-    ~maintenance_policy ~memcache_parameters ~node_config
-    __resource_id =
+let google_memcache_instance ?authorized_network ?display_name ?id
+    ?labels ?memcache_version ?project ?region ?reserved_ip_range_id
+    ?zones ?timeouts ~name ~node_count ~maintenance_policy
+    ~memcache_parameters ~node_config __resource_id =
   let __resource_type = "google_memcache_instance" in
   let __resource =
     {
+      authorized_network;
+      display_name;
+      id;
       labels;
       memcache_version;
       name;
       node_count;
+      project;
+      region;
       reserved_ip_range_id;
+      zones;
       maintenance_policy;
       memcache_parameters;
       node_config;

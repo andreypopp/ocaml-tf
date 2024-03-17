@@ -77,6 +77,9 @@ type aws_elastictranscoder_preset__video_watermarks = {
 type aws_elastictranscoder_preset = {
   container : string;  (** container *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
+  type_ : string option; [@option] [@key "type"]  (** type *)
   video_codec_options : (string * string) list option; [@option]
       (** video_codec_options *)
   audio : aws_elastictranscoder_preset__audio list;
@@ -90,14 +93,17 @@ type aws_elastictranscoder_preset = {
 [@@deriving yojson_of]
 (** aws_elastictranscoder_preset *)
 
-let aws_elastictranscoder_preset ?description ?video_codec_options
-    ~container ~audio ~audio_codec_options ~thumbnails ~video
-    ~video_watermarks __resource_id =
+let aws_elastictranscoder_preset ?description ?id ?name ?type_
+    ?video_codec_options ~container ~audio ~audio_codec_options
+    ~thumbnails ~video ~video_watermarks __resource_id =
   let __resource_type = "aws_elastictranscoder_preset" in
   let __resource =
     {
       container;
       description;
+      id;
+      name;
+      type_;
       video_codec_options;
       audio;
       audio_codec_options;

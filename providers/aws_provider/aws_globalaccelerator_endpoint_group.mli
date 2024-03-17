@@ -8,8 +8,12 @@ type aws_globalaccelerator_endpoint_group__timeouts
 type aws_globalaccelerator_endpoint_group
 
 val aws_globalaccelerator_endpoint_group :
+  ?endpoint_group_region:string ->
   ?health_check_interval_seconds:float ->
+  ?health_check_path:string ->
+  ?health_check_port:float ->
   ?health_check_protocol:string ->
+  ?id:string ->
   ?threshold_count:float ->
   ?traffic_dial_percentage:float ->
   ?timeouts:aws_globalaccelerator_endpoint_group__timeouts ->

@@ -74,12 +74,15 @@ type aws_fsx_ontap_storage_virtual_machine__endpoints = {
 
 type aws_fsx_ontap_storage_virtual_machine = {
   file_system_id : string;  (** file_system_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   root_volume_security_style : string option; [@option]
       (** root_volume_security_style *)
   svm_admin_password : string option; [@option]
       (** svm_admin_password *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   active_directory_configuration :
     aws_fsx_ontap_storage_virtual_machine__active_directory_configuration
     list;
@@ -88,17 +91,20 @@ type aws_fsx_ontap_storage_virtual_machine = {
 [@@deriving yojson_of]
 (** aws_fsx_ontap_storage_virtual_machine *)
 
-let aws_fsx_ontap_storage_virtual_machine ?root_volume_security_style
-    ?svm_admin_password ?tags ?timeouts ~file_system_id ~name
-    ~active_directory_configuration __resource_id =
+let aws_fsx_ontap_storage_virtual_machine ?id
+    ?root_volume_security_style ?svm_admin_password ?tags ?tags_all
+    ?timeouts ~file_system_id ~name ~active_directory_configuration
+    __resource_id =
   let __resource_type = "aws_fsx_ontap_storage_virtual_machine" in
   let __resource =
     {
       file_system_id;
+      id;
       name;
       root_volume_security_style;
       svm_admin_password;
       tags;
+      tags_all;
       active_directory_configuration;
       timeouts;
     }

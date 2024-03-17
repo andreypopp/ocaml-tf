@@ -14,6 +14,7 @@ type azurerm_lb_probe__timeouts = {
 (** azurerm_lb_probe__timeouts *)
 
 type azurerm_lb_probe = {
+  id : string option; [@option]  (** id *)
   interval_in_seconds : float option; [@option]
       (** interval_in_seconds *)
   loadbalancer_id : string;  (** loadbalancer_id *)
@@ -28,12 +29,13 @@ type azurerm_lb_probe = {
 [@@deriving yojson_of]
 (** azurerm_lb_probe *)
 
-let azurerm_lb_probe ?interval_in_seconds ?number_of_probes
+let azurerm_lb_probe ?id ?interval_in_seconds ?number_of_probes
     ?probe_threshold ?protocol ?request_path ?timeouts
     ~loadbalancer_id ~name ~port __resource_id =
   let __resource_type = "azurerm_lb_probe" in
   let __resource =
     {
+      id;
       interval_in_seconds;
       loadbalancer_id;
       name;

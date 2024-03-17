@@ -25,6 +25,7 @@ type azurerm_local_network_gateway = {
   address_space : string list option; [@option]  (** address_space *)
   gateway_address : string option; [@option]  (** gateway_address *)
   gateway_fqdn : string option; [@option]  (** gateway_fqdn *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -36,7 +37,7 @@ type azurerm_local_network_gateway = {
 (** azurerm_local_network_gateway *)
 
 let azurerm_local_network_gateway ?address_space ?gateway_address
-    ?gateway_fqdn ?tags ?timeouts ~location ~name
+    ?gateway_fqdn ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~bgp_settings __resource_id =
   let __resource_type = "azurerm_local_network_gateway" in
   let __resource =
@@ -44,6 +45,7 @@ let azurerm_local_network_gateway ?address_space ?gateway_address
       address_space;
       gateway_address;
       gateway_fqdn;
+      id;
       location;
       name;
       resource_group_name;

@@ -112,9 +112,12 @@ type aws_emrcontainers_job_template__timeouts = {
 (** aws_emrcontainers_job_template__timeouts *)
 
 type aws_emrcontainers_job_template = {
+  id : string option; [@option]  (** id *)
   kms_key_arn : string option; [@option]  (** kms_key_arn *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   job_template_data :
     aws_emrcontainers_job_template__job_template_data list;
   timeouts : aws_emrcontainers_job_template__timeouts option;
@@ -122,11 +125,19 @@ type aws_emrcontainers_job_template = {
 [@@deriving yojson_of]
 (** aws_emrcontainers_job_template *)
 
-let aws_emrcontainers_job_template ?kms_key_arn ?tags ?timeouts ~name
-    ~job_template_data __resource_id =
+let aws_emrcontainers_job_template ?id ?kms_key_arn ?tags ?tags_all
+    ?timeouts ~name ~job_template_data __resource_id =
   let __resource_type = "aws_emrcontainers_job_template" in
   let __resource =
-    { kms_key_arn; name; tags; job_template_data; timeouts }
+    {
+      id;
+      kms_key_arn;
+      name;
+      tags;
+      tags_all;
+      job_template_data;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emrcontainers_job_template __resource);

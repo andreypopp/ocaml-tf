@@ -6,7 +6,9 @@ type aws_connect_vocabulary__timeouts
 type aws_connect_vocabulary
 
 val aws_connect_vocabulary :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_connect_vocabulary__timeouts ->
   content:string ->
   instance_id:string ->

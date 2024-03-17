@@ -6,16 +6,17 @@ open! Tf.Prelude
 
 type aws_sesv2_email_identity_policy = {
   email_identity : string;  (** email_identity *)
+  id : string option; [@option]  (** id *)
   policy : string;  (** policy *)
   policy_name : string;  (** policy_name *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_email_identity_policy *)
 
-let aws_sesv2_email_identity_policy ~email_identity ~policy
+let aws_sesv2_email_identity_policy ?id ~email_identity ~policy
     ~policy_name __resource_id =
   let __resource_type = "aws_sesv2_email_identity_policy" in
-  let __resource = { email_identity; policy; policy_name } in
+  let __resource = { email_identity; id; policy; policy_name } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sesv2_email_identity_policy __resource);
   ()

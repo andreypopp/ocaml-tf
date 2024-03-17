@@ -80,6 +80,7 @@ type azurerm_private_endpoint__private_dns_zone_configs = {
 type azurerm_private_endpoint = {
   custom_network_interface_name : string option; [@option]
       (** custom_network_interface_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -95,7 +96,7 @@ type azurerm_private_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_private_endpoint *)
 
-let azurerm_private_endpoint ?custom_network_interface_name ?tags
+let azurerm_private_endpoint ?custom_network_interface_name ?id ?tags
     ?timeouts ~location ~name ~resource_group_name ~subnet_id
     ~ip_configuration ~private_dns_zone_group
     ~private_service_connection __resource_id =
@@ -103,6 +104,7 @@ let azurerm_private_endpoint ?custom_network_interface_name ?tags
   let __resource =
     {
       custom_network_interface_name;
+      id;
       location;
       name;
       resource_group_name;

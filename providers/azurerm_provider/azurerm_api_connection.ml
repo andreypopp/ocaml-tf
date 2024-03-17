@@ -14,6 +14,8 @@ type azurerm_api_connection__timeouts = {
 (** azurerm_api_connection__timeouts *)
 
 type azurerm_api_connection = {
+  display_name : string option; [@option]  (** display_name *)
+  id : string option; [@option]  (** id *)
   managed_api_id : string;  (** managed_api_id *)
   name : string;  (** name *)
   parameter_values : (string * string) list option; [@option]
@@ -25,11 +27,14 @@ type azurerm_api_connection = {
 [@@deriving yojson_of]
 (** azurerm_api_connection *)
 
-let azurerm_api_connection ?parameter_values ?tags ?timeouts
-    ~managed_api_id ~name ~resource_group_name __resource_id =
+let azurerm_api_connection ?display_name ?id ?parameter_values ?tags
+    ?timeouts ~managed_api_id ~name ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_api_connection" in
   let __resource =
     {
+      display_name;
+      id;
       managed_api_id;
       name;
       parameter_values;

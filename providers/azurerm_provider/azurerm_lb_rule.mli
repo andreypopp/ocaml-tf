@@ -10,6 +10,10 @@ val azurerm_lb_rule :
   ?disable_outbound_snat:bool ->
   ?enable_floating_ip:bool ->
   ?enable_tcp_reset:bool ->
+  ?id:string ->
+  ?idle_timeout_in_minutes:float ->
+  ?load_distribution:string ->
+  ?probe_id:string ->
   ?timeouts:azurerm_lb_rule__timeouts ->
   backend_port:float ->
   frontend_ip_configuration_name:string ->

@@ -61,6 +61,7 @@ type azurerm_iot_security_solution = {
   enabled : bool option; [@option]  (** enabled *)
   events_to_export : string list option; [@option]
       (** events_to_export *)
+  id : string option; [@option]  (** id *)
   iothub_ids : string list;  (** iothub_ids *)
   location : string;  (** location *)
   log_analytics_workspace_id : string option; [@option]
@@ -68,6 +69,10 @@ type azurerm_iot_security_solution = {
   log_unmasked_ips_enabled : bool option; [@option]
       (** log_unmasked_ips_enabled *)
   name : string;  (** name *)
+  query_for_resources : string option; [@option]
+      (** query_for_resources *)
+  query_subscription_ids : string list option; [@option]
+      (** query_subscription_ids *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
   additional_workspace :
@@ -80,10 +85,11 @@ type azurerm_iot_security_solution = {
 (** azurerm_iot_security_solution *)
 
 let azurerm_iot_security_solution ?disabled_data_sources ?enabled
-    ?events_to_export ?log_analytics_workspace_id
-    ?log_unmasked_ips_enabled ?tags ?timeouts ~display_name
-    ~iothub_ids ~location ~name ~resource_group_name
-    ~additional_workspace ~recommendations_enabled __resource_id =
+    ?events_to_export ?id ?log_analytics_workspace_id
+    ?log_unmasked_ips_enabled ?query_for_resources
+    ?query_subscription_ids ?tags ?timeouts ~display_name ~iothub_ids
+    ~location ~name ~resource_group_name ~additional_workspace
+    ~recommendations_enabled __resource_id =
   let __resource_type = "azurerm_iot_security_solution" in
   let __resource =
     {
@@ -91,11 +97,14 @@ let azurerm_iot_security_solution ?disabled_data_sources ?enabled
       display_name;
       enabled;
       events_to_export;
+      id;
       iothub_ids;
       location;
       log_analytics_workspace_id;
       log_unmasked_ips_enabled;
       name;
+      query_for_resources;
+      query_subscription_ids;
       resource_group_name;
       tags;
       additional_workspace;

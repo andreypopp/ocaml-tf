@@ -22,20 +22,23 @@ type azurerm_route_filter__rule = {
 [@@deriving yojson_of]
 
 type azurerm_route_filter = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
+  rule : azurerm_route_filter__rule list option; [@option]
+      (** rule *)
   tags : (string * string) list option; [@option]  (** tags *)
   timeouts : azurerm_route_filter__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_route_filter *)
 
-let azurerm_route_filter ?tags ?timeouts ~location ~name
+let azurerm_route_filter ?id ?rule ?tags ?timeouts ~location ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_route_filter" in
   let __resource =
-    { location; name; resource_group_name; tags; timeouts }
+    { id; location; name; resource_group_name; rule; tags; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_route_filter __resource);

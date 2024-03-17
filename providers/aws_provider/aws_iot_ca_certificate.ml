@@ -24,7 +24,10 @@ type aws_iot_ca_certificate = {
   ca_certificate_pem : string;  (** ca_certificate_pem *)
   certificate_mode : string option; [@option]
       (** certificate_mode *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   verification_certificate_pem : string option; [@option]
       (** verification_certificate_pem *)
   registration_config :
@@ -33,7 +36,7 @@ type aws_iot_ca_certificate = {
 [@@deriving yojson_of]
 (** aws_iot_ca_certificate *)
 
-let aws_iot_ca_certificate ?certificate_mode ?tags
+let aws_iot_ca_certificate ?certificate_mode ?id ?tags ?tags_all
     ?verification_certificate_pem ~active ~allow_auto_registration
     ~ca_certificate_pem ~registration_config __resource_id =
   let __resource_type = "aws_iot_ca_certificate" in
@@ -43,7 +46,9 @@ let aws_iot_ca_certificate ?certificate_mode ?tags
       allow_auto_registration;
       ca_certificate_pem;
       certificate_mode;
+      id;
       tags;
+      tags_all;
       verification_certificate_pem;
       registration_config;
     }

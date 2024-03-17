@@ -26,6 +26,7 @@ type aws_s3_bucket_server_side_encryption_configuration = {
   bucket : string;  (** bucket *)
   expected_bucket_owner : string option; [@option]
       (** expected_bucket_owner *)
+  id : string option; [@option]  (** id *)
   rule :
     aws_s3_bucket_server_side_encryption_configuration__rule list;
 }
@@ -33,11 +34,11 @@ type aws_s3_bucket_server_side_encryption_configuration = {
 (** aws_s3_bucket_server_side_encryption_configuration *)
 
 let aws_s3_bucket_server_side_encryption_configuration
-    ?expected_bucket_owner ~bucket ~rule __resource_id =
+    ?expected_bucket_owner ?id ~bucket ~rule __resource_id =
   let __resource_type =
     "aws_s3_bucket_server_side_encryption_configuration"
   in
-  let __resource = { bucket; expected_bucket_owner; rule } in
+  let __resource = { bucket; expected_bucket_owner; id; rule } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_server_side_encryption_configuration
        __resource);

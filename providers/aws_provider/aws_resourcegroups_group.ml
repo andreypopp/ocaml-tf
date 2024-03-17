@@ -35,8 +35,11 @@ type aws_resourcegroups_group__timeouts = {
 
 type aws_resourcegroups_group = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   configuration : aws_resourcegroups_group__configuration list;
   resource_query : aws_resourcegroups_group__resource_query list;
   timeouts : aws_resourcegroups_group__timeouts option;
@@ -44,14 +47,16 @@ type aws_resourcegroups_group = {
 [@@deriving yojson_of]
 (** aws_resourcegroups_group *)
 
-let aws_resourcegroups_group ?description ?tags ?timeouts ~name
-    ~configuration ~resource_query __resource_id =
+let aws_resourcegroups_group ?description ?id ?tags ?tags_all
+    ?timeouts ~name ~configuration ~resource_query __resource_id =
   let __resource_type = "aws_resourcegroups_group" in
   let __resource =
     {
       description;
+      id;
       name;
       tags;
+      tags_all;
       configuration;
       resource_query;
       timeouts;

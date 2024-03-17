@@ -45,7 +45,10 @@ type aws_elastictranscoder_pipeline__thumbnail_config_permissions = {
 
 type aws_elastictranscoder_pipeline = {
   aws_kms_key_arn : string option; [@option]  (** aws_kms_key_arn *)
+  id : string option; [@option]  (** id *)
   input_bucket : string;  (** input_bucket *)
+  name : string option; [@option]  (** name *)
+  output_bucket : string option; [@option]  (** output_bucket *)
   role : string;  (** role *)
   content_config :
     aws_elastictranscoder_pipeline__content_config list;
@@ -60,14 +63,18 @@ type aws_elastictranscoder_pipeline = {
 [@@deriving yojson_of]
 (** aws_elastictranscoder_pipeline *)
 
-let aws_elastictranscoder_pipeline ?aws_kms_key_arn ~input_bucket
-    ~role ~content_config ~content_config_permissions ~notifications
-    ~thumbnail_config ~thumbnail_config_permissions __resource_id =
+let aws_elastictranscoder_pipeline ?aws_kms_key_arn ?id ?name
+    ?output_bucket ~input_bucket ~role ~content_config
+    ~content_config_permissions ~notifications ~thumbnail_config
+    ~thumbnail_config_permissions __resource_id =
   let __resource_type = "aws_elastictranscoder_pipeline" in
   let __resource =
     {
       aws_kms_key_arn;
+      id;
       input_bucket;
+      name;
+      output_bucket;
       role;
       content_config;
       content_config_permissions;

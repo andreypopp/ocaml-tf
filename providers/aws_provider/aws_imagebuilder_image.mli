@@ -12,7 +12,6 @@ type aws_imagebuilder_image__output_resources__containers = {
   image_uris : string list;  (** image_uris *)
   region : string;  (** region *)
 }
-[@@deriving yojson_of]
 
 type aws_imagebuilder_image__output_resources__amis = {
   account_id : string;  (** account_id *)
@@ -21,7 +20,6 @@ type aws_imagebuilder_image__output_resources__amis = {
   name : string;  (** name *)
   region : string;  (** region *)
 }
-[@@deriving yojson_of]
 
 type aws_imagebuilder_image__output_resources = {
   amis : aws_imagebuilder_image__output_resources__amis list;
@@ -30,7 +28,6 @@ type aws_imagebuilder_image__output_resources = {
     aws_imagebuilder_image__output_resources__containers list;
       (** containers *)
 }
-[@@deriving yojson_of]
 
 type aws_imagebuilder_image
 
@@ -38,8 +35,10 @@ val aws_imagebuilder_image :
   ?container_recipe_arn:string ->
   ?distribution_configuration_arn:string ->
   ?enhanced_image_metadata_enabled:bool ->
+  ?id:string ->
   ?image_recipe_arn:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_imagebuilder_image__timeouts ->
   infrastructure_configuration_arn:string ->
   image_scanning_configuration:

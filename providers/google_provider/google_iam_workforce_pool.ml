@@ -41,6 +41,7 @@ type google_iam_workforce_pool = {
 or use existing tokens to access resources. If the pool is re-enabled, existing tokens grant access again. *)
   display_name : string option; [@option]
       (** A user-specified display name of the pool in Google Cloud Console. Cannot exceed 32 characters. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource. *)
   parent : string;
       (** Immutable. The resource name of the parent. Format: 'organizations/{org-id}'. *)
@@ -62,14 +63,15 @@ The prefix 'gcp-' is reserved for use by Google, and may not be specified. *)
 (** google_iam_workforce_pool *)
 
 let google_iam_workforce_pool ?description ?disabled ?display_name
-    ?session_duration ?timeouts ~location ~parent ~workforce_pool_id
-    ~access_restrictions __resource_id =
+    ?id ?session_duration ?timeouts ~location ~parent
+    ~workforce_pool_id ~access_restrictions __resource_id =
   let __resource_type = "google_iam_workforce_pool" in
   let __resource =
     {
       description;
       disabled;
       display_name;
+      id;
       location;
       parent;
       session_duration;

@@ -15,6 +15,7 @@ type google_filestore_snapshot__timeouts = {
 type google_filestore_snapshot = {
   description : string option; [@option]
       (** A description of the snapshot with 2048 characters or less. Requests with longer descriptions will be rejected. *)
+  id : string option; [@option]  (** id *)
   instance : string;
       (** The resource name of the filestore instance. *)
   labels : (string * string) list option; [@option]
@@ -34,16 +35,26 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   timeouts : google_filestore_snapshot__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_filestore_snapshot *)
 
-let google_filestore_snapshot ?description ?labels ?timeouts
-    ~instance ~location ~name __resource_id =
+let google_filestore_snapshot ?description ?id ?labels ?project
+    ?timeouts ~instance ~location ~name __resource_id =
   let __resource_type = "google_filestore_snapshot" in
   let __resource =
-    { description; instance; labels; location; name; timeouts }
+    {
+      description;
+      id;
+      instance;
+      labels;
+      location;
+      name;
+      project;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_filestore_snapshot __resource);

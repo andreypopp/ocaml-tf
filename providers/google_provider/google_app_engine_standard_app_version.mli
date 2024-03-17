@@ -23,9 +23,13 @@ val google_app_engine_standard_app_version :
   ?app_engine_apis:bool ->
   ?delete_service_on_destroy:bool ->
   ?env_variables:(string * string) list ->
+  ?id:string ->
   ?inbound_services:string list ->
+  ?instance_class:string ->
   ?noop_on_destroy:bool ->
+  ?project:string ->
   ?runtime_api_version:string ->
+  ?service_account:string ->
   ?threadsafe:bool ->
   ?version_id:string ->
   ?timeouts:google_app_engine_standard_app_version__timeouts ->

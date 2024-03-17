@@ -48,6 +48,7 @@ type google_compute_node_template = {
       (** CPU overcommit. Default value: NONE Possible values: [ENABLED, NONE] *)
   description : string option; [@option]
       (** An optional textual description of the resource. *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** Name of the resource. *)
   node_affinity_labels : (string * string) list option; [@option]
       (** Labels to use for node affinity, which will be used in
@@ -55,6 +56,10 @@ instance scheduling. *)
   node_type : string option; [@option]
       (** Node type to use for nodes group that are created from this template.
 Only one of nodeTypeFlexibility and nodeType can be specified. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** Region where nodes using the node template will be created.
+If it is not provided, the provider region is used. *)
   node_type_flexibility :
     google_compute_node_template__node_type_flexibility list;
   server_binding : google_compute_node_template__server_binding list;
@@ -64,16 +69,19 @@ Only one of nodeTypeFlexibility and nodeType can be specified. *)
 (** google_compute_node_template *)
 
 let google_compute_node_template ?cpu_overcommit_type ?description
-    ?name ?node_affinity_labels ?node_type ?timeouts
-    ~node_type_flexibility ~server_binding __resource_id =
+    ?id ?name ?node_affinity_labels ?node_type ?project ?region
+    ?timeouts ~node_type_flexibility ~server_binding __resource_id =
   let __resource_type = "google_compute_node_template" in
   let __resource =
     {
       cpu_overcommit_type;
       description;
+      id;
       name;
       node_affinity_labels;
       node_type;
+      project;
+      region;
       node_type_flexibility;
       server_binding;
       timeouts;

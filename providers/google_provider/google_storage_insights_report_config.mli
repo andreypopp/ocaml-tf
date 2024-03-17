@@ -21,6 +21,8 @@ type google_storage_insights_report_config
 
 val google_storage_insights_report_config :
   ?display_name:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_storage_insights_report_config__timeouts ->
   location:string ->
   csv_options:google_storage_insights_report_config__csv_options list ->

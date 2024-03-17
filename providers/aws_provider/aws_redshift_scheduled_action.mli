@@ -12,6 +12,7 @@ val aws_redshift_scheduled_action :
   ?description:string ->
   ?enable:bool ->
   ?end_time:string ->
+  ?id:string ->
   ?start_time:string ->
   iam_role:string ->
   name:string ->

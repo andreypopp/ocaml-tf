@@ -44,16 +44,34 @@ type aws_lb_target_group__target_health_state = {
 (** aws_lb_target_group__target_health_state *)
 
 type aws_lb_target_group = {
+  connection_termination : bool option; [@option]
+      (** connection_termination *)
   deregistration_delay : string option; [@option]
       (** deregistration_delay *)
+  id : string option; [@option]  (** id *)
+  ip_address_type : string option; [@option]  (** ip_address_type *)
   lambda_multi_value_headers_enabled : bool option; [@option]
       (** lambda_multi_value_headers_enabled *)
+  load_balancing_algorithm_type : string option; [@option]
+      (** load_balancing_algorithm_type *)
+  load_balancing_anomaly_mitigation : string option; [@option]
+      (** load_balancing_anomaly_mitigation *)
+  load_balancing_cross_zone_enabled : string option; [@option]
+      (** load_balancing_cross_zone_enabled *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   port : float option; [@option]  (** port *)
+  preserve_client_ip : string option; [@option]
+      (** preserve_client_ip *)
   protocol : string option; [@option]  (** protocol *)
+  protocol_version : string option; [@option]
+      (** protocol_version *)
   proxy_protocol_v2 : bool option; [@option]
       (** proxy_protocol_v2 *)
   slow_start : float option; [@option]  (** slow_start *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target_type : string option; [@option]  (** target_type *)
   vpc_id : string option; [@option]  (** vpc_id *)
   health_check : aws_lb_target_group__health_check list;
@@ -64,21 +82,35 @@ type aws_lb_target_group = {
 [@@deriving yojson_of]
 (** aws_lb_target_group *)
 
-let aws_lb_target_group ?deregistration_delay
-    ?lambda_multi_value_headers_enabled ?port ?protocol
-    ?proxy_protocol_v2 ?slow_start ?tags ?target_type ?vpc_id
-    ~health_check ~stickiness ~target_failover ~target_health_state
-    __resource_id =
+let aws_lb_target_group ?connection_termination ?deregistration_delay
+    ?id ?ip_address_type ?lambda_multi_value_headers_enabled
+    ?load_balancing_algorithm_type ?load_balancing_anomaly_mitigation
+    ?load_balancing_cross_zone_enabled ?name ?name_prefix ?port
+    ?preserve_client_ip ?protocol ?protocol_version
+    ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
+    ?vpc_id ~health_check ~stickiness ~target_failover
+    ~target_health_state __resource_id =
   let __resource_type = "aws_lb_target_group" in
   let __resource =
     {
+      connection_termination;
       deregistration_delay;
+      id;
+      ip_address_type;
       lambda_multi_value_headers_enabled;
+      load_balancing_algorithm_type;
+      load_balancing_anomaly_mitigation;
+      load_balancing_cross_zone_enabled;
+      name;
+      name_prefix;
       port;
+      preserve_client_ip;
       protocol;
+      protocol_version;
       proxy_protocol_v2;
       slow_start;
       tags;
+      tags_all;
       target_type;
       vpc_id;
       health_check;

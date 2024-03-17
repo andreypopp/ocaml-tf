@@ -15,6 +15,7 @@ type azurerm_kusto_cluster_customer_managed_key__timeouts = {
 
 type azurerm_kusto_cluster_customer_managed_key = {
   cluster_id : string;  (** cluster_id *)
+  id : string option; [@option]  (** id *)
   key_name : string;  (** key_name *)
   key_vault_id : string;  (** key_vault_id *)
   key_version : string option; [@option]  (** key_version *)
@@ -25,7 +26,7 @@ type azurerm_kusto_cluster_customer_managed_key = {
 [@@deriving yojson_of]
 (** azurerm_kusto_cluster_customer_managed_key *)
 
-let azurerm_kusto_cluster_customer_managed_key ?key_version
+let azurerm_kusto_cluster_customer_managed_key ?id ?key_version
     ?user_identity ?timeouts ~cluster_id ~key_name ~key_vault_id
     __resource_id =
   let __resource_type =
@@ -34,6 +35,7 @@ let azurerm_kusto_cluster_customer_managed_key ?key_version
   let __resource =
     {
       cluster_id;
+      id;
       key_name;
       key_vault_id;
       key_version;

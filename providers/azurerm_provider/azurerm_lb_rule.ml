@@ -25,8 +25,14 @@ type azurerm_lb_rule = {
   frontend_ip_configuration_name : string;
       (** frontend_ip_configuration_name *)
   frontend_port : float;  (** frontend_port *)
+  id : string option; [@option]  (** id *)
+  idle_timeout_in_minutes : float option; [@option]
+      (** idle_timeout_in_minutes *)
+  load_distribution : string option; [@option]
+      (** load_distribution *)
   loadbalancer_id : string;  (** loadbalancer_id *)
   name : string;  (** name *)
+  probe_id : string option; [@option]  (** probe_id *)
   protocol : string;  (** protocol *)
   timeouts : azurerm_lb_rule__timeouts option;
 }
@@ -34,9 +40,10 @@ type azurerm_lb_rule = {
 (** azurerm_lb_rule *)
 
 let azurerm_lb_rule ?backend_address_pool_ids ?disable_outbound_snat
-    ?enable_floating_ip ?enable_tcp_reset ?timeouts ~backend_port
-    ~frontend_ip_configuration_name ~frontend_port ~loadbalancer_id
-    ~name ~protocol __resource_id =
+    ?enable_floating_ip ?enable_tcp_reset ?id
+    ?idle_timeout_in_minutes ?load_distribution ?probe_id ?timeouts
+    ~backend_port ~frontend_ip_configuration_name ~frontend_port
+    ~loadbalancer_id ~name ~protocol __resource_id =
   let __resource_type = "azurerm_lb_rule" in
   let __resource =
     {
@@ -47,8 +54,12 @@ let azurerm_lb_rule ?backend_address_pool_ids ?disable_outbound_snat
       enable_tcp_reset;
       frontend_ip_configuration_name;
       frontend_port;
+      id;
+      idle_timeout_in_minutes;
+      load_distribution;
       loadbalancer_id;
       name;
+      probe_id;
       protocol;
       timeouts;
     }

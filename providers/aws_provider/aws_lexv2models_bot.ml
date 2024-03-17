@@ -40,6 +40,7 @@ type aws_lexv2models_bot = {
   tags : (string * string) list option; [@option]  (** tags *)
   test_bot_alias_tags : (string * string) list option; [@option]
       (** test_bot_alias_tags *)
+  type_ : string option; [@option] [@key "type"]  (** type *)
   data_privacy : aws_lexv2models_bot__data_privacy list;
   members : aws_lexv2models_bot__members list;
   timeouts : aws_lexv2models_bot__timeouts option;
@@ -48,7 +49,7 @@ type aws_lexv2models_bot = {
 (** aws_lexv2models_bot *)
 
 let aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
-    ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
+    ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
     ~data_privacy ~members __resource_id =
   let __resource_type = "aws_lexv2models_bot" in
   let __resource =
@@ -59,6 +60,7 @@ let aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
       role_arn;
       tags;
       test_bot_alias_tags;
+      type_;
       data_privacy;
       members;
       timeouts;

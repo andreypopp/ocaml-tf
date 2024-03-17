@@ -16,6 +16,7 @@ val azurerm_cognitive_account :
   ?custom_subdomain_name:string ->
   ?dynamic_throttling_enabled:bool ->
   ?fqdns:string list ->
+  ?id:string ->
   ?local_auth_enabled:bool ->
   ?metrics_advisor_aad_client_id:string ->
   ?metrics_advisor_aad_tenant_id:string ->

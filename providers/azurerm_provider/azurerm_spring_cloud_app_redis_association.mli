@@ -6,6 +6,7 @@ type azurerm_spring_cloud_app_redis_association__timeouts
 type azurerm_spring_cloud_app_redis_association
 
 val azurerm_spring_cloud_app_redis_association :
+  ?id:string ->
   ?ssl_enabled:bool ->
   ?timeouts:azurerm_spring_cloud_app_redis_association__timeouts ->
   name:string ->

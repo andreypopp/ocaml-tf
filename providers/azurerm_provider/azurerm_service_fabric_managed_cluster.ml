@@ -107,9 +107,11 @@ type azurerm_service_fabric_managed_cluster = {
   backup_service_enabled : bool option; [@option]
       (** backup_service_enabled *)
   client_connection_port : float;  (** client_connection_port *)
+  dns_name : string option; [@option]  (** dns_name *)
   dns_service_enabled : bool option; [@option]
       (** dns_service_enabled *)
   http_gateway_port : float;  (** http_gateway_port *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   password : string option; [@option]  (** password *)
@@ -131,17 +133,20 @@ type azurerm_service_fabric_managed_cluster = {
 (** azurerm_service_fabric_managed_cluster *)
 
 let azurerm_service_fabric_managed_cluster ?backup_service_enabled
-    ?dns_service_enabled ?password ?sku ?tags ?upgrade_wave ?username
-    ?timeouts ~client_connection_port ~http_gateway_port ~location
-    ~name ~resource_group_name ~authentication ~custom_fabric_setting
-    ~lb_rule ~node_type __resource_id =
+    ?dns_name ?dns_service_enabled ?id ?password ?sku ?tags
+    ?upgrade_wave ?username ?timeouts ~client_connection_port
+    ~http_gateway_port ~location ~name ~resource_group_name
+    ~authentication ~custom_fabric_setting ~lb_rule ~node_type
+    __resource_id =
   let __resource_type = "azurerm_service_fabric_managed_cluster" in
   let __resource =
     {
       backup_service_enabled;
       client_connection_port;
+      dns_name;
       dns_service_enabled;
       http_gateway_port;
+      id;
       location;
       name;
       password;

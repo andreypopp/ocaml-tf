@@ -619,8 +619,10 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
       (** A human readable description of this Bare Metal User Cluster. *)
   description : string option; [@option]
       (** A human readable description of this Bare Metal User Cluster. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the resource. *)
   name : string;  (** The bare metal cluster name. *)
+  project : string option; [@option]  (** project *)
   binary_authorization :
     google_gkeonprem_bare_metal_cluster__binary_authorization list;
   cluster_operations :
@@ -650,10 +652,10 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 [@@deriving yojson_of]
 (** google_gkeonprem_bare_metal_cluster *)
 
-let google_gkeonprem_bare_metal_cluster ?annotations ?description
-    ?timeouts ~admin_cluster_membership ~bare_metal_version ~location
-    ~name ~binary_authorization ~cluster_operations ~control_plane
-    ~load_balancer ~maintenance_config ~network_config
+let google_gkeonprem_bare_metal_cluster ?annotations ?description ?id
+    ?project ?timeouts ~admin_cluster_membership ~bare_metal_version
+    ~location ~name ~binary_authorization ~cluster_operations
+    ~control_plane ~load_balancer ~maintenance_config ~network_config
     ~node_access_config ~node_config ~os_environment_config ~proxy
     ~security_config ~storage ~upgrade_policy __resource_id =
   let __resource_type = "google_gkeonprem_bare_metal_cluster" in
@@ -663,8 +665,10 @@ let google_gkeonprem_bare_metal_cluster ?annotations ?description
       annotations;
       bare_metal_version;
       description;
+      id;
       location;
       name;
+      project;
       binary_authorization;
       cluster_operations;
       control_plane;

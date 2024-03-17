@@ -13,6 +13,7 @@ type aws_codedeploy_deployment_config
 
 val aws_codedeploy_deployment_config :
   ?compute_platform:string ->
+  ?id:string ->
   deployment_config_name:string ->
   minimum_healthy_hosts:
     aws_codedeploy_deployment_config__minimum_healthy_hosts list ->

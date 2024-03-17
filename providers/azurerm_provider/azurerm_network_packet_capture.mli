@@ -8,6 +8,7 @@ type azurerm_network_packet_capture__timeouts
 type azurerm_network_packet_capture
 
 val azurerm_network_packet_capture :
+  ?id:string ->
   ?maximum_bytes_per_packet:float ->
   ?maximum_bytes_per_session:float ->
   ?maximum_capture_duration:float ->

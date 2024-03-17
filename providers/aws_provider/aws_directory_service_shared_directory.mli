@@ -7,6 +7,7 @@ type aws_directory_service_shared_directory__timeouts
 type aws_directory_service_shared_directory
 
 val aws_directory_service_shared_directory :
+  ?id:string ->
   ?method_:string ->
   ?notes:string ->
   ?timeouts:aws_directory_service_shared_directory__timeouts ->

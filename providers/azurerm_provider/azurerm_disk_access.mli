@@ -6,6 +6,7 @@ type azurerm_disk_access__timeouts
 type azurerm_disk_access
 
 val azurerm_disk_access :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_disk_access__timeouts ->
   location:string ->

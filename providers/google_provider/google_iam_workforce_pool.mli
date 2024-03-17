@@ -11,6 +11,7 @@ val google_iam_workforce_pool :
   ?description:string ->
   ?disabled:bool ->
   ?display_name:string ->
+  ?id:string ->
   ?session_duration:string ->
   ?timeouts:google_iam_workforce_pool__timeouts ->
   location:string ->

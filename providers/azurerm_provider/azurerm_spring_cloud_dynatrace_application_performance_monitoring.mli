@@ -11,6 +11,7 @@ val azurerm_spring_cloud_dynatrace_application_performance_monitoring :
   ?api_url:string ->
   ?environment_id:string ->
   ?globally_enabled:bool ->
+  ?id:string ->
   ?timeouts:
     azurerm_spring_cloud_dynatrace_application_performance_monitoring__timeouts ->
   connection_point:string ->

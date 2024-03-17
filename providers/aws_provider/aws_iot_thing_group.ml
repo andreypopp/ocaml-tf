@@ -35,19 +35,24 @@ type aws_iot_thing_group__metadata = {
 [@@deriving yojson_of]
 
 type aws_iot_thing_group = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   parent_group_name : string option; [@option]
       (** parent_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   properties : aws_iot_thing_group__properties list;
 }
 [@@deriving yojson_of]
 (** aws_iot_thing_group *)
 
-let aws_iot_thing_group ?parent_group_name ?tags ~name ~properties
-    __resource_id =
+let aws_iot_thing_group ?id ?parent_group_name ?tags ?tags_all ~name
+    ~properties __resource_id =
   let __resource_type = "aws_iot_thing_group" in
-  let __resource = { name; parent_group_name; tags; properties } in
+  let __resource =
+    { id; name; parent_group_name; tags; tags_all; properties }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_iot_thing_group __resource);
   ()

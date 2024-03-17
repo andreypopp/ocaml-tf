@@ -135,6 +135,7 @@ type azurerm_monitor_autoscale_setting__timeouts = {
 
 type azurerm_monitor_autoscale_setting = {
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -149,13 +150,14 @@ type azurerm_monitor_autoscale_setting = {
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting *)
 
-let azurerm_monitor_autoscale_setting ?enabled ?tags ?timeouts
+let azurerm_monitor_autoscale_setting ?enabled ?id ?tags ?timeouts
     ~location ~name ~resource_group_name ~target_resource_id
     ~notification ~predictive ~profile __resource_id =
   let __resource_type = "azurerm_monitor_autoscale_setting" in
   let __resource =
     {
       enabled;
+      id;
       location;
       name;
       resource_group_name;

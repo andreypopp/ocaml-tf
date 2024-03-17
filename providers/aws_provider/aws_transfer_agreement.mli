@@ -6,7 +6,9 @@ type aws_transfer_agreement
 
 val aws_transfer_agreement :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   access_role:string ->
   base_directory:string ->
   local_profile_id:string ->

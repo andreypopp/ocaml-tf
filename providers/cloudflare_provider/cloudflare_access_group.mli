@@ -30,6 +30,8 @@ type cloudflare_access_group
 
 val cloudflare_access_group :
   ?account_id:string ->
+  ?id:string ->
+  ?zone_id:string ->
   name:string ->
   exclude:cloudflare_access_group__exclude list ->
   include_:cloudflare_access_group__include list ->

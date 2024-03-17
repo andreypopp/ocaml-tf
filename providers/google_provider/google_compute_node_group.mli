@@ -11,9 +11,12 @@ type google_compute_node_group
 
 val google_compute_node_group :
   ?description:string ->
+  ?id:string ->
   ?initial_size:float ->
   ?maintenance_policy:string ->
   ?name:string ->
+  ?project:string ->
+  ?zone:string ->
   ?timeouts:google_compute_node_group__timeouts ->
   node_template:string ->
   autoscaling_policy:

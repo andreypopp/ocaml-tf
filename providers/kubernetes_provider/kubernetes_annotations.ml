@@ -21,6 +21,7 @@ type kubernetes_annotations = {
       (** Set the name of the field manager for the specified labels. *)
   force : bool option; [@option]
       (** Force overwriting annotations that were created or edited outside of Terraform. *)
+  id : string option; [@option]  (** id *)
   kind : string;  (** The kind of the resource to annotate. *)
   template_annotations : (string * string) list option; [@option]
       (** A map of annotations to apply to the resource template. *)
@@ -29,7 +30,7 @@ type kubernetes_annotations = {
 [@@deriving yojson_of]
 (** kubernetes_annotations *)
 
-let kubernetes_annotations ?annotations ?field_manager ?force
+let kubernetes_annotations ?annotations ?field_manager ?force ?id
     ?template_annotations ~api_version ~kind ~metadata __resource_id
     =
   let __resource_type = "kubernetes_annotations" in
@@ -39,6 +40,7 @@ let kubernetes_annotations ?annotations ?field_manager ?force
       api_version;
       field_manager;
       force;
+      id;
       kind;
       template_annotations;
       metadata;

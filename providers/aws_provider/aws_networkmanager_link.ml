@@ -22,9 +22,12 @@ type aws_networkmanager_link__timeouts = {
 type aws_networkmanager_link = {
   description : string option; [@option]  (** description *)
   global_network_id : string;  (** global_network_id *)
+  id : string option; [@option]  (** id *)
   provider_name : string option; [@option]  (** provider_name *)
   site_id : string;  (** site_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string option; [@option] [@key "type"]  (** type *)
   bandwidth : aws_networkmanager_link__bandwidth list;
   timeouts : aws_networkmanager_link__timeouts option;
@@ -32,16 +35,19 @@ type aws_networkmanager_link = {
 [@@deriving yojson_of]
 (** aws_networkmanager_link *)
 
-let aws_networkmanager_link ?description ?provider_name ?tags ?type_
-    ?timeouts ~global_network_id ~site_id ~bandwidth __resource_id =
+let aws_networkmanager_link ?description ?id ?provider_name ?tags
+    ?tags_all ?type_ ?timeouts ~global_network_id ~site_id ~bandwidth
+    __resource_id =
   let __resource_type = "aws_networkmanager_link" in
   let __resource =
     {
       description;
       global_network_id;
+      id;
       provider_name;
       site_id;
       tags;
+      tags_all;
       type_;
       bandwidth;
       timeouts;

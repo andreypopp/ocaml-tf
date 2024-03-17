@@ -80,6 +80,8 @@ type digitalocean_app__timeouts
 type digitalocean_app
 
 val digitalocean_app :
+  ?id:string ->
+  ?project_id:string ->
   ?timeouts:digitalocean_app__timeouts ->
   spec:digitalocean_app__spec list ->
   string ->

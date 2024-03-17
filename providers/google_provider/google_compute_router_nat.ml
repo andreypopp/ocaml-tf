@@ -79,11 +79,25 @@ type google_compute_router_nat = {
   drain_nat_ips : string list option; [@option]
       (** A list of URLs of the IP resources to be drained. These IPs must be
 valid static external IPs that have been assigned to the NAT. *)
+  enable_dynamic_port_allocation : bool option; [@option]
+      (** Enable Dynamic Port Allocation.
+If minPortsPerVm is set, minPortsPerVm must be set to a power of two greater than or equal to 32.
+If minPortsPerVm is not set, a minimum of 32 ports will be allocated to a VM from this NAT config.
+If maxPortsPerVm is set, maxPortsPerVm must be set to a power of two greater than minPortsPerVm.
+If maxPortsPerVm is not set, a maximum of 65536 ports will be allocated to a VM from this NAT config.
+
+Mutually exclusive with enableEndpointIndependentMapping. *)
+  enable_endpoint_independent_mapping : bool option; [@option]
+      (** Enable endpoint independent mapping.
+For more information see the [official documentation](https://cloud.google.com/nat/docs/overview#specs-rfcs). *)
   icmp_idle_timeout_sec : float option; [@option]
       (** Timeout (in seconds) for ICMP connections. Defaults to 30s if not set. *)
+  id : string option; [@option]  (** id *)
   max_ports_per_vm : float option; [@option]
       (** Maximum number of ports allocated to a VM from this NAT.
 This field can only be set when enableDynamicPortAllocation is enabled. *)
+  min_ports_per_vm : float option; [@option]
+      (** Minimum number of ports allocated to a VM from this NAT. Defaults to 64 for static port allocation and 32 dynamic port allocation if not set. *)
   name : string;
       (** Name of the NAT service. The name must be 1-63 characters long and
 comply with RFC1035. *)
@@ -94,6 +108,9 @@ Platform, or 'MANUAL_ONLY' for only user-allocated NAT IP addresses. Possible va
   nat_ips : string list option; [@option]
       (** Self-links of NAT IPs. Only valid if natIpAllocateOption
 is set to MANUAL_ONLY. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** Region where the router and NAT reside. *)
   router : string;
       (** The name of the Cloud Router in which this NAT will be configured. *)
   source_subnetwork_ip_ranges_to_nat : string;
@@ -126,21 +143,30 @@ Defaults to 30s if not set. *)
 [@@deriving yojson_of]
 (** google_compute_router_nat *)
 
-let google_compute_router_nat ?drain_nat_ips ?icmp_idle_timeout_sec
-    ?max_ports_per_vm ?nat_ip_allocate_option ?nat_ips
-    ?tcp_established_idle_timeout_sec ?tcp_time_wait_timeout_sec
-    ?tcp_transitory_idle_timeout_sec ?udp_idle_timeout_sec ?timeouts
-    ~name ~router ~source_subnetwork_ip_ranges_to_nat ~log_config
-    ~rules ~subnetwork __resource_id =
+let google_compute_router_nat ?drain_nat_ips
+    ?enable_dynamic_port_allocation
+    ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
+    ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
+    ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
+    ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
+    ?udp_idle_timeout_sec ?timeouts ~name ~router
+    ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
+    ~subnetwork __resource_id =
   let __resource_type = "google_compute_router_nat" in
   let __resource =
     {
       drain_nat_ips;
+      enable_dynamic_port_allocation;
+      enable_endpoint_independent_mapping;
       icmp_idle_timeout_sec;
+      id;
       max_ports_per_vm;
+      min_ports_per_vm;
       name;
       nat_ip_allocate_option;
       nat_ips;
+      project;
+      region;
       router;
       source_subnetwork_ip_ranges_to_nat;
       tcp_established_idle_timeout_sec;

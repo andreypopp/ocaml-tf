@@ -6,6 +6,7 @@ type aws_iot_authorizer
 
 val aws_iot_authorizer :
   ?enable_caching_for_http:bool ->
+  ?id:string ->
   ?signing_disabled:bool ->
   ?status:string ->
   ?token_key_name:string ->

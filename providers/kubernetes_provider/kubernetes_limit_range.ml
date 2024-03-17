@@ -49,15 +49,16 @@ type kubernetes_limit_range__spec = {
 (** Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
 
 type kubernetes_limit_range = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_limit_range__metadata list;
   spec : kubernetes_limit_range__spec list;
 }
 [@@deriving yojson_of]
 (** kubernetes_limit_range *)
 
-let kubernetes_limit_range ~metadata ~spec __resource_id =
+let kubernetes_limit_range ?id ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_limit_range" in
-  let __resource = { metadata; spec } in
+  let __resource = { id; metadata; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_limit_range __resource);
   ()

@@ -25,6 +25,8 @@ type google_migration_center_preference_set
 val google_migration_center_preference_set :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_migration_center_preference_set__timeouts ->
   location:string ->
   preference_set_id:string ->

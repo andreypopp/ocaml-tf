@@ -20,8 +20,10 @@ val aws_finspace_kx_cluster :
   ?command_line_arguments:(string * string) list ->
   ?description:string ->
   ?execution_role:string ->
+  ?id:string ->
   ?initialization_script:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_finspace_kx_cluster__timeouts ->
   az_mode:string ->
   environment_id:string ->

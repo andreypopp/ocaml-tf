@@ -6,6 +6,9 @@ type google_data_catalog_tag_template_iam_member__condition
 type google_data_catalog_tag_template_iam_member
 
 val google_data_catalog_tag_template_iam_member :
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   member:string ->
   role:string ->
   tag_template:string ->

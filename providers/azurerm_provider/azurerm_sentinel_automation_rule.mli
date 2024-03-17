@@ -9,8 +9,10 @@ type azurerm_sentinel_automation_rule__timeouts
 type azurerm_sentinel_automation_rule
 
 val azurerm_sentinel_automation_rule :
+  ?condition_json:string ->
   ?enabled:bool ->
   ?expiration:string ->
+  ?id:string ->
   ?triggers_on:string ->
   ?triggers_when:string ->
   ?timeouts:azurerm_sentinel_automation_rule__timeouts ->

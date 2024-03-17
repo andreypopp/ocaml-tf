@@ -14,7 +14,11 @@ type aws_eks_addon__timeouts = {
 
 type aws_eks_addon = {
   addon_name : string;  (** addon_name *)
+  addon_version : string option; [@option]  (** addon_version *)
   cluster_name : string;  (** cluster_name *)
+  configuration_values : string option; [@option]
+      (** configuration_values *)
+  id : string option; [@option]  (** id *)
   preserve : bool option; [@option]  (** preserve *)
   resolve_conflicts : string option; [@option]
       (** resolve_conflicts *)
@@ -25,26 +29,32 @@ type aws_eks_addon = {
   service_account_role_arn : string option; [@option]
       (** service_account_role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_eks_addon__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_eks_addon *)
 
-let aws_eks_addon ?preserve ?resolve_conflicts
-    ?resolve_conflicts_on_create ?resolve_conflicts_on_update
-    ?service_account_role_arn ?tags ?timeouts ~addon_name
-    ~cluster_name __resource_id =
+let aws_eks_addon ?addon_version ?configuration_values ?id ?preserve
+    ?resolve_conflicts ?resolve_conflicts_on_create
+    ?resolve_conflicts_on_update ?service_account_role_arn ?tags
+    ?tags_all ?timeouts ~addon_name ~cluster_name __resource_id =
   let __resource_type = "aws_eks_addon" in
   let __resource =
     {
       addon_name;
+      addon_version;
       cluster_name;
+      configuration_values;
+      id;
       preserve;
       resolve_conflicts;
       resolve_conflicts_on_create;
       resolve_conflicts_on_update;
       service_account_role_arn;
       tags;
+      tags_all;
       timeouts;
     }
   in

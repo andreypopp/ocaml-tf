@@ -14,21 +14,25 @@ type aws_cloudformation_type__logging_config = {
 type aws_cloudformation_type = {
   execution_role_arn : string option; [@option]
       (** execution_role_arn *)
+  id : string option; [@option]  (** id *)
   schema_handler_package : string;  (** schema_handler_package *)
+  type_ : string option; [@option] [@key "type"]  (** type *)
   type_name : string;  (** type_name *)
   logging_config : aws_cloudformation_type__logging_config list;
 }
 [@@deriving yojson_of]
 (** aws_cloudformation_type *)
 
-let aws_cloudformation_type ?execution_role_arn
+let aws_cloudformation_type ?execution_role_arn ?id ?type_
     ~schema_handler_package ~type_name ~logging_config __resource_id
     =
   let __resource_type = "aws_cloudformation_type" in
   let __resource =
     {
       execution_role_arn;
+      id;
       schema_handler_package;
+      type_;
       type_name;
       logging_config;
     }

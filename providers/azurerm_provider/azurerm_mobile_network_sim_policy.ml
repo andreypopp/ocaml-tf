@@ -61,6 +61,7 @@ type azurerm_mobile_network_sim_policy__user_equipment_aggregate_maximum_bit_rat
 
 type azurerm_mobile_network_sim_policy = {
   default_slice_id : string;  (** default_slice_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   mobile_network_id : string;  (** mobile_network_id *)
   name : string;  (** name *)
@@ -78,7 +79,7 @@ type azurerm_mobile_network_sim_policy = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_sim_policy *)
 
-let azurerm_mobile_network_sim_policy
+let azurerm_mobile_network_sim_policy ?id
     ?rat_frequency_selection_priority_index
     ?registration_timer_in_seconds ?tags ?timeouts ~default_slice_id
     ~location ~mobile_network_id ~name ~slice
@@ -87,6 +88,7 @@ let azurerm_mobile_network_sim_policy
   let __resource =
     {
       default_slice_id;
+      id;
       location;
       mobile_network_id;
       name;

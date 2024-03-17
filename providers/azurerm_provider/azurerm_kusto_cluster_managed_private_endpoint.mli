@@ -6,6 +6,7 @@ type azurerm_kusto_cluster_managed_private_endpoint__timeouts
 type azurerm_kusto_cluster_managed_private_endpoint
 
 val azurerm_kusto_cluster_managed_private_endpoint :
+  ?id:string ->
   ?private_link_resource_region:string ->
   ?request_message:string ->
   ?timeouts:azurerm_kusto_cluster_managed_private_endpoint__timeouts ->

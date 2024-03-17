@@ -5,4 +5,10 @@ open! Tf.Prelude
 type google_compute_subnetwork_iam_policy
 
 val google_compute_subnetwork_iam_policy :
-  policy_data:string -> subnetwork:string -> string -> unit
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
+  policy_data:string ->
+  subnetwork:string ->
+  string ->
+  unit

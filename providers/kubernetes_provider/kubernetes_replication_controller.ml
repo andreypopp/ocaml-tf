@@ -2451,6 +2451,7 @@ type kubernetes_replication_controller__timeouts = {
 (** kubernetes_replication_controller__timeouts *)
 
 type kubernetes_replication_controller = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_replication_controller__metadata list;
   spec : kubernetes_replication_controller__spec list;
   timeouts : kubernetes_replication_controller__timeouts option;
@@ -2458,10 +2459,10 @@ type kubernetes_replication_controller = {
 [@@deriving yojson_of]
 (** kubernetes_replication_controller *)
 
-let kubernetes_replication_controller ?timeouts ~metadata ~spec
+let kubernetes_replication_controller ?id ?timeouts ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_replication_controller" in
-  let __resource = { metadata; spec; timeouts } in
+  let __resource = { id; metadata; spec; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_replication_controller __resource);
   ()

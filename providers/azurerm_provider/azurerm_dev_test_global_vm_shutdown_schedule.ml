@@ -25,6 +25,7 @@ type azurerm_dev_test_global_vm_shutdown_schedule__timeouts = {
 type azurerm_dev_test_global_vm_shutdown_schedule = {
   daily_recurrence_time : string;  (** daily_recurrence_time *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   tags : (string * string) list option; [@option]  (** tags *)
   timezone : string;  (** timezone *)
@@ -38,7 +39,7 @@ type azurerm_dev_test_global_vm_shutdown_schedule = {
 [@@deriving yojson_of]
 (** azurerm_dev_test_global_vm_shutdown_schedule *)
 
-let azurerm_dev_test_global_vm_shutdown_schedule ?enabled ?tags
+let azurerm_dev_test_global_vm_shutdown_schedule ?enabled ?id ?tags
     ?timeouts ~daily_recurrence_time ~location ~timezone
     ~virtual_machine_id ~notification_settings __resource_id =
   let __resource_type =
@@ -48,6 +49,7 @@ let azurerm_dev_test_global_vm_shutdown_schedule ?enabled ?tags
     {
       daily_recurrence_time;
       enabled;
+      id;
       location;
       tags;
       timezone;

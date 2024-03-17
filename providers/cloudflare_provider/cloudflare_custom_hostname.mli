@@ -7,7 +7,6 @@ type cloudflare_custom_hostname__ssl__settings
 type cloudflare_custom_hostname__ssl__validation_errors = {
   message : string;  (** message *)
 }
-[@@deriving yojson_of]
 
 type cloudflare_custom_hostname__ssl__validation_records = {
   cname_name : string;  (** cname_name *)
@@ -18,7 +17,6 @@ type cloudflare_custom_hostname__ssl__validation_records = {
   txt_name : string;  (** txt_name *)
   txt_value : string;  (** txt_value *)
 }
-[@@deriving yojson_of]
 
 type cloudflare_custom_hostname__ssl
 type cloudflare_custom_hostname
@@ -27,6 +25,7 @@ val cloudflare_custom_hostname :
   ?custom_metadata:(string * string) list ->
   ?custom_origin_server:string ->
   ?custom_origin_sni:string ->
+  ?id:string ->
   ?wait_for_ssl_pending_validation:bool ->
   hostname:string ->
   zone_id:string ->

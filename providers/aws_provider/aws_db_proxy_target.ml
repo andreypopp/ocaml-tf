@@ -10,13 +10,14 @@ type aws_db_proxy_target = {
   db_instance_identifier : string option; [@option]
       (** db_instance_identifier *)
   db_proxy_name : string;  (** db_proxy_name *)
+  id : string option; [@option]  (** id *)
   target_group_name : string;  (** target_group_name *)
 }
 [@@deriving yojson_of]
 (** aws_db_proxy_target *)
 
 let aws_db_proxy_target ?db_cluster_identifier
-    ?db_instance_identifier ~db_proxy_name ~target_group_name
+    ?db_instance_identifier ?id ~db_proxy_name ~target_group_name
     __resource_id =
   let __resource_type = "aws_db_proxy_target" in
   let __resource =
@@ -24,6 +25,7 @@ let aws_db_proxy_target ?db_cluster_identifier
       db_cluster_identifier;
       db_instance_identifier;
       db_proxy_name;
+      id;
       target_group_name;
     }
   in

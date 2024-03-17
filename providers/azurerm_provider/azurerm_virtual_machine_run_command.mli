@@ -21,12 +21,12 @@ type azurerm_virtual_machine_run_command__instance_view = {
   output : string;  (** output *)
   start_time : string;  (** start_time *)
 }
-[@@deriving yojson_of]
 
 type azurerm_virtual_machine_run_command
 
 val azurerm_virtual_machine_run_command :
   ?error_blob_uri:string ->
+  ?id:string ->
   ?output_blob_uri:string ->
   ?run_as_password:string ->
   ?run_as_user:string ->

@@ -14,6 +14,7 @@ type azurerm_private_dns_resolver__timeouts = {
 (** azurerm_private_dns_resolver__timeouts *)
 
 type azurerm_private_dns_resolver = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,11 +25,12 @@ type azurerm_private_dns_resolver = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver *)
 
-let azurerm_private_dns_resolver ?tags ?timeouts ~location ~name
+let azurerm_private_dns_resolver ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~virtual_network_id __resource_id =
   let __resource_type = "azurerm_private_dns_resolver" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

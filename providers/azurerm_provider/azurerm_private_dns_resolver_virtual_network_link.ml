@@ -16,6 +16,7 @@ type azurerm_private_dns_resolver_virtual_network_link__timeouts = {
 type azurerm_private_dns_resolver_virtual_network_link = {
   dns_forwarding_ruleset_id : string;
       (** dns_forwarding_ruleset_id *)
+  id : string option; [@option]  (** id *)
   metadata : (string * string) list option; [@option]
       (** metadata *)
   name : string;  (** name *)
@@ -27,7 +28,7 @@ type azurerm_private_dns_resolver_virtual_network_link = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_virtual_network_link *)
 
-let azurerm_private_dns_resolver_virtual_network_link ?metadata
+let azurerm_private_dns_resolver_virtual_network_link ?id ?metadata
     ?timeouts ~dns_forwarding_ruleset_id ~name ~virtual_network_id
     __resource_id =
   let __resource_type =
@@ -36,6 +37,7 @@ let azurerm_private_dns_resolver_virtual_network_link ?metadata
   let __resource =
     {
       dns_forwarding_ruleset_id;
+      id;
       metadata;
       name;
       virtual_network_id;

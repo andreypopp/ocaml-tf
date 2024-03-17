@@ -28,6 +28,7 @@ type azurerm_cdn_frontdoor_custom_domain = {
   cdn_frontdoor_profile_id : string;  (** cdn_frontdoor_profile_id *)
   dns_zone_id : string option; [@option]  (** dns_zone_id *)
   host_name : string;  (** host_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   timeouts : azurerm_cdn_frontdoor_custom_domain__timeouts option;
   tls : azurerm_cdn_frontdoor_custom_domain__tls list;
@@ -35,7 +36,7 @@ type azurerm_cdn_frontdoor_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_custom_domain *)
 
-let azurerm_cdn_frontdoor_custom_domain ?dns_zone_id ?timeouts
+let azurerm_cdn_frontdoor_custom_domain ?dns_zone_id ?id ?timeouts
     ~cdn_frontdoor_profile_id ~host_name ~name ~tls __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_custom_domain" in
   let __resource =
@@ -43,6 +44,7 @@ let azurerm_cdn_frontdoor_custom_domain ?dns_zone_id ?timeouts
       cdn_frontdoor_profile_id;
       dns_zone_id;
       host_name;
+      id;
       name;
       timeouts;
       tls;

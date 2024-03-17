@@ -6,6 +6,7 @@ type google_apigee_environment_iam_member__condition
 type google_apigee_environment_iam_member
 
 val google_apigee_environment_iam_member :
+  ?id:string ->
   env_id:string ->
   member:string ->
   org_id:string ->

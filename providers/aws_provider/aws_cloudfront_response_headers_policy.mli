@@ -40,6 +40,8 @@ type aws_cloudfront_response_headers_policy
 
 val aws_cloudfront_response_headers_policy :
   ?comment:string ->
+  ?etag:string ->
+  ?id:string ->
   name:string ->
   cors_config:
     aws_cloudfront_response_headers_policy__cors_config list ->

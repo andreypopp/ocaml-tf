@@ -15,13 +15,14 @@ type aws_ec2_client_vpn_route = {
   client_vpn_endpoint_id : string;  (** client_vpn_endpoint_id *)
   description : string option; [@option]  (** description *)
   destination_cidr_block : string;  (** destination_cidr_block *)
+  id : string option; [@option]  (** id *)
   target_vpc_subnet_id : string;  (** target_vpc_subnet_id *)
   timeouts : aws_ec2_client_vpn_route__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_ec2_client_vpn_route *)
 
-let aws_ec2_client_vpn_route ?description ?timeouts
+let aws_ec2_client_vpn_route ?description ?id ?timeouts
     ~client_vpn_endpoint_id ~destination_cidr_block
     ~target_vpc_subnet_id __resource_id =
   let __resource_type = "aws_ec2_client_vpn_route" in
@@ -30,6 +31,7 @@ let aws_ec2_client_vpn_route ?description ?timeouts
       client_vpn_endpoint_id;
       description;
       destination_cidr_block;
+      id;
       target_vpc_subnet_id;
       timeouts;
     }

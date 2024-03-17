@@ -101,12 +101,15 @@ type aws_lightsail_distribution = {
       (** The bundle ID to use for the distribution. *)
   certificate_name : string option; [@option]
       (** The name of the SSL/TLS certificate attached to the distribution, if any. *)
+  id : string option; [@option]  (** id *)
   ip_address_type : string option; [@option]
       (** The IP address type of the distribution. *)
   is_enabled : bool option; [@option]
       (** Indicates whether the distribution is enabled. *)
   name : string;  (** The name of the distribution. *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   cache_behavior : aws_lightsail_distribution__cache_behavior list;
   cache_behavior_settings :
     aws_lightsail_distribution__cache_behavior_settings list;
@@ -118,19 +121,21 @@ type aws_lightsail_distribution = {
 [@@deriving yojson_of]
 (** aws_lightsail_distribution *)
 
-let aws_lightsail_distribution ?certificate_name ?ip_address_type
-    ?is_enabled ?tags ?timeouts ~bundle_id ~name ~cache_behavior
-    ~cache_behavior_settings ~default_cache_behavior ~origin
-    __resource_id =
+let aws_lightsail_distribution ?certificate_name ?id ?ip_address_type
+    ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
+    ~cache_behavior ~cache_behavior_settings ~default_cache_behavior
+    ~origin __resource_id =
   let __resource_type = "aws_lightsail_distribution" in
   let __resource =
     {
       bundle_id;
       certificate_name;
+      id;
       ip_address_type;
       is_enabled;
       name;
       tags;
+      tags_all;
       cache_behavior;
       cache_behavior_settings;
       default_cache_behavior;

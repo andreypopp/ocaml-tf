@@ -9,8 +9,10 @@ type cloudflare_load_balancer_pool__origins
 type cloudflare_load_balancer_pool
 
 val cloudflare_load_balancer_pool :
+  ?check_regions:string list ->
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?latitude:float ->
   ?longitude:float ->
   ?minimum_origins:float ->

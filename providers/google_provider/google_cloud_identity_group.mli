@@ -9,13 +9,13 @@ type google_cloud_identity_group__additional_group_keys = {
   id : string;  (** id *)
   namespace : string;  (** namespace *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_identity_group
 
 val google_cloud_identity_group :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
   ?initial_group_config:string ->
   ?timeouts:google_cloud_identity_group__timeouts ->
   labels:(string * string) list ->

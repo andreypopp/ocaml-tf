@@ -16,6 +16,7 @@ type azurerm_mssql_server_transparent_data_encryption__timeouts = {
 type azurerm_mssql_server_transparent_data_encryption = {
   auto_rotation_enabled : bool option; [@option]
       (** auto_rotation_enabled *)
+  id : string option; [@option]  (** id *)
   key_vault_key_id : string option; [@option]
       (** key_vault_key_id *)
   server_id : string;  (** server_id *)
@@ -26,13 +27,19 @@ type azurerm_mssql_server_transparent_data_encryption = {
 (** azurerm_mssql_server_transparent_data_encryption *)
 
 let azurerm_mssql_server_transparent_data_encryption
-    ?auto_rotation_enabled ?key_vault_key_id ?timeouts ~server_id
+    ?auto_rotation_enabled ?id ?key_vault_key_id ?timeouts ~server_id
     __resource_id =
   let __resource_type =
     "azurerm_mssql_server_transparent_data_encryption"
   in
   let __resource =
-    { auto_rotation_enabled; key_vault_key_id; server_id; timeouts }
+    {
+      auto_rotation_enabled;
+      id;
+      key_vault_key_id;
+      server_id;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_server_transparent_data_encryption

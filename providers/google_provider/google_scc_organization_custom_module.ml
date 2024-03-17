@@ -105,6 +105,7 @@ returned by this custom module. The display name must be between 1 and
 characters or underscores only. *)
   enablement_state : string;
       (** The enablement state of the custom module. Possible values: [ENABLED, DISABLED] *)
+  id : string option; [@option]  (** id *)
   organization : string;
       (** Numerical ID of the parent organization. *)
   custom_config :
@@ -114,13 +115,14 @@ characters or underscores only. *)
 [@@deriving yojson_of]
 (** google_scc_organization_custom_module *)
 
-let google_scc_organization_custom_module ?timeouts ~display_name
+let google_scc_organization_custom_module ?id ?timeouts ~display_name
     ~enablement_state ~organization ~custom_config __resource_id =
   let __resource_type = "google_scc_organization_custom_module" in
   let __resource =
     {
       display_name;
       enablement_state;
+      id;
       organization;
       custom_config;
       timeouts;

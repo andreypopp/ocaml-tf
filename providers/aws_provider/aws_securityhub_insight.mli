@@ -138,6 +138,7 @@ type aws_securityhub_insight__filters
 type aws_securityhub_insight
 
 val aws_securityhub_insight :
+  ?id:string ->
   group_by_attribute:string ->
   name:string ->
   filters:aws_securityhub_insight__filters list ->

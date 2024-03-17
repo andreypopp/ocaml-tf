@@ -15,6 +15,7 @@ type azurerm_spring_cloud_app_mysql_association__timeouts = {
 
 type azurerm_spring_cloud_app_mysql_association = {
   database_name : string;  (** database_name *)
+  id : string option; [@option]  (** id *)
   mysql_server_id : string;  (** mysql_server_id *)
   name : string;  (** name *)
   password : string;  (** password *)
@@ -26,7 +27,7 @@ type azurerm_spring_cloud_app_mysql_association = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app_mysql_association *)
 
-let azurerm_spring_cloud_app_mysql_association ?timeouts
+let azurerm_spring_cloud_app_mysql_association ?id ?timeouts
     ~database_name ~mysql_server_id ~name ~password
     ~spring_cloud_app_id ~username __resource_id =
   let __resource_type =
@@ -35,6 +36,7 @@ let azurerm_spring_cloud_app_mysql_association ?timeouts
   let __resource =
     {
       database_name;
+      id;
       mysql_server_id;
       name;
       password;

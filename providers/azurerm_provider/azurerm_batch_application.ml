@@ -18,6 +18,7 @@ type azurerm_batch_application = {
   allow_updates : bool option; [@option]  (** allow_updates *)
   default_version : string option; [@option]  (** default_version *)
   display_name : string option; [@option]  (** display_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts : azurerm_batch_application__timeouts option;
@@ -26,8 +27,8 @@ type azurerm_batch_application = {
 (** azurerm_batch_application *)
 
 let azurerm_batch_application ?allow_updates ?default_version
-    ?display_name ?timeouts ~account_name ~name ~resource_group_name
-    __resource_id =
+    ?display_name ?id ?timeouts ~account_name ~name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_batch_application" in
   let __resource =
     {
@@ -35,6 +36,7 @@ let azurerm_batch_application ?allow_updates ?default_version
       allow_updates;
       default_version;
       display_name;
+      id;
       name;
       resource_group_name;
       timeouts;

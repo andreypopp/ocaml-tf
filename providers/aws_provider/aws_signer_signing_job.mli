@@ -12,22 +12,20 @@ type aws_signer_signing_job__revocation_record = {
   revoked_at : string;  (** revoked_at *)
   revoked_by : string;  (** revoked_by *)
 }
-[@@deriving yojson_of]
 
 type aws_signer_signing_job__signed_object__s3 = {
   bucket : string;  (** bucket *)
   key : string;  (** key *)
 }
-[@@deriving yojson_of]
 
 type aws_signer_signing_job__signed_object = {
   s3 : aws_signer_signing_job__signed_object__s3 list;  (** s3 *)
 }
-[@@deriving yojson_of]
 
 type aws_signer_signing_job
 
 val aws_signer_signing_job :
+  ?id:string ->
   ?ignore_signing_job_failure:bool ->
   profile_name:string ->
   destination:aws_signer_signing_job__destination list ->

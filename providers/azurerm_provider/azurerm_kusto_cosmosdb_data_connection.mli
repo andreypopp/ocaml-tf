@@ -6,6 +6,7 @@ type azurerm_kusto_cosmosdb_data_connection__timeouts
 type azurerm_kusto_cosmosdb_data_connection
 
 val azurerm_kusto_cosmosdb_data_connection :
+  ?id:string ->
   ?mapping_rule_name:string ->
   ?retrieval_start_date:string ->
   ?timeouts:azurerm_kusto_cosmosdb_data_connection__timeouts ->

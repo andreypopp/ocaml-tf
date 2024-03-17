@@ -68,6 +68,7 @@ type azurerm_cognitive_account = {
   dynamic_throttling_enabled : bool option; [@option]
       (** dynamic_throttling_enabled *)
   fqdns : string list option; [@option]  (** fqdns *)
+  id : string option; [@option]  (** id *)
   kind : string;  (** kind *)
   local_auth_enabled : bool option; [@option]
       (** local_auth_enabled *)
@@ -103,7 +104,7 @@ type azurerm_cognitive_account = {
 let azurerm_cognitive_account
     ?custom_question_answering_search_service_id
     ?custom_question_answering_search_service_key
-    ?custom_subdomain_name ?dynamic_throttling_enabled ?fqdns
+    ?custom_subdomain_name ?dynamic_throttling_enabled ?fqdns ?id
     ?local_auth_enabled ?metrics_advisor_aad_client_id
     ?metrics_advisor_aad_tenant_id ?metrics_advisor_super_user_name
     ?metrics_advisor_website_name ?outbound_network_access_restricted
@@ -119,6 +120,7 @@ let azurerm_cognitive_account
       custom_subdomain_name;
       dynamic_throttling_enabled;
       fqdns;
+      id;
       kind;
       local_auth_enabled;
       location;

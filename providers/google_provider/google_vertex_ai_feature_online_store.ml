@@ -34,6 +34,7 @@ type google_vertex_ai_feature_online_store__timeouts = {
 type google_vertex_ai_feature_online_store = {
   force_destroy : bool option; [@option]
       (** If set to true, any FeatureViews and Features for this FeatureOnlineStore will also be deleted. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The labels with user-defined metadata to organize your feature online stores.
 
@@ -41,17 +42,29 @@ type google_vertex_ai_feature_online_store = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;
       (** The resource name of the Feature Online Store. This value may be up to 60 characters, and valid characters are [a-z0-9_]. The first character cannot be a number. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The region of feature online store. eg us-central1 *)
   bigtable : google_vertex_ai_feature_online_store__bigtable list;
   timeouts : google_vertex_ai_feature_online_store__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_feature_online_store *)
 
-let google_vertex_ai_feature_online_store ?force_destroy ?labels
-    ?timeouts ~name ~bigtable __resource_id =
+let google_vertex_ai_feature_online_store ?force_destroy ?id ?labels
+    ?project ?region ?timeouts ~name ~bigtable __resource_id =
   let __resource_type = "google_vertex_ai_feature_online_store" in
   let __resource =
-    { force_destroy; labels; name; bigtable; timeouts }
+    {
+      force_destroy;
+      id;
+      labels;
+      name;
+      project;
+      region;
+      bigtable;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_feature_online_store __resource);

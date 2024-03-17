@@ -9,6 +9,7 @@ val azurerm_kusto_iothub_data_connection :
   ?data_format:string ->
   ?database_routing_type:string ->
   ?event_system_properties:string list ->
+  ?id:string ->
   ?mapping_rule_name:string ->
   ?table_name:string ->
   ?timeouts:azurerm_kusto_iothub_data_connection__timeouts ->

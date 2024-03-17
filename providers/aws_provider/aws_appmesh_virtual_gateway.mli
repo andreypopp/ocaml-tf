@@ -71,7 +71,10 @@ type aws_appmesh_virtual_gateway__spec
 type aws_appmesh_virtual_gateway
 
 val aws_appmesh_virtual_gateway :
+  ?id:string ->
+  ?mesh_owner:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   mesh_name:string ->
   name:string ->
   spec:aws_appmesh_virtual_gateway__spec list ->

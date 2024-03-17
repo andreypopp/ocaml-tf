@@ -15,6 +15,7 @@ type google_essential_contacts_contact__timeouts = {
 type google_essential_contacts_contact = {
   email : string;
       (** The email address to send notifications to. This does not need to be a Google account. *)
+  id : string option; [@option]  (** id *)
   language_tag : string;
       (** The preferred language for notifications, as a ISO 639-1 language code. See Supported languages for a list of supported languages. *)
   notification_category_subscriptions : string list;
@@ -26,12 +27,14 @@ type google_essential_contacts_contact = {
 [@@deriving yojson_of]
 (** google_essential_contacts_contact *)
 
-let google_essential_contacts_contact ?timeouts ~email ~language_tag
-    ~notification_category_subscriptions ~parent __resource_id =
+let google_essential_contacts_contact ?id ?timeouts ~email
+    ~language_tag ~notification_category_subscriptions ~parent
+    __resource_id =
   let __resource_type = "google_essential_contacts_contact" in
   let __resource =
     {
       email;
+      id;
       language_tag;
       notification_category_subscriptions;
       parent;

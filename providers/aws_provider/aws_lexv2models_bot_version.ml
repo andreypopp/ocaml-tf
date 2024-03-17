@@ -20,6 +20,7 @@ type aws_lexv2models_bot_version__locale_specification = {
 
 type aws_lexv2models_bot_version = {
   bot_id : string;  (** bot_id *)
+  bot_version : string option; [@option]  (** bot_version *)
   description : string option; [@option]  (** description *)
   locale_specification :
     (string * aws_lexv2models_bot_version__locale_specification) list;
@@ -29,11 +30,17 @@ type aws_lexv2models_bot_version = {
 [@@deriving yojson_of]
 (** aws_lexv2models_bot_version *)
 
-let aws_lexv2models_bot_version ?description ?timeouts ~bot_id
-    ~locale_specification __resource_id =
+let aws_lexv2models_bot_version ?bot_version ?description ?timeouts
+    ~bot_id ~locale_specification __resource_id =
   let __resource_type = "aws_lexv2models_bot_version" in
   let __resource =
-    { bot_id; description; locale_specification; timeouts }
+    {
+      bot_id;
+      bot_version;
+      description;
+      locale_specification;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lexv2models_bot_version __resource);

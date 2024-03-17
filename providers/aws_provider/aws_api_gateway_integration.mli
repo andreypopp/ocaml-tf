@@ -7,11 +7,14 @@ type aws_api_gateway_integration
 
 val aws_api_gateway_integration :
   ?cache_key_parameters:string list ->
+  ?cache_namespace:string ->
   ?connection_id:string ->
   ?connection_type:string ->
   ?content_handling:string ->
   ?credentials:string ->
+  ?id:string ->
   ?integration_http_method:string ->
+  ?passthrough_behavior:string ->
   ?request_parameters:(string * string) list ->
   ?request_templates:(string * string) list ->
   ?timeout_milliseconds:float ->

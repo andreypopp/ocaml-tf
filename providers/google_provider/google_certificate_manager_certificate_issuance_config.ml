@@ -32,6 +32,7 @@ type google_certificate_manager_certificate_issuance_config__timeouts = {
 type google_certificate_manager_certificate_issuance_config = {
   description : string option; [@option]
       (** One or more paragraphs of text description of a CertificateIssuanceConfig. *)
+  id : string option; [@option]  (** id *)
   key_algorithm : string;
       (** Key algorithm to use when generating the private key. Possible values: [RSA_2048, ECDSA_P256] *)
   labels : (string * string) list option; [@option]
@@ -49,6 +50,7 @@ Example: 1814400s. Valid values are from 21 days (1814400s) to 30 days (2592000s
   name : string;
       (** A user-defined name of the certificate issuance config.
 CertificateIssuanceConfig names must be unique globally. *)
+  project : string option; [@option]  (** project *)
   rotation_window_percentage : float;
       (** It specifies the percentage of elapsed time of the certificate lifetime to wait before renewing the certificate.
 Must be a number between 1-99, inclusive.
@@ -65,20 +67,22 @@ the certificate has been issued and at least 7 days before it expires. *)
 (** google_certificate_manager_certificate_issuance_config *)
 
 let google_certificate_manager_certificate_issuance_config
-    ?description ?labels ?location ?timeouts ~key_algorithm ~lifetime
-    ~name ~rotation_window_percentage ~certificate_authority_config
-    __resource_id =
+    ?description ?id ?labels ?location ?project ?timeouts
+    ~key_algorithm ~lifetime ~name ~rotation_window_percentage
+    ~certificate_authority_config __resource_id =
   let __resource_type =
     "google_certificate_manager_certificate_issuance_config"
   in
   let __resource =
     {
       description;
+      id;
       key_algorithm;
       labels;
       lifetime;
       location;
       name;
+      project;
       rotation_window_percentage;
       certificate_authority_config;
       timeouts;

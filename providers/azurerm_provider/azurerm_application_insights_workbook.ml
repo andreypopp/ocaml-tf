@@ -27,6 +27,7 @@ type azurerm_application_insights_workbook = {
   data_json : string;  (** data_json *)
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -40,7 +41,7 @@ type azurerm_application_insights_workbook = {
 [@@deriving yojson_of]
 (** azurerm_application_insights_workbook *)
 
-let azurerm_application_insights_workbook ?category ?description
+let azurerm_application_insights_workbook ?category ?description ?id
     ?source_id ?storage_container_id ?tags ?timeouts ~data_json
     ~display_name ~location ~name ~resource_group_name ~identity
     __resource_id =
@@ -51,6 +52,7 @@ let azurerm_application_insights_workbook ?category ?description
       data_json;
       description;
       display_name;
+      id;
       location;
       name;
       resource_group_name;

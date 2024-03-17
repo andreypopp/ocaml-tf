@@ -13,6 +13,7 @@ type google_scc_source_iam_member__condition = {
 (** google_scc_source_iam_member__condition *)
 
 type google_scc_source_iam_member = {
+  id : string option; [@option]  (** id *)
   member : string;  (** member *)
   organization : string;  (** organization *)
   role : string;  (** role *)
@@ -22,11 +23,11 @@ type google_scc_source_iam_member = {
 [@@deriving yojson_of]
 (** google_scc_source_iam_member *)
 
-let google_scc_source_iam_member ~member ~organization ~role ~source
-    ~condition __resource_id =
+let google_scc_source_iam_member ?id ~member ~organization ~role
+    ~source ~condition __resource_id =
   let __resource_type = "google_scc_source_iam_member" in
   let __resource =
-    { member; organization; role; source; condition }
+    { id; member; organization; role; source; condition }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_source_iam_member __resource);

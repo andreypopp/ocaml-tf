@@ -199,6 +199,7 @@ type google_document_ai_warehouse_document_schema = {
       (** Name of the schema given by the user. *)
   document_is_folder : bool option; [@option]
       (** Tells whether the document is a folder or a typical document. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the resource. *)
   project_number : string;
       (** The unique identifier of the project. *)
@@ -212,7 +213,7 @@ type google_document_ai_warehouse_document_schema = {
 (** google_document_ai_warehouse_document_schema *)
 
 let google_document_ai_warehouse_document_schema ?document_is_folder
-    ?timeouts ~display_name ~location ~project_number
+    ?id ?timeouts ~display_name ~location ~project_number
     ~property_definitions __resource_id =
   let __resource_type =
     "google_document_ai_warehouse_document_schema"
@@ -221,6 +222,7 @@ let google_document_ai_warehouse_document_schema ?document_is_folder
     {
       display_name;
       document_is_folder;
+      id;
       location;
       project_number;
       property_definitions;

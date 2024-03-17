@@ -8,12 +8,13 @@ type google_monitoring_service__timeouts
 type google_monitoring_service__telemetry = {
   resource_name : string;  (** resource_name *)
 }
-[@@deriving yojson_of]
 
 type google_monitoring_service
 
 val google_monitoring_service :
   ?display_name:string ->
+  ?id:string ->
+  ?project:string ->
   ?user_labels:(string * string) list ->
   ?timeouts:google_monitoring_service__timeouts ->
   service_id:string ->

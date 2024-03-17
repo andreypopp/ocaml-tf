@@ -34,6 +34,7 @@ type azurerm_static_web_app = {
       (** app_settings *)
   configuration_file_changes_enabled : bool option; [@option]
       (** configuration_file_changes_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   preview_environments_enabled : bool option; [@option]
@@ -50,14 +51,16 @@ type azurerm_static_web_app = {
 (** azurerm_static_web_app *)
 
 let azurerm_static_web_app ?app_settings
-    ?configuration_file_changes_enabled ?preview_environments_enabled
-    ?sku_size ?sku_tier ?tags ?timeouts ~location ~name
-    ~resource_group_name ~basic_auth ~identity __resource_id =
+    ?configuration_file_changes_enabled ?id
+    ?preview_environments_enabled ?sku_size ?sku_tier ?tags ?timeouts
+    ~location ~name ~resource_group_name ~basic_auth ~identity
+    __resource_id =
   let __resource_type = "azurerm_static_web_app" in
   let __resource =
     {
       app_settings;
       configuration_file_changes_enabled;
+      id;
       location;
       name;
       preview_environments_enabled;

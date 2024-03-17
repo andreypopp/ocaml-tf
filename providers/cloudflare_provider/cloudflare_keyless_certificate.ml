@@ -12,6 +12,7 @@ type cloudflare_keyless_certificate = {
   enabled : bool option; [@option]
       (** Whether the KeyLess SSL is on. *)
   host : string;  (** The KeyLess SSL host. *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** The KeyLess SSL name. *)
   port : float option; [@option]
       (** The KeyLess SSL port used to communicate between Cloudflare and the client's KeyLess SSL server. Defaults to `24008`. *)
@@ -22,7 +23,7 @@ type cloudflare_keyless_certificate = {
 (** Provides a resource, that manages Keyless certificates.
  *)
 
-let cloudflare_keyless_certificate ?bundle_method ?enabled ?name
+let cloudflare_keyless_certificate ?bundle_method ?enabled ?id ?name
     ?port ~certificate ~host ~zone_id __resource_id =
   let __resource_type = "cloudflare_keyless_certificate" in
   let __resource =
@@ -31,6 +32,7 @@ let cloudflare_keyless_certificate ?bundle_method ?enabled ?name
       certificate;
       enabled;
       host;
+      id;
       name;
       port;
       zone_id;

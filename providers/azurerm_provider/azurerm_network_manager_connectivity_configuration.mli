@@ -12,6 +12,7 @@ val azurerm_network_manager_connectivity_configuration :
   ?delete_existing_peering_enabled:bool ->
   ?description:string ->
   ?global_mesh_enabled:bool ->
+  ?id:string ->
   ?timeouts:
     azurerm_network_manager_connectivity_configuration__timeouts ->
   connectivity_topology:string ->

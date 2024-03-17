@@ -8,6 +8,7 @@ type azurerm_spring_cloud_java_deployment
 
 val azurerm_spring_cloud_java_deployment :
   ?environment_variables:(string * string) list ->
+  ?id:string ->
   ?instance_count:float ->
   ?jvm_options:string ->
   ?runtime_version:string ->

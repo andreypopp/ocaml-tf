@@ -13,12 +13,22 @@ type google_firestore_database__timeouts = {
 (** google_firestore_database__timeouts *)
 
 type google_firestore_database = {
+  app_engine_integration_mode : string option; [@option]
+      (** The App Engine integration mode to use for this database. Possible values: [ENABLED, DISABLED] *)
+  concurrency_mode : string option; [@option]
+      (** The concurrency control mode to use for this database. Possible values: [OPTIMISTIC, PESSIMISTIC, OPTIMISTIC_WITH_ENTITY_GROUPS] *)
+  delete_protection_state : string option; [@option]
+      (** State of delete protection for the database.
+When delete protection is enabled, this database cannot be deleted.
+The default value is 'DELETE_PROTECTION_STATE_UNSPECIFIED', which is currently equivalent to 'DELETE_PROTECTION_DISABLED'.
+**Note:** Additionally, to delete this database using 'terraform destroy', 'deletion_policy' must be set to 'DELETE'. Possible values: [DELETE_PROTECTION_STATE_UNSPECIFIED, DELETE_PROTECTION_ENABLED, DELETE_PROTECTION_DISABLED] *)
   deletion_policy : string option; [@option]
       (** Deletion behavior for this database.
 If the deletion policy is 'ABANDON', the database will be removed from Terraform state but not deleted from Google Cloud upon destruction.
 If the deletion policy is 'DELETE', the database will both be removed from Terraform state and deleted from Google Cloud upon destruction.
 The default value is 'ABANDON'.
 See also 'delete_protection'. *)
+  id : string option; [@option]  (** id *)
   location_id : string;
       (** The location of the database. Available locations are listed at
 https://cloud.google.com/firestore/docs/locations. *)
@@ -35,6 +45,7 @@ If 'POINT_IN_TIME_RECOVERY_ENABLED' is selected, reads are supported on selected
 versionRetentionPeriod and earliestVersionTime can be used to determine the supported versions. These include reads against any timestamp within the past hour
 and reads against 1-minute snapshots beyond 1 hour and within 7 days.
 If 'POINT_IN_TIME_RECOVERY_DISABLED' is selected, reads are supported on any version of the data from within the past 1 hour. Default value: POINT_IN_TIME_RECOVERY_DISABLED Possible values: [POINT_IN_TIME_RECOVERY_ENABLED, POINT_IN_TIME_RECOVERY_DISABLED] *)
+  project : string option; [@option]  (** project *)
   type_ : string; [@key "type"]
       (** The type of the database.
 See https://cloud.google.com/datastore/docs/firestore-or-datastore
@@ -44,16 +55,22 @@ for information about how to choose. Possible values: [FIRESTORE_NATIVE, DATASTO
 [@@deriving yojson_of]
 (** google_firestore_database *)
 
-let google_firestore_database ?deletion_policy
-    ?point_in_time_recovery_enablement ?timeouts ~location_id ~name
-    ~type_ __resource_id =
+let google_firestore_database ?app_engine_integration_mode
+    ?concurrency_mode ?delete_protection_state ?deletion_policy ?id
+    ?point_in_time_recovery_enablement ?project ?timeouts
+    ~location_id ~name ~type_ __resource_id =
   let __resource_type = "google_firestore_database" in
   let __resource =
     {
+      app_engine_integration_mode;
+      concurrency_mode;
+      delete_protection_state;
       deletion_policy;
+      id;
       location_id;
       name;
       point_in_time_recovery_enablement;
+      project;
       type_;
       timeouts;
     }

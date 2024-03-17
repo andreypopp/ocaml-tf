@@ -94,7 +94,9 @@ type google_binary_authorization_attestor = {
   description : string option; [@option]
       (** A descriptive comment. This field may be updated. The field may be
 displayed in chooser dialogs. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The resource name. *)
+  project : string option; [@option]  (** project *)
   attestation_authority_note :
     google_binary_authorization_attestor__attestation_authority_note
     list;
@@ -103,11 +105,18 @@ displayed in chooser dialogs. *)
 [@@deriving yojson_of]
 (** google_binary_authorization_attestor *)
 
-let google_binary_authorization_attestor ?description ?timeouts ~name
-    ~attestation_authority_note __resource_id =
+let google_binary_authorization_attestor ?description ?id ?project
+    ?timeouts ~name ~attestation_authority_note __resource_id =
   let __resource_type = "google_binary_authorization_attestor" in
   let __resource =
-    { description; name; attestation_authority_note; timeouts }
+    {
+      description;
+      id;
+      name;
+      project;
+      attestation_authority_note;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_binary_authorization_attestor __resource);

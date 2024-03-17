@@ -14,6 +14,7 @@ val google_cloud_asset_organization_feed :
   ?asset_names:string list ->
   ?asset_types:string list ->
   ?content_type:string ->
+  ?id:string ->
   ?timeouts:google_cloud_asset_organization_feed__timeouts ->
   billing_project:string ->
   feed_id:string ->

@@ -7,6 +7,7 @@ type aws_codecatalyst_project
 
 val aws_codecatalyst_project :
   ?description:string ->
+  ?id:string ->
   ?timeouts:aws_codecatalyst_project__timeouts ->
   display_name:string ->
   space_name:string ->

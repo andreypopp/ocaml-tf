@@ -10,6 +10,7 @@ type aws_api_gateway_authorizer = {
   authorizer_result_ttl_in_seconds : float option; [@option]
       (** authorizer_result_ttl_in_seconds *)
   authorizer_uri : string option; [@option]  (** authorizer_uri *)
+  id : string option; [@option]  (** id *)
   identity_source : string option; [@option]  (** identity_source *)
   identity_validation_expression : string option; [@option]
       (** identity_validation_expression *)
@@ -22,7 +23,7 @@ type aws_api_gateway_authorizer = {
 (** aws_api_gateway_authorizer *)
 
 let aws_api_gateway_authorizer ?authorizer_credentials
-    ?authorizer_result_ttl_in_seconds ?authorizer_uri
+    ?authorizer_result_ttl_in_seconds ?authorizer_uri ?id
     ?identity_source ?identity_validation_expression ?provider_arns
     ?type_ ~name ~rest_api_id __resource_id =
   let __resource_type = "aws_api_gateway_authorizer" in
@@ -31,6 +32,7 @@ let aws_api_gateway_authorizer ?authorizer_credentials
       authorizer_credentials;
       authorizer_result_ttl_in_seconds;
       authorizer_uri;
+      id;
       identity_source;
       identity_validation_expression;
       name;

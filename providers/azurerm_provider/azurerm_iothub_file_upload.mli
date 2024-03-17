@@ -8,6 +8,7 @@ type azurerm_iothub_file_upload
 val azurerm_iothub_file_upload :
   ?authentication_type:string ->
   ?default_ttl:string ->
+  ?id:string ->
   ?identity_id:string ->
   ?lock_duration:string ->
   ?max_delivery_count:float ->

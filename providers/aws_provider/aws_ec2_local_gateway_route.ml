@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_ec2_local_gateway_route = {
   destination_cidr_block : string;  (** destination_cidr_block *)
+  id : string option; [@option]  (** id *)
   local_gateway_route_table_id : string;
       (** local_gateway_route_table_id *)
   local_gateway_virtual_interface_group_id : string;
@@ -14,13 +15,14 @@ type aws_ec2_local_gateway_route = {
 [@@deriving yojson_of]
 (** aws_ec2_local_gateway_route *)
 
-let aws_ec2_local_gateway_route ~destination_cidr_block
+let aws_ec2_local_gateway_route ?id ~destination_cidr_block
     ~local_gateway_route_table_id
     ~local_gateway_virtual_interface_group_id __resource_id =
   let __resource_type = "aws_ec2_local_gateway_route" in
   let __resource =
     {
       destination_cidr_block;
+      id;
       local_gateway_route_table_id;
       local_gateway_virtual_interface_group_id;
     }

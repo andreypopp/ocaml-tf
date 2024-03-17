@@ -21,26 +21,31 @@ type aws_kendra_thesaurus__timeouts = {
 
 type aws_kendra_thesaurus = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   index_id : string;  (** index_id *)
   name : string;  (** name *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   source_s3_path : aws_kendra_thesaurus__source_s3_path list;
   timeouts : aws_kendra_thesaurus__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_kendra_thesaurus *)
 
-let aws_kendra_thesaurus ?description ?tags ?timeouts ~index_id ~name
-    ~role_arn ~source_s3_path __resource_id =
+let aws_kendra_thesaurus ?description ?id ?tags ?tags_all ?timeouts
+    ~index_id ~name ~role_arn ~source_s3_path __resource_id =
   let __resource_type = "aws_kendra_thesaurus" in
   let __resource =
     {
       description;
+      id;
       index_id;
       name;
       role_arn;
       tags;
+      tags_all;
       source_s3_path;
       timeouts;
     }

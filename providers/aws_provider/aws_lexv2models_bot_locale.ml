@@ -29,13 +29,14 @@ type aws_lexv2models_bot_locale = {
   locale_id : string;  (** locale_id *)
   n_lu_intent_confidence_threshold : float;
       (** n_lu_intent_confidence_threshold *)
+  name : string option; [@option]  (** name *)
   timeouts : aws_lexv2models_bot_locale__timeouts option;
   voice_settings : aws_lexv2models_bot_locale__voice_settings list;
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_bot_locale *)
 
-let aws_lexv2models_bot_locale ?description ?timeouts ~bot_id
+let aws_lexv2models_bot_locale ?description ?name ?timeouts ~bot_id
     ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
     ~voice_settings __resource_id =
   let __resource_type = "aws_lexv2models_bot_locale" in
@@ -46,6 +47,7 @@ let aws_lexv2models_bot_locale ?description ?timeouts ~bot_id
       description;
       locale_id;
       n_lu_intent_confidence_threshold;
+      name;
       timeouts;
       voice_settings;
     }

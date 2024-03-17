@@ -27,14 +27,16 @@ type azurerm_api_management__policy = {
   xml_content : string;  (** xml_content *)
   xml_link : string;  (** xml_link *)
 }
-[@@deriving yojson_of]
 
 type azurerm_api_management
 
 val azurerm_api_management :
   ?client_certificate_enabled:bool ->
   ?gateway_disabled:bool ->
+  ?id:string ->
   ?min_api_version:string ->
+  ?notification_sender_email:string ->
+  ?policy:azurerm_api_management__policy list ->
   ?public_ip_address_id:string ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->

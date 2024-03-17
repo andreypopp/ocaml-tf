@@ -23,6 +23,7 @@ type azurerm_palo_alto_local_rulestack = {
       (** dns_subscription *)
   file_blocking_profile : string option; [@option]
       (** file_blocking_profile *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -37,7 +38,7 @@ type azurerm_palo_alto_local_rulestack = {
 
 let azurerm_palo_alto_local_rulestack ?anti_spyware_profile
     ?anti_virus_profile ?description ?dns_subscription
-    ?file_blocking_profile ?url_filtering_profile
+    ?file_blocking_profile ?id ?url_filtering_profile
     ?vulnerability_profile ?timeouts ~location ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_palo_alto_local_rulestack" in
@@ -48,6 +49,7 @@ let azurerm_palo_alto_local_rulestack ?anti_spyware_profile
       description;
       dns_subscription;
       file_blocking_profile;
+      id;
       location;
       name;
       resource_group_name;

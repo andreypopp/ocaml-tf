@@ -204,6 +204,8 @@ type azurerm_function_app_slot__site_credential = {
 
 type azurerm_function_app_slot = {
   app_service_plan_id : string;  (** app_service_plan_id *)
+  app_settings : (string * string) list option; [@option]
+      (** app_settings *)
   daily_memory_time_quota : float option; [@option]
       (** daily_memory_time_quota *)
   enable_builtin_logging : bool option; [@option]
@@ -211,6 +213,7 @@ type azurerm_function_app_slot = {
   enabled : bool option; [@option]  (** enabled *)
   function_app_name : string;  (** function_app_name *)
   https_only : bool option; [@option]  (** https_only *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   os_type : string option; [@option]  (** os_type *)
@@ -230,8 +233,8 @@ type azurerm_function_app_slot = {
 [@@deriving yojson_of]
 (** azurerm_function_app_slot *)
 
-let azurerm_function_app_slot ?daily_memory_time_quota
-    ?enable_builtin_logging ?enabled ?https_only ?os_type ?tags
+let azurerm_function_app_slot ?app_settings ?daily_memory_time_quota
+    ?enable_builtin_logging ?enabled ?https_only ?id ?os_type ?tags
     ?version ?timeouts ~app_service_plan_id ~function_app_name
     ~location ~name ~resource_group_name ~storage_account_access_key
     ~storage_account_name ~auth_settings ~connection_string ~identity
@@ -240,11 +243,13 @@ let azurerm_function_app_slot ?daily_memory_time_quota
   let __resource =
     {
       app_service_plan_id;
+      app_settings;
       daily_memory_time_quota;
       enable_builtin_logging;
       enabled;
       function_app_name;
       https_only;
+      id;
       location;
       name;
       os_type;

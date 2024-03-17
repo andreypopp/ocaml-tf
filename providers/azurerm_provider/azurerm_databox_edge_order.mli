@@ -12,7 +12,6 @@ type azurerm_databox_edge_order__return_tracking = {
   tracking_id : string;  (** tracking_id *)
   tracking_url : string;  (** tracking_url *)
 }
-[@@deriving yojson_of]
 
 type azurerm_databox_edge_order__shipment_history = {
   additional_details : (string * string) list;
@@ -20,7 +19,6 @@ type azurerm_databox_edge_order__shipment_history = {
   comments : string;  (** comments *)
   last_update : string;  (** last_update *)
 }
-[@@deriving yojson_of]
 
 type azurerm_databox_edge_order__shipment_tracking = {
   carrier_name : string;  (** carrier_name *)
@@ -28,7 +26,6 @@ type azurerm_databox_edge_order__shipment_tracking = {
   tracking_id : string;  (** tracking_id *)
   tracking_url : string;  (** tracking_url *)
 }
-[@@deriving yojson_of]
 
 type azurerm_databox_edge_order__status = {
   additional_details : (string * string) list;
@@ -37,11 +34,11 @@ type azurerm_databox_edge_order__status = {
   info : string;  (** info *)
   last_update : string;  (** last_update *)
 }
-[@@deriving yojson_of]
 
 type azurerm_databox_edge_order
 
 val azurerm_databox_edge_order :
+  ?id:string ->
   ?timeouts:azurerm_databox_edge_order__timeouts ->
   device_name:string ->
   resource_group_name:string ->

@@ -8,6 +8,7 @@ val aws_amplify_branch :
   ?backend_environment_arn:string ->
   ?basic_auth_credentials:string ->
   ?description:string ->
+  ?display_name:string ->
   ?enable_auto_build:bool ->
   ?enable_basic_auth:bool ->
   ?enable_notification:bool ->
@@ -15,9 +16,11 @@ val aws_amplify_branch :
   ?enable_pull_request_preview:bool ->
   ?environment_variables:(string * string) list ->
   ?framework:string ->
+  ?id:string ->
   ?pull_request_environment_name:string ->
   ?stage:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?ttl:string ->
   app_id:string ->
   branch_name:string ->

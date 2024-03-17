@@ -187,18 +187,29 @@ type aws_dlm_lifecycle_policy__policy_details = {
 type aws_dlm_lifecycle_policy = {
   description : string;  (** description *)
   execution_role_arn : string;  (** execution_role_arn *)
+  id : string option; [@option]  (** id *)
   state : string option; [@option]  (** state *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   policy_details : aws_dlm_lifecycle_policy__policy_details list;
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy *)
 
-let aws_dlm_lifecycle_policy ?state ?tags ~description
+let aws_dlm_lifecycle_policy ?id ?state ?tags ?tags_all ~description
     ~execution_role_arn ~policy_details __resource_id =
   let __resource_type = "aws_dlm_lifecycle_policy" in
   let __resource =
-    { description; execution_role_arn; state; tags; policy_details }
+    {
+      description;
+      execution_role_arn;
+      id;
+      state;
+      tags;
+      tags_all;
+      policy_details;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dlm_lifecycle_policy __resource);

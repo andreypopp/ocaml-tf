@@ -41,8 +41,11 @@ type aws_rbin_rule__timeouts = {
 (** aws_rbin_rule__timeouts *)
 
 type aws_rbin_rule = {
+  description : string option; [@option]  (** description *)
   resource_type : string;  (** resource_type *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   lock_configuration : aws_rbin_rule__lock_configuration list;
   resource_tags : aws_rbin_rule__resource_tags list;
   retention_period : aws_rbin_rule__retention_period list;
@@ -51,13 +54,16 @@ type aws_rbin_rule = {
 [@@deriving yojson_of]
 (** aws_rbin_rule *)
 
-let aws_rbin_rule ?tags ?timeouts ~resource_type ~lock_configuration
-    ~resource_tags ~retention_period __resource_id =
+let aws_rbin_rule ?description ?tags ?tags_all ?timeouts
+    ~resource_type ~lock_configuration ~resource_tags
+    ~retention_period __resource_id =
   let __resource_type = "aws_rbin_rule" in
   let __resource =
     {
+      description;
       resource_type;
       tags;
+      tags_all;
       lock_configuration;
       resource_tags;
       retention_period;

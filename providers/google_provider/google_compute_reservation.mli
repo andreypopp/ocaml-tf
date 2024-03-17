@@ -17,6 +17,8 @@ type google_compute_reservation
 
 val google_compute_reservation :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?specific_reservation_required:bool ->
   ?timeouts:google_compute_reservation__timeouts ->
   name:string ->

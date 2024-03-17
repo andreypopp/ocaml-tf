@@ -14,6 +14,9 @@ type azurerm_sql_active_directory_administrator__timeouts = {
 (** azurerm_sql_active_directory_administrator__timeouts *)
 
 type azurerm_sql_active_directory_administrator = {
+  azuread_authentication_only : bool option; [@option]
+      (** azuread_authentication_only *)
+  id : string option; [@option]  (** id *)
   login : string;  (** login *)
   object_id : string;  (** object_id *)
   resource_group_name : string;  (** resource_group_name *)
@@ -25,14 +28,16 @@ type azurerm_sql_active_directory_administrator = {
 [@@deriving yojson_of]
 (** azurerm_sql_active_directory_administrator *)
 
-let azurerm_sql_active_directory_administrator ?timeouts ~login
-    ~object_id ~resource_group_name ~server_name ~tenant_id
-    __resource_id =
+let azurerm_sql_active_directory_administrator
+    ?azuread_authentication_only ?id ?timeouts ~login ~object_id
+    ~resource_group_name ~server_name ~tenant_id __resource_id =
   let __resource_type =
     "azurerm_sql_active_directory_administrator"
   in
   let __resource =
     {
+      azuread_authentication_only;
+      id;
       login;
       object_id;
       resource_group_name;

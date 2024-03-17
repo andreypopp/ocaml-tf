@@ -7,6 +7,7 @@ type azurerm_servicebus_namespace_disaster_recovery_config
 
 val azurerm_servicebus_namespace_disaster_recovery_config :
   ?alias_authorization_rule_id:string ->
+  ?id:string ->
   ?timeouts:
     azurerm_servicebus_namespace_disaster_recovery_config__timeouts ->
   name:string ->

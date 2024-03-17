@@ -13,7 +13,10 @@ val cloudflare_load_balancer_monitor :
   ?expected_body:string ->
   ?expected_codes:string ->
   ?follow_redirects:bool ->
+  ?id:string ->
   ?interval:float ->
+  ?method_:string ->
+  ?path:string ->
   ?port:float ->
   ?probe_zone:string ->
   ?retries:float ->

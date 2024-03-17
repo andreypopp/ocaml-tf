@@ -14,6 +14,7 @@ type azurerm_notification_hub_authorization_rule__timeouts = {
 (** azurerm_notification_hub_authorization_rule__timeouts *)
 
 type azurerm_notification_hub_authorization_rule = {
+  id : string option; [@option]  (** id *)
   listen : bool option; [@option]  (** listen *)
   manage : bool option; [@option]  (** manage *)
   name : string;  (** name *)
@@ -27,14 +28,15 @@ type azurerm_notification_hub_authorization_rule = {
 [@@deriving yojson_of]
 (** azurerm_notification_hub_authorization_rule *)
 
-let azurerm_notification_hub_authorization_rule ?listen ?manage ?send
-    ?timeouts ~name ~namespace_name ~notification_hub_name
+let azurerm_notification_hub_authorization_rule ?id ?listen ?manage
+    ?send ?timeouts ~name ~namespace_name ~notification_hub_name
     ~resource_group_name __resource_id =
   let __resource_type =
     "azurerm_notification_hub_authorization_rule"
   in
   let __resource =
     {
+      id;
       listen;
       manage;
       name;

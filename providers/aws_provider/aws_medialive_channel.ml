@@ -1970,10 +1970,14 @@ type aws_medialive_channel__vpc = {
 
 type aws_medialive_channel = {
   channel_class : string;  (** channel_class *)
+  id : string option; [@option]  (** id *)
+  log_level : string option; [@option]  (** log_level *)
   name : string;  (** name *)
   role_arn : string option; [@option]  (** role_arn *)
   start_channel : bool option; [@option]  (** start_channel *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   cdi_input_specification :
     aws_medialive_channel__cdi_input_specification list;
   destinations : aws_medialive_channel__destinations list;
@@ -1988,18 +1992,22 @@ type aws_medialive_channel = {
 [@@deriving yojson_of]
 (** aws_medialive_channel *)
 
-let aws_medialive_channel ?role_arn ?start_channel ?tags ?timeouts
-    ~channel_class ~name ~cdi_input_specification ~destinations
-    ~encoder_settings ~input_attachments ~input_specification
-    ~maintenance ~vpc __resource_id =
+let aws_medialive_channel ?id ?log_level ?role_arn ?start_channel
+    ?tags ?tags_all ?timeouts ~channel_class ~name
+    ~cdi_input_specification ~destinations ~encoder_settings
+    ~input_attachments ~input_specification ~maintenance ~vpc
+    __resource_id =
   let __resource_type = "aws_medialive_channel" in
   let __resource =
     {
       channel_class;
+      id;
+      log_level;
       name;
       role_arn;
       start_channel;
       tags;
+      tags_all;
       cdi_input_specification;
       destinations;
       encoder_settings;

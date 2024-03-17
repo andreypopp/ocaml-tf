@@ -29,6 +29,7 @@ type azurerm_confidential_ledger__timeouts = {
 (** azurerm_confidential_ledger__timeouts *)
 
 type azurerm_confidential_ledger = {
+  id : string option; [@option]  (** id *)
   ledger_type : string;  (** ledger_type *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -44,13 +45,14 @@ type azurerm_confidential_ledger = {
 [@@deriving yojson_of]
 (** azurerm_confidential_ledger *)
 
-let azurerm_confidential_ledger ?tags ?timeouts ~ledger_type
+let azurerm_confidential_ledger ?id ?tags ?timeouts ~ledger_type
     ~location ~name ~resource_group_name
     ~azuread_based_service_principal
     ~certificate_based_security_principal __resource_id =
   let __resource_type = "azurerm_confidential_ledger" in
   let __resource =
     {
+      id;
       ledger_type;
       location;
       name;

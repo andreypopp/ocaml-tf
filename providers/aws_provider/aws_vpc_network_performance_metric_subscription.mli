@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_vpc_network_performance_metric_subscription
 
 val aws_vpc_network_performance_metric_subscription :
+  ?id:string ->
   ?metric:string ->
   ?statistic:string ->
   destination:string ->

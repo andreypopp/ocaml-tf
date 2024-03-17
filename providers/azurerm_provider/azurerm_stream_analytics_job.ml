@@ -32,14 +32,18 @@ type azurerm_stream_analytics_job__timeouts = {
 (** azurerm_stream_analytics_job__timeouts *)
 
 type azurerm_stream_analytics_job = {
+  compatibility_level : string option; [@option]
+      (** compatibility_level *)
   content_storage_policy : string option; [@option]
       (** content_storage_policy *)
+  data_locale : string option; [@option]  (** data_locale *)
   events_late_arrival_max_delay_in_seconds : float option; [@option]
       (** events_late_arrival_max_delay_in_seconds *)
   events_out_of_order_max_delay_in_seconds : float option; [@option]
       (** events_out_of_order_max_delay_in_seconds *)
   events_out_of_order_policy : string option; [@option]
       (** events_out_of_order_policy *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   output_error_policy : string option; [@option]
@@ -60,10 +64,11 @@ type azurerm_stream_analytics_job = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_job *)
 
-let azurerm_stream_analytics_job ?content_storage_policy
+let azurerm_stream_analytics_job ?compatibility_level
+    ?content_storage_policy ?data_locale
     ?events_late_arrival_max_delay_in_seconds
     ?events_out_of_order_max_delay_in_seconds
-    ?events_out_of_order_policy ?output_error_policy ?sku_name
+    ?events_out_of_order_policy ?id ?output_error_policy ?sku_name
     ?stream_analytics_cluster_id ?streaming_units ?tags ?type_
     ?timeouts ~location ~name ~resource_group_name
     ~transformation_query ~identity ~job_storage_account
@@ -71,10 +76,13 @@ let azurerm_stream_analytics_job ?content_storage_policy
   let __resource_type = "azurerm_stream_analytics_job" in
   let __resource =
     {
+      compatibility_level;
       content_storage_policy;
+      data_locale;
       events_late_arrival_max_delay_in_seconds;
       events_out_of_order_max_delay_in_seconds;
       events_out_of_order_policy;
+      id;
       location;
       name;
       output_error_policy;

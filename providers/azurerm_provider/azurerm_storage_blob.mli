@@ -6,9 +6,12 @@ type azurerm_storage_blob__timeouts
 type azurerm_storage_blob
 
 val azurerm_storage_blob :
+  ?access_tier:string ->
   ?cache_control:string ->
   ?content_md5:string ->
   ?content_type:string ->
+  ?id:string ->
+  ?metadata:(string * string) list ->
   ?parallelism:float ->
   ?size:float ->
   ?source:string ->

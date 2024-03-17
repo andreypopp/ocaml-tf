@@ -40,7 +40,10 @@ type google_monitoring_slo
 val google_monitoring_slo :
   ?calendar_period:string ->
   ?display_name:string ->
+  ?id:string ->
+  ?project:string ->
   ?rolling_period_days:float ->
+  ?slo_id:string ->
   ?user_labels:(string * string) list ->
   ?timeouts:google_monitoring_slo__timeouts ->
   goal:float ->

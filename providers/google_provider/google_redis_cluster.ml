@@ -61,6 +61,13 @@ type google_redis_cluster__state_info = {
 type google_redis_cluster = {
   authorization_mode : string option; [@option]
       (** Optional. The authorization mode of the Redis cluster. If not provided, auth feature is disabled for the cluster. Default value: AUTH_MODE_DISABLED Possible values: [AUTH_MODE_UNSPECIFIED, AUTH_MODE_IAM_AUTH, AUTH_MODE_DISABLED] *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]
+      (** Unique name of the resource in this scope including project and location using the form:
+projects/{projectId}/locations/{locationId}/clusters/{clusterId} *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The name of the region of the Redis cluster. *)
   replica_count : float option; [@option]
       (** Optional. The number of replica nodes per shard. *)
   shard_count : float;
@@ -74,13 +81,17 @@ If not provided, encryption is disabled for the cluster. Default value: TRANSIT_
 [@@deriving yojson_of]
 (** google_redis_cluster *)
 
-let google_redis_cluster ?authorization_mode ?replica_count
-    ?transit_encryption_mode ?timeouts ~shard_count ~psc_configs
-    __resource_id =
+let google_redis_cluster ?authorization_mode ?id ?name ?project
+    ?region ?replica_count ?transit_encryption_mode ?timeouts
+    ~shard_count ~psc_configs __resource_id =
   let __resource_type = "google_redis_cluster" in
   let __resource =
     {
       authorization_mode;
+      id;
+      name;
+      project;
+      region;
       replica_count;
       shard_count;
       transit_encryption_mode;

@@ -8,6 +8,7 @@ type azurerm_data_share
 
 val azurerm_data_share :
   ?description:string ->
+  ?id:string ->
   ?terms:string ->
   ?timeouts:azurerm_data_share__timeouts ->
   account_id:string ->

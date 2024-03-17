@@ -11,6 +11,7 @@ val azurerm_data_factory_dataset_postgresql :
   ?annotations:string list ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?table_name:string ->
   ?timeouts:azurerm_data_factory_dataset_postgresql__timeouts ->

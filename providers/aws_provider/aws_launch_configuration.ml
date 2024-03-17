@@ -49,12 +49,19 @@ type aws_launch_configuration__root_block_device = {
 (** aws_launch_configuration__root_block_device *)
 
 type aws_launch_configuration = {
+  associate_public_ip_address : bool option; [@option]
+      (** associate_public_ip_address *)
+  ebs_optimized : bool option; [@option]  (** ebs_optimized *)
   enable_monitoring : bool option; [@option]
       (** enable_monitoring *)
   iam_instance_profile : string option; [@option]
       (** iam_instance_profile *)
+  id : string option; [@option]  (** id *)
   image_id : string;  (** image_id *)
   instance_type : string;  (** instance_type *)
+  key_name : string option; [@option]  (** key_name *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   placement_tenancy : string option; [@option]
       (** placement_tenancy *)
   security_groups : string list option; [@option]
@@ -73,18 +80,25 @@ type aws_launch_configuration = {
 [@@deriving yojson_of]
 (** aws_launch_configuration *)
 
-let aws_launch_configuration ?enable_monitoring ?iam_instance_profile
-    ?placement_tenancy ?security_groups ?spot_price ?user_data
-    ?user_data_base64 ~image_id ~instance_type ~ebs_block_device
-    ~ephemeral_block_device ~metadata_options ~root_block_device
-    __resource_id =
+let aws_launch_configuration ?associate_public_ip_address
+    ?ebs_optimized ?enable_monitoring ?iam_instance_profile ?id
+    ?key_name ?name ?name_prefix ?placement_tenancy ?security_groups
+    ?spot_price ?user_data ?user_data_base64 ~image_id ~instance_type
+    ~ebs_block_device ~ephemeral_block_device ~metadata_options
+    ~root_block_device __resource_id =
   let __resource_type = "aws_launch_configuration" in
   let __resource =
     {
+      associate_public_ip_address;
+      ebs_optimized;
       enable_monitoring;
       iam_instance_profile;
+      id;
       image_id;
       instance_type;
+      key_name;
+      name;
+      name_prefix;
       placement_tenancy;
       security_groups;
       spot_price;

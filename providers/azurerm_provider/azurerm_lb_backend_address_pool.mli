@@ -7,6 +7,7 @@ type azurerm_lb_backend_address_pool__tunnel_interface
 type azurerm_lb_backend_address_pool
 
 val azurerm_lb_backend_address_pool :
+  ?id:string ->
   ?virtual_network_id:string ->
   ?timeouts:azurerm_lb_backend_address_pool__timeouts ->
   loadbalancer_id:string ->

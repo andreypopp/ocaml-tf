@@ -25,6 +25,7 @@ type azurerm_lb_outbound_rule = {
       (** allocated_outbound_ports *)
   backend_address_pool_id : string;  (** backend_address_pool_id *)
   enable_tcp_reset : bool option; [@option]  (** enable_tcp_reset *)
+  id : string option; [@option]  (** id *)
   idle_timeout_in_minutes : float option; [@option]
       (** idle_timeout_in_minutes *)
   loadbalancer_id : string;  (** loadbalancer_id *)
@@ -38,7 +39,7 @@ type azurerm_lb_outbound_rule = {
 (** azurerm_lb_outbound_rule *)
 
 let azurerm_lb_outbound_rule ?allocated_outbound_ports
-    ?enable_tcp_reset ?idle_timeout_in_minutes ?timeouts
+    ?enable_tcp_reset ?id ?idle_timeout_in_minutes ?timeouts
     ~backend_address_pool_id ~loadbalancer_id ~name ~protocol
     ~frontend_ip_configuration __resource_id =
   let __resource_type = "azurerm_lb_outbound_rule" in
@@ -47,6 +48,7 @@ let azurerm_lb_outbound_rule ?allocated_outbound_ports
       allocated_outbound_ports;
       backend_address_pool_id;
       enable_tcp_reset;
+      id;
       idle_timeout_in_minutes;
       loadbalancer_id;
       name;

@@ -42,14 +42,15 @@ type google_database_migration_service_connection_profile__error = {
   details : (string * string) list list;  (** details *)
   message : string;  (** message *)
 }
-[@@deriving yojson_of]
 
 type google_database_migration_service_connection_profile
 
 val google_database_migration_service_connection_profile :
   ?display_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?location:string ->
+  ?project:string ->
   ?timeouts:
     google_database_migration_service_connection_profile__timeouts ->
   connection_profile_id:string ->

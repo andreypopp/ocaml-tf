@@ -8,6 +8,7 @@ type azurerm_cdn_frontdoor_origin_group__timeouts
 type azurerm_cdn_frontdoor_origin_group
 
 val azurerm_cdn_frontdoor_origin_group :
+  ?id:string ->
   ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes:float ->
   ?session_affinity_enabled:bool ->
   ?timeouts:azurerm_cdn_frontdoor_origin_group__timeouts ->

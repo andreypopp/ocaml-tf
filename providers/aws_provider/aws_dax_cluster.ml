@@ -34,11 +34,22 @@ type aws_dax_cluster = {
   cluster_name : string;  (** cluster_name *)
   description : string option; [@option]  (** description *)
   iam_role_arn : string;  (** iam_role_arn *)
+  id : string option; [@option]  (** id *)
+  maintenance_window : string option; [@option]
+      (** maintenance_window *)
   node_type : string;  (** node_type *)
   notification_topic_arn : string option; [@option]
       (** notification_topic_arn *)
+  parameter_group_name : string option; [@option]
+      (** parameter_group_name *)
   replication_factor : float;  (** replication_factor *)
+  security_group_ids : string list option; [@option]
+      (** security_group_ids *)
+  subnet_group_name : string option; [@option]
+      (** subnet_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   server_side_encryption :
     aws_dax_cluster__server_side_encryption list;
   timeouts : aws_dax_cluster__timeouts option;
@@ -47,9 +58,10 @@ type aws_dax_cluster = {
 (** aws_dax_cluster *)
 
 let aws_dax_cluster ?availability_zones
-    ?cluster_endpoint_encryption_type ?description
-    ?notification_topic_arn ?tags ?timeouts ~cluster_name
-    ~iam_role_arn ~node_type ~replication_factor
+    ?cluster_endpoint_encryption_type ?description ?id
+    ?maintenance_window ?notification_topic_arn ?parameter_group_name
+    ?security_group_ids ?subnet_group_name ?tags ?tags_all ?timeouts
+    ~cluster_name ~iam_role_arn ~node_type ~replication_factor
     ~server_side_encryption __resource_id =
   let __resource_type = "aws_dax_cluster" in
   let __resource =
@@ -59,10 +71,16 @@ let aws_dax_cluster ?availability_zones
       cluster_name;
       description;
       iam_role_arn;
+      id;
+      maintenance_window;
       node_type;
       notification_topic_arn;
+      parameter_group_name;
       replication_factor;
+      security_group_ids;
+      subnet_group_name;
       tags;
+      tags_all;
       server_side_encryption;
       timeouts;
     }

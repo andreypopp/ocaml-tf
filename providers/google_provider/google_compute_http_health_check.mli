@@ -10,7 +10,9 @@ val google_compute_http_health_check :
   ?description:string ->
   ?healthy_threshold:float ->
   ?host:string ->
+  ?id:string ->
   ?port:float ->
+  ?project:string ->
   ?request_path:string ->
   ?timeout_sec:float ->
   ?unhealthy_threshold:float ->

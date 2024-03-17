@@ -4,13 +4,16 @@
 
 open! Tf.Prelude
 
-type aws_ebs_default_kms_key = { key_arn : string  (** key_arn *) }
+type aws_ebs_default_kms_key = {
+  id : string option; [@option]  (** id *)
+  key_arn : string;  (** key_arn *)
+}
 [@@deriving yojson_of]
 (** aws_ebs_default_kms_key *)
 
-let aws_ebs_default_kms_key ~key_arn __resource_id =
+let aws_ebs_default_kms_key ?id ~key_arn __resource_id =
   let __resource_type = "aws_ebs_default_kms_key" in
-  let __resource = { key_arn } in
+  let __resource = { id; key_arn } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ebs_default_kms_key __resource);
   ()

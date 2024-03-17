@@ -17,7 +17,9 @@ val aws_opsworks_application :
   ?document_root:string ->
   ?domains:string list ->
   ?enable_ssl:bool ->
+  ?id:string ->
   ?rails_env:string ->
+  ?short_name:string ->
   name:string ->
   stack_id:string ->
   type_:string ->

@@ -55,15 +55,17 @@ type kubernetes_pod_disruption_budget__spec = {
 (** Specification of the desired behavior of the PodDisruptionBudget. *)
 
 type kubernetes_pod_disruption_budget = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_pod_disruption_budget__metadata list;
   spec : kubernetes_pod_disruption_budget__spec list;
 }
 [@@deriving yojson_of]
 (** kubernetes_pod_disruption_budget *)
 
-let kubernetes_pod_disruption_budget ~metadata ~spec __resource_id =
+let kubernetes_pod_disruption_budget ?id ~metadata ~spec
+    __resource_id =
   let __resource_type = "kubernetes_pod_disruption_budget" in
-  let __resource = { metadata; spec } in
+  let __resource = { id; metadata; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_pod_disruption_budget __resource);
   ()

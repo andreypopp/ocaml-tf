@@ -36,6 +36,7 @@ type azurerm_api_management_authorization_server = {
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
   grant_types : string list;  (** grant_types *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   resource_owner_password : string option; [@option]
@@ -55,7 +56,7 @@ type azurerm_api_management_authorization_server = {
 
 let azurerm_api_management_authorization_server
     ?bearer_token_sending_methods ?client_authentication_method
-    ?client_secret ?default_scope ?description
+    ?client_secret ?default_scope ?description ?id
     ?resource_owner_password ?resource_owner_username ?support_state
     ?token_endpoint ?timeouts ~api_management_name
     ~authorization_endpoint ~authorization_methods ~client_id
@@ -78,6 +79,7 @@ let azurerm_api_management_authorization_server
       description;
       display_name;
       grant_types;
+      id;
       name;
       resource_group_name;
       resource_owner_password;

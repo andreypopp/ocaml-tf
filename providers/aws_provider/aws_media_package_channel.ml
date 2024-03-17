@@ -21,15 +21,17 @@ type aws_media_package_channel__hls_ingest = {
 type aws_media_package_channel = {
   channel_id : string;  (** channel_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_media_package_channel *)
 
-let aws_media_package_channel ?description ?tags ~channel_id
-    __resource_id =
+let aws_media_package_channel ?description ?id ?tags ?tags_all
+    ~channel_id __resource_id =
   let __resource_type = "aws_media_package_channel" in
-  let __resource = { channel_id; description; tags } in
+  let __resource = { channel_id; description; id; tags; tags_all } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_media_package_channel __resource);
   ()

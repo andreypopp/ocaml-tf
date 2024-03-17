@@ -17,6 +17,7 @@ type azurerm_dedicated_host = {
   auto_replace_on_failure : bool option; [@option]
       (** auto_replace_on_failure *)
   dedicated_host_group_id : string;  (** dedicated_host_group_id *)
+  id : string option; [@option]  (** id *)
   license_type : string option; [@option]  (** license_type *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -28,7 +29,7 @@ type azurerm_dedicated_host = {
 [@@deriving yojson_of]
 (** azurerm_dedicated_host *)
 
-let azurerm_dedicated_host ?auto_replace_on_failure ?license_type
+let azurerm_dedicated_host ?auto_replace_on_failure ?id ?license_type
     ?tags ?timeouts ~dedicated_host_group_id ~location ~name
     ~platform_fault_domain ~sku_name __resource_id =
   let __resource_type = "azurerm_dedicated_host" in
@@ -36,6 +37,7 @@ let azurerm_dedicated_host ?auto_replace_on_failure ?license_type
     {
       auto_replace_on_failure;
       dedicated_host_group_id;
+      id;
       license_type;
       location;
       name;

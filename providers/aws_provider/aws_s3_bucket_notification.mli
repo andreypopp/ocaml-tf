@@ -9,6 +9,7 @@ type aws_s3_bucket_notification
 
 val aws_s3_bucket_notification :
   ?eventbridge:bool ->
+  ?id:string ->
   bucket:string ->
   lambda_function:aws_s3_bucket_notification__lambda_function list ->
   queue:aws_s3_bucket_notification__queue list ->

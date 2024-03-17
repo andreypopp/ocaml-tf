@@ -9,7 +9,10 @@ type aws_kendra_faq
 val aws_kendra_faq :
   ?description:string ->
   ?file_format:string ->
+  ?id:string ->
+  ?language_code:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_kendra_faq__timeouts ->
   index_id:string ->
   name:string ->

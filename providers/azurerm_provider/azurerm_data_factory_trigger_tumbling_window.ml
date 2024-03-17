@@ -46,6 +46,7 @@ type azurerm_data_factory_trigger_tumbling_window = {
   description : string option; [@option]  (** description *)
   end_time : string option; [@option]  (** end_time *)
   frequency : string;  (** frequency *)
+  id : string option; [@option]  (** id *)
   interval : float;  (** interval *)
   max_concurrency : float option; [@option]  (** max_concurrency *)
   name : string;  (** name *)
@@ -64,8 +65,8 @@ type azurerm_data_factory_trigger_tumbling_window = {
 
 let azurerm_data_factory_trigger_tumbling_window ?activated
     ?additional_properties ?annotations ?delay ?description ?end_time
-    ?max_concurrency ?timeouts ~data_factory_id ~frequency ~interval
-    ~name ~start_time ~pipeline ~retry ~trigger_dependency
+    ?id ?max_concurrency ?timeouts ~data_factory_id ~frequency
+    ~interval ~name ~start_time ~pipeline ~retry ~trigger_dependency
     __resource_id =
   let __resource_type =
     "azurerm_data_factory_trigger_tumbling_window"
@@ -80,6 +81,7 @@ let azurerm_data_factory_trigger_tumbling_window ?activated
       description;
       end_time;
       frequency;
+      id;
       interval;
       max_concurrency;
       name;

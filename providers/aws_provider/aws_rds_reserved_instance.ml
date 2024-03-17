@@ -20,20 +20,31 @@ type aws_rds_reserved_instance__recurring_charges = {
 [@@deriving yojson_of]
 
 type aws_rds_reserved_instance = {
+  id : string option; [@option]  (** id *)
   instance_count : float option; [@option]  (** instance_count *)
   offering_id : string;  (** offering_id *)
   reservation_id : string option; [@option]  (** reservation_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_rds_reserved_instance__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_rds_reserved_instance *)
 
-let aws_rds_reserved_instance ?instance_count ?reservation_id ?tags
-    ?timeouts ~offering_id __resource_id =
+let aws_rds_reserved_instance ?id ?instance_count ?reservation_id
+    ?tags ?tags_all ?timeouts ~offering_id __resource_id =
   let __resource_type = "aws_rds_reserved_instance" in
   let __resource =
-    { instance_count; offering_id; reservation_id; tags; timeouts }
+    {
+      id;
+      instance_count;
+      offering_id;
+      reservation_id;
+      tags;
+      tags_all;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rds_reserved_instance __resource);

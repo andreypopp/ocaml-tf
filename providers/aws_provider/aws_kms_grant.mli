@@ -7,6 +7,7 @@ type aws_kms_grant
 
 val aws_kms_grant :
   ?grant_creation_tokens:string list ->
+  ?id:string ->
   ?name:string ->
   ?retire_on_delete:bool ->
   ?retiring_principal:string ->

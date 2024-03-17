@@ -642,6 +642,8 @@ type azurerm_kubernetes_cluster__kube_config = {
 [@@deriving yojson_of]
 
 type azurerm_kubernetes_cluster = {
+  api_server_authorized_ip_ranges : string list option; [@option]
+      (** api_server_authorized_ip_ranges *)
   automatic_channel_upgrade : string option; [@option]
       (** automatic_channel_upgrade *)
   azure_policy_enabled : bool option; [@option]
@@ -658,16 +660,21 @@ type azurerm_kubernetes_cluster = {
       (** enable_pod_security_policy *)
   http_application_routing_enabled : bool option; [@option]
       (** http_application_routing_enabled *)
+  id : string option; [@option]  (** id *)
   image_cleaner_enabled : bool option; [@option]
       (** image_cleaner_enabled *)
   image_cleaner_interval_hours : float option; [@option]
       (** image_cleaner_interval_hours *)
+  kubernetes_version : string option; [@option]
+      (** kubernetes_version *)
   local_account_disabled : bool option; [@option]
       (** local_account_disabled *)
   location : string;  (** location *)
   name : string;  (** name *)
   node_os_channel_upgrade : string option; [@option]
       (** node_os_channel_upgrade *)
+  node_resource_group : string option; [@option]
+      (** node_resource_group *)
   oidc_issuer_enabled : bool option; [@option]
       (** oidc_issuer_enabled *)
   open_service_mesh_enabled : bool option; [@option]
@@ -676,6 +683,8 @@ type azurerm_kubernetes_cluster = {
       (** private_cluster_enabled *)
   private_cluster_public_fqdn_enabled : bool option; [@option]
       (** private_cluster_public_fqdn_enabled *)
+  private_dns_zone_id : string option; [@option]
+      (** private_dns_zone_id *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
   resource_group_name : string;  (** resource_group_name *)
@@ -738,19 +747,20 @@ type azurerm_kubernetes_cluster = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster *)
 
-let azurerm_kubernetes_cluster ?automatic_channel_upgrade
-    ?azure_policy_enabled ?custom_ca_trust_certificates_base64
-    ?disk_encryption_set_id ?dns_prefix ?dns_prefix_private_cluster
-    ?edge_zone ?enable_pod_security_policy
-    ?http_application_routing_enabled ?image_cleaner_enabled
-    ?image_cleaner_interval_hours ?local_account_disabled
-    ?node_os_channel_upgrade ?oidc_issuer_enabled
-    ?open_service_mesh_enabled ?private_cluster_enabled
-    ?private_cluster_public_fqdn_enabled
-    ?public_network_access_enabled ?role_based_access_control_enabled
-    ?run_command_enabled ?sku_tier ?support_plan ?tags
-    ?workload_identity_enabled ?timeouts ~location ~name
-    ~resource_group_name ~aci_connector_linux
+let azurerm_kubernetes_cluster ?api_server_authorized_ip_ranges
+    ?automatic_channel_upgrade ?azure_policy_enabled
+    ?custom_ca_trust_certificates_base64 ?disk_encryption_set_id
+    ?dns_prefix ?dns_prefix_private_cluster ?edge_zone
+    ?enable_pod_security_policy ?http_application_routing_enabled ?id
+    ?image_cleaner_enabled ?image_cleaner_interval_hours
+    ?kubernetes_version ?local_account_disabled
+    ?node_os_channel_upgrade ?node_resource_group
+    ?oidc_issuer_enabled ?open_service_mesh_enabled
+    ?private_cluster_enabled ?private_cluster_public_fqdn_enabled
+    ?private_dns_zone_id ?public_network_access_enabled
+    ?role_based_access_control_enabled ?run_command_enabled ?sku_tier
+    ?support_plan ?tags ?workload_identity_enabled ?timeouts
+    ~location ~name ~resource_group_name ~aci_connector_linux
     ~api_server_access_profile ~auto_scaler_profile
     ~azure_active_directory_role_based_access_control
     ~confidential_computing ~default_node_pool ~http_proxy_config
@@ -764,6 +774,7 @@ let azurerm_kubernetes_cluster ?automatic_channel_upgrade
   let __resource_type = "azurerm_kubernetes_cluster" in
   let __resource =
     {
+      api_server_authorized_ip_ranges;
       automatic_channel_upgrade;
       azure_policy_enabled;
       custom_ca_trust_certificates_base64;
@@ -773,16 +784,20 @@ let azurerm_kubernetes_cluster ?automatic_channel_upgrade
       edge_zone;
       enable_pod_security_policy;
       http_application_routing_enabled;
+      id;
       image_cleaner_enabled;
       image_cleaner_interval_hours;
+      kubernetes_version;
       local_account_disabled;
       location;
       name;
       node_os_channel_upgrade;
+      node_resource_group;
       oidc_issuer_enabled;
       open_service_mesh_enabled;
       private_cluster_enabled;
       private_cluster_public_fqdn_enabled;
+      private_dns_zone_id;
       public_network_access_enabled;
       resource_group_name;
       role_based_access_control_enabled;

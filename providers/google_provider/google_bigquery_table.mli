@@ -35,10 +35,14 @@ val google_bigquery_table :
   ?clustering:string list ->
   ?deletion_protection:bool ->
   ?description:string ->
+  ?expiration_time:float ->
   ?friendly_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?max_staleness:string ->
+  ?project:string ->
   ?require_partition_filter:bool ->
+  ?schema:string ->
   dataset_id:string ->
   table_id:string ->
   encryption_configuration:

@@ -7,6 +7,7 @@ open! Tf.Prelude
 type aws_athena_named_query = {
   database : string;  (** database *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   query : string;  (** query *)
   workgroup : string option; [@option]  (** workgroup *)
@@ -14,11 +15,11 @@ type aws_athena_named_query = {
 [@@deriving yojson_of]
 (** aws_athena_named_query *)
 
-let aws_athena_named_query ?description ?workgroup ~database ~name
-    ~query __resource_id =
+let aws_athena_named_query ?description ?id ?workgroup ~database
+    ~name ~query __resource_id =
   let __resource_type = "aws_athena_named_query" in
   let __resource =
-    { database; description; name; query; workgroup }
+    { database; description; id; name; query; workgroup }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_athena_named_query __resource);

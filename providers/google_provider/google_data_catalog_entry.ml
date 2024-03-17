@@ -77,6 +77,14 @@ for example, Analytics Data - Jan 2011. *)
   entry_group : string;
       (** The name of the entry group this entry is in. *)
   entry_id : string;  (** The id of the entry to create. *)
+  id : string option; [@option]  (** id *)
+  linked_resource : string option; [@option]
+      (** The resource this metadata entry refers to.
+For Google Cloud Platform resources, linkedResource is the full name of the resource.
+For example, the linkedResource for a table resource from BigQuery is:
+//bigquery.googleapis.com/projects/projectId/datasets/datasetId/tables/tableId
+Output only when Entry is of type in the EntryType enum. For entries with userSpecifiedType,
+this field is optional and defaults to an empty string. *)
   schema : string option; [@option]
       (** Schema of the entry (e.g. BigQuery, GoogleSQL, Avro schema), as a json string. An entry might not have any schema
 attached to it. See
@@ -102,9 +110,10 @@ numbers, and underscores; are case insensitive; must be at least 1 character and
 [@@deriving yojson_of]
 (** google_data_catalog_entry *)
 
-let google_data_catalog_entry ?description ?display_name ?schema
-    ?type_ ?user_specified_system ?user_specified_type ?timeouts
-    ~entry_group ~entry_id ~gcs_fileset_spec __resource_id =
+let google_data_catalog_entry ?description ?display_name ?id
+    ?linked_resource ?schema ?type_ ?user_specified_system
+    ?user_specified_type ?timeouts ~entry_group ~entry_id
+    ~gcs_fileset_spec __resource_id =
   let __resource_type = "google_data_catalog_entry" in
   let __resource =
     {
@@ -112,6 +121,8 @@ let google_data_catalog_entry ?description ?display_name ?schema
       display_name;
       entry_group;
       entry_id;
+      id;
+      linked_resource;
       schema;
       type_;
       user_specified_system;

@@ -12,6 +12,7 @@ type aws_grafana_license_association__timeouts = {
 (** aws_grafana_license_association__timeouts *)
 
 type aws_grafana_license_association = {
+  id : string option; [@option]  (** id *)
   license_type : string;  (** license_type *)
   workspace_id : string;  (** workspace_id *)
   timeouts : aws_grafana_license_association__timeouts option;
@@ -19,10 +20,10 @@ type aws_grafana_license_association = {
 [@@deriving yojson_of]
 (** aws_grafana_license_association *)
 
-let aws_grafana_license_association ?timeouts ~license_type
+let aws_grafana_license_association ?id ?timeouts ~license_type
     ~workspace_id __resource_id =
   let __resource_type = "aws_grafana_license_association" in
-  let __resource = { license_type; workspace_id; timeouts } in
+  let __resource = { id; license_type; workspace_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_grafana_license_association __resource);
   ()

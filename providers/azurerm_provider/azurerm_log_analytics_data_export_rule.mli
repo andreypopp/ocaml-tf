@@ -7,6 +7,7 @@ type azurerm_log_analytics_data_export_rule
 
 val azurerm_log_analytics_data_export_rule :
   ?enabled:bool ->
+  ?id:string ->
   ?timeouts:azurerm_log_analytics_data_export_rule__timeouts ->
   destination_resource_id:string ->
   name:string ->

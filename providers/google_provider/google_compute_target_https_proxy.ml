@@ -31,6 +31,7 @@ not specified, a default value (610 seconds) will be used. For Global
 external HTTP(S) load balancer, the minimum allowed value is 5 seconds and
 the maximum allowed value is 1200 seconds. For Global external HTTP(S)
 load balancer (classic), this option is not available publicly. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -39,6 +40,10 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
+  proxy_bind : bool option; [@option]
+      (** This field only applies when the forwarding rule that references
+this target proxy has a loadBalancingScheme set to INTERNAL_SELF_MANAGED. *)
   quic_override : string option; [@option]
       (** Specifies the QUIC override policy for this resource. This determines
 whether the load balancer will attempt to negotiate QUIC with clients
@@ -72,9 +77,9 @@ to the BackendService. *)
 
 let google_compute_target_https_proxy
     ?certificate_manager_certificates ?certificate_map ?description
-    ?http_keep_alive_timeout_sec ?quic_override ?server_tls_policy
-    ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map
-    __resource_id =
+    ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind
+    ?quic_override ?server_tls_policy ?ssl_certificates ?ssl_policy
+    ?timeouts ~name ~url_map __resource_id =
   let __resource_type = "google_compute_target_https_proxy" in
   let __resource =
     {
@@ -82,7 +87,10 @@ let google_compute_target_https_proxy
       certificate_map;
       description;
       http_keep_alive_timeout_sec;
+      id;
       name;
+      project;
+      proxy_bind;
       quic_override;
       server_tls_policy;
       ssl_certificates;

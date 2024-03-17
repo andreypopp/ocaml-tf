@@ -11,6 +11,7 @@ val azurerm_virtual_desktop_scaling_plan :
   ?description:string ->
   ?exclusion_tag:string ->
   ?friendly_name:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_virtual_desktop_scaling_plan__timeouts ->
   location:string ->

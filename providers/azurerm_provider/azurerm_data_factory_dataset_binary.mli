@@ -14,6 +14,7 @@ val azurerm_data_factory_dataset_binary :
   ?annotations:string list ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?timeouts:azurerm_data_factory_dataset_binary__timeouts ->
   data_factory_id:string ->

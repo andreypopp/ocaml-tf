@@ -568,9 +568,14 @@ type aws_pipes_pipe = {
   description : string option; [@option]  (** description *)
   desired_state : string option; [@option]  (** desired_state *)
   enrichment : string option; [@option]  (** enrichment *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   role_arn : string;  (** role_arn *)
   source : string;  (** source *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target : string;  (** target *)
   enrichment_parameters : aws_pipes_pipe__enrichment_parameters list;
   source_parameters : aws_pipes_pipe__source_parameters list;
@@ -580,18 +585,23 @@ type aws_pipes_pipe = {
 [@@deriving yojson_of]
 (** aws_pipes_pipe *)
 
-let aws_pipes_pipe ?description ?desired_state ?enrichment ?tags
-    ?timeouts ~role_arn ~source ~target ~enrichment_parameters
-    ~source_parameters ~target_parameters __resource_id =
+let aws_pipes_pipe ?description ?desired_state ?enrichment ?id ?name
+    ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source ~target
+    ~enrichment_parameters ~source_parameters ~target_parameters
+    __resource_id =
   let __resource_type = "aws_pipes_pipe" in
   let __resource =
     {
       description;
       desired_state;
       enrichment;
+      id;
+      name;
+      name_prefix;
       role_arn;
       source;
       tags;
+      tags_all;
       target;
       enrichment_parameters;
       source_parameters;

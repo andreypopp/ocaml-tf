@@ -20,6 +20,7 @@ type google_netapp_backup_policy = {
   enabled : bool option; [@option]
       (** If enabled, make backups automatically according to the schedules.
 This will be applied to all volumes that have this policy attached and enforced on volume level. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'.
 
@@ -32,6 +33,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Number of monthly backups to keep. Note that the sum of daily, weekly and monthly backups should be greater than 1. *)
   name : string;
       (** The name of the backup policy. Needs to be unique per location. *)
+  project : string option; [@option]  (** project *)
   weekly_backup_limit : float;
       (** Number of weekly backups to keep. Note that the sum of daily, weekly and monthly backups should be greater than 1. *)
   timeouts : google_netapp_backup_policy__timeouts option;
@@ -39,19 +41,21 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_netapp_backup_policy *)
 
-let google_netapp_backup_policy ?description ?enabled ?labels
-    ?timeouts ~daily_backup_limit ~location ~monthly_backup_limit
-    ~name ~weekly_backup_limit __resource_id =
+let google_netapp_backup_policy ?description ?enabled ?id ?labels
+    ?project ?timeouts ~daily_backup_limit ~location
+    ~monthly_backup_limit ~name ~weekly_backup_limit __resource_id =
   let __resource_type = "google_netapp_backup_policy" in
   let __resource =
     {
       daily_backup_limit;
       description;
       enabled;
+      id;
       labels;
       location;
       monthly_backup_limit;
       name;
+      project;
       weekly_backup_limit;
       timeouts;
     }

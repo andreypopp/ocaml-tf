@@ -15,6 +15,9 @@ type azurerm_app_configuration_key__timeouts = {
 
 type azurerm_app_configuration_key = {
   configuration_store_id : string;  (** configuration_store_id *)
+  content_type : string option; [@option]  (** content_type *)
+  etag : string option; [@option]  (** etag *)
+  id : string option; [@option]  (** id *)
   key : string;  (** key *)
   label : string option; [@option]  (** label *)
   locked : bool option; [@option]  (** locked *)
@@ -28,13 +31,16 @@ type azurerm_app_configuration_key = {
 [@@deriving yojson_of]
 (** azurerm_app_configuration_key *)
 
-let azurerm_app_configuration_key ?label ?locked ?tags ?type_ ?value
-    ?vault_key_reference ?timeouts ~configuration_store_id ~key
-    __resource_id =
+let azurerm_app_configuration_key ?content_type ?etag ?id ?label
+    ?locked ?tags ?type_ ?value ?vault_key_reference ?timeouts
+    ~configuration_store_id ~key __resource_id =
   let __resource_type = "azurerm_app_configuration_key" in
   let __resource =
     {
       configuration_store_id;
+      content_type;
+      etag;
+      id;
       key;
       label;
       locked;

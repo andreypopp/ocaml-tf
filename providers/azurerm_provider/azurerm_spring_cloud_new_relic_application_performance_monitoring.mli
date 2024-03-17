@@ -14,6 +14,7 @@ val azurerm_spring_cloud_new_relic_application_performance_monitoring :
   ?auto_transaction_naming_enabled:bool ->
   ?custom_tracing_enabled:bool ->
   ?globally_enabled:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?timeouts:
     azurerm_spring_cloud_new_relic_application_performance_monitoring__timeouts ->

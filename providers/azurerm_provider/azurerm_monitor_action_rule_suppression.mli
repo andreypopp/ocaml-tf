@@ -23,6 +23,7 @@ type azurerm_monitor_action_rule_suppression
 val azurerm_monitor_action_rule_suppression :
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_monitor_action_rule_suppression__timeouts ->
   name:string ->

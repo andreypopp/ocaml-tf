@@ -6,6 +6,7 @@ type aws_api_gateway_integration_response
 
 val aws_api_gateway_integration_response :
   ?content_handling:string ->
+  ?id:string ->
   ?response_parameters:(string * string) list ->
   ?response_templates:(string * string) list ->
   ?selection_pattern:string ->

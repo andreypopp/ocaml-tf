@@ -16,6 +16,7 @@ type aws_connect_user_hierarchy_structure__hierarchy_structure
 type aws_connect_user_hierarchy_structure
 
 val aws_connect_user_hierarchy_structure :
+  ?id:string ->
   instance_id:string ->
   hierarchy_structure:
     aws_connect_user_hierarchy_structure__hierarchy_structure list ->

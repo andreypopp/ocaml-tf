@@ -16,6 +16,7 @@ type azurerm_system_center_virtual_machine_manager_server__timeouts = {
 type azurerm_system_center_virtual_machine_manager_server = {
   custom_location_id : string;  (** custom_location_id *)
   fqdn : string;  (** fqdn *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   password : string;  (** password *)
@@ -30,9 +31,9 @@ type azurerm_system_center_virtual_machine_manager_server = {
 [@@deriving yojson_of]
 (** azurerm_system_center_virtual_machine_manager_server *)
 
-let azurerm_system_center_virtual_machine_manager_server ?port ?tags
-    ?timeouts ~custom_location_id ~fqdn ~location ~name ~password
-    ~resource_group_name ~username __resource_id =
+let azurerm_system_center_virtual_machine_manager_server ?id ?port
+    ?tags ?timeouts ~custom_location_id ~fqdn ~location ~name
+    ~password ~resource_group_name ~username __resource_id =
   let __resource_type =
     "azurerm_system_center_virtual_machine_manager_server"
   in
@@ -40,6 +41,7 @@ let azurerm_system_center_virtual_machine_manager_server ?port ?tags
     {
       custom_location_id;
       fqdn;
+      id;
       location;
       name;
       password;

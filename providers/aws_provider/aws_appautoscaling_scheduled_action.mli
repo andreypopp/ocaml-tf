@@ -7,6 +7,7 @@ type aws_appautoscaling_scheduled_action
 
 val aws_appautoscaling_scheduled_action :
   ?end_time:string ->
+  ?id:string ->
   ?start_time:string ->
   ?timezone:string ->
   name:string ->

@@ -54,6 +54,7 @@ type azurerm_vpn_site = {
   address_cidrs : string list option; [@option]  (** address_cidrs *)
   device_model : string option; [@option]  (** device_model *)
   device_vendor : string option; [@option]  (** device_vendor *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -66,7 +67,7 @@ type azurerm_vpn_site = {
 [@@deriving yojson_of]
 (** azurerm_vpn_site *)
 
-let azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor
+let azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor ?id
     ?tags ?timeouts ~location ~name ~resource_group_name
     ~virtual_wan_id ~link ~o365_policy __resource_id =
   let __resource_type = "azurerm_vpn_site" in
@@ -75,6 +76,7 @@ let azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor
       address_cidrs;
       device_model;
       device_vendor;
+      id;
       location;
       name;
       resource_group_name;

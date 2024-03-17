@@ -29,11 +29,17 @@ type aws_api_gateway_domain_name = {
   certificate_private_key : string option; [@option]
       (** certificate_private_key *)
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
+  ownership_verification_certificate_arn : string option; [@option]
+      (** ownership_verification_certificate_arn *)
   regional_certificate_arn : string option; [@option]
       (** regional_certificate_arn *)
   regional_certificate_name : string option; [@option]
       (** regional_certificate_name *)
+  security_policy : string option; [@option]  (** security_policy *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   endpoint_configuration :
     aws_api_gateway_domain_name__endpoint_configuration list;
   mutual_tls_authentication :
@@ -43,8 +49,9 @@ type aws_api_gateway_domain_name = {
 (** aws_api_gateway_domain_name *)
 
 let aws_api_gateway_domain_name ?certificate_arn ?certificate_body
-    ?certificate_chain ?certificate_name ?certificate_private_key
-    ?regional_certificate_arn ?regional_certificate_name ?tags
+    ?certificate_chain ?certificate_name ?certificate_private_key ?id
+    ?ownership_verification_certificate_arn ?regional_certificate_arn
+    ?regional_certificate_name ?security_policy ?tags ?tags_all
     ~domain_name ~endpoint_configuration ~mutual_tls_authentication
     __resource_id =
   let __resource_type = "aws_api_gateway_domain_name" in
@@ -56,9 +63,13 @@ let aws_api_gateway_domain_name ?certificate_arn ?certificate_body
       certificate_name;
       certificate_private_key;
       domain_name;
+      id;
+      ownership_verification_certificate_arn;
       regional_certificate_arn;
       regional_certificate_name;
+      security_policy;
       tags;
+      tags_all;
       endpoint_configuration;
       mutual_tls_authentication;
     }

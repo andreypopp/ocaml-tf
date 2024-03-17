@@ -27,6 +27,7 @@ type azurerm_sql_managed_instance_failover_group__partner_region = {
 [@@deriving yojson_of]
 
 type azurerm_sql_managed_instance_failover_group = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   managed_instance_name : string;  (** managed_instance_name *)
   name : string;  (** name *)
@@ -44,7 +45,7 @@ type azurerm_sql_managed_instance_failover_group = {
 [@@deriving yojson_of]
 (** azurerm_sql_managed_instance_failover_group *)
 
-let azurerm_sql_managed_instance_failover_group
+let azurerm_sql_managed_instance_failover_group ?id
     ?readonly_endpoint_failover_policy_enabled ?timeouts ~location
     ~managed_instance_name ~name ~partner_managed_instance_id
     ~resource_group_name ~read_write_endpoint_failover_policy
@@ -54,6 +55,7 @@ let azurerm_sql_managed_instance_failover_group
   in
   let __resource =
     {
+      id;
       location;
       managed_instance_name;
       name;

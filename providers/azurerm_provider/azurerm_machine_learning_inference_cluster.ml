@@ -36,6 +36,7 @@ type azurerm_machine_learning_inference_cluster__timeouts = {
 type azurerm_machine_learning_inference_cluster = {
   cluster_purpose : string option; [@option]  (** cluster_purpose *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   kubernetes_cluster_id : string;  (** kubernetes_cluster_id *)
   location : string;  (** location *)
   machine_learning_workspace_id : string;
@@ -52,7 +53,7 @@ type azurerm_machine_learning_inference_cluster = {
 (** azurerm_machine_learning_inference_cluster *)
 
 let azurerm_machine_learning_inference_cluster ?cluster_purpose
-    ?description ?tags ?timeouts ~kubernetes_cluster_id ~location
+    ?description ?id ?tags ?timeouts ~kubernetes_cluster_id ~location
     ~machine_learning_workspace_id ~name ~identity ~ssl __resource_id
     =
   let __resource_type =
@@ -62,6 +63,7 @@ let azurerm_machine_learning_inference_cluster ?cluster_purpose
     {
       cluster_purpose;
       description;
+      id;
       kubernetes_cluster_id;
       location;
       machine_learning_workspace_id;

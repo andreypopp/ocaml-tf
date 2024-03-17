@@ -13,6 +13,7 @@ type azurerm_mssql_outbound_firewall_rule__timeouts = {
 (** azurerm_mssql_outbound_firewall_rule__timeouts *)
 
 type azurerm_mssql_outbound_firewall_rule = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   server_id : string;  (** server_id *)
   timeouts : azurerm_mssql_outbound_firewall_rule__timeouts option;
@@ -20,10 +21,10 @@ type azurerm_mssql_outbound_firewall_rule = {
 [@@deriving yojson_of]
 (** azurerm_mssql_outbound_firewall_rule *)
 
-let azurerm_mssql_outbound_firewall_rule ?timeouts ~name ~server_id
-    __resource_id =
+let azurerm_mssql_outbound_firewall_rule ?id ?timeouts ~name
+    ~server_id __resource_id =
   let __resource_type = "azurerm_mssql_outbound_firewall_rule" in
-  let __resource = { name; server_id; timeouts } in
+  let __resource = { id; name; server_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mssql_outbound_firewall_rule __resource);
   ()

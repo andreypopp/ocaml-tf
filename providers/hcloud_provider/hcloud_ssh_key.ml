@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type hcloud_ssh_key = {
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]  (** labels *)
   name : string;  (** name *)
   public_key : string;  (** public_key *)
@@ -12,9 +13,9 @@ type hcloud_ssh_key = {
 [@@deriving yojson_of]
 (** hcloud_ssh_key *)
 
-let hcloud_ssh_key ?labels ~name ~public_key __resource_id =
+let hcloud_ssh_key ?id ?labels ~name ~public_key __resource_id =
   let __resource_type = "hcloud_ssh_key" in
-  let __resource = { labels; name; public_key } in
+  let __resource = { id; labels; name; public_key } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_ssh_key __resource);
   ()

@@ -6,6 +6,7 @@ type azurerm_backup_protected_file_share__timeouts
 type azurerm_backup_protected_file_share
 
 val azurerm_backup_protected_file_share :
+  ?id:string ->
   ?timeouts:azurerm_backup_protected_file_share__timeouts ->
   backup_policy_id:string ->
   recovery_vault_name:string ->

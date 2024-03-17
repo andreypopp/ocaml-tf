@@ -7,6 +7,7 @@ type azurerm_ip_group
 
 val azurerm_ip_group :
   ?cidrs:string list ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_ip_group__timeouts ->
   location:string ->

@@ -25,6 +25,7 @@ type azurerm_stream_analytics_reference_input_blob = {
   authentication_mode : string option; [@option]
       (** authentication_mode *)
   date_format : string;  (** date_format *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   path_pattern : string;  (** path_pattern *)
   resource_group_name : string;  (** resource_group_name *)
@@ -44,10 +45,11 @@ type azurerm_stream_analytics_reference_input_blob = {
 (** azurerm_stream_analytics_reference_input_blob *)
 
 let azurerm_stream_analytics_reference_input_blob
-    ?authentication_mode ?storage_account_key ?timeouts ~date_format
-    ~name ~path_pattern ~resource_group_name ~storage_account_name
-    ~storage_container_name ~stream_analytics_job_name ~time_format
-    ~serialization __resource_id =
+    ?authentication_mode ?id ?storage_account_key ?timeouts
+    ~date_format ~name ~path_pattern ~resource_group_name
+    ~storage_account_name ~storage_container_name
+    ~stream_analytics_job_name ~time_format ~serialization
+    __resource_id =
   let __resource_type =
     "azurerm_stream_analytics_reference_input_blob"
   in
@@ -55,6 +57,7 @@ let azurerm_stream_analytics_reference_input_blob
     {
       authentication_mode;
       date_format;
+      id;
       name;
       path_pattern;
       resource_group_name;

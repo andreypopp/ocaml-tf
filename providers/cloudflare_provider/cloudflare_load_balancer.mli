@@ -26,9 +26,12 @@ type cloudflare_load_balancer
 val cloudflare_load_balancer :
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?proxied:bool ->
   ?session_affinity:string ->
   ?session_affinity_ttl:float ->
+  ?steering_policy:string ->
+  ?ttl:float ->
   default_pool_ids:string list ->
   fallback_pool_id:string ->
   name:string ->

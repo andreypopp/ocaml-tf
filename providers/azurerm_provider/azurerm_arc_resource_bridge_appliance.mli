@@ -7,6 +7,7 @@ type azurerm_arc_resource_bridge_appliance__timeouts
 type azurerm_arc_resource_bridge_appliance
 
 val azurerm_arc_resource_bridge_appliance :
+  ?id:string ->
   ?public_key_base64:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_arc_resource_bridge_appliance__timeouts ->

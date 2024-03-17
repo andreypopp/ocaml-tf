@@ -12,8 +12,11 @@ type google_alloydb_instance
 
 val google_alloydb_instance :
   ?annotations:(string * string) list ->
+  ?availability_type:string ->
+  ?database_flags:(string * string) list ->
   ?display_name:string ->
   ?gce_zone:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?timeouts:google_alloydb_instance__timeouts ->
   cluster:string ->

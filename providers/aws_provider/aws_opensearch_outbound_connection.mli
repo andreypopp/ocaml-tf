@@ -13,6 +13,7 @@ type aws_opensearch_outbound_connection
 val aws_opensearch_outbound_connection :
   ?accept_connection:bool ->
   ?connection_mode:string ->
+  ?id:string ->
   ?timeouts:aws_opensearch_outbound_connection__timeouts ->
   connection_alias:string ->
   connection_properties:

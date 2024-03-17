@@ -109,6 +109,7 @@ type google_network_management_connectivity_test = {
   description : string option; [@option]
       (** The user-supplied description of the Connectivity Test.
 Maximum of 512 characters. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels to represent user-provided metadata.
 
@@ -116,6 +117,7 @@ Maximum of 512 characters. *)
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;  (** Unique name for the connectivity test. *)
+  project : string option; [@option]  (** project *)
   protocol : string option; [@option]
       (** IP Protocol of the test. When not provided, TCP is assumed. *)
   related_projects : string list option; [@option]
@@ -131,17 +133,19 @@ boundaries. *)
 [@@deriving yojson_of]
 (** google_network_management_connectivity_test *)
 
-let google_network_management_connectivity_test ?description ?labels
-    ?protocol ?related_projects ?timeouts ~name ~destination ~source
-    __resource_id =
+let google_network_management_connectivity_test ?description ?id
+    ?labels ?project ?protocol ?related_projects ?timeouts ~name
+    ~destination ~source __resource_id =
   let __resource_type =
     "google_network_management_connectivity_test"
   in
   let __resource =
     {
       description;
+      id;
       labels;
       name;
+      project;
       protocol;
       related_projects;
       destination;

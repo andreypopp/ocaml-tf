@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_storagegateway_working_storage
 
 val aws_storagegateway_working_storage :
-  disk_id:string -> gateway_arn:string -> string -> unit
+  ?id:string ->
+  disk_id:string ->
+  gateway_arn:string ->
+  string ->
+  unit

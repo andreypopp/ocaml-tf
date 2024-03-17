@@ -29,6 +29,7 @@ type cloudflare_dlp_profile = {
       (** Related DLP policies will trigger when the match count exceeds the number set. *)
   description : string option; [@option]
       (** Brief summary of the profile and its intended use. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the profile. **Modifying this attribute will force creation of a new resource.** *)
   type_ : string; [@key "type"]
@@ -41,7 +42,7 @@ are a set of entries that can be matched in HTTP bodies or files.
 They are referenced in Zero Trust Gateway rules.
  *)
 
-let cloudflare_dlp_profile ?description ~account_id
+let cloudflare_dlp_profile ?description ?id ~account_id
     ~allowed_match_count ~name ~type_ ~entry __resource_id =
   let __resource_type = "cloudflare_dlp_profile" in
   let __resource =
@@ -49,6 +50,7 @@ let cloudflare_dlp_profile ?description ~account_id
       account_id;
       allowed_match_count;
       description;
+      id;
       name;
       type_;
       entry;

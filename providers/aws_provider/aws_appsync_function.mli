@@ -10,6 +10,8 @@ type aws_appsync_function
 val aws_appsync_function :
   ?code:string ->
   ?description:string ->
+  ?function_version:string ->
+  ?id:string ->
   ?max_batch_size:float ->
   ?request_mapping_template:string ->
   ?response_mapping_template:string ->

@@ -68,6 +68,7 @@ type kubernetes_cluster_role_v1__rule = {
 (** List of PolicyRules for this ClusterRole *)
 
 type kubernetes_cluster_role_v1 = {
+  id : string option; [@option]  (** id *)
   aggregation_rule :
     kubernetes_cluster_role_v1__aggregation_rule list;
   metadata : kubernetes_cluster_role_v1__metadata list;
@@ -76,10 +77,10 @@ type kubernetes_cluster_role_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_cluster_role_v1 *)
 
-let kubernetes_cluster_role_v1 ~aggregation_rule ~metadata ~rule
+let kubernetes_cluster_role_v1 ?id ~aggregation_rule ~metadata ~rule
     __resource_id =
   let __resource_type = "kubernetes_cluster_role_v1" in
-  let __resource = { aggregation_rule; metadata; rule } in
+  let __resource = { id; aggregation_rule; metadata; rule } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_cluster_role_v1 __resource);
   ()

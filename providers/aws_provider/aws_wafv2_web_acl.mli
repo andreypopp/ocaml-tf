@@ -17788,7 +17788,9 @@ type aws_wafv2_web_acl
 
 val aws_wafv2_web_acl :
     ?description:string ->
+    ?id:string ->
     ?tags:(string * string) list ->
+    ?tags_all:(string * string) list ->
     ?token_domains:string list ->
     name:string ->
     scope:string ->

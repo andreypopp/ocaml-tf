@@ -5,7 +5,10 @@
 open! Tf.Prelude
 
 type aws_dms_replication_task = {
+  cdc_start_position : string option; [@option]
+      (** cdc_start_position *)
   cdc_start_time : string option; [@option]  (** cdc_start_time *)
+  id : string option; [@option]  (** id *)
   migration_type : string;  (** migration_type *)
   replication_instance_arn : string;  (** replication_instance_arn *)
   replication_task_id : string;  (** replication_task_id *)
@@ -16,20 +19,24 @@ type aws_dms_replication_task = {
       (** start_replication_task *)
   table_mappings : string;  (** table_mappings *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target_endpoint_arn : string;  (** target_endpoint_arn *)
 }
 [@@deriving yojson_of]
 (** aws_dms_replication_task *)
 
-let aws_dms_replication_task ?cdc_start_time
+let aws_dms_replication_task ?cdc_start_position ?cdc_start_time ?id
     ?replication_task_settings ?start_replication_task ?tags
-    ~migration_type ~replication_instance_arn ~replication_task_id
-    ~source_endpoint_arn ~table_mappings ~target_endpoint_arn
-    __resource_id =
+    ?tags_all ~migration_type ~replication_instance_arn
+    ~replication_task_id ~source_endpoint_arn ~table_mappings
+    ~target_endpoint_arn __resource_id =
   let __resource_type = "aws_dms_replication_task" in
   let __resource =
     {
+      cdc_start_position;
       cdc_start_time;
+      id;
       migration_type;
       replication_instance_arn;
       replication_task_id;
@@ -38,6 +45,7 @@ let aws_dms_replication_task ?cdc_start_time
       start_replication_task;
       table_mappings;
       tags;
+      tags_all;
       target_endpoint_arn;
     }
   in

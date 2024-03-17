@@ -37,14 +37,15 @@ type aws_ssmcontacts_plan__stage = {
 
 type aws_ssmcontacts_plan = {
   contact_id : string;  (** contact_id *)
+  id : string option; [@option]  (** id *)
   stage : aws_ssmcontacts_plan__stage list;
 }
 [@@deriving yojson_of]
 (** aws_ssmcontacts_plan *)
 
-let aws_ssmcontacts_plan ~contact_id ~stage __resource_id =
+let aws_ssmcontacts_plan ?id ~contact_id ~stage __resource_id =
   let __resource_type = "aws_ssmcontacts_plan" in
-  let __resource = { contact_id; stage } in
+  let __resource = { contact_id; id; stage } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ssmcontacts_plan __resource);
   ()

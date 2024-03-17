@@ -13,6 +13,7 @@ type aws_lambda_provisioned_concurrency_config__timeouts = {
 
 type aws_lambda_provisioned_concurrency_config = {
   function_name : string;  (** function_name *)
+  id : string option; [@option]  (** id *)
   provisioned_concurrent_executions : float;
       (** provisioned_concurrent_executions *)
   qualifier : string;  (** qualifier *)
@@ -23,15 +24,16 @@ type aws_lambda_provisioned_concurrency_config = {
 [@@deriving yojson_of]
 (** aws_lambda_provisioned_concurrency_config *)
 
-let aws_lambda_provisioned_concurrency_config ?skip_destroy ?timeouts
-    ~function_name ~provisioned_concurrent_executions ~qualifier
-    __resource_id =
+let aws_lambda_provisioned_concurrency_config ?id ?skip_destroy
+    ?timeouts ~function_name ~provisioned_concurrent_executions
+    ~qualifier __resource_id =
   let __resource_type =
     "aws_lambda_provisioned_concurrency_config"
   in
   let __resource =
     {
       function_name;
+      id;
       provisioned_concurrent_executions;
       qualifier;
       skip_destroy;

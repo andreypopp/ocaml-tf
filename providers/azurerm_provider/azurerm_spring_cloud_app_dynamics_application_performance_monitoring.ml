@@ -27,6 +27,7 @@ type azurerm_spring_cloud_app_dynamics_application_performance_monitoring = {
   controller_ssl_enabled : bool option; [@option]
       (** controller_ssl_enabled *)
   globally_enabled : bool option; [@option]  (** globally_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_service_id : string;  (** spring_cloud_service_id *)
   timeouts :
@@ -39,7 +40,7 @@ type azurerm_spring_cloud_app_dynamics_application_performance_monitoring = {
 let azurerm_spring_cloud_app_dynamics_application_performance_monitoring
     ?agent_application_name ?agent_node_name ?agent_tier_name
     ?agent_unique_host_id ?controller_port ?controller_ssl_enabled
-    ?globally_enabled ?timeouts ~agent_account_access_key
+    ?globally_enabled ?id ?timeouts ~agent_account_access_key
     ~agent_account_name ~controller_host_name ~name
     ~spring_cloud_service_id __resource_id =
   let __resource_type =
@@ -57,6 +58,7 @@ let azurerm_spring_cloud_app_dynamics_application_performance_monitoring
       controller_port;
       controller_ssl_enabled;
       globally_enabled;
+      id;
       name;
       spring_cloud_service_id;
       timeouts;

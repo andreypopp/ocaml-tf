@@ -19,6 +19,7 @@ type aws_sns_platform_application = {
       (** event_endpoint_updated_topic_arn *)
   failure_feedback_role_arn : string option; [@option]
       (** failure_feedback_role_arn *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   platform : string;  (** platform *)
   platform_credential : string;  (** platform_credential *)
@@ -36,7 +37,7 @@ let aws_sns_platform_application ?apple_platform_bundle_id
     ?apple_platform_team_id ?event_delivery_failure_topic_arn
     ?event_endpoint_created_topic_arn
     ?event_endpoint_deleted_topic_arn
-    ?event_endpoint_updated_topic_arn ?failure_feedback_role_arn
+    ?event_endpoint_updated_topic_arn ?failure_feedback_role_arn ?id
     ?platform_principal ?success_feedback_role_arn
     ?success_feedback_sample_rate ~name ~platform
     ~platform_credential __resource_id =
@@ -50,6 +51,7 @@ let aws_sns_platform_application ?apple_platform_bundle_id
       event_endpoint_deleted_topic_arn;
       event_endpoint_updated_topic_arn;
       failure_feedback_role_arn;
+      id;
       name;
       platform;
       platform_credential;

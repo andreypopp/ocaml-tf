@@ -165,6 +165,7 @@ type cloudflare_pages_project__source = {
 type cloudflare_pages_project = {
   account_id : string;
       (** The account identifier to target for the resource. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** Name of the project. *)
   production_branch : string;
       (** The name of the branch that is used for the production environment. *)
@@ -177,12 +178,13 @@ type cloudflare_pages_project = {
 (** Provides a resource which manages Cloudflare Pages projects.
  *)
 
-let cloudflare_pages_project ~account_id ~name ~production_branch
+let cloudflare_pages_project ?id ~account_id ~name ~production_branch
     ~build_config ~deployment_configs ~source __resource_id =
   let __resource_type = "cloudflare_pages_project" in
   let __resource =
     {
       account_id;
+      id;
       name;
       production_branch;
       build_config;

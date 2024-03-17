@@ -17,6 +17,7 @@ type azurerm_bot_channel_slack = {
   bot_name : string;  (** bot_name *)
   client_id : string;  (** client_id *)
   client_secret : string;  (** client_secret *)
+  id : string option; [@option]  (** id *)
   landing_page_url : string option; [@option]
       (** landing_page_url *)
   location : string;  (** location *)
@@ -28,7 +29,7 @@ type azurerm_bot_channel_slack = {
 [@@deriving yojson_of]
 (** azurerm_bot_channel_slack *)
 
-let azurerm_bot_channel_slack ?landing_page_url ?signing_secret
+let azurerm_bot_channel_slack ?id ?landing_page_url ?signing_secret
     ?timeouts ~bot_name ~client_id ~client_secret ~location
     ~resource_group_name ~verification_token __resource_id =
   let __resource_type = "azurerm_bot_channel_slack" in
@@ -37,6 +38,7 @@ let azurerm_bot_channel_slack ?landing_page_url ?signing_secret
       bot_name;
       client_id;
       client_secret;
+      id;
       landing_page_url;
       location;
       resource_group_name;

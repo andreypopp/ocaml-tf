@@ -15,6 +15,7 @@ type azurerm_web_app_hybrid_connection__timeouts = {
 
 type azurerm_web_app_hybrid_connection = {
   hostname : string;  (** The hostname of the endpoint. *)
+  id : string option; [@option]  (** id *)
   port : float;  (** The port to use for the endpoint *)
   relay_id : string;
       (** The ID of the Relay Hybrid Connection to use. *)
@@ -27,11 +28,19 @@ type azurerm_web_app_hybrid_connection = {
 [@@deriving yojson_of]
 (** azurerm_web_app_hybrid_connection *)
 
-let azurerm_web_app_hybrid_connection ?send_key_name ?timeouts
+let azurerm_web_app_hybrid_connection ?id ?send_key_name ?timeouts
     ~hostname ~port ~relay_id ~web_app_id __resource_id =
   let __resource_type = "azurerm_web_app_hybrid_connection" in
   let __resource =
-    { hostname; port; relay_id; send_key_name; web_app_id; timeouts }
+    {
+      hostname;
+      id;
+      port;
+      relay_id;
+      send_key_name;
+      web_app_id;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_web_app_hybrid_connection __resource);

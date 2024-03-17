@@ -20,6 +20,7 @@ type azurerm_data_factory_linked_service_postgresql = {
   connection_string : string;  (** connection_string *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -32,7 +33,7 @@ type azurerm_data_factory_linked_service_postgresql = {
 (** azurerm_data_factory_linked_service_postgresql *)
 
 let azurerm_data_factory_linked_service_postgresql
-    ?additional_properties ?annotations ?description
+    ?additional_properties ?annotations ?description ?id
     ?integration_runtime_name ?parameters ?timeouts
     ~connection_string ~data_factory_id ~name __resource_id =
   let __resource_type =
@@ -45,6 +46,7 @@ let azurerm_data_factory_linked_service_postgresql
       connection_string;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

@@ -49,6 +49,7 @@ type aws_cloudwatch_event_endpoint__routing_config = {
 
 type aws_cloudwatch_event_endpoint = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   role_arn : string option; [@option]  (** role_arn *)
   event_bus : aws_cloudwatch_event_endpoint__event_bus list;
@@ -59,12 +60,13 @@ type aws_cloudwatch_event_endpoint = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_endpoint *)
 
-let aws_cloudwatch_event_endpoint ?description ?role_arn ~name
+let aws_cloudwatch_event_endpoint ?description ?id ?role_arn ~name
     ~event_bus ~replication_config ~routing_config __resource_id =
   let __resource_type = "aws_cloudwatch_event_endpoint" in
   let __resource =
     {
       description;
+      id;
       name;
       role_arn;
       event_bus;

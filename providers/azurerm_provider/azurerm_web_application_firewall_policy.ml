@@ -160,6 +160,7 @@ type azurerm_web_application_firewall_policy__timeouts = {
 (** azurerm_web_application_firewall_policy__timeouts *)
 
 type azurerm_web_application_firewall_policy = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -175,12 +176,13 @@ type azurerm_web_application_firewall_policy = {
 [@@deriving yojson_of]
 (** azurerm_web_application_firewall_policy *)
 
-let azurerm_web_application_firewall_policy ?tags ?timeouts ~location
-    ~name ~resource_group_name ~custom_rules ~managed_rules
+let azurerm_web_application_firewall_policy ?id ?tags ?timeouts
+    ~location ~name ~resource_group_name ~custom_rules ~managed_rules
     ~policy_settings __resource_id =
   let __resource_type = "azurerm_web_application_firewall_policy" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

@@ -7,6 +7,7 @@ type azurerm_log_analytics_storage_insights
 
 val azurerm_log_analytics_storage_insights :
   ?blob_container_names:string list ->
+  ?id:string ->
   ?table_names:string list ->
   ?timeouts:azurerm_log_analytics_storage_insights__timeouts ->
   name:string ->

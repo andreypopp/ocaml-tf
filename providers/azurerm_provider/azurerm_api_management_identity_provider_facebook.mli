@@ -6,6 +6,7 @@ type azurerm_api_management_identity_provider_facebook__timeouts
 type azurerm_api_management_identity_provider_facebook
 
 val azurerm_api_management_identity_provider_facebook :
+  ?id:string ->
   ?timeouts:
     azurerm_api_management_identity_provider_facebook__timeouts ->
   api_management_name:string ->

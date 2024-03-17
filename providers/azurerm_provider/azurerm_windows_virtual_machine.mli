@@ -24,15 +24,18 @@ val azurerm_windows_virtual_machine :
   ?availability_set_id:string ->
   ?bypass_platform_safety_checks_on_user_schedule_enabled:bool ->
   ?capacity_reservation_group_id:string ->
+  ?computer_name:string ->
   ?custom_data:string ->
   ?dedicated_host_group_id:string ->
   ?dedicated_host_id:string ->
+  ?disk_controller_type:string ->
   ?edge_zone:string ->
   ?enable_automatic_updates:bool ->
   ?encryption_at_host_enabled:bool ->
   ?eviction_policy:string ->
   ?extensions_time_budget:string ->
   ?hotpatching_enabled:bool ->
+  ?id:string ->
   ?license_type:string ->
   ?max_bid_price:float ->
   ?patch_assessment_mode:string ->

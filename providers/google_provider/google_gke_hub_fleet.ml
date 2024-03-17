@@ -58,6 +58,8 @@ type google_gke_hub_fleet = {
   display_name : string option; [@option]
       (** A user-assigned display name of the Fleet. When present, it must be between 4 to 30 characters.
 Allowed characters are: lowercase and uppercase letters, numbers, hyphen, single-quote, double-quote, space, and exclamation point. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   default_cluster_config :
     google_gke_hub_fleet__default_cluster_config list;
   timeouts : google_gke_hub_fleet__timeouts option;
@@ -65,11 +67,11 @@ Allowed characters are: lowercase and uppercase letters, numbers, hyphen, single
 [@@deriving yojson_of]
 (** google_gke_hub_fleet *)
 
-let google_gke_hub_fleet ?display_name ?timeouts
+let google_gke_hub_fleet ?display_name ?id ?project ?timeouts
     ~default_cluster_config __resource_id =
   let __resource_type = "google_gke_hub_fleet" in
   let __resource =
-    { display_name; default_cluster_config; timeouts }
+    { display_name; id; project; default_cluster_config; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_gke_hub_fleet __resource);

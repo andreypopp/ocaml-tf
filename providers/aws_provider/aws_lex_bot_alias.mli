@@ -9,6 +9,7 @@ type aws_lex_bot_alias
 
 val aws_lex_bot_alias :
   ?description:string ->
+  ?id:string ->
   ?timeouts:aws_lex_bot_alias__timeouts ->
   bot_name:string ->
   bot_version:string ->

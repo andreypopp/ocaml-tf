@@ -17,6 +17,7 @@ type azurerm_storage_mover_job_definition = {
   agent_name : string option; [@option]  (** agent_name *)
   copy_mode : string;  (** copy_mode *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   source_name : string;  (** source_name *)
   source_sub_path : string option; [@option]  (** source_sub_path *)
@@ -28,7 +29,7 @@ type azurerm_storage_mover_job_definition = {
 [@@deriving yojson_of]
 (** azurerm_storage_mover_job_definition *)
 
-let azurerm_storage_mover_job_definition ?agent_name ?description
+let azurerm_storage_mover_job_definition ?agent_name ?description ?id
     ?source_sub_path ?target_sub_path ?timeouts ~copy_mode ~name
     ~source_name ~storage_mover_project_id ~target_name __resource_id
     =
@@ -38,6 +39,7 @@ let azurerm_storage_mover_job_definition ?agent_name ?description
       agent_name;
       copy_mode;
       description;
+      id;
       name;
       source_name;
       source_sub_path;

@@ -6,6 +6,8 @@ type hcloud_server_network
 
 val hcloud_server_network :
   ?alias_ips:string list ->
+  ?id:string ->
+  ?ip:string ->
   ?network_id:float ->
   ?subnet_id:string ->
   server_id:float ->

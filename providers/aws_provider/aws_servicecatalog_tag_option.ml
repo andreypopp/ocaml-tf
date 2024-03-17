@@ -15,6 +15,7 @@ type aws_servicecatalog_tag_option__timeouts = {
 
 type aws_servicecatalog_tag_option = {
   active : bool option; [@option]  (** active *)
+  id : string option; [@option]  (** id *)
   key : string;  (** key *)
   value : string;  (** value *)
   timeouts : aws_servicecatalog_tag_option__timeouts option;
@@ -22,10 +23,10 @@ type aws_servicecatalog_tag_option = {
 [@@deriving yojson_of]
 (** aws_servicecatalog_tag_option *)
 
-let aws_servicecatalog_tag_option ?active ?timeouts ~key ~value
+let aws_servicecatalog_tag_option ?active ?id ?timeouts ~key ~value
     __resource_id =
   let __resource_type = "aws_servicecatalog_tag_option" in
-  let __resource = { active; key; value; timeouts } in
+  let __resource = { active; id; key; value; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_servicecatalog_tag_option __resource);
   ()

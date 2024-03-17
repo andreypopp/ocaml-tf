@@ -15,10 +15,15 @@ type azurerm_application_insights__timeouts = {
 
 type azurerm_application_insights = {
   application_type : string;  (** application_type *)
+  daily_data_cap_in_gb : float option; [@option]
+      (** daily_data_cap_in_gb *)
+  daily_data_cap_notifications_disabled : bool option; [@option]
+      (** daily_data_cap_notifications_disabled *)
   disable_ip_masking : bool option; [@option]
       (** disable_ip_masking *)
   force_customer_storage_for_profiler : bool option; [@option]
       (** force_customer_storage_for_profiler *)
+  id : string option; [@option]  (** id *)
   internet_ingestion_enabled : bool option; [@option]
       (** internet_ingestion_enabled *)
   internet_query_enabled : bool option; [@option]
@@ -39,18 +44,23 @@ type azurerm_application_insights = {
 [@@deriving yojson_of]
 (** azurerm_application_insights *)
 
-let azurerm_application_insights ?disable_ip_masking
-    ?force_customer_storage_for_profiler ?internet_ingestion_enabled
-    ?internet_query_enabled ?local_authentication_disabled
-    ?retention_in_days ?sampling_percentage ?tags ?workspace_id
-    ?timeouts ~application_type ~location ~name ~resource_group_name
+let azurerm_application_insights ?daily_data_cap_in_gb
+    ?daily_data_cap_notifications_disabled ?disable_ip_masking
+    ?force_customer_storage_for_profiler ?id
+    ?internet_ingestion_enabled ?internet_query_enabled
+    ?local_authentication_disabled ?retention_in_days
+    ?sampling_percentage ?tags ?workspace_id ?timeouts
+    ~application_type ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_application_insights" in
   let __resource =
     {
       application_type;
+      daily_data_cap_in_gb;
+      daily_data_cap_notifications_disabled;
       disable_ip_masking;
       force_customer_storage_for_profiler;
+      id;
       internet_ingestion_enabled;
       internet_query_enabled;
       local_authentication_disabled;

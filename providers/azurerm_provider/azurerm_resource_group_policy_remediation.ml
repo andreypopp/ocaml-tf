@@ -16,6 +16,7 @@ type azurerm_resource_group_policy_remediation__timeouts = {
 type azurerm_resource_group_policy_remediation = {
   failure_percentage : float option; [@option]
       (** failure_percentage *)
+  id : string option; [@option]  (** id *)
   location_filters : string list option; [@option]
       (** location_filters *)
   name : string;  (** name *)
@@ -36,7 +37,7 @@ type azurerm_resource_group_policy_remediation = {
 [@@deriving yojson_of]
 (** azurerm_resource_group_policy_remediation *)
 
-let azurerm_resource_group_policy_remediation ?failure_percentage
+let azurerm_resource_group_policy_remediation ?failure_percentage ?id
     ?location_filters ?parallel_deployments ?policy_definition_id
     ?policy_definition_reference_id ?resource_count
     ?resource_discovery_mode ?timeouts ~name ~policy_assignment_id
@@ -47,6 +48,7 @@ let azurerm_resource_group_policy_remediation ?failure_percentage
   let __resource =
     {
       failure_percentage;
+      id;
       location_filters;
       name;
       parallel_deployments;

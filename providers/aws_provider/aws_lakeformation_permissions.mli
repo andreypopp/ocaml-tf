@@ -15,6 +15,8 @@ type aws_lakeformation_permissions
 val aws_lakeformation_permissions :
   ?catalog_id:string ->
   ?catalog_resource:bool ->
+  ?id:string ->
+  ?permissions_with_grant_option:string list ->
   permissions:string list ->
   principal:string ->
   data_cells_filter:

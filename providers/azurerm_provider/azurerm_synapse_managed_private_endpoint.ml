@@ -13,6 +13,7 @@ type azurerm_synapse_managed_private_endpoint__timeouts = {
 (** azurerm_synapse_managed_private_endpoint__timeouts *)
 
 type azurerm_synapse_managed_private_endpoint = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   subresource_name : string;  (** subresource_name *)
   synapse_workspace_id : string;  (** synapse_workspace_id *)
@@ -23,12 +24,13 @@ type azurerm_synapse_managed_private_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_synapse_managed_private_endpoint *)
 
-let azurerm_synapse_managed_private_endpoint ?timeouts ~name
+let azurerm_synapse_managed_private_endpoint ?id ?timeouts ~name
     ~subresource_name ~synapse_workspace_id ~target_resource_id
     __resource_id =
   let __resource_type = "azurerm_synapse_managed_private_endpoint" in
   let __resource =
     {
+      id;
       name;
       subresource_name;
       synapse_workspace_id;

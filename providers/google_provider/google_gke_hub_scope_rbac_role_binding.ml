@@ -29,12 +29,14 @@ type google_gke_hub_scope_rbac_role_binding = {
       (** Principal that is be authorized in the cluster (at least of one the oneof
 is required). Updating one will unset the other automatically.
 group is the group, as seen by the kubernetes cluster. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels for this ScopeRBACRoleBinding.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  project : string option; [@option]  (** project *)
   scope_id : string;  (** Id of the scope *)
   scope_rbac_role_binding_id : string;
       (** The client-provided identifier of the RBAC Role Binding. *)
@@ -49,14 +51,16 @@ alice or alice@domain.tld *)
 [@@deriving yojson_of]
 (** google_gke_hub_scope_rbac_role_binding *)
 
-let google_gke_hub_scope_rbac_role_binding ?group ?labels ?user
-    ?timeouts ~scope_id ~scope_rbac_role_binding_id ~role
-    __resource_id =
+let google_gke_hub_scope_rbac_role_binding ?group ?id ?labels
+    ?project ?user ?timeouts ~scope_id ~scope_rbac_role_binding_id
+    ~role __resource_id =
   let __resource_type = "google_gke_hub_scope_rbac_role_binding" in
   let __resource =
     {
       group;
+      id;
       labels;
+      project;
       scope_id;
       scope_rbac_role_binding_id;
       user;

@@ -11,6 +11,7 @@ val azurerm_data_factory_dataset_sql_server_table :
   ?annotations:string list ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?table_name:string ->
   ?timeouts:azurerm_data_factory_dataset_sql_server_table__timeouts ->

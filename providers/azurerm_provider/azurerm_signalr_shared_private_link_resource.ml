@@ -14,6 +14,7 @@ type azurerm_signalr_shared_private_link_resource__timeouts = {
 (** azurerm_signalr_shared_private_link_resource__timeouts *)
 
 type azurerm_signalr_shared_private_link_resource = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   request_message : string option; [@option]  (** request_message *)
   signalr_service_id : string;  (** signalr_service_id *)
@@ -25,7 +26,7 @@ type azurerm_signalr_shared_private_link_resource = {
 [@@deriving yojson_of]
 (** azurerm_signalr_shared_private_link_resource *)
 
-let azurerm_signalr_shared_private_link_resource ?request_message
+let azurerm_signalr_shared_private_link_resource ?id ?request_message
     ?timeouts ~name ~signalr_service_id ~sub_resource_name
     ~target_resource_id __resource_id =
   let __resource_type =
@@ -33,6 +34,7 @@ let azurerm_signalr_shared_private_link_resource ?request_message
   in
   let __resource =
     {
+      id;
       name;
       request_message;
       signalr_service_id;

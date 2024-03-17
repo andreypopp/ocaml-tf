@@ -10,8 +10,10 @@ type azurerm_machine_learning_compute_cluster
 
 val azurerm_machine_learning_compute_cluster :
   ?description:string ->
+  ?id:string ->
   ?local_auth_enabled:bool ->
   ?node_public_ip_enabled:bool ->
+  ?ssh_public_access_enabled:bool ->
   ?subnet_resource_id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_machine_learning_compute_cluster__timeouts ->

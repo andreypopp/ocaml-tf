@@ -8,6 +8,7 @@ type azurerm_eventhub__timeouts
 type azurerm_eventhub
 
 val azurerm_eventhub :
+  ?id:string ->
   ?status:string ->
   ?timeouts:azurerm_eventhub__timeouts ->
   message_retention:float ->

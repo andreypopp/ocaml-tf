@@ -16,6 +16,7 @@ type azurerm_api_management_global_schema__timeouts = {
 type azurerm_api_management_global_schema = {
   api_management_name : string;  (** api_management_name *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   schema_id : string;  (** schema_id *)
   type_ : string; [@key "type"]  (** type *)
@@ -25,7 +26,7 @@ type azurerm_api_management_global_schema = {
 [@@deriving yojson_of]
 (** azurerm_api_management_global_schema *)
 
-let azurerm_api_management_global_schema ?description ?timeouts
+let azurerm_api_management_global_schema ?description ?id ?timeouts
     ~api_management_name ~resource_group_name ~schema_id ~type_
     ~value __resource_id =
   let __resource_type = "azurerm_api_management_global_schema" in
@@ -33,6 +34,7 @@ let azurerm_api_management_global_schema ?description ?timeouts
     {
       api_management_name;
       description;
+      id;
       resource_group_name;
       schema_id;
       type_;

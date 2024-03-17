@@ -10,6 +10,7 @@ val azurerm_iothub_endpoint_servicebus_topic :
   ?connection_string:string ->
   ?endpoint_uri:string ->
   ?entity_path:string ->
+  ?id:string ->
   ?identity_id:string ->
   ?timeouts:azurerm_iothub_endpoint_servicebus_topic__timeouts ->
   iothub_id:string ->

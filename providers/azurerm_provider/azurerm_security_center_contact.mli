@@ -6,6 +6,7 @@ type azurerm_security_center_contact__timeouts
 type azurerm_security_center_contact
 
 val azurerm_security_center_contact :
+  ?id:string ->
   ?name:string ->
   ?phone:string ->
   ?timeouts:azurerm_security_center_contact__timeouts ->

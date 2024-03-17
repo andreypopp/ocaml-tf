@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_cognito_identity_pool_provider_principal_tag = {
+  id : string option; [@option]  (** id *)
   identity_pool_id : string;  (** identity_pool_id *)
   identity_provider_name : string;  (** identity_provider_name *)
   principal_tags : (string * string) list option; [@option]
@@ -14,14 +15,15 @@ type aws_cognito_identity_pool_provider_principal_tag = {
 [@@deriving yojson_of]
 (** aws_cognito_identity_pool_provider_principal_tag *)
 
-let aws_cognito_identity_pool_provider_principal_tag ?principal_tags
-    ?use_defaults ~identity_pool_id ~identity_provider_name
-    __resource_id =
+let aws_cognito_identity_pool_provider_principal_tag ?id
+    ?principal_tags ?use_defaults ~identity_pool_id
+    ~identity_provider_name __resource_id =
   let __resource_type =
     "aws_cognito_identity_pool_provider_principal_tag"
   in
   let __resource =
     {
+      id;
       identity_pool_id;
       identity_provider_name;
       principal_tags;

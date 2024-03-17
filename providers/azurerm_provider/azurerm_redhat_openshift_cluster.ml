@@ -79,6 +79,7 @@ type azurerm_redhat_openshift_cluster__worker_profile = {
 (** azurerm_redhat_openshift_cluster__worker_profile *)
 
 type azurerm_redhat_openshift_cluster = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -101,13 +102,14 @@ type azurerm_redhat_openshift_cluster = {
 [@@deriving yojson_of]
 (** azurerm_redhat_openshift_cluster *)
 
-let azurerm_redhat_openshift_cluster ?tags ?timeouts ~location ~name
-    ~resource_group_name ~api_server_profile ~cluster_profile
+let azurerm_redhat_openshift_cluster ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~api_server_profile ~cluster_profile
     ~ingress_profile ~main_profile ~network_profile
     ~service_principal ~worker_profile __resource_id =
   let __resource_type = "azurerm_redhat_openshift_cluster" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

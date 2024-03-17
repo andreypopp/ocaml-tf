@@ -24,13 +24,14 @@ type google_cloudbuildv2_connection__installation_state = {
   message : string;  (** message *)
   stage : string;  (** stage *)
 }
-[@@deriving yojson_of]
 
 type google_cloudbuildv2_connection
 
 val google_cloudbuildv2_connection :
   ?annotations:(string * string) list ->
   ?disabled:bool ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_cloudbuildv2_connection__timeouts ->
   location:string ->
   name:string ->

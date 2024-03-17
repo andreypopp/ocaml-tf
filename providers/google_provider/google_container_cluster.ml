@@ -1274,12 +1274,20 @@ type google_container_cluster__workload_identity_config = {
 type google_container_cluster = {
   allow_net_admin : bool option; [@option]
       (** Enable NET_ADMIN for this cluster. *)
+  cluster_ipv4_cidr : string option; [@option]
+      (** The IP address range of the Kubernetes pods in this cluster in CIDR notation (e.g. 10.96.0.0/14). Leave blank to have one automatically chosen or specify a /14 block in 10.0.0.0/8. This field will only work for routes-based clusters, where ip_allocation_policy is not defined. *)
+  datapath_provider : string option; [@option]
+      (** The desired datapath provider for this cluster. By default, uses the IPTables-based kube-proxy implementation. *)
+  default_max_pods_per_node : float option; [@option]
+      (** The default maximum number of pods per node in this cluster. This doesn't work on routes-based clusters, clusters that don't have IP Aliasing enabled. *)
   deletion_protection : bool option; [@option]
       (** Whether or not to allow Terraform to destroy the instance. Defaults to true. Unless this field is set to false in Terraform state, a terraform destroy or terraform apply that would delete the cluster will fail. *)
   description : string option; [@option]
       (**  Description of the cluster. *)
   enable_autopilot : bool option; [@option]
       (** Enable Autopilot for this cluster. *)
+  enable_intranode_visibility : bool option; [@option]
+      (** Whether Intra-node visibility is enabled for this cluster. This makes same node pod to pod traffic visible for VPC network. *)
   enable_kubernetes_alpha : bool option; [@option]
       (** Whether to enable Kubernetes Alpha features for this cluster. Note that when this option is enabled, the cluster cannot be upgraded and will be automatically deleted after 30 days. *)
   enable_l4_ilb_subsetting : bool option; [@option]
@@ -1290,18 +1298,37 @@ type google_container_cluster = {
       (** Enable Shielded Nodes features on all nodes in this cluster. Defaults to true. *)
   enable_tpu : bool option; [@option]
       (** Whether to enable Cloud TPU resources in this cluster. *)
+  id : string option; [@option]  (** id *)
   initial_node_count : float option; [@option]
       (** The number of nodes to create in this cluster's default node pool. In regional or multi-zonal clusters, this is the number of nodes per zone. Must be set if node_pool is not set. If you're using google_container_node_pool objects with no default node pool, you'll need to set this to a value of at least 1, alongside setting remove_default_node_pool to true. *)
+  location : string option; [@option]
+      (** The location (region or zone) in which the cluster master will be created, as well as the default node location. If you specify a zone (such as us-central1-a), the cluster will be a zonal cluster with a single cluster master. If you specify a region (such as us-west1), the cluster will be a regional cluster with multiple masters spread across zones in the region, and with default node locations in those zones as well. *)
+  logging_service : string option; [@option]
+      (** The logging service that the cluster should write logs to. Available options include logging.googleapis.com(Legacy Stackdriver), logging.googleapis.com/kubernetes(Stackdriver Kubernetes Engine Logging), and none. Defaults to logging.googleapis.com/kubernetes. *)
   min_master_version : string option; [@option]
       (** The minimum version of the master. GKE will auto-update the master to new versions, so this does not guarantee the current master version--use the read-only master_version field to obtain that. If unset, the cluster's version will be set by GKE to the version of the most recent official release (which is not necessarily the latest version). *)
+  monitoring_service : string option; [@option]
+      (** The monitoring service that the cluster should write metrics to. Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API. VM metrics will be collected by Google Compute Engine regardless of this setting Available options include monitoring.googleapis.com(Legacy Stackdriver), monitoring.googleapis.com/kubernetes(Stackdriver Kubernetes Engine Monitoring), and none. Defaults to monitoring.googleapis.com/kubernetes. *)
   name : string;
       (** The name of the cluster, unique within the project and location. *)
   network : string option; [@option]
       (** The name or self_link of the Google Compute Engine network to which the cluster is connected. For Shared VPC, set this to the self link of the shared network. *)
+  networking_mode : string option; [@option]
+      (** Determines whether alias IPs or routes will be used for pod IPs in the cluster. Defaults to VPC_NATIVE for new clusters. *)
+  node_locations : string list option; [@option]
+      (** The list of zones in which the cluster's nodes are located. Nodes must be in the region of their regional cluster or in the same region as their cluster's zone for zonal clusters. If this is specified for a zonal cluster, omit the cluster's zone. *)
+  node_version : string option; [@option]
+      (** The Kubernetes version on the nodes. Must either be unset or set to the same value as min_master_version on create. Defaults to the default version set by GKE which is not necessarily the latest version. This only affects nodes in the default node pool. While a fuzzy version can be specified, it's recommended that you specify explicit versions as Terraform will see spurious diffs when fuzzy versions are used. See the google_container_engine_versions data source's version_prefix field to approximate fuzzy versions in a Terraform-compatible way. To update nodes in other node pools, use the version attribute on the node pool. *)
+  private_ipv6_google_access : string option; [@option]
+      (** The desired state of IPv6 connectivity to Google Services. By default, no private IPv6 access to or from Google Services (all access will be via IPv4). *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   remove_default_node_pool : bool option; [@option]
       (** If true, deletes the default node pool upon cluster creation. If you're using google_container_node_pool resources with no default node pool, this should be set to true, alongside setting initial_node_count to at least 1. *)
   resource_labels : (string * string) list option; [@option]
       (** The GCE resource labels (a map of key/value pairs) to be applied to the cluster. *)
+  subnetwork : string option; [@option]
+      (** The name or self_link of the Google Compute Engine subnetwork in which the cluster's instances are launched. *)
   addons_config : google_container_cluster__addons_config list;
   authenticator_groups_config :
     google_container_cluster__authenticator_groups_config list;
@@ -1364,16 +1391,20 @@ type google_container_cluster = {
 [@@deriving yojson_of]
 (** google_container_cluster *)
 
-let google_container_cluster ?allow_net_admin ?deletion_protection
-    ?description ?enable_autopilot ?enable_kubernetes_alpha
+let google_container_cluster ?allow_net_admin ?cluster_ipv4_cidr
+    ?datapath_provider ?default_max_pods_per_node
+    ?deletion_protection ?description ?enable_autopilot
+    ?enable_intranode_visibility ?enable_kubernetes_alpha
     ?enable_l4_ilb_subsetting ?enable_legacy_abac
-    ?enable_shielded_nodes ?enable_tpu ?initial_node_count
-    ?min_master_version ?network ?remove_default_node_pool
-    ?resource_labels ?timeouts ~name ~addons_config
-    ~authenticator_groups_config ~binary_authorization
-    ~cluster_autoscaling ~confidential_nodes ~cost_management_config
-    ~database_encryption ~default_snat_status ~dns_config
-    ~enable_k8s_beta_apis ~fleet ~gateway_api_config
+    ?enable_shielded_nodes ?enable_tpu ?id ?initial_node_count
+    ?location ?logging_service ?min_master_version
+    ?monitoring_service ?network ?networking_mode ?node_locations
+    ?node_version ?private_ipv6_google_access ?project
+    ?remove_default_node_pool ?resource_labels ?subnetwork ?timeouts
+    ~name ~addons_config ~authenticator_groups_config
+    ~binary_authorization ~cluster_autoscaling ~confidential_nodes
+    ~cost_management_config ~database_encryption ~default_snat_status
+    ~dns_config ~enable_k8s_beta_apis ~fleet ~gateway_api_config
     ~identity_service_config ~ip_allocation_policy ~logging_config
     ~maintenance_policy ~master_auth
     ~master_authorized_networks_config ~mesh_certificates
@@ -1387,20 +1418,34 @@ let google_container_cluster ?allow_net_admin ?deletion_protection
   let __resource =
     {
       allow_net_admin;
+      cluster_ipv4_cidr;
+      datapath_provider;
+      default_max_pods_per_node;
       deletion_protection;
       description;
       enable_autopilot;
+      enable_intranode_visibility;
       enable_kubernetes_alpha;
       enable_l4_ilb_subsetting;
       enable_legacy_abac;
       enable_shielded_nodes;
       enable_tpu;
+      id;
       initial_node_count;
+      location;
+      logging_service;
       min_master_version;
+      monitoring_service;
       name;
       network;
+      networking_mode;
+      node_locations;
+      node_version;
+      private_ipv6_google_access;
+      project;
       remove_default_node_pool;
       resource_labels;
+      subnetwork;
       addons_config;
       authenticator_groups_config;
       binary_authorization;

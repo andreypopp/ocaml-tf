@@ -8,8 +8,12 @@ type aws_sfn_state_machine__tracing_configuration
 type aws_sfn_state_machine
 
 val aws_sfn_state_machine :
+  ?id:string ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?publish:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?type_:string ->
   ?timeouts:aws_sfn_state_machine__timeouts ->
   definition:string ->

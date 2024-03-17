@@ -22,6 +22,7 @@ type azurerm_logic_app_integration_account_certificate__timeouts = {
 (** azurerm_logic_app_integration_account_certificate__timeouts *)
 
 type azurerm_logic_app_integration_account_certificate = {
+  id : string option; [@option]  (** id *)
   integration_account_name : string;  (** integration_account_name *)
   metadata : string option; [@option]  (** metadata *)
   name : string;  (** name *)
@@ -38,7 +39,7 @@ type azurerm_logic_app_integration_account_certificate = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_certificate *)
 
-let azurerm_logic_app_integration_account_certificate ?metadata
+let azurerm_logic_app_integration_account_certificate ?id ?metadata
     ?public_certificate ?timeouts ~integration_account_name ~name
     ~resource_group_name ~key_vault_key __resource_id =
   let __resource_type =
@@ -46,6 +47,7 @@ let azurerm_logic_app_integration_account_certificate ?metadata
   in
   let __resource =
     {
+      id;
       integration_account_name;
       metadata;
       name;

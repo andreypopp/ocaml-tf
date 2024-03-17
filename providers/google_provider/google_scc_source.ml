@@ -21,6 +21,7 @@ amongst its siblings, for example, two sources with the same parent
 can't share the same display name. The display name must start and end
 with a letter or digit, may contain letters, digits, spaces, hyphens,
 and underscores, and can be no longer than 32 characters. *)
+  id : string option; [@option]  (** id *)
   organization : string;
       (** The organization whose Cloud Security Command Center the Source
 lives in. *)
@@ -29,11 +30,11 @@ lives in. *)
 [@@deriving yojson_of]
 (** google_scc_source *)
 
-let google_scc_source ?description ?timeouts ~display_name
+let google_scc_source ?description ?id ?timeouts ~display_name
     ~organization __resource_id =
   let __resource_type = "google_scc_source" in
   let __resource =
-    { description; display_name; organization; timeouts }
+    { description; display_name; id; organization; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_source __resource);

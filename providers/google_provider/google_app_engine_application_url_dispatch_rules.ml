@@ -27,6 +27,8 @@ type google_app_engine_application_url_dispatch_rules__timeouts = {
 (** google_app_engine_application_url_dispatch_rules__timeouts *)
 
 type google_app_engine_application_url_dispatch_rules = {
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   dispatch_rules :
     google_app_engine_application_url_dispatch_rules__dispatch_rules
     list;
@@ -36,12 +38,12 @@ type google_app_engine_application_url_dispatch_rules = {
 [@@deriving yojson_of]
 (** google_app_engine_application_url_dispatch_rules *)
 
-let google_app_engine_application_url_dispatch_rules ?timeouts
-    ~dispatch_rules __resource_id =
+let google_app_engine_application_url_dispatch_rules ?id ?project
+    ?timeouts ~dispatch_rules __resource_id =
   let __resource_type =
     "google_app_engine_application_url_dispatch_rules"
   in
-  let __resource = { dispatch_rules; timeouts } in
+  let __resource = { id; project; dispatch_rules; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_application_url_dispatch_rules
        __resource);

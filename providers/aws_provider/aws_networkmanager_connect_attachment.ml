@@ -20,7 +20,10 @@ type aws_networkmanager_connect_attachment__timeouts = {
 type aws_networkmanager_connect_attachment = {
   core_network_id : string;  (** core_network_id *)
   edge_location : string;  (** edge_location *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   transport_attachment_id : string;  (** transport_attachment_id *)
   options : aws_networkmanager_connect_attachment__options list;
   timeouts : aws_networkmanager_connect_attachment__timeouts option;
@@ -28,15 +31,17 @@ type aws_networkmanager_connect_attachment = {
 [@@deriving yojson_of]
 (** aws_networkmanager_connect_attachment *)
 
-let aws_networkmanager_connect_attachment ?tags ?timeouts
-    ~core_network_id ~edge_location ~transport_attachment_id ~options
-    __resource_id =
+let aws_networkmanager_connect_attachment ?id ?tags ?tags_all
+    ?timeouts ~core_network_id ~edge_location
+    ~transport_attachment_id ~options __resource_id =
   let __resource_type = "aws_networkmanager_connect_attachment" in
   let __resource =
     {
       core_network_id;
       edge_location;
+      id;
       tags;
+      tags_all;
       transport_attachment_id;
       options;
       timeouts;

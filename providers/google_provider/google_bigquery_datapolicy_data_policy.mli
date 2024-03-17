@@ -7,6 +7,8 @@ type google_bigquery_datapolicy_data_policy__timeouts
 type google_bigquery_datapolicy_data_policy
 
 val google_bigquery_datapolicy_data_policy :
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_bigquery_datapolicy_data_policy__timeouts ->
   data_policy_id:string ->
   data_policy_type:string ->

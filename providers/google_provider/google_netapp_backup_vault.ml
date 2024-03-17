@@ -15,6 +15,7 @@ type google_netapp_backup_vault__timeouts = {
 type google_netapp_backup_vault = {
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'.
 
@@ -24,16 +25,17 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string;  (** Location (region) of the backup vault. *)
   name : string;
       (** The resource name of the backup vault. Needs to be unique per location. *)
+  project : string option; [@option]  (** project *)
   timeouts : google_netapp_backup_vault__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_netapp_backup_vault *)
 
-let google_netapp_backup_vault ?description ?labels ?timeouts
-    ~location ~name __resource_id =
+let google_netapp_backup_vault ?description ?id ?labels ?project
+    ?timeouts ~location ~name __resource_id =
   let __resource_type = "google_netapp_backup_vault" in
   let __resource =
-    { description; labels; location; name; timeouts }
+    { description; id; labels; location; name; project; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_netapp_backup_vault __resource);

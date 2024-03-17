@@ -38,7 +38,9 @@ type google_privateca_ca_pool__timeouts
 type google_privateca_ca_pool
 
 val google_privateca_ca_pool :
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_privateca_ca_pool__timeouts ->
   location:string ->
   name:string ->

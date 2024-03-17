@@ -60,7 +60,6 @@ type google_cloud_run_service__status__traffic = {
   tag : string;  (** tag *)
   url : string;  (** url *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_service__status__conditions = {
   message : string;  (** message *)
@@ -68,7 +67,6 @@ type google_cloud_run_service__status__conditions = {
   status : string;  (** status *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_service__status = {
   conditions : google_cloud_run_service__status__conditions list;
@@ -82,12 +80,13 @@ type google_cloud_run_service__status = {
       (** traffic *)
   url : string;  (** url *)
 }
-[@@deriving yojson_of]
 
 type google_cloud_run_service
 
 val google_cloud_run_service :
   ?autogenerate_revision_name:bool ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_cloud_run_service__timeouts ->
   location:string ->
   name:string ->

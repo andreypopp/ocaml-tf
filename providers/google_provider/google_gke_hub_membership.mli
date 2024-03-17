@@ -9,8 +9,10 @@ type google_gke_hub_membership__timeouts
 type google_gke_hub_membership
 
 val google_gke_hub_membership :
+  ?id:string ->
   ?labels:(string * string) list ->
   ?location:string ->
+  ?project:string ->
   ?timeouts:google_gke_hub_membership__timeouts ->
   membership_id:string ->
   authority:google_gke_hub_membership__authority list ->

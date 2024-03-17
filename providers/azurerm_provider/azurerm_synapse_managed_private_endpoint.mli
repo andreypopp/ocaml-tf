@@ -6,6 +6,7 @@ type azurerm_synapse_managed_private_endpoint__timeouts
 type azurerm_synapse_managed_private_endpoint
 
 val azurerm_synapse_managed_private_endpoint :
+  ?id:string ->
   ?timeouts:azurerm_synapse_managed_private_endpoint__timeouts ->
   name:string ->
   subresource_name:string ->

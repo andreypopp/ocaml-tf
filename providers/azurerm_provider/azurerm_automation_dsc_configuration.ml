@@ -17,6 +17,7 @@ type azurerm_automation_dsc_configuration = {
   automation_account_name : string;  (** automation_account_name *)
   content_embedded : string;  (** content_embedded *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   log_verbose : bool option; [@option]  (** log_verbose *)
   name : string;  (** name *)
@@ -27,15 +28,17 @@ type azurerm_automation_dsc_configuration = {
 [@@deriving yojson_of]
 (** azurerm_automation_dsc_configuration *)
 
-let azurerm_automation_dsc_configuration ?description ?log_verbose
-    ?tags ?timeouts ~automation_account_name ~content_embedded
-    ~location ~name ~resource_group_name __resource_id =
+let azurerm_automation_dsc_configuration ?description ?id
+    ?log_verbose ?tags ?timeouts ~automation_account_name
+    ~content_embedded ~location ~name ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_automation_dsc_configuration" in
   let __resource =
     {
       automation_account_name;
       content_embedded;
       description;
+      id;
       location;
       log_verbose;
       name;

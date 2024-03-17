@@ -11,10 +11,16 @@ type google_compute_router_nat
 
 val google_compute_router_nat :
   ?drain_nat_ips:string list ->
+  ?enable_dynamic_port_allocation:bool ->
+  ?enable_endpoint_independent_mapping:bool ->
   ?icmp_idle_timeout_sec:float ->
+  ?id:string ->
   ?max_ports_per_vm:float ->
+  ?min_ports_per_vm:float ->
   ?nat_ip_allocate_option:string ->
   ?nat_ips:string list ->
+  ?project:string ->
+  ?region:string ->
   ?tcp_established_idle_timeout_sec:float ->
   ?tcp_time_wait_timeout_sec:float ->
   ?tcp_transitory_idle_timeout_sec:float ->

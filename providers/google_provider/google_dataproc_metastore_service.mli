@@ -25,9 +25,14 @@ type google_dataproc_metastore_service
 
 val google_dataproc_metastore_service :
   ?database_type:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?location:string ->
+  ?network:string ->
+  ?port:float ->
+  ?project:string ->
   ?release_channel:string ->
+  ?tier:string ->
   ?timeouts:google_dataproc_metastore_service__timeouts ->
   service_id:string ->
   encryption_config:

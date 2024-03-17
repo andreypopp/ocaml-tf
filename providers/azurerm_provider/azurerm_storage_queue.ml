@@ -14,6 +14,7 @@ type azurerm_storage_queue__timeouts = {
 (** azurerm_storage_queue__timeouts *)
 
 type azurerm_storage_queue = {
+  id : string option; [@option]  (** id *)
   metadata : (string * string) list option; [@option]
       (** metadata *)
   name : string;  (** name *)
@@ -23,11 +24,11 @@ type azurerm_storage_queue = {
 [@@deriving yojson_of]
 (** azurerm_storage_queue *)
 
-let azurerm_storage_queue ?metadata ?timeouts ~name
+let azurerm_storage_queue ?id ?metadata ?timeouts ~name
     ~storage_account_name __resource_id =
   let __resource_type = "azurerm_storage_queue" in
   let __resource =
-    { metadata; name; storage_account_name; timeouts }
+    { id; metadata; name; storage_account_name; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_queue __resource);

@@ -11,6 +11,7 @@ val azurerm_stream_analytics_output_blob :
   ?batch_max_wait_time:string ->
   ?batch_min_rows:float ->
   ?blob_write_mode:string ->
+  ?id:string ->
   ?storage_account_key:string ->
   ?timeouts:azurerm_stream_analytics_output_blob__timeouts ->
   date_format:string ->

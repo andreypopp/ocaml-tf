@@ -42,6 +42,7 @@ of its use in alert policies (the policies will be updated
 to remove the channel). If false, channels that are still
 referenced by an existing alerting policy will fail to be
 deleted in a delete operation. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Configuration fields that define the channel and its behavior. The
 permissible and required labels are specified in the
@@ -50,6 +51,7 @@ NotificationChannelDescriptor corresponding to the type field.
 Labels with sensitive data are obfuscated by the API and therefore Terraform cannot
 determine if there are upstream changes to these fields. They can also be configured via
 the sensitive_labels block, but cannot be configured in both places. *)
+  project : string option; [@option]  (** project *)
   type_ : string; [@key "type"]
       (** The type of the notification channel. This field matches the value of the NotificationChannelDescriptor.type field. See https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.notificationChannelDescriptors/list to get the list of valid values such as email, slack, etc... *)
   user_labels : (string * string) list option; [@option]
@@ -62,8 +64,8 @@ the sensitive_labels block, but cannot be configured in both places. *)
 (** google_monitoring_notification_channel *)
 
 let google_monitoring_notification_channel ?description ?display_name
-    ?enabled ?force_delete ?labels ?user_labels ?timeouts ~type_
-    ~sensitive_labels __resource_id =
+    ?enabled ?force_delete ?id ?labels ?project ?user_labels
+    ?timeouts ~type_ ~sensitive_labels __resource_id =
   let __resource_type = "google_monitoring_notification_channel" in
   let __resource =
     {
@@ -71,7 +73,9 @@ let google_monitoring_notification_channel ?description ?display_name
       display_name;
       enabled;
       force_delete;
+      id;
       labels;
+      project;
       type_;
       user_labels;
       sensitive_labels;

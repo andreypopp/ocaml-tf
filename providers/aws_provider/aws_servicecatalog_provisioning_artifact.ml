@@ -16,9 +16,12 @@ type aws_servicecatalog_provisioning_artifact__timeouts = {
 type aws_servicecatalog_provisioning_artifact = {
   accept_language : string option; [@option]  (** accept_language *)
   active : bool option; [@option]  (** active *)
+  description : string option; [@option]  (** description *)
   disable_template_validation : bool option; [@option]
       (** disable_template_validation *)
   guidance : string option; [@option]  (** guidance *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
   product_id : string;  (** product_id *)
   template_physical_id : string option; [@option]
       (** template_physical_id *)
@@ -31,15 +34,19 @@ type aws_servicecatalog_provisioning_artifact = {
 (** aws_servicecatalog_provisioning_artifact *)
 
 let aws_servicecatalog_provisioning_artifact ?accept_language ?active
-    ?disable_template_validation ?guidance ?template_physical_id
-    ?template_url ?type_ ?timeouts ~product_id __resource_id =
+    ?description ?disable_template_validation ?guidance ?id ?name
+    ?template_physical_id ?template_url ?type_ ?timeouts ~product_id
+    __resource_id =
   let __resource_type = "aws_servicecatalog_provisioning_artifact" in
   let __resource =
     {
       accept_language;
       active;
+      description;
       disable_template_validation;
       guidance;
+      id;
+      name;
       product_id;
       template_physical_id;
       template_url;

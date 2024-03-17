@@ -31,6 +31,7 @@ type azurerm_network_manager__cross_tenant_scopes = {
 
 type azurerm_network_manager = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -42,12 +43,14 @@ type azurerm_network_manager = {
 [@@deriving yojson_of]
 (** azurerm_network_manager *)
 
-let azurerm_network_manager ?description ?tags ?timeouts ~location
-    ~name ~resource_group_name ~scope_accesses ~scope __resource_id =
+let azurerm_network_manager ?description ?id ?tags ?timeouts
+    ~location ~name ~resource_group_name ~scope_accesses ~scope
+    __resource_id =
   let __resource_type = "azurerm_network_manager" in
   let __resource =
     {
       description;
+      id;
       location;
       name;
       resource_group_name;

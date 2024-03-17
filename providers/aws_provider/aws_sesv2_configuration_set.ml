@@ -64,7 +64,10 @@ type aws_sesv2_configuration_set__vdm_options = {
 
 type aws_sesv2_configuration_set = {
   configuration_set_name : string;  (** configuration_set_name *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   delivery_options :
     aws_sesv2_configuration_set__delivery_options list;
   reputation_options :
@@ -80,15 +83,17 @@ type aws_sesv2_configuration_set = {
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set *)
 
-let aws_sesv2_configuration_set ?tags ~configuration_set_name
-    ~delivery_options ~reputation_options ~sending_options
-    ~suppression_options ~tracking_options ~vdm_options __resource_id
-    =
+let aws_sesv2_configuration_set ?id ?tags ?tags_all
+    ~configuration_set_name ~delivery_options ~reputation_options
+    ~sending_options ~suppression_options ~tracking_options
+    ~vdm_options __resource_id =
   let __resource_type = "aws_sesv2_configuration_set" in
   let __resource =
     {
       configuration_set_name;
+      id;
       tags;
+      tags_all;
       delivery_options;
       reputation_options;
       sending_options;

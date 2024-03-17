@@ -18,6 +18,7 @@ type aws_iot_indexing_configuration__thing_indexing_configuration
 type aws_iot_indexing_configuration
 
 val aws_iot_indexing_configuration :
+  ?id:string ->
   thing_group_indexing_configuration:
     aws_iot_indexing_configuration__thing_group_indexing_configuration
     list ->

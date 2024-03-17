@@ -40,6 +40,7 @@ type azurerm_pim_eligible_role_assignment__timeouts = {
 (** azurerm_pim_eligible_role_assignment__timeouts *)
 
 type azurerm_pim_eligible_role_assignment = {
+  id : string option; [@option]  (** id *)
   justification : string option; [@option]
       (** The justification of the eligible role assignment. *)
   principal_id : string;  (** The principal id. *)
@@ -52,12 +53,13 @@ type azurerm_pim_eligible_role_assignment = {
 [@@deriving yojson_of]
 (** azurerm_pim_eligible_role_assignment *)
 
-let azurerm_pim_eligible_role_assignment ?justification ?timeouts
+let azurerm_pim_eligible_role_assignment ?id ?justification ?timeouts
     ~principal_id ~role_definition_id ~scope ~schedule ~ticket
     __resource_id =
   let __resource_type = "azurerm_pim_eligible_role_assignment" in
   let __resource =
     {
+      id;
       justification;
       principal_id;
       role_definition_id;

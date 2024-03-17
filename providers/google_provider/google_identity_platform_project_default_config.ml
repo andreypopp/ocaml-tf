@@ -69,6 +69,8 @@ type google_identity_platform_project_default_config__timeouts = {
 (** google_identity_platform_project_default_config__timeouts *)
 
 type google_identity_platform_project_default_config = {
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   sign_in :
     google_identity_platform_project_default_config__sign_in list;
   timeouts :
@@ -77,12 +79,12 @@ type google_identity_platform_project_default_config = {
 [@@deriving yojson_of]
 (** google_identity_platform_project_default_config *)
 
-let google_identity_platform_project_default_config ?timeouts
-    ~sign_in __resource_id =
+let google_identity_platform_project_default_config ?id ?project
+    ?timeouts ~sign_in __resource_id =
   let __resource_type =
     "google_identity_platform_project_default_config"
   in
-  let __resource = { sign_in; timeouts } in
+  let __resource = { id; project; sign_in; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_project_default_config
        __resource);

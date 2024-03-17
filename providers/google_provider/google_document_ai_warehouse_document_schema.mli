@@ -45,6 +45,7 @@ type google_document_ai_warehouse_document_schema
 
 val google_document_ai_warehouse_document_schema :
   ?document_is_folder:bool ->
+  ?id:string ->
   ?timeouts:google_document_ai_warehouse_document_schema__timeouts ->
   display_name:string ->
   location:string ->

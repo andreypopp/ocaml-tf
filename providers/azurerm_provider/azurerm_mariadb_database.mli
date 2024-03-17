@@ -6,6 +6,7 @@ type azurerm_mariadb_database__timeouts
 type azurerm_mariadb_database
 
 val azurerm_mariadb_database :
+  ?id:string ->
   ?timeouts:azurerm_mariadb_database__timeouts ->
   charset:string ->
   collation:string ->

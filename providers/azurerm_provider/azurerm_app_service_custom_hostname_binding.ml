@@ -15,20 +15,32 @@ type azurerm_app_service_custom_hostname_binding__timeouts = {
 type azurerm_app_service_custom_hostname_binding = {
   app_service_name : string;  (** app_service_name *)
   hostname : string;  (** hostname *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
+  ssl_state : string option; [@option]  (** ssl_state *)
+  thumbprint : string option; [@option]  (** thumbprint *)
   timeouts :
     azurerm_app_service_custom_hostname_binding__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_custom_hostname_binding *)
 
-let azurerm_app_service_custom_hostname_binding ?timeouts
-    ~app_service_name ~hostname ~resource_group_name __resource_id =
+let azurerm_app_service_custom_hostname_binding ?id ?ssl_state
+    ?thumbprint ?timeouts ~app_service_name ~hostname
+    ~resource_group_name __resource_id =
   let __resource_type =
     "azurerm_app_service_custom_hostname_binding"
   in
   let __resource =
-    { app_service_name; hostname; resource_group_name; timeouts }
+    {
+      app_service_name;
+      hostname;
+      id;
+      resource_group_name;
+      ssl_state;
+      thumbprint;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_custom_hostname_binding __resource);

@@ -6,13 +6,15 @@ open! Tf.Prelude
 
 type aws_cloudfront_origin_access_identity = {
   comment : string option; [@option]  (** comment *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_access_identity *)
 
-let aws_cloudfront_origin_access_identity ?comment __resource_id =
+let aws_cloudfront_origin_access_identity ?comment ?id __resource_id
+    =
   let __resource_type = "aws_cloudfront_origin_access_identity" in
-  let __resource = { comment } in
+  let __resource = { comment; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_origin_access_identity __resource);
   ()

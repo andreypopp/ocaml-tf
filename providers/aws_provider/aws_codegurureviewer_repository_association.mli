@@ -21,7 +21,6 @@ type aws_codegurureviewer_repository_association__s3_repository_details__code_ar
   source_code_artifacts_object_key : string;
       (** source_code_artifacts_object_key *)
 }
-[@@deriving yojson_of]
 
 type aws_codegurureviewer_repository_association__s3_repository_details = {
   bucket_name : string;  (** bucket_name *)
@@ -30,12 +29,13 @@ type aws_codegurureviewer_repository_association__s3_repository_details = {
     list;
       (** code_artifacts *)
 }
-[@@deriving yojson_of]
 
 type aws_codegurureviewer_repository_association
 
 val aws_codegurureviewer_repository_association :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_codegurureviewer_repository_association__timeouts ->
   kms_key_details:
     aws_codegurureviewer_repository_association__kms_key_details list ->

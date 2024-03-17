@@ -5,16 +5,18 @@
 open! Tf.Prelude
 
 type google_secret_manager_secret_iam_policy = {
+  id : string option; [@option]  (** id *)
   policy_data : string;  (** policy_data *)
+  project : string option; [@option]  (** project *)
   secret_id : string;  (** secret_id *)
 }
 [@@deriving yojson_of]
 (** google_secret_manager_secret_iam_policy *)
 
-let google_secret_manager_secret_iam_policy ~policy_data ~secret_id
-    __resource_id =
+let google_secret_manager_secret_iam_policy ?id ?project ~policy_data
+    ~secret_id __resource_id =
   let __resource_type = "google_secret_manager_secret_iam_policy" in
-  let __resource = { policy_data; secret_id } in
+  let __resource = { id; policy_data; project; secret_id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_secret_manager_secret_iam_policy __resource);
   ()

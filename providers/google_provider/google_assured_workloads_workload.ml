@@ -80,6 +80,7 @@ type google_assured_workloads_workload = {
       (** Required. The user-assigned display name of the Workload. When present it must be between 4 to 30 characters. Allowed characters are: lowercase and uppercase letters, numbers, hyphen, and spaces. Example: My Workload *)
   enable_sovereign_controls : bool option; [@option]
       (** Optional. Indicates the sovereignty status of the given workload. Currently meant to be used by Europe/Canada customers. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. Labels applied to the workload.
 
@@ -91,6 +92,8 @@ Please refer to the field `effective_labels` for all of the labels present on th
       (** Optional. Partner regime associated with this workload. Possible values: PARTNER_UNSPECIFIED, LOCAL_CONTROLS_BY_S3NS, SOVEREIGN_CONTROLS_BY_T_SYSTEMS, SOVEREIGN_CONTROLS_BY_SIA_MINSAIT, SOVEREIGN_CONTROLS_BY_PSN *)
   provisioned_resources_parent : string option; [@option]
       (** Input only. The parent resource for the resources managed by this Assured Workload. May be either empty or a folder resource which is a child of the Workload parent. If not specified all resources are created under the parent organization. Format: folders/{folder_id} *)
+  violation_notifications_enabled : bool option; [@option]
+      (** Optional. Indicates whether the e-mail notification for a violation is enabled for a workload. This value will be by default True, and if not present will be considered as true. This should only be updated via updateWorkload call. Any Changes to this field during the createWorkload call will not be honored. This will always be true while creating the workload. *)
   kms_settings :
     google_assured_workloads_workload__kms_settings list;
   partner_permissions :
@@ -103,10 +106,11 @@ Please refer to the field `effective_labels` for all of the labels present on th
 (** google_assured_workloads_workload *)
 
 let google_assured_workloads_workload ?billing_account
-    ?enable_sovereign_controls ?labels ?partner
-    ?provisioned_resources_parent ?timeouts ~compliance_regime
-    ~display_name ~location ~organization ~kms_settings
-    ~partner_permissions ~resource_settings __resource_id =
+    ?enable_sovereign_controls ?id ?labels ?partner
+    ?provisioned_resources_parent ?violation_notifications_enabled
+    ?timeouts ~compliance_regime ~display_name ~location
+    ~organization ~kms_settings ~partner_permissions
+    ~resource_settings __resource_id =
   let __resource_type = "google_assured_workloads_workload" in
   let __resource =
     {
@@ -114,11 +118,13 @@ let google_assured_workloads_workload ?billing_account
       compliance_regime;
       display_name;
       enable_sovereign_controls;
+      id;
       labels;
       location;
       organization;
       partner;
       provisioned_resources_parent;
+      violation_notifications_enabled;
       kms_settings;
       partner_permissions;
       resource_settings;

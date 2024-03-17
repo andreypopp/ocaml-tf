@@ -114,8 +114,10 @@ with dashes (-), underscores (_), dots (.), and alphanumerics between.
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
   display_name : string option; [@option]
       (** The display name for the node pool. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the resource. *)
   name : string;  (** The vmware node pool name. *)
+  project : string option; [@option]  (** project *)
   vmware_cluster : string;
       (** The cluster this node pool belongs to. *)
   config : google_gkeonprem_vmware_node_pool__config list;
@@ -126,16 +128,18 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 [@@deriving yojson_of]
 (** google_gkeonprem_vmware_node_pool *)
 
-let google_gkeonprem_vmware_node_pool ?annotations ?display_name
-    ?timeouts ~location ~name ~vmware_cluster ~config
+let google_gkeonprem_vmware_node_pool ?annotations ?display_name ?id
+    ?project ?timeouts ~location ~name ~vmware_cluster ~config
     ~node_pool_autoscaling __resource_id =
   let __resource_type = "google_gkeonprem_vmware_node_pool" in
   let __resource =
     {
       annotations;
       display_name;
+      id;
       location;
       name;
+      project;
       vmware_cluster;
       config;
       node_pool_autoscaling;

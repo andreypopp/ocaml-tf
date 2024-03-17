@@ -21,6 +21,7 @@ type azurerm_iot_time_series_insights_gen2_environment__timeouts = {
 (** azurerm_iot_time_series_insights_gen2_environment__timeouts *)
 
 type azurerm_iot_time_series_insights_gen2_environment = {
+  id : string option; [@option]  (** id *)
   id_properties : string list;  (** id_properties *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -38,7 +39,7 @@ type azurerm_iot_time_series_insights_gen2_environment = {
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_gen2_environment *)
 
-let azurerm_iot_time_series_insights_gen2_environment ?tags
+let azurerm_iot_time_series_insights_gen2_environment ?id ?tags
     ?warm_store_data_retention_time ?timeouts ~id_properties
     ~location ~name ~resource_group_name ~sku_name ~storage
     __resource_id =
@@ -47,6 +48,7 @@ let azurerm_iot_time_series_insights_gen2_environment ?tags
   in
   let __resource =
     {
+      id;
       id_properties;
       location;
       name;

@@ -281,9 +281,14 @@ type azurerm_api_management = {
   client_certificate_enabled : bool option; [@option]
       (** client_certificate_enabled *)
   gateway_disabled : bool option; [@option]  (** gateway_disabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   min_api_version : string option; [@option]  (** min_api_version *)
   name : string;  (** name *)
+  notification_sender_email : string option; [@option]
+      (** notification_sender_email *)
+  policy : azurerm_api_management__policy list option; [@option]
+      (** policy *)
   public_ip_address_id : string option; [@option]
       (** public_ip_address_id *)
   public_network_access_enabled : bool option; [@option]
@@ -316,21 +321,25 @@ type azurerm_api_management = {
 (** azurerm_api_management *)
 
 let azurerm_api_management ?client_certificate_enabled
-    ?gateway_disabled ?min_api_version ?public_ip_address_id
-    ?public_network_access_enabled ?tags ?virtual_network_type ?zones
-    ?timeouts ~location ~name ~publisher_email ~publisher_name
-    ~resource_group_name ~sku_name ~additional_location ~certificate
-    ~delegation ~hostname_configuration ~identity ~protocols
-    ~security ~sign_in ~sign_up ~tenant_access
-    ~virtual_network_configuration __resource_id =
+    ?gateway_disabled ?id ?min_api_version ?notification_sender_email
+    ?policy ?public_ip_address_id ?public_network_access_enabled
+    ?tags ?virtual_network_type ?zones ?timeouts ~location ~name
+    ~publisher_email ~publisher_name ~resource_group_name ~sku_name
+    ~additional_location ~certificate ~delegation
+    ~hostname_configuration ~identity ~protocols ~security ~sign_in
+    ~sign_up ~tenant_access ~virtual_network_configuration
+    __resource_id =
   let __resource_type = "azurerm_api_management" in
   let __resource =
     {
       client_certificate_enabled;
       gateway_disabled;
+      id;
       location;
       min_api_version;
       name;
+      notification_sender_email;
+      policy;
       public_ip_address_id;
       public_network_access_enabled;
       publisher_email;

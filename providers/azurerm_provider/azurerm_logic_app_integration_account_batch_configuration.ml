@@ -57,6 +57,7 @@ type azurerm_logic_app_integration_account_batch_configuration__timeouts = {
 
 type azurerm_logic_app_integration_account_batch_configuration = {
   batch_group_name : string;  (** batch_group_name *)
+  id : string option; [@option]  (** id *)
   integration_account_name : string;  (** integration_account_name *)
   metadata : (string * string) list option; [@option]
       (** metadata *)
@@ -72,7 +73,7 @@ type azurerm_logic_app_integration_account_batch_configuration = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_batch_configuration *)
 
-let azurerm_logic_app_integration_account_batch_configuration
+let azurerm_logic_app_integration_account_batch_configuration ?id
     ?metadata ?timeouts ~batch_group_name ~integration_account_name
     ~name ~resource_group_name ~release_criteria __resource_id =
   let __resource_type =
@@ -81,6 +82,7 @@ let azurerm_logic_app_integration_account_batch_configuration
   let __resource =
     {
       batch_group_name;
+      id;
       integration_account_name;
       metadata;
       name;

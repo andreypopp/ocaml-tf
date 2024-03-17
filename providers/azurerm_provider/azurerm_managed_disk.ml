@@ -44,14 +44,27 @@ type azurerm_managed_disk = {
   disk_access_id : string option; [@option]  (** disk_access_id *)
   disk_encryption_set_id : string option; [@option]
       (** disk_encryption_set_id *)
+  disk_iops_read_only : float option; [@option]
+      (** disk_iops_read_only *)
+  disk_iops_read_write : float option; [@option]
+      (** disk_iops_read_write *)
+  disk_mbps_read_only : float option; [@option]
+      (** disk_mbps_read_only *)
+  disk_mbps_read_write : float option; [@option]
+      (** disk_mbps_read_write *)
+  disk_size_gb : float option; [@option]  (** disk_size_gb *)
   edge_zone : string option; [@option]  (** edge_zone *)
   gallery_image_reference_id : string option; [@option]
       (** gallery_image_reference_id *)
   hyper_v_generation : string option; [@option]
       (** hyper_v_generation *)
+  id : string option; [@option]  (** id *)
   image_reference_id : string option; [@option]
       (** image_reference_id *)
   location : string;  (** location *)
+  logical_sector_size : float option; [@option]
+      (** logical_sector_size *)
+  max_shares : float option; [@option]  (** max_shares *)
   name : string;  (** name *)
   network_access_policy : string option; [@option]
       (** network_access_policy *)
@@ -70,10 +83,12 @@ type azurerm_managed_disk = {
   security_type : string option; [@option]  (** security_type *)
   source_resource_id : string option; [@option]
       (** source_resource_id *)
+  source_uri : string option; [@option]  (** source_uri *)
   storage_account_id : string option; [@option]
       (** storage_account_id *)
   storage_account_type : string;  (** storage_account_type *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tier : string option; [@option]  (** tier *)
   trusted_launch_enabled : bool option; [@option]
       (** trusted_launch_enabled *)
   upload_size_bytes : float option; [@option]
@@ -87,12 +102,15 @@ type azurerm_managed_disk = {
 (** azurerm_managed_disk *)
 
 let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
-    ?edge_zone ?gallery_image_reference_id ?hyper_v_generation
-    ?image_reference_id ?network_access_policy
-    ?on_demand_bursting_enabled ?optimized_frequent_attach_enabled
-    ?os_type ?performance_plus_enabled ?public_network_access_enabled
+    ?disk_iops_read_only ?disk_iops_read_write ?disk_mbps_read_only
+    ?disk_mbps_read_write ?disk_size_gb ?edge_zone
+    ?gallery_image_reference_id ?hyper_v_generation ?id
+    ?image_reference_id ?logical_sector_size ?max_shares
+    ?network_access_policy ?on_demand_bursting_enabled
+    ?optimized_frequent_attach_enabled ?os_type
+    ?performance_plus_enabled ?public_network_access_enabled
     ?secure_vm_disk_encryption_set_id ?security_type
-    ?source_resource_id ?storage_account_id ?tags
+    ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
     ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
     ~create_option ~location ~name ~resource_group_name
     ~storage_account_type ~encryption_settings __resource_id =
@@ -102,11 +120,19 @@ let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
       create_option;
       disk_access_id;
       disk_encryption_set_id;
+      disk_iops_read_only;
+      disk_iops_read_write;
+      disk_mbps_read_only;
+      disk_mbps_read_write;
+      disk_size_gb;
       edge_zone;
       gallery_image_reference_id;
       hyper_v_generation;
+      id;
       image_reference_id;
       location;
+      logical_sector_size;
+      max_shares;
       name;
       network_access_policy;
       on_demand_bursting_enabled;
@@ -118,9 +144,11 @@ let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
       secure_vm_disk_encryption_set_id;
       security_type;
       source_resource_id;
+      source_uri;
       storage_account_id;
       storage_account_type;
       tags;
+      tier;
       trusted_launch_enabled;
       upload_size_bytes;
       zone;

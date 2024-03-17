@@ -14,10 +14,12 @@ val azurerm_machine_learning_workspace :
   ?description:string ->
   ?friendly_name:string ->
   ?high_business_impact:bool ->
+  ?id:string ->
   ?image_build_compute_name:string ->
   ?kind:string ->
   ?primary_user_assigned_identity:string ->
   ?public_access_behind_virtual_network_enabled:bool ->
+  ?public_network_access_enabled:bool ->
   ?sku_name:string ->
   ?tags:(string * string) list ->
   ?v1_legacy_mode_enabled:bool ->

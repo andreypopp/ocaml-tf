@@ -6,6 +6,7 @@ type azurerm_data_protection_backup_instance_disk__timeouts
 type azurerm_data_protection_backup_instance_disk
 
 val azurerm_data_protection_backup_instance_disk :
+  ?id:string ->
   ?timeouts:azurerm_data_protection_backup_instance_disk__timeouts ->
   backup_policy_id:string ->
   disk_id:string ->

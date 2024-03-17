@@ -7,6 +7,7 @@ type aws_glue_user_defined_function
 
 val aws_glue_user_defined_function :
   ?catalog_id:string ->
+  ?id:string ->
   class_name:string ->
   database_name:string ->
   name:string ->

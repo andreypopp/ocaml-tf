@@ -56,13 +56,20 @@ type aws_macie2_classification_job__user_paused_details = {
       (** job_imminent_expiration_health_event_arn *)
   job_paused_at : string;  (** job_paused_at *)
 }
-[@@deriving yojson_of]
 
 type aws_macie2_classification_job
 
 val aws_macie2_classification_job :
+  ?custom_data_identifier_ids:string list ->
+  ?description:string ->
+  ?id:string ->
   ?initial_run:bool ->
+  ?job_status:string ->
+  ?name:string ->
+  ?name_prefix:string ->
+  ?sampling_percentage:float ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   job_type:string ->
   s3_job_definition:
     aws_macie2_classification_job__s3_job_definition list ->

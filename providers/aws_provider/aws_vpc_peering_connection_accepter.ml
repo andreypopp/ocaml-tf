@@ -27,7 +27,10 @@ type aws_vpc_peering_connection_accepter__timeouts = {
 
 type aws_vpc_peering_connection_accepter = {
   auto_accept : bool option; [@option]  (** auto_accept *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_peering_connection_id : string;
       (** vpc_peering_connection_id *)
   accepter : aws_vpc_peering_connection_accepter__accepter list;
@@ -37,13 +40,16 @@ type aws_vpc_peering_connection_accepter = {
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection_accepter *)
 
-let aws_vpc_peering_connection_accepter ?auto_accept ?tags ?timeouts
-    ~vpc_peering_connection_id ~accepter ~requester __resource_id =
+let aws_vpc_peering_connection_accepter ?auto_accept ?id ?tags
+    ?tags_all ?timeouts ~vpc_peering_connection_id ~accepter
+    ~requester __resource_id =
   let __resource_type = "aws_vpc_peering_connection_accepter" in
   let __resource =
     {
       auto_accept;
+      id;
       tags;
+      tags_all;
       vpc_peering_connection_id;
       accepter;
       requester;

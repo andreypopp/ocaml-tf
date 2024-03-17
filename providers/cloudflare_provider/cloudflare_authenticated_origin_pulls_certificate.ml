@@ -13,6 +13,7 @@ type cloudflare_authenticated_origin_pulls_certificate__timeouts = {
 type cloudflare_authenticated_origin_pulls_certificate = {
   certificate : string;
       (** The public client certificate. **Modifying this attribute will force creation of a new resource.** *)
+  id : string option; [@option]  (** id *)
   private_key : string;
       (** The private key of the client certificate. **Modifying this attribute will force creation of a new resource.** *)
   type_ : string; [@key "type"]
@@ -29,13 +30,13 @@ resource. An uploaded client certificate is required to use Per-Zone
  or Per-Hostname Authenticated Origin Pulls.
  *)
 
-let cloudflare_authenticated_origin_pulls_certificate ?timeouts
+let cloudflare_authenticated_origin_pulls_certificate ?id ?timeouts
     ~certificate ~private_key ~type_ ~zone_id __resource_id =
   let __resource_type =
     "cloudflare_authenticated_origin_pulls_certificate"
   in
   let __resource =
-    { certificate; private_key; type_; zone_id; timeouts }
+    { certificate; id; private_key; type_; zone_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_authenticated_origin_pulls_certificate

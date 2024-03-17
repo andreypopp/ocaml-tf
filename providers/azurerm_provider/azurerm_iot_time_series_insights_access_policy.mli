@@ -7,6 +7,7 @@ type azurerm_iot_time_series_insights_access_policy
 
 val azurerm_iot_time_series_insights_access_policy :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_iot_time_series_insights_access_policy__timeouts ->
   name:string ->
   principal_object_id:string ->

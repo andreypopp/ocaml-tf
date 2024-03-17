@@ -6,6 +6,7 @@ type aws_cognito_user_group
 
 val aws_cognito_user_group :
   ?description:string ->
+  ?id:string ->
   ?precedence:float ->
   ?role_arn:string ->
   name:string ->

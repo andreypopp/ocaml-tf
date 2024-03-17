@@ -6,6 +6,7 @@ type azurerm_network_manager_static_member__timeouts
 type azurerm_network_manager_static_member
 
 val azurerm_network_manager_static_member :
+  ?id:string ->
   ?timeouts:azurerm_network_manager_static_member__timeouts ->
   name:string ->
   network_group_id:string ->

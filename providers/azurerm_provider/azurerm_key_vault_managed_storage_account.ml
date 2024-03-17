@@ -14,6 +14,7 @@ type azurerm_key_vault_managed_storage_account__timeouts = {
 (** azurerm_key_vault_managed_storage_account__timeouts *)
 
 type azurerm_key_vault_managed_storage_account = {
+  id : string option; [@option]  (** id *)
   key_vault_id : string;  (** key_vault_id *)
   name : string;  (** name *)
   regenerate_key_automatically : bool option; [@option]
@@ -29,7 +30,7 @@ type azurerm_key_vault_managed_storage_account = {
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_storage_account *)
 
-let azurerm_key_vault_managed_storage_account
+let azurerm_key_vault_managed_storage_account ?id
     ?regenerate_key_automatically ?regeneration_period ?tags
     ?timeouts ~key_vault_id ~name ~storage_account_id
     ~storage_account_key __resource_id =
@@ -38,6 +39,7 @@ let azurerm_key_vault_managed_storage_account
   in
   let __resource =
     {
+      id;
       key_vault_id;
       name;
       regenerate_key_automatically;

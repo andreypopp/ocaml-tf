@@ -8,6 +8,7 @@ type azurerm_video_analyzer__timeouts
 type azurerm_video_analyzer
 
 val azurerm_video_analyzer :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_video_analyzer__timeouts ->
   location:string ->

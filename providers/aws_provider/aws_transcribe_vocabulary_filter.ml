@@ -5,8 +5,11 @@
 open! Tf.Prelude
 
 type aws_transcribe_vocabulary_filter = {
+  id : string option; [@option]  (** id *)
   language_code : string;  (** language_code *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vocabulary_filter_file_uri : string option; [@option]
       (** vocabulary_filter_file_uri *)
   vocabulary_filter_name : string;  (** vocabulary_filter_name *)
@@ -15,14 +18,16 @@ type aws_transcribe_vocabulary_filter = {
 [@@deriving yojson_of]
 (** aws_transcribe_vocabulary_filter *)
 
-let aws_transcribe_vocabulary_filter ?tags
+let aws_transcribe_vocabulary_filter ?id ?tags ?tags_all
     ?vocabulary_filter_file_uri ?words ~language_code
     ~vocabulary_filter_name __resource_id =
   let __resource_type = "aws_transcribe_vocabulary_filter" in
   let __resource =
     {
+      id;
       language_code;
       tags;
+      tags_all;
       vocabulary_filter_file_uri;
       vocabulary_filter_name;
       words;

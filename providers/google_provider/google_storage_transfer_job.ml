@@ -211,6 +211,11 @@ type google_storage_transfer_job__transfer_spec = {
 type google_storage_transfer_job = {
   description : string;
       (** Unique description to identify the Transfer Job. *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]
+      (** The name of the Transfer Job. *)
+  project : string option; [@option]
+      (** The project in which the resource belongs. If it is not provided, the provider project is used. *)
   status : string option; [@option]
       (** Status of the job. Default: ENABLED. NOTE: The effect of the new job status takes place during a subsequent job run. For example, if you change the job status from ENABLED to DISABLED, and an operation spawned by the transfer is running, the status change would not affect the current operation. *)
   event_stream : google_storage_transfer_job__event_stream list;
@@ -222,12 +227,16 @@ type google_storage_transfer_job = {
 [@@deriving yojson_of]
 (** google_storage_transfer_job *)
 
-let google_storage_transfer_job ?status ~description ~event_stream
-    ~notification_config ~schedule ~transfer_spec __resource_id =
+let google_storage_transfer_job ?id ?name ?project ?status
+    ~description ~event_stream ~notification_config ~schedule
+    ~transfer_spec __resource_id =
   let __resource_type = "google_storage_transfer_job" in
   let __resource =
     {
       description;
+      id;
+      name;
+      project;
       status;
       event_stream;
       notification_config;

@@ -10,6 +10,7 @@ type azurerm_web_pubsub_hub
 
 val azurerm_web_pubsub_hub :
   ?anonymous_connections_enabled:bool ->
+  ?id:string ->
   ?timeouts:azurerm_web_pubsub_hub__timeouts ->
   name:string ->
   web_pubsub_id:string ->

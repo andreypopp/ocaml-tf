@@ -15,6 +15,7 @@ type cloudflare_waiting_room_event = {
       (** ISO 8601 timestamp that marks the end of the event. **Modifying this attribute will force creation of a new resource.** *)
   event_start_time : string;
       (** ISO 8601 timestamp that marks the start of the event. Must occur at least 1 minute before `event_end_time`. **Modifying this attribute will force creation of a new resource.** *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** A unique name to identify the event. Only alphanumeric characters, hyphens, and underscores are allowed. **Modifying this attribute will force creation of a new resource.** *)
   new_users_per_minute : float option; [@option]
@@ -40,7 +41,7 @@ type cloudflare_waiting_room_event = {
 (** Provides a Cloudflare Waiting Room Event resource. *)
 
 let cloudflare_waiting_room_event ?custom_page_html ?description
-    ?disable_session_renewal ?new_users_per_minute
+    ?disable_session_renewal ?id ?new_users_per_minute
     ?prequeue_start_time ?queueing_method ?session_duration
     ?shuffle_at_event_start ?suspended ?total_active_users
     ~event_end_time ~event_start_time ~name ~waiting_room_id ~zone_id
@@ -53,6 +54,7 @@ let cloudflare_waiting_room_event ?custom_page_html ?description
       disable_session_renewal;
       event_end_time;
       event_start_time;
+      id;
       name;
       new_users_per_minute;
       prequeue_start_time;

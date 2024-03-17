@@ -23,13 +23,11 @@ type aws_kendra_index__index_statistics__text_document_statistics = {
   indexed_text_documents_count : float;
       (** indexed_text_documents_count *)
 }
-[@@deriving yojson_of]
 
 type aws_kendra_index__index_statistics__faq_statistics = {
   indexed_question_answers_count : float;
       (** indexed_question_answers_count *)
 }
-[@@deriving yojson_of]
 
 type aws_kendra_index__index_statistics = {
   faq_statistics :
@@ -39,14 +37,15 @@ type aws_kendra_index__index_statistics = {
     aws_kendra_index__index_statistics__text_document_statistics list;
       (** text_document_statistics *)
 }
-[@@deriving yojson_of]
 
 type aws_kendra_index
 
 val aws_kendra_index :
   ?description:string ->
   ?edition:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?user_context_policy:string ->
   ?timeouts:aws_kendra_index__timeouts ->
   name:string ->

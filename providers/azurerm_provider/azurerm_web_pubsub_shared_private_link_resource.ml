@@ -14,6 +14,7 @@ type azurerm_web_pubsub_shared_private_link_resource__timeouts = {
 (** azurerm_web_pubsub_shared_private_link_resource__timeouts *)
 
 type azurerm_web_pubsub_shared_private_link_resource = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   request_message : string option; [@option]  (** request_message *)
   subresource_name : string;  (** subresource_name *)
@@ -25,14 +26,15 @@ type azurerm_web_pubsub_shared_private_link_resource = {
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_shared_private_link_resource *)
 
-let azurerm_web_pubsub_shared_private_link_resource ?request_message
-    ?timeouts ~name ~subresource_name ~target_resource_id
-    ~web_pubsub_id __resource_id =
+let azurerm_web_pubsub_shared_private_link_resource ?id
+    ?request_message ?timeouts ~name ~subresource_name
+    ~target_resource_id ~web_pubsub_id __resource_id =
   let __resource_type =
     "azurerm_web_pubsub_shared_private_link_resource"
   in
   let __resource =
     {
+      id;
       name;
       request_message;
       subresource_name;

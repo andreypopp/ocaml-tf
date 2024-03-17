@@ -19,6 +19,7 @@ type aws_vpc_peering_connection_options__requester = {
 (** aws_vpc_peering_connection_options__requester *)
 
 type aws_vpc_peering_connection_options = {
+  id : string option; [@option]  (** id *)
   vpc_peering_connection_id : string;
       (** vpc_peering_connection_id *)
   accepter : aws_vpc_peering_connection_options__accepter list;
@@ -27,11 +28,11 @@ type aws_vpc_peering_connection_options = {
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection_options *)
 
-let aws_vpc_peering_connection_options ~vpc_peering_connection_id
+let aws_vpc_peering_connection_options ?id ~vpc_peering_connection_id
     ~accepter ~requester __resource_id =
   let __resource_type = "aws_vpc_peering_connection_options" in
   let __resource =
-    { vpc_peering_connection_id; accepter; requester }
+    { id; vpc_peering_connection_id; accepter; requester }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_peering_connection_options __resource);

@@ -8,6 +8,7 @@ val aws_api_gateway_authorizer :
   ?authorizer_credentials:string ->
   ?authorizer_result_ttl_in_seconds:float ->
   ?authorizer_uri:string ->
+  ?id:string ->
   ?identity_source:string ->
   ?identity_validation_expression:string ->
   ?provider_arns:string list ->

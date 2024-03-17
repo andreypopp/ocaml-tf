@@ -16,6 +16,7 @@ val google_iam_workforce_pool_provider :
   ?description:string ->
   ?disabled:bool ->
   ?display_name:string ->
+  ?id:string ->
   ?timeouts:google_iam_workforce_pool_provider__timeouts ->
   location:string ->
   provider_id:string ->

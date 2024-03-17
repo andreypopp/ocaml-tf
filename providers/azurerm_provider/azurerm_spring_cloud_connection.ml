@@ -33,6 +33,7 @@ type azurerm_spring_cloud_connection__timeouts = {
 
 type azurerm_spring_cloud_connection = {
   client_type : string option; [@option]  (** client_type *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_id : string;  (** spring_cloud_id *)
   target_resource_id : string;  (** target_resource_id *)
@@ -45,13 +46,14 @@ type azurerm_spring_cloud_connection = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_connection *)
 
-let azurerm_spring_cloud_connection ?client_type ?vnet_solution
+let azurerm_spring_cloud_connection ?client_type ?id ?vnet_solution
     ?timeouts ~name ~spring_cloud_id ~target_resource_id
     ~authentication ~secret_store __resource_id =
   let __resource_type = "azurerm_spring_cloud_connection" in
   let __resource =
     {
       client_type;
+      id;
       name;
       spring_cloud_id;
       target_resource_id;

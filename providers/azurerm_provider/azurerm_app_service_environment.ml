@@ -25,6 +25,7 @@ type azurerm_app_service_environment = {
       (** allowed_user_ip_cidrs *)
   front_end_scale_factor : float option; [@option]
       (** front_end_scale_factor *)
+  id : string option; [@option]  (** id *)
   internal_load_balancing_mode : string option; [@option]
       (** internal_load_balancing_mode *)
   name : string;  (** name *)
@@ -40,7 +41,7 @@ type azurerm_app_service_environment = {
 (** azurerm_app_service_environment *)
 
 let azurerm_app_service_environment ?allowed_user_ip_cidrs
-    ?front_end_scale_factor ?internal_load_balancing_mode
+    ?front_end_scale_factor ?id ?internal_load_balancing_mode
     ?pricing_tier ?tags ?timeouts ~name ~resource_group_name
     ~subnet_id ~cluster_setting __resource_id =
   let __resource_type = "azurerm_app_service_environment" in
@@ -48,6 +49,7 @@ let azurerm_app_service_environment ?allowed_user_ip_cidrs
     {
       allowed_user_ip_cidrs;
       front_end_scale_factor;
+      id;
       internal_load_balancing_mode;
       name;
       pricing_tier;

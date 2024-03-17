@@ -6,10 +6,14 @@ type google_dialogflow_agent__timeouts
 type google_dialogflow_agent
 
 val google_dialogflow_agent :
+  ?api_version:string ->
   ?avatar_uri:string ->
   ?classification_threshold:float ->
   ?description:string ->
   ?enable_logging:bool ->
+  ?id:string ->
+  ?match_mode:string ->
+  ?project:string ->
   ?supported_language_codes:string list ->
   ?tier:string ->
   ?timeouts:google_dialogflow_agent__timeouts ->

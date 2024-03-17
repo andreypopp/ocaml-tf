@@ -6,6 +6,7 @@ type aws_cloudfront_function
 
 val aws_cloudfront_function :
   ?comment:string ->
+  ?id:string ->
   ?publish:bool ->
   code:string ->
   name:string ->

@@ -11,6 +11,7 @@ val azurerm_site_recovery_vmware_replicated_vm :
   ?default_log_storage_account_id:string ->
   ?default_recovery_disk_type:string ->
   ?default_target_disk_encryption_set_id:string ->
+  ?id:string ->
   ?license_type:string ->
   ?multi_vm_group_name:string ->
   ?target_availability_set_id:string ->

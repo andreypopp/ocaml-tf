@@ -4,4 +4,5 @@ open! Tf.Prelude
 
 type aws_iam_account_alias
 
-val aws_iam_account_alias : account_alias:string -> string -> unit
+val aws_iam_account_alias :
+  ?id:string -> account_alias:string -> string -> unit

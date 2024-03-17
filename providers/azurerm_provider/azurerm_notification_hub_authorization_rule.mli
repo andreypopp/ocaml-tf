@@ -6,6 +6,7 @@ type azurerm_notification_hub_authorization_rule__timeouts
 type azurerm_notification_hub_authorization_rule
 
 val azurerm_notification_hub_authorization_rule :
+  ?id:string ->
   ?listen:bool ->
   ?manage:bool ->
   ?send:bool ->

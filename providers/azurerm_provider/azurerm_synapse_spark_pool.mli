@@ -13,6 +13,7 @@ val azurerm_synapse_spark_pool :
   ?cache_size:float ->
   ?compute_isolation_enabled:bool ->
   ?dynamic_executor_allocation_enabled:bool ->
+  ?id:string ->
   ?max_executors:float ->
   ?min_executors:float ->
   ?node_count:float ->

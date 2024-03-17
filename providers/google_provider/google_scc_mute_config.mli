@@ -7,6 +7,7 @@ type google_scc_mute_config
 
 val google_scc_mute_config :
   ?description:string ->
+  ?id:string ->
   ?timeouts:google_scc_mute_config__timeouts ->
   filter:string ->
   mute_config_id:string ->

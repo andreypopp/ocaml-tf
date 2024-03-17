@@ -20,7 +20,10 @@ type aws_vpc_ipam_resource_discovery__timeouts = {
 
 type aws_vpc_ipam_resource_discovery = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   operating_regions :
     aws_vpc_ipam_resource_discovery__operating_regions list;
   timeouts : aws_vpc_ipam_resource_discovery__timeouts option;
@@ -28,11 +31,11 @@ type aws_vpc_ipam_resource_discovery = {
 [@@deriving yojson_of]
 (** aws_vpc_ipam_resource_discovery *)
 
-let aws_vpc_ipam_resource_discovery ?description ?tags ?timeouts
-    ~operating_regions __resource_id =
+let aws_vpc_ipam_resource_discovery ?description ?id ?tags ?tags_all
+    ?timeouts ~operating_regions __resource_id =
   let __resource_type = "aws_vpc_ipam_resource_discovery" in
   let __resource =
-    { description; tags; operating_regions; timeouts }
+    { description; id; tags; tags_all; operating_regions; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_ipam_resource_discovery __resource);

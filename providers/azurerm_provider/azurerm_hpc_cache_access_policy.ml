@@ -30,6 +30,7 @@ type azurerm_hpc_cache_access_policy__timeouts = {
 
 type azurerm_hpc_cache_access_policy = {
   hpc_cache_id : string;  (** hpc_cache_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   access_rule : azurerm_hpc_cache_access_policy__access_rule list;
   timeouts : azurerm_hpc_cache_access_policy__timeouts option;
@@ -37,10 +38,12 @@ type azurerm_hpc_cache_access_policy = {
 [@@deriving yojson_of]
 (** azurerm_hpc_cache_access_policy *)
 
-let azurerm_hpc_cache_access_policy ?timeouts ~hpc_cache_id ~name
+let azurerm_hpc_cache_access_policy ?id ?timeouts ~hpc_cache_id ~name
     ~access_rule __resource_id =
   let __resource_type = "azurerm_hpc_cache_access_policy" in
-  let __resource = { hpc_cache_id; name; access_rule; timeouts } in
+  let __resource =
+    { hpc_cache_id; id; name; access_rule; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_hpc_cache_access_policy __resource);
   ()

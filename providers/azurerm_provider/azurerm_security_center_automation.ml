@@ -50,6 +50,7 @@ type azurerm_security_center_automation__timeouts = {
 type azurerm_security_center_automation = {
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -62,14 +63,15 @@ type azurerm_security_center_automation = {
 [@@deriving yojson_of]
 (** azurerm_security_center_automation *)
 
-let azurerm_security_center_automation ?description ?enabled ?tags
-    ?timeouts ~location ~name ~resource_group_name ~scopes ~action
-    ~source __resource_id =
+let azurerm_security_center_automation ?description ?enabled ?id
+    ?tags ?timeouts ~location ~name ~resource_group_name ~scopes
+    ~action ~source __resource_id =
   let __resource_type = "azurerm_security_center_automation" in
   let __resource =
     {
       description;
       enabled;
+      id;
       location;
       name;
       resource_group_name;

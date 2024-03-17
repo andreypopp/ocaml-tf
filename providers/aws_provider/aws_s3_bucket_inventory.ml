@@ -57,6 +57,7 @@ type aws_s3_bucket_inventory__schedule = {
 type aws_s3_bucket_inventory = {
   bucket : string;  (** bucket *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   included_object_versions : string;  (** included_object_versions *)
   name : string;  (** name *)
   optional_fields : string list option; [@option]
@@ -68,7 +69,7 @@ type aws_s3_bucket_inventory = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_inventory *)
 
-let aws_s3_bucket_inventory ?enabled ?optional_fields ~bucket
+let aws_s3_bucket_inventory ?enabled ?id ?optional_fields ~bucket
     ~included_object_versions ~name ~destination ~filter ~schedule
     __resource_id =
   let __resource_type = "aws_s3_bucket_inventory" in
@@ -76,6 +77,7 @@ let aws_s3_bucket_inventory ?enabled ?optional_fields ~bucket
     {
       bucket;
       enabled;
+      id;
       included_object_versions;
       name;
       optional_fields;

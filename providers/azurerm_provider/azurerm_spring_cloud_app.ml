@@ -56,7 +56,9 @@ type azurerm_spring_cloud_app__timeouts = {
 (** azurerm_spring_cloud_app__timeouts *)
 
 type azurerm_spring_cloud_app = {
+  addon_json : string option; [@option]  (** addon_json *)
   https_only : bool option; [@option]  (** https_only *)
+  id : string option; [@option]  (** id *)
   is_public : bool option; [@option]  (** is_public *)
   name : string;  (** name *)
   public_endpoint_enabled : bool option; [@option]
@@ -74,14 +76,16 @@ type azurerm_spring_cloud_app = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app *)
 
-let azurerm_spring_cloud_app ?https_only ?is_public
+let azurerm_spring_cloud_app ?addon_json ?https_only ?id ?is_public
     ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
     ~resource_group_name ~service_name ~custom_persistent_disk
     ~identity ~ingress_settings ~persistent_disk __resource_id =
   let __resource_type = "azurerm_spring_cloud_app" in
   let __resource =
     {
+      addon_json;
       https_only;
+      id;
       is_public;
       name;
       public_endpoint_enabled;

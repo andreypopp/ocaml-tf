@@ -15,6 +15,7 @@ type aws_directory_service_radius_settings = {
   authentication_protocol : string;  (** authentication_protocol *)
   directory_id : string;  (** directory_id *)
   display_label : string;  (** display_label *)
+  id : string option; [@option]  (** id *)
   radius_port : float;  (** radius_port *)
   radius_retries : float;  (** radius_retries *)
   radius_servers : string list;  (** radius_servers *)
@@ -27,7 +28,7 @@ type aws_directory_service_radius_settings = {
 [@@deriving yojson_of]
 (** aws_directory_service_radius_settings *)
 
-let aws_directory_service_radius_settings ?use_same_username
+let aws_directory_service_radius_settings ?id ?use_same_username
     ?timeouts ~authentication_protocol ~directory_id ~display_label
     ~radius_port ~radius_retries ~radius_servers ~radius_timeout
     ~shared_secret __resource_id =
@@ -37,6 +38,7 @@ let aws_directory_service_radius_settings ?use_same_username
       authentication_protocol;
       directory_id;
       display_label;
+      id;
       radius_port;
       radius_retries;
       radius_servers;

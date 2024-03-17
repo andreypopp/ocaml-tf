@@ -9,6 +9,7 @@ type azurerm_app_service_connection
 
 val azurerm_app_service_connection :
   ?client_type:string ->
+  ?id:string ->
   ?vnet_solution:string ->
   ?timeouts:azurerm_app_service_connection__timeouts ->
   app_service_id:string ->

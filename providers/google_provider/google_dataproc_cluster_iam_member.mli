@@ -6,6 +6,9 @@ type google_dataproc_cluster_iam_member__condition
 type google_dataproc_cluster_iam_member
 
 val google_dataproc_cluster_iam_member :
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   cluster:string ->
   member:string ->
   role:string ->

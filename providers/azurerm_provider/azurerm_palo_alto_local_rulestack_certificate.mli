@@ -8,6 +8,7 @@ type azurerm_palo_alto_local_rulestack_certificate
 val azurerm_palo_alto_local_rulestack_certificate :
   ?audit_comment:string ->
   ?description:string ->
+  ?id:string ->
   ?key_vault_certificate_id:string ->
   ?self_signed:bool ->
   ?timeouts:azurerm_palo_alto_local_rulestack_certificate__timeouts ->

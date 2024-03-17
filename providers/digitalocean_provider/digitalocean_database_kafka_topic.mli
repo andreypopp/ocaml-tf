@@ -6,6 +6,7 @@ type digitalocean_database_kafka_topic__config
 type digitalocean_database_kafka_topic
 
 val digitalocean_database_kafka_topic :
+  ?id:string ->
   ?partition_count:float ->
   ?replication_factor:float ->
   cluster_id:string ->

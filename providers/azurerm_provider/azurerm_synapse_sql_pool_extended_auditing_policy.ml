@@ -14,6 +14,7 @@ type azurerm_synapse_sql_pool_extended_auditing_policy__timeouts = {
 (** azurerm_synapse_sql_pool_extended_auditing_policy__timeouts *)
 
 type azurerm_synapse_sql_pool_extended_auditing_policy = {
+  id : string option; [@option]  (** id *)
   log_monitoring_enabled : bool option; [@option]
       (** log_monitoring_enabled *)
   retention_in_days : float option; [@option]
@@ -32,7 +33,7 @@ type azurerm_synapse_sql_pool_extended_auditing_policy = {
 [@@deriving yojson_of]
 (** azurerm_synapse_sql_pool_extended_auditing_policy *)
 
-let azurerm_synapse_sql_pool_extended_auditing_policy
+let azurerm_synapse_sql_pool_extended_auditing_policy ?id
     ?log_monitoring_enabled ?retention_in_days
     ?storage_account_access_key
     ?storage_account_access_key_is_secondary ?storage_endpoint
@@ -42,6 +43,7 @@ let azurerm_synapse_sql_pool_extended_auditing_policy
   in
   let __resource =
     {
+      id;
       log_monitoring_enabled;
       retention_in_days;
       sql_pool_id;

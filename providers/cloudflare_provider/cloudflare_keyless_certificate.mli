@@ -7,6 +7,7 @@ type cloudflare_keyless_certificate
 val cloudflare_keyless_certificate :
   ?bundle_method:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?name:string ->
   ?port:float ->
   certificate:string ->

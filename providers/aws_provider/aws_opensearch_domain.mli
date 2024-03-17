@@ -31,7 +31,12 @@ type aws_opensearch_domain__vpc_options
 type aws_opensearch_domain
 
 val aws_opensearch_domain :
+  ?access_policies:string ->
+  ?advanced_options:(string * string) list ->
+  ?engine_version:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_opensearch_domain__timeouts ->
   domain_name:string ->
   advanced_security_options:

@@ -6,6 +6,7 @@ type azurerm_site_recovery_replication_policy__timeouts
 type azurerm_site_recovery_replication_policy
 
 val azurerm_site_recovery_replication_policy :
+  ?id:string ->
   ?timeouts:azurerm_site_recovery_replication_policy__timeouts ->
   application_consistent_snapshot_frequency_in_minutes:float ->
   name:string ->

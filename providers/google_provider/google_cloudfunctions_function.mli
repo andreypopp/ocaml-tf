@@ -16,18 +16,27 @@ val google_cloudfunctions_function :
   ?build_environment_variables:(string * string) list ->
   ?build_worker_pool:string ->
   ?description:string ->
+  ?docker_registry:string ->
   ?docker_repository:string ->
   ?entry_point:string ->
   ?environment_variables:(string * string) list ->
+  ?https_trigger_security_level:string ->
+  ?https_trigger_url:string ->
+  ?id:string ->
   ?ingress_settings:string ->
   ?kms_key_name:string ->
   ?labels:(string * string) list ->
+  ?max_instances:float ->
   ?min_instances:float ->
+  ?project:string ->
+  ?region:string ->
+  ?service_account_email:string ->
   ?source_archive_bucket:string ->
   ?source_archive_object:string ->
   ?timeout:float ->
   ?trigger_http:bool ->
   ?vpc_connector:string ->
+  ?vpc_connector_egress_settings:string ->
   ?timeouts:google_cloudfunctions_function__timeouts ->
   name:string ->
   runtime:string ->

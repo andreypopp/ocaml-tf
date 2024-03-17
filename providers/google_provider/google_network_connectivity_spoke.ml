@@ -61,6 +61,7 @@ type google_network_connectivity_spoke = {
       (** An optional description of the spoke. *)
   hub : string;
       (** Immutable. The URI of the hub that this spoke is attached to. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional labels in key:value format. For more information about labels, see [Requirements for labels](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements).
 
@@ -69,6 +70,8 @@ Please refer to the field `effective_labels` for all of the labels present on th
   location : string;  (** The location for the resource *)
   name : string;
       (** Immutable. The name of the spoke. Spoke names must be unique. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   linked_interconnect_attachments :
     google_network_connectivity_spoke__linked_interconnect_attachments
     list;
@@ -84,8 +87,9 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_network_connectivity_spoke *)
 
-let google_network_connectivity_spoke ?description ?labels ?timeouts
-    ~hub ~location ~name ~linked_interconnect_attachments
+let google_network_connectivity_spoke ?description ?id ?labels
+    ?project ?timeouts ~hub ~location ~name
+    ~linked_interconnect_attachments
     ~linked_router_appliance_instances ~linked_vpc_network
     ~linked_vpn_tunnels __resource_id =
   let __resource_type = "google_network_connectivity_spoke" in
@@ -93,9 +97,11 @@ let google_network_connectivity_spoke ?description ?labels ?timeouts
     {
       description;
       hub;
+      id;
       labels;
       location;
       name;
+      project;
       linked_interconnect_attachments;
       linked_router_appliance_instances;
       linked_vpc_network;

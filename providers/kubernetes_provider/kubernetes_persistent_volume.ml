@@ -484,6 +484,7 @@ type kubernetes_persistent_volume__timeouts = {
 (** kubernetes_persistent_volume__timeouts *)
 
 type kubernetes_persistent_volume = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_persistent_volume__metadata list;
   spec : kubernetes_persistent_volume__spec list;
   timeouts : kubernetes_persistent_volume__timeouts option;
@@ -491,10 +492,10 @@ type kubernetes_persistent_volume = {
 [@@deriving yojson_of]
 (** kubernetes_persistent_volume *)
 
-let kubernetes_persistent_volume ?timeouts ~metadata ~spec
+let kubernetes_persistent_volume ?id ?timeouts ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_persistent_volume" in
-  let __resource = { metadata; spec; timeouts } in
+  let __resource = { id; metadata; spec; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_persistent_volume __resource);
   ()

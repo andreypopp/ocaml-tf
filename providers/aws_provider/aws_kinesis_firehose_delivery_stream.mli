@@ -148,7 +148,12 @@ type aws_kinesis_firehose_delivery_stream__timeouts
 type aws_kinesis_firehose_delivery_stream
 
 val aws_kinesis_firehose_delivery_stream :
+  ?arn:string ->
+  ?destination_id:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?version_id:string ->
   ?timeouts:aws_kinesis_firehose_delivery_stream__timeouts ->
   destination:string ->
   name:string ->

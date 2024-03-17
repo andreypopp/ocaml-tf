@@ -293,6 +293,7 @@ type azurerm_monitor_data_collection_rule = {
   data_collection_endpoint_id : string option; [@option]
       (** data_collection_endpoint_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   kind : string option; [@option]  (** kind *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -312,7 +313,7 @@ type azurerm_monitor_data_collection_rule = {
 (** azurerm_monitor_data_collection_rule *)
 
 let azurerm_monitor_data_collection_rule ?data_collection_endpoint_id
-    ?description ?kind ?tags ?timeouts ~location ~name
+    ?description ?id ?kind ?tags ?timeouts ~location ~name
     ~resource_group_name ~data_flow ~data_sources ~destinations
     ~identity ~stream_declaration __resource_id =
   let __resource_type = "azurerm_monitor_data_collection_rule" in
@@ -320,6 +321,7 @@ let azurerm_monitor_data_collection_rule ?data_collection_endpoint_id
     {
       data_collection_endpoint_id;
       description;
+      id;
       kind;
       location;
       name;

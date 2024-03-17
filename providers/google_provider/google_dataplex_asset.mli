@@ -14,7 +14,6 @@ type google_dataplex_asset__discovery_status__stats = {
   filesets : float;  (** filesets *)
   tables : float;  (** tables *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_asset__discovery_status = {
   last_run_duration : string;  (** last_run_duration *)
@@ -25,28 +24,27 @@ type google_dataplex_asset__discovery_status = {
       (** stats *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_asset__resource_status = {
   message : string;  (** message *)
   state : string;  (** state *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_asset__security_status = {
   message : string;  (** message *)
   state : string;  (** state *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_asset
 
 val google_dataplex_asset :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_dataplex_asset__timeouts ->
   dataplex_zone:string ->
   lake:string ->

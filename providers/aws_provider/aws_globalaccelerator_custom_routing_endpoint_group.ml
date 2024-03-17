@@ -26,6 +26,9 @@ type aws_globalaccelerator_custom_routing_endpoint_group__timeouts = {
 (** aws_globalaccelerator_custom_routing_endpoint_group__timeouts *)
 
 type aws_globalaccelerator_custom_routing_endpoint_group = {
+  endpoint_group_region : string option; [@option]
+      (** endpoint_group_region *)
+  id : string option; [@option]  (** id *)
   listener_arn : string;  (** listener_arn *)
   destination_configuration :
     aws_globalaccelerator_custom_routing_endpoint_group__destination_configuration
@@ -40,14 +43,17 @@ type aws_globalaccelerator_custom_routing_endpoint_group = {
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_endpoint_group *)
 
-let aws_globalaccelerator_custom_routing_endpoint_group ?timeouts
-    ~listener_arn ~destination_configuration ~endpoint_configuration
-    __resource_id =
+let aws_globalaccelerator_custom_routing_endpoint_group
+    ?endpoint_group_region ?id ?timeouts ~listener_arn
+    ~destination_configuration ~endpoint_configuration __resource_id
+    =
   let __resource_type =
     "aws_globalaccelerator_custom_routing_endpoint_group"
   in
   let __resource =
     {
+      endpoint_group_region;
+      id;
       listener_arn;
       destination_configuration;
       endpoint_configuration;

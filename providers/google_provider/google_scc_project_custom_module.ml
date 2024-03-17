@@ -104,6 +104,8 @@ returned by this custom module. The display name must be between 1 and
 characters or underscores only. *)
   enablement_state : string;
       (** The enablement state of the custom module. Possible values: [ENABLED, DISABLED] *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   custom_config :
     google_scc_project_custom_module__custom_config list;
   timeouts : google_scc_project_custom_module__timeouts option;
@@ -111,11 +113,18 @@ characters or underscores only. *)
 [@@deriving yojson_of]
 (** google_scc_project_custom_module *)
 
-let google_scc_project_custom_module ?timeouts ~display_name
-    ~enablement_state ~custom_config __resource_id =
+let google_scc_project_custom_module ?id ?project ?timeouts
+    ~display_name ~enablement_state ~custom_config __resource_id =
   let __resource_type = "google_scc_project_custom_module" in
   let __resource =
-    { display_name; enablement_state; custom_config; timeouts }
+    {
+      display_name;
+      enablement_state;
+      id;
+      project;
+      custom_config;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_scc_project_custom_module __resource);

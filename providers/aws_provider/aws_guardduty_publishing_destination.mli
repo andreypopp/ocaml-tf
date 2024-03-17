@@ -6,6 +6,7 @@ type aws_guardduty_publishing_destination
 
 val aws_guardduty_publishing_destination :
   ?destination_type:string ->
+  ?id:string ->
   destination_arn:string ->
   detector_id:string ->
   kms_key_arn:string ->

@@ -7,6 +7,7 @@ type aws_s3control_access_grant__grantee
 type aws_s3control_access_grant
 
 val aws_s3control_access_grant :
+  ?account_id:string ->
   ?s3_prefix_type:string ->
   ?tags:(string * string) list ->
   access_grants_location_id:string ->

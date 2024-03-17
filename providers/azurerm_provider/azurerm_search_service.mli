@@ -9,7 +9,6 @@ type azurerm_search_service__query_keys = {
   key : string;  (** key *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type azurerm_search_service
 
@@ -18,6 +17,7 @@ val azurerm_search_service :
   ?authentication_failure_mode:string ->
   ?customer_managed_key_enforcement_enabled:bool ->
   ?hosting_mode:string ->
+  ?id:string ->
   ?local_authentication_enabled:bool ->
   ?partition_count:float ->
   ?public_network_access_enabled:bool ->

@@ -17,23 +17,28 @@ type google_compute_global_network_endpoint = {
 This can only be specified when network_endpoint_type of the NEG is INTERNET_FQDN_PORT. *)
   global_network_endpoint_group : string;
       (** The global network endpoint group this endpoint is part of. *)
+  id : string option; [@option]  (** id *)
   ip_address : string option; [@option]
       (** IPv4 address external endpoint. *)
   port : float;  (** Port number of the external endpoint. *)
+  project : string option; [@option]  (** project *)
   timeouts : google_compute_global_network_endpoint__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_global_network_endpoint *)
 
-let google_compute_global_network_endpoint ?fqdn ?ip_address
-    ?timeouts ~global_network_endpoint_group ~port __resource_id =
+let google_compute_global_network_endpoint ?fqdn ?id ?ip_address
+    ?project ?timeouts ~global_network_endpoint_group ~port
+    __resource_id =
   let __resource_type = "google_compute_global_network_endpoint" in
   let __resource =
     {
       fqdn;
       global_network_endpoint_group;
+      id;
       ip_address;
       port;
+      project;
       timeouts;
     }
   in

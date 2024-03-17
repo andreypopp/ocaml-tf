@@ -10,6 +10,7 @@ val azurerm_kusto_eventgrid_data_connection :
   ?data_format:string ->
   ?database_routing_type:string ->
   ?eventgrid_resource_id:string ->
+  ?id:string ->
   ?managed_identity_resource_id:string ->
   ?mapping_rule_name:string ->
   ?skip_first_record:bool ->

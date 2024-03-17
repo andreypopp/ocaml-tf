@@ -14,6 +14,7 @@ type azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts = {
 (** azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts *)
 
 type azurerm_kubernetes_cluster_trusted_access_role_binding = {
+  id : string option; [@option]  (** id *)
   kubernetes_cluster_id : string;  (** kubernetes_cluster_id *)
   name : string;  (** name *)
   roles : string list;  (** roles *)
@@ -25,14 +26,15 @@ type azurerm_kubernetes_cluster_trusted_access_role_binding = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_trusted_access_role_binding *)
 
-let azurerm_kubernetes_cluster_trusted_access_role_binding ?timeouts
-    ~kubernetes_cluster_id ~name ~roles ~source_resource_id
+let azurerm_kubernetes_cluster_trusted_access_role_binding ?id
+    ?timeouts ~kubernetes_cluster_id ~name ~roles ~source_resource_id
     __resource_id =
   let __resource_type =
     "azurerm_kubernetes_cluster_trusted_access_role_binding"
   in
   let __resource =
     {
+      id;
       kubernetes_cluster_id;
       name;
       roles;

@@ -12,6 +12,7 @@ type google_tags_location_tag_binding__timeouts = {
 (** google_tags_location_tag_binding__timeouts *)
 
 type google_tags_location_tag_binding = {
+  id : string option; [@option]  (** id *)
   location : string option; [@option]
       (** The geographic location where the transfer config should reside.
 Examples: US, EU, asia-northeast1. The default value is US. *)
@@ -24,10 +25,10 @@ Examples: US, EU, asia-northeast1. The default value is US. *)
 [@@deriving yojson_of]
 (** google_tags_location_tag_binding *)
 
-let google_tags_location_tag_binding ?location ?timeouts ~parent
+let google_tags_location_tag_binding ?id ?location ?timeouts ~parent
     ~tag_value __resource_id =
   let __resource_type = "google_tags_location_tag_binding" in
-  let __resource = { location; parent; tag_value; timeouts } in
+  let __resource = { id; location; parent; tag_value; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_location_tag_binding __resource);
   ()

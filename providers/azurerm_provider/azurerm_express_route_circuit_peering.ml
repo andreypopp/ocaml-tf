@@ -54,7 +54,9 @@ type azurerm_express_route_circuit_peering__timeouts = {
 type azurerm_express_route_circuit_peering = {
   express_route_circuit_name : string;
       (** express_route_circuit_name *)
+  id : string option; [@option]  (** id *)
   ipv4_enabled : bool option; [@option]  (** ipv4_enabled *)
+  peer_asn : float option; [@option]  (** peer_asn *)
   peering_type : string;  (** peering_type *)
   primary_peer_address_prefix : string option; [@option]
       (** primary_peer_address_prefix *)
@@ -73,7 +75,7 @@ type azurerm_express_route_circuit_peering = {
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit_peering *)
 
-let azurerm_express_route_circuit_peering ?ipv4_enabled
+let azurerm_express_route_circuit_peering ?id ?ipv4_enabled ?peer_asn
     ?primary_peer_address_prefix ?route_filter_id
     ?secondary_peer_address_prefix ?shared_key ?timeouts
     ~express_route_circuit_name ~peering_type ~resource_group_name
@@ -82,7 +84,9 @@ let azurerm_express_route_circuit_peering ?ipv4_enabled
   let __resource =
     {
       express_route_circuit_name;
+      id;
       ipv4_enabled;
+      peer_asn;
       peering_type;
       primary_peer_address_prefix;
       resource_group_name;

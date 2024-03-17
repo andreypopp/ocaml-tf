@@ -11,8 +11,11 @@ type aws_medialive_input__vpc
 type aws_medialive_input
 
 val aws_medialive_input :
+  ?id:string ->
   ?input_security_groups:string list ->
+  ?role_arn:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_medialive_input__timeouts ->
   name:string ->
   type_:string ->

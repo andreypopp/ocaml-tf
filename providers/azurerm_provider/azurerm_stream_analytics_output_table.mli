@@ -7,6 +7,7 @@ type azurerm_stream_analytics_output_table
 
 val azurerm_stream_analytics_output_table :
   ?columns_to_remove:string list ->
+  ?id:string ->
   ?timeouts:azurerm_stream_analytics_output_table__timeouts ->
   batch_size:float ->
   name:string ->

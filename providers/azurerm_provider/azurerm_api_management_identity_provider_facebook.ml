@@ -17,6 +17,7 @@ type azurerm_api_management_identity_provider_facebook = {
   api_management_name : string;  (** api_management_name *)
   app_id : string;  (** app_id *)
   app_secret : string;  (** app_secret *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts :
     azurerm_api_management_identity_provider_facebook__timeouts
@@ -25,7 +26,7 @@ type azurerm_api_management_identity_provider_facebook = {
 [@@deriving yojson_of]
 (** azurerm_api_management_identity_provider_facebook *)
 
-let azurerm_api_management_identity_provider_facebook ?timeouts
+let azurerm_api_management_identity_provider_facebook ?id ?timeouts
     ~api_management_name ~app_id ~app_secret ~resource_group_name
     __resource_id =
   let __resource_type =
@@ -36,6 +37,7 @@ let azurerm_api_management_identity_provider_facebook ?timeouts
       api_management_name;
       app_id;
       app_secret;
+      id;
       resource_group_name;
       timeouts;
     }

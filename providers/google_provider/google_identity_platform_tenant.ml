@@ -23,14 +23,16 @@ are not able to manage its users. *)
       (** Human friendly display name of the tenant. *)
   enable_email_link_signin : bool option; [@option]
       (** Whether to enable email link user authentication. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   timeouts : google_identity_platform_tenant__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_identity_platform_tenant *)
 
 let google_identity_platform_tenant ?allow_password_signup
-    ?disable_auth ?enable_email_link_signin ?timeouts ~display_name
-    __resource_id =
+    ?disable_auth ?enable_email_link_signin ?id ?project ?timeouts
+    ~display_name __resource_id =
   let __resource_type = "google_identity_platform_tenant" in
   let __resource =
     {
@@ -38,6 +40,8 @@ let google_identity_platform_tenant ?allow_password_signup
       disable_auth;
       display_name;
       enable_email_link_signin;
+      id;
+      project;
       timeouts;
     }
   in

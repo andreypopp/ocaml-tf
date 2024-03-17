@@ -8,6 +8,7 @@ type azurerm_data_factory_credential_user_managed_identity
 val azurerm_data_factory_credential_user_managed_identity :
   ?annotations:string list ->
   ?description:string ->
+  ?id:string ->
   ?timeouts:
     azurerm_data_factory_credential_user_managed_identity__timeouts ->
   data_factory_id:string ->

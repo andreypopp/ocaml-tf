@@ -9,6 +9,7 @@ val aws_glue_dev_endpoint :
   ?extra_jars_s3_path:string ->
   ?extra_python_libs_s3_path:string ->
   ?glue_version:string ->
+  ?id:string ->
   ?number_of_nodes:float ->
   ?number_of_workers:float ->
   ?public_key:string ->
@@ -17,6 +18,7 @@ val aws_glue_dev_endpoint :
   ?security_group_ids:string list ->
   ?subnet_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?worker_type:string ->
   name:string ->
   role_arn:string ->

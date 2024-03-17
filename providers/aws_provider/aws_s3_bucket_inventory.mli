@@ -13,6 +13,7 @@ type aws_s3_bucket_inventory
 
 val aws_s3_bucket_inventory :
   ?enabled:bool ->
+  ?id:string ->
   ?optional_fields:string list ->
   bucket:string ->
   included_object_versions:string ->

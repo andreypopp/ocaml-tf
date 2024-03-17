@@ -13,12 +13,15 @@ val aws_ami :
   ?deprecation_time:string ->
   ?description:string ->
   ?ena_support:bool ->
+  ?id:string ->
+  ?image_location:string ->
   ?imds_support:string ->
   ?kernel_id:string ->
   ?ramdisk_id:string ->
   ?root_device_name:string ->
   ?sriov_net_support:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?tpm_support:string ->
   ?virtualization_type:string ->
   ?timeouts:aws_ami__timeouts ->

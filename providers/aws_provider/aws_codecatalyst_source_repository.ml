@@ -14,6 +14,7 @@ type aws_codecatalyst_source_repository__timeouts = {
 
 type aws_codecatalyst_source_repository = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   project_name : string;  (** project_name *)
   space_name : string;  (** space_name *)
@@ -22,11 +23,11 @@ type aws_codecatalyst_source_repository = {
 [@@deriving yojson_of]
 (** aws_codecatalyst_source_repository *)
 
-let aws_codecatalyst_source_repository ?description ?timeouts ~name
-    ~project_name ~space_name __resource_id =
+let aws_codecatalyst_source_repository ?description ?id ?timeouts
+    ~name ~project_name ~space_name __resource_id =
   let __resource_type = "aws_codecatalyst_source_repository" in
   let __resource =
-    { description; name; project_name; space_name; timeouts }
+    { description; id; name; project_name; space_name; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecatalyst_source_repository __resource);

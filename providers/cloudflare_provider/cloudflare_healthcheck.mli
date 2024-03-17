@@ -8,13 +8,16 @@ type cloudflare_healthcheck
 
 val cloudflare_healthcheck :
   ?allow_insecure:bool ->
+  ?check_regions:string list ->
   ?consecutive_fails:float ->
   ?consecutive_successes:float ->
   ?description:string ->
   ?expected_body:string ->
   ?expected_codes:string list ->
   ?follow_redirects:bool ->
+  ?id:string ->
   ?interval:float ->
+  ?method_:string ->
   ?path:string ->
   ?port:float ->
   ?retries:float ->

@@ -11,15 +11,20 @@ type azurerm_mysql_flexible_server__timeouts
 type azurerm_mysql_flexible_server
 
 val azurerm_mysql_flexible_server :
+  ?administrator_login:string ->
   ?administrator_password:string ->
   ?backup_retention_days:float ->
   ?create_mode:string ->
   ?delegated_subnet_id:string ->
   ?geo_redundant_backup_enabled:bool ->
+  ?id:string ->
   ?point_in_time_restore_time_in_utc:string ->
   ?private_dns_zone_id:string ->
+  ?replication_role:string ->
+  ?sku_name:string ->
   ?source_server_id:string ->
   ?tags:(string * string) list ->
+  ?version:string ->
   ?zone:string ->
   ?timeouts:azurerm_mysql_flexible_server__timeouts ->
   location:string ->

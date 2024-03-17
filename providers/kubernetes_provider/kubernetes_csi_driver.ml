@@ -35,15 +35,16 @@ type kubernetes_csi_driver__spec = {
 (** Spec of the CSIDriver *)
 
 type kubernetes_csi_driver = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_csi_driver__metadata list;
   spec : kubernetes_csi_driver__spec list;
 }
 [@@deriving yojson_of]
 (** kubernetes_csi_driver *)
 
-let kubernetes_csi_driver ~metadata ~spec __resource_id =
+let kubernetes_csi_driver ?id ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_csi_driver" in
-  let __resource = { metadata; spec } in
+  let __resource = { id; metadata; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_csi_driver __resource);
   ()

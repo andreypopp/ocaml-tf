@@ -54,6 +54,7 @@ type google_dialogflow_cx_flow
 
 val google_dialogflow_cx_flow :
   ?description:string ->
+  ?id:string ->
   ?is_default_start_flow:bool ->
   ?language_code:string ->
   ?parent:string ->

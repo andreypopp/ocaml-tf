@@ -6,6 +6,7 @@ type azurerm_static_site_custom_domain__timeouts
 type azurerm_static_site_custom_domain
 
 val azurerm_static_site_custom_domain :
+  ?id:string ->
   ?validation_type:string ->
   ?timeouts:azurerm_static_site_custom_domain__timeouts ->
   domain_name:string ->

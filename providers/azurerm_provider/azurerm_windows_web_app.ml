@@ -740,6 +740,9 @@ type azurerm_windows_web_app = {
   ftp_publish_basic_authentication_enabled : bool option; [@option]
       (** ftp_publish_basic_authentication_enabled *)
   https_only : bool option; [@option]  (** https_only *)
+  id : string option; [@option]  (** id *)
+  key_vault_reference_identity_id : string option; [@option]
+      (** key_vault_reference_identity_id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -752,6 +755,8 @@ type azurerm_windows_web_app = {
   webdeploy_publish_basic_authentication_enabled : bool option;
       [@option]
       (** webdeploy_publish_basic_authentication_enabled *)
+  zip_deploy_file : string option; [@option]
+      (** The local path and filename of the Zip packaged application to deploy to this Windows Web App. **Note:** Using this value requires either `WEBSITE_RUN_FROM_PACKAGE=1` or `SCM_DO_BUILD_DURING_DEPLOYMENT=true` to be set on the App in `app_settings`. *)
   auth_settings : azurerm_windows_web_app__auth_settings list;
   auth_settings_v2 : azurerm_windows_web_app__auth_settings_v2 list;
   backup : azurerm_windows_web_app__backup list;
@@ -770,10 +775,11 @@ type azurerm_windows_web_app = {
 let azurerm_windows_web_app ?app_settings ?client_affinity_enabled
     ?client_certificate_enabled ?client_certificate_exclusion_paths
     ?client_certificate_mode ?enabled
-    ?ftp_publish_basic_authentication_enabled ?https_only
-    ?public_network_access_enabled ?tags ?virtual_network_subnet_id
-    ?webdeploy_publish_basic_authentication_enabled ?timeouts
-    ~location ~name ~resource_group_name ~service_plan_id
+    ?ftp_publish_basic_authentication_enabled ?https_only ?id
+    ?key_vault_reference_identity_id ?public_network_access_enabled
+    ?tags ?virtual_network_subnet_id
+    ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
+    ?timeouts ~location ~name ~resource_group_name ~service_plan_id
     ~auth_settings ~auth_settings_v2 ~backup ~connection_string
     ~identity ~logs ~site_config ~sticky_settings ~storage_account
     __resource_id =
@@ -788,6 +794,8 @@ let azurerm_windows_web_app ?app_settings ?client_affinity_enabled
       enabled;
       ftp_publish_basic_authentication_enabled;
       https_only;
+      id;
+      key_vault_reference_identity_id;
       location;
       name;
       public_network_access_enabled;
@@ -796,6 +804,7 @@ let azurerm_windows_web_app ?app_settings ?client_affinity_enabled
       tags;
       virtual_network_subnet_id;
       webdeploy_publish_basic_authentication_enabled;
+      zip_deploy_file;
       auth_settings;
       auth_settings_v2;
       backup;

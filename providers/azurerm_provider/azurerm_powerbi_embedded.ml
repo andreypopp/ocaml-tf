@@ -15,6 +15,7 @@ type azurerm_powerbi_embedded__timeouts = {
 
 type azurerm_powerbi_embedded = {
   administrators : string list;  (** administrators *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   mode : string option; [@option]  (** mode *)
   name : string;  (** name *)
@@ -26,12 +27,14 @@ type azurerm_powerbi_embedded = {
 [@@deriving yojson_of]
 (** azurerm_powerbi_embedded *)
 
-let azurerm_powerbi_embedded ?mode ?tags ?timeouts ~administrators
-    ~location ~name ~resource_group_name ~sku_name __resource_id =
+let azurerm_powerbi_embedded ?id ?mode ?tags ?timeouts
+    ~administrators ~location ~name ~resource_group_name ~sku_name
+    __resource_id =
   let __resource_type = "azurerm_powerbi_embedded" in
   let __resource =
     {
       administrators;
+      id;
       location;
       mode;
       name;

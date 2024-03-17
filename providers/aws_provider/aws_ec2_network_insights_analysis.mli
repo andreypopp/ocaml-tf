@@ -6,42 +6,36 @@ type aws_ec2_network_insights_analysis__alternate_path_hints = {
   component_arn : string;  (** component_arn *)
   component_id : string;  (** component_id *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__vpn_gateway = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__vpn_connection = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__vpc_peering_connection = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__vpc_endpoint = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__vpc = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__transit_gateway_route_table_route = {
   attachment_id : string;  (** attachment_id *)
@@ -52,62 +46,53 @@ type aws_ec2_network_insights_analysis__explanations__transit_gateway_route_tabl
   route_origin : string;  (** route_origin *)
   state : string;  (** state *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__transit_gateway_route_table = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__transit_gateway_attachment = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__transit_gateway = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__subnet_route_table = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__subnet = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__source_vpc = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__security_groups = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__security_group_rule__port_range = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__security_group_rule = {
   cidr : string;  (** cidr *)
@@ -120,14 +105,12 @@ type aws_ec2_network_insights_analysis__explanations__security_group_rule = {
   protocol : string;  (** protocol *)
   security_group_id : string;  (** security_group_id *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__security_group = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__route_table_route = {
   destination_cidr : string;  (** destination_cidr *)
@@ -144,123 +127,105 @@ type aws_ec2_network_insights_analysis__explanations__route_table_route = {
   vpc_peering_connection_id : string;
       (** vpc_peering_connection_id *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__route_table = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__prefix_list = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__port_ranges = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__network_interface = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__nat_gateway = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__load_balancer_target_groups = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__load_balancer_target_group = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__internet_gateway = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__ingress_route_table = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__elastic_load_balancer_listener = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__destination_vpc = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__destination = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__customer_gateway = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__component = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__classic_load_balancer_listener = {
   instance_port : float;  (** instance_port *)
   load_balancer_port : float;  (** load_balancer_port *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__attached_to = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__acl_rule__port_range = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__acl_rule = {
   cidr : string;  (** cidr *)
@@ -273,14 +238,12 @@ type aws_ec2_network_insights_analysis__explanations__acl_rule = {
   rule_action : string;  (** rule_action *)
   rule_number : float;  (** rule_number *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations__acl = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__explanations = {
   acl : aws_ec2_network_insights_analysis__explanations__acl list;
@@ -421,14 +384,12 @@ type aws_ec2_network_insights_analysis__explanations = {
     aws_ec2_network_insights_analysis__explanations__vpn_gateway list;
       (** vpn_gateway *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__vpc = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__transit_gateway_route_table_route = {
   attachment_id : string;  (** attachment_id *)
@@ -439,34 +400,29 @@ type aws_ec2_network_insights_analysis__forward_path_components__transit_gateway
   route_origin : string;  (** route_origin *)
   state : string;  (** state *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__transit_gateway = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__subnet = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__source_vpc = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__security_group_rule__port_range = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__security_group_rule = {
   cidr : string;  (** cidr *)
@@ -479,7 +435,6 @@ type aws_ec2_network_insights_analysis__forward_path_components__security_group_
   protocol : string;  (** protocol *)
   security_group_id : string;  (** security_group_id *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__route_table_route = {
   destination_cidr : string;  (** destination_cidr *)
@@ -496,19 +451,16 @@ type aws_ec2_network_insights_analysis__forward_path_components__route_table_rou
   vpc_peering_connection_id : string;
       (** vpc_peering_connection_id *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__outbound_header__source_port_ranges = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__outbound_header__destination_port_ranges = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__outbound_header = {
   destination_addresses : string list;  (** destination_addresses *)
@@ -523,19 +475,16 @@ type aws_ec2_network_insights_analysis__forward_path_components__outbound_header
     list;
       (** source_port_ranges *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__inbound_header__source_port_ranges = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__inbound_header__destination_port_ranges = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__inbound_header = {
   destination_addresses : string list;  (** destination_addresses *)
@@ -550,35 +499,30 @@ type aws_ec2_network_insights_analysis__forward_path_components__inbound_header 
     list;
       (** source_port_ranges *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__destination_vpc = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__component = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__attached_to = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__additional_details__component = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__additional_details = {
   additional_detail_type : string;  (** additional_detail_type *)
@@ -587,13 +531,11 @@ type aws_ec2_network_insights_analysis__forward_path_components__additional_deta
     list;
       (** component *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__acl_rule__port_range = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components__acl_rule = {
   cidr : string;  (** cidr *)
@@ -606,7 +548,6 @@ type aws_ec2_network_insights_analysis__forward_path_components__acl_rule = {
   rule_action : string;  (** rule_action *)
   rule_number : float;  (** rule_number *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__forward_path_components = {
   acl_rule :
@@ -667,14 +608,12 @@ type aws_ec2_network_insights_analysis__forward_path_components = {
     list;
       (** vpc *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__vpc = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__transit_gateway_route_table_route = {
   attachment_id : string;  (** attachment_id *)
@@ -685,34 +624,29 @@ type aws_ec2_network_insights_analysis__return_path_components__transit_gateway_
   route_origin : string;  (** route_origin *)
   state : string;  (** state *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__transit_gateway = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__subnet = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__source_vpc = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__security_group_rule__port_range = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__security_group_rule = {
   cidr : string;  (** cidr *)
@@ -725,7 +659,6 @@ type aws_ec2_network_insights_analysis__return_path_components__security_group_r
   protocol : string;  (** protocol *)
   security_group_id : string;  (** security_group_id *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__route_table_route = {
   destination_cidr : string;  (** destination_cidr *)
@@ -742,19 +675,16 @@ type aws_ec2_network_insights_analysis__return_path_components__route_table_rout
   vpc_peering_connection_id : string;
       (** vpc_peering_connection_id *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__outbound_header__source_port_ranges = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__outbound_header__destination_port_ranges = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__outbound_header = {
   destination_addresses : string list;  (** destination_addresses *)
@@ -769,19 +699,16 @@ type aws_ec2_network_insights_analysis__return_path_components__outbound_header 
     list;
       (** source_port_ranges *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__inbound_header__source_port_ranges = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__inbound_header__destination_port_ranges = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__inbound_header = {
   destination_addresses : string list;  (** destination_addresses *)
@@ -796,35 +723,30 @@ type aws_ec2_network_insights_analysis__return_path_components__inbound_header =
     list;
       (** source_port_ranges *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__destination_vpc = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__component = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__attached_to = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__additional_details__component = {
   arn : string;  (** arn *)
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__additional_details = {
   additional_detail_type : string;  (** additional_detail_type *)
@@ -833,13 +755,11 @@ type aws_ec2_network_insights_analysis__return_path_components__additional_detai
     list;
       (** component *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__acl_rule__port_range = {
   from : float;  (** from *)
   to_ : float; [@key "to"]  (** to *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components__acl_rule = {
   cidr : string;  (** cidr *)
@@ -852,7 +772,6 @@ type aws_ec2_network_insights_analysis__return_path_components__acl_rule = {
   rule_action : string;  (** rule_action *)
   rule_number : float;  (** rule_number *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis__return_path_components = {
   acl_rule :
@@ -913,13 +832,14 @@ type aws_ec2_network_insights_analysis__return_path_components = {
     list;
       (** vpc *)
 }
-[@@deriving yojson_of]
 
 type aws_ec2_network_insights_analysis
 
 val aws_ec2_network_insights_analysis :
   ?filter_in_arns:string list ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?wait_for_completion:bool ->
   network_insights_path_id:string ->
   string ->

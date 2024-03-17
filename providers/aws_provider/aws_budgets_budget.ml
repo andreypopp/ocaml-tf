@@ -69,8 +69,16 @@ type aws_budgets_budget__planned_limit = {
 (** aws_budgets_budget__planned_limit *)
 
 type aws_budgets_budget = {
+  account_id : string option; [@option]  (** account_id *)
   budget_type : string;  (** budget_type *)
+  id : string option; [@option]  (** id *)
+  limit_amount : string option; [@option]  (** limit_amount *)
+  limit_unit : string option; [@option]  (** limit_unit *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   time_period_end : string option; [@option]  (** time_period_end *)
+  time_period_start : string option; [@option]
+      (** time_period_start *)
   time_unit : string;  (** time_unit *)
   auto_adjust_data : aws_budgets_budget__auto_adjust_data list;
   cost_filter : aws_budgets_budget__cost_filter list;
@@ -81,14 +89,22 @@ type aws_budgets_budget = {
 [@@deriving yojson_of]
 (** aws_budgets_budget *)
 
-let aws_budgets_budget ?time_period_end ~budget_type ~time_unit
-    ~auto_adjust_data ~cost_filter ~cost_types ~notification
-    ~planned_limit __resource_id =
+let aws_budgets_budget ?account_id ?id ?limit_amount ?limit_unit
+    ?name ?name_prefix ?time_period_end ?time_period_start
+    ~budget_type ~time_unit ~auto_adjust_data ~cost_filter
+    ~cost_types ~notification ~planned_limit __resource_id =
   let __resource_type = "aws_budgets_budget" in
   let __resource =
     {
+      account_id;
       budget_type;
+      id;
+      limit_amount;
+      limit_unit;
+      name;
+      name_prefix;
       time_period_end;
+      time_period_start;
       time_unit;
       auto_adjust_data;
       cost_filter;

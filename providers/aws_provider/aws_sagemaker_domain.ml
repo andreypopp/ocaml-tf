@@ -506,9 +506,12 @@ type aws_sagemaker_domain = {
       (** app_security_group_management *)
   auth_mode : string;  (** auth_mode *)
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
   subnet_ids : string list;  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_id : string;  (** vpc_id *)
   default_space_settings :
     aws_sagemaker_domain__default_space_settings list;
@@ -521,10 +524,10 @@ type aws_sagemaker_domain = {
 (** aws_sagemaker_domain *)
 
 let aws_sagemaker_domain ?app_network_access_type
-    ?app_security_group_management ?kms_key_id ?tags ~auth_mode
-    ~domain_name ~subnet_ids ~vpc_id ~default_space_settings
-    ~default_user_settings ~domain_settings ~retention_policy
-    __resource_id =
+    ?app_security_group_management ?id ?kms_key_id ?tags ?tags_all
+    ~auth_mode ~domain_name ~subnet_ids ~vpc_id
+    ~default_space_settings ~default_user_settings ~domain_settings
+    ~retention_policy __resource_id =
   let __resource_type = "aws_sagemaker_domain" in
   let __resource =
     {
@@ -532,9 +535,11 @@ let aws_sagemaker_domain ?app_network_access_type
       app_security_group_management;
       auth_mode;
       domain_name;
+      id;
       kms_key_id;
       subnet_ids;
       tags;
+      tags_all;
       vpc_id;
       default_space_settings;
       default_user_settings;

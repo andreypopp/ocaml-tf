@@ -12,8 +12,12 @@ type aws_cloudwatch_metric_stream__timeouts
 type aws_cloudwatch_metric_stream
 
 val aws_cloudwatch_metric_stream :
+  ?id:string ->
   ?include_linked_accounts_metrics:bool ->
+  ?name:string ->
+  ?name_prefix:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_cloudwatch_metric_stream__timeouts ->
   firehose_arn:string ->
   output_format:string ->

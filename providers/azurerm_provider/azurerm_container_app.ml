@@ -396,6 +396,7 @@ type azurerm_container_app__timeouts = {
 type azurerm_container_app = {
   container_app_environment_id : string;
       (** The ID of the Container App Environment to host this Container App. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name for this Container App. *)
   resource_group_name : string;  (** resource_group_name *)
   revision_mode : string;  (** revision_mode *)
@@ -413,7 +414,7 @@ type azurerm_container_app = {
 [@@deriving yojson_of]
 (** azurerm_container_app *)
 
-let azurerm_container_app ?tags ?workload_profile_name ?timeouts
+let azurerm_container_app ?id ?tags ?workload_profile_name ?timeouts
     ~container_app_environment_id ~name ~resource_group_name
     ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
     ~template __resource_id =
@@ -421,6 +422,7 @@ let azurerm_container_app ?tags ?workload_profile_name ?timeouts
   let __resource =
     {
       container_app_environment_id;
+      id;
       name;
       resource_group_name;
       revision_mode;

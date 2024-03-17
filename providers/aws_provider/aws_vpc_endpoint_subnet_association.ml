@@ -12,6 +12,7 @@ type aws_vpc_endpoint_subnet_association__timeouts = {
 (** aws_vpc_endpoint_subnet_association__timeouts *)
 
 type aws_vpc_endpoint_subnet_association = {
+  id : string option; [@option]  (** id *)
   subnet_id : string;  (** subnet_id *)
   vpc_endpoint_id : string;  (** vpc_endpoint_id *)
   timeouts : aws_vpc_endpoint_subnet_association__timeouts option;
@@ -19,10 +20,10 @@ type aws_vpc_endpoint_subnet_association = {
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_subnet_association *)
 
-let aws_vpc_endpoint_subnet_association ?timeouts ~subnet_id
+let aws_vpc_endpoint_subnet_association ?id ?timeouts ~subnet_id
     ~vpc_endpoint_id __resource_id =
   let __resource_type = "aws_vpc_endpoint_subnet_association" in
-  let __resource = { subnet_id; vpc_endpoint_id; timeouts } in
+  let __resource = { id; subnet_id; vpc_endpoint_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpc_endpoint_subnet_association __resource);
   ()

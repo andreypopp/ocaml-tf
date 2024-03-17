@@ -20,6 +20,7 @@ type azurerm_data_factory_linked_service_mysql = {
   connection_string : string;  (** connection_string *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -32,9 +33,9 @@ type azurerm_data_factory_linked_service_mysql = {
 (** azurerm_data_factory_linked_service_mysql *)
 
 let azurerm_data_factory_linked_service_mysql ?additional_properties
-    ?annotations ?description ?integration_runtime_name ?parameters
-    ?timeouts ~connection_string ~data_factory_id ~name __resource_id
-    =
+    ?annotations ?description ?id ?integration_runtime_name
+    ?parameters ?timeouts ~connection_string ~data_factory_id ~name
+    __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_service_mysql"
   in
@@ -45,6 +46,7 @@ let azurerm_data_factory_linked_service_mysql ?additional_properties
       connection_string;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

@@ -17,6 +17,7 @@ type azurerm_hpc_cache_blob_target = {
   access_policy_name : string option; [@option]
       (** access_policy_name *)
   cache_name : string;  (** cache_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   namespace_path : string;  (** namespace_path *)
   resource_group_name : string;  (** resource_group_name *)
@@ -26,7 +27,7 @@ type azurerm_hpc_cache_blob_target = {
 [@@deriving yojson_of]
 (** azurerm_hpc_cache_blob_target *)
 
-let azurerm_hpc_cache_blob_target ?access_policy_name ?timeouts
+let azurerm_hpc_cache_blob_target ?access_policy_name ?id ?timeouts
     ~cache_name ~name ~namespace_path ~resource_group_name
     ~storage_container_id __resource_id =
   let __resource_type = "azurerm_hpc_cache_blob_target" in
@@ -34,6 +35,7 @@ let azurerm_hpc_cache_blob_target ?access_policy_name ?timeouts
     {
       access_policy_name;
       cache_name;
+      id;
       name;
       namespace_path;
       resource_group_name;

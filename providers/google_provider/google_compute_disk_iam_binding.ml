@@ -13,18 +13,23 @@ type google_compute_disk_iam_binding__condition = {
 (** google_compute_disk_iam_binding__condition *)
 
 type google_compute_disk_iam_binding = {
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   name : string;  (** name *)
+  project : string option; [@option]  (** project *)
   role : string;  (** role *)
+  zone : string option; [@option]  (** zone *)
   condition : google_compute_disk_iam_binding__condition list;
 }
 [@@deriving yojson_of]
 (** google_compute_disk_iam_binding *)
 
-let google_compute_disk_iam_binding ~members ~name ~role ~condition
-    __resource_id =
+let google_compute_disk_iam_binding ?id ?project ?zone ~members ~name
+    ~role ~condition __resource_id =
   let __resource_type = "google_compute_disk_iam_binding" in
-  let __resource = { members; name; role; condition } in
+  let __resource =
+    { id; members; name; project; role; zone; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_disk_iam_binding __resource);
   ()

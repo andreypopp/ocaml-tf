@@ -6,6 +6,7 @@ type azurerm_logic_app_integration_account__timeouts
 type azurerm_logic_app_integration_account
 
 val azurerm_logic_app_integration_account :
+  ?id:string ->
   ?integration_service_environment_id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_logic_app_integration_account__timeouts ->

@@ -47,7 +47,9 @@ type aws_transfer_workflow
 
 val aws_transfer_workflow :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   on_exception_steps:aws_transfer_workflow__on_exception_steps list ->
   steps:aws_transfer_workflow__steps list ->
   string ->

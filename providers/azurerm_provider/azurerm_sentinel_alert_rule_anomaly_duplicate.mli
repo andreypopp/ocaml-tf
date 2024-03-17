@@ -16,11 +16,11 @@ type azurerm_sentinel_alert_rule_anomaly_duplicate__required_data_connector = {
   connector_id : string;  (** connector_id *)
   data_types : string list;  (** data_types *)
 }
-[@@deriving yojson_of]
 
 type azurerm_sentinel_alert_rule_anomaly_duplicate
 
 val azurerm_sentinel_alert_rule_anomaly_duplicate :
+  ?id:string ->
   ?timeouts:azurerm_sentinel_alert_rule_anomaly_duplicate__timeouts ->
   built_in_rule_id:string ->
   display_name:string ->

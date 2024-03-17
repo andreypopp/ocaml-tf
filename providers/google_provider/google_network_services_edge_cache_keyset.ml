@@ -51,6 +51,7 @@ You must specify 'public_keys' or 'validation_shared_keys' (or both). The keys i
 type google_network_services_edge_cache_keyset = {
   description : string option; [@option]
       (** A human-readable description of the resource. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Set of label tags associated with the EdgeCache resource.
 
@@ -60,6 +61,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Name of the resource; provided by the client when the resource is created.
 The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which means the first character must be a letter,
 and all following characters must be a dash, underscore, letter or digit. *)
+  project : string option; [@option]  (** project *)
   public_key :
     google_network_services_edge_cache_keyset__public_key list;
   timeouts :
@@ -71,17 +73,19 @@ and all following characters must be a dash, underscore, letter or digit. *)
 [@@deriving yojson_of]
 (** google_network_services_edge_cache_keyset *)
 
-let google_network_services_edge_cache_keyset ?description ?labels
-    ?timeouts ~name ~public_key ~validation_shared_keys __resource_id
-    =
+let google_network_services_edge_cache_keyset ?description ?id
+    ?labels ?project ?timeouts ~name ~public_key
+    ~validation_shared_keys __resource_id =
   let __resource_type =
     "google_network_services_edge_cache_keyset"
   in
   let __resource =
     {
       description;
+      id;
       labels;
       name;
+      project;
       public_key;
       timeouts;
       validation_shared_keys;

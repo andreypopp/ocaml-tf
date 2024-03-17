@@ -25,6 +25,7 @@ type azurerm_stream_analytics_output_servicebus_queue__timeouts = {
 type azurerm_stream_analytics_output_servicebus_queue = {
   authentication_mode : string option; [@option]
       (** authentication_mode *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   property_columns : string list option; [@option]
       (** property_columns *)
@@ -49,9 +50,10 @@ type azurerm_stream_analytics_output_servicebus_queue = {
 (** azurerm_stream_analytics_output_servicebus_queue *)
 
 let azurerm_stream_analytics_output_servicebus_queue
-    ?authentication_mode ?property_columns ?shared_access_policy_key
-    ?shared_access_policy_name ?system_property_columns ?timeouts
-    ~name ~queue_name ~resource_group_name ~servicebus_namespace
+    ?authentication_mode ?id ?property_columns
+    ?shared_access_policy_key ?shared_access_policy_name
+    ?system_property_columns ?timeouts ~name ~queue_name
+    ~resource_group_name ~servicebus_namespace
     ~stream_analytics_job_name ~serialization __resource_id =
   let __resource_type =
     "azurerm_stream_analytics_output_servicebus_queue"
@@ -59,6 +61,7 @@ let azurerm_stream_analytics_output_servicebus_queue
   let __resource =
     {
       authentication_mode;
+      id;
       name;
       property_columns;
       queue_name;

@@ -14,6 +14,7 @@ type azurerm_disk_pool__timeouts = {
 (** azurerm_disk_pool__timeouts *)
 
 type azurerm_disk_pool = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -26,11 +27,12 @@ type azurerm_disk_pool = {
 [@@deriving yojson_of]
 (** azurerm_disk_pool *)
 
-let azurerm_disk_pool ?tags ?timeouts ~location ~name
+let azurerm_disk_pool ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku_name ~subnet_id ~zones __resource_id =
   let __resource_type = "azurerm_disk_pool" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

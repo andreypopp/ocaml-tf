@@ -24,10 +24,12 @@ type google_bigquery_datapolicy_data_policy = {
       (** User-assigned (human readable) ID of the data policy that needs to be unique within a project. Used as {dataPolicyId} in part of the resource name. *)
   data_policy_type : string;
       (** The enrollment level of the service. Possible values: [COLUMN_LEVEL_SECURITY_POLICY, DATA_MASKING_POLICY] *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The name of the location of the data policy. *)
   policy_tag : string;
       (** Policy tag resource name, in the format of projects/{project_number}/locations/{locationId}/taxonomies/{taxonomyId}/policyTags/{policyTag_id}. *)
+  project : string option; [@option]  (** project *)
   data_masking_policy :
     google_bigquery_datapolicy_data_policy__data_masking_policy list;
   timeouts : google_bigquery_datapolicy_data_policy__timeouts option;
@@ -35,16 +37,18 @@ type google_bigquery_datapolicy_data_policy = {
 [@@deriving yojson_of]
 (** google_bigquery_datapolicy_data_policy *)
 
-let google_bigquery_datapolicy_data_policy ?timeouts ~data_policy_id
-    ~data_policy_type ~location ~policy_tag ~data_masking_policy
-    __resource_id =
+let google_bigquery_datapolicy_data_policy ?id ?project ?timeouts
+    ~data_policy_id ~data_policy_type ~location ~policy_tag
+    ~data_masking_policy __resource_id =
   let __resource_type = "google_bigquery_datapolicy_data_policy" in
   let __resource =
     {
       data_policy_id;
       data_policy_type;
+      id;
       location;
       policy_tag;
+      project;
       data_masking_policy;
       timeouts;
     }

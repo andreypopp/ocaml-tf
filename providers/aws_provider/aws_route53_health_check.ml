@@ -14,7 +14,11 @@ type aws_route53_health_check = {
   cloudwatch_alarm_region : string option; [@option]
       (** cloudwatch_alarm_region *)
   disabled : bool option; [@option]  (** disabled *)
+  enable_sni : bool option; [@option]  (** enable_sni *)
+  failure_threshold : float option; [@option]
+      (** failure_threshold *)
   fqdn : string option; [@option]  (** fqdn *)
+  id : string option; [@option]  (** id *)
   insufficient_data_health_status : string option; [@option]
       (** insufficient_data_health_status *)
   invert_healthcheck : bool option; [@option]
@@ -30,6 +34,8 @@ type aws_route53_health_check = {
       (** routing_control_arn *)
   search_string : string option; [@option]  (** search_string *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
@@ -37,11 +43,11 @@ type aws_route53_health_check = {
 
 let aws_route53_health_check ?child_health_threshold
     ?child_healthchecks ?cloudwatch_alarm_name
-    ?cloudwatch_alarm_region ?disabled ?fqdn
-    ?insufficient_data_health_status ?invert_healthcheck ?ip_address
-    ?measure_latency ?port ?reference_name ?regions ?request_interval
-    ?resource_path ?routing_control_arn ?search_string ?tags ~type_
-    __resource_id =
+    ?cloudwatch_alarm_region ?disabled ?enable_sni ?failure_threshold
+    ?fqdn ?id ?insufficient_data_health_status ?invert_healthcheck
+    ?ip_address ?measure_latency ?port ?reference_name ?regions
+    ?request_interval ?resource_path ?routing_control_arn
+    ?search_string ?tags ?tags_all ~type_ __resource_id =
   let __resource_type = "aws_route53_health_check" in
   let __resource =
     {
@@ -50,7 +56,10 @@ let aws_route53_health_check ?child_health_threshold
       cloudwatch_alarm_name;
       cloudwatch_alarm_region;
       disabled;
+      enable_sni;
+      failure_threshold;
       fqdn;
+      id;
       insufficient_data_health_status;
       invert_healthcheck;
       ip_address;
@@ -63,6 +72,7 @@ let aws_route53_health_check ?child_health_threshold
       routing_control_arn;
       search_string;
       tags;
+      tags_all;
       type_;
     }
   in

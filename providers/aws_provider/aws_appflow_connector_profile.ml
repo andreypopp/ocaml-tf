@@ -561,6 +561,8 @@ type aws_appflow_connector_profile = {
   connection_mode : string;  (** connection_mode *)
   connector_label : string option; [@option]  (** connector_label *)
   connector_type : string;  (** connector_type *)
+  id : string option; [@option]  (** id *)
+  kms_arn : string option; [@option]  (** kms_arn *)
   name : string;  (** name *)
   connector_profile_config :
     aws_appflow_connector_profile__connector_profile_config list;
@@ -568,14 +570,17 @@ type aws_appflow_connector_profile = {
 [@@deriving yojson_of]
 (** aws_appflow_connector_profile *)
 
-let aws_appflow_connector_profile ?connector_label ~connection_mode
-    ~connector_type ~name ~connector_profile_config __resource_id =
+let aws_appflow_connector_profile ?connector_label ?id ?kms_arn
+    ~connection_mode ~connector_type ~name ~connector_profile_config
+    __resource_id =
   let __resource_type = "aws_appflow_connector_profile" in
   let __resource =
     {
       connection_mode;
       connector_label;
       connector_type;
+      id;
+      kms_arn;
       name;
       connector_profile_config;
     }

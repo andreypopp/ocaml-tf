@@ -15,6 +15,7 @@ type azurerm_iothub_enrichment__timeouts = {
 
 type azurerm_iothub_enrichment = {
   endpoint_names : string list;  (** endpoint_names *)
+  id : string option; [@option]  (** id *)
   iothub_name : string;  (** iothub_name *)
   key : string;  (** key *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,12 +25,13 @@ type azurerm_iothub_enrichment = {
 [@@deriving yojson_of]
 (** azurerm_iothub_enrichment *)
 
-let azurerm_iothub_enrichment ?timeouts ~endpoint_names ~iothub_name
-    ~key ~resource_group_name ~value __resource_id =
+let azurerm_iothub_enrichment ?id ?timeouts ~endpoint_names
+    ~iothub_name ~key ~resource_group_name ~value __resource_id =
   let __resource_type = "azurerm_iothub_enrichment" in
   let __resource =
     {
       endpoint_names;
+      id;
       iothub_name;
       key;
       resource_group_name;

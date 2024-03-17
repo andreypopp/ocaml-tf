@@ -7,6 +7,7 @@ type azurerm_container_registry_scope_map
 
 val azurerm_container_registry_scope_map :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_container_registry_scope_map__timeouts ->
   actions:string list ->
   container_registry_name:string ->

@@ -13,6 +13,7 @@ val azurerm_data_factory_linked_service_cosmosdb :
   ?connection_string:string ->
   ?database:string ->
   ?description:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?parameters:(string * string) list ->
   ?timeouts:azurerm_data_factory_linked_service_cosmosdb__timeouts ->

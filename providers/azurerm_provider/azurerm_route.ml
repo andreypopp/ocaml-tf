@@ -15,6 +15,7 @@ type azurerm_route__timeouts = {
 
 type azurerm_route = {
   address_prefix : string;  (** address_prefix *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   next_hop_in_ip_address : string option; [@option]
       (** next_hop_in_ip_address *)
@@ -26,13 +27,14 @@ type azurerm_route = {
 [@@deriving yojson_of]
 (** azurerm_route *)
 
-let azurerm_route ?next_hop_in_ip_address ?timeouts ~address_prefix
-    ~name ~next_hop_type ~resource_group_name ~route_table_name
-    __resource_id =
+let azurerm_route ?id ?next_hop_in_ip_address ?timeouts
+    ~address_prefix ~name ~next_hop_type ~resource_group_name
+    ~route_table_name __resource_id =
   let __resource_type = "azurerm_route" in
   let __resource =
     {
       address_prefix;
+      id;
       name;
       next_hop_in_ip_address;
       next_hop_type;

@@ -9,9 +9,12 @@ type azurerm_network_interface
 val azurerm_network_interface :
   ?auxiliary_mode:string ->
   ?auxiliary_sku:string ->
+  ?dns_servers:string list ->
   ?edge_zone:string ->
   ?enable_accelerated_networking:bool ->
   ?enable_ip_forwarding:bool ->
+  ?id:string ->
+  ?internal_dns_name_label:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_network_interface__timeouts ->
   location:string ->

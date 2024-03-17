@@ -6,6 +6,7 @@ type azurerm_video_analyzer_edge_module__timeouts
 type azurerm_video_analyzer_edge_module
 
 val azurerm_video_analyzer_edge_module :
+  ?id:string ->
   ?timeouts:azurerm_video_analyzer_edge_module__timeouts ->
   name:string ->
   resource_group_name:string ->

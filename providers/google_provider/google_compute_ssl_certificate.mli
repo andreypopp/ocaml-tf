@@ -7,6 +7,10 @@ type google_compute_ssl_certificate
 
 val google_compute_ssl_certificate :
   ?description:string ->
+  ?id:string ->
+  ?name:string ->
+  ?name_prefix:string ->
+  ?project:string ->
   ?timeouts:google_compute_ssl_certificate__timeouts ->
   certificate:string ->
   private_key:string ->

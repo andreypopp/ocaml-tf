@@ -11,6 +11,7 @@ type aws_ec2_capacity_reservation = {
   end_date_type : string option; [@option]  (** end_date_type *)
   ephemeral_storage : bool option; [@option]
       (** ephemeral_storage *)
+  id : string option; [@option]  (** id *)
   instance_count : float;  (** instance_count *)
   instance_match_criteria : string option; [@option]
       (** instance_match_criteria *)
@@ -20,14 +21,16 @@ type aws_ec2_capacity_reservation = {
   placement_group_arn : string option; [@option]
       (** placement_group_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   tenancy : string option; [@option]  (** tenancy *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_capacity_reservation *)
 
 let aws_ec2_capacity_reservation ?ebs_optimized ?end_date
-    ?end_date_type ?ephemeral_storage ?instance_match_criteria
-    ?outpost_arn ?placement_group_arn ?tags ?tenancy
+    ?end_date_type ?ephemeral_storage ?id ?instance_match_criteria
+    ?outpost_arn ?placement_group_arn ?tags ?tags_all ?tenancy
     ~availability_zone ~instance_count ~instance_platform
     ~instance_type __resource_id =
   let __resource_type = "aws_ec2_capacity_reservation" in
@@ -38,6 +41,7 @@ let aws_ec2_capacity_reservation ?ebs_optimized ?end_date
       end_date;
       end_date_type;
       ephemeral_storage;
+      id;
       instance_count;
       instance_match_criteria;
       instance_platform;
@@ -45,6 +49,7 @@ let aws_ec2_capacity_reservation ?ebs_optimized ?end_date
       outpost_arn;
       placement_group_arn;
       tags;
+      tags_all;
       tenancy;
     }
   in

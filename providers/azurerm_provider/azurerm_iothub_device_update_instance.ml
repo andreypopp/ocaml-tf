@@ -24,6 +24,7 @@ type azurerm_iothub_device_update_instance = {
   device_update_account_id : string;  (** device_update_account_id *)
   diagnostic_enabled : bool option; [@option]
       (** diagnostic_enabled *)
+  id : string option; [@option]  (** id *)
   iothub_id : string;  (** iothub_id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -35,14 +36,15 @@ type azurerm_iothub_device_update_instance = {
 [@@deriving yojson_of]
 (** azurerm_iothub_device_update_instance *)
 
-let azurerm_iothub_device_update_instance ?diagnostic_enabled ?tags
-    ?timeouts ~device_update_account_id ~iothub_id ~name
+let azurerm_iothub_device_update_instance ?diagnostic_enabled ?id
+    ?tags ?timeouts ~device_update_account_id ~iothub_id ~name
     ~diagnostic_storage_account __resource_id =
   let __resource_type = "azurerm_iothub_device_update_instance" in
   let __resource =
     {
       device_update_account_id;
       diagnostic_enabled;
+      id;
       iothub_id;
       name;
       tags;

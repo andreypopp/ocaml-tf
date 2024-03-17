@@ -13,6 +13,7 @@ type azurerm_marketplace_agreement__timeouts = {
 (** azurerm_marketplace_agreement__timeouts *)
 
 type azurerm_marketplace_agreement = {
+  id : string option; [@option]  (** id *)
   offer : string;  (** offer *)
   plan : string;  (** plan *)
   publisher : string;  (** publisher *)
@@ -21,10 +22,10 @@ type azurerm_marketplace_agreement = {
 [@@deriving yojson_of]
 (** azurerm_marketplace_agreement *)
 
-let azurerm_marketplace_agreement ?timeouts ~offer ~plan ~publisher
-    __resource_id =
+let azurerm_marketplace_agreement ?id ?timeouts ~offer ~plan
+    ~publisher __resource_id =
   let __resource_type = "azurerm_marketplace_agreement" in
-  let __resource = { offer; plan; publisher; timeouts } in
+  let __resource = { id; offer; plan; publisher; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_marketplace_agreement __resource);
   ()

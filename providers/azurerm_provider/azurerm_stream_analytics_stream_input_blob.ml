@@ -23,6 +23,7 @@ type azurerm_stream_analytics_stream_input_blob__timeouts = {
 
 type azurerm_stream_analytics_stream_input_blob = {
   date_format : string;  (** date_format *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   path_pattern : string;  (** path_pattern *)
   resource_group_name : string;  (** resource_group_name *)
@@ -40,17 +41,18 @@ type azurerm_stream_analytics_stream_input_blob = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_stream_input_blob *)
 
-let azurerm_stream_analytics_stream_input_blob ?timeouts ~date_format
-    ~name ~path_pattern ~resource_group_name ~storage_account_key
-    ~storage_account_name ~storage_container_name
-    ~stream_analytics_job_name ~time_format ~serialization
-    __resource_id =
+let azurerm_stream_analytics_stream_input_blob ?id ?timeouts
+    ~date_format ~name ~path_pattern ~resource_group_name
+    ~storage_account_key ~storage_account_name
+    ~storage_container_name ~stream_analytics_job_name ~time_format
+    ~serialization __resource_id =
   let __resource_type =
     "azurerm_stream_analytics_stream_input_blob"
   in
   let __resource =
     {
       date_format;
+      id;
       name;
       path_pattern;
       resource_group_name;

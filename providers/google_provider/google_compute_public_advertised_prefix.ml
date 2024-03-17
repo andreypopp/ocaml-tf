@@ -16,6 +16,7 @@ type google_compute_public_advertised_prefix = {
       (** An optional description of this resource. *)
   dns_verification_ip : string;
       (** The IPv4 address to be used for reverse DNS verification. *)
+  id : string option; [@option]  (** id *)
   ip_cidr_range : string;
       (** The IPv4 address range, in CIDR format, represented by this public advertised prefix. *)
   name : string;
@@ -25,20 +26,24 @@ long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?'
 which means the first character must be a lowercase letter, and all
 following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   timeouts : google_compute_public_advertised_prefix__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_public_advertised_prefix *)
 
-let google_compute_public_advertised_prefix ?description ?timeouts
-    ~dns_verification_ip ~ip_cidr_range ~name __resource_id =
+let google_compute_public_advertised_prefix ?description ?id ?project
+    ?timeouts ~dns_verification_ip ~ip_cidr_range ~name __resource_id
+    =
   let __resource_type = "google_compute_public_advertised_prefix" in
   let __resource =
     {
       description;
       dns_verification_ip;
+      id;
       ip_cidr_range;
       name;
+      project;
       timeouts;
     }
   in

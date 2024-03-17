@@ -8,6 +8,7 @@ type azurerm_sentinel_watchlist
 val azurerm_sentinel_watchlist :
   ?default_duration:string ->
   ?description:string ->
+  ?id:string ->
   ?labels:string list ->
   ?timeouts:azurerm_sentinel_watchlist__timeouts ->
   display_name:string ->

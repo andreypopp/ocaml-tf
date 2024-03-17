@@ -14,6 +14,7 @@ type azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association__t
 
 type azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association = {
   certificate_id : string;  (** certificate_id *)
+  id : string option; [@option]  (** id *)
   timeouts :
     azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association__timeouts
     option;
@@ -22,11 +23,11 @@ type azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association = 
 (** azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association *)
 
 let azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association
-    ?timeouts ~certificate_id __resource_id =
+    ?id ?timeouts ~certificate_id __resource_id =
   let __resource_type =
     "azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association"
   in
-  let __resource = { certificate_id; timeouts } in
+  let __resource = { certificate_id; id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association
        __resource);

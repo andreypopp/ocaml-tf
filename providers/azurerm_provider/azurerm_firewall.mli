@@ -9,10 +9,13 @@ type azurerm_firewall__virtual_hub
 type azurerm_firewall
 
 val azurerm_firewall :
+  ?dns_proxy_enabled:bool ->
   ?dns_servers:string list ->
   ?firewall_policy_id:string ->
+  ?id:string ->
   ?private_ip_ranges:string list ->
   ?tags:(string * string) list ->
+  ?threat_intel_mode:string ->
   ?zones:string list ->
   ?timeouts:azurerm_firewall__timeouts ->
   location:string ->

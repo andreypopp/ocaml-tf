@@ -11,6 +11,9 @@ type aws_elastictranscoder_pipeline
 
 val aws_elastictranscoder_pipeline :
   ?aws_kms_key_arn:string ->
+  ?id:string ->
+  ?name:string ->
+  ?output_bucket:string ->
   input_bucket:string ->
   role:string ->
   content_config:aws_elastictranscoder_pipeline__content_config list ->

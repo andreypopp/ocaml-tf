@@ -18,6 +18,7 @@ type azurerm_data_protection_backup_instance_postgresql = {
   database_credential_key_vault_secret_id : string option; [@option]
       (** database_credential_key_vault_secret_id *)
   database_id : string;  (** database_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   vault_id : string;  (** vault_id *)
@@ -29,7 +30,7 @@ type azurerm_data_protection_backup_instance_postgresql = {
 (** azurerm_data_protection_backup_instance_postgresql *)
 
 let azurerm_data_protection_backup_instance_postgresql
-    ?database_credential_key_vault_secret_id ?timeouts
+    ?database_credential_key_vault_secret_id ?id ?timeouts
     ~backup_policy_id ~database_id ~location ~name ~vault_id
     __resource_id =
   let __resource_type =
@@ -40,6 +41,7 @@ let azurerm_data_protection_backup_instance_postgresql
       backup_policy_id;
       database_credential_key_vault_secret_id;
       database_id;
+      id;
       location;
       name;
       vault_id;

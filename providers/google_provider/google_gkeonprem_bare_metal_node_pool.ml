@@ -101,8 +101,10 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
       (** The cluster this node pool belongs to. *)
   display_name : string option; [@option]
       (** The display name for the Bare Metal Node Pool. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the resource. *)
   name : string;  (** The bare metal node pool name. *)
+  project : string option; [@option]  (** project *)
   node_pool_config :
     google_gkeonprem_bare_metal_node_pool__node_pool_config list;
   timeouts : google_gkeonprem_bare_metal_node_pool__timeouts option;
@@ -111,16 +113,18 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 (** google_gkeonprem_bare_metal_node_pool *)
 
 let google_gkeonprem_bare_metal_node_pool ?annotations ?display_name
-    ?timeouts ~bare_metal_cluster ~location ~name ~node_pool_config
-    __resource_id =
+    ?id ?project ?timeouts ~bare_metal_cluster ~location ~name
+    ~node_pool_config __resource_id =
   let __resource_type = "google_gkeonprem_bare_metal_node_pool" in
   let __resource =
     {
       annotations;
       bare_metal_cluster;
       display_name;
+      id;
       location;
       name;
+      project;
       node_pool_config;
       timeouts;
     }

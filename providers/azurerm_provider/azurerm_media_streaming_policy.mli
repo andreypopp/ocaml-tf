@@ -43,6 +43,7 @@ type azurerm_media_streaming_policy
 
 val azurerm_media_streaming_policy :
   ?default_content_key_policy_name:string ->
+  ?id:string ->
   ?timeouts:azurerm_media_streaming_policy__timeouts ->
   media_services_account_name:string ->
   name:string ->

@@ -6,6 +6,7 @@ type google_organization_iam_audit_config__audit_log_config
 type google_organization_iam_audit_config
 
 val google_organization_iam_audit_config :
+  ?id:string ->
   org_id:string ->
   service:string ->
   audit_log_config:

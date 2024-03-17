@@ -7,6 +7,7 @@ type azurerm_kubernetes_fleet_manager__timeouts
 type azurerm_kubernetes_fleet_manager
 
 val azurerm_kubernetes_fleet_manager :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_kubernetes_fleet_manager__timeouts ->
   location:string ->

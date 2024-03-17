@@ -21,6 +21,7 @@ type aws_cloudfront_monitoring_subscription__monitoring_subscription = {
 
 type aws_cloudfront_monitoring_subscription = {
   distribution_id : string;  (** distribution_id *)
+  id : string option; [@option]  (** id *)
   monitoring_subscription :
     aws_cloudfront_monitoring_subscription__monitoring_subscription
     list;
@@ -28,10 +29,12 @@ type aws_cloudfront_monitoring_subscription = {
 [@@deriving yojson_of]
 (** aws_cloudfront_monitoring_subscription *)
 
-let aws_cloudfront_monitoring_subscription ~distribution_id
+let aws_cloudfront_monitoring_subscription ?id ~distribution_id
     ~monitoring_subscription __resource_id =
   let __resource_type = "aws_cloudfront_monitoring_subscription" in
-  let __resource = { distribution_id; monitoring_subscription } in
+  let __resource =
+    { distribution_id; id; monitoring_subscription }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudfront_monitoring_subscription __resource);
   ()

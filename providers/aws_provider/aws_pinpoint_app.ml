@@ -31,7 +31,12 @@ type aws_pinpoint_app__quiet_time = {
 (** aws_pinpoint_app__quiet_time *)
 
 type aws_pinpoint_app = {
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   campaign_hook : aws_pinpoint_app__campaign_hook list;
   limits : aws_pinpoint_app__limits list;
   quiet_time : aws_pinpoint_app__quiet_time list;
@@ -39,10 +44,21 @@ type aws_pinpoint_app = {
 [@@deriving yojson_of]
 (** aws_pinpoint_app *)
 
-let aws_pinpoint_app ?tags ~campaign_hook ~limits ~quiet_time
-    __resource_id =
+let aws_pinpoint_app ?id ?name ?name_prefix ?tags ?tags_all
+    ~campaign_hook ~limits ~quiet_time __resource_id =
   let __resource_type = "aws_pinpoint_app" in
-  let __resource = { tags; campaign_hook; limits; quiet_time } in
+  let __resource =
+    {
+      id;
+      name;
+      name_prefix;
+      tags;
+      tags_all;
+      campaign_hook;
+      limits;
+      quiet_time;
+    }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_pinpoint_app __resource);
   ()

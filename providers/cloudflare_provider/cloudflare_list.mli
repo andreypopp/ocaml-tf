@@ -10,6 +10,7 @@ type cloudflare_list
 
 val cloudflare_list :
   ?description:string ->
+  ?id:string ->
   account_id:string ->
   kind:string ->
   name:string ->

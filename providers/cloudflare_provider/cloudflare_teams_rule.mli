@@ -17,6 +17,7 @@ val cloudflare_teams_rule :
   ?device_posture:string ->
   ?enabled:bool ->
   ?filters:string list ->
+  ?id:string ->
   ?identity:string ->
   ?traffic:string ->
   account_id:string ->

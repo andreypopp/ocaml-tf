@@ -46,20 +46,17 @@ type google_clouddeploy_delivery_pipeline__condition__targets_type_condition = {
   error_details : string;  (** error_details *)
   status : bool;  (** status *)
 }
-[@@deriving yojson_of]
 
 type google_clouddeploy_delivery_pipeline__condition__targets_present_condition = {
   missing_targets : string list;  (** missing_targets *)
   status : bool;  (** status *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_clouddeploy_delivery_pipeline__condition__pipeline_ready_condition = {
   status : bool;  (** status *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_clouddeploy_delivery_pipeline__condition = {
   pipeline_ready_condition :
@@ -75,14 +72,15 @@ type google_clouddeploy_delivery_pipeline__condition = {
     list;
       (** targets_type_condition *)
 }
-[@@deriving yojson_of]
 
 type google_clouddeploy_delivery_pipeline
 
 val google_clouddeploy_delivery_pipeline :
   ?annotations:(string * string) list ->
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?suspended:bool ->
   ?timeouts:google_clouddeploy_delivery_pipeline__timeouts ->
   location:string ->

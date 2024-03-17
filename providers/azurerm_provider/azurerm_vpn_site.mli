@@ -13,6 +13,7 @@ val azurerm_vpn_site :
   ?address_cidrs:string list ->
   ?device_model:string ->
   ?device_vendor:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_vpn_site__timeouts ->
   location:string ->

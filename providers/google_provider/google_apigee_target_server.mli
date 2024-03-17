@@ -9,7 +9,9 @@ type google_apigee_target_server
 
 val google_apigee_target_server :
   ?description:string ->
+  ?id:string ->
   ?is_enabled:bool ->
+  ?protocol:string ->
   ?timeouts:google_apigee_target_server__timeouts ->
   env_id:string ->
   host:string ->

@@ -118,6 +118,7 @@ type cloudflare_teams_rule = {
       (** Indicator of rule enablement. *)
   filters : string list option; [@option]
       (** The protocol or layer to evaluate the traffic and identity expressions. *)
+  id : string option; [@option]  (** id *)
   identity : string option; [@option]
       (** The wirefilter expression to be used for identity matching. *)
   name : string;  (** The name of the teams rule. *)
@@ -130,9 +131,9 @@ type cloudflare_teams_rule = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Teams rule resource. Teams rules comprise secure web gateway policies. *)
 
-let cloudflare_teams_rule ?device_posture ?enabled ?filters ?identity
-    ?traffic ~account_id ~action ~description ~name ~precedence
-    ~rule_settings __resource_id =
+let cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
+    ?identity ?traffic ~account_id ~action ~description ~name
+    ~precedence ~rule_settings __resource_id =
   let __resource_type = "cloudflare_teams_rule" in
   let __resource =
     {
@@ -142,6 +143,7 @@ let cloudflare_teams_rule ?device_posture ?enabled ?filters ?identity
       device_posture;
       enabled;
       filters;
+      id;
       identity;
       name;
       precedence;

@@ -8,6 +8,7 @@ type azurerm_palo_alto_local_rulestack_prefix_list
 val azurerm_palo_alto_local_rulestack_prefix_list :
   ?audit_comment:string ->
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_palo_alto_local_rulestack_prefix_list__timeouts ->
   name:string ->
   prefix_list:string list ->

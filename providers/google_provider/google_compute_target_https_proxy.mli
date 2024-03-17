@@ -10,6 +10,9 @@ val google_compute_target_https_proxy :
   ?certificate_map:string ->
   ?description:string ->
   ?http_keep_alive_timeout_sec:float ->
+  ?id:string ->
+  ?project:string ->
+  ?proxy_bind:bool ->
   ?quic_override:string ->
   ?server_tls_policy:string ->
   ?ssl_certificates:string list ->

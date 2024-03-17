@@ -15,7 +15,9 @@ type aws_route53recoveryreadiness_resource_set__timeouts
 type aws_route53recoveryreadiness_resource_set
 
 val aws_route53recoveryreadiness_resource_set :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_route53recoveryreadiness_resource_set__timeouts ->
   resource_set_name:string ->
   resource_set_type:string ->

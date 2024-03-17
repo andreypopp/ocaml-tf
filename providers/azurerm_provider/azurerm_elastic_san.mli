@@ -8,6 +8,7 @@ type azurerm_elastic_san
 
 val azurerm_elastic_san :
   ?extended_size_in_tib:float ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?zones:string list ->
   ?timeouts:azurerm_elastic_san__timeouts ->

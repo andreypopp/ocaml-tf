@@ -21,6 +21,7 @@ type cloudflare_device_dex_test = {
   description : string;  (** Additional details about the test. *)
   enabled : bool;
       (** Determines whether or not the test is active. *)
+  id : string option; [@option]  (** id *)
   interval : string;  (** How often the test will run. *)
   name : string;
       (** The name of the Device Dex Test. Must be unique. *)
@@ -29,11 +30,11 @@ type cloudflare_device_dex_test = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Device Dex Test resource. Device Dex Tests allow for building location-aware device settings policies. *)
 
-let cloudflare_device_dex_test ~account_id ~description ~enabled
+let cloudflare_device_dex_test ?id ~account_id ~description ~enabled
     ~interval ~name ~data __resource_id =
   let __resource_type = "cloudflare_device_dex_test" in
   let __resource =
-    { account_id; description; enabled; interval; name; data }
+    { account_id; description; enabled; id; interval; name; data }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_device_dex_test __resource);

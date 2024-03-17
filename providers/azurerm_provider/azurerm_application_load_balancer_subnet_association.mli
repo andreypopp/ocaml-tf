@@ -6,6 +6,7 @@ type azurerm_application_load_balancer_subnet_association__timeouts
 type azurerm_application_load_balancer_subnet_association
 
 val azurerm_application_load_balancer_subnet_association :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_application_load_balancer_subnet_association__timeouts ->

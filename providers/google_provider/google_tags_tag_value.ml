@@ -15,6 +15,7 @@ type google_tags_tag_value__timeouts = {
 type google_tags_tag_value = {
   description : string option; [@option]
       (** User-assigned description of the TagValue. Must not exceed 256 characters. *)
+  id : string option; [@option]  (** id *)
   parent : string;
       (** Input only. The resource name of the new TagValue's parent. Must be of the form tagKeys/{tag_key_id}. *)
   short_name : string;
@@ -26,10 +27,12 @@ The short name must be 63 characters or less, beginning and ending with an alpha
 [@@deriving yojson_of]
 (** google_tags_tag_value *)
 
-let google_tags_tag_value ?description ?timeouts ~parent ~short_name
-    __resource_id =
+let google_tags_tag_value ?description ?id ?timeouts ~parent
+    ~short_name __resource_id =
   let __resource_type = "google_tags_tag_value" in
-  let __resource = { description; parent; short_name; timeouts } in
+  let __resource =
+    { description; id; parent; short_name; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_tags_tag_value __resource);
   ()

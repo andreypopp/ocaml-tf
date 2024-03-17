@@ -6,6 +6,7 @@ type azurerm_maintenance_assignment_virtual_machine__timeouts
 type azurerm_maintenance_assignment_virtual_machine
 
 val azurerm_maintenance_assignment_virtual_machine :
+  ?id:string ->
   ?timeouts:azurerm_maintenance_assignment_virtual_machine__timeouts ->
   location:string ->
   maintenance_configuration_id:string ->

@@ -15,6 +15,7 @@ val azurerm_sentinel_metadata :
   ?dependency:string ->
   ?first_publish_date:string ->
   ?icon_id:string ->
+  ?id:string ->
   ?last_publish_date:string ->
   ?preview_images:string list ->
   ?preview_images_dark:string list ->

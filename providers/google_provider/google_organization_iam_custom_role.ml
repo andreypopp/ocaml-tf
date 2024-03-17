@@ -7,6 +7,7 @@ open! Tf.Prelude
 type google_organization_iam_custom_role = {
   description : string option; [@option]
       (** A human-readable description for the role. *)
+  id : string option; [@option]  (** id *)
   org_id : string;
       (** The numeric ID of the organization in which you want to create a custom role. *)
   permissions : string list;
@@ -19,11 +20,11 @@ type google_organization_iam_custom_role = {
 [@@deriving yojson_of]
 (** google_organization_iam_custom_role *)
 
-let google_organization_iam_custom_role ?description ?stage ~org_id
-    ~permissions ~role_id ~title __resource_id =
+let google_organization_iam_custom_role ?description ?id ?stage
+    ~org_id ~permissions ~role_id ~title __resource_id =
   let __resource_type = "google_organization_iam_custom_role" in
   let __resource =
-    { description; org_id; permissions; role_id; stage; title }
+    { description; id; org_id; permissions; role_id; stage; title }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_organization_iam_custom_role __resource);

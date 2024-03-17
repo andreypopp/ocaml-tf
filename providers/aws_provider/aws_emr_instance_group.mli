@@ -10,6 +10,8 @@ val aws_emr_instance_group :
   ?bid_price:string ->
   ?configurations_json:string ->
   ?ebs_optimized:bool ->
+  ?id:string ->
+  ?instance_count:float ->
   ?name:string ->
   cluster_id:string ->
   instance_type:string ->

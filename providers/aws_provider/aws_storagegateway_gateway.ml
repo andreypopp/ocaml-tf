@@ -40,6 +40,7 @@ type aws_storagegateway_gateway__gateway_network_interface = {
 [@@deriving yojson_of]
 
 type aws_storagegateway_gateway = {
+  activation_key : string option; [@option]  (** activation_key *)
   average_download_rate_limit_in_bits_per_sec : float option;
       [@option]
       (** average_download_rate_limit_in_bits_per_sec *)
@@ -47,18 +48,25 @@ type aws_storagegateway_gateway = {
       (** average_upload_rate_limit_in_bits_per_sec *)
   cloudwatch_log_group_arn : string option; [@option]
       (** cloudwatch_log_group_arn *)
+  gateway_ip_address : string option; [@option]
+      (** gateway_ip_address *)
   gateway_name : string;  (** gateway_name *)
   gateway_timezone : string;  (** gateway_timezone *)
   gateway_type : string option; [@option]  (** gateway_type *)
   gateway_vpc_endpoint : string option; [@option]
       (** gateway_vpc_endpoint *)
+  id : string option; [@option]  (** id *)
   medium_changer_type : string option; [@option]
       (** medium_changer_type *)
   smb_file_share_visibility : bool option; [@option]
       (** smb_file_share_visibility *)
   smb_guest_password : string option; [@option]
       (** smb_guest_password *)
+  smb_security_strategy : string option; [@option]
+      (** smb_security_strategy *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   tape_drive_type : string option; [@option]  (** tape_drive_type *)
   maintenance_start_time :
     aws_storagegateway_gateway__maintenance_start_time list;
@@ -69,28 +77,34 @@ type aws_storagegateway_gateway = {
 [@@deriving yojson_of]
 (** aws_storagegateway_gateway *)
 
-let aws_storagegateway_gateway
+let aws_storagegateway_gateway ?activation_key
     ?average_download_rate_limit_in_bits_per_sec
     ?average_upload_rate_limit_in_bits_per_sec
-    ?cloudwatch_log_group_arn ?gateway_type ?gateway_vpc_endpoint
-    ?medium_changer_type ?smb_file_share_visibility
-    ?smb_guest_password ?tags ?tape_drive_type ?timeouts
+    ?cloudwatch_log_group_arn ?gateway_ip_address ?gateway_type
+    ?gateway_vpc_endpoint ?id ?medium_changer_type
+    ?smb_file_share_visibility ?smb_guest_password
+    ?smb_security_strategy ?tags ?tags_all ?tape_drive_type ?timeouts
     ~gateway_name ~gateway_timezone ~maintenance_start_time
     ~smb_active_directory_settings __resource_id =
   let __resource_type = "aws_storagegateway_gateway" in
   let __resource =
     {
+      activation_key;
       average_download_rate_limit_in_bits_per_sec;
       average_upload_rate_limit_in_bits_per_sec;
       cloudwatch_log_group_arn;
+      gateway_ip_address;
       gateway_name;
       gateway_timezone;
       gateway_type;
       gateway_vpc_endpoint;
+      id;
       medium_changer_type;
       smb_file_share_visibility;
       smb_guest_password;
+      smb_security_strategy;
       tags;
+      tags_all;
       tape_drive_type;
       maintenance_start_time;
       smb_active_directory_settings;

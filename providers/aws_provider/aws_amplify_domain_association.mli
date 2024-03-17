@@ -7,6 +7,7 @@ type aws_amplify_domain_association
 
 val aws_amplify_domain_association :
   ?enable_auto_sub_domain:bool ->
+  ?id:string ->
   ?wait_for_verification:bool ->
   app_id:string ->
   domain_name:string ->

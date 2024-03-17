@@ -26,6 +26,7 @@ type azurerm_stream_analytics_output_eventhub = {
   authentication_mode : string option; [@option]
       (** authentication_mode *)
   eventhub_name : string;  (** eventhub_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   partition_key : string option; [@option]  (** partition_key *)
   property_columns : string list option; [@option]
@@ -46,7 +47,7 @@ type azurerm_stream_analytics_output_eventhub = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_eventhub *)
 
-let azurerm_stream_analytics_output_eventhub ?authentication_mode
+let azurerm_stream_analytics_output_eventhub ?authentication_mode ?id
     ?partition_key ?property_columns ?shared_access_policy_key
     ?shared_access_policy_name ?timeouts ~eventhub_name ~name
     ~resource_group_name ~servicebus_namespace
@@ -56,6 +57,7 @@ let azurerm_stream_analytics_output_eventhub ?authentication_mode
     {
       authentication_mode;
       eventhub_name;
+      id;
       name;
       partition_key;
       property_columns;

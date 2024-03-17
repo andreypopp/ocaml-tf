@@ -10,6 +10,7 @@ val aws_cognito_user :
   ?desired_delivery_mediums:string list ->
   ?enabled:bool ->
   ?force_alias_creation:bool ->
+  ?id:string ->
   ?message_action:string ->
   ?password:string ->
   ?temporary_password:string ->

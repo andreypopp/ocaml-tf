@@ -13,6 +13,9 @@ type google_data_catalog_tag_template
 val google_data_catalog_tag_template :
   ?display_name:string ->
   ?force_delete:bool ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:google_data_catalog_tag_template__timeouts ->
   tag_template_id:string ->
   fields:google_data_catalog_tag_template__fields list ->

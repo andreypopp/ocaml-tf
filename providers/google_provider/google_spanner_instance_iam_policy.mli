@@ -5,4 +5,9 @@ open! Tf.Prelude
 type google_spanner_instance_iam_policy
 
 val google_spanner_instance_iam_policy :
-  instance:string -> policy_data:string -> string -> unit
+  ?id:string ->
+  ?project:string ->
+  instance:string ->
+  policy_data:string ->
+  string ->
+  unit

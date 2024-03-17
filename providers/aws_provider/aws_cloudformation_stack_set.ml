@@ -46,12 +46,18 @@ type aws_cloudformation_stack_set = {
   call_as : string option; [@option]  (** call_as *)
   capabilities : string list option; [@option]  (** capabilities *)
   description : string option; [@option]  (** description *)
+  execution_role_name : string option; [@option]
+      (** execution_role_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
       (** parameters *)
   permission_model : string option; [@option]
       (** permission_model *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  template_body : string option; [@option]  (** template_body *)
   template_url : string option; [@option]  (** template_url *)
   auto_deployment :
     aws_cloudformation_stack_set__auto_deployment list;
@@ -65,8 +71,9 @@ type aws_cloudformation_stack_set = {
 (** aws_cloudformation_stack_set *)
 
 let aws_cloudformation_stack_set ?administration_role_arn ?call_as
-    ?capabilities ?description ?parameters ?permission_model ?tags
-    ?template_url ?timeouts ~name ~auto_deployment ~managed_execution
+    ?capabilities ?description ?execution_role_name ?id ?parameters
+    ?permission_model ?tags ?tags_all ?template_body ?template_url
+    ?timeouts ~name ~auto_deployment ~managed_execution
     ~operation_preferences __resource_id =
   let __resource_type = "aws_cloudformation_stack_set" in
   let __resource =
@@ -75,10 +82,14 @@ let aws_cloudformation_stack_set ?administration_role_arn ?call_as
       call_as;
       capabilities;
       description;
+      execution_role_name;
+      id;
       name;
       parameters;
       permission_model;
       tags;
+      tags_all;
+      template_body;
       template_url;
       auto_deployment;
       managed_execution;

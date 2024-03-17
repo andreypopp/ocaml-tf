@@ -12,8 +12,10 @@ val google_bigquery_data_transfer_config :
   ?data_refresh_window_days:float ->
   ?destination_dataset_id:string ->
   ?disabled:bool ->
+  ?id:string ->
   ?location:string ->
   ?notification_pubsub_topic:string ->
+  ?project:string ->
   ?schedule:string ->
   ?service_account_name:string ->
   ?timeouts:google_bigquery_data_transfer_config__timeouts ->

@@ -28,6 +28,7 @@ type azurerm_spring_cloud_api_portal = {
   gateway_ids : string list option; [@option]  (** gateway_ids *)
   https_only_enabled : bool option; [@option]
       (** https_only_enabled *)
+  id : string option; [@option]  (** id *)
   instance_count : float option; [@option]  (** instance_count *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -40,7 +41,7 @@ type azurerm_spring_cloud_api_portal = {
 (** azurerm_spring_cloud_api_portal *)
 
 let azurerm_spring_cloud_api_portal ?api_try_out_enabled ?gateway_ids
-    ?https_only_enabled ?instance_count
+    ?https_only_enabled ?id ?instance_count
     ?public_network_access_enabled ?timeouts ~name
     ~spring_cloud_service_id ~sso __resource_id =
   let __resource_type = "azurerm_spring_cloud_api_portal" in
@@ -49,6 +50,7 @@ let azurerm_spring_cloud_api_portal ?api_try_out_enabled ?gateway_ids
       api_try_out_enabled;
       gateway_ids;
       https_only_enabled;
+      id;
       instance_count;
       name;
       public_network_access_enabled;

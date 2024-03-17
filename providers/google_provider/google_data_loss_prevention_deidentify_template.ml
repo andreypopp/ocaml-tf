@@ -2564,6 +2564,7 @@ type google_data_loss_prevention_deidentify_template = {
       (** A description of the template. *)
   display_name : string option; [@option]
       (** User set display name of the template. *)
+  id : string option; [@option]  (** id *)
   parent : string;
       (** The parent of the template in any of the following formats:
 
@@ -2571,6 +2572,10 @@ type google_data_loss_prevention_deidentify_template = {
 * 'projects/{{project}}/locations/{{location}}'
 * 'organizations/{{organization_id}}'
 * 'organizations/{{organization_id}}/locations/{{location}}' *)
+  template_id : string option; [@option]
+      (** The template id can contain uppercase and lowercase letters, numbers, and hyphens;
+that is, it must match the regular expression: [a-zA-Z\d-_]+. The maximum length is
+100 characters. Can be empty to allow the system to generate one. *)
   deidentify_config :
     google_data_loss_prevention_deidentify_template__deidentify_config
     list;
@@ -2581,8 +2586,8 @@ type google_data_loss_prevention_deidentify_template = {
 (** google_data_loss_prevention_deidentify_template *)
 
 let google_data_loss_prevention_deidentify_template ?description
-    ?display_name ?timeouts ~parent ~deidentify_config __resource_id
-    =
+    ?display_name ?id ?template_id ?timeouts ~parent
+    ~deidentify_config __resource_id =
   let __resource_type =
     "google_data_loss_prevention_deidentify_template"
   in
@@ -2590,7 +2595,9 @@ let google_data_loss_prevention_deidentify_template ?description
     {
       description;
       display_name;
+      id;
       parent;
+      template_id;
       deidentify_config;
       timeouts;
     }

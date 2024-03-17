@@ -16,7 +16,9 @@ type aws_sagemaker_feature_group
 
 val aws_sagemaker_feature_group :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   event_time_feature_name:string ->
   feature_group_name:string ->
   record_identifier_feature_name:string ->

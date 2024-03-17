@@ -26,6 +26,7 @@ consecutive successes. The default value is 2. *)
       (** The value of the host header in the HTTPS health check request. If
 left empty (default value), the public IP on behalf of which this
 health check is performed will be used. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -37,6 +38,7 @@ last character, which cannot be a dash. *)
   port : float option; [@option]
       (** The TCP port number for the HTTPS health check request.
 The default value is 443. *)
+  project : string option; [@option]  (** project *)
   request_path : string option; [@option]
       (** The request path of the HTTPS health check request.
 The default value is /. *)
@@ -53,8 +55,9 @@ consecutive failures. The default value is 2. *)
 (** google_compute_https_health_check *)
 
 let google_compute_https_health_check ?check_interval_sec
-    ?description ?healthy_threshold ?host ?port ?request_path
-    ?timeout_sec ?unhealthy_threshold ?timeouts ~name __resource_id =
+    ?description ?healthy_threshold ?host ?id ?port ?project
+    ?request_path ?timeout_sec ?unhealthy_threshold ?timeouts ~name
+    __resource_id =
   let __resource_type = "google_compute_https_health_check" in
   let __resource =
     {
@@ -62,8 +65,10 @@ let google_compute_https_health_check ?check_interval_sec
       description;
       healthy_threshold;
       host;
+      id;
       name;
       port;
+      project;
       request_path;
       timeout_sec;
       unhealthy_threshold;

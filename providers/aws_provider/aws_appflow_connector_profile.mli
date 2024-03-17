@@ -115,6 +115,8 @@ type aws_appflow_connector_profile
 
 val aws_appflow_connector_profile :
   ?connector_label:string ->
+  ?id:string ->
+  ?kms_arn:string ->
   connection_mode:string ->
   connector_type:string ->
   name:string ->

@@ -44,6 +44,7 @@ type azurerm_site_recovery_vmware_replicated_vm = {
       (** default_recovery_disk_type *)
   default_target_disk_encryption_set_id : string option; [@option]
       (** default_target_disk_encryption_set_id *)
+  id : string option; [@option]  (** id *)
   license_type : string option; [@option]  (** license_type *)
   multi_vm_group_name : string option; [@option]
       (** multi_vm_group_name *)
@@ -81,7 +82,7 @@ type azurerm_site_recovery_vmware_replicated_vm = {
 
 let azurerm_site_recovery_vmware_replicated_vm
     ?default_log_storage_account_id ?default_recovery_disk_type
-    ?default_target_disk_encryption_set_id ?license_type
+    ?default_target_disk_encryption_set_id ?id ?license_type
     ?multi_vm_group_name ?target_availability_set_id
     ?target_boot_diagnostics_storage_account_id ?target_network_id
     ?target_proximity_placement_group_id ?target_vm_size ?target_zone
@@ -98,6 +99,7 @@ let azurerm_site_recovery_vmware_replicated_vm
       default_log_storage_account_id;
       default_recovery_disk_type;
       default_target_disk_encryption_set_id;
+      id;
       license_type;
       multi_vm_group_name;
       name;

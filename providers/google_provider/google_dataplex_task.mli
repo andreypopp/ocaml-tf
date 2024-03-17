@@ -29,7 +29,6 @@ type google_dataplex_task__execution_status__latest_job = {
   state : string;  (** state *)
   uid : string;  (** uid *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_task__execution_status = {
   latest_job :
@@ -37,16 +36,17 @@ type google_dataplex_task__execution_status = {
       (** latest_job *)
   update_time : string;  (** update_time *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_task
 
 val google_dataplex_task :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?lake:string ->
   ?location:string ->
+  ?project:string ->
   ?task_id:string ->
   ?timeouts:google_dataplex_task__timeouts ->
   execution_spec:google_dataplex_task__execution_spec list ->

@@ -37,6 +37,7 @@ type azurerm_elastic_cloud_elasticsearch__timeouts = {
 type azurerm_elastic_cloud_elasticsearch = {
   elastic_cloud_email_address : string;
       (** elastic_cloud_email_address *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   monitoring_enabled : bool option; [@option]
       (** monitoring_enabled *)
@@ -50,13 +51,14 @@ type azurerm_elastic_cloud_elasticsearch = {
 [@@deriving yojson_of]
 (** azurerm_elastic_cloud_elasticsearch *)
 
-let azurerm_elastic_cloud_elasticsearch ?monitoring_enabled ?tags
+let azurerm_elastic_cloud_elasticsearch ?id ?monitoring_enabled ?tags
     ?timeouts ~elastic_cloud_email_address ~location ~name
     ~resource_group_name ~sku_name ~logs __resource_id =
   let __resource_type = "azurerm_elastic_cloud_elasticsearch" in
   let __resource =
     {
       elastic_cloud_email_address;
+      id;
       location;
       monitoring_enabled;
       name;

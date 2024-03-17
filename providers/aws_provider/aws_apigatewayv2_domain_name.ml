@@ -33,7 +33,10 @@ type aws_apigatewayv2_domain_name__timeouts = {
 
 type aws_apigatewayv2_domain_name = {
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   domain_name_configuration :
     aws_apigatewayv2_domain_name__domain_name_configuration list;
   mutual_tls_authentication :
@@ -43,14 +46,16 @@ type aws_apigatewayv2_domain_name = {
 [@@deriving yojson_of]
 (** aws_apigatewayv2_domain_name *)
 
-let aws_apigatewayv2_domain_name ?tags ?timeouts ~domain_name
-    ~domain_name_configuration ~mutual_tls_authentication
-    __resource_id =
+let aws_apigatewayv2_domain_name ?id ?tags ?tags_all ?timeouts
+    ~domain_name ~domain_name_configuration
+    ~mutual_tls_authentication __resource_id =
   let __resource_type = "aws_apigatewayv2_domain_name" in
   let __resource =
     {
       domain_name;
+      id;
       tags;
+      tags_all;
       domain_name_configuration;
       mutual_tls_authentication;
       timeouts;

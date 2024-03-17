@@ -11,7 +11,11 @@ type aws_service_discovery_service
 val aws_service_discovery_service :
   ?description:string ->
   ?force_destroy:bool ->
+  ?id:string ->
+  ?namespace_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  ?type_:string ->
   name:string ->
   dns_config:aws_service_discovery_service__dns_config list ->
   health_check_config:

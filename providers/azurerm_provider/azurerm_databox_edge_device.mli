@@ -17,11 +17,11 @@ type azurerm_databox_edge_device__device_properties = {
   time_zone : string;  (** time_zone *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type azurerm_databox_edge_device
 
 val azurerm_databox_edge_device :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_databox_edge_device__timeouts ->
   location:string ->

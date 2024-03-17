@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_route53_traffic_policy_instance = {
   hosted_zone_id : string;  (** hosted_zone_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   traffic_policy_id : string;  (** traffic_policy_id *)
   traffic_policy_version : float;  (** traffic_policy_version *)
@@ -14,12 +15,13 @@ type aws_route53_traffic_policy_instance = {
 [@@deriving yojson_of]
 (** aws_route53_traffic_policy_instance *)
 
-let aws_route53_traffic_policy_instance ~hosted_zone_id ~name
+let aws_route53_traffic_policy_instance ?id ~hosted_zone_id ~name
     ~traffic_policy_id ~traffic_policy_version ~ttl __resource_id =
   let __resource_type = "aws_route53_traffic_policy_instance" in
   let __resource =
     {
       hosted_zone_id;
+      id;
       name;
       traffic_policy_id;
       traffic_policy_version;

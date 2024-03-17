@@ -6,6 +6,7 @@ type aws_appstream_directory_config__service_account_credentials
 type aws_appstream_directory_config
 
 val aws_appstream_directory_config :
+  ?id:string ->
   directory_name:string ->
   organizational_unit_distinguished_names:string list ->
   service_account_credentials:

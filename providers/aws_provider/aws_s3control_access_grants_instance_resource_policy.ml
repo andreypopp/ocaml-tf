@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type aws_s3control_access_grants_instance_resource_policy = {
+  account_id : string option; [@option]  (** account_id *)
   policy : string;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_access_grants_instance_resource_policy *)
 
-let aws_s3control_access_grants_instance_resource_policy ~policy
-    __resource_id =
+let aws_s3control_access_grants_instance_resource_policy ?account_id
+    ~policy __resource_id =
   let __resource_type =
     "aws_s3control_access_grants_instance_resource_policy"
   in
-  let __resource = { policy } in
+  let __resource = { account_id; policy } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_access_grants_instance_resource_policy
        __resource);

@@ -32,6 +32,8 @@ type aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings
 (** aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings *)
 
 type aws_glue_data_catalog_encryption_settings = {
+  catalog_id : string option; [@option]  (** catalog_id *)
+  id : string option; [@option]  (** id *)
   data_catalog_encryption_settings :
     aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings
     list;
@@ -39,12 +41,14 @@ type aws_glue_data_catalog_encryption_settings = {
 [@@deriving yojson_of]
 (** aws_glue_data_catalog_encryption_settings *)
 
-let aws_glue_data_catalog_encryption_settings
+let aws_glue_data_catalog_encryption_settings ?catalog_id ?id
     ~data_catalog_encryption_settings __resource_id =
   let __resource_type =
     "aws_glue_data_catalog_encryption_settings"
   in
-  let __resource = { data_catalog_encryption_settings } in
+  let __resource =
+    { catalog_id; id; data_catalog_encryption_settings }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_glue_data_catalog_encryption_settings __resource);
   ()

@@ -24,10 +24,12 @@ val aws_opsworks_custom_layer :
   ?custom_undeploy_recipes:string list ->
   ?drain_elb_on_shutdown:bool ->
   ?elastic_load_balancer:string ->
+  ?id:string ->
   ?install_updates_on_boot:bool ->
   ?instance_shutdown_timeout:float ->
   ?system_packages:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?use_ebs_optimized_instances:bool ->
   name:string ->
   short_name:string ->

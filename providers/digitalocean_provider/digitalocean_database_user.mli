@@ -7,6 +7,7 @@ type digitalocean_database_user__settings
 type digitalocean_database_user
 
 val digitalocean_database_user :
+  ?id:string ->
   ?mysql_auth_plugin:string ->
   cluster_id:string ->
   name:string ->

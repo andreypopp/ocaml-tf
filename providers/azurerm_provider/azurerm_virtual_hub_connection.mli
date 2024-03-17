@@ -9,6 +9,7 @@ type azurerm_virtual_hub_connection__timeouts
 type azurerm_virtual_hub_connection
 
 val azurerm_virtual_hub_connection :
+  ?id:string ->
   ?internet_security_enabled:bool ->
   ?timeouts:azurerm_virtual_hub_connection__timeouts ->
   name:string ->

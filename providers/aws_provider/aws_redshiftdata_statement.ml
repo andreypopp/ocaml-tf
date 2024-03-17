@@ -22,6 +22,7 @@ type aws_redshiftdata_statement = {
       (** cluster_identifier *)
   database : string;  (** database *)
   db_user : string option; [@option]  (** db_user *)
+  id : string option; [@option]  (** id *)
   secret_arn : string option; [@option]  (** secret_arn *)
   sql : string;  (** sql *)
   statement_name : string option; [@option]  (** statement_name *)
@@ -33,7 +34,7 @@ type aws_redshiftdata_statement = {
 [@@deriving yojson_of]
 (** aws_redshiftdata_statement *)
 
-let aws_redshiftdata_statement ?cluster_identifier ?db_user
+let aws_redshiftdata_statement ?cluster_identifier ?db_user ?id
     ?secret_arn ?statement_name ?with_event ?workgroup_name ?timeouts
     ~database ~sql ~parameters __resource_id =
   let __resource_type = "aws_redshiftdata_statement" in
@@ -42,6 +43,7 @@ let aws_redshiftdata_statement ?cluster_identifier ?db_user
       cluster_identifier;
       database;
       db_user;
+      id;
       secret_arn;
       sql;
       statement_name;

@@ -46,8 +46,13 @@ type azurerm_data_factory_trigger_schedule = {
   description : string option; [@option]  (** description *)
   end_time : string option; [@option]  (** end_time *)
   frequency : string option; [@option]  (** frequency *)
+  id : string option; [@option]  (** id *)
   interval : float option; [@option]  (** interval *)
   name : string;  (** name *)
+  pipeline_name : string option; [@option]  (** pipeline_name *)
+  pipeline_parameters : (string * string) list option; [@option]
+      (** pipeline_parameters *)
+  start_time : string option; [@option]  (** start_time *)
   time_zone : string option; [@option]  (** time_zone *)
   pipeline : azurerm_data_factory_trigger_schedule__pipeline list;
   schedule : azurerm_data_factory_trigger_schedule__schedule list;
@@ -57,7 +62,8 @@ type azurerm_data_factory_trigger_schedule = {
 (** azurerm_data_factory_trigger_schedule *)
 
 let azurerm_data_factory_trigger_schedule ?activated ?annotations
-    ?description ?end_time ?frequency ?interval ?time_zone ?timeouts
+    ?description ?end_time ?frequency ?id ?interval ?pipeline_name
+    ?pipeline_parameters ?start_time ?time_zone ?timeouts
     ~data_factory_id ~name ~pipeline ~schedule __resource_id =
   let __resource_type = "azurerm_data_factory_trigger_schedule" in
   let __resource =
@@ -68,8 +74,12 @@ let azurerm_data_factory_trigger_schedule ?activated ?annotations
       description;
       end_time;
       frequency;
+      id;
       interval;
       name;
+      pipeline_name;
+      pipeline_parameters;
+      start_time;
       time_zone;
       pipeline;
       schedule;

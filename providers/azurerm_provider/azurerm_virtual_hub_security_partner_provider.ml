@@ -14,6 +14,7 @@ type azurerm_virtual_hub_security_partner_provider__timeouts = {
 (** azurerm_virtual_hub_security_partner_provider__timeouts *)
 
 type azurerm_virtual_hub_security_partner_provider = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -26,7 +27,7 @@ type azurerm_virtual_hub_security_partner_provider = {
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_security_partner_provider *)
 
-let azurerm_virtual_hub_security_partner_provider ?tags
+let azurerm_virtual_hub_security_partner_provider ?id ?tags
     ?virtual_hub_id ?timeouts ~location ~name ~resource_group_name
     ~security_provider_name __resource_id =
   let __resource_type =
@@ -34,6 +35,7 @@ let azurerm_virtual_hub_security_partner_provider ?tags
   in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

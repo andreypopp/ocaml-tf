@@ -23,7 +23,7 @@ type google_workbench_instance__gce_setup
 type google_workbench_instance__timeouts
 
 type google_workbench_instance__health_info = {
-} [@@deriving yojson_of]
+}
 type google_workbench_instance__upgrade_history = {
   action: string;  (** action *)
   container_image: string;  (** container_image *)
@@ -34,15 +34,17 @@ type google_workbench_instance__upgrade_history = {
   target_version: string;  (** target_version *)
   version: string;  (** version *)
   vm_image: string;  (** vm_image *)
-} [@@deriving yojson_of]
+}
 type google_workbench_instance
 
 val google_workbench_instance :
     ?desired_state:string ->
     ?disable_proxy_access:bool ->
+    ?id:string ->
     ?instance_id:string ->
     ?instance_owners:string list ->
     ?labels:(string * string) list ->
+    ?project:string ->
     ?timeouts:google_workbench_instance__timeouts ->
     location:string ->
     name:string ->

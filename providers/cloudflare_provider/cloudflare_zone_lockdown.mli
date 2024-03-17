@@ -7,6 +7,7 @@ type cloudflare_zone_lockdown
 
 val cloudflare_zone_lockdown :
   ?description:string ->
+  ?id:string ->
   ?paused:bool ->
   ?priority:float ->
   urls:string list ->

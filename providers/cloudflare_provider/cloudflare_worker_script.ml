@@ -93,7 +93,10 @@ type cloudflare_worker_script = {
       (** The account identifier to target for the resource. *)
   compatibility_date : string option; [@option]
       (** The date to use for the compatibility flag. *)
+  compatibility_flags : string list option; [@option]
+      (** Compatibility flags used for Worker Scripts. *)
   content : string;  (** The script content. *)
+  id : string option; [@option]  (** id *)
   logpush : bool option; [@option]
       (** Enabling allows Worker events to be sent to a defined Logpush destination. *)
   module_ : bool option; [@option] [@key "module"]
@@ -121,18 +124,20 @@ type cloudflare_worker_script = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare worker script resource. In order for a script to be active, you'll also need to setup a `cloudflare_worker_route`. *)
 
-let cloudflare_worker_script ?compatibility_date ?logpush ?module_
-    ~account_id ~content ~name ~analytics_engine_binding
-    ~d1_database_binding ~kv_namespace_binding ~placement
-    ~plain_text_binding ~queue_binding ~r2_bucket_binding
-    ~secret_text_binding ~service_binding ~webassembly_binding
-    __resource_id =
+let cloudflare_worker_script ?compatibility_date ?compatibility_flags
+    ?id ?logpush ?module_ ~account_id ~content ~name
+    ~analytics_engine_binding ~d1_database_binding
+    ~kv_namespace_binding ~placement ~plain_text_binding
+    ~queue_binding ~r2_bucket_binding ~secret_text_binding
+    ~service_binding ~webassembly_binding __resource_id =
   let __resource_type = "cloudflare_worker_script" in
   let __resource =
     {
       account_id;
       compatibility_date;
+      compatibility_flags;
       content;
+      id;
       logpush;
       module_;
       name;

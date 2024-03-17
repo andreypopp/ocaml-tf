@@ -12,6 +12,8 @@ type azurerm_backup_policy_vm__timeouts
 type azurerm_backup_policy_vm
 
 val azurerm_backup_policy_vm :
+  ?id:string ->
+  ?instant_restore_retention_days:float ->
   ?policy_type:string ->
   ?timezone:string ->
   ?timeouts:azurerm_backup_policy_vm__timeouts ->

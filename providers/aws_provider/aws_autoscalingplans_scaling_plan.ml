@@ -110,6 +110,7 @@ type aws_autoscalingplans_scaling_plan__scaling_instruction = {
 (** aws_autoscalingplans_scaling_plan__scaling_instruction *)
 
 type aws_autoscalingplans_scaling_plan = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   application_source :
     aws_autoscalingplans_scaling_plan__application_source list;
@@ -119,11 +120,11 @@ type aws_autoscalingplans_scaling_plan = {
 [@@deriving yojson_of]
 (** aws_autoscalingplans_scaling_plan *)
 
-let aws_autoscalingplans_scaling_plan ~name ~application_source
+let aws_autoscalingplans_scaling_plan ?id ~name ~application_source
     ~scaling_instruction __resource_id =
   let __resource_type = "aws_autoscalingplans_scaling_plan" in
   let __resource =
-    { name; application_source; scaling_instruction }
+    { id; name; application_source; scaling_instruction }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscalingplans_scaling_plan __resource);

@@ -30,6 +30,7 @@ type azurerm_dedicated_hardware_security_module__timeouts = {
 (** azurerm_dedicated_hardware_security_module__timeouts *)
 
 type azurerm_dedicated_hardware_security_module = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -48,14 +49,15 @@ type azurerm_dedicated_hardware_security_module = {
 [@@deriving yojson_of]
 (** azurerm_dedicated_hardware_security_module *)
 
-let azurerm_dedicated_hardware_security_module ?stamp_id ?tags ?zones
-    ?timeouts ~location ~name ~resource_group_name ~sku_name
+let azurerm_dedicated_hardware_security_module ?id ?stamp_id ?tags
+    ?zones ?timeouts ~location ~name ~resource_group_name ~sku_name
     ~management_network_profile ~network_profile __resource_id =
   let __resource_type =
     "azurerm_dedicated_hardware_security_module"
   in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

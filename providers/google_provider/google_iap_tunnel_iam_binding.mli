@@ -6,6 +6,8 @@ type google_iap_tunnel_iam_binding__condition
 type google_iap_tunnel_iam_binding
 
 val google_iap_tunnel_iam_binding :
+  ?id:string ->
+  ?project:string ->
   members:string list ->
   role:string ->
   condition:google_iap_tunnel_iam_binding__condition list ->

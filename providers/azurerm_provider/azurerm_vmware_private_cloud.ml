@@ -31,6 +31,7 @@ type azurerm_vmware_private_cloud__circuit = {
 [@@deriving yojson_of]
 
 type azurerm_vmware_private_cloud = {
+  id : string option; [@option]  (** id *)
   internet_connection_enabled : bool option; [@option]
       (** internet_connection_enabled *)
   location : string;  (** location *)
@@ -49,13 +50,14 @@ type azurerm_vmware_private_cloud = {
 [@@deriving yojson_of]
 (** azurerm_vmware_private_cloud *)
 
-let azurerm_vmware_private_cloud ?internet_connection_enabled
+let azurerm_vmware_private_cloud ?id ?internet_connection_enabled
     ?nsxt_password ?tags ?vcenter_password ?timeouts ~location ~name
     ~network_subnet_cidr ~resource_group_name ~sku_name
     ~management_cluster __resource_id =
   let __resource_type = "azurerm_vmware_private_cloud" in
   let __resource =
     {
+      id;
       internet_connection_enabled;
       location;
       name;

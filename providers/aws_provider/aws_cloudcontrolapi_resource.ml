@@ -14,7 +14,9 @@ type aws_cloudcontrolapi_resource__timeouts = {
 
 type aws_cloudcontrolapi_resource = {
   desired_state : string;  (** desired_state *)
+  id : string option; [@option]  (** id *)
   role_arn : string option; [@option]  (** role_arn *)
+  schema : string option; [@option]  (** schema *)
   type_name : string;  (** type_name *)
   type_version_id : string option; [@option]  (** type_version_id *)
   timeouts : aws_cloudcontrolapi_resource__timeouts option;
@@ -22,11 +24,20 @@ type aws_cloudcontrolapi_resource = {
 [@@deriving yojson_of]
 (** aws_cloudcontrolapi_resource *)
 
-let aws_cloudcontrolapi_resource ?role_arn ?type_version_id ?timeouts
-    ~desired_state ~type_name __resource_id =
+let aws_cloudcontrolapi_resource ?id ?role_arn ?schema
+    ?type_version_id ?timeouts ~desired_state ~type_name
+    __resource_id =
   let __resource_type = "aws_cloudcontrolapi_resource" in
   let __resource =
-    { desired_state; role_arn; type_name; type_version_id; timeouts }
+    {
+      desired_state;
+      id;
+      role_arn;
+      schema;
+      type_name;
+      type_version_id;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudcontrolapi_resource __resource);

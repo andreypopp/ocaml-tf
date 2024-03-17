@@ -34,6 +34,7 @@ type azurerm_search_service = {
   customer_managed_key_enforcement_enabled : bool option; [@option]
       (** customer_managed_key_enforcement_enabled *)
   hosting_mode : string option; [@option]  (** hosting_mode *)
+  id : string option; [@option]  (** id *)
   local_authentication_enabled : bool option; [@option]
       (** local_authentication_enabled *)
   location : string;  (** location *)
@@ -54,7 +55,7 @@ type azurerm_search_service = {
 (** azurerm_search_service *)
 
 let azurerm_search_service ?allowed_ips ?authentication_failure_mode
-    ?customer_managed_key_enforcement_enabled ?hosting_mode
+    ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
     ?local_authentication_enabled ?partition_count
     ?public_network_access_enabled ?replica_count
     ?semantic_search_sku ?tags ?timeouts ~location ~name
@@ -66,6 +67,7 @@ let azurerm_search_service ?allowed_ips ?authentication_failure_mode
       authentication_failure_mode;
       customer_managed_key_enforcement_enabled;
       hosting_mode;
+      id;
       local_authentication_enabled;
       location;
       name;

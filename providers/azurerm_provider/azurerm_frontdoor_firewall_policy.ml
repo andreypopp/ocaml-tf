@@ -106,6 +106,7 @@ type azurerm_frontdoor_firewall_policy = {
   custom_block_response_status_code : float option; [@option]
       (** custom_block_response_status_code *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   mode : string option; [@option]  (** mode *)
   name : string;  (** name *)
   redirect_url : string option; [@option]  (** redirect_url *)
@@ -120,15 +121,16 @@ type azurerm_frontdoor_firewall_policy = {
 (** azurerm_frontdoor_firewall_policy *)
 
 let azurerm_frontdoor_firewall_policy ?custom_block_response_body
-    ?custom_block_response_status_code ?enabled ?mode ?redirect_url
-    ?tags ?timeouts ~name ~resource_group_name ~custom_rule
-    ~managed_rule __resource_id =
+    ?custom_block_response_status_code ?enabled ?id ?mode
+    ?redirect_url ?tags ?timeouts ~name ~resource_group_name
+    ~custom_rule ~managed_rule __resource_id =
   let __resource_type = "azurerm_frontdoor_firewall_policy" in
   let __resource =
     {
       custom_block_response_body;
       custom_block_response_status_code;
       enabled;
+      id;
       mode;
       name;
       redirect_url;

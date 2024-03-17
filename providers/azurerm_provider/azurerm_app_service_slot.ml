@@ -287,8 +287,15 @@ type azurerm_app_service_slot__site_credential = {
 type azurerm_app_service_slot = {
   app_service_name : string;  (** app_service_name *)
   app_service_plan_id : string;  (** app_service_plan_id *)
+  app_settings : (string * string) list option; [@option]
+      (** app_settings *)
+  client_affinity_enabled : bool option; [@option]
+      (** client_affinity_enabled *)
   enabled : bool option; [@option]  (** enabled *)
   https_only : bool option; [@option]  (** https_only *)
+  id : string option; [@option]  (** id *)
+  key_vault_reference_identity_id : string option; [@option]
+      (** key_vault_reference_identity_id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -305,8 +312,9 @@ type azurerm_app_service_slot = {
 [@@deriving yojson_of]
 (** azurerm_app_service_slot *)
 
-let azurerm_app_service_slot ?enabled ?https_only ?tags ?timeouts
-    ~app_service_name ~app_service_plan_id ~location ~name
+let azurerm_app_service_slot ?app_settings ?client_affinity_enabled
+    ?enabled ?https_only ?id ?key_vault_reference_identity_id ?tags
+    ?timeouts ~app_service_name ~app_service_plan_id ~location ~name
     ~resource_group_name ~auth_settings ~connection_string ~identity
     ~logs ~site_config ~storage_account __resource_id =
   let __resource_type = "azurerm_app_service_slot" in
@@ -314,8 +322,12 @@ let azurerm_app_service_slot ?enabled ?https_only ?tags ?timeouts
     {
       app_service_name;
       app_service_plan_id;
+      app_settings;
+      client_affinity_enabled;
       enabled;
       https_only;
+      id;
+      key_vault_reference_identity_id;
       location;
       name;
       resource_group_name;

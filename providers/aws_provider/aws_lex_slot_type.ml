@@ -22,6 +22,7 @@ type aws_lex_slot_type__timeouts = {
 type aws_lex_slot_type = {
   create_version : bool option; [@option]  (** create_version *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   value_selection_strategy : string option; [@option]
       (** value_selection_strategy *)
@@ -31,7 +32,7 @@ type aws_lex_slot_type = {
 [@@deriving yojson_of]
 (** aws_lex_slot_type *)
 
-let aws_lex_slot_type ?create_version ?description
+let aws_lex_slot_type ?create_version ?description ?id
     ?value_selection_strategy ?timeouts ~name ~enumeration_value
     __resource_id =
   let __resource_type = "aws_lex_slot_type" in
@@ -39,6 +40,7 @@ let aws_lex_slot_type ?create_version ?description
     {
       create_version;
       description;
+      id;
       name;
       value_selection_strategy;
       enumeration_value;

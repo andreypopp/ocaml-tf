@@ -9,6 +9,7 @@ type aws_ssmcontacts_plan__stage
 type aws_ssmcontacts_plan
 
 val aws_ssmcontacts_plan :
+  ?id:string ->
   contact_id:string ->
   stage:aws_ssmcontacts_plan__stage list ->
   string ->

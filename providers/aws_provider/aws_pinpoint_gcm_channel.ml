@@ -8,14 +8,15 @@ type aws_pinpoint_gcm_channel = {
   api_key : string;  (** api_key *)
   application_id : string;  (** application_id *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_pinpoint_gcm_channel *)
 
-let aws_pinpoint_gcm_channel ?enabled ~api_key ~application_id
+let aws_pinpoint_gcm_channel ?enabled ?id ~api_key ~application_id
     __resource_id =
   let __resource_type = "aws_pinpoint_gcm_channel" in
-  let __resource = { api_key; application_id; enabled } in
+  let __resource = { api_key; application_id; enabled; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_pinpoint_gcm_channel __resource);
   ()

@@ -41,7 +41,12 @@ type aws_fsx_data_repository_association = {
       (** delete_data_in_filesystem *)
   file_system_id : string;  (** file_system_id *)
   file_system_path : string;  (** file_system_path *)
+  id : string option; [@option]  (** id *)
+  imported_file_chunk_size : float option; [@option]
+      (** imported_file_chunk_size *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   s3 : aws_fsx_data_repository_association__s3 list;
   timeouts : aws_fsx_data_repository_association__timeouts option;
 }
@@ -49,9 +54,10 @@ type aws_fsx_data_repository_association = {
 (** aws_fsx_data_repository_association *)
 
 let aws_fsx_data_repository_association
-    ?batch_import_meta_data_on_create ?delete_data_in_filesystem
-    ?tags ?timeouts ~data_repository_path ~file_system_id
-    ~file_system_path ~s3 __resource_id =
+    ?batch_import_meta_data_on_create ?delete_data_in_filesystem ?id
+    ?imported_file_chunk_size ?tags ?tags_all ?timeouts
+    ~data_repository_path ~file_system_id ~file_system_path ~s3
+    __resource_id =
   let __resource_type = "aws_fsx_data_repository_association" in
   let __resource =
     {
@@ -60,7 +66,10 @@ let aws_fsx_data_repository_association
       delete_data_in_filesystem;
       file_system_id;
       file_system_path;
+      id;
+      imported_file_chunk_size;
       tags;
+      tags_all;
       s3;
       timeouts;
     }

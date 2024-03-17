@@ -10,7 +10,9 @@ type google_dataproc_autoscaling_policy__worker_config
 type google_dataproc_autoscaling_policy
 
 val google_dataproc_autoscaling_policy :
+  ?id:string ->
   ?location:string ->
+  ?project:string ->
   ?timeouts:google_dataproc_autoscaling_policy__timeouts ->
   policy_id:string ->
   basic_algorithm:

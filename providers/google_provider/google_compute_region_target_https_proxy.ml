@@ -20,6 +20,7 @@ sslCertificates and certificateManagerCertificates fields can not be defined tog
 Accepted format is '//certificatemanager.googleapis.com/projects/{project}/locations/{location}/certificates/{resourceName}' or just the self_link 'projects/{project}/locations/{location}/certificates/{resourceName}' *)
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -28,6 +29,10 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The Region in which the created target https proxy should reside.
+If it is not provided, the provider region is used. *)
   ssl_certificates : string list option; [@option]
       (** URLs to SslCertificate resources that are used to authenticate connections between users and the load balancer.
 At least one SSL certificate must be specified. Currently, you may specify up to 15 SSL certificates.
@@ -46,14 +51,18 @@ to the RegionBackendService. *)
 (** google_compute_region_target_https_proxy *)
 
 let google_compute_region_target_https_proxy
-    ?certificate_manager_certificates ?description ?ssl_certificates
-    ?ssl_policy ?timeouts ~name ~url_map __resource_id =
+    ?certificate_manager_certificates ?description ?id ?project
+    ?region ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map
+    __resource_id =
   let __resource_type = "google_compute_region_target_https_proxy" in
   let __resource =
     {
       certificate_manager_certificates;
       description;
+      id;
       name;
+      project;
+      region;
       ssl_certificates;
       ssl_policy;
       url_map;

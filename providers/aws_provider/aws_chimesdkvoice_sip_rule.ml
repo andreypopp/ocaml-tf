@@ -14,6 +14,7 @@ type aws_chimesdkvoice_sip_rule__target_applications = {
 
 type aws_chimesdkvoice_sip_rule = {
   disabled : bool option; [@option]  (** disabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   trigger_type : string;  (** trigger_type *)
   trigger_value : string;  (** trigger_value *)
@@ -23,12 +24,13 @@ type aws_chimesdkvoice_sip_rule = {
 [@@deriving yojson_of]
 (** aws_chimesdkvoice_sip_rule *)
 
-let aws_chimesdkvoice_sip_rule ?disabled ~name ~trigger_type
+let aws_chimesdkvoice_sip_rule ?disabled ?id ~name ~trigger_type
     ~trigger_value ~target_applications __resource_id =
   let __resource_type = "aws_chimesdkvoice_sip_rule" in
   let __resource =
     {
       disabled;
+      id;
       name;
       trigger_type;
       trigger_value;

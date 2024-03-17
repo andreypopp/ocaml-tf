@@ -6,6 +6,7 @@ type aws_athena_named_query
 
 val aws_athena_named_query :
   ?description:string ->
+  ?id:string ->
   ?workgroup:string ->
   database:string ->
   name:string ->

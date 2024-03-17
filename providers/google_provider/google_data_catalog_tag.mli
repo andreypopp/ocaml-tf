@@ -8,6 +8,7 @@ type google_data_catalog_tag
 
 val google_data_catalog_tag :
   ?column:string ->
+  ?id:string ->
   ?parent:string ->
   ?timeouts:google_data_catalog_tag__timeouts ->
   template:string ->

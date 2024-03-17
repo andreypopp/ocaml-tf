@@ -12,6 +12,7 @@ type aws_quicksight_vpc_connection__timeouts = {
 (** aws_quicksight_vpc_connection__timeouts *)
 
 type aws_quicksight_vpc_connection = {
+  aws_account_id: string option; [@option] (** aws_account_id *)
   dns_resolvers: string list option; [@option] (** dns_resolvers *)
   name: string;  (** name *)
   role_arn: string;  (** role_arn *)
@@ -23,9 +24,10 @@ type aws_quicksight_vpc_connection = {
 } [@@deriving yojson_of]
 (** aws_quicksight_vpc_connection *)
 
-let aws_quicksight_vpc_connection ?dns_resolvers ?tags ?timeouts ~name ~role_arn ~security_group_ids ~subnet_ids ~vpc_connection_id  __resource_id =
+let aws_quicksight_vpc_connection ?aws_account_id ?dns_resolvers ?tags ?timeouts ~name ~role_arn ~security_group_ids ~subnet_ids ~vpc_connection_id  __resource_id =
   let __resource_type = "aws_quicksight_vpc_connection" in
   let __resource = {
+    aws_account_id;
     dns_resolvers;
     name;
     role_arn;

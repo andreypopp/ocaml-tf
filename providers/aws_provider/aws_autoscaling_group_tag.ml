@@ -14,15 +14,16 @@ type aws_autoscaling_group_tag__tag = {
 
 type aws_autoscaling_group_tag = {
   autoscaling_group_name : string;  (** autoscaling_group_name *)
+  id : string option; [@option]  (** id *)
   tag : aws_autoscaling_group_tag__tag list;
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group_tag *)
 
-let aws_autoscaling_group_tag ~autoscaling_group_name ~tag
+let aws_autoscaling_group_tag ?id ~autoscaling_group_name ~tag
     __resource_id =
   let __resource_type = "aws_autoscaling_group_tag" in
-  let __resource = { autoscaling_group_name; tag } in
+  let __resource = { autoscaling_group_name; id; tag } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_group_tag __resource);
   ()

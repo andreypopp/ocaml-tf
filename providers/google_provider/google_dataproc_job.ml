@@ -224,11 +224,14 @@ type google_dataproc_job__status = {
 type google_dataproc_job = {
   force_delete : bool option; [@option]
       (** By default, you can only delete inactive jobs within Dataproc. Setting this to true, and calling destroy, will ensure that the job is first cancelled before issuing the delete. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. The labels to associate with this job.
 
 				**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  project : string option; [@option]
+      (** The project in which the cluster can be found and jobs subsequently run against. If it is not provided, the provider project is used. *)
   region : string option; [@option]
       (** The Cloud Dataproc region. This essentially determines which clusters are available for this job to be submitted to. If not specified, defaults to global. *)
   hadoop_config : google_dataproc_job__hadoop_config list;
@@ -246,15 +249,17 @@ type google_dataproc_job = {
 [@@deriving yojson_of]
 (** google_dataproc_job *)
 
-let google_dataproc_job ?force_delete ?labels ?region ?timeouts
-    ~hadoop_config ~hive_config ~pig_config ~placement ~presto_config
-    ~pyspark_config ~reference ~scheduling ~spark_config
-    ~sparksql_config __resource_id =
+let google_dataproc_job ?force_delete ?id ?labels ?project ?region
+    ?timeouts ~hadoop_config ~hive_config ~pig_config ~placement
+    ~presto_config ~pyspark_config ~reference ~scheduling
+    ~spark_config ~sparksql_config __resource_id =
   let __resource_type = "google_dataproc_job" in
   let __resource =
     {
       force_delete;
+      id;
       labels;
+      project;
       region;
       hadoop_config;
       hive_config;

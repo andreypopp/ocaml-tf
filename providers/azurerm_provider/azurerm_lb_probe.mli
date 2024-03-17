@@ -6,6 +6,7 @@ type azurerm_lb_probe__timeouts
 type azurerm_lb_probe
 
 val azurerm_lb_probe :
+  ?id:string ->
   ?interval_in_seconds:float ->
   ?number_of_probes:float ->
   ?probe_threshold:float ->

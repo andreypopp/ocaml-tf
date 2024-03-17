@@ -9,6 +9,7 @@ type azurerm_spring_cloud_application_insights_application_performance_monitorin
 val azurerm_spring_cloud_application_insights_application_performance_monitoring :
   ?connection_string:string ->
   ?globally_enabled:bool ->
+  ?id:string ->
   ?role_instance:string ->
   ?role_name:string ->
   ?sampling_percentage:float ->

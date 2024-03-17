@@ -114,6 +114,7 @@ type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration = {
 (** aws_appautoscaling_policy__target_tracking_scaling_policy_configuration *)
 
 type aws_appautoscaling_policy = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   policy_type : string option; [@option]  (** policy_type *)
   resource_id : string;  (** resource_id *)
@@ -128,13 +129,14 @@ type aws_appautoscaling_policy = {
 [@@deriving yojson_of]
 (** aws_appautoscaling_policy *)
 
-let aws_appautoscaling_policy ?policy_type ~name ~resource_id
+let aws_appautoscaling_policy ?id ?policy_type ~name ~resource_id
     ~scalable_dimension ~service_namespace
     ~step_scaling_policy_configuration
     ~target_tracking_scaling_policy_configuration __resource_id =
   let __resource_type = "aws_appautoscaling_policy" in
   let __resource =
     {
+      id;
       name;
       policy_type;
       resource_id;

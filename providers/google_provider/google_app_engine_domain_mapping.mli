@@ -10,12 +10,13 @@ type google_app_engine_domain_mapping__resource_records = {
   rrdata : string;  (** rrdata *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_app_engine_domain_mapping
 
 val google_app_engine_domain_mapping :
+  ?id:string ->
   ?override_strategy:string ->
+  ?project:string ->
   ?timeouts:google_app_engine_domain_mapping__timeouts ->
   domain_name:string ->
   ssl_settings:google_app_engine_domain_mapping__ssl_settings list ->

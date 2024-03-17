@@ -23,8 +23,10 @@ type aws_codepipeline
 
 val aws_codepipeline :
   ?execution_mode:string ->
+  ?id:string ->
   ?pipeline_type:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   role_arn:string ->
   artifact_store:aws_codepipeline__artifact_store list ->

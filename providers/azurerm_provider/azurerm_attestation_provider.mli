@@ -7,6 +7,7 @@ type azurerm_attestation_provider__timeouts
 type azurerm_attestation_provider
 
 val azurerm_attestation_provider :
+  ?id:string ->
   ?open_enclave_policy_base64:string ->
   ?policy_signing_certificate_data:string ->
   ?sev_snp_policy_base64:string ->

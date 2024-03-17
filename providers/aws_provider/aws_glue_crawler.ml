@@ -114,6 +114,7 @@ type aws_glue_crawler = {
   configuration : string option; [@option]  (** configuration *)
   database_name : string;  (** database_name *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   role : string;  (** role *)
   schedule : string option; [@option]  (** schedule *)
@@ -121,6 +122,8 @@ type aws_glue_crawler = {
       (** security_configuration *)
   table_prefix : string option; [@option]  (** table_prefix *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   catalog_target : aws_glue_crawler__catalog_target list;
   delta_target : aws_glue_crawler__delta_target list;
   dynamodb_target : aws_glue_crawler__dynamodb_target list;
@@ -139,8 +142,8 @@ type aws_glue_crawler = {
 [@@deriving yojson_of]
 (** aws_glue_crawler *)
 
-let aws_glue_crawler ?classifiers ?configuration ?description
-    ?schedule ?security_configuration ?table_prefix ?tags
+let aws_glue_crawler ?classifiers ?configuration ?description ?id
+    ?schedule ?security_configuration ?table_prefix ?tags ?tags_all
     ~database_name ~name ~role ~catalog_target ~delta_target
     ~dynamodb_target ~hudi_target ~iceberg_target ~jdbc_target
     ~lake_formation_configuration ~lineage_configuration
@@ -153,12 +156,14 @@ let aws_glue_crawler ?classifiers ?configuration ?description
       configuration;
       database_name;
       description;
+      id;
       name;
       role;
       schedule;
       security_configuration;
       table_prefix;
       tags;
+      tags_all;
       catalog_target;
       delta_target;
       dynamodb_target;

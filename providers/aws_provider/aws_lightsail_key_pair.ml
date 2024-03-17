@@ -5,15 +5,23 @@
 open! Tf.Prelude
 
 type aws_lightsail_key_pair = {
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   pgp_key : string option; [@option]  (** pgp_key *)
+  public_key : string option; [@option]  (** public_key *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_key_pair *)
 
-let aws_lightsail_key_pair ?pgp_key ?tags __resource_id =
+let aws_lightsail_key_pair ?id ?name ?name_prefix ?pgp_key
+    ?public_key ?tags ?tags_all __resource_id =
   let __resource_type = "aws_lightsail_key_pair" in
-  let __resource = { pgp_key; tags } in
+  let __resource =
+    { id; name; name_prefix; pgp_key; public_key; tags; tags_all }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_key_pair __resource);
   ()

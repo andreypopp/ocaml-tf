@@ -22,6 +22,7 @@ type azurerm_public_ip = {
   domain_name_label : string option; [@option]
       (** domain_name_label *)
   edge_zone : string option; [@option]  (** edge_zone *)
+  id : string option; [@option]  (** id *)
   idle_timeout_in_minutes : float option; [@option]
       (** idle_timeout_in_minutes *)
   ip_tags : (string * string) list option; [@option]  (** ip_tags *)
@@ -42,10 +43,10 @@ type azurerm_public_ip = {
 (** azurerm_public_ip *)
 
 let azurerm_public_ip ?ddos_protection_mode ?ddos_protection_plan_id
-    ?domain_name_label ?edge_zone ?idle_timeout_in_minutes ?ip_tags
-    ?ip_version ?public_ip_prefix_id ?reverse_fqdn ?sku ?sku_tier
-    ?tags ?zones ?timeouts ~allocation_method ~location ~name
-    ~resource_group_name __resource_id =
+    ?domain_name_label ?edge_zone ?id ?idle_timeout_in_minutes
+    ?ip_tags ?ip_version ?public_ip_prefix_id ?reverse_fqdn ?sku
+    ?sku_tier ?tags ?zones ?timeouts ~allocation_method ~location
+    ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_public_ip" in
   let __resource =
     {
@@ -54,6 +55,7 @@ let azurerm_public_ip ?ddos_protection_mode ?ddos_protection_plan_id
       ddos_protection_plan_id;
       domain_name_label;
       edge_zone;
+      id;
       idle_timeout_in_minutes;
       ip_tags;
       ip_version;

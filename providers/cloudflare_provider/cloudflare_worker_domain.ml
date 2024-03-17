@@ -10,6 +10,7 @@ type cloudflare_worker_domain = {
   environment : string option; [@option]
       (** The name of the Worker environment. Defaults to `production`. *)
   hostname : string;  (** Hostname of the Worker Domain. *)
+  id : string option; [@option]  (** id *)
   service : string;
       (** Name of worker script to attach the domain to. *)
   zone_id : string;
@@ -18,11 +19,11 @@ type cloudflare_worker_domain = {
 [@@deriving yojson_of]
 (** Creates a Worker Custom Domain. *)
 
-let cloudflare_worker_domain ?environment ~account_id ~hostname
+let cloudflare_worker_domain ?environment ?id ~account_id ~hostname
     ~service ~zone_id __resource_id =
   let __resource_type = "cloudflare_worker_domain" in
   let __resource =
-    { account_id; environment; hostname; service; zone_id }
+    { account_id; environment; hostname; id; service; zone_id }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_worker_domain __resource);

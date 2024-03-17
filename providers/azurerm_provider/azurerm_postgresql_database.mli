@@ -6,6 +6,7 @@ type azurerm_postgresql_database__timeouts
 type azurerm_postgresql_database
 
 val azurerm_postgresql_database :
+  ?id:string ->
   ?timeouts:azurerm_postgresql_database__timeouts ->
   charset:string ->
   collation:string ->

@@ -263,10 +263,64 @@ type google_compute_instance_from_template__service_account = {
 [@@deriving yojson_of]
 
 type google_compute_instance_from_template = {
+  allow_stopping_for_update : bool option; [@option]
+      (** If true, allows Terraform to stop the instance to update its properties. If you try to update a property that requires stopping the instance without setting this field, the update will fail. *)
+  attached_disk :
+    google_compute_instance_from_template__attached_disk list option;
+      [@option]
+      (** List of disks attached to the instance *)
+  can_ip_forward : bool option; [@option]
+      (** Whether sending and receiving of packets with non-matching source or destination IPs is allowed. *)
+  deletion_protection : bool option; [@option]
+      (** Whether deletion protection is enabled on this instance. *)
+  description : string option; [@option]
+      (** A brief description of the resource. *)
+  desired_status : string option; [@option]
+      (** Desired status of the instance. Either RUNNING or TERMINATED. *)
+  enable_display : bool option; [@option]
+      (** Whether the instance has virtual displays enabled. *)
+  guest_accelerator :
+    google_compute_instance_from_template__guest_accelerator list
+    option;
+      [@option]
+      (** List of the type and count of accelerator cards attached to the instance. *)
+  hostname : string option; [@option]
+      (** A custom hostname for the instance. Must be a fully qualified DNS name and RFC-1035-valid. Valid format is a series of labels 1-63 characters long matching the regular expression [a-z]([-a-z0-9]*[a-z0-9]), concatenated with periods. The entire hostname must not exceed 253 characters. Changing this forces a new resource to be created. *)
+  id : string option; [@option]  (** id *)
+  labels : (string * string) list option; [@option]
+      (** A set of key/value label pairs assigned to the instance.
+
+				**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
+				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  machine_type : string option; [@option]
+      (** The machine type to create. *)
+  metadata : (string * string) list option; [@option]
+      (** Metadata key/value pairs made available within the instance. *)
+  metadata_startup_script : string option; [@option]
+      (** Metadata startup scripts made available within the instance. *)
+  min_cpu_platform : string option; [@option]
+      (** The minimum CPU platform specified for the VM instance. *)
   name : string;
       (** The name of the instance. One of name or self_link must be provided. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If self_link is provided, this value is ignored. If neither self_link nor project are provided, the provider project is used. *)
+  resource_policies : string list option; [@option]
+      (** A list of self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported. *)
+  scratch_disk :
+    google_compute_instance_from_template__scratch_disk list option;
+      [@option]
+      (** The scratch disks attached to the instance. *)
+  service_account :
+    google_compute_instance_from_template__service_account list
+    option;
+      [@option]
+      (** The service account to attach to the instance. *)
   source_instance_template : string;
       (** Name or self link of an instance template to create the instance based on. *)
+  tags : string list option; [@option]
+      (** The list of tags attached to the instance. *)
+  zone : string option; [@option]
+      (** The zone of the instance. If self_link is provided, this value is ignored. If neither self_link nor zone are provided, the provider zone is used. *)
   advanced_machine_features :
     google_compute_instance_from_template__advanced_machine_features
     list;
@@ -292,7 +346,12 @@ type google_compute_instance_from_template = {
 [@@deriving yojson_of]
 (** google_compute_instance_from_template *)
 
-let google_compute_instance_from_template ?timeouts ~name
+let google_compute_instance_from_template ?allow_stopping_for_update
+    ?attached_disk ?can_ip_forward ?deletion_protection ?description
+    ?desired_status ?enable_display ?guest_accelerator ?hostname ?id
+    ?labels ?machine_type ?metadata ?metadata_startup_script
+    ?min_cpu_platform ?project ?resource_policies ?scratch_disk
+    ?service_account ?tags ?zone ?timeouts ~name
     ~source_instance_template ~advanced_machine_features ~boot_disk
     ~confidential_instance_config ~network_interface
     ~network_performance_config ~params ~reservation_affinity
@@ -300,8 +359,29 @@ let google_compute_instance_from_template ?timeouts ~name
   let __resource_type = "google_compute_instance_from_template" in
   let __resource =
     {
+      allow_stopping_for_update;
+      attached_disk;
+      can_ip_forward;
+      deletion_protection;
+      description;
+      desired_status;
+      enable_display;
+      guest_accelerator;
+      hostname;
+      id;
+      labels;
+      machine_type;
+      metadata;
+      metadata_startup_script;
+      min_cpu_platform;
       name;
+      project;
+      resource_policies;
+      scratch_disk;
+      service_account;
       source_instance_template;
+      tags;
+      zone;
       advanced_machine_features;
       boot_disk;
       confidential_instance_config;

@@ -23,7 +23,10 @@ type google_monitoring_uptime_check_config__timeouts
 type google_monitoring_uptime_check_config
 
 val google_monitoring_uptime_check_config :
+  ?checker_type:string ->
+  ?id:string ->
   ?period:string ->
+  ?project:string ->
   ?selected_regions:string list ->
   ?user_labels:(string * string) list ->
   ?timeouts:google_monitoring_uptime_check_config__timeouts ->

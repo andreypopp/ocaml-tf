@@ -18,6 +18,9 @@ type google_compute_autoscaler
 
 val google_compute_autoscaler :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
+  ?zone:string ->
   ?timeouts:google_compute_autoscaler__timeouts ->
   name:string ->
   target:string ->

@@ -12,6 +12,7 @@ type aws_opensearch_package__package_source = {
 (** aws_opensearch_package__package_source *)
 
 type aws_opensearch_package = {
+  id : string option; [@option]  (** id *)
   package_description : string option; [@option]
       (** package_description *)
   package_name : string;  (** package_name *)
@@ -21,11 +22,12 @@ type aws_opensearch_package = {
 [@@deriving yojson_of]
 (** aws_opensearch_package *)
 
-let aws_opensearch_package ?package_description ~package_name
+let aws_opensearch_package ?id ?package_description ~package_name
     ~package_type ~package_source __resource_id =
   let __resource_type = "aws_opensearch_package" in
   let __resource =
     {
+      id;
       package_description;
       package_name;
       package_type;

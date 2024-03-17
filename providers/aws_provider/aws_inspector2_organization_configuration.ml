@@ -22,6 +22,7 @@ type aws_inspector2_organization_configuration__timeouts = {
 (** aws_inspector2_organization_configuration__timeouts *)
 
 type aws_inspector2_organization_configuration = {
+  id : string option; [@option]  (** id *)
   auto_enable :
     aws_inspector2_organization_configuration__auto_enable list;
   timeouts :
@@ -30,12 +31,12 @@ type aws_inspector2_organization_configuration = {
 [@@deriving yojson_of]
 (** aws_inspector2_organization_configuration *)
 
-let aws_inspector2_organization_configuration ?timeouts ~auto_enable
-    __resource_id =
+let aws_inspector2_organization_configuration ?id ?timeouts
+    ~auto_enable __resource_id =
   let __resource_type =
     "aws_inspector2_organization_configuration"
   in
-  let __resource = { auto_enable; timeouts } in
+  let __resource = { id; auto_enable; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_inspector2_organization_configuration __resource);
   ()

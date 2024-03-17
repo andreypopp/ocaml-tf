@@ -23,7 +23,10 @@ type aws_sagemaker_model
 
 val aws_sagemaker_model :
   ?enable_network_isolation:bool ->
+  ?id:string ->
+  ?name:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   execution_role_arn:string ->
   container:aws_sagemaker_model__container list ->
   inference_execution_config:

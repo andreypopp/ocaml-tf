@@ -13,6 +13,7 @@ type azurerm_chaos_studio_target__timeouts = {
 (** azurerm_chaos_studio_target__timeouts *)
 
 type azurerm_chaos_studio_target = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   target_resource_id : string;  (** target_resource_id *)
   target_type : string;  (** target_type *)
@@ -21,11 +22,11 @@ type azurerm_chaos_studio_target = {
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_target *)
 
-let azurerm_chaos_studio_target ?timeouts ~location
+let azurerm_chaos_studio_target ?id ?timeouts ~location
     ~target_resource_id ~target_type __resource_id =
   let __resource_type = "azurerm_chaos_studio_target" in
   let __resource =
-    { location; target_resource_id; target_type; timeouts }
+    { id; location; target_resource_id; target_type; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_chaos_studio_target __resource);

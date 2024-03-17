@@ -30,10 +30,20 @@ type aws_vpc_endpoint__dns_entry = {
 
 type aws_vpc_endpoint = {
   auto_accept : bool option; [@option]  (** auto_accept *)
+  id : string option; [@option]  (** id *)
+  ip_address_type : string option; [@option]  (** ip_address_type *)
+  policy : string option; [@option]  (** policy *)
   private_dns_enabled : bool option; [@option]
       (** private_dns_enabled *)
+  route_table_ids : string list option; [@option]
+      (** route_table_ids *)
+  security_group_ids : string list option; [@option]
+      (** security_group_ids *)
   service_name : string;  (** service_name *)
+  subnet_ids : string list option; [@option]  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_endpoint_type : string option; [@option]
       (** vpc_endpoint_type *)
   vpc_id : string;  (** vpc_id *)
@@ -43,16 +53,24 @@ type aws_vpc_endpoint = {
 [@@deriving yojson_of]
 (** aws_vpc_endpoint *)
 
-let aws_vpc_endpoint ?auto_accept ?private_dns_enabled ?tags
-    ?vpc_endpoint_type ?timeouts ~service_name ~vpc_id ~dns_options
-    __resource_id =
+let aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
+    ?private_dns_enabled ?route_table_ids ?security_group_ids
+    ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
+    ~service_name ~vpc_id ~dns_options __resource_id =
   let __resource_type = "aws_vpc_endpoint" in
   let __resource =
     {
       auto_accept;
+      id;
+      ip_address_type;
+      policy;
       private_dns_enabled;
+      route_table_ids;
+      security_group_ids;
       service_name;
+      subnet_ids;
       tags;
+      tags_all;
       vpc_endpoint_type;
       vpc_id;
       dns_options;

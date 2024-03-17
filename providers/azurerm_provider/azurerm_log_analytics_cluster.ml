@@ -22,6 +22,7 @@ type azurerm_log_analytics_cluster__timeouts = {
 (** azurerm_log_analytics_cluster__timeouts *)
 
 type azurerm_log_analytics_cluster = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -33,11 +34,12 @@ type azurerm_log_analytics_cluster = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_cluster *)
 
-let azurerm_log_analytics_cluster ?size_gb ?tags ?timeouts ~location
-    ~name ~resource_group_name ~identity __resource_id =
+let azurerm_log_analytics_cluster ?id ?size_gb ?tags ?timeouts
+    ~location ~name ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_log_analytics_cluster" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

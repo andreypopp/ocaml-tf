@@ -16,19 +16,21 @@ type azurerm_app_service_active_slot__timeouts = {
 type azurerm_app_service_active_slot = {
   app_service_name : string;  (** app_service_name *)
   app_service_slot_name : string;  (** app_service_slot_name *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts : azurerm_app_service_active_slot__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_active_slot *)
 
-let azurerm_app_service_active_slot ?timeouts ~app_service_name
+let azurerm_app_service_active_slot ?id ?timeouts ~app_service_name
     ~app_service_slot_name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_app_service_active_slot" in
   let __resource =
     {
       app_service_name;
       app_service_slot_name;
+      id;
       resource_group_name;
       timeouts;
     }

@@ -9,6 +9,7 @@ type azurerm_container_connected_registry
 val azurerm_container_connected_registry :
   ?audit_log_enabled:bool ->
   ?client_token_ids:string list ->
+  ?id:string ->
   ?log_level:string ->
   ?mode:string ->
   ?parent_registry_id:string ->

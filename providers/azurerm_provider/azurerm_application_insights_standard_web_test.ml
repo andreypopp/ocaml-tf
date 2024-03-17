@@ -64,6 +64,7 @@ type azurerm_application_insights_standard_web_test = {
   enabled : bool option; [@option]  (** enabled *)
   frequency : float option; [@option]  (** frequency *)
   geo_locations : string list;  (** geo_locations *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -82,7 +83,7 @@ type azurerm_application_insights_standard_web_test = {
 (** azurerm_application_insights_standard_web_test *)
 
 let azurerm_application_insights_standard_web_test ?description
-    ?enabled ?frequency ?retry_enabled ?tags ?timeout ?timeouts
+    ?enabled ?frequency ?id ?retry_enabled ?tags ?timeout ?timeouts
     ~application_insights_id ~geo_locations ~location ~name
     ~resource_group_name ~request ~validation_rules __resource_id =
   let __resource_type =
@@ -95,6 +96,7 @@ let azurerm_application_insights_standard_web_test ?description
       enabled;
       frequency;
       geo_locations;
+      id;
       location;
       name;
       resource_group_name;

@@ -11,14 +11,16 @@ type aws_route53recoverycontrolconfig_cluster__cluster_endpoints = {
 [@@deriving yojson_of]
 
 type aws_route53recoverycontrolconfig_cluster = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoverycontrolconfig_cluster *)
 
-let aws_route53recoverycontrolconfig_cluster ~name __resource_id =
+let aws_route53recoverycontrolconfig_cluster ?id ~name __resource_id
+    =
   let __resource_type = "aws_route53recoverycontrolconfig_cluster" in
-  let __resource = { name } in
+  let __resource = { id; name } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53recoverycontrolconfig_cluster __resource);
   ()

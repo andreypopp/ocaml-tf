@@ -23,6 +23,7 @@ type azurerm_spring_cloud_java_deployment__timeouts = {
 type azurerm_spring_cloud_java_deployment = {
   environment_variables : (string * string) list option; [@option]
       (** environment_variables *)
+  id : string option; [@option]  (** id *)
   instance_count : float option; [@option]  (** instance_count *)
   jvm_options : string option; [@option]  (** jvm_options *)
   name : string;  (** name *)
@@ -34,13 +35,14 @@ type azurerm_spring_cloud_java_deployment = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_java_deployment *)
 
-let azurerm_spring_cloud_java_deployment ?environment_variables
+let azurerm_spring_cloud_java_deployment ?environment_variables ?id
     ?instance_count ?jvm_options ?runtime_version ?timeouts ~name
     ~spring_cloud_app_id ~quota __resource_id =
   let __resource_type = "azurerm_spring_cloud_java_deployment" in
   let __resource =
     {
       environment_variables;
+      id;
       instance_count;
       jvm_options;
       name;

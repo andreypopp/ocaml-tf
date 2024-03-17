@@ -9,15 +9,22 @@ type aws_rum_metrics_destination = {
   destination : string;  (** destination *)
   destination_arn : string option; [@option]  (** destination_arn *)
   iam_role_arn : string option; [@option]  (** iam_role_arn *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_rum_metrics_destination *)
 
-let aws_rum_metrics_destination ?destination_arn ?iam_role_arn
+let aws_rum_metrics_destination ?destination_arn ?iam_role_arn ?id
     ~app_monitor_name ~destination __resource_id =
   let __resource_type = "aws_rum_metrics_destination" in
   let __resource =
-    { app_monitor_name; destination; destination_arn; iam_role_arn }
+    {
+      app_monitor_name;
+      destination;
+      destination_arn;
+      iam_role_arn;
+      id;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_rum_metrics_destination __resource);

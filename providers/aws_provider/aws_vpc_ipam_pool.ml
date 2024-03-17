@@ -25,6 +25,7 @@ type aws_vpc_ipam_pool = {
   auto_import : bool option; [@option]  (** auto_import *)
   aws_service : string option; [@option]  (** aws_service *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   ipam_scope_id : string;  (** ipam_scope_id *)
   locale : string option; [@option]  (** locale *)
   public_ip_source : string option; [@option]
@@ -34,6 +35,8 @@ type aws_vpc_ipam_pool = {
   source_ipam_pool_id : string option; [@option]
       (** source_ipam_pool_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_vpc_ipam_pool__timeouts option;
 }
 [@@deriving yojson_of]
@@ -42,8 +45,8 @@ type aws_vpc_ipam_pool = {
 let aws_vpc_ipam_pool ?allocation_default_netmask_length
     ?allocation_max_netmask_length ?allocation_min_netmask_length
     ?allocation_resource_tags ?auto_import ?aws_service ?description
-    ?locale ?public_ip_source ?publicly_advertisable
-    ?source_ipam_pool_id ?tags ?timeouts ~address_family
+    ?id ?locale ?public_ip_source ?publicly_advertisable
+    ?source_ipam_pool_id ?tags ?tags_all ?timeouts ~address_family
     ~ipam_scope_id __resource_id =
   let __resource_type = "aws_vpc_ipam_pool" in
   let __resource =
@@ -56,12 +59,14 @@ let aws_vpc_ipam_pool ?allocation_default_netmask_length
       auto_import;
       aws_service;
       description;
+      id;
       ipam_scope_id;
       locale;
       public_ip_source;
       publicly_advertisable;
       source_ipam_pool_id;
       tags;
+      tags_all;
       timeouts;
     }
   in

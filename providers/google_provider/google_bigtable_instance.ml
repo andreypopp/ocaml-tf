@@ -46,6 +46,9 @@ type google_bigtable_instance__timeouts = {
 type google_bigtable_instance = {
   deletion_protection : bool option; [@option]
       (** Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a terraform destroy or terraform apply that would delete the instance will fail. *)
+  display_name : string option; [@option]
+      (** The human-readable display name of the Bigtable instance. Defaults to the instance name. *)
+  id : string option; [@option]  (** id *)
   instance_type : string option; [@option]
       (** The instance type to create. One of DEVELOPMENT or PRODUCTION. Defaults to PRODUCTION. *)
   labels : (string * string) list option; [@option]
@@ -55,21 +58,27 @@ type google_bigtable_instance = {
 				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;
       (** The name (also called Instance Id in the Cloud Console) of the Cloud Bigtable instance. Must be 6-33 characters and must only contain hyphens, lowercase letters and numbers. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   cluster : google_bigtable_instance__cluster list;
   timeouts : google_bigtable_instance__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_bigtable_instance *)
 
-let google_bigtable_instance ?deletion_protection ?instance_type
-    ?labels ?timeouts ~name ~cluster __resource_id =
+let google_bigtable_instance ?deletion_protection ?display_name ?id
+    ?instance_type ?labels ?project ?timeouts ~name ~cluster
+    __resource_id =
   let __resource_type = "google_bigtable_instance" in
   let __resource =
     {
       deletion_protection;
+      display_name;
+      id;
       instance_type;
       labels;
       name;
+      project;
       cluster;
       timeouts;
     }

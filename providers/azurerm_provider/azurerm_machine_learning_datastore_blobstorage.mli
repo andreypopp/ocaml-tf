@@ -8,6 +8,7 @@ type azurerm_machine_learning_datastore_blobstorage
 val azurerm_machine_learning_datastore_blobstorage :
   ?account_key:string ->
   ?description:string ->
+  ?id:string ->
   ?is_default:bool ->
   ?service_data_auth_identity:string ->
   ?shared_access_signature:string ->

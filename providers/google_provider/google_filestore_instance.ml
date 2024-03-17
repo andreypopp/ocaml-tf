@@ -76,6 +76,7 @@ type google_filestore_instance__timeouts = {
 type google_filestore_instance = {
   description : string option; [@option]
       (** A description of the instance. *)
+  id : string option; [@option]  (** id *)
   kms_key_name : string option; [@option]
       (** KMS key name used for data encryption. *)
   labels : (string * string) list option; [@option]
@@ -84,10 +85,15 @@ type google_filestore_instance = {
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  location : string option; [@option]
+      (** The name of the location of the instance. This can be a region for ENTERPRISE tier instances. *)
   name : string;  (** The resource name of the instance. *)
+  project : string option; [@option]  (** project *)
   tier : string;
       (** The service tier of the instance.
 Possible values include: STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, HIGH_SCALE_SSD, ZONAL, REGIONAL and ENTERPRISE *)
+  zone : string option; [@option]
+      (** The name of the Filestore zone of the instance. *)
   file_shares : google_filestore_instance__file_shares list;
   networks : google_filestore_instance__networks list;
   timeouts : google_filestore_instance__timeouts option;
@@ -95,16 +101,21 @@ Possible values include: STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, HIGH_SCALE_SSD
 [@@deriving yojson_of]
 (** google_filestore_instance *)
 
-let google_filestore_instance ?description ?kms_key_name ?labels
-    ?timeouts ~name ~tier ~file_shares ~networks __resource_id =
+let google_filestore_instance ?description ?id ?kms_key_name ?labels
+    ?location ?project ?zone ?timeouts ~name ~tier ~file_shares
+    ~networks __resource_id =
   let __resource_type = "google_filestore_instance" in
   let __resource =
     {
       description;
+      id;
       kms_key_name;
       labels;
+      location;
       name;
+      project;
       tier;
+      zone;
       file_shares;
       networks;
       timeouts;

@@ -6,6 +6,7 @@ type azurerm_stream_analytics_managed_private_endpoint__timeouts
 type azurerm_stream_analytics_managed_private_endpoint
 
 val azurerm_stream_analytics_managed_private_endpoint :
+  ?id:string ->
   ?timeouts:
     azurerm_stream_analytics_managed_private_endpoint__timeouts ->
   name:string ->

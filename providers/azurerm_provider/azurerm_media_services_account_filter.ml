@@ -46,6 +46,7 @@ type azurerm_media_services_account_filter__track_selection = {
 type azurerm_media_services_account_filter = {
   first_quality_bitrate : float option; [@option]
       (** first_quality_bitrate *)
+  id : string option; [@option]  (** id *)
   media_services_account_name : string;
       (** media_services_account_name *)
   name : string;  (** name *)
@@ -60,13 +61,14 @@ type azurerm_media_services_account_filter = {
 [@@deriving yojson_of]
 (** azurerm_media_services_account_filter *)
 
-let azurerm_media_services_account_filter ?first_quality_bitrate
+let azurerm_media_services_account_filter ?first_quality_bitrate ?id
     ?timeouts ~media_services_account_name ~name ~resource_group_name
     ~presentation_time_range ~track_selection __resource_id =
   let __resource_type = "azurerm_media_services_account_filter" in
   let __resource =
     {
       first_quality_bitrate;
+      id;
       media_services_account_name;
       name;
       resource_group_name;

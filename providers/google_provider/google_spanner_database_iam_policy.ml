@@ -6,16 +6,20 @@ open! Tf.Prelude
 
 type google_spanner_database_iam_policy = {
   database : string;  (** database *)
+  id : string option; [@option]  (** id *)
   instance : string;  (** instance *)
   policy_data : string;  (** policy_data *)
+  project : string option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_spanner_database_iam_policy *)
 
-let google_spanner_database_iam_policy ~database ~instance
-    ~policy_data __resource_id =
+let google_spanner_database_iam_policy ?id ?project ~database
+    ~instance ~policy_data __resource_id =
   let __resource_type = "google_spanner_database_iam_policy" in
-  let __resource = { database; instance; policy_data } in
+  let __resource =
+    { database; id; instance; policy_data; project }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_spanner_database_iam_policy __resource);
   ()

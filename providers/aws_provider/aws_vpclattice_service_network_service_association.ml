@@ -19,10 +19,13 @@ type aws_vpclattice_service_network_service_association__dns_entry = {
 [@@deriving yojson_of]
 
 type aws_vpclattice_service_network_service_association = {
+  id : string option; [@option]  (** id *)
   service_identifier : string;  (** service_identifier *)
   service_network_identifier : string;
       (** service_network_identifier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts :
     aws_vpclattice_service_network_service_association__timeouts
     option;
@@ -30,17 +33,19 @@ type aws_vpclattice_service_network_service_association = {
 [@@deriving yojson_of]
 (** aws_vpclattice_service_network_service_association *)
 
-let aws_vpclattice_service_network_service_association ?tags
-    ?timeouts ~service_identifier ~service_network_identifier
-    __resource_id =
+let aws_vpclattice_service_network_service_association ?id ?tags
+    ?tags_all ?timeouts ~service_identifier
+    ~service_network_identifier __resource_id =
   let __resource_type =
     "aws_vpclattice_service_network_service_association"
   in
   let __resource =
     {
+      id;
       service_identifier;
       service_network_identifier;
       tags;
+      tags_all;
       timeouts;
     }
   in

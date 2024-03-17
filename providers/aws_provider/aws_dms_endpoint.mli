@@ -14,7 +14,11 @@ type aws_dms_endpoint__timeouts
 type aws_dms_endpoint
 
 val aws_dms_endpoint :
+  ?certificate_arn:string ->
   ?database_name:string ->
+  ?extra_connection_attributes:string ->
+  ?id:string ->
+  ?kms_key_arn:string ->
   ?password:string ->
   ?pause_replication_tasks:bool ->
   ?port:float ->
@@ -22,7 +26,9 @@ val aws_dms_endpoint :
   ?secrets_manager_arn:string ->
   ?server_name:string ->
   ?service_access_role:string ->
+  ?ssl_mode:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?username:string ->
   ?timeouts:aws_dms_endpoint__timeouts ->
   endpoint_id:string ->

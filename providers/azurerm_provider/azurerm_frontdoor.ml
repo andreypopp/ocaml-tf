@@ -142,6 +142,7 @@ type azurerm_frontdoor__explicit_resource_order = {
 
 type azurerm_frontdoor = {
   friendly_name : string option; [@option]  (** friendly_name *)
+  id : string option; [@option]  (** id *)
   load_balancer_enabled : bool option; [@option]
       (** load_balancer_enabled *)
   name : string;  (** name *)
@@ -161,7 +162,7 @@ type azurerm_frontdoor = {
 [@@deriving yojson_of]
 (** azurerm_frontdoor *)
 
-let azurerm_frontdoor ?friendly_name ?load_balancer_enabled ?tags
+let azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
     ?timeouts ~name ~resource_group_name ~backend_pool
     ~backend_pool_health_probe ~backend_pool_load_balancing
     ~backend_pool_settings ~frontend_endpoint ~routing_rule
@@ -170,6 +171,7 @@ let azurerm_frontdoor ?friendly_name ?load_balancer_enabled ?tags
   let __resource =
     {
       friendly_name;
+      id;
       load_balancer_enabled;
       name;
       resource_group_name;

@@ -7,8 +7,10 @@ type aws_dms_event_subscription
 
 val aws_dms_event_subscription :
   ?enabled:bool ->
+  ?id:string ->
   ?source_ids:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_dms_event_subscription__timeouts ->
   event_categories:string list ->
   name:string ->

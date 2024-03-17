@@ -6,6 +6,7 @@ type azurerm_cdn_profile__timeouts
 type azurerm_cdn_profile
 
 val azurerm_cdn_profile :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_cdn_profile__timeouts ->
   location:string ->

@@ -53,6 +53,7 @@ deletion. Handle with care. Default is false. *)
 currently receives an update and stopping the update might be undesirable. Set this parameter to true
 to stop anyway. All data transferred to the destination will be discarded and content of destination
 volume will remain at the state of the last successful update. Default is false. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'
 
@@ -63,6 +64,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
       (** Name of region for this resource. The resource needs to be created in the region of the destination volume. *)
   name : string;
       (** The name of the replication. Needs to be unique per location. *)
+  project : string option; [@option]  (** project *)
   replication_enabled : bool option; [@option]
       (** Set to false to stop/break the mirror. Stopping the mirror makes the destination volume read-write
 and act independently from the source volume.
@@ -85,18 +87,21 @@ create/stop/resume operations, set this parameter to true. Default is false. *)
 (** google_netapp_volume_replication *)
 
 let google_netapp_volume_replication ?delete_destination_volume
-    ?description ?force_stopping ?labels ?replication_enabled
-    ?wait_for_mirror ?timeouts ~location ~name ~replication_schedule
-    ~volume_name ~destination_volume_parameters __resource_id =
+    ?description ?force_stopping ?id ?labels ?project
+    ?replication_enabled ?wait_for_mirror ?timeouts ~location ~name
+    ~replication_schedule ~volume_name ~destination_volume_parameters
+    __resource_id =
   let __resource_type = "google_netapp_volume_replication" in
   let __resource =
     {
       delete_destination_volume;
       description;
       force_stopping;
+      id;
       labels;
       location;
       name;
+      project;
       replication_enabled;
       replication_schedule;
       volume_name;

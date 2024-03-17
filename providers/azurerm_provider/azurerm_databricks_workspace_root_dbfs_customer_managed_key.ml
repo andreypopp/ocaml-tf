@@ -14,6 +14,7 @@ type azurerm_databricks_workspace_root_dbfs_customer_managed_key__timeouts = {
 (** azurerm_databricks_workspace_root_dbfs_customer_managed_key__timeouts *)
 
 type azurerm_databricks_workspace_root_dbfs_customer_managed_key = {
+  id : string option; [@option]  (** id *)
   key_vault_key_id : string;  (** key_vault_key_id *)
   workspace_id : string;  (** workspace_id *)
   timeouts :
@@ -23,12 +24,14 @@ type azurerm_databricks_workspace_root_dbfs_customer_managed_key = {
 [@@deriving yojson_of]
 (** azurerm_databricks_workspace_root_dbfs_customer_managed_key *)
 
-let azurerm_databricks_workspace_root_dbfs_customer_managed_key
+let azurerm_databricks_workspace_root_dbfs_customer_managed_key ?id
     ?timeouts ~key_vault_key_id ~workspace_id __resource_id =
   let __resource_type =
     "azurerm_databricks_workspace_root_dbfs_customer_managed_key"
   in
-  let __resource = { key_vault_key_id; workspace_id; timeouts } in
+  let __resource =
+    { id; key_vault_key_id; workspace_id; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_databricks_workspace_root_dbfs_customer_managed_key
        __resource);

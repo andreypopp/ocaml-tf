@@ -13,16 +13,20 @@ type aws_quicksight_iam_policy_assignment__identities = {
 type aws_quicksight_iam_policy_assignment = {
   assignment_name: string;  (** assignment_name *)
   assignment_status: string;  (** assignment_status *)
+  aws_account_id: string option; [@option] (** aws_account_id *)
+  namespace: string option; [@option] (** namespace *)
   policy_arn: string option; [@option] (** policy_arn *)
   identities: aws_quicksight_iam_policy_assignment__identities list;
 } [@@deriving yojson_of]
 (** aws_quicksight_iam_policy_assignment *)
 
-let aws_quicksight_iam_policy_assignment ?policy_arn  ~assignment_name ~assignment_status ~identities __resource_id =
+let aws_quicksight_iam_policy_assignment ?aws_account_id ?namespace ?policy_arn  ~assignment_name ~assignment_status ~identities __resource_id =
   let __resource_type = "aws_quicksight_iam_policy_assignment" in
   let __resource = {
     assignment_name;
     assignment_status;
+    aws_account_id;
+    namespace;
     policy_arn;
     identities;
   } in

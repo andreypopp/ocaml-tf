@@ -11,6 +11,7 @@ type azurerm_billing_account_cost_management_export
 
 val azurerm_billing_account_cost_management_export :
   ?active:bool ->
+  ?id:string ->
   ?timeouts:azurerm_billing_account_cost_management_export__timeouts ->
   billing_account_id:string ->
   name:string ->

@@ -14,6 +14,7 @@ type azurerm_public_ip_prefix__timeouts = {
 (** azurerm_public_ip_prefix__timeouts *)
 
 type azurerm_public_ip_prefix = {
+  id : string option; [@option]  (** id *)
   ip_version : string option; [@option]  (** ip_version *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -27,12 +28,13 @@ type azurerm_public_ip_prefix = {
 [@@deriving yojson_of]
 (** azurerm_public_ip_prefix *)
 
-let azurerm_public_ip_prefix ?ip_version ?prefix_length ?sku ?tags
-    ?zones ?timeouts ~location ~name ~resource_group_name
+let azurerm_public_ip_prefix ?id ?ip_version ?prefix_length ?sku
+    ?tags ?zones ?timeouts ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_public_ip_prefix" in
   let __resource =
     {
+      id;
       ip_version;
       location;
       name;

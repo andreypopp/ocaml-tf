@@ -19,6 +19,7 @@ type aws_dynamodb_global_table__timeouts = {
 (** aws_dynamodb_global_table__timeouts *)
 
 type aws_dynamodb_global_table = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   replica : aws_dynamodb_global_table__replica list;
   timeouts : aws_dynamodb_global_table__timeouts option;
@@ -26,10 +27,10 @@ type aws_dynamodb_global_table = {
 [@@deriving yojson_of]
 (** aws_dynamodb_global_table *)
 
-let aws_dynamodb_global_table ?timeouts ~name ~replica __resource_id
-    =
+let aws_dynamodb_global_table ?id ?timeouts ~name ~replica
+    __resource_id =
   let __resource_type = "aws_dynamodb_global_table" in
-  let __resource = { name; replica; timeouts } in
+  let __resource = { id; name; replica; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_global_table __resource);
   ()

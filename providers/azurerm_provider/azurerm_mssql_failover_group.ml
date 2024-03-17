@@ -30,7 +30,10 @@ type azurerm_mssql_failover_group__timeouts = {
 
 type azurerm_mssql_failover_group = {
   databases : string list option; [@option]  (** databases *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  readonly_endpoint_failover_policy_enabled : bool option; [@option]
+      (** readonly_endpoint_failover_policy_enabled *)
   server_id : string;  (** server_id *)
   tags : (string * string) list option; [@option]  (** tags *)
   partner_server : azurerm_mssql_failover_group__partner_server list;
@@ -42,14 +45,17 @@ type azurerm_mssql_failover_group = {
 [@@deriving yojson_of]
 (** azurerm_mssql_failover_group *)
 
-let azurerm_mssql_failover_group ?databases ?tags ?timeouts ~name
+let azurerm_mssql_failover_group ?databases ?id
+    ?readonly_endpoint_failover_policy_enabled ?tags ?timeouts ~name
     ~server_id ~partner_server ~read_write_endpoint_failover_policy
     __resource_id =
   let __resource_type = "azurerm_mssql_failover_group" in
   let __resource =
     {
       databases;
+      id;
       name;
+      readonly_endpoint_failover_policy_enabled;
       server_id;
       tags;
       partner_server;

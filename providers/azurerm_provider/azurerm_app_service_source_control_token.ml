@@ -14,6 +14,7 @@ type azurerm_app_service_source_control_token__timeouts = {
 (** azurerm_app_service_source_control_token__timeouts *)
 
 type azurerm_app_service_source_control_token = {
+  id : string option; [@option]  (** id *)
   token : string;  (** token *)
   token_secret : string option; [@option]  (** token_secret *)
   type_ : string; [@key "type"]  (** type *)
@@ -23,10 +24,10 @@ type azurerm_app_service_source_control_token = {
 [@@deriving yojson_of]
 (** azurerm_app_service_source_control_token *)
 
-let azurerm_app_service_source_control_token ?token_secret ?timeouts
-    ~token ~type_ __resource_id =
+let azurerm_app_service_source_control_token ?id ?token_secret
+    ?timeouts ~token ~type_ __resource_id =
   let __resource_type = "azurerm_app_service_source_control_token" in
-  let __resource = { token; token_secret; type_; timeouts } in
+  let __resource = { id; token; token_secret; type_; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_source_control_token __resource);
   ()

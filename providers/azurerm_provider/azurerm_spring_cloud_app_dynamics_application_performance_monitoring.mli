@@ -14,6 +14,7 @@ val azurerm_spring_cloud_app_dynamics_application_performance_monitoring :
   ?controller_port:float ->
   ?controller_ssl_enabled:bool ->
   ?globally_enabled:bool ->
+  ?id:string ->
   ?timeouts:
     azurerm_spring_cloud_app_dynamics_application_performance_monitoring__timeouts ->
   agent_account_access_key:string ->

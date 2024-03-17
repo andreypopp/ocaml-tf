@@ -22,6 +22,7 @@ type azurerm_data_share_account__timeouts = {
 (** azurerm_data_share_account__timeouts *)
 
 type azurerm_data_share_account = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -32,11 +33,19 @@ type azurerm_data_share_account = {
 [@@deriving yojson_of]
 (** azurerm_data_share_account *)
 
-let azurerm_data_share_account ?tags ?timeouts ~location ~name
+let azurerm_data_share_account ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_data_share_account" in
   let __resource =
-    { location; name; resource_group_name; tags; identity; timeouts }
+    {
+      id;
+      location;
+      name;
+      resource_group_name;
+      tags;
+      identity;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_data_share_account __resource);

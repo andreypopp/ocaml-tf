@@ -34,6 +34,7 @@ type azurerm_network_packet_capture__timeouts = {
 (** azurerm_network_packet_capture__timeouts *)
 
 type azurerm_network_packet_capture = {
+  id : string option; [@option]  (** id *)
   maximum_bytes_per_packet : float option; [@option]
       (** maximum_bytes_per_packet *)
   maximum_bytes_per_session : float option; [@option]
@@ -52,13 +53,14 @@ type azurerm_network_packet_capture = {
 [@@deriving yojson_of]
 (** azurerm_network_packet_capture *)
 
-let azurerm_network_packet_capture ?maximum_bytes_per_packet
+let azurerm_network_packet_capture ?id ?maximum_bytes_per_packet
     ?maximum_bytes_per_session ?maximum_capture_duration ?timeouts
     ~name ~network_watcher_name ~resource_group_name
     ~target_resource_id ~filter ~storage_location __resource_id =
   let __resource_type = "azurerm_network_packet_capture" in
   let __resource =
     {
+      id;
       maximum_bytes_per_packet;
       maximum_bytes_per_session;
       maximum_capture_duration;

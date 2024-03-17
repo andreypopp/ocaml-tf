@@ -6,17 +6,19 @@ open! Tf.Prelude
 
 type google_iap_web_type_app_engine_iam_policy = {
   app_id : string;  (** app_id *)
+  id : string option; [@option]  (** id *)
   policy_data : string;  (** policy_data *)
+  project : string option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_iap_web_type_app_engine_iam_policy *)
 
-let google_iap_web_type_app_engine_iam_policy ~app_id ~policy_data
-    __resource_id =
+let google_iap_web_type_app_engine_iam_policy ?id ?project ~app_id
+    ~policy_data __resource_id =
   let __resource_type =
     "google_iap_web_type_app_engine_iam_policy"
   in
-  let __resource = { app_id; policy_data } in
+  let __resource = { app_id; id; policy_data; project } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_web_type_app_engine_iam_policy __resource);
   ()

@@ -11,11 +11,14 @@ val azurerm_log_analytics_workspace :
   ?cmk_for_query_forced:bool ->
   ?daily_quota_gb:float ->
   ?data_collection_rule_id:string ->
+  ?id:string ->
   ?immediate_data_purge_on_30_days_enabled:bool ->
   ?internet_ingestion_enabled:bool ->
   ?internet_query_enabled:bool ->
   ?local_authentication_disabled:bool ->
   ?reservation_capacity_in_gb_per_day:float ->
+  ?retention_in_days:float ->
+  ?sku:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_log_analytics_workspace__timeouts ->
   location:string ->

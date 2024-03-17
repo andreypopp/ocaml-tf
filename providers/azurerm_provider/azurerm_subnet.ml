@@ -30,7 +30,19 @@ type azurerm_subnet__timeouts = {
 
 type azurerm_subnet = {
   address_prefixes : string list;  (** address_prefixes *)
+  enforce_private_link_endpoint_network_policies : bool option;
+      [@option]
+      (** enforce_private_link_endpoint_network_policies *)
+  enforce_private_link_service_network_policies : bool option;
+      [@option]
+      (** enforce_private_link_service_network_policies *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  private_endpoint_network_policies_enabled : bool option; [@option]
+      (** private_endpoint_network_policies_enabled *)
+  private_link_service_network_policies_enabled : bool option;
+      [@option]
+      (** private_link_service_network_policies_enabled *)
   resource_group_name : string;  (** resource_group_name *)
   service_endpoint_policy_ids : string list option; [@option]
       (** service_endpoint_policy_ids *)
@@ -43,14 +55,23 @@ type azurerm_subnet = {
 [@@deriving yojson_of]
 (** azurerm_subnet *)
 
-let azurerm_subnet ?service_endpoint_policy_ids ?service_endpoints
-    ?timeouts ~address_prefixes ~name ~resource_group_name
+let azurerm_subnet ?enforce_private_link_endpoint_network_policies
+    ?enforce_private_link_service_network_policies ?id
+    ?private_endpoint_network_policies_enabled
+    ?private_link_service_network_policies_enabled
+    ?service_endpoint_policy_ids ?service_endpoints ?timeouts
+    ~address_prefixes ~name ~resource_group_name
     ~virtual_network_name ~delegation __resource_id =
   let __resource_type = "azurerm_subnet" in
   let __resource =
     {
       address_prefixes;
+      enforce_private_link_endpoint_network_policies;
+      enforce_private_link_service_network_policies;
+      id;
       name;
+      private_endpoint_network_policies_enabled;
+      private_link_service_network_policies_enabled;
       resource_group_name;
       service_endpoint_policy_ids;
       service_endpoints;

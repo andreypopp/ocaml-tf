@@ -7,6 +7,7 @@ type azurerm_api_management_global_schema
 
 val azurerm_api_management_global_schema :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_api_management_global_schema__timeouts ->
   api_management_name:string ->
   resource_group_name:string ->

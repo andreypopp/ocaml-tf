@@ -17,6 +17,8 @@ type azurerm_automation_certificate = {
   automation_account_name : string;  (** automation_account_name *)
   base64 : string;  (** base64 *)
   description : string option; [@option]  (** description *)
+  exportable : bool option; [@option]  (** exportable *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts : azurerm_automation_certificate__timeouts option;
@@ -24,15 +26,17 @@ type azurerm_automation_certificate = {
 [@@deriving yojson_of]
 (** azurerm_automation_certificate *)
 
-let azurerm_automation_certificate ?description ?timeouts
-    ~automation_account_name ~base64 ~name ~resource_group_name
-    __resource_id =
+let azurerm_automation_certificate ?description ?exportable ?id
+    ?timeouts ~automation_account_name ~base64 ~name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_automation_certificate" in
   let __resource =
     {
       automation_account_name;
       base64;
       description;
+      exportable;
+      id;
       name;
       resource_group_name;
       timeouts;

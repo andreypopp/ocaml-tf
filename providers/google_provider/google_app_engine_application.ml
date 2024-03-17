@@ -38,7 +38,15 @@ type google_app_engine_application__url_dispatch_rule = {
 [@@deriving yojson_of]
 
 type google_app_engine_application = {
+  auth_domain : string option; [@option]
+      (** The domain to authenticate users with when using App Engine's User API. *)
+  database_type : string option; [@option]  (** database_type *)
+  id : string option; [@option]  (** id *)
   location_id : string;  (** The location to serve the app from. *)
+  project : string option; [@option]
+      (** The project ID to create the application under. *)
+  serving_status : string option; [@option]
+      (** The serving status of the app. *)
   feature_settings :
     google_app_engine_application__feature_settings list;
   iap : google_app_engine_application__iap list;
@@ -47,11 +55,22 @@ type google_app_engine_application = {
 [@@deriving yojson_of]
 (** google_app_engine_application *)
 
-let google_app_engine_application ?timeouts ~location_id
-    ~feature_settings ~iap __resource_id =
+let google_app_engine_application ?auth_domain ?database_type ?id
+    ?project ?serving_status ?timeouts ~location_id ~feature_settings
+    ~iap __resource_id =
   let __resource_type = "google_app_engine_application" in
   let __resource =
-    { location_id; feature_settings; iap; timeouts }
+    {
+      auth_domain;
+      database_type;
+      id;
+      location_id;
+      project;
+      serving_status;
+      feature_settings;
+      iap;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_application __resource);

@@ -14,6 +14,7 @@ type azurerm_arc_private_link_scope__timeouts = {
 (** azurerm_arc_private_link_scope__timeouts *)
 
 type azurerm_arc_private_link_scope = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -25,12 +26,13 @@ type azurerm_arc_private_link_scope = {
 [@@deriving yojson_of]
 (** azurerm_arc_private_link_scope *)
 
-let azurerm_arc_private_link_scope ?public_network_access_enabled
+let azurerm_arc_private_link_scope ?id ?public_network_access_enabled
     ?tags ?timeouts ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_arc_private_link_scope" in
   let __resource =
     {
+      id;
       location;
       name;
       public_network_access_enabled;

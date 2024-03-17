@@ -15,6 +15,7 @@ type azurerm_iothub_dps_certificate__timeouts = {
 
 type azurerm_iothub_dps_certificate = {
   certificate_content : string;  (** certificate_content *)
+  id : string option; [@option]  (** id *)
   iot_dps_name : string;  (** iot_dps_name *)
   is_verified : bool option; [@option]  (** is_verified *)
   name : string;  (** name *)
@@ -24,13 +25,14 @@ type azurerm_iothub_dps_certificate = {
 [@@deriving yojson_of]
 (** azurerm_iothub_dps_certificate *)
 
-let azurerm_iothub_dps_certificate ?is_verified ?timeouts
+let azurerm_iothub_dps_certificate ?id ?is_verified ?timeouts
     ~certificate_content ~iot_dps_name ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_iothub_dps_certificate" in
   let __resource =
     {
       certificate_content;
+      id;
       iot_dps_name;
       is_verified;
       name;

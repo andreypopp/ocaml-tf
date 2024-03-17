@@ -15,6 +15,7 @@ type azurerm_network_manager_network_group__timeouts = {
 
 type azurerm_network_manager_network_group = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   network_manager_id : string;  (** network_manager_id *)
   timeouts : azurerm_network_manager_network_group__timeouts option;
@@ -22,11 +23,11 @@ type azurerm_network_manager_network_group = {
 [@@deriving yojson_of]
 (** azurerm_network_manager_network_group *)
 
-let azurerm_network_manager_network_group ?description ?timeouts
+let azurerm_network_manager_network_group ?description ?id ?timeouts
     ~name ~network_manager_id __resource_id =
   let __resource_type = "azurerm_network_manager_network_group" in
   let __resource =
-    { description; name; network_manager_id; timeouts }
+    { description; id; name; network_manager_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_network_manager_network_group __resource);

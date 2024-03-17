@@ -39,6 +39,7 @@ type google_beyondcorp_app_connection = {
       (** List of AppConnectors that are authorised to be associated with this AppConnection *)
   display_name : string option; [@option]
       (** An arbitrary user-provided name for the AppConnection. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
@@ -46,6 +47,7 @@ type google_beyondcorp_app_connection = {
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;  (** ID of the AppConnection. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region of the AppConnection. *)
   type_ : string option; [@option] [@key "type"]
@@ -60,16 +62,18 @@ for a list of possible values. *)
 [@@deriving yojson_of]
 (** google_beyondcorp_app_connection *)
 
-let google_beyondcorp_app_connection ?connectors ?display_name
-    ?labels ?region ?type_ ?timeouts ~name ~application_endpoint
-    ~gateway __resource_id =
+let google_beyondcorp_app_connection ?connectors ?display_name ?id
+    ?labels ?project ?region ?type_ ?timeouts ~name
+    ~application_endpoint ~gateway __resource_id =
   let __resource_type = "google_beyondcorp_app_connection" in
   let __resource =
     {
       connectors;
       display_name;
+      id;
       labels;
       name;
+      project;
       region;
       type_;
       application_endpoint;

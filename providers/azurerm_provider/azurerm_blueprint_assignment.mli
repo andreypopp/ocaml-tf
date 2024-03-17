@@ -7,6 +7,7 @@ type azurerm_blueprint_assignment__timeouts
 type azurerm_blueprint_assignment
 
 val azurerm_blueprint_assignment :
+  ?id:string ->
   ?lock_exclude_actions:string list ->
   ?lock_exclude_principals:string list ->
   ?lock_mode:string ->

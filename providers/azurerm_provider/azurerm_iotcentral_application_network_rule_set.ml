@@ -23,6 +23,7 @@ type azurerm_iotcentral_application_network_rule_set__timeouts = {
 type azurerm_iotcentral_application_network_rule_set = {
   apply_to_device : bool option; [@option]  (** apply_to_device *)
   default_action : string option; [@option]  (** default_action *)
+  id : string option; [@option]  (** id *)
   iotcentral_application_id : string;
       (** iotcentral_application_id *)
   ip_rule :
@@ -34,7 +35,7 @@ type azurerm_iotcentral_application_network_rule_set = {
 (** azurerm_iotcentral_application_network_rule_set *)
 
 let azurerm_iotcentral_application_network_rule_set ?apply_to_device
-    ?default_action ?timeouts ~iotcentral_application_id ~ip_rule
+    ?default_action ?id ?timeouts ~iotcentral_application_id ~ip_rule
     __resource_id =
   let __resource_type =
     "azurerm_iotcentral_application_network_rule_set"
@@ -43,6 +44,7 @@ let azurerm_iotcentral_application_network_rule_set ?apply_to_device
     {
       apply_to_device;
       default_action;
+      id;
       iotcentral_application_id;
       ip_rule;
       timeouts;

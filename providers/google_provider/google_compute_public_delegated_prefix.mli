@@ -7,7 +7,9 @@ type google_compute_public_delegated_prefix
 
 val google_compute_public_delegated_prefix :
   ?description:string ->
+  ?id:string ->
   ?is_live_migration:bool ->
+  ?project:string ->
   ?timeouts:google_compute_public_delegated_prefix__timeouts ->
   ip_cidr_range:string ->
   name:string ->

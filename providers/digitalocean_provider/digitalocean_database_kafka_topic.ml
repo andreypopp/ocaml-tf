@@ -49,6 +49,7 @@ type digitalocean_database_kafka_topic__config = {
 
 type digitalocean_database_kafka_topic = {
   cluster_id : string;  (** cluster_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   partition_count : float option; [@option]  (** partition_count *)
   replication_factor : float option; [@option]
@@ -58,11 +59,18 @@ type digitalocean_database_kafka_topic = {
 [@@deriving yojson_of]
 (** digitalocean_database_kafka_topic *)
 
-let digitalocean_database_kafka_topic ?partition_count
+let digitalocean_database_kafka_topic ?id ?partition_count
     ?replication_factor ~cluster_id ~name ~config __resource_id =
   let __resource_type = "digitalocean_database_kafka_topic" in
   let __resource =
-    { cluster_id; name; partition_count; replication_factor; config }
+    {
+      cluster_id;
+      id;
+      name;
+      partition_count;
+      replication_factor;
+      config;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_digitalocean_database_kafka_topic __resource);

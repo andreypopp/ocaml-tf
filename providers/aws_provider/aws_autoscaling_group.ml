@@ -298,11 +298,15 @@ type aws_autoscaling_group__warm_pool = {
 (** aws_autoscaling_group__warm_pool *)
 
 type aws_autoscaling_group = {
+  availability_zones : string list option; [@option]
+      (** availability_zones *)
   capacity_rebalance : bool option; [@option]
       (** capacity_rebalance *)
   context : string option; [@option]  (** context *)
+  default_cooldown : float option; [@option]  (** default_cooldown *)
   default_instance_warmup : float option; [@option]
       (** default_instance_warmup *)
+  desired_capacity : float option; [@option]  (** desired_capacity *)
   desired_capacity_type : string option; [@option]
       (** desired_capacity_type *)
   enabled_metrics : string list option; [@option]
@@ -312,10 +316,15 @@ type aws_autoscaling_group = {
       (** force_delete_warm_pool *)
   health_check_grace_period : float option; [@option]
       (** health_check_grace_period *)
+  health_check_type : string option; [@option]
+      (** health_check_type *)
+  id : string option; [@option]  (** id *)
   ignore_failed_scaling_activities : bool option; [@option]
       (** ignore_failed_scaling_activities *)
   launch_configuration : string option; [@option]
       (** launch_configuration *)
+  load_balancers : string list option; [@option]
+      (** load_balancers *)
   max_instance_lifetime : float option; [@option]
       (** max_instance_lifetime *)
   max_size : float;  (** max_size *)
@@ -323,13 +332,21 @@ type aws_autoscaling_group = {
       (** metrics_granularity *)
   min_elb_capacity : float option; [@option]  (** min_elb_capacity *)
   min_size : float;  (** min_size *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   placement_group : string option; [@option]  (** placement_group *)
   protect_from_scale_in : bool option; [@option]
       (** protect_from_scale_in *)
+  service_linked_role_arn : string option; [@option]
+      (** service_linked_role_arn *)
   suspended_processes : string list option; [@option]
       (** suspended_processes *)
+  target_group_arns : string list option; [@option]
+      (** target_group_arns *)
   termination_policies : string list option; [@option]
       (** termination_policies *)
+  vpc_zone_identifier : string list option; [@option]
+      (** vpc_zone_identifier *)
   wait_for_capacity_timeout : string option; [@option]
       (** wait_for_capacity_timeout *)
   wait_for_elb_capacity : float option; [@option]
@@ -350,13 +367,16 @@ type aws_autoscaling_group = {
 [@@deriving yojson_of]
 (** aws_autoscaling_group *)
 
-let aws_autoscaling_group ?capacity_rebalance ?context
-    ?default_instance_warmup ?desired_capacity_type ?enabled_metrics
+let aws_autoscaling_group ?availability_zones ?capacity_rebalance
+    ?context ?default_cooldown ?default_instance_warmup
+    ?desired_capacity ?desired_capacity_type ?enabled_metrics
     ?force_delete ?force_delete_warm_pool ?health_check_grace_period
-    ?ignore_failed_scaling_activities ?launch_configuration
-    ?max_instance_lifetime ?metrics_granularity ?min_elb_capacity
-    ?placement_group ?protect_from_scale_in ?suspended_processes
-    ?termination_policies ?wait_for_capacity_timeout
+    ?health_check_type ?id ?ignore_failed_scaling_activities
+    ?launch_configuration ?load_balancers ?max_instance_lifetime
+    ?metrics_granularity ?min_elb_capacity ?name ?name_prefix
+    ?placement_group ?protect_from_scale_in ?service_linked_role_arn
+    ?suspended_processes ?target_group_arns ?termination_policies
+    ?vpc_zone_identifier ?wait_for_capacity_timeout
     ?wait_for_elb_capacity ?timeouts ~max_size ~min_size
     ~initial_lifecycle_hook ~instance_maintenance_policy
     ~instance_refresh ~launch_template ~mixed_instances_policy ~tag
@@ -364,25 +384,36 @@ let aws_autoscaling_group ?capacity_rebalance ?context
   let __resource_type = "aws_autoscaling_group" in
   let __resource =
     {
+      availability_zones;
       capacity_rebalance;
       context;
+      default_cooldown;
       default_instance_warmup;
+      desired_capacity;
       desired_capacity_type;
       enabled_metrics;
       force_delete;
       force_delete_warm_pool;
       health_check_grace_period;
+      health_check_type;
+      id;
       ignore_failed_scaling_activities;
       launch_configuration;
+      load_balancers;
       max_instance_lifetime;
       max_size;
       metrics_granularity;
       min_elb_capacity;
       min_size;
+      name;
+      name_prefix;
       placement_group;
       protect_from_scale_in;
+      service_linked_role_arn;
       suspended_processes;
+      target_group_arns;
       termination_policies;
+      vpc_zone_identifier;
       wait_for_capacity_timeout;
       wait_for_elb_capacity;
       initial_lifecycle_hook;

@@ -12,6 +12,7 @@ type azurerm_subscription_cost_management_view__timeouts
 type azurerm_subscription_cost_management_view
 
 val azurerm_subscription_cost_management_view :
+  ?id:string ->
   ?timeouts:azurerm_subscription_cost_management_view__timeouts ->
   accumulated:bool ->
   chart_type:string ->

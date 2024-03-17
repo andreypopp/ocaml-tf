@@ -13,6 +13,7 @@ type azurerm_spring_cloud_application_live_view__timeouts = {
 (** azurerm_spring_cloud_application_live_view__timeouts *)
 
 type azurerm_spring_cloud_application_live_view = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_service_id : string;  (** spring_cloud_service_id *)
   timeouts :
@@ -21,12 +22,12 @@ type azurerm_spring_cloud_application_live_view = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_application_live_view *)
 
-let azurerm_spring_cloud_application_live_view ?timeouts ~name
+let azurerm_spring_cloud_application_live_view ?id ?timeouts ~name
     ~spring_cloud_service_id __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_application_live_view"
   in
-  let __resource = { name; spring_cloud_service_id; timeouts } in
+  let __resource = { id; name; spring_cloud_service_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_application_live_view __resource);
   ()

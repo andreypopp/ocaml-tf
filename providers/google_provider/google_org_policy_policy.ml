@@ -112,6 +112,7 @@ type google_org_policy_policy__timeouts = {
 (** google_org_policy_policy__timeouts *)
 
 type google_org_policy_policy = {
+  id : string option; [@option]  (** id *)
   name : string;
       (** Immutable. The resource name of the Policy. Must be one of the following forms, where constraint_name is the name of the constraint which this Policy configures: * `projects/{project_number}/policies/{constraint_name}` * `folders/{folder_id}/policies/{constraint_name}` * `organizations/{organization_id}/policies/{constraint_name}` For example, projects/123/policies/compute.disableSerialPortAccess. Note: `projects/{project_id}/policies/{constraint_name}` is also an acceptable name for API requests, but responses will return the name using the equivalent project number. *)
   parent : string;  (** The parent of the resource. *)
@@ -122,10 +123,12 @@ type google_org_policy_policy = {
 [@@deriving yojson_of]
 (** google_org_policy_policy *)
 
-let google_org_policy_policy ?timeouts ~name ~parent ~dry_run_spec
-    ~spec __resource_id =
+let google_org_policy_policy ?id ?timeouts ~name ~parent
+    ~dry_run_spec ~spec __resource_id =
   let __resource_type = "google_org_policy_policy" in
-  let __resource = { name; parent; dry_run_spec; spec; timeouts } in
+  let __resource =
+    { id; name; parent; dry_run_spec; spec; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_org_policy_policy __resource);
   ()

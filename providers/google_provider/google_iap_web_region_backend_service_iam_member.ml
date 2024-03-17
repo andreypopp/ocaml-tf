@@ -13,7 +13,10 @@ type google_iap_web_region_backend_service_iam_member__condition = {
 (** google_iap_web_region_backend_service_iam_member__condition *)
 
 type google_iap_web_region_backend_service_iam_member = {
+  id : string option; [@option]  (** id *)
   member : string;  (** member *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]  (** region *)
   role : string;  (** role *)
   web_region_backend_service : string;
       (** web_region_backend_service *)
@@ -23,13 +26,22 @@ type google_iap_web_region_backend_service_iam_member = {
 [@@deriving yojson_of]
 (** google_iap_web_region_backend_service_iam_member *)
 
-let google_iap_web_region_backend_service_iam_member ~member ~role
-    ~web_region_backend_service ~condition __resource_id =
+let google_iap_web_region_backend_service_iam_member ?id ?project
+    ?region ~member ~role ~web_region_backend_service ~condition
+    __resource_id =
   let __resource_type =
     "google_iap_web_region_backend_service_iam_member"
   in
   let __resource =
-    { member; role; web_region_backend_service; condition }
+    {
+      id;
+      member;
+      project;
+      region;
+      role;
+      web_region_backend_service;
+      condition;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_iap_web_region_backend_service_iam_member

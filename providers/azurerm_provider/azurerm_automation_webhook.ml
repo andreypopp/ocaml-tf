@@ -17,6 +17,7 @@ type azurerm_automation_webhook = {
   automation_account_name : string;  (** automation_account_name *)
   enabled : bool option; [@option]  (** enabled *)
   expiry_time : string;  (** expiry_time *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
       (** parameters *)
@@ -24,13 +25,14 @@ type azurerm_automation_webhook = {
   run_on_worker_group : string option; [@option]
       (** run_on_worker_group *)
   runbook_name : string;  (** runbook_name *)
+  uri : string option; [@option]  (** uri *)
   timeouts : azurerm_automation_webhook__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_webhook *)
 
-let azurerm_automation_webhook ?enabled ?parameters
-    ?run_on_worker_group ?timeouts ~automation_account_name
+let azurerm_automation_webhook ?enabled ?id ?parameters
+    ?run_on_worker_group ?uri ?timeouts ~automation_account_name
     ~expiry_time ~name ~resource_group_name ~runbook_name
     __resource_id =
   let __resource_type = "azurerm_automation_webhook" in
@@ -39,11 +41,13 @@ let azurerm_automation_webhook ?enabled ?parameters
       automation_account_name;
       enabled;
       expiry_time;
+      id;
       name;
       parameters;
       resource_group_name;
       run_on_worker_group;
       runbook_name;
+      uri;
       timeouts;
     }
   in

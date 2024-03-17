@@ -17,6 +17,7 @@ type azurerm_batch_certificate = {
   account_name : string;  (** account_name *)
   certificate : string;  (** certificate *)
   format : string;  (** format *)
+  id : string option; [@option]  (** id *)
   password : string option; [@option]  (** password *)
   resource_group_name : string;  (** resource_group_name *)
   thumbprint : string;  (** thumbprint *)
@@ -26,7 +27,7 @@ type azurerm_batch_certificate = {
 [@@deriving yojson_of]
 (** azurerm_batch_certificate *)
 
-let azurerm_batch_certificate ?password ?timeouts ~account_name
+let azurerm_batch_certificate ?id ?password ?timeouts ~account_name
     ~certificate ~format ~resource_group_name ~thumbprint
     ~thumbprint_algorithm __resource_id =
   let __resource_type = "azurerm_batch_certificate" in
@@ -35,6 +36,7 @@ let azurerm_batch_certificate ?password ?timeouts ~account_name
       account_name;
       certificate;
       format;
+      id;
       password;
       resource_group_name;
       thumbprint;

@@ -7,6 +7,7 @@ open! Tf.Prelude
 type cloudflare_worker_secret = {
   account_id : string;
       (** The account identifier to target for the resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The name of the Worker secret. **Modifying this attribute will force creation of a new resource.** *)
   script_name : string;
@@ -17,10 +18,12 @@ type cloudflare_worker_secret = {
 [@@deriving yojson_of]
 (** Provides a Cloudflare Worker secret resource. *)
 
-let cloudflare_worker_secret ~account_id ~name ~script_name
+let cloudflare_worker_secret ?id ~account_id ~name ~script_name
     ~secret_text __resource_id =
   let __resource_type = "cloudflare_worker_secret" in
-  let __resource = { account_id; name; script_name; secret_text } in
+  let __resource =
+    { account_id; id; name; script_name; secret_text }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_worker_secret __resource);
   ()

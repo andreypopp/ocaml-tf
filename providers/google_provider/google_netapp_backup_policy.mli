@@ -8,7 +8,9 @@ type google_netapp_backup_policy
 val google_netapp_backup_policy :
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_netapp_backup_policy__timeouts ->
   daily_backup_limit:float ->
   location:string ->

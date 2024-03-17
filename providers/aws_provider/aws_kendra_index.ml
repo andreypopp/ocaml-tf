@@ -127,9 +127,12 @@ type aws_kendra_index__index_statistics = {
 type aws_kendra_index = {
   description : string option; [@option]  (** description *)
   edition : string option; [@option]  (** edition *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   user_context_policy : string option; [@option]
       (** user_context_policy *)
   capacity_units : aws_kendra_index__capacity_units list;
@@ -146,8 +149,8 @@ type aws_kendra_index = {
 [@@deriving yojson_of]
 (** aws_kendra_index *)
 
-let aws_kendra_index ?description ?edition ?tags ?user_context_policy
-    ?timeouts ~name ~role_arn ~capacity_units
+let aws_kendra_index ?description ?edition ?id ?tags ?tags_all
+    ?user_context_policy ?timeouts ~name ~role_arn ~capacity_units
     ~document_metadata_configuration_updates
     ~server_side_encryption_configuration
     ~user_group_resolution_configuration ~user_token_configurations
@@ -157,9 +160,11 @@ let aws_kendra_index ?description ?edition ?tags ?user_context_policy
     {
       description;
       edition;
+      id;
       name;
       role_arn;
       tags;
+      tags_all;
       user_context_policy;
       capacity_units;
       document_metadata_configuration_updates;

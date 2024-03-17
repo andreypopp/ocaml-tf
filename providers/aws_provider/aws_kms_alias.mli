@@ -4,4 +4,10 @@ open! Tf.Prelude
 
 type aws_kms_alias
 
-val aws_kms_alias : target_key_id:string -> string -> unit
+val aws_kms_alias :
+  ?id:string ->
+  ?name:string ->
+  ?name_prefix:string ->
+  target_key_id:string ->
+  string ->
+  unit

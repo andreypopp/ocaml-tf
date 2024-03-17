@@ -10,6 +10,7 @@ val azurerm_data_factory_linked_service_azure_function :
   ?additional_properties:(string * string) list ->
   ?annotations:string list ->
   ?description:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?key:string ->
   ?parameters:(string * string) list ->

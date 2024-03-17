@@ -13,6 +13,13 @@ type google_dialogflow_agent__timeouts = {
 (** google_dialogflow_agent__timeouts *)
 
 type google_dialogflow_agent = {
+  api_version : string option; [@option]
+      (** API version displayed in Dialogflow console. If not specified, V2 API is assumed. Clients are free to query
+different service endpoints for different API versions. However, bots connectors and webhook calls will follow
+the specified API version.
+* API_VERSION_V1: Legacy V1 API.
+* API_VERSION_V2: V2 API.
+* API_VERSION_V2_BETA_1: V2beta1 API. Possible values: [API_VERSION_V1, API_VERSION_V2, API_VERSION_V2_BETA_1] *)
   avatar_uri : string option; [@option]
       (** The URI of the agent's avatar, which are used throughout the Dialogflow console. When an image URL is entered
 into this field, the Dialogflow will save the image in the backend. The address of the backend image returned
@@ -31,6 +38,14 @@ for a list of the currently supported language codes. This field cannot be updat
   display_name : string;  (** The name of this agent. *)
   enable_logging : bool option; [@option]
       (** Determines whether this agent should log conversation queries. *)
+  id : string option; [@option]  (** id *)
+  match_mode : string option; [@option]
+      (** Determines how intents are detected from user queries.
+* MATCH_MODE_HYBRID: Best for agents with a small number of examples in intents and/or wide use of templates
+syntax and composite entities.
+* MATCH_MODE_ML_ONLY: Can be used for agents with a large number of examples in intents, especially the ones
+using @sys.any or very large developer entities. Possible values: [MATCH_MODE_HYBRID, MATCH_MODE_ML_ONLY] *)
+  project : string option; [@option]  (** project *)
   supported_language_codes : string list option; [@option]
       (** The list of all languages supported by this agent (except for the defaultLanguageCode). *)
   tier : string option; [@option]
@@ -48,19 +63,23 @@ Europe/Paris. *)
 [@@deriving yojson_of]
 (** google_dialogflow_agent *)
 
-let google_dialogflow_agent ?avatar_uri ?classification_threshold
-    ?description ?enable_logging ?supported_language_codes ?tier
-    ?timeouts ~default_language_code ~display_name ~time_zone
-    __resource_id =
+let google_dialogflow_agent ?api_version ?avatar_uri
+    ?classification_threshold ?description ?enable_logging ?id
+    ?match_mode ?project ?supported_language_codes ?tier ?timeouts
+    ~default_language_code ~display_name ~time_zone __resource_id =
   let __resource_type = "google_dialogflow_agent" in
   let __resource =
     {
+      api_version;
       avatar_uri;
       classification_threshold;
       default_language_code;
       description;
       display_name;
       enable_logging;
+      id;
+      match_mode;
+      project;
       supported_language_codes;
       tier;
       time_zone;

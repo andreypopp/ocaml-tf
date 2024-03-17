@@ -35,6 +35,7 @@ type azurerm_data_factory_linked_service_azure_sql_database = {
       (** connection_string *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -62,7 +63,7 @@ type azurerm_data_factory_linked_service_azure_sql_database = {
 
 let azurerm_data_factory_linked_service_azure_sql_database
     ?additional_properties ?annotations ?connection_string
-    ?description ?integration_runtime_name ?parameters
+    ?description ?id ?integration_runtime_name ?parameters
     ?service_principal_id ?service_principal_key ?tenant_id
     ?use_managed_identity ?timeouts ~data_factory_id ~name
     ~key_vault_connection_string ~key_vault_password __resource_id =
@@ -76,6 +77,7 @@ let azurerm_data_factory_linked_service_azure_sql_database
       connection_string;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

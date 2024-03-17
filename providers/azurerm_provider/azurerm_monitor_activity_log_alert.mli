@@ -12,6 +12,7 @@ type azurerm_monitor_activity_log_alert
 val azurerm_monitor_activity_log_alert :
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_monitor_activity_log_alert__timeouts ->
   name:string ->

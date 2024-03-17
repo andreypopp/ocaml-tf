@@ -40,6 +40,11 @@ type google_project_access_approval_settings = {
       (** The asymmetric crypto key version to use for signing approval requests.
 Empty active_key_version indicates that a Google-managed key should be used for signing.
 This property will be ignored if set by an ancestor of the resource, and new non-empty values may not be set. *)
+  id : string option; [@option]  (** id *)
+  notification_emails : string list option; [@option]
+      (** A list of email addresses to which notifications relating to approval requests should be sent.
+Notifications relating to a resource will be sent to all emails in the settings of ancestor
+resources of that resource. A maximum of 50 email addresses are allowed. *)
   project : string option; [@option]  (** Project id. *)
   project_id : string;
       (** ID of the project of the access approval settings. *)
@@ -50,12 +55,15 @@ This property will be ignored if set by an ancestor of the resource, and new non
 [@@deriving yojson_of]
 (** google_project_access_approval_settings *)
 
-let google_project_access_approval_settings ?active_key_version
-    ?project ?timeouts ~project_id ~enrolled_services __resource_id =
+let google_project_access_approval_settings ?active_key_version ?id
+    ?notification_emails ?project ?timeouts ~project_id
+    ~enrolled_services __resource_id =
   let __resource_type = "google_project_access_approval_settings" in
   let __resource =
     {
       active_key_version;
+      id;
+      notification_emails;
       project;
       project_id;
       enrolled_services;

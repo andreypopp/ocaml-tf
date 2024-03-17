@@ -75,7 +75,10 @@ type aws_lakeformation_permissions__table_with_columns = {
 type aws_lakeformation_permissions = {
   catalog_id : string option; [@option]  (** catalog_id *)
   catalog_resource : bool option; [@option]  (** catalog_resource *)
+  id : string option; [@option]  (** id *)
   permissions : string list;  (** permissions *)
+  permissions_with_grant_option : string list option; [@option]
+      (** permissions_with_grant_option *)
   principal : string;  (** principal *)
   data_cells_filter :
     aws_lakeformation_permissions__data_cells_filter list;
@@ -90,16 +93,18 @@ type aws_lakeformation_permissions = {
 [@@deriving yojson_of]
 (** aws_lakeformation_permissions *)
 
-let aws_lakeformation_permissions ?catalog_id ?catalog_resource
-    ~permissions ~principal ~data_cells_filter ~data_location
-    ~database ~lf_tag ~lf_tag_policy ~table ~table_with_columns
-    __resource_id =
+let aws_lakeformation_permissions ?catalog_id ?catalog_resource ?id
+    ?permissions_with_grant_option ~permissions ~principal
+    ~data_cells_filter ~data_location ~database ~lf_tag
+    ~lf_tag_policy ~table ~table_with_columns __resource_id =
   let __resource_type = "aws_lakeformation_permissions" in
   let __resource =
     {
       catalog_id;
       catalog_resource;
+      id;
       permissions;
+      permissions_with_grant_option;
       principal;
       data_cells_filter;
       data_location;

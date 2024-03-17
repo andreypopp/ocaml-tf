@@ -14,6 +14,7 @@ type google_compute_public_delegated_prefix__timeouts = {
 type google_compute_public_delegated_prefix = {
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   ip_cidr_range : string;
       (** The IPv4 address range, in CIDR format, represented by this public advertised prefix. *)
   is_live_migration : bool option; [@option]
@@ -27,23 +28,26 @@ following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
   parent_prefix : string;
       (** The URL of parent prefix. Either PublicAdvertisedPrefix or PublicDelegatedPrefix. *)
+  project : string option; [@option]  (** project *)
   region : string;  (** A region where the prefix will reside. *)
   timeouts : google_compute_public_delegated_prefix__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_public_delegated_prefix *)
 
-let google_compute_public_delegated_prefix ?description
-    ?is_live_migration ?timeouts ~ip_cidr_range ~name ~parent_prefix
-    ~region __resource_id =
+let google_compute_public_delegated_prefix ?description ?id
+    ?is_live_migration ?project ?timeouts ~ip_cidr_range ~name
+    ~parent_prefix ~region __resource_id =
   let __resource_type = "google_compute_public_delegated_prefix" in
   let __resource =
     {
       description;
+      id;
       ip_cidr_range;
       is_live_migration;
       name;
       parent_prefix;
+      project;
       region;
       timeouts;
     }

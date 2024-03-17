@@ -14,6 +14,7 @@ type cloudflare_api_shield__auth_id_characteristics = {
 (** Characteristics define properties across which auth-ids can be computed in a privacy-preserving manner. *)
 
 type cloudflare_api_shield = {
+  id : string option; [@option]  (** id *)
   zone_id : string;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   auth_id_characteristics :
@@ -23,10 +24,10 @@ type cloudflare_api_shield = {
 (** Provides a resource to manage API Shield configurations.
  *)
 
-let cloudflare_api_shield ~zone_id ~auth_id_characteristics
+let cloudflare_api_shield ?id ~zone_id ~auth_id_characteristics
     __resource_id =
   let __resource_type = "cloudflare_api_shield" in
-  let __resource = { zone_id; auth_id_characteristics } in
+  let __resource = { id; zone_id; auth_id_characteristics } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_api_shield __resource);
   ()

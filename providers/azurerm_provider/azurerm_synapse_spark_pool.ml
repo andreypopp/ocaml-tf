@@ -46,6 +46,7 @@ type azurerm_synapse_spark_pool = {
       (** compute_isolation_enabled *)
   dynamic_executor_allocation_enabled : bool option; [@option]
       (** dynamic_executor_allocation_enabled *)
+  id : string option; [@option]  (** id *)
   max_executors : float option; [@option]  (** max_executors *)
   min_executors : float option; [@option]  (** min_executors *)
   name : string;  (** name *)
@@ -72,7 +73,7 @@ type azurerm_synapse_spark_pool = {
 (** azurerm_synapse_spark_pool *)
 
 let azurerm_synapse_spark_pool ?cache_size ?compute_isolation_enabled
-    ?dynamic_executor_allocation_enabled ?max_executors
+    ?dynamic_executor_allocation_enabled ?id ?max_executors
     ?min_executors ?node_count ?session_level_packages_enabled
     ?spark_events_folder ?spark_log_folder ?spark_version ?tags
     ?timeouts ~name ~node_size ~node_size_family
@@ -84,6 +85,7 @@ let azurerm_synapse_spark_pool ?cache_size ?compute_isolation_enabled
       cache_size;
       compute_isolation_enabled;
       dynamic_executor_allocation_enabled;
+      id;
       max_executors;
       min_executors;
       name;

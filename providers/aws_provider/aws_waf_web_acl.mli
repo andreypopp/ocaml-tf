@@ -14,7 +14,9 @@ type aws_waf_web_acl__rules
 type aws_waf_web_acl
 
 val aws_waf_web_acl :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   metric_name:string ->
   name:string ->
   default_action:aws_waf_web_acl__default_action list ->

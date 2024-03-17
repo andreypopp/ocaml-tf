@@ -15,6 +15,7 @@ type azurerm_iot_time_series_insights_standard_environment__timeouts = {
 
 type azurerm_iot_time_series_insights_standard_environment = {
   data_retention_time : string;  (** data_retention_time *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   partition_key : string option; [@option]  (** partition_key *)
@@ -30,7 +31,7 @@ type azurerm_iot_time_series_insights_standard_environment = {
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_standard_environment *)
 
-let azurerm_iot_time_series_insights_standard_environment
+let azurerm_iot_time_series_insights_standard_environment ?id
     ?partition_key ?storage_limit_exceeded_behavior ?tags ?timeouts
     ~data_retention_time ~location ~name ~resource_group_name
     ~sku_name __resource_id =
@@ -40,6 +41,7 @@ let azurerm_iot_time_series_insights_standard_environment
   let __resource =
     {
       data_retention_time;
+      id;
       location;
       name;
       partition_key;

@@ -25,9 +25,12 @@ type aws_medialive_multiplex__timeouts = {
 
 type aws_medialive_multiplex = {
   availability_zones : string list;  (** availability_zones *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   start_multiplex : bool option; [@option]  (** start_multiplex *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   multiplex_settings :
     aws_medialive_multiplex__multiplex_settings list;
   timeouts : aws_medialive_multiplex__timeouts option;
@@ -35,15 +38,18 @@ type aws_medialive_multiplex = {
 [@@deriving yojson_of]
 (** aws_medialive_multiplex *)
 
-let aws_medialive_multiplex ?start_multiplex ?tags ?timeouts
-    ~availability_zones ~name ~multiplex_settings __resource_id =
+let aws_medialive_multiplex ?id ?start_multiplex ?tags ?tags_all
+    ?timeouts ~availability_zones ~name ~multiplex_settings
+    __resource_id =
   let __resource_type = "aws_medialive_multiplex" in
   let __resource =
     {
       availability_zones;
+      id;
       name;
       start_multiplex;
       tags;
+      tags_all;
       multiplex_settings;
       timeouts;
     }

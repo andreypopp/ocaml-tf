@@ -24,8 +24,13 @@ type aws_s3_access_point__vpc_configuration = {
 (** aws_s3_access_point__vpc_configuration *)
 
 type aws_s3_access_point = {
+  account_id : string option; [@option]  (** account_id *)
   bucket : string;  (** bucket *)
+  bucket_account_id : string option; [@option]
+      (** bucket_account_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  policy : string option; [@option]  (** policy *)
   public_access_block_configuration :
     aws_s3_access_point__public_access_block_configuration list;
   vpc_configuration : aws_s3_access_point__vpc_configuration list;
@@ -33,14 +38,18 @@ type aws_s3_access_point = {
 [@@deriving yojson_of]
 (** aws_s3_access_point *)
 
-let aws_s3_access_point ~bucket ~name
-    ~public_access_block_configuration ~vpc_configuration
-    __resource_id =
+let aws_s3_access_point ?account_id ?bucket_account_id ?id ?policy
+    ~bucket ~name ~public_access_block_configuration
+    ~vpc_configuration __resource_id =
   let __resource_type = "aws_s3_access_point" in
   let __resource =
     {
+      account_id;
       bucket;
+      bucket_account_id;
+      id;
       name;
+      policy;
       public_access_block_configuration;
       vpc_configuration;
     }

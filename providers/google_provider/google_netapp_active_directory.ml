@@ -25,6 +25,7 @@ type google_netapp_active_directory = {
       (** Fully qualified domain name for the Active Directory domain. *)
   encrypt_dc_connections : bool option; [@option]
       (** If enabled, traffic between the SMB server to Domain Controller (DC) will be encrypted. *)
+  id : string option; [@option]  (** id *)
   kdc_hostname : string option; [@option]
       (** Hostname of the Active Directory server used as Kerberos Key Distribution Center. Only requried for volumes using kerberized NFSv4.1 *)
   kdc_ip : string option; [@option]
@@ -48,8 +49,12 @@ A five-character random ID is generated automatically, for example, -6f9a, and a
   nfs_users_with_ldap : bool option; [@option]
       (** Local UNIX users on clients without valid user information in Active Directory are blocked from access to LDAP enabled volumes.
 This option can be used to temporarily switch such volumes to AUTH_SYS authentication (user ID + 1-16 groups). *)
+  organizational_unit : string option; [@option]
+      (** Name of the Organizational Unit where you intend to create the computer account for NetApp Volumes.
+Defaults to 'CN=Computers' if left empty. *)
   password : string;
       (** Password for specified username. Note - Manual changes done to the password will not be detected. Terraform will not re-apply the password, unless you use a new password in Terraform. *)
+  project : string option; [@option]  (** project *)
   security_operators : string list option; [@option]
       (** Domain accounts that require elevated privileges such as 'SeSecurityPrivilege' to manage security logs. Comma-separated list. *)
   site : string option; [@option]
@@ -63,10 +68,11 @@ Use when Active Directory domain controllers in multiple regions are configured.
 (** google_netapp_active_directory *)
 
 let google_netapp_active_directory ?aes_encryption ?backup_operators
-    ?description ?encrypt_dc_connections ?kdc_hostname ?kdc_ip
-    ?labels ?ldap_signing ?nfs_users_with_ldap ?security_operators
-    ?site ?timeouts ~dns ~domain ~location ~name ~net_bios_prefix
-    ~password ~username __resource_id =
+    ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
+    ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
+    ?project ?security_operators ?site ?timeouts ~dns ~domain
+    ~location ~name ~net_bios_prefix ~password ~username
+    __resource_id =
   let __resource_type = "google_netapp_active_directory" in
   let __resource =
     {
@@ -76,6 +82,7 @@ let google_netapp_active_directory ?aes_encryption ?backup_operators
       dns;
       domain;
       encrypt_dc_connections;
+      id;
       kdc_hostname;
       kdc_ip;
       labels;
@@ -84,7 +91,9 @@ let google_netapp_active_directory ?aes_encryption ?backup_operators
       name;
       net_bios_prefix;
       nfs_users_with_ldap;
+      organizational_unit;
       password;
+      project;
       security_operators;
       site;
       username;

@@ -19,10 +19,15 @@ type aws_fsx_ontap_volume
 val aws_fsx_ontap_volume :
   ?bypass_snaplock_enterprise_retention:bool ->
   ?copy_tags_to_backups:bool ->
+  ?id:string ->
   ?junction_path:string ->
+  ?ontap_volume_type:string ->
+  ?security_style:string ->
   ?skip_final_backup:bool ->
+  ?snapshot_policy:string ->
   ?storage_efficiency_enabled:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?volume_type:string ->
   ?timeouts:aws_fsx_ontap_volume__timeouts ->
   name:string ->

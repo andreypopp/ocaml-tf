@@ -21,14 +21,28 @@ the execution level takes precedence. Possible values: [CALL_LOG_LEVEL_UNSPECIFI
       (** The KMS key used to encrypt workflow and execution data.
 
 Format: projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey} *)
+  description : string option; [@option]
+      (** Description of the workflow provided by the user. Must be at most 1000 unicode characters long. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A set of key/value label pairs to assign to this Workflow.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  name : string option; [@option]  (** Name of the Workflow. *)
+  name_prefix : string option; [@option]  (** name_prefix *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region of the workflow. *)
+  service_account : string option; [@option]
+      (** Name of the service account associated with the latest workflow version. This service
+account represents the identity of the workflow and determines what permissions the workflow has.
+Format: projects/{project}/serviceAccounts/{account} or {account}.
+Using - as a wildcard for the {project} or not providing one at all will infer the project from the account.
+The {account} value can be the email address or the unique_id of the service account.
+If not provided, workflow will use the project's default service account.
+Modifying this field for an existing workflow results in a new workflow revision. *)
   source_contents : string option; [@option]
       (** Workflow code to be executed. The size limit is 128KB. *)
   user_env_vars : (string * string) list option; [@option]
@@ -39,15 +53,22 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_workflows_workflow *)
 
 let google_workflows_workflow ?call_log_level ?crypto_key_name
-    ?labels ?region ?source_contents ?user_env_vars ?timeouts
+    ?description ?id ?labels ?name ?name_prefix ?project ?region
+    ?service_account ?source_contents ?user_env_vars ?timeouts
     __resource_id =
   let __resource_type = "google_workflows_workflow" in
   let __resource =
     {
       call_log_level;
       crypto_key_name;
+      description;
+      id;
       labels;
+      name;
+      name_prefix;
+      project;
       region;
+      service_account;
       source_contents;
       user_env_vars;
       timeouts;

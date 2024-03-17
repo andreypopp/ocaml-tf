@@ -56,7 +56,10 @@ type azurerm_nginx_deployment = {
   diagnose_support_enabled : bool option; [@option]
       (** diagnose_support_enabled *)
   email : string option; [@option]  (** email *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
+  managed_resource_group : string option; [@option]
+      (** managed_resource_group *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   sku : string;  (** sku *)
@@ -74,10 +77,10 @@ type azurerm_nginx_deployment = {
 (** azurerm_nginx_deployment *)
 
 let azurerm_nginx_deployment ?automatic_upgrade_channel ?capacity
-    ?diagnose_support_enabled ?email ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~frontend_private ~frontend_public
-    ~identity ~logging_storage_account ~network_interface
-    __resource_id =
+    ?diagnose_support_enabled ?email ?id ?managed_resource_group
+    ?tags ?timeouts ~location ~name ~resource_group_name ~sku
+    ~frontend_private ~frontend_public ~identity
+    ~logging_storage_account ~network_interface __resource_id =
   let __resource_type = "azurerm_nginx_deployment" in
   let __resource =
     {
@@ -85,7 +88,9 @@ let azurerm_nginx_deployment ?automatic_upgrade_channel ?capacity
       capacity;
       diagnose_support_enabled;
       email;
+      id;
       location;
+      managed_resource_group;
       name;
       resource_group_name;
       sku;

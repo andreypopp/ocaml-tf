@@ -9,6 +9,7 @@ val azurerm_gallery_application :
   ?description:string ->
   ?end_of_life_date:string ->
   ?eula:string ->
+  ?id:string ->
   ?privacy_statement_uri:string ->
   ?release_note_uri:string ->
   ?tags:(string * string) list ->

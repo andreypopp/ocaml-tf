@@ -14,10 +14,13 @@ val aws_gamelift_fleet :
   ?build_id:string ->
   ?description:string ->
   ?fleet_type:string ->
+  ?id:string ->
   ?instance_role_arn:string ->
+  ?metric_groups:string list ->
   ?new_game_session_protection_policy:string ->
   ?script_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_gamelift_fleet__timeouts ->
   ec2_instance_type:string ->
   name:string ->

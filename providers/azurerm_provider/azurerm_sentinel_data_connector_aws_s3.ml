@@ -16,6 +16,7 @@ type azurerm_sentinel_data_connector_aws_s3__timeouts = {
 type azurerm_sentinel_data_connector_aws_s3 = {
   aws_role_arn : string;  (** aws_role_arn *)
   destination_table : string;  (** destination_table *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -25,14 +26,15 @@ type azurerm_sentinel_data_connector_aws_s3 = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_aws_s3 *)
 
-let azurerm_sentinel_data_connector_aws_s3 ?timeouts ~aws_role_arn
-    ~destination_table ~log_analytics_workspace_id ~name ~sqs_urls
-    __resource_id =
+let azurerm_sentinel_data_connector_aws_s3 ?id ?timeouts
+    ~aws_role_arn ~destination_table ~log_analytics_workspace_id
+    ~name ~sqs_urls __resource_id =
   let __resource_type = "azurerm_sentinel_data_connector_aws_s3" in
   let __resource =
     {
       aws_role_arn;
       destination_table;
+      id;
       log_analytics_workspace_id;
       name;
       sqs_urls;

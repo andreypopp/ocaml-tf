@@ -15,6 +15,7 @@ type cloudflare_user_agent_blocking_rule__configuration = {
 
 type cloudflare_user_agent_blocking_rule = {
   description : string;  (** An informative summary of the rule. *)
+  id : string option; [@option]  (** id *)
   mode : string;
       (** The action to apply to a matched request. Available values: `block`, `challenge`, `js_challenge`, `managed_challenge`. *)
   paused : bool;
@@ -28,11 +29,11 @@ type cloudflare_user_agent_blocking_rule = {
 (** Provides a resource to manage User Agent Blocking Rules.
  *)
 
-let cloudflare_user_agent_blocking_rule ~description ~mode ~paused
-    ~zone_id ~configuration __resource_id =
+let cloudflare_user_agent_blocking_rule ?id ~description ~mode
+    ~paused ~zone_id ~configuration __resource_id =
   let __resource_type = "cloudflare_user_agent_blocking_rule" in
   let __resource =
-    { description; mode; paused; zone_id; configuration }
+    { description; id; mode; paused; zone_id; configuration }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_user_agent_blocking_rule __resource);

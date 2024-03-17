@@ -8,6 +8,7 @@ type cloudflare_certificate_pack
 
 val cloudflare_certificate_pack :
   ?cloudflare_branding:bool ->
+  ?id:string ->
   ?wait_for_active_status:bool ->
   certificate_authority:string ->
   hosts:string list ->

@@ -9,6 +9,10 @@ type azurerm_arc_kubernetes_cluster_extension
 val azurerm_arc_kubernetes_cluster_extension :
   ?configuration_protected_settings:(string * string) list ->
   ?configuration_settings:(string * string) list ->
+  ?id:string ->
+  ?release_namespace:string ->
+  ?release_train:string ->
+  ?target_namespace:string ->
   ?version:string ->
   ?timeouts:azurerm_arc_kubernetes_cluster_extension__timeouts ->
   cluster_id:string ->

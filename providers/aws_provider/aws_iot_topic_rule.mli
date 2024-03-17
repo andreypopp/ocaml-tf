@@ -55,7 +55,9 @@ type aws_iot_topic_rule
 
 val aws_iot_topic_rule :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   enabled:bool ->
   name:string ->
   sql:string ->

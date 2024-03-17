@@ -23,6 +23,7 @@ type google_beyondcorp_app_gateway = {
       (** An arbitrary user-provided name for the AppGateway. *)
   host_type : string option; [@option]
       (** The type of hosting used by the AppGateway. Default value: HOST_TYPE_UNSPECIFIED Possible values: [HOST_TYPE_UNSPECIFIED, GCP_REGIONAL_MIG] *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
@@ -30,6 +31,7 @@ type google_beyondcorp_app_gateway = {
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;  (** ID of the AppGateway. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region of the AppGateway. *)
   type_ : string option; [@option] [@key "type"]
@@ -39,15 +41,17 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_beyondcorp_app_gateway *)
 
-let google_beyondcorp_app_gateway ?display_name ?host_type ?labels
-    ?region ?type_ ?timeouts ~name __resource_id =
+let google_beyondcorp_app_gateway ?display_name ?host_type ?id
+    ?labels ?project ?region ?type_ ?timeouts ~name __resource_id =
   let __resource_type = "google_beyondcorp_app_gateway" in
   let __resource =
     {
       display_name;
       host_type;
+      id;
       labels;
       name;
+      project;
       region;
       type_;
       timeouts;

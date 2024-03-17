@@ -162,12 +162,23 @@ type google_compute_region_instance_group_manager = {
       (** The base instance name to use for instances in this group. The value must be a valid RFC1035 name. Supported characters are lowercase letters, numbers, and hyphens (-). Instances are named by appending a hyphen and a random four-character string to the base instance name. *)
   description : string option; [@option]
       (** An optional textual description of the instance group manager. *)
+  distribution_policy_target_shape : string option; [@option]
+      (** The shape to which the group converges either proactively or on resize events (depending on the value set in updatePolicy.instanceRedistributionType). *)
+  distribution_policy_zones : string list option; [@option]
+      (** The distribution policy for this managed instance group. You can specify one or more values. *)
+  id : string option; [@option]  (** id *)
   list_managed_instances_results : string option; [@option]
       (** Pagination behavior of the listManagedInstances API method for this managed instance group. Valid values are: PAGELESS, PAGINATED. If PAGELESS (default), Pagination is disabled for the group's listManagedInstances API method. maxResults and pageToken query parameters are ignored and all instances are returned in a single response. If PAGINATED, pagination is enabled, maxResults and pageToken query parameters are respected. *)
   name : string;
       (** The name of the instance group manager. Must be 1-63 characters long and comply with RFC1035. Supported characters include lowercase letters, numbers, and hyphens. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
+  region : string option; [@option]
+      (** The region where the managed instance group resides. *)
   target_pools : string list option; [@option]
       (** The full URL of all target pools to which new instances in the group are added. Updating the target pools attribute does not affect existing instances. *)
+  target_size : float option; [@option]
+      (** The target number of running instances for this managed instance group. This value should always be explicitly set unless this resource is attached to an autoscaler, in which case it should never be set. Defaults to 0. *)
   wait_for_instances : bool option; [@option]
       (** Whether to wait for all instances to be created/updated before returning. Note that if this is set to true and the operation does not succeed, Terraform will continue trying until it times out. *)
   wait_for_instances_status : string option; [@option]
@@ -202,12 +213,13 @@ type google_compute_region_instance_group_manager = {
 (** google_compute_region_instance_group_manager *)
 
 let google_compute_region_instance_group_manager ?description
-    ?list_managed_instances_results ?target_pools ?wait_for_instances
-    ?wait_for_instances_status ?timeouts ~base_instance_name ~name
-    ~all_instances_config ~auto_healing_policies
-    ~instance_lifecycle_policy ~named_port ~stateful_disk
-    ~stateful_external_ip ~stateful_internal_ip ~update_policy
-    ~version __resource_id =
+    ?distribution_policy_target_shape ?distribution_policy_zones ?id
+    ?list_managed_instances_results ?project ?region ?target_pools
+    ?target_size ?wait_for_instances ?wait_for_instances_status
+    ?timeouts ~base_instance_name ~name ~all_instances_config
+    ~auto_healing_policies ~instance_lifecycle_policy ~named_port
+    ~stateful_disk ~stateful_external_ip ~stateful_internal_ip
+    ~update_policy ~version __resource_id =
   let __resource_type =
     "google_compute_region_instance_group_manager"
   in
@@ -215,9 +227,15 @@ let google_compute_region_instance_group_manager ?description
     {
       base_instance_name;
       description;
+      distribution_policy_target_shape;
+      distribution_policy_zones;
+      id;
       list_managed_instances_results;
       name;
+      project;
+      region;
       target_pools;
+      target_size;
       wait_for_instances;
       wait_for_instances_status;
       all_instances_config;

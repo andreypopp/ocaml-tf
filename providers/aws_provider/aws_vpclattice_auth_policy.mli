@@ -6,6 +6,7 @@ type aws_vpclattice_auth_policy__timeouts
 type aws_vpclattice_auth_policy
 
 val aws_vpclattice_auth_policy :
+  ?id:string ->
   ?state:string ->
   ?timeouts:aws_vpclattice_auth_policy__timeouts ->
   policy:string ->

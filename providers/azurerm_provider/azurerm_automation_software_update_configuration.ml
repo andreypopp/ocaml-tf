@@ -131,9 +131,12 @@ type azurerm_automation_software_update_configuration__windows = {
 type azurerm_automation_software_update_configuration = {
   automation_account_id : string;  (** automation_account_id *)
   duration : string option; [@option]  (** duration *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   non_azure_computer_names : string list option; [@option]
       (** non_azure_computer_names *)
+  operating_system : string option; [@option]
+      (** operating_system *)
   virtual_machine_ids : string list option; [@option]
       (** virtual_machine_ids *)
   linux :
@@ -154,10 +157,10 @@ type azurerm_automation_software_update_configuration = {
 [@@deriving yojson_of]
 (** azurerm_automation_software_update_configuration *)
 
-let azurerm_automation_software_update_configuration ?duration
-    ?non_azure_computer_names ?virtual_machine_ids ?timeouts
-    ~automation_account_id ~name ~linux ~post_task ~pre_task
-    ~schedule ~target ~windows __resource_id =
+let azurerm_automation_software_update_configuration ?duration ?id
+    ?non_azure_computer_names ?operating_system ?virtual_machine_ids
+    ?timeouts ~automation_account_id ~name ~linux ~post_task
+    ~pre_task ~schedule ~target ~windows __resource_id =
   let __resource_type =
     "azurerm_automation_software_update_configuration"
   in
@@ -165,8 +168,10 @@ let azurerm_automation_software_update_configuration ?duration
     {
       automation_account_id;
       duration;
+      id;
       name;
       non_azure_computer_names;
+      operating_system;
       virtual_machine_ids;
       linux;
       post_task;

@@ -6,6 +6,7 @@ type azurerm_signalr_shared_private_link_resource__timeouts
 type azurerm_signalr_shared_private_link_resource
 
 val azurerm_signalr_shared_private_link_resource :
+  ?id:string ->
   ?request_message:string ->
   ?timeouts:azurerm_signalr_shared_private_link_resource__timeouts ->
   name:string ->

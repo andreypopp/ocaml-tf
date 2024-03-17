@@ -7,6 +7,7 @@ type aws_ec2_client_vpn_route
 
 val aws_ec2_client_vpn_route :
   ?description:string ->
+  ?id:string ->
   ?timeouts:aws_ec2_client_vpn_route__timeouts ->
   client_vpn_endpoint_id:string ->
   destination_cidr_block:string ->

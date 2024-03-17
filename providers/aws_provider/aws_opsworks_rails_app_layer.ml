@@ -111,6 +111,7 @@ type aws_opsworks_rails_app_layer = {
       (** drain_elb_on_shutdown *)
   elastic_load_balancer : string option; [@option]
       (** elastic_load_balancer *)
+  id : string option; [@option]  (** id *)
   install_updates_on_boot : bool option; [@option]
       (** install_updates_on_boot *)
   instance_shutdown_timeout : float option; [@option]
@@ -126,6 +127,8 @@ type aws_opsworks_rails_app_layer = {
   system_packages : string list option; [@option]
       (** system_packages *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   use_ebs_optimized_instances : bool option; [@option]
       (** use_ebs_optimized_instances *)
   cloudwatch_configuration :
@@ -143,10 +146,10 @@ let aws_opsworks_rails_app_layer ?app_server ?auto_assign_elastic_ips
     ?custom_instance_profile_arn ?custom_json
     ?custom_security_group_ids ?custom_setup_recipes
     ?custom_shutdown_recipes ?custom_undeploy_recipes
-    ?drain_elb_on_shutdown ?elastic_load_balancer
+    ?drain_elb_on_shutdown ?elastic_load_balancer ?id
     ?install_updates_on_boot ?instance_shutdown_timeout
     ?manage_bundler ?name ?passenger_version ?ruby_version
-    ?rubygems_version ?system_packages ?tags
+    ?rubygems_version ?system_packages ?tags ?tags_all
     ?use_ebs_optimized_instances ~stack_id ~cloudwatch_configuration
     ~ebs_volume ~load_based_auto_scaling __resource_id =
   let __resource_type = "aws_opsworks_rails_app_layer" in
@@ -167,6 +170,7 @@ let aws_opsworks_rails_app_layer ?app_server ?auto_assign_elastic_ips
       custom_undeploy_recipes;
       drain_elb_on_shutdown;
       elastic_load_balancer;
+      id;
       install_updates_on_boot;
       instance_shutdown_timeout;
       manage_bundler;
@@ -177,6 +181,7 @@ let aws_opsworks_rails_app_layer ?app_server ?auto_assign_elastic_ips
       stack_id;
       system_packages;
       tags;
+      tags_all;
       use_ebs_optimized_instances;
       cloudwatch_configuration;
       ebs_volume;

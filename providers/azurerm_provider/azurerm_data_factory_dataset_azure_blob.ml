@@ -33,6 +33,7 @@ type azurerm_data_factory_dataset_azure_blob = {
       (** dynamic_path_enabled *)
   filename : string option; [@option]  (** filename *)
   folder : string option; [@option]  (** folder *)
+  id : string option; [@option]  (** id *)
   linked_service_name : string;  (** linked_service_name *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
@@ -47,7 +48,7 @@ type azurerm_data_factory_dataset_azure_blob = {
 
 let azurerm_data_factory_dataset_azure_blob ?additional_properties
     ?annotations ?description ?dynamic_filename_enabled
-    ?dynamic_path_enabled ?filename ?folder ?parameters ?path
+    ?dynamic_path_enabled ?filename ?folder ?id ?parameters ?path
     ?timeouts ~data_factory_id ~linked_service_name ~name
     ~schema_column __resource_id =
   let __resource_type = "azurerm_data_factory_dataset_azure_blob" in
@@ -61,6 +62,7 @@ let azurerm_data_factory_dataset_azure_blob ?additional_properties
       dynamic_path_enabled;
       filename;
       folder;
+      id;
       linked_service_name;
       name;
       parameters;

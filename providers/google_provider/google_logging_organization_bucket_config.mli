@@ -7,6 +7,8 @@ type google_logging_organization_bucket_config__index_configs
 type google_logging_organization_bucket_config
 
 val google_logging_organization_bucket_config :
+  ?description:string ->
+  ?id:string ->
   ?retention_days:float ->
   bucket_id:string ->
   location:string ->

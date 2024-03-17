@@ -128,6 +128,7 @@ type azurerm_data_factory_integration_runtime_azure_ssis = {
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
   edition : string option; [@option]  (** edition *)
+  id : string option; [@option]  (** id *)
   license_type : string option; [@option]  (** license_type *)
   location : string;  (** location *)
   max_parallel_executions_per_node : float option; [@option]
@@ -163,7 +164,7 @@ type azurerm_data_factory_integration_runtime_azure_ssis = {
 (** azurerm_data_factory_integration_runtime_azure_ssis *)
 
 let azurerm_data_factory_integration_runtime_azure_ssis
-    ?credential_name ?description ?edition ?license_type
+    ?credential_name ?description ?edition ?id ?license_type
     ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
     ~data_factory_id ~location ~name ~node_size ~catalog_info
     ~custom_setup_script ~express_custom_setup
@@ -178,6 +179,7 @@ let azurerm_data_factory_integration_runtime_azure_ssis
       data_factory_id;
       description;
       edition;
+      id;
       license_type;
       location;
       max_parallel_executions_per_node;

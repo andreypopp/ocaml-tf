@@ -8,7 +8,9 @@ type azurerm_key_vault_key__timeouts
 type azurerm_key_vault_key
 
 val azurerm_key_vault_key :
+  ?curve:string ->
   ?expiration_date:string ->
+  ?id:string ->
   ?key_size:float ->
   ?not_before_date:string ->
   ?tags:(string * string) list ->

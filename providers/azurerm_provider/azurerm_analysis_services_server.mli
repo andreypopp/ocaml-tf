@@ -10,6 +10,8 @@ val azurerm_analysis_services_server :
   ?admin_users:string list ->
   ?backup_blob_container_uri:string ->
   ?enable_power_bi_service:bool ->
+  ?id:string ->
+  ?querypool_connection_mode:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_analysis_services_server__timeouts ->
   location:string ->

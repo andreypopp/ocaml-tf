@@ -218,6 +218,9 @@ type aws_codebuild_project = {
   build_timeout : float option; [@option]  (** build_timeout *)
   concurrent_build_limit : float option; [@option]
       (** concurrent_build_limit *)
+  description : string option; [@option]  (** description *)
+  encryption_key : string option; [@option]  (** encryption_key *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   project_visibility : string option; [@option]
       (** project_visibility *)
@@ -227,6 +230,8 @@ type aws_codebuild_project = {
   service_role : string;  (** service_role *)
   source_version : string option; [@option]  (** source_version *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   artifacts : aws_codebuild_project__artifacts list;
   build_batch_config :
     aws_codebuild_project__build_batch_config list;
@@ -247,18 +252,21 @@ type aws_codebuild_project = {
 (** aws_codebuild_project *)
 
 let aws_codebuild_project ?badge_enabled ?build_timeout
-    ?concurrent_build_limit ?project_visibility ?queued_timeout
-    ?resource_access_role ?source_version ?tags ~name ~service_role
-    ~artifacts ~build_batch_config ~cache ~environment
-    ~file_system_locations ~logs_config ~secondary_artifacts
-    ~secondary_source_version ~secondary_sources ~source ~vpc_config
-    __resource_id =
+    ?concurrent_build_limit ?description ?encryption_key ?id
+    ?project_visibility ?queued_timeout ?resource_access_role
+    ?source_version ?tags ?tags_all ~name ~service_role ~artifacts
+    ~build_batch_config ~cache ~environment ~file_system_locations
+    ~logs_config ~secondary_artifacts ~secondary_source_version
+    ~secondary_sources ~source ~vpc_config __resource_id =
   let __resource_type = "aws_codebuild_project" in
   let __resource =
     {
       badge_enabled;
       build_timeout;
       concurrent_build_limit;
+      description;
+      encryption_key;
+      id;
       name;
       project_visibility;
       queued_timeout;
@@ -266,6 +274,7 @@ let aws_codebuild_project ?badge_enabled ?build_timeout
       service_role;
       source_version;
       tags;
+      tags_all;
       artifacts;
       build_batch_config;
       cache;

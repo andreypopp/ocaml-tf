@@ -5,4 +5,9 @@ open! Tf.Prelude
 type aws_route53_zone_association
 
 val aws_route53_zone_association :
-  vpc_id:string -> zone_id:string -> string -> unit
+  ?id:string ->
+  ?vpc_region:string ->
+  vpc_id:string ->
+  zone_id:string ->
+  string ->
+  unit

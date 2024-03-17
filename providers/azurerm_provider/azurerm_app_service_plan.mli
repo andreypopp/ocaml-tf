@@ -8,8 +8,10 @@ type azurerm_app_service_plan
 
 val azurerm_app_service_plan :
   ?app_service_environment_id:string ->
+  ?id:string ->
   ?is_xenon:bool ->
   ?kind:string ->
+  ?maximum_elastic_worker_count:float ->
   ?per_site_scaling:bool ->
   ?reserved:bool ->
   ?tags:(string * string) list ->

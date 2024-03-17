@@ -142,8 +142,11 @@ type google_container_aws_node_pool = {
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
   cluster : string;  (** The awsCluster for the resource *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource *)
   name : string;  (** The name of this resource. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   subnet_id : string;
       (** The subnet where the node pool node run. *)
   version : string;
@@ -160,16 +163,19 @@ Please refer to the field `effective_annotations` for all of the annotations pre
 [@@deriving yojson_of]
 (** google_container_aws_node_pool *)
 
-let google_container_aws_node_pool ?annotations ?timeouts ~cluster
-    ~location ~name ~subnet_id ~version ~autoscaling ~config
-    ~management ~max_pods_constraint ~update_settings __resource_id =
+let google_container_aws_node_pool ?annotations ?id ?project
+    ?timeouts ~cluster ~location ~name ~subnet_id ~version
+    ~autoscaling ~config ~management ~max_pods_constraint
+    ~update_settings __resource_id =
   let __resource_type = "google_container_aws_node_pool" in
   let __resource =
     {
       annotations;
       cluster;
+      id;
       location;
       name;
+      project;
       subnet_id;
       version;
       autoscaling;

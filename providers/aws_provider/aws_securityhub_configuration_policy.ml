@@ -116,6 +116,7 @@ type aws_securityhub_configuration_policy__configuration_policy = {
 
 type aws_securityhub_configuration_policy = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   configuration_policy :
     aws_securityhub_configuration_policy__configuration_policy list;
@@ -123,10 +124,10 @@ type aws_securityhub_configuration_policy = {
 [@@deriving yojson_of]
 (** aws_securityhub_configuration_policy *)
 
-let aws_securityhub_configuration_policy ?description ~name
+let aws_securityhub_configuration_policy ?description ?id ~name
     ~configuration_policy __resource_id =
   let __resource_type = "aws_securityhub_configuration_policy" in
-  let __resource = { description; name; configuration_policy } in
+  let __resource = { description; id; name; configuration_policy } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_securityhub_configuration_policy __resource);
   ()

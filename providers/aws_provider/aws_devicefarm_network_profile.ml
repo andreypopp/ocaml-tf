@@ -14,9 +14,12 @@ type aws_devicefarm_network_profile = {
       (** downlink_jitter_ms *)
   downlink_loss_percent : float option; [@option]
       (** downlink_loss_percent *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   project_arn : string;  (** project_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string option; [@option] [@key "type"]  (** type *)
   uplink_bandwidth_bits : float option; [@option]
       (** uplink_bandwidth_bits *)
@@ -30,9 +33,9 @@ type aws_devicefarm_network_profile = {
 
 let aws_devicefarm_network_profile ?description
     ?downlink_bandwidth_bits ?downlink_delay_ms ?downlink_jitter_ms
-    ?downlink_loss_percent ?tags ?type_ ?uplink_bandwidth_bits
-    ?uplink_delay_ms ?uplink_jitter_ms ?uplink_loss_percent ~name
-    ~project_arn __resource_id =
+    ?downlink_loss_percent ?id ?tags ?tags_all ?type_
+    ?uplink_bandwidth_bits ?uplink_delay_ms ?uplink_jitter_ms
+    ?uplink_loss_percent ~name ~project_arn __resource_id =
   let __resource_type = "aws_devicefarm_network_profile" in
   let __resource =
     {
@@ -41,9 +44,11 @@ let aws_devicefarm_network_profile ?description
       downlink_delay_ms;
       downlink_jitter_ms;
       downlink_loss_percent;
+      id;
       name;
       project_arn;
       tags;
+      tags_all;
       type_;
       uplink_bandwidth_bits;
       uplink_delay_ms;

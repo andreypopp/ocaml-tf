@@ -106,10 +106,12 @@ type google_cloud_run_domain_mapping__status = {
 [@@deriving yojson_of]
 
 type google_cloud_run_domain_mapping = {
+  id : string option; [@option]  (** id *)
   location : string;
       (** The location of the cloud run instance. eg us-central1 *)
   name : string;
       (** Name should be a [verified](https://support.google.com/webmasters/answer/9008080) domain *)
+  project : string option; [@option]  (** project *)
   metadata : google_cloud_run_domain_mapping__metadata list;
   spec : google_cloud_run_domain_mapping__spec list;
   timeouts : google_cloud_run_domain_mapping__timeouts option;
@@ -117,10 +119,12 @@ type google_cloud_run_domain_mapping = {
 [@@deriving yojson_of]
 (** google_cloud_run_domain_mapping *)
 
-let google_cloud_run_domain_mapping ?timeouts ~location ~name
-    ~metadata ~spec __resource_id =
+let google_cloud_run_domain_mapping ?id ?project ?timeouts ~location
+    ~name ~metadata ~spec __resource_id =
   let __resource_type = "google_cloud_run_domain_mapping" in
-  let __resource = { location; name; metadata; spec; timeouts } in
+  let __resource =
+    { id; location; name; project; metadata; spec; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_run_domain_mapping __resource);
   ()

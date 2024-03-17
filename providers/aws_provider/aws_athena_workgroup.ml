@@ -61,19 +61,31 @@ type aws_athena_workgroup__configuration = {
 type aws_athena_workgroup = {
   description : string option; [@option]  (** description *)
   force_destroy : bool option; [@option]  (** force_destroy *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   state : string option; [@option]  (** state *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   configuration : aws_athena_workgroup__configuration list;
 }
 [@@deriving yojson_of]
 (** aws_athena_workgroup *)
 
-let aws_athena_workgroup ?description ?force_destroy ?state ?tags
-    ~name ~configuration __resource_id =
+let aws_athena_workgroup ?description ?force_destroy ?id ?state ?tags
+    ?tags_all ~name ~configuration __resource_id =
   let __resource_type = "aws_athena_workgroup" in
   let __resource =
-    { description; force_destroy; name; state; tags; configuration }
+    {
+      description;
+      force_destroy;
+      id;
+      name;
+      state;
+      tags;
+      tags_all;
+      configuration;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_athena_workgroup __resource);

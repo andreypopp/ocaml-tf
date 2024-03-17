@@ -149,6 +149,7 @@ type aws_s3_bucket_replication_configuration__rule = {
 
 type aws_s3_bucket_replication_configuration = {
   bucket : string;  (** bucket *)
+  id : string option; [@option]  (** id *)
   role : string;  (** role *)
   token : string option; [@option]  (** token *)
   rule : aws_s3_bucket_replication_configuration__rule list;
@@ -156,10 +157,10 @@ type aws_s3_bucket_replication_configuration = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_replication_configuration *)
 
-let aws_s3_bucket_replication_configuration ?token ~bucket ~role
+let aws_s3_bucket_replication_configuration ?id ?token ~bucket ~role
     ~rule __resource_id =
   let __resource_type = "aws_s3_bucket_replication_configuration" in
-  let __resource = { bucket; role; token; rule } in
+  let __resource = { bucket; id; role; token; rule } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_replication_configuration __resource);
   ()

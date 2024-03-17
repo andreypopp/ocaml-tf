@@ -18,6 +18,7 @@ type azurerm_application_insights_smart_detection_rule = {
       (** additional_email_recipients *)
   application_insights_id : string;  (** application_insights_id *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   send_emails_to_subscription_owners : bool option; [@option]
       (** send_emails_to_subscription_owners *)
@@ -29,7 +30,7 @@ type azurerm_application_insights_smart_detection_rule = {
 (** azurerm_application_insights_smart_detection_rule *)
 
 let azurerm_application_insights_smart_detection_rule
-    ?additional_email_recipients ?enabled
+    ?additional_email_recipients ?enabled ?id
     ?send_emails_to_subscription_owners ?timeouts
     ~application_insights_id ~name __resource_id =
   let __resource_type =
@@ -40,6 +41,7 @@ let azurerm_application_insights_smart_detection_rule
       additional_email_recipients;
       application_insights_id;
       enabled;
+      id;
       name;
       send_emails_to_subscription_owners;
       timeouts;

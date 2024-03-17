@@ -7,14 +7,15 @@ open! Tf.Prelude
 type aws_cloudwatch_dashboard = {
   dashboard_body : string;  (** dashboard_body *)
   dashboard_name : string;  (** dashboard_name *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_dashboard *)
 
-let aws_cloudwatch_dashboard ~dashboard_body ~dashboard_name
+let aws_cloudwatch_dashboard ?id ~dashboard_body ~dashboard_name
     __resource_id =
   let __resource_type = "aws_cloudwatch_dashboard" in
-  let __resource = { dashboard_body; dashboard_name } in
+  let __resource = { dashboard_body; dashboard_name; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_dashboard __resource);
   ()

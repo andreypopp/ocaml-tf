@@ -118,6 +118,7 @@ type google_dialogflow_cx_page__transition_routes
 type google_dialogflow_cx_page
 
 val google_dialogflow_cx_page :
+  ?id:string ->
   ?language_code:string ->
   ?parent:string ->
   ?transition_route_groups:string list ->

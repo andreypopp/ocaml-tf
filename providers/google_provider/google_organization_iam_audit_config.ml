@@ -14,6 +14,7 @@ type google_organization_iam_audit_config__audit_log_config = {
 (** The configuration for logging of each type of permission. This can be specified multiple times. *)
 
 type google_organization_iam_audit_config = {
+  id : string option; [@option]  (** id *)
   org_id : string;
       (** The numeric ID of the organization in which you want to manage the audit logging config. *)
   service : string;
@@ -24,10 +25,10 @@ type google_organization_iam_audit_config = {
 [@@deriving yojson_of]
 (** google_organization_iam_audit_config *)
 
-let google_organization_iam_audit_config ~org_id ~service
+let google_organization_iam_audit_config ?id ~org_id ~service
     ~audit_log_config __resource_id =
   let __resource_type = "google_organization_iam_audit_config" in
-  let __resource = { org_id; service; audit_log_config } in
+  let __resource = { id; org_id; service; audit_log_config } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_organization_iam_audit_config __resource);
   ()

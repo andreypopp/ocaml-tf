@@ -17,10 +17,13 @@ type aws_gamelift_game_session_queue = {
   custom_event_data : string option; [@option]
       (** custom_event_data *)
   destinations : string list option; [@option]  (** destinations *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   notification_target : string option; [@option]
       (** notification_target *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeout_in_seconds : float option; [@option]
       (** timeout_in_seconds *)
   player_latency_policy :
@@ -30,16 +33,18 @@ type aws_gamelift_game_session_queue = {
 (** aws_gamelift_game_session_queue *)
 
 let aws_gamelift_game_session_queue ?custom_event_data ?destinations
-    ?notification_target ?tags ?timeout_in_seconds ~name
-    ~player_latency_policy __resource_id =
+    ?id ?notification_target ?tags ?tags_all ?timeout_in_seconds
+    ~name ~player_latency_policy __resource_id =
   let __resource_type = "aws_gamelift_game_session_queue" in
   let __resource =
     {
       custom_event_data;
       destinations;
+      id;
       name;
       notification_target;
       tags;
+      tags_all;
       timeout_in_seconds;
       player_latency_policy;
     }

@@ -81,9 +81,14 @@ type google_container_azure_node_pool = {
 
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
+  azure_availability_zone : string option; [@option]
+      (** Optional. The Azure availability zone of the nodes in this nodepool. When unspecified, it defaults to `1`. *)
   cluster : string;  (** The azureCluster for the resource *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource *)
   name : string;  (** The name of this resource. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   subnet_id : string;
       (** The ARM ID of the subnet where the node pool VMs run. Make sure it's a subnet under the virtual network in the cluster configuration. *)
   version : string;
@@ -98,16 +103,20 @@ Please refer to the field `effective_annotations` for all of the annotations pre
 [@@deriving yojson_of]
 (** google_container_azure_node_pool *)
 
-let google_container_azure_node_pool ?annotations ?timeouts ~cluster
+let google_container_azure_node_pool ?annotations
+    ?azure_availability_zone ?id ?project ?timeouts ~cluster
     ~location ~name ~subnet_id ~version ~autoscaling ~config
     ~management ~max_pods_constraint __resource_id =
   let __resource_type = "google_container_azure_node_pool" in
   let __resource =
     {
       annotations;
+      azure_availability_zone;
       cluster;
+      id;
       location;
       name;
+      project;
       subnet_id;
       version;
       autoscaling;

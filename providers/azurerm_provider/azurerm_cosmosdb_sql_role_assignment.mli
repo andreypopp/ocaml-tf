@@ -6,6 +6,8 @@ type azurerm_cosmosdb_sql_role_assignment__timeouts
 type azurerm_cosmosdb_sql_role_assignment
 
 val azurerm_cosmosdb_sql_role_assignment :
+  ?id:string ->
+  ?name:string ->
   ?timeouts:azurerm_cosmosdb_sql_role_assignment__timeouts ->
   account_name:string ->
   principal_id:string ->

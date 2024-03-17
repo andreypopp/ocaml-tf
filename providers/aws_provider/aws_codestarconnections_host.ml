@@ -22,6 +22,7 @@ type aws_codestarconnections_host__vpc_configuration = {
 (** aws_codestarconnections_host__vpc_configuration *)
 
 type aws_codestarconnections_host = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   provider_endpoint : string;  (** provider_endpoint *)
   provider_type : string;  (** provider_type *)
@@ -32,11 +33,13 @@ type aws_codestarconnections_host = {
 [@@deriving yojson_of]
 (** aws_codestarconnections_host *)
 
-let aws_codestarconnections_host ?timeouts ~name ~provider_endpoint
-    ~provider_type ~vpc_configuration __resource_id =
+let aws_codestarconnections_host ?id ?timeouts ~name
+    ~provider_endpoint ~provider_type ~vpc_configuration
+    __resource_id =
   let __resource_type = "aws_codestarconnections_host" in
   let __resource =
     {
+      id;
       name;
       provider_endpoint;
       provider_type;

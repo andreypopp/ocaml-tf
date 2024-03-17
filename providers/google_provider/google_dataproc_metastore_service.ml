@@ -138,6 +138,7 @@ type google_dataproc_metastore_service__timeouts = {
 type google_dataproc_metastore_service = {
   database_type : string option; [@option]
       (** The database type that the Metastore service stores its data. Default value: MYSQL Possible values: [MYSQL, SPANNER] *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-defined labels for the metastore service.
 
@@ -146,12 +147,21 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string option; [@option]
       (** The location where the metastore service should reside.
 The default value is 'global'. *)
+  network : string option; [@option]
+      (** The relative resource name of the VPC network on which the instance can be accessed. It is specified in the following form:
+
+projects/{projectNumber}/global/networks/{network_id}. *)
+  port : float option; [@option]
+      (** The TCP port at which the metastore service is reached. Default: 9083. *)
+  project : string option; [@option]  (** project *)
   release_channel : string option; [@option]
       (** The release channel of the service. If unspecified, defaults to 'STABLE'. Default value: STABLE Possible values: [CANARY, STABLE] *)
   service_id : string;
       (** The ID of the metastore service. The id must contain only letters (a-z, A-Z), numbers (0-9), underscores (_),
 and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of between
 3 and 63 characters. *)
+  tier : string option; [@option]
+      (** The tier of the service. Possible values: [DEVELOPER, ENTERPRISE] *)
   encryption_config :
     google_dataproc_metastore_service__encryption_config list;
   hive_metastore_config :
@@ -171,19 +181,24 @@ and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of 
 [@@deriving yojson_of]
 (** google_dataproc_metastore_service *)
 
-let google_dataproc_metastore_service ?database_type ?labels
-    ?location ?release_channel ?timeouts ~service_id
-    ~encryption_config ~hive_metastore_config ~maintenance_window
-    ~metadata_integration ~network_config ~scaling_config
-    ~telemetry_config __resource_id =
+let google_dataproc_metastore_service ?database_type ?id ?labels
+    ?location ?network ?port ?project ?release_channel ?tier
+    ?timeouts ~service_id ~encryption_config ~hive_metastore_config
+    ~maintenance_window ~metadata_integration ~network_config
+    ~scaling_config ~telemetry_config __resource_id =
   let __resource_type = "google_dataproc_metastore_service" in
   let __resource =
     {
       database_type;
+      id;
       labels;
       location;
+      network;
+      port;
+      project;
       release_channel;
       service_id;
+      tier;
       encryption_config;
       hive_metastore_config;
       maintenance_window;

@@ -133,6 +133,7 @@ type google_dns_managed_zone = {
       (** The DNS name of this managed zone, for instance example.com.. *)
   force_destroy : bool option; [@option]
       (** Set this true to delete all records in the zone. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A set of key/value label pairs to assign to this ManagedZone.
 
@@ -142,6 +143,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   name : string;
       (** User assigned name for this resource.
 Must be unique within the project. *)
+  project : string option; [@option]  (** project *)
   visibility : string option; [@option]
       (** The zone's visibility: public zones are exposed to the Internet,
 while private zones are visible only to Virtual Private Cloud resources. Default value: public Possible values: [private, public] *)
@@ -158,18 +160,20 @@ while private zones are visible only to Virtual Private Cloud resources. Default
 [@@deriving yojson_of]
 (** google_dns_managed_zone *)
 
-let google_dns_managed_zone ?description ?force_destroy ?labels
-    ?visibility ?timeouts ~dns_name ~name ~cloud_logging_config
-    ~dnssec_config ~forwarding_config ~peering_config
-    ~private_visibility_config __resource_id =
+let google_dns_managed_zone ?description ?force_destroy ?id ?labels
+    ?project ?visibility ?timeouts ~dns_name ~name
+    ~cloud_logging_config ~dnssec_config ~forwarding_config
+    ~peering_config ~private_visibility_config __resource_id =
   let __resource_type = "google_dns_managed_zone" in
   let __resource =
     {
       description;
       dns_name;
       force_destroy;
+      id;
       labels;
       name;
+      project;
       visibility;
       cloud_logging_config;
       dnssec_config;

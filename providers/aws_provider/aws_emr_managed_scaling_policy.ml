@@ -18,16 +18,17 @@ type aws_emr_managed_scaling_policy__compute_limits = {
 
 type aws_emr_managed_scaling_policy = {
   cluster_id : string;  (** cluster_id *)
+  id : string option; [@option]  (** id *)
   compute_limits :
     aws_emr_managed_scaling_policy__compute_limits list;
 }
 [@@deriving yojson_of]
 (** aws_emr_managed_scaling_policy *)
 
-let aws_emr_managed_scaling_policy ~cluster_id ~compute_limits
+let aws_emr_managed_scaling_policy ?id ~cluster_id ~compute_limits
     __resource_id =
   let __resource_type = "aws_emr_managed_scaling_policy" in
-  let __resource = { cluster_id; compute_limits } in
+  let __resource = { cluster_id; id; compute_limits } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_emr_managed_scaling_policy __resource);
   ()

@@ -15,6 +15,8 @@ val google_cloud_asset_project_feed :
   ?asset_types:string list ->
   ?billing_project:string ->
   ?content_type:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_cloud_asset_project_feed__timeouts ->
   feed_id:string ->
   condition:google_cloud_asset_project_feed__condition list ->

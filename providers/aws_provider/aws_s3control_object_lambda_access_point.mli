@@ -12,6 +12,8 @@ type aws_s3control_object_lambda_access_point__configuration
 type aws_s3control_object_lambda_access_point
 
 val aws_s3control_object_lambda_access_point :
+  ?account_id:string ->
+  ?id:string ->
   name:string ->
   configuration:
     aws_s3control_object_lambda_access_point__configuration list ->

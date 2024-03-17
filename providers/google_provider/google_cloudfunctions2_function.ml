@@ -210,6 +210,7 @@ type google_cloudfunctions2_function__timeouts = {
 type google_cloudfunctions2_function = {
   description : string option; [@option]
       (** User-provided description of a function. *)
+  id : string option; [@option]  (** id *)
   kms_key_name : string option; [@option]
       (** Resource name of a KMS crypto key (managed by the user) used to encrypt/decrypt function resources.
 It must match the pattern projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}. *)
@@ -223,6 +224,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   name : string;
       (** A user-defined name of the function. Function names must
 be unique globally and match pattern 'projects/*/locations/*/functions/*'. *)
+  project : string option; [@option]  (** project *)
   build_config : google_cloudfunctions2_function__build_config list;
   event_trigger :
     google_cloudfunctions2_function__event_trigger list;
@@ -233,17 +235,19 @@ be unique globally and match pattern 'projects/*/locations/*/functions/*'. *)
 [@@deriving yojson_of]
 (** google_cloudfunctions2_function *)
 
-let google_cloudfunctions2_function ?description ?kms_key_name
-    ?labels ?timeouts ~location ~name ~build_config ~event_trigger
-    ~service_config __resource_id =
+let google_cloudfunctions2_function ?description ?id ?kms_key_name
+    ?labels ?project ?timeouts ~location ~name ~build_config
+    ~event_trigger ~service_config __resource_id =
   let __resource_type = "google_cloudfunctions2_function" in
   let __resource =
     {
       description;
+      id;
       kms_key_name;
       labels;
       location;
       name;
+      project;
       build_config;
       event_trigger;
       service_config;

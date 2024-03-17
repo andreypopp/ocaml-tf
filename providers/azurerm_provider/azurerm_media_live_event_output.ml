@@ -18,7 +18,9 @@ type azurerm_media_live_event_output = {
   description : string option; [@option]  (** description *)
   hls_fragments_per_ts_segment : float option; [@option]
       (** hls_fragments_per_ts_segment *)
+  id : string option; [@option]  (** id *)
   live_event_id : string;  (** live_event_id *)
+  manifest_name : string option; [@option]  (** manifest_name *)
   name : string;  (** name *)
   output_snap_time_in_seconds : float option; [@option]
       (** output_snap_time_in_seconds *)
@@ -30,9 +32,10 @@ type azurerm_media_live_event_output = {
 (** azurerm_media_live_event_output *)
 
 let azurerm_media_live_event_output ?description
-    ?hls_fragments_per_ts_segment ?output_snap_time_in_seconds
-    ?rewind_window_duration ?timeouts ~archive_window_duration
-    ~asset_name ~live_event_id ~name __resource_id =
+    ?hls_fragments_per_ts_segment ?id ?manifest_name
+    ?output_snap_time_in_seconds ?rewind_window_duration ?timeouts
+    ~archive_window_duration ~asset_name ~live_event_id ~name
+    __resource_id =
   let __resource_type = "azurerm_media_live_event_output" in
   let __resource =
     {
@@ -40,7 +43,9 @@ let azurerm_media_live_event_output ?description
       asset_name;
       description;
       hls_fragments_per_ts_segment;
+      id;
       live_event_id;
+      manifest_name;
       name;
       output_snap_time_in_seconds;
       rewind_window_duration;

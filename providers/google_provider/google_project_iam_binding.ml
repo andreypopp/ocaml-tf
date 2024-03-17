@@ -13,6 +13,7 @@ type google_project_iam_binding__condition = {
 (** google_project_iam_binding__condition *)
 
 type google_project_iam_binding = {
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   project : string;  (** project *)
   role : string;  (** role *)
@@ -21,10 +22,10 @@ type google_project_iam_binding = {
 [@@deriving yojson_of]
 (** google_project_iam_binding *)
 
-let google_project_iam_binding ~members ~project ~role ~condition
+let google_project_iam_binding ?id ~members ~project ~role ~condition
     __resource_id =
   let __resource_type = "google_project_iam_binding" in
-  let __resource = { members; project; role; condition } in
+  let __resource = { id; members; project; role; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_project_iam_binding __resource);
   ()

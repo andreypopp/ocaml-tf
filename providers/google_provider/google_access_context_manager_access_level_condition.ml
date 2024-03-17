@@ -66,6 +66,7 @@ type google_access_context_manager_access_level_condition__vpc_network_sources =
 type google_access_context_manager_access_level_condition = {
   access_level : string;
       (** The name of the Access Level to add this condition to. *)
+  id : string option; [@option]  (** id *)
   ip_subnetworks : string list option; [@option]
       (** A list of CIDR block IP subnetwork specification. May be IPv4
 or IPv6.
@@ -113,7 +114,7 @@ Format: accessPolicies/{policy_id}/accessLevels/{short_name} *)
 [@@deriving yojson_of]
 (** google_access_context_manager_access_level_condition *)
 
-let google_access_context_manager_access_level_condition
+let google_access_context_manager_access_level_condition ?id
     ?ip_subnetworks ?members ?negate ?regions ?required_access_levels
     ?timeouts ~access_level ~device_policy ~vpc_network_sources
     __resource_id =
@@ -123,6 +124,7 @@ let google_access_context_manager_access_level_condition
   let __resource =
     {
       access_level;
+      id;
       ip_subnetworks;
       members;
       negate;

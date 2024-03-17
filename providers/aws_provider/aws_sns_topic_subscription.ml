@@ -12,6 +12,9 @@ type aws_sns_topic_subscription = {
   endpoint_auto_confirms : bool option; [@option]
       (** endpoint_auto_confirms *)
   filter_policy : string option; [@option]  (** filter_policy *)
+  filter_policy_scope : string option; [@option]
+      (** filter_policy_scope *)
+  id : string option; [@option]  (** id *)
   protocol : string;  (** protocol *)
   raw_message_delivery : bool option; [@option]
       (** raw_message_delivery *)
@@ -26,9 +29,9 @@ type aws_sns_topic_subscription = {
 
 let aws_sns_topic_subscription ?confirmation_timeout_in_minutes
     ?delivery_policy ?endpoint_auto_confirms ?filter_policy
-    ?raw_message_delivery ?redrive_policy ?replay_policy
-    ?subscription_role_arn ~endpoint ~protocol ~topic_arn
-    __resource_id =
+    ?filter_policy_scope ?id ?raw_message_delivery ?redrive_policy
+    ?replay_policy ?subscription_role_arn ~endpoint ~protocol
+    ~topic_arn __resource_id =
   let __resource_type = "aws_sns_topic_subscription" in
   let __resource =
     {
@@ -37,6 +40,8 @@ let aws_sns_topic_subscription ?confirmation_timeout_in_minutes
       endpoint;
       endpoint_auto_confirms;
       filter_policy;
+      filter_policy_scope;
+      id;
       protocol;
       raw_message_delivery;
       redrive_policy;

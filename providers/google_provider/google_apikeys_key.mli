@@ -15,6 +15,8 @@ type google_apikeys_key
 
 val google_apikeys_key :
   ?display_name:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_apikeys_key__timeouts ->
   name:string ->
   restrictions:google_apikeys_key__restrictions list ->

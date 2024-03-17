@@ -14,6 +14,7 @@ type azurerm_network_interface_backend_address_pool_association__timeouts = {
 
 type azurerm_network_interface_backend_address_pool_association = {
   backend_address_pool_id : string;  (** backend_address_pool_id *)
+  id : string option; [@option]  (** id *)
   ip_configuration_name : string;  (** ip_configuration_name *)
   network_interface_id : string;  (** network_interface_id *)
   timeouts :
@@ -23,7 +24,7 @@ type azurerm_network_interface_backend_address_pool_association = {
 [@@deriving yojson_of]
 (** azurerm_network_interface_backend_address_pool_association *)
 
-let azurerm_network_interface_backend_address_pool_association
+let azurerm_network_interface_backend_address_pool_association ?id
     ?timeouts ~backend_address_pool_id ~ip_configuration_name
     ~network_interface_id __resource_id =
   let __resource_type =
@@ -32,6 +33,7 @@ let azurerm_network_interface_backend_address_pool_association
   let __resource =
     {
       backend_address_pool_id;
+      id;
       ip_configuration_name;
       network_interface_id;
       timeouts;

@@ -10,6 +10,7 @@ type kubernetes_default_service_account
 
 val kubernetes_default_service_account :
   ?automount_service_account_token:bool ->
+  ?id:string ->
   ?timeouts:kubernetes_default_service_account__timeouts ->
   image_pull_secret:
     kubernetes_default_service_account__image_pull_secret list ->

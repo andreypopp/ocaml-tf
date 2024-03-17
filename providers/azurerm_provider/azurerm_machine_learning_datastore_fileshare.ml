@@ -16,6 +16,7 @@ type azurerm_machine_learning_datastore_fileshare__timeouts = {
 type azurerm_machine_learning_datastore_fileshare = {
   account_key : string option; [@option]  (** account_key *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   service_data_identity : string option; [@option]
       (** service_data_identity *)
@@ -31,7 +32,7 @@ type azurerm_machine_learning_datastore_fileshare = {
 (** azurerm_machine_learning_datastore_fileshare *)
 
 let azurerm_machine_learning_datastore_fileshare ?account_key
-    ?description ?service_data_identity ?shared_access_signature
+    ?description ?id ?service_data_identity ?shared_access_signature
     ?tags ?timeouts ~name ~storage_fileshare_id ~workspace_id
     __resource_id =
   let __resource_type =
@@ -41,6 +42,7 @@ let azurerm_machine_learning_datastore_fileshare ?account_key
     {
       account_key;
       description;
+      id;
       name;
       service_data_identity;
       shared_access_signature;

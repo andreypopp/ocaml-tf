@@ -7,6 +7,7 @@ type cloudflare_teams_location
 
 val cloudflare_teams_location :
   ?client_default:bool ->
+  ?id:string ->
   account_id:string ->
   name:string ->
   networks:cloudflare_teams_location__networks list ->

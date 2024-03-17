@@ -13,7 +13,9 @@ type google_pubsub_schema_iam_member__condition = {
 (** google_pubsub_schema_iam_member__condition *)
 
 type google_pubsub_schema_iam_member = {
+  id : string option; [@option]  (** id *)
   member : string;  (** member *)
+  project : string option; [@option]  (** project *)
   role : string;  (** role *)
   schema : string;  (** schema *)
   condition : google_pubsub_schema_iam_member__condition list;
@@ -21,10 +23,12 @@ type google_pubsub_schema_iam_member = {
 [@@deriving yojson_of]
 (** google_pubsub_schema_iam_member *)
 
-let google_pubsub_schema_iam_member ~member ~role ~schema ~condition
-    __resource_id =
+let google_pubsub_schema_iam_member ?id ?project ~member ~role
+    ~schema ~condition __resource_id =
   let __resource_type = "google_pubsub_schema_iam_member" in
-  let __resource = { member; role; schema; condition } in
+  let __resource =
+    { id; member; project; role; schema; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_pubsub_schema_iam_member __resource);
   ()

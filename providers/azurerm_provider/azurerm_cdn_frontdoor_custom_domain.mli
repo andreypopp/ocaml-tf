@@ -8,6 +8,7 @@ type azurerm_cdn_frontdoor_custom_domain
 
 val azurerm_cdn_frontdoor_custom_domain :
   ?dns_zone_id:string ->
+  ?id:string ->
   ?timeouts:azurerm_cdn_frontdoor_custom_domain__timeouts ->
   cdn_frontdoor_profile_id:string ->
   host_name:string ->

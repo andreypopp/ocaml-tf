@@ -29,8 +29,12 @@ type aws_grafana_workspace = {
   account_access_type : string;  (** account_access_type *)
   authentication_providers : string list;
       (** authentication_providers *)
+  configuration : string option; [@option]  (** configuration *)
   data_sources : string list option; [@option]  (** data_sources *)
   description : string option; [@option]  (** description *)
+  grafana_version : string option; [@option]  (** grafana_version *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
   notification_destinations : string list option; [@option]
       (** notification_destinations *)
   organization_role_name : string option; [@option]
@@ -41,6 +45,8 @@ type aws_grafana_workspace = {
   role_arn : string option; [@option]  (** role_arn *)
   stack_set_name : string option; [@option]  (** stack_set_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   network_access_control :
     aws_grafana_workspace__network_access_control list;
   timeouts : aws_grafana_workspace__timeouts option;
@@ -49,18 +55,23 @@ type aws_grafana_workspace = {
 [@@deriving yojson_of]
 (** aws_grafana_workspace *)
 
-let aws_grafana_workspace ?data_sources ?description
-    ?notification_destinations ?organization_role_name
-    ?organizational_units ?role_arn ?stack_set_name ?tags ?timeouts
-    ~account_access_type ~authentication_providers ~permission_type
+let aws_grafana_workspace ?configuration ?data_sources ?description
+    ?grafana_version ?id ?name ?notification_destinations
+    ?organization_role_name ?organizational_units ?role_arn
+    ?stack_set_name ?tags ?tags_all ?timeouts ~account_access_type
+    ~authentication_providers ~permission_type
     ~network_access_control ~vpc_configuration __resource_id =
   let __resource_type = "aws_grafana_workspace" in
   let __resource =
     {
       account_access_type;
       authentication_providers;
+      configuration;
       data_sources;
       description;
+      grafana_version;
+      id;
+      name;
       notification_destinations;
       organization_role_name;
       organizational_units;
@@ -68,6 +79,7 @@ let aws_grafana_workspace ?data_sources ?description
       role_arn;
       stack_set_name;
       tags;
+      tags_all;
       network_access_control;
       timeouts;
       vpc_configuration;

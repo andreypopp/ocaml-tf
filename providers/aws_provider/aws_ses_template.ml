@@ -6,6 +6,7 @@ open! Tf.Prelude
 
 type aws_ses_template = {
   html : string option; [@option]  (** html *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   subject : string option; [@option]  (** subject *)
   text : string option; [@option]  (** text *)
@@ -13,9 +14,9 @@ type aws_ses_template = {
 [@@deriving yojson_of]
 (** aws_ses_template *)
 
-let aws_ses_template ?html ?subject ?text ~name __resource_id =
+let aws_ses_template ?html ?id ?subject ?text ~name __resource_id =
   let __resource_type = "aws_ses_template" in
-  let __resource = { html; name; subject; text } in
+  let __resource = { html; id; name; subject; text } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_template __resource);
   ()

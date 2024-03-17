@@ -145,22 +145,69 @@ type aws_spot_instance_request__timeouts = {
 (** aws_spot_instance_request__timeouts *)
 
 type aws_spot_instance_request = {
+  ami : string option; [@option]  (** ami *)
+  associate_public_ip_address : bool option; [@option]
+      (** associate_public_ip_address *)
+  availability_zone : string option; [@option]
+      (** availability_zone *)
   block_duration_minutes : float option; [@option]
       (** block_duration_minutes *)
+  cpu_core_count : float option; [@option]  (** cpu_core_count *)
+  cpu_threads_per_core : float option; [@option]
+      (** cpu_threads_per_core *)
+  disable_api_stop : bool option; [@option]  (** disable_api_stop *)
+  disable_api_termination : bool option; [@option]
+      (** disable_api_termination *)
+  ebs_optimized : bool option; [@option]  (** ebs_optimized *)
   get_password_data : bool option; [@option]
       (** get_password_data *)
   hibernation : bool option; [@option]  (** hibernation *)
+  host_id : string option; [@option]  (** host_id *)
+  host_resource_group_arn : string option; [@option]
+      (** host_resource_group_arn *)
+  iam_instance_profile : string option; [@option]
+      (** iam_instance_profile *)
+  id : string option; [@option]  (** id *)
+  instance_initiated_shutdown_behavior : string option; [@option]
+      (** instance_initiated_shutdown_behavior *)
   instance_interruption_behavior : string option; [@option]
       (** instance_interruption_behavior *)
+  instance_type : string option; [@option]  (** instance_type *)
+  ipv6_address_count : float option; [@option]
+      (** ipv6_address_count *)
+  ipv6_addresses : string list option; [@option]
+      (** ipv6_addresses *)
+  key_name : string option; [@option]  (** key_name *)
   launch_group : string option; [@option]  (** launch_group *)
+  monitoring : bool option; [@option]  (** monitoring *)
+  placement_group : string option; [@option]  (** placement_group *)
+  placement_partition_number : float option; [@option]
+      (** placement_partition_number *)
+  private_ip : string option; [@option]  (** private_ip *)
+  secondary_private_ips : string list option; [@option]
+      (** secondary_private_ips *)
+  security_groups : string list option; [@option]
+      (** security_groups *)
   source_dest_check : bool option; [@option]
       (** source_dest_check *)
+  spot_price : string option; [@option]  (** spot_price *)
   spot_type : string option; [@option]  (** spot_type *)
+  subnet_id : string option; [@option]  (** subnet_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  tenancy : string option; [@option]  (** tenancy *)
+  user_data : string option; [@option]  (** user_data *)
+  user_data_base64 : string option; [@option]
+      (** user_data_base64 *)
   user_data_replace_on_change : bool option; [@option]
       (** user_data_replace_on_change *)
+  valid_from : string option; [@option]  (** valid_from *)
+  valid_until : string option; [@option]  (** valid_until *)
   volume_tags : (string * string) list option; [@option]
       (** volume_tags *)
+  vpc_security_group_ids : string list option; [@option]
+      (** vpc_security_group_ids *)
   wait_for_fulfillment : bool option; [@option]
       (** wait_for_fulfillment *)
   capacity_reservation_specification :
@@ -190,10 +237,20 @@ type aws_spot_instance_request = {
 [@@deriving yojson_of]
 (** aws_spot_instance_request *)
 
-let aws_spot_instance_request ?block_duration_minutes
-    ?get_password_data ?hibernation ?instance_interruption_behavior
-    ?launch_group ?source_dest_check ?spot_type ?tags
-    ?user_data_replace_on_change ?volume_tags ?wait_for_fulfillment
+let aws_spot_instance_request ?ami ?associate_public_ip_address
+    ?availability_zone ?block_duration_minutes ?cpu_core_count
+    ?cpu_threads_per_core ?disable_api_stop ?disable_api_termination
+    ?ebs_optimized ?get_password_data ?hibernation ?host_id
+    ?host_resource_group_arn ?iam_instance_profile ?id
+    ?instance_initiated_shutdown_behavior
+    ?instance_interruption_behavior ?instance_type
+    ?ipv6_address_count ?ipv6_addresses ?key_name ?launch_group
+    ?monitoring ?placement_group ?placement_partition_number
+    ?private_ip ?secondary_private_ips ?security_groups
+    ?source_dest_check ?spot_price ?spot_type ?subnet_id ?tags
+    ?tags_all ?tenancy ?user_data ?user_data_base64
+    ?user_data_replace_on_change ?valid_from ?valid_until
+    ?volume_tags ?vpc_security_group_ids ?wait_for_fulfillment
     ?timeouts ~capacity_reservation_specification ~cpu_options
     ~credit_specification ~ebs_block_device ~enclave_options
     ~ephemeral_block_device ~launch_template ~maintenance_options
@@ -202,16 +259,48 @@ let aws_spot_instance_request ?block_duration_minutes
   let __resource_type = "aws_spot_instance_request" in
   let __resource =
     {
+      ami;
+      associate_public_ip_address;
+      availability_zone;
       block_duration_minutes;
+      cpu_core_count;
+      cpu_threads_per_core;
+      disable_api_stop;
+      disable_api_termination;
+      ebs_optimized;
       get_password_data;
       hibernation;
+      host_id;
+      host_resource_group_arn;
+      iam_instance_profile;
+      id;
+      instance_initiated_shutdown_behavior;
       instance_interruption_behavior;
+      instance_type;
+      ipv6_address_count;
+      ipv6_addresses;
+      key_name;
       launch_group;
+      monitoring;
+      placement_group;
+      placement_partition_number;
+      private_ip;
+      secondary_private_ips;
+      security_groups;
       source_dest_check;
+      spot_price;
       spot_type;
+      subnet_id;
       tags;
+      tags_all;
+      tenancy;
+      user_data;
+      user_data_base64;
       user_data_replace_on_change;
+      valid_from;
+      valid_until;
       volume_tags;
+      vpc_security_group_ids;
       wait_for_fulfillment;
       capacity_reservation_specification;
       cpu_options;

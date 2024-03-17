@@ -9,6 +9,7 @@ type azurerm_stream_analytics_stream_input_eventhub_v2
 val azurerm_stream_analytics_stream_input_eventhub_v2 :
   ?authentication_mode:string ->
   ?eventhub_consumer_group_name:string ->
+  ?id:string ->
   ?partition_key:string ->
   ?shared_access_policy_key:string ->
   ?shared_access_policy_name:string ->

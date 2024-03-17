@@ -10,11 +10,11 @@ type azurerm_automation_account__private_endpoint_connection = {
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type azurerm_automation_account
 
 val azurerm_automation_account :
+  ?id:string ->
   ?local_authentication_enabled:bool ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->

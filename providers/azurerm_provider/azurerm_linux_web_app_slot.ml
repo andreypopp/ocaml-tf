@@ -696,6 +696,9 @@ type azurerm_linux_web_app_slot = {
   ftp_publish_basic_authentication_enabled : bool option; [@option]
       (** ftp_publish_basic_authentication_enabled *)
   https_only : bool option; [@option]  (** https_only *)
+  id : string option; [@option]  (** id *)
+  key_vault_reference_identity_id : string option; [@option]
+      (** key_vault_reference_identity_id *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
@@ -706,6 +709,8 @@ type azurerm_linux_web_app_slot = {
   webdeploy_publish_basic_authentication_enabled : bool option;
       [@option]
       (** webdeploy_publish_basic_authentication_enabled *)
+  zip_deploy_file : string option; [@option]
+      (** The local path and filename of the Zip packaged application to deploy to this Windows Web App. **Note:** Using this value requires `WEBSITE_RUN_FROM_PACKAGE=1` on the App in `app_settings`. *)
   auth_settings : azurerm_linux_web_app_slot__auth_settings list;
   auth_settings_v2 :
     azurerm_linux_web_app_slot__auth_settings_v2 list;
@@ -724,13 +729,13 @@ type azurerm_linux_web_app_slot = {
 let azurerm_linux_web_app_slot ?app_settings ?client_affinity_enabled
     ?client_certificate_enabled ?client_certificate_exclusion_paths
     ?client_certificate_mode ?enabled
-    ?ftp_publish_basic_authentication_enabled ?https_only
-    ?public_network_access_enabled ?service_plan_id ?tags
-    ?virtual_network_subnet_id
-    ?webdeploy_publish_basic_authentication_enabled ?timeouts
-    ~app_service_id ~name ~auth_settings ~auth_settings_v2 ~backup
-    ~connection_string ~identity ~logs ~site_config ~storage_account
-    __resource_id =
+    ?ftp_publish_basic_authentication_enabled ?https_only ?id
+    ?key_vault_reference_identity_id ?public_network_access_enabled
+    ?service_plan_id ?tags ?virtual_network_subnet_id
+    ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
+    ?timeouts ~app_service_id ~name ~auth_settings ~auth_settings_v2
+    ~backup ~connection_string ~identity ~logs ~site_config
+    ~storage_account __resource_id =
   let __resource_type = "azurerm_linux_web_app_slot" in
   let __resource =
     {
@@ -743,12 +748,15 @@ let azurerm_linux_web_app_slot ?app_settings ?client_affinity_enabled
       enabled;
       ftp_publish_basic_authentication_enabled;
       https_only;
+      id;
+      key_vault_reference_identity_id;
       name;
       public_network_access_enabled;
       service_plan_id;
       tags;
       virtual_network_subnet_id;
       webdeploy_publish_basic_authentication_enabled;
+      zip_deploy_file;
       auth_settings;
       auth_settings_v2;
       backup;

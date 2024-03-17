@@ -9,6 +9,7 @@ type google_apigee_keystores_aliases_key_cert_file__timeouts
 type google_apigee_keystores_aliases_key_cert_file
 
 val google_apigee_keystores_aliases_key_cert_file :
+  ?id:string ->
   ?key:string ->
   ?password:string ->
   ?timeouts:google_apigee_keystores_aliases_key_cert_file__timeouts ->

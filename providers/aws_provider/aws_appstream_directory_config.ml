@@ -13,6 +13,7 @@ type aws_appstream_directory_config__service_account_credentials = {
 
 type aws_appstream_directory_config = {
   directory_name : string;  (** directory_name *)
+  id : string option; [@option]  (** id *)
   organizational_unit_distinguished_names : string list;
       (** organizational_unit_distinguished_names *)
   service_account_credentials :
@@ -21,13 +22,14 @@ type aws_appstream_directory_config = {
 [@@deriving yojson_of]
 (** aws_appstream_directory_config *)
 
-let aws_appstream_directory_config ~directory_name
+let aws_appstream_directory_config ?id ~directory_name
     ~organizational_unit_distinguished_names
     ~service_account_credentials __resource_id =
   let __resource_type = "aws_appstream_directory_config" in
   let __resource =
     {
       directory_name;
+      id;
       organizational_unit_distinguished_names;
       service_account_credentials;
     }

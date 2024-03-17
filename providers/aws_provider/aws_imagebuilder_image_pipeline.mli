@@ -14,9 +14,11 @@ val aws_imagebuilder_image_pipeline :
   ?description:string ->
   ?distribution_configuration_arn:string ->
   ?enhanced_image_metadata_enabled:bool ->
+  ?id:string ->
   ?image_recipe_arn:string ->
   ?status:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   infrastructure_configuration_arn:string ->
   name:string ->
   image_scanning_configuration:

@@ -178,7 +178,12 @@ type google_compute_security_policy__timeouts = {
 type google_compute_security_policy = {
   description : string option; [@option]
       (** An optional description of this security policy. Max size is 2048. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the security policy. *)
+  project : string option; [@option]
+      (** The project in which the resource belongs. If it is not provided, the provider project is used. *)
+  type_ : string option; [@option] [@key "type"]
+      (** The type indicates the intended use of the security policy. CLOUD_ARMOR - Cloud Armor backend security policies can be configured to filter incoming HTTP requests targeting backend services. They filter requests before they hit the origin servers. CLOUD_ARMOR_EDGE - Cloud Armor edge security policies can be configured to filter incoming HTTP requests targeting backend services (including Cloud CDN-enabled) as well as backend buckets (Cloud Storage). They filter requests before the request is served from Google's cache. *)
   adaptive_protection_config :
     google_compute_security_policy__adaptive_protection_config list;
   advanced_options_config :
@@ -191,14 +196,18 @@ type google_compute_security_policy = {
 [@@deriving yojson_of]
 (** google_compute_security_policy *)
 
-let google_compute_security_policy ?description ?timeouts ~name
-    ~adaptive_protection_config ~advanced_options_config
-    ~recaptcha_options_config ~rule __resource_id =
+let google_compute_security_policy ?description ?id ?project ?type_
+    ?timeouts ~name ~adaptive_protection_config
+    ~advanced_options_config ~recaptcha_options_config ~rule
+    __resource_id =
   let __resource_type = "google_compute_security_policy" in
   let __resource =
     {
       description;
+      id;
       name;
+      project;
+      type_;
       adaptive_protection_config;
       advanced_options_config;
       recaptcha_options_config;

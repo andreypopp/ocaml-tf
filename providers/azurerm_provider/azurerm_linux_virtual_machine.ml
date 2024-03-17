@@ -140,6 +140,7 @@ type azurerm_linux_virtual_machine = {
       (** bypass_platform_safety_checks_on_user_schedule_enabled *)
   capacity_reservation_group_id : string option; [@option]
       (** capacity_reservation_group_id *)
+  computer_name : string option; [@option]  (** computer_name *)
   custom_data : string option; [@option]  (** custom_data *)
   dedicated_host_group_id : string option; [@option]
       (** dedicated_host_group_id *)
@@ -147,12 +148,15 @@ type azurerm_linux_virtual_machine = {
       (** dedicated_host_id *)
   disable_password_authentication : bool option; [@option]
       (** disable_password_authentication *)
+  disk_controller_type : string option; [@option]
+      (** disk_controller_type *)
   edge_zone : string option; [@option]  (** edge_zone *)
   encryption_at_host_enabled : bool option; [@option]
       (** encryption_at_host_enabled *)
   eviction_policy : string option; [@option]  (** eviction_policy *)
   extensions_time_budget : string option; [@option]
       (** extensions_time_budget *)
+  id : string option; [@option]  (** id *)
   license_type : string option; [@option]  (** license_type *)
   location : string;  (** location *)
   max_bid_price : float option; [@option]  (** max_bid_price *)
@@ -207,11 +211,11 @@ type azurerm_linux_virtual_machine = {
 let azurerm_linux_virtual_machine ?admin_password
     ?allow_extension_operations ?availability_set_id
     ?bypass_platform_safety_checks_on_user_schedule_enabled
-    ?capacity_reservation_group_id ?custom_data
+    ?capacity_reservation_group_id ?computer_name ?custom_data
     ?dedicated_host_group_id ?dedicated_host_id
-    ?disable_password_authentication ?edge_zone
+    ?disable_password_authentication ?disk_controller_type ?edge_zone
     ?encryption_at_host_enabled ?eviction_policy
-    ?extensions_time_budget ?license_type ?max_bid_price
+    ?extensions_time_budget ?id ?license_type ?max_bid_price
     ?patch_assessment_mode ?patch_mode ?platform_fault_domain
     ?priority ?provision_vm_agent ?proximity_placement_group_id
     ?reboot_setting ?secure_boot_enabled ?source_image_id ?tags
@@ -231,14 +235,17 @@ let azurerm_linux_virtual_machine ?admin_password
       availability_set_id;
       bypass_platform_safety_checks_on_user_schedule_enabled;
       capacity_reservation_group_id;
+      computer_name;
       custom_data;
       dedicated_host_group_id;
       dedicated_host_id;
       disable_password_authentication;
+      disk_controller_type;
       edge_zone;
       encryption_at_host_enabled;
       eviction_policy;
       extensions_time_budget;
+      id;
       license_type;
       location;
       max_bid_price;

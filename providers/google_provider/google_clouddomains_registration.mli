@@ -29,7 +29,9 @@ type google_clouddomains_registration
 val google_clouddomains_registration :
   ?contact_notices:string list ->
   ?domain_notices:string list ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_clouddomains_registration__timeouts ->
   domain_name:string ->
   location:string ->

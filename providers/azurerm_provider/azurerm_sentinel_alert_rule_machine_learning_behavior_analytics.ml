@@ -16,6 +16,7 @@ type azurerm_sentinel_alert_rule_machine_learning_behavior_analytics__timeouts =
 type azurerm_sentinel_alert_rule_machine_learning_behavior_analytics = {
   alert_rule_template_guid : string;  (** alert_rule_template_guid *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -27,7 +28,7 @@ type azurerm_sentinel_alert_rule_machine_learning_behavior_analytics = {
 (** azurerm_sentinel_alert_rule_machine_learning_behavior_analytics *)
 
 let azurerm_sentinel_alert_rule_machine_learning_behavior_analytics
-    ?enabled ?timeouts ~alert_rule_template_guid
+    ?enabled ?id ?timeouts ~alert_rule_template_guid
     ~log_analytics_workspace_id ~name __resource_id =
   let __resource_type =
     "azurerm_sentinel_alert_rule_machine_learning_behavior_analytics"
@@ -36,6 +37,7 @@ let azurerm_sentinel_alert_rule_machine_learning_behavior_analytics
     {
       alert_rule_template_guid;
       enabled;
+      id;
       log_analytics_workspace_id;
       name;
       timeouts;

@@ -6,6 +6,7 @@ type azurerm_cosmosdb_postgresql_node_configuration__timeouts
 type azurerm_cosmosdb_postgresql_node_configuration
 
 val azurerm_cosmosdb_postgresql_node_configuration :
+  ?id:string ->
   ?timeouts:azurerm_cosmosdb_postgresql_node_configuration__timeouts ->
   cluster_id:string ->
   name:string ->

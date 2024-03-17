@@ -91,6 +91,7 @@ type azurerm_spring_cloud_gateway = {
   environment_variables : (string * string) list option; [@option]
       (** environment_variables *)
   https_only : bool option; [@option]  (** https_only *)
+  id : string option; [@option]  (** id *)
   instance_count : float option; [@option]  (** instance_count *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -118,7 +119,7 @@ type azurerm_spring_cloud_gateway = {
 let azurerm_spring_cloud_gateway
     ?application_performance_monitoring_ids
     ?application_performance_monitoring_types ?environment_variables
-    ?https_only ?instance_count ?public_network_access_enabled
+    ?https_only ?id ?instance_count ?public_network_access_enabled
     ?sensitive_environment_variables ?timeouts ~name
     ~spring_cloud_service_id ~api_metadata ~client_authorization
     ~cors ~local_response_cache_per_instance
@@ -130,6 +131,7 @@ let azurerm_spring_cloud_gateway
       application_performance_monitoring_types;
       environment_variables;
       https_only;
+      id;
       instance_count;
       name;
       public_network_access_enabled;

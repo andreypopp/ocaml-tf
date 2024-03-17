@@ -17,6 +17,7 @@ type azurerm_api_management_identity_provider_microsoft = {
   api_management_name : string;  (** api_management_name *)
   client_id : string;  (** client_id *)
   client_secret : string;  (** client_secret *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts :
     azurerm_api_management_identity_provider_microsoft__timeouts
@@ -25,7 +26,7 @@ type azurerm_api_management_identity_provider_microsoft = {
 [@@deriving yojson_of]
 (** azurerm_api_management_identity_provider_microsoft *)
 
-let azurerm_api_management_identity_provider_microsoft ?timeouts
+let azurerm_api_management_identity_provider_microsoft ?id ?timeouts
     ~api_management_name ~client_id ~client_secret
     ~resource_group_name __resource_id =
   let __resource_type =
@@ -36,6 +37,7 @@ let azurerm_api_management_identity_provider_microsoft ?timeouts
       api_management_name;
       client_id;
       client_secret;
+      id;
       resource_group_name;
       timeouts;
     }

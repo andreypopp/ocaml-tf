@@ -335,6 +335,7 @@ type azurerm_workloads_sap_three_tier_virtual_instance__timeouts = {
 type azurerm_workloads_sap_three_tier_virtual_instance = {
   app_location : string;  (** app_location *)
   environment : string;  (** environment *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   managed_resource_group_name : string option; [@option]
       (** managed_resource_group_name *)
@@ -355,7 +356,7 @@ type azurerm_workloads_sap_three_tier_virtual_instance = {
 [@@deriving yojson_of]
 (** azurerm_workloads_sap_three_tier_virtual_instance *)
 
-let azurerm_workloads_sap_three_tier_virtual_instance
+let azurerm_workloads_sap_three_tier_virtual_instance ?id
     ?managed_resource_group_name ?tags ?timeouts ~app_location
     ~environment ~location ~name ~resource_group_name ~sap_fqdn
     ~sap_product ~identity ~three_tier_configuration __resource_id =
@@ -366,6 +367,7 @@ let azurerm_workloads_sap_three_tier_virtual_instance
     {
       app_location;
       environment;
+      id;
       location;
       managed_resource_group_name;
       name;

@@ -148,11 +148,14 @@ type azurerm_windows_virtual_machine = {
       (** bypass_platform_safety_checks_on_user_schedule_enabled *)
   capacity_reservation_group_id : string option; [@option]
       (** capacity_reservation_group_id *)
+  computer_name : string option; [@option]  (** computer_name *)
   custom_data : string option; [@option]  (** custom_data *)
   dedicated_host_group_id : string option; [@option]
       (** dedicated_host_group_id *)
   dedicated_host_id : string option; [@option]
       (** dedicated_host_id *)
+  disk_controller_type : string option; [@option]
+      (** disk_controller_type *)
   edge_zone : string option; [@option]  (** edge_zone *)
   enable_automatic_updates : bool option; [@option]
       (** enable_automatic_updates *)
@@ -163,6 +166,7 @@ type azurerm_windows_virtual_machine = {
       (** extensions_time_budget *)
   hotpatching_enabled : bool option; [@option]
       (** hotpatching_enabled *)
+  id : string option; [@option]  (** id *)
   license_type : string option; [@option]  (** license_type *)
   location : string;  (** location *)
   max_bid_price : float option; [@option]  (** max_bid_price *)
@@ -221,10 +225,10 @@ type azurerm_windows_virtual_machine = {
 let azurerm_windows_virtual_machine ?allow_extension_operations
     ?availability_set_id
     ?bypass_platform_safety_checks_on_user_schedule_enabled
-    ?capacity_reservation_group_id ?custom_data
-    ?dedicated_host_group_id ?dedicated_host_id ?edge_zone
-    ?enable_automatic_updates ?encryption_at_host_enabled
-    ?eviction_policy ?extensions_time_budget ?hotpatching_enabled
+    ?capacity_reservation_group_id ?computer_name ?custom_data
+    ?dedicated_host_group_id ?dedicated_host_id ?disk_controller_type
+    ?edge_zone ?enable_automatic_updates ?encryption_at_host_enabled
+    ?eviction_policy ?extensions_time_budget ?hotpatching_enabled ?id
     ?license_type ?max_bid_price ?patch_assessment_mode ?patch_mode
     ?platform_fault_domain ?priority ?provision_vm_agent
     ?proximity_placement_group_id ?reboot_setting
@@ -245,15 +249,18 @@ let azurerm_windows_virtual_machine ?allow_extension_operations
       availability_set_id;
       bypass_platform_safety_checks_on_user_schedule_enabled;
       capacity_reservation_group_id;
+      computer_name;
       custom_data;
       dedicated_host_group_id;
       dedicated_host_id;
+      disk_controller_type;
       edge_zone;
       enable_automatic_updates;
       encryption_at_host_enabled;
       eviction_policy;
       extensions_time_budget;
       hotpatching_enabled;
+      id;
       license_type;
       location;
       max_bid_price;

@@ -14,6 +14,7 @@ type google_edgenetwork_subnet__timeouts = {
 type google_edgenetwork_subnet = {
   description : string option; [@option]
       (** A free-text description of the resource. Max length 1024 characters. *)
+  id : string option; [@option]  (** id *)
   ipv4_cidr : string list option; [@option]
       (** The ranges of ipv4 addresses that are owned by this subnetwork, in CIDR format. *)
   ipv6_cidr : string list option; [@option]
@@ -25,8 +26,11 @@ type google_edgenetwork_subnet = {
   network : string;
       (** The ID of the network to which this router belongs.
 Must be of the form: 'projects/{{project}}/locations/{{location}}/zones/{{zone}}/networks/{{network_id}}' *)
+  project : string option; [@option]  (** project *)
   subnet_id : string;
       (** A unique ID that identifies this subnet. *)
+  vlan_id : float option; [@option]
+      (** VLAN ID for this subnetwork. If not specified, one is assigned automatically. *)
   zone : string;
       (** The name of the target Distributed Cloud Edge zone. *)
   timeouts : google_edgenetwork_subnet__timeouts option;
@@ -34,19 +38,22 @@ Must be of the form: 'projects/{{project}}/locations/{{location}}/zones/{{zone}}
 [@@deriving yojson_of]
 (** google_edgenetwork_subnet *)
 
-let google_edgenetwork_subnet ?description ?ipv4_cidr ?ipv6_cidr
-    ?labels ?timeouts ~location ~network ~subnet_id ~zone
-    __resource_id =
+let google_edgenetwork_subnet ?description ?id ?ipv4_cidr ?ipv6_cidr
+    ?labels ?project ?vlan_id ?timeouts ~location ~network ~subnet_id
+    ~zone __resource_id =
   let __resource_type = "google_edgenetwork_subnet" in
   let __resource =
     {
       description;
+      id;
       ipv4_cidr;
       ipv6_cidr;
       labels;
       location;
       network;
+      project;
       subnet_id;
+      vlan_id;
       zone;
       timeouts;
     }

@@ -11,6 +11,7 @@ type aws_pinpoint_apns_channel = {
   default_authentication_method : string option; [@option]
       (** default_authentication_method *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   private_key : string option; [@option]  (** private_key *)
   team_id : string option; [@option]  (** team_id *)
   token_key : string option; [@option]  (** token_key *)
@@ -20,7 +21,7 @@ type aws_pinpoint_apns_channel = {
 (** aws_pinpoint_apns_channel *)
 
 let aws_pinpoint_apns_channel ?bundle_id ?certificate
-    ?default_authentication_method ?enabled ?private_key ?team_id
+    ?default_authentication_method ?enabled ?id ?private_key ?team_id
     ?token_key ?token_key_id ~application_id __resource_id =
   let __resource_type = "aws_pinpoint_apns_channel" in
   let __resource =
@@ -30,6 +31,7 @@ let aws_pinpoint_apns_channel ?bundle_id ?certificate
       certificate;
       default_authentication_method;
       enabled;
+      id;
       private_key;
       team_id;
       token_key;

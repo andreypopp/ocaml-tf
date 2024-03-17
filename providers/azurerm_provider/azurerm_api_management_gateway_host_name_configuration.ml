@@ -19,6 +19,7 @@ type azurerm_api_management_gateway_host_name_configuration = {
   gateway_name : string;  (** gateway_name *)
   host_name : string;  (** host_name *)
   http2_enabled : bool option; [@option]  (** http2_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   request_client_certificate_enabled : bool option; [@option]
       (** request_client_certificate_enabled *)
@@ -32,9 +33,9 @@ type azurerm_api_management_gateway_host_name_configuration = {
 (** azurerm_api_management_gateway_host_name_configuration *)
 
 let azurerm_api_management_gateway_host_name_configuration
-    ?http2_enabled ?request_client_certificate_enabled ?tls10_enabled
-    ?tls11_enabled ?timeouts ~api_management_id ~certificate_id
-    ~gateway_name ~host_name ~name __resource_id =
+    ?http2_enabled ?id ?request_client_certificate_enabled
+    ?tls10_enabled ?tls11_enabled ?timeouts ~api_management_id
+    ~certificate_id ~gateway_name ~host_name ~name __resource_id =
   let __resource_type =
     "azurerm_api_management_gateway_host_name_configuration"
   in
@@ -45,6 +46,7 @@ let azurerm_api_management_gateway_host_name_configuration
       gateway_name;
       host_name;
       http2_enabled;
+      id;
       name;
       request_client_certificate_enabled;
       tls10_enabled;

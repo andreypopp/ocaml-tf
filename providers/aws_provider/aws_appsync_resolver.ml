@@ -48,6 +48,7 @@ type aws_appsync_resolver = {
   code : string option; [@option]  (** code *)
   data_source : string option; [@option]  (** data_source *)
   field : string;  (** field *)
+  id : string option; [@option]  (** id *)
   kind : string option; [@option]  (** kind *)
   max_batch_size : float option; [@option]  (** max_batch_size *)
   request_template : string option; [@option]
@@ -63,7 +64,7 @@ type aws_appsync_resolver = {
 [@@deriving yojson_of]
 (** aws_appsync_resolver *)
 
-let aws_appsync_resolver ?code ?data_source ?kind ?max_batch_size
+let aws_appsync_resolver ?code ?data_source ?id ?kind ?max_batch_size
     ?request_template ?response_template ~api_id ~field ~type_
     ~caching_config ~pipeline_config ~runtime ~sync_config
     __resource_id =
@@ -74,6 +75,7 @@ let aws_appsync_resolver ?code ?data_source ?kind ?max_batch_size
       code;
       data_source;
       field;
+      id;
       kind;
       max_batch_size;
       request_template;

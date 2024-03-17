@@ -14,6 +14,7 @@ type azurerm_nat_gateway__timeouts = {
 (** azurerm_nat_gateway__timeouts *)
 
 type azurerm_nat_gateway = {
+  id : string option; [@option]  (** id *)
   idle_timeout_in_minutes : float option; [@option]
       (** idle_timeout_in_minutes *)
   location : string;  (** location *)
@@ -27,12 +28,13 @@ type azurerm_nat_gateway = {
 [@@deriving yojson_of]
 (** azurerm_nat_gateway *)
 
-let azurerm_nat_gateway ?idle_timeout_in_minutes ?sku_name ?tags
+let azurerm_nat_gateway ?id ?idle_timeout_in_minutes ?sku_name ?tags
     ?zones ?timeouts ~location ~name ~resource_group_name
     __resource_id =
   let __resource_type = "azurerm_nat_gateway" in
   let __resource =
     {
+      id;
       idle_timeout_in_minutes;
       location;
       name;

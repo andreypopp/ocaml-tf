@@ -54,6 +54,7 @@ type aws_identitystore_user__external_ids = {
 
 type aws_identitystore_user = {
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   identity_store_id : string;  (** identity_store_id *)
   locale : string option; [@option]  (** locale *)
   nickname : string option; [@option]  (** nickname *)
@@ -72,7 +73,7 @@ type aws_identitystore_user = {
 [@@deriving yojson_of]
 (** aws_identitystore_user *)
 
-let aws_identitystore_user ?locale ?nickname ?preferred_language
+let aws_identitystore_user ?id ?locale ?nickname ?preferred_language
     ?profile_url ?timezone ?title ?user_type ~display_name
     ~identity_store_id ~user_name ~addresses ~emails ~name
     ~phone_numbers __resource_id =
@@ -80,6 +81,7 @@ let aws_identitystore_user ?locale ?nickname ?preferred_language
   let __resource =
     {
       display_name;
+      id;
       identity_store_id;
       locale;
       nickname;

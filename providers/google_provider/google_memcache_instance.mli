@@ -16,7 +16,6 @@ type google_memcache_instance__maintenance_schedule = {
   schedule_deadline_time : string;  (** schedule_deadline_time *)
   start_time : string;  (** start_time *)
 }
-[@@deriving yojson_of]
 
 type google_memcache_instance__memcache_nodes = {
   host : string;  (** host *)
@@ -25,14 +24,19 @@ type google_memcache_instance__memcache_nodes = {
   state : string;  (** state *)
   zone : string;  (** zone *)
 }
-[@@deriving yojson_of]
 
 type google_memcache_instance
 
 val google_memcache_instance :
+  ?authorized_network:string ->
+  ?display_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?memcache_version:string ->
+  ?project:string ->
+  ?region:string ->
   ?reserved_ip_range_id:string list ->
+  ?zones:string list ->
   ?timeouts:google_memcache_instance__timeouts ->
   name:string ->
   node_count:float ->

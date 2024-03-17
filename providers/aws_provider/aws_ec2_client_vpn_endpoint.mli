@@ -11,11 +11,15 @@ type aws_ec2_client_vpn_endpoint
 val aws_ec2_client_vpn_endpoint :
   ?description:string ->
   ?dns_servers:string list ->
+  ?id:string ->
+  ?security_group_ids:string list ->
   ?self_service_portal:string ->
   ?session_timeout_hours:float ->
   ?split_tunnel:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?transport_protocol:string ->
+  ?vpc_id:string ->
   ?vpn_port:float ->
   client_cidr_block:string ->
   server_certificate_arn:string ->

@@ -17,6 +17,7 @@ type azurerm_digital_twins_endpoint_servicebus = {
   dead_letter_storage_secret : string option; [@option]
       (** dead_letter_storage_secret *)
   digital_twins_id : string;  (** digital_twins_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   servicebus_primary_connection_string : string;
       (** servicebus_primary_connection_string *)
@@ -29,7 +30,7 @@ type azurerm_digital_twins_endpoint_servicebus = {
 (** azurerm_digital_twins_endpoint_servicebus *)
 
 let azurerm_digital_twins_endpoint_servicebus
-    ?dead_letter_storage_secret ?timeouts ~digital_twins_id ~name
+    ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id ~name
     ~servicebus_primary_connection_string
     ~servicebus_secondary_connection_string __resource_id =
   let __resource_type =
@@ -39,6 +40,7 @@ let azurerm_digital_twins_endpoint_servicebus
     {
       dead_letter_storage_secret;
       digital_twins_id;
+      id;
       name;
       servicebus_primary_connection_string;
       servicebus_secondary_connection_string;

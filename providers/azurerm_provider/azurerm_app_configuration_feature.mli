@@ -11,6 +11,9 @@ type azurerm_app_configuration_feature
 val azurerm_app_configuration_feature :
   ?description:string ->
   ?enabled:bool ->
+  ?etag:string ->
+  ?id:string ->
+  ?key:string ->
   ?label:string ->
   ?locked:bool ->
   ?percentage_filter_value:float ->

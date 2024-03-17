@@ -11,6 +11,7 @@ type cloudflare_bot_management = {
       (** Use lightweight, invisible JavaScript detections to improve Bot Management. [Learn more about JavaScript Detections](https://developers.cloudflare.com/bots/reference/javascript-detections/). *)
   fight_mode : bool option; [@option]
       (** Whether to enable Bot Fight Mode. *)
+  id : string option; [@option]  (** id *)
   optimize_wordpress : bool option; [@option]
       (** Whether to optimize Super Bot Fight Mode protections for Wordpress. *)
   sbfm_definitely_automated : string option; [@option]
@@ -37,7 +38,7 @@ Specifically, this resource can be used to manage:
  *)
 
 let cloudflare_bot_management ?auto_update_model ?enable_js
-    ?fight_mode ?optimize_wordpress ?sbfm_definitely_automated
+    ?fight_mode ?id ?optimize_wordpress ?sbfm_definitely_automated
     ?sbfm_likely_automated ?sbfm_static_resource_protection
     ?sbfm_verified_bots ?suppress_session_score ~zone_id
     __resource_id =
@@ -47,6 +48,7 @@ let cloudflare_bot_management ?auto_update_model ?enable_js
       auto_update_model;
       enable_js;
       fight_mode;
+      id;
       optimize_wordpress;
       sbfm_definitely_automated;
       sbfm_likely_automated;

@@ -29,6 +29,7 @@ type aws_securityhub_configuration_policy
 
 val aws_securityhub_configuration_policy :
   ?description:string ->
+  ?id:string ->
   name:string ->
   configuration_policy:
     aws_securityhub_configuration_policy__configuration_policy list ->

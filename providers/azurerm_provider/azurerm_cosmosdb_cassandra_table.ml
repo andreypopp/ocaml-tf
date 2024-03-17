@@ -53,7 +53,10 @@ type azurerm_cosmosdb_cassandra_table = {
   analytical_storage_ttl : float option; [@option]
       (** analytical_storage_ttl *)
   cassandra_keyspace_id : string;  (** cassandra_keyspace_id *)
+  default_ttl : float option; [@option]  (** default_ttl *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  throughput : float option; [@option]  (** throughput *)
   autoscale_settings :
     azurerm_cosmosdb_cassandra_table__autoscale_settings list;
   schema : azurerm_cosmosdb_cassandra_table__schema list;
@@ -63,14 +66,17 @@ type azurerm_cosmosdb_cassandra_table = {
 (** azurerm_cosmosdb_cassandra_table *)
 
 let azurerm_cosmosdb_cassandra_table ?analytical_storage_ttl
-    ?timeouts ~cassandra_keyspace_id ~name ~autoscale_settings
-    ~schema __resource_id =
+    ?default_ttl ?id ?throughput ?timeouts ~cassandra_keyspace_id
+    ~name ~autoscale_settings ~schema __resource_id =
   let __resource_type = "azurerm_cosmosdb_cassandra_table" in
   let __resource =
     {
       analytical_storage_ttl;
       cassandra_keyspace_id;
+      default_ttl;
+      id;
       name;
+      throughput;
       autoscale_settings;
       schema;
       timeouts;

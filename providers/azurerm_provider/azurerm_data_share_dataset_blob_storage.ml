@@ -25,6 +25,7 @@ type azurerm_data_share_dataset_blob_storage = {
   data_share_id : string;  (** data_share_id *)
   file_path : string option; [@option]  (** file_path *)
   folder_path : string option; [@option]  (** folder_path *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   storage_account :
     azurerm_data_share_dataset_blob_storage__storage_account list;
@@ -34,8 +35,8 @@ type azurerm_data_share_dataset_blob_storage = {
 (** azurerm_data_share_dataset_blob_storage *)
 
 let azurerm_data_share_dataset_blob_storage ?file_path ?folder_path
-    ?timeouts ~container_name ~data_share_id ~name ~storage_account
-    __resource_id =
+    ?id ?timeouts ~container_name ~data_share_id ~name
+    ~storage_account __resource_id =
   let __resource_type = "azurerm_data_share_dataset_blob_storage" in
   let __resource =
     {
@@ -43,6 +44,7 @@ let azurerm_data_share_dataset_blob_storage ?file_path ?folder_path
       data_share_id;
       file_path;
       folder_path;
+      id;
       name;
       storage_account;
       timeouts;

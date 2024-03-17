@@ -60,10 +60,12 @@ type google_container_analysis_occurrence__timeouts = {
 (** google_container_analysis_occurrence__timeouts *)
 
 type google_container_analysis_occurrence = {
+  id : string option; [@option]  (** id *)
   note_name : string;
       (** The analysis note associated with this occurrence, in the form of
 projects/[PROJECT]/notes/[NOTE_ID]. This field can be used as a
 filter in list requests. *)
+  project : string option; [@option]  (** project *)
   remediation : string option; [@option]
       (** A description of actions that can be taken to remedy the note. *)
   resource_uri : string;
@@ -77,11 +79,19 @@ https://gcr.io/project/image@sha256:123abc for a Docker image. *)
 [@@deriving yojson_of]
 (** google_container_analysis_occurrence *)
 
-let google_container_analysis_occurrence ?remediation ?timeouts
-    ~note_name ~resource_uri ~attestation __resource_id =
+let google_container_analysis_occurrence ?id ?project ?remediation
+    ?timeouts ~note_name ~resource_uri ~attestation __resource_id =
   let __resource_type = "google_container_analysis_occurrence" in
   let __resource =
-    { note_name; remediation; resource_uri; attestation; timeouts }
+    {
+      id;
+      note_name;
+      project;
+      remediation;
+      resource_uri;
+      attestation;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_container_analysis_occurrence __resource);

@@ -94,6 +94,8 @@ type google_os_config_os_policy_assignment
 
 val google_os_config_os_policy_assignment :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?skip_await_rollout:bool ->
   ?timeouts:google_os_config_os_policy_assignment__timeouts ->
   location:string ->

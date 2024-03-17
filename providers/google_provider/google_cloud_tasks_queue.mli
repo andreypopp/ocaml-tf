@@ -10,7 +10,9 @@ type google_cloud_tasks_queue__timeouts
 type google_cloud_tasks_queue
 
 val google_cloud_tasks_queue :
+  ?id:string ->
   ?name:string ->
+  ?project:string ->
   ?timeouts:google_cloud_tasks_queue__timeouts ->
   location:string ->
   app_engine_routing_override:

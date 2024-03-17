@@ -98,6 +98,7 @@ type azurerm_monitor_action_rule_action_group = {
   action_group_id : string;  (** action_group_id *)
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -111,7 +112,7 @@ type azurerm_monitor_action_rule_action_group = {
 (** azurerm_monitor_action_rule_action_group *)
 
 let azurerm_monitor_action_rule_action_group ?description ?enabled
-    ?tags ?timeouts ~action_group_id ~name ~resource_group_name
+    ?id ?tags ?timeouts ~action_group_id ~name ~resource_group_name
     ~condition ~scope __resource_id =
   let __resource_type = "azurerm_monitor_action_rule_action_group" in
   let __resource =
@@ -119,6 +120,7 @@ let azurerm_monitor_action_rule_action_group ?description ?enabled
       action_group_id;
       description;
       enabled;
+      id;
       name;
       resource_group_name;
       tags;

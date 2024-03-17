@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_route_table_propagation = {
+  id : string option; [@option]  (** id *)
   transit_gateway_attachment_id : string;
       (** transit_gateway_attachment_id *)
   transit_gateway_route_table_id : string;
@@ -13,14 +14,18 @@ type aws_ec2_transit_gateway_route_table_propagation = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_route_table_propagation *)
 
-let aws_ec2_transit_gateway_route_table_propagation
+let aws_ec2_transit_gateway_route_table_propagation ?id
     ~transit_gateway_attachment_id ~transit_gateway_route_table_id
     __resource_id =
   let __resource_type =
     "aws_ec2_transit_gateway_route_table_propagation"
   in
   let __resource =
-    { transit_gateway_attachment_id; transit_gateway_route_table_id }
+    {
+      id;
+      transit_gateway_attachment_id;
+      transit_gateway_route_table_id;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ec2_transit_gateway_route_table_propagation

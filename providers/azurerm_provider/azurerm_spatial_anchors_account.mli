@@ -6,6 +6,7 @@ type azurerm_spatial_anchors_account__timeouts
 type azurerm_spatial_anchors_account
 
 val azurerm_spatial_anchors_account :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_spatial_anchors_account__timeouts ->
   location:string ->

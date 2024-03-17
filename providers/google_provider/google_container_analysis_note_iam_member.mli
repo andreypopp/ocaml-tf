@@ -6,6 +6,8 @@ type google_container_analysis_note_iam_member__condition
 type google_container_analysis_note_iam_member
 
 val google_container_analysis_note_iam_member :
+  ?id:string ->
+  ?project:string ->
   member:string ->
   note:string ->
   role:string ->

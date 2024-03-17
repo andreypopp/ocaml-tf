@@ -9,6 +9,7 @@ type azurerm_spring_cloud_gateway_route_config
 
 val azurerm_spring_cloud_gateway_route_config :
   ?filters:string list ->
+  ?id:string ->
   ?predicates:string list ->
   ?protocol:string ->
   ?spring_cloud_app_id:string ->

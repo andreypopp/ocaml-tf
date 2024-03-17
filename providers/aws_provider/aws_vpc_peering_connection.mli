@@ -9,7 +9,11 @@ type aws_vpc_peering_connection
 
 val aws_vpc_peering_connection :
   ?auto_accept:bool ->
+  ?id:string ->
+  ?peer_owner_id:string ->
+  ?peer_region:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_vpc_peering_connection__timeouts ->
   peer_vpc_id:string ->
   vpc_id:string ->

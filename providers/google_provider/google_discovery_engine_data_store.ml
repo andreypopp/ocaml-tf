@@ -23,11 +23,13 @@ PUBLIC_WEBSITE contentConfig), this flag will be ignored. *)
   display_name : string;
       (** The display name of the data store. This field must be a UTF-8 encoded
 string with a length limit of 128 characters. *)
+  id : string option; [@option]  (** id *)
   industry_vertical : string;
       (** The industry vertical that the data store registers. Possible values: [GENERIC, MEDIA] *)
   location : string;
       (** The geographic location where the data store should reside. The value can
 only be one of global, us and eu. *)
+  project : string option; [@option]  (** project *)
   solution_types : string list option; [@option]
       (** The solutions that the data store enrolls. Possible values: [SOLUTION_TYPE_RECOMMENDATION, SOLUTION_TYPE_SEARCH, SOLUTION_TYPE_CHAT] *)
   timeouts : google_discovery_engine_data_store__timeouts option;
@@ -36,8 +38,9 @@ only be one of global, us and eu. *)
 (** google_discovery_engine_data_store *)
 
 let google_discovery_engine_data_store ?create_advanced_site_search
-    ?solution_types ?timeouts ~content_config ~data_store_id
-    ~display_name ~industry_vertical ~location __resource_id =
+    ?id ?project ?solution_types ?timeouts ~content_config
+    ~data_store_id ~display_name ~industry_vertical ~location
+    __resource_id =
   let __resource_type = "google_discovery_engine_data_store" in
   let __resource =
     {
@@ -45,8 +48,10 @@ let google_discovery_engine_data_store ?create_advanced_site_search
       create_advanced_site_search;
       data_store_id;
       display_name;
+      id;
       industry_vertical;
       location;
+      project;
       solution_types;
       timeouts;
     }

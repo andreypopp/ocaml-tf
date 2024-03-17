@@ -37,6 +37,7 @@ type azurerm_voice_services_communications_gateway = {
   e911_type : string;  (** e911_type *)
   emergency_dial_strings : string list option; [@option]
       (** emergency_dial_strings *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   microsoft_teams_voicemail_pilot_number : string option; [@option]
       (** microsoft_teams_voicemail_pilot_number *)
@@ -57,7 +58,7 @@ type azurerm_voice_services_communications_gateway = {
 
 let azurerm_voice_services_communications_gateway ?api_bridge
     ?auto_generated_domain_name_label_scope ?emergency_dial_strings
-    ?microsoft_teams_voicemail_pilot_number ?on_prem_mcp_enabled
+    ?id ?microsoft_teams_voicemail_pilot_number ?on_prem_mcp_enabled
     ?tags ?timeouts ~codecs ~connectivity ~e911_type ~location ~name
     ~platforms ~resource_group_name ~service_location __resource_id =
   let __resource_type =
@@ -71,6 +72,7 @@ let azurerm_voice_services_communications_gateway ?api_bridge
       connectivity;
       e911_type;
       emergency_dial_strings;
+      id;
       location;
       microsoft_teams_voicemail_pilot_number;
       name;

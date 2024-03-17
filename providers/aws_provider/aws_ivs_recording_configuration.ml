@@ -34,7 +34,13 @@ type aws_ivs_recording_configuration__timeouts = {
 (** aws_ivs_recording_configuration__timeouts *)
 
 type aws_ivs_recording_configuration = {
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
+  recording_reconnect_window_seconds : float option; [@option]
+      (** recording_reconnect_window_seconds *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   destination_configuration :
     aws_ivs_recording_configuration__destination_configuration list;
   thumbnail_configuration :
@@ -44,13 +50,18 @@ type aws_ivs_recording_configuration = {
 [@@deriving yojson_of]
 (** aws_ivs_recording_configuration *)
 
-let aws_ivs_recording_configuration ?tags ?timeouts
+let aws_ivs_recording_configuration ?id ?name
+    ?recording_reconnect_window_seconds ?tags ?tags_all ?timeouts
     ~destination_configuration ~thumbnail_configuration __resource_id
     =
   let __resource_type = "aws_ivs_recording_configuration" in
   let __resource =
     {
+      id;
+      name;
+      recording_reconnect_window_seconds;
       tags;
+      tags_all;
       destination_configuration;
       thumbnail_configuration;
       timeouts;

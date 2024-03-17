@@ -28,8 +28,11 @@ type aws_transfer_connector__sftp_config = {
 
 type aws_transfer_connector = {
   access_role : string;  (** access_role *)
+  id : string option; [@option]  (** id *)
   logging_role : string option; [@option]  (** logging_role *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   url : string;  (** url *)
   as2_config : aws_transfer_connector__as2_config list;
   sftp_config : aws_transfer_connector__sftp_config list;
@@ -37,11 +40,20 @@ type aws_transfer_connector = {
 [@@deriving yojson_of]
 (** aws_transfer_connector *)
 
-let aws_transfer_connector ?logging_role ?tags ~access_role ~url
-    ~as2_config ~sftp_config __resource_id =
+let aws_transfer_connector ?id ?logging_role ?tags ?tags_all
+    ~access_role ~url ~as2_config ~sftp_config __resource_id =
   let __resource_type = "aws_transfer_connector" in
   let __resource =
-    { access_role; logging_role; tags; url; as2_config; sftp_config }
+    {
+      access_role;
+      id;
+      logging_role;
+      tags;
+      tags_all;
+      url;
+      as2_config;
+      sftp_config;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_transfer_connector __resource);

@@ -7,6 +7,7 @@ type azurerm_notification_hub_namespace
 
 val azurerm_notification_hub_namespace :
   ?enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_notification_hub_namespace__timeouts ->
   location:string ->

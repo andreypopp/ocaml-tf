@@ -10,8 +10,13 @@ type google_compute_firewall
 
 val google_compute_firewall :
   ?description:string ->
+  ?destination_ranges:string list ->
+  ?direction:string ->
   ?disabled:bool ->
+  ?enable_logging:bool ->
+  ?id:string ->
   ?priority:float ->
+  ?project:string ->
   ?source_ranges:string list ->
   ?source_service_accounts:string list ->
   ?source_tags:string list ->

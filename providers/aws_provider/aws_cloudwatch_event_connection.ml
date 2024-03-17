@@ -131,6 +131,7 @@ type aws_cloudwatch_event_connection__auth_parameters = {
 type aws_cloudwatch_event_connection = {
   authorization_type : string;  (** authorization_type *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   auth_parameters :
     aws_cloudwatch_event_connection__auth_parameters list;
@@ -138,11 +139,11 @@ type aws_cloudwatch_event_connection = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection *)
 
-let aws_cloudwatch_event_connection ?description ~authorization_type
-    ~name ~auth_parameters __resource_id =
+let aws_cloudwatch_event_connection ?description ?id
+    ~authorization_type ~name ~auth_parameters __resource_id =
   let __resource_type = "aws_cloudwatch_event_connection" in
   let __resource =
-    { authorization_type; description; name; auth_parameters }
+    { authorization_type; description; id; name; auth_parameters }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_cloudwatch_event_connection __resource);

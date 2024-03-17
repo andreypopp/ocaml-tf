@@ -13,7 +13,6 @@ type google_blockchain_node_engine_blockchain_nodes__ethereum_details__additiona
   execution_client_prometheus_metrics_api_endpoint : string;
       (** execution_client_prometheus_metrics_api_endpoint *)
 }
-[@@deriving yojson_of]
 
 type google_blockchain_node_engine_blockchain_nodes__ethereum_details
 type google_blockchain_node_engine_blockchain_nodes__timeouts
@@ -22,7 +21,6 @@ type google_blockchain_node_engine_blockchain_nodes__connection_info__endpoint_i
   json_rpc_api_endpoint : string;  (** json_rpc_api_endpoint *)
   websockets_api_endpoint : string;  (** websockets_api_endpoint *)
 }
-[@@deriving yojson_of]
 
 type google_blockchain_node_engine_blockchain_nodes__connection_info = {
   endpoint_info :
@@ -31,13 +29,14 @@ type google_blockchain_node_engine_blockchain_nodes__connection_info = {
       (** endpoint_info *)
   service_attachment : string;  (** service_attachment *)
 }
-[@@deriving yojson_of]
 
 type google_blockchain_node_engine_blockchain_nodes
 
 val google_blockchain_node_engine_blockchain_nodes :
   ?blockchain_type:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_blockchain_node_engine_blockchain_nodes__timeouts ->
   blockchain_node_id:string ->
   location:string ->

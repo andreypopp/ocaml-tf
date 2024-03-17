@@ -52,7 +52,10 @@ type aws_sagemaker_app_image_config__kernel_gateway_image_config = {
 
 type aws_sagemaker_app_image_config = {
   app_image_config_name : string;  (** app_image_config_name *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   jupyter_lab_image_config :
     aws_sagemaker_app_image_config__jupyter_lab_image_config list;
   kernel_gateway_image_config :
@@ -61,14 +64,16 @@ type aws_sagemaker_app_image_config = {
 [@@deriving yojson_of]
 (** aws_sagemaker_app_image_config *)
 
-let aws_sagemaker_app_image_config ?tags ~app_image_config_name
-    ~jupyter_lab_image_config ~kernel_gateway_image_config
-    __resource_id =
+let aws_sagemaker_app_image_config ?id ?tags ?tags_all
+    ~app_image_config_name ~jupyter_lab_image_config
+    ~kernel_gateway_image_config __resource_id =
   let __resource_type = "aws_sagemaker_app_image_config" in
   let __resource =
     {
       app_image_config_name;
+      id;
       tags;
+      tags_all;
       jupyter_lab_image_config;
       kernel_gateway_image_config;
     }

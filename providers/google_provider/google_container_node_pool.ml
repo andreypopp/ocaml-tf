@@ -362,6 +362,25 @@ type google_container_node_pool__upgrade_settings = {
 type google_container_node_pool = {
   cluster : string;
       (** The cluster to create the node pool for. Cluster must be present in location provided for zonal clusters. *)
+  id : string option; [@option]  (** id *)
+  initial_node_count : float option; [@option]
+      (** The initial number of nodes for the pool. In regional or multi-zonal clusters, this is the number of nodes per zone. Changing this will force recreation of the resource. *)
+  location : string option; [@option]
+      (** The location (region or zone) of the cluster. *)
+  max_pods_per_node : float option; [@option]
+      (** The maximum number of pods per node in this node pool. Note that this does not work on node pools which are route-based - that is, node pools belonging to clusters that do not have IP Aliasing enabled. *)
+  name : string option; [@option]
+      (** The name of the node pool. If left blank, Terraform will auto-generate a unique name. *)
+  name_prefix : string option; [@option]
+      (** Creates a unique name for the node pool beginning with the specified prefix. Conflicts with name. *)
+  node_count : float option; [@option]
+      (** The number of nodes per instance group. This field can be used to update the number of nodes per instance group but should not be used alongside autoscaling. *)
+  node_locations : string list option; [@option]
+      (** The list of zones in which the node pool's nodes should be located. Nodes must be in the region of their regional cluster or in the same region as their cluster's zone for zonal clusters. If unspecified, the cluster-level node_locations will be used. *)
+  project : string option; [@option]
+      (** The ID of the project in which to create the node pool. If blank, the provider-configured project will be used. *)
+  version : string option; [@option]
+      (** The Kubernetes version for the nodes in this pool. Note that if this field and auto_upgrade are both specified, they will fight each other for what the node version should be, so setting both is highly discouraged. While a fuzzy version can be specified, it's recommended that you specify explicit versions as Terraform will see spurious diffs when fuzzy versions are used. See the google_container_engine_versions data source's version_prefix field to approximate fuzzy versions in a Terraform-compatible way. *)
   autoscaling : google_container_node_pool__autoscaling list;
   management : google_container_node_pool__management list;
   network_config : google_container_node_pool__network_config list;
@@ -375,13 +394,25 @@ type google_container_node_pool = {
 [@@deriving yojson_of]
 (** google_container_node_pool *)
 
-let google_container_node_pool ?timeouts ~cluster ~autoscaling
-    ~management ~network_config ~node_config ~placement_policy
-    ~upgrade_settings __resource_id =
+let google_container_node_pool ?id ?initial_node_count ?location
+    ?max_pods_per_node ?name ?name_prefix ?node_count ?node_locations
+    ?project ?version ?timeouts ~cluster ~autoscaling ~management
+    ~network_config ~node_config ~placement_policy ~upgrade_settings
+    __resource_id =
   let __resource_type = "google_container_node_pool" in
   let __resource =
     {
       cluster;
+      id;
+      initial_node_count;
+      location;
+      max_pods_per_node;
+      name;
+      name_prefix;
+      node_count;
+      node_locations;
+      project;
+      version;
       autoscaling;
       management;
       network_config;

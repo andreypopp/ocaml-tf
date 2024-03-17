@@ -147,7 +147,11 @@ type aws_scheduler_schedule__target = {
 type aws_scheduler_schedule = {
   description : string option; [@option]  (** description *)
   end_date : string option; [@option]  (** end_date *)
+  group_name : string option; [@option]  (** group_name *)
+  id : string option; [@option]  (** id *)
   kms_key_arn : string option; [@option]  (** kms_key_arn *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   schedule_expression : string;  (** schedule_expression *)
   schedule_expression_timezone : string option; [@option]
       (** schedule_expression_timezone *)
@@ -160,16 +164,20 @@ type aws_scheduler_schedule = {
 [@@deriving yojson_of]
 (** aws_scheduler_schedule *)
 
-let aws_scheduler_schedule ?description ?end_date ?kms_key_arn
-    ?schedule_expression_timezone ?start_date ?state
-    ~schedule_expression ~flexible_time_window ~target __resource_id
-    =
+let aws_scheduler_schedule ?description ?end_date ?group_name ?id
+    ?kms_key_arn ?name ?name_prefix ?schedule_expression_timezone
+    ?start_date ?state ~schedule_expression ~flexible_time_window
+    ~target __resource_id =
   let __resource_type = "aws_scheduler_schedule" in
   let __resource =
     {
       description;
       end_date;
+      group_name;
+      id;
       kms_key_arn;
+      name;
+      name_prefix;
       schedule_expression;
       schedule_expression_timezone;
       start_date;

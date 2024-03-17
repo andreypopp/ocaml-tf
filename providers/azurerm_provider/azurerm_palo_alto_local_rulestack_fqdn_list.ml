@@ -18,6 +18,7 @@ type azurerm_palo_alto_local_rulestack_fqdn_list = {
   description : string option; [@option]  (** description *)
   fully_qualified_domain_names : string list;
       (** fully_qualified_domain_names *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   rulestack_id : string;  (** rulestack_id *)
   timeouts :
@@ -27,7 +28,7 @@ type azurerm_palo_alto_local_rulestack_fqdn_list = {
 (** azurerm_palo_alto_local_rulestack_fqdn_list *)
 
 let azurerm_palo_alto_local_rulestack_fqdn_list ?audit_comment
-    ?description ?timeouts ~fully_qualified_domain_names ~name
+    ?description ?id ?timeouts ~fully_qualified_domain_names ~name
     ~rulestack_id __resource_id =
   let __resource_type =
     "azurerm_palo_alto_local_rulestack_fqdn_list"
@@ -37,6 +38,7 @@ let azurerm_palo_alto_local_rulestack_fqdn_list ?audit_comment
       audit_comment;
       description;
       fully_qualified_domain_names;
+      id;
       name;
       rulestack_id;
       timeouts;

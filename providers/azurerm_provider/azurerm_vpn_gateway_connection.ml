@@ -88,6 +88,7 @@ type azurerm_vpn_gateway_connection__vpn_link = {
 (** azurerm_vpn_gateway_connection__vpn_link *)
 
 type azurerm_vpn_gateway_connection = {
+  id : string option; [@option]  (** id *)
   internet_security_enabled : bool option; [@option]
       (** internet_security_enabled *)
   name : string;  (** name *)
@@ -102,12 +103,13 @@ type azurerm_vpn_gateway_connection = {
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway_connection *)
 
-let azurerm_vpn_gateway_connection ?internet_security_enabled
+let azurerm_vpn_gateway_connection ?id ?internet_security_enabled
     ?timeouts ~name ~remote_vpn_site_id ~vpn_gateway_id ~routing
     ~traffic_selector_policy ~vpn_link __resource_id =
   let __resource_type = "azurerm_vpn_gateway_connection" in
   let __resource =
     {
+      id;
       internet_security_enabled;
       name;
       remote_vpn_site_id;

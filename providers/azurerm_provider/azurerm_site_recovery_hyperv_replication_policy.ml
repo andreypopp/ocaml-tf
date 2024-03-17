@@ -16,6 +16,7 @@ type azurerm_site_recovery_hyperv_replication_policy__timeouts = {
 type azurerm_site_recovery_hyperv_replication_policy = {
   application_consistent_snapshot_frequency_in_hours : float;
       (** application_consistent_snapshot_frequency_in_hours *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   recovery_point_retention_in_hours : float;
       (** recovery_point_retention_in_hours *)
@@ -28,7 +29,7 @@ type azurerm_site_recovery_hyperv_replication_policy = {
 [@@deriving yojson_of]
 (** azurerm_site_recovery_hyperv_replication_policy *)
 
-let azurerm_site_recovery_hyperv_replication_policy ?timeouts
+let azurerm_site_recovery_hyperv_replication_policy ?id ?timeouts
     ~application_consistent_snapshot_frequency_in_hours ~name
     ~recovery_point_retention_in_hours ~recovery_vault_id
     ~replication_interval_in_seconds __resource_id =
@@ -38,6 +39,7 @@ let azurerm_site_recovery_hyperv_replication_policy ?timeouts
   let __resource =
     {
       application_consistent_snapshot_frequency_in_hours;
+      id;
       name;
       recovery_point_retention_in_hours;
       recovery_vault_id;

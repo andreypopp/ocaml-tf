@@ -13,6 +13,7 @@ type azurerm_postgresql_configuration__timeouts = {
 (** azurerm_postgresql_configuration__timeouts *)
 
 type azurerm_postgresql_configuration = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   server_name : string;  (** server_name *)
@@ -22,11 +23,11 @@ type azurerm_postgresql_configuration = {
 [@@deriving yojson_of]
 (** azurerm_postgresql_configuration *)
 
-let azurerm_postgresql_configuration ?timeouts ~name
+let azurerm_postgresql_configuration ?id ?timeouts ~name
     ~resource_group_name ~server_name ~value __resource_id =
   let __resource_type = "azurerm_postgresql_configuration" in
   let __resource =
-    { name; resource_group_name; server_name; value; timeouts }
+    { id; name; resource_group_name; server_name; value; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_postgresql_configuration __resource);

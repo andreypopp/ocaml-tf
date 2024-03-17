@@ -20,6 +20,7 @@ type azurerm_mssql_server_security_alert_policy = {
       (** email_account_admins *)
   email_addresses : string list option; [@option]
       (** email_addresses *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   retention_days : float option; [@option]  (** retention_days *)
   server_name : string;  (** server_name *)
@@ -35,7 +36,7 @@ type azurerm_mssql_server_security_alert_policy = {
 (** azurerm_mssql_server_security_alert_policy *)
 
 let azurerm_mssql_server_security_alert_policy ?disabled_alerts
-    ?email_account_admins ?email_addresses ?retention_days
+    ?email_account_admins ?email_addresses ?id ?retention_days
     ?storage_account_access_key ?storage_endpoint ?timeouts
     ~resource_group_name ~server_name ~state __resource_id =
   let __resource_type =
@@ -46,6 +47,7 @@ let azurerm_mssql_server_security_alert_policy ?disabled_alerts
       disabled_alerts;
       email_account_admins;
       email_addresses;
+      id;
       resource_group_name;
       retention_days;
       server_name;

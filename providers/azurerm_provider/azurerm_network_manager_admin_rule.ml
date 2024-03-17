@@ -34,6 +34,7 @@ type azurerm_network_manager_admin_rule = {
   destination_port_ranges : string list option; [@option]
       (** destination_port_ranges *)
   direction : string;  (** direction *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   priority : float;  (** priority *)
   protocol : string;  (** protocol *)
@@ -47,9 +48,9 @@ type azurerm_network_manager_admin_rule = {
 (** azurerm_network_manager_admin_rule *)
 
 let azurerm_network_manager_admin_rule ?description
-    ?destination_port_ranges ?source_port_ranges ?timeouts ~action
-    ~admin_rule_collection_id ~direction ~name ~priority ~protocol
-    ~destination ~source __resource_id =
+    ?destination_port_ranges ?id ?source_port_ranges ?timeouts
+    ~action ~admin_rule_collection_id ~direction ~name ~priority
+    ~protocol ~destination ~source __resource_id =
   let __resource_type = "azurerm_network_manager_admin_rule" in
   let __resource =
     {
@@ -58,6 +59,7 @@ let azurerm_network_manager_admin_rule ?description
       description;
       destination_port_ranges;
       direction;
+      id;
       name;
       priority;
       protocol;

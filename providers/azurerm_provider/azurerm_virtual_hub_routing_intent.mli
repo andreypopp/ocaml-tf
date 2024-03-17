@@ -7,6 +7,7 @@ type azurerm_virtual_hub_routing_intent__timeouts
 type azurerm_virtual_hub_routing_intent
 
 val azurerm_virtual_hub_routing_intent :
+  ?id:string ->
   ?timeouts:azurerm_virtual_hub_routing_intent__timeouts ->
   name:string ->
   virtual_hub_id:string ->

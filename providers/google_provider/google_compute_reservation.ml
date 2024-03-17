@@ -83,6 +83,7 @@ type google_compute_reservation__timeouts = {
 type google_compute_reservation = {
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -91,6 +92,7 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   specific_reservation_required : bool option; [@option]
       (** When set to true, only VMs that target this reservation by name can
 consume this reservation. Otherwise, it can be consumed by VMs with
@@ -104,14 +106,16 @@ affinity for any reservation. Defaults to false. *)
 [@@deriving yojson_of]
 (** google_compute_reservation *)
 
-let google_compute_reservation ?description
+let google_compute_reservation ?description ?id ?project
     ?specific_reservation_required ?timeouts ~name ~zone
     ~share_settings ~specific_reservation __resource_id =
   let __resource_type = "google_compute_reservation" in
   let __resource =
     {
       description;
+      id;
       name;
+      project;
       specific_reservation_required;
       zone;
       share_settings;

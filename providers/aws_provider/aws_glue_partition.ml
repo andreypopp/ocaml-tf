@@ -66,7 +66,9 @@ type aws_glue_partition__storage_descriptor = {
 (** aws_glue_partition__storage_descriptor *)
 
 type aws_glue_partition = {
+  catalog_id : string option; [@option]  (** catalog_id *)
   database_name : string;  (** database_name *)
+  id : string option; [@option]  (** id *)
   parameters : (string * string) list option; [@option]
       (** parameters *)
   partition_values : string list;  (** partition_values *)
@@ -76,12 +78,14 @@ type aws_glue_partition = {
 [@@deriving yojson_of]
 (** aws_glue_partition *)
 
-let aws_glue_partition ?parameters ~database_name ~partition_values
-    ~table_name ~storage_descriptor __resource_id =
+let aws_glue_partition ?catalog_id ?id ?parameters ~database_name
+    ~partition_values ~table_name ~storage_descriptor __resource_id =
   let __resource_type = "aws_glue_partition" in
   let __resource =
     {
+      catalog_id;
       database_name;
+      id;
       parameters;
       partition_values;
       table_name;

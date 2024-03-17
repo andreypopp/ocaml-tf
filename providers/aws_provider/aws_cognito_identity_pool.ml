@@ -20,6 +20,7 @@ type aws_cognito_identity_pool = {
       (** allow_unauthenticated_identities *)
   developer_provider_name : string option; [@option]
       (** developer_provider_name *)
+  id : string option; [@option]  (** id *)
   identity_pool_name : string;  (** identity_pool_name *)
   openid_connect_provider_arns : string list option; [@option]
       (** openid_connect_provider_arns *)
@@ -29,6 +30,8 @@ type aws_cognito_identity_pool = {
       [@option]
       (** supported_login_providers *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   cognito_identity_providers :
     aws_cognito_identity_pool__cognito_identity_providers list;
 }
@@ -36,9 +39,9 @@ type aws_cognito_identity_pool = {
 (** aws_cognito_identity_pool *)
 
 let aws_cognito_identity_pool ?allow_classic_flow
-    ?allow_unauthenticated_identities ?developer_provider_name
+    ?allow_unauthenticated_identities ?developer_provider_name ?id
     ?openid_connect_provider_arns ?saml_provider_arns
-    ?supported_login_providers ?tags ~identity_pool_name
+    ?supported_login_providers ?tags ?tags_all ~identity_pool_name
     ~cognito_identity_providers __resource_id =
   let __resource_type = "aws_cognito_identity_pool" in
   let __resource =
@@ -46,11 +49,13 @@ let aws_cognito_identity_pool ?allow_classic_flow
       allow_classic_flow;
       allow_unauthenticated_identities;
       developer_provider_name;
+      id;
       identity_pool_name;
       openid_connect_provider_arns;
       saml_provider_arns;
       supported_login_providers;
       tags;
+      tags_all;
       cognito_identity_providers;
     }
   in

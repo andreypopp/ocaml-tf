@@ -33,6 +33,7 @@ type azurerm_policy_virtual_machine_configuration_assignment__timeouts = {
 (** azurerm_policy_virtual_machine_configuration_assignment__timeouts *)
 
 type azurerm_policy_virtual_machine_configuration_assignment = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   virtual_machine_id : string;  (** virtual_machine_id *)
@@ -46,14 +47,21 @@ type azurerm_policy_virtual_machine_configuration_assignment = {
 [@@deriving yojson_of]
 (** azurerm_policy_virtual_machine_configuration_assignment *)
 
-let azurerm_policy_virtual_machine_configuration_assignment ?timeouts
-    ~location ~name ~virtual_machine_id ~configuration __resource_id
-    =
+let azurerm_policy_virtual_machine_configuration_assignment ?id
+    ?timeouts ~location ~name ~virtual_machine_id ~configuration
+    __resource_id =
   let __resource_type =
     "azurerm_policy_virtual_machine_configuration_assignment"
   in
   let __resource =
-    { location; name; virtual_machine_id; configuration; timeouts }
+    {
+      id;
+      location;
+      name;
+      virtual_machine_id;
+      configuration;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_policy_virtual_machine_configuration_assignment

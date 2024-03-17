@@ -7,6 +7,7 @@ type azurerm_api_management_gateway_host_name_configuration
 
 val azurerm_api_management_gateway_host_name_configuration :
   ?http2_enabled:bool ->
+  ?id:string ->
   ?request_client_certificate_enabled:bool ->
   ?tls10_enabled:bool ->
   ?tls11_enabled:bool ->

@@ -8,15 +8,19 @@ type azurerm_postgresql_server__timeouts
 type azurerm_postgresql_server
 
 val azurerm_postgresql_server :
+  ?administrator_login:string ->
   ?administrator_login_password:string ->
   ?auto_grow_enabled:bool ->
+  ?backup_retention_days:float ->
   ?create_mode:string ->
   ?creation_source_server_id:string ->
   ?geo_redundant_backup_enabled:bool ->
+  ?id:string ->
   ?infrastructure_encryption_enabled:bool ->
   ?public_network_access_enabled:bool ->
   ?restore_point_in_time:string ->
   ?ssl_minimal_tls_version_enforced:string ->
+  ?storage_mb:float ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_postgresql_server__timeouts ->
   location:string ->

@@ -19,16 +19,19 @@ type aws_networkmanager_connection = {
   description : string option; [@option]  (** description *)
   device_id : string;  (** device_id *)
   global_network_id : string;  (** global_network_id *)
+  id : string option; [@option]  (** id *)
   link_id : string option; [@option]  (** link_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_networkmanager_connection__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_connection *)
 
-let aws_networkmanager_connection ?connected_link_id ?description
-    ?link_id ?tags ?timeouts ~connected_device_id ~device_id
-    ~global_network_id __resource_id =
+let aws_networkmanager_connection ?connected_link_id ?description ?id
+    ?link_id ?tags ?tags_all ?timeouts ~connected_device_id
+    ~device_id ~global_network_id __resource_id =
   let __resource_type = "aws_networkmanager_connection" in
   let __resource =
     {
@@ -37,8 +40,10 @@ let aws_networkmanager_connection ?connected_link_id ?description
       description;
       device_id;
       global_network_id;
+      id;
       link_id;
       tags;
+      tags_all;
       timeouts;
     }
   in

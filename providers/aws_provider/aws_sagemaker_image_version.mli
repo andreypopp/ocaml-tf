@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_sagemaker_image_version
 
 val aws_sagemaker_image_version :
-  base_image:string -> image_name:string -> string -> unit
+  ?id:string ->
+  base_image:string ->
+  image_name:string ->
+  string ->
+  unit

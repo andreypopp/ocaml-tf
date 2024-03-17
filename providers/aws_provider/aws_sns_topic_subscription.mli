@@ -9,6 +9,8 @@ val aws_sns_topic_subscription :
   ?delivery_policy:string ->
   ?endpoint_auto_confirms:bool ->
   ?filter_policy:string ->
+  ?filter_policy_scope:string ->
+  ?id:string ->
   ?raw_message_delivery:bool ->
   ?redrive_policy:string ->
   ?replay_policy:string ->

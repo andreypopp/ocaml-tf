@@ -7,6 +7,7 @@ type azurerm_api_management_api_version_set
 
 val azurerm_api_management_api_version_set :
   ?description:string ->
+  ?id:string ->
   ?version_header_name:string ->
   ?version_query_name:string ->
   ?timeouts:azurerm_api_management_api_version_set__timeouts ->

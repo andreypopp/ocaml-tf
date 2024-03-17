@@ -21,9 +21,12 @@ type aws_transcribe_language_model__timeouts = {
 
 type aws_transcribe_language_model = {
   base_model_name : string;  (** base_model_name *)
+  id : string option; [@option]  (** id *)
   language_code : string;  (** language_code *)
   model_name : string;  (** model_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   input_data_config :
     aws_transcribe_language_model__input_data_config list;
   timeouts : aws_transcribe_language_model__timeouts option;
@@ -31,15 +34,18 @@ type aws_transcribe_language_model = {
 [@@deriving yojson_of]
 (** aws_transcribe_language_model *)
 
-let aws_transcribe_language_model ?tags ?timeouts ~base_model_name
-    ~language_code ~model_name ~input_data_config __resource_id =
+let aws_transcribe_language_model ?id ?tags ?tags_all ?timeouts
+    ~base_model_name ~language_code ~model_name ~input_data_config
+    __resource_id =
   let __resource_type = "aws_transcribe_language_model" in
   let __resource =
     {
       base_model_name;
+      id;
       language_code;
       model_name;
       tags;
+      tags_all;
       input_data_config;
       timeouts;
     }

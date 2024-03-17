@@ -10,6 +10,7 @@ type google_dialogflow_cx_intent
 
 val google_dialogflow_cx_intent :
   ?description:string ->
+  ?id:string ->
   ?is_default_negative_intent:bool ->
   ?is_default_welcome_intent:bool ->
   ?is_fallback:bool ->

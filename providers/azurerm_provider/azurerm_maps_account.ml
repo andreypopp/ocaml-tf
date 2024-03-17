@@ -14,6 +14,7 @@ type azurerm_maps_account__timeouts = {
 (** azurerm_maps_account__timeouts *)
 
 type azurerm_maps_account = {
+  id : string option; [@option]  (** id *)
   local_authentication_enabled : bool option; [@option]
       (** local_authentication_enabled *)
   name : string;  (** name *)
@@ -25,11 +26,12 @@ type azurerm_maps_account = {
 [@@deriving yojson_of]
 (** azurerm_maps_account *)
 
-let azurerm_maps_account ?local_authentication_enabled ?tags
+let azurerm_maps_account ?id ?local_authentication_enabled ?tags
     ?timeouts ~name ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_maps_account" in
   let __resource =
     {
+      id;
       local_authentication_enabled;
       name;
       resource_group_name;

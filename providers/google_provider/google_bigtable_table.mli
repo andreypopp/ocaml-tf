@@ -7,6 +7,10 @@ type google_bigtable_table__timeouts
 type google_bigtable_table
 
 val google_bigtable_table :
+  ?change_stream_retention:string ->
+  ?deletion_protection:string ->
+  ?id:string ->
+  ?project:string ->
   ?split_keys:string list ->
   ?timeouts:google_bigtable_table__timeouts ->
   instance_name:string ->

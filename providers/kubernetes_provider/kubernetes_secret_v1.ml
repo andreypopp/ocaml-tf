@@ -34,6 +34,9 @@ type kubernetes_secret_v1__timeouts = {
 type kubernetes_secret_v1 = {
   binary_data : (string * string) list option; [@option]
       (** A map of the secret data in base64 encoding. Use this for binary data. *)
+  data : (string * string) list option; [@option]
+      (** A map of the secret data. *)
+  id : string option; [@option]  (** id *)
   immutable : bool option; [@option]
       (** Ensures that data stored in the Secret cannot be updated (only object metadata can be modified). *)
   type_ : string option; [@option] [@key "type"]
@@ -46,13 +49,15 @@ type kubernetes_secret_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_secret_v1 *)
 
-let kubernetes_secret_v1 ?binary_data ?immutable ?type_
+let kubernetes_secret_v1 ?binary_data ?data ?id ?immutable ?type_
     ?wait_for_service_account_token ?timeouts ~metadata __resource_id
     =
   let __resource_type = "kubernetes_secret_v1" in
   let __resource =
     {
       binary_data;
+      data;
+      id;
       immutable;
       type_;
       wait_for_service_account_token;

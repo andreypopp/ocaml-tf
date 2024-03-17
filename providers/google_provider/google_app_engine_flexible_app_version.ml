@@ -344,6 +344,7 @@ Only applicable if the corresponding StaticFilesHandler does not specify its own
       (** If set to 'true', the service will be deleted if it is the last version. *)
   env_variables : (string * string) list option; [@option]
       (** Environment variables available to the application.  As these are not returned in the API request, Terraform will not detect any changes made outside of the Terraform config. *)
+  id : string option; [@option]  (** id *)
   inbound_services : string list option; [@option]
       (** A list of the types of messages that this application is able to receive. Possible values: [INBOUND_SERVICE_MAIL, INBOUND_SERVICE_MAIL_BOUNCE, INBOUND_SERVICE_XMPP_ERROR, INBOUND_SERVICE_XMPP_MESSAGE, INBOUND_SERVICE_XMPP_SUBSCRIBE, INBOUND_SERVICE_XMPP_PRESENCE, INBOUND_SERVICE_CHANNEL_PRESENCE, INBOUND_SERVICE_WARMUP] *)
   instance_class : string option; [@option]
@@ -355,13 +356,21 @@ Defaults to F1 for AutomaticScaling and B1 for ManualScaling. *)
       (** Files that match this pattern will not be built into this version. Only applicable for Go runtimes. *)
   noop_on_destroy : bool option; [@option]
       (** If set to 'true', the application version will not be deleted. *)
+  project : string option; [@option]  (** project *)
   runtime : string;  (** Desired runtime. Example python27. *)
+  runtime_api_version : string option; [@option]
+      (** The version of the API in the given runtime environment.
+Please see the app.yaml reference for valid values at 'https://cloud.google.com/appengine/docs/standard/<language>/config/appref'\
+Substitute '<language>' with 'python', 'java', 'php', 'ruby', 'go' or 'nodejs'. *)
   runtime_channel : string option; [@option]
       (** The channel of the runtime to use. Only available for some runtimes. *)
   runtime_main_executable_path : string option; [@option]
       (** The path or name of the app's main executable. *)
   service : string;
       (** AppEngine service resource. Can contain numbers, letters, and hyphens. *)
+  service_account : string option; [@option]
+      (** The identity that the deployed version will run as. Admin API will use the App Engine Appspot service account as
+default if this field is neither provided in app.yaml file nor through CLI flag. *)
   serving_status : string option; [@option]
       (** Current serving status of this version. Only the versions with a SERVING status create instances and can be billed. Default value: SERVING Possible values: [SERVING, STOPPED] *)
   version_id : string option; [@option]
@@ -395,12 +404,13 @@ Reserved names,default, latest, and any name with the prefix ah-. *)
 (** google_app_engine_flexible_app_version *)
 
 let google_app_engine_flexible_app_version ?beta_settings
-    ?default_expiration ?delete_service_on_destroy ?env_variables
+    ?default_expiration ?delete_service_on_destroy ?env_variables ?id
     ?inbound_services ?instance_class ?nobuild_files_regex
-    ?noop_on_destroy ?runtime_channel ?runtime_main_executable_path
-    ?serving_status ?version_id ?timeouts ~runtime ~service
-    ~api_config ~automatic_scaling ~deployment ~endpoints_api_service
-    ~entrypoint ~handlers ~liveness_check ~manual_scaling ~network
+    ?noop_on_destroy ?project ?runtime_api_version ?runtime_channel
+    ?runtime_main_executable_path ?service_account ?serving_status
+    ?version_id ?timeouts ~runtime ~service ~api_config
+    ~automatic_scaling ~deployment ~endpoints_api_service ~entrypoint
+    ~handlers ~liveness_check ~manual_scaling ~network
     ~readiness_check ~resources ~vpc_access_connector __resource_id =
   let __resource_type = "google_app_engine_flexible_app_version" in
   let __resource =
@@ -409,14 +419,18 @@ let google_app_engine_flexible_app_version ?beta_settings
       default_expiration;
       delete_service_on_destroy;
       env_variables;
+      id;
       inbound_services;
       instance_class;
       nobuild_files_regex;
       noop_on_destroy;
+      project;
       runtime;
+      runtime_api_version;
       runtime_channel;
       runtime_main_executable_path;
       service;
+      service_account;
       serving_status;
       version_id;
       api_config;

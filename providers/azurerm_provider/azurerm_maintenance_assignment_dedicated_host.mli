@@ -6,6 +6,7 @@ type azurerm_maintenance_assignment_dedicated_host__timeouts
 type azurerm_maintenance_assignment_dedicated_host
 
 val azurerm_maintenance_assignment_dedicated_host :
+  ?id:string ->
   ?timeouts:azurerm_maintenance_assignment_dedicated_host__timeouts ->
   dedicated_host_id:string ->
   location:string ->

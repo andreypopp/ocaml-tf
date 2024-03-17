@@ -8,6 +8,7 @@ type azurerm_mobile_network_sim_group
 
 val azurerm_mobile_network_sim_group :
   ?encryption_key_url:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_mobile_network_sim_group__timeouts ->
   location:string ->

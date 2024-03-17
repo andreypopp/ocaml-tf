@@ -13,11 +13,14 @@ type aws_vpclattice_service_network_vpc_association__timeouts = {
 (** aws_vpclattice_service_network_vpc_association__timeouts *)
 
 type aws_vpclattice_service_network_vpc_association = {
+  id : string option; [@option]  (** id *)
   security_group_ids : string list option; [@option]
       (** security_group_ids *)
   service_network_identifier : string;
       (** service_network_identifier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_identifier : string;  (** vpc_identifier *)
   timeouts :
     aws_vpclattice_service_network_vpc_association__timeouts option;
@@ -25,17 +28,19 @@ type aws_vpclattice_service_network_vpc_association = {
 [@@deriving yojson_of]
 (** aws_vpclattice_service_network_vpc_association *)
 
-let aws_vpclattice_service_network_vpc_association
-    ?security_group_ids ?tags ?timeouts ~service_network_identifier
-    ~vpc_identifier __resource_id =
+let aws_vpclattice_service_network_vpc_association ?id
+    ?security_group_ids ?tags ?tags_all ?timeouts
+    ~service_network_identifier ~vpc_identifier __resource_id =
   let __resource_type =
     "aws_vpclattice_service_network_vpc_association"
   in
   let __resource =
     {
+      id;
       security_group_ids;
       service_network_identifier;
       tags;
+      tags_all;
       vpc_identifier;
       timeouts;
     }

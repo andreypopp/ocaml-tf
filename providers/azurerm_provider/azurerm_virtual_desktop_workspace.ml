@@ -16,6 +16,7 @@ type azurerm_virtual_desktop_workspace__timeouts = {
 type azurerm_virtual_desktop_workspace = {
   description : string option; [@option]  (** description *)
   friendly_name : string option; [@option]  (** friendly_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -27,7 +28,7 @@ type azurerm_virtual_desktop_workspace = {
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_workspace *)
 
-let azurerm_virtual_desktop_workspace ?description ?friendly_name
+let azurerm_virtual_desktop_workspace ?description ?friendly_name ?id
     ?public_network_access_enabled ?tags ?timeouts ~location ~name
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_virtual_desktop_workspace" in
@@ -35,6 +36,7 @@ let azurerm_virtual_desktop_workspace ?description ?friendly_name
     {
       description;
       friendly_name;
+      id;
       location;
       name;
       public_network_access_enabled;

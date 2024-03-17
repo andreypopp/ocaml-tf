@@ -13,6 +13,7 @@ type azurerm_network_interface_nat_rule_association__timeouts = {
 (** azurerm_network_interface_nat_rule_association__timeouts *)
 
 type azurerm_network_interface_nat_rule_association = {
+  id : string option; [@option]  (** id *)
   ip_configuration_name : string;  (** ip_configuration_name *)
   nat_rule_id : string;  (** nat_rule_id *)
   network_interface_id : string;  (** network_interface_id *)
@@ -22,7 +23,7 @@ type azurerm_network_interface_nat_rule_association = {
 [@@deriving yojson_of]
 (** azurerm_network_interface_nat_rule_association *)
 
-let azurerm_network_interface_nat_rule_association ?timeouts
+let azurerm_network_interface_nat_rule_association ?id ?timeouts
     ~ip_configuration_name ~nat_rule_id ~network_interface_id
     __resource_id =
   let __resource_type =
@@ -30,6 +31,7 @@ let azurerm_network_interface_nat_rule_association ?timeouts
   in
   let __resource =
     {
+      id;
       ip_configuration_name;
       nat_rule_id;
       network_interface_id;

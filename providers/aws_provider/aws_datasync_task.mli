@@ -14,8 +14,10 @@ type aws_datasync_task
 
 val aws_datasync_task :
   ?cloudwatch_log_group_arn:string ->
+  ?id:string ->
   ?name:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_datasync_task__timeouts ->
   destination_location_arn:string ->
   source_location_arn:string ->

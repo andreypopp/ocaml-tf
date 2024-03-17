@@ -8,6 +8,7 @@ type azurerm_servicebus_namespace_network_rule_set
 
 val azurerm_servicebus_namespace_network_rule_set :
   ?default_action:string ->
+  ?id:string ->
   ?ip_rules:string list ->
   ?public_network_access_enabled:bool ->
   ?trusted_services_allowed:bool ->

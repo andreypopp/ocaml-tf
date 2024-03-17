@@ -16,6 +16,7 @@ val azurerm_kusto_cluster :
   ?disk_encryption_enabled:bool ->
   ?double_encryption_enabled:bool ->
   ?engine:string ->
+  ?id:string ->
   ?language_extensions:string list ->
   ?outbound_network_access_restricted:bool ->
   ?public_ip_type:string ->
@@ -23,6 +24,7 @@ val azurerm_kusto_cluster :
   ?purge_enabled:bool ->
   ?streaming_ingestion_enabled:bool ->
   ?tags:(string * string) list ->
+  ?trusted_external_tenants:string list ->
   ?zones:string list ->
   ?timeouts:azurerm_kusto_cluster__timeouts ->
   location:string ->

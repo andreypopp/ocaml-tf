@@ -37,7 +37,10 @@ type aws_networkmanager_core_network = {
       (** create_base_policy *)
   description : string option; [@option]  (** description *)
   global_network_id : string;  (** global_network_id *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_networkmanager_core_network__timeouts option;
 }
 [@@deriving yojson_of]
@@ -45,7 +48,8 @@ type aws_networkmanager_core_network = {
 
 let aws_networkmanager_core_network ?base_policy_document
     ?base_policy_region ?base_policy_regions ?create_base_policy
-    ?description ?tags ?timeouts ~global_network_id __resource_id =
+    ?description ?id ?tags ?tags_all ?timeouts ~global_network_id
+    __resource_id =
   let __resource_type = "aws_networkmanager_core_network" in
   let __resource =
     {
@@ -55,7 +59,9 @@ let aws_networkmanager_core_network ?base_policy_document
       create_base_policy;
       description;
       global_network_id;
+      id;
       tags;
+      tags_all;
       timeouts;
     }
   in

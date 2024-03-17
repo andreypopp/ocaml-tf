@@ -7,6 +7,7 @@ type aws_s3_bucket_cors_configuration
 
 val aws_s3_bucket_cors_configuration :
   ?expected_bucket_owner:string ->
+  ?id:string ->
   bucket:string ->
   cors_rule:aws_s3_bucket_cors_configuration__cors_rule list ->
   string ->

@@ -142,10 +142,12 @@ type google_migration_center_preference_set = {
       (** A description of the preference set. *)
   display_name : string option; [@option]
       (** User-friendly display name. Maximum length is 63 characters. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** Part of 'parent'. See documentation of 'projectsId'. *)
   preference_set_id : string;
       (** Required. User specified ID for the preference set. It will become the last component of the preference set name. The ID must be unique within the project, must conform with RFC-1034, is restricted to lower-cased letters, and has a maximum length of 63 characters. The ID must match the regular expression '[a-z]([a-z0-9-]{0,61}[a-z0-9])?'. *)
+  project : string option; [@option]  (** project *)
   timeouts : google_migration_center_preference_set__timeouts option;
   virtual_machine_preferences :
     google_migration_center_preference_set__virtual_machine_preferences
@@ -155,15 +157,17 @@ type google_migration_center_preference_set = {
 (** google_migration_center_preference_set *)
 
 let google_migration_center_preference_set ?description ?display_name
-    ?timeouts ~location ~preference_set_id
+    ?id ?project ?timeouts ~location ~preference_set_id
     ~virtual_machine_preferences __resource_id =
   let __resource_type = "google_migration_center_preference_set" in
   let __resource =
     {
       description;
       display_name;
+      id;
       location;
       preference_set_id;
+      project;
       timeouts;
       virtual_machine_preferences;
     }

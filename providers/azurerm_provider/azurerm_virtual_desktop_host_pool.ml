@@ -37,6 +37,7 @@ type azurerm_virtual_desktop_host_pool = {
       (** custom_rdp_properties *)
   description : string option; [@option]  (** description *)
   friendly_name : string option; [@option]  (** friendly_name *)
+  id : string option; [@option]  (** id *)
   load_balancer_type : string;  (** load_balancer_type *)
   location : string;  (** location *)
   maximum_sessions_allowed : float option; [@option]
@@ -62,7 +63,7 @@ type azurerm_virtual_desktop_host_pool = {
 (** azurerm_virtual_desktop_host_pool *)
 
 let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
-    ?description ?friendly_name ?maximum_sessions_allowed
+    ?description ?friendly_name ?id ?maximum_sessions_allowed
     ?personal_desktop_assignment_type ?preferred_app_group_type
     ?start_vm_on_connect ?tags ?validate_environment ?vm_template
     ?timeouts ~load_balancer_type ~location ~name
@@ -74,6 +75,7 @@ let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
       custom_rdp_properties;
       description;
       friendly_name;
+      id;
       load_balancer_type;
       location;
       maximum_sessions_allowed;

@@ -241,9 +241,17 @@ type aws_ec2_fleet = {
   context : string option; [@option]  (** context *)
   excess_capacity_termination_policy : string option; [@option]
       (** excess_capacity_termination_policy *)
+  fleet_state : string option; [@option]  (** fleet_state *)
+  fulfilled_capacity : float option; [@option]
+      (** fulfilled_capacity *)
+  fulfilled_on_demand_capacity : float option; [@option]
+      (** fulfilled_on_demand_capacity *)
+  id : string option; [@option]  (** id *)
   replace_unhealthy_instances : bool option; [@option]
       (** replace_unhealthy_instances *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   terminate_instances : bool option; [@option]
       (** terminate_instances *)
   terminate_instances_with_expiration : bool option; [@option]
@@ -264,9 +272,10 @@ type aws_ec2_fleet = {
 (** aws_ec2_fleet *)
 
 let aws_ec2_fleet ?context ?excess_capacity_termination_policy
-    ?replace_unhealthy_instances ?tags ?terminate_instances
-    ?terminate_instances_with_expiration ?type_ ?valid_from
-    ?valid_until ?timeouts ~fleet_instance_set
+    ?fleet_state ?fulfilled_capacity ?fulfilled_on_demand_capacity
+    ?id ?replace_unhealthy_instances ?tags ?tags_all
+    ?terminate_instances ?terminate_instances_with_expiration ?type_
+    ?valid_from ?valid_until ?timeouts ~fleet_instance_set
     ~launch_template_config ~on_demand_options ~spot_options
     ~target_capacity_specification __resource_id =
   let __resource_type = "aws_ec2_fleet" in
@@ -274,8 +283,13 @@ let aws_ec2_fleet ?context ?excess_capacity_termination_policy
     {
       context;
       excess_capacity_termination_policy;
+      fleet_state;
+      fulfilled_capacity;
+      fulfilled_on_demand_capacity;
+      id;
       replace_unhealthy_instances;
       tags;
+      tags_all;
       terminate_instances;
       terminate_instances_with_expiration;
       type_;

@@ -35,6 +35,7 @@ type aws_elasticsearch_domain_saml_options__timeouts = {
 
 type aws_elasticsearch_domain_saml_options = {
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
   saml_options :
     aws_elasticsearch_domain_saml_options__saml_options list;
   timeouts : aws_elasticsearch_domain_saml_options__timeouts option;
@@ -42,10 +43,10 @@ type aws_elasticsearch_domain_saml_options = {
 [@@deriving yojson_of]
 (** aws_elasticsearch_domain_saml_options *)
 
-let aws_elasticsearch_domain_saml_options ?timeouts ~domain_name
+let aws_elasticsearch_domain_saml_options ?id ?timeouts ~domain_name
     ~saml_options __resource_id =
   let __resource_type = "aws_elasticsearch_domain_saml_options" in
-  let __resource = { domain_name; saml_options; timeouts } in
+  let __resource = { domain_name; id; saml_options; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_elasticsearch_domain_saml_options __resource);
   ()

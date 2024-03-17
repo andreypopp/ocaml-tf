@@ -63,6 +63,7 @@ and is not actually deleted. Note that updating this field does not
 actually change the deployment, just how it is updated. Default value: DELETE Possible values: [ABANDON, DELETE] *)
   description : string option; [@option]
       (** Optional user-provided description of deployment. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** Unique name for the deployment *)
   preview : bool option; [@option]
       (** If set to true, a deployment is created with shell resources
@@ -73,6 +74,7 @@ with real resources.
 of a deployment in preview (unless updating to preview=false). Thus,
 Terraform will force-recreate deployments if either preview is updated
 to true or if other fields are updated while preview is true. *)
+  project : string option; [@option]  (** project *)
   labels : google_deployment_manager_deployment__labels list;
   target : google_deployment_manager_deployment__target list;
   timeouts : google_deployment_manager_deployment__timeouts option;
@@ -81,16 +83,18 @@ to true or if other fields are updated while preview is true. *)
 (** google_deployment_manager_deployment *)
 
 let google_deployment_manager_deployment ?create_policy
-    ?delete_policy ?description ?preview ?timeouts ~name ~labels
-    ~target __resource_id =
+    ?delete_policy ?description ?id ?preview ?project ?timeouts ~name
+    ~labels ~target __resource_id =
   let __resource_type = "google_deployment_manager_deployment" in
   let __resource =
     {
       create_policy;
       delete_policy;
       description;
+      id;
       name;
       preview;
+      project;
       labels;
       target;
       timeouts;

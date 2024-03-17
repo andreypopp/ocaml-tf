@@ -6,6 +6,7 @@ type azurerm_site_recovery_network_mapping__timeouts
 type azurerm_site_recovery_network_mapping
 
 val azurerm_site_recovery_network_mapping :
+  ?id:string ->
   ?timeouts:azurerm_site_recovery_network_mapping__timeouts ->
   name:string ->
   recovery_vault_name:string ->

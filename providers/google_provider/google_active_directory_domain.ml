@@ -22,6 +22,7 @@ If CIDR subnets overlap between networks, domain creation will fail. *)
   domain_name : string;
       (** The fully qualified domain name. e.g. mydomain.myorganization.com, with the restrictions,
 https://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locations.global.domains. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels that can contain user-provided metadata
 
@@ -30,6 +31,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   locations : string list;
       (** Locations where domain needs to be provisioned. [regions][compute/docs/regions-zones/]
 e.g. us-west1 or us-east4 Service supports up to 4 locations at once. Each location will use a /26 block. *)
+  project : string option; [@option]  (** project *)
   reserved_ip_range : string;
       (** The CIDR range of internal addresses that are reserved for this domain. Reserved networks must be /24 or larger.
 Ranges must be unique and non-overlapping with existing subnets in authorizedNetworks *)
@@ -38,17 +40,19 @@ Ranges must be unique and non-overlapping with existing subnets in authorizedNet
 [@@deriving yojson_of]
 (** google_active_directory_domain *)
 
-let google_active_directory_domain ?admin ?authorized_networks
-    ?labels ?timeouts ~domain_name ~locations ~reserved_ip_range
-    __resource_id =
+let google_active_directory_domain ?admin ?authorized_networks ?id
+    ?labels ?project ?timeouts ~domain_name ~locations
+    ~reserved_ip_range __resource_id =
   let __resource_type = "google_active_directory_domain" in
   let __resource =
     {
       admin;
       authorized_networks;
       domain_name;
+      id;
       labels;
       locations;
+      project;
       reserved_ip_range;
       timeouts;
     }

@@ -71,6 +71,7 @@ type kubernetes_persistent_volume__timeouts
 type kubernetes_persistent_volume
 
 val kubernetes_persistent_volume :
+  ?id:string ->
   ?timeouts:kubernetes_persistent_volume__timeouts ->
   metadata:kubernetes_persistent_volume__metadata list ->
   spec:kubernetes_persistent_volume__spec list ->

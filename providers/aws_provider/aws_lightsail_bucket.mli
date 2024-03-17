@@ -6,7 +6,9 @@ type aws_lightsail_bucket
 
 val aws_lightsail_bucket :
   ?force_delete:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   bundle_id:string ->
   name:string ->
   string ->

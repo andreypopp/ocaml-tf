@@ -72,8 +72,11 @@ type aws_ssmincidents_response_plan = {
   chat_channel : string list option; [@option]  (** chat_channel *)
   display_name : string option; [@option]  (** display_name *)
   engagements : string list option; [@option]  (** engagements *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   action : aws_ssmincidents_response_plan__action list;
   incident_template :
     aws_ssmincidents_response_plan__incident_template list;
@@ -83,16 +86,18 @@ type aws_ssmincidents_response_plan = {
 (** aws_ssmincidents_response_plan *)
 
 let aws_ssmincidents_response_plan ?chat_channel ?display_name
-    ?engagements ?tags ~name ~action ~incident_template ~integration
-    __resource_id =
+    ?engagements ?id ?tags ?tags_all ~name ~action ~incident_template
+    ~integration __resource_id =
   let __resource_type = "aws_ssmincidents_response_plan" in
   let __resource =
     {
       chat_channel;
       display_name;
       engagements;
+      id;
       name;
       tags;
+      tags_all;
       action;
       incident_template;
       integration;

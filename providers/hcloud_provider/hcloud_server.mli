@@ -10,12 +10,16 @@ type hcloud_server
 val hcloud_server :
   ?allow_deprecated_images:bool ->
   ?backups:bool ->
+  ?datacenter:string ->
   ?delete_protection:bool ->
+  ?firewall_ids:float list ->
+  ?id:string ->
   ?ignore_remote_firewall_ids:bool ->
   ?image:string ->
   ?iso:string ->
   ?keep_disk:bool ->
   ?labels:(string * string) list ->
+  ?location:string ->
   ?placement_group_id:float ->
   ?rebuild_protection:bool ->
   ?rescue:string ->

@@ -34,6 +34,7 @@ type azurerm_cdn_endpoint_custom_domain__user_managed_https = {
 type azurerm_cdn_endpoint_custom_domain = {
   cdn_endpoint_id : string;  (** cdn_endpoint_id *)
   host_name : string;  (** host_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   cdn_managed_https :
     azurerm_cdn_endpoint_custom_domain__cdn_managed_https list;
@@ -44,7 +45,7 @@ type azurerm_cdn_endpoint_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_cdn_endpoint_custom_domain *)
 
-let azurerm_cdn_endpoint_custom_domain ?timeouts ~cdn_endpoint_id
+let azurerm_cdn_endpoint_custom_domain ?id ?timeouts ~cdn_endpoint_id
     ~host_name ~name ~cdn_managed_https ~user_managed_https
     __resource_id =
   let __resource_type = "azurerm_cdn_endpoint_custom_domain" in
@@ -52,6 +53,7 @@ let azurerm_cdn_endpoint_custom_domain ?timeouts ~cdn_endpoint_id
     {
       cdn_endpoint_id;
       host_name;
+      id;
       name;
       cdn_managed_https;
       timeouts;

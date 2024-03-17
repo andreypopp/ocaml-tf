@@ -59,7 +59,10 @@ type aws_quicksight_data_source__vpc_connection_properties
 type aws_quicksight_data_source
 
 val aws_quicksight_data_source :
+    ?aws_account_id:string ->
+    ?id:string ->
     ?tags:(string * string) list ->
+    ?tags_all:(string * string) list ->
     data_source_id:string ->
     name:string ->
     type_:string ->

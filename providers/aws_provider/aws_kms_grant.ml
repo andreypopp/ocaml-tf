@@ -18,6 +18,7 @@ type aws_kms_grant = {
   grant_creation_tokens : string list option; [@option]
       (** grant_creation_tokens *)
   grantee_principal : string;  (** grantee_principal *)
+  id : string option; [@option]  (** id *)
   key_id : string;  (** key_id *)
   name : string option; [@option]  (** name *)
   operations : string list;  (** operations *)
@@ -29,7 +30,7 @@ type aws_kms_grant = {
 [@@deriving yojson_of]
 (** aws_kms_grant *)
 
-let aws_kms_grant ?grant_creation_tokens ?name ?retire_on_delete
+let aws_kms_grant ?grant_creation_tokens ?id ?name ?retire_on_delete
     ?retiring_principal ~grantee_principal ~key_id ~operations
     ~constraints __resource_id =
   let __resource_type = "aws_kms_grant" in
@@ -37,6 +38,7 @@ let aws_kms_grant ?grant_creation_tokens ?name ?retire_on_delete
     {
       grant_creation_tokens;
       grantee_principal;
+      id;
       key_id;
       name;
       operations;

@@ -12,7 +12,6 @@ type google_edgecontainer_cluster__control_plane_encryption__kms_status = {
   code : float;  (** code *)
   message : string;  (** message *)
 }
-[@@deriving yojson_of]
 
 type google_edgecontainer_cluster__control_plane_encryption
 type google_edgecontainer_cluster__fleet
@@ -40,12 +39,17 @@ type google_edgecontainer_cluster__maintenance_events = {
   update_time : string;  (** update_time *)
   uuid : string;  (** uuid *)
 }
-[@@deriving yojson_of]
 
 type google_edgecontainer_cluster
 
 val google_edgecontainer_cluster :
+  ?default_max_pods_per_node:float ->
+  ?external_load_balancer_ipv4_address_pools:string list ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
+  ?release_channel:string ->
+  ?target_version:string ->
   ?timeouts:google_edgecontainer_cluster__timeouts ->
   location:string ->
   name:string ->

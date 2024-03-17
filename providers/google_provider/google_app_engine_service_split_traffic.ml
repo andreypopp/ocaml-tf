@@ -22,8 +22,10 @@ type google_app_engine_service_split_traffic__timeouts = {
 (** google_app_engine_service_split_traffic__timeouts *)
 
 type google_app_engine_service_split_traffic = {
+  id : string option; [@option]  (** id *)
   migrate_traffic : bool option; [@option]
       (** If set to true traffic will be migrated to this version. *)
+  project : string option; [@option]  (** project *)
   service : string;
       (** The name of the service these settings apply to. *)
   split : google_app_engine_service_split_traffic__split list;
@@ -32,10 +34,12 @@ type google_app_engine_service_split_traffic = {
 [@@deriving yojson_of]
 (** google_app_engine_service_split_traffic *)
 
-let google_app_engine_service_split_traffic ?migrate_traffic
-    ?timeouts ~service ~split __resource_id =
+let google_app_engine_service_split_traffic ?id ?migrate_traffic
+    ?project ?timeouts ~service ~split __resource_id =
   let __resource_type = "google_app_engine_service_split_traffic" in
-  let __resource = { migrate_traffic; service; split; timeouts } in
+  let __resource =
+    { id; migrate_traffic; project; service; split; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_service_split_traffic __resource);
   ()

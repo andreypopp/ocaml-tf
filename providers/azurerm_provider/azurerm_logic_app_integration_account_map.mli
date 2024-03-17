@@ -6,6 +6,7 @@ type azurerm_logic_app_integration_account_map__timeouts
 type azurerm_logic_app_integration_account_map
 
 val azurerm_logic_app_integration_account_map :
+  ?id:string ->
   ?metadata:(string * string) list ->
   ?timeouts:azurerm_logic_app_integration_account_map__timeouts ->
   content:string ->

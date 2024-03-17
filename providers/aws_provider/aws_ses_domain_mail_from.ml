@@ -8,16 +8,17 @@ type aws_ses_domain_mail_from = {
   behavior_on_mx_failure : string option; [@option]
       (** behavior_on_mx_failure *)
   domain : string;  (** domain *)
+  id : string option; [@option]  (** id *)
   mail_from_domain : string;  (** mail_from_domain *)
 }
 [@@deriving yojson_of]
 (** aws_ses_domain_mail_from *)
 
-let aws_ses_domain_mail_from ?behavior_on_mx_failure ~domain
+let aws_ses_domain_mail_from ?behavior_on_mx_failure ?id ~domain
     ~mail_from_domain __resource_id =
   let __resource_type = "aws_ses_domain_mail_from" in
   let __resource =
-    { behavior_on_mx_failure; domain; mail_from_domain }
+    { behavior_on_mx_failure; domain; id; mail_from_domain }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_domain_mail_from __resource);

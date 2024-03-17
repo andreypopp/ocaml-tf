@@ -72,6 +72,7 @@ type azurerm_active_directory_domain_service = {
   domain_name : string;  (** domain_name *)
   filtered_sync_enabled : bool option; [@option]
       (** filtered_sync_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -90,8 +91,8 @@ type azurerm_active_directory_domain_service = {
 (** azurerm_active_directory_domain_service *)
 
 let azurerm_active_directory_domain_service
-    ?domain_configuration_type ?filtered_sync_enabled ?tags ?timeouts
-    ~domain_name ~location ~name ~resource_group_name ~sku
+    ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
+    ?timeouts ~domain_name ~location ~name ~resource_group_name ~sku
     ~initial_replica_set ~notifications ~secure_ldap ~security
     __resource_id =
   let __resource_type = "azurerm_active_directory_domain_service" in
@@ -100,6 +101,7 @@ let azurerm_active_directory_domain_service
       domain_configuration_type;
       domain_name;
       filtered_sync_enabled;
+      id;
       location;
       name;
       resource_group_name;

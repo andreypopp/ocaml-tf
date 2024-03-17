@@ -7,6 +7,7 @@ type azurerm_container_registry_webhook
 
 val azurerm_container_registry_webhook :
   ?custom_headers:(string * string) list ->
+  ?id:string ->
   ?scope:string ->
   ?status:string ->
   ?tags:(string * string) list ->

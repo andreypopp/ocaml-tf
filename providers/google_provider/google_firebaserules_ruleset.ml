@@ -34,15 +34,19 @@ type google_firebaserules_ruleset__metadata = {
 [@@deriving yojson_of]
 
 type google_firebaserules_ruleset = {
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]
+      (** The project for the resource *)
   source : google_firebaserules_ruleset__source list;
   timeouts : google_firebaserules_ruleset__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_firebaserules_ruleset *)
 
-let google_firebaserules_ruleset ?timeouts ~source __resource_id =
+let google_firebaserules_ruleset ?id ?project ?timeouts ~source
+    __resource_id =
   let __resource_type = "google_firebaserules_ruleset" in
-  let __resource = { source; timeouts } in
+  let __resource = { id; project; source; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebaserules_ruleset __resource);
   ()

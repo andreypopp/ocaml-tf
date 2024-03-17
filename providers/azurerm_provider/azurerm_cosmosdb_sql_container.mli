@@ -18,7 +18,10 @@ type azurerm_cosmosdb_sql_container
 
 val azurerm_cosmosdb_sql_container :
   ?analytical_storage_ttl:float ->
+  ?default_ttl:float ->
+  ?id:string ->
   ?partition_key_version:float ->
+  ?throughput:float ->
   ?timeouts:azurerm_cosmosdb_sql_container__timeouts ->
   account_name:string ->
   database_name:string ->

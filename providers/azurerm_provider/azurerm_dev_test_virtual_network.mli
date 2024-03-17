@@ -8,6 +8,7 @@ type azurerm_dev_test_virtual_network
 
 val azurerm_dev_test_virtual_network :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dev_test_virtual_network__timeouts ->
   lab_name:string ->

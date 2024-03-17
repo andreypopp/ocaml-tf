@@ -44,6 +44,8 @@ Check on your Firebase services.
 
 If your app has not launched yet, you should enable enforcement immediately, since there are no outdated
 clients in use. Possible values: [UNENFORCED, ENFORCED] *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   service_id : string;
       (** The identifier of the service to configure enforcement. Currently, the following service IDs are supported:
   firebasestorage.googleapis.com (Cloud Storage for Firebase)
@@ -56,10 +58,12 @@ clients in use. Possible values: [UNENFORCED, ENFORCED] *)
 [@@deriving yojson_of]
 (** google_firebase_app_check_service_config *)
 
-let google_firebase_app_check_service_config ?enforcement_mode
-    ?timeouts ~service_id __resource_id =
+let google_firebase_app_check_service_config ?enforcement_mode ?id
+    ?project ?timeouts ~service_id __resource_id =
   let __resource_type = "google_firebase_app_check_service_config" in
-  let __resource = { enforcement_mode; service_id; timeouts } in
+  let __resource =
+    { enforcement_mode; id; project; service_id; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_firebase_app_check_service_config __resource);
   ()

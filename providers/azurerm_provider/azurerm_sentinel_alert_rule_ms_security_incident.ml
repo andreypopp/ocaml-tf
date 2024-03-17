@@ -20,7 +20,10 @@ type azurerm_sentinel_alert_rule_ms_security_incident = {
   display_name : string;  (** display_name *)
   display_name_exclude_filter : string list option; [@option]
       (** display_name_exclude_filter *)
+  display_name_filter : string list option; [@option]
+      (** display_name_filter *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -34,9 +37,9 @@ type azurerm_sentinel_alert_rule_ms_security_incident = {
 
 let azurerm_sentinel_alert_rule_ms_security_incident
     ?alert_rule_template_guid ?description
-    ?display_name_exclude_filter ?enabled ?timeouts ~display_name
-    ~log_analytics_workspace_id ~name ~product_filter
-    ~severity_filter __resource_id =
+    ?display_name_exclude_filter ?display_name_filter ?enabled ?id
+    ?timeouts ~display_name ~log_analytics_workspace_id ~name
+    ~product_filter ~severity_filter __resource_id =
   let __resource_type =
     "azurerm_sentinel_alert_rule_ms_security_incident"
   in
@@ -46,7 +49,9 @@ let azurerm_sentinel_alert_rule_ms_security_incident
       description;
       display_name;
       display_name_exclude_filter;
+      display_name_filter;
       enabled;
+      id;
       log_analytics_workspace_id;
       name;
       product_filter;

@@ -72,12 +72,27 @@ type azurerm_mssql_database__timeouts = {
 (** azurerm_mssql_database__timeouts *)
 
 type azurerm_mssql_database = {
+  auto_pause_delay_in_minutes : float option; [@option]
+      (** auto_pause_delay_in_minutes *)
+  collation : string option; [@option]  (** collation *)
   create_mode : string option; [@option]  (** create_mode *)
+  creation_source_database_id : string option; [@option]
+      (** creation_source_database_id *)
   elastic_pool_id : string option; [@option]  (** elastic_pool_id *)
   enclave_type : string option; [@option]  (** enclave_type *)
   geo_backup_enabled : bool option; [@option]
       (** geo_backup_enabled *)
+  id : string option; [@option]  (** id *)
+  ledger_enabled : bool option; [@option]  (** ledger_enabled *)
+  license_type : string option; [@option]  (** license_type *)
+  maintenance_configuration_name : string option; [@option]
+      (** maintenance_configuration_name *)
+  max_size_gb : float option; [@option]  (** max_size_gb *)
+  min_capacity : float option; [@option]  (** min_capacity *)
   name : string;  (** name *)
+  read_replica_count : float option; [@option]
+      (** read_replica_count *)
+  read_scale : bool option; [@option]  (** read_scale *)
   recover_database_id : string option; [@option]
       (** recover_database_id *)
   recovery_point_id : string option; [@option]
@@ -86,7 +101,11 @@ type azurerm_mssql_database = {
       (** restore_dropped_database_id *)
   restore_long_term_retention_backup_id : string option; [@option]
       (** restore_long_term_retention_backup_id *)
+  restore_point_in_time : string option; [@option]
+      (** restore_point_in_time *)
+  sample_name : string option; [@option]  (** sample_name *)
   server_id : string;  (** server_id *)
+  sku_name : string option; [@option]  (** sku_name *)
   storage_account_type : string option; [@option]
       (** storage_account_type *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -99,6 +118,7 @@ type azurerm_mssql_database = {
   transparent_data_encryption_key_vault_key_id : string option;
       [@option]
       (** transparent_data_encryption_key_vault_key_id *)
+  zone_redundant : bool option; [@option]  (** zone_redundant *)
   identity : azurerm_mssql_database__identity list;
   import : azurerm_mssql_database__import list;
   long_term_retention_policy :
@@ -112,34 +132,54 @@ type azurerm_mssql_database = {
 [@@deriving yojson_of]
 (** azurerm_mssql_database *)
 
-let azurerm_mssql_database ?create_mode ?elastic_pool_id
-    ?enclave_type ?geo_backup_enabled ?recover_database_id
-    ?recovery_point_id ?restore_dropped_database_id
-    ?restore_long_term_retention_backup_id ?storage_account_type
-    ?tags ?transparent_data_encryption_enabled
+let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
+    ?create_mode ?creation_source_database_id ?elastic_pool_id
+    ?enclave_type ?geo_backup_enabled ?id ?ledger_enabled
+    ?license_type ?maintenance_configuration_name ?max_size_gb
+    ?min_capacity ?read_replica_count ?read_scale
+    ?recover_database_id ?recovery_point_id
+    ?restore_dropped_database_id
+    ?restore_long_term_retention_backup_id ?restore_point_in_time
+    ?sample_name ?sku_name ?storage_account_type ?tags
+    ?transparent_data_encryption_enabled
     ?transparent_data_encryption_key_automatic_rotation_enabled
-    ?transparent_data_encryption_key_vault_key_id ?timeouts ~name
-    ~server_id ~identity ~import ~long_term_retention_policy
-    ~short_term_retention_policy ~threat_detection_policy
-    __resource_id =
+    ?transparent_data_encryption_key_vault_key_id ?zone_redundant
+    ?timeouts ~name ~server_id ~identity ~import
+    ~long_term_retention_policy ~short_term_retention_policy
+    ~threat_detection_policy __resource_id =
   let __resource_type = "azurerm_mssql_database" in
   let __resource =
     {
+      auto_pause_delay_in_minutes;
+      collation;
       create_mode;
+      creation_source_database_id;
       elastic_pool_id;
       enclave_type;
       geo_backup_enabled;
+      id;
+      ledger_enabled;
+      license_type;
+      maintenance_configuration_name;
+      max_size_gb;
+      min_capacity;
       name;
+      read_replica_count;
+      read_scale;
       recover_database_id;
       recovery_point_id;
       restore_dropped_database_id;
       restore_long_term_retention_backup_id;
+      restore_point_in_time;
+      sample_name;
       server_id;
+      sku_name;
       storage_account_type;
       tags;
       transparent_data_encryption_enabled;
       transparent_data_encryption_key_automatic_rotation_enabled;
       transparent_data_encryption_key_vault_key_id;
+      zone_redundant;
       identity;
       import;
       long_term_retention_policy;

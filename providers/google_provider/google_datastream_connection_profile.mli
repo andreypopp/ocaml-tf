@@ -14,7 +14,9 @@ type google_datastream_connection_profile__timeouts
 type google_datastream_connection_profile
 
 val google_datastream_connection_profile :
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_datastream_connection_profile__timeouts ->
   connection_profile_id:string ->
   display_name:string ->

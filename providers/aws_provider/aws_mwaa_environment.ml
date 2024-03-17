@@ -98,17 +98,38 @@ type aws_mwaa_environment = {
   airflow_configuration_options : (string * string) list option;
       [@option]
       (** airflow_configuration_options *)
+  airflow_version : string option; [@option]  (** airflow_version *)
   dag_s3_path : string;  (** dag_s3_path *)
+  endpoint_management : string option; [@option]
+      (** endpoint_management *)
+  environment_class : string option; [@option]
+      (** environment_class *)
   execution_role_arn : string;  (** execution_role_arn *)
+  id : string option; [@option]  (** id *)
   kms_key : string option; [@option]  (** kms_key *)
+  max_workers : float option; [@option]  (** max_workers *)
+  min_workers : float option; [@option]  (** min_workers *)
   name : string;  (** name *)
+  plugins_s3_object_version : string option; [@option]
+      (** plugins_s3_object_version *)
   plugins_s3_path : string option; [@option]  (** plugins_s3_path *)
+  requirements_s3_object_version : string option; [@option]
+      (** requirements_s3_object_version *)
   requirements_s3_path : string option; [@option]
       (** requirements_s3_path *)
+  schedulers : float option; [@option]  (** schedulers *)
   source_bucket_arn : string;  (** source_bucket_arn *)
+  startup_script_s3_object_version : string option; [@option]
+      (** startup_script_s3_object_version *)
   startup_script_s3_path : string option; [@option]
       (** startup_script_s3_path *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  webserver_access_mode : string option; [@option]
+      (** webserver_access_mode *)
+  weekly_maintenance_window_start : string option; [@option]
+      (** weekly_maintenance_window_start *)
   logging_configuration :
     aws_mwaa_environment__logging_configuration list;
   network_configuration :
@@ -118,24 +139,42 @@ type aws_mwaa_environment = {
 [@@deriving yojson_of]
 (** aws_mwaa_environment *)
 
-let aws_mwaa_environment ?airflow_configuration_options ?kms_key
-    ?plugins_s3_path ?requirements_s3_path ?startup_script_s3_path
-    ?tags ?timeouts ~dag_s3_path ~execution_role_arn ~name
+let aws_mwaa_environment ?airflow_configuration_options
+    ?airflow_version ?endpoint_management ?environment_class ?id
+    ?kms_key ?max_workers ?min_workers ?plugins_s3_object_version
+    ?plugins_s3_path ?requirements_s3_object_version
+    ?requirements_s3_path ?schedulers
+    ?startup_script_s3_object_version ?startup_script_s3_path ?tags
+    ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
+    ?timeouts ~dag_s3_path ~execution_role_arn ~name
     ~source_bucket_arn ~logging_configuration ~network_configuration
     __resource_id =
   let __resource_type = "aws_mwaa_environment" in
   let __resource =
     {
       airflow_configuration_options;
+      airflow_version;
       dag_s3_path;
+      endpoint_management;
+      environment_class;
       execution_role_arn;
+      id;
       kms_key;
+      max_workers;
+      min_workers;
       name;
+      plugins_s3_object_version;
       plugins_s3_path;
+      requirements_s3_object_version;
       requirements_s3_path;
+      schedulers;
       source_bucket_arn;
+      startup_script_s3_object_version;
       startup_script_s3_path;
       tags;
+      tags_all;
+      webserver_access_mode;
+      weekly_maintenance_window_start;
       logging_configuration;
       network_configuration;
       timeouts;

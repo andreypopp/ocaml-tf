@@ -6,6 +6,7 @@ type azurerm_stream_analytics_output_powerbi__timeouts
 type azurerm_stream_analytics_output_powerbi
 
 val azurerm_stream_analytics_output_powerbi :
+  ?id:string ->
   ?token_user_display_name:string ->
   ?token_user_principal_name:string ->
   ?timeouts:azurerm_stream_analytics_output_powerbi__timeouts ->

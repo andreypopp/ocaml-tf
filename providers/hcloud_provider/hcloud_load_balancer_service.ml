@@ -36,19 +36,33 @@ type hcloud_load_balancer_service__http = {
 (** hcloud_load_balancer_service__http *)
 
 type hcloud_load_balancer_service = {
+  destination_port : float option; [@option]  (** destination_port *)
+  id : string option; [@option]  (** id *)
+  listen_port : float option; [@option]  (** listen_port *)
   load_balancer_id : string;  (** load_balancer_id *)
   protocol : string;  (** protocol *)
+  proxyprotocol : bool option; [@option]  (** proxyprotocol *)
   health_check : hcloud_load_balancer_service__health_check list;
   http : hcloud_load_balancer_service__http list;
 }
 [@@deriving yojson_of]
 (** hcloud_load_balancer_service *)
 
-let hcloud_load_balancer_service ~load_balancer_id ~protocol
-    ~health_check ~http __resource_id =
+let hcloud_load_balancer_service ?destination_port ?id ?listen_port
+    ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http
+    __resource_id =
   let __resource_type = "hcloud_load_balancer_service" in
   let __resource =
-    { load_balancer_id; protocol; health_check; http }
+    {
+      destination_port;
+      id;
+      listen_port;
+      load_balancer_id;
+      protocol;
+      proxyprotocol;
+      health_check;
+      http;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_hcloud_load_balancer_service __resource);

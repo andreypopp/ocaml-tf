@@ -11,7 +11,9 @@ val aws_storagegateway_nfs_file_share :
   ?audit_destination_arn:string ->
   ?bucket_region:string ->
   ?default_storage_class:string ->
+  ?file_share_name:string ->
   ?guess_mime_type_enabled:bool ->
+  ?id:string ->
   ?kms_encrypted:bool ->
   ?kms_key_arn:string ->
   ?notification_policy:string ->
@@ -20,6 +22,7 @@ val aws_storagegateway_nfs_file_share :
   ?requester_pays:bool ->
   ?squash:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?vpc_endpoint_dns_name:string ->
   ?timeouts:aws_storagegateway_nfs_file_share__timeouts ->
   client_list:string list ->

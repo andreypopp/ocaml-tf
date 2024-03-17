@@ -44,6 +44,7 @@ type azurerm_mssql_virtual_machine_availability_group_listener__timeouts = {
 type azurerm_mssql_virtual_machine_availability_group_listener = {
   availability_group_name : string option; [@option]
       (** availability_group_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   port : float option; [@option]  (** port *)
   sql_virtual_machine_group_id : string;
@@ -65,7 +66,7 @@ type azurerm_mssql_virtual_machine_availability_group_listener = {
 (** azurerm_mssql_virtual_machine_availability_group_listener *)
 
 let azurerm_mssql_virtual_machine_availability_group_listener
-    ?availability_group_name ?port ?timeouts ~name
+    ?availability_group_name ?id ?port ?timeouts ~name
     ~sql_virtual_machine_group_id ~load_balancer_configuration
     ~multi_subnet_ip_configuration ~replica __resource_id =
   let __resource_type =
@@ -74,6 +75,7 @@ let azurerm_mssql_virtual_machine_availability_group_listener
   let __resource =
     {
       availability_group_name;
+      id;
       name;
       port;
       sql_virtual_machine_group_id;

@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_wafregional_web_acl_association
 
 val aws_wafregional_web_acl_association :
-  resource_arn:string -> web_acl_id:string -> string -> unit
+  ?id:string ->
+  resource_arn:string ->
+  web_acl_id:string ->
+  string ->
+  unit

@@ -38,7 +38,13 @@ type azurerm_kubernetes_cluster_extension = {
   configuration_settings : (string * string) list option; [@option]
       (** configuration_settings *)
   extension_type : string;  (** extension_type *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  release_namespace : string option; [@option]
+      (** release_namespace *)
+  release_train : string option; [@option]  (** release_train *)
+  target_namespace : string option; [@option]
+      (** target_namespace *)
   version : string option; [@option]  (** version *)
   plan : azurerm_kubernetes_cluster_extension__plan list;
   timeouts : azurerm_kubernetes_cluster_extension__timeouts option;
@@ -47,9 +53,9 @@ type azurerm_kubernetes_cluster_extension = {
 (** azurerm_kubernetes_cluster_extension *)
 
 let azurerm_kubernetes_cluster_extension
-    ?configuration_protected_settings ?configuration_settings
-    ?version ?timeouts ~cluster_id ~extension_type ~name ~plan
-    __resource_id =
+    ?configuration_protected_settings ?configuration_settings ?id
+    ?release_namespace ?release_train ?target_namespace ?version
+    ?timeouts ~cluster_id ~extension_type ~name ~plan __resource_id =
   let __resource_type = "azurerm_kubernetes_cluster_extension" in
   let __resource =
     {
@@ -57,7 +63,11 @@ let azurerm_kubernetes_cluster_extension
       configuration_protected_settings;
       configuration_settings;
       extension_type;
+      id;
       name;
+      release_namespace;
+      release_train;
+      target_namespace;
       version;
       plan;
       timeouts;

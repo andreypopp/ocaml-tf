@@ -6,6 +6,7 @@ type google_healthcare_dataset_iam_member__condition
 type google_healthcare_dataset_iam_member
 
 val google_healthcare_dataset_iam_member :
+  ?id:string ->
   dataset_id:string ->
   member:string ->
   role:string ->

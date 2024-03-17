@@ -8,6 +8,7 @@ type azurerm_storage_mover_job_definition
 val azurerm_storage_mover_job_definition :
   ?agent_name:string ->
   ?description:string ->
+  ?id:string ->
   ?source_sub_path:string ->
   ?target_sub_path:string ->
   ?timeouts:azurerm_storage_mover_job_definition__timeouts ->

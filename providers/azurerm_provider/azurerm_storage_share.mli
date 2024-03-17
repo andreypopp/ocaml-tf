@@ -8,7 +8,10 @@ type azurerm_storage_share__timeouts
 type azurerm_storage_share
 
 val azurerm_storage_share :
+  ?access_tier:string ->
   ?enabled_protocol:string ->
+  ?id:string ->
+  ?metadata:(string * string) list ->
   ?timeouts:azurerm_storage_share__timeouts ->
   name:string ->
   quota:float ->

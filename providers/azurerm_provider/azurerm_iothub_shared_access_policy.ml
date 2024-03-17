@@ -15,6 +15,7 @@ type azurerm_iothub_shared_access_policy__timeouts = {
 
 type azurerm_iothub_shared_access_policy = {
   device_connect : bool option; [@option]  (** device_connect *)
+  id : string option; [@option]  (** id *)
   iothub_name : string;  (** iothub_name *)
   name : string;  (** name *)
   registry_read : bool option; [@option]  (** registry_read *)
@@ -26,13 +27,14 @@ type azurerm_iothub_shared_access_policy = {
 [@@deriving yojson_of]
 (** azurerm_iothub_shared_access_policy *)
 
-let azurerm_iothub_shared_access_policy ?device_connect
+let azurerm_iothub_shared_access_policy ?device_connect ?id
     ?registry_read ?registry_write ?service_connect ?timeouts
     ~iothub_name ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_iothub_shared_access_policy" in
   let __resource =
     {
       device_connect;
+      id;
       iothub_name;
       name;
       registry_read;

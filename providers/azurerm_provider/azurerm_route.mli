@@ -6,6 +6,7 @@ type azurerm_route__timeouts
 type azurerm_route
 
 val azurerm_route :
+  ?id:string ->
   ?next_hop_in_ip_address:string ->
   ?timeouts:azurerm_route__timeouts ->
   address_prefix:string ->

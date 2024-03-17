@@ -41,6 +41,7 @@ type azurerm_monitor_alert_processing_rule_suppression
 val azurerm_monitor_alert_processing_rule_suppression :
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_monitor_alert_processing_rule_suppression__timeouts ->

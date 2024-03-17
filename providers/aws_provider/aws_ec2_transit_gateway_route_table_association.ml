@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_route_table_association = {
+  id : string option; [@option]  (** id *)
   replace_existing_association : bool option; [@option]
       (** replace_existing_association *)
   transit_gateway_attachment_id : string;
@@ -15,7 +16,7 @@ type aws_ec2_transit_gateway_route_table_association = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_route_table_association *)
 
-let aws_ec2_transit_gateway_route_table_association
+let aws_ec2_transit_gateway_route_table_association ?id
     ?replace_existing_association ~transit_gateway_attachment_id
     ~transit_gateway_route_table_id __resource_id =
   let __resource_type =
@@ -23,6 +24,7 @@ let aws_ec2_transit_gateway_route_table_association
   in
   let __resource =
     {
+      id;
       replace_existing_association;
       transit_gateway_attachment_id;
       transit_gateway_route_table_id;

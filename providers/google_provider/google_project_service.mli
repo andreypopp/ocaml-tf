@@ -8,6 +8,8 @@ type google_project_service
 val google_project_service :
   ?disable_dependent_services:bool ->
   ?disable_on_destroy:bool ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_project_service__timeouts ->
   service:string ->
   string ->

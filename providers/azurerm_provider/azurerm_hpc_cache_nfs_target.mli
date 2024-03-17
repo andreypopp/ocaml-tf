@@ -7,6 +7,7 @@ type azurerm_hpc_cache_nfs_target__timeouts
 type azurerm_hpc_cache_nfs_target
 
 val azurerm_hpc_cache_nfs_target :
+  ?id:string ->
   ?verification_timer_in_seconds:float ->
   ?write_back_timer_in_seconds:float ->
   ?timeouts:azurerm_hpc_cache_nfs_target__timeouts ->

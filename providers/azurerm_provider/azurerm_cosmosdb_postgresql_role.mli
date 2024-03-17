@@ -6,6 +6,7 @@ type azurerm_cosmosdb_postgresql_role__timeouts
 type azurerm_cosmosdb_postgresql_role
 
 val azurerm_cosmosdb_postgresql_role :
+  ?id:string ->
   ?timeouts:azurerm_cosmosdb_postgresql_role__timeouts ->
   cluster_id:string ->
   name:string ->

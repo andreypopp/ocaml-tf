@@ -10,6 +10,7 @@ val google_logging_billing_account_sink :
   ?description:string ->
   ?disabled:bool ->
   ?filter:string ->
+  ?id:string ->
   billing_account:string ->
   destination:string ->
   name:string ->

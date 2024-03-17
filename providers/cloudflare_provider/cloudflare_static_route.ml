@@ -13,6 +13,7 @@ type cloudflare_static_route = {
       (** List of Cloudflare colocation names for this static route. *)
   description : string option; [@option]
       (** Description of the static route. *)
+  id : string option; [@option]  (** id *)
   nexthop : string;
       (** The nexthop IP address where traffic will be routed to. *)
   prefix : string;  (** Your network prefix using CIDR notation. *)
@@ -27,7 +28,8 @@ through GRE tunnels.
  *)
 
 let cloudflare_static_route ?account_id ?colo_names ?colo_regions
-    ?description ?weight ~nexthop ~prefix ~priority __resource_id =
+    ?description ?id ?weight ~nexthop ~prefix ~priority __resource_id
+    =
   let __resource_type = "cloudflare_static_route" in
   let __resource =
     {
@@ -35,6 +37,7 @@ let cloudflare_static_route ?account_id ?colo_names ?colo_regions
       colo_names;
       colo_regions;
       description;
+      id;
       nexthop;
       prefix;
       priority;

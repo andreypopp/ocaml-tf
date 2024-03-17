@@ -6,7 +6,9 @@ type aws_oam_link__timeouts
 type aws_oam_link
 
 val aws_oam_link :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_oam_link__timeouts ->
   label_template:string ->
   resource_types:string list ->

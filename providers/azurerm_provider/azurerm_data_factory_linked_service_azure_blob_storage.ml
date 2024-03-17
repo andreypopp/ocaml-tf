@@ -37,6 +37,7 @@ type azurerm_data_factory_linked_service_azure_blob_storage = {
       (** connection_string_insecure *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   name : string;  (** name *)
@@ -68,7 +69,7 @@ type azurerm_data_factory_linked_service_azure_blob_storage = {
 
 let azurerm_data_factory_linked_service_azure_blob_storage
     ?additional_properties ?annotations ?connection_string
-    ?connection_string_insecure ?description
+    ?connection_string_insecure ?description ?id
     ?integration_runtime_name ?parameters ?sas_uri ?service_endpoint
     ?service_principal_id ?service_principal_key ?storage_kind
     ?tenant_id ?use_managed_identity ?timeouts ~data_factory_id ~name
@@ -85,6 +86,7 @@ let azurerm_data_factory_linked_service_azure_blob_storage
       connection_string_insecure;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       name;
       parameters;

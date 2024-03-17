@@ -26,6 +26,7 @@ type aws_apigatewayv2_integration = {
       (** content_handling_strategy *)
   credentials_arn : string option; [@option]  (** credentials_arn *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_method : string option; [@option]
       (** integration_method *)
   integration_subtype : string option; [@option]
@@ -42,6 +43,8 @@ type aws_apigatewayv2_integration = {
       (** request_templates *)
   template_selection_expression : string option; [@option]
       (** template_selection_expression *)
+  timeout_milliseconds : float option; [@option]
+      (** timeout_milliseconds *)
   response_parameters :
     aws_apigatewayv2_integration__response_parameters list;
   tls_config : aws_apigatewayv2_integration__tls_config list;
@@ -50,12 +53,12 @@ type aws_apigatewayv2_integration = {
 (** aws_apigatewayv2_integration *)
 
 let aws_apigatewayv2_integration ?connection_id ?connection_type
-    ?content_handling_strategy ?credentials_arn ?description
+    ?content_handling_strategy ?credentials_arn ?description ?id
     ?integration_method ?integration_subtype ?integration_uri
     ?passthrough_behavior ?payload_format_version ?request_parameters
-    ?request_templates ?template_selection_expression ~api_id
-    ~integration_type ~response_parameters ~tls_config __resource_id
-    =
+    ?request_templates ?template_selection_expression
+    ?timeout_milliseconds ~api_id ~integration_type
+    ~response_parameters ~tls_config __resource_id =
   let __resource_type = "aws_apigatewayv2_integration" in
   let __resource =
     {
@@ -65,6 +68,7 @@ let aws_apigatewayv2_integration ?connection_id ?connection_type
       content_handling_strategy;
       credentials_arn;
       description;
+      id;
       integration_method;
       integration_subtype;
       integration_type;
@@ -74,6 +78,7 @@ let aws_apigatewayv2_integration ?connection_id ?connection_type
       request_parameters;
       request_templates;
       template_selection_expression;
+      timeout_milliseconds;
       response_parameters;
       tls_config;
     }

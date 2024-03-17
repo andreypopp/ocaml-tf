@@ -13,6 +13,7 @@ type aws_network_interface_sg_attachment__timeouts = {
 (** aws_network_interface_sg_attachment__timeouts *)
 
 type aws_network_interface_sg_attachment = {
+  id : string option; [@option]  (** id *)
   network_interface_id : string;  (** network_interface_id *)
   security_group_id : string;  (** security_group_id *)
   timeouts : aws_network_interface_sg_attachment__timeouts option;
@@ -20,11 +21,11 @@ type aws_network_interface_sg_attachment = {
 [@@deriving yojson_of]
 (** aws_network_interface_sg_attachment *)
 
-let aws_network_interface_sg_attachment ?timeouts
+let aws_network_interface_sg_attachment ?id ?timeouts
     ~network_interface_id ~security_group_id __resource_id =
   let __resource_type = "aws_network_interface_sg_attachment" in
   let __resource =
-    { network_interface_id; security_group_id; timeouts }
+    { id; network_interface_id; security_group_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_network_interface_sg_attachment __resource);

@@ -16,7 +16,10 @@ type azurerm_service_plan__timeouts = {
 type azurerm_service_plan = {
   app_service_environment_id : string option; [@option]
       (** app_service_environment_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
+  maximum_elastic_worker_count : float option; [@option]
+      (** maximum_elastic_worker_count *)
   name : string;  (** name *)
   os_type : string;  (** os_type *)
   per_site_scaling_enabled : bool option; [@option]
@@ -24,6 +27,7 @@ type azurerm_service_plan = {
   resource_group_name : string;  (** resource_group_name *)
   sku_name : string;  (** sku_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  worker_count : float option; [@option]  (** worker_count *)
   zone_balancing_enabled : bool option; [@option]
       (** zone_balancing_enabled *)
   timeouts : azurerm_service_plan__timeouts option;
@@ -31,21 +35,24 @@ type azurerm_service_plan = {
 [@@deriving yojson_of]
 (** azurerm_service_plan *)
 
-let azurerm_service_plan ?app_service_environment_id
-    ?per_site_scaling_enabled ?tags ?zone_balancing_enabled ?timeouts
-    ~location ~name ~os_type ~resource_group_name ~sku_name
-    __resource_id =
+let azurerm_service_plan ?app_service_environment_id ?id
+    ?maximum_elastic_worker_count ?per_site_scaling_enabled ?tags
+    ?worker_count ?zone_balancing_enabled ?timeouts ~location ~name
+    ~os_type ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_service_plan" in
   let __resource =
     {
       app_service_environment_id;
+      id;
       location;
+      maximum_elastic_worker_count;
       name;
       os_type;
       per_site_scaling_enabled;
       resource_group_name;
       sku_name;
       tags;
+      worker_count;
       zone_balancing_enabled;
       timeouts;
     }

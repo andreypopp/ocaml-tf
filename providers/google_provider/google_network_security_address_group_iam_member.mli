@@ -6,6 +6,9 @@ type google_network_security_address_group_iam_member__condition
 type google_network_security_address_group_iam_member
 
 val google_network_security_address_group_iam_member :
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
   member:string ->
   name:string ->
   role:string ->

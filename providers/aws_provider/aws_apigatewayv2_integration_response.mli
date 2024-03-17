@@ -6,6 +6,7 @@ type aws_apigatewayv2_integration_response
 
 val aws_apigatewayv2_integration_response :
   ?content_handling_strategy:string ->
+  ?id:string ->
   ?response_templates:(string * string) list ->
   ?template_selection_expression:string ->
   api_id:string ->

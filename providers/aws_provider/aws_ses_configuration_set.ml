@@ -18,6 +18,7 @@ type aws_ses_configuration_set__tracking_options = {
 (** aws_ses_configuration_set__tracking_options *)
 
 type aws_ses_configuration_set = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   reputation_metrics_enabled : bool option; [@option]
       (** reputation_metrics_enabled *)
@@ -29,12 +30,13 @@ type aws_ses_configuration_set = {
 [@@deriving yojson_of]
 (** aws_ses_configuration_set *)
 
-let aws_ses_configuration_set ?reputation_metrics_enabled
+let aws_ses_configuration_set ?id ?reputation_metrics_enabled
     ?sending_enabled ~name ~delivery_options ~tracking_options
     __resource_id =
   let __resource_type = "aws_ses_configuration_set" in
   let __resource =
     {
+      id;
       name;
       reputation_metrics_enabled;
       sending_enabled;

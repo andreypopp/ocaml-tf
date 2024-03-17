@@ -10,6 +10,7 @@ type aws_xray_sampling_rule = {
   fixed_rate : float;  (** fixed_rate *)
   host : string;  (** host *)
   http_method : string;  (** http_method *)
+  id : string option; [@option]  (** id *)
   priority : float;  (** priority *)
   reservoir_size : float;  (** reservoir_size *)
   resource_arn : string;  (** resource_arn *)
@@ -17,15 +18,18 @@ type aws_xray_sampling_rule = {
   service_name : string;  (** service_name *)
   service_type : string;  (** service_type *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   url_path : string;  (** url_path *)
   version : float;  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_xray_sampling_rule *)
 
-let aws_xray_sampling_rule ?attributes ?rule_name ?tags ~fixed_rate
-    ~host ~http_method ~priority ~reservoir_size ~resource_arn
-    ~service_name ~service_type ~url_path ~version __resource_id =
+let aws_xray_sampling_rule ?attributes ?id ?rule_name ?tags ?tags_all
+    ~fixed_rate ~host ~http_method ~priority ~reservoir_size
+    ~resource_arn ~service_name ~service_type ~url_path ~version
+    __resource_id =
   let __resource_type = "aws_xray_sampling_rule" in
   let __resource =
     {
@@ -33,6 +37,7 @@ let aws_xray_sampling_rule ?attributes ?rule_name ?tags ~fixed_rate
       fixed_rate;
       host;
       http_method;
+      id;
       priority;
       reservoir_size;
       resource_arn;
@@ -40,6 +45,7 @@ let aws_xray_sampling_rule ?attributes ?rule_name ?tags ~fixed_rate
       service_name;
       service_type;
       tags;
+      tags_all;
       url_path;
       version;
     }

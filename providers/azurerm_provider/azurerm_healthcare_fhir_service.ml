@@ -59,6 +59,7 @@ type azurerm_healthcare_fhir_service = {
       (** configuration_export_storage_account_name *)
   container_registry_login_server_url : string list option; [@option]
       (** container_registry_login_server_url *)
+  id : string option; [@option]  (** id *)
   kind : string option; [@option]  (** kind *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -77,7 +78,7 @@ type azurerm_healthcare_fhir_service = {
 
 let azurerm_healthcare_fhir_service ?access_policy_object_ids
     ?configuration_export_storage_account_name
-    ?container_registry_login_server_url ?kind ?tags ?timeouts
+    ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
     ~location ~name ~resource_group_name ~workspace_id
     ~authentication ~cors ~identity ~oci_artifact __resource_id =
   let __resource_type = "azurerm_healthcare_fhir_service" in
@@ -86,6 +87,7 @@ let azurerm_healthcare_fhir_service ?access_policy_object_ids
       access_policy_object_ids;
       configuration_export_storage_account_name;
       container_registry_login_server_url;
+      id;
       kind;
       location;
       name;

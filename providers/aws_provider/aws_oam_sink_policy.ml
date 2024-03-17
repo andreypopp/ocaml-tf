@@ -13,6 +13,7 @@ type aws_oam_sink_policy__timeouts = {
 (** aws_oam_sink_policy__timeouts *)
 
 type aws_oam_sink_policy = {
+  id : string option; [@option]  (** id *)
   policy : string;  (** policy *)
   sink_identifier : string;  (** sink_identifier *)
   timeouts : aws_oam_sink_policy__timeouts option;
@@ -20,10 +21,10 @@ type aws_oam_sink_policy = {
 [@@deriving yojson_of]
 (** aws_oam_sink_policy *)
 
-let aws_oam_sink_policy ?timeouts ~policy ~sink_identifier
+let aws_oam_sink_policy ?id ?timeouts ~policy ~sink_identifier
     __resource_id =
   let __resource_type = "aws_oam_sink_policy" in
-  let __resource = { policy; sink_identifier; timeouts } in
+  let __resource = { id; policy; sink_identifier; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_oam_sink_policy __resource);
   ()

@@ -29,6 +29,7 @@ type azurerm_media_job__timeouts = {
 
 type azurerm_media_job = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   media_services_account_name : string;
       (** media_services_account_name *)
   name : string;  (** name *)
@@ -42,13 +43,14 @@ type azurerm_media_job = {
 [@@deriving yojson_of]
 (** azurerm_media_job *)
 
-let azurerm_media_job ?description ?priority ?timeouts
+let azurerm_media_job ?description ?id ?priority ?timeouts
     ~media_services_account_name ~name ~resource_group_name
     ~transform_name ~input_asset ~output_asset __resource_id =
   let __resource_type = "azurerm_media_job" in
   let __resource =
     {
       description;
+      id;
       media_services_account_name;
       name;
       priority;

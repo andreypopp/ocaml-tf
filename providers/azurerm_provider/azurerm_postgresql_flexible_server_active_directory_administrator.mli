@@ -7,6 +7,7 @@ type azurerm_postgresql_flexible_server_active_directory_administrator__timeouts
 type azurerm_postgresql_flexible_server_active_directory_administrator
 
 val azurerm_postgresql_flexible_server_active_directory_administrator :
+  ?id:string ->
   ?timeouts:
     azurerm_postgresql_flexible_server_active_directory_administrator__timeouts ->
   object_id:string ->

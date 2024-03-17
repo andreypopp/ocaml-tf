@@ -43,14 +43,15 @@ type google_dataplex_datascan__execution_status = {
   latest_job_end_time : string;  (** latest_job_end_time *)
   latest_job_start_time : string;  (** latest_job_start_time *)
 }
-[@@deriving yojson_of]
 
 type google_dataplex_datascan
 
 val google_dataplex_datascan :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_dataplex_datascan__timeouts ->
   data_scan_id:string ->
   location:string ->

@@ -13,8 +13,10 @@ type google_vertex_ai_feature_online_store_featureview__timeouts
 type google_vertex_ai_feature_online_store_featureview
 
 val google_vertex_ai_feature_online_store_featureview :
+  ?id:string ->
   ?labels:(string * string) list ->
   ?name:string ->
+  ?project:string ->
   ?timeouts:
     google_vertex_ai_feature_online_store_featureview__timeouts ->
   feature_online_store:string ->

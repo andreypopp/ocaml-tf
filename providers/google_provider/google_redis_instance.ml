@@ -125,10 +125,19 @@ type google_redis_instance__server_ca_certs = {
 [@@deriving yojson_of]
 
 type google_redis_instance = {
+  alternative_location_id : string option; [@option]
+      (** Only applicable to STANDARD_HA tier which protects the instance
+against zonal failures by provisioning it across two zones.
+If provided, it must be a different zone from the one provided in
+[locationId]. *)
   auth_enabled : bool option; [@option]
       (** Optional. Indicates whether OSS Redis AUTH is enabled for the
 instance. If set to true AUTH is enabled on the instance.
 Default value is false meaning AUTH is disabled. *)
+  authorized_network : string option; [@option]
+      (** The full name of the Google Compute Engine network to which the
+instance is connected. If left unspecified, the default network
+will be used. *)
   connect_mode : string option; [@option]
       (** The connection mode of the Redis instance. Default value: DIRECT_PEERING Possible values: [DIRECT_PEERING, PRIVATE_SERVICE_ACCESS] *)
   customer_managed_key : string option; [@option]
@@ -136,18 +145,55 @@ Default value is false meaning AUTH is disabled. *)
 instance. If this is provided, CMEK is enabled. *)
   display_name : string option; [@option]
       (** An arbitrary and optional user-provided name for the instance. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  location_id : string option; [@option]
+      (** The zone where the instance will be provisioned. If not provided,
+the service will choose a zone for the instance. For STANDARD_HA tier,
+instances will be created across two zones for protection against
+zonal failures. If [alternativeLocationId] is also provided, it must
+be different from [locationId]. *)
   memory_size_gb : float;  (** Redis memory size in GiB. *)
   name : string;
       (** The ID of the instance or a fully qualified identifier for the instance. *)
+  project : string option; [@option]  (** project *)
+  read_replicas_mode : string option; [@option]
+      (** Optional. Read replica mode. Can only be specified when trying to create the instance.
+If not set, Memorystore Redis backend will default to READ_REPLICAS_DISABLED.
+- READ_REPLICAS_DISABLED: If disabled, read endpoint will not be provided and the
+instance cannot scale up or down the number of replicas.
+- READ_REPLICAS_ENABLED: If enabled, read endpoint will be provided and the instance
+can scale up and down the number of replicas. Possible values: [READ_REPLICAS_DISABLED, READ_REPLICAS_ENABLED] *)
   redis_configs : (string * string) list option; [@option]
       (** Redis configuration parameters, according to http://redis.io/topics/config.
 Please check Memorystore documentation for the list of supported parameters:
 https://cloud.google.com/memorystore/docs/redis/reference/rest/v1/projects.locations.instances#Instance.FIELDS.redis_configs *)
+  redis_version : string option; [@option]
+      (** The version of Redis software. If not provided, latest supported
+version will be used. Please check the API documentation linked
+at the top for the latest valid values. *)
+  region : string option; [@option]
+      (** The name of the Redis region of the instance. *)
+  replica_count : float option; [@option]
+      (** Optional. The number of replica nodes. The valid range for the Standard Tier with
+read replicas enabled is [1-5] and defaults to 2. If read replicas are not enabled
+for a Standard Tier instance, the only valid value is 1 and the default is 1.
+The valid value for basic tier is 0 and the default is also 0. *)
+  reserved_ip_range : string option; [@option]
+      (** The CIDR range of internal addresses that are reserved for this
+instance. If not provided, the service will choose an unused /29
+block, for example, 10.0.0.0/29 or 192.168.0.0/29. Ranges must be
+unique and non-overlapping with existing subnets in an authorized
+network. *)
+  secondary_ip_range : string option; [@option]
+      (** Optional. Additional IP range for node placement. Required when enabling read replicas on
+an existing instance. For DIRECT_PEERING mode value must be a CIDR range of size /28, or
+auto. For PRIVATE_SERVICE_ACCESS mode value must be the name of an allocated address
+range associated with the private service access connection, or auto. *)
   tier : string option; [@option]
       (** The service tier of the instance. Must be one of these values:
 
@@ -166,21 +212,35 @@ https://cloud.google.com/memorystore/docs/redis/reference/rest/v1/projects.locat
 [@@deriving yojson_of]
 (** google_redis_instance *)
 
-let google_redis_instance ?auth_enabled ?connect_mode
-    ?customer_managed_key ?display_name ?labels ?redis_configs ?tier
+let google_redis_instance ?alternative_location_id ?auth_enabled
+    ?authorized_network ?connect_mode ?customer_managed_key
+    ?display_name ?id ?labels ?location_id ?project
+    ?read_replicas_mode ?redis_configs ?redis_version ?region
+    ?replica_count ?reserved_ip_range ?secondary_ip_range ?tier
     ?transit_encryption_mode ?timeouts ~memory_size_gb ~name
     ~maintenance_policy ~persistence_config __resource_id =
   let __resource_type = "google_redis_instance" in
   let __resource =
     {
+      alternative_location_id;
       auth_enabled;
+      authorized_network;
       connect_mode;
       customer_managed_key;
       display_name;
+      id;
       labels;
+      location_id;
       memory_size_gb;
       name;
+      project;
+      read_replicas_mode;
       redis_configs;
+      redis_version;
+      region;
+      replica_count;
+      reserved_ip_range;
+      secondary_ip_range;
       tier;
       transit_encryption_mode;
       maintenance_policy;

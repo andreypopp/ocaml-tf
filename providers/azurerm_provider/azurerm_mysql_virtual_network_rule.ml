@@ -14,6 +14,7 @@ type azurerm_mysql_virtual_network_rule__timeouts = {
 (** azurerm_mysql_virtual_network_rule__timeouts *)
 
 type azurerm_mysql_virtual_network_rule = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   server_name : string;  (** server_name *)
@@ -23,11 +24,18 @@ type azurerm_mysql_virtual_network_rule = {
 [@@deriving yojson_of]
 (** azurerm_mysql_virtual_network_rule *)
 
-let azurerm_mysql_virtual_network_rule ?timeouts ~name
+let azurerm_mysql_virtual_network_rule ?id ?timeouts ~name
     ~resource_group_name ~server_name ~subnet_id __resource_id =
   let __resource_type = "azurerm_mysql_virtual_network_rule" in
   let __resource =
-    { name; resource_group_name; server_name; subnet_id; timeouts }
+    {
+      id;
+      name;
+      resource_group_name;
+      server_name;
+      subnet_id;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_mysql_virtual_network_rule __resource);

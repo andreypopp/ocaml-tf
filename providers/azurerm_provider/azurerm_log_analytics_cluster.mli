@@ -7,6 +7,7 @@ type azurerm_log_analytics_cluster__timeouts
 type azurerm_log_analytics_cluster
 
 val azurerm_log_analytics_cluster :
+  ?id:string ->
   ?size_gb:float ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_log_analytics_cluster__timeouts ->

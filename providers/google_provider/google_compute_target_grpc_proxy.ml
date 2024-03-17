@@ -15,6 +15,7 @@ type google_compute_target_grpc_proxy__timeouts = {
 type google_compute_target_grpc_proxy = {
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource
 is created. The name must be 1-63 characters long, and comply
@@ -23,6 +24,7 @@ and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which
 means the first character must be a lowercase letter, and all
 following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   url_map : string option; [@option]
       (** URL to the UrlMap resource that defines the mapping from URL to
 the BackendService. The protocol field in the BackendService
@@ -43,11 +45,19 @@ it is connecting to *)
 [@@deriving yojson_of]
 (** google_compute_target_grpc_proxy *)
 
-let google_compute_target_grpc_proxy ?description ?url_map
-    ?validate_for_proxyless ?timeouts ~name __resource_id =
+let google_compute_target_grpc_proxy ?description ?id ?project
+    ?url_map ?validate_for_proxyless ?timeouts ~name __resource_id =
   let __resource_type = "google_compute_target_grpc_proxy" in
   let __resource =
-    { description; name; url_map; validate_for_proxyless; timeouts }
+    {
+      description;
+      id;
+      name;
+      project;
+      url_map;
+      validate_for_proxyless;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_grpc_proxy __resource);

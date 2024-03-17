@@ -7,6 +7,7 @@ type azurerm_api_management_named_value__value_from_key_vault
 type azurerm_api_management_named_value
 
 val azurerm_api_management_named_value :
+  ?id:string ->
   ?secret:bool ->
   ?tags:string list ->
   ?value:string ->

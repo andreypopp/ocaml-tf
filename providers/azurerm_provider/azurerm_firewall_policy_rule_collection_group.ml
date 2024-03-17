@@ -129,6 +129,7 @@ type azurerm_firewall_policy_rule_collection_group__timeouts = {
 
 type azurerm_firewall_policy_rule_collection_group = {
   firewall_policy_id : string;  (** firewall_policy_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   priority : float;  (** priority *)
   application_rule_collection :
@@ -146,7 +147,7 @@ type azurerm_firewall_policy_rule_collection_group = {
 [@@deriving yojson_of]
 (** azurerm_firewall_policy_rule_collection_group *)
 
-let azurerm_firewall_policy_rule_collection_group ?timeouts
+let azurerm_firewall_policy_rule_collection_group ?id ?timeouts
     ~firewall_policy_id ~name ~priority ~application_rule_collection
     ~nat_rule_collection ~network_rule_collection __resource_id =
   let __resource_type =
@@ -155,6 +156,7 @@ let azurerm_firewall_policy_rule_collection_group ?timeouts
   let __resource =
     {
       firewall_policy_id;
+      id;
       name;
       priority;
       application_rule_collection;

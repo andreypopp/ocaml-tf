@@ -59,15 +59,35 @@ type aws_rds_cluster__master_user_secret = {
 [@@deriving yojson_of]
 
 type aws_rds_cluster = {
+  allocated_storage : float option; [@option]
+      (** allocated_storage *)
   allow_major_version_upgrade : bool option; [@option]
       (** allow_major_version_upgrade *)
+  apply_immediately : bool option; [@option]
+      (** apply_immediately *)
+  availability_zones : string list option; [@option]
+      (** availability_zones *)
   backtrack_window : float option; [@option]  (** backtrack_window *)
+  backup_retention_period : float option; [@option]
+      (** backup_retention_period *)
+  cluster_identifier : string option; [@option]
+      (** cluster_identifier *)
+  cluster_identifier_prefix : string option; [@option]
+      (** cluster_identifier_prefix *)
+  cluster_members : string list option; [@option]
+      (** cluster_members *)
   copy_tags_to_snapshot : bool option; [@option]
       (** copy_tags_to_snapshot *)
+  database_name : string option; [@option]  (** database_name *)
   db_cluster_instance_class : string option; [@option]
       (** db_cluster_instance_class *)
+  db_cluster_parameter_group_name : string option; [@option]
+      (** db_cluster_parameter_group_name *)
   db_instance_parameter_group_name : string option; [@option]
       (** db_instance_parameter_group_name *)
+  db_subnet_group_name : string option; [@option]
+      (** db_subnet_group_name *)
+  db_system_id : string option; [@option]  (** db_system_id *)
   delete_automated_backups : bool option; [@option]
       (** delete_automated_backups *)
   deletion_protection : bool option; [@option]
@@ -83,16 +103,29 @@ type aws_rds_cluster = {
       (** enabled_cloudwatch_logs_exports *)
   engine : string;  (** engine *)
   engine_mode : string option; [@option]  (** engine_mode *)
+  engine_version : string option; [@option]  (** engine_version *)
   final_snapshot_identifier : string option; [@option]
       (** final_snapshot_identifier *)
   global_cluster_identifier : string option; [@option]
       (** global_cluster_identifier *)
   iam_database_authentication_enabled : bool option; [@option]
       (** iam_database_authentication_enabled *)
+  iam_roles : string list option; [@option]  (** iam_roles *)
+  id : string option; [@option]  (** id *)
   iops : float option; [@option]  (** iops *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
   manage_master_user_password : bool option; [@option]
       (** manage_master_user_password *)
   master_password : string option; [@option]  (** master_password *)
+  master_user_secret_kms_key_id : string option; [@option]
+      (** master_user_secret_kms_key_id *)
+  master_username : string option; [@option]  (** master_username *)
+  network_type : string option; [@option]  (** network_type *)
+  port : float option; [@option]  (** port *)
+  preferred_backup_window : string option; [@option]
+      (** preferred_backup_window *)
+  preferred_maintenance_window : string option; [@option]
+      (** preferred_maintenance_window *)
   replication_source_identifier : string option; [@option]
       (** replication_source_identifier *)
   skip_final_snapshot : bool option; [@option]
@@ -100,7 +133,14 @@ type aws_rds_cluster = {
   snapshot_identifier : string option; [@option]
       (** snapshot_identifier *)
   source_region : string option; [@option]  (** source_region *)
+  storage_encrypted : bool option; [@option]
+      (** storage_encrypted *)
+  storage_type : string option; [@option]  (** storage_type *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  vpc_security_group_ids : string list option; [@option]
+      (** vpc_security_group_ids *)
   restore_to_point_in_time :
     aws_rds_cluster__restore_to_point_in_time list;
   s3_import : aws_rds_cluster__s3_import list;
@@ -113,27 +153,46 @@ type aws_rds_cluster = {
 [@@deriving yojson_of]
 (** aws_rds_cluster *)
 
-let aws_rds_cluster ?allow_major_version_upgrade ?backtrack_window
-    ?copy_tags_to_snapshot ?db_cluster_instance_class
-    ?db_instance_parameter_group_name ?delete_automated_backups
-    ?deletion_protection ?domain ?domain_iam_role_name
-    ?enable_global_write_forwarding ?enable_http_endpoint
-    ?enabled_cloudwatch_logs_exports ?engine_mode
-    ?final_snapshot_identifier ?global_cluster_identifier
-    ?iam_database_authentication_enabled ?iops
-    ?manage_master_user_password ?master_password
-    ?replication_source_identifier ?skip_final_snapshot
-    ?snapshot_identifier ?source_region ?tags ?timeouts ~engine
+let aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
+    ?apply_immediately ?availability_zones ?backtrack_window
+    ?backup_retention_period ?cluster_identifier
+    ?cluster_identifier_prefix ?cluster_members
+    ?copy_tags_to_snapshot ?database_name ?db_cluster_instance_class
+    ?db_cluster_parameter_group_name
+    ?db_instance_parameter_group_name ?db_subnet_group_name
+    ?db_system_id ?delete_automated_backups ?deletion_protection
+    ?domain ?domain_iam_role_name ?enable_global_write_forwarding
+    ?enable_http_endpoint ?enabled_cloudwatch_logs_exports
+    ?engine_mode ?engine_version ?final_snapshot_identifier
+    ?global_cluster_identifier ?iam_database_authentication_enabled
+    ?iam_roles ?id ?iops ?kms_key_id ?manage_master_user_password
+    ?master_password ?master_user_secret_kms_key_id ?master_username
+    ?network_type ?port ?preferred_backup_window
+    ?preferred_maintenance_window ?replication_source_identifier
+    ?skip_final_snapshot ?snapshot_identifier ?source_region
+    ?storage_encrypted ?storage_type ?tags ?tags_all
+    ?vpc_security_group_ids ?timeouts ~engine
     ~restore_to_point_in_time ~s3_import ~scaling_configuration
     ~serverlessv2_scaling_configuration __resource_id =
   let __resource_type = "aws_rds_cluster" in
   let __resource =
     {
+      allocated_storage;
       allow_major_version_upgrade;
+      apply_immediately;
+      availability_zones;
       backtrack_window;
+      backup_retention_period;
+      cluster_identifier;
+      cluster_identifier_prefix;
+      cluster_members;
       copy_tags_to_snapshot;
+      database_name;
       db_cluster_instance_class;
+      db_cluster_parameter_group_name;
       db_instance_parameter_group_name;
+      db_subnet_group_name;
+      db_system_id;
       delete_automated_backups;
       deletion_protection;
       domain;
@@ -143,17 +202,31 @@ let aws_rds_cluster ?allow_major_version_upgrade ?backtrack_window
       enabled_cloudwatch_logs_exports;
       engine;
       engine_mode;
+      engine_version;
       final_snapshot_identifier;
       global_cluster_identifier;
       iam_database_authentication_enabled;
+      iam_roles;
+      id;
       iops;
+      kms_key_id;
       manage_master_user_password;
       master_password;
+      master_user_secret_kms_key_id;
+      master_username;
+      network_type;
+      port;
+      preferred_backup_window;
+      preferred_maintenance_window;
       replication_source_identifier;
       skip_final_snapshot;
       snapshot_identifier;
       source_region;
+      storage_encrypted;
+      storage_type;
       tags;
+      tags_all;
+      vpc_security_group_ids;
       restore_to_point_in_time;
       s3_import;
       scaling_configuration;

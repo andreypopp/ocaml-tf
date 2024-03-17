@@ -66,6 +66,7 @@ enablement check, quota, and billing. *)
       (** Asset content type. If not specified, no content but the asset name and type will be returned. Possible values: [CONTENT_TYPE_UNSPECIFIED, RESOURCE, IAM_POLICY, ORG_POLICY, OS_INVENTORY, ACCESS_POLICY] *)
   feed_id : string;
       (** This is the client-assigned asset feed identifier and it needs to be unique under a specific parent. *)
+  id : string option; [@option]  (** id *)
   org_id : string;
       (** The organization this feed should be created in. *)
   condition : google_cloud_asset_organization_feed__condition list;
@@ -77,7 +78,7 @@ enablement check, quota, and billing. *)
 (** google_cloud_asset_organization_feed *)
 
 let google_cloud_asset_organization_feed ?asset_names ?asset_types
-    ?content_type ?timeouts ~billing_project ~feed_id ~org_id
+    ?content_type ?id ?timeouts ~billing_project ~feed_id ~org_id
     ~condition ~feed_output_config __resource_id =
   let __resource_type = "google_cloud_asset_organization_feed" in
   let __resource =
@@ -87,6 +88,7 @@ let google_cloud_asset_organization_feed ?asset_names ?asset_types
       billing_project;
       content_type;
       feed_id;
+      id;
       org_id;
       condition;
       feed_output_config;

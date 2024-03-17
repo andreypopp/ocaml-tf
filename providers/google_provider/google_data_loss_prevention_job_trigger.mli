@@ -144,7 +144,9 @@ type google_data_loss_prevention_job_trigger
 val google_data_loss_prevention_job_trigger :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
   ?status:string ->
+  ?trigger_id:string ->
   ?timeouts:google_data_loss_prevention_job_trigger__timeouts ->
   parent:string ->
   inspect_job:

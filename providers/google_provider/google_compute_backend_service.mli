@@ -41,9 +41,15 @@ val google_compute_backend_service :
   ?edge_security_policy:string ->
   ?enable_cdn:bool ->
   ?health_checks:string list ->
+  ?id:string ->
   ?load_balancing_scheme:string ->
   ?locality_lb_policy:string ->
+  ?port_name:string ->
+  ?project:string ->
+  ?protocol:string ->
   ?security_policy:string ->
+  ?session_affinity:string ->
+  ?timeout_sec:float ->
   ?timeouts:google_compute_backend_service__timeouts ->
   name:string ->
   backend:google_compute_backend_service__backend list ->

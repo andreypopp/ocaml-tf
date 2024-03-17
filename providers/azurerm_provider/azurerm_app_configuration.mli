@@ -12,32 +12,29 @@ type azurerm_app_configuration__primary_read_key = {
   id : string;  (** id *)
   secret : string;  (** secret *)
 }
-[@@deriving yojson_of]
 
 type azurerm_app_configuration__primary_write_key = {
   connection_string : string;  (** connection_string *)
   id : string;  (** id *)
   secret : string;  (** secret *)
 }
-[@@deriving yojson_of]
 
 type azurerm_app_configuration__secondary_read_key = {
   connection_string : string;  (** connection_string *)
   id : string;  (** id *)
   secret : string;  (** secret *)
 }
-[@@deriving yojson_of]
 
 type azurerm_app_configuration__secondary_write_key = {
   connection_string : string;  (** connection_string *)
   id : string;  (** id *)
   secret : string;  (** secret *)
 }
-[@@deriving yojson_of]
 
 type azurerm_app_configuration
 
 val azurerm_app_configuration :
+  ?id:string ->
   ?local_auth_enabled:bool ->
   ?public_network_access:string ->
   ?purge_protection_enabled:bool ->

@@ -17,6 +17,7 @@ type azurerm_stream_analytics_output_powerbi = {
   dataset : string;  (** dataset *)
   group_id : string;  (** group_id *)
   group_name : string;  (** group_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   stream_analytics_job_id : string;  (** stream_analytics_job_id *)
   table : string;  (** table *)
@@ -29,15 +30,17 @@ type azurerm_stream_analytics_output_powerbi = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_powerbi *)
 
-let azurerm_stream_analytics_output_powerbi ?token_user_display_name
-    ?token_user_principal_name ?timeouts ~dataset ~group_id
-    ~group_name ~name ~stream_analytics_job_id ~table __resource_id =
+let azurerm_stream_analytics_output_powerbi ?id
+    ?token_user_display_name ?token_user_principal_name ?timeouts
+    ~dataset ~group_id ~group_name ~name ~stream_analytics_job_id
+    ~table __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_powerbi" in
   let __resource =
     {
       dataset;
       group_id;
       group_name;
+      id;
       name;
       stream_analytics_job_id;
       table;

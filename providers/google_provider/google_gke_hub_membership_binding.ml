@@ -18,6 +18,7 @@ type google_gke_hub_membership_binding__state = {
 [@@deriving yojson_of]
 
 type google_gke_hub_membership_binding = {
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Labels for this Membership binding.
 
@@ -28,6 +29,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   membership_binding_id : string;
       (** The client-provided identifier of the membership binding. *)
   membership_id : string;  (** Id of the membership *)
+  project : string option; [@option]  (** project *)
   scope : string;
       (** A Workspace resource name in the format
 'projects/*/locations/*/scopes/*'. *)
@@ -36,15 +38,18 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_gke_hub_membership_binding *)
 
-let google_gke_hub_membership_binding ?labels ?timeouts ~location
-    ~membership_binding_id ~membership_id ~scope __resource_id =
+let google_gke_hub_membership_binding ?id ?labels ?project ?timeouts
+    ~location ~membership_binding_id ~membership_id ~scope
+    __resource_id =
   let __resource_type = "google_gke_hub_membership_binding" in
   let __resource =
     {
+      id;
       labels;
       location;
       membership_binding_id;
       membership_id;
+      project;
       scope;
       timeouts;
     }

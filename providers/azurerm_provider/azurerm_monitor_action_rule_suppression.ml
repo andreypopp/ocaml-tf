@@ -116,6 +116,7 @@ type azurerm_monitor_action_rule_suppression__timeouts = {
 type azurerm_monitor_action_rule_suppression = {
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -129,7 +130,7 @@ type azurerm_monitor_action_rule_suppression = {
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression *)
 
-let azurerm_monitor_action_rule_suppression ?description ?enabled
+let azurerm_monitor_action_rule_suppression ?description ?enabled ?id
     ?tags ?timeouts ~name ~resource_group_name ~condition ~scope
     ~suppression __resource_id =
   let __resource_type = "azurerm_monitor_action_rule_suppression" in
@@ -137,6 +138,7 @@ let azurerm_monitor_action_rule_suppression ?description ?enabled
     {
       description;
       enabled;
+      id;
       name;
       resource_group_name;
       tags;

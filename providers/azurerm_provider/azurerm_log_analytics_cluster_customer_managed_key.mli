@@ -6,6 +6,7 @@ type azurerm_log_analytics_cluster_customer_managed_key__timeouts
 type azurerm_log_analytics_cluster_customer_managed_key
 
 val azurerm_log_analytics_cluster_customer_managed_key :
+  ?id:string ->
   ?timeouts:
     azurerm_log_analytics_cluster_customer_managed_key__timeouts ->
   key_vault_key_id:string ->

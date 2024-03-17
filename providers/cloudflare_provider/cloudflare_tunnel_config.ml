@@ -161,6 +161,7 @@ type cloudflare_tunnel_config__config = {
 type cloudflare_tunnel_config = {
   account_id : string;
       (** The account identifier to target for the resource. *)
+  id : string option; [@option]  (** id *)
   tunnel_id : string;
       (** Identifier of the Tunnel to target for this configuration. *)
   config : cloudflare_tunnel_config__config list;
@@ -169,10 +170,10 @@ type cloudflare_tunnel_config = {
 (** Provides a Cloudflare Tunnel configuration resource.
  *)
 
-let cloudflare_tunnel_config ~account_id ~tunnel_id ~config
+let cloudflare_tunnel_config ?id ~account_id ~tunnel_id ~config
     __resource_id =
   let __resource_type = "cloudflare_tunnel_config" in
-  let __resource = { account_id; tunnel_id; config } in
+  let __resource = { account_id; id; tunnel_id; config } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_tunnel_config __resource);
   ()

@@ -13,6 +13,8 @@ val google_dns_policy :
   ?description:string ->
   ?enable_inbound_forwarding:bool ->
   ?enable_logging:bool ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_dns_policy__timeouts ->
   name:string ->
   alternative_name_server_config:

@@ -64,6 +64,7 @@ type azurerm_data_protection_backup_policy_kubernetes_cluster__timeouts = {
 type azurerm_data_protection_backup_policy_kubernetes_cluster = {
   backup_repeating_time_intervals : string list;
       (** backup_repeating_time_intervals *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   time_zone : string option; [@option]  (** time_zone *)
@@ -81,7 +82,7 @@ type azurerm_data_protection_backup_policy_kubernetes_cluster = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_kubernetes_cluster *)
 
-let azurerm_data_protection_backup_policy_kubernetes_cluster
+let azurerm_data_protection_backup_policy_kubernetes_cluster ?id
     ?time_zone ?timeouts ~backup_repeating_time_intervals ~name
     ~resource_group_name ~vault_name ~default_retention_rule
     ~retention_rule __resource_id =
@@ -91,6 +92,7 @@ let azurerm_data_protection_backup_policy_kubernetes_cluster
   let __resource =
     {
       backup_repeating_time_intervals;
+      id;
       name;
       resource_group_name;
       time_zone;

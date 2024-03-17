@@ -19,6 +19,7 @@ type azurerm_api_management_product = {
       (** approval_required *)
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   product_id : string;  (** product_id *)
   published : bool;  (** published *)
   resource_group_name : string;  (** resource_group_name *)
@@ -33,7 +34,7 @@ type azurerm_api_management_product = {
 (** azurerm_api_management_product *)
 
 let azurerm_api_management_product ?approval_required ?description
-    ?subscription_required ?subscriptions_limit ?terms ?timeouts
+    ?id ?subscription_required ?subscriptions_limit ?terms ?timeouts
     ~api_management_name ~display_name ~product_id ~published
     ~resource_group_name __resource_id =
   let __resource_type = "azurerm_api_management_product" in
@@ -43,6 +44,7 @@ let azurerm_api_management_product ?approval_required ?description
       approval_required;
       description;
       display_name;
+      id;
       product_id;
       published;
       resource_group_name;

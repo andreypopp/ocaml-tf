@@ -126,8 +126,11 @@ type aws_networkfirewall_firewall_policy__firewall_policy = {
 
 type aws_networkfirewall_firewall_policy = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   encryption_configuration :
     aws_networkfirewall_firewall_policy__encryption_configuration
     list;
@@ -137,14 +140,17 @@ type aws_networkfirewall_firewall_policy = {
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall_policy *)
 
-let aws_networkfirewall_firewall_policy ?description ?tags ~name
-    ~encryption_configuration ~firewall_policy __resource_id =
+let aws_networkfirewall_firewall_policy ?description ?id ?tags
+    ?tags_all ~name ~encryption_configuration ~firewall_policy
+    __resource_id =
   let __resource_type = "aws_networkfirewall_firewall_policy" in
   let __resource =
     {
       description;
+      id;
       name;
       tags;
+      tags_all;
       encryption_configuration;
       firewall_policy;
     }

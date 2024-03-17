@@ -40,12 +40,16 @@ val google_app_engine_flexible_app_version :
   ?default_expiration:string ->
   ?delete_service_on_destroy:bool ->
   ?env_variables:(string * string) list ->
+  ?id:string ->
   ?inbound_services:string list ->
   ?instance_class:string ->
   ?nobuild_files_regex:string ->
   ?noop_on_destroy:bool ->
+  ?project:string ->
+  ?runtime_api_version:string ->
   ?runtime_channel:string ->
   ?runtime_main_executable_path:string ->
+  ?service_account:string ->
   ?serving_status:string ->
   ?version_id:string ->
   ?timeouts:google_app_engine_flexible_app_version__timeouts ->

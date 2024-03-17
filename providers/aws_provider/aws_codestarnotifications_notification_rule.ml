@@ -15,17 +15,20 @@ type aws_codestarnotifications_notification_rule__target = {
 type aws_codestarnotifications_notification_rule = {
   detail_type : string;  (** detail_type *)
   event_type_ids : string list;  (** event_type_ids *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource : string;  (** resource *)
   status : string option; [@option]  (** status *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target : aws_codestarnotifications_notification_rule__target list;
 }
 [@@deriving yojson_of]
 (** aws_codestarnotifications_notification_rule *)
 
-let aws_codestarnotifications_notification_rule ?status ?tags
-    ~detail_type ~event_type_ids ~name ~resource ~target
+let aws_codestarnotifications_notification_rule ?id ?status ?tags
+    ?tags_all ~detail_type ~event_type_ids ~name ~resource ~target
     __resource_id =
   let __resource_type =
     "aws_codestarnotifications_notification_rule"
@@ -34,10 +37,12 @@ let aws_codestarnotifications_notification_rule ?status ?tags
     {
       detail_type;
       event_type_ids;
+      id;
       name;
       resource;
       status;
       tags;
+      tags_all;
       target;
     }
   in

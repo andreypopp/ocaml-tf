@@ -14,6 +14,7 @@ type azurerm_mssql_virtual_machine_availability_group_listener
 
 val azurerm_mssql_virtual_machine_availability_group_listener :
   ?availability_group_name:string ->
+  ?id:string ->
   ?port:float ->
   ?timeouts:
     azurerm_mssql_virtual_machine_availability_group_listener__timeouts ->

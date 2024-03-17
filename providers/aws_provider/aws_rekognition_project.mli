@@ -6,6 +6,7 @@ type aws_rekognition_project__timeouts
 type aws_rekognition_project
 
 val aws_rekognition_project :
+  ?auto_update:string ->
   ?feature:string ->
   ?timeouts:aws_rekognition_project__timeouts ->
   name:string ->

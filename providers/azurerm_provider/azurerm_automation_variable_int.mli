@@ -8,6 +8,7 @@ type azurerm_automation_variable_int
 val azurerm_automation_variable_int :
   ?description:string ->
   ?encrypted:bool ->
+  ?id:string ->
   ?value:float ->
   ?timeouts:azurerm_automation_variable_int__timeouts ->
   automation_account_name:string ->

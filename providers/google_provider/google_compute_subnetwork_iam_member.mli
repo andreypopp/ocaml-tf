@@ -6,6 +6,9 @@ type google_compute_subnetwork_iam_member__condition
 type google_compute_subnetwork_iam_member
 
 val google_compute_subnetwork_iam_member :
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   member:string ->
   role:string ->
   subnetwork:string ->

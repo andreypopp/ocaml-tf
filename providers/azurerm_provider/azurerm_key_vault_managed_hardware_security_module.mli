@@ -7,6 +7,7 @@ type azurerm_key_vault_managed_hardware_security_module__timeouts
 type azurerm_key_vault_managed_hardware_security_module
 
 val azurerm_key_vault_managed_hardware_security_module :
+  ?id:string ->
   ?public_network_access_enabled:bool ->
   ?purge_protection_enabled:bool ->
   ?security_domain_key_vault_certificate_ids:string list ->

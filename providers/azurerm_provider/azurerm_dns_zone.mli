@@ -7,6 +7,7 @@ type azurerm_dns_zone__timeouts
 type azurerm_dns_zone
 
 val azurerm_dns_zone :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dns_zone__timeouts ->
   name:string ->

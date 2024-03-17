@@ -22,8 +22,11 @@ type google_data_pipeline_pipeline
 
 val google_data_pipeline_pipeline :
   ?display_name:string ->
+  ?id:string ->
   ?pipeline_sources:(string * string) list ->
+  ?project:string ->
   ?region:string ->
+  ?scheduler_service_account_email:string ->
   ?timeouts:google_data_pipeline_pipeline__timeouts ->
   name:string ->
   state:string ->

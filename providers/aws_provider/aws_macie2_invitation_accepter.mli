@@ -6,6 +6,7 @@ type aws_macie2_invitation_accepter__timeouts
 type aws_macie2_invitation_accepter
 
 val aws_macie2_invitation_accepter :
+  ?id:string ->
   ?timeouts:aws_macie2_invitation_accepter__timeouts ->
   administrator_account_id:string ->
   string ->

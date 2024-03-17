@@ -8,6 +8,7 @@ type azurerm_synapse_sql_pool_workload_classifier
 val azurerm_synapse_sql_pool_workload_classifier :
   ?context:string ->
   ?end_time:string ->
+  ?id:string ->
   ?importance:string ->
   ?label:string ->
   ?start_time:string ->

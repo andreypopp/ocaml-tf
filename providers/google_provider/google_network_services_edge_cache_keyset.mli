@@ -9,7 +9,9 @@ type google_network_services_edge_cache_keyset
 
 val google_network_services_edge_cache_keyset :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_network_services_edge_cache_keyset__timeouts ->
   name:string ->
   public_key:

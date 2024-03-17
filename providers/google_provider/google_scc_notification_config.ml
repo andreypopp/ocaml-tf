@@ -48,6 +48,7 @@ type google_scc_notification_config = {
       (** This must be unique within the organization. *)
   description : string option; [@option]
       (** The description of the notification config (max of 1024 characters). *)
+  id : string option; [@option]  (** id *)
   organization : string;
       (** The organization whose Cloud Security Command Center the Notification
 Config lives in. *)
@@ -61,13 +62,15 @@ projects/[project_id]/topics/[topic]. *)
 [@@deriving yojson_of]
 (** google_scc_notification_config *)
 
-let google_scc_notification_config ?description ?timeouts ~config_id
-    ~organization ~pubsub_topic ~streaming_config __resource_id =
+let google_scc_notification_config ?description ?id ?timeouts
+    ~config_id ~organization ~pubsub_topic ~streaming_config
+    __resource_id =
   let __resource_type = "google_scc_notification_config" in
   let __resource =
     {
       config_id;
       description;
+      id;
       organization;
       pubsub_topic;
       streaming_config;

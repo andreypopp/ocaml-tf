@@ -9,6 +9,8 @@ val azurerm_resource_group_policy_exemption :
   ?description:string ->
   ?display_name:string ->
   ?expires_on:string ->
+  ?id:string ->
+  ?metadata:string ->
   ?policy_definition_reference_ids:string list ->
   ?timeouts:azurerm_resource_group_policy_exemption__timeouts ->
   exemption_category:string ->

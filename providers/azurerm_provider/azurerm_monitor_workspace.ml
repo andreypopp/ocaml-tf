@@ -14,6 +14,7 @@ type azurerm_monitor_workspace__timeouts = {
 (** azurerm_monitor_workspace__timeouts *)
 
 type azurerm_monitor_workspace = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -25,11 +26,13 @@ type azurerm_monitor_workspace = {
 [@@deriving yojson_of]
 (** azurerm_monitor_workspace *)
 
-let azurerm_monitor_workspace ?public_network_access_enabled ?tags
-    ?timeouts ~location ~name ~resource_group_name __resource_id =
+let azurerm_monitor_workspace ?id ?public_network_access_enabled
+    ?tags ?timeouts ~location ~name ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_monitor_workspace" in
   let __resource =
     {
+      id;
       location;
       name;
       public_network_access_enabled;

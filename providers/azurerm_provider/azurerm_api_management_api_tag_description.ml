@@ -20,6 +20,7 @@ type azurerm_api_management_api_tag_description = {
       (** external_documentation_description *)
   external_documentation_url : string option; [@option]
       (** external_documentation_url *)
+  id : string option; [@option]  (** id *)
   timeouts :
     azurerm_api_management_api_tag_description__timeouts option;
 }
@@ -28,7 +29,7 @@ type azurerm_api_management_api_tag_description = {
 
 let azurerm_api_management_api_tag_description ?description
     ?external_documentation_description ?external_documentation_url
-    ?timeouts ~api_tag_id __resource_id =
+    ?id ?timeouts ~api_tag_id __resource_id =
   let __resource_type =
     "azurerm_api_management_api_tag_description"
   in
@@ -38,6 +39,7 @@ let azurerm_api_management_api_tag_description ?description
       description;
       external_documentation_description;
       external_documentation_url;
+      id;
       timeouts;
     }
   in

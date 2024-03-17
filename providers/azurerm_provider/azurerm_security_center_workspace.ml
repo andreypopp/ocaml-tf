@@ -14,6 +14,7 @@ type azurerm_security_center_workspace__timeouts = {
 (** azurerm_security_center_workspace__timeouts *)
 
 type azurerm_security_center_workspace = {
+  id : string option; [@option]  (** id *)
   scope : string;  (** scope *)
   workspace_id : string;  (** workspace_id *)
   timeouts : azurerm_security_center_workspace__timeouts option;
@@ -21,10 +22,10 @@ type azurerm_security_center_workspace = {
 [@@deriving yojson_of]
 (** azurerm_security_center_workspace *)
 
-let azurerm_security_center_workspace ?timeouts ~scope ~workspace_id
-    __resource_id =
+let azurerm_security_center_workspace ?id ?timeouts ~scope
+    ~workspace_id __resource_id =
   let __resource_type = "azurerm_security_center_workspace" in
-  let __resource = { scope; workspace_id; timeouts } in
+  let __resource = { id; scope; workspace_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_security_center_workspace __resource);
   ()

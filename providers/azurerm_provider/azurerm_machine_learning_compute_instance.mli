@@ -11,6 +11,7 @@ type azurerm_machine_learning_compute_instance
 val azurerm_machine_learning_compute_instance :
   ?authorization_type:string ->
   ?description:string ->
+  ?id:string ->
   ?local_auth_enabled:bool ->
   ?node_public_ip_enabled:bool ->
   ?subnet_resource_id:string ->

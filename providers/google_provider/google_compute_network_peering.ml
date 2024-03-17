@@ -17,6 +17,7 @@ type google_compute_network_peering = {
       (** Whether to export the custom routes to the peer network. Defaults to false. *)
   export_subnet_routes_with_public_ip : bool option; [@option]
       (** export_subnet_routes_with_public_ip *)
+  id : string option; [@option]  (** id *)
   import_custom_routes : bool option; [@option]
       (** Whether to export the custom routes from the peer network. Defaults to false. *)
   import_subnet_routes_with_public_ip : bool option; [@option]
@@ -33,7 +34,7 @@ type google_compute_network_peering = {
 (** google_compute_network_peering *)
 
 let google_compute_network_peering ?export_custom_routes
-    ?export_subnet_routes_with_public_ip ?import_custom_routes
+    ?export_subnet_routes_with_public_ip ?id ?import_custom_routes
     ?import_subnet_routes_with_public_ip ?stack_type ?timeouts ~name
     ~network ~peer_network __resource_id =
   let __resource_type = "google_compute_network_peering" in
@@ -41,6 +42,7 @@ let google_compute_network_peering ?export_custom_routes
     {
       export_custom_routes;
       export_subnet_routes_with_public_ip;
+      id;
       import_custom_routes;
       import_subnet_routes_with_public_ip;
       name;

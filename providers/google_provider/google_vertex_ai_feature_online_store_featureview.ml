@@ -48,6 +48,7 @@ type google_vertex_ai_feature_online_store_featureview__timeouts = {
 type google_vertex_ai_feature_online_store_featureview = {
   feature_online_store : string;
       (** The name of the FeatureOnlineStore to use for the featureview. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A set of key/value label pairs to assign to this FeatureView.
 
@@ -56,6 +57,7 @@ type google_vertex_ai_feature_online_store_featureview = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string option; [@option]
       (** Name of the FeatureView. This value may be up to 60 characters, and valid characters are [a-z0-9_]. The first character cannot be a number. *)
+  project : string option; [@option]  (** project *)
   region : string;
       (** The region for the resource. It should be the same as the featureonlinestore region. *)
   big_query_source :
@@ -74,17 +76,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_feature_online_store_featureview *)
 
-let google_vertex_ai_feature_online_store_featureview ?labels ?name
-    ?timeouts ~feature_online_store ~region ~big_query_source
-    ~feature_registry_source ~sync_config __resource_id =
+let google_vertex_ai_feature_online_store_featureview ?id ?labels
+    ?name ?project ?timeouts ~feature_online_store ~region
+    ~big_query_source ~feature_registry_source ~sync_config
+    __resource_id =
   let __resource_type =
     "google_vertex_ai_feature_online_store_featureview"
   in
   let __resource =
     {
       feature_online_store;
+      id;
       labels;
       name;
+      project;
       region;
       big_query_source;
       feature_registry_source;

@@ -157,6 +157,8 @@ For OIDC providers, the following rules apply:
 However, existing tokens still grant access. *)
   display_name : string option; [@option]
       (** A display name for the provider. Cannot exceed 32 characters. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   workload_identity_pool_id : string;
       (** The ID used for the pool, which is the final component of the pool resource name. This
 value should be 4-32 characters, and may contain the characters [a-z0-9-]. The prefix
@@ -175,9 +177,10 @@ value must be 4-32 characters, and may contain the characters [a-z0-9-]. The pre
 (** google_iam_workload_identity_pool_provider *)
 
 let google_iam_workload_identity_pool_provider ?attribute_condition
-    ?attribute_mapping ?description ?disabled ?display_name ?timeouts
-    ~workload_identity_pool_id ~workload_identity_pool_provider_id
-    ~aws ~oidc ~saml __resource_id =
+    ?attribute_mapping ?description ?disabled ?display_name ?id
+    ?project ?timeouts ~workload_identity_pool_id
+    ~workload_identity_pool_provider_id ~aws ~oidc ~saml
+    __resource_id =
   let __resource_type =
     "google_iam_workload_identity_pool_provider"
   in
@@ -188,6 +191,8 @@ let google_iam_workload_identity_pool_provider ?attribute_condition
       description;
       disabled;
       display_name;
+      id;
+      project;
       workload_identity_pool_id;
       workload_identity_pool_provider_id;
       aws;

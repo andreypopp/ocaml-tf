@@ -9,10 +9,12 @@ type google_bigtable_app_profile
 
 val google_bigtable_app_profile :
   ?description:string ->
+  ?id:string ->
   ?ignore_warnings:bool ->
   ?instance:string ->
   ?multi_cluster_routing_cluster_ids:string list ->
   ?multi_cluster_routing_use_any:bool ->
+  ?project:string ->
   ?timeouts:google_bigtable_app_profile__timeouts ->
   app_profile_id:string ->
   single_cluster_routing:

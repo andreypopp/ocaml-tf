@@ -182,8 +182,13 @@ type aws_sagemaker_endpoint_configuration__shadow_production_variants = {
 (** aws_sagemaker_endpoint_configuration__shadow_production_variants *)
 
 type aws_sagemaker_endpoint_configuration = {
+  id : string option; [@option]  (** id *)
   kms_key_arn : string option; [@option]  (** kms_key_arn *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   async_inference_config :
     aws_sagemaker_endpoint_configuration__async_inference_config list;
   data_capture_config :
@@ -197,14 +202,19 @@ type aws_sagemaker_endpoint_configuration = {
 [@@deriving yojson_of]
 (** aws_sagemaker_endpoint_configuration *)
 
-let aws_sagemaker_endpoint_configuration ?kms_key_arn ?tags
-    ~async_inference_config ~data_capture_config ~production_variants
+let aws_sagemaker_endpoint_configuration ?id ?kms_key_arn ?name
+    ?name_prefix ?tags ?tags_all ~async_inference_config
+    ~data_capture_config ~production_variants
     ~shadow_production_variants __resource_id =
   let __resource_type = "aws_sagemaker_endpoint_configuration" in
   let __resource =
     {
+      id;
       kms_key_arn;
+      name;
+      name_prefix;
       tags;
+      tags_all;
       async_inference_config;
       data_capture_config;
       production_variants;

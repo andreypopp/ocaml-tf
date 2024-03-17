@@ -10,6 +10,8 @@ type google_pubsub_lite_topic__timeouts
 type google_pubsub_lite_topic
 
 val google_pubsub_lite_topic :
+  ?id:string ->
+  ?project:string ->
   ?region:string ->
   ?zone:string ->
   ?timeouts:google_pubsub_lite_topic__timeouts ->

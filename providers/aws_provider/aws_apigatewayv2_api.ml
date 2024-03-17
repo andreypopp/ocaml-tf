@@ -26,12 +26,15 @@ type aws_apigatewayv2_api = {
   disable_execute_api_endpoint : bool option; [@option]
       (** disable_execute_api_endpoint *)
   fail_on_warnings : bool option; [@option]  (** fail_on_warnings *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   protocol_type : string;  (** protocol_type *)
   route_key : string option; [@option]  (** route_key *)
   route_selection_expression : string option; [@option]
       (** route_selection_expression *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   target : string option; [@option]  (** target *)
   version : string option; [@option]  (** version *)
   cors_configuration : aws_apigatewayv2_api__cors_configuration list;
@@ -41,9 +44,9 @@ type aws_apigatewayv2_api = {
 
 let aws_apigatewayv2_api ?api_key_selection_expression ?body
     ?credentials_arn ?description ?disable_execute_api_endpoint
-    ?fail_on_warnings ?route_key ?route_selection_expression ?tags
-    ?target ?version ~name ~protocol_type ~cors_configuration
-    __resource_id =
+    ?fail_on_warnings ?id ?route_key ?route_selection_expression
+    ?tags ?tags_all ?target ?version ~name ~protocol_type
+    ~cors_configuration __resource_id =
   let __resource_type = "aws_apigatewayv2_api" in
   let __resource =
     {
@@ -53,11 +56,13 @@ let aws_apigatewayv2_api ?api_key_selection_expression ?body
       description;
       disable_execute_api_endpoint;
       fail_on_warnings;
+      id;
       name;
       protocol_type;
       route_key;
       route_selection_expression;
       tags;
+      tags_all;
       target;
       version;
       cors_configuration;

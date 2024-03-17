@@ -44,11 +44,18 @@ type aws_gamelift_game_server_group__timeouts = {
 (** aws_gamelift_game_server_group__timeouts *)
 
 type aws_gamelift_game_server_group = {
+  balancing_strategy : string option; [@option]
+      (** balancing_strategy *)
   game_server_group_name : string;  (** game_server_group_name *)
+  game_server_protection_policy : string option; [@option]
+      (** game_server_protection_policy *)
+  id : string option; [@option]  (** id *)
   max_size : float;  (** max_size *)
   min_size : float;  (** min_size *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_subnets : string list option; [@option]  (** vpc_subnets *)
   auto_scaling_policy :
     aws_gamelift_game_server_group__auto_scaling_policy list;
@@ -61,18 +68,23 @@ type aws_gamelift_game_server_group = {
 [@@deriving yojson_of]
 (** aws_gamelift_game_server_group *)
 
-let aws_gamelift_game_server_group ?tags ?vpc_subnets ?timeouts
-    ~game_server_group_name ~max_size ~min_size ~role_arn
+let aws_gamelift_game_server_group ?balancing_strategy
+    ?game_server_protection_policy ?id ?tags ?tags_all ?vpc_subnets
+    ?timeouts ~game_server_group_name ~max_size ~min_size ~role_arn
     ~auto_scaling_policy ~instance_definition ~launch_template
     __resource_id =
   let __resource_type = "aws_gamelift_game_server_group" in
   let __resource =
     {
+      balancing_strategy;
       game_server_group_name;
+      game_server_protection_policy;
+      id;
       max_size;
       min_size;
       role_arn;
       tags;
+      tags_all;
       vpc_subnets;
       auto_scaling_policy;
       instance_definition;

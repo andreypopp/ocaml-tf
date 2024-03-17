@@ -10,6 +10,7 @@ val azurerm_local_network_gateway :
   ?address_space:string list ->
   ?gateway_address:string ->
   ?gateway_fqdn:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_local_network_gateway__timeouts ->
   location:string ->

@@ -96,6 +96,9 @@ type google_eventarc_trigger__transport = {
 type google_eventarc_trigger = {
   channel : string option; [@option]
       (** Optional. The name of the channel associated with the trigger in `projects/{project}/locations/{location}/channels/{channel}` format. You must provide a channel to receive events from Eventarc SaaS partners. *)
+  event_data_content_type : string option; [@option]
+      (** Optional. EventDataContentType specifies the type of payload in MIME format that is expected from the CloudEvent data field. This is set to `application/json` if the value is not defined. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. User labels attached to the triggers that can be used to group resources.
 
@@ -104,6 +107,8 @@ Please refer to the field `effective_labels` for all of the labels present on th
   location : string;  (** The location for the resource *)
   name : string;
       (** Required. The resource name of the trigger. Must be unique within the location on the project. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   service_account : string option; [@option]
       (** Optional. The IAM service account email associated with the trigger. The service account represents the identity of the trigger. The principal who calls this API must have `iam.serviceAccounts.actAs` permission in the service account. See https://cloud.google.com/iam/docs/understanding-service-accounts#sa_common for more information. For Cloud Run destinations, this service account is used to generate identity tokens when invoking the service. See https://cloud.google.com/run/docs/triggering/pubsub-push#create-service-account for information on how to invoke authenticated Cloud Run services. In order to create Audit Log triggers, the service account should also have `roles/eventarc.eventReceiver` IAM role. *)
   destination : google_eventarc_trigger__destination list;
@@ -115,16 +120,19 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_eventarc_trigger *)
 
-let google_eventarc_trigger ?channel ?labels ?service_account
-    ?timeouts ~location ~name ~destination ~matching_criteria
-    ~transport __resource_id =
+let google_eventarc_trigger ?channel ?event_data_content_type ?id
+    ?labels ?project ?service_account ?timeouts ~location ~name
+    ~destination ~matching_criteria ~transport __resource_id =
   let __resource_type = "google_eventarc_trigger" in
   let __resource =
     {
       channel;
+      event_data_content_type;
+      id;
       labels;
       location;
       name;
+      project;
       service_account;
       destination;
       matching_criteria;

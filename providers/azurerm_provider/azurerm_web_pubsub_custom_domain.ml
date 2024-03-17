@@ -14,6 +14,7 @@ type azurerm_web_pubsub_custom_domain__timeouts = {
 
 type azurerm_web_pubsub_custom_domain = {
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   web_pubsub_custom_certificate_id : string;
       (** web_pubsub_custom_certificate_id *)
@@ -23,12 +24,13 @@ type azurerm_web_pubsub_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_custom_domain *)
 
-let azurerm_web_pubsub_custom_domain ?timeouts ~domain_name ~name
+let azurerm_web_pubsub_custom_domain ?id ?timeouts ~domain_name ~name
     ~web_pubsub_custom_certificate_id ~web_pubsub_id __resource_id =
   let __resource_type = "azurerm_web_pubsub_custom_domain" in
   let __resource =
     {
       domain_name;
+      id;
       name;
       web_pubsub_custom_certificate_id;
       web_pubsub_id;

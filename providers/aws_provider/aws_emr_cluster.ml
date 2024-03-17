@@ -296,6 +296,9 @@ type aws_emr_cluster = {
   custom_ami_id : string option; [@option]  (** custom_ami_id *)
   ebs_root_volume_size : float option; [@option]
       (** ebs_root_volume_size *)
+  id : string option; [@option]  (** id *)
+  keep_job_flow_alive_when_no_steps : bool option; [@option]
+      (** keep_job_flow_alive_when_no_steps *)
   list_steps_states : string list option; [@option]
       (** list_steps_states *)
   log_encryption_kms_key_id : string option; [@option]
@@ -307,12 +310,19 @@ type aws_emr_cluster = {
       [@option]
       (** placement_group_config *)
   release_label : string;  (** release_label *)
+  scale_down_behavior : string option; [@option]
+      (** scale_down_behavior *)
   security_configuration : string option; [@option]
       (** security_configuration *)
   service_role : string;  (** service_role *)
+  step : aws_emr_cluster__step list option; [@option]  (** step *)
   step_concurrency_level : float option; [@option]
       (** step_concurrency_level *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  termination_protection : bool option; [@option]
+      (** termination_protection *)
   visible_to_all_users : bool option; [@option]
       (** visible_to_all_users *)
   auto_termination_policy :
@@ -331,13 +341,15 @@ type aws_emr_cluster = {
 
 let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
     ?configurations ?configurations_json ?custom_ami_id
-    ?ebs_root_volume_size ?list_steps_states
-    ?log_encryption_kms_key_id ?log_uri ?placement_group_config
-    ?security_configuration ?step_concurrency_level ?tags
-    ?visible_to_all_users ~name ~release_label ~service_role
-    ~auto_termination_policy ~bootstrap_action ~core_instance_fleet
-    ~core_instance_group ~ec2_attributes ~kerberos_attributes
-    ~master_instance_fleet ~master_instance_group __resource_id =
+    ?ebs_root_volume_size ?id ?keep_job_flow_alive_when_no_steps
+    ?list_steps_states ?log_encryption_kms_key_id ?log_uri
+    ?placement_group_config ?scale_down_behavior
+    ?security_configuration ?step ?step_concurrency_level ?tags
+    ?tags_all ?termination_protection ?visible_to_all_users ~name
+    ~release_label ~service_role ~auto_termination_policy
+    ~bootstrap_action ~core_instance_fleet ~core_instance_group
+    ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
+    ~master_instance_group __resource_id =
   let __resource_type = "aws_emr_cluster" in
   let __resource =
     {
@@ -348,16 +360,22 @@ let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
       configurations_json;
       custom_ami_id;
       ebs_root_volume_size;
+      id;
+      keep_job_flow_alive_when_no_steps;
       list_steps_states;
       log_encryption_kms_key_id;
       log_uri;
       name;
       placement_group_config;
       release_label;
+      scale_down_behavior;
       security_configuration;
       service_role;
+      step;
       step_concurrency_level;
       tags;
+      tags_all;
+      termination_protection;
       visible_to_all_users;
       auto_termination_policy;
       bootstrap_action;

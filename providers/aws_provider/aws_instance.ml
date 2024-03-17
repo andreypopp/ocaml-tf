@@ -165,16 +165,60 @@ type aws_instance__timeouts = {
 (** aws_instance__timeouts *)
 
 type aws_instance = {
+  ami : string option; [@option]  (** ami *)
+  associate_public_ip_address : bool option; [@option]
+      (** associate_public_ip_address *)
+  availability_zone : string option; [@option]
+      (** availability_zone *)
+  cpu_core_count : float option; [@option]  (** cpu_core_count *)
+  cpu_threads_per_core : float option; [@option]
+      (** cpu_threads_per_core *)
+  disable_api_stop : bool option; [@option]  (** disable_api_stop *)
+  disable_api_termination : bool option; [@option]
+      (** disable_api_termination *)
+  ebs_optimized : bool option; [@option]  (** ebs_optimized *)
   get_password_data : bool option; [@option]
       (** get_password_data *)
   hibernation : bool option; [@option]  (** hibernation *)
+  host_id : string option; [@option]  (** host_id *)
+  host_resource_group_arn : string option; [@option]
+      (** host_resource_group_arn *)
+  iam_instance_profile : string option; [@option]
+      (** iam_instance_profile *)
+  id : string option; [@option]  (** id *)
+  instance_initiated_shutdown_behavior : string option; [@option]
+      (** instance_initiated_shutdown_behavior *)
+  instance_type : string option; [@option]  (** instance_type *)
+  ipv6_address_count : float option; [@option]
+      (** ipv6_address_count *)
+  ipv6_addresses : string list option; [@option]
+      (** ipv6_addresses *)
+  key_name : string option; [@option]  (** key_name *)
+  monitoring : bool option; [@option]  (** monitoring *)
+  placement_group : string option; [@option]  (** placement_group *)
+  placement_partition_number : float option; [@option]
+      (** placement_partition_number *)
+  private_ip : string option; [@option]  (** private_ip *)
+  secondary_private_ips : string list option; [@option]
+      (** secondary_private_ips *)
+  security_groups : string list option; [@option]
+      (** security_groups *)
   source_dest_check : bool option; [@option]
       (** source_dest_check *)
+  subnet_id : string option; [@option]  (** subnet_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  tenancy : string option; [@option]  (** tenancy *)
+  user_data : string option; [@option]  (** user_data *)
+  user_data_base64 : string option; [@option]
+      (** user_data_base64 *)
   user_data_replace_on_change : bool option; [@option]
       (** user_data_replace_on_change *)
   volume_tags : (string * string) list option; [@option]
       (** volume_tags *)
+  vpc_security_group_ids : string list option; [@option]
+      (** vpc_security_group_ids *)
   capacity_reservation_specification :
     aws_instance__capacity_reservation_specification list;
   cpu_options : aws_instance__cpu_options list;
@@ -196,8 +240,17 @@ type aws_instance = {
 [@@deriving yojson_of]
 (** aws_instance *)
 
-let aws_instance ?get_password_data ?hibernation ?source_dest_check
-    ?tags ?user_data_replace_on_change ?volume_tags ?timeouts
+let aws_instance ?ami ?associate_public_ip_address ?availability_zone
+    ?cpu_core_count ?cpu_threads_per_core ?disable_api_stop
+    ?disable_api_termination ?ebs_optimized ?get_password_data
+    ?hibernation ?host_id ?host_resource_group_arn
+    ?iam_instance_profile ?id ?instance_initiated_shutdown_behavior
+    ?instance_type ?ipv6_address_count ?ipv6_addresses ?key_name
+    ?monitoring ?placement_group ?placement_partition_number
+    ?private_ip ?secondary_private_ips ?security_groups
+    ?source_dest_check ?subnet_id ?tags ?tags_all ?tenancy ?user_data
+    ?user_data_base64 ?user_data_replace_on_change ?volume_tags
+    ?vpc_security_group_ids ?timeouts
     ~capacity_reservation_specification ~cpu_options
     ~credit_specification ~ebs_block_device ~enclave_options
     ~ephemeral_block_device ~instance_market_options ~launch_template
@@ -206,12 +259,41 @@ let aws_instance ?get_password_data ?hibernation ?source_dest_check
   let __resource_type = "aws_instance" in
   let __resource =
     {
+      ami;
+      associate_public_ip_address;
+      availability_zone;
+      cpu_core_count;
+      cpu_threads_per_core;
+      disable_api_stop;
+      disable_api_termination;
+      ebs_optimized;
       get_password_data;
       hibernation;
+      host_id;
+      host_resource_group_arn;
+      iam_instance_profile;
+      id;
+      instance_initiated_shutdown_behavior;
+      instance_type;
+      ipv6_address_count;
+      ipv6_addresses;
+      key_name;
+      monitoring;
+      placement_group;
+      placement_partition_number;
+      private_ip;
+      secondary_private_ips;
+      security_groups;
       source_dest_check;
+      subnet_id;
       tags;
+      tags_all;
+      tenancy;
+      user_data;
+      user_data_base64;
       user_data_replace_on_change;
       volume_tags;
+      vpc_security_group_ids;
       capacity_reservation_specification;
       cpu_options;
       credit_specification;

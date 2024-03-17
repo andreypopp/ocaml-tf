@@ -9,6 +9,7 @@ type cloudflare_device_posture_rule
 val cloudflare_device_posture_rule :
   ?description:string ->
   ?expiration:string ->
+  ?id:string ->
   ?name:string ->
   ?schedule:string ->
   account_id:string ->

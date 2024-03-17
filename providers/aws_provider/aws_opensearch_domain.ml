@@ -205,8 +205,15 @@ type aws_opensearch_domain__vpc_options = {
 (** aws_opensearch_domain__vpc_options *)
 
 type aws_opensearch_domain = {
+  access_policies : string option; [@option]  (** access_policies *)
+  advanced_options : (string * string) list option; [@option]
+      (** advanced_options *)
   domain_name : string;  (** domain_name *)
+  engine_version : string option; [@option]  (** engine_version *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   advanced_security_options :
     aws_opensearch_domain__advanced_security_options list;
   auto_tune_options : aws_opensearch_domain__auto_tune_options list;
@@ -231,7 +238,8 @@ type aws_opensearch_domain = {
 [@@deriving yojson_of]
 (** aws_opensearch_domain *)
 
-let aws_opensearch_domain ?tags ?timeouts ~domain_name
+let aws_opensearch_domain ?access_policies ?advanced_options
+    ?engine_version ?id ?tags ?tags_all ?timeouts ~domain_name
     ~advanced_security_options ~auto_tune_options ~cluster_config
     ~cognito_options ~domain_endpoint_options ~ebs_options
     ~encrypt_at_rest ~log_publishing_options ~node_to_node_encryption
@@ -240,8 +248,13 @@ let aws_opensearch_domain ?tags ?timeouts ~domain_name
   let __resource_type = "aws_opensearch_domain" in
   let __resource =
     {
+      access_policies;
+      advanced_options;
       domain_name;
+      engine_version;
+      id;
       tags;
+      tags_all;
       advanced_security_options;
       auto_tune_options;
       cluster_config;

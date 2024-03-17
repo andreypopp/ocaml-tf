@@ -22,12 +22,12 @@ type azurerm_frontdoor__explicit_resource_order = {
   frontend_endpoint_ids : string list;  (** frontend_endpoint_ids *)
   routing_rule_ids : string list;  (** routing_rule_ids *)
 }
-[@@deriving yojson_of]
 
 type azurerm_frontdoor
 
 val azurerm_frontdoor :
   ?friendly_name:string ->
+  ?id:string ->
   ?load_balancer_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_frontdoor__timeouts ->

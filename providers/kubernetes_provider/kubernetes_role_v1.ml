@@ -39,15 +39,16 @@ type kubernetes_role_v1__rule = {
 (** Rule defining a set of permissions for the role *)
 
 type kubernetes_role_v1 = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_role_v1__metadata list;
   rule : kubernetes_role_v1__rule list;
 }
 [@@deriving yojson_of]
 (** kubernetes_role_v1 *)
 
-let kubernetes_role_v1 ~metadata ~rule __resource_id =
+let kubernetes_role_v1 ?id ~metadata ~rule __resource_id =
   let __resource_type = "kubernetes_role_v1" in
-  let __resource = { metadata; rule } in
+  let __resource = { id; metadata; rule } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_role_v1 __resource);
   ()

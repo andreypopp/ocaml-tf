@@ -83,8 +83,15 @@ type aws_lambda_event_source_mapping = {
   function_name : string;  (** function_name *)
   function_response_types : string list option; [@option]
       (** function_response_types *)
+  id : string option; [@option]  (** id *)
   maximum_batching_window_in_seconds : float option; [@option]
       (** maximum_batching_window_in_seconds *)
+  maximum_record_age_in_seconds : float option; [@option]
+      (** maximum_record_age_in_seconds *)
+  maximum_retry_attempts : float option; [@option]
+      (** maximum_retry_attempts *)
+  parallelization_factor : float option; [@option]
+      (** parallelization_factor *)
   queues : string list option; [@option]  (** queues *)
   starting_position : string option; [@option]
       (** starting_position *)
@@ -118,12 +125,13 @@ type aws_lambda_event_source_mapping = {
 
 let aws_lambda_event_source_mapping ?batch_size
     ?bisect_batch_on_function_error ?enabled ?event_source_arn
-    ?function_response_types ?maximum_batching_window_in_seconds
-    ?queues ?starting_position ?starting_position_timestamp ?topics
-    ?tumbling_window_in_seconds ~function_name
-    ~amazon_managed_kafka_event_source_config ~destination_config
-    ~document_db_event_source_config ~filter_criteria ~scaling_config
-    ~self_managed_event_source
+    ?function_response_types ?id ?maximum_batching_window_in_seconds
+    ?maximum_record_age_in_seconds ?maximum_retry_attempts
+    ?parallelization_factor ?queues ?starting_position
+    ?starting_position_timestamp ?topics ?tumbling_window_in_seconds
+    ~function_name ~amazon_managed_kafka_event_source_config
+    ~destination_config ~document_db_event_source_config
+    ~filter_criteria ~scaling_config ~self_managed_event_source
     ~self_managed_kafka_event_source_config
     ~source_access_configuration __resource_id =
   let __resource_type = "aws_lambda_event_source_mapping" in
@@ -135,7 +143,11 @@ let aws_lambda_event_source_mapping ?batch_size
       event_source_arn;
       function_name;
       function_response_types;
+      id;
       maximum_batching_window_in_seconds;
+      maximum_record_age_in_seconds;
+      maximum_retry_attempts;
+      parallelization_factor;
       queues;
       starting_position;
       starting_position_timestamp;

@@ -14,6 +14,7 @@ type azurerm_voice_services_communications_gateway_test_line__timeouts = {
 (** azurerm_voice_services_communications_gateway_test_line__timeouts *)
 
 type azurerm_voice_services_communications_gateway_test_line = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   phone_number : string;  (** phone_number *)
@@ -28,7 +29,7 @@ type azurerm_voice_services_communications_gateway_test_line = {
 [@@deriving yojson_of]
 (** azurerm_voice_services_communications_gateway_test_line *)
 
-let azurerm_voice_services_communications_gateway_test_line ?tags
+let azurerm_voice_services_communications_gateway_test_line ?id ?tags
     ?timeouts ~location ~name ~phone_number ~purpose
     ~voice_services_communications_gateway_id __resource_id =
   let __resource_type =
@@ -36,6 +37,7 @@ let azurerm_voice_services_communications_gateway_test_line ?tags
   in
   let __resource =
     {
+      id;
       location;
       name;
       phone_number;

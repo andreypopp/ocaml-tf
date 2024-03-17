@@ -333,6 +333,7 @@ type google_gke_hub_feature__state = {
 [@@deriving yojson_of]
 
 type google_gke_hub_feature = {
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** GCP labels for this Feature.
 
@@ -341,6 +342,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string;  (** The location for the resource *)
   name : string option; [@option]
       (** The full, unique name of this Feature resource *)
+  project : string option; [@option]  (** project *)
   fleet_default_member_config :
     google_gke_hub_feature__fleet_default_member_config list;
   spec : google_gke_hub_feature__spec list;
@@ -349,14 +351,16 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_gke_hub_feature *)
 
-let google_gke_hub_feature ?labels ?name ?timeouts ~location
-    ~fleet_default_member_config ~spec __resource_id =
+let google_gke_hub_feature ?id ?labels ?name ?project ?timeouts
+    ~location ~fleet_default_member_config ~spec __resource_id =
   let __resource_type = "google_gke_hub_feature" in
   let __resource =
     {
+      id;
       labels;
       location;
       name;
+      project;
       fleet_default_member_config;
       spec;
       timeouts;

@@ -21,6 +21,8 @@ existing tokens to access resources. If the pool is re-enabled, existing tokens 
 access again. *)
   display_name : string option; [@option]
       (** A display name for the pool. Cannot exceed 32 characters. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   workload_identity_pool_id : string;
       (** The ID to use for the pool, which becomes the final component of the resource name. This
 value should be 4-32 characters, and may contain the characters [a-z0-9-]. The prefix
@@ -31,14 +33,16 @@ value should be 4-32 characters, and may contain the characters [a-z0-9-]. The p
 (** google_iam_workload_identity_pool *)
 
 let google_iam_workload_identity_pool ?description ?disabled
-    ?display_name ?timeouts ~workload_identity_pool_id __resource_id
-    =
+    ?display_name ?id ?project ?timeouts ~workload_identity_pool_id
+    __resource_id =
   let __resource_type = "google_iam_workload_identity_pool" in
   let __resource =
     {
       description;
       disabled;
       display_name;
+      id;
+      project;
       workload_identity_pool_id;
       timeouts;
     }

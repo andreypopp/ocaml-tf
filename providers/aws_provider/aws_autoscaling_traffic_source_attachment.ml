@@ -20,6 +20,7 @@ type aws_autoscaling_traffic_source_attachment__traffic_source = {
 
 type aws_autoscaling_traffic_source_attachment = {
   autoscaling_group_name : string;  (** autoscaling_group_name *)
+  id : string option; [@option]  (** id *)
   timeouts :
     aws_autoscaling_traffic_source_attachment__timeouts option;
   traffic_source :
@@ -28,13 +29,13 @@ type aws_autoscaling_traffic_source_attachment = {
 [@@deriving yojson_of]
 (** aws_autoscaling_traffic_source_attachment *)
 
-let aws_autoscaling_traffic_source_attachment ?timeouts
+let aws_autoscaling_traffic_source_attachment ?id ?timeouts
     ~autoscaling_group_name ~traffic_source __resource_id =
   let __resource_type =
     "aws_autoscaling_traffic_source_attachment"
   in
   let __resource =
-    { autoscaling_group_name; timeouts; traffic_source }
+    { autoscaling_group_name; id; timeouts; traffic_source }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_autoscaling_traffic_source_attachment __resource);

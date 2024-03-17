@@ -8,6 +8,7 @@ type aws_lambda_code_signing_config
 
 val aws_lambda_code_signing_config :
   ?description:string ->
+  ?id:string ->
   allowed_publishers:
     aws_lambda_code_signing_config__allowed_publishers list ->
   policies:aws_lambda_code_signing_config__policies list ->

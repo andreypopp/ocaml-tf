@@ -6,6 +6,7 @@ type azurerm_data_protection_backup_policy_blob_storage__timeouts
 type azurerm_data_protection_backup_policy_blob_storage
 
 val azurerm_data_protection_backup_policy_blob_storage :
+  ?id:string ->
   ?timeouts:
     azurerm_data_protection_backup_policy_blob_storage__timeouts ->
   name:string ->

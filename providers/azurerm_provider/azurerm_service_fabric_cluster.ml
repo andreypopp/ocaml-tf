@@ -195,6 +195,9 @@ type azurerm_service_fabric_cluster__upgrade_policy = {
 type azurerm_service_fabric_cluster = {
   add_on_features : string list option; [@option]
       (** add_on_features *)
+  cluster_code_version : string option; [@option]
+      (** cluster_code_version *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   management_endpoint : string;  (** management_endpoint *)
   name : string;  (** name *)
@@ -236,8 +239,9 @@ type azurerm_service_fabric_cluster = {
 (** azurerm_service_fabric_cluster *)
 
 let azurerm_service_fabric_cluster ?add_on_features
-    ?service_fabric_zonal_upgrade_mode ?tags ?vmss_zonal_upgrade_mode
-    ?timeouts ~location ~management_endpoint ~name ~reliability_level
+    ?cluster_code_version ?id ?service_fabric_zonal_upgrade_mode
+    ?tags ?vmss_zonal_upgrade_mode ?timeouts ~location
+    ~management_endpoint ~name ~reliability_level
     ~resource_group_name ~upgrade_mode ~vm_image
     ~azure_active_directory ~certificate ~certificate_common_names
     ~client_certificate_common_name ~client_certificate_thumbprint
@@ -249,6 +253,8 @@ let azurerm_service_fabric_cluster ?add_on_features
   let __resource =
     {
       add_on_features;
+      cluster_code_version;
+      id;
       location;
       management_endpoint;
       name;

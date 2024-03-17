@@ -45,16 +45,18 @@ type aws_s3control_multi_region_access_point__timeouts = {
 (** aws_s3control_multi_region_access_point__timeouts *)
 
 type aws_s3control_multi_region_access_point = {
+  account_id : string option; [@option]  (** account_id *)
+  id : string option; [@option]  (** id *)
   details : aws_s3control_multi_region_access_point__details list;
   timeouts : aws_s3control_multi_region_access_point__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_s3control_multi_region_access_point *)
 
-let aws_s3control_multi_region_access_point ?timeouts ~details
-    __resource_id =
+let aws_s3control_multi_region_access_point ?account_id ?id ?timeouts
+    ~details __resource_id =
   let __resource_type = "aws_s3control_multi_region_access_point" in
-  let __resource = { details; timeouts } in
+  let __resource = { account_id; id; details; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3control_multi_region_access_point __resource);
   ()

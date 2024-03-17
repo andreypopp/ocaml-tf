@@ -18,6 +18,7 @@ network endpoint. *)
   description : string option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource; provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -28,6 +29,7 @@ characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
   network_endpoint_type : string;
       (** Type of network endpoints in this network endpoint group. Possible values: [INTERNET_IP_PORT, INTERNET_FQDN_PORT] *)
+  project : string option; [@option]  (** project *)
   timeouts :
     google_compute_global_network_endpoint_group__timeouts option;
 }
@@ -35,8 +37,8 @@ character, which cannot be a dash. *)
 (** google_compute_global_network_endpoint_group *)
 
 let google_compute_global_network_endpoint_group ?default_port
-    ?description ?timeouts ~name ~network_endpoint_type __resource_id
-    =
+    ?description ?id ?project ?timeouts ~name ~network_endpoint_type
+    __resource_id =
   let __resource_type =
     "google_compute_global_network_endpoint_group"
   in
@@ -44,8 +46,10 @@ let google_compute_global_network_endpoint_group ?default_port
     {
       default_port;
       description;
+      id;
       name;
       network_endpoint_type;
+      project;
       timeouts;
     }
   in

@@ -418,6 +418,7 @@ check can be specified.
 
 A health check must be specified unless the backend service uses an internet
 or serverless NEG as a backend. *)
+  id : string option; [@option]  (** id *)
   load_balancing_scheme : string option; [@option]
       (** Indicates what kind of load balancing this regional backend service
 will be used for. A backend service created for one type of load
@@ -492,6 +493,28 @@ character, which cannot be a dash. *)
   network : string option; [@option]
       (** The URL of the network to which this backend service belongs.
 This field can only be specified when the load balancing scheme is set to INTERNAL. *)
+  port_name : string option; [@option]
+      (** A named port on a backend instance group representing the port for
+communication to the backend VMs in that group. Required when the
+loadBalancingScheme is EXTERNAL, EXTERNAL_MANAGED, INTERNAL_MANAGED, or INTERNAL_SELF_MANAGED
+and the backends are instance groups. The named port must be defined on each
+backend instance group. This parameter has no meaning if the backends are NEGs. API sets a
+default of http if not given.
+Must be omitted when the loadBalancingScheme is INTERNAL (Internal TCP/UDP Load Balancing). *)
+  project : string option; [@option]  (** project *)
+  protocol : string option; [@option]
+      (** The protocol this RegionBackendService uses to communicate with backends.
+The default is HTTP. **NOTE**: HTTP2 is only valid for beta HTTP/2 load balancer
+types and may result in errors if used with the GA API. Possible values: [HTTP, HTTPS, HTTP2, SSL, TCP, UDP, GRPC, UNSPECIFIED] *)
+  region : string option; [@option]
+      (** The Region in which the created backend service should reside.
+If it is not provided, the provider region is used. *)
+  session_affinity : string option; [@option]
+      (** Type of session affinity to use. The default is NONE. Session affinity is
+not applicable if the protocol is UDP. Possible values: [NONE, CLIENT_IP, CLIENT_IP_PORT_PROTO, CLIENT_IP_PROTO, GENERATED_COOKIE, HEADER_FIELD, HTTP_COOKIE, CLIENT_IP_NO_DESTINATION] *)
+  timeout_sec : float option; [@option]
+      (** How many seconds to wait for the backend before considering it a
+failed request. Default is 30 seconds. Valid range is [1, 86400]. *)
   backend : google_compute_region_backend_service__backend list;
   cdn_policy :
     google_compute_region_backend_service__cdn_policy list;
@@ -513,10 +536,11 @@ This field can only be specified when the load balancing scheme is set to INTERN
 
 let google_compute_region_backend_service ?affinity_cookie_ttl_sec
     ?connection_draining_timeout_sec ?description ?enable_cdn
-    ?health_checks ?load_balancing_scheme ?locality_lb_policy
-    ?network ?timeouts ~name ~backend ~cdn_policy ~circuit_breakers
-    ~consistent_hash ~failover_policy ~iap ~log_config
-    ~outlier_detection __resource_id =
+    ?health_checks ?id ?load_balancing_scheme ?locality_lb_policy
+    ?network ?port_name ?project ?protocol ?region ?session_affinity
+    ?timeout_sec ?timeouts ~name ~backend ~cdn_policy
+    ~circuit_breakers ~consistent_hash ~failover_policy ~iap
+    ~log_config ~outlier_detection __resource_id =
   let __resource_type = "google_compute_region_backend_service" in
   let __resource =
     {
@@ -525,10 +549,17 @@ let google_compute_region_backend_service ?affinity_cookie_ttl_sec
       description;
       enable_cdn;
       health_checks;
+      id;
       load_balancing_scheme;
       locality_lb_policy;
       name;
       network;
+      port_name;
+      project;
+      protocol;
+      region;
+      session_affinity;
+      timeout_sec;
       backend;
       cdn_policy;
       circuit_breakers;

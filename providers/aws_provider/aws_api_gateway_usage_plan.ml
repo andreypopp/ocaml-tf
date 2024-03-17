@@ -37,9 +37,12 @@ type aws_api_gateway_usage_plan__throttle_settings = {
 
 type aws_api_gateway_usage_plan = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   product_code : string option; [@option]  (** product_code *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   api_stages : aws_api_gateway_usage_plan__api_stages list;
   quota_settings : aws_api_gateway_usage_plan__quota_settings list;
   throttle_settings :
@@ -48,15 +51,18 @@ type aws_api_gateway_usage_plan = {
 [@@deriving yojson_of]
 (** aws_api_gateway_usage_plan *)
 
-let aws_api_gateway_usage_plan ?description ?product_code ?tags ~name
-    ~api_stages ~quota_settings ~throttle_settings __resource_id =
+let aws_api_gateway_usage_plan ?description ?id ?product_code ?tags
+    ?tags_all ~name ~api_stages ~quota_settings ~throttle_settings
+    __resource_id =
   let __resource_type = "aws_api_gateway_usage_plan" in
   let __resource =
     {
       description;
+      id;
       name;
       product_code;
       tags;
+      tags_all;
       api_stages;
       quota_settings;
       throttle_settings;

@@ -10,6 +10,7 @@ val google_logging_organization_sink :
   ?description:string ->
   ?disabled:bool ->
   ?filter:string ->
+  ?id:string ->
   ?include_children:bool ->
   destination:string ->
   name:string ->

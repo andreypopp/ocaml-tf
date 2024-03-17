@@ -16,6 +16,7 @@ type azurerm_dev_center_project__timeouts = {
 type azurerm_dev_center_project = {
   description : string option; [@option]  (** description *)
   dev_center_id : string;  (** dev_center_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   maximum_dev_boxes_per_user : float option; [@option]
       (** maximum_dev_boxes_per_user *)
@@ -27,7 +28,7 @@ type azurerm_dev_center_project = {
 [@@deriving yojson_of]
 (** azurerm_dev_center_project *)
 
-let azurerm_dev_center_project ?description
+let azurerm_dev_center_project ?description ?id
     ?maximum_dev_boxes_per_user ?tags ?timeouts ~dev_center_id
     ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_dev_center_project" in
@@ -35,6 +36,7 @@ let azurerm_dev_center_project ?description
     {
       description;
       dev_center_id;
+      id;
       location;
       maximum_dev_boxes_per_user;
       name;

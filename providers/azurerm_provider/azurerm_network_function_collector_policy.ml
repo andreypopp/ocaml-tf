@@ -26,6 +26,7 @@ type azurerm_network_function_collector_policy__timeouts = {
 (** azurerm_network_function_collector_policy__timeouts *)
 
 type azurerm_network_function_collector_policy = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -40,7 +41,7 @@ type azurerm_network_function_collector_policy = {
 [@@deriving yojson_of]
 (** azurerm_network_function_collector_policy *)
 
-let azurerm_network_function_collector_policy ?tags ?timeouts
+let azurerm_network_function_collector_policy ?id ?tags ?timeouts
     ~location ~name ~traffic_collector_id ~ipfx_emission
     ~ipfx_ingestion __resource_id =
   let __resource_type =
@@ -48,6 +49,7 @@ let azurerm_network_function_collector_policy ?tags ?timeouts
   in
   let __resource =
     {
+      id;
       location;
       name;
       tags;

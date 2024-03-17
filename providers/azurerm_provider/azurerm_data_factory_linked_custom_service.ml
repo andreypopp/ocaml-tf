@@ -27,6 +27,7 @@ type azurerm_data_factory_linked_custom_service = {
   annotations : string list option; [@option]  (** annotations *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
       (** parameters *)
@@ -42,9 +43,9 @@ type azurerm_data_factory_linked_custom_service = {
 (** azurerm_data_factory_linked_custom_service *)
 
 let azurerm_data_factory_linked_custom_service ?additional_properties
-    ?annotations ?description ?parameters ?timeouts ~data_factory_id
-    ~name ~type_ ~type_properties_json ~integration_runtime
-    __resource_id =
+    ?annotations ?description ?id ?parameters ?timeouts
+    ~data_factory_id ~name ~type_ ~type_properties_json
+    ~integration_runtime __resource_id =
   let __resource_type =
     "azurerm_data_factory_linked_custom_service"
   in
@@ -54,6 +55,7 @@ let azurerm_data_factory_linked_custom_service ?additional_properties
       annotations;
       data_factory_id;
       description;
+      id;
       name;
       parameters;
       type_;

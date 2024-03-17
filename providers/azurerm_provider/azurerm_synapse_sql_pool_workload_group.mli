@@ -6,6 +6,7 @@ type azurerm_synapse_sql_pool_workload_group__timeouts
 type azurerm_synapse_sql_pool_workload_group
 
 val azurerm_synapse_sql_pool_workload_group :
+  ?id:string ->
   ?importance:string ->
   ?max_resource_percent_per_request:float ->
   ?min_resource_percent_per_request:float ->

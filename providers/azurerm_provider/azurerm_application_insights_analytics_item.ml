@@ -17,6 +17,7 @@ type azurerm_application_insights_analytics_item = {
   application_insights_id : string;  (** application_insights_id *)
   content : string;  (** content *)
   function_alias : string option; [@option]  (** function_alias *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   scope : string;  (** scope *)
   type_ : string; [@key "type"]  (** type *)
@@ -26,7 +27,7 @@ type azurerm_application_insights_analytics_item = {
 [@@deriving yojson_of]
 (** azurerm_application_insights_analytics_item *)
 
-let azurerm_application_insights_analytics_item ?function_alias
+let azurerm_application_insights_analytics_item ?function_alias ?id
     ?timeouts ~application_insights_id ~content ~name ~scope ~type_
     __resource_id =
   let __resource_type =
@@ -37,6 +38,7 @@ let azurerm_application_insights_analytics_item ?function_alias
       application_insights_id;
       content;
       function_alias;
+      id;
       name;
       scope;
       type_;

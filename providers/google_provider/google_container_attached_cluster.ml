@@ -146,10 +146,12 @@ than 255 UTF-8 encoded bytes. *)
   distribution : string;
       (** The Kubernetes distribution of the underlying attached cluster. Supported values:
 eks, aks. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource *)
   name : string;  (** The name of this resource. *)
   platform_version : string;
       (** The platform version for the cluster (e.g. '1.23.0-gke.1'). *)
+  project : string option; [@option]  (** project *)
   authorization :
     google_container_attached_cluster__authorization list;
   binary_authorization :
@@ -168,7 +170,7 @@ eks, aks. *)
 (** google_container_attached_cluster *)
 
 let google_container_attached_cluster ?annotations ?deletion_policy
-    ?description ?timeouts ~distribution ~location ~name
+    ?description ?id ?project ?timeouts ~distribution ~location ~name
     ~platform_version ~authorization ~binary_authorization ~fleet
     ~logging_config ~monitoring_config ~oidc_config ~proxy_config
     __resource_id =
@@ -179,9 +181,11 @@ let google_container_attached_cluster ?annotations ?deletion_policy
       deletion_policy;
       description;
       distribution;
+      id;
       location;
       name;
       platform_version;
+      project;
       authorization;
       binary_authorization;
       fleet;

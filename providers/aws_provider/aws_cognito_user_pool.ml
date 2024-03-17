@@ -208,12 +208,21 @@ type aws_cognito_user_pool = {
       (** auto_verified_attributes *)
   deletion_protection : string option; [@option]
       (** deletion_protection *)
+  email_verification_message : string option; [@option]
+      (** email_verification_message *)
+  email_verification_subject : string option; [@option]
+      (** email_verification_subject *)
+  id : string option; [@option]  (** id *)
   mfa_configuration : string option; [@option]
       (** mfa_configuration *)
   name : string;  (** name *)
   sms_authentication_message : string option; [@option]
       (** sms_authentication_message *)
+  sms_verification_message : string option; [@option]
+      (** sms_verification_message *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   username_attributes : string list option; [@option]
       (** username_attributes *)
   account_recovery_setting :
@@ -242,24 +251,31 @@ type aws_cognito_user_pool = {
 (** aws_cognito_user_pool *)
 
 let aws_cognito_user_pool ?alias_attributes ?auto_verified_attributes
-    ?deletion_protection ?mfa_configuration
-    ?sms_authentication_message ?tags ?username_attributes ~name
-    ~account_recovery_setting ~admin_create_user_config
-    ~device_configuration ~email_configuration ~lambda_config
-    ~password_policy ~schema ~sms_configuration
-    ~software_token_mfa_configuration ~user_attribute_update_settings
-    ~user_pool_add_ons ~username_configuration
-    ~verification_message_template __resource_id =
+    ?deletion_protection ?email_verification_message
+    ?email_verification_subject ?id ?mfa_configuration
+    ?sms_authentication_message ?sms_verification_message ?tags
+    ?tags_all ?username_attributes ~name ~account_recovery_setting
+    ~admin_create_user_config ~device_configuration
+    ~email_configuration ~lambda_config ~password_policy ~schema
+    ~sms_configuration ~software_token_mfa_configuration
+    ~user_attribute_update_settings ~user_pool_add_ons
+    ~username_configuration ~verification_message_template
+    __resource_id =
   let __resource_type = "aws_cognito_user_pool" in
   let __resource =
     {
       alias_attributes;
       auto_verified_attributes;
       deletion_protection;
+      email_verification_message;
+      email_verification_subject;
+      id;
       mfa_configuration;
       name;
       sms_authentication_message;
+      sms_verification_message;
       tags;
+      tags_all;
       username_attributes;
       account_recovery_setting;
       admin_create_user_config;

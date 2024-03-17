@@ -70,11 +70,14 @@ type aws_evidently_launch__execution = {
 
 type aws_evidently_launch = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   project : string;  (** project *)
   randomization_salt : string option; [@option]
       (** randomization_salt *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   groups : aws_evidently_launch__groups list;
   metric_monitors : aws_evidently_launch__metric_monitors list;
   scheduled_splits_config :
@@ -84,17 +87,19 @@ type aws_evidently_launch = {
 [@@deriving yojson_of]
 (** aws_evidently_launch *)
 
-let aws_evidently_launch ?description ?randomization_salt ?tags
-    ?timeouts ~name ~project ~groups ~metric_monitors
+let aws_evidently_launch ?description ?id ?randomization_salt ?tags
+    ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
     ~scheduled_splits_config __resource_id =
   let __resource_type = "aws_evidently_launch" in
   let __resource =
     {
       description;
+      id;
       name;
       project;
       randomization_salt;
       tags;
+      tags_all;
       groups;
       metric_monitors;
       scheduled_splits_config;

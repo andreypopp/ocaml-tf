@@ -13,6 +13,10 @@ type google_network_services_gateway__timeouts = {
 (** google_network_services_gateway__timeouts *)
 
 type google_network_services_gateway = {
+  addresses : string list option; [@option]
+      (** Zero or one IPv4-address on which the Gateway will receive the traffic. When no address is provided,
+an IP from the subnetwork is allocated This field only applies to gateways of type 'SECURE_WEB_GATEWAY'.
+Gateways of type 'OPEN_MESH' listen on 0.0.0.0. *)
   certificate_urls : string list option; [@option]
       (** A fully-qualified Certificates URL reference. The proxy presents a Certificate (selected based on SNI) when establishing a TLS connection.
 This feature only applies to gateways of type 'SECURE_WEB_GATEWAY'. *)
@@ -25,6 +29,7 @@ If there is no other gateway of type 'SECURE_WEB_GATEWAY' remaining for that reg
       (** A fully-qualified GatewaySecurityPolicy URL reference. Defines how a server should apply security policy to inbound (VM to Proxy) initiated connections.
 For example: 'projects/*/locations/*/gatewaySecurityPolicies/swg-policy'.
 This policy is specific to gateways of type 'SECURE_WEB_GATEWAY'. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Set of label tags associated with the Gateway resource.
 
@@ -43,6 +48,7 @@ Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY'. *)
       (** One or more port numbers (1-65535), on which the Gateway will receive traffic.
 The proxy binds to the specified ports. Gateways of type 'SECURE_WEB_GATEWAY' are
 limited to 1 port. Gateways of type 'OPEN_MESH' listen on 0.0.0.0 and support multiple ports. *)
+  project : string option; [@option]  (** project *)
   scope : string option; [@option]
       (** Immutable. Scope determines how configuration across multiple Gateway instances are merged.
 The configuration for multiple Gateway instances with the same scope will be merged as presented as
@@ -62,23 +68,26 @@ Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY. *)
 [@@deriving yojson_of]
 (** google_network_services_gateway *)
 
-let google_network_services_gateway ?certificate_urls
+let google_network_services_gateway ?addresses ?certificate_urls
     ?delete_swg_autogen_router_on_destroy ?description
-    ?gateway_security_policy ?labels ?location ?network ?scope
-    ?server_tls_policy ?subnetwork ?timeouts ~name ~ports ~type_
-    __resource_id =
+    ?gateway_security_policy ?id ?labels ?location ?network ?project
+    ?scope ?server_tls_policy ?subnetwork ?timeouts ~name ~ports
+    ~type_ __resource_id =
   let __resource_type = "google_network_services_gateway" in
   let __resource =
     {
+      addresses;
       certificate_urls;
       delete_swg_autogen_router_on_destroy;
       description;
       gateway_security_policy;
+      id;
       labels;
       location;
       name;
       network;
       ports;
+      project;
       scope;
       server_tls_policy;
       subnetwork;

@@ -33,16 +33,21 @@ type azurerm_mssql_server__timeouts = {
 (** azurerm_mssql_server__timeouts *)
 
 type azurerm_mssql_server = {
+  administrator_login : string option; [@option]
+      (** administrator_login *)
   administrator_login_password : string option; [@option]
       (** administrator_login_password *)
   connection_policy : string option; [@option]
       (** connection_policy *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   minimum_tls_version : string option; [@option]
       (** minimum_tls_version *)
   name : string;  (** name *)
   outbound_network_restriction_enabled : bool option; [@option]
       (** outbound_network_restriction_enabled *)
+  primary_user_assigned_identity_id : string option; [@option]
+      (** primary_user_assigned_identity_id *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
   resource_group_name : string;  (** resource_group_name *)
@@ -59,22 +64,25 @@ type azurerm_mssql_server = {
 [@@deriving yojson_of]
 (** azurerm_mssql_server *)
 
-let azurerm_mssql_server ?administrator_login_password
-    ?connection_policy ?minimum_tls_version
-    ?outbound_network_restriction_enabled
-    ?public_network_access_enabled ?tags
-    ?transparent_data_encryption_key_vault_key_id ?timeouts ~location
-    ~name ~resource_group_name ~version ~azuread_administrator
-    ~identity __resource_id =
+let azurerm_mssql_server ?administrator_login
+    ?administrator_login_password ?connection_policy ?id
+    ?minimum_tls_version ?outbound_network_restriction_enabled
+    ?primary_user_assigned_identity_id ?public_network_access_enabled
+    ?tags ?transparent_data_encryption_key_vault_key_id ?timeouts
+    ~location ~name ~resource_group_name ~version
+    ~azuread_administrator ~identity __resource_id =
   let __resource_type = "azurerm_mssql_server" in
   let __resource =
     {
+      administrator_login;
       administrator_login_password;
       connection_policy;
+      id;
       location;
       minimum_tls_version;
       name;
       outbound_network_restriction_enabled;
+      primary_user_assigned_identity_id;
       public_network_access_enabled;
       resource_group_name;
       tags;

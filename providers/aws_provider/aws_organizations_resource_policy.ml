@@ -6,14 +6,17 @@ open! Tf.Prelude
 
 type aws_organizations_resource_policy = {
   content : string;  (** content *)
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_organizations_resource_policy *)
 
-let aws_organizations_resource_policy ?tags ~content __resource_id =
+let aws_organizations_resource_policy ?id ?tags ?tags_all ~content
+    __resource_id =
   let __resource_type = "aws_organizations_resource_policy" in
-  let __resource = { content; tags } in
+  let __resource = { content; id; tags; tags_all } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_organizations_resource_policy __resource);
   ()

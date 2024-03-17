@@ -7,7 +7,9 @@ open! Tf.Prelude
 type aws_imagebuilder_component = {
   change_description : string option; [@option]
       (** change_description *)
+  data : string option; [@option]  (** data *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
   name : string;  (** name *)
   platform : string;  (** platform *)
@@ -15,26 +17,31 @@ type aws_imagebuilder_component = {
   supported_os_versions : string list option; [@option]
       (** supported_os_versions *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   uri : string option; [@option]  (** uri *)
   version : string;  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_component *)
 
-let aws_imagebuilder_component ?change_description ?description
-    ?kms_key_id ?skip_destroy ?supported_os_versions ?tags ?uri ~name
-    ~platform ~version __resource_id =
+let aws_imagebuilder_component ?change_description ?data ?description
+    ?id ?kms_key_id ?skip_destroy ?supported_os_versions ?tags
+    ?tags_all ?uri ~name ~platform ~version __resource_id =
   let __resource_type = "aws_imagebuilder_component" in
   let __resource =
     {
       change_description;
+      data;
       description;
+      id;
       kms_key_id;
       name;
       platform;
       skip_destroy;
       supported_os_versions;
       tags;
+      tags_all;
       uri;
       version;
     }

@@ -81,12 +81,14 @@ type aws_lambda_function__vpc_config = {
 (** aws_lambda_function__vpc_config *)
 
 type aws_lambda_function = {
+  architectures : string list option; [@option]  (** architectures *)
   code_signing_config_arn : string option; [@option]
       (** code_signing_config_arn *)
   description : string option; [@option]  (** description *)
   filename : string option; [@option]  (** filename *)
   function_name : string;  (** function_name *)
   handler : string option; [@option]  (** handler *)
+  id : string option; [@option]  (** id *)
   image_uri : string option; [@option]  (** image_uri *)
   kms_key_arn : string option; [@option]  (** kms_key_arn *)
   layers : string list option; [@option]  (** layers *)
@@ -106,7 +108,11 @@ type aws_lambda_function = {
   s3_object_version : string option; [@option]
       (** s3_object_version *)
   skip_destroy : bool option; [@option]  (** skip_destroy *)
+  source_code_hash : string option; [@option]
+      (** source_code_hash *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeout : float option; [@option]  (** timeout *)
   dead_letter_config : aws_lambda_function__dead_letter_config list;
   environment : aws_lambda_function__environment list;
@@ -122,23 +128,27 @@ type aws_lambda_function = {
 [@@deriving yojson_of]
 (** aws_lambda_function *)
 
-let aws_lambda_function ?code_signing_config_arn ?description
-    ?filename ?handler ?image_uri ?kms_key_arn ?layers ?memory_size
-    ?package_type ?publish ?replace_security_groups_on_destroy
+let aws_lambda_function ?architectures ?code_signing_config_arn
+    ?description ?filename ?handler ?id ?image_uri ?kms_key_arn
+    ?layers ?memory_size ?package_type ?publish
+    ?replace_security_groups_on_destroy
     ?replacement_security_group_ids ?reserved_concurrent_executions
     ?runtime ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
-    ?tags ?timeout ?timeouts ~function_name ~role ~dead_letter_config
-    ~environment ~ephemeral_storage ~file_system_config ~image_config
+    ?source_code_hash ?tags ?tags_all ?timeout ?timeouts
+    ~function_name ~role ~dead_letter_config ~environment
+    ~ephemeral_storage ~file_system_config ~image_config
     ~logging_config ~snap_start ~tracing_config ~vpc_config
     __resource_id =
   let __resource_type = "aws_lambda_function" in
   let __resource =
     {
+      architectures;
       code_signing_config_arn;
       description;
       filename;
       function_name;
       handler;
+      id;
       image_uri;
       kms_key_arn;
       layers;
@@ -154,7 +164,9 @@ let aws_lambda_function ?code_signing_config_arn ?description
       s3_key;
       s3_object_version;
       skip_destroy;
+      source_code_hash;
       tags;
+      tags_all;
       timeout;
       dead_letter_config;
       environment;

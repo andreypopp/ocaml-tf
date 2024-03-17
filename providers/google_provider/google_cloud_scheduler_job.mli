@@ -16,6 +16,10 @@ type google_cloud_scheduler_job
 val google_cloud_scheduler_job :
   ?attempt_deadline:string ->
   ?description:string ->
+  ?id:string ->
+  ?paused:bool ->
+  ?project:string ->
+  ?region:string ->
   ?schedule:string ->
   ?time_zone:string ->
   ?timeouts:google_cloud_scheduler_job__timeouts ->

@@ -14,6 +14,7 @@ type azurerm_private_dns_zone_virtual_network_link__timeouts = {
 (** azurerm_private_dns_zone_virtual_network_link__timeouts *)
 
 type azurerm_private_dns_zone_virtual_network_link = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   private_dns_zone_name : string;  (** private_dns_zone_name *)
   registration_enabled : bool option; [@option]
@@ -27,7 +28,7 @@ type azurerm_private_dns_zone_virtual_network_link = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_zone_virtual_network_link *)
 
-let azurerm_private_dns_zone_virtual_network_link
+let azurerm_private_dns_zone_virtual_network_link ?id
     ?registration_enabled ?tags ?timeouts ~name
     ~private_dns_zone_name ~resource_group_name ~virtual_network_id
     __resource_id =
@@ -36,6 +37,7 @@ let azurerm_private_dns_zone_virtual_network_link
   in
   let __resource =
     {
+      id;
       name;
       private_dns_zone_name;
       registration_enabled;

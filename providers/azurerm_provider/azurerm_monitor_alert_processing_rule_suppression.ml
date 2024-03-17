@@ -179,6 +179,7 @@ type azurerm_monitor_alert_processing_rule_suppression__timeouts = {
 type azurerm_monitor_alert_processing_rule_suppression = {
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   scopes : string list;  (** scopes *)
@@ -195,7 +196,7 @@ type azurerm_monitor_alert_processing_rule_suppression = {
 (** azurerm_monitor_alert_processing_rule_suppression *)
 
 let azurerm_monitor_alert_processing_rule_suppression ?description
-    ?enabled ?tags ?timeouts ~name ~resource_group_name ~scopes
+    ?enabled ?id ?tags ?timeouts ~name ~resource_group_name ~scopes
     ~condition ~schedule __resource_id =
   let __resource_type =
     "azurerm_monitor_alert_processing_rule_suppression"
@@ -204,6 +205,7 @@ let azurerm_monitor_alert_processing_rule_suppression ?description
     {
       description;
       enabled;
+      id;
       name;
       resource_group_name;
       scopes;

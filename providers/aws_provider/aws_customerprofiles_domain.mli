@@ -29,7 +29,9 @@ type aws_customerprofiles_domain
 val aws_customerprofiles_domain :
   ?dead_letter_queue_url:string ->
   ?default_encryption_key:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   default_expiration_days:float ->
   domain_name:string ->
   matching:aws_customerprofiles_domain__matching list ->

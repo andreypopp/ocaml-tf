@@ -9,6 +9,7 @@ val cloudflare_logpush_job :
   ?enabled:bool ->
   ?filter:string ->
   ?frequency:string ->
+  ?id:string ->
   ?kind:string ->
   ?logpull_options:string ->
   ?max_upload_bytes:float ->

@@ -153,6 +153,7 @@ type aws_batch_job_definition__timeout = {
 type aws_batch_job_definition = {
   container_properties : string option; [@option]
       (** container_properties *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   node_properties : string option; [@option]  (** node_properties *)
   parameters : (string * string) list option; [@option]
@@ -163,6 +164,8 @@ type aws_batch_job_definition = {
   scheduling_priority : float option; [@option]
       (** scheduling_priority *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   eks_properties : aws_batch_job_definition__eks_properties list;
   retry_strategy : aws_batch_job_definition__retry_strategy list;
@@ -171,14 +174,15 @@ type aws_batch_job_definition = {
 [@@deriving yojson_of]
 (** aws_batch_job_definition *)
 
-let aws_batch_job_definition ?container_properties ?node_properties
-    ?parameters ?platform_capabilities ?propagate_tags
-    ?scheduling_priority ?tags ~name ~type_ ~eks_properties
-    ~retry_strategy ~timeout __resource_id =
+let aws_batch_job_definition ?container_properties ?id
+    ?node_properties ?parameters ?platform_capabilities
+    ?propagate_tags ?scheduling_priority ?tags ?tags_all ~name ~type_
+    ~eks_properties ~retry_strategy ~timeout __resource_id =
   let __resource_type = "aws_batch_job_definition" in
   let __resource =
     {
       container_properties;
+      id;
       name;
       node_properties;
       parameters;
@@ -186,6 +190,7 @@ let aws_batch_job_definition ?container_properties ?node_properties
       propagate_tags;
       scheduling_priority;
       tags;
+      tags_all;
       type_;
       eks_properties;
       retry_strategy;

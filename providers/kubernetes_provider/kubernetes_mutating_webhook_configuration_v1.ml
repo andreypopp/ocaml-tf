@@ -185,6 +185,7 @@ Defaults to Never. *)
 (** Webhooks is a list of webhooks and the affected resources and operations. *)
 
 type kubernetes_mutating_webhook_configuration_v1 = {
+  id : string option; [@option]  (** id *)
   metadata :
     kubernetes_mutating_webhook_configuration_v1__metadata list;
   webhook :
@@ -193,12 +194,12 @@ type kubernetes_mutating_webhook_configuration_v1 = {
 [@@deriving yojson_of]
 (** kubernetes_mutating_webhook_configuration_v1 *)
 
-let kubernetes_mutating_webhook_configuration_v1 ~metadata ~webhook
-    __resource_id =
+let kubernetes_mutating_webhook_configuration_v1 ?id ~metadata
+    ~webhook __resource_id =
   let __resource_type =
     "kubernetes_mutating_webhook_configuration_v1"
   in
-  let __resource = { metadata; webhook } in
+  let __resource = { id; metadata; webhook } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_mutating_webhook_configuration_v1
        __resource);

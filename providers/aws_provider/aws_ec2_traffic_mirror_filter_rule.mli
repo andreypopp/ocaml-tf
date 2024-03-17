@@ -8,6 +8,7 @@ type aws_ec2_traffic_mirror_filter_rule
 
 val aws_ec2_traffic_mirror_filter_rule :
   ?description:string ->
+  ?id:string ->
   ?protocol:float ->
   destination_cidr_block:string ->
   rule_action:string ->

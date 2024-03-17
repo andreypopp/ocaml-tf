@@ -28,6 +28,7 @@ type azurerm_network_security_rule = {
   destination_port_ranges : string list option; [@option]
       (** destination_port_ranges *)
   direction : string;  (** direction *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   network_security_group_name : string;
       (** network_security_group_name *)
@@ -53,7 +54,7 @@ type azurerm_network_security_rule = {
 let azurerm_network_security_rule ?description
     ?destination_address_prefix ?destination_address_prefixes
     ?destination_application_security_group_ids
-    ?destination_port_range ?destination_port_ranges
+    ?destination_port_range ?destination_port_ranges ?id
     ?source_address_prefix ?source_address_prefixes
     ?source_application_security_group_ids ?source_port_range
     ?source_port_ranges ?timeouts ~access ~direction ~name
@@ -70,6 +71,7 @@ let azurerm_network_security_rule ?description
       destination_port_range;
       destination_port_ranges;
       direction;
+      id;
       name;
       network_security_group_name;
       priority;

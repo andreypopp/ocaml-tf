@@ -28,6 +28,7 @@ type aws_ses_event_destination__sns_destination = {
 type aws_ses_event_destination = {
   configuration_set_name : string;  (** configuration_set_name *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   matching_types : string list;  (** matching_types *)
   name : string;  (** name *)
   cloudwatch_destination :
@@ -39,7 +40,7 @@ type aws_ses_event_destination = {
 [@@deriving yojson_of]
 (** aws_ses_event_destination *)
 
-let aws_ses_event_destination ?enabled ~configuration_set_name
+let aws_ses_event_destination ?enabled ?id ~configuration_set_name
     ~matching_types ~name ~cloudwatch_destination
     ~kinesis_destination ~sns_destination __resource_id =
   let __resource_type = "aws_ses_event_destination" in
@@ -47,6 +48,7 @@ let aws_ses_event_destination ?enabled ~configuration_set_name
     {
       configuration_set_name;
       enabled;
+      id;
       matching_types;
       name;
       cloudwatch_destination;

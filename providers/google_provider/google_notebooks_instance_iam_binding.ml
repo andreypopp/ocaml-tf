@@ -13,18 +13,31 @@ type google_notebooks_instance_iam_binding__condition = {
 (** google_notebooks_instance_iam_binding__condition *)
 
 type google_notebooks_instance_iam_binding = {
+  id : string option; [@option]  (** id *)
   instance_name : string;  (** instance_name *)
+  location : string option; [@option]  (** location *)
   members : string list;  (** members *)
+  project : string option; [@option]  (** project *)
   role : string;  (** role *)
   condition : google_notebooks_instance_iam_binding__condition list;
 }
 [@@deriving yojson_of]
 (** google_notebooks_instance_iam_binding *)
 
-let google_notebooks_instance_iam_binding ~instance_name ~members
-    ~role ~condition __resource_id =
+let google_notebooks_instance_iam_binding ?id ?location ?project
+    ~instance_name ~members ~role ~condition __resource_id =
   let __resource_type = "google_notebooks_instance_iam_binding" in
-  let __resource = { instance_name; members; role; condition } in
+  let __resource =
+    {
+      id;
+      instance_name;
+      location;
+      members;
+      project;
+      role;
+      condition;
+    }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_notebooks_instance_iam_binding __resource);
   ()

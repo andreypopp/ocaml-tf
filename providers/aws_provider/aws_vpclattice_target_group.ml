@@ -55,8 +55,11 @@ type aws_vpclattice_target_group__timeouts = {
 (** aws_vpclattice_target_group__timeouts *)
 
 type aws_vpclattice_target_group = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string; [@key "type"]  (** type *)
   config : aws_vpclattice_target_group__config list;
   timeouts : aws_vpclattice_target_group__timeouts option;
@@ -64,10 +67,12 @@ type aws_vpclattice_target_group = {
 [@@deriving yojson_of]
 (** aws_vpclattice_target_group *)
 
-let aws_vpclattice_target_group ?tags ?timeouts ~name ~type_ ~config
-    __resource_id =
+let aws_vpclattice_target_group ?id ?tags ?tags_all ?timeouts ~name
+    ~type_ ~config __resource_id =
   let __resource_type = "aws_vpclattice_target_group" in
-  let __resource = { name; tags; type_; config; timeouts } in
+  let __resource =
+    { id; name; tags; tags_all; type_; config; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_target_group __resource);
   ()

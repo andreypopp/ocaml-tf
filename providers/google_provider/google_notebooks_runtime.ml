@@ -305,6 +305,7 @@ type google_notebooks_runtime__metrics = {
 [@@deriving yojson_of]
 
 type google_notebooks_runtime = {
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The labels to associate with this runtime. Label **keys** must
 contain 1 to 63 characters, and must conform to [RFC 1035]
@@ -319,6 +320,7 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   location : string;
       (** A reference to the zone where the machine resides. *)
   name : string;  (** The name specified for the Notebook runtime. *)
+  project : string option; [@option]  (** project *)
   access_config : google_notebooks_runtime__access_config list;
   software_config : google_notebooks_runtime__software_config list;
   timeouts : google_notebooks_runtime__timeouts option;
@@ -327,14 +329,17 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_notebooks_runtime *)
 
-let google_notebooks_runtime ?labels ?timeouts ~location ~name
-    ~access_config ~software_config ~virtual_machine __resource_id =
+let google_notebooks_runtime ?id ?labels ?project ?timeouts ~location
+    ~name ~access_config ~software_config ~virtual_machine
+    __resource_id =
   let __resource_type = "google_notebooks_runtime" in
   let __resource =
     {
+      id;
       labels;
       location;
       name;
+      project;
       access_config;
       software_config;
       timeouts;

@@ -11,6 +11,8 @@ val google_logging_project_sink :
   ?description:string ->
   ?disabled:bool ->
   ?filter:string ->
+  ?id:string ->
+  ?project:string ->
   ?unique_writer_identity:bool ->
   destination:string ->
   name:string ->

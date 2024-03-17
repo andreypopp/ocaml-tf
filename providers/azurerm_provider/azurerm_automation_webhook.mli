@@ -7,8 +7,10 @@ type azurerm_automation_webhook
 
 val azurerm_automation_webhook :
   ?enabled:bool ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?run_on_worker_group:string ->
+  ?uri:string ->
   ?timeouts:azurerm_automation_webhook__timeouts ->
   automation_account_name:string ->
   expiry_time:string ->

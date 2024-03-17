@@ -7,7 +7,9 @@ type aws_codepipeline_webhook__filter
 type aws_codepipeline_webhook
 
 val aws_codepipeline_webhook :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   authentication:string ->
   name:string ->
   target_action:string ->

@@ -56,6 +56,7 @@ type azurerm_point_to_site_vpn_gateway__timeouts = {
 
 type azurerm_point_to_site_vpn_gateway = {
   dns_servers : string list option; [@option]  (** dns_servers *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -73,7 +74,7 @@ type azurerm_point_to_site_vpn_gateway = {
 [@@deriving yojson_of]
 (** azurerm_point_to_site_vpn_gateway *)
 
-let azurerm_point_to_site_vpn_gateway ?dns_servers
+let azurerm_point_to_site_vpn_gateway ?dns_servers ?id
     ?routing_preference_internet_enabled ?tags ?timeouts ~location
     ~name ~resource_group_name ~scale_unit ~virtual_hub_id
     ~vpn_server_configuration_id ~connection_configuration
@@ -82,6 +83,7 @@ let azurerm_point_to_site_vpn_gateway ?dns_servers
   let __resource =
     {
       dns_servers;
+      id;
       location;
       name;
       resource_group_name;

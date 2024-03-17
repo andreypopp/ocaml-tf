@@ -313,12 +313,17 @@ type google_composer_environment__timeouts = {
 (** google_composer_environment__timeouts *)
 
 type google_composer_environment = {
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-defined labels for this environment. The labels map can contain no more than 64 entries. Entries of the labels map are UTF8 strings that comply with the following restrictions: Label keys must be between 1 and 63 characters long and must conform to the following regular expression: [a-z]([-a-z0-9]*[a-z0-9])?. Label values must be between 0 and 63 characters long and must conform to the regular expression ([a-z]([-a-z0-9]*[a-z0-9])?)?. No more than 64 labels can be associated with a given environment. Both keys and values must be <= 128 bytes in size.
 
 				**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string;  (** Name of the environment. *)
+  project : string option; [@option]
+      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
+  region : string option; [@option]
+      (** The location or Compute Engine region for the environment. *)
   config : google_composer_environment__config list;
   storage_config : google_composer_environment__storage_config list;
   timeouts : google_composer_environment__timeouts option;
@@ -326,11 +331,20 @@ type google_composer_environment = {
 [@@deriving yojson_of]
 (** google_composer_environment *)
 
-let google_composer_environment ?labels ?timeouts ~name ~config
-    ~storage_config __resource_id =
+let google_composer_environment ?id ?labels ?project ?region
+    ?timeouts ~name ~config ~storage_config __resource_id =
   let __resource_type = "google_composer_environment" in
   let __resource =
-    { labels; name; config; storage_config; timeouts }
+    {
+      id;
+      labels;
+      name;
+      project;
+      region;
+      config;
+      storage_config;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_composer_environment __resource);

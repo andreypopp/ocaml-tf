@@ -12,7 +12,10 @@ val aws_ami_copy :
   ?description:string ->
   ?destination_outpost_arn:string ->
   ?encrypted:bool ->
+  ?id:string ->
+  ?kms_key_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_ami_copy__timeouts ->
   name:string ->
   source_ami_id:string ->

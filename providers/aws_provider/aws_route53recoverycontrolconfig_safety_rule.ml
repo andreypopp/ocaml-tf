@@ -18,6 +18,7 @@ type aws_route53recoverycontrolconfig_safety_rule = {
   control_panel_arn : string;  (** control_panel_arn *)
   gating_controls : string list option; [@option]
       (** gating_controls *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   target_controls : string list option; [@option]
       (** target_controls *)
@@ -29,7 +30,7 @@ type aws_route53recoverycontrolconfig_safety_rule = {
 (** aws_route53recoverycontrolconfig_safety_rule *)
 
 let aws_route53recoverycontrolconfig_safety_rule ?asserted_controls
-    ?gating_controls ?target_controls ~control_panel_arn ~name
+    ?gating_controls ?id ?target_controls ~control_panel_arn ~name
     ~wait_period_ms ~rule_config __resource_id =
   let __resource_type =
     "aws_route53recoverycontrolconfig_safety_rule"
@@ -39,6 +40,7 @@ let aws_route53recoverycontrolconfig_safety_rule ?asserted_controls
       asserted_controls;
       control_panel_arn;
       gating_controls;
+      id;
       name;
       target_controls;
       wait_period_ms;

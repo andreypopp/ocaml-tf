@@ -102,6 +102,11 @@ An object containing a list of key: value pairs. Example:
 
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
+  expire_time : string option; [@option]
+      (** Timestamp in UTC when the Secret is scheduled to expire. This is always provided on output, regardless of what was sent on input.
+A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z.
+Only one of 'expire_time' or 'ttl' can be provided. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The labels assigned to this Secret.
 
@@ -119,6 +124,7 @@ An object containing a list of key: value pairs. Example:
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  project : string option; [@option]  (** project *)
   secret_id : string;  (** This must be unique within the project. *)
   ttl : string option; [@option]
       (** The TTL for the Secret.
@@ -142,14 +148,17 @@ An object containing a list of key: value pairs. Example:
 [@@deriving yojson_of]
 (** google_secret_manager_secret *)
 
-let google_secret_manager_secret ?annotations ?labels ?ttl
-    ?version_aliases ?timeouts ~secret_id ~replication ~rotation
-    ~topics __resource_id =
+let google_secret_manager_secret ?annotations ?expire_time ?id
+    ?labels ?project ?ttl ?version_aliases ?timeouts ~secret_id
+    ~replication ~rotation ~topics __resource_id =
   let __resource_type = "google_secret_manager_secret" in
   let __resource =
     {
       annotations;
+      expire_time;
+      id;
       labels;
+      project;
       secret_id;
       ttl;
       version_aliases;

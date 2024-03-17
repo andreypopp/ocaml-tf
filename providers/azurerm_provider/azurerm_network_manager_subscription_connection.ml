@@ -15,6 +15,7 @@ type azurerm_network_manager_subscription_connection__timeouts = {
 
 type azurerm_network_manager_subscription_connection = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   network_manager_id : string;  (** network_manager_id *)
   subscription_id : string;  (** subscription_id *)
@@ -24,7 +25,7 @@ type azurerm_network_manager_subscription_connection = {
 [@@deriving yojson_of]
 (** azurerm_network_manager_subscription_connection *)
 
-let azurerm_network_manager_subscription_connection ?description
+let azurerm_network_manager_subscription_connection ?description ?id
     ?timeouts ~name ~network_manager_id ~subscription_id
     __resource_id =
   let __resource_type =
@@ -33,6 +34,7 @@ let azurerm_network_manager_subscription_connection ?description
   let __resource =
     {
       description;
+      id;
       name;
       network_manager_id;
       subscription_id;

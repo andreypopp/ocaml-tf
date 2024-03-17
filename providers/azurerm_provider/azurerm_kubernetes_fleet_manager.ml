@@ -22,6 +22,7 @@ type azurerm_kubernetes_fleet_manager__timeouts = {
 (** azurerm_kubernetes_fleet_manager__timeouts *)
 
 type azurerm_kubernetes_fleet_manager = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -32,11 +33,12 @@ type azurerm_kubernetes_fleet_manager = {
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_manager *)
 
-let azurerm_kubernetes_fleet_manager ?tags ?timeouts ~location ~name
-    ~resource_group_name ~hub_profile __resource_id =
+let azurerm_kubernetes_fleet_manager ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~hub_profile __resource_id =
   let __resource_type = "azurerm_kubernetes_fleet_manager" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

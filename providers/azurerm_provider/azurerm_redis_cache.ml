@@ -73,12 +73,20 @@ type azurerm_redis_cache = {
   enable_non_ssl_port : bool option; [@option]
       (** enable_non_ssl_port *)
   family : string;  (** family *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   minimum_tls_version : string option; [@option]
       (** minimum_tls_version *)
   name : string;  (** name *)
+  private_static_ip_address : string option; [@option]
+      (** private_static_ip_address *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
+  redis_version : string option; [@option]  (** redis_version *)
+  replicas_per_master : float option; [@option]
+      (** replicas_per_master *)
+  replicas_per_primary : float option; [@option]
+      (** replicas_per_primary *)
   resource_group_name : string;  (** resource_group_name *)
   shard_count : float option; [@option]  (** shard_count *)
   sku_name : string;  (** sku_name *)
@@ -96,21 +104,27 @@ type azurerm_redis_cache = {
 [@@deriving yojson_of]
 (** azurerm_redis_cache *)
 
-let azurerm_redis_cache ?enable_non_ssl_port ?minimum_tls_version
-    ?public_network_access_enabled ?shard_count ?subnet_id ?tags
-    ?tenant_settings ?zones ?timeouts ~capacity ~family ~location
-    ~name ~resource_group_name ~sku_name ~identity ~patch_schedule
-    ~redis_configuration __resource_id =
+let azurerm_redis_cache ?enable_non_ssl_port ?id ?minimum_tls_version
+    ?private_static_ip_address ?public_network_access_enabled
+    ?redis_version ?replicas_per_master ?replicas_per_primary
+    ?shard_count ?subnet_id ?tags ?tenant_settings ?zones ?timeouts
+    ~capacity ~family ~location ~name ~resource_group_name ~sku_name
+    ~identity ~patch_schedule ~redis_configuration __resource_id =
   let __resource_type = "azurerm_redis_cache" in
   let __resource =
     {
       capacity;
       enable_non_ssl_port;
       family;
+      id;
       location;
       minimum_tls_version;
       name;
+      private_static_ip_address;
       public_network_access_enabled;
+      redis_version;
+      replicas_per_master;
+      replicas_per_primary;
       resource_group_name;
       shard_count;
       sku_name;

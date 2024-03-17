@@ -17,6 +17,7 @@ type azurerm_synapse_integration_runtime_azure = {
   compute_type : string option; [@option]  (** compute_type *)
   core_count : float option; [@option]  (** core_count *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   synapse_workspace_id : string;  (** synapse_workspace_id *)
@@ -28,8 +29,8 @@ type azurerm_synapse_integration_runtime_azure = {
 (** azurerm_synapse_integration_runtime_azure *)
 
 let azurerm_synapse_integration_runtime_azure ?compute_type
-    ?core_count ?description ?time_to_live_min ?timeouts ~location
-    ~name ~synapse_workspace_id __resource_id =
+    ?core_count ?description ?id ?time_to_live_min ?timeouts
+    ~location ~name ~synapse_workspace_id __resource_id =
   let __resource_type =
     "azurerm_synapse_integration_runtime_azure"
   in
@@ -38,6 +39,7 @@ let azurerm_synapse_integration_runtime_azure ?compute_type
       compute_type;
       core_count;
       description;
+      id;
       location;
       name;
       synapse_workspace_id;

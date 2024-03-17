@@ -8,6 +8,8 @@ type google_storage_transfer_agent_pool
 
 val google_storage_transfer_agent_pool :
   ?display_name:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_storage_transfer_agent_pool__timeouts ->
   name:string ->
   bandwidth_limit:

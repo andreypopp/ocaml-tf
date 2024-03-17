@@ -52,6 +52,8 @@ type kubernetes_manifest = {
       (** List of manifest fields whose values can be altered by the API server during 'apply'. Defaults to: [metadata.annotations, metadata.labels] *)
   manifest : string;
       (** A Kubernetes manifest describing the desired state of the resource in HCL format. *)
+  object_ : string option; [@option] [@key "object"]
+      (** The resulting resource state, as returned by the API server after applying the desired state from `manifest`. *)
   wait_for : kubernetes_manifest__wait_for option; [@option]
       (** A map of attribute paths and desired patterns to be matched. After each apply the provider will wait for all attributes listed here to reach a value that matches the desired pattern. *)
   field_manager : kubernetes_manifest__field_manager list;
@@ -61,13 +63,14 @@ type kubernetes_manifest = {
 [@@deriving yojson_of]
 (** kubernetes_manifest *)
 
-let kubernetes_manifest ?computed_fields ?wait_for ~manifest
+let kubernetes_manifest ?computed_fields ?object_ ?wait_for ~manifest
     ~field_manager ~timeouts ~wait __resource_id =
   let __resource_type = "kubernetes_manifest" in
   let __resource =
     {
       computed_fields;
       manifest;
+      object_;
       wait_for;
       field_manager;
       timeouts;

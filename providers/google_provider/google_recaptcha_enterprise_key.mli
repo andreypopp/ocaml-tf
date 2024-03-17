@@ -11,7 +11,9 @@ type google_recaptcha_enterprise_key__web_settings
 type google_recaptcha_enterprise_key
 
 val google_recaptcha_enterprise_key :
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_recaptcha_enterprise_key__timeouts ->
   display_name:string ->
   android_settings:

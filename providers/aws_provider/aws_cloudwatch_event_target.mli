@@ -28,9 +28,11 @@ type aws_cloudwatch_event_target
 
 val aws_cloudwatch_event_target :
   ?event_bus_name:string ->
+  ?id:string ->
   ?input:string ->
   ?input_path:string ->
   ?role_arn:string ->
+  ?target_id:string ->
   arn:string ->
   rule:string ->
   batch_target:aws_cloudwatch_event_target__batch_target list ->

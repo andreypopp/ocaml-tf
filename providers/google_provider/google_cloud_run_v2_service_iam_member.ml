@@ -13,18 +13,23 @@ type google_cloud_run_v2_service_iam_member__condition = {
 (** google_cloud_run_v2_service_iam_member__condition *)
 
 type google_cloud_run_v2_service_iam_member = {
+  id : string option; [@option]  (** id *)
+  location : string option; [@option]  (** location *)
   member : string;  (** member *)
   name : string;  (** name *)
+  project : string option; [@option]  (** project *)
   role : string;  (** role *)
   condition : google_cloud_run_v2_service_iam_member__condition list;
 }
 [@@deriving yojson_of]
 (** google_cloud_run_v2_service_iam_member *)
 
-let google_cloud_run_v2_service_iam_member ~member ~name ~role
-    ~condition __resource_id =
+let google_cloud_run_v2_service_iam_member ?id ?location ?project
+    ~member ~name ~role ~condition __resource_id =
   let __resource_type = "google_cloud_run_v2_service_iam_member" in
-  let __resource = { member; name; role; condition } in
+  let __resource =
+    { id; location; member; name; project; role; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_cloud_run_v2_service_iam_member __resource);
   ()

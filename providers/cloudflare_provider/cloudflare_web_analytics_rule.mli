@@ -6,6 +6,7 @@ type cloudflare_web_analytics_rule__timeouts
 type cloudflare_web_analytics_rule
 
 val cloudflare_web_analytics_rule :
+  ?id:string ->
   ?timeouts:cloudflare_web_analytics_rule__timeouts ->
   account_id:string ->
   host:string ->

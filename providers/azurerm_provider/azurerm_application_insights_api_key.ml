@@ -14,6 +14,7 @@ type azurerm_application_insights_api_key__timeouts = {
 
 type azurerm_application_insights_api_key = {
   application_insights_id : string;  (** application_insights_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   read_permissions : string list option; [@option]
       (** read_permissions *)
@@ -24,13 +25,14 @@ type azurerm_application_insights_api_key = {
 [@@deriving yojson_of]
 (** azurerm_application_insights_api_key *)
 
-let azurerm_application_insights_api_key ?read_permissions
+let azurerm_application_insights_api_key ?id ?read_permissions
     ?write_permissions ?timeouts ~application_insights_id ~name
     __resource_id =
   let __resource_type = "azurerm_application_insights_api_key" in
   let __resource =
     {
       application_insights_id;
+      id;
       name;
       read_permissions;
       write_permissions;

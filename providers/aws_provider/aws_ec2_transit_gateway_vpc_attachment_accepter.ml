@@ -5,7 +5,10 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_vpc_attachment_accepter = {
+  id : string option; [@option]  (** id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   transit_gateway_attachment_id : string;
       (** transit_gateway_attachment_id *)
   transit_gateway_default_route_table_association : bool option;
@@ -18,8 +21,8 @@ type aws_ec2_transit_gateway_vpc_attachment_accepter = {
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_vpc_attachment_accepter *)
 
-let aws_ec2_transit_gateway_vpc_attachment_accepter ?tags
-    ?transit_gateway_default_route_table_association
+let aws_ec2_transit_gateway_vpc_attachment_accepter ?id ?tags
+    ?tags_all ?transit_gateway_default_route_table_association
     ?transit_gateway_default_route_table_propagation
     ~transit_gateway_attachment_id __resource_id =
   let __resource_type =
@@ -27,7 +30,9 @@ let aws_ec2_transit_gateway_vpc_attachment_accepter ?tags
   in
   let __resource =
     {
+      id;
       tags;
+      tags_all;
       transit_gateway_attachment_id;
       transit_gateway_default_route_table_association;
       transit_gateway_default_route_table_propagation;

@@ -25,6 +25,7 @@ type digitalocean_monitor_alert = {
   enabled : bool option; [@option]  (** enabled *)
   entities : string list option; [@option]
       (** The droplets to apply the alert policy to *)
+  id : string option; [@option]  (** id *)
   tags : string list option; [@option]  (** tags *)
   type_ : string; [@key "type"]  (** type *)
   value : float;  (** value *)
@@ -34,7 +35,7 @@ type digitalocean_monitor_alert = {
 [@@deriving yojson_of]
 (** digitalocean_monitor_alert *)
 
-let digitalocean_monitor_alert ?enabled ?entities ?tags ~compare
+let digitalocean_monitor_alert ?enabled ?entities ?id ?tags ~compare
     ~description ~type_ ~value ~window ~alerts __resource_id =
   let __resource_type = "digitalocean_monitor_alert" in
   let __resource =
@@ -43,6 +44,7 @@ let digitalocean_monitor_alert ?enabled ?entities ?tags ~compare
       description;
       enabled;
       entities;
+      id;
       tags;
       type_;
       value;

@@ -9,6 +9,7 @@ type azurerm_dedicated_hardware_security_module__timeouts
 type azurerm_dedicated_hardware_security_module
 
 val azurerm_dedicated_hardware_security_module :
+  ?id:string ->
   ?stamp_id:string ->
   ?tags:(string * string) list ->
   ?zones:string list ->

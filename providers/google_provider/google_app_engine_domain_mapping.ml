@@ -43,20 +43,29 @@ type google_app_engine_domain_mapping__resource_records = {
 type google_app_engine_domain_mapping = {
   domain_name : string;
       (** Relative name of the domain serving the application. Example: example.com. *)
+  id : string option; [@option]  (** id *)
   override_strategy : string option; [@option]
       (** Whether the domain creation should override any existing mappings for this domain.
 By default, overrides are rejected. Default value: STRICT Possible values: [STRICT, OVERRIDE] *)
+  project : string option; [@option]  (** project *)
   ssl_settings : google_app_engine_domain_mapping__ssl_settings list;
   timeouts : google_app_engine_domain_mapping__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_app_engine_domain_mapping *)
 
-let google_app_engine_domain_mapping ?override_strategy ?timeouts
-    ~domain_name ~ssl_settings __resource_id =
+let google_app_engine_domain_mapping ?id ?override_strategy ?project
+    ?timeouts ~domain_name ~ssl_settings __resource_id =
   let __resource_type = "google_app_engine_domain_mapping" in
   let __resource =
-    { domain_name; override_strategy; ssl_settings; timeouts }
+    {
+      domain_name;
+      id;
+      override_strategy;
+      project;
+      ssl_settings;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_domain_mapping __resource);

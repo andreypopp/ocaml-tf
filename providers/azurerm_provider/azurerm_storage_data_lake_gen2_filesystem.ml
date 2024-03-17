@@ -23,7 +23,10 @@ type azurerm_storage_data_lake_gen2_filesystem__timeouts = {
 (** azurerm_storage_data_lake_gen2_filesystem__timeouts *)
 
 type azurerm_storage_data_lake_gen2_filesystem = {
+  group : string option; [@option]  (** group *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  owner : string option; [@option]  (** owner *)
   properties : (string * string) list option; [@option]
       (** properties *)
   storage_account_id : string;  (** storage_account_id *)
@@ -34,13 +37,23 @@ type azurerm_storage_data_lake_gen2_filesystem = {
 [@@deriving yojson_of]
 (** azurerm_storage_data_lake_gen2_filesystem *)
 
-let azurerm_storage_data_lake_gen2_filesystem ?properties ?timeouts
-    ~name ~storage_account_id ~ace __resource_id =
+let azurerm_storage_data_lake_gen2_filesystem ?group ?id ?owner
+    ?properties ?timeouts ~name ~storage_account_id ~ace
+    __resource_id =
   let __resource_type =
     "azurerm_storage_data_lake_gen2_filesystem"
   in
   let __resource =
-    { name; properties; storage_account_id; ace; timeouts }
+    {
+      group;
+      id;
+      name;
+      owner;
+      properties;
+      storage_account_id;
+      ace;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_storage_data_lake_gen2_filesystem __resource);

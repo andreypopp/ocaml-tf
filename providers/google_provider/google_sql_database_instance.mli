@@ -35,7 +35,6 @@ type google_sql_database_instance__ip_address = {
   time_to_retire : string;  (** time_to_retire *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_sql_database_instance__server_ca_cert = {
   cert : string;  (** cert *)
@@ -44,12 +43,19 @@ type google_sql_database_instance__server_ca_cert = {
   expiration_time : string;  (** expiration_time *)
   sha1_fingerprint : string;  (** sha1_fingerprint *)
 }
-[@@deriving yojson_of]
 
 type google_sql_database_instance
 
 val google_sql_database_instance :
   ?deletion_protection:bool ->
+  ?encryption_key_name:string ->
+  ?id:string ->
+  ?instance_type:string ->
+  ?maintenance_version:string ->
+  ?master_instance_name:string ->
+  ?name:string ->
+  ?project:string ->
+  ?region:string ->
   ?root_password:string ->
   ?timeouts:google_sql_database_instance__timeouts ->
   database_version:string ->

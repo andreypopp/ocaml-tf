@@ -64,6 +64,7 @@ type azurerm_data_factory_dataset_binary = {
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
   folder : string option; [@option]  (** folder *)
+  id : string option; [@option]  (** id *)
   linked_service_name : string;  (** linked_service_name *)
   name : string;  (** name *)
   parameters : (string * string) list option; [@option]
@@ -83,7 +84,7 @@ type azurerm_data_factory_dataset_binary = {
 (** azurerm_data_factory_dataset_binary *)
 
 let azurerm_data_factory_dataset_binary ?additional_properties
-    ?annotations ?description ?folder ?parameters ?timeouts
+    ?annotations ?description ?folder ?id ?parameters ?timeouts
     ~data_factory_id ~linked_service_name ~name
     ~azure_blob_storage_location ~compression ~http_server_location
     ~sftp_server_location __resource_id =
@@ -95,6 +96,7 @@ let azurerm_data_factory_dataset_binary ?additional_properties
       data_factory_id;
       description;
       folder;
+      id;
       linked_service_name;
       name;
       parameters;

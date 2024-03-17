@@ -15,6 +15,7 @@ type azurerm_federated_identity_credential__timeouts = {
 
 type azurerm_federated_identity_credential = {
   audience : string list;  (** audience *)
+  id : string option; [@option]  (** id *)
   issuer : string;  (** issuer *)
   name : string;  (** name *)
   parent_id : string;  (** parent_id *)
@@ -25,12 +26,14 @@ type azurerm_federated_identity_credential = {
 [@@deriving yojson_of]
 (** azurerm_federated_identity_credential *)
 
-let azurerm_federated_identity_credential ?timeouts ~audience ~issuer
-    ~name ~parent_id ~resource_group_name ~subject __resource_id =
+let azurerm_federated_identity_credential ?id ?timeouts ~audience
+    ~issuer ~name ~parent_id ~resource_group_name ~subject
+    __resource_id =
   let __resource_type = "azurerm_federated_identity_credential" in
   let __resource =
     {
       audience;
+      id;
       issuer;
       name;
       parent_id;

@@ -7,6 +7,7 @@ type aws_chime_voice_connector_streaming
 
 val aws_chime_voice_connector_streaming :
   ?disabled:bool ->
+  ?id:string ->
   ?streaming_notification_targets:string list ->
   data_retention:float ->
   voice_connector_id:string ->

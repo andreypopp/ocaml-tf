@@ -15,7 +15,9 @@ val google_logging_metric :
   ?bucket_name:string ->
   ?description:string ->
   ?disabled:bool ->
+  ?id:string ->
   ?label_extractors:(string * string) list ->
+  ?project:string ->
   ?value_extractor:string ->
   ?timeouts:google_logging_metric__timeouts ->
   filter:string ->

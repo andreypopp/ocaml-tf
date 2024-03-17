@@ -11,6 +11,7 @@ val azurerm_data_factory_dataset_azure_sql_table :
   ?annotations:string list ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?schema:string ->
   ?table:string ->

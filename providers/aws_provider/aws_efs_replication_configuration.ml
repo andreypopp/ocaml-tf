@@ -23,6 +23,7 @@ type aws_efs_replication_configuration__timeouts = {
 (** aws_efs_replication_configuration__timeouts *)
 
 type aws_efs_replication_configuration = {
+  id : string option; [@option]  (** id *)
   source_file_system_id : string;  (** source_file_system_id *)
   destination : aws_efs_replication_configuration__destination list;
   timeouts : aws_efs_replication_configuration__timeouts option;
@@ -30,11 +31,11 @@ type aws_efs_replication_configuration = {
 [@@deriving yojson_of]
 (** aws_efs_replication_configuration *)
 
-let aws_efs_replication_configuration ?timeouts
+let aws_efs_replication_configuration ?id ?timeouts
     ~source_file_system_id ~destination __resource_id =
   let __resource_type = "aws_efs_replication_configuration" in
   let __resource =
-    { source_file_system_id; destination; timeouts }
+    { id; source_file_system_id; destination; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_efs_replication_configuration __resource);

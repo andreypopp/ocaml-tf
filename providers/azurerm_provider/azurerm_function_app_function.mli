@@ -8,6 +8,7 @@ type azurerm_function_app_function
 
 val azurerm_function_app_function :
   ?enabled:bool ->
+  ?id:string ->
   ?language:string ->
   ?test_data:string ->
   ?timeouts:azurerm_function_app_function__timeouts ->

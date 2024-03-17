@@ -13,19 +13,23 @@ type aws_elasticache_serverless_cache__endpoint = {
   address : string;  (** address *)
   port : float;  (** port *)
 }
-[@@deriving yojson_of]
 
 type aws_elasticache_serverless_cache__reader_endpoint = {
   address : string;  (** address *)
   port : float;  (** port *)
 }
-[@@deriving yojson_of]
 
 type aws_elasticache_serverless_cache
 
 val aws_elasticache_serverless_cache :
+  ?daily_snapshot_time:string ->
+  ?description:string ->
   ?kms_key_id:string ->
+  ?major_engine_version:string ->
+  ?security_group_ids:string list ->
   ?snapshot_arns_to_restore:string list ->
+  ?snapshot_retention_limit:float ->
+  ?subnet_ids:string list ->
   ?tags:(string * string) list ->
   ?user_group_id:string ->
   ?timeouts:aws_elasticache_serverless_cache__timeouts ->

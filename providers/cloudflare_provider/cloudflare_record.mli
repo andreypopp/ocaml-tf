@@ -9,9 +9,12 @@ type cloudflare_record
 val cloudflare_record :
   ?allow_overwrite:bool ->
   ?comment:string ->
+  ?id:string ->
   ?priority:float ->
   ?proxied:bool ->
   ?tags:string list ->
+  ?ttl:float ->
+  ?value:string ->
   ?timeouts:cloudflare_record__timeouts ->
   name:string ->
   type_:string ->

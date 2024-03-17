@@ -17,9 +17,11 @@ type azurerm_sentinel_data_connector_microsoft_cloud_app_security = {
   alerts_enabled : bool option; [@option]  (** alerts_enabled *)
   discovery_logs_enabled : bool option; [@option]
       (** discovery_logs_enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
+  tenant_id : string option; [@option]  (** tenant_id *)
   timeouts :
     azurerm_sentinel_data_connector_microsoft_cloud_app_security__timeouts
     option;
@@ -28,7 +30,7 @@ type azurerm_sentinel_data_connector_microsoft_cloud_app_security = {
 (** azurerm_sentinel_data_connector_microsoft_cloud_app_security *)
 
 let azurerm_sentinel_data_connector_microsoft_cloud_app_security
-    ?alerts_enabled ?discovery_logs_enabled ?timeouts
+    ?alerts_enabled ?discovery_logs_enabled ?id ?tenant_id ?timeouts
     ~log_analytics_workspace_id ~name __resource_id =
   let __resource_type =
     "azurerm_sentinel_data_connector_microsoft_cloud_app_security"
@@ -37,8 +39,10 @@ let azurerm_sentinel_data_connector_microsoft_cloud_app_security
     {
       alerts_enabled;
       discovery_logs_enabled;
+      id;
       log_analytics_workspace_id;
       name;
+      tenant_id;
       timeouts;
     }
   in

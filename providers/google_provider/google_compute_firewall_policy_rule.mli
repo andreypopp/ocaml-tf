@@ -11,6 +11,7 @@ val google_compute_firewall_policy_rule :
   ?description:string ->
   ?disabled:bool ->
   ?enable_logging:bool ->
+  ?id:string ->
   ?target_resources:string list ->
   ?target_service_accounts:string list ->
   ?timeouts:google_compute_firewall_policy_rule__timeouts ->

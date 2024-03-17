@@ -7,6 +7,7 @@ open! Tf.Prelude
 type aws_ami_launch_permission = {
   account_id : string option; [@option]  (** account_id *)
   group : string option; [@option]  (** group *)
+  id : string option; [@option]  (** id *)
   image_id : string;  (** image_id *)
   organization_arn : string option; [@option]
       (** organization_arn *)
@@ -16,13 +17,15 @@ type aws_ami_launch_permission = {
 [@@deriving yojson_of]
 (** aws_ami_launch_permission *)
 
-let aws_ami_launch_permission ?account_id ?group ?organization_arn
-    ?organizational_unit_arn ~image_id __resource_id =
+let aws_ami_launch_permission ?account_id ?group ?id
+    ?organization_arn ?organizational_unit_arn ~image_id
+    __resource_id =
   let __resource_type = "aws_ami_launch_permission" in
   let __resource =
     {
       account_id;
       group;
+      id;
       image_id;
       organization_arn;
       organizational_unit_arn;

@@ -21,6 +21,7 @@ type azurerm_monitor_autoscale_setting
 
 val azurerm_monitor_autoscale_setting :
   ?enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_monitor_autoscale_setting__timeouts ->
   location:string ->

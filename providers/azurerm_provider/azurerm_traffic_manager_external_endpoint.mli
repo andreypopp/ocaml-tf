@@ -10,7 +10,11 @@ type azurerm_traffic_manager_external_endpoint
 val azurerm_traffic_manager_external_endpoint :
   ?always_serve_enabled:bool ->
   ?enabled:bool ->
+  ?endpoint_location:string ->
   ?geo_mappings:string list ->
+  ?id:string ->
+  ?priority:float ->
+  ?weight:float ->
   ?timeouts:azurerm_traffic_manager_external_endpoint__timeouts ->
   name:string ->
   profile_id:string ->

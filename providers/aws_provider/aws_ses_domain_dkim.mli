@@ -4,4 +4,5 @@ open! Tf.Prelude
 
 type aws_ses_domain_dkim
 
-val aws_ses_domain_dkim : domain:string -> string -> unit
+val aws_ses_domain_dkim :
+  ?id:string -> domain:string -> string -> unit

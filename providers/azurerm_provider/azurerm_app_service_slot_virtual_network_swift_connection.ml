@@ -15,6 +15,7 @@ type azurerm_app_service_slot_virtual_network_swift_connection__timeouts = {
 
 type azurerm_app_service_slot_virtual_network_swift_connection = {
   app_service_id : string;  (** app_service_id *)
+  id : string option; [@option]  (** id *)
   slot_name : string;  (** slot_name *)
   subnet_id : string;  (** subnet_id *)
   timeouts :
@@ -24,13 +25,13 @@ type azurerm_app_service_slot_virtual_network_swift_connection = {
 [@@deriving yojson_of]
 (** azurerm_app_service_slot_virtual_network_swift_connection *)
 
-let azurerm_app_service_slot_virtual_network_swift_connection
+let azurerm_app_service_slot_virtual_network_swift_connection ?id
     ?timeouts ~app_service_id ~slot_name ~subnet_id __resource_id =
   let __resource_type =
     "azurerm_app_service_slot_virtual_network_swift_connection"
   in
   let __resource =
-    { app_service_id; slot_name; subnet_id; timeouts }
+    { app_service_id; id; slot_name; subnet_id; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_app_service_slot_virtual_network_swift_connection

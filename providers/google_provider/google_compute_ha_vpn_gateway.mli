@@ -8,6 +8,9 @@ type google_compute_ha_vpn_gateway
 
 val google_compute_ha_vpn_gateway :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?stack_type:string ->
   ?timeouts:google_compute_ha_vpn_gateway__timeouts ->
   name:string ->

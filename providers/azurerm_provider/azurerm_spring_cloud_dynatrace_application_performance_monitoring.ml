@@ -19,6 +19,7 @@ type azurerm_spring_cloud_dynatrace_application_performance_monitoring = {
   connection_point : string;  (** connection_point *)
   environment_id : string option; [@option]  (** environment_id *)
   globally_enabled : bool option; [@option]  (** globally_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_service_id : string;  (** spring_cloud_service_id *)
   tenant : string;  (** tenant *)
@@ -31,9 +32,9 @@ type azurerm_spring_cloud_dynatrace_application_performance_monitoring = {
 (** azurerm_spring_cloud_dynatrace_application_performance_monitoring *)
 
 let azurerm_spring_cloud_dynatrace_application_performance_monitoring
-    ?api_token ?api_url ?environment_id ?globally_enabled ?timeouts
-    ~connection_point ~name ~spring_cloud_service_id ~tenant
-    ~tenant_token __resource_id =
+    ?api_token ?api_url ?environment_id ?globally_enabled ?id
+    ?timeouts ~connection_point ~name ~spring_cloud_service_id
+    ~tenant ~tenant_token __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_dynatrace_application_performance_monitoring"
   in
@@ -44,6 +45,7 @@ let azurerm_spring_cloud_dynatrace_application_performance_monitoring
       connection_point;
       environment_id;
       globally_enabled;
+      id;
       name;
       spring_cloud_service_id;
       tenant;

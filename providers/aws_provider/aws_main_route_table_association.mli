@@ -6,6 +6,7 @@ type aws_main_route_table_association__timeouts
 type aws_main_route_table_association
 
 val aws_main_route_table_association :
+  ?id:string ->
   ?timeouts:aws_main_route_table_association__timeouts ->
   route_table_id:string ->
   vpc_id:string ->

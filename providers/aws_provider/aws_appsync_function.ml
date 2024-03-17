@@ -35,6 +35,9 @@ type aws_appsync_function = {
   code : string option; [@option]  (** code *)
   data_source : string;  (** data_source *)
   description : string option; [@option]  (** description *)
+  function_version : string option; [@option]
+      (** function_version *)
+  id : string option; [@option]  (** id *)
   max_batch_size : float option; [@option]  (** max_batch_size *)
   name : string;  (** name *)
   request_mapping_template : string option; [@option]
@@ -47,9 +50,10 @@ type aws_appsync_function = {
 [@@deriving yojson_of]
 (** aws_appsync_function *)
 
-let aws_appsync_function ?code ?description ?max_batch_size
-    ?request_mapping_template ?response_mapping_template ~api_id
-    ~data_source ~name ~runtime ~sync_config __resource_id =
+let aws_appsync_function ?code ?description ?function_version ?id
+    ?max_batch_size ?request_mapping_template
+    ?response_mapping_template ~api_id ~data_source ~name ~runtime
+    ~sync_config __resource_id =
   let __resource_type = "aws_appsync_function" in
   let __resource =
     {
@@ -57,6 +61,8 @@ let aws_appsync_function ?code ?description ?max_batch_size
       code;
       data_source;
       description;
+      function_version;
+      id;
       max_batch_size;
       name;
       request_mapping_template;

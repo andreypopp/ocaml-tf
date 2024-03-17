@@ -6,23 +6,28 @@ open! Tf.Prelude
 
 type aws_redshift_cluster_snapshot = {
   cluster_identifier : string;  (** cluster_identifier *)
+  id : string option; [@option]  (** id *)
   manual_snapshot_retention_period : float option; [@option]
       (** manual_snapshot_retention_period *)
   snapshot_identifier : string;  (** snapshot_identifier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_cluster_snapshot *)
 
-let aws_redshift_cluster_snapshot ?manual_snapshot_retention_period
-    ?tags ~cluster_identifier ~snapshot_identifier __resource_id =
+let aws_redshift_cluster_snapshot ?id
+    ?manual_snapshot_retention_period ?tags ?tags_all
+    ~cluster_identifier ~snapshot_identifier __resource_id =
   let __resource_type = "aws_redshift_cluster_snapshot" in
   let __resource =
     {
       cluster_identifier;
+      id;
       manual_snapshot_retention_period;
       snapshot_identifier;
       tags;
+      tags_all;
     }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id

@@ -6,6 +6,7 @@ type azurerm_cdn_frontdoor_profile__timeouts
 type azurerm_cdn_frontdoor_profile
 
 val azurerm_cdn_frontdoor_profile :
+  ?id:string ->
   ?response_timeout_seconds:float ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_cdn_frontdoor_profile__timeouts ->

@@ -8,12 +8,10 @@ type google_edgecontainer_vpn_connection__vpc_project
 type google_edgecontainer_vpn_connection__details__cloud_vpns = {
   gateway : string;  (** gateway *)
 }
-[@@deriving yojson_of]
 
 type google_edgecontainer_vpn_connection__details__cloud_router = {
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type google_edgecontainer_vpn_connection__details = {
   cloud_router :
@@ -25,13 +23,15 @@ type google_edgecontainer_vpn_connection__details = {
   error : string;  (** error *)
   state : string;  (** state *)
 }
-[@@deriving yojson_of]
 
 type google_edgecontainer_vpn_connection
 
 val google_edgecontainer_vpn_connection :
+  ?enable_high_availability:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?nat_gateway_ip:string ->
+  ?project:string ->
   ?router:string ->
   ?vpc:string ->
   ?timeouts:google_edgecontainer_vpn_connection__timeouts ->

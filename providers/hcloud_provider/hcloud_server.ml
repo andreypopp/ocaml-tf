@@ -32,14 +32,18 @@ type hcloud_server = {
   allow_deprecated_images : bool option; [@option]
       (** allow_deprecated_images *)
   backups : bool option; [@option]  (** backups *)
+  datacenter : string option; [@option]  (** datacenter *)
   delete_protection : bool option; [@option]
       (** delete_protection *)
+  firewall_ids : float list option; [@option]  (** firewall_ids *)
+  id : string option; [@option]  (** id *)
   ignore_remote_firewall_ids : bool option; [@option]
       (** ignore_remote_firewall_ids *)
   image : string option; [@option]  (** image *)
   iso : string option; [@option]  (** iso *)
   keep_disk : bool option; [@option]  (** keep_disk *)
   labels : (string * string) list option; [@option]  (** labels *)
+  location : string option; [@option]  (** location *)
   name : string;  (** name *)
   placement_group_id : float option; [@option]
       (** placement_group_id *)
@@ -58,22 +62,27 @@ type hcloud_server = {
 [@@deriving yojson_of]
 (** hcloud_server *)
 
-let hcloud_server ?allow_deprecated_images ?backups
-    ?delete_protection ?ignore_remote_firewall_ids ?image ?iso
-    ?keep_disk ?labels ?placement_group_id ?rebuild_protection
-    ?rescue ?shutdown_before_deletion ?ssh_keys ?user_data ?timeouts
-    ~name ~server_type ~network ~public_net __resource_id =
+let hcloud_server ?allow_deprecated_images ?backups ?datacenter
+    ?delete_protection ?firewall_ids ?id ?ignore_remote_firewall_ids
+    ?image ?iso ?keep_disk ?labels ?location ?placement_group_id
+    ?rebuild_protection ?rescue ?shutdown_before_deletion ?ssh_keys
+    ?user_data ?timeouts ~name ~server_type ~network ~public_net
+    __resource_id =
   let __resource_type = "hcloud_server" in
   let __resource =
     {
       allow_deprecated_images;
       backups;
+      datacenter;
       delete_protection;
+      firewall_ids;
+      id;
       ignore_remote_firewall_ids;
       image;
       iso;
       keep_disk;
       labels;
+      location;
       name;
       placement_group_id;
       rebuild_protection;

@@ -28,25 +28,30 @@ type aws_guardduty_filter = {
   action : string;  (** action *)
   description : string option; [@option]  (** description *)
   detector_id : string;  (** detector_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   rank : float;  (** rank *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   finding_criteria : aws_guardduty_filter__finding_criteria list;
 }
 [@@deriving yojson_of]
 (** aws_guardduty_filter *)
 
-let aws_guardduty_filter ?description ?tags ~action ~detector_id
-    ~name ~rank ~finding_criteria __resource_id =
+let aws_guardduty_filter ?description ?id ?tags ?tags_all ~action
+    ~detector_id ~name ~rank ~finding_criteria __resource_id =
   let __resource_type = "aws_guardduty_filter" in
   let __resource =
     {
       action;
       description;
       detector_id;
+      id;
       name;
       rank;
       tags;
+      tags_all;
       finding_criteria;
     }
   in

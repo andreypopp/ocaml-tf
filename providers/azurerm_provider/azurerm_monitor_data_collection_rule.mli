@@ -58,6 +58,7 @@ type azurerm_monitor_data_collection_rule
 val azurerm_monitor_data_collection_rule :
   ?data_collection_endpoint_id:string ->
   ?description:string ->
+  ?id:string ->
   ?kind:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_monitor_data_collection_rule__timeouts ->

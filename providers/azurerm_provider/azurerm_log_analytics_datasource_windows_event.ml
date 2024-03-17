@@ -16,6 +16,7 @@ type azurerm_log_analytics_datasource_windows_event__timeouts = {
 type azurerm_log_analytics_datasource_windows_event = {
   event_log_name : string;  (** event_log_name *)
   event_types : string list;  (** event_types *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   workspace_name : string;  (** workspace_name *)
@@ -25,7 +26,7 @@ type azurerm_log_analytics_datasource_windows_event = {
 [@@deriving yojson_of]
 (** azurerm_log_analytics_datasource_windows_event *)
 
-let azurerm_log_analytics_datasource_windows_event ?timeouts
+let azurerm_log_analytics_datasource_windows_event ?id ?timeouts
     ~event_log_name ~event_types ~name ~resource_group_name
     ~workspace_name __resource_id =
   let __resource_type =
@@ -35,6 +36,7 @@ let azurerm_log_analytics_datasource_windows_event ?timeouts
     {
       event_log_name;
       event_types;
+      id;
       name;
       resource_group_name;
       workspace_name;

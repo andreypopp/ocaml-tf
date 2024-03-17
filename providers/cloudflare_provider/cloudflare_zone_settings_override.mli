@@ -14,21 +14,18 @@ type cloudflare_zone_settings_override__initial_settings__security_header = {
   nosniff : bool;  (** nosniff *)
   preload : bool;  (** preload *)
 }
-[@@deriving yojson_of]
 
 type cloudflare_zone_settings_override__initial_settings__mobile_redirect = {
   mobile_subdomain : string;  (** mobile_subdomain *)
   status : string;  (** status *)
   strip_uri : bool;  (** strip_uri *)
 }
-[@@deriving yojson_of]
 
 type cloudflare_zone_settings_override__initial_settings__minify = {
   css : string;  (** css *)
   html : string;  (** html *)
   js : string;  (** js *)
 }
-[@@deriving yojson_of]
 
 type cloudflare_zone_settings_override__initial_settings = {
   always_online : string;  (** always_online *)
@@ -99,11 +96,11 @@ type cloudflare_zone_settings_override__initial_settings = {
   websockets : string;  (** websockets *)
   zero_rtt : string;  (** zero_rtt *)
 }
-[@@deriving yojson_of]
 
 type cloudflare_zone_settings_override
 
 val cloudflare_zone_settings_override :
+  ?id:string ->
   zone_id:string ->
   settings:cloudflare_zone_settings_override__settings list ->
   string ->

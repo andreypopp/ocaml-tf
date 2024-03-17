@@ -14,8 +14,13 @@ type azurerm_subscription__timeouts = {
 (** azurerm_subscription__timeouts *)
 
 type azurerm_subscription = {
+  alias : string option; [@option]
+      (** The Alias Name of the subscription. If omitted a new UUID will be generated for this property. *)
   billing_scope_id : string option; [@option]
       (** billing_scope_id *)
+  id : string option; [@option]  (** id *)
+  subscription_id : string option; [@option]
+      (** The GUID of the Subscription. *)
   subscription_name : string;
       (** The Display Name for the Subscription. *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -26,11 +31,21 @@ type azurerm_subscription = {
 [@@deriving yojson_of]
 (** azurerm_subscription *)
 
-let azurerm_subscription ?billing_scope_id ?tags ?workload ?timeouts
-    ~subscription_name __resource_id =
+let azurerm_subscription ?alias ?billing_scope_id ?id
+    ?subscription_id ?tags ?workload ?timeouts ~subscription_name
+    __resource_id =
   let __resource_type = "azurerm_subscription" in
   let __resource =
-    { billing_scope_id; subscription_name; tags; workload; timeouts }
+    {
+      alias;
+      billing_scope_id;
+      id;
+      subscription_id;
+      subscription_name;
+      tags;
+      workload;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_subscription __resource);

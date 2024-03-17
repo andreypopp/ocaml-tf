@@ -14,6 +14,7 @@ type azurerm_storage_sync__timeouts = {
 (** azurerm_storage_sync__timeouts *)
 
 type azurerm_storage_sync = {
+  id : string option; [@option]  (** id *)
   incoming_traffic_policy : string option; [@option]
       (** incoming_traffic_policy *)
   location : string;  (** location *)
@@ -25,11 +26,12 @@ type azurerm_storage_sync = {
 [@@deriving yojson_of]
 (** azurerm_storage_sync *)
 
-let azurerm_storage_sync ?incoming_traffic_policy ?tags ?timeouts
+let azurerm_storage_sync ?id ?incoming_traffic_policy ?tags ?timeouts
     ~location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_storage_sync" in
   let __resource =
     {
+      id;
       incoming_traffic_policy;
       location;
       name;

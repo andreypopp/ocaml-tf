@@ -6,6 +6,7 @@ type azurerm_dns_ptr_record__timeouts
 type azurerm_dns_ptr_record
 
 val azurerm_dns_ptr_record :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_dns_ptr_record__timeouts ->
   name:string ->

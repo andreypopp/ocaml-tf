@@ -8,8 +8,13 @@ val aws_kms_external_key :
   ?bypass_policy_lockout_safety_check:bool ->
   ?deletion_window_in_days:float ->
   ?description:string ->
+  ?enabled:bool ->
+  ?id:string ->
   ?key_material_base64:string ->
+  ?multi_region:bool ->
+  ?policy:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?valid_to:string ->
   string ->
   unit

@@ -7,9 +7,11 @@ type azurerm_synapse_sql_pool__timeouts
 type azurerm_synapse_sql_pool
 
 val azurerm_synapse_sql_pool :
+  ?collation:string ->
   ?create_mode:string ->
   ?data_encrypted:bool ->
   ?geo_backup_policy_enabled:bool ->
+  ?id:string ->
   ?recovery_database_id:string ->
   ?storage_account_type:string ->
   ?tags:(string * string) list ->

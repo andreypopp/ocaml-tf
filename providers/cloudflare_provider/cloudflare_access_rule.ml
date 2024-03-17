@@ -14,10 +14,15 @@ type cloudflare_access_rule__configuration = {
 (** Rule configuration to apply to a matched request. **Modifying this attribute will force creation of a new resource.** *)
 
 type cloudflare_access_rule = {
+  account_id : string option; [@option]
+      (** The account identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
+  id : string option; [@option]  (** id *)
   mode : string;
       (** The action to apply to a matched request. Available values: `block`, `challenge`, `whitelist`, `js_challenge`, `managed_challenge`. *)
   notes : string option; [@option]
       (** A personal note about the rule. Typically used as a reminder or explanation for the rule. *)
+  zone_id : string option; [@option]
+      (** The zone identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
   configuration : cloudflare_access_rule__configuration list;
 }
 [@@deriving yojson_of]
@@ -26,10 +31,12 @@ control can be applied on basis of IP addresses, IP ranges, AS
 numbers or countries.
  *)
 
-let cloudflare_access_rule ?notes ~mode ~configuration __resource_id
-    =
+let cloudflare_access_rule ?account_id ?id ?notes ?zone_id ~mode
+    ~configuration __resource_id =
   let __resource_type = "cloudflare_access_rule" in
-  let __resource = { mode; notes; configuration } in
+  let __resource =
+    { account_id; id; mode; notes; zone_id; configuration }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_rule __resource);
   ()

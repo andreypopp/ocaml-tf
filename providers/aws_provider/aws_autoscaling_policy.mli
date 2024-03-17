@@ -65,6 +65,8 @@ val aws_autoscaling_policy :
   ?cooldown:float ->
   ?enabled:bool ->
   ?estimated_instance_warmup:float ->
+  ?id:string ->
+  ?metric_aggregation_type:string ->
   ?min_adjustment_magnitude:float ->
   ?policy_type:string ->
   ?scaling_adjustment:float ->

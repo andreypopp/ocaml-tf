@@ -66,6 +66,7 @@ type azurerm_resource_group_cost_management_view = {
   accumulated : bool;  (** accumulated *)
   chart_type : string;  (** chart_type *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   report_type : string;  (** report_type *)
   resource_group_id : string;  (** resource_group_id *)
@@ -80,7 +81,7 @@ type azurerm_resource_group_cost_management_view = {
 [@@deriving yojson_of]
 (** azurerm_resource_group_cost_management_view *)
 
-let azurerm_resource_group_cost_management_view ?timeouts
+let azurerm_resource_group_cost_management_view ?id ?timeouts
     ~accumulated ~chart_type ~display_name ~name ~report_type
     ~resource_group_id ~timeframe ~dataset ~kpi ~pivot __resource_id
     =
@@ -92,6 +93,7 @@ let azurerm_resource_group_cost_management_view ?timeouts
       accumulated;
       chart_type;
       display_name;
+      id;
       name;
       report_type;
       resource_group_id;

@@ -10,8 +10,10 @@ type google_compute_region_network_endpoint_group
 
 val google_compute_region_network_endpoint_group :
   ?description:string ->
+  ?id:string ->
   ?network:string ->
   ?network_endpoint_type:string ->
+  ?project:string ->
   ?psc_target_service:string ->
   ?subnetwork:string ->
   ?timeouts:google_compute_region_network_endpoint_group__timeouts ->

@@ -15,6 +15,7 @@ val azurerm_data_factory_trigger_tumbling_window :
   ?delay:string ->
   ?description:string ->
   ?end_time:string ->
+  ?id:string ->
   ?max_concurrency:float ->
   ?timeouts:azurerm_data_factory_trigger_tumbling_window__timeouts ->
   data_factory_id:string ->

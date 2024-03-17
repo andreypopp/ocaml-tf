@@ -15,6 +15,7 @@ type azurerm_integration_service_environment__timeouts = {
 
 type azurerm_integration_service_environment = {
   access_endpoint_type : string;  (** access_endpoint_type *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -27,13 +28,14 @@ type azurerm_integration_service_environment = {
 [@@deriving yojson_of]
 (** azurerm_integration_service_environment *)
 
-let azurerm_integration_service_environment ?sku_name ?tags ?timeouts
-    ~access_endpoint_type ~location ~name ~resource_group_name
-    ~virtual_network_subnet_ids __resource_id =
+let azurerm_integration_service_environment ?id ?sku_name ?tags
+    ?timeouts ~access_endpoint_type ~location ~name
+    ~resource_group_name ~virtual_network_subnet_ids __resource_id =
   let __resource_type = "azurerm_integration_service_environment" in
   let __resource =
     {
       access_endpoint_type;
+      id;
       location;
       name;
       resource_group_name;

@@ -172,6 +172,7 @@ type google_privateca_certificate_template__timeouts = {
 type google_privateca_certificate_template = {
   description : string option; [@option]
       (** Optional. A human-readable description of scenarios this template is intended for. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. Labels with user-defined metadata.
 
@@ -180,6 +181,8 @@ Please refer to the field `effective_labels` for all of the labels present on th
   location : string;  (** The location for the resource *)
   name : string;
       (** The resource name for this CertificateTemplate in the format `projects/*/locations/*/certificateTemplates/*`. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   identity_constraints :
     google_privateca_certificate_template__identity_constraints list;
   passthrough_extensions :
@@ -192,16 +195,18 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_privateca_certificate_template *)
 
-let google_privateca_certificate_template ?description ?labels
-    ?timeouts ~location ~name ~identity_constraints
+let google_privateca_certificate_template ?description ?id ?labels
+    ?project ?timeouts ~location ~name ~identity_constraints
     ~passthrough_extensions ~predefined_values __resource_id =
   let __resource_type = "google_privateca_certificate_template" in
   let __resource =
     {
       description;
+      id;
       labels;
       location;
       name;
+      project;
       identity_constraints;
       passthrough_extensions;
       predefined_values;

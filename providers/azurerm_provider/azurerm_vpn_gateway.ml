@@ -48,9 +48,12 @@ type azurerm_vpn_gateway__timeouts = {
 type azurerm_vpn_gateway = {
   bgp_route_translation_for_nat_enabled : bool option; [@option]
       (** bgp_route_translation_for_nat_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
+  routing_preference : string option; [@option]
+      (** routing_preference *)
   scale_unit : float option; [@option]  (** scale_unit *)
   tags : (string * string) list option; [@option]  (** tags *)
   virtual_hub_id : string;  (** virtual_hub_id *)
@@ -60,16 +63,19 @@ type azurerm_vpn_gateway = {
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway *)
 
-let azurerm_vpn_gateway ?bgp_route_translation_for_nat_enabled
-    ?scale_unit ?tags ?timeouts ~location ~name ~resource_group_name
-    ~virtual_hub_id ~bgp_settings __resource_id =
+let azurerm_vpn_gateway ?bgp_route_translation_for_nat_enabled ?id
+    ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
+    ~resource_group_name ~virtual_hub_id ~bgp_settings __resource_id
+    =
   let __resource_type = "azurerm_vpn_gateway" in
   let __resource =
     {
       bgp_route_translation_for_nat_enabled;
+      id;
       location;
       name;
       resource_group_name;
+      routing_preference;
       scale_unit;
       tags;
       virtual_hub_id;

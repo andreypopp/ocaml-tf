@@ -9,6 +9,7 @@ type azurerm_data_factory_integration_runtime_self_hosted
 
 val azurerm_data_factory_integration_runtime_self_hosted :
   ?description:string ->
+  ?id:string ->
   ?timeouts:
     azurerm_data_factory_integration_runtime_self_hosted__timeouts ->
   data_factory_id:string ->

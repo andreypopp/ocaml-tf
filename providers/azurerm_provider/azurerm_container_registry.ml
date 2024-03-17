@@ -81,19 +81,35 @@ type azurerm_container_registry = {
       (** anonymous_pull_enabled *)
   data_endpoint_enabled : bool option; [@option]
       (** data_endpoint_enabled *)
+  encryption : azurerm_container_registry__encryption list option;
+      [@option]
+      (** encryption *)
   export_policy_enabled : bool option; [@option]
       (** export_policy_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   network_rule_bypass_option : string option; [@option]
       (** network_rule_bypass_option *)
+  network_rule_set :
+    azurerm_container_registry__network_rule_set list option;
+      [@option]
+      (** network_rule_set *)
   public_network_access_enabled : bool option; [@option]
       (** public_network_access_enabled *)
   quarantine_policy_enabled : bool option; [@option]
       (** quarantine_policy_enabled *)
   resource_group_name : string;  (** resource_group_name *)
+  retention_policy :
+    azurerm_container_registry__retention_policy list option;
+      [@option]
+      (** retention_policy *)
   sku : string;  (** sku *)
   tags : (string * string) list option; [@option]  (** tags *)
+  trust_policy :
+    azurerm_container_registry__trust_policy list option;
+      [@option]
+      (** trust_policy *)
   zone_redundancy_enabled : bool option; [@option]
       (** zone_redundancy_enabled *)
   georeplications : azurerm_container_registry__georeplications list;
@@ -104,9 +120,10 @@ type azurerm_container_registry = {
 (** azurerm_container_registry *)
 
 let azurerm_container_registry ?admin_enabled ?anonymous_pull_enabled
-    ?data_endpoint_enabled ?export_policy_enabled
-    ?network_rule_bypass_option ?public_network_access_enabled
-    ?quarantine_policy_enabled ?tags ?zone_redundancy_enabled
+    ?data_endpoint_enabled ?encryption ?export_policy_enabled ?id
+    ?network_rule_bypass_option ?network_rule_set
+    ?public_network_access_enabled ?quarantine_policy_enabled
+    ?retention_policy ?tags ?trust_policy ?zone_redundancy_enabled
     ?timeouts ~location ~name ~resource_group_name ~sku
     ~georeplications ~identity __resource_id =
   let __resource_type = "azurerm_container_registry" in
@@ -115,15 +132,20 @@ let azurerm_container_registry ?admin_enabled ?anonymous_pull_enabled
       admin_enabled;
       anonymous_pull_enabled;
       data_endpoint_enabled;
+      encryption;
       export_policy_enabled;
+      id;
       location;
       name;
       network_rule_bypass_option;
+      network_rule_set;
       public_network_access_enabled;
       quarantine_policy_enabled;
       resource_group_name;
+      retention_policy;
       sku;
       tags;
+      trust_policy;
       zone_redundancy_enabled;
       georeplications;
       identity;

@@ -119,6 +119,17 @@ type google_bigquery_dataset = {
       (** A unique ID for this dataset, without the project name. The ID
 must contain only letters (a-z, A-Z), numbers (0-9), or
 underscores (_). The maximum length is 1,024 characters. *)
+  default_collation : string option; [@option]
+      (** Defines the default collation specification of future tables created
+in the dataset. If a table is created in this dataset without table-level
+default collation, then the table inherits the dataset default collation,
+which is applied to the string fields that do not have explicit collation
+specified. A change to this field affects only tables created afterwards,
+and does not alter the existing tables.
+
+The following values are supported:
+- 'und:ci': undetermined locale, case insensitive.
+- '': empty string. Default to case-sensitive behavior. *)
   default_partition_expiration_ms : float option; [@option]
       (** The default partition expiration for all partitioned tables in
 the dataset, in milliseconds.
@@ -157,6 +168,11 @@ destroying the resource will fail if tables are present. *)
       (** A user-friendly description of the dataset *)
   friendly_name : string option; [@option]
       (** A descriptive name for the dataset *)
+  id : string option; [@option]  (** id *)
+  is_case_insensitive : bool option; [@option]
+      (** TRUE if the dataset and its table names are case-insensitive, otherwise FALSE.
+By default, this is FALSE, which means the dataset and its table names are
+case-sensitive. This field does not affect routine references. *)
   labels : (string * string) list option; [@option]
       (** The labels associated with this dataset. You can use these to
 organize and group your datasets.
@@ -177,6 +193,15 @@ contains at least two geographic places.
 
 The default value is multi-regional location 'US'.
 Changing this forces a new resource to be created. *)
+  max_time_travel_hours : string option; [@option]
+      (** Defines the time travel window in hours. The value can be from 48 to 168 hours (2 to 7 days). *)
+  project : string option; [@option]  (** project *)
+  storage_billing_model : string option; [@option]
+      (** Specifies the storage billing model for the dataset.
+Set this flag value to LOGICAL to use logical bytes for storage billing,
+or to PHYSICAL to use physical bytes instead.
+
+LOGICAL is the default if this flag isn't specified. *)
   access : google_bigquery_dataset__access list;
   default_encryption_configuration :
     google_bigquery_dataset__default_encryption_configuration list;
@@ -185,22 +210,29 @@ Changing this forces a new resource to be created. *)
 [@@deriving yojson_of]
 (** google_bigquery_dataset *)
 
-let google_bigquery_dataset ?default_partition_expiration_ms
-    ?default_table_expiration_ms ?delete_contents_on_destroy
-    ?description ?friendly_name ?labels ?location ?timeouts
-    ~dataset_id ~access ~default_encryption_configuration
-    __resource_id =
+let google_bigquery_dataset ?default_collation
+    ?default_partition_expiration_ms ?default_table_expiration_ms
+    ?delete_contents_on_destroy ?description ?friendly_name ?id
+    ?is_case_insensitive ?labels ?location ?max_time_travel_hours
+    ?project ?storage_billing_model ?timeouts ~dataset_id ~access
+    ~default_encryption_configuration __resource_id =
   let __resource_type = "google_bigquery_dataset" in
   let __resource =
     {
       dataset_id;
+      default_collation;
       default_partition_expiration_ms;
       default_table_expiration_ms;
       delete_contents_on_destroy;
       description;
       friendly_name;
+      id;
+      is_case_insensitive;
       labels;
       location;
+      max_time_travel_hours;
+      project;
+      storage_billing_model;
       access;
       default_encryption_configuration;
       timeouts;

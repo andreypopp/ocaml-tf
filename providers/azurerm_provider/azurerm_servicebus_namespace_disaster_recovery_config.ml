@@ -16,6 +16,7 @@ type azurerm_servicebus_namespace_disaster_recovery_config__timeouts = {
 type azurerm_servicebus_namespace_disaster_recovery_config = {
   alias_authorization_rule_id : string option; [@option]
       (** alias_authorization_rule_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   partner_namespace_id : string;  (** partner_namespace_id *)
   primary_namespace_id : string;  (** primary_namespace_id *)
@@ -27,7 +28,7 @@ type azurerm_servicebus_namespace_disaster_recovery_config = {
 (** azurerm_servicebus_namespace_disaster_recovery_config *)
 
 let azurerm_servicebus_namespace_disaster_recovery_config
-    ?alias_authorization_rule_id ?timeouts ~name
+    ?alias_authorization_rule_id ?id ?timeouts ~name
     ~partner_namespace_id ~primary_namespace_id __resource_id =
   let __resource_type =
     "azurerm_servicebus_namespace_disaster_recovery_config"
@@ -35,6 +36,7 @@ let azurerm_servicebus_namespace_disaster_recovery_config
   let __resource =
     {
       alias_authorization_rule_id;
+      id;
       name;
       partner_namespace_id;
       primary_namespace_id;

@@ -83,16 +83,23 @@ type aws_fsx_ontap_volume = {
       (** bypass_snaplock_enterprise_retention *)
   copy_tags_to_backups : bool option; [@option]
       (** copy_tags_to_backups *)
+  id : string option; [@option]  (** id *)
   junction_path : string option; [@option]  (** junction_path *)
   name : string;  (** name *)
+  ontap_volume_type : string option; [@option]
+      (** ontap_volume_type *)
+  security_style : string option; [@option]  (** security_style *)
   size_in_megabytes : float;  (** size_in_megabytes *)
   skip_final_backup : bool option; [@option]
       (** skip_final_backup *)
+  snapshot_policy : string option; [@option]  (** snapshot_policy *)
   storage_efficiency_enabled : bool option; [@option]
       (** storage_efficiency_enabled *)
   storage_virtual_machine_id : string;
       (** storage_virtual_machine_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   volume_type : string option; [@option]  (** volume_type *)
   snaplock_configuration :
     aws_fsx_ontap_volume__snaplock_configuration list;
@@ -103,22 +110,28 @@ type aws_fsx_ontap_volume = {
 (** aws_fsx_ontap_volume *)
 
 let aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
-    ?copy_tags_to_backups ?junction_path ?skip_final_backup
-    ?storage_efficiency_enabled ?tags ?volume_type ?timeouts ~name
-    ~size_in_megabytes ~storage_virtual_machine_id
+    ?copy_tags_to_backups ?id ?junction_path ?ontap_volume_type
+    ?security_style ?skip_final_backup ?snapshot_policy
+    ?storage_efficiency_enabled ?tags ?tags_all ?volume_type
+    ?timeouts ~name ~size_in_megabytes ~storage_virtual_machine_id
     ~snaplock_configuration ~tiering_policy __resource_id =
   let __resource_type = "aws_fsx_ontap_volume" in
   let __resource =
     {
       bypass_snaplock_enterprise_retention;
       copy_tags_to_backups;
+      id;
       junction_path;
       name;
+      ontap_volume_type;
+      security_style;
       size_in_megabytes;
       skip_final_backup;
+      snapshot_policy;
       storage_efficiency_enabled;
       storage_virtual_machine_id;
       tags;
+      tags_all;
       volume_type;
       snaplock_configuration;
       tiering_policy;

@@ -13,6 +13,7 @@ type google_apigee_sync_authorization__timeouts = {
 (** google_apigee_sync_authorization__timeouts *)
 
 type google_apigee_sync_authorization = {
+  id : string option; [@option]  (** id *)
   identities : string list;
       (** Array of service accounts to grant access to control plane resources, each specified using the following format: 'serviceAccount:service-account-name'.
 
@@ -27,10 +28,10 @@ The service accounts must have **Apigee Synchronizer Manager** role. See also [C
 [@@deriving yojson_of]
 (** google_apigee_sync_authorization *)
 
-let google_apigee_sync_authorization ?timeouts ~identities ~name
+let google_apigee_sync_authorization ?id ?timeouts ~identities ~name
     __resource_id =
   let __resource_type = "google_apigee_sync_authorization" in
-  let __resource = { identities; name; timeouts } in
+  let __resource = { id; identities; name; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_apigee_sync_authorization __resource);
   ()

@@ -17,6 +17,7 @@ type azurerm_stream_analytics_output_table = {
   batch_size : float;  (** batch_size *)
   columns_to_remove : string list option; [@option]
       (** columns_to_remove *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   partition_key : string;  (** partition_key *)
   resource_group_name : string;  (** resource_group_name *)
@@ -31,7 +32,7 @@ type azurerm_stream_analytics_output_table = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_table *)
 
-let azurerm_stream_analytics_output_table ?columns_to_remove
+let azurerm_stream_analytics_output_table ?columns_to_remove ?id
     ?timeouts ~batch_size ~name ~partition_key ~resource_group_name
     ~row_key ~storage_account_key ~storage_account_name
     ~stream_analytics_job_name ~table __resource_id =
@@ -40,6 +41,7 @@ let azurerm_stream_analytics_output_table ?columns_to_remove
     {
       batch_size;
       columns_to_remove;
+      id;
       name;
       partition_key;
       resource_group_name;

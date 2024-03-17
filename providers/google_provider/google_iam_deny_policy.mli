@@ -10,6 +10,7 @@ type google_iam_deny_policy
 
 val google_iam_deny_policy :
   ?display_name:string ->
+  ?id:string ->
   ?timeouts:google_iam_deny_policy__timeouts ->
   name:string ->
   parent:string ->

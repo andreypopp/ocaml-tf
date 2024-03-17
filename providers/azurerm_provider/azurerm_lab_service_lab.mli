@@ -17,6 +17,7 @@ type azurerm_lab_service_lab
 
 val azurerm_lab_service_lab :
   ?description:string ->
+  ?id:string ->
   ?lab_plan_id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_lab_service_lab__timeouts ->

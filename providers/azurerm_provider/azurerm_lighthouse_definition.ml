@@ -67,6 +67,9 @@ type azurerm_lighthouse_definition__timeouts = {
 
 type azurerm_lighthouse_definition = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
+  lighthouse_definition_id : string option; [@option]
+      (** lighthouse_definition_id *)
   managing_tenant_id : string;  (** managing_tenant_id *)
   name : string;  (** name *)
   scope : string;  (** scope *)
@@ -79,13 +82,16 @@ type azurerm_lighthouse_definition = {
 [@@deriving yojson_of]
 (** azurerm_lighthouse_definition *)
 
-let azurerm_lighthouse_definition ?description ?timeouts
-    ~managing_tenant_id ~name ~scope ~authorization
-    ~eligible_authorization ~plan __resource_id =
+let azurerm_lighthouse_definition ?description ?id
+    ?lighthouse_definition_id ?timeouts ~managing_tenant_id ~name
+    ~scope ~authorization ~eligible_authorization ~plan __resource_id
+    =
   let __resource_type = "azurerm_lighthouse_definition" in
   let __resource =
     {
       description;
+      id;
+      lighthouse_definition_id;
       managing_tenant_id;
       name;
       scope;

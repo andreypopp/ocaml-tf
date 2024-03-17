@@ -7,6 +7,7 @@ type azurerm_iothub_endpoint_cosmosdb_account
 
 val azurerm_iothub_endpoint_cosmosdb_account :
   ?authentication_type:string ->
+  ?id:string ->
   ?identity_id:string ->
   ?partition_key_name:string ->
   ?partition_key_template:string ->

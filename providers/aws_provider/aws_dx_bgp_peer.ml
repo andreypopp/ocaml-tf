@@ -13,18 +13,33 @@ type aws_dx_bgp_peer__timeouts = {
 
 type aws_dx_bgp_peer = {
   address_family : string;  (** address_family *)
+  amazon_address : string option; [@option]  (** amazon_address *)
   bgp_asn : float;  (** bgp_asn *)
+  bgp_auth_key : string option; [@option]  (** bgp_auth_key *)
+  customer_address : string option; [@option]
+      (** customer_address *)
+  id : string option; [@option]  (** id *)
   virtual_interface_id : string;  (** virtual_interface_id *)
   timeouts : aws_dx_bgp_peer__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_dx_bgp_peer *)
 
-let aws_dx_bgp_peer ?timeouts ~address_family ~bgp_asn
-    ~virtual_interface_id __resource_id =
+let aws_dx_bgp_peer ?amazon_address ?bgp_auth_key ?customer_address
+    ?id ?timeouts ~address_family ~bgp_asn ~virtual_interface_id
+    __resource_id =
   let __resource_type = "aws_dx_bgp_peer" in
   let __resource =
-    { address_family; bgp_asn; virtual_interface_id; timeouts }
+    {
+      address_family;
+      amazon_address;
+      bgp_asn;
+      bgp_auth_key;
+      customer_address;
+      id;
+      virtual_interface_id;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_bgp_peer __resource);

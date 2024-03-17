@@ -10,6 +10,7 @@ type azurerm_web_pubsub
 val azurerm_web_pubsub :
   ?aad_auth_enabled:bool ->
   ?capacity:float ->
+  ?id:string ->
   ?local_auth_enabled:bool ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->

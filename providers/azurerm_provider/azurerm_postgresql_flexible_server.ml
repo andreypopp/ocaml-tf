@@ -59,25 +59,36 @@ type azurerm_postgresql_flexible_server__timeouts = {
 (** azurerm_postgresql_flexible_server__timeouts *)
 
 type azurerm_postgresql_flexible_server = {
+  administrator_login : string option; [@option]
+      (** administrator_login *)
   administrator_password : string option; [@option]
       (** administrator_password *)
   auto_grow_enabled : bool option; [@option]
       (** auto_grow_enabled *)
+  backup_retention_days : float option; [@option]
+      (** backup_retention_days *)
   create_mode : string option; [@option]  (** create_mode *)
   delegated_subnet_id : string option; [@option]
       (** delegated_subnet_id *)
   geo_redundant_backup_enabled : bool option; [@option]
       (** geo_redundant_backup_enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   point_in_time_restore_time_in_utc : string option; [@option]
       (** point_in_time_restore_time_in_utc *)
+  private_dns_zone_id : string option; [@option]
+      (** private_dns_zone_id *)
   replication_role : string option; [@option]
       (** replication_role *)
   resource_group_name : string;  (** resource_group_name *)
+  sku_name : string option; [@option]  (** sku_name *)
   source_server_id : string option; [@option]
       (** source_server_id *)
+  storage_mb : float option; [@option]  (** storage_mb *)
+  storage_tier : string option; [@option]  (** storage_tier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  version : string option; [@option]  (** version *)
   zone : string option; [@option]  (** zone *)
   authentication :
     azurerm_postgresql_flexible_server__authentication list;
@@ -93,28 +104,37 @@ type azurerm_postgresql_flexible_server = {
 [@@deriving yojson_of]
 (** azurerm_postgresql_flexible_server *)
 
-let azurerm_postgresql_flexible_server ?administrator_password
-    ?auto_grow_enabled ?create_mode ?delegated_subnet_id
-    ?geo_redundant_backup_enabled ?point_in_time_restore_time_in_utc
-    ?replication_role ?source_server_id ?tags ?zone ?timeouts
-    ~location ~name ~resource_group_name ~authentication
-    ~customer_managed_key ~high_availability ~identity
-    ~maintenance_window __resource_id =
+let azurerm_postgresql_flexible_server ?administrator_login
+    ?administrator_password ?auto_grow_enabled ?backup_retention_days
+    ?create_mode ?delegated_subnet_id ?geo_redundant_backup_enabled
+    ?id ?point_in_time_restore_time_in_utc ?private_dns_zone_id
+    ?replication_role ?sku_name ?source_server_id ?storage_mb
+    ?storage_tier ?tags ?version ?zone ?timeouts ~location ~name
+    ~resource_group_name ~authentication ~customer_managed_key
+    ~high_availability ~identity ~maintenance_window __resource_id =
   let __resource_type = "azurerm_postgresql_flexible_server" in
   let __resource =
     {
+      administrator_login;
       administrator_password;
       auto_grow_enabled;
+      backup_retention_days;
       create_mode;
       delegated_subnet_id;
       geo_redundant_backup_enabled;
+      id;
       location;
       name;
       point_in_time_restore_time_in_utc;
+      private_dns_zone_id;
       replication_role;
       resource_group_name;
+      sku_name;
       source_server_id;
+      storage_mb;
+      storage_tier;
       tags;
+      version;
       zone;
       authentication;
       customer_managed_key;

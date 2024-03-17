@@ -106,6 +106,7 @@ type azurerm_arc_kubernetes_flux_configuration = {
   cluster_id : string;  (** cluster_id *)
   continuous_reconciliation_enabled : bool option; [@option]
       (** continuous_reconciliation_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   namespace : string;  (** namespace *)
   scope : string option; [@option]  (** scope *)
@@ -123,9 +124,9 @@ type azurerm_arc_kubernetes_flux_configuration = {
 (** azurerm_arc_kubernetes_flux_configuration *)
 
 let azurerm_arc_kubernetes_flux_configuration
-    ?continuous_reconciliation_enabled ?scope ?timeouts ~cluster_id
-    ~name ~namespace ~blob_storage ~bucket ~git_repository
-    ~kustomizations __resource_id =
+    ?continuous_reconciliation_enabled ?id ?scope ?timeouts
+    ~cluster_id ~name ~namespace ~blob_storage ~bucket
+    ~git_repository ~kustomizations __resource_id =
   let __resource_type =
     "azurerm_arc_kubernetes_flux_configuration"
   in
@@ -133,6 +134,7 @@ let azurerm_arc_kubernetes_flux_configuration
     {
       cluster_id;
       continuous_reconciliation_enabled;
+      id;
       name;
       namespace;
       scope;

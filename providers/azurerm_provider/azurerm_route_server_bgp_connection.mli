@@ -6,6 +6,7 @@ type azurerm_route_server_bgp_connection__timeouts
 type azurerm_route_server_bgp_connection
 
 val azurerm_route_server_bgp_connection :
+  ?id:string ->
   ?timeouts:azurerm_route_server_bgp_connection__timeouts ->
   name:string ->
   peer_asn:float ->

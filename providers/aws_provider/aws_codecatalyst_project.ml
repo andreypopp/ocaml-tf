@@ -15,17 +15,18 @@ type aws_codecatalyst_project__timeouts = {
 type aws_codecatalyst_project = {
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   space_name : string;  (** space_name *)
   timeouts : aws_codecatalyst_project__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_codecatalyst_project *)
 
-let aws_codecatalyst_project ?description ?timeouts ~display_name
+let aws_codecatalyst_project ?description ?id ?timeouts ~display_name
     ~space_name __resource_id =
   let __resource_type = "aws_codecatalyst_project" in
   let __resource =
-    { description; display_name; space_name; timeouts }
+    { description; display_name; id; space_name; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecatalyst_project __resource);

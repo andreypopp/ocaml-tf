@@ -13,6 +13,7 @@ type google_service_account_iam_binding__condition = {
 (** google_service_account_iam_binding__condition *)
 
 type google_service_account_iam_binding = {
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   role : string;  (** role *)
   service_account_id : string;  (** service_account_id *)
@@ -21,11 +22,11 @@ type google_service_account_iam_binding = {
 [@@deriving yojson_of]
 (** google_service_account_iam_binding *)
 
-let google_service_account_iam_binding ~members ~role
+let google_service_account_iam_binding ?id ~members ~role
     ~service_account_id ~condition __resource_id =
   let __resource_type = "google_service_account_iam_binding" in
   let __resource =
-    { members; role; service_account_id; condition }
+    { id; members; role; service_account_id; condition }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_service_account_iam_binding __resource);

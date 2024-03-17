@@ -19,6 +19,7 @@ type azurerm_synapse_workspace_key = {
       (** customer_managed_key_name *)
   customer_managed_key_versionless_id : string option; [@option]
       (** customer_managed_key_versionless_id *)
+  id : string option; [@option]  (** id *)
   synapse_workspace_id : string;  (** synapse_workspace_id *)
   timeouts : azurerm_synapse_workspace_key__timeouts option;
 }
@@ -26,7 +27,7 @@ type azurerm_synapse_workspace_key = {
 (** azurerm_synapse_workspace_key *)
 
 let azurerm_synapse_workspace_key
-    ?customer_managed_key_versionless_id ?timeouts ~active
+    ?customer_managed_key_versionless_id ?id ?timeouts ~active
     ~customer_managed_key_name ~synapse_workspace_id __resource_id =
   let __resource_type = "azurerm_synapse_workspace_key" in
   let __resource =
@@ -34,6 +35,7 @@ let azurerm_synapse_workspace_key
       active;
       customer_managed_key_name;
       customer_managed_key_versionless_id;
+      id;
       synapse_workspace_id;
       timeouts;
     }

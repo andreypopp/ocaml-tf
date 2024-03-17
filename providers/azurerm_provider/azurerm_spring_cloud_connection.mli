@@ -9,6 +9,7 @@ type azurerm_spring_cloud_connection
 
 val azurerm_spring_cloud_connection :
   ?client_type:string ->
+  ?id:string ->
   ?vnet_solution:string ->
   ?timeouts:azurerm_spring_cloud_connection__timeouts ->
   name:string ->

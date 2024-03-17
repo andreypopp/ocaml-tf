@@ -12,7 +12,9 @@ val aws_api_gateway_stage :
   ?client_certificate_id:string ->
   ?description:string ->
   ?documentation_version:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?variables:(string * string) list ->
   ?xray_tracing_enabled:bool ->
   deployment_id:string ->

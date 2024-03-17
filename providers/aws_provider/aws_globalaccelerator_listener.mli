@@ -8,6 +8,7 @@ type aws_globalaccelerator_listener
 
 val aws_globalaccelerator_listener :
   ?client_affinity:string ->
+  ?id:string ->
   ?timeouts:aws_globalaccelerator_listener__timeouts ->
   accelerator_arn:string ->
   protocol:string ->

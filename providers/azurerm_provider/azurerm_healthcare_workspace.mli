@@ -8,11 +8,11 @@ type azurerm_healthcare_workspace__private_endpoint_connection = {
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type azurerm_healthcare_workspace
 
 val azurerm_healthcare_workspace :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_healthcare_workspace__timeouts ->
   location:string ->

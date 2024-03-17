@@ -6,6 +6,7 @@ type google_organization_iam_binding__condition
 type google_organization_iam_binding
 
 val google_organization_iam_binding :
+  ?id:string ->
   members:string list ->
   org_id:string ->
   role:string ->

@@ -13,6 +13,7 @@ type azurerm_maintenance_assignment_virtual_machine_scale_set__timeouts = {
 (** azurerm_maintenance_assignment_virtual_machine_scale_set__timeouts *)
 
 type azurerm_maintenance_assignment_virtual_machine_scale_set = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   maintenance_configuration_id : string;
       (** maintenance_configuration_id *)
@@ -25,7 +26,7 @@ type azurerm_maintenance_assignment_virtual_machine_scale_set = {
 [@@deriving yojson_of]
 (** azurerm_maintenance_assignment_virtual_machine_scale_set *)
 
-let azurerm_maintenance_assignment_virtual_machine_scale_set
+let azurerm_maintenance_assignment_virtual_machine_scale_set ?id
     ?timeouts ~location ~maintenance_configuration_id
     ~virtual_machine_scale_set_id __resource_id =
   let __resource_type =
@@ -33,6 +34,7 @@ let azurerm_maintenance_assignment_virtual_machine_scale_set
   in
   let __resource =
     {
+      id;
       location;
       maintenance_configuration_id;
       virtual_machine_scale_set_id;

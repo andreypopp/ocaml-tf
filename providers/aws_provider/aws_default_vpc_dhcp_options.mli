@@ -5,4 +5,9 @@ open! Tf.Prelude
 type aws_default_vpc_dhcp_options
 
 val aws_default_vpc_dhcp_options :
-  ?tags:(string * string) list -> string -> unit
+  ?id:string ->
+  ?owner_id:string ->
+  ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
+  string ->
+  unit

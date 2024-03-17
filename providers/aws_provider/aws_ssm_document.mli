@@ -10,14 +10,15 @@ type aws_ssm_document__parameter = {
   name : string;  (** name *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type aws_ssm_document
 
 val aws_ssm_document :
   ?document_format:string ->
+  ?id:string ->
   ?permissions:(string * string) list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?target_type:string ->
   ?version_name:string ->
   content:string ->

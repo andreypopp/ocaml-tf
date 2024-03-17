@@ -15,7 +15,9 @@ type google_network_connectivity_spoke
 
 val google_network_connectivity_spoke :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_network_connectivity_spoke__timeouts ->
   hub:string ->
   location:string ->

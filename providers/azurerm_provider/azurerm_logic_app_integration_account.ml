@@ -14,6 +14,7 @@ type azurerm_logic_app_integration_account__timeouts = {
 (** azurerm_logic_app_integration_account__timeouts *)
 
 type azurerm_logic_app_integration_account = {
+  id : string option; [@option]  (** id *)
   integration_service_environment_id : string option; [@option]
       (** integration_service_environment_id *)
   location : string;  (** location *)
@@ -26,12 +27,13 @@ type azurerm_logic_app_integration_account = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account *)
 
-let azurerm_logic_app_integration_account
+let azurerm_logic_app_integration_account ?id
     ?integration_service_environment_id ?tags ?timeouts ~location
     ~name ~resource_group_name ~sku_name __resource_id =
   let __resource_type = "azurerm_logic_app_integration_account" in
   let __resource =
     {
+      id;
       integration_service_environment_id;
       location;
       name;

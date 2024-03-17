@@ -10,6 +10,7 @@ val aws_account_primary_contact :
   ?address_line_3:string ->
   ?company_name:string ->
   ?district_or_county:string ->
+  ?id:string ->
   ?state_or_region:string ->
   ?website_url:string ->
   address_line_1:string ->

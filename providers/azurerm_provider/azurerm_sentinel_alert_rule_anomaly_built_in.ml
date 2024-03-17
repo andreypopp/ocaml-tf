@@ -53,23 +53,35 @@ type azurerm_sentinel_alert_rule_anomaly_built_in__threshold_observation = {
 [@@deriving yojson_of]
 
 type azurerm_sentinel_alert_rule_anomaly_built_in = {
+  display_name : string option; [@option]  (** display_name *)
   enabled : bool;  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   mode : string;  (** mode *)
+  name : string option; [@option]  (** name *)
   timeouts :
     azurerm_sentinel_alert_rule_anomaly_built_in__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_anomaly_built_in *)
 
-let azurerm_sentinel_alert_rule_anomaly_built_in ?timeouts ~enabled
-    ~log_analytics_workspace_id ~mode __resource_id =
+let azurerm_sentinel_alert_rule_anomaly_built_in ?display_name ?id
+    ?name ?timeouts ~enabled ~log_analytics_workspace_id ~mode
+    __resource_id =
   let __resource_type =
     "azurerm_sentinel_alert_rule_anomaly_built_in"
   in
   let __resource =
-    { enabled; log_analytics_workspace_id; mode; timeouts }
+    {
+      display_name;
+      enabled;
+      id;
+      log_analytics_workspace_id;
+      mode;
+      name;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_sentinel_alert_rule_anomaly_built_in

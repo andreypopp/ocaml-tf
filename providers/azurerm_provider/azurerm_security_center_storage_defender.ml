@@ -14,6 +14,7 @@ type azurerm_security_center_storage_defender__timeouts = {
 (** azurerm_security_center_storage_defender__timeouts *)
 
 type azurerm_security_center_storage_defender = {
+  id : string option; [@option]  (** id *)
   malware_scanning_on_upload_cap_gb_per_month : float option;
       [@option]
       (** malware_scanning_on_upload_cap_gb_per_month *)
@@ -30,7 +31,7 @@ type azurerm_security_center_storage_defender = {
 [@@deriving yojson_of]
 (** azurerm_security_center_storage_defender *)
 
-let azurerm_security_center_storage_defender
+let azurerm_security_center_storage_defender ?id
     ?malware_scanning_on_upload_cap_gb_per_month
     ?malware_scanning_on_upload_enabled
     ?override_subscription_settings_enabled
@@ -39,6 +40,7 @@ let azurerm_security_center_storage_defender
   let __resource_type = "azurerm_security_center_storage_defender" in
   let __resource =
     {
+      id;
       malware_scanning_on_upload_cap_gb_per_month;
       malware_scanning_on_upload_enabled;
       override_subscription_settings_enabled;

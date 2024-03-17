@@ -19,6 +19,7 @@ type azurerm_data_factory_linked_service_key_vault = {
   annotations : string list option; [@option]  (** annotations *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   key_vault_id : string;  (** key_vault_id *)
@@ -32,7 +33,7 @@ type azurerm_data_factory_linked_service_key_vault = {
 (** azurerm_data_factory_linked_service_key_vault *)
 
 let azurerm_data_factory_linked_service_key_vault
-    ?additional_properties ?annotations ?description
+    ?additional_properties ?annotations ?description ?id
     ?integration_runtime_name ?parameters ?timeouts ~data_factory_id
     ~key_vault_id ~name __resource_id =
   let __resource_type =
@@ -44,6 +45,7 @@ let azurerm_data_factory_linked_service_key_vault
       annotations;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       key_vault_id;
       name;

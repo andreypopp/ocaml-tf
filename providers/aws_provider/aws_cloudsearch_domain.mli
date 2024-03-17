@@ -9,6 +9,8 @@ type aws_cloudsearch_domain__timeouts
 type aws_cloudsearch_domain
 
 val aws_cloudsearch_domain :
+  ?id:string ->
+  ?multi_az:bool ->
   ?timeouts:aws_cloudsearch_domain__timeouts ->
   name:string ->
   endpoint_options:aws_cloudsearch_domain__endpoint_options list ->

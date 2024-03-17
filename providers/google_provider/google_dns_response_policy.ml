@@ -33,6 +33,8 @@ type google_dns_response_policy__timeouts = {
 type google_dns_response_policy = {
   description : string option; [@option]
       (** The description of the response policy, such as 'My new response policy'. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   response_policy_name : string;
       (** The user assigned name for this Response Policy, such as 'myresponsepolicy'. *)
   gke_clusters : google_dns_response_policy__gke_clusters list;
@@ -42,12 +44,14 @@ type google_dns_response_policy = {
 [@@deriving yojson_of]
 (** google_dns_response_policy *)
 
-let google_dns_response_policy ?description ?timeouts
+let google_dns_response_policy ?description ?id ?project ?timeouts
     ~response_policy_name ~gke_clusters ~networks __resource_id =
   let __resource_type = "google_dns_response_policy" in
   let __resource =
     {
       description;
+      id;
+      project;
       response_policy_name;
       gke_clusters;
       networks;

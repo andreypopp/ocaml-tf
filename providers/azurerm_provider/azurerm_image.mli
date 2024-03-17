@@ -9,6 +9,7 @@ type azurerm_image
 
 val azurerm_image :
   ?hyper_v_generation:string ->
+  ?id:string ->
   ?source_virtual_machine_id:string ->
   ?tags:(string * string) list ->
   ?zone_resilient:bool ->

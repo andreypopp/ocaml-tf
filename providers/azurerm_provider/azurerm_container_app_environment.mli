@@ -8,6 +8,8 @@ type azurerm_container_app_environment
 
 val azurerm_container_app_environment :
   ?dapr_application_insights_connection_string:string ->
+  ?id:string ->
+  ?infrastructure_resource_group_name:string ->
   ?infrastructure_subnet_id:string ->
   ?internal_load_balancer_enabled:bool ->
   ?log_analytics_workspace_id:string ->

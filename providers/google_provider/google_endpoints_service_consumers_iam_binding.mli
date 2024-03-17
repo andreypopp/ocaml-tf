@@ -6,6 +6,7 @@ type google_endpoints_service_consumers_iam_binding__condition
 type google_endpoints_service_consumers_iam_binding
 
 val google_endpoints_service_consumers_iam_binding :
+  ?id:string ->
   consumer_project:string ->
   members:string list ->
   role:string ->

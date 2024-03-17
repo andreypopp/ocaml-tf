@@ -35,6 +35,7 @@ type google_logging_billing_account_sink = {
       (** If set to True, then this sink is disabled and it does not export any log entries. *)
   filter : string option; [@option]
       (** The filter to apply when exporting logs. Only log entries that match the filter are exported. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the logging sink. *)
   bigquery_options :
     google_logging_billing_account_sink__bigquery_options list;
@@ -44,7 +45,7 @@ type google_logging_billing_account_sink = {
 (** google_logging_billing_account_sink *)
 
 let google_logging_billing_account_sink ?description ?disabled
-    ?filter ~billing_account ~destination ~name ~bigquery_options
+    ?filter ?id ~billing_account ~destination ~name ~bigquery_options
     ~exclusions __resource_id =
   let __resource_type = "google_logging_billing_account_sink" in
   let __resource =
@@ -54,6 +55,7 @@ let google_logging_billing_account_sink ?description ?disabled
       destination;
       disabled;
       filter;
+      id;
       name;
       bigquery_options;
       exclusions;

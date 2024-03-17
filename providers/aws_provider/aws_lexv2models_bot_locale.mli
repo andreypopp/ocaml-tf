@@ -8,6 +8,7 @@ type aws_lexv2models_bot_locale
 
 val aws_lexv2models_bot_locale :
   ?description:string ->
+  ?name:string ->
   ?timeouts:aws_lexv2models_bot_locale__timeouts ->
   bot_id:string ->
   bot_version:string ->

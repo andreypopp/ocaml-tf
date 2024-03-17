@@ -16,7 +16,10 @@ type aws_guardduty_detector
 
 val aws_guardduty_detector :
   ?enable:bool ->
+  ?finding_publishing_frequency:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   datasources:aws_guardduty_detector__datasources list ->
   string ->
   unit

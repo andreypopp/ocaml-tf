@@ -45,7 +45,6 @@ type google_dataproc_cluster__cluster_config__preemptible_worker_config__instanc
   machine_type : string;  (** machine_type *)
   vm_count : float;  (** vm_count *)
 }
-[@@deriving yojson_of]
 
 type google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy
 
@@ -89,7 +88,9 @@ type google_dataproc_cluster
 
 val google_dataproc_cluster :
   ?graceful_decommission_timeout:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?region:string ->
   ?timeouts:google_dataproc_cluster__timeouts ->
   name:string ->

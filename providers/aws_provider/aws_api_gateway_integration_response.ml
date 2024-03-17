@@ -8,6 +8,7 @@ type aws_api_gateway_integration_response = {
   content_handling : string option; [@option]
       (** content_handling *)
   http_method : string;  (** http_method *)
+  id : string option; [@option]  (** id *)
   resource_id : string;  (** resource_id *)
   response_parameters : (string * string) list option; [@option]
       (** response_parameters *)
@@ -21,7 +22,7 @@ type aws_api_gateway_integration_response = {
 [@@deriving yojson_of]
 (** aws_api_gateway_integration_response *)
 
-let aws_api_gateway_integration_response ?content_handling
+let aws_api_gateway_integration_response ?content_handling ?id
     ?response_parameters ?response_templates ?selection_pattern
     ~http_method ~resource_id ~rest_api_id ~status_code __resource_id
     =
@@ -30,6 +31,7 @@ let aws_api_gateway_integration_response ?content_handling
     {
       content_handling;
       http_method;
+      id;
       resource_id;
       response_parameters;
       response_templates;

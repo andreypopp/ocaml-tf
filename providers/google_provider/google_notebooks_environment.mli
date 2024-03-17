@@ -10,7 +10,9 @@ type google_notebooks_environment
 val google_notebooks_environment :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
   ?post_startup_script:string ->
+  ?project:string ->
   ?timeouts:google_notebooks_environment__timeouts ->
   location:string ->
   name:string ->

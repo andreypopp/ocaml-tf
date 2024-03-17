@@ -5,4 +5,9 @@ open! Tf.Prelude
 type digitalocean_container_registry
 
 val digitalocean_container_registry :
-  name:string -> subscription_tier_slug:string -> string -> unit
+  ?id:string ->
+  ?region:string ->
+  name:string ->
+  subscription_tier_slug:string ->
+  string ->
+  unit

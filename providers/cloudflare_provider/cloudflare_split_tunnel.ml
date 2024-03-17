@@ -18,6 +18,7 @@ type cloudflare_split_tunnel__tunnels = {
 type cloudflare_split_tunnel = {
   account_id : string;
       (** The account identifier to target for the resource. *)
+  id : string option; [@option]  (** id *)
   mode : string;
       (** The mode of the split tunnel policy. Available values: `include`, `exclude`. *)
   policy_id : string option; [@option]
@@ -29,10 +30,10 @@ type cloudflare_split_tunnel = {
 include or exclude lists of routes from the WARP client's tunnel.
  *)
 
-let cloudflare_split_tunnel ?policy_id ~account_id ~mode ~tunnels
+let cloudflare_split_tunnel ?id ?policy_id ~account_id ~mode ~tunnels
     __resource_id =
   let __resource_type = "cloudflare_split_tunnel" in
-  let __resource = { account_id; mode; policy_id; tunnels } in
+  let __resource = { account_id; id; mode; policy_id; tunnels } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_split_tunnel __resource);
   ()

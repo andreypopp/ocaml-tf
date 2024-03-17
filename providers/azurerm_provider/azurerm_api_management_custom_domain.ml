@@ -112,6 +112,7 @@ type azurerm_api_management_custom_domain__timeouts = {
 
 type azurerm_api_management_custom_domain = {
   api_management_id : string;  (** api_management_id *)
+  id : string option; [@option]  (** id *)
   developer_portal :
     azurerm_api_management_custom_domain__developer_portal list;
   gateway : azurerm_api_management_custom_domain__gateway list;
@@ -123,13 +124,14 @@ type azurerm_api_management_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_api_management_custom_domain *)
 
-let azurerm_api_management_custom_domain ?timeouts ~api_management_id
-    ~developer_portal ~gateway ~management ~portal ~scm __resource_id
-    =
+let azurerm_api_management_custom_domain ?id ?timeouts
+    ~api_management_id ~developer_portal ~gateway ~management ~portal
+    ~scm __resource_id =
   let __resource_type = "azurerm_api_management_custom_domain" in
   let __resource =
     {
       api_management_id;
+      id;
       developer_portal;
       gateway;
       management;

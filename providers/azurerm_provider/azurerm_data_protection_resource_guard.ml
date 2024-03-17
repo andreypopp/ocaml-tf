@@ -14,6 +14,7 @@ type azurerm_data_protection_resource_guard__timeouts = {
 (** azurerm_data_protection_resource_guard__timeouts *)
 
 type azurerm_data_protection_resource_guard = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -26,12 +27,13 @@ type azurerm_data_protection_resource_guard = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_resource_guard *)
 
-let azurerm_data_protection_resource_guard ?tags
+let azurerm_data_protection_resource_guard ?id ?tags
     ?vault_critical_operation_exclusion_list ?timeouts ~location
     ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_data_protection_resource_guard" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

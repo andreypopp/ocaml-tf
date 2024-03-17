@@ -32,6 +32,7 @@ type azurerm_logic_app_integration_account_agreement = {
   content : string;  (** content *)
   guest_partner_name : string;  (** guest_partner_name *)
   host_partner_name : string;  (** host_partner_name *)
+  id : string option; [@option]  (** id *)
   integration_account_name : string;  (** integration_account_name *)
   metadata : (string * string) list option; [@option]
       (** metadata *)
@@ -49,7 +50,7 @@ type azurerm_logic_app_integration_account_agreement = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_agreement *)
 
-let azurerm_logic_app_integration_account_agreement ?metadata
+let azurerm_logic_app_integration_account_agreement ?id ?metadata
     ?timeouts ~agreement_type ~content ~guest_partner_name
     ~host_partner_name ~integration_account_name ~name
     ~resource_group_name ~guest_identity ~host_identity __resource_id
@@ -63,6 +64,7 @@ let azurerm_logic_app_integration_account_agreement ?metadata
       content;
       guest_partner_name;
       host_partner_name;
+      id;
       integration_account_name;
       metadata;
       name;

@@ -70,10 +70,12 @@ type aws_ses_receipt_rule__workmail_action = {
 type aws_ses_receipt_rule = {
   after : string option; [@option]  (** after *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   recipients : string list option; [@option]  (** recipients *)
   rule_set_name : string;  (** rule_set_name *)
   scan_enabled : bool option; [@option]  (** scan_enabled *)
+  tls_policy : string option; [@option]  (** tls_policy *)
   add_header_action : aws_ses_receipt_rule__add_header_action list;
   bounce_action : aws_ses_receipt_rule__bounce_action list;
   lambda_action : aws_ses_receipt_rule__lambda_action list;
@@ -85,19 +87,21 @@ type aws_ses_receipt_rule = {
 [@@deriving yojson_of]
 (** aws_ses_receipt_rule *)
 
-let aws_ses_receipt_rule ?after ?enabled ?recipients ?scan_enabled
-    ~name ~rule_set_name ~add_header_action ~bounce_action
-    ~lambda_action ~s3_action ~sns_action ~stop_action
+let aws_ses_receipt_rule ?after ?enabled ?id ?recipients
+    ?scan_enabled ?tls_policy ~name ~rule_set_name ~add_header_action
+    ~bounce_action ~lambda_action ~s3_action ~sns_action ~stop_action
     ~workmail_action __resource_id =
   let __resource_type = "aws_ses_receipt_rule" in
   let __resource =
     {
       after;
       enabled;
+      id;
       name;
       recipients;
       rule_set_name;
       scan_enabled;
+      tls_policy;
       add_header_action;
       bounce_action;
       lambda_action;

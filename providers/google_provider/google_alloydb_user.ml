@@ -18,6 +18,7 @@ type google_alloydb_user = {
 'projects/{project}/locations/{location}/clusters/{cluster_id}' *)
   database_roles : string list option; [@option]
       (** List of database roles this database user has. *)
+  id : string option; [@option]  (** id *)
   password : string option; [@option]
       (** Password for this database user. *)
   user_id : string;  (** The database role name of the user. *)
@@ -28,13 +29,14 @@ type google_alloydb_user = {
 [@@deriving yojson_of]
 (** google_alloydb_user *)
 
-let google_alloydb_user ?database_roles ?password ?timeouts ~cluster
-    ~user_id ~user_type __resource_id =
+let google_alloydb_user ?database_roles ?id ?password ?timeouts
+    ~cluster ~user_id ~user_type __resource_id =
   let __resource_type = "google_alloydb_user" in
   let __resource =
     {
       cluster;
       database_roles;
+      id;
       password;
       user_id;
       user_type;

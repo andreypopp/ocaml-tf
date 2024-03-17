@@ -33,6 +33,7 @@ type azurerm_data_protection_backup_instance_kubernetes_cluster__timeouts = {
 
 type azurerm_data_protection_backup_instance_kubernetes_cluster = {
   backup_policy_id : string;  (** backup_policy_id *)
+  id : string option; [@option]  (** id *)
   kubernetes_cluster_id : string;  (** kubernetes_cluster_id *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -49,7 +50,7 @@ type azurerm_data_protection_backup_instance_kubernetes_cluster = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_instance_kubernetes_cluster *)
 
-let azurerm_data_protection_backup_instance_kubernetes_cluster
+let azurerm_data_protection_backup_instance_kubernetes_cluster ?id
     ?timeouts ~backup_policy_id ~kubernetes_cluster_id ~location
     ~name ~snapshot_resource_group_name ~vault_id
     ~backup_datasource_parameters __resource_id =
@@ -59,6 +60,7 @@ let azurerm_data_protection_backup_instance_kubernetes_cluster
   let __resource =
     {
       backup_policy_id;
+      id;
       kubernetes_cluster_id;
       location;
       name;

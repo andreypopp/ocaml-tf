@@ -6,6 +6,9 @@ type google_gke_backup_restore_plan_iam_member__condition
 type google_gke_backup_restore_plan_iam_member
 
 val google_gke_backup_restore_plan_iam_member :
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
   member:string ->
   name:string ->
   role:string ->

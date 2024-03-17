@@ -12,9 +12,11 @@ val aws_apigatewayv2_api :
   ?description:string ->
   ?disable_execute_api_endpoint:bool ->
   ?fail_on_warnings:bool ->
+  ?id:string ->
   ?route_key:string ->
   ?route_selection_expression:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?target:string ->
   ?version:string ->
   name:string ->

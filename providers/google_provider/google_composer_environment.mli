@@ -22,7 +22,6 @@ type google_composer_environment__config__node_config__ip_allocation_policy = {
       (** services_secondary_range_name *)
   use_ip_aliases : bool;  (** use_ip_aliases *)
 }
-[@@deriving yojson_of]
 
 type google_composer_environment__config__node_config
 type google_composer_environment__config__private_environment_config
@@ -48,7 +47,10 @@ type google_composer_environment__timeouts
 type google_composer_environment
 
 val google_composer_environment :
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:google_composer_environment__timeouts ->
   name:string ->
   config:google_composer_environment__config list ->

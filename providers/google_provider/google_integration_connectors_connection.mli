@@ -91,13 +91,11 @@ type google_integration_connectors_connection__timeouts
 type google_integration_connectors_connection__connector_version_infra_config = {
   ratelimit_threshold : string;  (** ratelimit_threshold *)
 }
-[@@deriving yojson_of]
 
 type google_integration_connectors_connection__eventing_runtime_data__status = {
   description : string;  (** description *)
   state : string;  (** state *)
 }
-[@@deriving yojson_of]
 
 type google_integration_connectors_connection__eventing_runtime_data = {
   events_listener_endpoint : string;  (** events_listener_endpoint *)
@@ -106,21 +104,22 @@ type google_integration_connectors_connection__eventing_runtime_data = {
     list;
       (** status *)
 }
-[@@deriving yojson_of]
 
 type google_integration_connectors_connection__status = {
   description : string;  (** description *)
   state : string;  (** state *)
   status : string;  (** status *)
 }
-[@@deriving yojson_of]
 
 type google_integration_connectors_connection
 
 val google_integration_connectors_connection :
   ?description:string ->
   ?eventing_enablement_type:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
+  ?service_account:string ->
   ?suspended:bool ->
   ?timeouts:google_integration_connectors_connection__timeouts ->
   connector_version:string ->

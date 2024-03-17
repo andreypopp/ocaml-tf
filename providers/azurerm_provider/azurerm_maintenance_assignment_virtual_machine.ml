@@ -13,6 +13,7 @@ type azurerm_maintenance_assignment_virtual_machine__timeouts = {
 (** azurerm_maintenance_assignment_virtual_machine__timeouts *)
 
 type azurerm_maintenance_assignment_virtual_machine = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   maintenance_configuration_id : string;
       (** maintenance_configuration_id *)
@@ -23,7 +24,7 @@ type azurerm_maintenance_assignment_virtual_machine = {
 [@@deriving yojson_of]
 (** azurerm_maintenance_assignment_virtual_machine *)
 
-let azurerm_maintenance_assignment_virtual_machine ?timeouts
+let azurerm_maintenance_assignment_virtual_machine ?id ?timeouts
     ~location ~maintenance_configuration_id ~virtual_machine_id
     __resource_id =
   let __resource_type =
@@ -31,6 +32,7 @@ let azurerm_maintenance_assignment_virtual_machine ?timeouts
   in
   let __resource =
     {
+      id;
       location;
       maintenance_configuration_id;
       virtual_machine_id;

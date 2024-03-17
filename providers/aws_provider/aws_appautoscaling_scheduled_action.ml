@@ -13,6 +13,7 @@ type aws_appautoscaling_scheduled_action__scalable_target_action = {
 
 type aws_appautoscaling_scheduled_action = {
   end_time : string option; [@option]  (** end_time *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_id : string;  (** resource_id *)
   scalable_dimension : string;  (** scalable_dimension *)
@@ -26,13 +27,14 @@ type aws_appautoscaling_scheduled_action = {
 [@@deriving yojson_of]
 (** aws_appautoscaling_scheduled_action *)
 
-let aws_appautoscaling_scheduled_action ?end_time ?start_time
+let aws_appautoscaling_scheduled_action ?end_time ?id ?start_time
     ?timezone ~name ~resource_id ~scalable_dimension ~schedule
     ~service_namespace ~scalable_target_action __resource_id =
   let __resource_type = "aws_appautoscaling_scheduled_action" in
   let __resource =
     {
       end_time;
+      id;
       name;
       resource_id;
       scalable_dimension;

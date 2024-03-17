@@ -20,6 +20,7 @@ type azurerm_container_app_environment_certificate = {
       (** The password for the Certificate. *)
   container_app_environment_id : string;
       (** The Container App Managed Environment ID to configure this Certificate on. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The name of the Container Apps Environment Certificate. *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -29,7 +30,7 @@ type azurerm_container_app_environment_certificate = {
 [@@deriving yojson_of]
 (** azurerm_container_app_environment_certificate *)
 
-let azurerm_container_app_environment_certificate ?tags ?timeouts
+let azurerm_container_app_environment_certificate ?id ?tags ?timeouts
     ~certificate_blob_base64 ~certificate_password
     ~container_app_environment_id ~name __resource_id =
   let __resource_type =
@@ -40,6 +41,7 @@ let azurerm_container_app_environment_certificate ?tags ?timeouts
       certificate_blob_base64;
       certificate_password;
       container_app_environment_id;
+      id;
       name;
       tags;
       timeouts;

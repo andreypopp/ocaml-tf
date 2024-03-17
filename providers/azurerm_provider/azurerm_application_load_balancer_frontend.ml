@@ -16,6 +16,7 @@ type azurerm_application_load_balancer_frontend__timeouts = {
 type azurerm_application_load_balancer_frontend = {
   application_load_balancer_id : string;
       (** application_load_balancer_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
   timeouts :
@@ -24,13 +25,13 @@ type azurerm_application_load_balancer_frontend = {
 [@@deriving yojson_of]
 (** azurerm_application_load_balancer_frontend *)
 
-let azurerm_application_load_balancer_frontend ?tags ?timeouts
+let azurerm_application_load_balancer_frontend ?id ?tags ?timeouts
     ~application_load_balancer_id ~name __resource_id =
   let __resource_type =
     "azurerm_application_load_balancer_frontend"
   in
   let __resource =
-    { application_load_balancer_id; name; tags; timeouts }
+    { application_load_balancer_id; id; name; tags; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_application_load_balancer_frontend __resource);

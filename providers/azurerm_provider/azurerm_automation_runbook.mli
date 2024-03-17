@@ -16,12 +16,14 @@ type azurerm_automation_runbook__job_schedule = {
   run_on : string;  (** run_on *)
   schedule_name : string;  (** schedule_name *)
 }
-[@@deriving yojson_of]
 
 type azurerm_automation_runbook
 
 val azurerm_automation_runbook :
+  ?content:string ->
   ?description:string ->
+  ?id:string ->
+  ?job_schedule:azurerm_automation_runbook__job_schedule list ->
   ?log_activity_trace_level:float ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_automation_runbook__timeouts ->

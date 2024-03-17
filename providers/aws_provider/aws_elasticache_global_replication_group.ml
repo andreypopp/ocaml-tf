@@ -19,10 +19,16 @@ type aws_elasticache_global_replication_group__global_node_groups = {
 [@@deriving yojson_of]
 
 type aws_elasticache_global_replication_group = {
+  automatic_failover_enabled : bool option; [@option]
+      (** automatic_failover_enabled *)
+  cache_node_type : string option; [@option]  (** cache_node_type *)
+  engine_version : string option; [@option]  (** engine_version *)
   global_replication_group_description : string option; [@option]
       (** global_replication_group_description *)
   global_replication_group_id_suffix : string;
       (** global_replication_group_id_suffix *)
+  id : string option; [@option]  (** id *)
+  num_node_groups : float option; [@option]  (** num_node_groups *)
   parameter_group_name : string option; [@option]
       (** parameter_group_name *)
   primary_replication_group_id : string;
@@ -34,14 +40,21 @@ type aws_elasticache_global_replication_group = {
 (** aws_elasticache_global_replication_group *)
 
 let aws_elasticache_global_replication_group
-    ?global_replication_group_description ?parameter_group_name
-    ?timeouts ~global_replication_group_id_suffix
-    ~primary_replication_group_id __resource_id =
+    ?automatic_failover_enabled ?cache_node_type ?engine_version
+    ?global_replication_group_description ?id ?num_node_groups
+    ?parameter_group_name ?timeouts
+    ~global_replication_group_id_suffix ~primary_replication_group_id
+    __resource_id =
   let __resource_type = "aws_elasticache_global_replication_group" in
   let __resource =
     {
+      automatic_failover_enabled;
+      cache_node_type;
+      engine_version;
       global_replication_group_description;
       global_replication_group_id_suffix;
+      id;
+      num_node_groups;
       parameter_group_name;
       primary_replication_group_id;
       timeouts;

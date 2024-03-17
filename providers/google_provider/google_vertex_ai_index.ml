@@ -101,6 +101,7 @@ type google_vertex_ai_index = {
       (** The description of the Index. *)
   display_name : string;
       (** The display name of the Index. The name can be up to 128 characters long and can consist of any UTF-8 characters. *)
+  id : string option; [@option]  (** id *)
   index_update_method : string option; [@option]
       (** The update method to use with this Index. The value must be the followings. If not set, BATCH_UPDATE will be used by default.
 * BATCH_UPDATE: user can call indexes.patch with files on Cloud Storage of datapoints to update.
@@ -110,6 +111,7 @@ type google_vertex_ai_index = {
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
+  project : string option; [@option]  (** project *)
   region : string option; [@option]
       (** The region of the index. eg us-central1 *)
   metadata : google_vertex_ai_index__metadata list;
@@ -118,15 +120,18 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_index *)
 
-let google_vertex_ai_index ?description ?index_update_method ?labels
-    ?region ?timeouts ~display_name ~metadata __resource_id =
+let google_vertex_ai_index ?description ?id ?index_update_method
+    ?labels ?project ?region ?timeouts ~display_name ~metadata
+    __resource_id =
   let __resource_type = "google_vertex_ai_index" in
   let __resource =
     {
       description;
       display_name;
+      id;
       index_update_method;
       labels;
+      project;
       region;
       metadata;
       timeouts;

@@ -17,6 +17,7 @@ val azurerm_data_factory_linked_service_azure_databricks :
   ?annotations:string list ->
   ?description:string ->
   ?existing_cluster_id:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?msi_work_space_resource_id:string ->
   ?parameters:(string * string) list ->

@@ -111,13 +111,17 @@ type aws_ecs_task_definition = {
   execution_role_arn : string option; [@option]
       (** execution_role_arn *)
   family : string;  (** family *)
+  id : string option; [@option]  (** id *)
   ipc_mode : string option; [@option]  (** ipc_mode *)
   memory : string option; [@option]  (** memory *)
+  network_mode : string option; [@option]  (** network_mode *)
   pid_mode : string option; [@option]  (** pid_mode *)
   requires_compatibilities : string list option; [@option]
       (** requires_compatibilities *)
   skip_destroy : bool option; [@option]  (** skip_destroy *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   task_role_arn : string option; [@option]  (** task_role_arn *)
   track_latest : bool option; [@option]  (** track_latest *)
   ephemeral_storage :
@@ -134,10 +138,11 @@ type aws_ecs_task_definition = {
 [@@deriving yojson_of]
 (** aws_ecs_task_definition *)
 
-let aws_ecs_task_definition ?cpu ?execution_role_arn ?ipc_mode
-    ?memory ?pid_mode ?requires_compatibilities ?skip_destroy ?tags
-    ?task_role_arn ?track_latest ~container_definitions ~family
-    ~ephemeral_storage ~inference_accelerator ~placement_constraints
+let aws_ecs_task_definition ?cpu ?execution_role_arn ?id ?ipc_mode
+    ?memory ?network_mode ?pid_mode ?requires_compatibilities
+    ?skip_destroy ?tags ?tags_all ?task_role_arn ?track_latest
+    ~container_definitions ~family ~ephemeral_storage
+    ~inference_accelerator ~placement_constraints
     ~proxy_configuration ~runtime_platform ~volume __resource_id =
   let __resource_type = "aws_ecs_task_definition" in
   let __resource =
@@ -146,12 +151,15 @@ let aws_ecs_task_definition ?cpu ?execution_role_arn ?ipc_mode
       cpu;
       execution_role_arn;
       family;
+      id;
       ipc_mode;
       memory;
+      network_mode;
       pid_mode;
       requires_compatibilities;
       skip_destroy;
       tags;
+      tags_all;
       task_role_arn;
       track_latest;
       ephemeral_storage;

@@ -32,16 +32,25 @@ type aws_route_table__route = {
 [@@deriving yojson_of]
 
 type aws_route_table = {
+  id : string option; [@option]  (** id *)
+  propagating_vgws : string list option; [@option]
+      (** propagating_vgws *)
+  route : aws_route_table__route list option; [@option]  (** route *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   vpc_id : string;  (** vpc_id *)
   timeouts : aws_route_table__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_route_table *)
 
-let aws_route_table ?tags ?timeouts ~vpc_id __resource_id =
+let aws_route_table ?id ?propagating_vgws ?route ?tags ?tags_all
+    ?timeouts ~vpc_id __resource_id =
   let __resource_type = "aws_route_table" in
-  let __resource = { tags; vpc_id; timeouts } in
+  let __resource =
+    { id; propagating_vgws; route; tags; tags_all; vpc_id; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route_table __resource);
   ()

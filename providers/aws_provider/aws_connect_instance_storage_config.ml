@@ -69,6 +69,7 @@ type aws_connect_instance_storage_config__storage_config = {
 (** aws_connect_instance_storage_config__storage_config *)
 
 type aws_connect_instance_storage_config = {
+  id : string option; [@option]  (** id *)
   instance_id : string;  (** instance_id *)
   resource_type : string;  (** resource_type *)
   storage_config :
@@ -77,10 +78,12 @@ type aws_connect_instance_storage_config = {
 [@@deriving yojson_of]
 (** aws_connect_instance_storage_config *)
 
-let aws_connect_instance_storage_config ~instance_id ~resource_type
-    ~storage_config __resource_id =
+let aws_connect_instance_storage_config ?id ~instance_id
+    ~resource_type ~storage_config __resource_id =
   let __resource_type = "aws_connect_instance_storage_config" in
-  let __resource = { instance_id; resource_type; storage_config } in
+  let __resource =
+    { id; instance_id; resource_type; storage_config }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_instance_storage_config __resource);
   ()

@@ -7,6 +7,8 @@ type aws_glue_partition_index__timeouts
 type aws_glue_partition_index
 
 val aws_glue_partition_index :
+  ?catalog_id:string ->
+  ?id:string ->
   ?timeouts:aws_glue_partition_index__timeouts ->
   database_name:string ->
   table_name:string ->

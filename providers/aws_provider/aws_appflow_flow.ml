@@ -603,8 +603,12 @@ type aws_appflow_flow__trigger_config = {
 
 type aws_appflow_flow = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
+  kms_arn : string option; [@option]  (** kms_arn *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   destination_flow_config :
     aws_appflow_flow__destination_flow_config list;
   source_flow_config : aws_appflow_flow__source_flow_config list;
@@ -614,15 +618,18 @@ type aws_appflow_flow = {
 [@@deriving yojson_of]
 (** aws_appflow_flow *)
 
-let aws_appflow_flow ?description ?tags ~name
+let aws_appflow_flow ?description ?id ?kms_arn ?tags ?tags_all ~name
     ~destination_flow_config ~source_flow_config ~task
     ~trigger_config __resource_id =
   let __resource_type = "aws_appflow_flow" in
   let __resource =
     {
       description;
+      id;
+      kms_arn;
       name;
       tags;
+      tags_all;
       destination_flow_config;
       source_flow_config;
       task;

@@ -6,6 +6,7 @@ type aws_networkmanager_attachment_accepter__timeouts
 type aws_networkmanager_attachment_accepter
 
 val aws_networkmanager_attachment_accepter :
+  ?id:string ->
   ?timeouts:aws_networkmanager_attachment_accepter__timeouts ->
   attachment_id:string ->
   attachment_type:string ->

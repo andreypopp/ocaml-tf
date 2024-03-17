@@ -6,6 +6,7 @@ type google_service_account_iam_member__condition
 type google_service_account_iam_member
 
 val google_service_account_iam_member :
+  ?id:string ->
   member:string ->
   role:string ->
   service_account_id:string ->

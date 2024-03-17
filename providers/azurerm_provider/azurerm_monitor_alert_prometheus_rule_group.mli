@@ -13,6 +13,7 @@ type azurerm_monitor_alert_prometheus_rule_group
 val azurerm_monitor_alert_prometheus_rule_group :
   ?cluster_name:string ->
   ?description:string ->
+  ?id:string ->
   ?interval:string ->
   ?rule_group_enabled:bool ->
   ?tags:(string * string) list ->

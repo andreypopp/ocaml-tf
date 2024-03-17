@@ -8,6 +8,9 @@ type google_logging_linked_dataset
 
 val google_logging_linked_dataset :
   ?description:string ->
+  ?id:string ->
+  ?location:string ->
+  ?parent:string ->
   ?timeouts:google_logging_linked_dataset__timeouts ->
   bucket:string ->
   link_id:string ->

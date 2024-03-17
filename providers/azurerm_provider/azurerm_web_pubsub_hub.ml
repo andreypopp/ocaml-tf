@@ -43,6 +43,7 @@ type azurerm_web_pubsub_hub__timeouts = {
 type azurerm_web_pubsub_hub = {
   anonymous_connections_enabled : bool option; [@option]
       (** anonymous_connections_enabled *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   web_pubsub_id : string;  (** web_pubsub_id *)
   event_handler : azurerm_web_pubsub_hub__event_handler list;
@@ -52,13 +53,14 @@ type azurerm_web_pubsub_hub = {
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_hub *)
 
-let azurerm_web_pubsub_hub ?anonymous_connections_enabled ?timeouts
-    ~name ~web_pubsub_id ~event_handler ~event_listener __resource_id
-    =
+let azurerm_web_pubsub_hub ?anonymous_connections_enabled ?id
+    ?timeouts ~name ~web_pubsub_id ~event_handler ~event_listener
+    __resource_id =
   let __resource_type = "azurerm_web_pubsub_hub" in
   let __resource =
     {
       anonymous_connections_enabled;
+      id;
       name;
       web_pubsub_id;
       event_handler;

@@ -36,6 +36,7 @@ type azurerm_kusto_attached_database_configuration = {
   database_name : string;  (** database_name *)
   default_principal_modification_kind : string option; [@option]
       (** default_principal_modification_kind *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -48,7 +49,7 @@ type azurerm_kusto_attached_database_configuration = {
 (** azurerm_kusto_attached_database_configuration *)
 
 let azurerm_kusto_attached_database_configuration
-    ?default_principal_modification_kind ?timeouts ~cluster_name
+    ?default_principal_modification_kind ?id ?timeouts ~cluster_name
     ~cluster_resource_id ~database_name ~location ~name
     ~resource_group_name ~sharing __resource_id =
   let __resource_type =
@@ -60,6 +61,7 @@ let azurerm_kusto_attached_database_configuration
       cluster_resource_id;
       database_name;
       default_principal_modification_kind;
+      id;
       location;
       name;
       resource_group_name;

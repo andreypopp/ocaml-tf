@@ -15,6 +15,7 @@ type google_securityposture_posture_deployment__timeouts = {
 type google_securityposture_posture_deployment = {
   description : string option; [@option]
       (** Description of the posture deployment. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The location of the resource, eg. global'. *)
   parent : string;
@@ -37,8 +38,8 @@ organizations/{organization_id} *)
 [@@deriving yojson_of]
 (** google_securityposture_posture_deployment *)
 
-let google_securityposture_posture_deployment ?description ?timeouts
-    ~location ~parent ~posture_deployment_id ~posture_id
+let google_securityposture_posture_deployment ?description ?id
+    ?timeouts ~location ~parent ~posture_deployment_id ~posture_id
     ~posture_revision_id ~target_resource __resource_id =
   let __resource_type =
     "google_securityposture_posture_deployment"
@@ -46,6 +47,7 @@ let google_securityposture_posture_deployment ?description ?timeouts
   let __resource =
     {
       description;
+      id;
       location;
       parent;
       posture_deployment_id;

@@ -6,6 +6,7 @@ type azurerm_container_registry_agent_pool__timeouts
 type azurerm_container_registry_agent_pool
 
 val azurerm_container_registry_agent_pool :
+  ?id:string ->
   ?instance_count:float ->
   ?tags:(string * string) list ->
   ?tier:string ->

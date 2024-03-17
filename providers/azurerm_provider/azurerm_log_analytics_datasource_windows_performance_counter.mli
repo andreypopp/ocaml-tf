@@ -7,6 +7,7 @@ type azurerm_log_analytics_datasource_windows_performance_counter__timeouts
 type azurerm_log_analytics_datasource_windows_performance_counter
 
 val azurerm_log_analytics_datasource_windows_performance_counter :
+  ?id:string ->
   ?timeouts:
     azurerm_log_analytics_datasource_windows_performance_counter__timeouts ->
   counter_name:string ->

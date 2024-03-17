@@ -8,6 +8,7 @@ type aws_cloudwatch_event_api_destination = {
   connection_arn : string;  (** connection_arn *)
   description : string option; [@option]  (** description *)
   http_method : string;  (** http_method *)
+  id : string option; [@option]  (** id *)
   invocation_endpoint : string;  (** invocation_endpoint *)
   invocation_rate_limit_per_second : float option; [@option]
       (** invocation_rate_limit_per_second *)
@@ -16,7 +17,7 @@ type aws_cloudwatch_event_api_destination = {
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_api_destination *)
 
-let aws_cloudwatch_event_api_destination ?description
+let aws_cloudwatch_event_api_destination ?description ?id
     ?invocation_rate_limit_per_second ~connection_arn ~http_method
     ~invocation_endpoint ~name __resource_id =
   let __resource_type = "aws_cloudwatch_event_api_destination" in
@@ -25,6 +26,7 @@ let aws_cloudwatch_event_api_destination ?description
       connection_arn;
       description;
       http_method;
+      id;
       invocation_endpoint;
       invocation_rate_limit_per_second;
       name;

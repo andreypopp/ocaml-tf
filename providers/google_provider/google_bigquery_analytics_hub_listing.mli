@@ -14,7 +14,9 @@ val google_bigquery_analytics_hub_listing :
   ?description:string ->
   ?documentation:string ->
   ?icon:string ->
+  ?id:string ->
   ?primary_contact:string ->
+  ?project:string ->
   ?request_access:string ->
   ?timeouts:google_bigquery_analytics_hub_listing__timeouts ->
   data_exchange_id:string ->

@@ -10,6 +10,7 @@ val aws_config_organization_conformance_pack :
   ?delivery_s3_bucket:string ->
   ?delivery_s3_key_prefix:string ->
   ?excluded_accounts:string list ->
+  ?id:string ->
   ?template_body:string ->
   ?template_s3_uri:string ->
   ?timeouts:aws_config_organization_conformance_pack__timeouts ->

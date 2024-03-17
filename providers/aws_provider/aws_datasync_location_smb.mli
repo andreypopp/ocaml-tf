@@ -6,7 +6,10 @@ type aws_datasync_location_smb__mount_options
 type aws_datasync_location_smb
 
 val aws_datasync_location_smb :
+  ?domain:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   agent_arns:string list ->
   password:string ->
   server_hostname:string ->

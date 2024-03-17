@@ -8,6 +8,7 @@ type azurerm_stream_analytics_output_servicebus_queue
 
 val azurerm_stream_analytics_output_servicebus_queue :
   ?authentication_mode:string ->
+  ?id:string ->
   ?property_columns:string list ->
   ?shared_access_policy_key:string ->
   ?shared_access_policy_name:string ->

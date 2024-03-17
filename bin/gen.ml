@@ -171,10 +171,14 @@ let to_ocaml_doc doc =
 
 let concat_space = String.concat ~sep:" "
 
-let get_attributes ~skip_computed attrs =
+let get_attributes ~input_only attrs =
   List.filter_map attrs ~f:(fun (attr_name, attr) ->
-      if skip_computed && attr.computed then None
-      else Some (attr_name, attr))
+      match input_only, attr.optional, attr.required with
+      | false, _, _ -> Some (attr_name, attr)
+      | true, true, _ | true, _, true -> Some (attr_name, attr)
+      | true, _, _ -> None)
+
+let is_input_attribute attr = attr.optional || attr.required
 
 let gen_attribute_types name ppf attributes =
   List.iter attributes
@@ -203,7 +207,8 @@ let gen_attribute_types name ppf attributes =
 
 (* block can contain object types, which we represent as ocaml records,
    so need to generate type definitions for them in advance *)
-let gen_object_types_ml ~skip_computed ppf (name, (block : block)) =
+let gen_object_types_ml ~is_mli ~input_only ppf
+    (name, (block : block)) =
   List.iter block.attributes ~f:(fun (attr_name, attribute) ->
       List.iter
         (find_object_types [] [ attr_name; name ] attribute.type_)
@@ -216,7 +221,7 @@ let gen_object_types_ml ~skip_computed ppf (name, (block : block)) =
                     nested_type = None;
                     description = None;
                     description_kind = "plain";
-                    required = false;
+                    required = true;
                     optional = false;
                     computed = false;
                     sensitive = false;
@@ -226,8 +231,9 @@ let gen_object_types_ml ~skip_computed ppf (name, (block : block)) =
           let ty_name = List.rev path |> String.concat ~sep:"__" in
           Format.fprintf ppf "type %s = {@." (to_ocaml_name ty_name);
           gen_attribute_types ty_name ppf
-            (get_attributes ~skip_computed attributes);
-          Format.fprintf ppf "} [%@%@deriving yojson_of]@."))
+            (get_attributes ~input_only attributes);
+          if is_mli then Format.fprintf ppf "}@."
+          else Format.fprintf ppf "} [%@%@deriving yojson_of]@."))
 
 let gen_block_type_name ~kind basename
     ((block_name, block) : string * block_type) =
@@ -245,16 +251,14 @@ let gen_block_type_name ~kind basename
   in
   Printf.sprintf "%s%s" ty_name ty_mod
 
-let rec gen_block_type_ml ~is_mli ~skip_computed ppf
+let rec gen_block_type_ml ~is_mli ~input_only ppf
     (name, (block : block)) =
   gen_block_types_ml ~is_mli ppf (name, block);
-  gen_object_types_ml ~skip_computed ppf (name, block);
+  gen_object_types_ml ~is_mli ~input_only ppf (name, block);
   match is_mli with
   | true -> Format.fprintf ppf "type %s@.@." name
   | false ->
-      let attributes =
-        get_attributes ~skip_computed block.attributes
-      in
+      let attributes = get_attributes ~input_only block.attributes in
       let is_unit =
         match attributes, block.block_types with
         | [], [] -> true
@@ -285,7 +289,7 @@ and gen_block_types_ml ~is_mli ppf (name, (block : block)) =
   List.iter block.block_types
     ~f:(fun (block_type_name, (block_type : block_type)) ->
       let name = Printf.sprintf "%s__%s" name block_type_name in
-      gen_block_type_ml ~skip_computed:false ~is_mli ppf
+      gen_block_type_ml ~input_only:false ~is_mli ppf
         (name, block_type.block))
 
 let gen_resource_constructor ppf (name, (schema : schema)) =
@@ -297,7 +301,8 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
         | true -> Some (to_ocaml_name attr_name))
   in
   let opt_args =
-    collect_args (fun _ attr -> (not attr.computed) && attr.optional)
+    collect_args (fun _ attr ->
+        is_input_attribute attr && attr.optional)
     |> List.map ~f:(fun x -> Printf.sprintf "?%s" x)
   in
   let opt_block_args =
@@ -310,7 +315,7 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
   in
   let args =
     collect_args (fun _ attr ->
-        (not attr.computed) && not attr.optional)
+        is_input_attribute attr && attr.required)
     |> List.map ~f:(fun x -> Printf.sprintf "~%s" x)
   in
   let block_args =
@@ -329,7 +334,7 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
   Format.fprintf ppf "  let __resource_type = %S in@." name;
   Format.fprintf ppf "  let __resource = {@.";
   List.iter schema.block.attributes ~f:(fun (attr_name, attr) ->
-      if attr.computed then ()
+      if not (is_input_attribute attr) then ()
       else
         let ocaml_name = to_ocaml_name attr_name in
         Format.fprintf ppf "    %s;@." ocaml_name);
@@ -352,7 +357,8 @@ let gen_resource_constructor_sig ppf (name, (schema : schema)) =
         | true -> Some (to_ocaml_name attr_name, attr))
   in
   let opt_args =
-    collect_args (fun _ attr -> (not attr.computed) && attr.optional)
+    collect_args (fun _ attr ->
+        is_input_attribute attr && attr.optional)
     |> List.map ~f:(fun (attr_name, attr) ->
            Format.asprintf "?%s:%a" attr_name
              (gen_attribute_type_name [ attr_name; name ])
@@ -373,7 +379,7 @@ let gen_resource_constructor_sig ppf (name, (schema : schema)) =
   in
   let args =
     collect_args (fun _ attr ->
-        (not attr.computed) && not attr.optional)
+        is_input_attribute attr && attr.required)
     |> List.map ~f:(fun (attr_name, attr) ->
            Format.asprintf "%s:%a" attr_name
              (gen_attribute_type_name [ attr_name; name ])
@@ -406,14 +412,14 @@ let gen_resource_impl ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
   Format.fprintf ppf "[%@%@%@ocaml.warning \"-33-27-26\"]@.@.";
   Format.fprintf ppf "open! Tf.Prelude@.@.";
-  gen_block_type_ml ~skip_computed:true ~is_mli:false ppf
+  gen_block_type_ml ~input_only:true ~is_mli:false ppf
     (resource_name, resource.block);
   gen_resource_constructor ppf (resource_name, resource)
 
 let gen_resource_iface ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
   Format.fprintf ppf "open! Tf.Prelude@.@.";
-  gen_block_type_ml ~skip_computed:true ~is_mli:true ppf
+  gen_block_type_ml ~input_only:true ~is_mli:true ppf
     (resource_name, resource.block);
   gen_resource_constructor_sig ppf (resource_name, resource)
 

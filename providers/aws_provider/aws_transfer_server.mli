@@ -17,14 +17,17 @@ val aws_transfer_server :
   ?force_destroy:bool ->
   ?function_:string ->
   ?host_key:string ->
+  ?id:string ->
   ?identity_provider_type:string ->
   ?invocation_role:string ->
   ?logging_role:string ->
   ?post_authentication_login_banner:string ->
   ?pre_authentication_login_banner:string ->
+  ?protocols:string list ->
   ?security_policy_name:string ->
   ?structured_log_destinations:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?url:string ->
   endpoint_details:aws_transfer_server__endpoint_details list ->
   protocol_details:aws_transfer_server__protocol_details list ->

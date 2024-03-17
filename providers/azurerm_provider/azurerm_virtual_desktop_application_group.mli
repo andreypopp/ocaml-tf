@@ -9,6 +9,7 @@ val azurerm_virtual_desktop_application_group :
   ?default_desktop_display_name:string ->
   ?description:string ->
   ?friendly_name:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_virtual_desktop_application_group__timeouts ->
   host_pool_id:string ->

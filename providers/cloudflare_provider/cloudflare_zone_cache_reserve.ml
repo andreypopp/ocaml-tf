@@ -7,6 +7,7 @@ open! Tf.Prelude
 type cloudflare_zone_cache_reserve = {
   enabled : bool;
       (** Whether to enable or disable Cache Reserve support for a given zone. *)
+  id : string option; [@option]  (** id *)
   zone_id : string;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
@@ -18,9 +19,10 @@ files in Cloudflare's persistent object storage buckets.
 Note: Using Cache Reserve without Tiered Cache is not recommended.
  *)
 
-let cloudflare_zone_cache_reserve ~enabled ~zone_id __resource_id =
+let cloudflare_zone_cache_reserve ?id ~enabled ~zone_id __resource_id
+    =
   let __resource_type = "cloudflare_zone_cache_reserve" in
-  let __resource = { enabled; zone_id } in
+  let __resource = { enabled; id; zone_id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_zone_cache_reserve __resource);
   ()

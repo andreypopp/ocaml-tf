@@ -129,8 +129,10 @@ type aws_glue_catalog_table__target_table = {
 (** aws_glue_catalog_table__target_table *)
 
 type aws_glue_catalog_table = {
+  catalog_id : string option; [@option]  (** catalog_id *)
   database_name : string;  (** database_name *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   owner : string option; [@option]  (** owner *)
   parameters : (string * string) list option; [@option]
@@ -152,15 +154,18 @@ type aws_glue_catalog_table = {
 [@@deriving yojson_of]
 (** aws_glue_catalog_table *)
 
-let aws_glue_catalog_table ?description ?owner ?parameters ?retention
-    ?table_type ?view_expanded_text ?view_original_text
-    ~database_name ~name ~open_table_format_input ~partition_index
-    ~partition_keys ~storage_descriptor ~target_table __resource_id =
+let aws_glue_catalog_table ?catalog_id ?description ?id ?owner
+    ?parameters ?retention ?table_type ?view_expanded_text
+    ?view_original_text ~database_name ~name ~open_table_format_input
+    ~partition_index ~partition_keys ~storage_descriptor
+    ~target_table __resource_id =
   let __resource_type = "aws_glue_catalog_table" in
   let __resource =
     {
+      catalog_id;
       database_name;
       description;
+      id;
       name;
       owner;
       parameters;

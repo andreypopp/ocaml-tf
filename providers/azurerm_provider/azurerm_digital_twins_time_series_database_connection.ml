@@ -20,9 +20,12 @@ type azurerm_digital_twins_time_series_database_connection = {
   eventhub_namespace_endpoint_uri : string;
       (** eventhub_namespace_endpoint_uri *)
   eventhub_namespace_id : string;  (** eventhub_namespace_id *)
+  id : string option; [@option]  (** id *)
   kusto_cluster_id : string;  (** kusto_cluster_id *)
   kusto_cluster_uri : string;  (** kusto_cluster_uri *)
   kusto_database_name : string;  (** kusto_database_name *)
+  kusto_table_name : string option; [@option]
+      (** kusto_table_name *)
   name : string;  (** name *)
   timeouts :
     azurerm_digital_twins_time_series_database_connection__timeouts
@@ -32,8 +35,8 @@ type azurerm_digital_twins_time_series_database_connection = {
 (** azurerm_digital_twins_time_series_database_connection *)
 
 let azurerm_digital_twins_time_series_database_connection
-    ?eventhub_consumer_group_name ?timeouts ~digital_twins_id
-    ~eventhub_name ~eventhub_namespace_endpoint_uri
+    ?eventhub_consumer_group_name ?id ?kusto_table_name ?timeouts
+    ~digital_twins_id ~eventhub_name ~eventhub_namespace_endpoint_uri
     ~eventhub_namespace_id ~kusto_cluster_id ~kusto_cluster_uri
     ~kusto_database_name ~name __resource_id =
   let __resource_type =
@@ -46,9 +49,11 @@ let azurerm_digital_twins_time_series_database_connection
       eventhub_name;
       eventhub_namespace_endpoint_uri;
       eventhub_namespace_id;
+      id;
       kusto_cluster_id;
       kusto_cluster_uri;
       kusto_database_name;
+      kusto_table_name;
       name;
       timeouts;
     }

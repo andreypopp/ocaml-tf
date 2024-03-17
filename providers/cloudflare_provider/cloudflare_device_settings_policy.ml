@@ -26,6 +26,7 @@ type cloudflare_device_settings_policy = {
       (** Whether the policy is enabled (cannot be set for default policies). Defaults to `true`. *)
   exclude_office_ips : bool option; [@option]
       (** Whether to add Microsoft IPs to split tunnel exclusions. *)
+  id : string option; [@option]  (** id *)
   match_ : string option; [@option] [@key "match"]
       (** Wirefilter expression to match a device against when evaluating whether this policy should take effect for that device. *)
   name : string;  (** Name of the policy. *)
@@ -45,7 +46,7 @@ type cloudflare_device_settings_policy = {
 
 let cloudflare_device_settings_policy ?allow_mode_switch
     ?allow_updates ?allowed_to_leave ?auto_connect ?captive_portal
-    ?default ?disable_auto_fallback ?enabled ?exclude_office_ips
+    ?default ?disable_auto_fallback ?enabled ?exclude_office_ips ?id
     ?match_ ?precedence ?service_mode_v2_mode ?service_mode_v2_port
     ?support_url ?switch_locked ~account_id ~description ~name
     __resource_id =
@@ -63,6 +64,7 @@ let cloudflare_device_settings_policy ?allow_mode_switch
       disable_auto_fallback;
       enabled;
       exclude_office_ips;
+      id;
       match_;
       name;
       precedence;

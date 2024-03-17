@@ -15,6 +15,7 @@ type azurerm_stream_analytics_output_synapse__timeouts = {
 
 type azurerm_stream_analytics_output_synapse = {
   database : string;  (** database *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   password : string;  (** password *)
   resource_group_name : string;  (** resource_group_name *)
@@ -28,13 +29,14 @@ type azurerm_stream_analytics_output_synapse = {
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_synapse *)
 
-let azurerm_stream_analytics_output_synapse ?timeouts ~database ~name
-    ~password ~resource_group_name ~server ~stream_analytics_job_name
-    ~table ~user __resource_id =
+let azurerm_stream_analytics_output_synapse ?id ?timeouts ~database
+    ~name ~password ~resource_group_name ~server
+    ~stream_analytics_job_name ~table ~user __resource_id =
   let __resource_type = "azurerm_stream_analytics_output_synapse" in
   let __resource =
     {
       database;
+      id;
       name;
       password;
       resource_group_name;

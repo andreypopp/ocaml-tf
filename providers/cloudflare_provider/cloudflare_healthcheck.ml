@@ -23,6 +23,8 @@ type cloudflare_healthcheck = {
       (** The hostname or IP address of the origin server to run health checks on. *)
   allow_insecure : bool option; [@option]
       (** Do not validate the certificate when the health check uses HTTPS. Defaults to `false`. *)
+  check_regions : string list option; [@option]
+      (** A list of regions from which to run health checks. If not set, Cloudflare will pick a default region. Available values: `WNAM`, `ENAM`, `WEU`, `EEU`, `NSAM`, `SSAM`, `OC`, `ME`, `NAF`, `SAF`, `IN`, `SEAS`, `NEAS`, `ALL_REGIONS`. *)
   consecutive_fails : float option; [@option]
       (** The number of consecutive fails required from a health check before changing the health to unhealthy. Defaults to `1`. *)
   consecutive_successes : float option; [@option]
@@ -35,8 +37,11 @@ type cloudflare_healthcheck = {
       (** The expected HTTP response codes (e.g. '200') or code ranges (e.g. '2xx' for all codes starting with 2) of the health check. *)
   follow_redirects : bool option; [@option]
       (** Follow redirects if the origin returns a 3xx status code. Defaults to `false`. *)
+  id : string option; [@option]  (** id *)
   interval : float option; [@option]
       (** The interval between each health check. Shorter intervals may give quicker notifications if the origin status changes, but will increase the load on the origin as we check from multiple locations. Defaults to `60`. *)
+  method_ : string option; [@option] [@key "method"]
+      (** The HTTP method to use for the health check. Available values: `connection_established`, `GET`, `HEAD`. *)
   name : string;
       (** A short name to identify the health check. Only alphanumeric characters, hyphens, and underscores are allowed. *)
   path : string option; [@option]
@@ -61,23 +66,26 @@ type cloudflare_healthcheck = {
 without needing a Cloudflare Load Balancer.
  *)
 
-let cloudflare_healthcheck ?allow_insecure ?consecutive_fails
-    ?consecutive_successes ?description ?expected_body
-    ?expected_codes ?follow_redirects ?interval ?path ?port ?retries
-    ?suspended ?timeout ?timeouts ~address ~name ~type_ ~zone_id
-    ~header __resource_id =
+let cloudflare_healthcheck ?allow_insecure ?check_regions
+    ?consecutive_fails ?consecutive_successes ?description
+    ?expected_body ?expected_codes ?follow_redirects ?id ?interval
+    ?method_ ?path ?port ?retries ?suspended ?timeout ?timeouts
+    ~address ~name ~type_ ~zone_id ~header __resource_id =
   let __resource_type = "cloudflare_healthcheck" in
   let __resource =
     {
       address;
       allow_insecure;
+      check_regions;
       consecutive_fails;
       consecutive_successes;
       description;
       expected_body;
       expected_codes;
       follow_redirects;
+      id;
       interval;
+      method_;
       name;
       path;
       port;

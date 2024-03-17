@@ -48,21 +48,26 @@ type azurerm_windows_virtual_machine_scale_set
 
 val azurerm_windows_virtual_machine_scale_set :
   ?capacity_reservation_group_id:string ->
+  ?computer_name_prefix:string ->
   ?custom_data:string ->
   ?do_not_run_extensions_on_overprovisioned_machines:bool ->
   ?edge_zone:string ->
   ?enable_automatic_updates:bool ->
   ?encryption_at_host_enabled:bool ->
   ?eviction_policy:string ->
+  ?extension_operations_enabled:bool ->
   ?extensions_time_budget:string ->
   ?health_probe_id:string ->
   ?host_group_id:string ->
+  ?id:string ->
   ?license_type:string ->
   ?max_bid_price:float ->
   ?overprovision:bool ->
+  ?platform_fault_domain_count:float ->
   ?priority:string ->
   ?provision_vm_agent:bool ->
   ?proximity_placement_group_id:string ->
+  ?scale_in_policy:string ->
   ?secure_boot_enabled:bool ->
   ?single_placement_group:bool ->
   ?source_image_id:string ->

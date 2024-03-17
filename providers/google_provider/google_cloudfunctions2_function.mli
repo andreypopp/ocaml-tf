@@ -22,8 +22,10 @@ type google_cloudfunctions2_function
 
 val google_cloudfunctions2_function :
   ?description:string ->
+  ?id:string ->
   ?kms_key_name:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_cloudfunctions2_function__timeouts ->
   location:string ->
   name:string ->

@@ -74,6 +74,7 @@ type aws_iot_indexing_configuration__thing_indexing_configuration = {
 (** aws_iot_indexing_configuration__thing_indexing_configuration *)
 
 type aws_iot_indexing_configuration = {
+  id : string option; [@option]  (** id *)
   thing_group_indexing_configuration :
     aws_iot_indexing_configuration__thing_group_indexing_configuration
     list;
@@ -83,12 +84,13 @@ type aws_iot_indexing_configuration = {
 [@@deriving yojson_of]
 (** aws_iot_indexing_configuration *)
 
-let aws_iot_indexing_configuration
+let aws_iot_indexing_configuration ?id
     ~thing_group_indexing_configuration ~thing_indexing_configuration
     __resource_id =
   let __resource_type = "aws_iot_indexing_configuration" in
   let __resource =
     {
+      id;
       thing_group_indexing_configuration;
       thing_indexing_configuration;
     }

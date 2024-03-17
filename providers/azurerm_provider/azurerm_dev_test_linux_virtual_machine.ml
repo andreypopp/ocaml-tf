@@ -34,6 +34,7 @@ type azurerm_dev_test_linux_virtual_machine = {
   allow_claim : bool option; [@option]  (** allow_claim *)
   disallow_public_ip_address : bool option; [@option]
       (** disallow_public_ip_address *)
+  id : string option; [@option]  (** id *)
   lab_name : string;  (** lab_name *)
   lab_subnet_name : string;  (** lab_subnet_name *)
   lab_virtual_network_id : string;  (** lab_virtual_network_id *)
@@ -58,7 +59,7 @@ type azurerm_dev_test_linux_virtual_machine = {
 (** azurerm_dev_test_linux_virtual_machine *)
 
 let azurerm_dev_test_linux_virtual_machine ?allow_claim
-    ?disallow_public_ip_address ?notes ?password ?ssh_key ?tags
+    ?disallow_public_ip_address ?id ?notes ?password ?ssh_key ?tags
     ?timeouts ~lab_name ~lab_subnet_name ~lab_virtual_network_id
     ~location ~name ~resource_group_name ~size ~storage_type
     ~username ~gallery_image_reference ~inbound_nat_rule
@@ -68,6 +69,7 @@ let azurerm_dev_test_linux_virtual_machine ?allow_claim
     {
       allow_claim;
       disallow_public_ip_address;
+      id;
       lab_name;
       lab_subnet_name;
       lab_virtual_network_id;

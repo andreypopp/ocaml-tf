@@ -49,6 +49,7 @@ type azurerm_gallery_application_version = {
   exclude_from_latest : bool option; [@option]
       (** exclude_from_latest *)
   gallery_application_id : string;  (** gallery_application_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   package_file : string option; [@option]  (** package_file *)
@@ -64,7 +65,7 @@ type azurerm_gallery_application_version = {
 (** azurerm_gallery_application_version *)
 
 let azurerm_gallery_application_version ?config_file
-    ?enable_health_check ?end_of_life_date ?exclude_from_latest
+    ?enable_health_check ?end_of_life_date ?exclude_from_latest ?id
     ?package_file ?tags ?timeouts ~gallery_application_id ~location
     ~name ~manage_action ~source ~target_region __resource_id =
   let __resource_type = "azurerm_gallery_application_version" in
@@ -75,6 +76,7 @@ let azurerm_gallery_application_version ?config_file
       end_of_life_date;
       exclude_from_latest;
       gallery_application_id;
+      id;
       location;
       name;
       package_file;

@@ -14,6 +14,7 @@ val cloudflare_device_settings_policy :
   ?disable_auto_fallback:bool ->
   ?enabled:bool ->
   ?exclude_office_ips:bool ->
+  ?id:string ->
   ?match_:string ->
   ?precedence:float ->
   ?service_mode_v2_mode:string ->

@@ -46,6 +46,7 @@ type google_securityposture_posture
 
 val google_securityposture_posture :
   ?description:string ->
+  ?id:string ->
   ?timeouts:google_securityposture_posture__timeouts ->
   location:string ->
   parent:string ->

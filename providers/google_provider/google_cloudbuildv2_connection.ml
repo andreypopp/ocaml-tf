@@ -122,9 +122,11 @@ type google_cloudbuildv2_connection = {
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
   disabled : bool option; [@option]
       (** If disabled is set to true, functionality is disabled for this connection. Repository based API methods and webhooks processing for repositories in this connection will be disabled. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource *)
   name : string;
       (** Immutable. The resource name of the connection. *)
+  project : string option; [@option]  (** project *)
   github_config : google_cloudbuildv2_connection__github_config list;
   github_enterprise_config :
     google_cloudbuildv2_connection__github_enterprise_config list;
@@ -134,16 +136,18 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 [@@deriving yojson_of]
 (** google_cloudbuildv2_connection *)
 
-let google_cloudbuildv2_connection ?annotations ?disabled ?timeouts
-    ~location ~name ~github_config ~github_enterprise_config
-    ~gitlab_config __resource_id =
+let google_cloudbuildv2_connection ?annotations ?disabled ?id
+    ?project ?timeouts ~location ~name ~github_config
+    ~github_enterprise_config ~gitlab_config __resource_id =
   let __resource_type = "google_cloudbuildv2_connection" in
   let __resource =
     {
       annotations;
       disabled;
+      id;
       location;
       name;
+      project;
       github_config;
       github_enterprise_config;
       gitlab_config;

@@ -48,6 +48,7 @@ type azurerm_datadog_monitor_tag_rule__timeouts = {
 
 type azurerm_datadog_monitor_tag_rule = {
   datadog_monitor_id : string;  (** datadog_monitor_id *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   log : azurerm_datadog_monitor_tag_rule__log list;
   metric : azurerm_datadog_monitor_tag_rule__metric list;
@@ -56,11 +57,11 @@ type azurerm_datadog_monitor_tag_rule = {
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor_tag_rule *)
 
-let azurerm_datadog_monitor_tag_rule ?name ?timeouts
+let azurerm_datadog_monitor_tag_rule ?id ?name ?timeouts
     ~datadog_monitor_id ~log ~metric __resource_id =
   let __resource_type = "azurerm_datadog_monitor_tag_rule" in
   let __resource =
-    { datadog_monitor_id; name; log; metric; timeouts }
+    { datadog_monitor_id; id; name; log; metric; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_datadog_monitor_tag_rule __resource);

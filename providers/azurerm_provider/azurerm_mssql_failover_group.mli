@@ -9,6 +9,8 @@ type azurerm_mssql_failover_group
 
 val azurerm_mssql_failover_group :
   ?databases:string list ->
+  ?id:string ->
+  ?readonly_endpoint_failover_policy_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_mssql_failover_group__timeouts ->
   name:string ->

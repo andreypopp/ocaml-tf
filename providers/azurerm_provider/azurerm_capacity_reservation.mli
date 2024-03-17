@@ -7,6 +7,7 @@ type azurerm_capacity_reservation__timeouts
 type azurerm_capacity_reservation
 
 val azurerm_capacity_reservation :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?zone:string ->
   ?timeouts:azurerm_capacity_reservation__timeouts ->

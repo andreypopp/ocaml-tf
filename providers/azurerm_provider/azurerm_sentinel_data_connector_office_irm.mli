@@ -6,6 +6,8 @@ type azurerm_sentinel_data_connector_office_irm__timeouts
 type azurerm_sentinel_data_connector_office_irm
 
 val azurerm_sentinel_data_connector_office_irm :
+  ?id:string ->
+  ?tenant_id:string ->
   ?timeouts:azurerm_sentinel_data_connector_office_irm__timeouts ->
   log_analytics_workspace_id:string ->
   name:string ->

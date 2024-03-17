@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_api_gateway_usage_plan_key
 
 val aws_api_gateway_usage_plan_key :
+  ?id:string ->
   key_id:string ->
   key_type:string ->
   usage_plan_id:string ->

@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_glacier_vault_lock
 
 val aws_glacier_vault_lock :
+  ?id:string ->
   ?ignore_deletion_error:bool ->
   complete_lock:bool ->
   policy:string ->

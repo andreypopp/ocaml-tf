@@ -15,6 +15,7 @@ type aws_kms_custom_key_store__timeouts = {
 type aws_kms_custom_key_store = {
   cloud_hsm_cluster_id : string;  (** cloud_hsm_cluster_id *)
   custom_key_store_name : string;  (** custom_key_store_name *)
+  id : string option; [@option]  (** id *)
   key_store_password : string;  (** key_store_password *)
   trust_anchor_certificate : string;  (** trust_anchor_certificate *)
   timeouts : aws_kms_custom_key_store__timeouts option;
@@ -22,7 +23,7 @@ type aws_kms_custom_key_store = {
 [@@deriving yojson_of]
 (** aws_kms_custom_key_store *)
 
-let aws_kms_custom_key_store ?timeouts ~cloud_hsm_cluster_id
+let aws_kms_custom_key_store ?id ?timeouts ~cloud_hsm_cluster_id
     ~custom_key_store_name ~key_store_password
     ~trust_anchor_certificate __resource_id =
   let __resource_type = "aws_kms_custom_key_store" in
@@ -30,6 +31,7 @@ let aws_kms_custom_key_store ?timeouts ~cloud_hsm_cluster_id
     {
       cloud_hsm_cluster_id;
       custom_key_store_name;
+      id;
       key_store_password;
       trust_anchor_certificate;
       timeouts;

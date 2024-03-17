@@ -8,6 +8,8 @@ type google_network_security_gateway_security_policy_rule
 val google_network_security_gateway_security_policy_rule :
   ?application_matcher:string ->
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?tls_inspection_enabled:bool ->
   ?timeouts:
     google_network_security_gateway_security_policy_rule__timeouts ->

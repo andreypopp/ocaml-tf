@@ -14,7 +14,9 @@ val google_clouddeploy_target :
   ?annotations:(string * string) list ->
   ?deploy_parameters:(string * string) list ->
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?require_approval:bool ->
   ?timeouts:google_clouddeploy_target__timeouts ->
   location:string ->

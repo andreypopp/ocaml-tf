@@ -24,24 +24,29 @@ type aws_cloudhsm_v2_cluster__cluster_certificates = {
 
 type aws_cloudhsm_v2_cluster = {
   hsm_type : string;  (** hsm_type *)
+  id : string option; [@option]  (** id *)
   source_backup_identifier : string option; [@option]
       (** source_backup_identifier *)
   subnet_ids : string list;  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_cloudhsm_v2_cluster__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_cloudhsm_v2_cluster *)
 
-let aws_cloudhsm_v2_cluster ?source_backup_identifier ?tags ?timeouts
-    ~hsm_type ~subnet_ids __resource_id =
+let aws_cloudhsm_v2_cluster ?id ?source_backup_identifier ?tags
+    ?tags_all ?timeouts ~hsm_type ~subnet_ids __resource_id =
   let __resource_type = "aws_cloudhsm_v2_cluster" in
   let __resource =
     {
       hsm_type;
+      id;
       source_backup_identifier;
       subnet_ids;
       tags;
+      tags_all;
       timeouts;
     }
   in

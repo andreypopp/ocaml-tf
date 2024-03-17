@@ -51,9 +51,12 @@ type aws_kendra_data_source
 
 val aws_kendra_data_source :
   ?description:string ->
+  ?id:string ->
+  ?language_code:string ->
   ?role_arn:string ->
   ?schedule:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_kendra_data_source__timeouts ->
   index_id:string ->
   name:string ->

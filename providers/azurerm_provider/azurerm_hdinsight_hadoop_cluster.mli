@@ -49,6 +49,7 @@ type azurerm_hdinsight_hadoop_cluster__timeouts
 type azurerm_hdinsight_hadoop_cluster
 
 val azurerm_hdinsight_hadoop_cluster :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?tls_min_version:string ->
   ?timeouts:azurerm_hdinsight_hadoop_cluster__timeouts ->

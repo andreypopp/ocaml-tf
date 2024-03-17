@@ -25,12 +25,18 @@ type aws_default_subnet = {
       [@option]
       (** enable_resource_name_dns_aaaa_record_on_launch *)
   force_destroy : bool option; [@option]  (** force_destroy *)
+  id : string option; [@option]  (** id *)
+  ipv6_cidr_block : string option; [@option]  (** ipv6_cidr_block *)
   ipv6_native : bool option; [@option]  (** ipv6_native *)
   map_customer_owned_ip_on_launch : bool option; [@option]
       (** map_customer_owned_ip_on_launch *)
   map_public_ip_on_launch : bool option; [@option]
       (** map_public_ip_on_launch *)
+  private_dns_hostname_type_on_launch : string option; [@option]
+      (** private_dns_hostname_type_on_launch *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_default_subnet__timeouts option;
 }
 [@@deriving yojson_of]
@@ -40,9 +46,10 @@ let aws_default_subnet ?assign_ipv6_address_on_creation
     ?customer_owned_ipv4_pool ?enable_dns64
     ?enable_resource_name_dns_a_record_on_launch
     ?enable_resource_name_dns_aaaa_record_on_launch ?force_destroy
-    ?ipv6_native ?map_customer_owned_ip_on_launch
-    ?map_public_ip_on_launch ?tags ?timeouts ~availability_zone
-    __resource_id =
+    ?id ?ipv6_cidr_block ?ipv6_native
+    ?map_customer_owned_ip_on_launch ?map_public_ip_on_launch
+    ?private_dns_hostname_type_on_launch ?tags ?tags_all ?timeouts
+    ~availability_zone __resource_id =
   let __resource_type = "aws_default_subnet" in
   let __resource =
     {
@@ -53,10 +60,14 @@ let aws_default_subnet ?assign_ipv6_address_on_creation
       enable_resource_name_dns_a_record_on_launch;
       enable_resource_name_dns_aaaa_record_on_launch;
       force_destroy;
+      id;
+      ipv6_cidr_block;
       ipv6_native;
       map_customer_owned_ip_on_launch;
       map_public_ip_on_launch;
+      private_dns_hostname_type_on_launch;
       tags;
+      tags_all;
       timeouts;
     }
   in

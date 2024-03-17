@@ -15,6 +15,7 @@ type azurerm_email_communication_service__timeouts = {
 
 type azurerm_email_communication_service = {
   data_location : string;  (** data_location *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -23,11 +24,11 @@ type azurerm_email_communication_service = {
 [@@deriving yojson_of]
 (** azurerm_email_communication_service *)
 
-let azurerm_email_communication_service ?tags ?timeouts
+let azurerm_email_communication_service ?id ?tags ?timeouts
     ~data_location ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_email_communication_service" in
   let __resource =
-    { data_location; name; resource_group_name; tags; timeouts }
+    { data_location; id; name; resource_group_name; tags; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_email_communication_service __resource);

@@ -16,6 +16,7 @@ type google_network_security_address_group = {
   capacity : float;  (** Capacity of the Address Group. *)
   description : string option; [@option]
       (** Free-text description of the resource. *)
+  id : string option; [@option]  (** id *)
   items : string list option; [@option]  (** List of items. *)
   labels : (string * string) list option; [@option]
       (** Set of label tags associated with the AddressGroup resource.
@@ -37,14 +38,15 @@ The default value is 'global'. *)
 [@@deriving yojson_of]
 (** google_network_security_address_group *)
 
-let google_network_security_address_group ?description ?items ?labels
-    ?parent ?timeouts ~capacity ~location ~name ~type_ __resource_id
-    =
+let google_network_security_address_group ?description ?id ?items
+    ?labels ?parent ?timeouts ~capacity ~location ~name ~type_
+    __resource_id =
   let __resource_type = "google_network_security_address_group" in
   let __resource =
     {
       capacity;
       description;
+      id;
       items;
       labels;
       location;

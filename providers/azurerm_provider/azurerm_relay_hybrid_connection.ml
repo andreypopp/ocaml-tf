@@ -14,6 +14,7 @@ type azurerm_relay_hybrid_connection__timeouts = {
 (** azurerm_relay_hybrid_connection__timeouts *)
 
 type azurerm_relay_hybrid_connection = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   relay_namespace_name : string;  (** relay_namespace_name *)
   requires_client_authorization : bool option; [@option]
@@ -25,12 +26,13 @@ type azurerm_relay_hybrid_connection = {
 [@@deriving yojson_of]
 (** azurerm_relay_hybrid_connection *)
 
-let azurerm_relay_hybrid_connection ?requires_client_authorization
-    ?user_metadata ?timeouts ~name ~relay_namespace_name
-    ~resource_group_name __resource_id =
+let azurerm_relay_hybrid_connection ?id
+    ?requires_client_authorization ?user_metadata ?timeouts ~name
+    ~relay_namespace_name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_relay_hybrid_connection" in
   let __resource =
     {
+      id;
       name;
       relay_namespace_name;
       requires_client_authorization;

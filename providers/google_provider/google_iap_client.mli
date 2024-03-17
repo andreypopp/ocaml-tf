@@ -6,6 +6,7 @@ type google_iap_client__timeouts
 type google_iap_client
 
 val google_iap_client :
+  ?id:string ->
   ?timeouts:google_iap_client__timeouts ->
   brand:string ->
   display_name:string ->

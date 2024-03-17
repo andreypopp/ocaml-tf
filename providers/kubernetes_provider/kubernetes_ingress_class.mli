@@ -8,6 +8,7 @@ type kubernetes_ingress_class__spec
 type kubernetes_ingress_class
 
 val kubernetes_ingress_class :
+  ?id:string ->
   metadata:kubernetes_ingress_class__metadata list ->
   spec:kubernetes_ingress_class__spec list ->
   string ->

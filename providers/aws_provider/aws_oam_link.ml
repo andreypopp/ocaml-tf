@@ -13,24 +13,29 @@ type aws_oam_link__timeouts = {
 (** aws_oam_link__timeouts *)
 
 type aws_oam_link = {
+  id : string option; [@option]  (** id *)
   label_template : string;  (** label_template *)
   resource_types : string list;  (** resource_types *)
   sink_identifier : string;  (** sink_identifier *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_oam_link__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_oam_link *)
 
-let aws_oam_link ?tags ?timeouts ~label_template ~resource_types
-    ~sink_identifier __resource_id =
+let aws_oam_link ?id ?tags ?tags_all ?timeouts ~label_template
+    ~resource_types ~sink_identifier __resource_id =
   let __resource_type = "aws_oam_link" in
   let __resource =
     {
+      id;
       label_template;
       resource_types;
       sink_identifier;
       tags;
+      tags_all;
       timeouts;
     }
   in

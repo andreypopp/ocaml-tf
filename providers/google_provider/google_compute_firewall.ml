@@ -63,11 +63,22 @@ type google_compute_firewall = {
   description : string option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
+  destination_ranges : string list option; [@option]
+      (** If destination ranges are specified, the firewall will apply only to
+traffic that has destination IP address in these ranges. These ranges
+must be expressed in CIDR format. IPv4 or IPv6 ranges are supported. *)
+  direction : string option; [@option]
+      (** Direction of traffic to which this firewall applies; default is
+INGRESS. Note: For INGRESS traffic, one of 'source_ranges',
+'source_tags' or 'source_service_accounts' is required. Possible values: [INGRESS, EGRESS] *)
   disabled : bool option; [@option]
       (** Denotes whether the firewall rule is disabled, i.e not applied to the
 network it is associated with. When set to true, the firewall rule is
 not enforced and the network behaves as if it did not exist. If this
 is unspecified, the firewall rule will be enabled. *)
+  enable_logging : bool option; [@option]
+      (** This field denotes whether to enable logging for a particular firewall rule. If logging is enabled, logs will be exported to Stackdriver. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -85,6 +96,7 @@ priorities determine precedence of conflicting rules. Lower value of
 priority implies higher precedence (eg, a rule with priority 0 has
 higher precedence than a rule with priority 1). DENY rules take
 precedence over ALLOW rules having equal priority. *)
+  project : string option; [@option]  (** project *)
   source_ranges : string list option; [@option]
       (** If source ranges are specified, the firewall will apply only to
 traffic that has source IP address in these ranges. These ranges must
@@ -139,7 +151,8 @@ instances on the specified network. *)
 [@@deriving yojson_of]
 (** google_compute_firewall *)
 
-let google_compute_firewall ?description ?disabled ?priority
+let google_compute_firewall ?description ?destination_ranges
+    ?direction ?disabled ?enable_logging ?id ?priority ?project
     ?source_ranges ?source_service_accounts ?source_tags
     ?target_service_accounts ?target_tags ?timeouts ~name ~network
     ~allow ~deny ~log_config __resource_id =
@@ -147,10 +160,15 @@ let google_compute_firewall ?description ?disabled ?priority
   let __resource =
     {
       description;
+      destination_ranges;
+      direction;
       disabled;
+      enable_logging;
+      id;
       name;
       network;
       priority;
+      project;
       source_ranges;
       source_service_accounts;
       source_tags;

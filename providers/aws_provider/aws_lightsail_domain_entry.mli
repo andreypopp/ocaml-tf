@@ -5,6 +5,7 @@ open! Tf.Prelude
 type aws_lightsail_domain_entry
 
 val aws_lightsail_domain_entry :
+  ?id:string ->
   ?is_alias:bool ->
   domain_name:string ->
   name:string ->

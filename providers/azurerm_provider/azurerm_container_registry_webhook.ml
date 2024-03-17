@@ -17,6 +17,7 @@ type azurerm_container_registry_webhook = {
   actions : string list;  (** actions *)
   custom_headers : (string * string) list option; [@option]
       (** custom_headers *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   registry_name : string;  (** registry_name *)
@@ -30,14 +31,15 @@ type azurerm_container_registry_webhook = {
 [@@deriving yojson_of]
 (** azurerm_container_registry_webhook *)
 
-let azurerm_container_registry_webhook ?custom_headers ?scope ?status
-    ?tags ?timeouts ~actions ~location ~name ~registry_name
+let azurerm_container_registry_webhook ?custom_headers ?id ?scope
+    ?status ?tags ?timeouts ~actions ~location ~name ~registry_name
     ~resource_group_name ~service_uri __resource_id =
   let __resource_type = "azurerm_container_registry_webhook" in
   let __resource =
     {
       actions;
       custom_headers;
+      id;
       location;
       name;
       registry_name;

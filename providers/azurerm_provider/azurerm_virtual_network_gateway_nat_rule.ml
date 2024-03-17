@@ -28,6 +28,7 @@ type azurerm_virtual_network_gateway_nat_rule__timeouts = {
 (** azurerm_virtual_network_gateway_nat_rule__timeouts *)
 
 type azurerm_virtual_network_gateway_nat_rule = {
+  id : string option; [@option]  (** id *)
   ip_configuration_id : string option; [@option]
       (** ip_configuration_id *)
   mode : string option; [@option]  (** mode *)
@@ -46,13 +47,14 @@ type azurerm_virtual_network_gateway_nat_rule = {
 [@@deriving yojson_of]
 (** azurerm_virtual_network_gateway_nat_rule *)
 
-let azurerm_virtual_network_gateway_nat_rule ?ip_configuration_id
+let azurerm_virtual_network_gateway_nat_rule ?id ?ip_configuration_id
     ?mode ?type_ ?timeouts ~name ~resource_group_name
     ~virtual_network_gateway_id ~external_mapping ~internal_mapping
     __resource_id =
   let __resource_type = "azurerm_virtual_network_gateway_nat_rule" in
   let __resource =
     {
+      id;
       ip_configuration_id;
       mode;
       name;

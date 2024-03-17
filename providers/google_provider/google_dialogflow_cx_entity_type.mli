@@ -10,6 +10,7 @@ type google_dialogflow_cx_entity_type
 val google_dialogflow_cx_entity_type :
   ?auto_expansion_mode:string ->
   ?enable_fuzzy_extraction:bool ->
+  ?id:string ->
   ?language_code:string ->
   ?parent:string ->
   ?redact:bool ->

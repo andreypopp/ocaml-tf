@@ -8,6 +8,8 @@ type google_identity_platform_tenant_oauth_idp_config
 val google_identity_platform_tenant_oauth_idp_config :
   ?client_secret:string ->
   ?enabled:bool ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:
     google_identity_platform_tenant_oauth_idp_config__timeouts ->
   client_id:string ->

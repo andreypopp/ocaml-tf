@@ -6,15 +6,17 @@ open! Tf.Prelude
 
 type aws_quicksight_template_alias = {
   alias_name: string;  (** alias_name *)
+  aws_account_id: string option; [@option] (** aws_account_id *)
   template_id: string;  (** template_id *)
   template_version_number: float;  (** template_version_number *)
 } [@@deriving yojson_of]
 (** aws_quicksight_template_alias *)
 
-let aws_quicksight_template_alias   ~alias_name ~template_id ~template_version_number  __resource_id =
+let aws_quicksight_template_alias ?aws_account_id  ~alias_name ~template_id ~template_version_number  __resource_id =
   let __resource_type = "aws_quicksight_template_alias" in
   let __resource = {
     alias_name;
+    aws_account_id;
     template_id;
     template_version_number;
   } in

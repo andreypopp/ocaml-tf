@@ -367,6 +367,7 @@ type kubernetes_daemonset__timeouts
 type kubernetes_daemonset
 
 val kubernetes_daemonset :
+  ?id:string ->
   ?wait_for_rollout:bool ->
   ?timeouts:kubernetes_daemonset__timeouts ->
   metadata:kubernetes_daemonset__metadata list ->

@@ -6,6 +6,7 @@ type azurerm_network_ddos_protection_plan__timeouts
 type azurerm_network_ddos_protection_plan
 
 val azurerm_network_ddos_protection_plan :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_network_ddos_protection_plan__timeouts ->
   location:string ->

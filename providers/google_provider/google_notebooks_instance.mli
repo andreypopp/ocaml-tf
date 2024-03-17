@@ -13,20 +13,30 @@ type google_notebooks_instance
 val google_notebooks_instance :
   ?boot_disk_size_gb:float ->
   ?boot_disk_type:string ->
+  ?create_time:string ->
   ?custom_gpu_driver_path:string ->
   ?data_disk_size_gb:float ->
   ?data_disk_type:string ->
   ?desired_state:string ->
+  ?disk_encryption:string ->
+  ?id:string ->
   ?install_gpu_driver:bool ->
   ?instance_owners:string list ->
   ?kms_key:string ->
   ?labels:(string * string) list ->
   ?metadata:(string * string) list ->
+  ?network:string ->
   ?nic_type:string ->
   ?no_proxy_access:bool ->
   ?no_public_ip:bool ->
   ?no_remove_data_disk:bool ->
   ?post_startup_script:string ->
+  ?project:string ->
+  ?service_account:string ->
+  ?service_account_scopes:string list ->
+  ?subnet:string ->
+  ?tags:string list ->
+  ?update_time:string ->
   ?timeouts:google_notebooks_instance__timeouts ->
   location:string ->
   machine_type:string ->

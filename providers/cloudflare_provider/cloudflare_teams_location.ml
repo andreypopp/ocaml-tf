@@ -17,6 +17,7 @@ type cloudflare_teams_location = {
       (** The account identifier to target for the resource. *)
   client_default : bool option; [@option]
       (** Indicator that this is the default location. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** Name of the teams location. *)
   networks : cloudflare_teams_location__networks list;
 }
@@ -25,10 +26,12 @@ type cloudflare_teams_location = {
 referenced when creating secure web gateway policies.
  *)
 
-let cloudflare_teams_location ?client_default ~account_id ~name
+let cloudflare_teams_location ?client_default ?id ~account_id ~name
     ~networks __resource_id =
   let __resource_type = "cloudflare_teams_location" in
-  let __resource = { account_id; client_default; name; networks } in
+  let __resource =
+    { account_id; client_default; id; name; networks }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_teams_location __resource);
   ()

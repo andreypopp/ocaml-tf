@@ -36,6 +36,7 @@ type azurerm_logz_monitor = {
   enabled : bool option; [@option]  (** enabled *)
   enterprise_app_id : string option; [@option]
       (** enterprise_app_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -48,14 +49,15 @@ type azurerm_logz_monitor = {
 (** azurerm_logz_monitor *)
 
 let azurerm_logz_monitor ?company_name ?enabled ?enterprise_app_id
-    ?tags ?timeouts ~location ~name ~resource_group_name ~plan ~user
-    __resource_id =
+    ?id ?tags ?timeouts ~location ~name ~resource_group_name ~plan
+    ~user __resource_id =
   let __resource_type = "azurerm_logz_monitor" in
   let __resource =
     {
       company_name;
       enabled;
       enterprise_app_id;
+      id;
       location;
       name;
       resource_group_name;

@@ -23,6 +23,7 @@ type azurerm_mobile_network_sim_group__timeouts = {
 type azurerm_mobile_network_sim_group = {
   encryption_key_url : string option; [@option]
       (** encryption_key_url *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   mobile_network_id : string;  (** mobile_network_id *)
   name : string;  (** name *)
@@ -33,13 +34,14 @@ type azurerm_mobile_network_sim_group = {
 [@@deriving yojson_of]
 (** azurerm_mobile_network_sim_group *)
 
-let azurerm_mobile_network_sim_group ?encryption_key_url ?tags
+let azurerm_mobile_network_sim_group ?encryption_key_url ?id ?tags
     ?timeouts ~location ~mobile_network_id ~name ~identity
     __resource_id =
   let __resource_type = "azurerm_mobile_network_sim_group" in
   let __resource =
     {
       encryption_key_url;
+      id;
       location;
       mobile_network_id;
       name;

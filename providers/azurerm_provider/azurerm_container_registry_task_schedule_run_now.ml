@@ -15,18 +15,19 @@ type azurerm_container_registry_task_schedule_run_now__timeouts = {
 type azurerm_container_registry_task_schedule_run_now = {
   container_registry_task_id : string;
       (** container_registry_task_id *)
+  id : string option; [@option]  (** id *)
   timeouts :
     azurerm_container_registry_task_schedule_run_now__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_container_registry_task_schedule_run_now *)
 
-let azurerm_container_registry_task_schedule_run_now ?timeouts
+let azurerm_container_registry_task_schedule_run_now ?id ?timeouts
     ~container_registry_task_id __resource_id =
   let __resource_type =
     "azurerm_container_registry_task_schedule_run_now"
   in
-  let __resource = { container_registry_task_id; timeouts } in
+  let __resource = { container_registry_task_id; id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_container_registry_task_schedule_run_now
        __resource);

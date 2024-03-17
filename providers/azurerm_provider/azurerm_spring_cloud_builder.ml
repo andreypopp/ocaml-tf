@@ -29,6 +29,7 @@ type azurerm_spring_cloud_builder__timeouts = {
 (** azurerm_spring_cloud_builder__timeouts *)
 
 type azurerm_spring_cloud_builder = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_service_id : string;  (** spring_cloud_service_id *)
   build_pack_group :
@@ -39,11 +40,12 @@ type azurerm_spring_cloud_builder = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_builder *)
 
-let azurerm_spring_cloud_builder ?timeouts ~name
+let azurerm_spring_cloud_builder ?id ?timeouts ~name
     ~spring_cloud_service_id ~build_pack_group ~stack __resource_id =
   let __resource_type = "azurerm_spring_cloud_builder" in
   let __resource =
     {
+      id;
       name;
       spring_cloud_service_id;
       build_pack_group;

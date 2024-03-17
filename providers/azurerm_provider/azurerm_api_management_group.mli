@@ -8,6 +8,7 @@ type azurerm_api_management_group
 val azurerm_api_management_group :
   ?description:string ->
   ?external_id:string ->
+  ?id:string ->
   ?type_:string ->
   ?timeouts:azurerm_api_management_group__timeouts ->
   api_management_name:string ->

@@ -60,18 +60,22 @@ type aws_connect_user_hierarchy_group__hierarchy_path = {
 [@@deriving yojson_of]
 
 type aws_connect_user_hierarchy_group = {
+  id : string option; [@option]  (** id *)
   instance_id : string;  (** instance_id *)
   name : string;  (** name *)
   parent_group_id : string option; [@option]  (** parent_group_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_connect_user_hierarchy_group *)
 
-let aws_connect_user_hierarchy_group ?parent_group_id ?tags
-    ~instance_id ~name __resource_id =
+let aws_connect_user_hierarchy_group ?id ?parent_group_id ?tags
+    ?tags_all ~instance_id ~name __resource_id =
   let __resource_type = "aws_connect_user_hierarchy_group" in
-  let __resource = { instance_id; name; parent_group_id; tags } in
+  let __resource =
+    { id; instance_id; name; parent_group_id; tags; tags_all }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_connect_user_hierarchy_group __resource);
   ()

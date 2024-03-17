@@ -6,6 +6,7 @@ type azurerm_database_migration_project__timeouts
 type azurerm_database_migration_project
 
 val azurerm_database_migration_project :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_database_migration_project__timeouts ->
   location:string ->

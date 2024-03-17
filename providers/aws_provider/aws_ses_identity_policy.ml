@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_ses_identity_policy = {
+  id : string option; [@option]  (** id *)
   identity : string;  (** identity *)
   name : string;  (** name *)
   policy : string;  (** policy *)
@@ -12,9 +13,10 @@ type aws_ses_identity_policy = {
 [@@deriving yojson_of]
 (** aws_ses_identity_policy *)
 
-let aws_ses_identity_policy ~identity ~name ~policy __resource_id =
+let aws_ses_identity_policy ?id ~identity ~name ~policy __resource_id
+    =
   let __resource_type = "aws_ses_identity_policy" in
-  let __resource = { identity; name; policy } in
+  let __resource = { id; identity; name; policy } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ses_identity_policy __resource);
   ()

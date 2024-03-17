@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_cloudfront_origin_access_identity
 
 val aws_cloudfront_origin_access_identity :
-  ?comment:string -> string -> unit
+  ?comment:string -> ?id:string -> string -> unit

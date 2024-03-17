@@ -22,6 +22,8 @@ type azurerm_iotcentral_application__timeouts = {
 (** azurerm_iotcentral_application__timeouts *)
 
 type azurerm_iotcentral_application = {
+  display_name : string option; [@option]  (** display_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   public_network_access_enabled : bool option; [@option]
@@ -30,18 +32,22 @@ type azurerm_iotcentral_application = {
   sku : string option; [@option]  (** sku *)
   sub_domain : string;  (** sub_domain *)
   tags : (string * string) list option; [@option]  (** tags *)
+  template : string option; [@option]  (** template *)
   identity : azurerm_iotcentral_application__identity list;
   timeouts : azurerm_iotcentral_application__timeouts option;
 }
 [@@deriving yojson_of]
 (** azurerm_iotcentral_application *)
 
-let azurerm_iotcentral_application ?public_network_access_enabled
-    ?sku ?tags ?timeouts ~location ~name ~resource_group_name
-    ~sub_domain ~identity __resource_id =
+let azurerm_iotcentral_application ?display_name ?id
+    ?public_network_access_enabled ?sku ?tags ?template ?timeouts
+    ~location ~name ~resource_group_name ~sub_domain ~identity
+    __resource_id =
   let __resource_type = "azurerm_iotcentral_application" in
   let __resource =
     {
+      display_name;
+      id;
       location;
       name;
       public_network_access_enabled;
@@ -49,6 +55,7 @@ let azurerm_iotcentral_application ?public_network_access_enabled
       sku;
       sub_domain;
       tags;
+      template;
       identity;
       timeouts;
     }

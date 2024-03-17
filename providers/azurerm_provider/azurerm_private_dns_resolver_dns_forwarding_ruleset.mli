@@ -6,6 +6,7 @@ type azurerm_private_dns_resolver_dns_forwarding_ruleset__timeouts
 type azurerm_private_dns_resolver_dns_forwarding_ruleset
 
 val azurerm_private_dns_resolver_dns_forwarding_ruleset :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_private_dns_resolver_dns_forwarding_ruleset__timeouts ->

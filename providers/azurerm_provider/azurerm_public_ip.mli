@@ -10,6 +10,7 @@ val azurerm_public_ip :
   ?ddos_protection_plan_id:string ->
   ?domain_name_label:string ->
   ?edge_zone:string ->
+  ?id:string ->
   ?idle_timeout_in_minutes:float ->
   ?ip_tags:(string * string) list ->
   ?ip_version:string ->

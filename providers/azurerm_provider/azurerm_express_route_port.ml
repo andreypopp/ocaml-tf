@@ -60,7 +60,9 @@ type azurerm_express_route_port__timeouts = {
 
 type azurerm_express_route_port = {
   bandwidth_in_gbps : float;  (** bandwidth_in_gbps *)
+  billing_type : string option; [@option]  (** billing_type *)
   encapsulation : string;  (** encapsulation *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   peering_location : string;  (** peering_location *)
@@ -74,14 +76,17 @@ type azurerm_express_route_port = {
 [@@deriving yojson_of]
 (** azurerm_express_route_port *)
 
-let azurerm_express_route_port ?tags ?timeouts ~bandwidth_in_gbps
-    ~encapsulation ~location ~name ~peering_location
-    ~resource_group_name ~identity ~link1 ~link2 __resource_id =
+let azurerm_express_route_port ?billing_type ?id ?tags ?timeouts
+    ~bandwidth_in_gbps ~encapsulation ~location ~name
+    ~peering_location ~resource_group_name ~identity ~link1 ~link2
+    __resource_id =
   let __resource_type = "azurerm_express_route_port" in
   let __resource =
     {
       bandwidth_in_gbps;
+      billing_type;
       encapsulation;
+      id;
       location;
       name;
       peering_location;

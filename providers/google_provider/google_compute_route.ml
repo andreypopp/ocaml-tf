@@ -18,6 +18,7 @@ when you create the resource. *)
   dest_range : string;
       (** The destination range of outgoing packets that this route applies to.
 Only IPv4 is supported. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
@@ -59,6 +60,10 @@ You can specify this as a full or partial URL. For example:
 * 'projects/project/zones/zone/instances/instance'
 * 'zones/zone/instances/instance'
 * Just the instance name, with the zone in 'next_hop_instance_zone'. *)
+  next_hop_instance_zone : string option; [@option]
+      (** The zone of the instance specified in next_hop_instance. Omit if next_hop_instance is specified as a URL. *)
+  next_hop_ip : string option; [@option]
+      (** Network IP address of an instance that should handle matching packets. *)
   next_hop_vpn_tunnel : string option; [@option]
       (** URL to a VpnTunnel that should handle matching packets. *)
   priority : float option; [@option]
@@ -69,6 +74,7 @@ In the case of two routes with equal prefix length, the one with the
 lowest-numbered priority value wins.
 
 Default value is 1000. Valid range is 0 through 65535. *)
+  project : string option; [@option]  (** project *)
   tags : string list option; [@option]
       (** A list of instance tags to which this route applies. *)
   timeouts : google_compute_route__timeouts option;
@@ -76,21 +82,26 @@ Default value is 1000. Valid range is 0 through 65535. *)
 [@@deriving yojson_of]
 (** google_compute_route *)
 
-let google_compute_route ?description ?next_hop_gateway ?next_hop_ilb
-    ?next_hop_instance ?next_hop_vpn_tunnel ?priority ?tags ?timeouts
-    ~dest_range ~name ~network __resource_id =
+let google_compute_route ?description ?id ?next_hop_gateway
+    ?next_hop_ilb ?next_hop_instance ?next_hop_instance_zone
+    ?next_hop_ip ?next_hop_vpn_tunnel ?priority ?project ?tags
+    ?timeouts ~dest_range ~name ~network __resource_id =
   let __resource_type = "google_compute_route" in
   let __resource =
     {
       description;
       dest_range;
+      id;
       name;
       network;
       next_hop_gateway;
       next_hop_ilb;
       next_hop_instance;
+      next_hop_instance_zone;
+      next_hop_ip;
       next_hop_vpn_tunnel;
       priority;
+      project;
       tags;
       timeouts;
     }

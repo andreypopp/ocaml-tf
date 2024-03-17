@@ -35,6 +35,7 @@ type azurerm_custom_provider__validation = {
 (** azurerm_custom_provider__validation *)
 
 type azurerm_custom_provider = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -47,12 +48,13 @@ type azurerm_custom_provider = {
 [@@deriving yojson_of]
 (** azurerm_custom_provider *)
 
-let azurerm_custom_provider ?tags ?timeouts ~location ~name
+let azurerm_custom_provider ?id ?tags ?timeouts ~location ~name
     ~resource_group_name ~action ~resource_type ~validation
     __resource_id =
   let __resource_type = "azurerm_custom_provider" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

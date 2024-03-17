@@ -7,6 +7,7 @@ type azurerm_mssql_virtual_machine_group__wsfc_domain_profile
 type azurerm_mssql_virtual_machine_group
 
 val azurerm_mssql_virtual_machine_group :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_mssql_virtual_machine_group__timeouts ->
   location:string ->

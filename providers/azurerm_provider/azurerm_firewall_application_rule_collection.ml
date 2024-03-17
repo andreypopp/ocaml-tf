@@ -38,6 +38,7 @@ type azurerm_firewall_application_rule_collection__timeouts = {
 type azurerm_firewall_application_rule_collection = {
   action : string;  (** action *)
   azure_firewall_name : string;  (** azure_firewall_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   priority : float;  (** priority *)
   resource_group_name : string;  (** resource_group_name *)
@@ -48,9 +49,9 @@ type azurerm_firewall_application_rule_collection = {
 [@@deriving yojson_of]
 (** azurerm_firewall_application_rule_collection *)
 
-let azurerm_firewall_application_rule_collection ?timeouts ~action
-    ~azure_firewall_name ~name ~priority ~resource_group_name ~rule
-    __resource_id =
+let azurerm_firewall_application_rule_collection ?id ?timeouts
+    ~action ~azure_firewall_name ~name ~priority ~resource_group_name
+    ~rule __resource_id =
   let __resource_type =
     "azurerm_firewall_application_rule_collection"
   in
@@ -58,6 +59,7 @@ let azurerm_firewall_application_rule_collection ?timeouts ~action
     {
       action;
       azure_firewall_name;
+      id;
       name;
       priority;
       resource_group_name;

@@ -55,18 +55,25 @@ type digitalocean_loadbalancer = {
   algorithm : string option; [@option]  (** algorithm *)
   disable_lets_encrypt_dns_records : bool option; [@option]
       (** disable_lets_encrypt_dns_records *)
+  droplet_ids : float list option; [@option]  (** droplet_ids *)
   droplet_tag : string option; [@option]  (** droplet_tag *)
   enable_backend_keepalive : bool option; [@option]
       (** enable_backend_keepalive *)
   enable_proxy_protocol : bool option; [@option]
       (** enable_proxy_protocol *)
+  http_idle_timeout_seconds : float option; [@option]
+      (** http_idle_timeout_seconds *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  project_id : string option; [@option]  (** project_id *)
   redirect_http_to_https : bool option; [@option]
       (** redirect_http_to_https *)
   region : string option; [@option]  (** region *)
   size : string option; [@option]  (** size *)
+  size_unit : float option; [@option]  (** size_unit *)
   type_ : string option; [@option] [@key "type"]
       (** the type of the load balancer (GLOBAL or REGIONAL) *)
+  vpc_uuid : string option; [@option]  (** vpc_uuid *)
   firewall : digitalocean_loadbalancer__firewall list;
   forwarding_rule : digitalocean_loadbalancer__forwarding_rule list;
   healthcheck : digitalocean_loadbalancer__healthcheck list;
@@ -76,23 +83,31 @@ type digitalocean_loadbalancer = {
 (** digitalocean_loadbalancer *)
 
 let digitalocean_loadbalancer ?algorithm
-    ?disable_lets_encrypt_dns_records ?droplet_tag
+    ?disable_lets_encrypt_dns_records ?droplet_ids ?droplet_tag
     ?enable_backend_keepalive ?enable_proxy_protocol
-    ?redirect_http_to_https ?region ?size ?type_ ~name ~firewall
-    ~forwarding_rule ~healthcheck ~sticky_sessions __resource_id =
+    ?http_idle_timeout_seconds ?id ?project_id
+    ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
+    ~name ~firewall ~forwarding_rule ~healthcheck ~sticky_sessions
+    __resource_id =
   let __resource_type = "digitalocean_loadbalancer" in
   let __resource =
     {
       algorithm;
       disable_lets_encrypt_dns_records;
+      droplet_ids;
       droplet_tag;
       enable_backend_keepalive;
       enable_proxy_protocol;
+      http_idle_timeout_seconds;
+      id;
       name;
+      project_id;
       redirect_http_to_https;
       region;
       size;
+      size_unit;
       type_;
+      vpc_uuid;
       firewall;
       forwarding_rule;
       healthcheck;

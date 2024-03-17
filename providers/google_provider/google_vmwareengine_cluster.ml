@@ -27,6 +27,7 @@ type google_vmwareengine_cluster__timeouts = {
 (** google_vmwareengine_cluster__timeouts *)
 
 type google_vmwareengine_cluster = {
+  id : string option; [@option]  (** id *)
   name : string;  (** The ID of the Cluster. *)
   parent : string;
       (** The resource name of the private cloud to create a new cluster in.
@@ -39,10 +40,12 @@ For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)
 [@@deriving yojson_of]
 (** google_vmwareengine_cluster *)
 
-let google_vmwareengine_cluster ?timeouts ~name ~parent
+let google_vmwareengine_cluster ?id ?timeouts ~name ~parent
     ~node_type_configs __resource_id =
   let __resource_type = "google_vmwareengine_cluster" in
-  let __resource = { name; parent; node_type_configs; timeouts } in
+  let __resource =
+    { id; name; parent; node_type_configs; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_cluster __resource);
   ()

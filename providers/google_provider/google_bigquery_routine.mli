@@ -11,8 +11,10 @@ type google_bigquery_routine
 val google_bigquery_routine :
   ?description:string ->
   ?determinism_level:string ->
+  ?id:string ->
   ?imported_libraries:string list ->
   ?language:string ->
+  ?project:string ->
   ?return_table_type:string ->
   ?return_type:string ->
   ?timeouts:google_bigquery_routine__timeouts ->

@@ -9,6 +9,7 @@ type cloudflare_web3_hostname = {
       (** An optional description of the hostname. *)
   dnslink : string option; [@option]
       (** DNSLink value used if the target is ipfs. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The hostname that will point to the target gateway via CNAME. *)
   target : string;  (** Target gateway of the hostname. *)
@@ -19,10 +20,12 @@ type cloudflare_web3_hostname = {
 (** Manages Web3 hostnames for IPFS and Ethereum gateways.
  *)
 
-let cloudflare_web3_hostname ?description ?dnslink ~name ~target
+let cloudflare_web3_hostname ?description ?dnslink ?id ~name ~target
     ~zone_id __resource_id =
   let __resource_type = "cloudflare_web3_hostname" in
-  let __resource = { description; dnslink; name; target; zone_id } in
+  let __resource =
+    { description; dnslink; id; name; target; zone_id }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_web3_hostname __resource);
   ()

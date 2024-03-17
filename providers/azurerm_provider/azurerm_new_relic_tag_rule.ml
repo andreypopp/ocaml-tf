@@ -34,6 +34,7 @@ type azurerm_new_relic_tag_rule = {
       (** activity_log_enabled *)
   azure_active_directory_log_enabled : bool option; [@option]
       (** azure_active_directory_log_enabled *)
+  id : string option; [@option]  (** id *)
   metric_enabled : bool option; [@option]  (** metric_enabled *)
   monitor_id : string;  (** monitor_id *)
   subscription_log_enabled : bool option; [@option]
@@ -47,7 +48,7 @@ type azurerm_new_relic_tag_rule = {
 (** azurerm_new_relic_tag_rule *)
 
 let azurerm_new_relic_tag_rule ?activity_log_enabled
-    ?azure_active_directory_log_enabled ?metric_enabled
+    ?azure_active_directory_log_enabled ?id ?metric_enabled
     ?subscription_log_enabled ?timeouts ~monitor_id ~log_tag_filter
     ~metric_tag_filter __resource_id =
   let __resource_type = "azurerm_new_relic_tag_rule" in
@@ -55,6 +56,7 @@ let azurerm_new_relic_tag_rule ?activity_log_enabled
     {
       activity_log_enabled;
       azure_active_directory_log_enabled;
+      id;
       metric_enabled;
       monitor_id;
       subscription_log_enabled;

@@ -7,6 +7,7 @@ type azurerm_iothub_fallback_route
 
 val azurerm_iothub_fallback_route :
   ?condition:string ->
+  ?id:string ->
   ?source:string ->
   ?timeouts:azurerm_iothub_fallback_route__timeouts ->
   enabled:bool ->

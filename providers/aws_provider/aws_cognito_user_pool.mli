@@ -31,9 +31,14 @@ val aws_cognito_user_pool :
   ?alias_attributes:string list ->
   ?auto_verified_attributes:string list ->
   ?deletion_protection:string ->
+  ?email_verification_message:string ->
+  ?email_verification_subject:string ->
+  ?id:string ->
   ?mfa_configuration:string ->
   ?sms_authentication_message:string ->
+  ?sms_verification_message:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?username_attributes:string list ->
   name:string ->
   account_recovery_setting:

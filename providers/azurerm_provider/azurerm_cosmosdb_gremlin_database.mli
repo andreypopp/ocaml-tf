@@ -7,6 +7,8 @@ type azurerm_cosmosdb_gremlin_database__timeouts
 type azurerm_cosmosdb_gremlin_database
 
 val azurerm_cosmosdb_gremlin_database :
+  ?id:string ->
+  ?throughput:float ->
   ?timeouts:azurerm_cosmosdb_gremlin_database__timeouts ->
   account_name:string ->
   name:string ->

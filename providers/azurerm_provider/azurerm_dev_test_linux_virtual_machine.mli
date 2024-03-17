@@ -10,6 +10,7 @@ type azurerm_dev_test_linux_virtual_machine
 val azurerm_dev_test_linux_virtual_machine :
   ?allow_claim:bool ->
   ?disallow_public_ip_address:bool ->
+  ?id:string ->
   ?notes:string ->
   ?password:string ->
   ?ssh_key:string ->

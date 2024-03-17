@@ -18,6 +18,8 @@ val google_compute_backend_bucket :
   ?description:string ->
   ?edge_security_policy:string ->
   ?enable_cdn:bool ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_compute_backend_bucket__timeouts ->
   bucket_name:string ->
   name:string ->

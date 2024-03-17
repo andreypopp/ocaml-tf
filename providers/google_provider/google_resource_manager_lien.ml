@@ -12,6 +12,7 @@ type google_resource_manager_lien__timeouts = {
 (** google_resource_manager_lien__timeouts *)
 
 type google_resource_manager_lien = {
+  id : string option; [@option]  (** id *)
   origin : string;
       (** A stable, user-visible/meaningful string identifying the origin
 of the Lien, intended to be inspected programmatically. Maximum length of
@@ -35,11 +36,11 @@ e.g. ['resourcemanager.projects.delete'] *)
 [@@deriving yojson_of]
 (** google_resource_manager_lien *)
 
-let google_resource_manager_lien ?timeouts ~origin ~parent ~reason
-    ~restrictions __resource_id =
+let google_resource_manager_lien ?id ?timeouts ~origin ~parent
+    ~reason ~restrictions __resource_id =
   let __resource_type = "google_resource_manager_lien" in
   let __resource =
-    { origin; parent; reason; restrictions; timeouts }
+    { id; origin; parent; reason; restrictions; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_resource_manager_lien __resource);

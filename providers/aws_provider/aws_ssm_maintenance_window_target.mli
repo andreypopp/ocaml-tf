@@ -7,6 +7,7 @@ type aws_ssm_maintenance_window_target
 
 val aws_ssm_maintenance_window_target :
   ?description:string ->
+  ?id:string ->
   ?name:string ->
   ?owner_information:string ->
   resource_type:string ->

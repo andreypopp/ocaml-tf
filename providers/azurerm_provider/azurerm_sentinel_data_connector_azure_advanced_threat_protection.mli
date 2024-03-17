@@ -7,6 +7,8 @@ type azurerm_sentinel_data_connector_azure_advanced_threat_protection__timeouts
 type azurerm_sentinel_data_connector_azure_advanced_threat_protection
 
 val azurerm_sentinel_data_connector_azure_advanced_threat_protection :
+  ?id:string ->
+  ?tenant_id:string ->
   ?timeouts:
     azurerm_sentinel_data_connector_azure_advanced_threat_protection__timeouts ->
   log_analytics_workspace_id:string ->

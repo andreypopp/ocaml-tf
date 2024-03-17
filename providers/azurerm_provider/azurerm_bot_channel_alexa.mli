@@ -6,6 +6,7 @@ type azurerm_bot_channel_alexa__timeouts
 type azurerm_bot_channel_alexa
 
 val azurerm_bot_channel_alexa :
+  ?id:string ->
   ?timeouts:azurerm_bot_channel_alexa__timeouts ->
   bot_name:string ->
   location:string ->

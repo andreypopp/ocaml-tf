@@ -34,6 +34,7 @@ type azurerm_frontdoor_custom_https_configuration = {
   custom_https_provisioning_enabled : bool;
       (** custom_https_provisioning_enabled *)
   frontend_endpoint_id : string;  (** frontend_endpoint_id *)
+  id : string option; [@option]  (** id *)
   custom_https_configuration :
     azurerm_frontdoor_custom_https_configuration__custom_https_configuration
     list;
@@ -43,7 +44,7 @@ type azurerm_frontdoor_custom_https_configuration = {
 [@@deriving yojson_of]
 (** azurerm_frontdoor_custom_https_configuration *)
 
-let azurerm_frontdoor_custom_https_configuration ?timeouts
+let azurerm_frontdoor_custom_https_configuration ?id ?timeouts
     ~custom_https_provisioning_enabled ~frontend_endpoint_id
     ~custom_https_configuration __resource_id =
   let __resource_type =
@@ -53,6 +54,7 @@ let azurerm_frontdoor_custom_https_configuration ?timeouts
     {
       custom_https_provisioning_enabled;
       frontend_endpoint_id;
+      id;
       custom_https_configuration;
       timeouts;
     }

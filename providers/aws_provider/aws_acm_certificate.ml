@@ -41,10 +41,19 @@ type aws_acm_certificate = {
       (** certificate_body *)
   certificate_chain : string option; [@option]
       (** certificate_chain *)
+  domain_name : string option; [@option]  (** domain_name *)
   early_renewal_duration : string option; [@option]
       (** early_renewal_duration *)
+  id : string option; [@option]  (** id *)
+  key_algorithm : string option; [@option]  (** key_algorithm *)
   private_key : string option; [@option]  (** private_key *)
+  subject_alternative_names : string list option; [@option]
+      (** subject_alternative_names *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  validation_method : string option; [@option]
+      (** validation_method *)
   options : aws_acm_certificate__options list;
   validation_option : aws_acm_certificate__validation_option list;
 }
@@ -52,17 +61,25 @@ type aws_acm_certificate = {
 (** aws_acm_certificate *)
 
 let aws_acm_certificate ?certificate_authority_arn ?certificate_body
-    ?certificate_chain ?early_renewal_duration ?private_key ?tags
-    ~options ~validation_option __resource_id =
+    ?certificate_chain ?domain_name ?early_renewal_duration ?id
+    ?key_algorithm ?private_key ?subject_alternative_names ?tags
+    ?tags_all ?validation_method ~options ~validation_option
+    __resource_id =
   let __resource_type = "aws_acm_certificate" in
   let __resource =
     {
       certificate_authority_arn;
       certificate_body;
       certificate_chain;
+      domain_name;
       early_renewal_duration;
+      id;
+      key_algorithm;
       private_key;
+      subject_alternative_names;
       tags;
+      tags_all;
+      validation_method;
       options;
       validation_option;
     }

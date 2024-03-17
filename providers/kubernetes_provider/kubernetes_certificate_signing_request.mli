@@ -9,6 +9,7 @@ type kubernetes_certificate_signing_request
 
 val kubernetes_certificate_signing_request :
   ?auto_approve:bool ->
+  ?id:string ->
   ?timeouts:kubernetes_certificate_signing_request__timeouts ->
   metadata:kubernetes_certificate_signing_request__metadata list ->
   spec:kubernetes_certificate_signing_request__spec list ->

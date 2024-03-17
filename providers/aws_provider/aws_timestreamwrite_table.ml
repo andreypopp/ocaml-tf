@@ -60,8 +60,11 @@ type aws_timestreamwrite_table__schema = {
 
 type aws_timestreamwrite_table = {
   database_name : string;  (** database_name *)
+  id : string option; [@option]  (** id *)
   table_name : string;  (** table_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   magnetic_store_write_properties :
     aws_timestreamwrite_table__magnetic_store_write_properties list;
   retention_properties :
@@ -71,15 +74,17 @@ type aws_timestreamwrite_table = {
 [@@deriving yojson_of]
 (** aws_timestreamwrite_table *)
 
-let aws_timestreamwrite_table ?tags ~database_name ~table_name
-    ~magnetic_store_write_properties ~retention_properties ~schema
-    __resource_id =
+let aws_timestreamwrite_table ?id ?tags ?tags_all ~database_name
+    ~table_name ~magnetic_store_write_properties
+    ~retention_properties ~schema __resource_id =
   let __resource_type = "aws_timestreamwrite_table" in
   let __resource =
     {
       database_name;
+      id;
       table_name;
       tags;
+      tags_all;
       magnetic_store_write_properties;
       retention_properties;
       schema;

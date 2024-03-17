@@ -9,6 +9,7 @@ type aws_cleanrooms_collaboration
 
 val aws_cleanrooms_collaboration :
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_cleanrooms_collaboration__timeouts ->
   creator_display_name:string ->
   creator_member_abilities:string list ->

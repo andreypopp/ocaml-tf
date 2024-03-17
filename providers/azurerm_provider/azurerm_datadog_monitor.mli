@@ -9,6 +9,7 @@ type azurerm_datadog_monitor__user
 type azurerm_datadog_monitor
 
 val azurerm_datadog_monitor :
+  ?id:string ->
   ?monitoring_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_datadog_monitor__timeouts ->

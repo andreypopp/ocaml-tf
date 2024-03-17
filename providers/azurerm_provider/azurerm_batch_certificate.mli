@@ -6,6 +6,7 @@ type azurerm_batch_certificate__timeouts
 type azurerm_batch_certificate
 
 val azurerm_batch_certificate :
+  ?id:string ->
   ?password:string ->
   ?timeouts:azurerm_batch_certificate__timeouts ->
   account_name:string ->

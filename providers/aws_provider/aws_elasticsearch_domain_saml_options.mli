@@ -8,6 +8,7 @@ type aws_elasticsearch_domain_saml_options__timeouts
 type aws_elasticsearch_domain_saml_options
 
 val aws_elasticsearch_domain_saml_options :
+  ?id:string ->
   ?timeouts:aws_elasticsearch_domain_saml_options__timeouts ->
   domain_name:string ->
   saml_options:

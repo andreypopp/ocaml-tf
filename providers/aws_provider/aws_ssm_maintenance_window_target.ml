@@ -13,6 +13,7 @@ type aws_ssm_maintenance_window_target__targets = {
 
 type aws_ssm_maintenance_window_target = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string option; [@option]  (** name *)
   owner_information : string option; [@option]
       (** owner_information *)
@@ -23,13 +24,14 @@ type aws_ssm_maintenance_window_target = {
 [@@deriving yojson_of]
 (** aws_ssm_maintenance_window_target *)
 
-let aws_ssm_maintenance_window_target ?description ?name
+let aws_ssm_maintenance_window_target ?description ?id ?name
     ?owner_information ~resource_type ~window_id ~targets
     __resource_id =
   let __resource_type = "aws_ssm_maintenance_window_target" in
   let __resource =
     {
       description;
+      id;
       name;
       owner_information;
       resource_type;

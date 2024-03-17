@@ -7,6 +7,7 @@ type azurerm_iothub_device_update_account__timeouts
 type azurerm_iothub_device_update_account
 
 val azurerm_iothub_device_update_account :
+  ?id:string ->
   ?public_network_access_enabled:bool ->
   ?sku:string ->
   ?tags:(string * string) list ->

@@ -163,6 +163,7 @@ type google_looker_instance = {
       (** Network name in the consumer project in the format of: projects/{project}/global/networks/{network}
 Note that the consumer network may be in a different GCP project than the consumer
 project that is hosting the Looker Instance. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The ID of the instance or a fully qualified identifier for the instance. *)
   platform_edition : string option; [@option]
@@ -174,8 +175,11 @@ project that is hosting the Looker Instance. *)
 - LOOKER_CORE_EMBED_ANNUAL: subscription embed instance Default value: LOOKER_CORE_TRIAL Possible values: [LOOKER_CORE_TRIAL, LOOKER_CORE_STANDARD, LOOKER_CORE_STANDARD_ANNUAL, LOOKER_CORE_ENTERPRISE_ANNUAL, LOOKER_CORE_EMBED_ANNUAL] *)
   private_ip_enabled : bool option; [@option]
       (** Whether private IP is enabled on the Looker instance. *)
+  project : string option; [@option]  (** project *)
   public_ip_enabled : bool option; [@option]
       (** Whether public IP is enabled on the Looker instance. *)
+  region : string option; [@option]
+      (** The name of the Looker region of the instance. *)
   reserved_range : string option; [@option]
       (** Name of a reserved IP address range within the consumer network, to be used for
 private service access connection. User may or may not specify this in a request. *)
@@ -193,19 +197,22 @@ private service access connection. User may or may not specify this in a request
 [@@deriving yojson_of]
 (** google_looker_instance *)
 
-let google_looker_instance ?consumer_network ?platform_edition
-    ?private_ip_enabled ?public_ip_enabled ?reserved_range ?timeouts
-    ~name ~admin_settings ~custom_domain ~deny_maintenance_period
-    ~encryption_config ~maintenance_window ~oauth_config
-    ~user_metadata __resource_id =
+let google_looker_instance ?consumer_network ?id ?platform_edition
+    ?private_ip_enabled ?project ?public_ip_enabled ?region
+    ?reserved_range ?timeouts ~name ~admin_settings ~custom_domain
+    ~deny_maintenance_period ~encryption_config ~maintenance_window
+    ~oauth_config ~user_metadata __resource_id =
   let __resource_type = "google_looker_instance" in
   let __resource =
     {
       consumer_network;
+      id;
       name;
       platform_edition;
       private_ip_enabled;
+      project;
       public_ip_enabled;
+      region;
       reserved_range;
       admin_settings;
       custom_domain;

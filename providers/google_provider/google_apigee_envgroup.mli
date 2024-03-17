@@ -7,6 +7,7 @@ type google_apigee_envgroup
 
 val google_apigee_envgroup :
   ?hostnames:string list ->
+  ?id:string ->
   ?timeouts:google_apigee_envgroup__timeouts ->
   name:string ->
   org_id:string ->

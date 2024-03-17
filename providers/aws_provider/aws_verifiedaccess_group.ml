@@ -13,8 +13,12 @@ type aws_verifiedaccess_group__sse_configuration = {
 (** aws_verifiedaccess_group__sse_configuration *)
 
 type aws_verifiedaccess_group = {
+  description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   policy_document : string option; [@option]  (** policy_document *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   verifiedaccess_instance_id : string;
       (** verifiedaccess_instance_id *)
   sse_configuration :
@@ -23,13 +27,17 @@ type aws_verifiedaccess_group = {
 [@@deriving yojson_of]
 (** aws_verifiedaccess_group *)
 
-let aws_verifiedaccess_group ?policy_document ?tags
-    ~verifiedaccess_instance_id ~sse_configuration __resource_id =
+let aws_verifiedaccess_group ?description ?id ?policy_document ?tags
+    ?tags_all ~verifiedaccess_instance_id ~sse_configuration
+    __resource_id =
   let __resource_type = "aws_verifiedaccess_group" in
   let __resource =
     {
+      description;
+      id;
       policy_document;
       tags;
+      tags_all;
       verifiedaccess_instance_id;
       sse_configuration;
     }

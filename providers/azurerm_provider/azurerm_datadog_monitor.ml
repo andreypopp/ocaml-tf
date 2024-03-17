@@ -46,6 +46,7 @@ type azurerm_datadog_monitor__user = {
 (** azurerm_datadog_monitor__user *)
 
 type azurerm_datadog_monitor = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   monitoring_enabled : bool option; [@option]
       (** monitoring_enabled *)
@@ -62,12 +63,13 @@ type azurerm_datadog_monitor = {
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor *)
 
-let azurerm_datadog_monitor ?monitoring_enabled ?tags ?timeouts
+let azurerm_datadog_monitor ?id ?monitoring_enabled ?tags ?timeouts
     ~location ~name ~resource_group_name ~sku_name
     ~datadog_organization ~identity ~user __resource_id =
   let __resource_type = "azurerm_datadog_monitor" in
   let __resource =
     {
+      id;
       location;
       monitoring_enabled;
       name;

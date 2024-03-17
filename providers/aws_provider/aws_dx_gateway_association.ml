@@ -13,7 +13,14 @@ type aws_dx_gateway_association__timeouts = {
 (** aws_dx_gateway_association__timeouts *)
 
 type aws_dx_gateway_association = {
+  allowed_prefixes : string list option; [@option]
+      (** allowed_prefixes *)
+  associated_gateway_id : string option; [@option]
+      (** associated_gateway_id *)
+  associated_gateway_owner_account_id : string option; [@option]
+      (** associated_gateway_owner_account_id *)
   dx_gateway_id : string;  (** dx_gateway_id *)
+  id : string option; [@option]  (** id *)
   proposal_id : string option; [@option]  (** proposal_id *)
   vpn_gateway_id : string option; [@option]  (** vpn_gateway_id *)
   timeouts : aws_dx_gateway_association__timeouts option;
@@ -21,11 +28,22 @@ type aws_dx_gateway_association = {
 [@@deriving yojson_of]
 (** aws_dx_gateway_association *)
 
-let aws_dx_gateway_association ?proposal_id ?vpn_gateway_id ?timeouts
-    ~dx_gateway_id __resource_id =
+let aws_dx_gateway_association ?allowed_prefixes
+    ?associated_gateway_id ?associated_gateway_owner_account_id ?id
+    ?proposal_id ?vpn_gateway_id ?timeouts ~dx_gateway_id
+    __resource_id =
   let __resource_type = "aws_dx_gateway_association" in
   let __resource =
-    { dx_gateway_id; proposal_id; vpn_gateway_id; timeouts }
+    {
+      allowed_prefixes;
+      associated_gateway_id;
+      associated_gateway_owner_account_id;
+      dx_gateway_id;
+      id;
+      proposal_id;
+      vpn_gateway_id;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dx_gateway_association __resource);

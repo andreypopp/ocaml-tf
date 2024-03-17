@@ -26,6 +26,7 @@ type azurerm_bastion_host = {
       (** copy_paste_enabled *)
   file_copy_enabled : bool option; [@option]
       (** file_copy_enabled *)
+  id : string option; [@option]  (** id *)
   ip_connect_enabled : bool option; [@option]
       (** ip_connect_enabled *)
   location : string;  (** location *)
@@ -44,7 +45,7 @@ type azurerm_bastion_host = {
 [@@deriving yojson_of]
 (** azurerm_bastion_host *)
 
-let azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled
+let azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled ?id
     ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
     ?tags ?tunneling_enabled ?timeouts ~location ~name
     ~resource_group_name ~ip_configuration __resource_id =
@@ -53,6 +54,7 @@ let azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled
     {
       copy_paste_enabled;
       file_copy_enabled;
+      id;
       ip_connect_enabled;
       location;
       name;

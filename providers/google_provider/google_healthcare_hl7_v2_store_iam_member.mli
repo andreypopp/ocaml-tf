@@ -6,6 +6,7 @@ type google_healthcare_hl7_v2_store_iam_member__condition
 type google_healthcare_hl7_v2_store_iam_member
 
 val google_healthcare_hl7_v2_store_iam_member :
+  ?id:string ->
   hl7_v2_store_id:string ->
   member:string ->
   role:string ->

@@ -24,6 +24,7 @@ type azurerm_private_dns_resolver_inbound_endpoint__timeouts = {
 (** azurerm_private_dns_resolver_inbound_endpoint__timeouts *)
 
 type azurerm_private_dns_resolver_inbound_endpoint = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   private_dns_resolver_id : string;  (** private_dns_resolver_id *)
@@ -37,7 +38,7 @@ type azurerm_private_dns_resolver_inbound_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_inbound_endpoint *)
 
-let azurerm_private_dns_resolver_inbound_endpoint ?tags ?timeouts
+let azurerm_private_dns_resolver_inbound_endpoint ?id ?tags ?timeouts
     ~location ~name ~private_dns_resolver_id ~ip_configurations
     __resource_id =
   let __resource_type =
@@ -45,6 +46,7 @@ let azurerm_private_dns_resolver_inbound_endpoint ?tags ?timeouts
   in
   let __resource =
     {
+      id;
       location;
       name;
       private_dns_resolver_id;

@@ -325,8 +325,12 @@ type azurerm_orchestrated_virtual_machine_scale_set = {
   encryption_at_host_enabled : bool option; [@option]
       (** encryption_at_host_enabled *)
   eviction_policy : string option; [@option]  (** eviction_policy *)
+  extension_operations_enabled : bool option; [@option]
+      (** extension_operations_enabled *)
   extensions_time_budget : string option; [@option]
       (** extensions_time_budget *)
+  id : string option; [@option]  (** id *)
+  instances : float option; [@option]  (** instances *)
   license_type : string option; [@option]  (** license_type *)
   location : string;  (** location *)
   max_bid_price : float option; [@option]  (** max_bid_price *)
@@ -337,6 +341,8 @@ type azurerm_orchestrated_virtual_machine_scale_set = {
   proximity_placement_group_id : string option; [@option]
       (** proximity_placement_group_id *)
   resource_group_name : string;  (** resource_group_name *)
+  single_placement_group : bool option; [@option]
+      (** single_placement_group *)
   sku_name : string option; [@option]  (** sku_name *)
   source_image_id : string option; [@option]  (** source_image_id *)
   tags : (string * string) list option; [@option]  (** tags *)
@@ -383,15 +389,16 @@ type azurerm_orchestrated_virtual_machine_scale_set = {
 
 let azurerm_orchestrated_virtual_machine_scale_set
     ?capacity_reservation_group_id ?encryption_at_host_enabled
-    ?eviction_policy ?extensions_time_budget ?license_type
-    ?max_bid_price ?priority ?proximity_placement_group_id ?sku_name
-    ?source_image_id ?tags ?user_data_base64 ?zone_balance ?zones
-    ?timeouts ~location ~name ~platform_fault_domain_count
-    ~resource_group_name ~additional_capabilities
-    ~automatic_instance_repair ~boot_diagnostics ~data_disk
-    ~extension ~identity ~network_interface ~os_disk ~os_profile
-    ~plan ~priority_mix ~source_image_reference
-    ~termination_notification __resource_id =
+    ?eviction_policy ?extension_operations_enabled
+    ?extensions_time_budget ?id ?instances ?license_type
+    ?max_bid_price ?priority ?proximity_placement_group_id
+    ?single_placement_group ?sku_name ?source_image_id ?tags
+    ?user_data_base64 ?zone_balance ?zones ?timeouts ~location ~name
+    ~platform_fault_domain_count ~resource_group_name
+    ~additional_capabilities ~automatic_instance_repair
+    ~boot_diagnostics ~data_disk ~extension ~identity
+    ~network_interface ~os_disk ~os_profile ~plan ~priority_mix
+    ~source_image_reference ~termination_notification __resource_id =
   let __resource_type =
     "azurerm_orchestrated_virtual_machine_scale_set"
   in
@@ -400,7 +407,10 @@ let azurerm_orchestrated_virtual_machine_scale_set
       capacity_reservation_group_id;
       encryption_at_host_enabled;
       eviction_policy;
+      extension_operations_enabled;
       extensions_time_budget;
+      id;
+      instances;
       license_type;
       location;
       max_bid_price;
@@ -409,6 +419,7 @@ let azurerm_orchestrated_virtual_machine_scale_set
       priority;
       proximity_placement_group_id;
       resource_group_name;
+      single_placement_group;
       sku_name;
       source_image_id;
       tags;

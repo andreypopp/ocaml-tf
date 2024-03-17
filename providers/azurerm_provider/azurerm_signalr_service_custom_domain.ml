@@ -14,6 +14,7 @@ type azurerm_signalr_service_custom_domain__timeouts = {
 
 type azurerm_signalr_service_custom_domain = {
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   signalr_custom_certificate_id : string;
       (** signalr_custom_certificate_id *)
@@ -23,13 +24,14 @@ type azurerm_signalr_service_custom_domain = {
 [@@deriving yojson_of]
 (** azurerm_signalr_service_custom_domain *)
 
-let azurerm_signalr_service_custom_domain ?timeouts ~domain_name
+let azurerm_signalr_service_custom_domain ?id ?timeouts ~domain_name
     ~name ~signalr_custom_certificate_id ~signalr_service_id
     __resource_id =
   let __resource_type = "azurerm_signalr_service_custom_domain" in
   let __resource =
     {
       domain_name;
+      id;
       name;
       signalr_custom_certificate_id;
       signalr_service_id;

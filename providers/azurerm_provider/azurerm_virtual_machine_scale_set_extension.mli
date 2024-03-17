@@ -12,6 +12,7 @@ val azurerm_virtual_machine_scale_set_extension :
   ?automatic_upgrade_enabled:bool ->
   ?failure_suppression_enabled:bool ->
   ?force_update_tag:string ->
+  ?id:string ->
   ?protected_settings:string ->
   ?provision_after_extensions:string list ->
   ?settings:string ->

@@ -50,6 +50,7 @@ type cloudflare_list = {
       (** The account identifier to target for the resource. *)
   description : string option; [@option]
       (** An optional description of the list. *)
+  id : string option; [@option]  (** id *)
   kind : string;
       (** The type of items the list will contain. Available values: `ip`, `redirect`, `hostname`, `asn`. **Modifying this attribute will force creation of a new resource.** *)
   name : string;
@@ -61,10 +62,12 @@ type cloudflare_list = {
 Rules Engine across all zones within the same account.
  *)
 
-let cloudflare_list ?description ~account_id ~kind ~name ~item
+let cloudflare_list ?description ?id ~account_id ~kind ~name ~item
     __resource_id =
   let __resource_type = "cloudflare_list" in
-  let __resource = { account_id; description; kind; name; item } in
+  let __resource =
+    { account_id; description; id; kind; name; item }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_list __resource);
   ()

@@ -20,8 +20,10 @@ type azurerm_bot_service_azure_bot = {
       (** developer_app_insights_application_id *)
   developer_app_insights_key : string option; [@option]
       (** developer_app_insights_key *)
+  display_name : string option; [@option]  (** display_name *)
   endpoint : string option; [@option]  (** endpoint *)
   icon_url : string option; [@option]  (** icon_url *)
+  id : string option; [@option]  (** id *)
   local_authentication_enabled : bool option; [@option]
       (** local_authentication_enabled *)
   location : string;  (** location *)
@@ -49,7 +51,7 @@ type azurerm_bot_service_azure_bot = {
 
 let azurerm_bot_service_azure_bot ?developer_app_insights_api_key
     ?developer_app_insights_application_id
-    ?developer_app_insights_key ?endpoint ?icon_url
+    ?developer_app_insights_key ?display_name ?endpoint ?icon_url ?id
     ?local_authentication_enabled ?luis_app_ids ?luis_key
     ?microsoft_app_msi_id ?microsoft_app_tenant_id
     ?microsoft_app_type ?public_network_access_enabled
@@ -61,8 +63,10 @@ let azurerm_bot_service_azure_bot ?developer_app_insights_api_key
       developer_app_insights_api_key;
       developer_app_insights_application_id;
       developer_app_insights_key;
+      display_name;
       endpoint;
       icon_url;
+      id;
       local_authentication_enabled;
       location;
       luis_app_ids;

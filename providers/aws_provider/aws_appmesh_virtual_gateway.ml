@@ -321,18 +321,24 @@ type aws_appmesh_virtual_gateway__spec = {
 (** aws_appmesh_virtual_gateway__spec *)
 
 type aws_appmesh_virtual_gateway = {
+  id : string option; [@option]  (** id *)
   mesh_name : string;  (** mesh_name *)
+  mesh_owner : string option; [@option]  (** mesh_owner *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   spec : aws_appmesh_virtual_gateway__spec list;
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway *)
 
-let aws_appmesh_virtual_gateway ?tags ~mesh_name ~name ~spec
-    __resource_id =
+let aws_appmesh_virtual_gateway ?id ?mesh_owner ?tags ?tags_all
+    ~mesh_name ~name ~spec __resource_id =
   let __resource_type = "aws_appmesh_virtual_gateway" in
-  let __resource = { mesh_name; name; tags; spec } in
+  let __resource =
+    { id; mesh_name; mesh_owner; name; tags; tags_all; spec }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_appmesh_virtual_gateway __resource);
   ()

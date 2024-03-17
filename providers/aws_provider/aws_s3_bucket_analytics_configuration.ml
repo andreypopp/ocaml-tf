@@ -49,6 +49,7 @@ type aws_s3_bucket_analytics_configuration__storage_class_analysis = {
 
 type aws_s3_bucket_analytics_configuration = {
   bucket : string;  (** bucket *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   filter : aws_s3_bucket_analytics_configuration__filter list;
   storage_class_analysis :
@@ -58,11 +59,11 @@ type aws_s3_bucket_analytics_configuration = {
 [@@deriving yojson_of]
 (** aws_s3_bucket_analytics_configuration *)
 
-let aws_s3_bucket_analytics_configuration ~bucket ~name ~filter
+let aws_s3_bucket_analytics_configuration ?id ~bucket ~name ~filter
     ~storage_class_analysis __resource_id =
   let __resource_type = "aws_s3_bucket_analytics_configuration" in
   let __resource =
-    { bucket; name; filter; storage_class_analysis }
+    { bucket; id; name; filter; storage_class_analysis }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_s3_bucket_analytics_configuration __resource);

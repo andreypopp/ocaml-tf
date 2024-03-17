@@ -10,7 +10,12 @@ type google_spanner_instance
 
 val google_spanner_instance :
   ?force_destroy:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?name:string ->
+  ?num_nodes:float ->
+  ?processing_units:float ->
+  ?project:string ->
   ?timeouts:google_spanner_instance__timeouts ->
   config:string ->
   display_name:string ->

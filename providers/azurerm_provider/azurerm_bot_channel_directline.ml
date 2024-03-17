@@ -36,6 +36,7 @@ type azurerm_bot_channel_directline__timeouts = {
 
 type azurerm_bot_channel_directline = {
   bot_name : string;  (** bot_name *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   resource_group_name : string;  (** resource_group_name *)
   site : azurerm_bot_channel_directline__site list;
@@ -44,11 +45,11 @@ type azurerm_bot_channel_directline = {
 [@@deriving yojson_of]
 (** azurerm_bot_channel_directline *)
 
-let azurerm_bot_channel_directline ?timeouts ~bot_name ~location
+let azurerm_bot_channel_directline ?id ?timeouts ~bot_name ~location
     ~resource_group_name ~site __resource_id =
   let __resource_type = "azurerm_bot_channel_directline" in
   let __resource =
-    { bot_name; location; resource_group_name; site; timeouts }
+    { bot_name; id; location; resource_group_name; site; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_bot_channel_directline __resource);

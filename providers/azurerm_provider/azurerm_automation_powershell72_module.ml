@@ -30,6 +30,7 @@ type azurerm_automation_powershell72_module__timeouts = {
 
 type azurerm_automation_powershell72_module = {
   automation_account_id : string;  (** automation_account_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   module_link :
     azurerm_automation_powershell72_module__module_link list;
@@ -38,11 +39,11 @@ type azurerm_automation_powershell72_module = {
 [@@deriving yojson_of]
 (** azurerm_automation_powershell72_module *)
 
-let azurerm_automation_powershell72_module ?timeouts
+let azurerm_automation_powershell72_module ?id ?timeouts
     ~automation_account_id ~name ~module_link __resource_id =
   let __resource_type = "azurerm_automation_powershell72_module" in
   let __resource =
-    { automation_account_id; name; module_link; timeouts }
+    { automation_account_id; id; name; module_link; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_automation_powershell72_module __resource);

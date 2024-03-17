@@ -79,6 +79,8 @@ type google_data_loss_prevention_inspect_template
 val google_data_loss_prevention_inspect_template :
   ?description:string ->
   ?display_name:string ->
+  ?id:string ->
+  ?template_id:string ->
   ?timeouts:google_data_loss_prevention_inspect_template__timeouts ->
   parent:string ->
   inspect_config:

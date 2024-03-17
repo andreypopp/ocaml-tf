@@ -60,6 +60,7 @@ type azurerm_sentinel_alert_rule_anomaly_duplicate = {
   built_in_rule_id : string;  (** built_in_rule_id *)
   display_name : string;  (** display_name *)
   enabled : bool;  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   mode : string;  (** mode *)
@@ -81,7 +82,7 @@ type azurerm_sentinel_alert_rule_anomaly_duplicate = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_anomaly_duplicate *)
 
-let azurerm_sentinel_alert_rule_anomaly_duplicate ?timeouts
+let azurerm_sentinel_alert_rule_anomaly_duplicate ?id ?timeouts
     ~built_in_rule_id ~display_name ~enabled
     ~log_analytics_workspace_id ~mode ~multi_select_observation
     ~prioritized_exclude_observation ~single_select_observation
@@ -94,6 +95,7 @@ let azurerm_sentinel_alert_rule_anomaly_duplicate ?timeouts
       built_in_rule_id;
       display_name;
       enabled;
+      id;
       log_analytics_workspace_id;
       mode;
       multi_select_observation;

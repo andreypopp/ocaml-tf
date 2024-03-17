@@ -9,6 +9,7 @@ type aws_ssoadmin_application
 val aws_ssoadmin_application :
   ?client_token:string ->
   ?description:string ->
+  ?status:string ->
   ?tags:(string * string) list ->
   application_provider_arn:string ->
   instance_arn:string ->

@@ -15,6 +15,7 @@ type azurerm_active_directory_domain_service_trust__timeouts = {
 
 type azurerm_active_directory_domain_service_trust = {
   domain_service_id : string;  (** domain_service_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   password : string;  (** password *)
   trusted_domain_dns_ips : string list;
@@ -26,7 +27,7 @@ type azurerm_active_directory_domain_service_trust = {
 [@@deriving yojson_of]
 (** azurerm_active_directory_domain_service_trust *)
 
-let azurerm_active_directory_domain_service_trust ?timeouts
+let azurerm_active_directory_domain_service_trust ?id ?timeouts
     ~domain_service_id ~name ~password ~trusted_domain_dns_ips
     ~trusted_domain_fqdn __resource_id =
   let __resource_type =
@@ -35,6 +36,7 @@ let azurerm_active_directory_domain_service_trust ?timeouts
   let __resource =
     {
       domain_service_id;
+      id;
       name;
       password;
       trusted_domain_dns_ips;

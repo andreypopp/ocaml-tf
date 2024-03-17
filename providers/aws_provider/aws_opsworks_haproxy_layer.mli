@@ -26,6 +26,7 @@ val aws_opsworks_haproxy_layer :
   ?elastic_load_balancer:string ->
   ?healthcheck_method:string ->
   ?healthcheck_url:string ->
+  ?id:string ->
   ?install_updates_on_boot:bool ->
   ?instance_shutdown_timeout:float ->
   ?name:string ->
@@ -34,6 +35,7 @@ val aws_opsworks_haproxy_layer :
   ?stats_user:string ->
   ?system_packages:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?use_ebs_optimized_instances:bool ->
   stack_id:string ->
   stats_password:string ->

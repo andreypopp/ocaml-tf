@@ -23,8 +23,11 @@ type azurerm_virtual_machine__timeouts
 type azurerm_virtual_machine
 
 val azurerm_virtual_machine :
+  ?availability_set_id:string ->
   ?delete_data_disks_on_termination:bool ->
   ?delete_os_disk_on_termination:bool ->
+  ?id:string ->
+  ?license_type:string ->
   ?primary_network_interface_id:string ->
   ?proximity_placement_group_id:string ->
   ?tags:(string * string) list ->

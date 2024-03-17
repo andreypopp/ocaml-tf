@@ -5,4 +5,10 @@ open! Tf.Prelude
 type google_compute_region_disk_iam_policy
 
 val google_compute_region_disk_iam_policy :
-  name:string -> policy_data:string -> string -> unit
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
+  name:string ->
+  policy_data:string ->
+  string ->
+  unit

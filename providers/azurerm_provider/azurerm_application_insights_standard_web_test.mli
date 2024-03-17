@@ -15,6 +15,7 @@ val azurerm_application_insights_standard_web_test :
   ?description:string ->
   ?enabled:bool ->
   ?frequency:float ->
+  ?id:string ->
   ?retry_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeout:float ->

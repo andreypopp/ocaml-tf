@@ -32,8 +32,11 @@ type aws_rum_app_monitor__custom_events = {
 type aws_rum_app_monitor = {
   cw_log_enabled : bool option; [@option]  (** cw_log_enabled *)
   domain : string;  (** domain *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   app_monitor_configuration :
     aws_rum_app_monitor__app_monitor_configuration list;
   custom_events : aws_rum_app_monitor__custom_events list;
@@ -41,15 +44,17 @@ type aws_rum_app_monitor = {
 [@@deriving yojson_of]
 (** aws_rum_app_monitor *)
 
-let aws_rum_app_monitor ?cw_log_enabled ?tags ~domain ~name
-    ~app_monitor_configuration ~custom_events __resource_id =
+let aws_rum_app_monitor ?cw_log_enabled ?id ?tags ?tags_all ~domain
+    ~name ~app_monitor_configuration ~custom_events __resource_id =
   let __resource_type = "aws_rum_app_monitor" in
   let __resource =
     {
       cw_log_enabled;
       domain;
+      id;
       name;
       tags;
+      tags_all;
       app_monitor_configuration;
       custom_events;
     }

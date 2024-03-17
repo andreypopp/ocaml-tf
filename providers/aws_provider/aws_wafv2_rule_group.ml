@@ -37862,21 +37862,29 @@ type aws_wafv2_rule_group__visibility_config = {
 type aws_wafv2_rule_group = {
   capacity: float;  (** capacity *)
   description: string option; [@option] (** description *)
+  id: string option; [@option] (** id *)
+  name: string option; [@option] (** name *)
+  name_prefix: string option; [@option] (** name_prefix *)
   scope: string;  (** scope *)
   tags: (string * string) list option; [@option] (** tags *)
+  tags_all: (string * string) list option; [@option] (** tags_all *)
   custom_response_body: aws_wafv2_rule_group__custom_response_body list;
   rule: aws_wafv2_rule_group__rule list;
   visibility_config: aws_wafv2_rule_group__visibility_config list;
 } [@@deriving yojson_of]
 (** aws_wafv2_rule_group *)
 
-let aws_wafv2_rule_group ?description ?tags  ~capacity ~scope ~custom_response_body ~rule ~visibility_config __resource_id =
+let aws_wafv2_rule_group ?description ?id ?name ?name_prefix ?tags ?tags_all  ~capacity ~scope ~custom_response_body ~rule ~visibility_config __resource_id =
   let __resource_type = "aws_wafv2_rule_group" in
   let __resource = {
     capacity;
     description;
+    id;
+    name;
+    name_prefix;
     scope;
     tags;
+    tags_all;
     custom_response_body;
     rule;
     visibility_config;

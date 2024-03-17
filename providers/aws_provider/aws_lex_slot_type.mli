@@ -9,6 +9,7 @@ type aws_lex_slot_type
 val aws_lex_slot_type :
   ?create_version:bool ->
   ?description:string ->
+  ?id:string ->
   ?value_selection_strategy:string ->
   ?timeouts:aws_lex_slot_type__timeouts ->
   name:string ->

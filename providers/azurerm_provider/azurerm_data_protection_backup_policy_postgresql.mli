@@ -9,6 +9,7 @@ type azurerm_data_protection_backup_policy_postgresql__timeouts
 type azurerm_data_protection_backup_policy_postgresql
 
 val azurerm_data_protection_backup_policy_postgresql :
+  ?id:string ->
   ?time_zone:string ->
   ?timeouts:
     azurerm_data_protection_backup_policy_postgresql__timeouts ->

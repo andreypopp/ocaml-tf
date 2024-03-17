@@ -12,15 +12,18 @@ type google_logging_folder_exclusion = {
   filter : string;
       (** The filter to apply when excluding logs. Only log entries that match the filter are excluded. *)
   folder : string;  (** folder *)
+  id : string option; [@option]  (** id *)
   name : string;  (** The name of the logging exclusion. *)
 }
 [@@deriving yojson_of]
 (** google_logging_folder_exclusion *)
 
-let google_logging_folder_exclusion ?description ?disabled ~filter
-    ~folder ~name __resource_id =
+let google_logging_folder_exclusion ?description ?disabled ?id
+    ~filter ~folder ~name __resource_id =
   let __resource_type = "google_logging_folder_exclusion" in
-  let __resource = { description; disabled; filter; folder; name } in
+  let __resource =
+    { description; disabled; filter; folder; id; name }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_logging_folder_exclusion __resource);
   ()

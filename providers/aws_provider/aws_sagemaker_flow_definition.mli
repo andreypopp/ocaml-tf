@@ -16,7 +16,9 @@ type aws_sagemaker_flow_definition__output_config
 type aws_sagemaker_flow_definition
 
 val aws_sagemaker_flow_definition :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   flow_definition_name:string ->
   role_arn:string ->
   human_loop_activation_config:

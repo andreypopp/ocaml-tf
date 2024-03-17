@@ -6,6 +6,7 @@ type cloudflare_device_dex_test__data
 type cloudflare_device_dex_test
 
 val cloudflare_device_dex_test :
+  ?id:string ->
   account_id:string ->
   description:string ->
   enabled:bool ->

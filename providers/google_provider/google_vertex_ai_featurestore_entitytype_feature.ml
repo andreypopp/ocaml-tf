@@ -17,6 +17,7 @@ type google_vertex_ai_featurestore_entitytype_feature = {
       (** Description of the feature. *)
   entitytype : string;
       (** The name of the Featurestore to use, in the format projects/{project}/locations/{location}/featurestores/{featurestore}/entityTypes/{entitytype}. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A set of key/value label pairs to assign to the feature.
 
@@ -33,13 +34,21 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_featurestore_entitytype_feature *)
 
-let google_vertex_ai_featurestore_entitytype_feature ?description
+let google_vertex_ai_featurestore_entitytype_feature ?description ?id
     ?labels ?name ?timeouts ~entitytype ~value_type __resource_id =
   let __resource_type =
     "google_vertex_ai_featurestore_entitytype_feature"
   in
   let __resource =
-    { description; entitytype; labels; name; value_type; timeouts }
+    {
+      description;
+      entitytype;
+      id;
+      labels;
+      name;
+      value_type;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vertex_ai_featurestore_entitytype_feature

@@ -63,6 +63,8 @@ type aws_finspace_kx_environment = {
   kms_key_id : string;  (** kms_key_id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   custom_dns_configuration :
     aws_finspace_kx_environment__custom_dns_configuration list;
   timeouts : aws_finspace_kx_environment__timeouts option;
@@ -72,8 +74,8 @@ type aws_finspace_kx_environment = {
 [@@deriving yojson_of]
 (** aws_finspace_kx_environment *)
 
-let aws_finspace_kx_environment ?description ?tags ?timeouts
-    ~kms_key_id ~name ~custom_dns_configuration
+let aws_finspace_kx_environment ?description ?tags ?tags_all
+    ?timeouts ~kms_key_id ~name ~custom_dns_configuration
     ~transit_gateway_configuration __resource_id =
   let __resource_type = "aws_finspace_kx_environment" in
   let __resource =
@@ -82,6 +84,7 @@ let aws_finspace_kx_environment ?description ?tags ?timeouts
       kms_key_id;
       name;
       tags;
+      tags_all;
       custom_dns_configuration;
       timeouts;
       transit_gateway_configuration;

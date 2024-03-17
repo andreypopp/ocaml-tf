@@ -31,6 +31,8 @@ type azurerm_service_fabric_cluster
 
 val azurerm_service_fabric_cluster :
   ?add_on_features:string list ->
+  ?cluster_code_version:string ->
+  ?id:string ->
   ?service_fabric_zonal_upgrade_mode:string ->
   ?tags:(string * string) list ->
   ?vmss_zonal_upgrade_mode:string ->

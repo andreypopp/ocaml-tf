@@ -14,6 +14,7 @@ type google_healthcare_dicom_store_iam_binding__condition = {
 
 type google_healthcare_dicom_store_iam_binding = {
   dicom_store_id : string;  (** dicom_store_id *)
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   role : string;  (** role *)
   condition :
@@ -22,12 +23,14 @@ type google_healthcare_dicom_store_iam_binding = {
 [@@deriving yojson_of]
 (** google_healthcare_dicom_store_iam_binding *)
 
-let google_healthcare_dicom_store_iam_binding ~dicom_store_id
+let google_healthcare_dicom_store_iam_binding ?id ~dicom_store_id
     ~members ~role ~condition __resource_id =
   let __resource_type =
     "google_healthcare_dicom_store_iam_binding"
   in
-  let __resource = { dicom_store_id; members; role; condition } in
+  let __resource =
+    { dicom_store_id; id; members; role; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_healthcare_dicom_store_iam_binding __resource);
   ()

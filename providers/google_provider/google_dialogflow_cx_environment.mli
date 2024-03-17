@@ -8,6 +8,7 @@ type google_dialogflow_cx_environment
 
 val google_dialogflow_cx_environment :
   ?description:string ->
+  ?id:string ->
   ?parent:string ->
   ?timeouts:google_dialogflow_cx_environment__timeouts ->
   display_name:string ->

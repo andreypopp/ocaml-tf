@@ -56,10 +56,15 @@ type azurerm_media_streaming_endpoint__sku = {
 [@@deriving yojson_of]
 
 type azurerm_media_streaming_endpoint = {
+  auto_start_enabled : bool option; [@option]
+      (** auto_start_enabled *)
   cdn_enabled : bool option; [@option]  (** cdn_enabled *)
+  cdn_profile : string option; [@option]  (** cdn_profile *)
+  cdn_provider : string option; [@option]  (** cdn_provider *)
   custom_host_names : string list option; [@option]
       (** custom_host_names *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   max_cache_age_seconds : float option; [@option]
       (** max_cache_age_seconds *)
@@ -78,17 +83,22 @@ type azurerm_media_streaming_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_media_streaming_endpoint *)
 
-let azurerm_media_streaming_endpoint ?cdn_enabled ?custom_host_names
-    ?description ?max_cache_age_seconds ?tags ?timeouts ~location
+let azurerm_media_streaming_endpoint ?auto_start_enabled ?cdn_enabled
+    ?cdn_profile ?cdn_provider ?custom_host_names ?description ?id
+    ?max_cache_age_seconds ?tags ?timeouts ~location
     ~media_services_account_name ~name ~resource_group_name
     ~scale_units ~access_control ~cross_site_access_policy
     __resource_id =
   let __resource_type = "azurerm_media_streaming_endpoint" in
   let __resource =
     {
+      auto_start_enabled;
       cdn_enabled;
+      cdn_profile;
+      cdn_provider;
       custom_host_names;
       description;
+      id;
       location;
       max_cache_age_seconds;
       media_services_account_name;

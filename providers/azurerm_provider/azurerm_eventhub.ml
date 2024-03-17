@@ -38,6 +38,7 @@ type azurerm_eventhub__timeouts = {
 (** azurerm_eventhub__timeouts *)
 
 type azurerm_eventhub = {
+  id : string option; [@option]  (** id *)
   message_retention : float;  (** message_retention *)
   name : string;  (** name *)
   namespace_name : string;  (** namespace_name *)
@@ -50,12 +51,13 @@ type azurerm_eventhub = {
 [@@deriving yojson_of]
 (** azurerm_eventhub *)
 
-let azurerm_eventhub ?status ?timeouts ~message_retention ~name
+let azurerm_eventhub ?id ?status ?timeouts ~message_retention ~name
     ~namespace_name ~partition_count ~resource_group_name
     ~capture_description __resource_id =
   let __resource_type = "azurerm_eventhub" in
   let __resource =
     {
+      id;
       message_retention;
       name;
       namespace_name;

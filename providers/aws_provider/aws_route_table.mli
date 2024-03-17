@@ -21,12 +21,15 @@ type aws_route_table__route = {
   vpc_peering_connection_id : string;
       (** vpc_peering_connection_id *)
 }
-[@@deriving yojson_of]
 
 type aws_route_table
 
 val aws_route_table :
+  ?id:string ->
+  ?propagating_vgws:string list ->
+  ?route:aws_route_table__route list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_route_table__timeouts ->
   vpc_id:string ->
   string ->

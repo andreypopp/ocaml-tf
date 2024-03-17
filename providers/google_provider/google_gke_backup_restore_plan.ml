@@ -221,6 +221,7 @@ as the source for Restores created via this RestorePlan. *)
       (** The source cluster from which Restores will be created via this RestorePlan. *)
   description : string option; [@option]
       (** User specified descriptive string for this RestorePlan. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Description: A set of custom labels supplied by the user.
 A list of key->value pairs.
@@ -231,6 +232,7 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;  (** The region of the Restore Plan. *)
   name : string;  (** The full name of the BackupPlan Resource. *)
+  project : string option; [@option]  (** project *)
   restore_config :
     google_gke_backup_restore_plan__restore_config list;
   timeouts : google_gke_backup_restore_plan__timeouts option;
@@ -238,8 +240,8 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_gke_backup_restore_plan *)
 
-let google_gke_backup_restore_plan ?description ?labels ?timeouts
-    ~backup_plan ~cluster ~location ~name ~restore_config
+let google_gke_backup_restore_plan ?description ?id ?labels ?project
+    ?timeouts ~backup_plan ~cluster ~location ~name ~restore_config
     __resource_id =
   let __resource_type = "google_gke_backup_restore_plan" in
   let __resource =
@@ -247,9 +249,11 @@ let google_gke_backup_restore_plan ?description ?labels ?timeouts
       backup_plan;
       cluster;
       description;
+      id;
       labels;
       location;
       name;
+      project;
       restore_config;
       timeouts;
     }

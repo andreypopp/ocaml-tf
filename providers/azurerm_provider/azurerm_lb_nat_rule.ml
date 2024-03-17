@@ -17,6 +17,8 @@ type azurerm_lb_nat_rule = {
   backend_address_pool_id : string option; [@option]
       (** backend_address_pool_id *)
   backend_port : float;  (** backend_port *)
+  enable_floating_ip : bool option; [@option]
+      (** enable_floating_ip *)
   enable_tcp_reset : bool option; [@option]  (** enable_tcp_reset *)
   frontend_ip_configuration_name : string;
       (** frontend_ip_configuration_name *)
@@ -25,6 +27,9 @@ type azurerm_lb_nat_rule = {
       (** frontend_port_end *)
   frontend_port_start : float option; [@option]
       (** frontend_port_start *)
+  id : string option; [@option]  (** id *)
+  idle_timeout_in_minutes : float option; [@option]
+      (** idle_timeout_in_minutes *)
   loadbalancer_id : string;  (** loadbalancer_id *)
   name : string;  (** name *)
   protocol : string;  (** protocol *)
@@ -34,8 +39,9 @@ type azurerm_lb_nat_rule = {
 [@@deriving yojson_of]
 (** azurerm_lb_nat_rule *)
 
-let azurerm_lb_nat_rule ?backend_address_pool_id ?enable_tcp_reset
-    ?frontend_port ?frontend_port_end ?frontend_port_start ?timeouts
+let azurerm_lb_nat_rule ?backend_address_pool_id ?enable_floating_ip
+    ?enable_tcp_reset ?frontend_port ?frontend_port_end
+    ?frontend_port_start ?id ?idle_timeout_in_minutes ?timeouts
     ~backend_port ~frontend_ip_configuration_name ~loadbalancer_id
     ~name ~protocol ~resource_group_name __resource_id =
   let __resource_type = "azurerm_lb_nat_rule" in
@@ -43,11 +49,14 @@ let azurerm_lb_nat_rule ?backend_address_pool_id ?enable_tcp_reset
     {
       backend_address_pool_id;
       backend_port;
+      enable_floating_ip;
       enable_tcp_reset;
       frontend_ip_configuration_name;
       frontend_port;
       frontend_port_end;
       frontend_port_start;
+      id;
+      idle_timeout_in_minutes;
       loadbalancer_id;
       name;
       protocol;

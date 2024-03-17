@@ -28,8 +28,11 @@ type aws_finspace_kx_dataview = {
   database_name : string;  (** database_name *)
   description : string option; [@option]  (** description *)
   environment_id : string;  (** environment_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   segment_configurations :
     aws_finspace_kx_dataview__segment_configurations list;
   timeouts : aws_finspace_kx_dataview__timeouts option;
@@ -38,8 +41,9 @@ type aws_finspace_kx_dataview = {
 (** aws_finspace_kx_dataview *)
 
 let aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
-    ?description ?tags ?timeouts ~auto_update ~az_mode ~database_name
-    ~environment_id ~name ~segment_configurations __resource_id =
+    ?description ?id ?tags ?tags_all ?timeouts ~auto_update ~az_mode
+    ~database_name ~environment_id ~name ~segment_configurations
+    __resource_id =
   let __resource_type = "aws_finspace_kx_dataview" in
   let __resource =
     {
@@ -50,8 +54,10 @@ let aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
       database_name;
       description;
       environment_id;
+      id;
       name;
       tags;
+      tags_all;
       segment_configurations;
       timeouts;
     }

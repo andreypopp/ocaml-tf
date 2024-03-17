@@ -17,6 +17,7 @@ type azurerm_storage_mover_source_endpoint = {
   description : string option; [@option]  (** description *)
   export : string option; [@option]  (** export *)
   host : string;  (** host *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   nfs_version : string option; [@option]  (** nfs_version *)
   storage_mover_id : string;  (** storage_mover_id *)
@@ -25,7 +26,7 @@ type azurerm_storage_mover_source_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_storage_mover_source_endpoint *)
 
-let azurerm_storage_mover_source_endpoint ?description ?export
+let azurerm_storage_mover_source_endpoint ?description ?export ?id
     ?nfs_version ?timeouts ~host ~name ~storage_mover_id
     __resource_id =
   let __resource_type = "azurerm_storage_mover_source_endpoint" in
@@ -34,6 +35,7 @@ let azurerm_storage_mover_source_endpoint ?description ?export
       description;
       export;
       host;
+      id;
       name;
       nfs_version;
       storage_mover_id;

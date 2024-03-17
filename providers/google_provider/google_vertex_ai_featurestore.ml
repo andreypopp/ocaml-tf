@@ -41,6 +41,7 @@ type google_vertex_ai_featurestore__timeouts = {
 type google_vertex_ai_featurestore = {
   force_destroy : bool option; [@option]
       (** If set to true, any EntityTypes and Features for this Featurestore will also be deleted *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** A set of key/value label pairs to assign to this Featurestore.
 
@@ -49,6 +50,9 @@ type google_vertex_ai_featurestore = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string option; [@option]
       (** The name of the Featurestore. This value may be up to 60 characters, and valid characters are [a-z0-9_]. The first character cannot be a number. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** The region of the dataset. eg us-central1 *)
   encryption_spec :
     google_vertex_ai_featurestore__encryption_spec list;
   online_serving_config :
@@ -58,14 +62,18 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_vertex_ai_featurestore *)
 
-let google_vertex_ai_featurestore ?force_destroy ?labels ?name
-    ?timeouts ~encryption_spec ~online_serving_config __resource_id =
+let google_vertex_ai_featurestore ?force_destroy ?id ?labels ?name
+    ?project ?region ?timeouts ~encryption_spec
+    ~online_serving_config __resource_id =
   let __resource_type = "google_vertex_ai_featurestore" in
   let __resource =
     {
       force_destroy;
+      id;
       labels;
       name;
+      project;
+      region;
       encryption_spec;
       online_serving_config;
       timeouts;

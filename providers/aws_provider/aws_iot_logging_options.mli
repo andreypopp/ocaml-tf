@@ -6,6 +6,7 @@ type aws_iot_logging_options
 
 val aws_iot_logging_options :
   ?disable_all_logs:bool ->
+  ?id:string ->
   default_log_level:string ->
   role_arn:string ->
   string ->

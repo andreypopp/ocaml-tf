@@ -28,8 +28,13 @@ type cloudflare_load_balancer_monitor = {
       (** The expected HTTP response code or code range of the health check. Eg `2xx`. Only valid and required if `type` is http or https. *)
   follow_redirects : bool option; [@option]
       (** Follow redirects if returned by the origin. Only valid if `type` is http or https. *)
+  id : string option; [@option]  (** id *)
   interval : float option; [@option]
       (** The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations. Defaults to `60`. *)
+  method_ : string option; [@option] [@key "method"]
+      (** The method to use for the health check. *)
+  path : string option; [@option]
+      (** The endpoint path to health check against. *)
   port : float option; [@option]
       (** The port number to use for the healthcheck, required when creating a TCP monitor. *)
   probe_zone : string option; [@option]
@@ -51,8 +56,9 @@ TCP.
 
 let cloudflare_load_balancer_monitor ?allow_insecure
     ?consecutive_down ?consecutive_up ?description ?expected_body
-    ?expected_codes ?follow_redirects ?interval ?port ?probe_zone
-    ?retries ?timeout ?type_ ~account_id ~header __resource_id =
+    ?expected_codes ?follow_redirects ?id ?interval ?method_ ?path
+    ?port ?probe_zone ?retries ?timeout ?type_ ~account_id ~header
+    __resource_id =
   let __resource_type = "cloudflare_load_balancer_monitor" in
   let __resource =
     {
@@ -64,7 +70,10 @@ let cloudflare_load_balancer_monitor ?allow_insecure
       expected_body;
       expected_codes;
       follow_redirects;
+      id;
       interval;
+      method_;
+      path;
       port;
       probe_zone;
       retries;

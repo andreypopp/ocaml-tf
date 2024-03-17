@@ -7,6 +7,7 @@ type azurerm_eventgrid_system_topic__timeouts
 type azurerm_eventgrid_system_topic
 
 val azurerm_eventgrid_system_topic :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_eventgrid_system_topic__timeouts ->
   location:string ->

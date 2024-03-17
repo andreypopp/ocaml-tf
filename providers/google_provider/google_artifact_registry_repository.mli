@@ -41,9 +41,12 @@ type google_artifact_registry_repository
 val google_artifact_registry_repository :
   ?cleanup_policy_dry_run:bool ->
   ?description:string ->
+  ?id:string ->
   ?kms_key_name:string ->
   ?labels:(string * string) list ->
+  ?location:string ->
   ?mode:string ->
+  ?project:string ->
   ?timeouts:google_artifact_registry_repository__timeouts ->
   format:string ->
   repository_id:string ->

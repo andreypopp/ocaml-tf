@@ -12,6 +12,7 @@ val azurerm_cosmosdb_cassandra_cluster :
   ?external_gossip_certificate_pems:string list ->
   ?external_seed_node_ip_addresses:string list ->
   ?hours_between_backups:float ->
+  ?id:string ->
   ?repair_enabled:bool ->
   ?tags:(string * string) list ->
   ?version:string ->

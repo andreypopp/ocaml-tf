@@ -7,6 +7,7 @@ type aws_servicecatalog_portfolio_share
 
 val aws_servicecatalog_portfolio_share :
   ?accept_language:string ->
+  ?id:string ->
   ?share_principals:bool ->
   ?share_tag_options:bool ->
   ?wait_for_acceptance:bool ->

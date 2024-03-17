@@ -40,10 +40,14 @@ type aws_ami_copy = {
   destination_outpost_arn : string option; [@option]
       (** destination_outpost_arn *)
   encrypted : bool option; [@option]  (** encrypted *)
+  id : string option; [@option]  (** id *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
   name : string;  (** name *)
   source_ami_id : string;  (** source_ami_id *)
   source_ami_region : string;  (** source_ami_region *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   ebs_block_device : aws_ami_copy__ebs_block_device list;
   ephemeral_block_device : aws_ami_copy__ephemeral_block_device list;
   timeouts : aws_ami_copy__timeouts option;
@@ -52,9 +56,9 @@ type aws_ami_copy = {
 (** aws_ami_copy *)
 
 let aws_ami_copy ?deprecation_time ?description
-    ?destination_outpost_arn ?encrypted ?tags ?timeouts ~name
-    ~source_ami_id ~source_ami_region ~ebs_block_device
-    ~ephemeral_block_device __resource_id =
+    ?destination_outpost_arn ?encrypted ?id ?kms_key_id ?tags
+    ?tags_all ?timeouts ~name ~source_ami_id ~source_ami_region
+    ~ebs_block_device ~ephemeral_block_device __resource_id =
   let __resource_type = "aws_ami_copy" in
   let __resource =
     {
@@ -62,10 +66,13 @@ let aws_ami_copy ?deprecation_time ?description
       description;
       destination_outpost_arn;
       encrypted;
+      id;
+      kms_key_id;
       name;
       source_ami_id;
       source_ami_region;
       tags;
+      tags_all;
       ebs_block_device;
       ephemeral_block_device;
       timeouts;

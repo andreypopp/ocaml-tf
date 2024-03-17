@@ -48,6 +48,7 @@ type azurerm_resource_deployment_script_azure_cli = {
   command_line : string option; [@option]  (** command_line *)
   force_update_tag : string option; [@option]
       (** force_update_tag *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   primary_script_uri : string option; [@option]
@@ -77,7 +78,7 @@ type azurerm_resource_deployment_script_azure_cli = {
 (** azurerm_resource_deployment_script_azure_cli *)
 
 let azurerm_resource_deployment_script_azure_cli ?cleanup_preference
-    ?command_line ?force_update_tag ?primary_script_uri
+    ?command_line ?force_update_tag ?id ?primary_script_uri
     ?script_content ?supporting_script_uris ?tags ?timeout ?timeouts
     ~location ~name ~resource_group_name ~retention_interval ~version
     ~container ~environment_variable ~identity ~storage_account
@@ -90,6 +91,7 @@ let azurerm_resource_deployment_script_azure_cli ?cleanup_preference
       cleanup_preference;
       command_line;
       force_update_tag;
+      id;
       location;
       name;
       primary_script_uri;

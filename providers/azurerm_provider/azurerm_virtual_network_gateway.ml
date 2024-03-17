@@ -146,6 +146,7 @@ type azurerm_virtual_network_gateway__vpn_client_configuration = {
 (** azurerm_virtual_network_gateway__vpn_client_configuration *)
 
 type azurerm_virtual_network_gateway = {
+  active_active : bool option; [@option]  (** active_active *)
   bgp_route_translation_for_nat_enabled : bool option; [@option]
       (** bgp_route_translation_for_nat_enabled *)
   default_local_network_gateway_id : string option; [@option]
@@ -153,6 +154,9 @@ type azurerm_virtual_network_gateway = {
   dns_forwarding_enabled : bool option; [@option]
       (** dns_forwarding_enabled *)
   edge_zone : string option; [@option]  (** edge_zone *)
+  enable_bgp : bool option; [@option]  (** enable_bgp *)
+  generation : string option; [@option]  (** generation *)
+  id : string option; [@option]  (** id *)
   ip_sec_replay_protection_enabled : bool option; [@option]
       (** ip_sec_replay_protection_enabled *)
   location : string;  (** location *)
@@ -180,22 +184,26 @@ type azurerm_virtual_network_gateway = {
 [@@deriving yojson_of]
 (** azurerm_virtual_network_gateway *)
 
-let azurerm_virtual_network_gateway
+let azurerm_virtual_network_gateway ?active_active
     ?bgp_route_translation_for_nat_enabled
     ?default_local_network_gateway_id ?dns_forwarding_enabled
-    ?edge_zone ?ip_sec_replay_protection_enabled
-    ?private_ip_address_enabled ?remote_vnet_traffic_enabled ?tags
-    ?virtual_wan_traffic_enabled ?vpn_type ?timeouts ~location ~name
-    ~resource_group_name ~sku ~type_ ~bgp_settings ~custom_route
-    ~ip_configuration ~policy_group ~vpn_client_configuration
-    __resource_id =
+    ?edge_zone ?enable_bgp ?generation ?id
+    ?ip_sec_replay_protection_enabled ?private_ip_address_enabled
+    ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
+    ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
+    ~type_ ~bgp_settings ~custom_route ~ip_configuration
+    ~policy_group ~vpn_client_configuration __resource_id =
   let __resource_type = "azurerm_virtual_network_gateway" in
   let __resource =
     {
+      active_active;
       bgp_route_translation_for_nat_enabled;
       default_local_network_gateway_id;
       dns_forwarding_enabled;
       edge_zone;
+      enable_bgp;
+      generation;
+      id;
       ip_sec_replay_protection_enabled;
       location;
       name;

@@ -56,6 +56,7 @@ type cloudflare_access_identity_provider__scim_config = {
 type cloudflare_access_identity_provider = {
   account_id : string option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Friendly name of the Access Identity Provider configuration. *)
   type_ : string; [@key "type"]
@@ -71,11 +72,11 @@ Providers are used as an authentication or authorisation source
 within Access.
  *)
 
-let cloudflare_access_identity_provider ?account_id ?zone_id ~name
-    ~type_ ~config ~scim_config __resource_id =
+let cloudflare_access_identity_provider ?account_id ?id ?zone_id
+    ~name ~type_ ~config ~scim_config __resource_id =
   let __resource_type = "cloudflare_access_identity_provider" in
   let __resource =
-    { account_id; name; type_; zone_id; config; scim_config }
+    { account_id; id; name; type_; zone_id; config; scim_config }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_identity_provider __resource);

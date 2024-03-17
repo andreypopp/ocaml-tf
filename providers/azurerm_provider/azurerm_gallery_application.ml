@@ -19,6 +19,7 @@ type azurerm_gallery_application = {
       (** end_of_life_date *)
   eula : string option; [@option]  (** eula *)
   gallery_id : string;  (** gallery_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   privacy_statement_uri : string option; [@option]
@@ -33,7 +34,7 @@ type azurerm_gallery_application = {
 (** azurerm_gallery_application *)
 
 let azurerm_gallery_application ?description ?end_of_life_date ?eula
-    ?privacy_statement_uri ?release_note_uri ?tags ?timeouts
+    ?id ?privacy_statement_uri ?release_note_uri ?tags ?timeouts
     ~gallery_id ~location ~name ~supported_os_type __resource_id =
   let __resource_type = "azurerm_gallery_application" in
   let __resource =
@@ -42,6 +43,7 @@ let azurerm_gallery_application ?description ?end_of_life_date ?eula
       end_of_life_date;
       eula;
       gallery_id;
+      id;
       location;
       name;
       privacy_statement_uri;

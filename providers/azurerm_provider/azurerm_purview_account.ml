@@ -30,7 +30,10 @@ type azurerm_purview_account__managed_resources = {
 [@@deriving yojson_of]
 
 type azurerm_purview_account = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
+  managed_resource_group_name : string option; [@option]
+      (** managed_resource_group_name *)
   name : string;  (** name *)
   public_network_enabled : bool option; [@option]
       (** public_network_enabled *)
@@ -42,12 +45,15 @@ type azurerm_purview_account = {
 [@@deriving yojson_of]
 (** azurerm_purview_account *)
 
-let azurerm_purview_account ?public_network_enabled ?tags ?timeouts
-    ~location ~name ~resource_group_name ~identity __resource_id =
+let azurerm_purview_account ?id ?managed_resource_group_name
+    ?public_network_enabled ?tags ?timeouts ~location ~name
+    ~resource_group_name ~identity __resource_id =
   let __resource_type = "azurerm_purview_account" in
   let __resource =
     {
+      id;
       location;
+      managed_resource_group_name;
       name;
       public_network_enabled;
       resource_group_name;

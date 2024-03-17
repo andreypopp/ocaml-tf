@@ -8,7 +8,9 @@ type aws_kendra_query_suggestions_block_list
 
 val aws_kendra_query_suggestions_block_list :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_kendra_query_suggestions_block_list__timeouts ->
   index_id:string ->
   name:string ->

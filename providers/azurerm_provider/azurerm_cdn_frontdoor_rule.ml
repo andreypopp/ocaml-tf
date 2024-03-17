@@ -312,6 +312,7 @@ type azurerm_cdn_frontdoor_rule = {
       (** behavior_on_match *)
   cdn_frontdoor_rule_set_id : string;
       (** cdn_frontdoor_rule_set_id *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   order : float;  (** order *)
   actions : azurerm_cdn_frontdoor_rule__actions list;
@@ -321,7 +322,7 @@ type azurerm_cdn_frontdoor_rule = {
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_rule *)
 
-let azurerm_cdn_frontdoor_rule ?behavior_on_match ?timeouts
+let azurerm_cdn_frontdoor_rule ?behavior_on_match ?id ?timeouts
     ~cdn_frontdoor_rule_set_id ~name ~order ~actions ~conditions
     __resource_id =
   let __resource_type = "azurerm_cdn_frontdoor_rule" in
@@ -329,6 +330,7 @@ let azurerm_cdn_frontdoor_rule ?behavior_on_match ?timeouts
     {
       behavior_on_match;
       cdn_frontdoor_rule_set_id;
+      id;
       name;
       order;
       actions;

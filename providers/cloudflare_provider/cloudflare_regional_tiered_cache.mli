@@ -5,4 +5,4 @@ open! Tf.Prelude
 type cloudflare_regional_tiered_cache
 
 val cloudflare_regional_tiered_cache :
-  value:string -> zone_id:string -> string -> unit
+  ?id:string -> value:string -> zone_id:string -> string -> unit

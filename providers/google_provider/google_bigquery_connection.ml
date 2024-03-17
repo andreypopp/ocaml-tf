@@ -117,10 +117,13 @@ type google_bigquery_connection__timeouts = {
 (** google_bigquery_connection__timeouts *)
 
 type google_bigquery_connection = {
+  connection_id : string option; [@option]
+      (** Optional connection id that should be assigned to the created connection. *)
   description : string option; [@option]
       (** A descriptive description for the connection *)
   friendly_name : string option; [@option]
       (** A descriptive name for the connection *)
+  id : string option; [@option]  (** id *)
   location : string option; [@option]
       (** The geographic location where the connection should reside.
 Cloud SQL instance must be in the same location as the connection
@@ -129,6 +132,7 @@ Examples: US, EU, asia-northeast1, us-central1, europe-west1.
 Spanner Connections same as spanner region
 AWS allowed regions are aws-us-east-1
 Azure allowed regions are azure-eastus2 *)
+  project : string option; [@option]  (** project *)
   aws : google_bigquery_connection__aws list;
   azure : google_bigquery_connection__azure list;
   cloud_resource : google_bigquery_connection__cloud_resource list;
@@ -140,15 +144,18 @@ Azure allowed regions are azure-eastus2 *)
 [@@deriving yojson_of]
 (** google_bigquery_connection *)
 
-let google_bigquery_connection ?description ?friendly_name ?location
-    ?timeouts ~aws ~azure ~cloud_resource ~cloud_spanner ~cloud_sql
-    ~spark __resource_id =
+let google_bigquery_connection ?connection_id ?description
+    ?friendly_name ?id ?location ?project ?timeouts ~aws ~azure
+    ~cloud_resource ~cloud_spanner ~cloud_sql ~spark __resource_id =
   let __resource_type = "google_bigquery_connection" in
   let __resource =
     {
+      connection_id;
       description;
       friendly_name;
+      id;
       location;
+      project;
       aws;
       azure;
       cloud_resource;

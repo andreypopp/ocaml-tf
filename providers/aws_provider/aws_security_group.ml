@@ -39,19 +39,42 @@ type aws_security_group__ingress = {
 
 type aws_security_group = {
   description : string option; [@option]  (** description *)
+  egress : aws_security_group__egress list option; [@option]
+      (** egress *)
+  id : string option; [@option]  (** id *)
+  ingress : aws_security_group__ingress list option; [@option]
+      (** ingress *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   revoke_rules_on_delete : bool option; [@option]
       (** revoke_rules_on_delete *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  vpc_id : string option; [@option]  (** vpc_id *)
   timeouts : aws_security_group__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_security_group *)
 
-let aws_security_group ?description ?revoke_rules_on_delete ?tags
+let aws_security_group ?description ?egress ?id ?ingress ?name
+    ?name_prefix ?revoke_rules_on_delete ?tags ?tags_all ?vpc_id
     ?timeouts __resource_id =
   let __resource_type = "aws_security_group" in
   let __resource =
-    { description; revoke_rules_on_delete; tags; timeouts }
+    {
+      description;
+      egress;
+      id;
+      ingress;
+      name;
+      name_prefix;
+      revoke_rules_on_delete;
+      tags;
+      tags_all;
+      vpc_id;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_security_group __resource);

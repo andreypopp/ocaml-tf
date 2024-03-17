@@ -126,6 +126,9 @@ type google_compute_region_url_map
 val google_compute_region_url_map :
   ?default_service:string ->
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:google_compute_region_url_map__timeouts ->
   name:string ->
   default_route_action:

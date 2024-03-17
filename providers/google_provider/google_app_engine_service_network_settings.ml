@@ -20,6 +20,8 @@ type google_app_engine_service_network_settings__timeouts = {
 (** google_app_engine_service_network_settings__timeouts *)
 
 type google_app_engine_service_network_settings = {
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   service : string;
       (** The name of the service these settings apply to. *)
   network_settings :
@@ -30,12 +32,14 @@ type google_app_engine_service_network_settings = {
 [@@deriving yojson_of]
 (** google_app_engine_service_network_settings *)
 
-let google_app_engine_service_network_settings ?timeouts ~service
-    ~network_settings __resource_id =
+let google_app_engine_service_network_settings ?id ?project ?timeouts
+    ~service ~network_settings __resource_id =
   let __resource_type =
     "google_app_engine_service_network_settings"
   in
-  let __resource = { service; network_settings; timeouts } in
+  let __resource =
+    { id; project; service; network_settings; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_app_engine_service_network_settings __resource);
   ()

@@ -5,4 +5,10 @@ open! Tf.Prelude
 type google_artifact_registry_repository_iam_policy
 
 val google_artifact_registry_repository_iam_policy :
-  policy_data:string -> repository:string -> string -> unit
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
+  policy_data:string ->
+  repository:string ->
+  string ->
+  unit

@@ -9,17 +9,16 @@ type azurerm_healthcare_dicom_service__authentication = {
   audience : string list;  (** audience *)
   authority : string;  (** authority *)
 }
-[@@deriving yojson_of]
 
 type azurerm_healthcare_dicom_service__private_endpoint = {
   id : string;  (** id *)
   name : string;  (** name *)
 }
-[@@deriving yojson_of]
 
 type azurerm_healthcare_dicom_service
 
 val azurerm_healthcare_dicom_service :
+  ?id:string ->
   ?public_network_access_enabled:bool ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_healthcare_dicom_service__timeouts ->

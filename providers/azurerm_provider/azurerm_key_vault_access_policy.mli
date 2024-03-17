@@ -8,6 +8,7 @@ type azurerm_key_vault_access_policy
 val azurerm_key_vault_access_policy :
   ?application_id:string ->
   ?certificate_permissions:string list ->
+  ?id:string ->
   ?key_permissions:string list ->
   ?secret_permissions:string list ->
   ?storage_permissions:string list ->

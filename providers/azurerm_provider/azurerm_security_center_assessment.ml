@@ -25,6 +25,7 @@ type azurerm_security_center_assessment = {
   additional_data : (string * string) list option; [@option]
       (** additional_data *)
   assessment_policy_id : string;  (** assessment_policy_id *)
+  id : string option; [@option]  (** id *)
   target_resource_id : string;  (** target_resource_id *)
   status : azurerm_security_center_assessment__status list;
   timeouts : azurerm_security_center_assessment__timeouts option;
@@ -32,13 +33,14 @@ type azurerm_security_center_assessment = {
 [@@deriving yojson_of]
 (** azurerm_security_center_assessment *)
 
-let azurerm_security_center_assessment ?additional_data ?timeouts
+let azurerm_security_center_assessment ?additional_data ?id ?timeouts
     ~assessment_policy_id ~target_resource_id ~status __resource_id =
   let __resource_type = "azurerm_security_center_assessment" in
   let __resource =
     {
       additional_data;
       assessment_policy_id;
+      id;
       target_resource_id;
       status;
       timeouts;

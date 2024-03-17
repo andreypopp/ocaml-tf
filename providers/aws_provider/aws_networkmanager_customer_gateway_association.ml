@@ -15,6 +15,7 @@ type aws_networkmanager_customer_gateway_association = {
   customer_gateway_arn : string;  (** customer_gateway_arn *)
   device_id : string;  (** device_id *)
   global_network_id : string;  (** global_network_id *)
+  id : string option; [@option]  (** id *)
   link_id : string option; [@option]  (** link_id *)
   timeouts :
     aws_networkmanager_customer_gateway_association__timeouts option;
@@ -22,7 +23,7 @@ type aws_networkmanager_customer_gateway_association = {
 [@@deriving yojson_of]
 (** aws_networkmanager_customer_gateway_association *)
 
-let aws_networkmanager_customer_gateway_association ?link_id
+let aws_networkmanager_customer_gateway_association ?id ?link_id
     ?timeouts ~customer_gateway_arn ~device_id ~global_network_id
     __resource_id =
   let __resource_type =
@@ -33,6 +34,7 @@ let aws_networkmanager_customer_gateway_association ?link_id
       customer_gateway_arn;
       device_id;
       global_network_id;
+      id;
       link_id;
       timeouts;
     }

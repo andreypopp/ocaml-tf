@@ -13,7 +13,10 @@ type google_compute_subnetwork_iam_member__condition = {
 (** google_compute_subnetwork_iam_member__condition *)
 
 type google_compute_subnetwork_iam_member = {
+  id : string option; [@option]  (** id *)
   member : string;  (** member *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]  (** region *)
   role : string;  (** role *)
   subnetwork : string;  (** subnetwork *)
   condition : google_compute_subnetwork_iam_member__condition list;
@@ -21,10 +24,12 @@ type google_compute_subnetwork_iam_member = {
 [@@deriving yojson_of]
 (** google_compute_subnetwork_iam_member *)
 
-let google_compute_subnetwork_iam_member ~member ~role ~subnetwork
-    ~condition __resource_id =
+let google_compute_subnetwork_iam_member ?id ?project ?region ~member
+    ~role ~subnetwork ~condition __resource_id =
   let __resource_type = "google_compute_subnetwork_iam_member" in
-  let __resource = { member; role; subnetwork; condition } in
+  let __resource =
+    { id; member; project; region; role; subnetwork; condition }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_subnetwork_iam_member __resource);
   ()

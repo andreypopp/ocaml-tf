@@ -6,17 +6,18 @@ open! Tf.Prelude
 
 type aws_lightsail_lb_https_redirection_policy = {
   enabled : bool;  (** enabled *)
+  id : string option; [@option]  (** id *)
   lb_name : string;  (** lb_name *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_lb_https_redirection_policy *)
 
-let aws_lightsail_lb_https_redirection_policy ~enabled ~lb_name
+let aws_lightsail_lb_https_redirection_policy ?id ~enabled ~lb_name
     __resource_id =
   let __resource_type =
     "aws_lightsail_lb_https_redirection_policy"
   in
-  let __resource = { enabled; lb_name } in
+  let __resource = { enabled; id; lb_name } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_lightsail_lb_https_redirection_policy __resource);
   ()

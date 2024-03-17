@@ -11,6 +11,8 @@ type aws_backup_selection__selection_tag
 type aws_backup_selection
 
 val aws_backup_selection :
+  ?id:string ->
+  ?not_resources:string list ->
   ?resources:string list ->
   iam_role_arn:string ->
   name:string ->

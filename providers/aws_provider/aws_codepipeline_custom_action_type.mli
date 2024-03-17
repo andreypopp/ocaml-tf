@@ -9,7 +9,9 @@ type aws_codepipeline_custom_action_type__settings
 type aws_codepipeline_custom_action_type
 
 val aws_codepipeline_custom_action_type :
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   category:string ->
   provider_name:string ->
   version:string ->

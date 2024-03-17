@@ -7,18 +7,19 @@ open! Tf.Prelude
 type aws_codecommit_approval_rule_template_association = {
   approval_rule_template_name : string;
       (** approval_rule_template_name *)
+  id : string option; [@option]  (** id *)
   repository_name : string;  (** repository_name *)
 }
 [@@deriving yojson_of]
 (** aws_codecommit_approval_rule_template_association *)
 
-let aws_codecommit_approval_rule_template_association
+let aws_codecommit_approval_rule_template_association ?id
     ~approval_rule_template_name ~repository_name __resource_id =
   let __resource_type =
     "aws_codecommit_approval_rule_template_association"
   in
   let __resource =
-    { approval_rule_template_name; repository_name }
+    { approval_rule_template_name; id; repository_name }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_codecommit_approval_rule_template_association

@@ -261,6 +261,7 @@ type azurerm_storage_account__timeouts = {
 (** azurerm_storage_account__timeouts *)
 
 type azurerm_storage_account = {
+  access_tier : string option; [@option]  (** access_tier *)
   account_kind : string option; [@option]  (** account_kind *)
   account_replication_type : string;  (** account_replication_type *)
   account_tier : string;  (** account_tier *)
@@ -275,9 +276,12 @@ type azurerm_storage_account = {
   edge_zone : string option; [@option]  (** edge_zone *)
   enable_https_traffic_only : bool option; [@option]
       (** enable_https_traffic_only *)
+  id : string option; [@option]  (** id *)
   infrastructure_encryption_enabled : bool option; [@option]
       (** infrastructure_encryption_enabled *)
   is_hns_enabled : bool option; [@option]  (** is_hns_enabled *)
+  large_file_share_enabled : bool option; [@option]
+      (** large_file_share_enabled *)
   local_user_enabled : bool option; [@option]
       (** local_user_enabled *)
   location : string;  (** location *)
@@ -315,13 +319,13 @@ type azurerm_storage_account = {
 [@@deriving yojson_of]
 (** azurerm_storage_account *)
 
-let azurerm_storage_account ?account_kind
+let azurerm_storage_account ?access_tier ?account_kind
     ?allow_nested_items_to_be_public ?allowed_copy_scope
     ?cross_tenant_replication_enabled
     ?default_to_oauth_authentication ?edge_zone
-    ?enable_https_traffic_only ?infrastructure_encryption_enabled
-    ?is_hns_enabled ?local_user_enabled ?min_tls_version
-    ?nfsv3_enabled ?public_network_access_enabled
+    ?enable_https_traffic_only ?id ?infrastructure_encryption_enabled
+    ?is_hns_enabled ?large_file_share_enabled ?local_user_enabled
+    ?min_tls_version ?nfsv3_enabled ?public_network_access_enabled
     ?queue_encryption_key_type ?sftp_enabled
     ?shared_access_key_enabled ?table_encryption_key_type ?tags
     ?timeouts ~account_replication_type ~account_tier ~location ~name
@@ -332,6 +336,7 @@ let azurerm_storage_account ?account_kind
   let __resource_type = "azurerm_storage_account" in
   let __resource =
     {
+      access_tier;
       account_kind;
       account_replication_type;
       account_tier;
@@ -341,8 +346,10 @@ let azurerm_storage_account ?account_kind
       default_to_oauth_authentication;
       edge_zone;
       enable_https_traffic_only;
+      id;
       infrastructure_encryption_enabled;
       is_hns_enabled;
+      large_file_share_enabled;
       local_user_enabled;
       location;
       min_tls_version;

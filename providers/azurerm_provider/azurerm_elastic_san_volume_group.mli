@@ -10,6 +10,7 @@ type azurerm_elastic_san_volume_group
 
 val azurerm_elastic_san_volume_group :
   ?encryption_type:string ->
+  ?id:string ->
   ?protocol_type:string ->
   ?timeouts:azurerm_elastic_san_volume_group__timeouts ->
   elastic_san_id:string ->

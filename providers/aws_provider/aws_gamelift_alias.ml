@@ -14,17 +14,22 @@ type aws_gamelift_alias__routing_strategy = {
 
 type aws_gamelift_alias = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   routing_strategy : aws_gamelift_alias__routing_strategy list;
 }
 [@@deriving yojson_of]
 (** aws_gamelift_alias *)
 
-let aws_gamelift_alias ?description ?tags ~name ~routing_strategy
-    __resource_id =
+let aws_gamelift_alias ?description ?id ?tags ?tags_all ~name
+    ~routing_strategy __resource_id =
   let __resource_type = "aws_gamelift_alias" in
-  let __resource = { description; name; tags; routing_strategy } in
+  let __resource =
+    { description; id; name; tags; tags_all; routing_strategy }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_gamelift_alias __resource);
   ()

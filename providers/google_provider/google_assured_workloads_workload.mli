@@ -12,7 +12,6 @@ type google_assured_workloads_workload__compliance_status = {
       (** acknowledged_violation_count *)
   active_violation_count : float list;  (** active_violation_count *)
 }
-[@@deriving yojson_of]
 
 type google_assured_workloads_workload__ekm_provisioning_response = {
   ekm_provisioning_error_domain : string;
@@ -21,28 +20,27 @@ type google_assured_workloads_workload__ekm_provisioning_response = {
       (** ekm_provisioning_error_mapping *)
   ekm_provisioning_state : string;  (** ekm_provisioning_state *)
 }
-[@@deriving yojson_of]
 
 type google_assured_workloads_workload__resources = {
   resource_id : float;  (** resource_id *)
   resource_type : string;  (** resource_type *)
 }
-[@@deriving yojson_of]
 
 type google_assured_workloads_workload__saa_enrollment_response = {
   setup_errors : string list;  (** setup_errors *)
   setup_status : string;  (** setup_status *)
 }
-[@@deriving yojson_of]
 
 type google_assured_workloads_workload
 
 val google_assured_workloads_workload :
   ?billing_account:string ->
   ?enable_sovereign_controls:bool ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?partner:string ->
   ?provisioned_resources_parent:string ->
+  ?violation_notifications_enabled:bool ->
   ?timeouts:google_assured_workloads_workload__timeouts ->
   compliance_regime:string ->
   display_name:string ->

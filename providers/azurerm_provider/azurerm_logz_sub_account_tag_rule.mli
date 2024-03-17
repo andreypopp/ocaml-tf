@@ -7,6 +7,7 @@ type azurerm_logz_sub_account_tag_rule__timeouts
 type azurerm_logz_sub_account_tag_rule
 
 val azurerm_logz_sub_account_tag_rule :
+  ?id:string ->
   ?send_aad_logs:bool ->
   ?send_activity_logs:bool ->
   ?send_subscription_logs:bool ->

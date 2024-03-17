@@ -13,7 +13,6 @@ type google_gkeonprem_vmware_cluster__control_plane_node__vsphere_config = {
   datastore : string;  (** datastore *)
   storage_policy_name : string;  (** storage_policy_name *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_vmware_cluster__control_plane_node
 type google_gkeonprem_vmware_cluster__dataplane_v2
@@ -49,7 +48,6 @@ type google_gkeonprem_vmware_cluster__vcenter
 type google_gkeonprem_vmware_cluster__fleet = {
   membership : string;  (** membership *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_vmware_cluster__status__conditions = {
   last_transition_time : string;  (** last_transition_time *)
@@ -58,7 +56,6 @@ type google_gkeonprem_vmware_cluster__status__conditions = {
   state : string;  (** state *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_vmware_cluster__status = {
   conditions :
@@ -66,7 +63,6 @@ type google_gkeonprem_vmware_cluster__status = {
       (** conditions *)
   error_message : string;  (** error_message *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_vmware_cluster__validation_check__status__result = {
   category : string;  (** category *)
@@ -75,7 +71,6 @@ type google_gkeonprem_vmware_cluster__validation_check__status__result = {
   options : string;  (** options *)
   reason : string;  (** reason *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_vmware_cluster__validation_check__status = {
   result :
@@ -83,7 +78,6 @@ type google_gkeonprem_vmware_cluster__validation_check__status = {
     list;
       (** result *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_vmware_cluster__validation_check = {
   options : string;  (** options *)
@@ -92,7 +86,6 @@ type google_gkeonprem_vmware_cluster__validation_check = {
     google_gkeonprem_vmware_cluster__validation_check__status list;
       (** status *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_vmware_cluster
 
@@ -100,6 +93,9 @@ val google_gkeonprem_vmware_cluster :
   ?annotations:(string * string) list ->
   ?description:string ->
   ?enable_control_plane_v2:bool ->
+  ?id:string ->
+  ?project:string ->
+  ?vm_tracking_enabled:bool ->
   ?timeouts:google_gkeonprem_vmware_cluster__timeouts ->
   admin_cluster_membership:string ->
   location:string ->

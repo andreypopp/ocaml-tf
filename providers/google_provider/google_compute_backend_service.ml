@@ -493,6 +493,7 @@ A health check must be specified unless the backend service uses an internet
 or serverless NEG as a backend.
 
 For internal load balancing, a URL to a HealthCheck resource must be specified instead. *)
+  id : string option; [@option]  (** id *)
   load_balancing_scheme : string option; [@option]
       (** Indicates whether the backend service will be used with internal or
 external load balancing. A backend service created for one type of
@@ -564,8 +565,25 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  port_name : string option; [@option]
+      (** Name of backend port. The same name should appear in the instance
+groups referenced by this service. Required when the load balancing
+scheme is EXTERNAL. *)
+  project : string option; [@option]  (** project *)
+  protocol : string option; [@option]
+      (** The protocol this BackendService uses to communicate with backends.
+The default is HTTP. **NOTE**: HTTP2 is only valid for beta HTTP/2 load balancer
+types and may result in errors if used with the GA API. **NOTE**: With protocol “UNSPECIFIED”,
+the backend service can be used by Layer 4 Internal Load Balancing or Network Load Balancing
+with TCP/UDP/L3_DEFAULT Forwarding Rule protocol. Possible values: [HTTP, HTTPS, HTTP2, TCP, SSL, GRPC, UNSPECIFIED] *)
   security_policy : string option; [@option]
       (** The security policy associated with this backend service. *)
+  session_affinity : string option; [@option]
+      (** Type of session affinity to use. The default is NONE. Session affinity is
+not applicable if the protocol is UDP. Possible values: [NONE, CLIENT_IP, CLIENT_IP_PORT_PROTO, CLIENT_IP_PROTO, GENERATED_COOKIE, HEADER_FIELD, HTTP_COOKIE] *)
+  timeout_sec : float option; [@option]
+      (** How many seconds to wait for the backend before considering it a
+failed request. Default is 30 seconds. Valid range is [1, 86400]. *)
   backend : google_compute_backend_service__backend list;
   cdn_policy : google_compute_backend_service__cdn_policy list;
   circuit_breakers :
@@ -588,8 +606,9 @@ character, which cannot be a dash. *)
 let google_compute_backend_service ?affinity_cookie_ttl_sec
     ?compression_mode ?connection_draining_timeout_sec
     ?custom_request_headers ?custom_response_headers ?description
-    ?edge_security_policy ?enable_cdn ?health_checks
-    ?load_balancing_scheme ?locality_lb_policy ?security_policy
+    ?edge_security_policy ?enable_cdn ?health_checks ?id
+    ?load_balancing_scheme ?locality_lb_policy ?port_name ?project
+    ?protocol ?security_policy ?session_affinity ?timeout_sec
     ?timeouts ~name ~backend ~cdn_policy ~circuit_breakers
     ~consistent_hash ~iap ~locality_lb_policies ~log_config
     ~outlier_detection ~security_settings __resource_id =
@@ -605,10 +624,16 @@ let google_compute_backend_service ?affinity_cookie_ttl_sec
       edge_security_policy;
       enable_cdn;
       health_checks;
+      id;
       load_balancing_scheme;
       locality_lb_policy;
       name;
+      port_name;
+      project;
+      protocol;
       security_policy;
+      session_affinity;
+      timeout_sec;
       backend;
       cdn_policy;
       circuit_breakers;

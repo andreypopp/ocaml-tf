@@ -34,6 +34,7 @@ type azurerm_signalr_service_network_acl__timeouts = {
 
 type azurerm_signalr_service_network_acl = {
   default_action : string;  (** default_action *)
+  id : string option; [@option]  (** id *)
   signalr_service_id : string;  (** signalr_service_id *)
   private_endpoint :
     azurerm_signalr_service_network_acl__private_endpoint list;
@@ -44,13 +45,14 @@ type azurerm_signalr_service_network_acl = {
 [@@deriving yojson_of]
 (** azurerm_signalr_service_network_acl *)
 
-let azurerm_signalr_service_network_acl ?timeouts ~default_action
+let azurerm_signalr_service_network_acl ?id ?timeouts ~default_action
     ~signalr_service_id ~private_endpoint ~public_network
     __resource_id =
   let __resource_type = "azurerm_signalr_service_network_acl" in
   let __resource =
     {
       default_action;
+      id;
       signalr_service_id;
       private_endpoint;
       public_network;

@@ -7,6 +7,7 @@ type aws_servicecatalog_product_portfolio_association
 
 val aws_servicecatalog_product_portfolio_association :
   ?accept_language:string ->
+  ?id:string ->
   ?source_portfolio_id:string ->
   ?timeouts:
     aws_servicecatalog_product_portfolio_association__timeouts ->

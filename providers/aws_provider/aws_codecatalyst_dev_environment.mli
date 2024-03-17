@@ -10,6 +10,7 @@ type aws_codecatalyst_dev_environment
 
 val aws_codecatalyst_dev_environment :
   ?alias:string ->
+  ?id:string ->
   ?inactivity_timeout_minutes:float ->
   ?timeouts:aws_codecatalyst_dev_environment__timeouts ->
   instance_type:string ->

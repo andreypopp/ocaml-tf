@@ -223,15 +223,16 @@ type kubernetes_network_policy__spec = {
 (** spec represents the specification of the desired behavior for this NetworkPolicy. *)
 
 type kubernetes_network_policy = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_network_policy__metadata list;
   spec : kubernetes_network_policy__spec list;
 }
 [@@deriving yojson_of]
 (** kubernetes_network_policy *)
 
-let kubernetes_network_policy ~metadata ~spec __resource_id =
+let kubernetes_network_policy ?id ~metadata ~spec __resource_id =
   let __resource_type = "kubernetes_network_policy" in
-  let __resource = { metadata; spec } in
+  let __resource = { id; metadata; spec } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_network_policy __resource);
   ()

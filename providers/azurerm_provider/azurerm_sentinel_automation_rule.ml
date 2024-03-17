@@ -43,9 +43,11 @@ type azurerm_sentinel_automation_rule__timeouts = {
 (** azurerm_sentinel_automation_rule__timeouts *)
 
 type azurerm_sentinel_automation_rule = {
+  condition_json : string option; [@option]  (** condition_json *)
   display_name : string;  (** display_name *)
   enabled : bool option; [@option]  (** enabled *)
   expiration : string option; [@option]  (** expiration *)
+  id : string option; [@option]  (** id *)
   log_analytics_workspace_id : string;
       (** log_analytics_workspace_id *)
   name : string;  (** name *)
@@ -62,16 +64,18 @@ type azurerm_sentinel_automation_rule = {
 [@@deriving yojson_of]
 (** azurerm_sentinel_automation_rule *)
 
-let azurerm_sentinel_automation_rule ?enabled ?expiration
-    ?triggers_on ?triggers_when ?timeouts ~display_name
-    ~log_analytics_workspace_id ~name ~order ~action_incident
-    ~action_playbook ~condition __resource_id =
+let azurerm_sentinel_automation_rule ?condition_json ?enabled
+    ?expiration ?id ?triggers_on ?triggers_when ?timeouts
+    ~display_name ~log_analytics_workspace_id ~name ~order
+    ~action_incident ~action_playbook ~condition __resource_id =
   let __resource_type = "azurerm_sentinel_automation_rule" in
   let __resource =
     {
+      condition_json;
       display_name;
       enabled;
       expiration;
+      id;
       log_analytics_workspace_id;
       name;
       order;

@@ -13,6 +13,7 @@ type azurerm_resource_management_private_link_association__timeouts = {
 (** azurerm_resource_management_private_link_association__timeouts *)
 
 type azurerm_resource_management_private_link_association = {
+  id : string option; [@option]  (** id *)
   management_group_id : string;  (** management_group_id *)
   name : string option; [@option]  (** name *)
   public_network_access_enabled : bool;
@@ -26,7 +27,7 @@ type azurerm_resource_management_private_link_association = {
 [@@deriving yojson_of]
 (** azurerm_resource_management_private_link_association *)
 
-let azurerm_resource_management_private_link_association ?name
+let azurerm_resource_management_private_link_association ?id ?name
     ?timeouts ~management_group_id ~public_network_access_enabled
     ~resource_management_private_link_id __resource_id =
   let __resource_type =
@@ -34,6 +35,7 @@ let azurerm_resource_management_private_link_association ?name
   in
   let __resource =
     {
+      id;
       management_group_id;
       name;
       public_network_access_enabled;

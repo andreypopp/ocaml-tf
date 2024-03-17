@@ -47,10 +47,13 @@ type cloudflare_load_balancer_pool__origins = {
 type cloudflare_load_balancer_pool = {
   account_id : string;
       (** The account identifier to target for the resource. *)
+  check_regions : string list option; [@option]
+      (** A list of regions (specified by region code) from which to run health checks. Empty means every Cloudflare data center (the default), but requires an Enterprise plan. Region codes can be found [here](https://developers.cloudflare.com/load-balancing/reference/region-mapping-api). *)
   description : string option; [@option]
       (** Free text description. *)
   enabled : bool option; [@option]
       (** Whether to enable (the default) this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any). Defaults to `true`. *)
+  id : string option; [@option]  (** id *)
   latitude : float option; [@option]
       (** The latitude this pool is physically located at; used for proximity steering. *)
   longitude : float option; [@option]
@@ -72,16 +75,18 @@ type cloudflare_load_balancer_pool = {
 pool of origins that can be used by a Cloudflare Load Balancer.
  *)
 
-let cloudflare_load_balancer_pool ?description ?enabled ?latitude
-    ?longitude ?minimum_origins ?monitor ?notification_email
-    ~account_id ~name ~load_shedding ~origin_steering ~origins
-    __resource_id =
+let cloudflare_load_balancer_pool ?check_regions ?description
+    ?enabled ?id ?latitude ?longitude ?minimum_origins ?monitor
+    ?notification_email ~account_id ~name ~load_shedding
+    ~origin_steering ~origins __resource_id =
   let __resource_type = "cloudflare_load_balancer_pool" in
   let __resource =
     {
       account_id;
+      check_regions;
       description;
       enabled;
+      id;
       latitude;
       longitude;
       minimum_origins;

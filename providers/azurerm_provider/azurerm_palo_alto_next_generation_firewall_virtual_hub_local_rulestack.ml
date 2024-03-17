@@ -69,6 +69,7 @@ type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__tim
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__timeouts *)
 
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   rulestack_id : string;  (** rulestack_id *)
@@ -90,13 +91,14 @@ type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack = {
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack *)
 
 let azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
-    ?tags ?timeouts ~name ~resource_group_name ~rulestack_id
+    ?id ?tags ?timeouts ~name ~resource_group_name ~rulestack_id
     ~destination_nat ~dns_settings ~network_profile __resource_id =
   let __resource_type =
     "azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack"
   in
   let __resource =
     {
+      id;
       name;
       resource_group_name;
       rulestack_id;

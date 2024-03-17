@@ -10,6 +10,7 @@ type azurerm_api_management_logger
 val azurerm_api_management_logger :
   ?buffered:bool ->
   ?description:string ->
+  ?id:string ->
   ?resource_id:string ->
   ?timeouts:azurerm_api_management_logger__timeouts ->
   api_management_name:string ->

@@ -6,6 +6,7 @@ type azurerm_disk_pool__timeouts
 type azurerm_disk_pool
 
 val azurerm_disk_pool :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_disk_pool__timeouts ->
   location:string ->

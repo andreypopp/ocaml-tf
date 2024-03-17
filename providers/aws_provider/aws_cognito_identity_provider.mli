@@ -5,6 +5,8 @@ open! Tf.Prelude
 type aws_cognito_identity_provider
 
 val aws_cognito_identity_provider :
+  ?attribute_mapping:(string * string) list ->
+  ?id:string ->
   ?idp_identifiers:string list ->
   provider_details:(string * string) list ->
   provider_name:string ->

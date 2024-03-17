@@ -29,9 +29,14 @@ type aws_sfn_state_machine__tracing_configuration = {
 
 type aws_sfn_state_machine = {
   definition : string;  (** definition *)
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
+  name_prefix : string option; [@option]  (** name_prefix *)
   publish : bool option; [@option]  (** publish *)
   role_arn : string;  (** role_arn *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   type_ : string option; [@option] [@key "type"]  (** type *)
   logging_configuration :
     aws_sfn_state_machine__logging_configuration list;
@@ -42,16 +47,20 @@ type aws_sfn_state_machine = {
 [@@deriving yojson_of]
 (** aws_sfn_state_machine *)
 
-let aws_sfn_state_machine ?publish ?tags ?type_ ?timeouts ~definition
-    ~role_arn ~logging_configuration ~tracing_configuration
-    __resource_id =
+let aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
+    ?tags_all ?type_ ?timeouts ~definition ~role_arn
+    ~logging_configuration ~tracing_configuration __resource_id =
   let __resource_type = "aws_sfn_state_machine" in
   let __resource =
     {
       definition;
+      id;
+      name;
+      name_prefix;
       publish;
       role_arn;
       tags;
+      tags_all;
       type_;
       logging_configuration;
       timeouts;

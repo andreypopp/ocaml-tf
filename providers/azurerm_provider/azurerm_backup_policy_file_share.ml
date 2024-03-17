@@ -66,6 +66,7 @@ type azurerm_backup_policy_file_share__timeouts = {
 (** azurerm_backup_policy_file_share__timeouts *)
 
 type azurerm_backup_policy_file_share = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   recovery_vault_name : string;  (** recovery_vault_name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -84,13 +85,14 @@ type azurerm_backup_policy_file_share = {
 [@@deriving yojson_of]
 (** azurerm_backup_policy_file_share *)
 
-let azurerm_backup_policy_file_share ?timezone ?timeouts ~name
+let azurerm_backup_policy_file_share ?id ?timezone ?timeouts ~name
     ~recovery_vault_name ~resource_group_name ~backup
     ~retention_daily ~retention_monthly ~retention_weekly
     ~retention_yearly __resource_id =
   let __resource_type = "azurerm_backup_policy_file_share" in
   let __resource =
     {
+      id;
       name;
       recovery_vault_name;
       resource_group_name;

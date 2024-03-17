@@ -22,6 +22,7 @@ type cloudflare_email_routing_catch_all__matcher = {
 
 type cloudflare_email_routing_catch_all = {
   enabled : bool option; [@option]  (** Routing rule status. *)
+  id : string option; [@option]  (** id *)
   name : string;  (** Routing rule name. *)
   zone_id : string;
       (** The zone identifier to target for the resource. *)
@@ -32,10 +33,10 @@ type cloudflare_email_routing_catch_all = {
 (** Provides a resource for managing Email Routing Addresses catch all behaviour.
  *)
 
-let cloudflare_email_routing_catch_all ?enabled ~name ~zone_id
+let cloudflare_email_routing_catch_all ?enabled ?id ~name ~zone_id
     ~action ~matcher __resource_id =
   let __resource_type = "cloudflare_email_routing_catch_all" in
-  let __resource = { enabled; name; zone_id; action; matcher } in
+  let __resource = { enabled; id; name; zone_id; action; matcher } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_email_routing_catch_all __resource);
   ()

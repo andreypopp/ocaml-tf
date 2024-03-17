@@ -9,6 +9,7 @@ val aws_pinpoint_apns_voip_sandbox_channel :
   ?certificate:string ->
   ?default_authentication_method:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?private_key:string ->
   ?team_id:string ->
   ?token_key:string ->

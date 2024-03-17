@@ -7,6 +7,7 @@ type azurerm_bot_channel_directline__timeouts
 type azurerm_bot_channel_directline
 
 val azurerm_bot_channel_directline :
+  ?id:string ->
   ?timeouts:azurerm_bot_channel_directline__timeouts ->
   bot_name:string ->
   location:string ->

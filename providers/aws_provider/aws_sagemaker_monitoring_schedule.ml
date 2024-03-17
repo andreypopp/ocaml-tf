@@ -22,7 +22,11 @@ type aws_sagemaker_monitoring_schedule__monitoring_schedule_config = {
 (** aws_sagemaker_monitoring_schedule__monitoring_schedule_config *)
 
 type aws_sagemaker_monitoring_schedule = {
+  id : string option; [@option]  (** id *)
+  name : string option; [@option]  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   monitoring_schedule_config :
     aws_sagemaker_monitoring_schedule__monitoring_schedule_config
     list;
@@ -30,10 +34,12 @@ type aws_sagemaker_monitoring_schedule = {
 [@@deriving yojson_of]
 (** aws_sagemaker_monitoring_schedule *)
 
-let aws_sagemaker_monitoring_schedule ?tags
+let aws_sagemaker_monitoring_schedule ?id ?name ?tags ?tags_all
     ~monitoring_schedule_config __resource_id =
   let __resource_type = "aws_sagemaker_monitoring_schedule" in
-  let __resource = { tags; monitoring_schedule_config } in
+  let __resource =
+    { id; name; tags; tags_all; monitoring_schedule_config }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_sagemaker_monitoring_schedule __resource);
   ()

@@ -17,7 +17,9 @@ val aws_ssmincidents_response_plan :
   ?chat_channel:string list ->
   ?display_name:string ->
   ?engagements:string list ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   action:aws_ssmincidents_response_plan__action list ->
   incident_template:

@@ -15,6 +15,7 @@ type azurerm_hpc_cache
 
 val azurerm_hpc_cache :
   ?automatically_rotate_key_to_latest_enabled:bool ->
+  ?id:string ->
   ?key_vault_key_id:string ->
   ?mtu:float ->
   ?ntp_server:string ->

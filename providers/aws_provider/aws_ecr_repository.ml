@@ -25,10 +25,13 @@ type aws_ecr_repository__timeouts = {
 
 type aws_ecr_repository = {
   force_delete : bool option; [@option]  (** force_delete *)
+  id : string option; [@option]  (** id *)
   image_tag_mutability : string option; [@option]
       (** image_tag_mutability *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   encryption_configuration :
     aws_ecr_repository__encryption_configuration list;
   image_scanning_configuration :
@@ -38,16 +41,18 @@ type aws_ecr_repository = {
 [@@deriving yojson_of]
 (** aws_ecr_repository *)
 
-let aws_ecr_repository ?force_delete ?image_tag_mutability ?tags
-    ?timeouts ~name ~encryption_configuration
+let aws_ecr_repository ?force_delete ?id ?image_tag_mutability ?tags
+    ?tags_all ?timeouts ~name ~encryption_configuration
     ~image_scanning_configuration __resource_id =
   let __resource_type = "aws_ecr_repository" in
   let __resource =
     {
       force_delete;
+      id;
       image_tag_mutability;
       name;
       tags;
+      tags_all;
       encryption_configuration;
       image_scanning_configuration;
       timeouts;

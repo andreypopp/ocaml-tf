@@ -333,6 +333,9 @@ type azurerm_cdn_endpoint__timeouts = {
 (** azurerm_cdn_endpoint__timeouts *)
 
 type azurerm_cdn_endpoint = {
+  content_types_to_compress : string list option; [@option]
+      (** content_types_to_compress *)
+  id : string option; [@option]  (** id *)
   is_compression_enabled : bool option; [@option]
       (** is_compression_enabled *)
   is_http_allowed : bool option; [@option]  (** is_http_allowed *)
@@ -343,6 +346,8 @@ type azurerm_cdn_endpoint = {
       (** optimization_type *)
   origin_host_header : string option; [@option]
       (** origin_host_header *)
+  origin_path : string option; [@option]  (** origin_path *)
+  probe_path : string option; [@option]  (** probe_path *)
   profile_name : string;  (** profile_name *)
   querystring_caching_behaviour : string option; [@option]
       (** querystring_caching_behaviour *)
@@ -358,14 +363,17 @@ type azurerm_cdn_endpoint = {
 [@@deriving yojson_of]
 (** azurerm_cdn_endpoint *)
 
-let azurerm_cdn_endpoint ?is_compression_enabled ?is_http_allowed
-    ?is_https_allowed ?optimization_type ?origin_host_header
+let azurerm_cdn_endpoint ?content_types_to_compress ?id
+    ?is_compression_enabled ?is_http_allowed ?is_https_allowed
+    ?optimization_type ?origin_host_header ?origin_path ?probe_path
     ?querystring_caching_behaviour ?tags ?timeouts ~location ~name
     ~profile_name ~resource_group_name ~delivery_rule ~geo_filter
     ~global_delivery_rule ~origin __resource_id =
   let __resource_type = "azurerm_cdn_endpoint" in
   let __resource =
     {
+      content_types_to_compress;
+      id;
       is_compression_enabled;
       is_http_allowed;
       is_https_allowed;
@@ -373,6 +381,8 @@ let azurerm_cdn_endpoint ?is_compression_enabled ?is_http_allowed
       name;
       optimization_type;
       origin_host_header;
+      origin_path;
+      probe_path;
       profile_name;
       querystring_caching_behaviour;
       resource_group_name;

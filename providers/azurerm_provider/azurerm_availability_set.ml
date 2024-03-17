@@ -14,6 +14,7 @@ type azurerm_availability_set__timeouts = {
 (** azurerm_availability_set__timeouts *)
 
 type azurerm_availability_set = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   managed : bool option; [@option]  (** managed *)
   name : string;  (** name *)
@@ -30,12 +31,14 @@ type azurerm_availability_set = {
 [@@deriving yojson_of]
 (** azurerm_availability_set *)
 
-let azurerm_availability_set ?managed ?platform_fault_domain_count
-    ?platform_update_domain_count ?proximity_placement_group_id ?tags
-    ?timeouts ~location ~name ~resource_group_name __resource_id =
+let azurerm_availability_set ?id ?managed
+    ?platform_fault_domain_count ?platform_update_domain_count
+    ?proximity_placement_group_id ?tags ?timeouts ~location ~name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_availability_set" in
   let __resource =
     {
+      id;
       location;
       managed;
       name;

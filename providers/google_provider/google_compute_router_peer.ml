@@ -91,8 +91,17 @@ If set to true, the peer connection can be established with routing information.
 The default is true. *)
   enable_ipv6 : bool option; [@option]
       (** Enable IPv6 traffic over BGP Peer. If not specified, it is disabled by default. *)
+  id : string option; [@option]  (** id *)
   interface : string;
       (** Name of the interface the BGP peer is associated with. *)
+  ip_address : string option; [@option]
+      (** IP address of the interface inside Google Cloud Platform.
+Only IPv4 is supported. *)
+  ipv6_nexthop_address : string option; [@option]
+      (** IPv6 address of the interface inside Google Cloud Platform.
+The address must be in the range 2600:2d00:0:2::/64 or 2600:2d00:0:3::/64.
+If you do not specify the next hop addresses, Google Cloud automatically
+assigns unused addresses from the 2600:2d00:0:2::/64 or 2600:2d00:0:3::/64 range for you. *)
   name : string;
       (** Name of this BGP peer. The name must be 1-63 characters long,
 and comply with RFC1035. Specifically, the name must be 1-63 characters
@@ -103,6 +112,18 @@ except the last character, which cannot be a dash. *)
   peer_asn : float;
       (** Peer BGP Autonomous System Number (ASN).
 Each BGP interface may use a different value. *)
+  peer_ip_address : string option; [@option]
+      (** IP address of the BGP interface outside Google Cloud Platform.
+Only IPv4 is supported. Required if 'ip_address' is set. *)
+  peer_ipv6_nexthop_address : string option; [@option]
+      (** IPv6 address of the BGP interface outside Google Cloud Platform.
+The address must be in the range 2600:2d00:0:2::/64 or 2600:2d00:0:3::/64.
+If you do not specify the next hop addresses, Google Cloud automatically
+assigns unused addresses from the 2600:2d00:0:2::/64 or 2600:2d00:0:3::/64 range for you. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** Region where the router and BgpPeer reside.
+If it is not provided, the provider region is used. *)
   router : string;
       (** The name of the Cloud Router in which this BgpPeer will be configured. *)
   router_appliance_instance : string option; [@option]
@@ -121,10 +142,11 @@ this Cloud Router. The VM instance is the peer side of the BGP session. *)
 (** google_compute_router_peer *)
 
 let google_compute_router_peer ?advertise_mode ?advertised_groups
-    ?advertised_route_priority ?enable ?enable_ipv6
-    ?router_appliance_instance ?timeouts ~interface ~name ~peer_asn
-    ~router ~advertised_ip_ranges ~bfd ~md5_authentication_key
-    __resource_id =
+    ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
+    ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
+    ?project ?region ?router_appliance_instance ?timeouts ~interface
+    ~name ~peer_asn ~router ~advertised_ip_ranges ~bfd
+    ~md5_authentication_key __resource_id =
   let __resource_type = "google_compute_router_peer" in
   let __resource =
     {
@@ -133,9 +155,16 @@ let google_compute_router_peer ?advertise_mode ?advertised_groups
       advertised_route_priority;
       enable;
       enable_ipv6;
+      id;
       interface;
+      ip_address;
+      ipv6_nexthop_address;
       name;
       peer_asn;
+      peer_ip_address;
+      peer_ipv6_nexthop_address;
+      project;
+      region;
       router;
       router_appliance_instance;
       advertised_ip_ranges;

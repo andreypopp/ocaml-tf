@@ -11,6 +11,7 @@ val azurerm_data_factory_custom_dataset :
   ?annotations:string list ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?schema_json:string ->
   ?timeouts:azurerm_data_factory_custom_dataset__timeouts ->

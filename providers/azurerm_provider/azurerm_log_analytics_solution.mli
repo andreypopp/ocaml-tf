@@ -7,6 +7,7 @@ type azurerm_log_analytics_solution__timeouts
 type azurerm_log_analytics_solution
 
 val azurerm_log_analytics_solution :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_log_analytics_solution__timeouts ->
   location:string ->

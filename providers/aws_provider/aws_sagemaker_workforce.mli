@@ -9,6 +9,7 @@ type aws_sagemaker_workforce__workforce_vpc_config
 type aws_sagemaker_workforce
 
 val aws_sagemaker_workforce :
+  ?id:string ->
   workforce_name:string ->
   cognito_config:aws_sagemaker_workforce__cognito_config list ->
   oidc_config:aws_sagemaker_workforce__oidc_config list ->

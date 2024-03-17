@@ -11,6 +11,7 @@ val aws_athena_database :
   ?comment:string ->
   ?expected_bucket_owner:string ->
   ?force_destroy:bool ->
+  ?id:string ->
   ?properties:(string * string) list ->
   name:string ->
   acl_configuration:aws_athena_database__acl_configuration list ->

@@ -70,6 +70,7 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
       (** The delivery_pipeline for the resource *)
   description : string option; [@option]
       (** Optional. Description of the 'Automation'. Max length is 255 characters. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. Labels are attributes that can be set and used by both the user and by Cloud Deploy. Labels must meet the following constraints: * Keys and values can contain only lowercase letters, numeric characters, underscores, and dashes. * All characters must use UTF-8 encoding, and international characters are allowed. * Keys must start with a lowercase letter or international character. * Each resource is limited to a maximum of 64 labels. Both keys and values are additionally constrained to be <= 63 characters.
 
@@ -77,6 +78,7 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;  (** The location for the resource *)
   name : string;  (** Name of the 'Automation'. *)
+  project : string option; [@option]  (** project *)
   service_account : string;
       (** Required. Email address of the user-managed IAM service account that creates Cloud Deploy release and rollout resources. *)
   suspended : bool option; [@option]
@@ -88,18 +90,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_clouddeploy_automation *)
 
-let google_clouddeploy_automation ?annotations ?description ?labels
-    ?suspended ?timeouts ~delivery_pipeline ~location ~name
-    ~service_account ~rules ~selector __resource_id =
+let google_clouddeploy_automation ?annotations ?description ?id
+    ?labels ?project ?suspended ?timeouts ~delivery_pipeline
+    ~location ~name ~service_account ~rules ~selector __resource_id =
   let __resource_type = "google_clouddeploy_automation" in
   let __resource =
     {
       annotations;
       delivery_pipeline;
       description;
+      id;
       labels;
       location;
       name;
+      project;
       service_account;
       suspended;
       rules;

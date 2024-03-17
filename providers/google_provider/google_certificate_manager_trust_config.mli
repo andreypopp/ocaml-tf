@@ -13,7 +13,9 @@ type google_certificate_manager_trust_config
 
 val google_certificate_manager_trust_config :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?timeouts:google_certificate_manager_trust_config__timeouts ->
   location:string ->
   name:string ->

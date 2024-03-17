@@ -9,6 +9,8 @@ type google_dns_response_policy
 
 val google_dns_response_policy :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_dns_response_policy__timeouts ->
   response_policy_name:string ->
   gke_clusters:google_dns_response_policy__gke_clusters list ->

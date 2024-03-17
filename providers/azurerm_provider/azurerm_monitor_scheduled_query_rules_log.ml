@@ -36,6 +36,7 @@ type azurerm_monitor_scheduled_query_rules_log = {
   data_source_id : string;  (** data_source_id *)
   description : string option; [@option]  (** description *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -49,9 +50,9 @@ type azurerm_monitor_scheduled_query_rules_log = {
 (** azurerm_monitor_scheduled_query_rules_log *)
 
 let azurerm_monitor_scheduled_query_rules_log
-    ?authorized_resource_ids ?description ?enabled ?tags ?timeouts
-    ~data_source_id ~location ~name ~resource_group_name ~criteria
-    __resource_id =
+    ?authorized_resource_ids ?description ?enabled ?id ?tags
+    ?timeouts ~data_source_id ~location ~name ~resource_group_name
+    ~criteria __resource_id =
   let __resource_type =
     "azurerm_monitor_scheduled_query_rules_log"
   in
@@ -61,6 +62,7 @@ let azurerm_monitor_scheduled_query_rules_log
       data_source_id;
       description;
       enabled;
+      id;
       location;
       name;
       resource_group_name;

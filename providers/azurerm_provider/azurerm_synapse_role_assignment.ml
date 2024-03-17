@@ -13,6 +13,7 @@ type azurerm_synapse_role_assignment__timeouts = {
 (** azurerm_synapse_role_assignment__timeouts *)
 
 type azurerm_synapse_role_assignment = {
+  id : string option; [@option]  (** id *)
   principal_id : string;  (** principal_id *)
   principal_type : string option; [@option]  (** principal_type *)
   role_name : string;  (** role_name *)
@@ -25,12 +26,13 @@ type azurerm_synapse_role_assignment = {
 [@@deriving yojson_of]
 (** azurerm_synapse_role_assignment *)
 
-let azurerm_synapse_role_assignment ?principal_type
+let azurerm_synapse_role_assignment ?id ?principal_type
     ?synapse_spark_pool_id ?synapse_workspace_id ?timeouts
     ~principal_id ~role_name __resource_id =
   let __resource_type = "azurerm_synapse_role_assignment" in
   let __resource =
     {
+      id;
       principal_id;
       principal_type;
       role_name;

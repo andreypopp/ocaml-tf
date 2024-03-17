@@ -16,6 +16,8 @@ type google_scc_project_custom_module__timeouts
 type google_scc_project_custom_module
 
 val google_scc_project_custom_module :
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_scc_project_custom_module__timeouts ->
   display_name:string ->
   enablement_state:string ->

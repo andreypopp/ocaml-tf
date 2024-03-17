@@ -13,6 +13,7 @@ type azurerm_postgresql_flexible_server_active_directory_administrator__timeouts
 (** azurerm_postgresql_flexible_server_active_directory_administrator__timeouts *)
 
 type azurerm_postgresql_flexible_server_active_directory_administrator = {
+  id : string option; [@option]  (** id *)
   object_id : string;  (** object_id *)
   principal_name : string;  (** principal_name *)
   principal_type : string;  (** principal_type *)
@@ -27,13 +28,14 @@ type azurerm_postgresql_flexible_server_active_directory_administrator = {
 (** azurerm_postgresql_flexible_server_active_directory_administrator *)
 
 let azurerm_postgresql_flexible_server_active_directory_administrator
-    ?timeouts ~object_id ~principal_name ~principal_type
+    ?id ?timeouts ~object_id ~principal_name ~principal_type
     ~resource_group_name ~server_name ~tenant_id __resource_id =
   let __resource_type =
     "azurerm_postgresql_flexible_server_active_directory_administrator"
   in
   let __resource =
     {
+      id;
       object_id;
       principal_name;
       principal_type;

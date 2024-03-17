@@ -10,11 +10,11 @@ type azurerm_mssql_managed_instance_failover_group__partner_region = {
   location : string;  (** location *)
   role : string;  (** role *)
 }
-[@@deriving yojson_of]
 
 type azurerm_mssql_managed_instance_failover_group
 
 val azurerm_mssql_managed_instance_failover_group :
+  ?id:string ->
   ?readonly_endpoint_failover_policy_enabled:bool ->
   ?timeouts:azurerm_mssql_managed_instance_failover_group__timeouts ->
   location:string ->

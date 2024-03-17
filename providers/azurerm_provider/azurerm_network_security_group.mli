@@ -28,11 +28,12 @@ type azurerm_network_security_group__security_rule = {
   source_port_range : string;  (** source_port_range *)
   source_port_ranges : string list;  (** source_port_ranges *)
 }
-[@@deriving yojson_of]
 
 type azurerm_network_security_group
 
 val azurerm_network_security_group :
+  ?id:string ->
+  ?security_rule:azurerm_network_security_group__security_rule list ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_network_security_group__timeouts ->
   location:string ->

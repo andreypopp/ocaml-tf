@@ -17,6 +17,7 @@ type azurerm_dev_test_policy = {
   description : string option; [@option]  (** description *)
   evaluator_type : string;  (** evaluator_type *)
   fact_data : string option; [@option]  (** fact_data *)
+  id : string option; [@option]  (** id *)
   lab_name : string;  (** lab_name *)
   name : string;  (** name *)
   policy_set_name : string;  (** policy_set_name *)
@@ -28,8 +29,8 @@ type azurerm_dev_test_policy = {
 [@@deriving yojson_of]
 (** azurerm_dev_test_policy *)
 
-let azurerm_dev_test_policy ?description ?fact_data ?tags ?timeouts
-    ~evaluator_type ~lab_name ~name ~policy_set_name
+let azurerm_dev_test_policy ?description ?fact_data ?id ?tags
+    ?timeouts ~evaluator_type ~lab_name ~name ~policy_set_name
     ~resource_group_name ~threshold __resource_id =
   let __resource_type = "azurerm_dev_test_policy" in
   let __resource =
@@ -37,6 +38,7 @@ let azurerm_dev_test_policy ?description ?fact_data ?tags ?timeouts
       description;
       evaluator_type;
       fact_data;
+      id;
       lab_name;
       name;
       policy_set_name;

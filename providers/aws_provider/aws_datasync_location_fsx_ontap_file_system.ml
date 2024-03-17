@@ -45,27 +45,34 @@ type aws_datasync_location_fsx_ontap_file_system__protocol = {
 (** aws_datasync_location_fsx_ontap_file_system__protocol *)
 
 type aws_datasync_location_fsx_ontap_file_system = {
+  id : string option; [@option]  (** id *)
   security_group_arns : string list;  (** security_group_arns *)
   storage_virtual_machine_arn : string;
       (** storage_virtual_machine_arn *)
+  subdirectory : string option; [@option]  (** subdirectory *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   protocol :
     aws_datasync_location_fsx_ontap_file_system__protocol list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_fsx_ontap_file_system *)
 
-let aws_datasync_location_fsx_ontap_file_system ?tags
-    ~security_group_arns ~storage_virtual_machine_arn ~protocol
-    __resource_id =
+let aws_datasync_location_fsx_ontap_file_system ?id ?subdirectory
+    ?tags ?tags_all ~security_group_arns ~storage_virtual_machine_arn
+    ~protocol __resource_id =
   let __resource_type =
     "aws_datasync_location_fsx_ontap_file_system"
   in
   let __resource =
     {
+      id;
       security_group_arns;
       storage_virtual_machine_arn;
+      subdirectory;
       tags;
+      tags_all;
       protocol;
     }
   in

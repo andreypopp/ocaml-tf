@@ -11,12 +11,13 @@ type google_discovery_engine_chat_engine__timeouts
 type google_discovery_engine_chat_engine__chat_engine_metadata = {
   dialogflow_agent : string;  (** dialogflow_agent *)
 }
-[@@deriving yojson_of]
 
 type google_discovery_engine_chat_engine
 
 val google_discovery_engine_chat_engine :
+  ?id:string ->
   ?industry_vertical:string ->
+  ?project:string ->
   ?timeouts:google_discovery_engine_chat_engine__timeouts ->
   collection_id:string ->
   data_store_ids:string list ->

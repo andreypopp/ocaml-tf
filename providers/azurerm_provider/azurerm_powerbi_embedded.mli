@@ -6,6 +6,7 @@ type azurerm_powerbi_embedded__timeouts
 type azurerm_powerbi_embedded
 
 val azurerm_powerbi_embedded :
+  ?id:string ->
   ?mode:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_powerbi_embedded__timeouts ->

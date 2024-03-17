@@ -10,6 +10,7 @@ type aws_config_remediation_configuration
 
 val aws_config_remediation_configuration :
   ?automatic:bool ->
+  ?id:string ->
   ?maximum_automatic_attempts:float ->
   ?resource_type:string ->
   ?retry_attempt_seconds:float ->

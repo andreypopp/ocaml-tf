@@ -70,6 +70,7 @@ type google_dataplex_zone = {
       (** Optional. Description of the zone. *)
   display_name : string option; [@option]
       (** Optional. User friendly display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Optional. User defined labels for the zone.
 
@@ -78,6 +79,8 @@ Please refer to the field `effective_labels` for all of the labels present on th
   lake : string;  (** The lake for the resource *)
   location : string;  (** The location for the resource *)
   name : string;  (** The name of the zone. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   type_ : string; [@key "type"]
       (** Required. Immutable. The type of the zone. Possible values: TYPE_UNSPECIFIED, RAW, CURATED *)
   discovery_spec : google_dataplex_zone__discovery_spec list;
@@ -87,18 +90,20 @@ Please refer to the field `effective_labels` for all of the labels present on th
 [@@deriving yojson_of]
 (** google_dataplex_zone *)
 
-let google_dataplex_zone ?description ?display_name ?labels ?timeouts
-    ~lake ~location ~name ~type_ ~discovery_spec ~resource_spec
-    __resource_id =
+let google_dataplex_zone ?description ?display_name ?id ?labels
+    ?project ?timeouts ~lake ~location ~name ~type_ ~discovery_spec
+    ~resource_spec __resource_id =
   let __resource_type = "google_dataplex_zone" in
   let __resource =
     {
       description;
       display_name;
+      id;
       labels;
       lake;
       location;
       name;
+      project;
       type_;
       discovery_spec;
       resource_spec;

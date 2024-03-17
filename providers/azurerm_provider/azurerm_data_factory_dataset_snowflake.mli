@@ -11,6 +11,7 @@ val azurerm_data_factory_dataset_snowflake :
   ?annotations:string list ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?schema_name:string ->
   ?table_name:string ->

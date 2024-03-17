@@ -11,6 +11,7 @@ val azurerm_data_factory_dataset_http :
   ?annotations:string list ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?parameters:(string * string) list ->
   ?relative_url:string ->
   ?request_body:string ->

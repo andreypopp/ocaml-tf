@@ -13,6 +13,7 @@ type azurerm_palo_alto_virtual_network_appliance__timeouts = {
 (** azurerm_palo_alto_virtual_network_appliance__timeouts *)
 
 type azurerm_palo_alto_virtual_network_appliance = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   virtual_hub_id : string;  (** virtual_hub_id *)
   timeouts :
@@ -21,12 +22,12 @@ type azurerm_palo_alto_virtual_network_appliance = {
 [@@deriving yojson_of]
 (** azurerm_palo_alto_virtual_network_appliance *)
 
-let azurerm_palo_alto_virtual_network_appliance ?timeouts ~name
+let azurerm_palo_alto_virtual_network_appliance ?id ?timeouts ~name
     ~virtual_hub_id __resource_id =
   let __resource_type =
     "azurerm_palo_alto_virtual_network_appliance"
   in
-  let __resource = { name; virtual_hub_id; timeouts } in
+  let __resource = { id; name; virtual_hub_id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_palo_alto_virtual_network_appliance __resource);
   ()

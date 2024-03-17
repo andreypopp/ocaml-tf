@@ -23,6 +23,7 @@ type azurerm_logic_app_action_http__timeouts = {
 type azurerm_logic_app_action_http = {
   body : string option; [@option]  (** body *)
   headers : (string * string) list option; [@option]  (** headers *)
+  id : string option; [@option]  (** id *)
   logic_app_id : string;  (** logic_app_id *)
   method_ : string; [@key "method"]  (** method *)
   name : string;  (** name *)
@@ -34,13 +35,15 @@ type azurerm_logic_app_action_http = {
 [@@deriving yojson_of]
 (** azurerm_logic_app_action_http *)
 
-let azurerm_logic_app_action_http ?body ?headers ?queries ?timeouts
-    ~logic_app_id ~method_ ~name ~uri ~run_after __resource_id =
+let azurerm_logic_app_action_http ?body ?headers ?id ?queries
+    ?timeouts ~logic_app_id ~method_ ~name ~uri ~run_after
+    __resource_id =
   let __resource_type = "azurerm_logic_app_action_http" in
   let __resource =
     {
       body;
       headers;
+      id;
       logic_app_id;
       method_;
       name;

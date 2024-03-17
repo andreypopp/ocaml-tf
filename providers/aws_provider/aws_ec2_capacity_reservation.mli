@@ -9,10 +9,12 @@ val aws_ec2_capacity_reservation :
   ?end_date:string ->
   ?end_date_type:string ->
   ?ephemeral_storage:bool ->
+  ?id:string ->
   ?instance_match_criteria:string ->
   ?outpost_arn:string ->
   ?placement_group_arn:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?tenancy:string ->
   availability_zone:string ->
   instance_count:float ->

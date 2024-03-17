@@ -11,11 +11,15 @@ type google_app_engine_application__url_dispatch_rule = {
   path : string;  (** path *)
   service : string;  (** service *)
 }
-[@@deriving yojson_of]
 
 type google_app_engine_application
 
 val google_app_engine_application :
+  ?auth_domain:string ->
+  ?database_type:string ->
+  ?id:string ->
+  ?project:string ->
+  ?serving_status:string ->
   ?timeouts:google_app_engine_application__timeouts ->
   location_id:string ->
   feature_settings:

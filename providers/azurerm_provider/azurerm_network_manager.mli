@@ -10,12 +10,12 @@ type azurerm_network_manager__cross_tenant_scopes = {
   subscriptions : string list;  (** subscriptions *)
   tenant_id : string;  (** tenant_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_network_manager
 
 val azurerm_network_manager :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_network_manager__timeouts ->
   location:string ->

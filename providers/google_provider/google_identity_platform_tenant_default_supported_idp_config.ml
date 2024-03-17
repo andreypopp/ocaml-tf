@@ -17,6 +17,7 @@ type google_identity_platform_tenant_default_supported_idp_config = {
   client_secret : string;  (** OAuth client secret *)
   enabled : bool option; [@option]
       (** If this IDP allows the user to sign in *)
+  id : string option; [@option]  (** id *)
   idp_id : string;
       (** ID of the IDP. Possible values include:
 
@@ -39,6 +40,7 @@ type google_identity_platform_tenant_default_supported_idp_config = {
 * 'twitter.com'
 
 * 'yahoo.com' *)
+  project : string option; [@option]  (** project *)
   tenant : string;
       (** The name of the tenant where this DefaultSupportedIdpConfig resource exists *)
   timeouts :
@@ -49,13 +51,22 @@ type google_identity_platform_tenant_default_supported_idp_config = {
 (** google_identity_platform_tenant_default_supported_idp_config *)
 
 let google_identity_platform_tenant_default_supported_idp_config
-    ?enabled ?timeouts ~client_id ~client_secret ~idp_id ~tenant
-    __resource_id =
+    ?enabled ?id ?project ?timeouts ~client_id ~client_secret ~idp_id
+    ~tenant __resource_id =
   let __resource_type =
     "google_identity_platform_tenant_default_supported_idp_config"
   in
   let __resource =
-    { client_id; client_secret; enabled; idp_id; tenant; timeouts }
+    {
+      client_id;
+      client_secret;
+      enabled;
+      id;
+      idp_id;
+      project;
+      tenant;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_tenant_default_supported_idp_config

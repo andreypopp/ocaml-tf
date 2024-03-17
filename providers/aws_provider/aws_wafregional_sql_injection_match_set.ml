@@ -21,6 +21,7 @@ type aws_wafregional_sql_injection_match_set__sql_injection_match_tuple = {
 (** aws_wafregional_sql_injection_match_set__sql_injection_match_tuple *)
 
 type aws_wafregional_sql_injection_match_set = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   sql_injection_match_tuple :
     aws_wafregional_sql_injection_match_set__sql_injection_match_tuple
@@ -29,10 +30,10 @@ type aws_wafregional_sql_injection_match_set = {
 [@@deriving yojson_of]
 (** aws_wafregional_sql_injection_match_set *)
 
-let aws_wafregional_sql_injection_match_set ~name
+let aws_wafregional_sql_injection_match_set ?id ~name
     ~sql_injection_match_tuple __resource_id =
   let __resource_type = "aws_wafregional_sql_injection_match_set" in
-  let __resource = { name; sql_injection_match_tuple } in
+  let __resource = { id; name; sql_injection_match_tuple } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_wafregional_sql_injection_match_set __resource);
   ()

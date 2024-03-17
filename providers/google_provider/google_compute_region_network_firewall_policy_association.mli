@@ -7,6 +7,9 @@ type google_compute_region_network_firewall_policy_association__timeouts
 type google_compute_region_network_firewall_policy_association
 
 val google_compute_region_network_firewall_policy_association :
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:
     google_compute_region_network_firewall_policy_association__timeouts ->
   attachment_target:string ->

@@ -6,6 +6,7 @@ type google_healthcare_dicom_store_iam_member__condition
 type google_healthcare_dicom_store_iam_member
 
 val google_healthcare_dicom_store_iam_member :
+  ?id:string ->
   dicom_store_id:string ->
   member:string ->
   role:string ->

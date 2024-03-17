@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type google_service_account_key = {
+  id : string option; [@option]  (** id *)
   keepers : (string * string) list option; [@option]
       (** Arbitrary map of values that, when changed, will trigger recreation of resource. *)
   key_algorithm : string option; [@option]
@@ -20,12 +21,13 @@ type google_service_account_key = {
 [@@deriving yojson_of]
 (** google_service_account_key *)
 
-let google_service_account_key ?keepers ?key_algorithm
+let google_service_account_key ?id ?keepers ?key_algorithm
     ?private_key_type ?public_key_data ?public_key_type
     ~service_account_id __resource_id =
   let __resource_type = "google_service_account_key" in
   let __resource =
     {
+      id;
       keepers;
       key_algorithm;
       private_key_type;

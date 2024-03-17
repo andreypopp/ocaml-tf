@@ -15,6 +15,8 @@ val azurerm_nginx_deployment :
   ?capacity:float ->
   ?diagnose_support_enabled:bool ->
   ?email:string ->
+  ?id:string ->
+  ?managed_resource_group:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_nginx_deployment__timeouts ->
   location:string ->

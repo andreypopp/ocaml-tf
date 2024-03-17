@@ -23,6 +23,7 @@ type azurerm_eventgrid_system_topic__timeouts = {
 (** azurerm_eventgrid_system_topic__timeouts *)
 
 type azurerm_eventgrid_system_topic = {
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -35,12 +36,13 @@ type azurerm_eventgrid_system_topic = {
 [@@deriving yojson_of]
 (** azurerm_eventgrid_system_topic *)
 
-let azurerm_eventgrid_system_topic ?tags ?timeouts ~location ~name
-    ~resource_group_name ~source_arm_resource_id ~topic_type
+let azurerm_eventgrid_system_topic ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~source_arm_resource_id ~topic_type
     ~identity __resource_id =
   let __resource_type = "azurerm_eventgrid_system_topic" in
   let __resource =
     {
+      id;
       location;
       name;
       resource_group_name;

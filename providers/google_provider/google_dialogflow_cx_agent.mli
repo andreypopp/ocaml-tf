@@ -20,6 +20,8 @@ val google_dialogflow_cx_agent :
   ?description:string ->
   ?enable_spell_correction:bool ->
   ?enable_stackdriver_logging:bool ->
+  ?id:string ->
+  ?project:string ->
   ?security_settings:string ->
   ?supported_language_codes:string list ->
   ?timeouts:google_dialogflow_cx_agent__timeouts ->

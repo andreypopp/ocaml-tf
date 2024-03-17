@@ -7,6 +7,7 @@ type azurerm_api_management_certificate
 
 val azurerm_api_management_certificate :
   ?data:string ->
+  ?id:string ->
   ?key_vault_identity_client_id:string ->
   ?key_vault_secret_id:string ->
   ?password:string ->

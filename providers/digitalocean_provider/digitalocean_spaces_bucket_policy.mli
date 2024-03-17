@@ -5,4 +5,9 @@ open! Tf.Prelude
 type digitalocean_spaces_bucket_policy
 
 val digitalocean_spaces_bucket_policy :
-  bucket:string -> policy:string -> region:string -> string -> unit
+  ?id:string ->
+  bucket:string ->
+  policy:string ->
+  region:string ->
+  string ->
+  unit

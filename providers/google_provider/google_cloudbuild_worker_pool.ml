@@ -40,8 +40,11 @@ type google_cloudbuild_worker_pool = {
 Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
   display_name : string option; [@option]
       (** A user-specified, human-readable name for the `WorkerPool`. If provided, this value must be 1-63 characters. *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location for the resource *)
   name : string;  (** User-defined name of the `WorkerPool`. *)
+  project : string option; [@option]
+      (** The project for the resource *)
   network_config :
     google_cloudbuild_worker_pool__network_config list;
   timeouts : google_cloudbuild_worker_pool__timeouts option;
@@ -50,16 +53,18 @@ Please refer to the field `effective_annotations` for all of the annotations pre
 [@@deriving yojson_of]
 (** google_cloudbuild_worker_pool *)
 
-let google_cloudbuild_worker_pool ?annotations ?display_name
-    ?timeouts ~location ~name ~network_config ~worker_config
+let google_cloudbuild_worker_pool ?annotations ?display_name ?id
+    ?project ?timeouts ~location ~name ~network_config ~worker_config
     __resource_id =
   let __resource_type = "google_cloudbuild_worker_pool" in
   let __resource =
     {
       annotations;
       display_name;
+      id;
       location;
       name;
+      project;
       network_config;
       timeouts;
       worker_config;

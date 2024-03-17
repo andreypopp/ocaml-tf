@@ -17,6 +17,7 @@ type azurerm_storage_mover_agent = {
   arc_virtual_machine_id : string;  (** arc_virtual_machine_id *)
   arc_virtual_machine_uuid : string;  (** arc_virtual_machine_uuid *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   storage_mover_id : string;  (** storage_mover_id *)
   timeouts : azurerm_storage_mover_agent__timeouts option;
@@ -24,7 +25,7 @@ type azurerm_storage_mover_agent = {
 [@@deriving yojson_of]
 (** azurerm_storage_mover_agent *)
 
-let azurerm_storage_mover_agent ?description ?timeouts
+let azurerm_storage_mover_agent ?description ?id ?timeouts
     ~arc_virtual_machine_id ~arc_virtual_machine_uuid ~name
     ~storage_mover_id __resource_id =
   let __resource_type = "azurerm_storage_mover_agent" in
@@ -33,6 +34,7 @@ let azurerm_storage_mover_agent ?description ?timeouts
       arc_virtual_machine_id;
       arc_virtual_machine_uuid;
       description;
+      id;
       name;
       storage_mover_id;
       timeouts;

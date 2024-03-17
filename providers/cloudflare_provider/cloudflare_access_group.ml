@@ -277,7 +277,10 @@ type cloudflare_access_group__require = {
 type cloudflare_access_group = {
   account_id : string option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
+  zone_id : string option; [@option]
+      (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
   exclude : cloudflare_access_group__exclude list;
   include_ : cloudflare_access_group__include list;
   require : cloudflare_access_group__require list;
@@ -288,11 +291,11 @@ in conjunction with Access Policies to restrict access to a
 particular resource based on group membership.
  *)
 
-let cloudflare_access_group ?account_id ~name ~exclude ~include_
-    ~require __resource_id =
+let cloudflare_access_group ?account_id ?id ?zone_id ~name ~exclude
+    ~include_ ~require __resource_id =
   let __resource_type = "cloudflare_access_group" in
   let __resource =
-    { account_id; name; exclude; include_; require }
+    { account_id; id; name; zone_id; exclude; include_; require }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_cloudflare_access_group __resource);

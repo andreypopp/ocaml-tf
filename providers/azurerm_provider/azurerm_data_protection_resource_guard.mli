@@ -6,6 +6,7 @@ type azurerm_data_protection_resource_guard__timeouts
 type azurerm_data_protection_resource_guard
 
 val azurerm_data_protection_resource_guard :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?vault_critical_operation_exclusion_list:string list ->
   ?timeouts:azurerm_data_protection_resource_guard__timeouts ->

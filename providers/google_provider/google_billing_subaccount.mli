@@ -6,6 +6,7 @@ type google_billing_subaccount
 
 val google_billing_subaccount :
   ?deletion_policy:string ->
+  ?id:string ->
   display_name:string ->
   master_billing_account:string ->
   string ->

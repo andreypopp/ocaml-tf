@@ -19,6 +19,7 @@ type google_apigee_flowhook = {
   environment : string;  (** The resource ID of the environment. *)
   flow_hook_point : string;
       (** Where in the API call flow the flow hook is invoked. Must be one of PreProxyFlowHook, PostProxyFlowHook, PreTargetFlowHook, or PostTargetFlowHook. *)
+  id : string option; [@option]  (** id *)
   org_id : string;
       (** The Apigee Organization associated with the environment *)
   sharedflow : string;
@@ -28,8 +29,9 @@ type google_apigee_flowhook = {
 [@@deriving yojson_of]
 (** google_apigee_flowhook *)
 
-let google_apigee_flowhook ?continue_on_error ?description ?timeouts
-    ~environment ~flow_hook_point ~org_id ~sharedflow __resource_id =
+let google_apigee_flowhook ?continue_on_error ?description ?id
+    ?timeouts ~environment ~flow_hook_point ~org_id ~sharedflow
+    __resource_id =
   let __resource_type = "google_apigee_flowhook" in
   let __resource =
     {
@@ -37,6 +39,7 @@ let google_apigee_flowhook ?continue_on_error ?description ?timeouts
       description;
       environment;
       flow_hook_point;
+      id;
       org_id;
       sharedflow;
       timeouts;

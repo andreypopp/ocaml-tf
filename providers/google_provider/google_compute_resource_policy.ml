@@ -165,6 +165,7 @@ type google_compute_resource_policy__timeouts = {
 type google_compute_resource_policy = {
   description : string option; [@option]
       (** An optional description of this resource. Provide this property when you create the resource. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The name of the resource, provided by the client when initially creating
 the resource. The resource name must be 1-63 characters long, and comply
@@ -173,6 +174,9 @@ match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])'? which means the
 first character must be a lowercase letter, and all following characters
 must be a dash, lowercase letter, or digit, except the last character,
 which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** Region where resource policy resides. *)
   disk_consistency_group_policy :
     google_compute_resource_policy__disk_consistency_group_policy
     list;
@@ -187,15 +191,18 @@ which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_compute_resource_policy *)
 
-let google_compute_resource_policy ?description ?timeouts ~name
-    ~disk_consistency_group_policy ~group_placement_policy
-    ~instance_schedule_policy ~snapshot_schedule_policy __resource_id
-    =
+let google_compute_resource_policy ?description ?id ?project ?region
+    ?timeouts ~name ~disk_consistency_group_policy
+    ~group_placement_policy ~instance_schedule_policy
+    ~snapshot_schedule_policy __resource_id =
   let __resource_type = "google_compute_resource_policy" in
   let __resource =
     {
       description;
+      id;
       name;
+      project;
+      region;
       disk_consistency_group_policy;
       group_placement_policy;
       instance_schedule_policy;

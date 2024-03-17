@@ -6,6 +6,8 @@ type google_iap_app_engine_service_iam_member__condition
 type google_iap_app_engine_service_iam_member
 
 val google_iap_app_engine_service_iam_member :
+  ?id:string ->
+  ?project:string ->
   app_id:string ->
   member:string ->
   role:string ->

@@ -40,7 +40,6 @@ type google_privateca_certificate_authority__access_urls = {
       (** ca_certificate_access_url *)
   crl_access_urls : string list;  (** crl_access_urls *)
 }
-[@@deriving yojson_of]
 
 type google_privateca_certificate_authority
 
@@ -48,10 +47,12 @@ val google_privateca_certificate_authority :
   ?deletion_protection:bool ->
   ?desired_state:string ->
   ?gcs_bucket:string ->
+  ?id:string ->
   ?ignore_active_certificates_on_deletion:bool ->
   ?labels:(string * string) list ->
   ?lifetime:string ->
   ?pem_ca_certificate:string ->
+  ?project:string ->
   ?skip_grace_period:bool ->
   ?type_:string ->
   ?timeouts:google_privateca_certificate_authority__timeouts ->

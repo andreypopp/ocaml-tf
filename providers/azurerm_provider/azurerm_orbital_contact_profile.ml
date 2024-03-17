@@ -48,6 +48,7 @@ type azurerm_orbital_contact_profile__timeouts = {
 type azurerm_orbital_contact_profile = {
   auto_tracking : string;  (** auto_tracking *)
   event_hub_uri : string option; [@option]  (** event_hub_uri *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   minimum_elevation_degrees : float option; [@option]
       (** minimum_elevation_degrees *)
@@ -64,7 +65,7 @@ type azurerm_orbital_contact_profile = {
 [@@deriving yojson_of]
 (** azurerm_orbital_contact_profile *)
 
-let azurerm_orbital_contact_profile ?event_hub_uri
+let azurerm_orbital_contact_profile ?event_hub_uri ?id
     ?minimum_elevation_degrees ?tags ?timeouts ~auto_tracking
     ~location ~minimum_variable_contact_duration ~name
     ~network_configuration_subnet_id ~resource_group_name ~links
@@ -74,6 +75,7 @@ let azurerm_orbital_contact_profile ?event_hub_uri
     {
       auto_tracking;
       event_hub_uri;
+      id;
       location;
       minimum_elevation_degrees;
       minimum_variable_contact_duration;

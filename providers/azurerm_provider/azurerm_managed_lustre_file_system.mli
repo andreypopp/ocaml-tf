@@ -10,6 +10,7 @@ type azurerm_managed_lustre_file_system__timeouts
 type azurerm_managed_lustre_file_system
 
 val azurerm_managed_lustre_file_system :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_managed_lustre_file_system__timeouts ->
   location:string ->

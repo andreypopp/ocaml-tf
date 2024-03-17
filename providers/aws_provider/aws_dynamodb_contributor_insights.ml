@@ -12,6 +12,7 @@ type aws_dynamodb_contributor_insights__timeouts = {
 (** aws_dynamodb_contributor_insights__timeouts *)
 
 type aws_dynamodb_contributor_insights = {
+  id : string option; [@option]  (** id *)
   index_name : string option; [@option]  (** index_name *)
   table_name : string;  (** table_name *)
   timeouts : aws_dynamodb_contributor_insights__timeouts option;
@@ -19,10 +20,10 @@ type aws_dynamodb_contributor_insights = {
 [@@deriving yojson_of]
 (** aws_dynamodb_contributor_insights *)
 
-let aws_dynamodb_contributor_insights ?index_name ?timeouts
+let aws_dynamodb_contributor_insights ?id ?index_name ?timeouts
     ~table_name __resource_id =
   let __resource_type = "aws_dynamodb_contributor_insights" in
-  let __resource = { index_name; table_name; timeouts } in
+  let __resource = { id; index_name; table_name; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_dynamodb_contributor_insights __resource);
   ()

@@ -17,6 +17,7 @@ type azurerm_mssql_server_microsoft_support_auditing_policy = {
   blob_storage_endpoint : string option; [@option]
       (** blob_storage_endpoint *)
   enabled : bool option; [@option]  (** enabled *)
+  id : string option; [@option]  (** id *)
   log_monitoring_enabled : bool option; [@option]
       (** log_monitoring_enabled *)
   server_id : string;  (** server_id *)
@@ -32,7 +33,7 @@ type azurerm_mssql_server_microsoft_support_auditing_policy = {
 (** azurerm_mssql_server_microsoft_support_auditing_policy *)
 
 let azurerm_mssql_server_microsoft_support_auditing_policy
-    ?blob_storage_endpoint ?enabled ?log_monitoring_enabled
+    ?blob_storage_endpoint ?enabled ?id ?log_monitoring_enabled
     ?storage_account_access_key ?storage_account_subscription_id
     ?timeouts ~server_id __resource_id =
   let __resource_type =
@@ -42,6 +43,7 @@ let azurerm_mssql_server_microsoft_support_auditing_policy
     {
       blob_storage_endpoint;
       enabled;
+      id;
       log_monitoring_enabled;
       server_id;
       storage_account_access_key;

@@ -7,6 +7,7 @@ type azurerm_logic_app_integration_account_partner__timeouts
 type azurerm_logic_app_integration_account_partner
 
 val azurerm_logic_app_integration_account_partner :
+  ?id:string ->
   ?metadata:string ->
   ?timeouts:azurerm_logic_app_integration_account_partner__timeouts ->
   integration_account_name:string ->

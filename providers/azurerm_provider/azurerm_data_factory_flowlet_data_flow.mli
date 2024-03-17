@@ -33,6 +33,7 @@ val azurerm_data_factory_flowlet_data_flow :
   ?annotations:string list ->
   ?description:string ->
   ?folder:string ->
+  ?id:string ->
   ?script:string ->
   ?script_lines:string list ->
   ?timeouts:azurerm_data_factory_flowlet_data_flow__timeouts ->

@@ -13,6 +13,7 @@ type google_access_context_manager_access_policy_iam_binding__condition = {
 (** google_access_context_manager_access_policy_iam_binding__condition *)
 
 type google_access_context_manager_access_policy_iam_binding = {
+  id : string option; [@option]  (** id *)
   members : string list;  (** members *)
   name : string;  (** name *)
   role : string;  (** role *)
@@ -23,12 +24,12 @@ type google_access_context_manager_access_policy_iam_binding = {
 [@@deriving yojson_of]
 (** google_access_context_manager_access_policy_iam_binding *)
 
-let google_access_context_manager_access_policy_iam_binding ~members
-    ~name ~role ~condition __resource_id =
+let google_access_context_manager_access_policy_iam_binding ?id
+    ~members ~name ~role ~condition __resource_id =
   let __resource_type =
     "google_access_context_manager_access_policy_iam_binding"
   in
-  let __resource = { members; name; role; condition } in
+  let __resource = { id; members; name; role; condition } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_access_context_manager_access_policy_iam_binding
        __resource);

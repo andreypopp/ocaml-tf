@@ -9,6 +9,7 @@ type aws_datasync_location_hdfs
 val aws_datasync_location_hdfs :
   ?authentication_type:string ->
   ?block_size:float ->
+  ?id:string ->
   ?kerberos_keytab:string ->
   ?kerberos_krb5_conf:string ->
   ?kerberos_principal:string ->
@@ -17,6 +18,7 @@ val aws_datasync_location_hdfs :
   ?simple_user:string ->
   ?subdirectory:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   agent_arns:string list ->
   name_node:aws_datasync_location_hdfs__name_node list ->
   qop_configuration:

@@ -14,6 +14,7 @@ type azurerm_spring_cloud_app_redis_association__timeouts = {
 (** azurerm_spring_cloud_app_redis_association__timeouts *)
 
 type azurerm_spring_cloud_app_redis_association = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   redis_access_key : string;  (** redis_access_key *)
   redis_cache_id : string;  (** redis_cache_id *)
@@ -25,14 +26,15 @@ type azurerm_spring_cloud_app_redis_association = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app_redis_association *)
 
-let azurerm_spring_cloud_app_redis_association ?ssl_enabled ?timeouts
-    ~name ~redis_access_key ~redis_cache_id ~spring_cloud_app_id
-    __resource_id =
+let azurerm_spring_cloud_app_redis_association ?id ?ssl_enabled
+    ?timeouts ~name ~redis_access_key ~redis_cache_id
+    ~spring_cloud_app_id __resource_id =
   let __resource_type =
     "azurerm_spring_cloud_app_redis_association"
   in
   let __resource =
     {
+      id;
       name;
       redis_access_key;
       redis_cache_id;

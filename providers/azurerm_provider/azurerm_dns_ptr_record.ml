@@ -14,6 +14,7 @@ type azurerm_dns_ptr_record__timeouts = {
 (** azurerm_dns_ptr_record__timeouts *)
 
 type azurerm_dns_ptr_record = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   records : string list;  (** records *)
   resource_group_name : string;  (** resource_group_name *)
@@ -25,11 +26,12 @@ type azurerm_dns_ptr_record = {
 [@@deriving yojson_of]
 (** azurerm_dns_ptr_record *)
 
-let azurerm_dns_ptr_record ?tags ?timeouts ~name ~records
+let azurerm_dns_ptr_record ?id ?tags ?timeouts ~name ~records
     ~resource_group_name ~ttl ~zone_name __resource_id =
   let __resource_type = "azurerm_dns_ptr_record" in
   let __resource =
     {
+      id;
       name;
       records;
       resource_group_name;

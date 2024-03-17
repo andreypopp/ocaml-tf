@@ -12,6 +12,7 @@ type aws_vpn_gateway_route_propagation__timeouts = {
 (** aws_vpn_gateway_route_propagation__timeouts *)
 
 type aws_vpn_gateway_route_propagation = {
+  id : string option; [@option]  (** id *)
   route_table_id : string;  (** route_table_id *)
   vpn_gateway_id : string;  (** vpn_gateway_id *)
   timeouts : aws_vpn_gateway_route_propagation__timeouts option;
@@ -19,10 +20,12 @@ type aws_vpn_gateway_route_propagation = {
 [@@deriving yojson_of]
 (** aws_vpn_gateway_route_propagation *)
 
-let aws_vpn_gateway_route_propagation ?timeouts ~route_table_id
+let aws_vpn_gateway_route_propagation ?id ?timeouts ~route_table_id
     ~vpn_gateway_id __resource_id =
   let __resource_type = "aws_vpn_gateway_route_propagation" in
-  let __resource = { route_table_id; vpn_gateway_id; timeouts } in
+  let __resource =
+    { id; route_table_id; vpn_gateway_id; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpn_gateway_route_propagation __resource);
   ()

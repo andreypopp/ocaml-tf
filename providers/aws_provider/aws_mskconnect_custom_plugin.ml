@@ -28,6 +28,7 @@ type aws_mskconnect_custom_plugin__timeouts = {
 type aws_mskconnect_custom_plugin = {
   content_type : string;  (** content_type *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   location : aws_mskconnect_custom_plugin__location list;
   timeouts : aws_mskconnect_custom_plugin__timeouts option;
@@ -35,11 +36,11 @@ type aws_mskconnect_custom_plugin = {
 [@@deriving yojson_of]
 (** aws_mskconnect_custom_plugin *)
 
-let aws_mskconnect_custom_plugin ?description ?timeouts ~content_type
-    ~name ~location __resource_id =
+let aws_mskconnect_custom_plugin ?description ?id ?timeouts
+    ~content_type ~name ~location __resource_id =
   let __resource_type = "aws_mskconnect_custom_plugin" in
   let __resource =
-    { content_type; description; name; location; timeouts }
+    { content_type; description; id; name; location; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_mskconnect_custom_plugin __resource);

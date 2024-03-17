@@ -67,6 +67,7 @@ type azurerm_databox_edge_order__status = {
 
 type azurerm_databox_edge_order = {
   device_name : string;  (** device_name *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   contact : azurerm_databox_edge_order__contact list;
   shipment_address :
@@ -76,12 +77,13 @@ type azurerm_databox_edge_order = {
 [@@deriving yojson_of]
 (** azurerm_databox_edge_order *)
 
-let azurerm_databox_edge_order ?timeouts ~device_name
+let azurerm_databox_edge_order ?id ?timeouts ~device_name
     ~resource_group_name ~contact ~shipment_address __resource_id =
   let __resource_type = "azurerm_databox_edge_order" in
   let __resource =
     {
       device_name;
+      id;
       resource_group_name;
       contact;
       shipment_address;

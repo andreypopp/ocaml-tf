@@ -15,6 +15,7 @@ type google_filestore_backup__timeouts = {
 type google_filestore_backup = {
   description : string option; [@option]
       (** A description of the backup with 2048 characters or less. Requests with longer descriptions will be rejected. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Resource labels to represent user-provided metadata.
 
@@ -32,6 +33,7 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
+  project : string option; [@option]  (** project *)
   source_file_share : string;
       (** Name of the file share in the source Cloud Filestore instance that the backup is created from. *)
   source_instance : string;
@@ -41,15 +43,18 @@ character, which cannot be a dash. *)
 [@@deriving yojson_of]
 (** google_filestore_backup *)
 
-let google_filestore_backup ?description ?labels ?timeouts ~location
-    ~name ~source_file_share ~source_instance __resource_id =
+let google_filestore_backup ?description ?id ?labels ?project
+    ?timeouts ~location ~name ~source_file_share ~source_instance
+    __resource_id =
   let __resource_type = "google_filestore_backup" in
   let __resource =
     {
       description;
+      id;
       labels;
       location;
       name;
+      project;
       source_file_share;
       source_instance;
       timeouts;

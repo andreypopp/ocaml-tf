@@ -12,6 +12,7 @@ type kubernetes_cluster_role_v1__rule
 type kubernetes_cluster_role_v1
 
 val kubernetes_cluster_role_v1 :
+  ?id:string ->
   aggregation_rule:kubernetes_cluster_role_v1__aggregation_rule list ->
   metadata:kubernetes_cluster_role_v1__metadata list ->
   rule:kubernetes_cluster_role_v1__rule list ->

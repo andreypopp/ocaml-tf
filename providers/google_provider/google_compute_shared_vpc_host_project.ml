@@ -12,6 +12,7 @@ type google_compute_shared_vpc_host_project__timeouts = {
 (** google_compute_shared_vpc_host_project__timeouts *)
 
 type google_compute_shared_vpc_host_project = {
+  id : string option; [@option]  (** id *)
   project : string;
       (** The ID of the project that will serve as a Shared VPC host project *)
   timeouts : google_compute_shared_vpc_host_project__timeouts option;
@@ -19,10 +20,10 @@ type google_compute_shared_vpc_host_project = {
 [@@deriving yojson_of]
 (** google_compute_shared_vpc_host_project *)
 
-let google_compute_shared_vpc_host_project ?timeouts ~project
+let google_compute_shared_vpc_host_project ?id ?timeouts ~project
     __resource_id =
   let __resource_type = "google_compute_shared_vpc_host_project" in
-  let __resource = { project; timeouts } in
+  let __resource = { id; project; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_shared_vpc_host_project __resource);
   ()

@@ -17,13 +17,11 @@ type google_compute_instance_from_template__network_interface__access_config = {
   network_tier : string;  (** network_tier *)
   public_ptr_domain_name : string;  (** public_ptr_domain_name *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_from_template__network_interface__alias_ip_range = {
   ip_cidr_range : string;  (** ip_cidr_range *)
   subnetwork_range_name : string;  (** subnetwork_range_name *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_from_template__network_interface
 type google_compute_instance_from_template__network_performance_config
@@ -50,30 +48,51 @@ type google_compute_instance_from_template__attached_disk = {
   mode : string;  (** mode *)
   source : string;  (** source *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_from_template__guest_accelerator = {
   count : float;  (** count *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_from_template__scratch_disk = {
   device_name : string;  (** device_name *)
   interface : string;  (** interface *)
   size : float;  (** size *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_from_template__service_account = {
   email : string;  (** email *)
   scopes : string list;  (** scopes *)
 }
-[@@deriving yojson_of]
 
 type google_compute_instance_from_template
 
 val google_compute_instance_from_template :
+  ?allow_stopping_for_update:bool ->
+  ?attached_disk:
+    google_compute_instance_from_template__attached_disk list ->
+  ?can_ip_forward:bool ->
+  ?deletion_protection:bool ->
+  ?description:string ->
+  ?desired_status:string ->
+  ?enable_display:bool ->
+  ?guest_accelerator:
+    google_compute_instance_from_template__guest_accelerator list ->
+  ?hostname:string ->
+  ?id:string ->
+  ?labels:(string * string) list ->
+  ?machine_type:string ->
+  ?metadata:(string * string) list ->
+  ?metadata_startup_script:string ->
+  ?min_cpu_platform:string ->
+  ?project:string ->
+  ?resource_policies:string list ->
+  ?scratch_disk:
+    google_compute_instance_from_template__scratch_disk list ->
+  ?service_account:
+    google_compute_instance_from_template__service_account list ->
+  ?tags:string list ->
+  ?zone:string ->
   ?timeouts:google_compute_instance_from_template__timeouts ->
   name:string ->
   source_instance_template:string ->

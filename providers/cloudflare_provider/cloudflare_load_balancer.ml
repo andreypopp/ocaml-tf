@@ -212,6 +212,7 @@ type cloudflare_load_balancer = {
       (** Enable or disable the load balancer. Defaults to `true`. *)
   fallback_pool_id : string;
       (** The pool ID to use when all other pools are detected as unhealthy. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The DNS hostname to associate with your load balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the load balancer will take precedence and the DNS record will not be used. *)
   proxied : bool option; [@option]
@@ -220,6 +221,10 @@ type cloudflare_load_balancer = {
       (** Specifies the type of session affinity the load balancer should use unless specified as `none` or `` (default). With value `cookie`, on the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy then a new origin server is calculated and used. Value `ip_cookie` behaves the same as `cookie` except the initial origin selection is stable and based on the client's IP address. Available values: ``, `none`, `cookie`, `ip_cookie`, `header`. Defaults to `none`. *)
   session_affinity_ttl : float option; [@option]
       (** Time, in seconds, until this load balancer's session affinity cookie expires after being created. This parameter is ignored unless a supported session affinity policy is set. The current default of `82800` (23 hours) will be used unless [`session_affinity_ttl`](#session_affinity_ttl) is explicitly set. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. Valid values are between `1800` and `604800`. *)
+  steering_policy : string option; [@option]
+      (** The method the load balancer uses to determine the route to your origin. Value `off` uses [`default_pool_ids`](#default_pool_ids). Value `geo` uses [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools). For non-proxied requests, the [`country`](#country) for [`country_pools`](#country_pools) is determined by [`location_strategy`](#location_strategy). Value `random` selects a pool randomly. Value `dynamic_latency` uses round trip time to select the closest pool in [`default_pool_ids`](#default_pool_ids) (requires pool health checks). Value `proximity` uses the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by [`location_strategy`](#location_strategy) for non-proxied requests. Value `least_outstanding_requests` selects a pool by taking into consideration [`random_steering`](#random_steering) weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others. Value `least_connections` selects a pool by taking into consideration [`random_steering`](#random_steering) weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections. Value `` maps to `geo` if you use [`pop_pools`](#pop_pools)/[`country_pools`](#country_pools)/[`region_pools`](#region_pools) otherwise `off`. Available values: `off`, `geo`, `dynamic_latency`, `random`, `proximity`, `least_outstanding_requests`, `least_connections`, `` Defaults to ``. *)
+  ttl : float option; [@option]
+      (** Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This cannot be set for proxied load balancers. Defaults to `30`. Conflicts with `proxied`. *)
   zone_id : string;
       (** The zone ID to add the load balancer to. **Modifying this attribute will force creation of a new resource.** *)
   adaptive_routing : cloudflare_load_balancer__adaptive_routing list;
@@ -241,11 +246,12 @@ feature must be enabled in your Cloudflare account before you can use
 this resource.
  *)
 
-let cloudflare_load_balancer ?description ?enabled ?proxied
-    ?session_affinity ?session_affinity_ttl ~default_pool_ids
-    ~fallback_pool_id ~name ~zone_id ~adaptive_routing ~country_pools
-    ~location_strategy ~pop_pools ~random_steering ~region_pools
-    ~rules ~session_affinity_attributes __resource_id =
+let cloudflare_load_balancer ?description ?enabled ?id ?proxied
+    ?session_affinity ?session_affinity_ttl ?steering_policy ?ttl
+    ~default_pool_ids ~fallback_pool_id ~name ~zone_id
+    ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
+    ~random_steering ~region_pools ~rules
+    ~session_affinity_attributes __resource_id =
   let __resource_type = "cloudflare_load_balancer" in
   let __resource =
     {
@@ -253,10 +259,13 @@ let cloudflare_load_balancer ?description ?enabled ?proxied
       description;
       enabled;
       fallback_pool_id;
+      id;
       name;
       proxied;
       session_affinity;
       session_affinity_ttl;
+      steering_policy;
+      ttl;
       zone_id;
       adaptive_routing;
       country_pools;

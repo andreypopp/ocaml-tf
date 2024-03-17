@@ -12,7 +12,9 @@ type azurerm_media_services_account__timeouts
 type azurerm_media_services_account
 
 val azurerm_media_services_account :
+  ?id:string ->
   ?public_network_access_enabled:bool ->
+  ?storage_authentication_type:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_media_services_account__timeouts ->
   location:string ->

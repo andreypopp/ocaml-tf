@@ -37,10 +37,12 @@ type google_monitoring_metric_descriptor = {
       (** A detailed description of the metric, which can be used in documentation. *)
   display_name : string;
       (** A concise name for the metric, which can be displayed in user interfaces. Use sentence case without an ending period, for example Request count. *)
+  id : string option; [@option]  (** id *)
   launch_stage : string option; [@option]
       (** The launch stage of the metric definition. Possible values: [LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS, ALPHA, BETA, GA, DEPRECATED] *)
   metric_kind : string;
       (** Whether the metric records instantaneous values, changes to a value, etc. Some combinations of metricKind and valueType might not be supported. Possible values: [METRIC_KIND_UNSPECIFIED, GAUGE, DELTA, CUMULATIVE] *)
+  project : string option; [@option]  (** project *)
   type_ : string; [@key "type"]
       (** The metric type, including its DNS name prefix. The type is not URL-encoded. All service defined metrics must be prefixed with the service name, in the format of {service name}/{relative metric name}, such as cloudsql.googleapis.com/database/cpu/utilization. The relative metric name must have only upper and lower-case letters, digits, '/' and underscores '_' are allowed. Additionally, the maximum number of characters allowed for the relative_metric_name is 100. All user-defined metric types have the DNS name custom.googleapis.com, external.googleapis.com, or logging.googleapis.com/user/. *)
   unit : string option; [@option]
@@ -73,16 +75,18 @@ More info can be found in the API documentation
 [@@deriving yojson_of]
 (** google_monitoring_metric_descriptor *)
 
-let google_monitoring_metric_descriptor ?launch_stage ?unit ?timeouts
-    ~description ~display_name ~metric_kind ~type_ ~value_type
-    ~labels ~metadata __resource_id =
+let google_monitoring_metric_descriptor ?id ?launch_stage ?project
+    ?unit ?timeouts ~description ~display_name ~metric_kind ~type_
+    ~value_type ~labels ~metadata __resource_id =
   let __resource_type = "google_monitoring_metric_descriptor" in
   let __resource =
     {
       description;
       display_name;
+      id;
       launch_stage;
       metric_kind;
+      project;
       type_;
       unit;
       value_type;

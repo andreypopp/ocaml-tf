@@ -26,8 +26,12 @@ type aws_ssm_maintenance_window_task
 val aws_ssm_maintenance_window_task :
   ?cutoff_behavior:string ->
   ?description:string ->
+  ?id:string ->
+  ?max_concurrency:string ->
+  ?max_errors:string ->
   ?name:string ->
   ?priority:float ->
+  ?service_role_arn:string ->
   task_arn:string ->
   task_type:string ->
   window_id:string ->

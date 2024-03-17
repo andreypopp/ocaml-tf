@@ -17,6 +17,7 @@ type azurerm_api_management_api_version_set = {
   api_management_name : string;  (** api_management_name *)
   description : string option; [@option]  (** description *)
   display_name : string;  (** display_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   version_header_name : string option; [@option]
@@ -29,7 +30,7 @@ type azurerm_api_management_api_version_set = {
 [@@deriving yojson_of]
 (** azurerm_api_management_api_version_set *)
 
-let azurerm_api_management_api_version_set ?description
+let azurerm_api_management_api_version_set ?description ?id
     ?version_header_name ?version_query_name ?timeouts
     ~api_management_name ~display_name ~name ~resource_group_name
     ~versioning_scheme __resource_id =
@@ -39,6 +40,7 @@ let azurerm_api_management_api_version_set ?description
       api_management_name;
       description;
       display_name;
+      id;
       name;
       resource_group_name;
       version_header_name;

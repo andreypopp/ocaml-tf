@@ -14,26 +14,31 @@ type aws_media_convert_queue__reservation_plan_settings = {
 
 type aws_media_convert_queue = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   pricing_plan : string option; [@option]  (** pricing_plan *)
   status : string option; [@option]  (** status *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   reservation_plan_settings :
     aws_media_convert_queue__reservation_plan_settings list;
 }
 [@@deriving yojson_of]
 (** aws_media_convert_queue *)
 
-let aws_media_convert_queue ?description ?pricing_plan ?status ?tags
-    ~name ~reservation_plan_settings __resource_id =
+let aws_media_convert_queue ?description ?id ?pricing_plan ?status
+    ?tags ?tags_all ~name ~reservation_plan_settings __resource_id =
   let __resource_type = "aws_media_convert_queue" in
   let __resource =
     {
       description;
+      id;
       name;
       pricing_plan;
       status;
       tags;
+      tags_all;
       reservation_plan_settings;
     }
   in

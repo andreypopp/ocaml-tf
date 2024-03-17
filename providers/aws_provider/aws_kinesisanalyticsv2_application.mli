@@ -92,8 +92,10 @@ type aws_kinesisanalyticsv2_application
 val aws_kinesisanalyticsv2_application :
   ?description:string ->
   ?force_stop:bool ->
+  ?id:string ->
   ?start_application:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_kinesisanalyticsv2_application__timeouts ->
   name:string ->
   runtime_environment:string ->

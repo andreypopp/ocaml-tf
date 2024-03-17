@@ -57,6 +57,7 @@ type aws_cloudtrail = {
   enable_log_file_validation : bool option; [@option]
       (** enable_log_file_validation *)
   enable_logging : bool option; [@option]  (** enable_logging *)
+  id : string option; [@option]  (** id *)
   include_global_service_events : bool option; [@option]
       (** include_global_service_events *)
   is_multi_region_trail : bool option; [@option]
@@ -69,6 +70,8 @@ type aws_cloudtrail = {
   s3_key_prefix : string option; [@option]  (** s3_key_prefix *)
   sns_topic_name : string option; [@option]  (** sns_topic_name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   advanced_event_selector :
     aws_cloudtrail__advanced_event_selector list;
   event_selector : aws_cloudtrail__event_selector list;
@@ -79,11 +82,11 @@ type aws_cloudtrail = {
 
 let aws_cloudtrail ?cloud_watch_logs_group_arn
     ?cloud_watch_logs_role_arn ?enable_log_file_validation
-    ?enable_logging ?include_global_service_events
+    ?enable_logging ?id ?include_global_service_events
     ?is_multi_region_trail ?is_organization_trail ?kms_key_id
-    ?s3_key_prefix ?sns_topic_name ?tags ~name ~s3_bucket_name
-    ~advanced_event_selector ~event_selector ~insight_selector
-    __resource_id =
+    ?s3_key_prefix ?sns_topic_name ?tags ?tags_all ~name
+    ~s3_bucket_name ~advanced_event_selector ~event_selector
+    ~insight_selector __resource_id =
   let __resource_type = "aws_cloudtrail" in
   let __resource =
     {
@@ -91,6 +94,7 @@ let aws_cloudtrail ?cloud_watch_logs_group_arn
       cloud_watch_logs_role_arn;
       enable_log_file_validation;
       enable_logging;
+      id;
       include_global_service_events;
       is_multi_region_trail;
       is_organization_trail;
@@ -100,6 +104,7 @@ let aws_cloudtrail ?cloud_watch_logs_group_arn
       s3_key_prefix;
       sns_topic_name;
       tags;
+      tags_all;
       advanced_event_selector;
       event_selector;
       insight_selector;

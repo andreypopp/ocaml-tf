@@ -14,6 +14,7 @@ type google_compute_target_instance__timeouts = {
 type google_compute_target_instance = {
   description : string option; [@option]
       (** An optional description of this resource. *)
+  id : string option; [@option]  (** id *)
   instance : string;
       (** The Compute instance VM handling traffic for this target instance.
 Accepts the instance self-link, relative path
@@ -32,16 +33,28 @@ character, which cannot be a dash. *)
   nat_policy : string option; [@option]
       (** NAT option controlling how IPs are NAT'ed to the instance.
 Currently only NO_NAT (default value) is supported. Default value: NO_NAT Possible values: [NO_NAT] *)
+  project : string option; [@option]  (** project *)
+  zone : string option; [@option]
+      (** URL of the zone where the target instance resides. *)
   timeouts : google_compute_target_instance__timeouts option;
 }
 [@@deriving yojson_of]
 (** google_compute_target_instance *)
 
-let google_compute_target_instance ?description ?nat_policy ?timeouts
-    ~instance ~name __resource_id =
+let google_compute_target_instance ?description ?id ?nat_policy
+    ?project ?zone ?timeouts ~instance ~name __resource_id =
   let __resource_type = "google_compute_target_instance" in
   let __resource =
-    { description; instance; name; nat_policy; timeouts }
+    {
+      description;
+      id;
+      instance;
+      name;
+      nat_policy;
+      project;
+      zone;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_compute_target_instance __resource);

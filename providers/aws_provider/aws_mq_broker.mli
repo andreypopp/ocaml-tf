@@ -15,18 +15,23 @@ type aws_mq_broker__instances = {
   endpoints : string list;  (** endpoints *)
   ip_address : string;  (** ip_address *)
 }
-[@@deriving yojson_of]
 
 type aws_mq_broker
 
 val aws_mq_broker :
   ?apply_immediately:bool ->
+  ?authentication_strategy:string ->
   ?auto_minor_version_upgrade:bool ->
+  ?data_replication_mode:string ->
   ?data_replication_primary_broker_arn:string ->
   ?deployment_mode:string ->
+  ?id:string ->
   ?publicly_accessible:bool ->
   ?security_groups:string list ->
+  ?storage_type:string ->
+  ?subnet_ids:string list ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_mq_broker__timeouts ->
   broker_name:string ->
   engine_type:string ->

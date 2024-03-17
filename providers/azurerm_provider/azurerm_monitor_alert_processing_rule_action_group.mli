@@ -41,6 +41,7 @@ type azurerm_monitor_alert_processing_rule_action_group
 val azurerm_monitor_alert_processing_rule_action_group :
   ?description:string ->
   ?enabled:bool ->
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:
     azurerm_monitor_alert_processing_rule_action_group__timeouts ->

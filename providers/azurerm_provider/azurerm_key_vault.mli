@@ -16,15 +16,16 @@ type azurerm_key_vault__access_policy = {
   storage_permissions : string list;  (** storage_permissions *)
   tenant_id : string;  (** tenant_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_key_vault
 
 val azurerm_key_vault :
+  ?access_policy:azurerm_key_vault__access_policy list ->
   ?enable_rbac_authorization:bool ->
   ?enabled_for_deployment:bool ->
   ?enabled_for_disk_encryption:bool ->
   ?enabled_for_template_deployment:bool ->
+  ?id:string ->
   ?public_network_access_enabled:bool ->
   ?purge_protection_enabled:bool ->
   ?soft_delete_retention_days:float ->

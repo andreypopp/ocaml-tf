@@ -9,7 +9,9 @@ type google_network_management_connectivity_test
 
 val google_network_management_connectivity_test :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
+  ?project:string ->
   ?protocol:string ->
   ?related_projects:string list ->
   ?timeouts:google_network_management_connectivity_test__timeouts ->

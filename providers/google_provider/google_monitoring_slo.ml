@@ -422,11 +422,15 @@ type google_monitoring_slo = {
   goal : float;
       (** The fraction of service that must be good in order for this objective
 to be met. 0 < goal <= 0.999 *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   rolling_period_days : float option; [@option]
       (** A rolling time period, semantically in the past X days.
 Must be between 1 to 30 days, inclusive. *)
   service : string;
       (** ID of the service to which this SLO belongs. *)
+  slo_id : string option; [@option]
+      (** The id to use for this ServiceLevelObjective. If omitted, an id will be generated instead. *)
   user_labels : (string * string) list option; [@option]
       (** This field is intended to be used for organizing and identifying the AlertPolicy
 objects.The field can contain up to 64 entries. Each key and value is limited
@@ -441,17 +445,21 @@ must begin with a letter. *)
 [@@deriving yojson_of]
 (** google_monitoring_slo *)
 
-let google_monitoring_slo ?calendar_period ?display_name
-    ?rolling_period_days ?user_labels ?timeouts ~goal ~service
-    ~basic_sli ~request_based_sli ~windows_based_sli __resource_id =
+let google_monitoring_slo ?calendar_period ?display_name ?id ?project
+    ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
+    ~service ~basic_sli ~request_based_sli ~windows_based_sli
+    __resource_id =
   let __resource_type = "google_monitoring_slo" in
   let __resource =
     {
       calendar_period;
       display_name;
       goal;
+      id;
+      project;
       rolling_period_days;
       service;
+      slo_id;
       user_labels;
       basic_sli;
       request_based_sli;

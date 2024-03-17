@@ -8,8 +8,11 @@ type aws_kinesis_video_stream
 val aws_kinesis_video_stream :
   ?data_retention_in_hours:float ->
   ?device_name:string ->
+  ?id:string ->
+  ?kms_key_id:string ->
   ?media_type:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_kinesis_video_stream__timeouts ->
   name:string ->
   string ->

@@ -23,6 +23,7 @@ type azurerm_cost_management_scheduled_action = {
   end_date : string;  (** end_date *)
   frequency : string;  (** frequency *)
   hour_of_day : float option; [@option]  (** hour_of_day *)
+  id : string option; [@option]  (** id *)
   message : string option; [@option]  (** message *)
   name : string;  (** name *)
   start_date : string;  (** start_date *)
@@ -36,7 +37,7 @@ type azurerm_cost_management_scheduled_action = {
 (** azurerm_cost_management_scheduled_action *)
 
 let azurerm_cost_management_scheduled_action ?day_of_month
-    ?days_of_week ?hour_of_day ?message ?weeks_of_month ?timeouts
+    ?days_of_week ?hour_of_day ?id ?message ?weeks_of_month ?timeouts
     ~display_name ~email_address_sender ~email_addresses
     ~email_subject ~end_date ~frequency ~name ~start_date ~view_id
     __resource_id =
@@ -52,6 +53,7 @@ let azurerm_cost_management_scheduled_action ?day_of_month
       end_date;
       frequency;
       hour_of_day;
+      id;
       message;
       name;
       start_date;

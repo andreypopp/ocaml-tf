@@ -17,6 +17,7 @@ type aws_resourceexplorer2_view__included_property = {
 (** aws_resourceexplorer2_view__included_property *)
 
 type aws_resourceexplorer2_view = {
+  default_view : bool option; [@option]  (** default_view *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
   filters : aws_resourceexplorer2_view__filters list;
@@ -26,10 +27,12 @@ type aws_resourceexplorer2_view = {
 [@@deriving yojson_of]
 (** aws_resourceexplorer2_view *)
 
-let aws_resourceexplorer2_view ?tags ~name ~filters
+let aws_resourceexplorer2_view ?default_view ?tags ~name ~filters
     ~included_property __resource_id =
   let __resource_type = "aws_resourceexplorer2_view" in
-  let __resource = { name; tags; filters; included_property } in
+  let __resource =
+    { default_view; name; tags; filters; included_property }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_resourceexplorer2_view __resource);
   ()

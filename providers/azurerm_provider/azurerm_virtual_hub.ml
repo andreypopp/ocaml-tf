@@ -24,6 +24,7 @@ type azurerm_virtual_hub = {
   address_prefix : string option; [@option]  (** address_prefix *)
   hub_routing_preference : string option; [@option]
       (** hub_routing_preference *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -38,15 +39,16 @@ type azurerm_virtual_hub = {
 [@@deriving yojson_of]
 (** azurerm_virtual_hub *)
 
-let azurerm_virtual_hub ?address_prefix ?hub_routing_preference ?sku
-    ?tags ?virtual_router_auto_scale_min_capacity ?virtual_wan_id
-    ?timeouts ~location ~name ~resource_group_name ~route
-    __resource_id =
+let azurerm_virtual_hub ?address_prefix ?hub_routing_preference ?id
+    ?sku ?tags ?virtual_router_auto_scale_min_capacity
+    ?virtual_wan_id ?timeouts ~location ~name ~resource_group_name
+    ~route __resource_id =
   let __resource_type = "azurerm_virtual_hub" in
   let __resource =
     {
       address_prefix;
       hub_routing_preference;
+      id;
       location;
       name;
       resource_group_name;

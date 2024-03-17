@@ -19,6 +19,7 @@ type azurerm_iothub_endpoint_cosmosdb_account = {
   container_name : string;  (** container_name *)
   database_name : string;  (** database_name *)
   endpoint_uri : string;  (** endpoint_uri *)
+  id : string option; [@option]  (** id *)
   identity_id : string option; [@option]  (** identity_id *)
   iothub_id : string;  (** iothub_id *)
   name : string;  (** name *)
@@ -35,7 +36,7 @@ type azurerm_iothub_endpoint_cosmosdb_account = {
 [@@deriving yojson_of]
 (** azurerm_iothub_endpoint_cosmosdb_account *)
 
-let azurerm_iothub_endpoint_cosmosdb_account ?authentication_type
+let azurerm_iothub_endpoint_cosmosdb_account ?authentication_type ?id
     ?identity_id ?partition_key_name ?partition_key_template
     ?primary_key ?secondary_key ?timeouts ~container_name
     ~database_name ~endpoint_uri ~iothub_id ~name
@@ -47,6 +48,7 @@ let azurerm_iothub_endpoint_cosmosdb_account ?authentication_type
       container_name;
       database_name;
       endpoint_uri;
+      id;
       identity_id;
       iothub_id;
       name;

@@ -58,6 +58,7 @@ type aws_transfer_server = {
   function_ : string option; [@option] [@key "function"]
       (** function *)
   host_key : string option; [@option]  (** host_key *)
+  id : string option; [@option]  (** id *)
   identity_provider_type : string option; [@option]
       (** identity_provider_type *)
   invocation_role : string option; [@option]  (** invocation_role *)
@@ -66,11 +67,14 @@ type aws_transfer_server = {
       (** post_authentication_login_banner *)
   pre_authentication_login_banner : string option; [@option]
       (** pre_authentication_login_banner *)
+  protocols : string list option; [@option]  (** protocols *)
   security_policy_name : string option; [@option]
       (** security_policy_name *)
   structured_log_destinations : string list option; [@option]
       (** This is a set of arns of destinations that will receive structured logs from the transfer server *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   url : string option; [@option]  (** url *)
   endpoint_details : aws_transfer_server__endpoint_details list;
   protocol_details : aws_transfer_server__protocol_details list;
@@ -80,12 +84,13 @@ type aws_transfer_server = {
 (** aws_transfer_server *)
 
 let aws_transfer_server ?certificate ?directory_id ?domain
-    ?endpoint_type ?force_destroy ?function_ ?host_key
+    ?endpoint_type ?force_destroy ?function_ ?host_key ?id
     ?identity_provider_type ?invocation_role ?logging_role
     ?post_authentication_login_banner
-    ?pre_authentication_login_banner ?security_policy_name
-    ?structured_log_destinations ?tags ?url ~endpoint_details
-    ~protocol_details ~workflow_details __resource_id =
+    ?pre_authentication_login_banner ?protocols ?security_policy_name
+    ?structured_log_destinations ?tags ?tags_all ?url
+    ~endpoint_details ~protocol_details ~workflow_details
+    __resource_id =
   let __resource_type = "aws_transfer_server" in
   let __resource =
     {
@@ -96,14 +101,17 @@ let aws_transfer_server ?certificate ?directory_id ?domain
       force_destroy;
       function_;
       host_key;
+      id;
       identity_provider_type;
       invocation_role;
       logging_role;
       post_authentication_login_banner;
       pre_authentication_login_banner;
+      protocols;
       security_policy_name;
       structured_log_destinations;
       tags;
+      tags_all;
       url;
       endpoint_details;
       protocol_details;

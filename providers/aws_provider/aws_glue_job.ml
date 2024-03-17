@@ -33,6 +33,9 @@ type aws_glue_job = {
       (** default_arguments *)
   description : string option; [@option]  (** description *)
   execution_class : string option; [@option]  (** execution_class *)
+  glue_version : string option; [@option]  (** glue_version *)
+  id : string option; [@option]  (** id *)
+  max_capacity : float option; [@option]  (** max_capacity *)
   max_retries : float option; [@option]  (** max_retries *)
   name : string;  (** name *)
   non_overridable_arguments : (string * string) list option;
@@ -44,6 +47,9 @@ type aws_glue_job = {
   security_configuration : string option; [@option]
       (** security_configuration *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
+  timeout : float option; [@option]  (** timeout *)
   worker_type : string option; [@option]  (** worker_type *)
   command : aws_glue_job__command list;
   execution_property : aws_glue_job__execution_property list;
@@ -53,8 +59,9 @@ type aws_glue_job = {
 (** aws_glue_job *)
 
 let aws_glue_job ?connections ?default_arguments ?description
-    ?execution_class ?max_retries ?non_overridable_arguments
-    ?number_of_workers ?security_configuration ?tags ?worker_type
+    ?execution_class ?glue_version ?id ?max_capacity ?max_retries
+    ?non_overridable_arguments ?number_of_workers
+    ?security_configuration ?tags ?tags_all ?timeout ?worker_type
     ~name ~role_arn ~command ~execution_property
     ~notification_property __resource_id =
   let __resource_type = "aws_glue_job" in
@@ -64,6 +71,9 @@ let aws_glue_job ?connections ?default_arguments ?description
       default_arguments;
       description;
       execution_class;
+      glue_version;
+      id;
+      max_capacity;
       max_retries;
       name;
       non_overridable_arguments;
@@ -71,6 +81,8 @@ let aws_glue_job ?connections ?default_arguments ?description
       role_arn;
       security_configuration;
       tags;
+      tags_all;
+      timeout;
       worker_type;
       command;
       execution_property;

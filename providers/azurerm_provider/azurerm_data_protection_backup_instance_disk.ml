@@ -16,6 +16,7 @@ type azurerm_data_protection_backup_instance_disk__timeouts = {
 type azurerm_data_protection_backup_instance_disk = {
   backup_policy_id : string;  (** backup_policy_id *)
   disk_id : string;  (** disk_id *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   snapshot_resource_group_name : string;
@@ -27,7 +28,7 @@ type azurerm_data_protection_backup_instance_disk = {
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_instance_disk *)
 
-let azurerm_data_protection_backup_instance_disk ?timeouts
+let azurerm_data_protection_backup_instance_disk ?id ?timeouts
     ~backup_policy_id ~disk_id ~location ~name
     ~snapshot_resource_group_name ~vault_id __resource_id =
   let __resource_type =
@@ -37,6 +38,7 @@ let azurerm_data_protection_backup_instance_disk ?timeouts
     {
       backup_policy_id;
       disk_id;
+      id;
       location;
       name;
       snapshot_resource_group_name;

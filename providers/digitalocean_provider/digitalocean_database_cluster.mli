@@ -9,7 +9,11 @@ type digitalocean_database_cluster
 
 val digitalocean_database_cluster :
   ?eviction_policy:string ->
+  ?id:string ->
+  ?private_network_uuid:string ->
+  ?project_id:string ->
   ?sql_mode:string ->
+  ?storage_size_mib:string ->
   ?tags:string list ->
   ?version:string ->
   ?timeouts:digitalocean_database_cluster__timeouts ->

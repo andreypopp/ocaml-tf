@@ -16,12 +16,13 @@ type azurerm_batch_account__timeouts
 type azurerm_batch_account__encryption = {
   key_vault_key_id : string;  (** key_vault_key_id *)
 }
-[@@deriving yojson_of]
 
 type azurerm_batch_account
 
 val azurerm_batch_account :
+  ?allowed_authentication_modes:string list ->
   ?encryption:azurerm_batch_account__encryption list ->
+  ?id:string ->
   ?pool_allocation_mode:string ->
   ?public_network_access_enabled:bool ->
   ?storage_account_authentication_mode:string ->

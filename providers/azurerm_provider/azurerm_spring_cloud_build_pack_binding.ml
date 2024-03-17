@@ -23,6 +23,7 @@ type azurerm_spring_cloud_build_pack_binding__timeouts = {
 
 type azurerm_spring_cloud_build_pack_binding = {
   binding_type : string option; [@option]  (** binding_type *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   spring_cloud_builder_id : string;  (** spring_cloud_builder_id *)
   launch : azurerm_spring_cloud_build_pack_binding__launch list;
@@ -31,11 +32,18 @@ type azurerm_spring_cloud_build_pack_binding = {
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_build_pack_binding *)
 
-let azurerm_spring_cloud_build_pack_binding ?binding_type ?timeouts
-    ~name ~spring_cloud_builder_id ~launch __resource_id =
+let azurerm_spring_cloud_build_pack_binding ?binding_type ?id
+    ?timeouts ~name ~spring_cloud_builder_id ~launch __resource_id =
   let __resource_type = "azurerm_spring_cloud_build_pack_binding" in
   let __resource =
-    { binding_type; name; spring_cloud_builder_id; launch; timeouts }
+    {
+      binding_type;
+      id;
+      name;
+      spring_cloud_builder_id;
+      launch;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_azurerm_spring_cloud_build_pack_binding __resource);

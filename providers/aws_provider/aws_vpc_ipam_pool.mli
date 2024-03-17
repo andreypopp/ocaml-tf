@@ -13,11 +13,13 @@ val aws_vpc_ipam_pool :
   ?auto_import:bool ->
   ?aws_service:string ->
   ?description:string ->
+  ?id:string ->
   ?locale:string ->
   ?public_ip_source:string ->
   ?publicly_advertisable:bool ->
   ?source_ipam_pool_id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_vpc_ipam_pool__timeouts ->
   address_family:string ->
   ipam_scope_id:string ->

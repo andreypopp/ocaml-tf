@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_grafana_workspace_api_key = {
+  id : string option; [@option]  (** id *)
   key_name : string;  (** key_name *)
   key_role : string;  (** key_role *)
   seconds_to_live : float;  (** seconds_to_live *)
@@ -13,11 +14,11 @@ type aws_grafana_workspace_api_key = {
 [@@deriving yojson_of]
 (** aws_grafana_workspace_api_key *)
 
-let aws_grafana_workspace_api_key ~key_name ~key_role
+let aws_grafana_workspace_api_key ?id ~key_name ~key_role
     ~seconds_to_live ~workspace_id __resource_id =
   let __resource_type = "aws_grafana_workspace_api_key" in
   let __resource =
-    { key_name; key_role; seconds_to_live; workspace_id }
+    { id; key_name; key_role; seconds_to_live; workspace_id }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_grafana_workspace_api_key __resource);

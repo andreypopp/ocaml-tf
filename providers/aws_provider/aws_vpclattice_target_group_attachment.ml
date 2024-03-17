@@ -19,6 +19,7 @@ type aws_vpclattice_target_group_attachment__timeouts = {
 (** aws_vpclattice_target_group_attachment__timeouts *)
 
 type aws_vpclattice_target_group_attachment = {
+  id : string option; [@option]  (** id *)
   target_group_identifier : string;  (** target_group_identifier *)
   target : aws_vpclattice_target_group_attachment__target list;
   timeouts : aws_vpclattice_target_group_attachment__timeouts option;
@@ -26,10 +27,12 @@ type aws_vpclattice_target_group_attachment = {
 [@@deriving yojson_of]
 (** aws_vpclattice_target_group_attachment *)
 
-let aws_vpclattice_target_group_attachment ?timeouts
+let aws_vpclattice_target_group_attachment ?id ?timeouts
     ~target_group_identifier ~target __resource_id =
   let __resource_type = "aws_vpclattice_target_group_attachment" in
-  let __resource = { target_group_identifier; target; timeouts } in
+  let __resource =
+    { id; target_group_identifier; target; timeouts }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_vpclattice_target_group_attachment __resource);
   ()

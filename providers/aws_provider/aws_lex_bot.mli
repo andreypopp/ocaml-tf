@@ -15,10 +15,12 @@ val aws_lex_bot :
   ?description:string ->
   ?detect_sentiment:bool ->
   ?enable_model_improvements:bool ->
+  ?id:string ->
   ?idle_session_ttl_in_seconds:float ->
   ?locale:string ->
   ?nlu_intent_confidence_threshold:float ->
   ?process_behavior:string ->
+  ?voice_id:string ->
   ?timeouts:aws_lex_bot__timeouts ->
   child_directed:bool ->
   name:string ->

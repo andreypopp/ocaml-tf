@@ -11,6 +11,8 @@ type aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings
 type aws_glue_data_catalog_encryption_settings
 
 val aws_glue_data_catalog_encryption_settings :
+  ?catalog_id:string ->
+  ?id:string ->
   data_catalog_encryption_settings:
     aws_glue_data_catalog_encryption_settings__data_catalog_encryption_settings
     list ->

@@ -20,15 +20,19 @@ type azurerm_cosmosdb_account
 val azurerm_cosmosdb_account :
   ?access_key_metadata_writes_enabled:bool ->
   ?analytical_storage_enabled:bool ->
+  ?create_mode:string ->
   ?default_identity_type:string ->
   ?enable_automatic_failover:bool ->
   ?enable_free_tier:bool ->
   ?enable_multiple_write_locations:bool ->
+  ?id:string ->
   ?ip_range_filter:string ->
   ?is_virtual_network_filter_enabled:bool ->
   ?key_vault_key_id:string ->
   ?kind:string ->
   ?local_authentication_disabled:bool ->
+  ?minimal_tls_version:string ->
+  ?mongo_server_version:string ->
   ?network_acl_bypass_for_azure_services:bool ->
   ?network_acl_bypass_ids:string list ->
   ?partition_merge_enabled:bool ->

@@ -15,6 +15,7 @@ val azurerm_resource_deployment_script_azure_cli :
   ?cleanup_preference:string ->
   ?command_line:string ->
   ?force_update_tag:string ->
+  ?id:string ->
   ?primary_script_uri:string ->
   ?script_content:string ->
   ?supporting_script_uris:string list ->

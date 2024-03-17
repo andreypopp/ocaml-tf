@@ -70,11 +70,15 @@ type aws_fsx_file_cache = {
       (** copy_tags_to_data_repository_associations *)
   file_cache_type : string;  (** file_cache_type *)
   file_cache_type_version : string;  (** file_cache_type_version *)
+  id : string option; [@option]  (** id *)
+  kms_key_id : string option; [@option]  (** kms_key_id *)
   security_group_ids : string list option; [@option]
       (** security_group_ids *)
   storage_capacity : float;  (** storage_capacity *)
   subnet_ids : string list;  (** subnet_ids *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   data_repository_association :
     aws_fsx_file_cache__data_repository_association list;
   lustre_configuration :
@@ -84,21 +88,24 @@ type aws_fsx_file_cache = {
 [@@deriving yojson_of]
 (** aws_fsx_file_cache *)
 
-let aws_fsx_file_cache ?copy_tags_to_data_repository_associations
-    ?security_group_ids ?tags ?timeouts ~file_cache_type
-    ~file_cache_type_version ~storage_capacity ~subnet_ids
-    ~data_repository_association ~lustre_configuration __resource_id
-    =
+let aws_fsx_file_cache ?copy_tags_to_data_repository_associations ?id
+    ?kms_key_id ?security_group_ids ?tags ?tags_all ?timeouts
+    ~file_cache_type ~file_cache_type_version ~storage_capacity
+    ~subnet_ids ~data_repository_association ~lustre_configuration
+    __resource_id =
   let __resource_type = "aws_fsx_file_cache" in
   let __resource =
     {
       copy_tags_to_data_repository_associations;
       file_cache_type;
       file_cache_type_version;
+      id;
+      kms_key_id;
       security_group_ids;
       storage_capacity;
       subnet_ids;
       tags;
+      tags_all;
       data_repository_association;
       lustre_configuration;
       timeouts;

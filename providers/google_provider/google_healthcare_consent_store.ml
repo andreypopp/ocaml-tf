@@ -22,6 +22,7 @@ type google_healthcare_consent_store = {
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
   enable_consent_create_on_update : bool option; [@option]
       (** If true, [consents.patch] [google.cloud.healthcare.v1.consent.UpdateConsent] creates the consent if it does not already exist. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-supplied key-value pairs used to organize Consent stores.
 
@@ -48,14 +49,15 @@ consent1 *)
 (** google_healthcare_consent_store *)
 
 let google_healthcare_consent_store ?default_consent_ttl
-    ?enable_consent_create_on_update ?labels ?timeouts ~dataset ~name
-    __resource_id =
+    ?enable_consent_create_on_update ?id ?labels ?timeouts ~dataset
+    ~name __resource_id =
   let __resource_type = "google_healthcare_consent_store" in
   let __resource =
     {
       dataset;
       default_consent_ttl;
       enable_consent_create_on_update;
+      id;
       labels;
       name;
       timeouts;

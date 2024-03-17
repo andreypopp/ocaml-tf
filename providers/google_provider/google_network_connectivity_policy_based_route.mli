@@ -14,16 +14,17 @@ type google_network_connectivity_policy_based_route__warnings = {
   data : (string * string) list;  (** data *)
   warning_message : string;  (** warning_message *)
 }
-[@@deriving yojson_of]
 
 type google_network_connectivity_policy_based_route
 
 val google_network_connectivity_policy_based_route :
   ?description:string ->
+  ?id:string ->
   ?labels:(string * string) list ->
   ?next_hop_ilb_ip:string ->
   ?next_hop_other_routes:string ->
   ?priority:float ->
+  ?project:string ->
   ?timeouts:google_network_connectivity_policy_based_route__timeouts ->
   name:string ->
   network:string ->

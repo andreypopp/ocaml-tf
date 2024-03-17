@@ -9,6 +9,7 @@ type azurerm_iotcentral_application_network_rule_set
 val azurerm_iotcentral_application_network_rule_set :
   ?apply_to_device:bool ->
   ?default_action:string ->
+  ?id:string ->
   ?timeouts:azurerm_iotcentral_application_network_rule_set__timeouts ->
   iotcentral_application_id:string ->
   ip_rule:

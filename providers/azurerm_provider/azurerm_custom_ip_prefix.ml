@@ -17,6 +17,7 @@ type azurerm_custom_ip_prefix = {
   cidr : string;  (** cidr *)
   commissioning_enabled : bool option; [@option]
       (** commissioning_enabled *)
+  id : string option; [@option]  (** id *)
   internet_advertising_disabled : bool option; [@option]
       (** internet_advertising_disabled *)
   location : string;  (** location *)
@@ -35,7 +36,7 @@ type azurerm_custom_ip_prefix = {
 [@@deriving yojson_of]
 (** azurerm_custom_ip_prefix *)
 
-let azurerm_custom_ip_prefix ?commissioning_enabled
+let azurerm_custom_ip_prefix ?commissioning_enabled ?id
     ?internet_advertising_disabled ?parent_custom_ip_prefix_id
     ?roa_validity_end_date ?tags ?wan_validation_signed_message
     ?zones ?timeouts ~cidr ~location ~name ~resource_group_name
@@ -45,6 +46,7 @@ let azurerm_custom_ip_prefix ?commissioning_enabled
     {
       cidr;
       commissioning_enabled;
+      id;
       internet_advertising_disabled;
       location;
       name;

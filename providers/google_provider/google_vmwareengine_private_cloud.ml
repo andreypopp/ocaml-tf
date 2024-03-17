@@ -90,9 +90,11 @@ type google_vmwareengine_private_cloud__vcenter = {
 type google_vmwareengine_private_cloud = {
   description : string option; [@option]
       (** User-provided description for this private cloud. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The location where the PrivateCloud should reside. *)
   name : string;  (** The ID of the PrivateCloud. *)
+  project : string option; [@option]  (** project *)
   type_ : string option; [@option] [@key "type"]
       (** Initial type of the private cloud. Possible values: [STANDARD, TIME_LIMITED] *)
   management_cluster :
@@ -104,15 +106,17 @@ type google_vmwareengine_private_cloud = {
 [@@deriving yojson_of]
 (** google_vmwareengine_private_cloud *)
 
-let google_vmwareengine_private_cloud ?description ?type_ ?timeouts
-    ~location ~name ~management_cluster ~network_config __resource_id
-    =
+let google_vmwareengine_private_cloud ?description ?id ?project
+    ?type_ ?timeouts ~location ~name ~management_cluster
+    ~network_config __resource_id =
   let __resource_type = "google_vmwareengine_private_cloud" in
   let __resource =
     {
       description;
+      id;
       location;
       name;
+      project;
       type_;
       management_cluster;
       network_config;

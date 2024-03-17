@@ -15,6 +15,7 @@ type azurerm_storage_mover__timeouts = {
 
 type azurerm_storage_mover = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -24,12 +25,13 @@ type azurerm_storage_mover = {
 [@@deriving yojson_of]
 (** azurerm_storage_mover *)
 
-let azurerm_storage_mover ?description ?tags ?timeouts ~location
+let azurerm_storage_mover ?description ?id ?tags ?timeouts ~location
     ~name ~resource_group_name __resource_id =
   let __resource_type = "azurerm_storage_mover" in
   let __resource =
     {
       description;
+      id;
       location;
       name;
       resource_group_name;

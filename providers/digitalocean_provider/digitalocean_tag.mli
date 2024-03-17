@@ -4,4 +4,4 @@ open! Tf.Prelude
 
 type digitalocean_tag
 
-val digitalocean_tag : name:string -> string -> unit
+val digitalocean_tag : ?id:string -> name:string -> string -> unit

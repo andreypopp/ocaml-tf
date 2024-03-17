@@ -6,6 +6,7 @@ type google_compute_firewall_policy_association__timeouts
 type google_compute_firewall_policy_association
 
 val google_compute_firewall_policy_association :
+  ?id:string ->
   ?timeouts:google_compute_firewall_policy_association__timeouts ->
   attachment_target:string ->
   firewall_policy:string ->

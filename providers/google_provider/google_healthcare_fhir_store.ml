@@ -84,6 +84,8 @@ type google_healthcare_fhir_store__timeouts = {
 (** google_healthcare_fhir_store__timeouts *)
 
 type google_healthcare_fhir_store = {
+  complex_data_type_reference_parsing : string option; [@option]
+      (** Enable parsing of references within complex FHIR data types such as Extensions. If this value is set to ENABLED, then features like referential integrity and Bundle reference rewriting apply to all references. If this flag has not been specified the behavior of the FHIR store will not change, references in complex data types will not be parsed. New stores will have this value set to ENABLED by default after a notification period. Warning: turning on this flag causes processing existing resources to fail if they contain references to non-existent resources. Possible values: [COMPLEX_DATA_TYPE_REFERENCE_PARSING_UNSPECIFIED, DISABLED, ENABLED] *)
   dataset : string;
       (** Identifies the dataset addressed by this request. Must be in the format
 'projects/{project}/locations/{location}/datasets/{dataset}' *)
@@ -123,6 +125,7 @@ the Create operation and attempts to Update a non-existent resource will return 
 logs with appropriate levels of care if client-specified resource IDs contain sensitive data such as patient
 identifiers, those IDs will be part of the FHIR resource path recorded in Cloud audit logs and Cloud Pub/Sub
 notifications. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** User-supplied key-value pairs used to organize FHIR stores.
 
@@ -154,20 +157,22 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_healthcare_fhir_store *)
 
-let google_healthcare_fhir_store ?default_search_handling_strict
-    ?disable_referential_integrity ?disable_resource_versioning
-    ?enable_history_import ?enable_update_create ?labels ?timeouts
-    ~dataset ~name ~version ~notification_config ~stream_configs
-    __resource_id =
+let google_healthcare_fhir_store ?complex_data_type_reference_parsing
+    ?default_search_handling_strict ?disable_referential_integrity
+    ?disable_resource_versioning ?enable_history_import
+    ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
+    ~version ~notification_config ~stream_configs __resource_id =
   let __resource_type = "google_healthcare_fhir_store" in
   let __resource =
     {
+      complex_data_type_reference_parsing;
       dataset;
       default_search_handling_strict;
       disable_referential_integrity;
       disable_resource_versioning;
       enable_history_import;
       enable_update_create;
+      id;
       labels;
       name;
       version;

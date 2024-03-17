@@ -7,6 +7,7 @@ type azurerm_kubernetes_fleet_member
 
 val azurerm_kubernetes_fleet_member :
   ?group:string ->
+  ?id:string ->
   ?timeouts:azurerm_kubernetes_fleet_member__timeouts ->
   kubernetes_cluster_id:string ->
   kubernetes_fleet_id:string ->

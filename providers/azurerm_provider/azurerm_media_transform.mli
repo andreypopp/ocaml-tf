@@ -67,6 +67,7 @@ type azurerm_media_transform
 
 val azurerm_media_transform :
   ?description:string ->
+  ?id:string ->
   ?timeouts:azurerm_media_transform__timeouts ->
   media_services_account_name:string ->
   name:string ->

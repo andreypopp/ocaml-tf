@@ -103,8 +103,14 @@ type google_gke_backup_backup_plan__timeouts = {
 type google_gke_backup_backup_plan = {
   cluster : string;
       (** The source cluster from which Backups will be created via this BackupPlan. *)
+  deactivated : bool option; [@option]
+      (** This flag indicates whether this BackupPlan has been deactivated.
+Setting this field to True locks the BackupPlan such that no further updates will be allowed
+(except deletes), including the deactivated field itself. It also prevents any new Backups
+from being created via this BackupPlan (including scheduled Backups). *)
   description : string option; [@option]
       (** User specified descriptive string for this BackupPlan. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** Description: A set of custom labels supplied by the user.
 A list of key->value pairs.
@@ -115,6 +121,7 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string;  (** The region of the Backup Plan. *)
   name : string;  (** The full name of the BackupPlan Resource. *)
+  project : string option; [@option]  (** project *)
   backup_config : google_gke_backup_backup_plan__backup_config list;
   backup_schedule :
     google_gke_backup_backup_plan__backup_schedule list;
@@ -125,17 +132,20 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 [@@deriving yojson_of]
 (** google_gke_backup_backup_plan *)
 
-let google_gke_backup_backup_plan ?description ?labels ?timeouts
-    ~cluster ~location ~name ~backup_config ~backup_schedule
-    ~retention_policy __resource_id =
+let google_gke_backup_backup_plan ?deactivated ?description ?id
+    ?labels ?project ?timeouts ~cluster ~location ~name
+    ~backup_config ~backup_schedule ~retention_policy __resource_id =
   let __resource_type = "google_gke_backup_backup_plan" in
   let __resource =
     {
       cluster;
+      deactivated;
       description;
+      id;
       labels;
       location;
       name;
+      project;
       backup_config;
       backup_schedule;
       retention_policy;

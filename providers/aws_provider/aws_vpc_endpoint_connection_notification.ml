@@ -8,6 +8,7 @@ type aws_vpc_endpoint_connection_notification = {
   connection_events : string list;  (** connection_events *)
   connection_notification_arn : string;
       (** connection_notification_arn *)
+  id : string option; [@option]  (** id *)
   vpc_endpoint_id : string option; [@option]  (** vpc_endpoint_id *)
   vpc_endpoint_service_id : string option; [@option]
       (** vpc_endpoint_service_id *)
@@ -15,7 +16,7 @@ type aws_vpc_endpoint_connection_notification = {
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_connection_notification *)
 
-let aws_vpc_endpoint_connection_notification ?vpc_endpoint_id
+let aws_vpc_endpoint_connection_notification ?id ?vpc_endpoint_id
     ?vpc_endpoint_service_id ~connection_events
     ~connection_notification_arn __resource_id =
   let __resource_type = "aws_vpc_endpoint_connection_notification" in
@@ -23,6 +24,7 @@ let aws_vpc_endpoint_connection_notification ?vpc_endpoint_id
     {
       connection_events;
       connection_notification_arn;
+      id;
       vpc_endpoint_id;
       vpc_endpoint_service_id;
     }

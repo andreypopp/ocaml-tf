@@ -8,8 +8,12 @@ type azurerm_api_management_subscription
 val azurerm_api_management_subscription :
   ?allow_tracing:bool ->
   ?api_id:string ->
+  ?id:string ->
+  ?primary_key:string ->
   ?product_id:string ->
+  ?secondary_key:string ->
   ?state:string ->
+  ?subscription_id:string ->
   ?user_id:string ->
   ?timeouts:azurerm_api_management_subscription__timeouts ->
   api_management_name:string ->

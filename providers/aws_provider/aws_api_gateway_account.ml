@@ -13,13 +13,14 @@ type aws_api_gateway_account__throttle_settings = {
 type aws_api_gateway_account = {
   cloudwatch_role_arn : string option; [@option]
       (** cloudwatch_role_arn *)
+  id : string option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_account *)
 
-let aws_api_gateway_account ?cloudwatch_role_arn __resource_id =
+let aws_api_gateway_account ?cloudwatch_role_arn ?id __resource_id =
   let __resource_type = "aws_api_gateway_account" in
-  let __resource = { cloudwatch_role_arn } in
+  let __resource = { cloudwatch_role_arn; id } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_api_gateway_account __resource);
   ()

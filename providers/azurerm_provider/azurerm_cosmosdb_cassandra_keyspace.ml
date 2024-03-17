@@ -21,8 +21,10 @@ type azurerm_cosmosdb_cassandra_keyspace__timeouts = {
 
 type azurerm_cosmosdb_cassandra_keyspace = {
   account_name : string;  (** account_name *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
+  throughput : float option; [@option]  (** throughput *)
   autoscale_settings :
     azurerm_cosmosdb_cassandra_keyspace__autoscale_settings list;
   timeouts : azurerm_cosmosdb_cassandra_keyspace__timeouts option;
@@ -30,14 +32,17 @@ type azurerm_cosmosdb_cassandra_keyspace = {
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_keyspace *)
 
-let azurerm_cosmosdb_cassandra_keyspace ?timeouts ~account_name ~name
-    ~resource_group_name ~autoscale_settings __resource_id =
+let azurerm_cosmosdb_cassandra_keyspace ?id ?throughput ?timeouts
+    ~account_name ~name ~resource_group_name ~autoscale_settings
+    __resource_id =
   let __resource_type = "azurerm_cosmosdb_cassandra_keyspace" in
   let __resource =
     {
       account_name;
+      id;
       name;
       resource_group_name;
+      throughput;
       autoscale_settings;
       timeouts;
     }

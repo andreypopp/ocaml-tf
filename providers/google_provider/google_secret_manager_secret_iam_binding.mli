@@ -6,6 +6,8 @@ type google_secret_manager_secret_iam_binding__condition
 type google_secret_manager_secret_iam_binding
 
 val google_secret_manager_secret_iam_binding :
+  ?id:string ->
+  ?project:string ->
   members:string list ->
   role:string ->
   secret_id:string ->

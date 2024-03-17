@@ -10,12 +10,13 @@ type azurerm_route_table__route = {
   next_hop_in_ip_address : string;  (** next_hop_in_ip_address *)
   next_hop_type : string;  (** next_hop_type *)
 }
-[@@deriving yojson_of]
 
 type azurerm_route_table
 
 val azurerm_route_table :
   ?disable_bgp_route_propagation:bool ->
+  ?id:string ->
+  ?route:azurerm_route_table__route list ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_route_table__timeouts ->
   location:string ->

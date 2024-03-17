@@ -9,8 +9,11 @@ type azurerm_media_streaming_locator
 val azurerm_media_streaming_locator :
   ?alternative_media_id:string ->
   ?default_content_key_policy_name:string ->
+  ?end_time:string ->
   ?filter_names:string list ->
+  ?id:string ->
   ?start_time:string ->
+  ?streaming_locator_id:string ->
   ?timeouts:azurerm_media_streaming_locator__timeouts ->
   asset_name:string ->
   media_services_account_name:string ->

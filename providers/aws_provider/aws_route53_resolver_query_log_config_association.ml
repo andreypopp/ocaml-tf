@@ -5,6 +5,7 @@
 open! Tf.Prelude
 
 type aws_route53_resolver_query_log_config_association = {
+  id : string option; [@option]  (** id *)
   resolver_query_log_config_id : string;
       (** resolver_query_log_config_id *)
   resource_id : string;  (** resource_id *)
@@ -12,12 +13,14 @@ type aws_route53_resolver_query_log_config_association = {
 [@@deriving yojson_of]
 (** aws_route53_resolver_query_log_config_association *)
 
-let aws_route53_resolver_query_log_config_association
+let aws_route53_resolver_query_log_config_association ?id
     ~resolver_query_log_config_id ~resource_id __resource_id =
   let __resource_type =
     "aws_route53_resolver_query_log_config_association"
   in
-  let __resource = { resolver_query_log_config_id; resource_id } in
+  let __resource =
+    { id; resolver_query_log_config_id; resource_id }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_route53_resolver_query_log_config_association
        __resource);

@@ -16,6 +16,7 @@ type azurerm_automation_connection__timeouts = {
 type azurerm_automation_connection = {
   automation_account_name : string;  (** automation_account_name *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   type_ : string; [@key "type"]  (** type *)
@@ -25,7 +26,7 @@ type azurerm_automation_connection = {
 [@@deriving yojson_of]
 (** azurerm_automation_connection *)
 
-let azurerm_automation_connection ?description ?timeouts
+let azurerm_automation_connection ?description ?id ?timeouts
     ~automation_account_name ~name ~resource_group_name ~type_
     ~values __resource_id =
   let __resource_type = "azurerm_automation_connection" in
@@ -33,6 +34,7 @@ let azurerm_automation_connection ?description ?timeouts
     {
       automation_account_name;
       description;
+      id;
       name;
       resource_group_name;
       type_;

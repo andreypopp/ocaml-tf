@@ -55,10 +55,12 @@ type google_identity_platform_inbound_saml_config = {
   display_name : string;  (** Human friendly display name. *)
   enabled : bool option; [@option]
       (** If this config allows users to sign in with the provider. *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** The name of the InboundSamlConfig resource. Must start with 'saml.' and can only have alphanumeric characters,
 hyphens, underscores or periods. The part after 'saml.' must also start with a lowercase letter, end with an
 alphanumeric character, and have at least 2 characters. *)
+  project : string option; [@option]  (** project *)
   idp_config :
     google_identity_platform_inbound_saml_config__idp_config list;
   sp_config :
@@ -69,13 +71,23 @@ alphanumeric character, and have at least 2 characters. *)
 [@@deriving yojson_of]
 (** google_identity_platform_inbound_saml_config *)
 
-let google_identity_platform_inbound_saml_config ?enabled ?timeouts
-    ~display_name ~name ~idp_config ~sp_config __resource_id =
+let google_identity_platform_inbound_saml_config ?enabled ?id
+    ?project ?timeouts ~display_name ~name ~idp_config ~sp_config
+    __resource_id =
   let __resource_type =
     "google_identity_platform_inbound_saml_config"
   in
   let __resource =
-    { display_name; enabled; name; idp_config; sp_config; timeouts }
+    {
+      display_name;
+      enabled;
+      id;
+      name;
+      project;
+      idp_config;
+      sp_config;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_identity_platform_inbound_saml_config

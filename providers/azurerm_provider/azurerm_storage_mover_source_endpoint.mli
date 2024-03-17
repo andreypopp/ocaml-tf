@@ -8,6 +8,7 @@ type azurerm_storage_mover_source_endpoint
 val azurerm_storage_mover_source_endpoint :
   ?description:string ->
   ?export:string ->
+  ?id:string ->
   ?nfs_version:string ->
   ?timeouts:azurerm_storage_mover_source_endpoint__timeouts ->
   host:string ->

@@ -6,6 +6,7 @@ type google_compute_shared_vpc_host_project__timeouts
 type google_compute_shared_vpc_host_project
 
 val google_compute_shared_vpc_host_project :
+  ?id:string ->
   ?timeouts:google_compute_shared_vpc_host_project__timeouts ->
   project:string ->
   string ->

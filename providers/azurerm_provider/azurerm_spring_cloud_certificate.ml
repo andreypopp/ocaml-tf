@@ -17,6 +17,7 @@ type azurerm_spring_cloud_certificate = {
       (** certificate_content *)
   exclude_private_key : bool option; [@option]
       (** exclude_private_key *)
+  id : string option; [@option]  (** id *)
   key_vault_certificate_id : string option; [@option]
       (** key_vault_certificate_id *)
   name : string;  (** name *)
@@ -28,13 +29,14 @@ type azurerm_spring_cloud_certificate = {
 (** azurerm_spring_cloud_certificate *)
 
 let azurerm_spring_cloud_certificate ?certificate_content
-    ?exclude_private_key ?key_vault_certificate_id ?timeouts ~name
-    ~resource_group_name ~service_name __resource_id =
+    ?exclude_private_key ?id ?key_vault_certificate_id ?timeouts
+    ~name ~resource_group_name ~service_name __resource_id =
   let __resource_type = "azurerm_spring_cloud_certificate" in
   let __resource =
     {
       certificate_content;
       exclude_private_key;
+      id;
       key_vault_certificate_id;
       name;
       resource_group_name;

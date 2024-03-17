@@ -16,16 +16,20 @@ type aws_datasync_location_azure_blob = {
   authentication_type : string;  (** authentication_type *)
   blob_type : string option; [@option]  (** blob_type *)
   container_url : string;  (** container_url *)
+  id : string option; [@option]  (** id *)
+  subdirectory : string option; [@option]  (** subdirectory *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   sas_configuration :
     aws_datasync_location_azure_blob__sas_configuration list;
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_azure_blob *)
 
-let aws_datasync_location_azure_blob ?access_tier ?blob_type ?tags
-    ~agent_arns ~authentication_type ~container_url
-    ~sas_configuration __resource_id =
+let aws_datasync_location_azure_blob ?access_tier ?blob_type ?id
+    ?subdirectory ?tags ?tags_all ~agent_arns ~authentication_type
+    ~container_url ~sas_configuration __resource_id =
   let __resource_type = "aws_datasync_location_azure_blob" in
   let __resource =
     {
@@ -34,7 +38,10 @@ let aws_datasync_location_azure_blob ?access_tier ?blob_type ?tags
       authentication_type;
       blob_type;
       container_url;
+      id;
+      subdirectory;
       tags;
+      tags_all;
       sas_configuration;
     }
   in

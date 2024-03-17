@@ -31,9 +31,13 @@ type azurerm_mssql_elasticpool__timeouts = {
 
 type azurerm_mssql_elasticpool = {
   enclave_type : string option; [@option]  (** enclave_type *)
+  id : string option; [@option]  (** id *)
+  license_type : string option; [@option]  (** license_type *)
   location : string;  (** location *)
   maintenance_configuration_name : string option; [@option]
       (** maintenance_configuration_name *)
+  max_size_bytes : float option; [@option]  (** max_size_bytes *)
+  max_size_gb : float option; [@option]  (** max_size_gb *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   server_name : string;  (** server_name *)
@@ -47,16 +51,21 @@ type azurerm_mssql_elasticpool = {
 [@@deriving yojson_of]
 (** azurerm_mssql_elasticpool *)
 
-let azurerm_mssql_elasticpool ?enclave_type
-    ?maintenance_configuration_name ?tags ?zone_redundant ?timeouts
-    ~location ~name ~resource_group_name ~server_name
-    ~per_database_settings ~sku __resource_id =
+let azurerm_mssql_elasticpool ?enclave_type ?id ?license_type
+    ?maintenance_configuration_name ?max_size_bytes ?max_size_gb
+    ?tags ?zone_redundant ?timeouts ~location ~name
+    ~resource_group_name ~server_name ~per_database_settings ~sku
+    __resource_id =
   let __resource_type = "azurerm_mssql_elasticpool" in
   let __resource =
     {
       enclave_type;
+      id;
+      license_type;
       location;
       maintenance_configuration_name;
+      max_size_bytes;
+      max_size_gb;
       name;
       resource_group_name;
       server_name;

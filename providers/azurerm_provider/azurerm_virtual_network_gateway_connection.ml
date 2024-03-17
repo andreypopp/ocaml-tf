@@ -44,12 +44,18 @@ type azurerm_virtual_network_gateway_connection = {
   authorization_key : string option; [@option]
       (** authorization_key *)
   connection_mode : string option; [@option]  (** connection_mode *)
+  connection_protocol : string option; [@option]
+      (** connection_protocol *)
   dpd_timeout_seconds : float option; [@option]
       (** dpd_timeout_seconds *)
   egress_nat_rule_ids : string list option; [@option]
       (** egress_nat_rule_ids *)
+  enable_bgp : bool option; [@option]  (** enable_bgp *)
   express_route_circuit_id : string option; [@option]
       (** express_route_circuit_id *)
+  express_route_gateway_bypass : bool option; [@option]
+      (** express_route_gateway_bypass *)
+  id : string option; [@option]  (** id *)
   ingress_nat_rule_ids : string list option; [@option]
       (** ingress_nat_rule_ids *)
   local_azure_ip_address_enabled : bool option; [@option]
@@ -61,9 +67,12 @@ type azurerm_virtual_network_gateway_connection = {
   peer_virtual_network_gateway_id : string option; [@option]
       (** peer_virtual_network_gateway_id *)
   resource_group_name : string;  (** resource_group_name *)
+  routing_weight : float option; [@option]  (** routing_weight *)
   shared_key : string option; [@option]  (** shared_key *)
   tags : (string * string) list option; [@option]  (** tags *)
   type_ : string; [@key "type"]  (** type *)
+  use_policy_based_traffic_selectors : bool option; [@option]
+      (** use_policy_based_traffic_selectors *)
   virtual_network_gateway_id : string;
       (** virtual_network_gateway_id *)
   custom_bgp_addresses :
@@ -81,13 +90,15 @@ type azurerm_virtual_network_gateway_connection = {
 (** azurerm_virtual_network_gateway_connection *)
 
 let azurerm_virtual_network_gateway_connection ?authorization_key
-    ?connection_mode ?dpd_timeout_seconds ?egress_nat_rule_ids
-    ?express_route_circuit_id ?ingress_nat_rule_ids
+    ?connection_mode ?connection_protocol ?dpd_timeout_seconds
+    ?egress_nat_rule_ids ?enable_bgp ?express_route_circuit_id
+    ?express_route_gateway_bypass ?id ?ingress_nat_rule_ids
     ?local_azure_ip_address_enabled ?local_network_gateway_id
-    ?peer_virtual_network_gateway_id ?shared_key ?tags ?timeouts
-    ~location ~name ~resource_group_name ~type_
-    ~virtual_network_gateway_id ~custom_bgp_addresses ~ipsec_policy
-    ~traffic_selector_policy __resource_id =
+    ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
+    ?tags ?use_policy_based_traffic_selectors ?timeouts ~location
+    ~name ~resource_group_name ~type_ ~virtual_network_gateway_id
+    ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy
+    __resource_id =
   let __resource_type =
     "azurerm_virtual_network_gateway_connection"
   in
@@ -95,9 +106,13 @@ let azurerm_virtual_network_gateway_connection ?authorization_key
     {
       authorization_key;
       connection_mode;
+      connection_protocol;
       dpd_timeout_seconds;
       egress_nat_rule_ids;
+      enable_bgp;
       express_route_circuit_id;
+      express_route_gateway_bypass;
+      id;
       ingress_nat_rule_ids;
       local_azure_ip_address_enabled;
       local_network_gateway_id;
@@ -105,9 +120,11 @@ let azurerm_virtual_network_gateway_connection ?authorization_key
       name;
       peer_virtual_network_gateway_id;
       resource_group_name;
+      routing_weight;
       shared_key;
       tags;
       type_;
+      use_policy_based_traffic_selectors;
       virtual_network_gateway_id;
       custom_bgp_addresses;
       ipsec_policy;

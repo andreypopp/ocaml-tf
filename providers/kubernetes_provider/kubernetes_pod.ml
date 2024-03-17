@@ -2240,6 +2240,7 @@ type kubernetes_pod__timeouts = {
 (** kubernetes_pod__timeouts *)
 
 type kubernetes_pod = {
+  id : string option; [@option]  (** id *)
   target_state : string list option; [@option]
       (** A list of the pod phases that indicate whether it was successfully created. Options: Pending, Running, Succeeded, Failed, Unknown. Default: Running. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase *)
   metadata : kubernetes_pod__metadata list;
@@ -2249,10 +2250,10 @@ type kubernetes_pod = {
 [@@deriving yojson_of]
 (** kubernetes_pod *)
 
-let kubernetes_pod ?target_state ?timeouts ~metadata ~spec
+let kubernetes_pod ?id ?target_state ?timeouts ~metadata ~spec
     __resource_id =
   let __resource_type = "kubernetes_pod" in
-  let __resource = { target_state; metadata; spec; timeouts } in
+  let __resource = { id; target_state; metadata; spec; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_pod __resource);
   ()

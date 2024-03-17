@@ -6,6 +6,7 @@ type azurerm_function_app_active_slot__timeouts
 type azurerm_function_app_active_slot
 
 val azurerm_function_app_active_slot :
+  ?id:string ->
   ?overwrite_network_config:bool ->
   ?timeouts:azurerm_function_app_active_slot__timeouts ->
   slot_id:string ->

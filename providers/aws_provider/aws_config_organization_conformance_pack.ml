@@ -26,6 +26,7 @@ type aws_config_organization_conformance_pack = {
       (** delivery_s3_key_prefix *)
   excluded_accounts : string list option; [@option]
       (** excluded_accounts *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   template_body : string option; [@option]  (** template_body *)
   template_s3_uri : string option; [@option]  (** template_s3_uri *)
@@ -38,7 +39,7 @@ type aws_config_organization_conformance_pack = {
 (** aws_config_organization_conformance_pack *)
 
 let aws_config_organization_conformance_pack ?delivery_s3_bucket
-    ?delivery_s3_key_prefix ?excluded_accounts ?template_body
+    ?delivery_s3_key_prefix ?excluded_accounts ?id ?template_body
     ?template_s3_uri ?timeouts ~name ~input_parameter __resource_id =
   let __resource_type = "aws_config_organization_conformance_pack" in
   let __resource =
@@ -46,6 +47,7 @@ let aws_config_organization_conformance_pack ?delivery_s3_bucket
       delivery_s3_bucket;
       delivery_s3_key_prefix;
       excluded_accounts;
+      id;
       name;
       template_body;
       template_s3_uri;

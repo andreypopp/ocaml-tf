@@ -47,6 +47,7 @@ type aws_kendra_experience__endpoints = {
 
 type aws_kendra_experience = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   index_id : string;  (** index_id *)
   name : string;  (** name *)
   role_arn : string;  (** role_arn *)
@@ -56,12 +57,13 @@ type aws_kendra_experience = {
 [@@deriving yojson_of]
 (** aws_kendra_experience *)
 
-let aws_kendra_experience ?description ?timeouts ~index_id ~name
+let aws_kendra_experience ?description ?id ?timeouts ~index_id ~name
     ~role_arn ~configuration __resource_id =
   let __resource_type = "aws_kendra_experience" in
   let __resource =
     {
       description;
+      id;
       index_id;
       name;
       role_arn;

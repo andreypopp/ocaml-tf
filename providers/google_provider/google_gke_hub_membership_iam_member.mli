@@ -6,6 +6,9 @@ type google_gke_hub_membership_iam_member__condition
 type google_gke_hub_membership_iam_member
 
 val google_gke_hub_membership_iam_member :
+  ?id:string ->
+  ?location:string ->
+  ?project:string ->
   member:string ->
   membership_id:string ->
   role:string ->

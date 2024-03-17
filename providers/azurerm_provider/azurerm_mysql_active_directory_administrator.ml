@@ -14,6 +14,7 @@ type azurerm_mysql_active_directory_administrator__timeouts = {
 (** azurerm_mysql_active_directory_administrator__timeouts *)
 
 type azurerm_mysql_active_directory_administrator = {
+  id : string option; [@option]  (** id *)
   login : string;  (** login *)
   object_id : string;  (** object_id *)
   resource_group_name : string;  (** resource_group_name *)
@@ -25,7 +26,7 @@ type azurerm_mysql_active_directory_administrator = {
 [@@deriving yojson_of]
 (** azurerm_mysql_active_directory_administrator *)
 
-let azurerm_mysql_active_directory_administrator ?timeouts ~login
+let azurerm_mysql_active_directory_administrator ?id ?timeouts ~login
     ~object_id ~resource_group_name ~server_name ~tenant_id
     __resource_id =
   let __resource_type =
@@ -33,6 +34,7 @@ let azurerm_mysql_active_directory_administrator ?timeouts ~login
   in
   let __resource =
     {
+      id;
       login;
       object_id;
       resource_group_name;

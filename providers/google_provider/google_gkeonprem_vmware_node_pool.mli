@@ -16,7 +16,6 @@ type google_gkeonprem_vmware_node_pool__status__conditions = {
   state : string;  (** state *)
   type_ : string; [@key "type"]  (** type *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_vmware_node_pool__status = {
   conditions :
@@ -24,13 +23,14 @@ type google_gkeonprem_vmware_node_pool__status = {
       (** conditions *)
   error_message : string;  (** error_message *)
 }
-[@@deriving yojson_of]
 
 type google_gkeonprem_vmware_node_pool
 
 val google_gkeonprem_vmware_node_pool :
   ?annotations:(string * string) list ->
   ?display_name:string ->
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_gkeonprem_vmware_node_pool__timeouts ->
   location:string ->
   name:string ->

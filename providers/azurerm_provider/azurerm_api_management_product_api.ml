@@ -15,6 +15,7 @@ type azurerm_api_management_product_api__timeouts = {
 type azurerm_api_management_product_api = {
   api_management_name : string;  (** api_management_name *)
   api_name : string;  (** api_name *)
+  id : string option; [@option]  (** id *)
   product_id : string;  (** product_id *)
   resource_group_name : string;  (** resource_group_name *)
   timeouts : azurerm_api_management_product_api__timeouts option;
@@ -22,13 +23,15 @@ type azurerm_api_management_product_api = {
 [@@deriving yojson_of]
 (** azurerm_api_management_product_api *)
 
-let azurerm_api_management_product_api ?timeouts ~api_management_name
-    ~api_name ~product_id ~resource_group_name __resource_id =
+let azurerm_api_management_product_api ?id ?timeouts
+    ~api_management_name ~api_name ~product_id ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_api_management_product_api" in
   let __resource =
     {
       api_management_name;
       api_name;
+      id;
       product_id;
       resource_group_name;
       timeouts;

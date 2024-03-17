@@ -63,6 +63,7 @@ type kubernetes_resource_quota__timeouts = {
 (** kubernetes_resource_quota__timeouts *)
 
 type kubernetes_resource_quota = {
+  id : string option; [@option]  (** id *)
   metadata : kubernetes_resource_quota__metadata list;
   spec : kubernetes_resource_quota__spec list;
   timeouts : kubernetes_resource_quota__timeouts option;
@@ -70,10 +71,10 @@ type kubernetes_resource_quota = {
 [@@deriving yojson_of]
 (** kubernetes_resource_quota *)
 
-let kubernetes_resource_quota ?timeouts ~metadata ~spec __resource_id
-    =
+let kubernetes_resource_quota ?id ?timeouts ~metadata ~spec
+    __resource_id =
   let __resource_type = "kubernetes_resource_quota" in
-  let __resource = { metadata; spec; timeouts } in
+  let __resource = { id; metadata; spec; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_kubernetes_resource_quota __resource);
   ()

@@ -13,6 +13,7 @@ type azurerm_eventhub_namespace_schema_group__timeouts = {
 (** azurerm_eventhub_namespace_schema_group__timeouts *)
 
 type azurerm_eventhub_namespace_schema_group = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   namespace_id : string;  (** namespace_id *)
   schema_compatibility : string;  (** schema_compatibility *)
@@ -22,11 +23,12 @@ type azurerm_eventhub_namespace_schema_group = {
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace_schema_group *)
 
-let azurerm_eventhub_namespace_schema_group ?timeouts ~name
+let azurerm_eventhub_namespace_schema_group ?id ?timeouts ~name
     ~namespace_id ~schema_compatibility ~schema_type __resource_id =
   let __resource_type = "azurerm_eventhub_namespace_schema_group" in
   let __resource =
     {
+      id;
       name;
       namespace_id;
       schema_compatibility;

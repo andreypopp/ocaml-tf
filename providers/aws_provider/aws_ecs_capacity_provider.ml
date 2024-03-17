@@ -31,18 +31,23 @@ type aws_ecs_capacity_provider__auto_scaling_group_provider = {
 (** aws_ecs_capacity_provider__auto_scaling_group_provider *)
 
 type aws_ecs_capacity_provider = {
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   auto_scaling_group_provider :
     aws_ecs_capacity_provider__auto_scaling_group_provider list;
 }
 [@@deriving yojson_of]
 (** aws_ecs_capacity_provider *)
 
-let aws_ecs_capacity_provider ?tags ~name
+let aws_ecs_capacity_provider ?id ?tags ?tags_all ~name
     ~auto_scaling_group_provider __resource_id =
   let __resource_type = "aws_ecs_capacity_provider" in
-  let __resource = { name; tags; auto_scaling_group_provider } in
+  let __resource =
+    { id; name; tags; tags_all; auto_scaling_group_provider }
+  in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_ecs_capacity_provider __resource);
   ()

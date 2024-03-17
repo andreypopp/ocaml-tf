@@ -10,6 +10,7 @@ val azurerm_data_factory_linked_service_sftp :
   ?annotations:string list ->
   ?description:string ->
   ?host_key_fingerprint:string ->
+  ?id:string ->
   ?integration_runtime_name:string ->
   ?parameters:(string * string) list ->
   ?skip_host_key_validation:bool ->

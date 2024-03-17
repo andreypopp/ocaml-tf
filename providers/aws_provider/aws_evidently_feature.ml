@@ -35,28 +35,40 @@ type aws_evidently_feature__evaluation_rules = {
 [@@deriving yojson_of]
 
 type aws_evidently_feature = {
+  default_variation : string option; [@option]
+      (** default_variation *)
   description : string option; [@option]  (** description *)
   entity_overrides : (string * string) list option; [@option]
       (** entity_overrides *)
+  evaluation_strategy : string option; [@option]
+      (** evaluation_strategy *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   project : string;  (** project *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_evidently_feature__timeouts option;
   variations : aws_evidently_feature__variations list;
 }
 [@@deriving yojson_of]
 (** aws_evidently_feature *)
 
-let aws_evidently_feature ?description ?entity_overrides ?tags
+let aws_evidently_feature ?default_variation ?description
+    ?entity_overrides ?evaluation_strategy ?id ?tags ?tags_all
     ?timeouts ~name ~project ~variations __resource_id =
   let __resource_type = "aws_evidently_feature" in
   let __resource =
     {
+      default_variation;
       description;
       entity_overrides;
+      evaluation_strategy;
+      id;
       name;
       project;
       tags;
+      tags_all;
       timeouts;
       variations;
     }

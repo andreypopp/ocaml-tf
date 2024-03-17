@@ -12,6 +12,7 @@ type azurerm_frontdoor_rules_engine
 
 val azurerm_frontdoor_rules_engine :
   ?enabled:bool ->
+  ?id:string ->
   ?timeouts:azurerm_frontdoor_rules_engine__timeouts ->
   frontdoor_name:string ->
   name:string ->

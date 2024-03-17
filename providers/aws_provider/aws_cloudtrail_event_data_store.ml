@@ -35,6 +35,7 @@ type aws_cloudtrail_event_data_store__timeouts = {
 (** aws_cloudtrail_event_data_store__timeouts *)
 
 type aws_cloudtrail_event_data_store = {
+  id : string option; [@option]  (** id *)
   kms_key_id : string option; [@option]  (** kms_key_id *)
   multi_region_enabled : bool option; [@option]
       (** multi_region_enabled *)
@@ -43,6 +44,8 @@ type aws_cloudtrail_event_data_store = {
       (** organization_enabled *)
   retention_period : float option; [@option]  (** retention_period *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   termination_protection_enabled : bool option; [@option]
       (** termination_protection_enabled *)
   advanced_event_selector :
@@ -52,19 +55,21 @@ type aws_cloudtrail_event_data_store = {
 [@@deriving yojson_of]
 (** aws_cloudtrail_event_data_store *)
 
-let aws_cloudtrail_event_data_store ?kms_key_id ?multi_region_enabled
-    ?organization_enabled ?retention_period ?tags
-    ?termination_protection_enabled ?timeouts ~name
+let aws_cloudtrail_event_data_store ?id ?kms_key_id
+    ?multi_region_enabled ?organization_enabled ?retention_period
+    ?tags ?tags_all ?termination_protection_enabled ?timeouts ~name
     ~advanced_event_selector __resource_id =
   let __resource_type = "aws_cloudtrail_event_data_store" in
   let __resource =
     {
+      id;
       kms_key_id;
       multi_region_enabled;
       name;
       organization_enabled;
       retention_period;
       tags;
+      tags_all;
       termination_protection_enabled;
       advanced_event_selector;
       timeouts;

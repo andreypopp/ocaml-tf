@@ -42,6 +42,7 @@ type aws_redshift_scheduled_action = {
   enable : bool option; [@option]  (** enable *)
   end_time : string option; [@option]  (** end_time *)
   iam_role : string;  (** iam_role *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   schedule : string;  (** schedule *)
   start_time : string option; [@option]  (** start_time *)
@@ -50,7 +51,7 @@ type aws_redshift_scheduled_action = {
 [@@deriving yojson_of]
 (** aws_redshift_scheduled_action *)
 
-let aws_redshift_scheduled_action ?description ?enable ?end_time
+let aws_redshift_scheduled_action ?description ?enable ?end_time ?id
     ?start_time ~iam_role ~name ~schedule ~target_action
     __resource_id =
   let __resource_type = "aws_redshift_scheduled_action" in
@@ -60,6 +61,7 @@ let aws_redshift_scheduled_action ?description ?enable ?end_time
       enable;
       end_time;
       iam_role;
+      id;
       name;
       schedule;
       start_time;

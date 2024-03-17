@@ -7,6 +7,7 @@ type azurerm_stream_analytics_reference_input_mssql
 
 val azurerm_stream_analytics_reference_input_mssql :
   ?delta_snapshot_query:string ->
+  ?id:string ->
   ?refresh_interval_duration:string ->
   ?table:string ->
   ?timeouts:azurerm_stream_analytics_reference_input_mssql__timeouts ->

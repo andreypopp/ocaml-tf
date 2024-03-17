@@ -107,9 +107,12 @@ type aws_route53domains_registered_domain = {
   auto_renew : bool option; [@option]  (** auto_renew *)
   billing_privacy : bool option; [@option]  (** billing_privacy *)
   domain_name : string;  (** domain_name *)
+  id : string option; [@option]  (** id *)
   registrant_privacy : bool option; [@option]
       (** registrant_privacy *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   tech_privacy : bool option; [@option]  (** tech_privacy *)
   transfer_lock : bool option; [@option]  (** transfer_lock *)
   admin_contact :
@@ -128,10 +131,10 @@ type aws_route53domains_registered_domain = {
 (** aws_route53domains_registered_domain *)
 
 let aws_route53domains_registered_domain ?admin_privacy ?auto_renew
-    ?billing_privacy ?registrant_privacy ?tags ?tech_privacy
-    ?transfer_lock ?timeouts ~domain_name ~admin_contact
-    ~billing_contact ~name_server ~registrant_contact ~tech_contact
-    __resource_id =
+    ?billing_privacy ?id ?registrant_privacy ?tags ?tags_all
+    ?tech_privacy ?transfer_lock ?timeouts ~domain_name
+    ~admin_contact ~billing_contact ~name_server ~registrant_contact
+    ~tech_contact __resource_id =
   let __resource_type = "aws_route53domains_registered_domain" in
   let __resource =
     {
@@ -139,8 +142,10 @@ let aws_route53domains_registered_domain ?admin_privacy ?auto_renew
       auto_renew;
       billing_privacy;
       domain_name;
+      id;
       registrant_privacy;
       tags;
+      tags_all;
       tech_privacy;
       transfer_lock;
       admin_contact;

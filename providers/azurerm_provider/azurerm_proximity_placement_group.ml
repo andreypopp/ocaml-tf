@@ -16,6 +16,7 @@ type azurerm_proximity_placement_group__timeouts = {
 type azurerm_proximity_placement_group = {
   allowed_vm_sizes : string list option; [@option]
       (** allowed_vm_sizes *)
+  id : string option; [@option]  (** id *)
   location : string;  (** location *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
@@ -26,12 +27,14 @@ type azurerm_proximity_placement_group = {
 [@@deriving yojson_of]
 (** azurerm_proximity_placement_group *)
 
-let azurerm_proximity_placement_group ?allowed_vm_sizes ?tags ?zone
-    ?timeouts ~location ~name ~resource_group_name __resource_id =
+let azurerm_proximity_placement_group ?allowed_vm_sizes ?id ?tags
+    ?zone ?timeouts ~location ~name ~resource_group_name
+    __resource_id =
   let __resource_type = "azurerm_proximity_placement_group" in
   let __resource =
     {
       allowed_vm_sizes;
+      id;
       location;
       name;
       resource_group_name;

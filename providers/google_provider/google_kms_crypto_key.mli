@@ -9,11 +9,13 @@ type google_kms_crypto_key__primary = {
   name : string;  (** name *)
   state : string;  (** state *)
 }
-[@@deriving yojson_of]
 
 type google_kms_crypto_key
 
 val google_kms_crypto_key :
+  ?destroy_scheduled_duration:string ->
+  ?id:string ->
+  ?import_only:bool ->
   ?labels:(string * string) list ->
   ?purpose:string ->
   ?rotation_period:string ->

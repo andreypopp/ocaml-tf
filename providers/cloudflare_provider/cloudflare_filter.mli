@@ -6,6 +6,7 @@ type cloudflare_filter
 
 val cloudflare_filter :
   ?description:string ->
+  ?id:string ->
   ?paused:bool ->
   ?ref:string ->
   expression:string ->

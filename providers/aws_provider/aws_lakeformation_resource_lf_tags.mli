@@ -10,6 +10,8 @@ type aws_lakeformation_resource_lf_tags__timeouts
 type aws_lakeformation_resource_lf_tags
 
 val aws_lakeformation_resource_lf_tags :
+  ?catalog_id:string ->
+  ?id:string ->
   ?timeouts:aws_lakeformation_resource_lf_tags__timeouts ->
   database:aws_lakeformation_resource_lf_tags__database list ->
   lf_tag:aws_lakeformation_resource_lf_tags__lf_tag list ->

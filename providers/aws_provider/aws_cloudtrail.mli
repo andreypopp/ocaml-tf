@@ -14,6 +14,7 @@ val aws_cloudtrail :
   ?cloud_watch_logs_role_arn:string ->
   ?enable_log_file_validation:bool ->
   ?enable_logging:bool ->
+  ?id:string ->
   ?include_global_service_events:bool ->
   ?is_multi_region_trail:bool ->
   ?is_organization_trail:bool ->
@@ -21,6 +22,7 @@ val aws_cloudtrail :
   ?s3_key_prefix:string ->
   ?sns_topic_name:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   name:string ->
   s3_bucket_name:string ->
   advanced_event_selector:

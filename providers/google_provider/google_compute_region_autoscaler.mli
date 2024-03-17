@@ -20,6 +20,9 @@ type google_compute_region_autoscaler
 
 val google_compute_region_autoscaler :
   ?description:string ->
+  ?id:string ->
+  ?project:string ->
+  ?region:string ->
   ?timeouts:google_compute_region_autoscaler__timeouts ->
   name:string ->
   target:string ->

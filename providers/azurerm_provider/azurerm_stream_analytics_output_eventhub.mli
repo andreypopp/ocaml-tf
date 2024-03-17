@@ -8,6 +8,7 @@ type azurerm_stream_analytics_output_eventhub
 
 val azurerm_stream_analytics_output_eventhub :
   ?authentication_mode:string ->
+  ?id:string ->
   ?partition_key:string ->
   ?property_columns:string list ->
   ?shared_access_policy_key:string ->

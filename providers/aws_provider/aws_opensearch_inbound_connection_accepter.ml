@@ -13,18 +13,19 @@ type aws_opensearch_inbound_connection_accepter__timeouts = {
 
 type aws_opensearch_inbound_connection_accepter = {
   connection_id : string;  (** connection_id *)
+  id : string option; [@option]  (** id *)
   timeouts :
     aws_opensearch_inbound_connection_accepter__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_opensearch_inbound_connection_accepter *)
 
-let aws_opensearch_inbound_connection_accepter ?timeouts
+let aws_opensearch_inbound_connection_accepter ?id ?timeouts
     ~connection_id __resource_id =
   let __resource_type =
     "aws_opensearch_inbound_connection_accepter"
   in
-  let __resource = { connection_id; timeouts } in
+  let __resource = { connection_id; id; timeouts } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_opensearch_inbound_connection_accepter __resource);
   ()

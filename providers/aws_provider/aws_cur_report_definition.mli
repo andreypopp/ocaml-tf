@@ -6,6 +6,7 @@ type aws_cur_report_definition
 
 val aws_cur_report_definition :
   ?additional_artifacts:string list ->
+  ?id:string ->
   ?refresh_closed_reports:bool ->
   ?report_versioning:string ->
   ?s3_prefix:string ->

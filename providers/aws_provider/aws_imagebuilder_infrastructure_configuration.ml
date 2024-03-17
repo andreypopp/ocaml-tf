@@ -29,6 +29,7 @@ type aws_imagebuilder_infrastructure_configuration__logging = {
 
 type aws_imagebuilder_infrastructure_configuration = {
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   instance_profile_name : string;  (** instance_profile_name *)
   instance_types : string list option; [@option]
       (** instance_types *)
@@ -41,6 +42,8 @@ type aws_imagebuilder_infrastructure_configuration = {
   sns_topic_arn : string option; [@option]  (** sns_topic_arn *)
   subnet_id : string option; [@option]  (** subnet_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   terminate_instance_on_failure : bool option; [@option]
       (** terminate_instance_on_failure *)
   instance_metadata_options :
@@ -52,17 +55,18 @@ type aws_imagebuilder_infrastructure_configuration = {
 [@@deriving yojson_of]
 (** aws_imagebuilder_infrastructure_configuration *)
 
-let aws_imagebuilder_infrastructure_configuration ?description
+let aws_imagebuilder_infrastructure_configuration ?description ?id
     ?instance_types ?key_pair ?resource_tags ?security_group_ids
-    ?sns_topic_arn ?subnet_id ?tags ?terminate_instance_on_failure
-    ~instance_profile_name ~name ~instance_metadata_options ~logging
-    __resource_id =
+    ?sns_topic_arn ?subnet_id ?tags ?tags_all
+    ?terminate_instance_on_failure ~instance_profile_name ~name
+    ~instance_metadata_options ~logging __resource_id =
   let __resource_type =
     "aws_imagebuilder_infrastructure_configuration"
   in
   let __resource =
     {
       description;
+      id;
       instance_profile_name;
       instance_types;
       key_pair;
@@ -72,6 +76,7 @@ let aws_imagebuilder_infrastructure_configuration ?description
       sns_topic_arn;
       subnet_id;
       tags;
+      tags_all;
       terminate_instance_on_failure;
       instance_metadata_options;
       logging;

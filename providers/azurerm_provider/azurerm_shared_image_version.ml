@@ -35,6 +35,7 @@ type azurerm_shared_image_version = {
   exclude_from_latest : bool option; [@option]
       (** exclude_from_latest *)
   gallery_name : string;  (** gallery_name *)
+  id : string option; [@option]  (** id *)
   image_name : string;  (** image_name *)
   location : string;  (** location *)
   managed_image_id : string option; [@option]
@@ -56,7 +57,7 @@ type azurerm_shared_image_version = {
 
 let azurerm_shared_image_version ?blob_uri
     ?deletion_of_replicated_locations_enabled ?end_of_life_date
-    ?exclude_from_latest ?managed_image_id ?os_disk_snapshot_id
+    ?exclude_from_latest ?id ?managed_image_id ?os_disk_snapshot_id
     ?replication_mode ?storage_account_id ?tags ?timeouts
     ~gallery_name ~image_name ~location ~name ~resource_group_name
     ~target_region __resource_id =
@@ -68,6 +69,7 @@ let azurerm_shared_image_version ?blob_uri
       end_of_life_date;
       exclude_from_latest;
       gallery_name;
+      id;
       image_name;
       location;
       managed_image_id;

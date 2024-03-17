@@ -6,6 +6,8 @@ type google_firebase_app_check_debug_token__timeouts
 type google_firebase_app_check_debug_token
 
 val google_firebase_app_check_debug_token :
+  ?id:string ->
+  ?project:string ->
   ?timeouts:google_firebase_app_check_debug_token__timeouts ->
   app_id:string ->
   display_name:string ->

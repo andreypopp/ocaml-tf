@@ -31,19 +31,32 @@ type aws_default_route_table__route = {
 
 type aws_default_route_table = {
   default_route_table_id : string;  (** default_route_table_id *)
+  id : string option; [@option]  (** id *)
   propagating_vgws : string list option; [@option]
       (** propagating_vgws *)
+  route : aws_default_route_table__route list option; [@option]
+      (** route *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   timeouts : aws_default_route_table__timeouts option;
 }
 [@@deriving yojson_of]
 (** aws_default_route_table *)
 
-let aws_default_route_table ?propagating_vgws ?tags ?timeouts
-    ~default_route_table_id __resource_id =
+let aws_default_route_table ?id ?propagating_vgws ?route ?tags
+    ?tags_all ?timeouts ~default_route_table_id __resource_id =
   let __resource_type = "aws_default_route_table" in
   let __resource =
-    { default_route_table_id; propagating_vgws; tags; timeouts }
+    {
+      default_route_table_id;
+      id;
+      propagating_vgws;
+      route;
+      tags;
+      tags_all;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_route_table __resource);

@@ -7,7 +7,9 @@ type aws_location_place_index
 
 val aws_location_place_index :
   ?description:string ->
+  ?id:string ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   data_source:string ->
   index_name:string ->
   data_source_configuration:

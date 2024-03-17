@@ -17,6 +17,7 @@ type azurerm_automation_variable_string = {
   automation_account_name : string;  (** automation_account_name *)
   description : string option; [@option]  (** description *)
   encrypted : bool option; [@option]  (** encrypted *)
+  id : string option; [@option]  (** id *)
   name : string;  (** name *)
   resource_group_name : string;  (** resource_group_name *)
   value : string option; [@option]  (** value *)
@@ -25,15 +26,16 @@ type azurerm_automation_variable_string = {
 [@@deriving yojson_of]
 (** azurerm_automation_variable_string *)
 
-let azurerm_automation_variable_string ?description ?encrypted ?value
-    ?timeouts ~automation_account_name ~name ~resource_group_name
-    __resource_id =
+let azurerm_automation_variable_string ?description ?encrypted ?id
+    ?value ?timeouts ~automation_account_name ~name
+    ~resource_group_name __resource_id =
   let __resource_type = "azurerm_automation_variable_string" in
   let __resource =
     {
       automation_account_name;
       description;
       encrypted;
+      id;
       name;
       resource_group_name;
       value;

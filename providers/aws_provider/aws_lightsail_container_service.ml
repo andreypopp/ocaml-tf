@@ -43,11 +43,14 @@ type aws_lightsail_container_service__timeouts = {
 (** aws_lightsail_container_service__timeouts *)
 
 type aws_lightsail_container_service = {
+  id : string option; [@option]  (** id *)
   is_disabled : bool option; [@option]  (** is_disabled *)
   name : string;  (** name *)
   power : string;  (** power *)
   scale : float;  (** scale *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   private_registry_access :
     aws_lightsail_container_service__private_registry_access list;
   public_domain_names :
@@ -57,17 +60,19 @@ type aws_lightsail_container_service = {
 [@@deriving yojson_of]
 (** aws_lightsail_container_service *)
 
-let aws_lightsail_container_service ?is_disabled ?tags ?timeouts
-    ~name ~power ~scale ~private_registry_access ~public_domain_names
-    __resource_id =
+let aws_lightsail_container_service ?id ?is_disabled ?tags ?tags_all
+    ?timeouts ~name ~power ~scale ~private_registry_access
+    ~public_domain_names __resource_id =
   let __resource_type = "aws_lightsail_container_service" in
   let __resource =
     {
+      id;
       is_disabled;
       name;
       power;
       scale;
       tags;
+      tags_all;
       private_registry_access;
       public_domain_names;
       timeouts;

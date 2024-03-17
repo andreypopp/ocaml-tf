@@ -5,14 +5,18 @@
 open! Tf.Prelude
 
 type aws_default_vpc_dhcp_options = {
+  id : string option; [@option]  (** id *)
+  owner_id : string option; [@option]  (** owner_id *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]  (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_default_vpc_dhcp_options *)
 
-let aws_default_vpc_dhcp_options ?tags __resource_id =
+let aws_default_vpc_dhcp_options ?id ?owner_id ?tags ?tags_all
+    __resource_id =
   let __resource_type = "aws_default_vpc_dhcp_options" in
-  let __resource = { tags } in
+  let __resource = { id; owner_id; tags; tags_all } in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_aws_default_vpc_dhcp_options __resource);
   ()

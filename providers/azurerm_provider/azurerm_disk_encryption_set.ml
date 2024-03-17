@@ -28,6 +28,7 @@ type azurerm_disk_encryption_set = {
   encryption_type : string option; [@option]  (** encryption_type *)
   federated_client_id : string option; [@option]
       (** federated_client_id *)
+  id : string option; [@option]  (** id *)
   key_vault_key_id : string;  (** key_vault_key_id *)
   location : string;  (** location *)
   name : string;  (** name *)
@@ -40,7 +41,7 @@ type azurerm_disk_encryption_set = {
 (** azurerm_disk_encryption_set *)
 
 let azurerm_disk_encryption_set ?auto_key_rotation_enabled
-    ?encryption_type ?federated_client_id ?tags ?timeouts
+    ?encryption_type ?federated_client_id ?id ?tags ?timeouts
     ~key_vault_key_id ~location ~name ~resource_group_name ~identity
     __resource_id =
   let __resource_type = "azurerm_disk_encryption_set" in
@@ -49,6 +50,7 @@ let azurerm_disk_encryption_set ?auto_key_rotation_enabled
       auto_key_rotation_enabled;
       encryption_type;
       federated_client_id;
+      id;
       key_vault_key_id;
       location;
       name;

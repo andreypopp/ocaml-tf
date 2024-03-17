@@ -6,6 +6,7 @@ type aws_ssm_resource_data_sync__s3_destination
 type aws_ssm_resource_data_sync
 
 val aws_ssm_resource_data_sync :
+  ?id:string ->
   name:string ->
   s3_destination:aws_ssm_resource_data_sync__s3_destination list ->
   string ->

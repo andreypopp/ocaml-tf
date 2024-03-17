@@ -69,6 +69,7 @@ type azurerm_app_configuration__secondary_write_key = {
 [@@deriving yojson_of]
 
 type azurerm_app_configuration = {
+  id : string option; [@option]  (** id *)
   local_auth_enabled : bool option; [@option]
       (** local_auth_enabled *)
   location : string;  (** location *)
@@ -90,7 +91,7 @@ type azurerm_app_configuration = {
 [@@deriving yojson_of]
 (** azurerm_app_configuration *)
 
-let azurerm_app_configuration ?local_auth_enabled
+let azurerm_app_configuration ?id ?local_auth_enabled
     ?public_network_access ?purge_protection_enabled ?sku
     ?soft_delete_retention_days ?tags ?timeouts ~location ~name
     ~resource_group_name ~encryption ~identity ~replica __resource_id
@@ -98,6 +99,7 @@ let azurerm_app_configuration ?local_auth_enabled
   let __resource_type = "azurerm_app_configuration" in
   let __resource =
     {
+      id;
       local_auth_enabled;
       location;
       name;

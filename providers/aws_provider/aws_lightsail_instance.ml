@@ -16,29 +16,34 @@ type aws_lightsail_instance = {
   availability_zone : string;  (** availability_zone *)
   blueprint_id : string;  (** blueprint_id *)
   bundle_id : string;  (** bundle_id *)
+  id : string option; [@option]  (** id *)
   ip_address_type : string option; [@option]  (** ip_address_type *)
   key_pair_name : string option; [@option]  (** key_pair_name *)
   name : string;  (** name *)
   tags : (string * string) list option; [@option]  (** tags *)
+  tags_all : (string * string) list option; [@option]
+      (** tags_all *)
   user_data : string option; [@option]  (** user_data *)
   add_on : aws_lightsail_instance__add_on list;
 }
 [@@deriving yojson_of]
 (** aws_lightsail_instance *)
 
-let aws_lightsail_instance ?ip_address_type ?key_pair_name ?tags
-    ?user_data ~availability_zone ~blueprint_id ~bundle_id ~name
-    ~add_on __resource_id =
+let aws_lightsail_instance ?id ?ip_address_type ?key_pair_name ?tags
+    ?tags_all ?user_data ~availability_zone ~blueprint_id ~bundle_id
+    ~name ~add_on __resource_id =
   let __resource_type = "aws_lightsail_instance" in
   let __resource =
     {
       availability_zone;
       blueprint_id;
       bundle_id;
+      id;
       ip_address_type;
       key_pair_name;
       name;
       tags;
+      tags_all;
       user_data;
       add_on;
     }

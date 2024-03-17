@@ -310,6 +310,7 @@ type google_database_migration_service_connection_profile = {
       (** The ID of the connection profile. *)
   display_name : string option; [@option]
       (** The connection profile display name. *)
+  id : string option; [@option]  (** id *)
   labels : (string * string) list option; [@option]
       (** The resource labels for connection profile to use to annotate any related underlying resources such as Compute Engine VMs.
 
@@ -318,6 +319,7 @@ type google_database_migration_service_connection_profile = {
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string option; [@option]
       (** The location where the connection profile should reside. *)
+  project : string option; [@option]  (** project *)
   alloydb :
     google_database_migration_service_connection_profile__alloydb
     list;
@@ -339,8 +341,9 @@ Please refer to the field 'effective_labels' for all of the labels present on th
 (** google_database_migration_service_connection_profile *)
 
 let google_database_migration_service_connection_profile
-    ?display_name ?labels ?location ?timeouts ~connection_profile_id
-    ~alloydb ~cloudsql ~mysql ~oracle ~postgresql __resource_id =
+    ?display_name ?id ?labels ?location ?project ?timeouts
+    ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
+    ~postgresql __resource_id =
   let __resource_type =
     "google_database_migration_service_connection_profile"
   in
@@ -348,8 +351,10 @@ let google_database_migration_service_connection_profile
     {
       connection_profile_id;
       display_name;
+      id;
       labels;
       location;
+      project;
       alloydb;
       cloudsql;
       mysql;

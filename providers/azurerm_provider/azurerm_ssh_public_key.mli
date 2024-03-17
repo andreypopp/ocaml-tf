@@ -6,6 +6,7 @@ type azurerm_ssh_public_key__timeouts
 type azurerm_ssh_public_key
 
 val azurerm_ssh_public_key :
+  ?id:string ->
   ?tags:(string * string) list ->
   ?timeouts:azurerm_ssh_public_key__timeouts ->
   location:string ->

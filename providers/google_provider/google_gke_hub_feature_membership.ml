@@ -270,10 +270,13 @@ type google_gke_hub_feature_membership__timeouts = {
 
 type google_gke_hub_feature_membership = {
   feature : string;  (** The name of the feature *)
+  id : string option; [@option]  (** id *)
   location : string;  (** The location of the feature *)
   membership : string;  (** The name of the membership *)
   membership_location : string option; [@option]
       (** The location of the membership *)
+  project : string option; [@option]
+      (** The project of the feature *)
   configmanagement :
     google_gke_hub_feature_membership__configmanagement list;
   mesh : google_gke_hub_feature_membership__mesh list;
@@ -284,16 +287,18 @@ type google_gke_hub_feature_membership = {
 [@@deriving yojson_of]
 (** google_gke_hub_feature_membership *)
 
-let google_gke_hub_feature_membership ?membership_location ?timeouts
-    ~feature ~location ~membership ~configmanagement ~mesh
-    ~policycontroller __resource_id =
+let google_gke_hub_feature_membership ?id ?membership_location
+    ?project ?timeouts ~feature ~location ~membership
+    ~configmanagement ~mesh ~policycontroller __resource_id =
   let __resource_type = "google_gke_hub_feature_membership" in
   let __resource =
     {
       feature;
+      id;
       location;
       membership;
       membership_location;
+      project;
       configmanagement;
       mesh;
       policycontroller;

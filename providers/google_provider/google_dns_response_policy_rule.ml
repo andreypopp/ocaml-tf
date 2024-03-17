@@ -36,6 +36,8 @@ type google_dns_response_policy_rule__timeouts = {
 type google_dns_response_policy_rule = {
   dns_name : string;
       (** The DNS name (wildcard or exact) to apply this rule to. Must be unique within the Response Policy Rule. *)
+  id : string option; [@option]  (** id *)
+  project : string option; [@option]  (** project *)
   response_policy : string;
       (** Identifies the response policy addressed by this request. *)
   rule_name : string;
@@ -46,11 +48,19 @@ type google_dns_response_policy_rule = {
 [@@deriving yojson_of]
 (** google_dns_response_policy_rule *)
 
-let google_dns_response_policy_rule ?timeouts ~dns_name
+let google_dns_response_policy_rule ?id ?project ?timeouts ~dns_name
     ~response_policy ~rule_name ~local_data __resource_id =
   let __resource_type = "google_dns_response_policy_rule" in
   let __resource =
-    { dns_name; response_policy; rule_name; local_data; timeouts }
+    {
+      dns_name;
+      id;
+      project;
+      response_policy;
+      rule_name;
+      local_data;
+      timeouts;
+    }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_dns_response_policy_rule __resource);

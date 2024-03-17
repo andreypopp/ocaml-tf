@@ -10,6 +10,7 @@ type azurerm_key_vault_managed_hardware_security_module_role_definition
 
 val azurerm_key_vault_managed_hardware_security_module_role_definition :
   ?description:string ->
+  ?id:string ->
   ?role_name:string ->
   ?timeouts:
     azurerm_key_vault_managed_hardware_security_module_role_definition__timeouts ->

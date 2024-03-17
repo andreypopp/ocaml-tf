@@ -26,6 +26,7 @@ type azurerm_data_factory_linked_service_azure_function = {
   annotations : string list option; [@option]  (** annotations *)
   data_factory_id : string;  (** data_factory_id *)
   description : string option; [@option]  (** description *)
+  id : string option; [@option]  (** id *)
   integration_runtime_name : string option; [@option]
       (** integration_runtime_name *)
   key : string option; [@option]  (** key *)
@@ -44,7 +45,7 @@ type azurerm_data_factory_linked_service_azure_function = {
 (** azurerm_data_factory_linked_service_azure_function *)
 
 let azurerm_data_factory_linked_service_azure_function
-    ?additional_properties ?annotations ?description
+    ?additional_properties ?annotations ?description ?id
     ?integration_runtime_name ?key ?parameters ?timeouts
     ~data_factory_id ~name ~url ~key_vault_key __resource_id =
   let __resource_type =
@@ -56,6 +57,7 @@ let azurerm_data_factory_linked_service_azure_function
       annotations;
       data_factory_id;
       description;
+      id;
       integration_runtime_name;
       key;
       name;

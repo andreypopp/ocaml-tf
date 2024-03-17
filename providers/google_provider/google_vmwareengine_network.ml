@@ -21,9 +21,11 @@ type google_vmwareengine_network__vpc_networks = {
 type google_vmwareengine_network = {
   description : string option; [@option]
       (** User-provided description for this VMware Engine network. *)
+  id : string option; [@option]  (** id *)
   location : string;
       (** The location where the VMwareEngineNetwork should reside. *)
   name : string;  (** The ID of the VMwareEngineNetwork. *)
+  project : string option; [@option]  (** project *)
   type_ : string; [@key "type"]
       (** VMware Engine network type. Possible values: [LEGACY, STANDARD] *)
   timeouts : google_vmwareengine_network__timeouts option;
@@ -31,11 +33,11 @@ type google_vmwareengine_network = {
 [@@deriving yojson_of]
 (** google_vmwareengine_network *)
 
-let google_vmwareengine_network ?description ?timeouts ~location
-    ~name ~type_ __resource_id =
+let google_vmwareengine_network ?description ?id ?project ?timeouts
+    ~location ~name ~type_ __resource_id =
   let __resource_type = "google_vmwareengine_network" in
   let __resource =
-    { description; location; name; type_; timeouts }
+    { description; id; location; name; project; type_; timeouts }
   in
   Resource.add ~type_:__resource_type ~id:__resource_id
     (yojson_of_google_vmwareengine_network __resource);

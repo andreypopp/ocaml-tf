@@ -6,6 +6,7 @@ type aws_macie2_classification_export_configuration__s3_destination
 type aws_macie2_classification_export_configuration
 
 val aws_macie2_classification_export_configuration :
+  ?id:string ->
   s3_destination:
     aws_macie2_classification_export_configuration__s3_destination
     list ->

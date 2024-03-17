@@ -12,18 +12,24 @@ type google_workbench_instance_iam_member__condition = {
 (** google_workbench_instance_iam_member__condition *)
 
 type google_workbench_instance_iam_member = {
+  id: string option; [@option] (** id *)
+  location: string option; [@option] (** location *)
   member: string;  (** member *)
   name: string;  (** name *)
+  project: string option; [@option] (** project *)
   role: string;  (** role *)
   condition: google_workbench_instance_iam_member__condition list;
 } [@@deriving yojson_of]
 (** google_workbench_instance_iam_member *)
 
-let google_workbench_instance_iam_member   ~member ~name ~role ~condition __resource_id =
+let google_workbench_instance_iam_member ?id ?location ?project  ~member ~name ~role ~condition __resource_id =
   let __resource_type = "google_workbench_instance_iam_member" in
   let __resource = {
+    id;
+    location;
     member;
     name;
+    project;
     role;
     condition;
   } in

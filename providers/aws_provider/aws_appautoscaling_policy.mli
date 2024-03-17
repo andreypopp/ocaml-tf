@@ -25,6 +25,7 @@ type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration
 type aws_appautoscaling_policy
 
 val aws_appautoscaling_policy :
+  ?id:string ->
   ?policy_type:string ->
   name:string ->
   resource_id:string ->

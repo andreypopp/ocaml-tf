@@ -65,6 +65,7 @@ type google_compute_router = {
   encrypted_interconnect_router : bool option; [@option]
       (** Indicates if a router is dedicated for use with encrypted VLAN
 attachments (interconnectAttachments). *)
+  id : string option; [@option]  (** id *)
   name : string;
       (** Name of the resource. The name must be 1-63 characters long, and
 comply with RFC1035. Specifically, the name must be 1-63 characters
@@ -74,6 +75,9 @@ following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
   network : string;
       (** A reference to the network to which this router belongs. *)
+  project : string option; [@option]  (** project *)
+  region : string option; [@option]
+      (** Region where the router resides. *)
   bgp : google_compute_router__bgp list;
   timeouts : google_compute_router__timeouts option;
 }
@@ -81,14 +85,18 @@ except the last character, which cannot be a dash. *)
 (** google_compute_router *)
 
 let google_compute_router ?description ?encrypted_interconnect_router
-    ?timeouts ~name ~network ~bgp __resource_id =
+    ?id ?project ?region ?timeouts ~name ~network ~bgp __resource_id
+    =
   let __resource_type = "google_compute_router" in
   let __resource =
     {
       description;
       encrypted_interconnect_router;
+      id;
       name;
       network;
+      project;
+      region;
       bgp;
       timeouts;
     }

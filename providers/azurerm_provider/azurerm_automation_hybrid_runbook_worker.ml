@@ -14,6 +14,7 @@ type azurerm_automation_hybrid_runbook_worker__timeouts = {
 
 type azurerm_automation_hybrid_runbook_worker = {
   automation_account_name : string;  (** automation_account_name *)
+  id : string option; [@option]  (** id *)
   resource_group_name : string;  (** resource_group_name *)
   vm_resource_id : string;  (** vm_resource_id *)
   worker_group_name : string;  (** worker_group_name *)
@@ -24,13 +25,14 @@ type azurerm_automation_hybrid_runbook_worker = {
 [@@deriving yojson_of]
 (** azurerm_automation_hybrid_runbook_worker *)
 
-let azurerm_automation_hybrid_runbook_worker ?timeouts
+let azurerm_automation_hybrid_runbook_worker ?id ?timeouts
     ~automation_account_name ~resource_group_name ~vm_resource_id
     ~worker_group_name ~worker_id __resource_id =
   let __resource_type = "azurerm_automation_hybrid_runbook_worker" in
   let __resource =
     {
       automation_account_name;
+      id;
       resource_group_name;
       vm_resource_id;
       worker_group_name;

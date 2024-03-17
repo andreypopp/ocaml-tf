@@ -7,6 +7,7 @@ open! Tf.Prelude
 type hcloud_rdns = {
   dns_ptr : string;  (** dns_ptr *)
   floating_ip_id : float option; [@option]  (** floating_ip_id *)
+  id : string option; [@option]  (** id *)
   ip_address : string;  (** ip_address *)
   load_balancer_id : float option; [@option]  (** load_balancer_id *)
   primary_ip_id : float option; [@option]  (** primary_ip_id *)
@@ -15,13 +16,14 @@ type hcloud_rdns = {
 [@@deriving yojson_of]
 (** hcloud_rdns *)
 
-let hcloud_rdns ?floating_ip_id ?load_balancer_id ?primary_ip_id
+let hcloud_rdns ?floating_ip_id ?id ?load_balancer_id ?primary_ip_id
     ?server_id ~dns_ptr ~ip_address __resource_id =
   let __resource_type = "hcloud_rdns" in
   let __resource =
     {
       dns_ptr;
       floating_ip_id;
+      id;
       ip_address;
       load_balancer_id;
       primary_ip_id;

@@ -6,6 +6,8 @@ type azurerm_automation_job_schedule__timeouts
 type azurerm_automation_job_schedule
 
 val azurerm_automation_job_schedule :
+  ?id:string ->
+  ?job_schedule_id:string ->
   ?parameters:(string * string) list ->
   ?run_on:string ->
   ?timeouts:azurerm_automation_job_schedule__timeouts ->

@@ -279,6 +279,7 @@ type kubernetes_pod__timeouts
 type kubernetes_pod
 
 val kubernetes_pod :
+  ?id:string ->
   ?target_state:string list ->
   ?timeouts:kubernetes_pod__timeouts ->
   metadata:kubernetes_pod__metadata list ->

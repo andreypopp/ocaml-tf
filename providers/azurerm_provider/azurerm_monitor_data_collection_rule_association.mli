@@ -9,6 +9,7 @@ val azurerm_monitor_data_collection_rule_association :
   ?data_collection_endpoint_id:string ->
   ?data_collection_rule_id:string ->
   ?description:string ->
+  ?id:string ->
   ?name:string ->
   ?timeouts:
     azurerm_monitor_data_collection_rule_association__timeouts ->

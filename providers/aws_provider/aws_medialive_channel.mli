@@ -312,9 +312,12 @@ type aws_medialive_channel__vpc
 type aws_medialive_channel
 
 val aws_medialive_channel :
+  ?id:string ->
+  ?log_level:string ->
   ?role_arn:string ->
   ?start_channel:bool ->
   ?tags:(string * string) list ->
+  ?tags_all:(string * string) list ->
   ?timeouts:aws_medialive_channel__timeouts ->
   channel_class:string ->
   name:string ->
