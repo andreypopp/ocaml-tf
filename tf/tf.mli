@@ -18,12 +18,7 @@ module Prelude : sig
   module Data : COLLECTION
 
   module Prop : sig
-    type 'a t =
-      | S : string -> string t
-      | I : int -> int t
-      | B : bool -> bool t
-      | D : json -> json t
-      | C : string -> 'b t
+    type 'a t
 
     val yojson_of_t : 'b -> 'a t -> json
     val resource_id : string -> string -> string t
@@ -32,6 +27,7 @@ module Prelude : sig
     val bool : bool -> bool t
     val dynamic : json -> json t
     val computed : string -> string -> string -> 'a t
+    val magic : 'a t -> 'b t
   end
 
   type 'a prop = 'a Prop.t

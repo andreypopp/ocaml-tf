@@ -34,7 +34,7 @@ module Prop = struct
     | S : string -> string t
     | I : int -> int t
     | B : bool -> bool t
-    | D : json -> json t
+    | D : json -> _ t
     | C : string -> _ t  (** computed *)
 
   let yojson_of_t (type a) _ (p : a t) : json =
@@ -50,6 +50,14 @@ module Prop = struct
   let number i = I i
   let bool b = B b
   let dynamic j = D j
+
+  let magic (type a) (x : a t) =
+    match x with
+    | S s -> D (`String s)
+    | I s -> D (`Int s)
+    | B s -> D (`Bool s)
+    | D s -> D s
+    | C s -> C s
 
   let computed type_ id prop =
     C (Printf.sprintf "${%s.%s.%s}" type_ id prop)
